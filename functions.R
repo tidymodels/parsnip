@@ -26,11 +26,7 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   expr_names <- names(expr)
   expr_names <- expr_names[expr_names != ""]
   
-  is_dots <- map_lgl(expr, function(x) isTRUE(all.equal(x, quote(...))))
-  dot_ind <- if (any(is_dots))
-    which(is_dots)
-  else
-    0
+  dot_ind <- dot_index(expr)
   
   missing_args <- arg_names[!(arg_names %in% expr_names)]
   
@@ -51,7 +47,21 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   for (i in arg_names)
     expr[[i]] <- args[[i]]
   
-  # remove dots here too?
+  # remove dots if they are in call
+  dot_ind <- dot_index(expr)
+  if(dot_ind != 0)
+    expr[[dot_ind]] <- NULL
+
   expr
+}
+
+
+dot_index <- function(x) {
+  is_dots <- map_lgl(x, function(x) isTRUE(all.equal(x, quote(...))))
+  dot_ind <- if (any(is_dots))
+    which(is_dots)
+  else
+    0
+  dot_ind
 }
 
