@@ -54,7 +54,7 @@ earth_fit <- quote(
 earth_wrapper <- function(...) {
   args <- quos(...)
   if(length(list() == 0))
-    return(fit)
+    return(earth_fit)
   adjust_expression(
     expr = earth_fit, 
     args = args,
@@ -79,7 +79,6 @@ earth_wrapper(nk = (2 * ncol(x) + 1))
 
 # Example 5: pass in a placeholder for a value to be supplied later
 earth_wrapper(degree = param("degree"), nk = 20)
-
 
 # The broader api might be:
 # 
