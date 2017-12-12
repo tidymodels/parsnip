@@ -121,10 +121,20 @@ earth_class_fit <- function(x, y, ...) {
   mod_call
 }
 
-# and call it similar to:
+# and the user calls it with
 
-earth_model(x = mtcars[, -1], y = mtcars$mpg)
+model <- earth_model(x = dat, y = outcome, degree = 1, engine = "R")
+# This determines the code for model components (fit, predict, etc)
+# any may contain placeholders for some values. It figures out the 
+# type of model (regression, classification, etc) unless explictly
+# told. 
 
-earth_model(x = iris[, -5], y = iris$Species)
+# If no placeholders:
+earth_fit <- fit(model)
+# This returns the fitted object (and keeps the model code 
+# availible)
+
+test_results <- predict(earth_fit, newdata = dat2)
+# uses the `predict` code and the fitted object. 
 
 
