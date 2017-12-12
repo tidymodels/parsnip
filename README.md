@@ -52,7 +52,7 @@ modelInfo <-
 
 This is a mess for a few reasons, including:
 
-* The biggest issue (to me) is that it limits the arguments that can be parameterized. For example, if we would like to tung the model over some other argument to `earth.default`, a new method would need to be written. 
+* The biggest issue (to me) is that it limits the arguments that can be parameterized. For example, if we would like to tune the model over some other argument to `earth.default`, a new method would need to be written. 
 
 * Functional arguments (like `nprune = floor(ncol(x) + 1)`) can't be passed in. Everything is evaluated.  
 
@@ -62,9 +62,9 @@ This is a mess for a few reasons, including:
 
 * Enable model components (e.g. `fit` above) to call other components for that model (like `self.fit` in python would do).
 
-* Standardize on some parameter names/types so that users don't have to remember the minutia. For example, across random forest packages, the size of the forest might be `n.tree`, `ntrees`, etc. People _hate_ that. 
+* Standardize on some parameter names/types so that users don't have to remember the minutiae. For example, across random forest packages, the size of the forest might be `n.tree`, `ntrees`, etc. People _hate_ that. 
  
-* Starting with a small number of models, decouple the modeling _technique_ from the underlying function. For example, a single decision tree model would be fit using `rpart` or `C50` in R or using `DecisionTreeClassificationModel` is Spark. A general `decision_tree` method would work for each and figure out what compute engine and the software package is used based on other arguments.
+* Starting with a small number of models, decouple the modeling _technique_ from the underlying function. For example, a single decision tree model would be fit using `rpart` or `C50` in R or using `DecisionTreeClassificationModel` in Spark. A general `decision_tree` method would work for each and figure out what compute engine and the software package is used based on other arguments.
  
 * Enable deferred evaluation of some function arguments. For example, we want to be able to get the model call(s) but leave some argument values to be evaluated later (over different values). In the MARS example, if we tune over `nprune`, we don't know its exact value when the function expression is created. Being able to say something like `nprune = param("num_terms")` would allow this and enable auto-detection of tuning parameters by other code. 
 
