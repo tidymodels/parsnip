@@ -1,5 +1,7 @@
 # Example code for fitting MARS models via the earth package
 
+library(rlang)
+library(earth)
 source('functions.R')
 
 # First, get the call that we want to work with. For earth, the 
@@ -49,7 +51,7 @@ earth_fit <- quote(
 # Create a wrapper similar to what the user would call where the
 # ellipses are for extra arguments to modify in the call. 
 
-earth_wrapperper <- function(...) {
+earth_wrapper <- function(...) {
   args <- quos(...)
   if(length(list() == 0))
     return(fit)
@@ -84,5 +86,46 @@ earth_wrapper(degree = param("degree"), nk = 20)
 #  earth_model(type = "regression", engine = "R", package = "earth")
 # 
 # where the wrapper figures out what `type` should be based on the 
-# data at hand. 
+# data at hand. For example, we could have:
+
+
+earth_model <- function(x, y, ...) {
+  # or go by class(y) using oop
+  if (is.factor(y))
+    mod <- earth_class_fit(x, y, ...)
+  else
+    mod <- earth_reg_fit(x, y, ...)
+  mod
+}
+
+earth_reg_fit <- function(x, y, ...) {
+  mod_call <- earth_wrapper(...)
+  mod_call <- adjust_expression(
+    mod_call, 
+    list(x = quote(x), y = quote(y))
+  )
+  # This fails due to scope (I think).
+  # eval_tidy(mod_call)
+  mod_call
+}
+
+earth_class_fit <- function(x, y, ...) {
+  mod_call <- earth_wrapper(...)
+  mod_call <- adjust_expression(
+    mod_call, 
+    list(
+      x = quote(x), 
+      y = quote(y),
+      glm = quote(list(family = binomial))
+    )
+  )
+  mod_call
+}
+
+# and call it similar to:
+
+earth_model(x = mtcars[, -1], y = mtcars$mpg)
+
+earth_model(x = iris[, -5], y = iris$Species)
+
 
