@@ -53,10 +53,10 @@ earth_fit <- quote(
 
 earth_wrapper <- function(...) {
   args <- quos(...)
-  if(length(list() == 0))
+  if (length(args) == 0)
     return(earth_fit)
   adjust_expression(
-    expr = earth_fit, 
+    expr = earth_fit,
     args = args,
     removals = c("x", "y", "pmethod", "keepxy")
   )
@@ -82,9 +82,9 @@ earth_wrapper(degree = param("degree"), nk = 20)
 
 # The broader api might be:
 # 
-#  earth_model(type = "regression", engine = "R", package = "earth")
+#  earth_model(mode = "regression", engine = "R", package = "earth")
 # 
-# where the wrapper figures out what `type` should be based on the 
+# where the wrapper figures out what `mode` should be based on the 
 # data at hand. For example, we could have:
 
 
