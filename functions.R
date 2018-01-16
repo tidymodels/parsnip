@@ -23,6 +23,8 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   
   # Look for `param` in argument list and quote
   
+  # NOTE: arguments with no defaults do not have names (see `glm`)
+  
   expr_names <- names(expr)
   expr_names <- expr_names[expr_names != ""]
   
