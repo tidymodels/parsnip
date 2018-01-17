@@ -47,7 +47,7 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   
   arg_names <- names(args)
   for (i in arg_names)
-    expr[[i]] <- args[[i]]
+    expr[[i]] <- args[[i]][-1]
   
   # remove dots if they are in call
   dot_ind <- dot_index(expr)
@@ -59,11 +59,24 @@ adjust_expression <- function (expr, args, removals = NULL)  {
 
 
 dot_index <- function(x) {
-  is_dots <- map_lgl(x, function(x) isTRUE(all.equal(x, quote(...))))
+  # There must be a better way
+  is_dots <- rep(na_lgl, length(x))
+  for(i in seq_along(x)) 
+    is_dots[i] <- is_dots(x[[i]])
   dot_ind <- if (any(is_dots))
     which(is_dots)
   else
     0
   dot_ind
 }
+
+is_dots <- function(x) {
+  if(!inherits(x, "name")) {
+    res <- FALSE
+  } else {
+    res <- isTRUE(all.equal(x, quote(...)))
+  }
+  res
+}
+
 
