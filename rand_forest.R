@@ -1,5 +1,14 @@
 # Prototype parsnip code for random forests
 
+# notes: hard sode some common (generic) args in the model function. 
+#  Other args should hapen using something like `engine_args = list()`: 
+#    rand_forest(mpg ~ ., data = mtcars, n_trees = 200, engine_args = list())
+#  or
+#    rand_forest() %>% set_engine(extra_args = list(...))
+# Have a create_ranger_code function instead of if/thens
+# Use `varying` instead of params and create a map opf the current varying args
+# rlang functions that might be useful: `dots_splice`, `modify`, `splice`
+
 ###################################################################
 
 library(recipes)
@@ -175,6 +184,7 @@ fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
   if(engine == "R::ranger") {
     libs <- "ranger"
     interface <- "formula"
+    #rlang::expr
     fit_function <- 
       quote(
         ranger(
