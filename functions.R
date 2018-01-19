@@ -46,8 +46,15 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   }
   
   arg_names <- names(args)
-  for (i in arg_names)
-    expr[[i]] <- args[[i]][-1]
+  for (i in arg_names) {
+    if (!null_value(args[[i]])) {
+      if (!does_it_vary(args[[i]])) {
+        expr[[i]] <- eval_tidy(args[[i]])
+      } else {
+        expr[[i]] <- args[[i]][[-1]]
+      }
+    }
+  }
   
   # remove dots if they are in call
   dot_ind <- dot_index(expr)
@@ -78,5 +85,11 @@ is_dots <- function(x) {
   }
   res
 }
+
+does_it_vary <- function(x) 
+  isTRUE(all.equal(x[[-1]], quote(varying())))
+
+null_value <- function(x) 
+  isTRUE(all.equal(x[[-1]], quote(NULL)))
 
 
