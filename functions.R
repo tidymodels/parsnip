@@ -89,6 +89,9 @@ is_dots <- function(x) {
   res
 }
 
+does_it_vary <- function(x) 
+  isTRUE(all.equal(x[[-1]], quote(varying())))
+
 should_eval <- function(x) {
   length(func_calls(x)) == 0
 }
