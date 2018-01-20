@@ -1,8 +1,10 @@
 # Prototype parsnip code for random forests
 
 # notes: 
-# Have a create_ranger_code function instead of if/thens
+# - Have a create_ranger_code function instead of if/thens and generally better organize the code
 # - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
+# - remove argiments with NULL values from code definition? 
+
 
 ###################################################################
 
@@ -220,7 +222,7 @@ get_ranger_reg <- function () {
       holdout = FALSE,
       num.threads = NULL,
       save.memory = FALSE,
-      verbose = TRUE,
+      verbose = FALSE,
       seed = NULL,
       dependent.variable.name = NULL,
       status.variable.name = NULL,
@@ -242,7 +244,7 @@ get_ranger_class <- function () {
         mtry = floor(sqrt(ncol(dat) - 1)),
         importance = "none",
         write.forest = TRUE,
-        probability = FALSE,
+        probability = TRUE,
         min.node.size = NULL,
         replace = TRUE,
         sample.fraction = ifelse(replace, 1, 0.632),
@@ -259,7 +261,7 @@ get_ranger_class <- function () {
         holdout = FALSE,
         num.threads = NULL,
         save.memory = FALSE,
-        verbose = TRUE,
+        verbose = FALSE,
         seed = NULL,
         dependent.variable.name = NULL,
         status.variable.name = NULL,
