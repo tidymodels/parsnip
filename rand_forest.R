@@ -102,6 +102,8 @@ rand_forest.data.frame <-
       min_n = enquo(min_n)
     )
     
+    others <- parse_engine_options(enquo(engine_args))
+    
     # if mode is null, try to set from class(y)
     if (is.null(mode)) {
       mode <- guess_mode(y)
@@ -114,7 +116,7 @@ rand_forest.data.frame <-
     # set subclass by mode
     
     # write a constructor function
-    out <- list(args = args, others = enquo(engine_args), mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -136,6 +138,8 @@ rand_forest.formula <-
       min_n = enquo(min_n)
     )
     
+    others <- parse_engine_options(enquo(engine_args))
+    
     # if mode is null, try to set from class(y)
     if (is.null(mode)) {
       mode <- guess_mode(y)
@@ -148,7 +152,7 @@ rand_forest.formula <-
     # set subclass by mode
     
     # write a constructor function
-    out <- list(args = args, others = enquo(engine_args), mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -172,6 +176,8 @@ rand_forest.recipe <-
       min_n = enquo(min_n)
     )
     
+    others <- parse_engine_options(enquo(engine_args))
+    
     if (is.null(mode)) {
       # make a `guess_mode` method for recipes
       mode = switch(y_info, numeric = "regression", nominal = "classification")
@@ -183,7 +189,7 @@ rand_forest.recipe <-
     
     # set subclass by mode
     # write a constructor function
-    out <- list(args = args, others = enquo(engine_args), mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -315,6 +321,9 @@ fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
     # replace default args with user-specified 
     x$fit <- adjust_expression(res$fit, x$args)
     
+    if(length(x$others) > 0)
+      x$fit <- adjust_expression(x$fit, x$others)
+    
   } # end ranger
   
   x$engine <- engine
@@ -332,6 +341,9 @@ fit_code.rand_forest.classification <- function(x, engine = "R::ranger") {
     
     # replace default args with user-specified 
     x$fit <- adjust_expression(res$fit, x$args)
+    
+    if(length(x$others) > 0)
+      x$fit <- adjust_expression(x$fit, x$others)
     
   } # end ranger
   
@@ -363,6 +375,6 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
 tmp <- rand_forest(x = iris[, 1:4], y = iris$Species, trees = 200, mtry = varying())
 tmp2 <- rand_forest(mpg ~ ., data = mtcars, trees  = 200, mtry = varying())
-tmp3 <- rand_forest(mtry = 20, min_n = varying(), engine_args = list(sampsize = floor(nrow(x)/2), num.threads = 3))
+tmp3 <- rand_forest(mode = "regression", mtry = 20, min_n = varying(), engine_args = list(case.weights = floor(nrow(x)/2), num.threads = 3))
 tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying(), 
-                    engine_args = list(sampsize = floor(nrow(x)/2), num.threads = 3))
+                    engine_args = list(sample.fraction = floor(nrow(x)/2), num.threads = 3))

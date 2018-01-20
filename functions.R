@@ -8,6 +8,9 @@ param <- function(name) NULL
 # an optional list of arguments that will not have their arguments 
 # substituted. 
 
+
+## TODO: test this with something containing ... in definition
+
 adjust_expression <- function (expr, args, removals = NULL)  {
   arg_names <- names(args)
   # Remove removals
@@ -36,9 +39,9 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   # to put them into
   if (length(missing_args) > 0) {
     if (dot_ind == 0) {
-      stop("Arguments ",
+      stop("Argument(s) ",
            paste0(missing_args, collapse = ","),
-           "are not in the call",
+           " are not in the call",
            call. = FALSE)
     } else {
       expr[[dot_ind]] <- NULL
@@ -48,7 +51,7 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   arg_names <- names(args)
   for (i in arg_names) {
     if (!null_value(args[[i]])) {
-      if (!does_it_vary(args[[i]])) {
+      if (should_eval(args[[i]])) {
         expr[[i]] <- eval_tidy(args[[i]])
       } else {
         expr[[i]] <- args[[i]][[-1]]
@@ -86,10 +89,26 @@ is_dots <- function(x) {
   res
 }
 
-does_it_vary <- function(x) 
-  isTRUE(all.equal(x[[-1]], quote(varying())))
+should_eval <- function(x) {
+  length(func_calls(x)) == 0
+}
 
-null_value <- function(x) 
-  isTRUE(all.equal(x[[-1]], quote(NULL)))
+null_value <- function(x) {
+  res <- if(is_quosure(x))
+    isTRUE(all.equal(x[[-1]], quote(NULL))) else 
+      isTRUE(all.equal(x, NULL))
+  res
+}
 
-
+#recipes:::fun_calls
+func_calls <- function (f)  {
+  if (is.function(f)) {
+    func_calls(body(f))
+  }
+  else if (is.call(f)) {
+    fname <- as.character(f[[1]])
+    if (identical(fname, ".Internal")) 
+      return(fname)
+    unique(c(fname, unlist(lapply(f[-1], func_calls), use.names = FALSE)))
+  }
+}
