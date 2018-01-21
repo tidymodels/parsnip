@@ -471,10 +471,9 @@ finalize.rand_forest.unknown <- function(x, engine = "R::ranger") {
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list()) {
+           engine_args = list(),
+           fresh = FALSE) {
     
-    if(is.null(object$engine))
-      stop("Please specify a computational engine")
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -488,12 +487,12 @@ update.rand_forest <-
     
     others <- parse_engine_options(enquo(engine_args))
     if (length(others) > 0) {
-      null_others <- map_lgl(others, null_value)
-      if (any(null_others))
-        others <- others[!null_others]
+      if(fresh)
+        object$others <- others
+        else
+          object$others[names(others)] <- others
     }
-    if (length(others) > 0) 
-      object$others[names(others)] <- others
+      
     object
   }
 
