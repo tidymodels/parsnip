@@ -238,11 +238,6 @@ print.rand_forest <- function(x, ...) {
 ## Q: do we need the args and others at this point? Should this 
 ## be another class?
 
-## Q: add a logical for whether there are any varyings? 
-
-## Q: use "compile" or some other verb here? initialize? 
-## formalize? compose? keras::compile is not generic =[
-
 ## Q: can we check that the arg value type is valid? For example, 
 ## in ranger, `importance` is a character string but in randomForest
 ## it is logical so we might want to check if the value type is correct
@@ -254,20 +249,15 @@ print.rand_forest <- function(x, ...) {
 ## in the ellipses), when should the ellipses be removed? Maybe right
 ## before evaluation since `update` might be invoked to change those. 
 
-## Q: should all non-modified arguments be removed (as they would not
-## be in the call when done manually)?
-
-
-
 get_ranger_reg <- function () {
   libs <- "ranger"
   interface <- "formula"
-  protect = c("formula", "data", "case.weights")
+  protect = c("ranger::ranger", "formula", "data", "case.weights")
   fit <- 
   expr(
     ranger::ranger(
-      formula = NULL,
-      data = NULL,
+      formula = formula,
+      data = data,
       num.trees = 500,
       mtry =  max(floor((ncol(dat) - 1) / 3), 1),
       importance = "none",
@@ -302,7 +292,7 @@ get_ranger_reg <- function () {
 get_randomForest_reg <- function () {
   libs <- "randomForest"
   interface <- "xy"
-  protect = c("x", "y")
+  protect = c("randomForest::randomForest", "x", "y")
   fit <- 
     expr(
       randomForest::randomForest(
@@ -338,7 +328,7 @@ get_randomForest_reg <- function () {
 get_ranger_class <- function () {
   libs <- "ranger"
   interface <- "formula"
-  protect = c("formula", "data", "case.weights")  
+  protect = c("ranger::ranger", "formula", "data", "case.weights")  
   fit <- 
     expr(
       ranger::ranger(
@@ -378,7 +368,7 @@ get_ranger_class <- function () {
 get_randomForest_class <- function () {
   libs <- "randomForest"
   interface <- "xy"
-  protect = c("x", "y")
+  protect = c("randomForest::randomForest", "x", "y")
   fit <- 
     expr(
       randomForest::randomForest(
@@ -431,23 +421,21 @@ finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
  
   if(engine == "R::ranger") {
     res <- get_ranger_reg()
-    args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+    real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
   } else {
     res <- get_randomForest_reg()
-    args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
+    real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
   }
   
   # replace default args with user-specified 
-  x$fit <- sub_arg_values(res$fit, args)
+  x$fit <- sub_arg_values(res$fit, real_args)
   
   if(length(x$others) > 0)
     x$fit <- sub_arg_values(x$fit, x$others)
   
-  
-  
-  
-  
-  x
+  # remove NULL and unmodified argiment values
+  x$fit <- prune_expr(x$fit, res$protect, c(names(real_args), names(x$others)))
+    x
 }
 
 finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
@@ -455,17 +443,20 @@ finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
   
   if(engine == "R::ranger") {
     res <- get_ranger_class()
-    
-    # "harmonize" args being passed in and check for collisions
-    args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
-    
-    # replace default args with user-specified 
-    x$fit <- sub_arg_values(res$fit, args)
-    
-    if(length(x$others) > 0)
-      x$fit <- sub_arg_values(x$fit, x$others)
-    
-  } # end ranger
+    real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+  } else {
+    res <- get_randomForest_class()
+    real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
+  }
+  
+  # replace default args with user-specified 
+  x$fit <- sub_arg_values(res$fit, real_args)
+  
+  if(length(x$others) > 0)
+    x$fit <- sub_arg_values(x$fit, x$others)
+  
+  # remove NULL and unmodified argiment values
+  x$fit <- prune_expr(x$fit, res$protect, c(names(real_args), names(x$others)))
   x
 }
 
@@ -521,7 +512,10 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 ###################################################################
 
 fit_rf <- function(object, formula, data) {
-  browser()
+  varies <- vapply(object$fit, does_it_vary, lgl(1))
+  if(any(varies))
+    stop("One or more arguments are not finalized (", 
+         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
   eval(object$fit)
 }
 
@@ -539,7 +533,14 @@ tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying()
                     engine_args = list(sample.fraction = floor(nrow(x)/2), num.threads = 3))
 tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 3, engine_args = list(importance = TRUE, strata = varying()))
 
+rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = varying(), 
+            engine_args = list(num.threads = 3)) %>%
+  finalize() %>%
+  fit_rf(formula = mpg ~ ., data = mtcars)
 
-
+rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = floor(nrow(data)/2), 
+            engine_args = list(num.threads = 3)) %>%
+  finalize() %>%
+  fit_rf(formula = mpg ~ ., data = mtcars)
 
 
