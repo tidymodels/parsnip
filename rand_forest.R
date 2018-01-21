@@ -205,7 +205,7 @@ print.rand_forest <- function(x, ...) {
     args <- paste(anms, unlist(args), sep = ": ")
     cat(args, sep = "", "\n\n")
   }
-  if (length(x$args) > 0) {
+  if (length(x$others) > 0) {
     cat("Other Arguments:\n")
     others <- lapply(x$others, function(x) paste(deparse(x), sep = "\n", collapse = "\n"))
     others <- lapply(others, function(x)
@@ -226,6 +226,18 @@ print.rand_forest <- function(x, ...) {
 # Before the `fit` function can be executed, create a class that
 # will be used to create the specific model code given that a 
 # computation engine has been declared. 
+
+## Q: do we need the args and others at this point? Should this 
+## be another class?
+
+## Q: add a logical for whether there are any varyings? 
+
+## Q: use "compile" or some other verb here? initialize? 
+## formalize? compose? keras::compile is not generic =[
+
+## Q: can we check that the arg value type is valid? For example, 
+## in ranger, `importance` is a character string but in randomForest
+## it is logical so we might want to check if the value type is correct
 
 fit_code <- function (x, ...)
   UseMethod("fit_code")
@@ -316,10 +328,10 @@ fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
     res <- get_ranger_reg()
     
     # "harmonize" args being passed in and check for collisions
-    x$args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+    args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
     
     # replace default args with user-specified 
-    x$fit <- adjust_expression(res$fit, x$args)
+    x$fit <- adjust_expression(res$fit, args)
     
     if(length(x$others) > 0)
       x$fit <- adjust_expression(x$fit, x$others)
@@ -337,10 +349,10 @@ fit_code.rand_forest.classification <- function(x, engine = "R::ranger") {
     res <- get_ranger_class()
     
     # "harmonize" args being passed in and check for collisions
-    x$args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+    args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
     
     # replace default args with user-specified 
-    x$fit <- adjust_expression(res$fit, x$args)
+    x$fit <- adjust_expression(res$fit, args)
     
     if(length(x$others) > 0)
       x$fit <- adjust_expression(x$fit, x$others)
@@ -356,6 +368,51 @@ fit_code.rand_forest.unknown <- function(x, engine = "R::ranger") {
   stop("Please specify a mode for the model (e.g. regression, classification) ", 
        "so that the model code can be finalized", call. = FALSE)
 }
+
+
+update.rand_forest <-
+  function(object,
+           mtry = NULL, trees = NULL, min_n = NULL,
+           engine_args = list()) {
+    if(is.null(object$engine))
+      stop("Please specify a computational engine")
+    args <- list(
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n)
+    )
+    null_args <- map_lgl(args, null_value)
+    if (any(null_args))
+      args <- args[!null_args]
+    if (length(args) > 0) 
+      object$args[names(args)] <- args
+    
+    others <- parse_engine_options(enquo(engine_args))
+    if (length(others) > 0) {
+      null_others <- map_lgl(others, null_value)
+      if (any(null_others))
+        others <- others[!null_others]
+    }
+    if (length(others) > 0) 
+      object$others[names(others)] <- others
+    
+    # update non-null values
+    if (object$engine == "R::ranger") {
+      # "harmonize" args being passed in and check for collisions
+      if (length(args) > 0)
+        args <- deharmonize(args, rand_forest_arg_key, "ranger")
+      
+      # replace default args with user-specified
+      object$fit <- adjust_expression(object$fit, args)
+      
+      if (length(others) > 0)
+        object$fit <- adjust_expression(object$fit, others)
+      
+    } # end ranger
+    object
+  }
+
+
 
 
 ###################################################################
