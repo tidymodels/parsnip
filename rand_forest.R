@@ -82,7 +82,9 @@ rand_forest.default <-
     others <- parse_engine_options(enquo(engine_args))
     
     # write a constructor function
-    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, 
+                mode = mode, fit = NULL, engine = NULL,
+                state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -116,7 +118,9 @@ rand_forest.data.frame <-
     # set subclass by mode
     
     # write a constructor function
-    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, 
+                mode = mode, fit = NULL, engine = NULL,
+                state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -152,7 +156,9 @@ rand_forest.formula <-
     # set subclass by mode
     
     # write a constructor function
-    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, 
+                mode = mode, fit = NULL, engine = NULL,
+                state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -189,7 +195,9 @@ rand_forest.recipe <-
     
     # set subclass by mode
     # write a constructor function
-    out <- list(args = args, others = others, mode = mode, fit = NULL, engine = NULL)
+    out <- list(args = args, others = others, 
+                mode = mode, fit = NULL, engine = NULL,
+                state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -242,20 +250,22 @@ print.rand_forest <- function(x, ...) {
 ## Q: is it okay to add NULL defaults to arguments that have no default? 
 ## or, how can I pick up those names from the expression? 
 
-## If/when extra arguments are added to the call (that would be put
+## Q: If/when extra arguments are added to the call (that would be put
 ## in the ellipses), when should the ellipses be removed? Maybe right
 ## before evaluation since `update` might be invoked to change those. 
 
-fit_code <- function (x, ...)
-  UseMethod("fit_code")
+## Q: should all non-modified arguments be removed (as they would not
+## be in the call when done manually)?
+
 
 
 get_ranger_reg <- function () {
   libs <- "ranger"
   interface <- "formula"
+  protect = c("formula", "data", "case.weights")
   fit <- 
   expr(
-    ranger(
+    ranger::ranger(
       formula = NULL,
       data = NULL,
       num.trees = 500,
@@ -280,23 +290,24 @@ get_ranger_reg <- function () {
       num.threads = NULL,
       save.memory = FALSE,
       verbose = FALSE,
-      seed = NULL,
+      seed = sample.int(10^5, 1),
       dependent.variable.name = NULL,
       status.variable.name = NULL,
       classification = NULL
     )
   ) 
-  list(library = libs, interface = interface, fit = fit)
+  list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
 get_randomForest_reg <- function () {
   libs <- "randomForest"
   interface <- "xy"
+  protect = c("x", "y")
   fit <- 
     expr(
-      randomForest(
-        x,
-        y = NULL,
+      randomForest::randomForest(
+        x = x,
+        y = y,
         xtest = NULL,
         ytest = NULL,
         ntree = 500,
@@ -320,16 +331,17 @@ get_randomForest_reg <- function () {
         keep.inbag = FALSE
       )
     ) 
-  list(library = libs, interface = interface, fit = fit)
+  list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
 
 get_ranger_class <- function () {
   libs <- "ranger"
   interface <- "formula"
+  protect = c("formula", "data", "case.weights")  
   fit <- 
     expr(
-      ranger(
+      ranger::ranger(
         formula = NULL,
         data = NULL,
         num.trees = 500,
@@ -354,21 +366,22 @@ get_ranger_class <- function () {
         num.threads = NULL,
         save.memory = FALSE,
         verbose = FALSE,
-        seed = NULL,
+        seed = sample.int(10^5, 1),
         dependent.variable.name = NULL,
         status.variable.name = NULL,
         classification = NULL
       )
     ) 
-  list(library = libs, interface = interface, fit = fit)
+  list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
 get_randomForest_class <- function () {
   libs <- "randomForest"
   interface <- "xy"
+  protect = c("x", "y")
   fit <- 
     expr(
-      randomForest(
+      randomForest::randomForest(
         x,
         y = NULL,
         xtest = NULL,
@@ -394,16 +407,30 @@ get_randomForest_class <- function () {
         keep.inbag = FALSE
       )
     ) 
-  list(library = libs, interface = interface, fit = fit)
+  list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
 
-fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
+###################################################################
+
+# finalizing the model consists of:
+#
+# 1. obtaining the base expression for the model
+# 2. converting standardized arguments to their engine-specific names
+# 3. substituting in the user-specified argument values
+# 4. removing any of the original default arguments
+#
+# This should be done only when the model is to be fit. 
+
+
+finalize <- function (x, ...)
+  UseMethod("finalize")
+
+finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
   # check engine
  
   if(engine == "R::ranger") {
     res <- get_ranger_reg()
-    # "harmonize" args being passed in and check for collisions
     args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
   } else {
     res <- get_randomForest_reg()
@@ -411,16 +438,19 @@ fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
   }
   
   # replace default args with user-specified 
-  x$fit <- adjust_expression(res$fit, args)
+  x$fit <- sub_arg_values(res$fit, args)
   
   if(length(x$others) > 0)
-    x$fit <- adjust_expression(x$fit, x$others)
+    x$fit <- sub_arg_values(x$fit, x$others)
   
-  x$engine <- engine
+  
+  
+  
+  
   x
 }
 
-fit_code.rand_forest.classification <- function(x, engine = "R::ranger") {
+finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
   # check engine
   
   if(engine == "R::ranger") {
@@ -430,23 +460,22 @@ fit_code.rand_forest.classification <- function(x, engine = "R::ranger") {
     args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
     
     # replace default args with user-specified 
-    x$fit <- adjust_expression(res$fit, args)
+    x$fit <- sub_arg_values(res$fit, args)
     
     if(length(x$others) > 0)
-      x$fit <- adjust_expression(x$fit, x$others)
+      x$fit <- sub_arg_values(x$fit, x$others)
     
   } # end ranger
-  
-  x$engine <- engine
   x
 }
 
 
-fit_code.rand_forest.unknown <- function(x, engine = "R::ranger") {
+finalize.rand_forest.unknown <- function(x, engine = "R::ranger") {
   stop("Please specify a mode for the model (e.g. regression, classification) ", 
        "so that the model code can be finalized", call. = FALSE)
 }
 
+###################################################################
 
 update.rand_forest <-
   function(object,
@@ -474,24 +503,8 @@ update.rand_forest <-
     }
     if (length(others) > 0) 
       object$others[names(others)] <- others
-    
-    # update non-null values
-    if (object$engine == "R::ranger") {
-      # "harmonize" args being passed in and check for collisions
-      if (length(args) > 0)
-        args <- deharmonize(args, rand_forest_arg_key, "ranger")
-      
-      # replace default args with user-specified
-      object$fit <- adjust_expression(object$fit, args)
-      
-      if (length(others) > 0)
-        object$fit <- adjust_expression(object$fit, others)
-      
-    } # end ranger
     object
   }
-
-
 
 
 ###################################################################
@@ -507,12 +520,26 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
 ###################################################################
 
+fit_rf <- function(object, formula, data) {
+  browser()
+  eval(object$fit)
+}
+
+
+
+###################################################################
+
 # Some simple examples
 
 tmp <- rand_forest(x = iris[, 1:4], y = iris$Species, trees = 200, mtry = varying())
 tmp2 <- rand_forest(mpg ~ ., data = mtcars, trees  = 200, mtry = varying())
-tmp3 <- rand_forest(mode = "regression", mtry = 20, min_n = varying(), 
+tmp3 <- rand_forest(mode = "regression", mtry = 3, min_n = varying(), 
                     engine_args = list(case.weights = floor(nrow(x)/2), num.threads = 3))
 tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying(), 
                     engine_args = list(sample.fraction = floor(nrow(x)/2), num.threads = 3))
-tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, engine_args = list(importance = TRUE, strata = varying()))
+tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 3, engine_args = list(importance = TRUE, strata = varying()))
+
+
+
+
+
