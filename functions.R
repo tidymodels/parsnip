@@ -3,19 +3,19 @@ library(rlang)
 
 param <- function(name) NULL
 
-# `adjust_expression`` takes an existing expression and substitutes 
-# different argument values that are passed to it. `removals` is 
+# `sub_arg_values`` takes an existing expression and substitutes 
+# different argument values that are passed to it. `ignore` is 
 # an optional list of arguments that will not have their arguments 
 # substituted. 
 
 
 ## TODO: test this with something containing ... in definition
 
-adjust_expression <- function (expr, args, removals = NULL, rm_ellipses = FALSE)  {
+sub_arg_values <- function (expr, args, ignore = NULL)  {
   arg_names <- names(args)
-  # Remove removals
-  if (!is.null(removals))
-    for (i in removals) {
+  # Remove ignore
+  if (!is.null(ignore))
+    for (i in ignore) {
       if (i %in% arg_names) {
         warning("`", i, "` was not changed in the expression",
                 call. = FALSE)
@@ -54,7 +54,7 @@ adjust_expression <- function (expr, args, removals = NULL, rm_ellipses = FALSE)
   
   # Q: Skip arguments that are NULL? This makes sense but might be good for 
   # resetting arguments but would be bad for non-engine options. Maybe make 
-  # an option for `adjust_expression` 
+  # an option for `sub_arg_values` 
   
   for (i in arg_names) {
     if (!null_value(args[[i]])) {
@@ -69,12 +69,12 @@ adjust_expression <- function (expr, args, removals = NULL, rm_ellipses = FALSE)
     }
   }
   
-  # remove dots if they are in call
-  if(rm_ellipses) {
-    dot_ind <- dot_index(expr)
-    if(dot_ind != 0)
-      expr[[dot_ind]] <- NULL
-  }
+  # # remove dots if they are in call
+  # if(rm_ellipses) {
+  #   dot_ind <- dot_index(expr)
+  #   if(dot_ind != 0)
+  #     expr[[dot_ind]] <- NULL
+  # }
   expr
 }
 
@@ -133,7 +133,7 @@ expr_names <- function(x) {
   no_names <- nms == ""
   if (any(no_names)) {
     for(i in which(no_names))
-      nms[i] <- as.character(x[[i]])
+      nms[i] <- deparse(x[[i]]) 
   }
   nms
 }
