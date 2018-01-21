@@ -204,14 +204,15 @@ rand_forest.recipe <-
 
 print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
+  non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(x$args) > 0) {
     cat("Main Arguments:\n")
-    args <- lapply(x$args, as.character)
-    args <- lapply(args, function(x)
+    non_null_args <- lapply(non_null_args, as.character)
+    non_null_args <- lapply(non_null_args, function(x)
       paste0("  ", x[-1], "\n"))
-    anms <- names(args)
-    args <- paste(anms, unlist(args), sep = ": ")
-    cat(args, sep = "", "\n\n")
+    anms <- names(non_null_args)
+    non_null_args <- paste(anms, unlist(non_null_args), sep = ": ")
+    cat(non_null_args, sep = "", "\n\n")
   }
   if (length(x$others) > 0) {
     cat("Other Arguments:\n")
