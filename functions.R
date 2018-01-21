@@ -11,7 +11,7 @@ param <- function(name) NULL
 
 ## TODO: test this with something containing ... in definition
 
-adjust_expression <- function (expr, args, removals = NULL)  {
+adjust_expression <- function (expr, args, removals = NULL, rm_ellipses = FALSE)  {
   arg_names <- names(args)
   # Remove removals
   if (!is.null(removals))
@@ -26,10 +26,7 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   
   # Look for `param` in argument list and quote
   
-  # NOTE: arguments with no defaults do not have names (see `glm`)
-  
-  expr_names <- names(expr)
-  expr_names <- expr_names[expr_names != ""]
+  expr_names <- expr_names(expr)
   
   dot_ind <- dot_index(expr)
   
@@ -40,8 +37,8 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   if (length(missing_args) > 0) {
     if (dot_ind == 0) {
       stop("Argument(s) ",
-           paste0(missing_args, collapse = ","),
-           " are not in the call",
+           paste0(missing_args, collapse = ", "),
+           " are valid for `", expr[[1]], "`",
            call. = FALSE)
     } else {
       expr[[dot_ind]] <- NULL
@@ -49,21 +46,35 @@ adjust_expression <- function (expr, args, removals = NULL)  {
   }
   
   arg_names <- names(args)
+  
+  # This doesn't work when arguments have no defaults (e.g. strata)
+  
+  # Replace argument values with user-specified values which could be
+  # evaluated objects (i.e. constants like `TRUE`, `200`, etc), quosures, or calls. 
+  
+  # Q: Skip arguments that are NULL? This makes sense but might be good for 
+  # resetting arguments but would be bad for non-engine options. Maybe make 
+  # an option for `adjust_expression` 
+  
   for (i in arg_names) {
     if (!null_value(args[[i]])) {
       if (should_eval(args[[i]])) {
         expr[[i]] <- eval_tidy(args[[i]])
       } else {
-        expr[[i]] <- args[[i]][[-1]]
+        expr[[i]] <- if (is_quosure(args[[i]]))
+          args[[i]][[-1]]
+        else
+          args[[i]]
       }
     }
   }
   
   # remove dots if they are in call
-  dot_ind <- dot_index(expr)
-  if(dot_ind != 0)
-    expr[[dot_ind]] <- NULL
-
+  if(rm_ellipses) {
+    dot_ind <- dot_index(expr)
+    if(dot_ind != 0)
+      expr[[dot_ind]] <- NULL
+  }
   expr
 }
 
@@ -115,3 +126,15 @@ func_calls <- function (f)  {
     unique(c(fname, unlist(lapply(f[-1], func_calls), use.names = FALSE)))
   }
 }
+
+
+expr_names <- function(x) {
+  nms <- names(x)
+  no_names <- nms == ""
+  if (any(no_names)) {
+    for(i in which(no_names))
+      nms[i] <- as.character(x[[i]])
+  }
+  nms
+}
+
