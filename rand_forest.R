@@ -15,52 +15,6 @@ library(rlang)
 
 source("functions.R")
 
-fit <- function (object, ...) 
-  UseMethod("fit")
-
-# make S3 with methods for vector, matrix, and recipe
-guess_mode <- function(y) {
-  if (inherits(y, c("character", "factor"))) {
-    res <- "classification"
-  } else if (inherits(y, "numeric")) {
-    res <- "regression"
-  } else if (inherits(y, "Surv")) {
-    res <- "risk regression"
-  } else res <- "unknown"
-  res
-}
-
-make_classes <- function(prefix, mode) {
-  cls <- c(paste(prefix, mode, sep = "."), prefix)
-  gsub(" ", "_", cls)
-}
-
-deharmonize <- function(args, key, engine) {
-  nms <- names(args)
-  for(i in seq_along(args)) {
-    names(args)[i] <- key[ nms[i] , engine ]
-  }
-  args
-}
-
-parse_engine_options <- function(x) {
-  res <- ll()
-  if (length(x) >= 2) { # in case of NULL
-    
-    arg_names <- names(x[[2]])
-    arg_names <- arg_names[arg_names != ""]
-    
-    if (length(arg_names) > 0) {
-      # in case of list()
-      res <- ll()
-      for (i in arg_names) {
-        res[[i]] <- x[[2]][[i]]
-      } # over arg_names
-    } # length == 0
-  }
-  res
-}
-
 ###################################################################
 
 rand_forest <- function (x, ...)
@@ -413,16 +367,20 @@ get_randomForest_class <- function () {
 #
 # This should be done only when the model is to be fit. 
 
-
-finalize <- function (x, ...)
-  UseMethod("finalize")
-
 finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
   # check engine
  
   if(engine == "R::ranger") {
     res <- get_ranger_reg()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+    
+    if(any(names(x$others) == "importance") && is.logical(x$others$importance)) {
+      warning("ranger's importance value is character (not logical). ",
+              "Changing the value to `importance = 'impurity'`.",
+              call. = FALSE)
+      x$others$importance <- "impurity"
+    }
+    
   } else {
     res <- get_randomForest_reg()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
@@ -445,6 +403,14 @@ finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
   if(engine == "R::ranger") {
     res <- get_ranger_class()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
+    
+    if(any(names(x$others) == "importance") && is.logical(x$others$importance)) {
+      warning("ranger's importance value is character (not logical). ",
+              "Changing the value to `importance = 'impurity'`.",
+              call. = FALSE)
+      x$others$importance <- "impurity"
+      
+    }
   } else {
     res <- get_randomForest_class()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
@@ -534,7 +500,8 @@ tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying()
 tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 3, engine_args = list(importance = TRUE, strata = varying()))
 
 rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = varying(), 
-            engine_args = list(num.threads = 3)) %>%
+            engine_args = list(num.threads = 3, importance = TRUE)) %>%
+  update(min_n = 3) %>%
   finalize() %>%
   fit_rf(formula = mpg ~ ., data = mtcars)
 

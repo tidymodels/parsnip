@@ -162,3 +162,61 @@ prune_expr <- function(x, whitelist, modified) {
 
 varying <- function()
   stop("This is a placeholder and should not be evaluated")
+
+fit <- function (object, ...) 
+  UseMethod("fit")
+
+# make S3 with methods for vector, matrix, and recipe
+guess_mode <- function(y) {
+  if (inherits(y, c("character", "factor"))) {
+    res <- "classification"
+  } else if (inherits(y, "numeric")) {
+    res <- "regression"
+  } else if (inherits(y, "Surv")) {
+    res <- "risk regression"
+  } else res <- "unknown"
+  res
+}
+
+make_classes <- function(prefix, mode) {
+  cls <- c(paste(prefix, mode, sep = "."), prefix)
+  gsub(" ", "_", cls)
+}
+
+deharmonize <- function(args, key, engine) {
+  nms <- names(args)
+  for(i in seq_along(args)) {
+    names(args)[i] <- key[ nms[i] , engine ]
+  }
+  args
+}
+
+parse_engine_options <- function(x) {
+  res <- ll()
+  if (length(x) >= 2) { # in case of NULL
+    
+    arg_names <- names(x[[2]])
+    arg_names <- arg_names[arg_names != ""]
+    
+    if (length(arg_names) > 0) {
+      # in case of list()
+      res <- ll()
+      for (i in arg_names) {
+        res[[i]] <- x[[2]][[i]]
+      } # over arg_names
+    } # length == 0
+  }
+  res
+}
+
+# finalizing the model consists of:
+#
+# 1. obtaining the base expression for the model
+# 2. converting standardized arguments to their engine-specific names
+# 3. substituting in the user-specified argument values
+# 4. removing any of the original default arguments
+#
+# This should be done only when the model is to be fit.
+
+finalize <- function (x, ...)
+  UseMethod("finalize")
