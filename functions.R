@@ -100,8 +100,18 @@ is_dots <- function(x) {
   res
 }
 
-does_it_vary <- function(x) 
-  isTRUE(all.equal(x[[-1]], quote(varying())))
+does_it_vary <- function(x) {
+  if(is.null(x)) {
+    res <- FALSE
+  } else {
+    res <- if(is_quosure(x))
+      isTRUE(all.equal(x[[-1]], quote(varying())))
+    else 
+      isTRUE(all.equal(x, quote(varying())))
+  }
+  res
+}
+
 
 should_eval <- function(x) {
   length(func_calls(x)) == 0
@@ -138,3 +148,17 @@ expr_names <- function(x) {
   nms
 }
 
+prune_expr <- function(x, whitelist, modified) {
+  # for now, skip args without a default value
+  nms <- names(x)
+  nms <- nms[nms != ""]
+  nms <- nms[!(nms %in%  whitelist)]
+  for (i in nms) {
+    if (is.null(x[[i]]) | is_null(x[[i]]) | !(i %in% modified))
+      x[[i]] <- NULL
+  }
+  x
+}
+
+varying <- function()
+  stop("This is a placeholder and should not be evaluated")
