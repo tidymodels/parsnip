@@ -239,6 +239,13 @@ print.rand_forest <- function(x, ...) {
 ## in ranger, `importance` is a character string but in randomForest
 ## it is logical so we might want to check if the value type is correct
 
+## Q: is it okay to add NULL defaults to arguments that have no default? 
+## or, how can I pick up those names from the expression? 
+
+## If/when extra arguments are added to the call (that would be put
+## in the ellipses), when should the ellipses be removed? Maybe right
+## before evaluation since `update` might be invoked to change those. 
+
 fit_code <- function (x, ...)
   UseMethod("fit_code")
 
@@ -282,6 +289,41 @@ get_ranger_reg <- function () {
   list(library = libs, interface = interface, fit = fit)
 }
 
+get_randomForest_reg <- function () {
+  libs <- "randomForest"
+  interface <- "xy"
+  fit <- 
+    expr(
+      randomForest(
+        x,
+        y = NULL,
+        xtest = NULL,
+        ytest = NULL,
+        ntree = 500,
+        mtry = max(floor(ncol(x) / 3), 1),
+        replace = TRUE,
+        classwt = NULL,
+        cutoff,
+        strata,
+        sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
+        nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
+        maxnodes = NULL,
+        importance = FALSE,
+        localImp = FALSE,
+        nPerm = 1,
+        proximity,
+        oob.prox = proximity,
+        norm.votes = TRUE,
+        do.trace = FALSE,
+        keep.forest = !is.null(y) && is.null(xtest),
+        corr.bias = FALSE,
+        keep.inbag = FALSE
+      )
+    ) 
+  list(library = libs, interface = interface, fit = fit)
+}
+
+
 get_ranger_class <- function () {
   libs <- "ranger"
   interface <- "formula"
@@ -321,22 +363,58 @@ get_ranger_class <- function () {
   list(library = libs, interface = interface, fit = fit)
 }
 
+get_randomForest_class <- function () {
+  libs <- "randomForest"
+  interface <- "xy"
+  fit <- 
+    expr(
+      randomForest(
+        x,
+        y = NULL,
+        xtest = NULL,
+        ytest = NULL,
+        ntree = 500,
+        mtry = floor(sqrt(ncol(x))),
+        replace = TRUE,
+        classwt,
+        cutoff,
+        strata,
+        sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
+        nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
+        maxnodes = NULL,
+        importance = FALSE,
+        localImp = FALSE,
+        nPerm = 1,
+        proximity,
+        oob.prox = proximity,
+        norm.votes = TRUE,
+        do.trace = FALSE,
+        keep.forest = !is.null(y) && is.null(xtest),
+        corr.bias = FALSE,
+        keep.inbag = FALSE
+      )
+    ) 
+  list(library = libs, interface = interface, fit = fit)
+}
+
+
 fit_code.rand_forest.regression <- function(x, engine = "R::ranger") {
   # check engine
  
   if(engine == "R::ranger") {
     res <- get_ranger_reg()
-    
     # "harmonize" args being passed in and check for collisions
     args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
-    
-    # replace default args with user-specified 
-    x$fit <- adjust_expression(res$fit, args)
-    
-    if(length(x$others) > 0)
-      x$fit <- adjust_expression(x$fit, x$others)
-    
-  } # end ranger
+  } else {
+    res <- get_randomForest_reg()
+    args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
+  }
+  
+  # replace default args with user-specified 
+  x$fit <- adjust_expression(res$fit, args)
+  
+  if(length(x$others) > 0)
+    x$fit <- adjust_expression(x$fit, x$others)
   
   x$engine <- engine
   x
@@ -374,6 +452,7 @@ update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
            engine_args = list()) {
+    
     if(is.null(object$engine))
       stop("Please specify a computational engine")
     args <- list(
@@ -432,6 +511,8 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
 tmp <- rand_forest(x = iris[, 1:4], y = iris$Species, trees = 200, mtry = varying())
 tmp2 <- rand_forest(mpg ~ ., data = mtcars, trees  = 200, mtry = varying())
-tmp3 <- rand_forest(mode = "regression", mtry = 20, min_n = varying(), engine_args = list(case.weights = floor(nrow(x)/2), num.threads = 3))
+tmp3 <- rand_forest(mode = "regression", mtry = 20, min_n = varying(), 
+                    engine_args = list(case.weights = floor(nrow(x)/2), num.threads = 3))
 tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying(), 
                     engine_args = list(sample.fraction = floor(nrow(x)/2), num.threads = 3))
+tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, engine_args = list(importance = TRUE, strata = varying()))
