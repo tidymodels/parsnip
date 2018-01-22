@@ -353,10 +353,10 @@ get_randomForest_class <- function () {
 #
 # This should be done only when the model is to be fit. 
 
-finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
+finalize.rand_forest.regression <- function(x, engine = "ranger") {
   # check engine
   
-  if(engine == "R::ranger") {
+  if(engine == "ranger") {
     res <- get_ranger_reg()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
     
@@ -384,10 +384,10 @@ finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
   x
 }
 
-finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
+finalize.rand_forest.classification <- function(x, engine = "ranger") {
   # check engine
   
-  if(engine == "R::ranger") {
+  if(engine == "ranger") {
     res <- get_ranger_class()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
     
@@ -416,7 +416,7 @@ finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
 }
 
 
-finalize.rand_forest.unknown <- function(x, engine = "R::ranger") {
+finalize.rand_forest.unknown <- function(x, engine = "ranger") {
   stop("Please specify a mode for the model (e.g. regression, classification) ", 
        "so that the model code can be finalized", call. = FALSE)
 }
@@ -468,7 +468,7 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
 # The S3 part here is awful for now
 
-fit_formula <- function(object, formula, data, verboseness = 0, engine = "R::ranger") {
+fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
   varying_param_check(object)
   
   # go between input methods =[
@@ -510,6 +510,6 @@ rf_cars <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = 7)
 rf_fit_1 <- rf_cars %>%
   fit(formula = mpg ~ ., data = mtcars)
 rf_fit_2 <- rf_cars %>%
-  fit(formula = mpg ~ ., data = mtcars, engine = "R::randomForest")
+  fit(formula = mpg ~ ., data = mtcars, engine = "randomForest")
 
 
