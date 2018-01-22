@@ -1,8 +1,7 @@
 # Prototype parsnip code for random forests
 
 # notes: 
-# - Have a create_ranger_code function instead of if/thens and generally better organize the code
-# - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
+?# - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
 
 ###################################################################
 
@@ -33,7 +32,7 @@ rand_forest.default <-
     
     # write a constructor function
     out <- list(args = args, others = others, 
-                mode = mode, fit = NULL, engine = NULL,
+                mode = mode, method = NULL, engine = NULL,
                 state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
@@ -190,7 +189,7 @@ print.rand_forest <- function(x, ...) {
 ## in the ellipses), when should the ellipses be removed? Maybe right
 ## before evaluation since `update` might be invoked to change those. 
 
-get_ranger_reg <- function () {
+get_ranger_regression <- function () {
   libs <- "ranger"
   interface <- "formula"
   protect = c("ranger::ranger", "formula", "data", "case.weights")
@@ -230,7 +229,7 @@ get_ranger_reg <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_randomForest_reg <- function () {
+get_randomForest_regression <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
@@ -266,15 +265,15 @@ get_randomForest_reg <- function () {
 }
 
 
-get_ranger_class <- function () {
+get_ranger_classification <- function () {
   libs <- "ranger"
   interface <- "formula"
   protect = c("ranger::ranger", "formula", "data", "case.weights")  
   fit <- 
     expr(
       ranger::ranger(
-        formula = NULL,
-        data = NULL,
+        formula = formula,
+        data = data,
         num.trees = 500,
         mtry = floor(sqrt(ncol(dat) - 1)),
         importance = "none",
@@ -306,15 +305,15 @@ get_ranger_class <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_randomForest_class <- function () {
+get_randomForest_classification <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
   fit <- 
     expr(
       randomForest::randomForest(
-        x,
-        y = NULL,
+        x = x,
+        y = y,
         xtest = NULL,
         ytest = NULL,
         ntree = 500,
@@ -353,72 +352,34 @@ get_randomForest_class <- function () {
 #
 # This should be done only when the model is to be fit. 
 
-finalize.rand_forest.regression <- function(x, engine = "ranger") {
+
+finalize.rand_forest <- function(x, engine = "ranger") {
   # check engine
   
-  if(engine == "ranger") {
-    res <- get_ranger_reg()
-    real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
-    
-    if(any(names(x$others) == "importance") && is.logical(x$others$importance)) {
-      warning("ranger's importance value is character (not logical). ",
-              "Changing the value to `importance = 'impurity'`.",
-              call. = FALSE)
-      x$others$importance <- "impurity"
-    }
-    
-  } else {
-    res <- get_randomForest_reg()
-    real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
+  x$method <- get_model_objects(x, engine)
+  real_args <- deharmonize(x$args, rand_forest_arg_key, engine)
+  
+  if (engine == "ranger" &
+      any(names(x$others) == "importance") &&
+      is.logical(x$others$importance)) {
+    warning(
+      "ranger's importance value is character (not logical). ",
+      "Changing the value to `importance = 'impurity'`.",
+      call. = FALSE
+    )
+    x$others$importance <- "impurity"
   }
   
-  # replace default args with user-specified 
-  x$method$fit <- sub_arg_values(res$fit, real_args)
+  # replace default args with user-specified
+  x$method$fit <- sub_arg_values(x$method$fit, real_args)
   
-  if(length(x$others) > 0)
+  if (length(x$others) > 0)
     x$method$fit <- sub_arg_values(x$method$fit, x$others)
   
   # remove NULL and unmodified argiment values
   modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
-  x$method$fit <- prune_expr(x$method$fit, res$protect, c(modifed_args, names(x$others)))
+  x$method$fit <- prune_expr(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
   x
-}
-
-finalize.rand_forest.classification <- function(x, engine = "ranger") {
-  # check engine
-  
-  if(engine == "ranger") {
-    res <- get_ranger_class()
-    real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
-    
-    if(any(names(x$others) == "importance") && is.logical(x$others$importance)) {
-      warning("ranger's importance value is character (not logical). ",
-              "Changing the value to `importance = 'impurity'`.",
-              call. = FALSE)
-      x$others$importance <- "impurity"
-      
-    }
-  } else {
-    res <- get_randomForest_class()
-    real_args <- deharmonize(x$args, rand_forest_arg_key, "randomForest")
-  }
-  
-  # replace default args with user-specified 
-  x$method$fit <- sub_arg_values(res$fit, real_args)
-  
-  if(length(x$others) > 0)
-    x$method$fit <- sub_arg_values(x$method$fit, x$others)
-  
-  # remove NULL and unmodified argiment values
-  modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
-  x$method$fit <- prune_expr(x$method$fit, res$protect, c(modifed_args, names(x$others)))
-  x
-}
-
-
-finalize.rand_forest.unknown <- function(x, engine = "ranger") {
-  stop("Please specify a mode for the model (e.g. regression, classification) ", 
-       "so that the model code can be finalized", call. = FALSE)
 }
 
 ###################################################################
@@ -459,30 +420,10 @@ rand_forest_arg_key <- data.frame(
   ranger = c("mtry", "num.trees", "min.node.size"),
   RandomForestModel = 
     c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
-  stringsAsFactors = FALSE
+  stringsAsFactors = FALSE,
+  row.names =  c("mtry", "trees", "min_n")
 )
-rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
-###################################################################
-
-
-# The S3 part here is awful for now
-
-fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
-  varying_param_check(object)
-  
-  # go between input methods =[
-  
-  # data checks based on method
-  
-  object <- finalize(object, engine = engine)
-  if(verboseness == 0) {
-    fit_obj <- eval(object$method$fit)
-  } else {
-    capture.output(fit_obj <- eval(object$method$fit))
-  }
-  fit_obj
-}
 
 ###################################################################
 
@@ -507,9 +448,9 @@ rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = floor(nrow(data)/2
 
 rf_cars <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = 7)
 
-rf_fit_1 <- rf_cars %>%
-  fit(formula = mpg ~ ., data = mtcars)
-rf_fit_2 <- rf_cars %>%
-  fit(formula = mpg ~ ., data = mtcars, engine = "randomForest")
+# rf_fit_1 <- rf_cars %>%
+#   fit(formula = mpg ~ ., data = mtcars)
+# rf_fit_2 <- rf_cars %>%
+#   fit(formula = mpg ~ ., data = mtcars, engine = "randomForest")
 
 
