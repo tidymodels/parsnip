@@ -149,12 +149,10 @@ expr_names <- function(x) {
 }
 
 prune_expr <- function(x, whitelist, modified) {
-  # for now, skip args without a default value
   nms <- names(x)
-  nms <- nms[nms != ""]
   nms <- nms[!(nms %in%  whitelist)]
   for (i in nms) {
-    if (is.null(x[[i]]) | is_null(x[[i]]) | !(i %in% modified))
+    if (is.null(x[[i]]) | is_null(x[[i]]) | !(i %in% modified) | is_missing(x[[i]]))
       x[[i]] <- NULL
   }
   x
@@ -180,7 +178,7 @@ guess_mode <- function(y) {
 
 make_classes <- function(prefix, mode) {
   cls <- c(paste(prefix, mode, sep = "."), prefix)
-  gsub(" ", "_", cls)
+  c("model_spec", gsub(" ", "_", cls))
 }
 
 deharmonize <- function(args, key, engine) {
@@ -190,7 +188,7 @@ deharmonize <- function(args, key, engine) {
   }
   args
 }
-
+make_classes
 parse_engine_options <- function(x) {
   res <- ll()
   if (length(x) >= 2) { # in case of NULL
@@ -220,3 +218,13 @@ parse_engine_options <- function(x) {
 
 finalize <- function (x, ...)
   UseMethod("finalize")
+
+
+varying_param_check <- function(x) {
+  varies <- vapply(x$method$fit, does_it_vary, lgl(1))
+  if(any(varies))
+    stop("One or more arguments are not finalized (", 
+         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
+  invisible(NULL)
+}
+

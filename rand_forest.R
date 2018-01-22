@@ -3,8 +3,6 @@
 # notes: 
 # - Have a create_ranger_code function instead of if/thens and generally better organize the code
 # - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
-# - remove argiments with NULL values from code definition? 
-
 
 ###################################################################
 
@@ -19,8 +17,6 @@ source("functions.R")
 
 rand_forest <- function (x, ...)
   UseMethod("rand_forest")
-
-# importance as argument?
 
 rand_forest.default <-
   function(x = NULL, mode = "unknown",
@@ -73,7 +69,7 @@ rand_forest.data.frame <-
     
     # write a constructor function
     out <- list(args = args, others = others, 
-                mode = mode, fit = NULL, engine = NULL,
+                mode = mode, method = NULL, engine = NULL,
                 state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
@@ -111,7 +107,7 @@ rand_forest.formula <-
     
     # write a constructor function
     out <- list(args = args, others = others, 
-                mode = mode, fit = NULL, engine = NULL,
+                mode = mode, method = NULL, engine = NULL,
                 state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
@@ -150,7 +146,7 @@ rand_forest.recipe <-
     # set subclass by mode
     # write a constructor function
     out <- list(args = args, others = others, 
-                mode = mode, fit = NULL, engine = NULL,
+                mode = mode, method = NULL, engine = NULL,
                 state = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
@@ -189,16 +185,6 @@ print.rand_forest <- function(x, ...) {
 # Before the `fit` function can be executed, create a class that
 # will be used to create the specific model code given that a 
 # computation engine has been declared. 
-
-## Q: do we need the args and others at this point? Should this 
-## be another class?
-
-## Q: can we check that the arg value type is valid? For example, 
-## in ranger, `importance` is a character string but in randomForest
-## it is logical so we might want to check if the value type is correct
-
-## Q: is it okay to add NULL defaults to arguments that have no default? 
-## or, how can I pick up those names from the expression? 
 
 ## Q: If/when extra arguments are added to the call (that would be put
 ## in the ellipses), when should the ellipses be removed? Maybe right
@@ -246,7 +232,7 @@ get_ranger_reg <- function () {
 
 get_randomForest_reg <- function () {
   libs <- "randomForest"
-  interface <- "xy"
+  interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
   fit <- 
     expr(
@@ -258,16 +244,16 @@ get_randomForest_reg <- function () {
         ntree = 500,
         mtry = max(floor(ncol(x) / 3), 1),
         replace = TRUE,
-        classwt = NULL,
-        cutoff,
-        strata,
+        classwt  = missing_arg(),
+        cutoff = missing_arg(),
+        strata = missing_arg(),
         sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
         nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
         maxnodes = NULL,
         importance = FALSE,
         localImp = FALSE,
         nPerm = 1,
-        proximity,
+        proximity = missing_arg(),
         oob.prox = proximity,
         norm.votes = TRUE,
         do.trace = FALSE,
@@ -322,7 +308,7 @@ get_ranger_class <- function () {
 
 get_randomForest_class <- function () {
   libs <- "randomForest"
-  interface <- "xy"
+  interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
   fit <- 
     expr(
@@ -334,16 +320,16 @@ get_randomForest_class <- function () {
         ntree = 500,
         mtry = floor(sqrt(ncol(x))),
         replace = TRUE,
-        classwt,
-        cutoff,
-        strata,
+        classwt = missing_arg(),
+        cutoff = missing_arg(),
+        strata = missing_arg(),
         sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
         nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
         maxnodes = NULL,
         importance = FALSE,
         localImp = FALSE,
         nPerm = 1,
-        proximity,
+        proximity = missing_arg(),
         oob.prox = proximity,
         norm.votes = TRUE,
         do.trace = FALSE,
@@ -369,7 +355,7 @@ get_randomForest_class <- function () {
 
 finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
   # check engine
- 
+  
   if(engine == "R::ranger") {
     res <- get_ranger_reg()
     real_args <- deharmonize(x$args, rand_forest_arg_key, "ranger")
@@ -387,14 +373,15 @@ finalize.rand_forest.regression <- function(x, engine = "R::ranger") {
   }
   
   # replace default args with user-specified 
-  x$fit <- sub_arg_values(res$fit, real_args)
+  x$method$fit <- sub_arg_values(res$fit, real_args)
   
   if(length(x$others) > 0)
-    x$fit <- sub_arg_values(x$fit, x$others)
+    x$method$fit <- sub_arg_values(x$method$fit, x$others)
   
   # remove NULL and unmodified argiment values
-  x$fit <- prune_expr(x$fit, res$protect, c(names(real_args), names(x$others)))
-    x
+  modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
+  x$method$fit <- prune_expr(x$method$fit, res$protect, c(modifed_args, names(x$others)))
+  x
 }
 
 finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
@@ -417,13 +404,14 @@ finalize.rand_forest.classification <- function(x, engine = "R::ranger") {
   }
   
   # replace default args with user-specified 
-  x$fit <- sub_arg_values(res$fit, real_args)
+  x$method$fit <- sub_arg_values(res$fit, real_args)
   
   if(length(x$others) > 0)
-    x$fit <- sub_arg_values(x$fit, x$others)
+    x$method$fit <- sub_arg_values(x$method$fit, x$others)
   
   # remove NULL and unmodified argiment values
-  x$fit <- prune_expr(x$fit, res$protect, c(names(real_args), names(x$others)))
+  modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
+  x$method$fit <- prune_expr(x$method$fit, res$protect, c(modifed_args, names(x$others)))
   x
 }
 
@@ -477,15 +465,24 @@ rownames(rand_forest_arg_key) <- c("mtry", "trees", "min_n")
 
 ###################################################################
 
-fit_rf <- function(object, formula, data) {
-  varies <- vapply(object$fit, does_it_vary, lgl(1))
-  if(any(varies))
-    stop("One or more arguments are not finalized (", 
-         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
-  eval(object$fit)
+
+# The S3 part here is awful for now
+
+fit_formula <- function(object, formula, data, verboseness = 0, engine = "R::ranger") {
+  varying_param_check(object)
+  
+  # go between input methods =[
+  
+  # data checks based on method
+  
+  object <- finalize(object, engine = engine)
+  if(verboseness == 0) {
+    fit_obj <- eval(object$method$fit)
+  } else {
+    capture.output(fit_obj <- eval(object$method$fit))
+  }
+  fit_obj
 }
-
-
 
 ###################################################################
 
@@ -500,14 +497,19 @@ tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying()
 tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 3, engine_args = list(importance = TRUE, strata = varying()))
 
 rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = varying(), 
-            engine_args = list(num.threads = 3, importance = TRUE)) %>%
+            engine_args = list(num.threads = 3, importance = TRUE, verbose = TRUE)) %>%
   update(min_n = 3) %>%
-  finalize() %>%
-  fit_rf(formula = mpg ~ ., data = mtcars)
+  fit(mpg ~ ., data = mtcars)
 
 rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = floor(nrow(data)/2), 
             engine_args = list(num.threads = 3)) %>%
-  finalize() %>%
-  fit_rf(formula = mpg ~ ., data = mtcars)
+  fit(formula = mpg ~ ., data = mtcars)
+
+rf_cars <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = 7)
+
+rf_fit_1 <- rf_cars %>%
+  fit(formula = mpg ~ ., data = mtcars)
+rf_fit_2 <- rf_cars %>%
+  fit(formula = mpg ~ ., data = mtcars, engine = "R::randomForest")
 
 
