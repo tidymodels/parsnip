@@ -1,13 +1,10 @@
 library(purrr)
 library(rlang)
 
-param <- function(name) NULL
-
 # `sub_arg_values`` takes an existing expression and substitutes 
 # different argument values that are passed to it. `ignore` is 
 # an optional list of arguments that will not have their arguments 
 # substituted. 
-
 
 ## TODO: test this with something containing ... in definition
 
@@ -150,6 +147,7 @@ expr_names <- function(x) {
 
 prune_expr <- function(x, whitelist, modified) {
   nms <- names(x)
+  nms <- nms[nms != ""]
   nms <- nms[!(nms %in%  whitelist)]
   for (i in nms) {
     if (is.null(x[[i]]) | is_null(x[[i]]) | !(i %in% modified) | is_missing(x[[i]]))
@@ -158,28 +156,17 @@ prune_expr <- function(x, whitelist, modified) {
   x
 }
 
+varying_param_check <- function(x) {
+  varies <- vapply(x$method$fit, does_it_vary, lgl(1))
+  if(any(varies))
+    stop("One or more arguments are not finalized (", 
+         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
+  invisible(NULL)
+}
+
+
 varying <- function()
   stop("This is a placeholder and should not be evaluated")
-
-fit <- function (object, ...) 
-  UseMethod("fit")
-
-# make S3 with methods for vector, matrix, and recipe
-guess_mode <- function(y) {
-  if (inherits(y, c("character", "factor"))) {
-    res <- "classification"
-  } else if (inherits(y, "numeric")) {
-    res <- "regression"
-  } else if (inherits(y, "Surv")) {
-    res <- "risk regression"
-  } else res <- "unknown"
-  res
-}
-
-make_classes <- function(prefix, mode) {
-  cls <- c(paste(prefix, mode, sep = "."), prefix)
-  c("model_spec", gsub(" ", "_", cls))
-}
 
 deharmonize <- function(args, key, engine) {
   nms <- names(args)
@@ -188,7 +175,7 @@ deharmonize <- function(args, key, engine) {
   }
   args
 }
-make_classes
+
 parse_engine_options <- function(x) {
   res <- ll()
   if (length(x) >= 2) { # in case of NULL
@@ -220,11 +207,4 @@ finalize <- function (x, ...)
   UseMethod("finalize")
 
 
-varying_param_check <- function(x) {
-  varies <- vapply(x$method$fit, does_it_vary, lgl(1))
-  if(any(varies))
-    stop("One or more arguments are not finalized (", 
-         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
-  invisible(NULL)
-}
 
