@@ -1,10 +1,17 @@
 
-
+#' Fit a Model Specification to a Dataset
+#' 
+#' `fit` will take a model specification, finalize the required code by substituting arguments, and execute the model fit routine. 
+#' 
+#' @param object An object of class `model_spec`
+#' @export
+#' @rdname fit 
 fit <- function (object, ...) 
   UseMethod("fit")
 
 # The S3 part here is awful for now
 
+#' @importFrom utils capture.output
 fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
   varying_param_check(object)
   
@@ -48,7 +55,7 @@ f2r <- function(formula, data) {
 
 
 
-r2f <- function(recipe?, data) {
+r2f <- function(recipe, data) {
   # execute the formula
   # extract terms _and roles_
   # put into recipe

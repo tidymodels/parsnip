@@ -1,34 +1,64 @@
 # Prototype parsnip code for random forests
 
 # notes: 
-?# - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
+# - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
 
-###################################################################
-
-library(recipes)
-library(rlang)
-
-###################################################################
-
-source("functions.R")
-
-###################################################################
+#' General Interface for Random Forest Models
+#' 
+#' `rand_forest` is a way to generate a _specification_ of a model before fitting and allows the model to be created using different packages in R or via Spark. The main arguments for the model are:
+#' \itemize{
+#' \item \code{mtry}: The number of predictors that will be randomly sampled at each split when creating the tree models.
+#' \item \code{trees}: The number of trees contained in the ensemble.
+#' \item \code{min_n}: The minimum number of data points in a node that are required for the node to be split further.
+#' }
+#' These arguments are converted to their specific names at the time that the model is fit. Other options and argument can be set using the `engine_args` argument. If left to their defaults here (`NULL`), the values are taken from the underlying model functions.  
+#' 
+#' The data given to the function are not saved and are only used to determine the _mode_ of the model. For `rand_forest`, the possible modes are "regression" and "classification". 
+#' 
+#' The model can be created using the [fit()] function using the following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `ranger` or `randomForests` packages
+#' \item \pkg{Spark}:  `RandomForestModel` class
+#' }
+#' @export
+#' @rdname rand_forest
+#' @importFrom rlang expr enquo missing_arg
+#' @importFrom purrr map_lgl
+#' @seealso [varying()], [fit()]
+#' @examples 
+#' rand_forest(x = iris[, 1:4], y = iris$Species, trees = 2000)
+#' 
+#' # Parameters can be reprresented by a placeholder:
+#' rand_forest(mpg ~ ., data = mtcars, mtry = varying())
+#' 
+#' library(recipes)
+#' 
+#' recipe(mpg ~ ., data = mtcars) %>%
+#'   rand_forest(mtry = 2)
 
 rand_forest <- function (x, ...)
   UseMethod("rand_forest")
 
+#' @rdname rand_forest
+#' @export
+#' @param x An object. For the `data.frame` and `matrix` methods, this is a rectangular data set of predictors. For the `formula` method, `x` is a formula and for the `recipe` method, it is a recipe object. 
+#' @param mode A single character string for the type of model. Possible values here are "unknown", "regression", or "classification".
+#' @param engine_args A named list of arguments to be used by the underlying models (e.g., [ranger::ranger()], [randomForest::randomForest()], etc.). These are not evaluated until the model is fit and will be substituted into the model fit expression.  
+#' @param mtry An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.
+#' @param trees An integer for the number of trees contained in the ensemble.
+#' @param min_n An integer for the minimum number of data points in a node that are required for the node to be split further. 
 rand_forest.default <-
   function(x = NULL, mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
            engine_args = list()) {
     
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      mtry = rlang::enquo(mtry),
+      trees = rlang::enquo(trees),
+      min_n = rlang::enquo(min_n)
     )
     
-    others <- parse_engine_options(enquo(engine_args))
+    others <- parse_engine_options(rlang::enquo(engine_args))
     
     # write a constructor function
     out <- list(args = args, others = others, 
@@ -39,7 +69,8 @@ rand_forest.default <-
   }
 
 
-
+#' @rdname rand_forest
+#' @export
 rand_forest.data.frame <- 
   function(x, y,
            mode = NULL,
@@ -48,12 +79,12 @@ rand_forest.data.frame <-
     
     # parse and save args
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      mtry = rlang::enquo(mtry),
+      trees = rlang::enquo(trees),
+      min_n = rlang::enquo(min_n)
     )
     
-    others <- parse_engine_options(enquo(engine_args))
+    others <- parse_engine_options(rlang::enquo(engine_args))
     
     # if mode is null, try to set from class(y)
     if (is.null(mode)) {
@@ -74,6 +105,9 @@ rand_forest.data.frame <-
     out
   }
 
+#' @rdname rand_forest
+#' @export
+#' @importFrom stats model.frame model.response
 rand_forest.formula <-
   function(x,
            data = stop(),
@@ -86,12 +120,12 @@ rand_forest.formula <-
     
     # parse and save args
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      mtry = rlang::enquo(mtry),
+      trees = rlang::enquo(trees),
+      min_n = rlang::enquo(min_n)
     )
     
-    others <- parse_engine_options(enquo(engine_args))
+    others <- parse_engine_options(rlang::enquo(engine_args))
     
     # if mode is null, try to set from class(y)
     if (is.null(mode)) {
@@ -112,6 +146,8 @@ rand_forest.formula <-
     out
   }
 
+#' @rdname rand_forest
+#' @export
 rand_forest.recipe <-
   function(x,
            mode = NULL,
@@ -126,12 +162,12 @@ rand_forest.recipe <-
     
     # parse and save args
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      mtry = rlang::enquo(mtry),
+      trees = rlang::enquo(trees),
+      min_n = rlang::enquo(min_n)
     )
     
-    others <- parse_engine_options(enquo(engine_args))
+    others <- parse_engine_options(rlang::enquo(engine_args))
     
     if (is.null(mode)) {
       # make a `guess_mode` method for recipes
@@ -151,6 +187,7 @@ rand_forest.recipe <-
     out
   }
 
+#' @export
 print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
@@ -194,7 +231,7 @@ get_ranger_regression <- function () {
   interface <- "formula"
   protect = c("ranger::ranger", "formula", "data", "case.weights")
   fit <- 
-  expr(
+  rlang::expr(
     ranger::ranger(
       formula = formula,
       data = data,
@@ -234,7 +271,7 @@ get_randomForest_regression <- function () {
   interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
   fit <- 
-    expr(
+    rlang::expr(
       randomForest::randomForest(
         x = x,
         y = y,
@@ -270,7 +307,7 @@ get_ranger_classification <- function () {
   interface <- "formula"
   protect = c("ranger::ranger", "formula", "data", "case.weights")  
   fit <- 
-    expr(
+    rlang::expr(
       ranger::ranger(
         formula = formula,
         data = data,
@@ -310,7 +347,7 @@ get_randomForest_classification <- function () {
   interface <- "data.frame"
   protect = c("randomForest::randomForest", "x", "y")
   fit <- 
-    expr(
+    rlang::expr(
       randomForest::randomForest(
         x = x,
         y = y,
@@ -391,9 +428,9 @@ update.rand_forest <-
            fresh = FALSE) {
     
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      mtry = rlang::enquo(mtry),
+      trees = rlang::enquo(trees),
+      min_n = rlang::enquo(min_n)
     )
     null_args <- map_lgl(args, null_value)
     if (any(null_args))
@@ -401,7 +438,7 @@ update.rand_forest <-
     if (length(args) > 0) 
       object$args[names(args)] <- args
     
-    others <- parse_engine_options(enquo(engine_args))
+    others <- parse_engine_options(rlang::enquo(engine_args))
     if (length(others) > 0) {
       if(fresh)
         object$others <- others
@@ -418,39 +455,9 @@ update.rand_forest <-
 rand_forest_arg_key <- data.frame(
   randomForest = c("mtry", "ntree", "nodesize"),
   ranger = c("mtry", "num.trees", "min.node.size"),
-  RandomForestModel = 
+  spark = 
     c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
   stringsAsFactors = FALSE,
   row.names =  c("mtry", "trees", "min_n")
 )
-
-
-###################################################################
-
-# Some simple examples
-
-tmp <- rand_forest(x = iris[, 1:4], y = iris$Species, trees = 200, mtry = varying())
-tmp2 <- rand_forest(mpg ~ ., data = mtcars, trees  = 200, mtry = varying())
-tmp3 <- rand_forest(mode = "regression", mtry = 3, min_n = varying(), 
-                    engine_args = list(case.weights = floor(nrow(x)/2), num.threads = 3))
-tmp4 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 20, min_n = varying(), 
-                    engine_args = list(sample.fraction = floor(nrow(x)/2), num.threads = 3))
-tmp5 <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 3, engine_args = list(importance = TRUE, strata = varying()))
-
-rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = varying(), 
-            engine_args = list(num.threads = 3, importance = TRUE, verbose = TRUE)) %>%
-  update(min_n = 3) %>%
-  fit(mpg ~ ., data = mtcars)
-
-rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = floor(nrow(data)/2), 
-            engine_args = list(num.threads = 3)) %>%
-  fit(formula = mpg ~ ., data = mtcars)
-
-rf_cars <- rand_forest(recipe(mpg ~ ., data = mtcars), mtry = 2, min_n = 7)
-
-# rf_fit_1 <- rf_cars %>%
-#   fit(formula = mpg ~ ., data = mtcars)
-# rf_fit_2 <- rf_cars %>%
-#   fit(formula = mpg ~ ., data = mtcars, engine = "randomForest")
-
 

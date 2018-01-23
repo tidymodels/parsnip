@@ -1,5 +1,5 @@
-library(purrr)
-library(rlang)
+#' @importFrom rlang eval_tidy is_quosure na_lgl lgl is_missing ll
+
 
 # `sub_arg_values`` takes an existing expression and substitutes 
 # different argument values that are passed to it. `ignore` is 
@@ -164,7 +164,10 @@ varying_param_check <- function(x) {
   invisible(NULL)
 }
 
-
+#' A Placeholder Function for Argument Values
+#' 
+#' [varying()] is used when a parameter will be specified at a later date. 
+#' @export
 varying <- function()
   stop("This is a placeholder and should not be evaluated")
 
