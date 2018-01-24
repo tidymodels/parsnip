@@ -11,31 +11,53 @@ rand_forest(mode, ...)
   min_n = NULL, engine_args = list(), ...)
 }
 \arguments{
-\item{mode}{A single character string for the type of model. Possible values for this model are "unknown", "regression", or "classification".}
+\item{mode}{A single character string for the type of model.
+Possible values for this model are "unknown", "regression", or
+"classification".}
 
-\item{...}{Used for method consistency. Any arguments passed to the ellipses will result in an error. Use \code{engine_args} instead.}
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{engine_args} instead.}
 
-\item{mtry}{An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.}
+\item{mtry}{An integer for the number of predictors that will
+be randomly sampled at each split when creating the tree models.}
 
-\item{trees}{An integer for the number of trees contained in the ensemble.}
+\item{trees}{An integer for the number of trees contained in
+the ensemble.}
 
-\item{min_n}{An integer for the minimum number of data points in a node that are required for the node to be split further.}
+\item{min_n}{An integer for the minimum number of data points
+in a node that are required for the node to be split further.}
 
-\item{engine_args}{A named list of arguments to be used by the underlying models (e.g., \code{\link[ranger:ranger]{ranger::ranger()}}, \code{\link[randomForest:randomForest]{randomForest::randomForest()}}, etc.). These are not evaluated until the model is fit and will be substituted into the model fit expression.}
+\item{engine_args}{A named list of arguments to be used by the
+underlying models (e.g., \code{\link[ranger:ranger]{ranger::ranger()}},
+\code{\link[randomForest:randomForest]{randomForest::randomForest()}}, etc.). These are not evaluated
+until the model is fit and will be substituted into the model
+fit expression.}
 }
 \description{
-\code{rand_forest} is a way to generate a \emph{specification} of a model before fitting and allows the model to be created using different packages in R or via Spark. The main arguments for the model are:
+\code{rand_forest} is a way to generate a \emph{specification} of a model
+before fitting and allows the model to be created using
+different packages in R or via Spark. The main arguments for the
+model are:
 \itemize{
-\item \code{mtry}: The number of predictors that will be randomly sampled at each split when creating the tree models.
+\item \code{mtry}: The number of predictors that will be
+randomly sampled at each split when creating the tree models.
 \item \code{trees}: The number of trees contained in the ensemble.
-\item \code{min_n}: The minimum number of data points in a node that are required for the node to be split further.
+\item \code{min_n}: The minimum number of data points in a node
+that are required for the node to be split further.
 }
-These arguments are converted to their specific names at the time that the model is fit. Other options and argument can be set using the \code{engine_args} argument. If left to their defaults here (\code{NULL}), the values are taken from the underlying model functions.
+These arguments are converted to their specific names at the
+time that the model is fit. Other options and argument can be
+set using the \code{engine_args} argument. If left to their defaults
+here (\code{NULL}), the values are taken from the underlying model
+functions.
 }
 \details{
-The data given to the function are not saved and are only used to determine the \emph{mode} of the model. For \code{rand_forest}, the possible modes are "regression" and "classification".
+The data given to the function are not saved and are only used
+to determine the \emph{mode} of the model. For \code{rand_forest}, the
+possible modes are "regression" and "classification".
 
-The model can be created using the \code{\link[=fit]{fit()}} function using the following \emph{engines}:
+The model can be created using the \code{\link[=fit]{fit()}} function using the
+following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{ranger} or \code{randomForests} packages
 \item \pkg{Spark}:  \code{RandomForestModel} class

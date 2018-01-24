@@ -193,6 +193,30 @@ test_that('engine arguments', {
 })
 
 
+test_that('updating', {
+  expr1     <- rand_forest(mode = "regression",           engine_args = list(norm.votes = FALSE, sampsize = varying()))
+  expr1_exp <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = FALSE, sampsize = varying()))
+  
+  expr2     <- rand_forest(mode = "regression", mtry = 7, min_n = varying())
+  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = varying(), engine_args = list(norm.votes = FALSE))
+  
+  expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = varying())
+  expr3_exp <- rand_forest(mode = "regression", mtry = 2)
+
+  expr4     <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = FALSE, sampsize = varying()))
+  expr4_exp <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = TRUE, sampsize = varying()))
+
+  expr5     <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = FALSE))
+  expr5_exp <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = TRUE, sampsize = varying()))
+  
+  expect_equal(update(expr1, mtry = 2), expr1_exp)
+  expect_equal(update(expr2, engine_args = list(norm.votes = FALSE)), expr2_exp)  
+  expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)  
+  expect_equal(update(expr4, engine_args = list(norm.votes = TRUE)), expr4_exp)
+  expect_equal(update(expr5, engine_args = list(norm.votes = TRUE, sampsize = varying())), expr5_exp)
+
+})
+
 test_that('bad input', {
   expect_error(rand_forest(mode = "classification", case.weights = var))
   expect_error(rand_forest(mode = "time series"))

@@ -5,17 +5,29 @@
 
 #' General Interface for Random Forest Models
 #' 
-#' `rand_forest` is a way to generate a _specification_ of a model before fitting and allows the model to be created using different packages in R or via Spark. The main arguments for the model are:
+#' `rand_forest` is a way to generate a _specification_ of a model
+#'  before fitting and allows the model to be created using
+#'  different packages in R or via Spark. The main arguments for the
+#'  model are:
 #' \itemize{
-#' \item \code{mtry}: The number of predictors that will be randomly sampled at each split when creating the tree models.
-#' \item \code{trees}: The number of trees contained in the ensemble.
-#' \item \code{min_n}: The minimum number of data points in a node that are required for the node to be split further.
+#'   \item \code{mtry}: The number of predictors that will be
+#'   randomly sampled at each split when creating the tree models.
+#'   \item \code{trees}: The number of trees contained in the ensemble.
+#'   \item \code{min_n}: The minimum number of data points in a node
+#'   that are required for the node to be split further.
 #' }
-#' These arguments are converted to their specific names at the time that the model is fit. Other options and argument can be set using the `engine_args` argument. If left to their defaults here (`NULL`), the values are taken from the underlying model functions.  
+#' These arguments are converted to their specific names at the
+#'  time that the model is fit. Other options and argument can be
+#'  set using the `engine_args` argument. If left to their defaults
+#'  here (`NULL`), the values are taken from the underlying model
+#'  functions.
 #' 
-#' The data given to the function are not saved and are only used to determine the _mode_ of the model. For `rand_forest`, the possible modes are "regression" and "classification". 
+#' The data given to the function are not saved and are only used
+#'  to determine the _mode_ of the model. For `rand_forest`, the
+#'  possible modes are "regression" and "classification".
 #' 
-#' The model can be created using the [fit()] function using the following _engines_:
+#'   The model can be created using the [fit()] function using the
+#'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `ranger` or `randomForests` packages
 #' \item \pkg{Spark}:  `RandomForestModel` class
@@ -36,12 +48,23 @@ rand_forest <- function (mode, ...)
 
 #' @rdname rand_forest
 #' @export
-#' @param mode A single character string for the type of model. Possible values for this model are "unknown", "regression", or "classification".
-#' @param engine_args A named list of arguments to be used by the underlying models (e.g., [ranger::ranger()], [randomForest::randomForest()], etc.). These are not evaluated until the model is fit and will be substituted into the model fit expression.  
-#' @param mtry An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.
-#' @param trees An integer for the number of trees contained in the ensemble.
-#' @param min_n An integer for the minimum number of data points in a node that are required for the node to be split further. 
-#' @param ... Used for method consistency. Any arguments passed to the ellipses will result in an error. Use `engine_args` instead. 
+#' @param mode A single character string for the type of model.
+#'  Possible values for this model are "unknown", "regression", or
+#'  "classification".
+#' @param engine_args A named list of arguments to be used by the
+#'  underlying models (e.g., [ranger::ranger()],
+#'  [randomForest::randomForest()], etc.). These are not evaluated
+#'  until the model is fit and will be substituted into the model
+#'  fit expression.
+#' @param mtry An integer for the number of predictors that will
+#'  be randomly sampled at each split when creating the tree models.
+#' @param trees An integer for the number of trees contained in
+#'  the ensemble.
+#' @param min_n An integer for the minimum number of data points
+#'  in a node that are required for the node to be split further.
+#' @param ... Used for method consistency. Any arguments passed to
+#'  the ellipses will result in an error. Use `engine_args` instead.
+
 rand_forest.default <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
@@ -321,7 +344,8 @@ update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
            engine_args = list(),
-           fresh = FALSE, ...) {
+           fresh = FALSE,
+           ...) {
     check_empty_ellipse(...)
     
     args <- list(
@@ -329,20 +353,24 @@ update.rand_forest <-
       trees = rlang::enquo(trees),
       min_n = rlang::enquo(min_n)
     )
-    null_args <- map_lgl(args, null_value)
-    if (any(null_args))
-      args <- args[!null_args]
-    if (length(args) > 0) 
-      object$args[names(args)] <- args
+    if (fresh) {
+      object$args <- args
+    } else {
+      null_args <- map_lgl(args, null_value)
+      if (any(null_args))
+        args <- args[!null_args]
+      if (length(args) > 0)
+        object$args[names(args)] <- args
+    }
     
     others <- parse_engine_options(rlang::enquo(engine_args))
     if (length(others) > 0) {
-      if(fresh)
+      if (fresh)
         object$others <- others
-        else
-          object$others[names(others)] <- others
+      else
+        object$others[names(others)] <- others
     }
-      
+    
     object
   }
 
