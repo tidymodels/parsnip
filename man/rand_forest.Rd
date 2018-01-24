@@ -3,29 +3,15 @@
 \name{rand_forest}
 \alias{rand_forest}
 \alias{rand_forest.default}
-\alias{rand_forest.data.frame}
-\alias{rand_forest.formula}
-\alias{rand_forest.recipe}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(x, ...)
+rand_forest(mode, ...)
 
-\method{rand_forest}{default}(x = NULL, mode = "unknown", mtry = NULL,
-  trees = NULL, min_n = NULL, engine_args = list())
-
-\method{rand_forest}{data.frame}(x, y, mode = NULL, mtry = NULL,
-  trees = NULL, min_n = NULL, engine_args = list())
-
-\method{rand_forest}{formula}(x, data = stop(), mode = NULL, mtry = NULL,
-  trees = NULL, min_n = NULL, engine_args = list())
-
-\method{rand_forest}{recipe}(x, mode = NULL, mtry = NULL, trees = NULL,
-  min_n = NULL, engine_args = list())
+\method{rand_forest}{default}(mode = "unknown", mtry = NULL, trees = NULL,
+  min_n = NULL, engine_args = list(), ...)
 }
 \arguments{
-\item{x}{An object. For the \code{data.frame} and \code{matrix} methods, this is a rectangular data set of predictors. For the \code{formula} method, \code{x} is a formula and for the \code{recipe} method, it is a recipe object.}
-
-\item{mode}{A single character string for the type of model. Possible values here are "unknown", "regression", or "classification".}
+\item{mode}{A single character string for the type of model. Possible values for this model are "unknown", "regression", or "classification".}
 
 \item{mtry}{An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.}
 
@@ -54,15 +40,10 @@ The model can be created using the \code{\link[=fit]{fit()}} function using the 
 }
 }
 \examples{
-rand_forest(x = iris[, 1:4], y = iris$Species, trees = 2000)
+rand_forest(mode = "classification", trees = 2000)
 
 # Parameters can be reprresented by a placeholder:
-rand_forest(mpg ~ ., data = mtcars, mtry = varying())
-
-library(recipes)
-
-recipe(mpg ~ ., data = mtcars) \%>\%
-  rand_forest(mtry = 2)
+rand_forest(mode = "regression", mtry = varying())
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

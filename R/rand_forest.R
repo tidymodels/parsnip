@@ -26,31 +26,27 @@
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples 
-#' rand_forest(x = iris[, 1:4], y = iris$Species, trees = 2000)
+#' rand_forest(mode = "classification", trees = 2000)
 #' 
 #' # Parameters can be reprresented by a placeholder:
-#' rand_forest(mpg ~ ., data = mtcars, mtry = varying())
-#' 
-#' library(recipes)
-#' 
-#' recipe(mpg ~ ., data = mtcars) %>%
-#'   rand_forest(mtry = 2)
+#' rand_forest(mode = "regression", mtry = varying())
 
-rand_forest <- function (x, ...)
+rand_forest <- function (mode, ...)
   UseMethod("rand_forest")
 
 #' @rdname rand_forest
 #' @export
-#' @param x An object. For the `data.frame` and `matrix` methods, this is a rectangular data set of predictors. For the `formula` method, `x` is a formula and for the `recipe` method, it is a recipe object. 
-#' @param mode A single character string for the type of model. Possible values here are "unknown", "regression", or "classification".
+#' @param mode A single character string for the type of model. Possible values for this model are "unknown", "regression", or "classification".
 #' @param engine_args A named list of arguments to be used by the underlying models (e.g., [ranger::ranger()], [randomForest::randomForest()], etc.). These are not evaluated until the model is fit and will be substituted into the model fit expression.  
 #' @param mtry An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in the ensemble.
 #' @param min_n An integer for the minimum number of data points in a node that are required for the node to be split further. 
 rand_forest.default <-
-  function(x = NULL, mode = "unknown",
+  function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list()) {
+           engine_args = list(), 
+           ...) {
+    check_empty_ellipse(...)
     
     args <- list(
       mtry = rlang::enquo(mtry),
@@ -62,127 +58,7 @@ rand_forest.default <-
     
     # write a constructor function
     out <- list(args = args, others = others, 
-                mode = mode, method = NULL, engine = NULL,
-                state = NULL)
-    class(out) <- make_classes("rand_forest", mode)
-    out
-  }
-
-
-#' @rdname rand_forest
-#' @export
-rand_forest.data.frame <- 
-  function(x, y,
-           mode = NULL,
-           mtry = NULL,  trees = NULL, min_n = NULL,
-           engine_args = list()) {
-    
-    # parse and save args
-    args <- list(
-      mtry = rlang::enquo(mtry),
-      trees = rlang::enquo(trees),
-      min_n = rlang::enquo(min_n)
-    )
-    
-    others <- parse_engine_options(rlang::enquo(engine_args))
-    
-    # if mode is null, try to set from class(y)
-    if (is.null(mode)) {
-      mode <- guess_mode(y)
-    } else {
-      # if mode is set, check args and data type
-      # check vs available modes
-      # check for consistency/appropriateness
-    }
-    
-    # set subclass by mode
-    
-    # write a constructor function
-    out <- list(args = args, others = others, 
-                mode = mode, method = NULL, engine = NULL,
-                state = NULL)
-    class(out) <- make_classes("rand_forest", mode)
-    out
-  }
-
-#' @rdname rand_forest
-#' @export
-#' @importFrom stats model.frame model.response
-rand_forest.formula <-
-  function(x,
-           data = stop(),
-           mode = NULL,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list()) {
-    
-    mf <- model.frame(x, data = data)
-    y <- model.response(mf)
-    
-    # parse and save args
-    args <- list(
-      mtry = rlang::enquo(mtry),
-      trees = rlang::enquo(trees),
-      min_n = rlang::enquo(min_n)
-    )
-    
-    others <- parse_engine_options(rlang::enquo(engine_args))
-    
-    # if mode is null, try to set from class(y)
-    if (is.null(mode)) {
-      mode <- guess_mode(y)
-    } else {
-      # if mode is set, check args and data type
-      # check vs available modes
-      # check for consistency/appropriateness
-    }
-    
-    # set subclass by mode
-    
-    # write a constructor function
-    out <- list(args = args, others = others, 
-                mode = mode, method = NULL, engine = NULL,
-                state = NULL)
-    class(out) <- make_classes("rand_forest", mode)
-    out
-  }
-
-#' @rdname rand_forest
-#' @export
-rand_forest.recipe <-
-  function(x,
-           mode = NULL,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list()) {
-    
-    inputs <- list(recipe = x)
-    var_info <- summary(x)
-    y_info <- var_info$type[var_info$role == "outcome"]
-    if (length(y_info) > 1)
-      stop("Only univariate outcomes are allowed here.", .call = FALSE)
-    
-    # parse and save args
-    args <- list(
-      mtry = rlang::enquo(mtry),
-      trees = rlang::enquo(trees),
-      min_n = rlang::enquo(min_n)
-    )
-    
-    others <- parse_engine_options(rlang::enquo(engine_args))
-    
-    if (is.null(mode)) {
-      # make a `guess_mode` method for recipes
-      mode = switch(y_info, numeric = "regression", nominal = "classification")
-    } else {
-      # if mode is set, check args and data type
-      # check vs available modes
-      # check for consistency/appropriateness
-    }
-    
-    # set subclass by mode
-    # write a constructor function
-    out <- list(args = args, others = others, 
-                mode = mode, method = NULL, engine = NULL,
-                state = NULL)
+                mode = mode, method = NULL, engine = NULL)
     class(out) <- make_classes("rand_forest", mode)
     out
   }
@@ -229,39 +105,39 @@ print.rand_forest <- function(x, ...) {
 get_ranger_regression <- function () {
   libs <- "ranger"
   interface <- "formula"
-  protect = c("ranger::ranger", "formula", "data", "case.weights")
+  protect = c("ranger", "formula", "data", "case.weights")
   fit <- 
-  rlang::expr(
-    ranger::ranger(
-      formula = formula,
-      data = data,
-      num.trees = 500,
-      mtry =  max(floor((ncol(dat) - 1) / 3), 1),
-      importance = "none",
-      write.forest = TRUE,
-      probability = FALSE,
-      min.node.size = NULL,
-      replace = TRUE,
-      sample.fraction = ifelse(replace, 1, 0.632),
-      case.weights = NULL,
-      splitrule = NULL,
-      num.random.splits = 1,
-      alpha = 0.5,
-      minprop = 0.1,
-      split.select.weights = NULL,
-      always.split.variables = NULL,
-      respect.unordered.factors = NULL,
-      scale.permutation.importance = FALSE,
-      keep.inbag = FALSE,
-      holdout = FALSE,
-      num.threads = NULL,
-      save.memory = FALSE,
-      verbose = FALSE,
-      seed = sample.int(10^5, 1),
-      dependent.variable.name = NULL,
-      status.variable.name = NULL,
-      classification = NULL
-    )
+    quote(
+      ranger(
+        formula = formula,
+        data = data,
+        num.trees = 500,
+        mtry =  max(floor((ncol(dat) - 1) / 3), 1),
+        importance = "none",
+        write.forest = TRUE,
+        probability = FALSE,
+        min.node.size = NULL,
+        replace = TRUE,
+        sample.fraction = ifelse(replace, 1, 0.632),
+        case.weights = NULL,
+        splitrule = NULL,
+        num.random.splits = 1,
+        alpha = 0.5,
+        minprop = 0.1,
+        split.select.weights = NULL,
+        always.split.variables = NULL,
+        respect.unordered.factors = NULL,
+        scale.permutation.importance = FALSE,
+        keep.inbag = FALSE,
+        holdout = FALSE,
+        num.threads = NULL,
+        save.memory = FALSE,
+        verbose = FALSE,
+        seed = sample.int(10^5, 1),
+        dependent.variable.name = NULL,
+        status.variable.name = NULL,
+        classification = NULL
+      )
   ) 
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
@@ -269,10 +145,10 @@ get_ranger_regression <- function () {
 get_randomForest_regression <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
-  protect = c("randomForest::randomForest", "x", "y")
+  protect = c("randomForest", "x", "y")
   fit <- 
-    rlang::expr(
-      randomForest::randomForest(
+    quote(
+      randomForest(
         x = x,
         y = y,
         xtest = NULL,
@@ -305,10 +181,10 @@ get_randomForest_regression <- function () {
 get_ranger_classification <- function () {
   libs <- "ranger"
   interface <- "formula"
-  protect = c("ranger::ranger", "formula", "data", "case.weights")  
+  protect = c("ranger", "formula", "data", "case.weights")  
   fit <- 
-    rlang::expr(
-      ranger::ranger(
+    quote(
+      ranger(
         formula = formula,
         data = data,
         num.trees = 500,
@@ -345,10 +221,10 @@ get_ranger_classification <- function () {
 get_randomForest_classification <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
-  protect = c("randomForest::randomForest", "x", "y")
+  protect = c("randomForest", "x", "y")
   fit <- 
-    rlang::expr(
-      randomForest::randomForest(
+    quote(
+      randomForest(
         x = x,
         y = y,
         xtest = NULL,
@@ -389,11 +265,12 @@ get_randomForest_classification <- function () {
 #
 # This should be done only when the model is to be fit. 
 
-
-finalize.rand_forest <- function(x, engine = "ranger") {
+#' @export
+finalize.rand_forest <- function(x, engine = "ranger", ...) {
+  check_empty_ellipse(...)
   # check engine
   
-  x$method <- get_model_objects(x, engine)
+  x$method <- get_model_objects(x, engine)()
   real_args <- deharmonize(x$args, rand_forest_arg_key, engine)
   
   if (engine == "ranger" &
@@ -421,11 +298,13 @@ finalize.rand_forest <- function(x, engine = "ranger") {
 
 ###################################################################
 
+#' @export
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
            engine_args = list(),
-           fresh = FALSE) {
+           fresh = FALSE, ...) {
+    check_empty_ellipse(...)
     
     args <- list(
       mtry = rlang::enquo(mtry),
