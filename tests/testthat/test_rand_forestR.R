@@ -3,7 +3,7 @@ library(parsnip)
 
 
 test_that('primary arguments', {
-  mtry <- rand_forest(mode = "classification", mtry = 4)
+  mtry <- rand_forest(mode = "regression", mtry = 4)
   mtry_ranger <- finalize(mtry, engine = "ranger")
   mtry_randomForest <- finalize(mtry, engine = "randomForest")
   expect_equal(mtry_ranger$method$fit,
@@ -49,7 +49,7 @@ test_that('primary arguments', {
                )
   )    
   
-  min_n <- rand_forest(mode = "classification", min_n = 5)
+  min_n <- rand_forest(mode = "regression", min_n = 5)
   min_n_ranger <- finalize(min_n, engine = "ranger")
   min_n_randomForest <- finalize(min_n, engine = "randomForest")
   expect_equal(min_n_ranger$method$fit,
@@ -95,7 +95,7 @@ test_that('primary arguments', {
                )
   )  
   
-  trees_v <- rand_forest(mode = "classification", trees = varying())
+  trees_v <- rand_forest(mode = "regression", trees = varying())
   trees_v_ranger <- finalize(trees_v, engine = "ranger")
   trees_v_randomForest <- finalize(trees_v, engine = "randomForest")
   expect_equal(trees_v_ranger$method$fit,
@@ -155,7 +155,7 @@ test_that('engine arguments', {
                )
   )
   
-  randomForest_votes <- rand_forest(mode = "classification", engine_args = list(norm.votes = FALSE))
+  randomForest_votes <- rand_forest(mode = "regression", engine_args = list(norm.votes = FALSE))
   expect_equal(finalize(randomForest_votes, engine = "randomForest")$method$fit,
                quote(
                  randomForest(
@@ -179,7 +179,7 @@ test_that('engine arguments', {
   ) 
   
   
-  randomForest_votes_v <- rand_forest(mode = "classification", engine_args = list(norm.votes = FALSE, sampsize = varying()))
+  randomForest_votes_v <- rand_forest(mode = "regression", engine_args = list(norm.votes = FALSE, sampsize = varying()))
   expect_equal(finalize(randomForest_votes_v, engine = "randomForest")$method$fit,
                quote(
                  randomForest(
@@ -195,17 +195,11 @@ test_that('engine arguments', {
 
 test_that('bad input', {
   expect_error(rand_forest(mode = "classification", case.weights = var))
+  expect_error(rand_forest(mode = "time series"))
   expect_error(finalize(rand_forest(mode = "classification", engine_args = list(ytest = 2))))
-  
-  # is subbing in `var`!
-  # rand_forest(mode = "classification", , engine_args = list(case.weights = var))
-  
-  # should fail for other reasons, adjust check_ellipses?
-  # rand_forest(mode = "classification", formula = y ~ x)
-  
-  # should also fail (unless used in `fit`)
-  # finalize(rand_forest(mode = "classification", engine_args = list(formula = y ~ x)))$method$fit
-  
+  expect_error(finalize(rand_forest(mode = "regression", formula = y ~ x)))
+  expect_warning(finalize(rand_forest(mode = "classification", engine_args = list(x = x, y = y)), engine = "randomForest"))
+  expect_warning(finalize(rand_forest(mode = "regression", engine_args = list(formula = y ~ x))))
 })
 
 
