@@ -41,6 +41,7 @@ rand_forest <- function (mode, ...)
 #' @param mtry An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in the ensemble.
 #' @param min_n An integer for the minimum number of data points in a node that are required for the node to be split further. 
+#' @param ... Used for method consistency. Any arguments passed to the ellipses will result in an error. Use `engine_args` instead. 
 rand_forest.default <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,

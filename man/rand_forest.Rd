@@ -13,6 +13,8 @@ rand_forest(mode, ...)
 \arguments{
 \item{mode}{A single character string for the type of model. Possible values for this model are "unknown", "regression", or "classification".}
 
+\item{...}{Used for method consistency. Any arguments passed to the ellipses will result in an error. Use \code{engine_args} instead.}
+
 \item{mtry}{An integer for the number of predictors that will be randomly sampled at each split when creating the tree models.}
 
 \item{trees}{An integer for the number of trees contained in the ensemble.}
