@@ -48,6 +48,10 @@ rand_forest.default <-
            engine_args = list(), 
            ...) {
     check_empty_ellipse(...)
+    if (!(mode %in% rand_forest_modes))
+      stop("`mode` should be one of: ",
+           paste0("'", rand_forest_modes, "'", collapse = ", "),
+           call. = FALSE)
     
     args <- list(
       mtry = rlang::enquo(mtry),
@@ -286,10 +290,23 @@ finalize.rand_forest <- function(x, engine = "ranger", ...) {
   }
   
   # replace default args with user-specified
-  x$method$fit <- sub_arg_values(x$method$fit, real_args)
+  x$method$fit <-
+    sub_arg_values(x$method$fit, real_args, ignore = x$method$protect)
   
+  if (length(x$others) > 0) {
+    protected <- names(x$others) %in% x$method$protect
+    if (any(protected)) {
+      warning(
+        "The following options cannot be changed at this time ",
+        "and were removed: ",
+        paste0("`", names(x$others)[protected], "`", collapse = ", "),
+        call. = FALSE
+      )
+      x$others <- x$others[-which(protected)]
+    }
+  }
   if (length(x$others) > 0)
-    x$method$fit <- sub_arg_values(x$method$fit, x$others)
+    x$method$fit <- sub_arg_values(x$method$fit, x$others, ignore = x$method$protect)
   
   # remove NULL and unmodified argiment values
   modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
@@ -341,3 +358,4 @@ rand_forest_arg_key <- data.frame(
   row.names =  c("mtry", "trees", "min_n")
 )
 
+rand_forest_modes <- c("classification", "regression", "unknown")
