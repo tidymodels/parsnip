@@ -95,7 +95,7 @@ rand_forest.default <-
 print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
-  if (length(x$args) > 0) {
+  if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
     non_null_args <- lapply(non_null_args, as.character)
     non_null_args <- lapply(non_null_args, function(x)
@@ -103,9 +103,9 @@ print.rand_forest <- function(x, ...) {
     anms <- names(non_null_args)
     non_null_args <- paste(anms, unlist(non_null_args), sep = ": ")
     cat(non_null_args, sep = "", "\n\n")
-  }
+  } 
   if (length(x$others) > 0) {
-    cat("Other Arguments:\n")
+    cat("Engine-Specific Arguments:\n")
     others <- lapply(x$others, function(x) paste(deparse(x), sep = "\n", collapse = "\n"))
     others <- lapply(others, function(x)
       paste0("  ", x, "\n"))
