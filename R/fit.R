@@ -1,7 +1,9 @@
 
 #' Fit a Model Specification to a Dataset
 #' 
-#' `fit` will take a model specification, finalize the required code by substituting arguments, and execute the model fit routine. 
+#' `fit` will take a model specification, finalize the required
+#'  code by substituting arguments, and execute the model fit
+#'  routine.
 #' 
 #' @param object An object of class `model_spec`
 #' @export
@@ -12,24 +14,31 @@ fit <- function (object, ...)
 # The S3 part here is awful for now
 
 #' @importFrom utils capture.output
-fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
-  varying_param_check(object)
-  
-  # go between input methods =[
-  
-  # data checks based on method
-  
-  object <- finalize(object, engine = engine)
-  if(verboseness == 0) {
-    fit_obj <- eval(object$method$fit)
-  } else {
-    capture.output(fit_obj <- eval(object$method$fit))
-  }
-  fit_obj
-}
+# fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
+#   varying_param_check(object)
+# 
+#   # go between input methods
+# 
+#   # data checks based on method
+# 
+#   object <- finalize(object, engine = engine)
+#   if(verboseness == 0) {
+#     fit_obj <- eval(object$method$fit)
+#   } else {
+#     capture.output(fit_obj <- eval(object$method$fit))
+#   }
+#   fit_obj
+# }
 
 
-fit.model_spec <- function(object, x, ...) {
+#' @export
+fit.model_spec <- function(object, x, engine = object$engine, ...) {
+  object$engine <- engine
+  object <- check_engine(object)
+  
+  object <- finalize(object, engine = object$engine)
+  check_installs(object)
+  
   if (inherits(x, "formula")) {
     res <- fit_formula(object, formula = x, ...)
   } else {
@@ -46,18 +55,58 @@ fit.model_spec <- function(object, x, ...) {
   res
 }
 
-f2r <- function(formula, data) {
+###################################################################
+
+fit_formula <- function(object, formula = x, engine = engine, ...) {
+  opts <- quos(...)
+  if(!any(names(opts) == "data"))
+    stop("Please pass a data frame with the `data` argument.",
+         call. = FALSE)
+  # check fo null engine
+  
+}
+
+fit_xy <- function(object, formula = x, ...) {
+  
+}
+
+fit_recipe <- function(object, formula = x, ...) {
+  
+}
+
+###################################################################
+
+formula_to_recipe <- function(formula, data) {
   # execute the formula
   # extract terms _and roles_
   # put into recipe
   
 }
 
-
-
-r2f <- function(recipe, data) {
-  # execute the formula
-  # extract terms _and roles_
-  # put into recipe
+formula_to_xy <- function(formula, data) {
   
 }
+
+###################################################################
+
+recipe_to_formula <- function(recipe, data) {
+
+}
+
+recipe_to_xy <- function(recipe, data) {
+
+}
+
+###################################################################
+
+xy_to_formula <- function(x, y) {
+  
+}
+
+xy_to_recipe <- function(x, y) {
+  
+}
+
+
+
+

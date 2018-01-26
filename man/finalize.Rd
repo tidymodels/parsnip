@@ -7,7 +7,7 @@
 finalize(x, ...)
 }
 \arguments{
-\item{x}{A model specification}
+\item{x}{A model specification.}
 
 \item{...}{Not currently used.}
 }

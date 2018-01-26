@@ -10,5 +10,7 @@ fit(object, ...)
 \item{object}{An object of class \code{model_spec}}
 }
 \description{
-\code{fit} will take a model specification, finalize the required code by substituting arguments, and execute the model fit routine.
+\code{fit} will take a model specification, finalize the required
+code by substituting arguments, and execute the model fit
+routine.
 }

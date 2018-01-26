@@ -208,11 +208,11 @@ parse_engine_options <- function(x) {
 
 #' Resolve a Model Specification for a Computational Engine
 #' 
-#'   `finalize` will translate a model specification into a code
+#' `finalize` will translate a model specification into a code
 #'  object that is specific to a particular engine (e.g. R package).
 #'  It translates generic parameters to their counterparts.
 #' 
-#' @param x A model specification
+#' @param x A model specification.
 #' @param ... Not currently used. 
 #' @export
 #' 
