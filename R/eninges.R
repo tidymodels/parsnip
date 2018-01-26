@@ -21,3 +21,32 @@ possible_engines <- function(object, ...) {
   colnames(key_df[object$mode, ])
 }
 
+check_engine <- function(object) {
+  avail_eng <- possible_engines(object)
+  if (is.null(object$engine)) {
+    object$engine <- avail_eng[1]
+    warning("`engine` was NULL and updated to be '",
+            object$engine, "'", call. = FALSE)
+  }
+  if (!(object$engine %in% avail_eng)) {
+    stop(
+      "engine '",object$engine,
+      "' is not availble. Please use ",  "one of: ",
+      paste0("'", avail_eng, "'", collapse = ", "),
+      call. = FALSE
+    )
+  }
+  object
+}
+
+#' @importFrom utils installed.packages
+check_installs <- function(x) {
+  lib_inst <- rownames(installed.packages())
+  if(length(x$method$library) > 0) {
+    is_inst <- x$method$library %in% lib_inst
+    if(any(!is_inst)) {
+      stop("This engine requires some package installs: ",
+           paste0("'", x$method$library[!is_inst], "'", collapse = ", "))
+    }
+  }
+}

@@ -294,14 +294,16 @@ get_randomForest_classification <- function () {
 # This should be done only when the model is to be fit. 
 
 #' @export
-finalize.rand_forest <- function(x, engine = "ranger", ...) {
+finalize.rand_forest <- function(x, engine = NULL, ...) {
   check_empty_ellipse(...)
-  # check engine
   
-  x$method <- get_model_objects(x, engine)()
-  real_args <- deharmonize(x$args, rand_forest_arg_key, engine)
+  x$engine <- engine
+  x <- check_engine(x)
   
-  if (engine == "ranger" &
+  x$method <- get_model_objects(x, x$engine)()
+  real_args <- deharmonize(x$args, rand_forest_arg_key, x$engine)
+  
+  if (x$engine == "ranger" &
       any(names(x$others) == "importance") &&
       is.logical(x$others$importance)) {
     warning(
@@ -389,8 +391,8 @@ rand_forest_arg_key <- data.frame(
 rand_forest_modes <- c("classification", "regression", "unknown")
 
 rand_forest_engines <- data.frame(
-  randomForest = c(TRUE, TRUE, FALSE),
   ranger =       c(TRUE, TRUE, FALSE),
+  randomForest = c(TRUE, TRUE, FALSE),
   spark =        c(TRUE, TRUE, FALSE),
   row.names =  c("classification", "regression", "unknown")
 )

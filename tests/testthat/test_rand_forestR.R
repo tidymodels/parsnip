@@ -220,6 +220,8 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(rand_forest(mode = "classification", case.weights = var))
   expect_error(rand_forest(mode = "time series"))
+  expect_error(finalize(rand_forest(mode = "classification"), engine = "wat?"))
+  expect_warning(finalize(rand_forest(mode = "classification"), engine = NULL))  
   expect_error(finalize(rand_forest(mode = "classification", engine_args = list(ytest = 2))))
   expect_error(finalize(rand_forest(mode = "regression", formula = y ~ x)))
   expect_warning(finalize(rand_forest(mode = "classification", engine_args = list(x = x, y = y)), engine = "randomForest"))
