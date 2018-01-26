@@ -36,6 +36,7 @@ fit.model_spec <- function(object, x, engine = object$engine, ...) {
   object$engine <- engine
   object <- check_engine(object)
   
+  # sub in arguments to actual syntax for corresponding engine
   object <- finalize(object, engine = object$engine)
   check_installs(object)
   
@@ -62,16 +63,20 @@ fit_formula <- function(object, formula = x, engine = engine, ...) {
   if(!any(names(opts) == "data"))
     stop("Please pass a data frame with the `data` argument.",
          call. = FALSE)
-  # check fo null engine
+
+  # Look up the model's interface (e.g. formula, recipes, etc) 
+  # and delagate to the connector functions (`formula_to_recipe` etc)
   
 }
 
 fit_xy <- function(object, formula = x, ...) {
-  
+  # Look up the model's interface (e.g. formula, recipes, etc) 
+  # and delagate to the connector functions (`xy_to_formula` etc)
 }
 
 fit_recipe <- function(object, formula = x, ...) {
-  
+  # Look up the model's interface (e.g. formula, recipes, etc) 
+  # and delagate to the connector functions (`recipe_to_formula` etc)
 }
 
 ###################################################################
