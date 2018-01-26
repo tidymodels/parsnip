@@ -1,7 +1,7 @@
 #' @importFrom rlang eval_tidy is_quosure na_lgl lgl is_missing ll
 
 
-# `sub_arg_values` takes an existing expression and substitutes 
+# `sub_arg_values`` takes an existing expression and substitutes 
 # different argument values that are passed to it. `ignore` is 
 # an optional list of arguments that will not have their arguments 
 # substituted. 
@@ -33,9 +33,9 @@ sub_arg_values <- function (expr, args, ignore = NULL)  {
   # to put them into
   if (length(missing_args) > 0) {
     if (dot_ind == 0) {
-      stop("Argument(s) ",
+      stop("Argument(s) not valid for `",
+           expr[[1]], "`: ", 
            paste0(missing_args, collapse = ", "),
-           " are valid for `", expr[[1]], "`",
            call. = FALSE)
     } else {
       expr[[dot_ind]] <- NULL
@@ -206,6 +206,16 @@ parse_engine_options <- function(x) {
 #
 # This should be done only when the model is to be fit.
 
+#' Resolve a Model Specification for a Computational Engine
+#' 
+#' `finalize` will translate a model specification into a code
+#'  object that is specific to a particular engine (e.g. R package).
+#'  It translates generic parameters to their counterparts.
+#' 
+#' @param x A model specification.
+#' @param ... Not currently used. 
+#' @export
+#' 
 finalize <- function (x, ...)
   UseMethod("finalize")
 
