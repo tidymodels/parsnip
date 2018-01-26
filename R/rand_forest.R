@@ -387,3 +387,11 @@ rand_forest_arg_key <- data.frame(
 )
 
 rand_forest_modes <- c("classification", "regression", "unknown")
+
+rand_forest_engines <- data.frame(
+  randomForest = c(TRUE, TRUE, FALSE),
+  ranger =       c(TRUE, TRUE, FALSE),
+  spark =        c(TRUE, TRUE, FALSE),
+  row.names =  c("classification", "regression", "unknown")
+)
+
