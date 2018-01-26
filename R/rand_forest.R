@@ -205,6 +205,37 @@ get_randomForest_regression <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
+get_sparklyr_regression <- function () {
+  libs <- "sparklyr"
+  interface <- "data.frame" # adjust this to something else
+  protect = c("x", "formula", "label_col", "features_col")
+  fit <- 
+    quote(
+      ml_random_forest_regressor(
+        x = x,
+        formula = NULL,
+        num_trees = 20L,
+        subsampling_rate = 1,
+        max_depth = 5L,
+        min_instances_per_node = 1L,
+        feature_subset_strategy = "auto",
+        impurity = "variance",
+        min_info_gain = 0,
+        max_bins = 32L,
+        seed = NULL,
+        checkpoint_interval = 10L,
+        cache_node_ids = FALSE,
+        max_memory_in_mb = 256L,
+        features_col = "features",
+        label_col = "label",
+        prediction_col = "prediction",
+        uid = random_string("random_forest_regressor_"),
+        ...
+      )
+    ) 
+  list(library = libs, interface = interface, fit = fit, protect = protect)
+}
+
 
 get_ranger_classification <- function () {
   libs <- "ranger"
@@ -276,6 +307,40 @@ get_randomForest_classification <- function () {
         keep.forest = !is.null(y) && is.null(xtest),
         corr.bias = FALSE,
         keep.inbag = FALSE
+      )
+    ) 
+  list(library = libs, interface = interface, fit = fit, protect = protect)
+}
+
+get_sparklyr_regression <- function () {
+  libs <- "sparklyr"
+  interface <- "data.frame" # adjust this to something else
+  protect = c("x", "formula", "label_col", "features_col")
+  fit <- 
+    quote(
+      ml_random_forest_classifier(
+        x = x,
+        formula = NULL,
+        num_trees = 20L,
+        subsampling_rate = 1,
+        max_depth = 5L,
+        min_instances_per_node = 1L,
+        feature_subset_strategy = "auto",
+        impurity = "gini",
+        min_info_gain = 0,
+        max_bins = 32L,
+        seed = NULL,
+        thresholds = NULL,
+        checkpoint_interval = 10L,
+        cache_node_ids = FALSE,
+        max_memory_in_mb = 256L,
+        features_col = "features",
+        label_col = "label",
+        prediction_col = "prediction",
+        probability_col = "probability",
+        raw_prediction_col = "rawPrediction",
+        uid = random_string("random_forest_classifier_"),
+        ...
       )
     ) 
   list(library = libs, interface = interface, fit = fit, protect = protect)
@@ -382,7 +447,7 @@ update.rand_forest <-
 rand_forest_arg_key <- data.frame(
   randomForest = c("mtry", "ntree", "nodesize"),
   ranger = c("mtry", "num.trees", "min.node.size"),
-  spark = 
+  sparklyr = 
     c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
   stringsAsFactors = FALSE,
   row.names =  c("mtry", "trees", "min_n")
@@ -393,7 +458,7 @@ rand_forest_modes <- c("classification", "regression", "unknown")
 rand_forest_engines <- data.frame(
   ranger =       c(TRUE, TRUE, FALSE),
   randomForest = c(TRUE, TRUE, FALSE),
-  spark =        c(TRUE, TRUE, FALSE),
+  sparklyr =     c(TRUE, TRUE, FALSE),
   row.names =  c("classification", "regression", "unknown")
 )
 
