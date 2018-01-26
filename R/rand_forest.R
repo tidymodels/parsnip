@@ -29,8 +29,8 @@
 #'   The model can be created using the [fit()] function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `ranger` or `randomForests` packages
-#' \item \pkg{Spark}:  `RandomForestModel` class
+#' \item \pkg{R}:  `"ranger"` or `"randomForests"` 
+#' \item \pkg{Spark}: `"spark"`
 #' }
 #' @export
 #' @rdname rand_forest
