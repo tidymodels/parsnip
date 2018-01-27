@@ -59,8 +59,8 @@ possible modes are "regression" and "classification".
 The model can be created using the \code{\link[=fit]{fit()}} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{ranger} or \code{randomForests} packages
-\item \pkg{Spark}:  \code{RandomForestModel} class
+\item \pkg{R}:  \code{"ranger"} or \code{"randomForests"}
+\item \pkg{Spark}: \code{"spark"}
 }
 }
 \examples{

@@ -205,7 +205,7 @@ get_randomForest_regression <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_sparklyr_regression <- function () {
+get_spark_regression <- function () {
   libs <- "sparklyr"
   interface <- "data.frame" # adjust this to something else
   protect = c("x", "formula", "label_col", "features_col")
@@ -235,7 +235,6 @@ get_sparklyr_regression <- function () {
     ) 
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
-
 
 get_ranger_classification <- function () {
   libs <- "ranger"
@@ -312,7 +311,7 @@ get_randomForest_classification <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_sparklyr_regression <- function () {
+get_spark_regression <- function () {
   libs <- "sparklyr"
   interface <- "data.frame" # adjust this to something else
   protect = c("x", "formula", "label_col", "features_col")
@@ -345,7 +344,6 @@ get_sparklyr_regression <- function () {
     ) 
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
-
 
 ###################################################################
 
@@ -447,7 +445,7 @@ update.rand_forest <-
 rand_forest_arg_key <- data.frame(
   randomForest = c("mtry", "ntree", "nodesize"),
   ranger = c("mtry", "num.trees", "min.node.size"),
-  sparklyr = 
+  spark = 
     c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
   stringsAsFactors = FALSE,
   row.names =  c("mtry", "trees", "min_n")
@@ -458,7 +456,7 @@ rand_forest_modes <- c("classification", "regression", "unknown")
 rand_forest_engines <- data.frame(
   ranger =       c(TRUE, TRUE, FALSE),
   randomForest = c(TRUE, TRUE, FALSE),
-  sparklyr =     c(TRUE, TRUE, FALSE),
+  spark =        c(TRUE, TRUE, FALSE),
   row.names =  c("classification", "regression", "unknown")
 )
 
