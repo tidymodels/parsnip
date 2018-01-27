@@ -177,7 +177,11 @@ formula_to_xy <- function(object, formula, data) {
   
   # Q: avoid eval using ?get_expr(data[["data"]])
   x <- stats::model.frame(formula, eval_tidy(data[["data"]]))
-  y <- model.response(x, "numeric")
+  y <- model.response(x)
+  outcome_cols <- attr(terms(x), "response")
+  if (!isTRUE(all.equal(outcome_cols, 0))) {
+    x <- x[,-outcome_cols, drop = FALSE]
+  }
   eval_tidy(object$method$fit)
 }
 
@@ -217,8 +221,6 @@ recipe_to_xy <- function(object, recipe, data) {
     y <- y[[1]]
   
   fit_expr <- object$method$fit
-  fit_expr$x <- quote(x)
-  fit_expr$y <- quote(y)
   eval_tidy(fit_expr)
 }
 
