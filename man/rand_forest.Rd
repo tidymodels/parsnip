@@ -28,8 +28,8 @@ the ensemble.}
 in a node that are required for the node to be split further.}
 
 \item{engine_args}{A named list of arguments to be used by the
-underlying models (e.g., \code{\link[ranger:ranger]{ranger::ranger()}},
-\code{\link[randomForest:randomForest]{randomForest::randomForest()}}, etc.). These are not evaluated
+underlying models (e.g., \code{ranger::ranger},
+\code{randomForest::randomForest}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
 }
@@ -66,7 +66,7 @@ following \emph{engines}:
 \examples{
 rand_forest(mode = "classification", trees = 2000)
 
-# Parameters can be reprresented by a placeholder:
+# Parameters can be represented by a placeholder:
 rand_forest(mode = "regression", mtry = varying())
 }
 \seealso{

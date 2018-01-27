@@ -40,7 +40,7 @@
 #' @examples 
 #' rand_forest(mode = "classification", trees = 2000)
 #' 
-#' # Parameters can be reprresented by a placeholder:
+#' # Parameters can be represented by a placeholder:
 #' rand_forest(mode = "regression", mtry = varying())
 
 rand_forest <- function (mode, ...)
@@ -52,8 +52,8 @@ rand_forest <- function (mode, ...)
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
 #' @param engine_args A named list of arguments to be used by the
-#'  underlying models (e.g., [ranger::ranger()],
-#'  [randomForest::randomForest()], etc.). These are not evaluated
+#'  underlying models (e.g., `ranger::ranger`,
+#'  `randomForest::randomForest`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
 #' @param mtry An integer for the number of predictors that will
@@ -130,7 +130,7 @@ print.rand_forest <- function(x, ...) {
 ## in the ellipses), when should the ellipses be removed? Maybe right
 ## before evaluation since `update` might be invoked to change those. 
 
-get_ranger_regression <- function () {
+rand_forest_ranger_regression <- function () {
   libs <- "ranger"
   interface <- "formula"
   protect = c("ranger", "formula", "data", "case.weights")
@@ -166,11 +166,11 @@ get_ranger_regression <- function () {
         status.variable.name = NULL,
         classification = NULL
       )
-  ) 
+    ) 
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_randomForest_regression <- function () {
+rand_forest_randomForest_regression <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
   protect = c("randomForest", "x", "y")
@@ -205,7 +205,7 @@ get_randomForest_regression <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_spark_regression <- function () {
+rand_forest_spark_regression <- function () {
   libs <- "sparklyr"
   interface <- "data.frame" # adjust this to something else
   protect = c("x", "formula", "label_col", "features_col")
@@ -236,7 +236,7 @@ get_spark_regression <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_ranger_classification <- function () {
+rand_forest_ranger_classification <- function () {
   libs <- "ranger"
   interface <- "formula"
   protect = c("ranger", "formula", "data", "case.weights")  
@@ -276,7 +276,7 @@ get_ranger_classification <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_randomForest_classification <- function () {
+rand_forest_randomForest_classification <- function () {
   libs <- "randomForest"
   interface <- "data.frame"
   protect = c("randomForest", "x", "y")
@@ -311,7 +311,7 @@ get_randomForest_classification <- function () {
   list(library = libs, interface = interface, fit = fit, protect = protect)
 }
 
-get_spark_regression <- function () {
+rand_forest_spark_regression <- function () {
   libs <- "sparklyr"
   interface <- "data.frame" # adjust this to something else
   protect = c("x", "formula", "label_col", "features_col")
@@ -396,7 +396,7 @@ finalize.rand_forest <- function(x, engine = NULL, ...) {
   if (length(x$others) > 0)
     x$method$fit <- sub_arg_values(x$method$fit, x$others, ignore = x$method$protect)
   
-  # remove NULL and unmodified argiment values
+  # remove NULL and unmodified argument values
   modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
   x$method$fit <- prune_expr(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
   x

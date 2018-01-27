@@ -3,6 +3,7 @@
 # - try/catch all model fit evaluations
 # - option to capture output/verboseness
 # - devise a unit test plan that does not add pkg deps for each model
+# - where/how to add data checks (e.g. factors for classification)
 
 
 #' Fit a Model Specification to a Dataset
