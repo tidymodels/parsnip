@@ -94,29 +94,7 @@ rand_forest.default <-
 #' @export
 print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
-  non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
-  if (length(non_null_args) > 0) {
-    cat("Main Arguments:\n")
-    non_null_args <- lapply(non_null_args, as.character)
-    non_null_args <- lapply(non_null_args, function(x)
-      paste0("  ", x[-1], "\n"))
-    anms <- names(non_null_args)
-    non_null_args <- paste(anms, unlist(non_null_args), sep = ": ")
-    cat(non_null_args, sep = "", "\n\n")
-  } 
-  if (length(x$others) > 0) {
-    cat("Engine-Specific Arguments:\n")
-    others <- lapply(x$others, function(x) paste(deparse(x), sep = "\n", collapse = "\n"))
-    others <- lapply(others, function(x)
-      paste0("  ", x, "\n"))
-    onms <- names(others)
-    others <- paste(onms, unlist(others), sep = ": ")
-    cat(others, sep = "", "\n\n")
-  }  
-  if(!is.null(x$engine)) {
-    cat("Computational engine:", x$engine, "\n\n")
-  }
-  
+  model_printer(x, ...)
   invisible(x)
 }
 
