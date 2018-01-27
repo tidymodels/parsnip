@@ -2,7 +2,7 @@
 # - think about case weights in each instance below
 # - try/catch all model fit evaluations
 # - option to capture output/verboseness
-
+# - devise a unit test plan that does not add pkg deps for each model
 
 
 #' Fit a Model Specification to a Dataset
@@ -12,6 +12,31 @@
 #'  routine.
 #' 
 #' @param object An object of class `model_spec`
+#' @param x Either an R formula, a data frame of predictors, or a
+#'  recipe object.
+#' @param engine A character string for the software that should
+#'  be used to fit the model. This is highly dependent on the type
+#'  of model (e.g. linear regression, random forest, etc.).
+#' @param ... Other options required to fit the model. If `x` is a
+#'  formula or recipe, then the `data` argument should be passed
+#'  here. For the "x/y" interface, the outcome data should be passed
+#'  in with the argument `y`.
+#' @details  `fit` substitutes the current arguments in the model
+#'  specification into the computational engine's code, checks them
+#'  for validity, then fits the model using the data and the
+#'  engine-specific code. Different model functions have different
+#'  interfaces (e.g. formula or `x`/`y`) and `fit` translates
+#'  between the interface used when `fit` was invoked and the one
+#'  required by the underlying model.
+#' 
+#' When possible, `fit` attempts to avoid making copies of the
+#'  data. For example, if the underlying model uses a formula and
+#'  fit is invoked with a formula, the original data are references
+#'  when the model is fit. However, if the underlying model uses
+#'  something else, such as `x`/`y`, the formula is evaluated and
+#'  the data are converted to the required format. In this case, any
+#'  calls in the resulting model objects reference the temporary
+#'  objects used to fit the model.
 #' @export
 #' @rdname fit 
 fit <- function (object, ...) 
@@ -19,25 +44,9 @@ fit <- function (object, ...)
 
 # The S3 part here is awful (for now I hope)
 
-#' @importFrom utils capture.output
-# fit_formula <- function(object, formula, data, verboseness = 0, engine = "ranger") {
-#   varying_param_check(object)
-# 
-#   # go between input methods
-# 
-#   # data checks based on method
-# 
-#   object <- finalize(object, engine = engine)
-#   if(verboseness == 0) {
-#     fit_obj <- eval(object$method$fit)
-#   } else {
-#     capture.output(fit_obj <- eval(object$method$fit))
-#   }
-#   fit_obj
-# }
-
-
+#' @return An object for the fitted model. 
 #' @export
+#' @rdname fit 
 fit.model_spec <- function(object, x, engine = object$engine, ...) {
   object$engine <- engine
   object <- check_engine(object)
@@ -68,7 +77,7 @@ fit.model_spec <- function(object, x, engine = object$engine, ...) {
 #' @importFrom stats as.formula
 fit_formula <- function(object, formula, engine = engine, ...) {
   opts <- quos(...)
-
+  
   if(!any(names(opts) == "data"))
     stop("Please pass a data frame with the `data` argument.",
          call. = FALSE)
@@ -76,13 +85,13 @@ fit_formula <- function(object, formula, engine = engine, ...) {
   # TODO Should probably just load the namespace
   for(pkg in object$method$library)
     suppressPackageStartupMessages(library(pkg, character.only = TRUE))
-
+  
   # Look up the model's interface (e.g. formula, recipes, etc) 
   # and delagate to the connector functions (`formula_to_recipe` etc)
   if(object$method$interface == "formula") {
     fit_expr <- sub_arg_values(object$method$fit, opts["data"])
     fit_expr$formula <- as.formula(eval(formula))
-    res <- rlang:::eval_tidy(fit_expr)
+    res <- eval_tidy(fit_expr)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
       res <- formula_to_xy(object = object, formula = formula, data = opts["data"])
@@ -96,8 +105,6 @@ fit_formula <- function(object, formula, engine = engine, ...) {
 }
 
 fit_xy <- function(object, x, ...) {
-  # Look up the model's interface (e.g. formula, recipes, etc) 
-  # and delagate to the connector functions (`xy_to_formula` etc)
   opts <- quos(...)
   
   if(!any(names(opts) == "y"))
@@ -109,13 +116,13 @@ fit_xy <- function(object, x, ...) {
     suppressPackageStartupMessages(library(pkg, character.only = TRUE))
   
   # Look up the model's interface (e.g. formula, recipes, etc) 
-  # and delagate to the connector functions (`xy_to_formula` etc)
+  # and delegate to the connector functions (`xy_to_formula` etc)
   if(object$method$interface == "formula") {
     res <- xy_to_formula(object = object, x = x, y = opts["y"])
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
       fit_expr <- sub_arg_values(object$method$fit, opts["y"])
-      res <- rlang:::eval_tidy(fit_expr)
+      res <- eval_tidy(fit_expr)
     } else {
       stop("I don't know about the ", 
            object$method$interface, " interface.",
@@ -126,8 +133,31 @@ fit_xy <- function(object, x, ...) {
 }
 
 fit_recipe <- function(object, recipe, ...) {
+  opts <- quos(...)
+  
+  if(!any(names(opts) == "data"))
+    stop("Please pass a data frame with the `data` argument.",
+         call. = FALSE)
+  
+  # TODO Should probably just load the namespace
+  for(pkg in object$method$library)
+    suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+  
   # Look up the model's interface (e.g. formula, recipes, etc) 
-  # and delagate to the connector functions (`recipe_to_formula` etc)
+  # and delegate to the connector functions (`recipe_to_formula` etc)
+  if(object$method$interface == "formula") {
+    res <- recipe_to_formula(object = object, recipe = recipe, data = opts["data"])
+  } else {
+    if(object$method$interface %in% c("data.frame", "matrix")) {
+      res <- recipe_to_xy(object = object, recipe = recipe, data = opts["data"])
+    } else {
+      stop("I don't know about the ", 
+           object$method$interface, " interface.",
+           call. = FALSE)
+    }
+  }
+  res   
+  
 }
 
 ###################################################################
@@ -139,12 +169,12 @@ formula_to_recipe <- function(object, formula, data) {
   
 }
 
-#' @importFrom  stats model.frame
+#' @importFrom  stats model.frame model.response
 formula_to_xy <- function(object, formula, data) {
   # TODO how do we fill in the other standard things here (subset, contrasts etc)?
   # TODO add a "matrix" option here and invoke model.matrix
   
-  # Q: avoid eval using ?rlang:::get_expr(data[["data"]])
+  # Q: avoid eval using ?get_expr(data[["data"]])
   x <- stats::model.frame(formula, eval_tidy(data[["data"]]))
   y <- model.response(x, "numeric")
   eval_tidy(object$method$fit)
@@ -152,12 +182,43 @@ formula_to_xy <- function(object, formula, data) {
 
 ###################################################################
 
+#' @importFrom recipes prep juice all_predictors all_outcomes
 recipe_to_formula <- function(object, recipe, data) {
-
+  # TODO case weights
+  recipe <-
+    prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
+  dat <- juice(recipe, all_predictors(), all_outcomes())
+  dat <- as.data.frame(dat)
+  
+  data_info <- summary(recipe)
+  y_names <- data_info$variable[data_info$role == "outcome"]
+  if (length(y_names) > 1)
+    y_names <-
+    paste0("cbind(", paste0(y_names, collapse = ","), ")")
+  
+  fit_expr <- object$method$fit
+  fit_expr$formula <- as.formula(paste0(y_names, "~."))
+  fit_expr$data <- quote(dat)
+  eval_tidy(fit_expr)
 }
 
 recipe_to_xy <- function(object, recipe, data) {
-
+  # TODO case weights
+  recipe <-
+    prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
+  
+  x <- juice(recipe, all_predictors())
+  x <- as.data.frame(x)
+  y <- juice(recipe, all_outcomes())
+  if (ncol(y) > 1)
+    y <- as.data.frame(y)
+  else
+    y <- y[[1]]
+  
+  fit_expr <- object$method$fit
+  fit_expr$x <- quote(x)
+  fit_expr$y <- quote(y)
+  eval_tidy(fit_expr)
 }
 
 ###################################################################
@@ -169,13 +230,9 @@ xy_to_formula <- function(object, x, y) {
   fit_expr <- object$method$fit
   fit_expr$formula <- as.formula(.y ~ .)
   fit_expr$data <- quote(x)
-  rlang:::eval_tidy(fit_expr)
+  eval_tidy(fit_expr)
 }
 
 xy_to_recipe <- function(object, x, y) {
   
 }
-
-
-
-

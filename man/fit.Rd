@@ -2,15 +2,51 @@
 % Please edit documentation in R/fit.R
 \name{fit}
 \alias{fit}
+\alias{fit.model_spec}
 \title{Fit a Model Specification to a Dataset}
 \usage{
 fit(object, ...)
+
+\method{fit}{model_spec}(object, x, engine = object$engine, ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
+
+\item{...}{Other options required to fit the model. If \code{x} is a
+formula or recipe, then the \code{data} argument should be passed
+here. For the "x/y" interface, the outcome data should be passed
+in with the argument \code{y}.}
+
+\item{x}{Either an R formula, a data frame of predictors, or a
+recipe object.}
+
+\item{engine}{A character string for the software that should
+be used to fit the model. This is highly dependent on the type
+of model (e.g. linear regression, random forest, etc.).}
+}
+\value{
+An object for the fitted model.
 }
 \description{
 \code{fit} will take a model specification, finalize the required
 code by substituting arguments, and execute the model fit
 routine.
+}
+\details{
+\code{fit} substitutes the current arguments in the model
+specification into the computational engine's code, checks them
+for validity, then fits the model using the data and the
+engine-specific code. Different model functions have different
+interfaces (e.g. formula or \code{x}/\code{y}) and \code{fit} translates
+between the interface used when \code{fit} was invoked and the one
+required by the underlying model.
+
+When possible, \code{fit} attempts to avoid making copies of the
+data. For example, if the underlying model uses a formula and
+fit is invoked with a formula, the original data are references
+when the model is fit. However, if the underlying model uses
+something else, such as \code{x}/\code{y}, the formula is evaluated and
+the data are converted to the required format. In this case, any
+calls in the resulting model objects reference the temporary
+objects used to fit the model.
 }
