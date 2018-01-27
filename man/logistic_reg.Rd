@@ -7,7 +7,7 @@
 \usage{
 logistic_reg(mode, ...)
 
-\method{logistic_reg}{default}(mode = "classification", link = NULL,
+\method{logistic_reg}{default}(mode = "classification",
   regularization = NULL, mixture = NULL, engine_args = list(), ...)
 }
 \arguments{
@@ -16,9 +16,6 @@ The only possible value for this model is "classification".}
 
 \item{...}{Used for S3 method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{engine_args} instead.}
-
-\item{link}{A character string for the link function. Possible
-values are "logit", "probit", "cauchit", "log" and "cloglog".}
 
 \item{regularization}{An non-negative number representing the
 total amount of regularization.}
@@ -40,7 +37,6 @@ before fitting and allows the model to be created using
 different packages in R, Stan, or via Spark. The main arguments for the
 model are:
 \itemize{
-\item \code{link}: The link function.
 \item \code{regularization}: The total amount of regularization
 in the model. Note that this must be zero for some engines.
 \item \code{mixture}: The proportion of L2 regularization in

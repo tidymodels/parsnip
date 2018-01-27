@@ -5,7 +5,6 @@
 #'  different packages in R, Stan, or via Spark. The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{link}: The link function.
 #'   \item \code{regularization}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines.
 #'   \item \code{mixture}: The proportion of L2 regularization in
@@ -51,8 +50,6 @@ logistic_reg <- function (mode, ...)
 #'  `rstanarm::stan_glm`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
-#' @param link A character string for the link function. Possible
-#'  values are "logit", "probit", "cauchit", "log" and "cloglog".
 #' @param regularization An non-negative number representing the
 #'  total amount of regularization.
 #' @param mixture A number between zero and one (inclusive) that
@@ -65,7 +62,6 @@ logistic_reg <- function (mode, ...)
 
 logistic_reg.default <-
   function(mode = "classification",
-           link = NULL,
            regularization = NULL,
            mixture = NULL,
            engine_args = list(),
@@ -79,7 +75,6 @@ logistic_reg.default <-
       )
     
     args <- list(
-      link = rlang::enquo(link),
       regularization = rlang::enquo(regularization),
       mixture = rlang::enquo(mixture)
     )
@@ -107,6 +102,7 @@ print.logistic_reg <- function(x, ...) {
 
 ###################################################################
 
+#' @importFrom rlang missing_arg
 logistic_reg_glm_classification <- function () {
   libs <- "stats"
   interface <- "formula"
@@ -114,10 +110,10 @@ logistic_reg_glm_classification <- function () {
   fit <- 
     quote(
       glm(
-        formula = missing_arg(),
+        formula = formula,
         family = binomial(),
-        data = missing_arg(),
-        weights = missing_arg(),
+        data = data,
+        weights = NULL,
         subset = missing_arg(),
         na.action = missing_arg(),
         start = NULL,
@@ -143,7 +139,7 @@ logistic_reg_glmnet_classification <- function () {
   fit <- 
     quote(
       glmnet(
-        x = x, 
+        x = as.matrix(x), 
         y = y, 
         family = "binomial", 
         weights = missing_arg(), 
@@ -213,10 +209,10 @@ logistic_reg_stan_glm_classification <- function () {
   fit <- 
     quote(
       stan_glm(
-        formula = missing_arg(),
+        formula = formula,
         family = binomial(),
-        data = missing_arg(),
-        weights = missing_arg(),
+        data = data,
+        weights = NULL,
         subset = missing_arg(),
         na.action = NULL,
         offset = NULL,
@@ -247,23 +243,24 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
   x <- check_engine(x)
   
   # exceptions and error trapping here
-  if(engine %in% c("glm", "stan_glm") & !is.null(x$args$regularization)) {
+  if(engine %in% c("glm", "stan_glm") & !null_value(x$args$regularization)) {
     warning("The argument `regularization` cannot be used with this engine. ",
             "The value will be set to NULL")
     x$args$regularization <- quos(NULL)
   }
-  if(engine %in% c("glm", "stan_glm") & !is.null(x$args$mixture)) {
+  if(engine %in% c("glm", "stan_glm") & !null_value(x$args$mixture)) {
     warning("The argument `mixture` cannot be used with this engine. ",
             "The value will be set to NULL")
     x$args$mixture <- quos(NULL)
   }
   
   x$method <- get_model_objects(x, x$engine)()
-  real_args <- deharmonize(x$args, logistic_reg_arg_key, x$engine)
-  
-  # replace default args with user-specified
-  x$method$fit <-
-    sub_arg_values(x$method$fit, real_args, ignore = x$method$protect)
+  if(!(engine %in% c("glm", "stan_glm"))) {
+    real_args <- deharmonize(x$args, logistic_reg_arg_key, x$engine)
+    # replace default args with user-specified
+    x$method$fit <-
+      sub_arg_values(x$method$fit, real_args, ignore = x$method$protect)
+  } 
   
   if (length(x$others) > 0) {
     protected <- names(x$others) %in% x$method$protect
@@ -281,7 +278,16 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
     x$method$fit <- sub_arg_values(x$method$fit, x$others, ignore = x$method$protect)
   
   # remove NULL and unmodified argument values
-  modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
+  modifed_args <- if (!(engine %in% c("glm", "stan_glm")))
+    names(real_args)[!vapply(real_args, null_value, lgl(1))]
+  else
+    NULL
+  modifed_args <- unique(c("family", modifed_args))
+
+  # glmnet can't handle NULL weights
+  if (engine == "glmnet" & identical(x$method$fit$weights, quote(missing_arg())))
+    x$method$protect <- x$method$protect[x$method$protect != "weights"]
+  
   x$method$fit <- prune_expr(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
   x
 }
@@ -291,14 +297,13 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
 #' @export
 update.logistic_reg <-
   function(object,
-           link = NULL, regularization = NULL, mixture = NULL,
+           regularization = NULL, mixture = NULL,
            engine_args = list(),
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
     
     args <- list(
-      link = rlang::enquo(link),
       regularization = rlang::enquo(regularization),
       mixture = rlang::enquo(mixture)
     )
@@ -327,12 +332,12 @@ update.logistic_reg <-
 ###################################################################
 
 logistic_reg_arg_key <- data.frame(
-  glm =      c("link",          NA,                  NA),
-  glmnet =   c(    NA,    "lambda",             "alpha"),
-  spark =    c(    NA, "reg_param", "elastic_net_param"),
-  stan_glm = c("link",          NA,                  NA),
+  glm =      c(        NA,                  NA),
+  glmnet =   c(   "lambda",             "alpha"),
+  spark =    c("reg_param", "elastic_net_param"),
+  stan_glm = c(        NA,                  NA),
   stringsAsFactors = FALSE,
-  row.names =  c("link", "regularization", "mixture")
+  row.names =  c("regularization", "mixture")
 )
 
 logistic_reg_modes <- "classification"
