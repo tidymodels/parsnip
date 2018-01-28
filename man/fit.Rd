@@ -7,7 +7,8 @@
 \usage{
 fit(object, ...)
 
-\method{fit}{model_spec}(object, x, engine = object$engine, ...)
+\method{fit}{model_spec}(object, x, engine = object$engine,
+  .control = list(verbosity = 1, catch = TRUE), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
@@ -23,6 +24,18 @@ recipe object.}
 \item{engine}{A character string for the software that should
 be used to fit the model. This is highly dependent on the type
 of model (e.g. linear regression, random forest, etc.).}
+
+\item{.control}{A named list with elements \code{verbosity} and
+\code{catch}. \code{verbosity} should be an integer where a value of zero
+indicates that no messages or output should be shown when
+packages are loaded or when the model is fit. A value of 1 means
+that package loading is quiet but model fits can produce output
+to the screen (depending on if they contain their own
+\code{verbose}-type argument). A value of 2 or more indicates that
+any output should be seen. \code{catch} is a logical where a value of
+\code{TRUE} will evaluate the model inside of \code{try(, silent = TRUE)}.
+If the model fails, an object is still returned (without an
+error) that inherits the class "try-error".}
 }
 \value{
 An object for the fitted model.

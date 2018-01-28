@@ -36,7 +36,7 @@
 #' logistic_reg()
 #' 
 #' # Parameters can be represented by a placeholder:
-#' logistic_reg(link = "probit", regularization = varying())
+#' logistic_reg(regularization = varying())
 
 logistic_reg <- function (mode, ...)
   UseMethod("logistic_reg")

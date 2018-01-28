@@ -65,7 +65,7 @@ following \emph{engines}:
 logistic_reg()
 
 # Parameters can be represented by a placeholder:
-logistic_reg(link = "probit", regularization = varying())
+logistic_reg(regularization = varying())
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

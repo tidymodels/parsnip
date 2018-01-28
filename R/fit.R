@@ -18,6 +18,17 @@
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).
+#' @param .control A named list with elements `verbosity` and
+#'  `catch`. `verbosity` should be an integer where a value of zero
+#'  indicates that no messages or output should be shown when
+#'  packages are loaded or when the model is fit. A value of 1 means
+#'  that package loading is quiet but model fits can produce output
+#'  to the screen (depending on if they contain their own
+#'  `verbose`-type argument). A value of 2 or more indicates that
+#'  any output should be seen. `catch` is a logical where a value of
+#'  `TRUE` will evaluate the model inside of `try(, silent = TRUE)`.
+#'  If the model fails, an object is still returned (without an
+#'  error) that inherits the class "try-error".
 #' @param ... Other options required to fit the model. If `x` is a
 #'  formula or recipe, then the `data` argument should be passed
 #'  here. For the "x/y" interface, the outcome data should be passed
@@ -48,22 +59,25 @@ fit <- function (object, ...)
 #' @return An object for the fitted model. 
 #' @export
 #' @rdname fit 
-fit.model_spec <- function(object, x, engine = object$engine, ...) {
+fit.model_spec <- function(object, x, engine = object$engine, 
+                           .control = list(verbosity = 1, catch = TRUE), 
+                           ...) {
   object$engine <- engine
   object <- check_engine(object)
+  .control <- check_control(.control)
   
   # sub in arguments to actual syntax for corresponding engine
   object <- finalize(object, engine = object$engine)
   check_installs(object)
   
   if (inherits(x, "formula")) {
-    res <- fit_formula(object, formula = x, ...)
+    res <- fit_formula(object, formula = x, .control = .control, ...)
   } else {
     if (inherits(x, c("matrix", "data.frame"))) {
-      res <- fit_xy(object, x = x, ...)
+      res <- fit_xy(object, x = x, .control = .control, ...)
     } else {
       if (inherits(x, "recipe")) {
-        res <- fit_recipe(object, recipe = x, ...)
+        res <- fit_recipe(object, recipe = x, .control = .control, ...)
       } else {
         stop("`x` should be a formula, data frame, matrix, or recipe")
       }
@@ -76,7 +90,7 @@ fit.model_spec <- function(object, x, engine = object$engine, ...) {
 
 #' @importFrom rlang eval_tidy quos 
 #' @importFrom stats as.formula
-fit_formula <- function(object, formula, engine = engine, ...) {
+fit_formula <- function(object, formula, engine = engine, .control, ...) {
   opts <- quos(...)
   
   if(!any(names(opts) == "data"))
@@ -84,18 +98,17 @@ fit_formula <- function(object, formula, engine = engine, ...) {
          call. = FALSE)
   
   # TODO Should probably just load the namespace
-  for(pkg in object$method$library)
-    suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+  load_libs(object, .control$verbosity < 2)
   
   # Look up the model's interface (e.g. formula, recipes, etc) 
   # and delagate to the connector functions (`formula_to_recipe` etc)
   if(object$method$interface == "formula") {
     fit_expr <- sub_arg_values(object$method$fit, opts["data"])
     fit_expr$formula <- as.formula(eval(formula))
-    res <- eval_tidy(fit_expr)
+    res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
-      res <- formula_to_xy(object = object, formula = formula, data = opts["data"])
+      res <- formula_to_xy(object = object, formula = formula, data = opts["data"], .control)
     } else {
       stop("I don't know about the ", 
            object$method$interface, " interface.",
@@ -105,7 +118,7 @@ fit_formula <- function(object, formula, engine = engine, ...) {
   res
 }
 
-fit_xy <- function(object, x, ...) {
+fit_xy <- function(object, x, .control, ...) {
   opts <- quos(...)
   
   if(!any(names(opts) == "y"))
@@ -113,17 +126,16 @@ fit_xy <- function(object, x, ...) {
          call. = FALSE)
   
   # TODO Should probably just load the namespace
-  for(pkg in object$method$library)
-    suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+  load_libs(object, .control$verbosity < 2)
   
   # Look up the model's interface (e.g. formula, recipes, etc) 
   # and delegate to the connector functions (`xy_to_formula` etc)
   if(object$method$interface == "formula") {
-    res <- xy_to_formula(object = object, x = x, y = opts["y"])
+    res <- xy_to_formula(object = object, x = x, y = opts["y"], .control)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
       fit_expr <- sub_arg_values(object$method$fit, opts["y"])
-      res <- eval_tidy(fit_expr)
+      res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
     } else {
       stop("I don't know about the ", 
            object$method$interface, " interface.",
@@ -133,7 +145,7 @@ fit_xy <- function(object, x, ...) {
   res  
 }
 
-fit_recipe <- function(object, recipe, ...) {
+fit_recipe <- function(object, recipe, .control, ...) {
   opts <- quos(...)
   
   if(!any(names(opts) == "data"))
@@ -141,16 +153,15 @@ fit_recipe <- function(object, recipe, ...) {
          call. = FALSE)
   
   # TODO Should probably just load the namespace
-  for(pkg in object$method$library)
-    suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+  load_libs(object, .control$verbosity < 2)
   
   # Look up the model's interface (e.g. formula, recipes, etc) 
   # and delegate to the connector functions (`recipe_to_formula` etc)
   if(object$method$interface == "formula") {
-    res <- recipe_to_formula(object = object, recipe = recipe, data = opts["data"])
+    res <- recipe_to_formula(object = object, recipe = recipe, data = opts["data"], .control)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
-      res <- recipe_to_xy(object = object, recipe = recipe, data = opts["data"])
+      res <- recipe_to_xy(object = object, recipe = recipe, data = opts["data"], .control)
     } else {
       stop("I don't know about the ", 
            object$method$interface, " interface.",
@@ -163,15 +174,15 @@ fit_recipe <- function(object, recipe, ...) {
 
 ###################################################################
 
-formula_to_recipe <- function(object, formula, data) {
+formula_to_recipe <- function(object, formula, data, .control) {
   # execute the formula
   # extract terms _and roles_
   # put into recipe
   
 }
 
-#' @importFrom  stats model.frame model.response
-formula_to_xy <- function(object, formula, data) {
+#' @importFrom  stats model.frame model.response terms
+formula_to_xy <- function(object, formula, data, .control) {
   # TODO how do we fill in the other standard things here (subset, contrasts etc)?
   # TODO add a "matrix" option here and invoke model.matrix
   
@@ -182,13 +193,13 @@ formula_to_xy <- function(object, formula, data) {
   if (!isTRUE(all.equal(outcome_cols, 0))) {
     x <- x[,-outcome_cols, drop = FALSE]
   }
-  eval_tidy(object$method$fit)
+  eval_mod(object$method$fit, capture = .control$verbosity == 0, catch = .control$catch)
 }
 
 ###################################################################
 
 #' @importFrom recipes prep juice all_predictors all_outcomes
-recipe_to_formula <- function(object, recipe, data) {
+recipe_to_formula <- function(object, recipe, data, .control) {
   # TODO case weights
   recipe <-
     prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
@@ -204,10 +215,10 @@ recipe_to_formula <- function(object, recipe, data) {
   fit_expr <- object$method$fit
   fit_expr$formula <- as.formula(paste0(y_names, "~."))
   fit_expr$data <- quote(dat)
-  eval_tidy(fit_expr)
+  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
 }
 
-recipe_to_xy <- function(object, recipe, data) {
+recipe_to_xy <- function(object, recipe, data, .control) {
   # TODO case weights
   recipe <-
     prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
@@ -221,12 +232,12 @@ recipe_to_xy <- function(object, recipe, data) {
     y <- y[[1]]
   
   fit_expr <- object$method$fit
-  eval_tidy(fit_expr)
+  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
 }
 
 ###################################################################
 
-xy_to_formula <- function(object, x, y) {
+xy_to_formula <- function(object, x, y, .control) {
   if(!is.data.frame(x))
     x <- as.data.frame(x)
   x$.y <- eval_tidy(y[["y"]])
@@ -236,6 +247,44 @@ xy_to_formula <- function(object, x, y) {
   eval_tidy(fit_expr)
 }
 
-xy_to_recipe <- function(object, x, y) {
+xy_to_recipe <- function(object, x, y, .control) {
   
+}
+
+###################################################################
+
+#' @importFrom utils capture.output
+eval_mod <- function(e, capture = FALSE, catch = FALSE) {
+  if (capture) {
+    if (catch) {
+      junk <- capture.output(res <- try(eval_tidy(e), silent = TRUE))
+    } else {
+      junk <- capture.output(res <- eval_tidy(e))
+    }
+  } else {
+    if (catch) {
+      res <- try(eval_tidy(e), silent = TRUE)
+    } else {
+      res <- eval_tidy(e)
+    }
+  }
+  res
+}
+
+###################################################################
+
+
+check_control <- function(x) {
+  if (!is.list(x))
+    stop(".control should be a named list.", call. = FALSE)
+  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
+    stop(".control should be a named list with elements 'verbosity' and 'catch'.",
+         call. = FALSE)
+  # based on ?is.integer
+  int_check <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
+  if (!int_check(x$verbosity))
+    stop("verbosity should be an integer.", call. = FALSE)
+  if (!is.logical(x$catch))
+    stop("catch should be a logical.", call. = FALSE)
+  x
 }
