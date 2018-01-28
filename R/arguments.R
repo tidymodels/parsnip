@@ -27,24 +27,28 @@ sub_arg_values <- function (expr, args, ignore = NULL)  {
   
   dot_ind <- dot_index(expr)
   
-  missing_args <- arg_names[!(arg_names %in% expr_names)]
-  
+  missing_arg_names <- arg_names[!(arg_names %in% expr_names)]
+
   # If any args not in expression list, see if there are ellipses
   # to put them into
-  if (length(missing_args) > 0) {
+  if (length(missing_arg_names) > 0) {
     if (dot_ind == 0) {
-      stop("Argument(s) not valid for `",
-           expr[[1]], "`: ", 
-           paste0(missing_args, collapse = ", "),
-           call. = FALSE)
-    } else {
-      expr[[dot_ind]] <- NULL
+      stop(
+        "Argument(s) not valid for `",
+        expr[[1]],
+        "`: ",
+        paste0(missing_arg_names, collapse = ", "),
+        call. = FALSE
+      )
     }
-  }
+    # Add args for ellipses at end of expression
+    for(i in missing_arg_names) {
+      expr[[i]] <- args[[i]]
+      args[[i]] <- NULL
+    }
+  } 
   
   arg_names <- names(args)
-  
-  # This doesn't work when arguments have no defaults (e.g. strata)
   
   # Replace argument values with user-specified values which could be
   # evaluated objects (i.e. constants like `TRUE`, `200`, etc), quosures, or calls. 
@@ -65,35 +69,16 @@ sub_arg_values <- function (expr, args, ignore = NULL)  {
       }
     }
   }
-  
-  # # remove dots if they are in call
-  # if(rm_ellipses) {
-  #   dot_ind <- dot_index(expr)
-  #   if(dot_ind != 0)
-  #     expr[[dot_ind]] <- NULL
-  # }
+
   expr
 }
 
-
+## assumes that ellipses have a value such as 
+## `... = missing_arg()``
 dot_index <- function(x) {
-  # There must be a better way
-  is_dots <- rep(na_lgl, length(x))
-  for(i in seq_along(x)) 
-    is_dots[i] <- is_dots(x[[i]])
-  dot_ind <- if (any(is_dots))
-    which(is_dots)
-  else
-    0
-  dot_ind
-}
-
-is_dots <- function(x) {
-  if(!inherits(x, "name")) {
-    res <- FALSE
-  } else {
-    res <- isTRUE(all.equal(x, quote(...)))
-  }
+  res <- which(names(x) == "...")
+  if(length(res) == 0)
+    res <- 0
   res
 }
 
