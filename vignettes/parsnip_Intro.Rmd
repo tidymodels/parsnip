@@ -32,7 +32,7 @@ Modeling functions across different R packages can have very different interface
 
 * `randomForest::randomForest` uses `ntree`,
 * `ranger::ranger` uses `num.trees`,  
-* Spark's `ml_random_forest` uses `num_trees`.
+* Spark's `sparklyr::ml_random_forest` uses `num_trees`.
 
 Rather than remembering these values, a common interface to these models can be used with
 
