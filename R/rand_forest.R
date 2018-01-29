@@ -104,10 +104,6 @@ print.rand_forest <- function(x, ...) {
 # will be used to create the specific model code given that a 
 # computation engine has been declared. 
 
-## Q: If/when extra arguments are added to the call (that would be put
-## in the ellipses), when should the ellipses be removed? Maybe right
-## before evaluation since `update` might be invoked to change those. 
-
 rand_forest_ranger_regression <- function () {
   libs <- "ranger"
   interface <- "formula"

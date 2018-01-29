@@ -8,7 +8,7 @@
 fit(object, ...)
 
 \method{fit}{model_spec}(object, x, engine = object$engine,
-  .control = list(verbosity = 1, catch = TRUE), ...)
+  .control = list(verbosity = 1, catch = FALSE), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}

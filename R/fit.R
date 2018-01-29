@@ -1,7 +1,5 @@
 # General TODOs
 # - think about case weights in each instance below
-# - try/catch all model fit evaluations
-# - option to capture output/verboseness
 # - devise a unit test plan that does not add pkg deps for each model
 # - where/how to add data checks (e.g. factors for classification)
 
@@ -60,7 +58,7 @@ fit <- function (object, ...)
 #' @export
 #' @rdname fit 
 fit.model_spec <- function(object, x, engine = object$engine, 
-                           .control = list(verbosity = 1, catch = TRUE), 
+                           .control = list(verbosity = 1, catch = FALSE), 
                            ...) {
   object$engine <- engine
   object <- check_engine(object)
@@ -88,7 +86,7 @@ fit.model_spec <- function(object, x, engine = object$engine,
 
 ###################################################################
 
-#' @importFrom rlang eval_tidy quos 
+#' @importFrom rlang eval_tidy quos get_env
 #' @importFrom stats as.formula
 fit_formula <- function(object, formula, engine = engine, .control, ...) {
   opts <- quos(...)
@@ -135,7 +133,7 @@ fit_xy <- function(object, x, .control, ...) {
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
       fit_expr <- sub_arg_values(object$method$fit, opts["y"])
-      res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
+      res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
     } else {
       stop("I don't know about the ", 
            object$method$interface, " interface.",
@@ -183,9 +181,8 @@ formula_to_recipe <- function(object, formula, data, .control) {
 
 #' @importFrom  stats model.frame model.response terms
 formula_to_xy <- function(object, formula, data, .control) {
-  # TODO how do we fill in the other standard things here (subset, contrasts etc)?
-  # TODO add a "matrix" option here and invoke model.matrix
-  
+  # Q: how do we fill in the other standard things here (subset, contrasts etc)?
+  # Q: add a "matrix" option here and invoke model.matrix
   # Q: avoid eval using ?get_expr(data[["data"]])
   x <- stats::model.frame(formula, eval_tidy(data[["data"]]))
   y <- model.response(x)
@@ -193,7 +190,7 @@ formula_to_xy <- function(object, formula, data, .control) {
   if (!isTRUE(all.equal(outcome_cols, 0))) {
     x <- x[,-outcome_cols, drop = FALSE]
   }
-  eval_mod(object$method$fit, capture = .control$verbosity == 0, catch = .control$catch)
+  eval_mod(object$method$fit, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
 }
 
 ###################################################################
@@ -215,7 +212,7 @@ recipe_to_formula <- function(object, recipe, data, .control) {
   fit_expr <- object$method$fit
   fit_expr$formula <- as.formula(paste0(y_names, "~."))
   fit_expr$data <- quote(dat)
-  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
+  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
 }
 
 recipe_to_xy <- function(object, recipe, data, .control) {
@@ -232,7 +229,7 @@ recipe_to_xy <- function(object, recipe, data, .control) {
     y <- y[[1]]
   
   fit_expr <- object$method$fit
-  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
+  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
 }
 
 ###################################################################
@@ -254,18 +251,18 @@ xy_to_recipe <- function(object, x, y, .control) {
 ###################################################################
 
 #' @importFrom utils capture.output
-eval_mod <- function(e, capture = FALSE, catch = FALSE) {
+eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
   if (capture) {
     if (catch) {
-      junk <- capture.output(res <- try(eval_tidy(e), silent = TRUE))
+      junk <- capture.output(res <- try(eval_tidy(e, ...), silent = TRUE))
     } else {
-      junk <- capture.output(res <- eval_tidy(e))
+      junk <- capture.output(res <- eval_tidy(e, ...))
     }
   } else {
     if (catch) {
-      res <- try(eval_tidy(e), silent = TRUE)
+      res <- try(eval_tidy(e, ...), silent = TRUE)
     } else {
-      res <- eval_tidy(e)
+      res <- eval_tidy(e, ...)
     }
   }
   res
