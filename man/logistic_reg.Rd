@@ -2,20 +2,14 @@
 % Please edit documentation in R/logistic_reg.R
 \name{logistic_reg}
 \alias{logistic_reg}
-\alias{logistic_reg.default}
 \title{General Interface for Logistic Regression Models}
 \usage{
-logistic_reg(mode, ...)
-
-\method{logistic_reg}{default}(mode = "classification",
-  regularization = NULL, mixture = NULL, engine_args = list(), ...)
+logistic_reg(mode = "classification", regularization = NULL,
+  mixture = NULL, engine_args = list(), ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
 
 \item{regularization}{An non-negative number representing the
 total amount of regularization.}
@@ -30,6 +24,9 @@ underlying models (e.g., \code{stats::glm},
 \code{rstanarm::stan_glm}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
+
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{engine_args} instead.}
 }
 \description{
 \code{logistic_reg} is a way to generate a \emph{specification} of a model

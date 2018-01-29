@@ -27,22 +27,6 @@
 #' \item \pkg{Stan}:  `"rstanarm"` 
 #' \item \pkg{Spark}: `"spark"`
 #' }
-#' @export
-#' @rdname logistic_reg
-#' @importFrom rlang expr enquo missing_arg
-#' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
-#' @examples 
-#' logistic_reg()
-#' 
-#' # Parameters can be represented by a placeholder:
-#' logistic_reg(regularization = varying())
-
-logistic_reg <- function (mode, ...)
-  UseMethod("logistic_reg")
-
-#' @rdname logistic_reg
-#' @export
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param engine_args A named list of arguments to be used by the
@@ -58,9 +42,17 @@ logistic_reg <- function (mode, ...)
 #'  (the lasso).
 #' @param ... Used for S3 method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `engine_args` instead.
+#' @seealso [varying()], [fit()]
+#' @examples 
+#' logistic_reg()
+#' 
+#' # Parameters can be represented by a placeholder:
+#' logistic_reg(regularization = varying())
+#' @export
 
-
-logistic_reg.default <-
+#' @importFrom rlang expr enquo missing_arg
+#' @importFrom purrr map_lgl
+logistic_reg <-
   function(mode = "classification",
            regularization = NULL,
            mixture = NULL,

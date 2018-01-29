@@ -26,28 +26,12 @@
 #'  to determine the _mode_ of the model. For `rand_forest`, the
 #'  possible modes are "regression" and "classification".
 #' 
-#'   The model can be created using the [fit()] function using the
+#' The model can be created using the [fit()] function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"ranger"` or `"randomForests"` 
 #' \item \pkg{Spark}: `"spark"`
 #' }
-#' @export
-#' @rdname rand_forest
-#' @importFrom rlang expr enquo missing_arg
-#' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
-#' @examples 
-#' rand_forest(mode = "classification", trees = 2000)
-#' 
-#' # Parameters can be represented by a placeholder:
-#' rand_forest(mode = "regression", mtry = varying())
-
-rand_forest <- function (mode, ...)
-  UseMethod("rand_forest")
-
-#' @rdname rand_forest
-#' @export
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -64,8 +48,17 @@ rand_forest <- function (mode, ...)
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `engine_args` instead.
+#' @importFrom rlang expr enquo missing_arg
+#' @importFrom purrr map_lgl
+#' @seealso [varying()], [fit()]
+#' @examples 
+#' rand_forest(mode = "classification", trees = 2000)
+#' 
+#' # Parameters can be represented by a placeholder:
+#' rand_forest(mode = "regression", mtry = varying())
+#' @export
 
-rand_forest.default <-
+rand_forest <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
            engine_args = list(), 

@@ -91,11 +91,8 @@ here (<code>NULL</code>), the values are taken from the underlying model
 functions.</p>
     
 
-    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='no'>mode</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>,
-  <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine_args</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine_args</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -104,11 +101,6 @@ functions.</p>
       <th>mode</th>
       <td><p>A single character string for the type of model.
 The only possible value for this model is "classification".</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use <code>engine_args</code> instead.</p></td>
     </tr>
     <tr>
       <th>regularization</th>
@@ -129,6 +121,11 @@ underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/s
 <code><a href='http://www.rdocumentation.org/packages/rstanarm/topics/stan_glm'>rstanarm::stan_glm</a></code>, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use <code>engine_args</code> instead.</p></td>
     </tr>
     </table>
     
@@ -154,7 +151,12 @@ following <em>engines</em>:</p><ul>
 #&gt; 
 #&gt; </div><div class='input'>
 <span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>logistic_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; <span class='error'>Error in varying(): This is a placeholder and should not be evaluated</span></div></pre>
+<span class='fu'>logistic_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt; regularization:   varying()
+#&gt; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

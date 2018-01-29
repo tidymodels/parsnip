@@ -2,21 +2,15 @@
 % Please edit documentation in R/rand_forest.R
 \name{rand_forest}
 \alias{rand_forest}
-\alias{rand_forest.default}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode, ...)
-
-\method{rand_forest}{default}(mode = "unknown", mtry = NULL, trees = NULL,
-  min_n = NULL, engine_args = list(), ...)
+rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL,
+  engine_args = list(), ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
 
 \item{mtry}{An integer for the number of predictors that will
 be randomly sampled at each split when creating the tree models.}
@@ -32,6 +26,9 @@ underlying models (e.g., \code{ranger::ranger},
 \code{randomForest::randomForest}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
+
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{engine_args} instead.}
 }
 \description{
 \code{rand_forest} is a way to generate a \emph{specification} of a model

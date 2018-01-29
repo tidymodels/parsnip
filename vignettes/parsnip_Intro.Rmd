@@ -74,7 +74,7 @@ Commonly used arguments to the modeling functions have their parameters exposed 
 The arguments to the default function are:
 
 ```{r rf-def}
-args(parsnip:::rand_forest.default)
+args(rand_forest)
 ```
 
 However, there might be other arguments that you would like to change or allow to vary. These are accessible using the `engine_args` option. This is a named list of arguments in the form of the underlying function being called. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
