@@ -12,6 +12,9 @@ reference:
     contents:
       - rand_forest
       - logistic_reg 
+  - title: Data
+    contents:
+     - lending_club      
 
 navbar:
   left:
