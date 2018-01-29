@@ -1,0 +1,171 @@
+---
+title: "parsnip Basics"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{parsnip Basics}
+output:
+  knitr:::html_vignette:
+    toc: yes
+---
+
+```{r ex_setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  digits = 3,
+  collapse = TRUE,
+  comment = "#>"
+  )
+options(digits = 3)
+library(parsnip)
+set.seed(368783)
+```
+
+
+This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources. It also contains a basic framework for model parameter tuning. 
+
+
+### Motivation
+
+Modeling functions across different R packages can have very different interfaces. If you would like to try different approaches, there is a lot of syntactical minutiae to remember. The problem worsens when you move in-between platforms (e.g. doing a logistic regression in R's `glm` verses Spark's implementation). 
+
+`parsnip` tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:
+
+* `randomForest::randomForest` uses `ntree`,
+* `ranger::ranger` uses `num.trees`,  
+* Spark's `ml_random_forest` uses `num_trees`.
+
+Rather than remembering these values, a common interface to these models can be used with
+
+```{r rf-ex}
+library(parsnip)
+rf_mod <- rand_forest(trees = 2000)
+``` 
+
+The package makes the translation between `trees` and the real names in each of the implementations. 
+
+Some terminology:
+
+* The **model type** differentiates models. Example types are: random forests, logistic regression, linear sup[port vector machines, etc. 
+* The **mode** of the model denotes how it will be used. Two common modes are _classification_ and _regression_. Others would include "censored regression" and "risk regression" (parametric and Cox PH models for censored data, respectively), as well as unsupervised models (e.g. "clustering"). 
+* The **computational engine** indicates how the actual model might be fit. These are often R packages (such as `randomForest` or `ranger`) but might also be methods outside of R (e.g. Stan, Spark, and others). 
+
+`parsnip`, similar to `ggplot2`, `dplyr` and `recipes`, separates the specification of what you want to do from the actual doing. This allows us to create broader functionality for modeling. 
+
+
+### Placeholders for Parameters
+
+There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for _model tuning_. Since the model is not executing when created, these types of parameters can be changed using the `varying()` function. This provides a simple placeholder for the value. 
+
+```{r rf-tune}
+tune_mtry <- rand_forest(trees = 2000, mtry = varying())
+tune_mtry
+```
+
+This will come in handy later when we fit the model over different values of `mtry`. 
+
+### Specifying Arguments
+
+Commonly used arguments to the modeling functions have their parameters exposed in the function. For example, `rand_forest` has arguments for:
+
+* `mtry`: The number of predictors that will be randomly sampled at each split when creating the tree models.
+* `trees`: The number of trees contained in the ensemble.
+* `min_n`: The minimum number of data points in a node that are required for the node to be split further.
+
+The arguments to the default function are:
+
+```{r rf-def}
+args(parsnip:::rand_forest.default)
+```
+
+However, there might be other arguments that you would like to change or allow to vary. These are accessible using the `engine_args` option. This is a named list of arguments in the form of the underlying function being called. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
+
+```{r rf-seed}
+rf_with_seed <- rand_forest(
+  trees = 2000, mtry = varying(), 
+  engine_args = list(seed = 63233), 
+  mode = "regression"
+)
+rf_with_seed
+```
+
+If the model function contains the ellipses (`...`), these additional arguments can be passed along using `engine_args`. 
+
+### Process
+
+To fit the model, you must:
+
+* define the model, including the _mode_,
+* have no `varying()` parameters, and
+* specify a computational engine. 
+
+The first step before fitting the model is to resolve the underlying model's syntax. A helper function called `finalize` does this:
+
+```{r rf-finalize}
+library(parsnip)
+rf_mod <- rand_forest(trees = 2000, mode = "regression")
+rf_mod
+
+finalize(rf_mod, engine = "ranger")
+finalize(rf_mod, engine = "randomForest")
+```
+
+Note that any extra engine-specific arguments have to be valid for the model:
+
+```{r rf-error, error = TRUE}
+finalize(rf_with_seed, engine = "ranger")
+finalize(rf_with_seed, engine = "randomForest")
+```
+
+`finalize` shouldn't need to be used unless you are really curious about the model fit function or what R packages are needed to fit the model. The function in the next section will always finalize the model. 
+
+
+## Fitting the Model
+
+These models can be fit using the `fit` function. Only the model object is returned. 
+
+```r
+fit(rf_mod, mpg ~ ., data = mtcars, engine = "ranger")
+```
+
+```
+## Ranger result
+## 
+## Call:
+##  ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000, case.weights = NULL) 
+## 
+## Type:                             Regression 
+## Number of trees:                  2000 
+## Sample size:                      32 
+## Number of independent variables:  10 
+## Mtry:                             3 
+## Target node size:                 5 
+## Variable importance mode:         none 
+## OOB prediction error (MSE):       5.710382 
+## R squared (OOB):                  0.8427936
+```
+
+```r
+fit(rf_mod, mpg ~ ., data = mtcars, engine = "randomForest")
+```
+
+```
+## 
+## Call:
+##  randomForest(x = x, y = y, ntree = 2000) 
+##                Type of random forest: regression
+##                      Number of trees: 2000
+## No. of variables tried at each split: 3
+## 
+##           Mean of squared residuals: 5.746345
+##                     % Var explained: 83.67
+```
+
+
+## Examples
+
+In an effort the keep the number of package dependencies low, all working examples of `parsnip` can be found in separate pages: 
+
+* logistic regression
+
+
+

@@ -1,0 +1,22 @@
+template:
+  params:
+    bootswatch: united
+
+reference:
+  - title: Infrastructure
+    contents:
+      - finalize
+      - fit
+      - varying
+  - title: Models
+    contents:
+      - rand_forest
+      - logistic_reg 
+
+navbar:
+  left:
+  - text: Basic Usage 
+    href: articles/parsnip_Intro.html   
+  - text: Reference
+    href: reference/index.html
+
