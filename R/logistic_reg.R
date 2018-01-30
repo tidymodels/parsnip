@@ -49,7 +49,6 @@
 #' # Parameters can be represented by a placeholder:
 #' logistic_reg(regularization = varying())
 #' @export
-
 #' @importFrom rlang expr enquo missing_arg
 #' @importFrom purrr map_lgl
 logistic_reg <-
@@ -235,19 +234,19 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
   x <- check_engine(x)
   
   # exceptions and error trapping here
-  if(engine %in% c("glm", "stan_glm") & !null_value(x$args$regularization)) {
+  if(x$engine %in% c("glm", "stan_glm") & !null_value(x$args$regularization)) {
     warning("The argument `regularization` cannot be used with this engine. ",
             "The value will be set to NULL")
     x$args$regularization <- quos(NULL)
   }
-  if(engine %in% c("glm", "stan_glm") & !null_value(x$args$mixture)) {
+  if(x$engine %in% c("glm", "stan_glm") & !null_value(x$args$mixture)) {
     warning("The argument `mixture` cannot be used with this engine. ",
             "The value will be set to NULL")
     x$args$mixture <- quos(NULL)
   }
   
   x$method <- get_model_objects(x, x$engine)()
-  if(!(engine %in% c("glm", "stan_glm"))) {
+  if(!(x$engine %in% c("glm", "stan_glm"))) {
     real_args <- deharmonize(x$args, logistic_reg_arg_key, x$engine)
     # replace default args with user-specified
     x$method$fit <-
@@ -270,14 +269,14 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
     x$method$fit <- sub_arg_values(x$method$fit, x$others, ignore = x$method$protect)
   
   # remove NULL and unmodified argument values
-  modifed_args <- if (!(engine %in% c("glm", "stan_glm")))
+  modifed_args <- if (!(x$engine %in% c("glm", "stan_glm")))
     names(real_args)[!vapply(real_args, null_value, lgl(1))]
   else
     NULL
   modifed_args <- unique(c("family", modifed_args))
 
   # glmnet can't handle NULL weights
-  if (engine == "glmnet" & identical(x$method$fit$weights, quote(missing_arg())))
+  if (x$engine == "glmnet" & identical(x$method$fit$weights, quote(missing_arg())))
     x$method$protect <- x$method$protect[x$method$protect != "weights"]
   
   x$method$fit <- prune_expr(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
