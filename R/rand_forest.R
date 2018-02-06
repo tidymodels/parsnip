@@ -371,7 +371,24 @@ finalize.rand_forest <- function(x, engine = NULL, ...) {
 
 ###################################################################
 
+#' Update a Random Forest Specification
+#' 
+#' If parameters need to be modified, this function can be used
+#'  in lieu of recreating the object from scratch. 
+#'  
 #' @export
+#' @inheritParams rand_forest
+#' @param object A random forest model specification. 
+#' @param fresh A logical for whether the arguments should be
+#'  modifed in-place of or replaced wholesale. 
+#' @return An updated model specification.
+#' @examples 
+#' model <- rand_forest(mtry = 10, min_n = 3)
+#' model
+#' 
+#' update(model, mtry = 1)
+#' 
+#' update(model, mtry = 1, fresh = TRUE)
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,

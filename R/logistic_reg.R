@@ -285,7 +285,24 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
 
 ###################################################################
 
+#' Update a Logistic Regression Specification
+#' 
+#' If parameters need to be modified, this function can be used
+#'  in lieu of recreating the object from scratch. 
+#'  
 #' @export
+#' @inheritParams logistic_reg
+#' @param object A logistic reression model specification. 
+#' @param fresh A logical for whether the arguments should be
+#'  modifed in-place of or replaced wholesale. 
+#' @return An updated model specification.
+#' @examples 
+#' model <- logistic_reg(regularization = 10, mixture = 0.1)
+#' model
+#' 
+#' update(model, regularization = 1)
+#' 
+#' update(model, regularization = 1, fresh = TRUE)
 update.logistic_reg <-
   function(object,
            regularization = NULL, mixture = NULL,
