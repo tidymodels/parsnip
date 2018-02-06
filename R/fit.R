@@ -1,7 +1,6 @@
 # General TODOs
-# - think about case weights in each instance below
-# - devise a unit test plan that does not add pkg deps for each model
-# - where/how to add data checks (e.g. factors for classification)
+# Q: think about case weights in each instance below
+# Q: where/how to add data checks (e.g. factors for classification)
 
 
 #' Fit a Model Specification to a Dataset

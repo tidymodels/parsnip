@@ -1,16 +1,4 @@
 
-# make S3 with methods for vector, matrix, and recipe
-guess_mode <- function(y) {
-  if (inherits(y, c("character", "factor"))) {
-    res <- "classification"
-  } else if (inherits(y, "numeric")) {
-    res <- "regression"
-  } else if (inherits(y, "Surv")) {
-    res <- "risk regression"
-  } else res <- "unknown"
-  res
-}
-
 # Q: make classes for mode too? 
 make_classes <- function(prefix, mode) {
   cls <- c(paste(prefix, mode, sep = "."), prefix)
@@ -41,7 +29,11 @@ model_printer <- function(x, ...) {
   } 
   if (length(x$others) > 0) {
     cat("Engine-Specific Arguments:\n")
-    others <- lapply(x$others, function(x) paste(deparse(x), sep = "\n", collapse = "\n"))
+    others <- lapply(x$others,
+                     function(x)
+                       paste(deparse(x),
+                             sep = "\n",
+                             collapse = "\n"))
     others <- lapply(others, function(x)
       paste0("  ", x, "\n"))
     onms <- names(others)

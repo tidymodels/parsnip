@@ -1,12 +1,9 @@
 #' @importFrom rlang eval_tidy is_quosure na_lgl lgl is_missing ll
 
-
-# `sub_arg_values`` takes an existing expression and substitutes 
+# `sub_arg_values` takes an existing expression and substitutes 
 # different argument values that are passed to it. `ignore` is 
 # an optional list of arguments that will not have their arguments 
 # substituted. 
-
-## TODO: test this with something containing ... in definition
 
 sub_arg_values <- function (expr, args, ignore = NULL)  {
   arg_names <- names(args)
