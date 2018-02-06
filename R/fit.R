@@ -179,6 +179,10 @@ formula_to_recipe <- function(object, formula, data, .control) {
   
 }
 
+# TODO find a hook for whether to make dummies or not. Test cases
+# are all numeric. Solve via the fit the method object via entry for
+# `requires_dummies`
+
 #' @importFrom  stats model.frame model.response terms
 formula_to_xy <- function(object, formula, data, .control) {
   # Q: how do we fill in the other standard things here (subset, contrasts etc)?
