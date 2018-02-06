@@ -290,7 +290,6 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
 #' If parameters need to be modified, this function can be used
 #'  in lieu of recreating the object from scratch. 
 #'  
-#' @export
 #' @inheritParams logistic_reg
 #' @param object A logistic reression model specification. 
 #' @param fresh A logical for whether the arguments should be
@@ -303,6 +302,8 @@ finalize.logistic_reg <- function(x, engine = NULL, ...) {
 #' update(model, regularization = 1)
 #' 
 #' update(model, regularization = 1, fresh = TRUE)
+#' @method update logistic_reg
+#' @export
 update.logistic_reg <-
   function(object,
            regularization = NULL, mixture = NULL,

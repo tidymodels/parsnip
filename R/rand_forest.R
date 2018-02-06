@@ -389,6 +389,8 @@ finalize.rand_forest <- function(x, engine = NULL, ...) {
 #' update(model, mtry = 1)
 #' 
 #' update(model, mtry = 1, fresh = TRUE)
+#' @method update rand_forest
+#' @export
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
