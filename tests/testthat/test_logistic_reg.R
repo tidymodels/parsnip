@@ -1,6 +1,6 @@
 library(testthat)
 library(parsnip)
-
+library(recipes)
 
 test_that('primary arguments', {
   basic <- logistic_reg()
@@ -23,7 +23,7 @@ test_that('primary arguments', {
                    x = as.matrix(x), 
                    y = y, 
                    family = "binomial"
-                   )
+                 )
                )
   )    
   expect_equal(basic_stan$method$fit,
@@ -62,7 +62,7 @@ test_that('primary arguments', {
                  )
                )
   )    
-
+  
   mixture_v <- logistic_reg(mixture = varying())
   mixture_v_glmnet <- finalize(mixture_v, engine = "glmnet")
   expect_equal(mixture_v_glmnet$method$fit,
@@ -116,7 +116,7 @@ test_that('engine arguments', {
                  )
                )
   ) 
-
+  
 })
 
 
@@ -155,4 +155,254 @@ test_that('bad input', {
   expect_warning(finalize(logistic_reg(engine_args = list(formula = y ~ x)), engine = "glm"))
 })
 
+###################################################################
+
+data("lending_club")
+lending_club <- head(lending_club, 200)
+lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
+num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
+lc_bad_form <- as.formula(funded_amnt ~ term)
+lc_basic <- logistic_reg()
+ctrl <- list(verbosity = 1, catch = FALSE)
+caught_ctrl <- list(verbosity = 1, catch = TRUE)
+quiet_ctrl <- list(verbosity = 0, catch = TRUE)
+lc_rec <- recipe(Class ~ funded_amnt + annual_inc + num_il_tl,
+                 data = lending_club)
+bad_rec <-
+  recipe(total_bal_il ~ funded_amnt + annual_inc + num_il_tl,
+         data = lending_club)
+
+
+test_that('glm execution', {
+  skip_on_cran()
+  
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "glm",
+      .control = ctrl,
+      lc_form,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "glm",
+      .control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "glm",
+      .control = ctrl,
+      lc_rec,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "glm",
+      .control = ctrl,
+      lc_bad_form,
+      data = lending_club
+    )
+  )
+  
+  glm_form_catch <- fit(
+    lc_basic,
+    engine = "glm",
+    .control = caught_ctrl,
+    lc_bad_form,
+    data = lending_club
+  )
+  expect_true(inherits(glm_form_catch, "try-error")) 
+  
+  # fails
+  # glm_xy_catch <- fit(
+  #   lc_basic,
+  #   engine = "glm",
+  #   .control = caught_ctrl,
+  #   x = lending_club[, num_pred],
+  #   y = lending_club$total_bal_il
+  # )
+  # expect_true(inherits(glm_xy_catch, "try-error")) 
+  
+  glm_rec_catch <- fit(
+    lc_basic,
+    engine = "glm",
+    .control = caught_ctrl,
+    bad_rec,
+    data = lending_club
+  )
+  expect_true(inherits(glm_rec_catch, "try-error"))    
+})
+
+test_that('glmnet execution', {
+  skip_on_cran()
+  
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "glmnet",
+      .control = ctrl,
+      lc_form,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  # expect_error(
+  #   fit(
+  #     lc_basic,
+  #     engine = "glmnet",
+  #     .control = ctrl,
+  #     x = lending_club[, num_pred],
+  #     y = lending_club$Class
+  #   ),
+  #   regexp = NA
+  # )
+  
+  # expect_error(
+  #   fit(
+  #     lc_basic,
+  #     engine = "glmnet",
+  #     .control = ctrl,
+  #     lc_rec,
+  #     data = lending_club
+  #   ),
+  #   regexp = NA
+  # )
+  
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "glm",
+      .control = ctrl,
+      lc_bad_form,
+      data = lending_club
+    )
+  )
+  
+  glmnet_form_catch <- fit(
+    lc_basic,
+    engine = "glmnet",
+    .control = caught_ctrl,
+    lc_bad_form,
+    data = lending_club
+  )
+  expect_true(inherits(glmnet_form_catch, "try-error")) 
+  
+  glmnet_xy_catch <- fit(
+    lc_basic,
+    engine = "glmnet",
+    .control = caught_ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$total_bal_il
+  )
+  expect_true(inherits(glmnet_xy_catch, "try-error"))
+  
+  glmnet_rec_catch <- fit(
+    lc_basic,
+    engine = "glmnet",
+    .control = caught_ctrl,
+    bad_rec,
+    data = lending_club
+  )
+  expect_true(inherits(glmnet_rec_catch, "try-error"))    
+})
+
+
+test_that('stan_glm execution', {
+  skip_on_cran()
+  lc_basic_stan <- logistic_reg(engine_args = list(seed = 1333))
+  
+  expect_error(
+    res <- fit(
+      lc_basic_stan,
+      engine = "stan_glm",
+      .control = ctrl,
+      lc_form,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "stan_glm",
+      .control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "stan_glm",
+      .control = ctrl,
+      lc_rec,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  expect_silent(
+    res <- fit(
+      lc_basic,
+      engine = "stan_glm",
+      .control = quiet_ctrl,
+      lc_rec,
+      data = lending_club
+    )
+  )     
+  
+  expect_error(
+    res <- fit(
+      lc_basic,
+      engine = "stan_glm",
+      .control = ctrl,
+      lc_bad_form,
+      data = lending_club
+    )
+  )
+  
+  stan_form_catch <- fit(
+    lc_basic,
+    engine = "stan_glm",
+    .control = caught_ctrl,
+    lc_bad_form,
+    data = lending_club
+  )
+  expect_true(inherits(stan_form_catch, "try-error")) 
+  
+  # fails
+  # stan_xy_catch <- fit(
+  #   lc_basic,
+  #   engine = "stan_glm",
+  #   .control = caught_ctrl,
+  #   x = lending_club[, num_pred],
+  #   y = lending_club$total_bal_il
+  # )
+  # expect_true(inherits(stan_xy_catch, "try-error"))
+  
+  stan_rec_catch <- fit(
+    lc_basic,
+    engine = "stan_glm",
+    .control = caught_ctrl,
+    bad_rec,
+    data = lending_club
+  )
+  expect_true(inherits(stan_rec_catch, "try-error"))     
+})
 

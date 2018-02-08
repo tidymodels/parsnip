@@ -1,7 +1,6 @@
 library(testthat)
 library(parsnip)
 
-
 test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
   mtry_ranger <- finalize(mtry, engine = "ranger")
@@ -202,10 +201,10 @@ test_that('updating', {
   
   expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = varying())
   expr3_exp <- rand_forest(mode = "regression", mtry = 2)
-
+  
   expr4     <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = FALSE, sampsize = varying()))
   expr4_exp <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = TRUE, sampsize = varying()))
-
+  
   expr5     <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = FALSE))
   expr5_exp <- rand_forest(mode = "regression", mtry = 2, engine_args = list(norm.votes = TRUE, sampsize = varying()))
   
@@ -214,7 +213,7 @@ test_that('updating', {
   expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)  
   expect_equal(update(expr4, engine_args = list(norm.votes = TRUE)), expr4_exp)
   expect_equal(update(expr5, engine_args = list(norm.votes = TRUE, sampsize = varying())), expr5_exp)
-
+  
 })
 
 test_that('bad input', {
@@ -228,4 +227,326 @@ test_that('bad input', {
   expect_warning(finalize(rand_forest(mode = "regression", engine_args = list(formula = y ~ x))))
 })
 
+
+###################################################################
+
+data("lending_club")
+lending_club <- head(lending_club, 200)
+lc_form <- as.formula(Class ~ funded_amnt + term)
+num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
+lc_bad_form <- as.formula(funded_amnt ~ term)
+
+lc_basic <- rand_forest(mode = "classification")
+lc_ranger <- rand_forest(mode = "classification", engine_args = list(seed = 144))
+
+
+bad_ranger_cls <- rand_forest(mode = "classification", 
+                              engine_args = list(min.node.size = -10))
+bad_rf_cls <- rand_forest(mode = "classification", 
+                          engine_args = list(sampsize = -10))
+
+ctrl <- list(verbosity = 1, catch = FALSE)
+caught_ctrl <- list(verbosity = 1, catch = TRUE)
+quiet_ctrl <- list(verbosity = 0, catch = TRUE)
+
+lc_rec <- recipe(Class ~ funded_amnt + annual_inc+ num_il_tl, 
+                 data = lending_club)
+bad_lc_rec <- recipe(total_bal_il ~ funded_amnt + annual_inc+ num_il_tl, 
+                     data = lending_club)
+
+
+test_that('ranger execution', {
+  skip_on_cran()
+  
+  expect_error(
+    res <- fit(
+      lc_ranger,
+      engine = "ranger",
+      .control = ctrl,
+      lc_form,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      lc_ranger,
+      engine = "ranger",
+      .control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      lc_ranger,
+      engine = "ranger",
+      .control = ctrl,
+      lc_rec,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    res <- fit(
+      bad_ranger_cls,
+      engine = "ranger",
+      .control = ctrl,
+      lc_bad_form,
+      data = lending_club
+    )
+  )
+  
+  ranger_form_catch <- fit(
+    bad_ranger_cls,
+    engine = "ranger",
+    .control = caught_ctrl,
+    lc_bad_form,
+    data = lending_club
+  )
+  expect_true(inherits(ranger_form_catch, "try-error")) 
+  
+  # fails
+  # ranger_xy_catch <- fit(
+  #   bad_ranger_cls,
+  #   engine = "ranger",
+  #   .control = caught_ctrl,
+  #   x = lending_club[, num_pred],
+  #   y = lending_club$total_bal_il
+  # )
+  # expect_true(inherits(ranger_xy_catch, "try-error"))
+  
+  ranger_rec_catch <- fit(
+    bad_ranger_cls,
+    engine = "ranger",
+    .control = caught_ctrl,
+    bad_lc_rec,
+    data = lending_club
+  )
+  expect_true(inherits(ranger_rec_catch, "try-error"))    
+})
+
+test_that('randomForest execution', {
+  skip_on_cran()
+  
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      lc_form,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      lc_rec,
+      data = lending_club
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    fit(
+      bad_rf_cls,
+      engine = "randomForest",
+      .control = ctrl,
+      lc_bad_form,
+      data = lending_club
+    )
+  )
+  
+  randomForest_form_catch <- fit(
+    bad_rf_cls,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    lc_bad_form,
+    data = lending_club
+  )
+  expect_true(inherits(randomForest_form_catch, "try-error")) 
+  
+  randomForest_xy_catch <- fit(
+    bad_rf_cls,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$total_bal_il
+  )
+  expect_true(inherits(randomForest_xy_catch, "try-error"))
+  
+  randomForest_rec_catch <- fit(
+    bad_rf_cls,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    bad_lc_rec,
+    data = lending_club
+  )
+  expect_true(inherits(randomForest_rec_catch, "try-error"))    
+})
+
+
+###################################################################
+
+car_form <- as.formula(mpg ~ .)
+num_pred <- names(mtcars)[3:6]
+
+car_basic <- rand_forest(mode = "regression")
+
+bad_ranger_reg <- rand_forest(mode = "regression", 
+                              engine_args = list(min.node.size = -10))
+bad_rf_reg <- rand_forest(mode = "regression", 
+                          engine_args = list(sampsize = -10))
+
+ctrl <- list(verbosity = 1, catch = FALSE)
+caught_ctrl <- list(verbosity = 1, catch = TRUE)
+quiet_ctrl <- list(verbosity = 0, catch = TRUE)
+
+car_rec <- recipe(mpg ~ ., data = mtcars)
+
+
+
+test_that('ranger execution', {
+  skip_on_cran()
+  
+  expect_error(
+    res <- fit(
+      car_basic,
+      engine = "ranger",
+      .control = ctrl,
+      car_form,
+      data = mtcars
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      car_basic,
+      engine = "ranger",
+      .control = ctrl,
+      x = mtcars[, num_pred],
+      y = mtcars$mpg
+    ),
+    regexp = NA
+  )
+  expect_error(
+    res <- fit(
+      car_basic,
+      engine = "ranger",
+      .control = ctrl,
+      car_rec,
+      data = mtcars
+    ),
+    regexp = NA
+  )
+  
+  ranger_form_catch <- fit(
+    bad_ranger_reg,
+    engine = "ranger",
+    .control = caught_ctrl,
+    car_form,
+    data = mtcars
+  )
+  expect_true(inherits(ranger_form_catch, "try-error")) 
+  
+  # fails
+  # ranger_xy_catch <- fit(
+  #   bad_ranger_reg,
+  #   engine = "ranger",
+  #   .control = caught_ctrl,
+  #   x = mtcars[, num_pred],
+  #   y = mtcars$total_bal_il
+  # )
+  # expect_true(inherits(ranger_xy_catch, "try-error"))
+  
+  ranger_rec_catch <- fit(
+    bad_ranger_reg,
+    engine = "ranger",
+    .control = caught_ctrl,
+    car_form,
+    data = mtcars
+  )
+  expect_true(inherits(ranger_rec_catch, "try-error"))    
+})
+
+test_that('randomForest execution', {
+  skip_on_cran()
+  
+  expect_error(
+    fit(
+      car_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      car_form,
+      data = mtcars
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    fit(
+      car_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      x = mtcars[, num_pred],
+      y = mtcars$mpg
+    ),
+    regexp = NA
+  )
+  
+  expect_error(
+    fit(
+      car_basic,
+      engine = "randomForest",
+      .control = ctrl,
+      car_rec,
+      data = mtcars
+    ),
+    regexp = NA
+  )
+  
+  randomForest_form_catch <- fit(
+    bad_rf_reg,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    car_form,
+    data = mtcars
+  )
+  expect_true(inherits(randomForest_form_catch, "try-error")) 
+  
+  randomForest_xy_catch <- fit(
+    bad_rf_reg,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    x = mtcars[, num_pred],
+    y = mtcars$total_bal_il
+  )
+  expect_true(inherits(randomForest_xy_catch, "try-error"))
+  
+  randomForest_rec_catch <- fit(
+    bad_rf_reg,
+    engine = "randomForest",
+    .control = caught_ctrl,
+    car_rec,
+    data = mtcars
+  )
+  expect_true(inherits(randomForest_rec_catch, "try-error"))    
+})
 
