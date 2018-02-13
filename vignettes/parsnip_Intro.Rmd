@@ -82,7 +82,7 @@ However, there might be other arguments that you would like to change or allow t
 ```{r rf-seed}
 rf_with_seed <- rand_forest(
   trees = 2000, mtry = varying(), 
-  engine_args = list(seed = 63233), 
+  others = list(seed = 63233), 
   mode = "regression"
 )
 rf_with_seed

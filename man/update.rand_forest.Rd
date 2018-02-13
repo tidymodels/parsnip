@@ -5,7 +5,7 @@
 \title{Update a Random Forest Specification}
 \usage{
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
-  min_n = NULL, engine_args = list(), fresh = FALSE, ...)
+  min_n = NULL, others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{object}{A random forest model specification.}
@@ -19,7 +19,7 @@ the ensemble.}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{engine_args}{A named list of arguments to be used by the
+\item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{ranger::ranger},
 \code{randomForest::randomForest}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
@@ -29,7 +29,7 @@ fit expression.}
 modifed in-place of or replaced wholesale.}
 
 \item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
+the ellipses will result in an error. Use \code{others} instead.}
 }
 \value{
 An updated model specification.

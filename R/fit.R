@@ -85,7 +85,7 @@ fit.model_spec <- function(object, x, engine = object$engine,
 
 ###################################################################
 
-#' @importFrom rlang eval_tidy quos get_env
+#' @importFrom rlang eval_tidy quos get_env get_expr
 #' @importFrom stats as.formula
 fit_formula <- function(object, formula, engine = engine, .control, ...) {
   opts <- quos(...)
@@ -100,8 +100,9 @@ fit_formula <- function(object, formula, engine = engine, .control, ...) {
   # Look up the model's interface (e.g. formula, recipes, etc) 
   # and delagate to the connector functions (`formula_to_recipe` etc)
   if(object$method$interface == "formula") {
-    fit_expr <- sub_arg_values(object$method$fit, opts["data"])
-    fit_expr$formula <- as.formula(eval(formula))
+    fit_expr <- object$method$fit_call
+    fit_expr[["data"]] <- rlang::get_expr(opts$data)
+    fit_expr$formula <- rlang::get_expr(formula)
     res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
@@ -131,7 +132,13 @@ fit_xy <- function(object, x, .control, ...) {
     res <- xy_to_formula(object = object, x = x, y = opts["y"], .control)
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
-      fit_expr <- sub_arg_values(object$method$fit, opts["y"])
+      fit_expr <- object$method$fit_call
+      
+      if(is_missing_arg(fit_expr[["x"]]))
+        fit_expr[["x"]] <- quote(x)
+      if(is_missing_arg(fit_expr[["y"]]))
+        fit_expr[["y"]] <- rlang::get_expr(opts$y) 
+
       res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
     } else {
       stop("I don't know about the ", 
@@ -189,11 +196,24 @@ formula_to_xy <- function(object, formula, data, .control) {
   # Q: avoid eval using ?get_expr(data[["data"]])
   x <- stats::model.frame(formula, eval_tidy(data[["data"]]))
   y <- model.response(x)
+  
+  if(is_missing_arg(object$method$fit_call[["x"]]))
+    object$method$fit_call[["x"]] <- quote(x)
+  if(is_missing_arg(object$method$fit_call[["y"]]))
+    object$method$fit_call[["y"]] <- quote(y)
+  
+  # Remove outcome column from `x`
   outcome_cols <- attr(terms(x), "response")
   if (!isTRUE(all.equal(outcome_cols, 0))) {
     x <- x[,-outcome_cols, drop = FALSE]
   }
-  eval_mod(object$method$fit, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
+  
+  eval_mod(
+    object$method$fit_call,
+    capture = .control$verbosity == 0,
+    catch = .control$catch,
+    env = get_env()
+  )
 }
 
 ###################################################################
@@ -212,10 +232,15 @@ recipe_to_formula <- function(object, recipe, data, .control) {
     y_names <-
     paste0("cbind(", paste0(y_names, collapse = ","), ")")
   
-  fit_expr <- object$method$fit
+  fit_expr <- object$method$fit_call
   fit_expr$formula <- as.formula(paste0(y_names, "~."))
   fit_expr$data <- quote(dat)
-  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
+  eval_mod(
+    fit_expr,
+    capture = .control$verbosity == 0,
+    catch = .control$catch,
+    env = get_env()
+  )
 }
 
 recipe_to_xy <- function(object, recipe, data, .control) {
@@ -231,8 +256,19 @@ recipe_to_xy <- function(object, recipe, data, .control) {
   else
     y <- y[[1]]
   
-  fit_expr <- object$method$fit
-  eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
+  fit_expr <- object$method$fit_call
+
+  if(is_missing_arg(fit_expr[["x"]]))
+    fit_expr[["x"]] <- quote(x)
+  if(is_missing_arg(fit_expr[["y"]]))
+    fit_expr[["y"]] <- quote(y)
+  
+  eval_mod(
+    fit_expr,
+    capture = .control$verbosity == 0,
+    catch = .control$catch,
+    env = get_env()
+  )
 }
 
 ###################################################################
@@ -241,7 +277,7 @@ xy_to_formula <- function(object, x, y, .control) {
   if(!is.data.frame(x))
     x <- as.data.frame(x)
   x$.y <- eval_tidy(y[["y"]])
-  fit_expr <- object$method$fit
+  fit_expr <- object$method$fit_call
   fit_expr$formula <- as.formula(.y ~ .)
   fit_expr$data <- quote(x)
   eval_tidy(fit_expr)

@@ -5,7 +5,7 @@
 \title{General Interface for Random Forest Models}
 \usage{
 rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL,
-  engine_args = list(), ...)
+  others = list(), ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -21,14 +21,14 @@ the ensemble.}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{engine_args}{A named list of arguments to be used by the
+\item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{ranger::ranger},
 \code{randomForest::randomForest}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
 
 \item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
+the ellipses will result in an error. Use \code{others} instead.}
 }
 \description{
 \code{rand_forest} is a way to generate a \emph{specification} of a model
@@ -44,7 +44,7 @@ that are required for the node to be split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{engine_args} argument. If left to their defaults
+set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.
 }
