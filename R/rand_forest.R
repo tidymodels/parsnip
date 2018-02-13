@@ -18,7 +18,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `engine_args` argument. If left to their defaults
+#'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.
 #' 
@@ -35,7 +35,7 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param engine_args A named list of arguments to be used by the
+#' @param others A named list of arguments to be used by the
 #'  underlying models (e.g., `ranger::ranger`,
 #'  `randomForest::randomForest`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
@@ -47,7 +47,7 @@
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `engine_args` instead.
+#'  the ellipses will result in an error. Use `others` instead.
 #' @importFrom rlang expr enquo missing_arg
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
@@ -61,7 +61,7 @@
 rand_forest <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list(), 
+           others = list(), 
            ...) {
     check_empty_ellipse(...)
     if (!(mode %in% rand_forest_modes))
@@ -75,12 +75,10 @@ rand_forest <-
       min_n = rlang::enquo(min_n)
     )
     
-    others <- parse_engine_options(rlang::enquo(engine_args))
-    
     # write a constructor function
     out <- list(args = args, others = others, 
                 mode = mode, method = NULL, engine = NULL)
-    class(out) <- make_classes("rand_forest", mode)
+    class(out) <- make_classes("rand_forest")
     out
   }
 
@@ -89,284 +87,6 @@ print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
   invisible(x)
-}
-
-###################################################################
-
-# Before the `fit` function can be executed, create a class that
-# will be used to create the specific model code given that a 
-# computation engine has been declared. 
-
-rand_forest_ranger_regression <- function () {
-  libs <- "ranger"
-  interface <- "formula"
-  protect = c("ranger", "formula", "data", "case.weights")
-  fit <- 
-    quote(
-      ranger(
-        formula = formula,
-        data = data,
-        num.trees = 500,
-        mtry =  max(floor((ncol(data) - 1) / 3), 1),
-        importance = "none",
-        write.forest = TRUE,
-        probability = FALSE,
-        min.node.size = NULL,
-        replace = TRUE,
-        sample.fraction = ifelse(replace, 1, 0.632),
-        case.weights = NULL,
-        splitrule = NULL,
-        num.random.splits = 1,
-        alpha = 0.5,
-        minprop = 0.1,
-        split.select.weights = NULL,
-        always.split.variables = NULL,
-        respect.unordered.factors = NULL,
-        scale.permutation.importance = FALSE,
-        keep.inbag = FALSE,
-        holdout = FALSE,
-        num.threads = NULL,
-        save.memory = FALSE,
-        verbose = FALSE,
-        seed = sample.int(10^5, 1),
-        dependent.variable.name = NULL,
-        status.variable.name = NULL,
-        classification = NULL
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-rand_forest_randomForest_regression <- function () {
-  libs <- "randomForest"
-  interface <- "data.frame"
-  protect = c("randomForest", "x", "y")
-  fit <- 
-    quote(
-      randomForest(
-        x = x,
-        y = y,
-        xtest = NULL,
-        ytest = NULL,
-        ntree = 500,
-        mtry = max(floor(ncol(x) / 3), 1),
-        replace = TRUE,
-        classwt  = missing_arg(),
-        cutoff = missing_arg(),
-        strata = missing_arg(),
-        sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
-        nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
-        maxnodes = NULL,
-        importance = FALSE,
-        localImp = FALSE,
-        nPerm = 1,
-        proximity = missing_arg(),
-        oob.prox = proximity,
-        norm.votes = TRUE,
-        do.trace = FALSE,
-        keep.forest = !is.null(y) && is.null(xtest),
-        corr.bias = FALSE,
-        keep.inbag = FALSE
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-rand_forest_spark_regression <- function () {
-  libs <- "sparklyr"
-  interface <- "data.frame" # adjust this to something else
-  protect = c("x", "formula", "label_col", "features_col")
-  fit <- 
-    quote(
-      ml_random_forest_regressor(
-        x = x,
-        formula = NULL,
-        num_trees = 20L,
-        subsampling_rate = 1,
-        max_depth = 5L,
-        min_instances_per_node = 1L,
-        feature_subset_strategy = "auto",
-        impurity = "variance",
-        min_info_gain = 0,
-        max_bins = 32L,
-        seed = NULL,
-        checkpoint_interval = 10L,
-        cache_node_ids = FALSE,
-        max_memory_in_mb = 256L,
-        features_col = "features",
-        label_col = "label",
-        prediction_col = "prediction",
-        uid = random_string("random_forest_regressor_"),
-        ...
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-rand_forest_ranger_classification <- function () {
-  libs <- "ranger"
-  interface <- "formula"
-  protect = c("ranger", "formula", "data", "case.weights")  
-  fit <- 
-    quote(
-      ranger(
-        formula = formula,
-        data = data,
-        num.trees = 500,
-        mtry = floor(sqrt(ncol(data) - 1)),
-        importance = "none",
-        write.forest = TRUE,
-        probability = TRUE,
-        min.node.size = NULL,
-        replace = TRUE,
-        sample.fraction = ifelse(replace, 1, 0.632),
-        case.weights = NULL,
-        splitrule = NULL,
-        num.random.splits = 1,
-        alpha = 0.5,
-        minprop = 0.1,
-        split.select.weights = NULL,
-        always.split.variables = NULL,
-        respect.unordered.factors = NULL,
-        scale.permutation.importance = FALSE,
-        keep.inbag = FALSE,
-        holdout = FALSE,
-        num.threads = NULL,
-        save.memory = FALSE,
-        verbose = FALSE,
-        seed = sample.int(10^5, 1),
-        dependent.variable.name = NULL,
-        status.variable.name = NULL,
-        classification = NULL
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-rand_forest_randomForest_classification <- function () {
-  libs <- "randomForest"
-  interface <- "data.frame"
-  protect = c("randomForest", "x", "y")
-  fit <- 
-    quote(
-      randomForest(
-        x = x,
-        y = y,
-        xtest = NULL,
-        ytest = NULL,
-        ntree = 500,
-        mtry = floor(sqrt(ncol(x))),
-        replace = TRUE,
-        classwt = missing_arg(),
-        cutoff = missing_arg(),
-        strata = missing_arg(),
-        sampsize = if (replace) nrow(x) else ceiling(.632 * nrow(x)),
-        nodesize = if (!is.null(y) && !is.factor(y)) 5 else 1,
-        maxnodes = NULL,
-        importance = FALSE,
-        localImp = FALSE,
-        nPerm = 1,
-        proximity = missing_arg(),
-        oob.prox = proximity,
-        norm.votes = TRUE,
-        do.trace = FALSE,
-        keep.forest = !is.null(y) && is.null(xtest),
-        corr.bias = FALSE,
-        keep.inbag = FALSE
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-rand_forest_spark_regression <- function () {
-  libs <- "sparklyr"
-  interface <- "data.frame" # adjust this to something else
-  protect = c("x", "formula", "label_col", "features_col")
-  fit <- 
-    quote(
-      ml_random_forest_classifier(
-        x = x,
-        formula = NULL,
-        num_trees = 20L,
-        subsampling_rate = 1,
-        max_depth = 5L,
-        min_instances_per_node = 1L,
-        feature_subset_strategy = "auto",
-        impurity = "gini",
-        min_info_gain = 0,
-        max_bins = 32L,
-        seed = NULL,
-        thresholds = NULL,
-        checkpoint_interval = 10L,
-        cache_node_ids = FALSE,
-        max_memory_in_mb = 256L,
-        features_col = "features",
-        label_col = "label",
-        prediction_col = "prediction",
-        probability_col = "probability",
-        raw_prediction_col = "rawPrediction",
-        uid = random_string("random_forest_classifier_"),
-        ...
-      )
-    ) 
-  list(library = libs, interface = interface, fit = fit, protect = protect)
-}
-
-###################################################################
-
-# finalizing the model consists of:
-#
-# 1. obtaining the base expression for the model
-# 2. converting standardized arguments to their engine-specific names
-# 3. substituting in the user-specified argument values
-# 4. removing any of the original default arguments
-#
-# This should be done only when the model is to be fit. 
-
-#' @export
-finalize.rand_forest <- function(x, engine = NULL, ...) {
-  check_empty_ellipse(...)
-  
-  x$engine <- engine
-  x <- check_engine(x)
-  
-  x$method <- get_model_objects(x, x$engine)()
-  real_args <- deharmonize(x$args, rand_forest_arg_key, x$engine)
-  
-  if (x$engine == "ranger" &
-      any(names(x$others) == "importance") &&
-      is.logical(x$others$importance)) {
-    warning(
-      "ranger's importance value is character (not logical). ",
-      "Changing the value to `importance = 'impurity'`.",
-      call. = FALSE
-    )
-    x$others$importance <- "impurity"
-  }
-  
-  # replace default args with user-specified
-  x$method$fit <-
-    sub_arg_values(x$method$fit, real_args, ignore = x$method$protect)
-  
-  if (length(x$others) > 0) {
-    protected <- names(x$others) %in% x$method$protect
-    if (any(protected)) {
-      warning(
-        "The following options cannot be changed at this time ",
-        "and were removed: ",
-        paste0("`", names(x$others)[protected], "`", collapse = ", "),
-        call. = FALSE
-      )
-      x$others <- x$others[-which(protected)]
-    }
-  }
-  if (length(x$others) > 0)
-    x$method$fit <- sub_arg_values(x$method$fit, x$others, ignore = x$method$protect)
-  
-  # remove NULL and unmodified argument values
-  modifed_args <- names(real_args)[!vapply(real_args, null_value, lgl(1))]
-  x$method$fit <- prune_expr(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
-  x
 }
 
 ###################################################################
@@ -394,7 +114,7 @@ finalize.rand_forest <- function(x, engine = NULL, ...) {
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
-           engine_args = list(),
+           others = list(),
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
@@ -414,7 +134,6 @@ update.rand_forest <-
         object$args[names(args)] <- args
     }
     
-    others <- parse_engine_options(rlang::enquo(engine_args))
     if (length(others) > 0) {
       if (fresh)
         object$others <- others
@@ -446,3 +165,4 @@ rand_forest_engines <- data.frame(
   row.names =  c("classification", "regression", "unknown")
 )
 
+## TODO make a class-specific constructor that customizes the rf syntax + checks

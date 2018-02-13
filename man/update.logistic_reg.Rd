@@ -5,7 +5,7 @@
 \title{Update a Logistic Regression Specification}
 \usage{
 \method{update}{logistic_reg}(object, regularization = NULL, mixture = NULL,
-  engine_args = list(), fresh = FALSE, ...)
+  others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{object}{A logistic reression model specification.}
@@ -18,7 +18,7 @@ represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
 (the lasso).}
 
-\item{engine_args}{A named list of arguments to be used by the
+\item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{stats::glm},
 \code{rstanarm::stan_glm}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
@@ -28,7 +28,7 @@ fit expression.}
 modifed in-place of or replaced wholesale.}
 
 \item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
+the ellipses will result in an error. Use \code{others} instead.}
 }
 \value{
 An updated model specification.

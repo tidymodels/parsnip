@@ -1,8 +1,6 @@
 
-# Q: make classes for mode too? 
-make_classes <- function(prefix, mode) {
-  cls <- c(paste(prefix, mode, sep = "."), prefix)
-  c("model_spec", gsub(" ", "_", cls))
+make_classes <- function(prefix) {
+  c("model_spec", prefix)
 }
 
 
@@ -10,7 +8,7 @@ make_classes <- function(prefix, mode) {
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms)) 
-    stop("Please pass other arguments to the model function via `engine_args`", call. = FALSE)
+    stop("Please pass other arguments to the model function via `others`", call. = FALSE)
   terms
 }
 
@@ -42,9 +40,9 @@ model_printer <- function(x, ...) {
   }  
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")
-    if (!is.null(x$method$fit)) {
+    if (!is.null(x$method$fit_call)) {
       cat("Fit function:\n")
-      print(x$method$fit)
+      print(x$method$fit_call)
       if (length(x$method$library) > 0) {
         if (length(x$method$library) > 1)
           cat("\nRequired packages:\n")
@@ -67,3 +65,8 @@ load_libs <- function(x, quiet) {
   }
   invisible(x)
 }
+
+is_missing_arg <- function(x)
+  identical(x, quote(missing_arg()))
+
+

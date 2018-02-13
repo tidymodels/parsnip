@@ -5,7 +5,7 @@
 \title{General Interface for Logistic Regression Models}
 \usage{
 logistic_reg(mode = "classification", regularization = NULL,
-  mixture = NULL, engine_args = list(), ...)
+  mixture = NULL, others = list(), ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -19,14 +19,14 @@ represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
 (the lasso).}
 
-\item{engine_args}{A named list of arguments to be used by the
+\item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{stats::glm},
 \code{rstanarm::stan_glm}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
 
 \item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{engine_args} instead.}
+the ellipses will result in an error. Use \code{others} instead.}
 }
 \description{
 \code{logistic_reg} is a way to generate a \emph{specification} of a model
@@ -41,7 +41,7 @@ the model. Note that this will be ignored for some engines.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{engine_args} argument. If left to their defaults
+set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.
 }
