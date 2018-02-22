@@ -1,3 +1,5 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^parsnip\.Rproj$
+^\.Rproj\.user$
