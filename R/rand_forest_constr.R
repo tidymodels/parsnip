@@ -1,4 +1,24 @@
 
+rand_forest_arg_key <- data.frame(
+  randomForest = c("mtry", "ntree", "nodesize"),
+  ranger = c("mtry", "num.trees", "min.node.size"),
+  spark = 
+    c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
+  stringsAsFactors = FALSE,
+  row.names =  c("mtry", "trees", "min_n")
+)
+
+rand_forest_modes <- c("classification", "regression", "unknown")
+
+rand_forest_engines <- data.frame(
+  ranger =       c(TRUE, TRUE, FALSE),
+  randomForest = c(TRUE, TRUE, FALSE),
+  spark =        c(TRUE, TRUE, FALSE),
+  row.names =  c("classification", "regression", "unknown")
+)
+
+###################################################################
+
 rand_forest_ranger_constr <- 
   function(
     formula = missing_arg(),
@@ -166,7 +186,7 @@ rand_forest_spark_constr <-
   function(
     x = missing_arg(),
     formula = NULL,
-    type = c("auto", "regression", "classification"),
+    type = missing_arg(),
     features_col = missing_arg(),
     label_col = missing_arg(),
     prediction_col = "prediction",
@@ -192,7 +212,7 @@ rand_forest_spark_constr <-
   {
     libs <- "sparklyr"
     interface <- "formula"
-    protect = c("x", "features_col", "label_col")
+    protect = c("x", "features_col", "label_col", "type")
     has_dots <- TRUE
     fit_name <- "ml_random_forest"
     fit_args <-
