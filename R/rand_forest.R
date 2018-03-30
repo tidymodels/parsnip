@@ -1,8 +1,5 @@
 # Prototype parsnip code for random forests
 
-# notes: 
-# - protect local vars using something like `mtry = model_expr(floor(sqrt(p)))`
-
 #' General Interface for Random Forest Models
 #' 
 #' `rand_forest` is a way to generate a _specification_ of a model
@@ -37,9 +34,7 @@
 #'  "classification".
 #' @param others A named list of arguments to be used by the
 #'  underlying models (e.g., `ranger::ranger`,
-#'  `randomForest::randomForest`, etc.). These are not evaluated
-#'  until the model is fit and will be substituted into the model
-#'  fit expression.
+#'  `randomForest::randomForest`, etc.). .
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in
@@ -48,6 +43,9 @@
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
+#' @details Main parameter arguments (and those in `others`) can avoid 
+#'  evaluation until the underlying function is executed by wrapping the 
+#'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples 
@@ -78,6 +76,7 @@ rand_forest <-
     # write a constructor function
     out <- list(args = args, others = others, 
                 mode = mode, method = NULL, engine = NULL)
+    # TODO: make_classes has wrong order; go from specific to general
     class(out) <- make_classes("rand_forest")
     out
   }
@@ -141,25 +140,19 @@ update.rand_forest <-
     object
   }
 
-
 ###################################################################
 
-rand_forest_arg_key <- data.frame(
-  randomForest = c("mtry", "ntree", "nodesize"),
-  ranger = c("mtry", "num.trees", "min.node.size"),
-  spark = 
-    c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
-  stringsAsFactors = FALSE,
-  row.names =  c("mtry", "trees", "min_n")
-)
-
-rand_forest_modes <- c("classification", "regression", "unknown")
-
-rand_forest_engines <- data.frame(
-  ranger =       c(TRUE, TRUE, FALSE),
-  randomForest = c(TRUE, TRUE, FALSE),
-  spark =        c(TRUE, TRUE, FALSE),
-  row.names =  c("classification", "regression", "unknown")
-)
+finalize.rand_forest <- function(x, engine, ...) {
+  x <- finalize.default(x, engine, ...)
+  
+  # add checks to error trap or change things for this method
+  if (engine == "ranger") {
+    if (any(names(x$others) == "importance"))
+      if (is.logical(x$others$importance))
+        stop("`importance` should be a character value. See ?ranger::ranger.",
+             call. = FALSE)
+  }
+  x
+}
 
 ## TODO make a class-specific constructor that customizes the rf syntax + checks
