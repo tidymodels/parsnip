@@ -8,6 +8,9 @@
 #' @param ... Not currently used. 
 #' @export
 #' 
+# TODO: maybe change name to translate since it won't be finalized until there
+# is data?
+
 finalize <- function (x, ...)
   UseMethod("finalize")
 
@@ -27,7 +30,7 @@ finalize.default <- function(x, engine, ...) {
   # deharmonize primary arguments
   real_args <- deharmonize(x$args, arg_key, x$engine)
   
-  # check secondard arguments to see if they are in the final 
+  # check secondary arguments to see if they are in the final 
   # expression unless there are dots
   x$others <- check_others(x$others, x$method)
   
