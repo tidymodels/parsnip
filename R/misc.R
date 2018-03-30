@@ -24,11 +24,11 @@ model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
-    cat(print_list(non_null_args), \n, sep = "")
+    cat(print_list(non_null_args), "\n", sep = "")
   } 
   if (length(x$others) > 0) {
     cat("Engine-Specific Arguments:\n")
-    cat(print_list(x$others), \n, sep = "")
+    cat(print_list(x$others), "\n", sep = "")
   }  
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")
