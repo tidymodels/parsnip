@@ -16,7 +16,6 @@ should_eval <- function(x) {
   length(func_calls(x)) == 0
 }
 
-#' @importFrom rlang is_quosure
 null_value <- function(x) {
   res <- if(is_quosure(x))
     isTRUE(all.equal(x[[-1]], quote(NULL))) else 
@@ -62,7 +61,6 @@ deharmonize <- function(args, key, engine) {
   args
 }
 
-#' @importFrom rlang ll
 parse_engine_options <- function(x) {
   res <- ll()
   if (length(x) >= 2) { # in case of NULL
@@ -81,7 +79,6 @@ parse_engine_options <- function(x) {
   res
 }
 
-#' @importFrom rlang is_missing
 prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
   nms <- names(x)
   if (length(whitelist) > 0)

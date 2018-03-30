@@ -46,6 +46,39 @@
 #'  the data are converted to the required format. In this case, any
 #'  calls in the resulting model objects reference the temporary
 #'  objects used to fit the model.
+#' @examples 
+#' # Although `glm` only has a formula interface, different
+#' # methods for specifying the model can be used
+#'
+#' data("lending_club")
+#' 
+#' lm_mod <- logistic_reg()
+#' 
+#' using_formula <- 
+#'   fit(lm_mod, engine = "glm",
+#'       Class ~ funded_amnt + int_rate,
+#'       data = lending_club)
+#' 
+#' using_xy <- 
+#'   fit(lm_mod, engine = "glm",
+#'       x = lending_club[, c("funded_amnt", "int_rate")],
+#'       y = lending_club$Class)
+#' 
+#' library(recipes)
+#' lend_rec <- recipe(Class ~ funded_amnt + int_rate, 
+#'                    data = lending_club)
+#' 
+#' using_recipe <- 
+#'   fit(lm_mod, engine = "glm",
+#'       lend_rec,
+#'       data = lending_club)
+#' 
+#' coef(using_formula)
+#' coef(using_xy)
+#' coef(using_recipe)
+#' 
+#' # Using other options:
+#' 
 #' @export
 #' @rdname fit 
 fit <- function (object, ...) 
@@ -85,7 +118,6 @@ fit.model_spec <- function(object, x, engine = object$engine,
 
 ###################################################################
 
-#' @importFrom rlang eval_tidy quos get_env get_expr
 #' @importFrom stats as.formula
 fit_formula <- function(object, formula, engine = engine, .control, ...) {
   opts <- quos(...)

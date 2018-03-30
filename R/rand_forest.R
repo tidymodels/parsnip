@@ -48,7 +48,6 @@
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
-#' @importFrom rlang expr enquo missing_arg
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples 
@@ -64,16 +63,17 @@ rand_forest <-
            others = list(), 
            ...) {
     check_empty_ellipse(...)
+    
+    ## TODO: make a utility function here
     if (!(mode %in% rand_forest_modes))
       stop("`mode` should be one of: ",
            paste0("'", rand_forest_modes, "'", collapse = ", "),
            call. = FALSE)
     
-    args <- list(
-      mtry = rlang::enquo(mtry),
-      trees = rlang::enquo(trees),
-      min_n = rlang::enquo(min_n)
-    )
+    args <- list(mtry = mtry, trees = trees, min_n = min_n)
+    
+    no_value <- !vapply(others, is.null, logical(1))
+    others <- others[no_value]
     
     # write a constructor function
     out <- list(args = args, others = others, 
@@ -119,11 +119,8 @@ update.rand_forest <-
            ...) {
     check_empty_ellipse(...)
     
-    args <- list(
-      mtry = rlang::enquo(mtry),
-      trees = rlang::enquo(trees),
-      min_n = rlang::enquo(min_n)
-    )
+    args <- list(mtry = mtry, trees = trees, min_n = min_n)
+    
     if (fresh) {
       object$args <- args
     } else {

@@ -1,4 +1,3 @@
-#' @importFrom rlang enexprs
 
 rand_forest_ranger_constr <- 
   function(
@@ -165,35 +164,35 @@ rand_forest_randomForest_constr <-
 
 rand_forest_spark_constr <- 
   function(
-    x = missing_arg(), 
-    formula = NULL, 
-    type = c("auto", "regression", "classification"), 
-    features_col = "features", 
-    label_col = "label",
-    prediction_col = "prediction", 
+    x = missing_arg(),
+    formula = NULL,
+    type = c("auto", "regression", "classification"),
+    features_col = missing_arg(),
+    label_col = missing_arg(),
+    prediction_col = "prediction",
     probability_col = "probability",
-    raw_prediction_col = "rawPrediction", 
+    raw_prediction_col = "rawPrediction",
     feature_subset_strategy = "auto",
-    impurity = "auto", 
-    checkpoint_interval = 10L, 
+    impurity = "auto",
+    checkpoint_interval = 10L,
     max_bins = 32L,
-    max_depth = 5L, 
-    num_trees = 20L, 
+    max_depth = 5L,
+    num_trees = 20L,
     min_info_gain = 0,
-    min_instances_per_node = 1L, 
-    subsampling_rate = 1, 
-    seed = sample.int(10^5, 1),
-    thresholds = NULL, 
-    cache_node_ids = FALSE, 
+    min_instances_per_node = 1L,
+    subsampling_rate = 1,
+    seed = NULL,
+    thresholds = NULL,
+    cache_node_ids = FALSE,
     max_memory_in_mb = 256L,
-    uid = random_string("random_forest_"), 
-    response = NULL, 
+    uid = random_string("random_forest_"),
+    response = NULL,
     features = NULL
-  ) 
+  )
   {
     libs <- "sparklyr"
     interface <- "formula"
-    protect = c("x", "formula")
+    protect = c("x", "features_col", "label_col")
     has_dots <- TRUE
     fit_name <- "ml_random_forest"
     fit_args <-

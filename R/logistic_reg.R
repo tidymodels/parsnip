@@ -49,7 +49,6 @@
 #' # Parameters can be represented by a placeholder:
 #' logistic_reg(regularization = varying())
 #' @export
-#' @importFrom rlang expr enquo missing_arg
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",

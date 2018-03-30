@@ -11,7 +11,6 @@
 finalize <- function (x, ...)
   UseMethod("finalize")
 
-#' @importFrom rlang lgl
 #' @importFrom utils getFromNamespace
 #' @export
 finalize.default <- function(x, engine, ...) {
