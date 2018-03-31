@@ -15,20 +15,35 @@ check_empty_ellipse <- function (...)  {
 
 all_modes <- c("classification", "regression")
 
-print_list <- function(x, ...) 
-  paste0("  ", names(x), " = ", format(x, ...), collaspe = "\n")
 
+deparserizer <- function(x, limit = options()$width - 10) {
+  x <- deparse(x, width.cutoff = limit)
+  x <- gsub("^    ", "", x)
+  x <- paste0(x, collapse = "")
+  if (nchar(x) > limit)
+    x <- paste0(substring(x, first = 1, last = limit - 7), "<snip>")
+  x
+}
 
+print_arg_list <- function(x, ...) {
+  others <- c("name", "call", "expression")
+  atomic <- vapply(x, is.atomic, logical(1))
+  x2 <- x
+  x2[atomic] <- lapply(x2[atomic], format, ...)
+  symb <- vapply(x2, inherits, logical(1), what = others)
+  x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
+  paste0("  ", names(x2), " = ", x2, collaspe = "\n")
+}
 
 model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
-    cat(print_list(non_null_args), "\n", sep = "")
+    cat(print_arg_list(non_null_args), "\n", sep = "")
   } 
   if (length(x$others) > 0) {
     cat("Engine-Specific Arguments:\n")
-    cat(print_list(x$others), "\n", sep = "")
+    cat(print_arg_list(x$others), "\n", sep = "")
   }  
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")
