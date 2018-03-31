@@ -42,10 +42,10 @@ rand_forest_ranger_constr <-
     scale.permutation.importance = FALSE,
     keep.inbag = FALSE,
     holdout = FALSE,
-    num.threads = NULL,
+    num.threads = 1,                          # changed from default
     save.memory = FALSE,
-    verbose = FALSE,
-    seed = sample.int(10^5, 1),
+    verbose = FALSE,                          # changed from default
+    seed = sample.int(10^5, 1),               # changed from default
     dependent.variable.name = NULL,
     status.variable.name = NULL,
     classification = NULL
@@ -201,7 +201,7 @@ rand_forest_spark_constr <-
     min_info_gain = 0,
     min_instances_per_node = 1L,
     subsampling_rate = 1,
-    seed = NULL,
+    seed = sample.int(10^5, 1),               # changed from default
     thresholds = NULL,
     cache_node_ids = FALSE,
     max_memory_in_mb = 256L,

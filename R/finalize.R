@@ -8,7 +8,7 @@
 #' @param ... Not currently used. 
 #' @export
 #' 
-# TODO: maybe change name to translate since it won't be finalized until there
+# TODO: maybe change name to `translate` since it won't be finalized until there
 # is data?
 
 finalize <- function (x, ...)
