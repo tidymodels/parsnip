@@ -56,7 +56,11 @@ translate.default <- function(x, engine, ...) {
   
   # trim args that are defaults or null
   x$method$fit <-
-    prune_arg_list(x$method$fit, x$method$protect, c(modifed_args, names(x$others)))
+    prune_arg_list(
+      x = x$method$fit,
+      whitelist = x$method$protect,
+      modified = c(names(modifed_args)[modifed_args], names(x$others))
+    )
   
   # create call
   # TODO determine how to construct call with the namespace operator ("stats::glm")

@@ -146,7 +146,7 @@ update.rand_forest <-
 translate.rand_forest <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
   
-  if (engine == "spark") {
+  if (x$engine == "spark") {
     if (x$mode == "unknown")
       stop(
         "For spark random forests models, the mode cannot be 'unknown' ",
@@ -158,7 +158,7 @@ translate.rand_forest <- function(x, engine, ...) {
   }
     
   # add checks to error trap or change things for this method
-  if (engine == "ranger") {
+  if (x$engine == "ranger") {
     if (any(names(x$others) == "importance"))
       if (is.logical(x$others$importance))
         stop("`importance` should be a character value. See ?ranger::ranger.",
