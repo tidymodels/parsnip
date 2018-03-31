@@ -98,25 +98,25 @@ To fit the model, you must:
 * have no `varying()` parameters, and
 * specify a computational engine. 
 
-The first step before fitting the model is to resolve the underlying model's syntax. A helper function called `finalize` does this:
+The first step before fitting the model is to resolve the underlying model's syntax. A helper function called `translate` does this:
 
-```{r rf-finalize}
+```{r rf-translate}
 library(parsnip)
 rf_mod <- rand_forest(trees = 2000, mode = "regression")
 rf_mod
 
-finalize(rf_mod, engine = "ranger")
-finalize(rf_mod, engine = "randomForest")
+translate(rf_mod, engine = "ranger")
+translate(rf_mod, engine = "randomForest")
 ```
 
 Note that any extra engine-specific arguments have to be valid for the model:
 
 ```{r rf-error, error = TRUE}
-finalize(rf_with_seed, engine = "ranger")
-finalize(rf_with_seed, engine = "randomForest")
+translate(rf_with_seed, engine = "ranger")
+translate(rf_with_seed, engine = "randomForest")
 ```
 
-`finalize` shouldn't need to be used unless you are really curious about the model fit function or what R packages are needed to fit the model. The function in the next section will always finalize the model. 
+`translate` shouldn't need to be used unless you are really curious about the model fit function or what R packages are needed to fit the model. The function in the next section will always translate the model. 
 
 
 ## Fitting the Model

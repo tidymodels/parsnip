@@ -105,7 +105,8 @@ check_others <- function(args, x) {
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
-    warning("The following arguments cannot be manually modified: ",
+    warning("The following arguments cannot be manually modified ",
+            "and were removed: ",
             common_args, call. = FALSE)
   }
   

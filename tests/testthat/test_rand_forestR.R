@@ -4,8 +4,8 @@ library(recipes)
 
 test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
-  mtry_ranger <- finalize(mtry, engine = "ranger")
-  mtry_randomForest <- finalize(mtry, engine = "randomForest")
+  mtry_ranger <- translate(mtry, engine = "ranger")
+  mtry_randomForest <- translate(mtry, engine = "randomForest")
   expect_equal(mtry_ranger$method$fit_call,
                quote(
                  ranger(
@@ -26,8 +26,8 @@ test_that('primary arguments', {
   )  
   
   trees <- rand_forest(mode = "classification", trees = 1000)
-  trees_ranger <- finalize(trees, engine = "ranger")
-  trees_randomForest <- finalize(trees, engine = "randomForest")
+  trees_ranger <- translate(trees, engine = "ranger")
+  trees_randomForest <- translate(trees, engine = "randomForest")
   expect_equal(trees_ranger$method$fit_call,
                quote(
                  ranger(
@@ -48,8 +48,8 @@ test_that('primary arguments', {
   )    
   
   min_n <- rand_forest(mode = "regression", min_n = 5)
-  min_n_ranger <- finalize(min_n, engine = "ranger")
-  min_n_randomForest <- finalize(min_n, engine = "randomForest")
+  min_n_ranger <- translate(min_n, engine = "ranger")
+  min_n_randomForest <- translate(min_n, engine = "randomForest")
   expect_equal(min_n_ranger$method$fit_call,
                quote(
                  ranger(
@@ -70,8 +70,8 @@ test_that('primary arguments', {
   )      
   
   mtry_v <- rand_forest(mode = "classification", mtry = varying())
-  mtry_v_ranger <- finalize(mtry_v, engine = "ranger")
-  mtry_v_randomForest <- finalize(mtry_v, engine = "randomForest")
+  mtry_v_ranger <- translate(mtry_v, engine = "ranger")
+  mtry_v_randomForest <- translate(mtry_v, engine = "randomForest")
   expect_equal(mtry_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -92,8 +92,8 @@ test_that('primary arguments', {
   )  
   
   trees_v <- rand_forest(mode = "regression", trees = varying())
-  trees_v_ranger <- finalize(trees_v, engine = "ranger")
-  trees_v_randomForest <- finalize(trees_v, engine = "randomForest")
+  trees_v_ranger <- translate(trees_v, engine = "ranger")
+  trees_v_randomForest <- translate(trees_v, engine = "randomForest")
   expect_equal(trees_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -114,8 +114,8 @@ test_that('primary arguments', {
   )    
   
   min_n_v <- rand_forest(mode = "classification", min_n = varying())
-  min_n_v_ranger <- finalize(min_n_v, engine = "ranger")
-  min_n_v_randomForest <- finalize(min_n_v, engine = "randomForest")
+  min_n_v_ranger <- translate(min_n_v, engine = "ranger")
+  min_n_v_randomForest <- translate(min_n_v, engine = "randomForest")
   expect_equal(min_n_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -138,7 +138,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   ranger_imp <- rand_forest(mode = "classification", others = list(importance = "impurity"))
-  expect_equal(finalize(ranger_imp, engine = "ranger")$method$fit_call,
+  expect_equal(translate(ranger_imp, engine = "ranger")$method$fit_call,
                quote(
                  ranger(
                    formula = missing_arg(),
@@ -149,7 +149,7 @@ test_that('engine arguments', {
   )
   
   randomForest_votes <- rand_forest(mode = "regression", others = list(norm.votes = FALSE))
-  expect_equal(finalize(randomForest_votes, engine = "randomForest")$method$fit_call,
+  expect_equal(translate(randomForest_votes, engine = "randomForest")$method$fit_call,
                quote(
                  randomForest(
                    x = missing_arg(),
@@ -161,7 +161,7 @@ test_that('engine arguments', {
   
   
   ranger_samp_frac <- rand_forest(mode = "regression", others = list(sample.fraction = varying()))
-  expect_equal(finalize(ranger_samp_frac, engine = "ranger")$method$fit_call,
+  expect_equal(translate(ranger_samp_frac, engine = "ranger")$method$fit_call,
                quote(
                  ranger(
                    formula = missing_arg(),
@@ -173,7 +173,7 @@ test_that('engine arguments', {
   
 
   randomForest_votes_v <- rand_forest(mode = "regression", others = list(norm.votes = FALSE, sampsize = varying()))
-  expect_equal(finalize(randomForest_votes_v, engine = "randomForest")$method$fit_call,
+  expect_equal(translate(randomForest_votes_v, engine = "randomForest")$method$fit_call,
                quote(
                  randomForest(
                    x = missing_arg(),
@@ -213,12 +213,12 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(rand_forest(mode = "classification", case.weights = var))
   expect_error(rand_forest(mode = "time series"))
-  expect_error(finalize(rand_forest(mode = "classification"), engine = "wat?"))
-  expect_warning(finalize(rand_forest(mode = "classification"), engine = NULL))  
-  expect_error(finalize(rand_forest(mode = "classification", others = list(ytest = 2))))
-  expect_error(finalize(rand_forest(mode = "regression", formula = y ~ x)))
-  expect_error(finalize(rand_forest(mode = "classification", others = list(x = x, y = y)), engine = "randomForest"))
-  expect_error(finalize(rand_forest(mode = "regression", others = list(formula = y ~ x)), engine = ""))
+  expect_error(translate(rand_forest(mode = "classification"), engine = "wat?"))
+  expect_warning(translate(rand_forest(mode = "classification"), engine = NULL))  
+  expect_error(translate(rand_forest(mode = "classification", others = list(ytest = 2))))
+  expect_error(translate(rand_forest(mode = "regression", formula = y ~ x)))
+  expect_error(translate(rand_forest(mode = "classification", others = list(x = x, y = y)), engine = "randomForest"))
+  expect_error(translate(rand_forest(mode = "regression", others = list(formula = y ~ x)), engine = ""))
 })
 
 

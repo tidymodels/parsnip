@@ -41,7 +41,7 @@ error) that inherits the class "try-error".}
 An object for the fitted model.
 }
 \description{
-\code{fit} will take a model specification, finalize the required
+\code{fit} will take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.
 }

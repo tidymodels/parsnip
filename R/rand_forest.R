@@ -142,9 +142,21 @@ update.rand_forest <-
 
 ###################################################################
 
-finalize.rand_forest <- function(x, engine, ...) {
-  x <- finalize.default(x, engine, ...)
+#' @export
+translate.rand_forest <- function(x, engine, ...) {
+  x <- translate.default(x, engine, ...)
   
+  if (engine == "spark") {
+    if (x$mode == "unknown")
+      stop(
+        "For spark random forests models, the mode cannot be 'unknown' ",
+        "if the specification is to be translated.",
+        call. = FALSE
+      )
+    else
+      x$method$fit_call$type <- x$mode
+  }
+    
   # add checks to error trap or change things for this method
   if (engine == "ranger") {
     if (any(names(x$others) == "importance"))

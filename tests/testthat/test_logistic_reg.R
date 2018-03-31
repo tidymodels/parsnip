@@ -4,9 +4,9 @@ library(recipes)
 
 test_that('primary arguments', {
   basic <- logistic_reg()
-  basic_glm <- finalize(basic, engine = "glm")  
-  basic_glmnet <- finalize(basic, engine = "glmnet")    
-  basic_stan <- finalize(basic, engine = "stan")    
+  basic_glm <- translate(basic, engine = "glm")  
+  basic_glmnet <- translate(basic, engine = "glmnet")    
+  basic_stan <- translate(basic, engine = "stan")    
   expect_equal(basic_glm$method$fit_call,
                quote(
                  glm(
@@ -36,7 +36,7 @@ test_that('primary arguments', {
   )     
   
   mixture <- logistic_reg(mixture = 0.128)
-  mixture_glmnet <- finalize(mixture, engine = "glmnet")
+  mixture_glmnet <- translate(mixture, engine = "glmnet")
   expect_equal(mixture_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -49,7 +49,7 @@ test_that('primary arguments', {
   )  
   
   regularization <- logistic_reg(regularization = 1)
-  regularization_glmnet <- finalize(regularization, engine = "glmnet")
+  regularization_glmnet <- translate(regularization, engine = "glmnet")
   expect_equal(regularization_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -62,7 +62,7 @@ test_that('primary arguments', {
   )    
   
   mixture_v <- logistic_reg(mixture = varying())
-  mixture_v_glmnet <- finalize(mixture_v, engine = "glmnet")
+  mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   expect_equal(mixture_v_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -77,7 +77,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   # glm_fam <- logistic_reg(others = list(family = binomial(link = "probit")))
-  # expect_equal(finalize(glm_fam, engine = "glm")$method$fit_call,
+  # expect_equal(translate(glm_fam, engine = "glm")$method$fit_call,
   #              quote(
   #                glm(
   #                  formula = missing_arg(),
@@ -88,7 +88,7 @@ test_that('engine arguments', {
   # )
   
   glmnet_nlam <- logistic_reg(others = list(nlambda = 10))
-  expect_equal(finalize(glmnet_nlam, engine = "glmnet")$method$fit_call,
+  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_call,
                quote(
                  glmnet(
                    x = as.matrix(x),
@@ -101,7 +101,7 @@ test_that('engine arguments', {
   
   # these should get pass into the ... slot
   stan_samp <- logistic_reg(others = list(chains = 1, iter = 5))
-  expect_equal(finalize(stan_samp, engine = "stan")$method$fit_call,
+  expect_equal(translate(stan_samp, engine = "stan")$method$fit_call,
                quote(
                  stan_glm(
                    formula = missing_arg(),
@@ -143,12 +143,12 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(logistic_reg(ase.weights = var))
   expect_error(logistic_reg(mode = "regression"))
-  expect_error(finalize(logistic_reg(), engine = "wat?"))
-  expect_warning(finalize(logistic_reg(), engine = NULL))  
-  expect_warning(finalize(logistic_reg(others = list(ytest = 2)), engine = "glmnet"))
-  expect_error(finalize(logistic_reg(formula = y ~ x)))
-  expect_warning(finalize(logistic_reg(others = list(x = x, y = y)), engine = "glmnet"))
-  expect_warning(finalize(logistic_reg(others = list(formula = y ~ x)), engine = "glm"))
+  expect_error(translate(logistic_reg(), engine = "wat?"))
+  expect_warning(translate(logistic_reg(), engine = NULL))  
+  expect_warning(translate(logistic_reg(others = list(ytest = 2)), engine = "glmnet"))
+  expect_error(translate(logistic_reg(formula = y ~ x)))
+  expect_warning(translate(logistic_reg(others = list(x = x, y = y)), engine = "glmnet"))
+  expect_warning(translate(logistic_reg(others = list(formula = y ~ x)), engine = "glm"))
 })
 
 ###################################################################

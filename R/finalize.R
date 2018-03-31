@@ -1,6 +1,6 @@
 #' Resolve a Model Specification for a Computational Engine
 #' 
-#' `finalize` will translate a model specification into a code
+#' `translate` will translate a model specification into a code
 #'  object that is specific to a particular engine (e.g. R package).
 #'  It translates generic parameters to their counterparts.
 #' 
@@ -8,16 +8,16 @@
 #' @param ... Not currently used. 
 #' @export
 #' 
-# TODO: maybe change name to `translate` since it won't be finalized until there
+# TODO: maybe change name to `translate` since it won't be translated until there
 # is data?
 
-finalize <- function (x, ...)
-  UseMethod("finalize")
+translate <- function (x, ...)
+  UseMethod("translate")
 
 #' @importFrom utils getFromNamespace
 #' @importFrom purrr list_modify
 #' @export
-finalize.default <- function(x, engine, ...) {
+translate.default <- function(x, engine, ...) {
   check_empty_ellipse(...)
   x$engine <- engine
   x <- check_engine(x)

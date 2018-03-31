@@ -5,7 +5,7 @@
 
 #' Fit a Model Specification to a Dataset
 #' 
-#' `fit` will take a model specification, finalize the required
+#' `fit` will take a model specification, translate the required
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #' 
@@ -97,7 +97,7 @@ fit.model_spec <- function(object, x, engine = object$engine,
   .control <- check_control(.control)
   
   # sub in arguments to actual syntax for corresponding engine
-  object <- finalize(object, engine = object$engine)
+  object <- translate(object, engine = object$engine)
   check_installs(object)
   
   if (inherits(x, "formula")) {
