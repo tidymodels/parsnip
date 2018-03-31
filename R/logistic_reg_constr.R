@@ -1,4 +1,25 @@
 
+logistic_reg_arg_key <- data.frame(
+  glm    =  c(        NA,                  NA),
+  glmnet =  c(   "lambda",             "alpha"),
+  spark  =  c("reg_param", "elastic_net_param"),
+  stan   =  c(        NA,                  NA),
+  stringsAsFactors = FALSE,
+  row.names =  c("regularization", "mixture")
+)
+
+logistic_reg_modes <- "classification"
+
+logistic_reg_engines <- data.frame(
+  glm    = TRUE,
+  glmnet = TRUE,
+  spark  = TRUE,
+  stan   = TRUE,  
+  row.names =  c("classification")
+)
+
+###################################################################
+
 #' @importFrom stats binomial
 logistic_reg_glm_constr <- 
   function(
@@ -195,7 +216,7 @@ logistic_reg_stan_constr <-
 logistic_reg_spark_constr <- 
   function(
     x = missing_arg(),
-    formula = missing_arg(),
+    formula = NULL,
     fit_intercept = TRUE,
     elastic_net_param = 0,
     reg_param = 0,
@@ -209,8 +230,8 @@ logistic_reg_spark_constr <-
     lower_bounds_on_intercepts = NULL,
     upper_bounds_on_coefficients = NULL,
     upper_bounds_on_intercepts = NULL,
-    features_col = "features",
-    label_col = "label",
+    features_col = missing_arg(),
+    label_col = missing_arg(),
     family = "auto",
     prediction_col = "prediction",
     probability_col = "probability",
@@ -219,7 +240,7 @@ logistic_reg_spark_constr <-
   ) {
   libs <- "sparklyr"
   interface <- "formula"
-  protect = c("formula", "x", "weight_col")   
+  protect = c("features_col", "label_col", "x", "weight_col")   
   has_dots <- TRUE
   fit_name <- "ml_logistic_regression"
   fit_args <- 
