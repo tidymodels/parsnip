@@ -21,9 +21,7 @@ in a node that are required for the node to be split further.}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{ranger::ranger},
-\code{randomForest::randomForest}, etc.). These are not evaluated
-until the model is fit and will be substituted into the model
-fit expression.}
+\code{randomForest::randomForest}, etc.). .}
 
 \item{fresh}{A logical for whether the arguments should be
 modifed in-place of or replaced wholesale.}

@@ -23,9 +23,7 @@ in a node that are required for the node to be split further.}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{ranger::ranger},
-\code{randomForest::randomForest}, etc.). These are not evaluated
-until the model is fit and will be substituted into the model
-fit expression.}
+\code{randomForest::randomForest}, etc.). .}
 
 \item{...}{Used for method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{others} instead.}
@@ -59,6 +57,10 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"ranger"} or \code{"randomForests"}
 \item \pkg{Spark}: \code{"spark"}
 }
+
+Main parameter arguments (and those in \code{others}) can avoid
+evaluation until the underlying function is executed by wrapping the
+argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
 }
 \examples{
 rand_forest(mode = "classification", trees = 2000)
