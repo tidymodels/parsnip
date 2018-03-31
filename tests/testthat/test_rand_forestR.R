@@ -6,6 +6,7 @@ test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
   mtry_ranger <- translate(mtry, engine = "ranger")
   mtry_randomForest <- translate(mtry, engine = "randomForest")
+  mtry_spark <- translate(mtry, engine = "spark")
   expect_equal(mtry_ranger$method$fit_call,
                quote(
                  ranger(
@@ -24,10 +25,21 @@ test_that('primary arguments', {
                  )
                )
   )  
-  
+  expect_equal(mtry_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "regression",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   feature_subset_strategy = 4
+                 )
+               )
+  )   
   trees <- rand_forest(mode = "classification", trees = 1000)
   trees_ranger <- translate(trees, engine = "ranger")
   trees_randomForest <- translate(trees, engine = "randomForest")
+  trees_spark <- translate(trees, engine = "spark")
   expect_equal(trees_ranger$method$fit_call,
                quote(
                  ranger(
@@ -46,10 +58,22 @@ test_that('primary arguments', {
                  )
                )
   )    
+  expect_equal(trees_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "classification",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   num_trees = 1000
+                 )
+               )
+  )    
   
   min_n <- rand_forest(mode = "regression", min_n = 5)
   min_n_ranger <- translate(min_n, engine = "ranger")
   min_n_randomForest <- translate(min_n, engine = "randomForest")
+  min_n_spark <- translate(min_n, engine = "spark")
   expect_equal(min_n_ranger$method$fit_call,
                quote(
                  ranger(
@@ -68,10 +92,22 @@ test_that('primary arguments', {
                  )
                )
   )      
+  expect_equal(min_n_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "regression",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   min_instances_per_node = 5
+                 )
+               )
+  )  
   
   mtry_v <- rand_forest(mode = "classification", mtry = varying())
   mtry_v_ranger <- translate(mtry_v, engine = "ranger")
   mtry_v_randomForest <- translate(mtry_v, engine = "randomForest")
+  mtry_v_spark <- translate(mtry_v, engine = "spark")
   expect_equal(mtry_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -90,10 +126,22 @@ test_that('primary arguments', {
                  )
                )
   )  
+  expect_equal(mtry_v_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "classification",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   feature_subset_strategy = varying()
+                 )
+               )
+  )    
   
   trees_v <- rand_forest(mode = "regression", trees = varying())
   trees_v_ranger <- translate(trees_v, engine = "ranger")
   trees_v_randomForest <- translate(trees_v, engine = "randomForest")
+  trees_v_spark <- translate(trees_v, engine = "spark")
   expect_equal(trees_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -112,10 +160,22 @@ test_that('primary arguments', {
                  )
                )
   )    
+  expect_equal(trees_v_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "regression",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   num_trees = varying()
+                 )
+               )
+  ) 
   
   min_n_v <- rand_forest(mode = "classification", min_n = varying())
   min_n_v_ranger <- translate(min_n_v, engine = "ranger")
   min_n_v_randomForest <- translate(min_n_v, engine = "randomForest")
+  min_n_v_spark <- translate(min_n_v, engine = "spark")
   expect_equal(min_n_v_ranger$method$fit_call,
                quote(
                  ranger(
@@ -133,7 +193,18 @@ test_that('primary arguments', {
                    nodesize = varying()
                  )
                )
-  )        
+  ) 
+  expect_equal(min_n_v_spark$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "classification",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   min_instances_per_node = varying()
+                 )
+               )
+  )       
 })
 
 test_that('engine arguments', {
@@ -159,6 +230,18 @@ test_that('engine arguments', {
                )
   ) 
   
+  spark_gain <- rand_forest(mode = "regression", others = list(min_info_gain = 2))
+  expect_equal(translate(spark_gain, engine = "spark")$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "regression",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   min_info_gain = 2
+                 )
+               )
+  ) 
   
   ranger_samp_frac <- rand_forest(mode = "regression", others = list(sample.fraction = varying()))
   expect_equal(translate(ranger_samp_frac, engine = "ranger")$method$fit_call,
@@ -182,7 +265,21 @@ test_that('engine arguments', {
                    norm.votes = FALSE
                  )
                )
-  )   
+  ) 
+
+  spark_bins_v <- rand_forest(mode = "regression", others = list(uid = "id label", max_bins = varying()))
+  expect_equal(translate(spark_bins_v, engine = "spark")$method$fit_call,
+               quote(
+                 ml_random_forest(
+                   x = missing_arg(),
+                   type = "regression",
+                   features_col = missing_arg(),
+                   label_col = missing_arg(),
+                   max_bins = varying(),
+                   uid = "id label"
+                 )
+               )
+  )     
 })
 
 

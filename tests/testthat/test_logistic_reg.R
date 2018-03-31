@@ -8,6 +8,7 @@ test_that('primary arguments', {
   basic_glm <- translate(basic, engine = "glm")
   basic_glmnet <- translate(basic, engine = "glmnet")
   basic_stan <- translate(basic, engine = "stan")
+  basic_spark <- translate(basic, engine = "spark")
   expect_equal(basic_glm$method$fit_call,
                quote(
                  glm(
@@ -35,9 +36,19 @@ test_that('primary arguments', {
                  )
                )
   )
+  expect_equal(basic_spark$method$fit_call,
+               quote(
+                 ml_logistic_regression(
+                   x = missing_arg(),
+                   features_col = missing_arg(),
+                   label_col = missing_arg()
+                 )
+               )
+  )
 
   mixture <- logistic_reg(mixture = 0.128)
   mixture_glmnet <- translate(mixture, engine = "glmnet")
+  mixture_spark <- translate(mixture, engine = "spark")
   expect_equal(mixture_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -48,9 +59,20 @@ test_that('primary arguments', {
                  )
                )
   )
+  expect_equal(mixture_spark$method$fit_call,
+               quote(
+                 ml_logistic_regression(
+                   x = missing_arg(),
+                   elastic_net_param = 0.128,
+                   features_col = missing_arg(),
+                   label_col = missing_arg()
+                 )
+               )
+  )
 
   regularization <- logistic_reg(regularization = 1)
   regularization_glmnet <- translate(regularization, engine = "glmnet")
+  regularization_spark <- translate(regularization, engine = "spark")
   expect_equal(regularization_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -61,9 +83,20 @@ test_that('primary arguments', {
                  )
                )
   )
+  expect_equal(regularization_spark$method$fit_call,
+               quote(
+                 ml_logistic_regression(
+                   x = missing_arg(),
+                   reg_param = 1,
+                   features_col = missing_arg(),
+                   label_col = missing_arg()
+                 )
+               )
+  )
 
   mixture_v <- logistic_reg(mixture = varying())
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
+  mixture_v_spark <- translate(mixture_v, engine = "spark")
   expect_equal(mixture_v_glmnet$method$fit_call,
                quote(
                  glmnet(
@@ -74,6 +107,17 @@ test_that('primary arguments', {
                  )
                )
   )
+  expect_equal(mixture_v_spark$method$fit_call,
+               quote(
+                 ml_logistic_regression(
+                   x = missing_arg(),
+                   elastic_net_param = varying(),
+                   features_col = missing_arg(),
+                   label_col = missing_arg()
+                 )
+               )
+  )
+
 })
 
 test_that('engine arguments', {
@@ -110,6 +154,18 @@ test_that('engine arguments', {
                    chains = 1,
                    iter = 5,
                    family = binomial
+                 )
+               )
+  )
+
+  spark_iter <- logistic_reg(others = list(max_iter = 20))
+  expect_equal(translate(spark_iter, engine = "spark")$method$fit_call,
+               quote(
+                 ml_logistic_regression(
+                   x = missing_arg(),
+                   max_iter = 20,
+                   features_col = missing_arg(),
+                   label_col = missing_arg()
                  )
                )
   )

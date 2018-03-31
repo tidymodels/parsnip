@@ -30,7 +30,6 @@ print_arg_list <- function(x, ...) {
   atomic <- vapply(x, is.atomic, logical(1))
   x2 <- x
   x2[atomic] <- lapply(x2[atomic], format, ...)
-  symb <- vapply(x2, inherits, logical(1), what = others)
   x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
   paste0("  ", names(x2), " = ", x2, collaspe = "\n")
 }
@@ -59,7 +58,6 @@ model_printer <- function(x, ...) {
       }
     }
   }
-  cat("\n")
 }
 
 load_libs <- function(x, quiet) {
