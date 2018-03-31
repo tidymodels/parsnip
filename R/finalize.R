@@ -29,7 +29,7 @@ finalize.default <- function(x, engine, ...) {
     )
   
   # deharmonize primary arguments
-  real_args <- deharmonize(x$args, arg_key, x$engine)
+  actual_args <- deharmonize(x$args, arg_key, x$engine)
   
   # check secondary arguments to see if they are in the final 
   # expression unless there are dots, warn if protected args are
@@ -37,11 +37,11 @@ finalize.default <- function(x, engine, ...) {
   x$others <- check_others(x$others, x$method)
   
   # sub in args
-  modifed_args <- !vapply(real_args, null_value, lgl(1))
-  real_args <- real_args[modifed_args]
+  modifed_args <- !vapply(actual_args, null_value, lgl(1))
+  actual_args <- actual_args[modifed_args]
   
-  if(length(real_args) > 0)
-    x$method$fit <- purrr::list_modify(x$method$fit, !!!real_args)
+  if(length(actual_args) > 0)
+    x$method$fit <- purrr::list_modify(x$method$fit, !!!actual_args)
   if(length(x$others) > 0) {
     x$method$fit <- purrr::list_modify(x$method$fit, !!!x$others)
     
