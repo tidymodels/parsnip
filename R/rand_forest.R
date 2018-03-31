@@ -120,6 +120,7 @@ update.rand_forest <-
     
     args <- list(mtry = mtry, trees = trees, min_n = min_n)
     
+    # TODO make these blocks into a function amd document well
     if (fresh) {
       object$args <- args
     } else {

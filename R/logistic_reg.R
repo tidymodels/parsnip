@@ -64,9 +64,15 @@ logistic_reg <-
         call. = FALSE
       )
     
+    if (is.numeric(regularization) && regularization < 0)
+      stop("The amount of regularization should be >= 0", call. = FALSE)
+    if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
+      stop("The mixture proportion should be within [0,1]", call. = FALSE)
+    
     args <- list(regularization = regularization, mixture = mixture)
     
-    others <- parse_engine_options(others)
+    no_value <- !vapply(others, is.null, logical(1))
+    others <- others[no_value]
     
     # write a constructor function
     out <- list(
@@ -116,6 +122,11 @@ update.logistic_reg <-
            ...) {
     check_empty_ellipse(...)
     
+    if (is.numeric(regularization) && regularization < 0)
+      stop("The amount of regularization should be >= 0", call. = FALSE)
+    if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
+      stop("The mixture proportion should be within [0,1]", call. = FALSE)
+    
     args <- list(regularization = regularization, mixture = mixture)
     
     if (fresh) {
@@ -138,3 +149,14 @@ update.logistic_reg <-
     object
   }
 
+###################################################################
+
+#' @export
+translate.logistic_reg <- function(x, engine, ...) {
+  x <- translate.default(x, engine, ...)
+  if (x$engine %in% c("glm", "stan")) {
+    if (!(any(names(x$method$fit_call) == "family")))
+      x$method$fit_call$family <- expr(binomial)
+  }
+  x
+}

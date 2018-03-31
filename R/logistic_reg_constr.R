@@ -42,7 +42,7 @@ logistic_reg_glm_constr <-
   ) {
     libs <- "stats"
     interface <- "formula"
-    protect = c("formula", "data", "weights", "family")   
+    protect = c("formula", "data", "weights")   
     has_dots <- TRUE
     fit_name <- "glm"
     fit_args <- 
@@ -173,7 +173,7 @@ logistic_reg_stan_constr <-
 ) {
     libs <- "rstanarm"
     interface <- "formula"
-    protect = c("formula", "data", "weights", "family")   
+    protect = c("formula", "data", "weights")   
     has_dots <- TRUE
     fit_name <- "stan_glm"
     fit_args <- 

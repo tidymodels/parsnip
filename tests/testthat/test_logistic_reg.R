@@ -1,40 +1,41 @@
 library(testthat)
 library(parsnip)
 library(recipes)
+library(rlang)
 
 test_that('primary arguments', {
   basic <- logistic_reg()
-  basic_glm <- translate(basic, engine = "glm")  
-  basic_glmnet <- translate(basic, engine = "glmnet")    
-  basic_stan <- translate(basic, engine = "stan")    
+  basic_glm <- translate(basic, engine = "glm")
+  basic_glmnet <- translate(basic, engine = "glmnet")
+  basic_stan <- translate(basic, engine = "stan")
   expect_equal(basic_glm$method$fit_call,
                quote(
                  glm(
                    formula = missing_arg(),
-                   family = binomial,
-                   data = missing_arg()
+                   data = missing_arg(),
+                   family = binomial
                  )
                )
-  )  
+  )
   expect_equal(basic_glmnet$method$fit_call,
                quote(
                  glmnet(
-                   x = as.matrix(x), 
-                   y = missing_arg(), 
+                   x = as.matrix(x),
+                   y = missing_arg(),
                    family = "binomial"
                  )
                )
-  )    
+  )
   expect_equal(basic_stan$method$fit_call,
                quote(
                  stan_glm(
                    formula = missing_arg(),
-                   family = binomial(),
-                   data = missing_arg()
+                   data = missing_arg(),
+                   family = binomial
                  )
                )
-  )     
-  
+  )
+
   mixture <- logistic_reg(mixture = 0.128)
   mixture_glmnet <- translate(mixture, engine = "glmnet")
   expect_equal(mixture_glmnet$method$fit_call,
@@ -46,8 +47,8 @@ test_that('primary arguments', {
                    alpha = 0.128
                  )
                )
-  )  
-  
+  )
+
   regularization <- logistic_reg(regularization = 1)
   regularization_glmnet <- translate(regularization, engine = "glmnet")
   expect_equal(regularization_glmnet$method$fit_call,
@@ -59,8 +60,8 @@ test_that('primary arguments', {
                    lambda = 1
                  )
                )
-  )    
-  
+  )
+
   mixture_v <- logistic_reg(mixture = varying())
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   expect_equal(mixture_v_glmnet$method$fit_call,
@@ -72,21 +73,21 @@ test_that('primary arguments', {
                    alpha = varying()
                  )
                )
-  )  
+  )
 })
 
 test_that('engine arguments', {
-  # glm_fam <- logistic_reg(others = list(family = binomial(link = "probit")))
-  # expect_equal(translate(glm_fam, engine = "glm")$method$fit_call,
-  #              quote(
-  #                glm(
-  #                  formula = missing_arg(),
-  #                  family = binomial(link = "probit"),
-  #                  data = missing_arg()
-  #                )
-  #              )
-  # )
-  
+  glm_fam <- logistic_reg(others = list(family = expr(binomial(link = "probit"))))
+  expect_equal(translate(glm_fam, engine = "glm")$method$fit_call,
+               quote(
+                 glm(
+                   formula = missing_arg(),
+                   family = binomial(link = "probit"),
+                   data = missing_arg()
+                 )
+               )
+  )
+
   glmnet_nlam <- logistic_reg(others = list(nlambda = 10))
   expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_call,
                quote(
@@ -97,54 +98,56 @@ test_that('engine arguments', {
                    nlambda = 10
                  )
                )
-  ) 
-  
+  )
+
   # these should get pass into the ... slot
   stan_samp <- logistic_reg(others = list(chains = 1, iter = 5))
   expect_equal(translate(stan_samp, engine = "stan")$method$fit_call,
                quote(
                  stan_glm(
                    formula = missing_arg(),
-                   family = binomial(),
                    data = missing_arg(),
-                   chains = 1, 
-                   iter = 5
+                   chains = 1,
+                   iter = 5,
+                   family = binomial
                  )
                )
-  ) 
-  
+  )
+
 })
 
 
 test_that('updating', {
   expr1     <- logistic_reg(             others = list(family = binomial(link = "probit")))
   expr1_exp <- logistic_reg(mixture = 0, others = list(family = binomial(link = "probit")))
-  
+
   expr2     <- logistic_reg(mixture = varying())
   expr2_exp <- logistic_reg(mixture = varying(), others = list(nlambda = 10))
-  
+
   expr3     <- logistic_reg(mixture = 0, regularization = varying())
   expr3_exp <- logistic_reg(mixture = 1)
-  
+
   expr4     <- logistic_reg(mixture = 0, others = list(nlambda = 10))
   expr4_exp <- logistic_reg(mixture = 0, others = list(nlambda = 10, pmax = 2))
-  
+
   expr5     <- logistic_reg(mixture = 1, others = list(nlambda = 10))
   expr5_exp <- logistic_reg(mixture = 1, others = list(nlambda = 10, pmax = 2))
-  
+
   expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, others = list(nlambda = 10)), expr2_exp)  
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE), expr3_exp)  
+  expect_equal(update(expr2, others = list(nlambda = 10)), expr2_exp)
+  expect_equal(update(expr3, mixture = 1, fresh = TRUE), expr3_exp)
   expect_equal(update(expr4, others = list(pmax = 2)), expr4_exp)
   expect_equal(update(expr5, others = list(nlambda = 10, pmax = 2)), expr5_exp)
-  
+
 })
 
 test_that('bad input', {
   expect_error(logistic_reg(ase.weights = var))
   expect_error(logistic_reg(mode = "regression"))
+  expect_error(logistic_reg(regularization = -1))
+  expect_error(logistic_reg(mixture = -1))
   expect_error(translate(logistic_reg(), engine = "wat?"))
-  expect_warning(translate(logistic_reg(), engine = NULL))  
+  expect_warning(translate(logistic_reg(), engine = NULL))
   expect_warning(translate(logistic_reg(others = list(ytest = 2)), engine = "glmnet"))
   expect_error(translate(logistic_reg(formula = y ~ x)))
   expect_warning(translate(logistic_reg(others = list(x = x, y = y)), engine = "glmnet"))
@@ -171,7 +174,7 @@ bad_rec <-
 
 test_that('glm execution', {
   skip_on_cran()
-  
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -211,7 +214,7 @@ test_that('glm execution', {
       data = lending_club
     )
   )
-  
+
   glm_form_catch <- fit(
     lc_basic,
     engine = "glm",
@@ -219,8 +222,8 @@ test_that('glm execution', {
     lc_bad_form,
     data = lending_club
   )
-  expect_true(inherits(glm_form_catch, "try-error")) 
-  
+  expect_true(inherits(glm_form_catch, "try-error"))
+
   # fails
   # glm_xy_catch <- fit(
   #   lc_basic,
@@ -230,7 +233,7 @@ test_that('glm execution', {
   #   y = lending_club$total_bal_il
   # )
   # expect_true(inherits(glm_xy_catch, "try-error"))
-  
+
   glm_rec_catch <- fit(
     lc_basic,
     engine = "glm",
@@ -238,12 +241,12 @@ test_that('glm execution', {
     bad_rec,
     data = lending_club
   )
-  expect_true(inherits(glm_rec_catch, "try-error"))    
+  expect_true(inherits(glm_rec_catch, "try-error"))
 })
 
 test_that('glmnet execution', {
   skip_on_cran()
-  
+
   expect_error(
     fit(
       lc_basic,
@@ -254,7 +257,7 @@ test_that('glmnet execution', {
     ),
     regexp = NA
   )
-  
+
   # fails during R CMD check but works outside of that
   # expect_error(
   #   fit(
@@ -266,7 +269,7 @@ test_that('glmnet execution', {
   #   ),
   #   regexp = NA
   # )
-  
+
   expect_error(
     fit(
       lc_basic,
@@ -277,7 +280,7 @@ test_that('glmnet execution', {
     ),
     regexp = NA
   )
-  
+
   expect_error(
     fit(
       lc_basic,
@@ -287,7 +290,7 @@ test_that('glmnet execution', {
       data = lending_club
     )
   )
-  
+
   glmnet_form_catch <- fit(
     lc_basic,
     engine = "glmnet",
@@ -295,8 +298,8 @@ test_that('glmnet execution', {
     lc_bad_form,
     data = lending_club
   )
-  expect_true(inherits(glmnet_form_catch, "try-error")) 
-  
+  expect_true(inherits(glmnet_form_catch, "try-error"))
+
   glmnet_xy_catch <- fit(
     lc_basic,
     engine = "glmnet",
@@ -305,7 +308,7 @@ test_that('glmnet execution', {
     y = lending_club$total_bal_il
   )
   expect_true(inherits(glmnet_xy_catch, "try-error"))
-  
+
   glmnet_rec_catch <- fit(
     lc_basic,
     engine = "glmnet",
@@ -313,14 +316,14 @@ test_that('glmnet execution', {
     bad_rec,
     data = lending_club
   )
-  expect_true(inherits(glmnet_rec_catch, "try-error"))    
+  expect_true(inherits(glmnet_rec_catch, "try-error"))
 })
 
 
 test_that('stan_glm execution', {
   skip_on_cran()
   lc_basic_stan <- logistic_reg(others = list(seed = 1333))
-  
+
   expect_error(
     res <- fit(
       lc_basic_stan,
@@ -331,7 +334,7 @@ test_that('stan_glm execution', {
     ),
     regexp = NA
   )
-  
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -342,7 +345,7 @@ test_that('stan_glm execution', {
     ),
     regexp = NA
   )
-  
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -353,7 +356,7 @@ test_that('stan_glm execution', {
     ),
     regexp = NA
   )
-  
+
   expect_silent(
     res <- fit(
       lc_basic,
@@ -362,8 +365,8 @@ test_that('stan_glm execution', {
       lc_rec,
       data = lending_club
     )
-  )     
-  
+  )
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -373,7 +376,7 @@ test_that('stan_glm execution', {
       data = lending_club
     )
   )
-  
+
   stan_form_catch <- fit(
     lc_basic,
     engine = "stan",
@@ -381,8 +384,8 @@ test_that('stan_glm execution', {
     lc_bad_form,
     data = lending_club
   )
-  expect_true(inherits(stan_form_catch, "try-error")) 
-  
+  expect_true(inherits(stan_form_catch, "try-error"))
+
   # fails
   # stan_xy_catch <- fit(
   #   lc_basic,
@@ -392,7 +395,7 @@ test_that('stan_glm execution', {
   #   y = lending_club$total_bal_il
   # )
   # expect_true(inherits(stan_xy_catch, "try-error"))
-  
+
   stan_rec_catch <- fit(
     lc_basic,
     engine = "stan",
@@ -400,6 +403,6 @@ test_that('stan_glm execution', {
     bad_rec,
     data = lending_club
   )
-  expect_true(inherits(stan_rec_catch, "try-error"))     
+  expect_true(inherits(stan_rec_catch, "try-error"))
 })
 
