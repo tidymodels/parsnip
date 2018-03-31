@@ -109,7 +109,11 @@ fit.model_spec <- function(object, x, engine = object$engine,
       if (inherits(x, "recipe")) {
         res <- fit_recipe(object, recipe = x, .control = .control, ...)
       } else {
-        stop("`x` should be a formula, data frame, matrix, or recipe")
+        if (inherits(x, "tbl_spark")) {
+          res <- fit_spark(object, remote = x, .control = .control, ...)
+        } else {
+          stop("`x` should be a formula, data frame, matrix, remote tibble, or recipe")
+        }
       }
     }
   }
@@ -207,6 +211,16 @@ fit_recipe <- function(object, recipe, .control, ...) {
   res   
   
 }
+
+
+#placeholder
+fit_spark <- function(object, remote, engine = engine, .control, ...) {
+  NULL
+}
+
+### or.... let `data, `x` and `y` be remote spark data tables or specifications
+
+
 
 ###################################################################
 
