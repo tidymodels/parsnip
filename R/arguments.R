@@ -98,6 +98,19 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
 }
 
 check_others <- function(args, x) {
+  
+  # Make sure that we are not trying to modify an argument that
+  # is explicitly protected in the method metadata
+  common_args <- intersect(x$protect, names(args))
+  if (length(common_args) > 0) {
+    args <- args[!(names(args) %in% common_args)]
+    common_args <- paste0(common_args, collapse = ", ")
+    warning("The following arguments cannot be manually modified: ",
+            common_args, call. = FALSE)
+  }
+  
+  # If there are not ellipses in function, make sure that the 
+  # args exist in the fit call
   if (length(args) > 0 & !x$has_dots) {
     o_names <- names(args)
     missing_args <- o_names[!(o_names %in% names(x$fit))]

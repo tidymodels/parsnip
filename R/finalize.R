@@ -15,6 +15,7 @@ finalize <- function (x, ...)
   UseMethod("finalize")
 
 #' @importFrom utils getFromNamespace
+#' @importFrom purrr list_modify
 #' @export
 finalize.default <- function(x, engine, ...) {
   check_empty_ellipse(...)
@@ -31,16 +32,20 @@ finalize.default <- function(x, engine, ...) {
   real_args <- deharmonize(x$args, arg_key, x$engine)
   
   # check secondary arguments to see if they are in the final 
-  # expression unless there are dots
+  # expression unless there are dots, warn if protected args are
+  # being altered
   x$others <- check_others(x$others, x$method)
   
   # sub in args
-  modifed_args <-
-    names(real_args)[!vapply(real_args, null_value, lgl(1))]
-  for(i in modifed_args) {
-    x$method$fit[[i]] <- rlang::get_expr(real_args[[i]])
-  }
+  modifed_args <- !vapply(real_args, null_value, lgl(1))
+  real_args <- real_args[modifed_args]
+  
+  if(length(real_args) > 0)
+    x$method$fit <- purrr::list_modify(x$method$fit, !!!real_args)
   if(length(x$others) > 0) {
+    x$method$fit <- purrr::list_modify(x$method$fit, !!!x$others)
+    
+    
     for(i in names(x$others)) {
       if (all(i != x$method$protect))
         x$method$fit[[i]] <- rlang::get_expr(x$others[[i]])

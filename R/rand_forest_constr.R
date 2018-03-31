@@ -211,7 +211,7 @@ rand_forest_spark_constr <-
   )
   {
     libs <- "sparklyr"
-    interface <- "formula"
+    interface <- "tbl_spark"
     protect = c("x", "features_col", "label_col", "type")
     has_dots <- TRUE
     fit_name <- "ml_random_forest"
