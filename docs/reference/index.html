@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +37,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +54,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">parsnip</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">parsnip</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -62,6 +73,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -69,86 +81,111 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.0.0.9000</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-infrastructure" class="hasAnchor"><a href="#section-infrastructure" class="anchor"></a>Infrastructure</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="finalize.html">finalize</a></code> </p>
-          </td>
-          <td><p>Resolve a Model Specification for a Computational Engine</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fit.html">fit</a></code> </p>
-          </td>
-          <td><p>Fit a Model Specification to a Dataset</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="varying.html">varying</a></code> </p>
-          </td>
-          <td><p>A Placeholder Function for Argument Values</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-models" class="hasAnchor"><a href="#section-models" class="anchor"></a>Models</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rand_forest.html">rand_forest</a></code> </p>
-          </td>
-          <td><p>General Interface for Random Forest Models</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="logistic_reg.html">logistic_reg</a></code> </p>
-          </td>
-          <td><p>General Interface for Logistic Regression Models</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="lending_club.html">lending_club</a></code> </p>
-          </td>
-          <td><p>Loan Data</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-infrastructure" class="hasAnchor"><a href="#section-infrastructure" class="anchor"></a>Infrastructure</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="fit.html">fit()</a></code> </p>
+        </td>
+        <td><p>Fit a Model Specification to a Dataset</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="lending_club.html">lending_club</a></code> </p>
+        </td>
+        <td><p>Loan Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="logistic_reg.html">logistic_reg()</a></code> </p>
+        </td>
+        <td><p>General Interface for Logistic Regression Models</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rand_forest.html">rand_forest()</a></code> </p>
+        </td>
+        <td><p>General Interface for Random Forest Models</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="translate.html">translate()</a></code> </p>
+        </td>
+        <td><p>Resolve a Model Specification for a Computational Engine</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="update.logistic_reg.html">update(<i>&lt;logistic_reg&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Update a Logistic Regression Specification</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="update.rand_forest.html">update(<i>&lt;rand_forest&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Update a Random Forest Specification</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="varying.html">varying()</a></code> </p>
+        </td>
+        <td><p>A Placeholder Function for Argument Values</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-models" class="hasAnchor"><a href="#section-models" class="anchor"></a>Models</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rand_forest.html">rand_forest()</a></code> </p>
+        </td>
+        <td><p>General Interface for Random Forest Models</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="logistic_reg.html">logistic_reg()</a></code> </p>
+        </td>
+        <td><p>General Interface for Logistic Regression Models</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="lending_club.html">lending_club</a></code> </p>
+        </td>
+        <td><p>Loan Data</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -173,5 +210,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -1,0 +1,6 @@
+pandoc: 2.0.5
+pkgdown: 0.1.0.9000
+pkgdown_sha: b074c575119c35459f544f15e3dae3a6d617d9bb
+articles:
+  parsnip_Intro: parsnip_Intro.html
+

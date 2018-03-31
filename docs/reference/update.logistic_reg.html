@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Logistic Regression Models — logistic_reg • parsnip</title>
+<title>Update a Logistic Regression Specification — update.logistic_reg • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,21 +27,10 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="General Interface for Logistic Regression Models — logistic_reg" />
+<meta property="og:title" content="Update a Logistic Regression Specification — update.logistic_reg" />
 
-<meta property="og:description" content="logistic_reg is a way to generate a specification of a model
-before fitting and allows the model to be created using
-different packages in R, Stan, or via Spark. The main arguments for the
-model are:
-regularization: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-mixture: The proportion of L2 regularization in
-the model. Note that this will be ignored for some engines.
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the others argument. If left to their defaults
-here (NULL), the values are taken from the underlying model
-functions." />
+<meta property="og:description" content="If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,36 +88,25 @@ functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Logistic Regression Models</h1>
+    <h1>Update a Logistic Regression Specification</h1>
     
     </div>
 
     
-    <p><code>logistic_reg</code> is a way to generate a <em>specification</em> of a model
-before fitting and allows the model to be created using
-different packages in R, Stan, or via Spark. The main arguments for the
-model are:</p><ul>
-<li><p><code>regularization</code>: The total amount of regularization
-in the model. Note that this must be zero for some engines.</p></li>
-<li><p><code>mixture</code>: The proportion of L2 regularization in
-the model. Note that this will be ignored for some engines.</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the <code>others</code> argument. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions.</p>
+    <p>If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch.</p>
     
 
-    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for logistic_reg</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mode</th>
-      <td><p>A single character string for the type of model.
-The only possible value for this model is "classification".</p></td>
+      <th>object</th>
+      <td><p>A logistic reression model specification.</p></td>
     </tr>
     <tr>
       <th>regularization</th>
@@ -151,38 +129,42 @@ until the model is fit and will be substituted into the model
 fit expression.</p></td>
     </tr>
     <tr>
+      <th>fresh</th>
+      <td><p>A logical for whether the arguments should be
+modifed in-place of or replaced wholesale.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Used for S3 method consistency. Any arguments passed to
 the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>logistic_reg</code>,the
-mode will always be "classification".</p>
-<p>The model can be created using the <code><a href='fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"glm"</code> or <code>"glmnet"</code></p></li>
-<li><p><span class="pkg">Stan</span>:  <code>"rstanarm"</code></p></li>
-<li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='fit.html'>fit()</a></code></p></div>
+    <p>An updated model specification.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>logistic_reg</span>()</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>logistic_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+<span class='no'>model</span></div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = varying()
+#&gt;   regularization = 10
+#&gt;   mixture = 0.1
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   regularization = 1
+#&gt;   mixture = 0.1
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   regularization = 1
 #&gt; 
 #&gt; </div></pre>
   </div>
@@ -191,9 +173,7 @@ following <em>engines</em>:</p><ul>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
