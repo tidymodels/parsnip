@@ -2,7 +2,7 @@
 
 
 make_classes <- function(prefix) {
-  c("model_spec", prefix)
+  c(prefix, "model_spec")
 }
 
 
