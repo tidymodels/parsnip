@@ -64,12 +64,9 @@ logistic_reg <-
         call. = FALSE
       )
     
-    args <- list(
-      regularization = rlang::enquo(regularization),
-      mixture = rlang::enquo(mixture)
-    )
+    args <- list(regularization = regularization, mixture = mixture)
     
-    others <- parse_engine_options(rlang::enquo(others))
+    others <- parse_engine_options(others)
     
     # write a constructor function
     out <- list(
@@ -119,10 +116,8 @@ update.logistic_reg <-
            ...) {
     check_empty_ellipse(...)
     
-    args <- list(
-      regularization = rlang::enquo(regularization),
-      mixture = rlang::enquo(mixture)
-    )
+    args <- list(regularization = regularization, mixture = mixture)
+    
     if (fresh) {
       object$args <- args
     } else {
@@ -142,26 +137,4 @@ update.logistic_reg <-
     
     object
   }
-
-
-###################################################################
-
-logistic_reg_arg_key <- data.frame(
-  glm    =  c(        NA,                  NA),
-  glmnet =  c(   "lambda",             "alpha"),
-  spark  =  c("reg_param", "elastic_net_param"),
-  stan   =  c(        NA,                  NA),
-  stringsAsFactors = FALSE,
-  row.names =  c("regularization", "mixture")
-)
-
-logistic_reg_modes <- "classification"
-
-logistic_reg_engines <- data.frame(
-  glm    = TRUE,
-  glmnet = TRUE,
-  spark  = TRUE,
-  stan   = TRUE,  
-  row.names =  c("classification")
-)
 
