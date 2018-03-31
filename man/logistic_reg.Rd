@@ -2,10 +2,14 @@
 % Please edit documentation in R/logistic_reg.R
 \name{logistic_reg}
 \alias{logistic_reg}
+\alias{update.logistic_reg}
 \title{General Interface for Logistic Regression Models}
 \usage{
 logistic_reg(mode = "classification", regularization = NULL,
   mixture = NULL, others = list(), ...)
+
+\method{update}{logistic_reg}(object, regularization = NULL, mixture = NULL,
+  others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -27,6 +31,14 @@ fit expression.}
 
 \item{...}{Used for S3 method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{others} instead.}
+
+\item{object}{A logistic reression model specification.}
+
+\item{fresh}{A logical for whether the arguments should be
+modifed in-place of or replaced wholesale.}
+}
+\value{
+An updated model specification.
 }
 \description{
 \code{logistic_reg} is a way to generate a \emph{specification} of a model
@@ -44,6 +56,9 @@ time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.
+
+If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch.
 }
 \details{
 The data given to the function are not saved and are only used
@@ -54,15 +69,18 @@ The model can be created using the \code{\link[=fit]{fit()}} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{"glm"} or \code{"glmnet"}
-\item \pkg{Stan}:  \code{"rstanarm"}
+\item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
 }
 }
 \examples{
 logistic_reg()
-
 # Parameters can be represented by a placeholder:
 logistic_reg(regularization = varying())
+model <- logistic_reg(regularization = 10, mixture = 0.1)
+model
+update(model, regularization = 1)
+update(model, regularization = 1, fresh = TRUE)
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

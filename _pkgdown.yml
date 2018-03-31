@@ -3,15 +3,16 @@ template:
     bootswatch: united
 
 reference:
-  - title: Infrastructure
-    contents:
-      - finalize
-      - fit
-      - varying
   - title: Models
     contents:
       - rand_forest
-      - logistic_reg 
+      - logistic_reg   
+  - title: Infrastructure
+    contents:
+      - translate
+      - update
+      - fit
+      - varying
   - title: Data
     contents:
      - lending_club      

@@ -2,10 +2,14 @@
 % Please edit documentation in R/rand_forest.R
 \name{rand_forest}
 \alias{rand_forest}
+\alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
 rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL,
   others = list(), ...)
+
+\method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
+  min_n = NULL, others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -27,6 +31,14 @@ underlying models (e.g., \code{ranger::ranger},
 
 \item{...}{Used for method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{others} instead.}
+
+\item{object}{A random forest model specification.}
+
+\item{fresh}{A logical for whether the arguments should be
+modifed in-place of or replaced wholesale.}
+}
+\value{
+An updated model specification.
 }
 \description{
 \code{rand_forest} is a way to generate a \emph{specification} of a model
@@ -45,6 +57,9 @@ time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.
+
+If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch.
 }
 \details{
 The data given to the function are not saved and are only used
@@ -64,9 +79,12 @@ argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floo
 }
 \examples{
 rand_forest(mode = "classification", trees = 2000)
-
 # Parameters can be represented by a placeholder:
 rand_forest(mode = "regression", mtry = varying())
+model <- rand_forest(mtry = 10, min_n = 3)
+model
+update(model, mtry = 1)
+update(model, mtry = 1, fresh = TRUE)
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

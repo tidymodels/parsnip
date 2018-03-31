@@ -24,7 +24,7 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"glm"` or `"glmnet"` 
-#' \item \pkg{Stan}:  `"rstanarm"` 
+#' \item \pkg{Stan}:  `"stan"` 
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #' @param mode A single character string for the type of model.
@@ -45,7 +45,6 @@
 #' @seealso [varying()], [fit()]
 #' @examples 
 #' logistic_reg()
-#' 
 #' # Parameters can be represented by a placeholder:
 #' logistic_reg(regularization = varying())
 #' @export
@@ -108,11 +107,10 @@ print.logistic_reg <- function(x, ...) {
 #' @examples 
 #' model <- logistic_reg(regularization = 10, mixture = 0.1)
 #' model
-#' 
 #' update(model, regularization = 1)
-#' 
 #' update(model, regularization = 1, fresh = TRUE)
 #' @method update logistic_reg
+#' @rdname logistic_reg
 #' @export
 update.logistic_reg <-
   function(object,

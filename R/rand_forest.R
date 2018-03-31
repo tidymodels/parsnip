@@ -50,7 +50,6 @@
 #' @seealso [varying()], [fit()]
 #' @examples 
 #' rand_forest(mode = "classification", trees = 2000)
-#' 
 #' # Parameters can be represented by a placeholder:
 #' rand_forest(mode = "regression", mtry = varying())
 #' @export
@@ -104,11 +103,10 @@ print.rand_forest <- function(x, ...) {
 #' @examples 
 #' model <- rand_forest(mtry = 10, min_n = 3)
 #' model
-#' 
 #' update(model, mtry = 1)
-#' 
 #' update(model, mtry = 1, fresh = TRUE)
 #' @method update rand_forest
+#' @rdname rand_forest
 #' @export
 update.rand_forest <-
   function(object,

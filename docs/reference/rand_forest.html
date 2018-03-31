@@ -42,7 +42,9 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the others argument. If left to their defaults
 here (NULL), the values are taken from the underlying model
-functions." />
+functions.
+If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,10 +121,16 @@ time that the model is fit. Other options and argument can be
 set using the <code>others</code> argument. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions.</p>
+<p>If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch.</p>
     
 
     <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+
+<span class='co'># S3 method for rand_forest</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,7 +167,20 @@ underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/r
       <td><p>Used for method consistency. Any arguments passed to
 the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
+    <tr>
+      <th>object</th>
+      <td><p>A random forest model specification.</p></td>
+    </tr>
+    <tr>
+      <th>fresh</th>
+      <td><p>A logical for whether the arguments should be
+modifed in-place of or replaced wholesale.</p></td>
+    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An updated model specification.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -186,12 +207,29 @@ argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/q
 #&gt; Main Arguments:
 #&gt;   trees = 2000
 #&gt; 
-#&gt; </div><div class='input'>
-<span class='co'># Parameters can be represented by a placeholder:</span>
+#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
+#&gt; 
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>rand_forest</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>model</span></div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   mtry = 10
+#&gt;   min_n = 3
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   mtry = 1
+#&gt;   min_n = 3
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   mtry = 1
 #&gt; 
 #&gt; </div></pre>
   </div>
@@ -200,6 +238,8 @@ argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/q
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
