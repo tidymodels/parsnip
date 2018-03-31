@@ -118,8 +118,8 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- logistic_reg(             others = list(family = binomial(link = "probit")))
-  expr1_exp <- logistic_reg(mixture = 0, others = list(family = binomial(link = "probit")))
+  expr1     <- logistic_reg(             others = list(family = expr(binomial(link = "probit"))))
+  expr1_exp <- logistic_reg(mixture = 0, others = list(family = expr(binomial(link = "probit"))))
 
   expr2     <- logistic_reg(mixture = varying())
   expr2_exp <- logistic_reg(mixture = varying(), others = list(nlambda = 10))
