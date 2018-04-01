@@ -16,7 +16,8 @@ Depends:
 Imports: 
     rlang (>= 0.1.6.9003),
     purrr,
-    recipes
+    recipes,
+    utils
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Suggests: 

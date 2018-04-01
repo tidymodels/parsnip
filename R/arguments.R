@@ -11,11 +11,6 @@ does_it_vary <- function(x) {
   res
 }
 
-
-should_eval <- function(x) {
-  length(func_calls(x)) == 0
-}
-
 null_value <- function(x) {
   res <- if(is_quosure(x))
     isTRUE(all.equal(x[[-1]], quote(NULL))) else 
@@ -34,15 +29,6 @@ func_calls <- function (f)  {
       return(fname)
     unique(c(fname, unlist(lapply(f[-1], func_calls), use.names = FALSE)))
   }
-}
-
-
-varying_param_check <- function(x) {
-  varies <- vapply(x$method$fit, does_it_vary, lgl(1))
-  if(any(varies))
-    stop("One or more arguments are not finalized (", 
-         paste0("`", names(varies)[varies], "`", collapse = ", "), ")")
-  invisible(NULL)
 }
 
 #' A Placeholder Function for Argument Values

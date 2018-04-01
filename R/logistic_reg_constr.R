@@ -282,3 +282,8 @@ logistic_reg_spark_constr <-
   res
 }
 
+
+###################################################################
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c("exponential", "normal"))

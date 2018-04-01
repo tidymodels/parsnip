@@ -256,5 +256,7 @@ rand_forest_spark_constr <-
     res  
   }
 
+###################################################################
 
-
+#' @importFrom utils globalVariables
+utils::globalVariables("random_string")
