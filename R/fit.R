@@ -10,8 +10,23 @@
 #'  routine.
 #'
 #' @param object An object of class `model_spec`
-#' @param x Either an R formula, a data frame of predictors, or a
-#'  recipe object.
+#' @param formula An object of class "formula" (or one that can
+#'  be coerced to that class): a symbolic description of the model
+#'  to be fitted.
+#' @param recipe Optional, depending on the interface (see Details
+#'  below). An object of class [recipes::recipe()]. Note: when
+#'  needed, a \emph{named argument} should be used.
+#' @param x Optional, depending on the interface (see Details
+#'  below). Can be data frame or matrix of predictors. Note: when
+#'  needed, a \emph{named argument} should be used.
+#' @param y Optional, depending on the interface (see Details
+#'  below). Can be a vector, data frame or matrix of predictors (the
+#'  latter two in case of multivariate outcomes). Note: when needed,
+#'  a \emph{named argument} should be used.
+#' @param data Optional, depending on the interface (see Details
+#'  below). A data frame containing all relevant variables (e.g.
+#'  outcome(s), predictors, case weights, etc). Note: when needed, a
+#'  \emph{named argument} should be used.
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).

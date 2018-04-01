@@ -19,8 +19,27 @@ ignored. Other options required to fit the model should be
 passed using the \code{others} argument in the original model
 specification.}
 
-\item{x}{Either an R formula, a data frame of predictors, or a
-recipe object.}
+\item{formula}{An object of class "formula" (or one that can
+be coerced to that class): a symbolic description of the model
+to be fitted.}
+
+\item{recipe}{Optional, depending on the interface (see Details
+below). An object of class \code{\link[recipes:recipe]{recipes::recipe()}}. Note: when
+needed, a \emph{named argument} should be used.}
+
+\item{x}{Optional, depending on the interface (see Details
+below). Can be data frame or matrix of predictors. Note: when
+needed, a \emph{named argument} should be used.}
+
+\item{y}{Optional, depending on the interface (see Details
+below). Can be a vector, data frame or matrix of predictors (the
+latter two in case of multivariate outcomes). Note: when needed,
+a \emph{named argument} should be used.}
+
+\item{data}{Optional, depending on the interface (see Details
+below). A data frame containing all relevant variables (e.g.
+outcome(s), predictors, case weights, etc). Note: when needed, a
+\emph{named argument} should be used.}
 
 \item{engine}{A character string for the software that should
 be used to fit the model. This is highly dependent on the type
