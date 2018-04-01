@@ -156,7 +156,7 @@ fit_formula <- function(object, formula, data, engine = engine, .control, ...) {
   res
 }
 
-fit_xy <- function(object, x, .control, ...) {
+fit_xy <- function(object, x, y, .control, ...) {
   opts <- quos(...)
 
   # Look up the model's interface (e.g. formula, recipes, etc)
@@ -166,13 +166,15 @@ fit_xy <- function(object, x, .control, ...) {
   } else {
     if(object$method$interface %in% c("data.frame", "matrix")) {
       fit_expr <- object$method$fit_call
-
-      if(is_missing_arg(fit_expr[["x"]]))
-        fit_expr[["x"]] <- quote(x)
-      if(is_missing_arg(fit_expr[["y"]]))
-        fit_expr[["y"]] <- rlang::get_expr(opts$y)
-
-      res <- eval_mod(fit_expr, capture = .control$verbosity == 0, catch = .control$catch, env = get_env())
+      fit_expr[["x"]] <- quote(x)
+      fit_expr[["y"]] <- quote(y)
+      res <-
+        eval_mod(
+          fit_expr,
+          capture = .control$verbosity == 0,
+          catch = .control$catch,
+          env = current_enf()
+        )
     } else {
       stop("I don't know about the ",
            object$method$interface, " interface.",
@@ -182,7 +184,7 @@ fit_xy <- function(object, x, .control, ...) {
   res
 }
 
-fit_recipe <- function(object, recipe, .control, ...) {
+fit_recipe <- function(object, recipe, data, .control, ...) {
   opts <- quos(...)
 
   # Look up the model's interface (e.g. formula, recipes, etc)
@@ -255,7 +257,7 @@ formula_to_xy <- function(object, formula, data, .control) {
 recipe_to_formula <- function(object, recipe, data, .control) {
   # TODO case weights
   recipe <-
-    prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
+    prep(recipe, training = data, retain = TRUE, verbose = .control$verbosity > 1)
   dat <- juice(recipe, all_predictors(), all_outcomes())
   dat <- as.data.frame(dat)
 
@@ -272,14 +274,14 @@ recipe_to_formula <- function(object, recipe, data, .control) {
     fit_expr,
     capture = .control$verbosity == 0,
     catch = .control$catch,
-    env = get_env()
+    env = current_env()
   )
 }
 
 recipe_to_xy <- function(object, recipe, data, .control) {
   # TODO case weights
   recipe <-
-    prep(recipe, training = eval_tidy(data[["data"]]), retain = TRUE)
+    prep(recipe, training = data, retain = TRUE, verbose = .control$verbosity > 1)
 
   x <- juice(recipe, all_predictors())
   x <- as.data.frame(x)
@@ -291,16 +293,14 @@ recipe_to_xy <- function(object, recipe, data, .control) {
 
   fit_expr <- object$method$fit_call
 
-  if(is_missing_arg(fit_expr[["x"]]))
-    fit_expr[["x"]] <- quote(x)
-  if(is_missing_arg(fit_expr[["y"]]))
-    fit_expr[["y"]] <- quote(y)
+  fit_expr[["x"]] <- quote(x)
+  fit_expr[["y"]] <- quote(y)
 
   eval_mod(
     fit_expr,
     capture = .control$verbosity == 0,
     catch = .control$catch,
-    env = get_env()
+    env = current_env()
   )
 }
 
@@ -309,11 +309,11 @@ recipe_to_xy <- function(object, recipe, data, .control) {
 xy_to_formula <- function(object, x, y, .control) {
   if(!is.data.frame(x))
     x <- as.data.frame(x)
-  x$.y <- eval_tidy(y[["y"]])
+  x$.y <- y
   fit_expr <- object$method$fit_call
   fit_expr$formula <- as.formula(.y ~ .)
   fit_expr$data <- quote(x)
-  eval_tidy(fit_expr)
+  eval_tidy(fit_expr, env = current_env())
 }
 
 xy_to_recipe <- function(object, x, y, .control) {
@@ -389,7 +389,9 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
   inher(formula, "formula", cl)
   inher(recipe, "recipe", cl)
   inher(x, c("data.frame", "matrix"), cl)
-  inher(y, c("data.frame", "matrix", "vector"), cl)
+  # `y` can be a vector (which is not a class)
+  if(!is.null(y) && !is.vector(y))
+    inher(y, c("data.frame", "matrix"), cl)
   inher(data, c("data.frame", "matrix"), cl)
 
   x_interface <- !is.null(x) & !is.null(y)
