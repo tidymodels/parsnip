@@ -7,16 +7,17 @@
 \usage{
 fit(object, ...)
 
-\method{fit}{model_spec}(object, x, engine = object$engine,
+\method{fit}{model_spec}(object, formula = NULL, recipe = NULL, x = NULL,
+  y = NULL, data = NULL, engine = object$engine,
   .control = list(verbosity = 1, catch = FALSE), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
 
-\item{...}{Other options required to fit the model. If \code{x} is a
-formula or recipe, then the \code{data} argument should be passed
-here. For the "x/y" interface, the outcome data should be passed
-in with the argument \code{y}.}
+\item{...}{Not currently used; values passed here will be
+ignored. Other options required to fit the model should be
+passed using the \code{others} argument in the original model
+specification.}
 
 \item{x}{Either an R formula, a data frame of predictors, or a
 recipe object.}
@@ -71,24 +72,29 @@ data("lending_club")
 
 lm_mod <- logistic_reg()
 
-using_formula <- 
-  fit(lm_mod, engine = "glm",
+using_formula <-
+  fit(lm_mod,
       Class ~ funded_amnt + int_rate,
-      data = lending_club)
+      data = lending_club,
+      engine = "glm")
 
-using_xy <- 
-  fit(lm_mod, engine = "glm",
+# NOTE: use named arguments for "x" and "y" when using this interface
+using_xy <-
+  fit(lm_mod,
       x = lending_club[, c("funded_amnt", "int_rate")],
-      y = lending_club$Class)
+      y = lending_club$Class,
+      engine = "glm")
 
+# NOTE: use named arguments for "recipe" and "data" when using this interface
 library(recipes)
-lend_rec <- recipe(Class ~ funded_amnt + int_rate, 
+lend_rec <- recipe(Class ~ funded_amnt + int_rate,
                    data = lending_club)
 
-using_recipe <- 
-  fit(lm_mod, engine = "glm",
-      lend_rec,
-      data = lending_club)
+using_recipe <-
+  fit(lm_mod,
+      recipe = lend_rec,
+      data = lending_club,
+      engine = "glm")
 
 coef(using_formula)
 coef(using_xy)
