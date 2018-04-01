@@ -159,13 +159,3 @@ fit(rf_mod, mpg ~ ., data = mtcars, engine = "randomForest")
 ##           Mean of squared residuals: 5.746345
 ##                     % Var explained: 83.67
 ```
-
-
-## Examples
-
-In an effort the keep the number of package dependencies low, all working examples of `parsnip` can be found in separate pages: 
-
-* logistic regression
-
-
-

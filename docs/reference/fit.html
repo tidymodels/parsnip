@@ -102,8 +102,9 @@ routine.</p>
     <pre class="usage"><span class='fu'>fit</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'>fit</span>(<span class='no'>object</span>, <span class='no'>x</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>,
-  <span class='kw'>.control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbosity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>catch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>fit</span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>,
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -114,15 +115,42 @@ routine.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other options required to fit the model. If <code>x</code> is a
-formula or recipe, then the <code>data</code> argument should be passed
-here. For the "x/y" interface, the outcome data should be passed
-in with the argument <code>y</code>.</p></td>
+      <td><p>Not currently used; values passed here will be
+ignored. Other options required to fit the model should be
+passed using the <code>others</code> argument in the original model
+specification.</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p>An object of class "formula" (or one that can
+be coerced to that class): a symbolic description of the model
+to be fitted.</p></td>
+    </tr>
+    <tr>
+      <th>recipe</th>
+      <td><p>Optional, depending on the interface (see Details
+below). An object of class <code><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>. Note: when
+needed, a <em>named argument</em> should be used.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>Either an R formula, a data frame of predictors, or a
-recipe object.</p></td>
+      <td><p>Optional, depending on the interface (see Details
+below). Can be data frame or matrix of predictors. Note: when
+needed, a <em>named argument</em> should be used.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>Optional, depending on the interface (see Details
+below). Can be a vector, data frame or matrix of predictors (the
+latter two in case of multivariate outcomes). Note: when needed,
+a <em>named argument</em> should be used.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>Optional, depending on the interface (see Details
+below). A data frame containing all relevant variables (e.g.
+outcome(s), predictors, case weights, etc). Note: when needed, a
+<em>named argument</em> should be used.</p></td>
     </tr>
     <tr>
       <th>engine</th>
@@ -131,18 +159,9 @@ be used to fit the model. This is highly dependent on the type
 of model (e.g. linear regression, random forest, etc.).</p></td>
     </tr>
     <tr>
-      <th>.control</th>
+      <th>control</th>
       <td><p>A named list with elements <code>verbosity</code> and
-<code>catch</code>. <code>verbosity</code> should be an integer where a value of zero
-indicates that no messages or output should be shown when
-packages are loaded or when the model is fit. A value of 1 means
-that package loading is quiet but model fits can produce output
-to the screen (depending on if they contain their own
-<code>verbose</code>-type argument). A value of 2 or more indicates that
-any output should be seen. <code>catch</code> is a logical where a value of
-<code>TRUE</code> will evaluate the model inside of <code>try(, silent = TRUE)</code>.
-If the model fails, an object is still returned (without an
-error) that inherits the class "try-error".</p></td>
+<code>catch</code>. See <code><a href='fit_control.html'>fit_control()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -178,23 +197,37 @@ objects used to fit the model.</p>
 <span class='no'>lm_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
 <span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>,
+  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
       <span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
-      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
+      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
+      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
+<span class='co'># NOTE: use named arguments for "x" and "y" when using this interface</span>
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>,
+  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
       <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
-      <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>)
+      <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>,
+      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
-<span class='fu'>library</span>(<span class='no'>recipes</span>)
-<span class='no'>lend_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
+<span class='co'># NOTE: use named arguments for "recipe" and "data" when using this interface</span>
+<span class='fu'>library</span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: broom</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>lend_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
                    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
 
 <span class='no'>using_recipe</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>,
-      <span class='no'>lend_rec</span>,
-      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
+  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
+      <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='no'>lend_rec</span>,
+      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
+      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
 <span class='fu'>coef</span>(<span class='no'>using_formula</span>)</div><div class='output co'>#&gt;   (Intercept)   funded_amnt      int_rate 
 #&gt;  5.130680e+00  2.766853e-06 -1.586043e-01 </div><div class='input'><span class='fu'>coef</span>(<span class='no'>using_xy</span>)</div><div class='output co'>#&gt;   (Intercept)   funded_amnt      int_rate 

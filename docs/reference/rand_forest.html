@@ -206,31 +206,26 @@ argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/q
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   trees = 2000
-#&gt; 
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; 
 #&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>rand_forest</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='no'>model</span></div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
-#&gt; 
 #&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt;   min_n = 3
-#&gt; 
 #&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
-#&gt; 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

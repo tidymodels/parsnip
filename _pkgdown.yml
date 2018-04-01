@@ -12,6 +12,7 @@ reference:
       - translate
       - update
       - fit
+      - fit_control
       - varying
   - title: Data
     contents:

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • parsnip</title>
+<title>Control the fit function — fit_control • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,11 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Control the fit function — fit_control" />
+
+<meta property="og:description" content="Options can be passed to the fit() function that control the output and
+computations" />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -44,7 +48,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -82,95 +86,55 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Control the fit function</h1>
+    
     </div>
 
-    <table class="ref-index">
+    
+    <p>Options can be passed to the <code><a href='fit.html'>fit()</a></code> function that control the output and
+computations</p>
+    
 
-    <colgroup>
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-models" class="hasAnchor"><a href="#section-models" class="anchor"></a>Models</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="rand_forest.html">rand_forest()</a></code> <code><a href="rand_forest.html">update(<i>&lt;rand_forest&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>General Interface for Random Forest Models</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="logistic_reg.html">logistic_reg()</a></code> <code><a href="logistic_reg.html">update(<i>&lt;logistic_reg&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>General Interface for Logistic Regression Models</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-infrastructure" class="hasAnchor"><a href="#section-infrastructure" class="anchor"></a>Infrastructure</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="translate.html">translate()</a></code> </p>
-        </td>
-        <td><p>Resolve a Model Specification for a Computational Engine</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="fit.html">fit()</a></code> </p>
-        </td>
-        <td><p>Fit a Model Specification to a Dataset</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="fit_control.html">fit_control()</a></code> </p>
-        </td>
-        <td><p>Control the fit function</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="varying.html">varying()</a></code> </p>
-        </td>
-        <td><p>A Placeholder Function for Argument Values</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="lending_club.html">lending_club</a></code> </p>
-        </td>
-        <td><p>Loan Data</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>fit_control</span>(<span class='kw'>verbosity</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>catch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>verbosity</th>
+      <td><p>An integer where a value of zero indicates
+that no messages or output should be shown when packages are
+loaded or when the model is fit. A value of 1 means that package
+loading is quiet but model fits can produce output to the screen
+(depending on if they contain their own <code>verbose</code>-type
+argument). A value of 2 or more indicates that any output should
+be seen.</p></td>
+    </tr>
+    <tr>
+      <th>catch</th>
+      <td><p>A logical where a value of <code>TRUE</code> will evaluate
+the model inside of <code>try(, silent = TRUE)</code>. If the model fails,
+an object is still returned (without an error) that inherits the
+class "try-error".</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A named list with the results of the function call</p>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-models">Models</a></li>
-      <li><a href="#section-infrastructure">Infrastructure</a></li>
-      <li><a href="#section-data">Data</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
+
   </div>
 </div>
 
