@@ -41,10 +41,9 @@ varying <- function()
 
 deharmonize <- function(args, key, engine) {
   nms <- names(args)
-  for(i in seq_along(args)) {
-    names(args)[i] <- key[ nms[i] , engine ]
-  }
-  args
+  orig_names <- key[nms, engine]
+  names(args) <- orig_names
+  args[!is.na(orig_names)]
 }
 
 parse_engine_options <- function(x) {
