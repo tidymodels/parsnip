@@ -1,12 +1,24 @@
 
 get_model_objects <-  function (x, engine)  {
-  if (x$mode == "unknown") 
-    stop("Please specify a mode for the model (e.g. regression, classification, etc.) ", 
+  if (x$mode == "unknown")
+    stop("Please specify a mode for the model (e.g. regression, classification, etc.) ",
          "so that the model code can be finalized", call. = FALSE)
   cls <- specifc_model(x)
   nm <- paste(cls, engine, "constr", sep = "_")
   res <- try(get(nm), silent = TRUE)
-  if (inherits(res, "try-error")) 
+  if (inherits(res, "try-error"))
+    stop("Can't find model object ", nm)
+  res()
+}
+
+get_model_fit_info <-  function (x, engine)  {
+  if (x$mode == "unknown")
+    stop("Please specify a mode for the model (e.g. regression, classification, etc.) ",
+         "so that the model code can be finalized", call. = FALSE)
+  cls <- specifc_model(x)
+  nm <- paste(cls, engine, "fit", sep = "_")
+  res <- try(get(nm), silent = TRUE)
+  if (inherits(res, "try-error"))
     stop("Can't find model object ", nm)
   res()
 }
