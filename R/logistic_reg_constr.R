@@ -14,14 +14,14 @@ logistic_reg_engines <- data.frame(
   glm    = TRUE,
   glmnet = TRUE,
   spark  = TRUE,
-  stan   = TRUE,  
+  stan   = TRUE,
   row.names =  c("classification")
 )
 
 ###################################################################
 
 #' @importFrom stats binomial
-logistic_reg_glm_constr <- 
+logistic_reg_glm_constr <-
   function(
     formula = missing_arg(),
     family = binomial,
@@ -42,10 +42,10 @@ logistic_reg_glm_constr <-
   ) {
     libs <- "stats"
     interface <- "formula"
-    protect = c("formula", "data", "weights")   
+    protect = c("formula", "data", "weights")
     has_dots <- TRUE
     fit_name <- "glm"
-    fit_args <- 
+    fit_args <-
       enexprs(
         formula = formula,
         family = family,
@@ -64,7 +64,7 @@ logistic_reg_glm_constr <-
         y = y,
         contrasts = contrasts
       )
-    res <- 
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -78,7 +78,7 @@ logistic_reg_glm_constr <-
     res
   }
 
-logistic_reg_glmnet_constr <- 
+logistic_reg_glmnet_constr <-
   function(
     x = as.matrix(x),
     y = missing_arg(),
@@ -105,11 +105,11 @@ logistic_reg_glmnet_constr <-
     type.multinomial = c("ungrouped", "grouped")
   ) {
     libs <- "glmnet"
-    interface <- "data.frame"
-    protect = c("x", "y", "weights", "family")   
+    interface <- "matrix"
+    protect = c("x", "y", "weights", "family")
     has_dots <- FALSE
     fit_name <- "glmnet"
-    fit_args <- 
+    fit_args <-
       enexprs(
         x = x,
         y = y,
@@ -135,7 +135,7 @@ logistic_reg_glmnet_constr <-
         standardize.response = standardize.response,
         type.multinomial = type.multinomial
       )
-    res <- 
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -149,7 +149,7 @@ logistic_reg_glmnet_constr <-
     res
   }
 
-logistic_reg_stan_constr <- 
+logistic_reg_stan_constr <-
   function(
     formula = missing_arg(),
     family = binomial(),
@@ -173,10 +173,10 @@ logistic_reg_stan_constr <-
 ) {
     libs <- "rstanarm"
     interface <- "formula"
-    protect = c("formula", "data", "weights")   
+    protect = c("formula", "data", "weights")
     has_dots <- TRUE
     fit_name <- "stan_glm"
-    fit_args <- 
+    fit_args <-
       enexprs(
         formula = formula,
         family = family,
@@ -198,7 +198,7 @@ logistic_reg_stan_constr <-
         QR = QR,
         sparse = sparse
       )
-    res <- 
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -213,7 +213,7 @@ logistic_reg_stan_constr <-
   }
 
 
-logistic_reg_spark_constr <- 
+logistic_reg_spark_constr <-
   function(
     x = missing_arg(),
     formula = NULL,
@@ -239,11 +239,11 @@ logistic_reg_spark_constr <-
     uid = random_string("logistic_regression_")
   ) {
   libs <- "sparklyr"
-  interface <- "formula"
-  protect = c("features_col", "label_col", "x", "weight_col")   
+  interface <- "spark"
+  protect = c("features_col", "label_col", "x", "weight_col")
   has_dots <- TRUE
   fit_name <- "ml_logistic_regression"
-  fit_args <- 
+  fit_args <-
     enexprs(
       x = x,
       formula = formula,
@@ -268,7 +268,7 @@ logistic_reg_spark_constr <-
       raw_prediction_col = raw_prediction_col,
       uid = uid
     )
-  res <- 
+  res <-
     list(
       library = libs,
       interface = interface,

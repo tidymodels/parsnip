@@ -151,7 +151,7 @@ fit_formula <- function(object, formula, data, engine = engine, control, ...) {
         env = current_env()
       )
   } else {
-    if(object$method$interface %in% c("data.frame", "matrix")) {
+    if(object$method$interface %in% c("data.frame", "matrix", "spark")) {
       res <- formula_to_xy(object = object, formula = formula, data = data, control)
     } else {
       stop("I don't know about the ",
@@ -162,31 +162,54 @@ fit_formula <- function(object, formula, data, engine = engine, control, ...) {
   res
 }
 
+
+xy_to_xy <- function(object, x, y, control, ...) {
+  fit_expr <- object$method$fit_call
+  fit_expr[["x"]] <- quote(x)
+  fit_expr[["y"]] <- quote(y)
+    eval_mod(
+      fit_expr,
+      capture = control$verbosity == 0,
+      catch = control$catch,
+      env = current_env()
+    )
+}
+xy_to_matrix <- function(object, x, y, control, ...) {
+  if (object$method$interface == "matrix" && !is.matrix(x))
+    x <- as.matrix(x)
+  xy_to_xy(object, x, y, control, ...)
+}
+xy_to_df <- function(object, x, y, control, ...) {
+  if (object$method$interface == "data.frame" && !is.data.frame(x))
+    x <- as.data.frame(x)
+  xy_to_xy(object, x, y, control, ...)
+}
+xy_to_spark <- function(object, x, y, control, ...) {
+  sdf <- sparklyr::sdf_bind_cols(x, y)
+  fit_expr <- object$method$fit_call
+  fit_expr[["x"]] <- quote(sdf)
+  fit_expr[["features_col"]] <- quote(colnames(x))
+  fit_expr[["label_col"]] <- quote(colnames(y))
+    eval_mod(
+      fit_expr,
+      capture = control$verbosity == 0,
+      catch = control$catch,
+      env = current_env()
+    )
+}
+
+
 fit_xy <- function(object, x, y, control, ...) {
   opts <- quos(...)
 
-  # Look up the model's interface (e.g. formula, recipes, etc)
-  # and delegate to the connector functions (`xy_to_formula` etc)
-  if(object$method$interface == "formula") {
-    res <- xy_to_formula(object = object, x = x, y = y, control)
-  } else {
-    if(object$method$interface %in% c("data.frame", "matrix")) {
-      fit_expr <- object$method$fit_call
-      fit_expr[["x"]] <- quote(x)
-      fit_expr[["y"]] <- quote(y)
-      res <-
-        eval_mod(
-          fit_expr,
-          capture = control$verbosity == 0,
-          catch = control$catch,
-          env = current_env()
-        )
-    } else {
-      stop("I don't know about the ",
-           object$method$interface, " interface.",
-           call. = FALSE)
-    }
-  }
+  res <- switch(
+    object$method$interface,
+    formula = xy_to_formula(object = object, x = x, y = y, control, ...),
+    matrix = xy_to_matrix(object = object, x = x, y = y, control, ...),
+    data.frame = xy_to_df(object = object, x = x, y = y, control, ...),
+    spark = xy_to_spark(object = object, x = x, y = y, control, ...),
+    stop("Unknown interface")
+  )
   res
 }
 
@@ -394,11 +417,11 @@ has_both_or_none <- function(a, b)
 check_interface <- function(formula, recipe, x, y, data, cl) {
   inher(formula, "formula", cl)
   inher(recipe, "recipe", cl)
-  inher(x, c("data.frame", "matrix"), cl)
+  inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if(!is.null(y) && !is.vector(y))
-    inher(y, c("data.frame", "matrix", "factor"), cl)
-  inher(data, c("data.frame", "matrix"), cl)
+    inher(y, c("data.frame", "matrix", "factor", "tbl_spark"), cl)
+  inher(data, c("data.frame", "matrix", "tbl_spark"), cl)
 
   x_interface <- !is.null(x) & !is.null(y)
   rec_interface <- !is.null(recipe) & !is.null(data)

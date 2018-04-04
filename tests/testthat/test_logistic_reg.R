@@ -315,17 +315,16 @@ test_that('glmnet execution', {
   #   regexp = NA
   # )
 
-  # fails during R CMD check but works outside of that
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     engine = "glmnet",
-  #     control = ctrl,
-  #     x = lending_club[, num_pred],
-  #     y = lending_club$Class
-  #   ),
-  #   regexp = NA
-  # )
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "glmnet",
+      control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
 
   # fails because `glment` requires a matrix
   # expect_error(

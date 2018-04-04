@@ -2,7 +2,7 @@
 rand_forest_arg_key <- data.frame(
   randomForest = c("mtry", "ntree", "nodesize"),
   ranger = c("mtry", "num.trees", "min.node.size"),
-  spark = 
+  spark =
     c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
   stringsAsFactors = FALSE,
   row.names =  c("mtry", "trees", "min_n")
@@ -19,7 +19,7 @@ rand_forest_engines <- data.frame(
 
 ###################################################################
 
-rand_forest_ranger_constr <- 
+rand_forest_ranger_constr <-
   function(
     formula = missing_arg(),
     data = missing_arg(),
@@ -52,10 +52,10 @@ rand_forest_ranger_constr <-
   ) {
     libs <- "ranger"
     interface <- "formula"
-    protect = c("formula", "data", "case.weights")   
+    protect = c("formula", "data", "case.weights")
     has_dots <- FALSE
     fit_name <- "ranger"
-    fit_args <- 
+    fit_args <-
       enexprs(
         formula = formula,
         data = data,
@@ -86,7 +86,7 @@ rand_forest_ranger_constr <-
         status.variable.name = status.variable.name,
         classification = classification
       )
-    res <- 
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -100,13 +100,13 @@ rand_forest_ranger_constr <-
     res
   }
 
-rand_forest_randomForest_constr <- 
+rand_forest_randomForest_constr <-
   function(
-    x  = missing_arg(), 
-    y = missing_arg(),  
-    xtest = NULL, 
-    ytest = NULL, 
-    ntree = 500, 
+    x  = missing_arg(),
+    y = missing_arg(),
+    xtest = NULL,
+    ytest = NULL,
+    ntree = 500,
     mtry = if (!is.null(y) && !is.factor(y))
       max(floor(ncol(x) / 3), 1)
     else
@@ -134,7 +134,7 @@ rand_forest_randomForest_constr <-
     keep.forest = !is.null(y) && is.null(xtest),
     corr.bias = FALSE,
     keep.inbag = FALSE
-  ) 
+  )
   {
     libs <- "randomForest"
     interface <- "data.frame"
@@ -166,8 +166,8 @@ rand_forest_randomForest_constr <-
         keep.forest = keep.forest,
         corr.bias = corr.bias,
         keep.inbag = keep.inbag
-      ) 
-    res <- 
+      )
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -178,11 +178,11 @@ rand_forest_randomForest_constr <-
         fit_call = NULL
       )
     class(res) <- c("rand_forest_constr")
-    res  
+    res
   }
 
 
-rand_forest_spark_constr <- 
+rand_forest_spark_constr <-
   function(
     x = missing_arg(),
     formula = NULL,
@@ -211,7 +211,7 @@ rand_forest_spark_constr <-
   )
   {
     libs <- "sparklyr"
-    interface <- "tbl_spark"
+    interface <- "spark"
     protect = c("x", "features_col", "label_col", "type")
     has_dots <- TRUE
     fit_name <- "ml_random_forest"
@@ -241,8 +241,8 @@ rand_forest_spark_constr <-
         uid = uid,
         response = response,
         features = features
-      ) 
-    res <- 
+      )
+    res <-
       list(
         library = libs,
         interface = interface,
@@ -253,7 +253,7 @@ rand_forest_spark_constr <-
         fit_call = NULL
       )
     class(res) <- c("rand_forest_constr")
-    res  
+    res
   }
 
 ###################################################################
