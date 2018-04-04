@@ -1,13 +1,13 @@
 #' Resolve a Model Specification for a Computational Engine
-#' 
+#'
 #' `translate` will translate a model specification into a code
 #'  object that is specific to a particular engine (e.g. R package).
 #'  It translates generic parameters to their counterparts.
-#' 
+#'
 #' @param x A model specification.
-#' @param ... Not currently used. 
+#' @param ... Not currently used.
 #' @export
-#' 
+#'
 # TODO: maybe change name to `translate` since it won't be translated until there
 # is data?
 
@@ -21,54 +21,37 @@ translate.default <- function(x, engine, ...) {
   check_empty_ellipse(...)
   x$engine <- engine
   x <- check_engine(x)
-  x$method <- get_model_objects(x, x$engine)
-  
+  x$method <- get_model_fit_info(x, x$engine)
+
   arg_key <- getFromNamespace(
     paste0(specifc_model(x), "_arg_key"),
     ns = "parsnip"
     )
-  
+
   # deharmonize primary arguments
   actual_args <- deharmonize(x$args, arg_key, x$engine)
-  
-  # check secondary arguments to see if they are in the final 
+
+  # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
   # being altered
   x$others <- check_others(x$others, x$method)
-  
-  # sub in args
+
+  # keep only modified args
   modifed_args <- !vapply(actual_args, null_value, lgl(1))
   actual_args <- actual_args[modifed_args]
-  
-  if(length(actual_args) > 0)
-    x$method$fit <- purrr::list_modify(x$method$fit, !!!actual_args)
-  if(length(x$others) > 0) {
-    x$method$fit <- purrr::list_modify(x$method$fit, !!!x$others)
-    
-    
-    for(i in names(x$others)) {
-      if (all(i != x$method$protect))
-        x$method$fit[[i]] <- rlang::get_expr(x$others[[i]])
-      else
-        warning("Argument ", i, " cannot be modified", call. = FALSE)
-    } 
-  } 
-  
-  # trim args that are defaults or null
-  x$method$fit <-
-    prune_arg_list(
-      x = x$method$fit,
-      whitelist = x$method$protect,
-      modified = c(names(modifed_args)[modifed_args], names(x$others))
-    )
-  
-  # create call
-  # TODO determine how to construct call with the namespace operator ("stats::glm")
-  x$method$fit_call <- call(x$method$fit_name)
-  for(i in names(x$method$fit)) {
-    if(!is.null(x$method$fit[[i]])) 
-      x$method$fit_call[[i]] <- x$method$fit[[i]]
+
+  # look for alternates if not modified in other
+  if(length(x$method$alternates) > 0) {
+    in_other <- names(x$method$alternates) %in% names(x$others)
+    x$alternates <- x$method$alternates[!in_other]
   }
-  
+
+  # combine primary, others, and alternates
+  protected <- lapply(x$method$protect, function(x) NULL)
+  names(protected) <- x$method$protect
+
+  x$method$fit_args <- c(protected, actual_args, x$others, x$alternates)
+
+  # put in correct order
   x
 }

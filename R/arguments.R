@@ -82,11 +82,13 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
   x
 }
 
-check_others <- function(args, x) {
+check_others <- function(args, obj) {
+  # TODO could be local file (maybe ns = NULL?)
 
+  fun_args <- formals(getFromNamespace(obj$fit_name["fun"], obj$fit_name["pkg"]))
   # Make sure that we are not trying to modify an argument that
   # is explicitly protected in the method metadata
-  common_args <- intersect(x$protect, names(args))
+  common_args <- intersect(obj$protect, names(args))
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
@@ -97,13 +99,13 @@ check_others <- function(args, x) {
 
   # If there are not ellipses in function, make sure that the
   # args exist in the fit call
-  if (length(args) > 0 & !x$has_dots) {
+  if (length(args) > 0 & !any(names(fun_args) == "...")) {
     o_names <- names(args)
-    missing_args <- o_names[!(o_names %in% names(x$fit))]
+    missing_args <- o_names[!(o_names %in% names(fun_args))]
     if (length(missing_args) > 0) {
       args[o_names %in% missing_args] <- NULL
       warning(
-        "Some argument(s) do not correspond to this function: ",
+        "Some argument(s) do not correspond to this function and were removed: ",
         paste0("`", o_names, "`", collapse = ", "),
         call. = FALSE
       )

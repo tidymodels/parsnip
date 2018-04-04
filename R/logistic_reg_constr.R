@@ -22,11 +22,11 @@ logistic_reg_engines <- data.frame(
 
 logistic_reg_glm_fit <-
   list(
-    libs <- "stats",
-    interface <- "formula",
+    libs = "stats",
+    interface = "formula",
     protect = c("formula", "data", "weights"),
-    fit_name <- c(pkg = "stats", fun = "glm"),
-    alter_args <-
+    fit_name = c(pkg = "stats", fun = "glm"),
+    alternates =
       list(
         family = expr(binomial)
       )
@@ -34,37 +34,37 @@ logistic_reg_glm_fit <-
 
 logistic_reg_glmnet_fit <-
   list(
-    libs <- "glmnet",
-    interface <- "matrix",
+    libs = "glmnet",
+    interface = "matrix",
     protect = c("x", "y", "weights"),
-    fit_name <- c(pkg = "glmnet", fun = "glmnet"),
-    alter_args <-
+    fit_name = c(pkg = "glmnet", fun = "glmnet"),
+    alternates =
       list(
-        family = "binomial",
+        family = "binomial"
       )
   )
 
 logistic_reg_stan_fit <-
   list(
-    libs <- "rstanarm",
-    interface <- "formula",
+    libs = "rstanarm",
+    interface = "formula",
     protect = c("formula", "data", "weights"),
-    fit_name <- c(pkg = "rstanarm", fun = "stan_glm"),
-    alter_args <-
+    fit_name = c(pkg = "rstanarm", fun = "stan_glm"),
+    alternates =
       list(
-        family = expr(binomial),
+        family = expr(binomial)
       )
   )
 
 
 logistic_reg_spark_fit <-
   list(
-    libs <- "sparklyr",
-    interface <- "spark",
+    libs = "sparklyr",
+    interface = "spark",
     protect = c("features_col", "label_col", "x", "weight_col"),
-    fit_name <- c(pkg = "sparklyr", fun = "ml_logistic_regression"),
-    alter_args <-
+    fit_name = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
+    alternates =
       list(
-        family = expr(binomial),
+        family = expr(binomial)
       )
   )

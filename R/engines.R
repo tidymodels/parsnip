@@ -8,7 +8,7 @@ get_model_objects <-  function (x, engine)  {
   res <- try(get(nm), silent = TRUE)
   if (inherits(res, "try-error"))
     stop("Can't find model object ", nm)
-  res()
+  res
 }
 
 get_model_fit_info <-  function (x, engine)  {
@@ -20,7 +20,7 @@ get_model_fit_info <-  function (x, engine)  {
   res <- try(get(nm), silent = TRUE)
   if (inherits(res, "try-error"))
     stop("Can't find model object ", nm)
-  res()
+  res
 }
 
 specifc_model <- function(x) {
