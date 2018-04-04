@@ -5,7 +5,7 @@ does_it_vary <- function(x) {
   } else {
     res <- if(is_quosure(x))
       isTRUE(all.equal(x[[-1]], quote(varying())))
-    else 
+    else
       isTRUE(all.equal(x, quote(varying())))
   }
   res
@@ -13,7 +13,7 @@ does_it_vary <- function(x) {
 
 null_value <- function(x) {
   res <- if(is_quosure(x))
-    isTRUE(all.equal(x[[-1]], quote(NULL))) else 
+    isTRUE(all.equal(x[[-1]], quote(NULL))) else
       isTRUE(all.equal(x, NULL))
   res
 }
@@ -25,15 +25,15 @@ func_calls <- function (f)  {
   }
   else if (is.call(f)) {
     fname <- as.character(f[[1]])
-    if (identical(fname, ".Internal")) 
+    if (identical(fname, ".Internal"))
       return(fname)
     unique(c(fname, unlist(lapply(f[-1], func_calls), use.names = FALSE)))
   }
 }
 
 #' A Placeholder Function for Argument Values
-#' 
-#' [varying()] is used when a parameter will be specified at a later date. 
+#'
+#' [varying()] is used when a parameter will be specified at a later date.
 #' @export
 varying <- function()
   quote(varying())
@@ -50,10 +50,10 @@ deharmonize <- function(args, key, engine) {
 parse_engine_options <- function(x) {
   res <- ll()
   if (length(x) >= 2) { # in case of NULL
-    
+
     arg_names <- names(x[[2]])
     arg_names <- arg_names[arg_names != ""]
-    
+
     if (length(arg_names) > 0) {
       # in case of list()
       res <- ll()
@@ -71,11 +71,11 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
     nms <- nms[!(nms %in% whitelist)]
   for (i in nms) {
     if (
-      is.null(x[[i]])    | 
-      is_null(x[[i]])    | 
-      !(i %in% modified) | 
+      is.null(x[[i]])    |
+      is_null(x[[i]])    |
+      !(i %in% modified) |
       is_missing(x[[i]])
-    ) 
+    )
       x[[i]] <- NULL
   }
   if(any(names(x) == "..."))
@@ -84,7 +84,7 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
 }
 
 check_others <- function(args, x) {
-  
+
   # Make sure that we are not trying to modify an argument that
   # is explicitly protected in the method metadata
   common_args <- intersect(x$protect, names(args))
@@ -95,8 +95,8 @@ check_others <- function(args, x) {
             "and were removed: ",
             common_args, call. = FALSE)
   }
-  
-  # If there are not ellipses in function, make sure that the 
+
+  # If there are not ellipses in function, make sure that the
   # args exist in the fit call
   if (length(args) > 0 & !x$has_dots) {
     o_names <- names(args)
@@ -104,7 +104,7 @@ check_others <- function(args, x) {
     if (length(missing_args) > 0) {
       args[o_names %in% missing_args] <- NULL
       warning(
-        "Some argument(s) do not correspond to this function: ", 
+        "Some argument(s) do not correspond to this function: ",
         paste0("`", o_names, "`", collapse = ", "),
         call. = FALSE
       )
