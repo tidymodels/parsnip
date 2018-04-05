@@ -8,7 +8,7 @@ make_classes <- function(prefix) {
 
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
-  if (!is_empty(terms)) 
+  if (!is_empty(terms))
     stop("Please pass other arguments to the model function via `others`", call. = FALSE)
   terms
 }
@@ -39,11 +39,11 @@ model_printer <- function(x, ...) {
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
     cat(print_arg_list(non_null_args), "\n", sep = "")
-  } 
+  }
   if (length(x$others) > 0) {
     cat("Engine-Specific Arguments:\n")
     cat(print_arg_list(x$others), "\n", sep = "")
-  }  
+  }
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")
     if (!is.null(x$method$fit_call)) {
@@ -73,5 +73,11 @@ load_libs <- function(x, quiet) {
 
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
+
+show_call <- function(object) {
+  call2(object$method$fit_name["fun"], !!!object$method$fit_args,
+        .ns = object$method$fit_name["pkg"])
+}
+
 
 
