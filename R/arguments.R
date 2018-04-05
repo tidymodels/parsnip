@@ -115,4 +115,21 @@ check_others <- function(args, obj) {
 }
 
 
+reorder_args <- function(obj) {
+  fun_args <-
+    names(formals(getFromNamespace(obj$fit_name["fun"], obj$fit_name["pkg"])))
+  obj_args <- obj$fit_args
+  not_dots_names <- intersect(names(obj_args), fun_args)
+  not_dots <- obj_args[not_dots_names]
+  # in order of function definition
+  common_args <- fun_args[fun_args %in% not_dots_names]
+  not_dots <- not_dots[common_args]
+  # add others back in (if any)
+  if (length(obj_args) > length(not_dots)) {
+    other_args <- obj_args[!(names(obj_args) %in% common_args)]
+    not_dots <- c(not_dots, other_args)
+  }
+  obj$fit_args <- not_dots
+  obj
+}
 
