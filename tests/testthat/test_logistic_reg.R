@@ -9,112 +9,106 @@ test_that('primary arguments', {
   basic_glmnet <- translate(basic, engine = "glmnet")
   basic_stan <- translate(basic, engine = "stan")
   basic_spark <- translate(basic, engine = "spark")
-  expect_equal(basic_glm$method$fit_call,
-               quote(
-                 glm(
-                   formula = missing_arg(),
-                   data = missing_arg(),
-                   family = binomial
-                 )
+  expect_equal(basic_glm$method$fit_args,
+               list(
+                 formula = quote(missing_arg()),
+                 family = quote(binomial),
+                 data = quote(missing_arg()),
+                 weights = quote(missing_arg())
                )
   )
-  expect_equal(basic_glmnet$method$fit_call,
-               quote(
-                 glmnet(
-                   x = as.matrix(x),
-                   y = missing_arg(),
-                   family = "binomial"
-                 )
+  expect_equal(basic_glmnet$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
+                 family = "binomial",
+                 weights = quote(missing_arg())
                )
   )
-  expect_equal(basic_stan$method$fit_call,
-               quote(
-                 stan_glm(
-                   formula = missing_arg(),
-                   data = missing_arg(),
-                   family = binomial
-                 )
+  expect_equal(basic_stan$method$fit_args,
+               list(
+                 formula = quote(missing_arg()),
+                 family = quote(binomial),
+                 data = quote(missing_arg()),
+                 weights = quote(missing_arg())
                )
   )
-  expect_equal(basic_spark$method$fit_call,
-               quote(
-                 ml_logistic_regression(
-                   x = missing_arg(),
-                   features_col = missing_arg(),
-                   label_col = missing_arg()
-                 )
+  expect_equal(basic_spark$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 weight_col = quote(missing_arg()),
+                 features_col = quote(missing_arg()),
+                 label_col = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
 
   mixture <- logistic_reg(mixture = 0.128)
   mixture_glmnet <- translate(mixture, engine = "glmnet")
   mixture_spark <- translate(mixture, engine = "spark")
-  expect_equal(mixture_glmnet$method$fit_call,
-               quote(
-                 glmnet(
-                   x = as.matrix(x),
-                   y = missing_arg(),
-                   family = "binomial",
-                   alpha = 0.128
-                 )
+  expect_equal(mixture_glmnet$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
+                 family = "binomial",
+                 weights = quote(missing_arg()),
+                 alpha = 0.128
                )
   )
-  expect_equal(mixture_spark$method$fit_call,
-               quote(
-                 ml_logistic_regression(
-                   x = missing_arg(),
-                   elastic_net_param = 0.128,
-                   features_col = missing_arg(),
-                   label_col = missing_arg()
-                 )
+  expect_equal(mixture_spark$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 elastic_net_param = 0.128,
+                 weight_col = quote(missing_arg()),
+                 features_col = quote(missing_arg()),
+                 label_col = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
 
   regularization <- logistic_reg(regularization = 1)
   regularization_glmnet <- translate(regularization, engine = "glmnet")
   regularization_spark <- translate(regularization, engine = "spark")
-  expect_equal(regularization_glmnet$method$fit_call,
-               quote(
-                 glmnet(
-                   x = as.matrix(x),
-                   y = missing_arg(),
-                   family = "binomial",
-                   lambda = 1
-                 )
+  expect_equal(regularization_glmnet$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
+                 family = "binomial",
+                 weights = quote(missing_arg()),
+                 lambda = 1
                )
   )
-  expect_equal(regularization_spark$method$fit_call,
-               quote(
-                 ml_logistic_regression(
-                   x = missing_arg(),
-                   reg_param = 1,
-                   features_col = missing_arg(),
-                   label_col = missing_arg()
-                 )
+  expect_equal(regularization_spark$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 reg_param = 1,
+                 weight_col = quote(missing_arg()),
+                 features_col = quote(missing_arg()),
+                 label_col = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
 
   mixture_v <- logistic_reg(mixture = varying())
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   mixture_v_spark <- translate(mixture_v, engine = "spark")
-  expect_equal(mixture_v_glmnet$method$fit_call,
-               quote(
-                 glmnet(
-                   x = as.matrix(x),
-                   y = missing_arg(),
-                   family = "binomial",
-                   alpha = varying()
-                 )
+  expect_equal(mixture_v_glmnet$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
+                 family = "binomial",
+                 weights = quote(missing_arg()),
+                 alpha = varying()
                )
   )
-  expect_equal(mixture_v_spark$method$fit_call,
-               quote(
-                 ml_logistic_regression(
-                   x = missing_arg(),
-                   elastic_net_param = varying(),
-                   features_col = missing_arg(),
-                   label_col = missing_arg()
-                 )
+  expect_equal(mixture_v_spark$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 elastic_net_param = varying(),
+                 weight_col = quote(missing_arg()),
+                 features_col = quote(missing_arg()),
+                 label_col = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
 
@@ -122,51 +116,47 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   glm_fam <- logistic_reg(others = list(family = expr(binomial(link = "probit"))))
-  expect_equal(translate(glm_fam, engine = "glm")$method$fit_call,
-               quote(
-                 glm(
-                   formula = missing_arg(),
-                   family = binomial(link = "probit"),
-                   data = missing_arg()
-                 )
+  expect_equal(translate(glm_fam, engine = "glm")$method$fit_args,
+               list(
+                 formula = quote(missing_arg()),
+                 family = quote(binomial(link = "probit")),
+                 data = quote(missing_arg()),
+                 weights = quote(missing_arg())
                )
   )
 
   glmnet_nlam <- logistic_reg(others = list(nlambda = 10))
-  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_call,
-               quote(
-                 glmnet(
-                   x = as.matrix(x),
-                   y = missing_arg(),
-                   family = "binomial",
-                   nlambda = 10
-                 )
+  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
+                 family = "binomial",
+                 weights = quote(missing_arg()),
+                 nlambda = 10
                )
   )
 
-  # these should get pass into the ... slot
   stan_samp <- logistic_reg(others = list(chains = 1, iter = 5))
-  expect_equal(translate(stan_samp, engine = "stan")$method$fit_call,
-               quote(
-                 stan_glm(
-                   formula = missing_arg(),
-                   data = missing_arg(),
-                   chains = 1,
-                   iter = 5,
-                   family = binomial
-                 )
+  expect_equal(translate(stan_samp, engine = "stan")$method$fit_args,
+               list(
+                 formula = quote(missing_arg()),
+                 family = quote(binomial),
+                 data = quote(missing_arg()),
+                 weights = quote(missing_arg()),
+                 chains = 1,
+                 iter = 5
                )
   )
 
   spark_iter <- logistic_reg(others = list(max_iter = 20))
-  expect_equal(translate(spark_iter, engine = "spark")$method$fit_call,
-               quote(
-                 ml_logistic_regression(
-                   x = missing_arg(),
-                   max_iter = 20,
-                   features_col = missing_arg(),
-                   label_col = missing_arg()
-                 )
+  expect_equal(translate(spark_iter, engine = "spark")$method$fit_args,
+               list(
+                 x = quote(missing_arg()),
+                 max_iter = 20,
+                 weight_col = quote(missing_arg()),
+                 features_col = quote(missing_arg()),
+                 label_col = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
 

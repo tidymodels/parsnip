@@ -41,11 +41,7 @@ rand_forest_randomForest_fit <-
     protect = c("x", "y"),
     fit_name = c(pkg = "randomForest", fun = "randomForest.default"),
     alternates =
-      list(
-        num.threads = 1,
-        verbose = FALSE,
-        seed = expr(sample.int(10^5, 1))
-      )
+      list()
   )
 
 
