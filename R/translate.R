@@ -7,9 +7,6 @@
 #' @param x A model specification.
 #' @param ... Not currently used.
 #' @export
-#'
-# TODO: maybe change name to `translate` since it won't be translated until there
-# is data?
 
 translate <- function (x, ...)
   UseMethod("translate")
@@ -21,6 +18,9 @@ translate.default <- function(x, engine, ...) {
   check_empty_ellipse(...)
   x$engine <- engine
   x <- check_engine(x)
+
+  # check for installs
+
   x$method <- get_model_fit_info(x, x$engine)
 
   arg_key <- getFromNamespace(
@@ -47,10 +47,12 @@ translate.default <- function(x, engine, ...) {
   }
 
   # combine primary, others, and alternates
-  protected <- lapply(x$method$protect, function(x) NULL)
+  protected <- lapply(x$method$protect, function(x) expr(missing_arg()))
   names(protected) <- x$method$protect
 
   x$method$fit_args <- c(protected, actual_args, x$others, x$alternates)
+
+  x$method <- reorder_args(x$method)
 
   # put in correct order
   x
