@@ -79,5 +79,25 @@ show_call <- function(object) {
         .ns = object$method$fit_name["pkg"])
 }
 
+make_call <- function(fun, ns, args, ...) {
 
+  # remove any null or placeholders (`missing_args`) that remain
+  discard <-
+    vapply(args, function(x)
+      is_missing_arg(x) | is.null(x), logical(1))
+  args <- args[!discard]
 
+  if (!is.null(ns)) {
+    out <- call2(fun, !!!args, .ns = ns)
+  } else
+    out <- call2(fun, !!!args)
+  out
+}
+
+resolve_args <- function(args, ...) {
+  for (i in seq(along = args)) {
+    if (!is_missing_arg(args[[i]]))
+      args[[i]] <- eval_tidy(args[[i]], ...)
+  }
+  args
+}

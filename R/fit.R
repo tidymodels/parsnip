@@ -109,11 +109,11 @@ fit.model_spec <-
            control = fit_control(),
            ...
   ) {
+    cl <- match.call(expand.dots = TRUE)
     call_interface <-
-      check_interface(formula, recipe, x, y, data, match.call(expand.dots = TRUE))
+      check_interface(formula, recipe, x, y, data, cl)
     object$engine <- engine
     object <- check_engine(object)
-
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -123,7 +123,13 @@ fit.model_spec <-
 
     res <- switch(
       call_interface,
-      formula = fit_formula(object, formula, data, control = control, ...),
+      formula =, spark = fit_formula(
+        object = object,
+        formula = cl$formula,
+        data = cl$data,
+        control = control,
+        ...
+      ),
       recipe = fit_recipe(object, recipe, data, control = control, ...),
       xy = fit_xy(object, x, y, control = control, ...),
       stop("Wrong interface type")
@@ -138,14 +144,28 @@ fit.model_spec <-
 fit_formula <- function(object, formula, data, engine = engine, control, ...) {
   opts <- quos(...)
   # Look up the model's interface (e.g. formula, recipes, etc)
-  # and delagate to the connector functions (`formula_to_recipe` etc)
-  if(object$method$interface == "formula") {
-    fit_expr <- object$method$fit_call
-    fit_expr[["data"]] <- quote(data)
-    fit_expr$formula <- rlang::get_expr(formula)
+  # and delegate to the connector functions (`formula_to_recipe` etc)
+  if(object$method$interface %in% c("formula", "spark")) {
+    fit_args <- object$method$fit_args
+    fit_args <- resolve_args(fit_args, env = current_env())
+
+    if (object$method$interface == "formula") {
+      fit_args$data <- data
+    } else {
+      if (object$method$interface == "spark")
+        fit_args$x <- data
+    }
+    fit_args$formula <- formula
+
+    fit_call <- make_call(
+      fun = object$method$fit_name["fun"],
+      ns = object$method$fit_name["pkg"],
+      fit_args
+    )
+
     res <-
       eval_mod(
-        fit_expr,
+        fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
         env = current_env()
@@ -162,17 +182,79 @@ fit_formula <- function(object, formula, data, engine = engine, control, ...) {
   res
 }
 
+# TODO find a hook for whether to make dummies or not. Test cases
+# are all numeric. Solve via the fit the method object via entry for
+# `requires_dummies`
+
+#' @importFrom  stats model.frame model.response terms
+formula_to_xy <- function(object, formula, data, control) {
+  # Q: how do we fill in the other standard things here (subset, contrasts etc)?
+  # Q: add a "matrix" option here and invoke model.matrix
+  x <- stats::model.frame(eval(formula), eval(data))
+  y <- model.response(x)
+
+  # Remove outcome column(s) from `x`
+  outcome_cols <- attr(terms(x), "response")
+  if (!isTRUE(all.equal(outcome_cols, 0))) {
+    x <- x[,-outcome_cols, drop = FALSE]
+  }
+
+  object$method$fit_args[["x"]] <- quote(x)
+  object$method$fit_args[["y"]] <- quote(y)
+
+  fit_call <- make_call(
+    fun = object$method$fit_name["fun"],
+    ns = object$method$fit_name["pkg"],
+    object$method$fit_args
+  )
+
+  eval_mod(
+    fit_call,
+    capture = control$verbosity == 0,
+    catch = control$catch,
+    env = current_env()
+  )
+}
+
+###################################################################
+
+fit_xy <- function(object, x, y, control, ...) {
+  opts <- quos(...)
+
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
+    stop("spark objects must be fit with the formula interface to `fit`",
+         call. = FALSE)
+
+  res <- switch(
+    object$method$interface,
+    formula = xy_to_formula(object = object, x = x, y = y, control, ...),
+    matrix = xy_to_matrix(object = object, x = x, y = y, control, ...),
+    data.frame = xy_to_df(object = object, x = x, y = y, control, ...),
+    stop("Unknown interface")
+  )
+  res
+}
 
 xy_to_xy <- function(object, x, y, control, ...) {
-  fit_expr <- object$method$fit_call
-  fit_expr[["x"]] <- quote(x)
-  fit_expr[["y"]] <- quote(y)
-    eval_mod(
-      fit_expr,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      env = current_env()
-    )
+  fit_args <- object$method$fit_args
+
+  fit_args <- resolve_args(fit_args, env = current_env())
+
+  fit_args[["x"]] <- quote(x)
+  fit_args[["y"]] <- quote(y)
+
+  fit_call <- make_call(
+    fun = object$method$fit_name["fun"],
+    ns = object$method$fit_name["pkg"],
+    fit_args
+  )
+
+  eval_mod(
+    fit_call,
+    capture = control$verbosity == 0,
+    catch = control$catch,
+    env = current_env()
+  )
 }
 xy_to_matrix <- function(object, x, y, control, ...) {
   if (object$method$interface == "matrix" && !is.matrix(x))
@@ -184,34 +266,7 @@ xy_to_df <- function(object, x, y, control, ...) {
     x <- as.data.frame(x)
   xy_to_xy(object, x, y, control, ...)
 }
-xy_to_spark <- function(object, x, y, control, ...) {
-  sdf <- sparklyr::sdf_bind_cols(x, y)
-  fit_expr <- object$method$fit_call
-  fit_expr[["x"]] <- quote(sdf)
-  fit_expr[["features_col"]] <- quote(colnames(x))
-  fit_expr[["label_col"]] <- quote(colnames(y))
-    eval_mod(
-      fit_expr,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      env = current_env()
-    )
-}
 
-
-fit_xy <- function(object, x, y, control, ...) {
-  opts <- quos(...)
-
-  res <- switch(
-    object$method$interface,
-    formula = xy_to_formula(object = object, x = x, y = y, control, ...),
-    matrix = xy_to_matrix(object = object, x = x, y = y, control, ...),
-    data.frame = xy_to_df(object = object, x = x, y = y, control, ...),
-    spark = xy_to_spark(object = object, x = x, y = y, control, ...),
-    stop("Unknown interface")
-  )
-  res
-}
 
 fit_recipe <- function(object, recipe, data, control, ...) {
   opts <- quos(...)
@@ -241,7 +296,11 @@ fit_spark <- function(object, remote, engine = engine, control, ...) {
 
 ### or.... let `data, `x` and `y` be remote spark data tables or specifications
 
+invoke2 <- function(.f, envir = parent.frame(), ...) {
 
+  dots <- dots_values(...)
+  do.call(.f, dots, envir = envir)
+}
 
 ###################################################################
 
@@ -250,34 +309,6 @@ formula_to_recipe <- function(object, formula, data, control) {
   # extract terms _and roles_
   # put into recipe
 
-}
-
-# TODO find a hook for whether to make dummies or not. Test cases
-# are all numeric. Solve via the fit the method object via entry for
-# `requires_dummies`
-
-#' @importFrom  stats model.frame model.response terms
-formula_to_xy <- function(object, formula, data, control) {
-  # Q: how do we fill in the other standard things here (subset, contrasts etc)?
-  # Q: add a "matrix" option here and invoke model.matrix
-  x <- stats::model.frame(formula, data)
-  y <- model.response(x)
-
-  # Remove outcome column(s) from `x`
-  outcome_cols <- attr(terms(x), "response")
-  if (!isTRUE(all.equal(outcome_cols, 0))) {
-    x <- x[,-outcome_cols, drop = FALSE]
-  }
-
-  object$method$fit_call[["x"]] <- quote(x)
-  object$method$fit_call[["y"]] <- quote(y)
-
-  eval_mod(
-    object$method$fit_call,
-    capture = control$verbosity == 0,
-    catch = control$catch,
-    env = current_env()
-  )
 }
 
 ###################################################################
@@ -296,11 +327,11 @@ recipe_to_formula <- function(object, recipe, data, control) {
     y_names <-
     paste0("cbind(", paste0(y_names, collapse = ","), ")")
 
-  fit_expr <- object$method$fit_call
-  fit_expr$formula <- as.formula(paste0(y_names, "~."))
-  fit_expr$data <- quote(dat)
+  fit_args <- object$method$fit_args
+  fit_args$formula <- as.formula(paste0(y_names, "~."))
+  fit_args$data <- quote(dat)
   eval_mod(
-    fit_expr,
+    fit_args,
     capture = control$verbosity == 0,
     catch = control$catch,
     env = current_env()
@@ -320,13 +351,13 @@ recipe_to_xy <- function(object, recipe, data, control) {
   else
     y <- y[[1]]
 
-  fit_expr <- object$method$fit_call
+  fit_args <- object$method$fit_args
 
-  fit_expr[["x"]] <- quote(x)
-  fit_expr[["y"]] <- quote(y)
+  fit_args[["x"]] <- quote(x)
+  fit_args[["y"]] <- quote(y)
 
   eval_mod(
-    fit_expr,
+    fit_args,
     capture = control$verbosity == 0,
     catch = control$catch,
     env = current_env()
@@ -339,10 +370,15 @@ xy_to_formula <- function(object, x, y, control) {
   if(!is.data.frame(x))
     x <- as.data.frame(x)
   x$.y <- y
-  fit_expr <- object$method$fit_call
-  fit_expr$formula <- as.formula(.y ~ .)
-  fit_expr$data <- quote(x)
-  eval_tidy(fit_expr, env = current_env())
+  fit_args <- object$method$fit_args
+  fit_args$formula <- as.formula(.y ~ .)
+  fit_args$data <- quote(x)
+  fit_call <- make_call(
+    fun = object$method$fit_name["fun"],
+    ns = object$method$fit_name["pkg"],
+    fit_args
+  )
+  eval_tidy(fit_call, env = current_env())
 }
 
 xy_to_recipe <- function(object, x, y, control) {
