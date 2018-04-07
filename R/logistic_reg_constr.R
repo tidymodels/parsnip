@@ -60,8 +60,8 @@ logistic_reg_stan_fit <-
 logistic_reg_spark_fit <-
   list(
     libs = "sparklyr",
-    interface = "spark",
-    protect = c("features_col", "label_col", "x", "weight_col"),
+    interface = "formula",
+    protect = c("x", "formula", "weight_col"),
     fit_name = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
     alternates =
       list(
