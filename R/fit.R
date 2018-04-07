@@ -121,19 +121,18 @@ fit.model_spec <-
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
 
-    fit_func <- paste(fit_interface, object$method$interface, sep = "_to_")
-
     res <- switch(
-      object$method$interface,
-      formula =, spark = fit_formula(
+      fit_interface,
+      formula = fit_interface_formula(
         object = object,
         formula = cl$formula,
         data = cl$data,
         control = control,
         ...
       ),
-      recipe = fit_recipe(object, recipe, data, control = control, ...),
-      data.frame =, matrix = fit_xy(object, x, y, control = control, ...),
+      matrix = fit_interface_matrix(x, y, object, control, ...),
+      data.frame = fit_interface_data.frame(x, y, object, control, ...),
+      recipe = fit_interface_recipe(recipe, data, object, control, ...),
       stop("Wrong interface type")
     )
 
@@ -456,24 +455,29 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
   inher(formula, "formula", cl)
   inher(recipe, "recipe", cl)
   inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
+
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if(!is.null(y) && !is.vector(y))
     inher(y, c("data.frame", "matrix", "factor", "tbl_spark"), cl)
   inher(data, c("data.frame", "matrix", "tbl_spark"), cl)
 
-  x_interface <- !is.null(x) & !is.null(y)
+  matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+  df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
   rec_interface <- !is.null(recipe) & !is.null(data)
   form_interface <- !is.null(formula) & !is.null(data)
-  if (!(x_interface | rec_interface | form_interface))
+
+  if (!(matrix_interface | df_interface | rec_interface | form_interface))
     stop("Incomplete specification of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
-  if (sum(c(x_interface, rec_interface, form_interface)) > 1)
+  if (sum(c(matrix_interface, df_interface, rec_interface, form_interface)) > 1)
     stop("Too many specifications of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
-  if(x_interface) return("xy")
+
+  if(matrix_interface) return("data.frame")
+  if(df_interface) return("data.frame")
   if(rec_interface) return("recipe")
   if(form_interface) return("formula")
-  stop("Error in checking the interface")
+  stop("Error when checking the interface")
 }
 
 
