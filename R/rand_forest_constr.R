@@ -39,7 +39,7 @@ rand_forest_randomForest_fit <-
     libs = "randomForest",
     interface = "data.frame",
     protect = c("x", "y"),
-    fit_name = c(pkg = "randomForest", fun = "randomForest.default"),
+    fit_name = c(pkg = "randomForest", fun = "randomForest"),
     alternates =
       list()
   )
@@ -49,7 +49,7 @@ rand_forest_spark_fit <-
   list(
     libs = "sparklyr",
     interface = "spark",
-    protect = c("x", "features_col", "label_col", "type"),
+    protect = c("x", "formula", "type"),
     fit_name = c(pkg = "sparklyr", fun = "ml_random_forest"),
     alternates =
       list(

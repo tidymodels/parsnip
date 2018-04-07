@@ -159,6 +159,11 @@ translate.rand_forest <- function(x, engine, ...) {
       )
     else
       x$method$fit_args$type <- x$mode
+
+    # See "Details" in ?ml_random_forest_classifier
+    if (is.numeric(x$method$fit_args$feature_subset_strategy))
+      x$method$fit_args$feature_subset_strategy <-
+        paste(x$method$fit_args$feature_subset_strategy)
   }
 
   # add checks to error trap or change things for this method
