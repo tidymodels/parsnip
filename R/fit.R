@@ -110,7 +110,7 @@ fit.model_spec <-
            ...
   ) {
     cl <- match.call(expand.dots = TRUE)
-    call_interface <-
+    fit_interface <-
       check_interface(formula, recipe, x, y, data, cl)
     object$engine <- engine
     object <- check_engine(object)
@@ -121,8 +121,10 @@ fit.model_spec <-
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
 
+    fit_func <- paste(fit_interface, object$method$interface, sep = "_to_")
+
     res <- switch(
-      call_interface,
+      object$method$interface,
       formula =, spark = fit_formula(
         object = object,
         formula = cl$formula,
@@ -131,7 +133,7 @@ fit.model_spec <-
         ...
       ),
       recipe = fit_recipe(object, recipe, data, control = control, ...),
-      xy = fit_xy(object, x, y, control = control, ...),
+      data.frame =, matrix = fit_xy(object, x, y, control = control, ...),
       stop("Wrong interface type")
     )
 
