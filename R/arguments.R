@@ -83,9 +83,6 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
 }
 
 check_others <- function(args, obj) {
-  # TODO could be local file (maybe ns = NULL?)
-
-  fun_args <- formals(getFromNamespace(obj$fit_name["fun"], obj$fit_name["pkg"]))
   # Make sure that we are not trying to modify an argument that
   # is explicitly protected in the method metadata
   common_args <- intersect(obj$protect, names(args))
@@ -96,40 +93,5 @@ check_others <- function(args, obj) {
             "and were removed: ",
             common_args, call. = FALSE)
   }
-
-  # If there are not ellipses in function, make sure that the
-  # args exist in the fit call
-  if (length(args) > 0 & !any(names(fun_args) == "...")) {
-    o_names <- names(args)
-    missing_args <- o_names[!(o_names %in% names(fun_args))]
-    if (length(missing_args) > 0) {
-      args[o_names %in% missing_args] <- NULL
-      warning(
-        "Some argument(s) do not correspond to this function and were removed: ",
-        paste0("`", o_names, "`", collapse = ", "),
-        call. = FALSE
-      )
-    }
-  }
   args
 }
-
-
-reorder_args <- function(obj) {
-  fun_args <-
-    names(formals(getFromNamespace(obj$fit_name["fun"], obj$fit_name["pkg"])))
-  obj_args <- obj$fit_args
-  not_dots_names <- intersect(names(obj_args), fun_args)
-  not_dots <- obj_args[not_dots_names]
-  # in order of function definition
-  common_args <- fun_args[fun_args %in% not_dots_names]
-  not_dots <- not_dots[common_args]
-  # add others back in (if any)
-  if (length(obj_args) > length(not_dots)) {
-    other_args <- obj_args[!(names(obj_args) %in% common_args)]
-    not_dots <- c(not_dots, other_args)
-  }
-  obj$fit_args <- not_dots
-  obj
-}
-

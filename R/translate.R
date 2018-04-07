@@ -52,8 +52,6 @@ translate.default <- function(x, engine, ...) {
 
   x$method$fit_args <- c(protected, actual_args, x$others, x$alternates)
 
-  x$method <- reorder_args(x$method)
-
   # put in correct order
   x
 }
