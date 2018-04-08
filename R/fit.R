@@ -210,10 +210,16 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
   inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
-  if(!is.null(y) && !is.vector(y))
+  if (!is.null(y) && !is.vector(y))
     inher(y, c("data.frame", "matrix", "factor", "tbl_spark"), cl)
   inher(data, c("data.frame", "matrix", "tbl_spark"), cl)
 
+  # rule out spark data sets that don't use the formula interface
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
+    stop("spark objects can only be used with the formula interface to `fit` ",
+         "with a spark data object.", call. = FALSE)
+
+  # Determine the `fit` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
   rec_interface <- !is.null(recipe) & !is.null(data)
@@ -226,10 +232,14 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
     stop("Too many specifications of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
 
-  if(matrix_interface) return("data.frame")
-  if(df_interface) return("data.frame")
-  if(rec_interface) return("recipe")
-  if(form_interface) return("formula")
+  if (matrix_interface)
+    return("data.frame")
+  if (df_interface)
+    return("data.frame")
+  if (rec_interface)
+    return("recipe")
+  if (form_interface)
+    return("formula")
   stop("Error when checking the interface")
 }
 
