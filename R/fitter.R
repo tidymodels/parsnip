@@ -1,28 +1,36 @@
 # The "fit_interface" is what was supplied to `fit` as defined by
 #  `check_interface`. The "model interface" is what the underlying
-#  model uses. These functions go from one to another. 
+#  model uses. These functions go from one to another.
 
 # TODO return pp objects like terms or recipe
 
 # TODO protect engine = "spark" with non-spark data object
 
 fit_interface_matrix <- function(x, y, object, control, ...) {
+  if (object$engine == "spark")
+    stop("spark objects can only be used with the formula interface to `fit` ",
+         "with a spark data object.", call. = FALSE)
   switch(
     object$method$interface,
     data.frame = matrix_to_data.frame(object, x, y, control, ...),
     matrix =         matrix_to_matrix(object, x, y, control, ...),
     formula =       matrix_to_formula(object, x, y, control, ...),
-    stop("I don't know about that model interface.", call. = FALSE)
+    stop("I don't know about model interface '",
+         object$method$interface, "'.", call. = FALSE)
     )
 }
 
 fit_interface_data.frame <- function(x, y, object, control, ...) {
+  if (object$engine == "spark")
+    stop("spark objects can only be used with the formula interface to `fit` ",
+         "with a spark data object.", call. = FALSE)
   switch(
     object$method$interface,
     data.frame = data.frame_to_data.frame(object, x, y, control, ...),
     matrix =         data.frame_to_matrix(object, x, y, control, ...),
     formula =       data.frame_to_formula(object, x, y, control, ...),
-    stop("I don't know about that model interface.", call. = FALSE)
+    stop("I don't know about model interface '",
+         object$method$interface, "'.", call. = FALSE)
   )
 }
 
@@ -32,25 +40,27 @@ fit_interface_formula <- function(formula, data, object, control, ...) {
     data.frame = formula_to_data.frame(object, formula, data, control, ...),
     matrix =         formula_to_matrix(object, formula, data, control, ...),
     formula =       formula_to_formula(object, formula, data, control, ...),
-    stop("I don't know about that model interface.", call. = FALSE)
+    stop("I don't know about model interface '",
+         object$method$interface, "'.", call. = FALSE)
   )
 }
 
 fit_interface_recipe <- function(recipe, data, object, control, ...) {
-  if (inherits(datax, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit`",
-         call. = FALSE)
+  if (object$engine == "spark")
+    stop("spark objects can only be used with the formula interface to `fit` ",
+         "with a spark data object.", call. = FALSE)
   switch(
     object$method$interface,
-    data.frame = I(),
-    formula = I(),
-    matrix = I(),
-    stop("I don't know about that model interface.", call. = FALSE)
+    data.frame = recipe_to_data.frame(object, recipe, data, control, ...),
+    formula = recipe_to_formula(object, recipe, data, control, ...),
+    matrix = recipe_to_matrix(object, recipe, data, control, ...),
+    stop("I don't know about model interface '",
+         object$method$interface, "'.", call. = FALSE)
   )
 }
 
 ###################################################################
-## starts with some x/y interface (either matrix or data frame) 
+## starts with some x/y interface (either matrix or data frame)
 ## in `fit`
 
 #' @importFrom dplyr bind_cols
@@ -60,16 +70,16 @@ xy_to_xy <- function(object, x, y, control, ...) {
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
     stop("spark objects can only be used with the formula interface to `fit`",
          call. = FALSE)
-  
+
   object$method$fit_args[["x"]] <- quote(x)
   object$method$fit_args[["y"]] <- quote(y)
-  
+
   fit_call <- make_call(
     fun = object$method$fit_name["fun"],
     ns = object$method$fit_name["pkg"],
     object$method$fit_args
   )
-  
+
   eval_mod(
     fit_call,
     capture = control$verbosity == 0,
@@ -132,27 +142,25 @@ data.frame_to_formula <- function(object, x, y, control, ...) {
 ###################################################################
 ## Start with formula interface in `fit`
 
-#' @importFrom  stats model.frame model.response terms as.formula
+#' @importFrom  stats model.frame model.response terms as.formula model.matrix
 
 formula_to_formula <-
   function(object, formula, data, control, ...) {
     opts <- quos(...)
-    
+
     fit_args <- object$method$fit_args
-    # handle unevaluated arguments
-    fit_args <- resolve_args(fit_args, env = current_env())
-    
-    if (!inherits(data, "tbl_spark")) {
-      fit_args$data <- data
-    } else {
+
+    if (isTRUE(unname(object$method$fit_name["pkg"] == "sparklyr"))) {
       fit_args$x <- data
+    } else {
+      fit_args$data <- data
     }
     fit_args$formula <- formula
-    
+
     fit_call <- make_call(fun = object$method$fit_name["fun"],
                           ns = object$method$fit_name["pkg"],
                           fit_args)
-    
+
     res <-
       eval_mod(
         fit_call,
@@ -165,14 +173,17 @@ formula_to_formula <-
   }
 
 formula_to_data.frame <- function(object, formula, data, control, ...) {
+  if (is.name(data))
+    data <- eval_tidy(data, env = caller_env())
+
   if (!is.data.frame(data))
     data = as.data.frame(data)
-  
+
   # TODO: how do we fill in the other standard things here (subset, contrasts etc)?
-  
+
   x <- stats::model.frame(eval(formula), eval(data))
   y <- model.response(x)
-  
+
   # Remove outcome column(s) from `x`
   outcome_cols <- attr(terms(x), "response")
   if (!isTRUE(all.equal(outcome_cols, 0))) {
@@ -182,22 +193,25 @@ formula_to_data.frame <- function(object, formula, data, control, ...) {
 }
 
 formula_to_matrix <- function(object, formula, data, control, ...) {
+  if (is.name(data))
+    data <- eval_tidy(data, env = caller_env())
+
   if (!is.data.frame(data))
     data = as.data.frame(data)
-  
+
   # TODO: how do we fill in the other standard things here (subset, etc)?
-  
+
   x <- stats::model.frame(eval(formula), eval(data))
   trms <- attr(x, "terms")
   y <- model.response(x)
   if (is.data.frame(y))
     y <- as.matrix(y)
-  
+
   # TODO sparse model matrices?
   x <- model.matrix(trms, data = x, contrasts.arg = getOption("contrasts"))
   # TODO Assume no intercept for now
-  x <- x[, !(colnames(x) %in% "(Intercept)"), dtop = FALSE]
-  
+  x <- x[, !(colnames(x) %in% "(Intercept)"), drop = FALSE]
+
   xy_to_xy(object, x, y, control, ...)
 }
 
@@ -209,7 +223,7 @@ formula_to_matrix <- function(object, formula, data, control, ...) {
 recipe_data <- function(recipe, data, control, output = "matrix", combine = FALSE) {
   recipe <-
     prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
-  
+
   if (combine) {
     out <- list(data = juice(recipe, all_predictors(), all_outcomes(), composition = output))
     data_info <- summary(recipe)
@@ -225,23 +239,23 @@ recipe_data <- function(recipe, data, control, output = "matrix", combine = FALS
         y = juice(recipe, all_outcomes(), composition = output)
       )
     if (ncol(out$y) == 1)
-      y <- y[[1]]
+      out$y <- out$y[[1]]
   }
   out
 }
 
 recipe_to_formula <-
   function(object, recipe, data, control, ...) {
-    info <- recipe_data(recipe, data, control, output = "data.frame", combine = TRUE)
-    formula_to_formula(object, dat$form, dat$data, control, ...)
+    info <- recipe_data(recipe, data, control, output = "tibble", combine = TRUE)
+    formula_to_formula(object, info$form, info$data, control, ...)
   }
 
 recipe_to_data.frame <- function(object, recipe, data, control, ...) {
-  dat <- recipe_data(recipe, data, control, output = "data.frame", combine = FALSE)
-  xy_to_xy(object, dat$x, dat$y, control, ...)
+  info <- recipe_data(recipe, data, control, output = "tibble", combine = FALSE)
+  xy_to_xy(object, info$x, info$y, control, ...)
 }
 
 recipe_to_matrix <- function(object, recipe, data, control, ...) {
-  dat <- recipe_data(recipe, data, control, output = "matrix", combine = FALSE)
-  xy_to_xy(object, dat$x, dat$y, control, ...)
+  info <- recipe_data(recipe, data, control, output = "matrix", combine = FALSE)
+  xy_to_xy(object, info$x, info$y, control, ...)
 }
