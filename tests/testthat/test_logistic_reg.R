@@ -12,34 +12,33 @@ test_that('primary arguments', {
   expect_equal(basic_glm$method$fit_args,
                list(
                  formula = quote(missing_arg()),
-                 family = quote(binomial),
                  data = quote(missing_arg()),
-                 weights = quote(missing_arg())
+                 weights = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
   expect_equal(basic_glmnet$method$fit_args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 family = "binomial",
-                 weights = quote(missing_arg())
+                 weights = quote(missing_arg()),
+                 family = "binomial"
                )
   )
   expect_equal(basic_stan$method$fit_args,
                list(
                  formula = quote(missing_arg()),
-                 family = quote(binomial),
                  data = quote(missing_arg()),
-                 weights = quote(missing_arg())
+                 weights = quote(missing_arg()),
+                 family = quote(binomial)
                )
   )
   expect_equal(basic_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 family = quote(binomial)
+                 family = "binomial"
                )
   )
 
@@ -50,19 +49,18 @@ test_that('primary arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 family = "binomial",
                  weights = quote(missing_arg()),
-                 alpha = 0.128
+                 alpha = 0.128,
+                 family = "binomial"
                )
   )
   expect_equal(mixture_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
-                 elastic_net_param = 0.128,
+                 formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 family = quote(binomial)
+                 elastic_net_param = 0.128,
+                 family = "binomial"
                )
   )
 
@@ -73,19 +71,18 @@ test_that('primary arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 family = "binomial",
                  weights = quote(missing_arg()),
-                 lambda = 1
+                 lambda = 1,
+                 family = "binomial"
                )
   )
   expect_equal(regularization_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
-                 reg_param = 1,
+                 formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 family = quote(binomial)
+                 reg_param = 1,
+                 family = "binomial"
                )
   )
 
@@ -96,19 +93,18 @@ test_that('primary arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 family = "binomial",
                  weights = quote(missing_arg()),
-                 alpha = varying()
+                 alpha = varying(),
+                 family = "binomial"
                )
   )
   expect_equal(mixture_v_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
-                 elastic_net_param = varying(),
+                 formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 family = quote(binomial)
+                 elastic_net_param = varying(),
+                 family = "binomial"
                )
   )
 
@@ -119,9 +115,9 @@ test_that('engine arguments', {
   expect_equal(translate(glm_fam, engine = "glm")$method$fit_args,
                list(
                  formula = quote(missing_arg()),
-                 family = quote(binomial(link = "probit")),
                  data = quote(missing_arg()),
-                 weights = quote(missing_arg())
+                 weights = quote(missing_arg()),
+                 family = quote(binomial(link = "probit"))
                )
   )
 
@@ -130,9 +126,9 @@ test_that('engine arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 family = "binomial",
                  weights = quote(missing_arg()),
-                 nlambda = 10
+                 nlambda = 10,
+                 family = "binomial"
                )
   )
 
@@ -140,11 +136,11 @@ test_that('engine arguments', {
   expect_equal(translate(stan_samp, engine = "stan")$method$fit_args,
                list(
                  formula = quote(missing_arg()),
-                 family = quote(binomial),
                  data = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  chains = 1,
-                 iter = 5
+                 iter = 5,
+                 family = quote(binomial)
                )
   )
 
@@ -152,11 +148,10 @@ test_that('engine arguments', {
   expect_equal(translate(spark_iter, engine = "spark")$method$fit_args,
                list(
                  x = quote(missing_arg()),
-                 max_iter = 20,
+                 formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 family = quote(binomial)
+                 max_iter = 20,
+                 family = "binomial"
                )
   )
 
@@ -194,7 +189,6 @@ test_that('bad input', {
   expect_error(logistic_reg(mixture = -1))
   expect_error(translate(logistic_reg(), engine = "wat?"))
   expect_warning(translate(logistic_reg(), engine = NULL))
-  expect_warning(translate(logistic_reg(others = list(ytest = 2)), engine = "glmnet"))
   expect_error(translate(logistic_reg(formula = y ~ x)))
   expect_warning(translate(logistic_reg(others = list(x = iris[,1:3], y = iris$Species)), engine = "glmnet"))
   expect_warning(translate(logistic_reg(others = list(formula = y ~ x)), engine = "glm"))
@@ -270,15 +264,14 @@ test_that('glm execution', {
   )
   expect_true(inherits(glm_form_catch, "try-error"))
 
-  # fails
-  # glm_xy_catch <- fit(
-  #   lc_basic,
-  #   engine = "glm",
-  #   control = caught_ctrl,
-  #   x = lending_club[, num_pred],
-  #   y = lending_club$total_bal_il
-  # )
-  # expect_true(inherits(glm_xy_catch, "try-error"))
+  glm_xy_catch <- fit(
+    lc_basic,
+    engine = "glm",
+    control = caught_ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$total_bal_il
+  )
+  expect_true(inherits(glm_xy_catch, "try-error"))
 
   glm_rec_catch <- fit(
     lc_basic,
@@ -293,17 +286,16 @@ test_that('glm execution', {
 test_that('glmnet execution', {
   skip_on_cran()
 
-  # fails because `glment` requires a matrix
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     lc_form,
-  #     data = lending_club,
-  #     engine = "glmnet",
-  #     control = ctrl
-  #   ),
-  #   regexp = NA
-  # )
+  expect_error(
+    fit(
+      lc_basic,
+      lc_form,
+      data = lending_club,
+      engine = "glmnet",
+      control = ctrl
+    ),
+    regexp = NA
+  )
 
   expect_error(
     fit(
@@ -316,7 +308,11 @@ test_that('glmnet execution', {
     regexp = NA
   )
 
-  # fails because `glment` requires a matrix
+  # TODO: fails because the recipe tries to convert a data frame containing a
+  # factor to a matrix (and trips an error checker). This is supposed to work
+  # well with multivariate data when the model interface is a matrix but it
+  # shouldn't automatically do that for a single column non-numeric data set.
+  # One more coded exception
   # expect_error(
   #   fit(
   #     lc_basic,
@@ -433,15 +429,14 @@ test_that('stan_glm execution', {
   )
   expect_true(inherits(stan_form_catch, "try-error"))
 
-  # fails
-  # stan_xy_catch <- fit(
-  #   lc_basic,
-  #   engine = "stan",
-  #   control = caught_ctrl,
-  #   x = lending_club[, num_pred],
-  #   y = lending_club$total_bal_il
-  # )
-  # expect_true(inherits(stan_xy_catch, "try-error"))
+  stan_xy_catch <- fit(
+    lc_basic,
+    engine = "stan",
+    control = caught_ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$total_bal_il
+  )
+  expect_true(inherits(stan_xy_catch, "try-error"))
 
   stan_rec_catch <- fit(
     lc_basic,

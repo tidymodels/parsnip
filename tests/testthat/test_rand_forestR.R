@@ -11,8 +11,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 mtry = 4,
                  case.weights = quote(missing_arg()),
+                 mtry = 4,
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -28,10 +28,9 @@ test_that('primary arguments', {
   expect_equal(mtry_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "regression",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
-                 feature_subset_strategy = 4,
+                 feature_subset_strategy = "4",
                  seed = quote(sample.int(10^5, 1))
                )
   )
@@ -43,8 +42,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 num.trees = 1000,
                  case.weights = quote(missing_arg()),
+                 num.trees = 1000,
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -60,9 +59,8 @@ test_that('primary arguments', {
   expect_equal(trees_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "classification",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  num_trees = 1000,
                  seed = quote(sample.int(10^5, 1))
                )
@@ -76,8 +74,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 min.node.size = 5,
                  case.weights = quote(missing_arg()),
+                 min.node.size = 5,
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -93,9 +91,8 @@ test_that('primary arguments', {
   expect_equal(min_n_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "regression",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  min_instances_per_node = 5,
                  seed = quote(sample.int(10^5, 1))
                )
@@ -109,8 +106,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 mtry = varying(),
                  case.weights = quote(missing_arg()),
+                 mtry = varying(),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -126,9 +123,8 @@ test_that('primary arguments', {
   expect_equal(mtry_v_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "classification",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  feature_subset_strategy = varying(),
                  seed = quote(sample.int(10^5, 1))
                )
@@ -142,8 +138,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 num.trees = varying(),
                  case.weights = quote(missing_arg()),
+                 num.trees = varying(),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -159,9 +155,8 @@ test_that('primary arguments', {
   expect_equal(trees_v_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "regression",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  num_trees = varying(),
                  seed = quote(sample.int(10^5, 1))
                )
@@ -175,8 +170,8 @@ test_that('primary arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 min.node.size = varying(),
                  case.weights = quote(missing_arg()),
+                 min.node.size = varying(),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -192,9 +187,8 @@ test_that('primary arguments', {
   expect_equal(min_n_v_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "classification",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  min_instances_per_node = varying(),
                  seed = quote(sample.int(10^5, 1))
                )
@@ -207,8 +201,8 @@ test_that('engine arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 importance = "impurity",
                  case.weights = quote(missing_arg()),
+                 importance = "impurity",
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -228,9 +222,8 @@ test_that('engine arguments', {
   expect_equal(translate(spark_gain, engine = "spark")$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "regression",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
                  min_info_gain = 2,
                  seed = quote(sample.int(10^5, 1))
                )
@@ -241,8 +234,8 @@ test_that('engine arguments', {
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 sample.fraction = varying(),
                  case.weights = quote(missing_arg()),
+                 sample.fraction = varying(),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = quote(sample.int(10^5, 1))
@@ -255,8 +248,8 @@ test_that('engine arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 sampsize = varying(),
-                 norm.votes = FALSE
+                 norm.votes = FALSE,
+                 sampsize = varying()
                )
   )
 
@@ -264,12 +257,11 @@ test_that('engine arguments', {
   expect_equal(translate(spark_bins_v, engine = "spark")$method$fit_args,
                list(
                  x = quote(missing_arg()),
+                 formula = quote(missing_arg()),
                  type = "regression",
-                 features_col = quote(missing_arg()),
-                 label_col = quote(missing_arg()),
+                 uid = "id label",
                  max_bins = varying(),
-                 seed = quote(sample.int(10^5, 1)),
-                 uid = "id label"
+                 seed = quote(sample.int(10^5, 1))
                )
   )
 })
@@ -391,15 +383,14 @@ test_that('ranger execution', {
   )
   expect_true(inherits(ranger_form_catch, "try-error"))
 
-  # fails
-  # ranger_xy_catch <- fit(
-  #   bad_ranger_cls,
-  #   engine = "ranger",
-  #   control = caught_ctrl,
-  #   x = lending_club[, num_pred],
-  #   y = lending_club$total_bal_il
-  # )
-  # expect_true(inherits(ranger_xy_catch, "try-error"))
+  ranger_xy_catch <- fit(
+    bad_ranger_cls,
+    engine = "ranger",
+    control = caught_ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$total_bal_il
+  )
+  expect_true(inherits(ranger_xy_catch, "try-error"))
 
   ranger_rec_catch <- fit(
     bad_ranger_cls,
@@ -425,17 +416,16 @@ test_that('randomForest execution', {
     regexp = NA
   )
 
-  # fails during R CMD check but works outside of that
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     engine = "randomForest",
-  #     control = ctrl,
-  #     x = lending_club[, num_pred],
-  #     y = lending_club$Class
-  #   ),
-  #   regexp = NA
-  # )
+  expect_error(
+    fit(
+      lc_basic,
+      engine = "randomForest",
+      control = ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$Class
+    ),
+    regexp = NA
+  )
 
   expect_error(
     fit(
@@ -486,6 +476,7 @@ test_that('randomForest execution', {
   expect_true(inherits(randomForest_rec_catch, "try-error"))
 })
 
+#TODO add spark test cases (in another file that is ignored on build?)
 
 ###################################################################
 
@@ -550,15 +541,14 @@ test_that('ranger execution', {
   )
   expect_true(inherits(ranger_form_catch, "try-error"))
 
-  # fails
-  # ranger_xy_catch <- fit(
-  #   bad_ranger_reg,
-  #   engine = "ranger",
-  #   control = caught_ctrl,
-  #   x = mtcars[, num_pred],
-  #   y = mtcars$mpg
-  # )
-  # expect_true(inherits(ranger_xy_catch, "try-error"))
+  ranger_xy_catch <- fit(
+    bad_ranger_reg,
+    engine = "ranger",
+    control = caught_ctrl,
+    x = mtcars[, num_pred],
+    y = mtcars$mpg
+  )
+  expect_true(inherits(ranger_xy_catch, "try-error"))
 
   ranger_rec_catch <- fit(
     bad_ranger_reg,
