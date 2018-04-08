@@ -48,7 +48,7 @@ rand_forest_randomForest_fit <-
 rand_forest_spark_fit <-
   list(
     libs = "sparklyr",
-    interface = "spark",
+    interface = "formula",
     protect = c("x", "formula", "type"),
     fit_name = c(pkg = "sparklyr", fun = "ml_random_forest"),
     alternates =

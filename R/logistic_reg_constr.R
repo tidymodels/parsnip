@@ -65,6 +65,6 @@ logistic_reg_spark_fit <-
     fit_name = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
     alternates =
       list(
-        family = expr(binomial)
+        family = "binomial"
       )
   )
