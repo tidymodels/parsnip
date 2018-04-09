@@ -1,7 +1,7 @@
 # Prototype parsnip code for random forests
 
 #' General Interface for Random Forest Models
-#' 
+#'
 #' `rand_forest` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  different packages in R or via Spark. The main arguments for the
@@ -18,15 +18,15 @@
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.
-#' 
+#'
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `rand_forest`, the
 #'  possible modes are "regression" and "classification".
-#' 
+#'
 #' The model can be created using the [fit()] function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"ranger"` or `"randomForests"` 
+#' \item \pkg{R}:  `"ranger"` or `"randomForests"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #' @param mode A single character string for the type of model.
@@ -43,12 +43,12 @@
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
-#' @details Main parameter arguments (and those in `others`) can avoid 
-#'  evaluation until the underlying function is executed by wrapping the 
+#' @details Main parameter arguments (and those in `others`) can avoid
+#'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
-#' @examples 
+#' @examples
 #' rand_forest(mode = "classification", trees = 2000)
 #' # Parameters can be represented by a placeholder:
 #' rand_forest(mode = "regression", mtry = varying())
@@ -57,23 +57,23 @@
 rand_forest <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,
-           others = list(), 
+           others = list(),
            ...) {
     check_empty_ellipse(...)
-    
+
     ## TODO: make a utility function here
     if (!(mode %in% rand_forest_modes))
       stop("`mode` should be one of: ",
            paste0("'", rand_forest_modes, "'", collapse = ", "),
            call. = FALSE)
-    
+
     args <- list(mtry = mtry, trees = trees, min_n = min_n)
-    
+
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
-    
+
     # write a constructor function
-    out <- list(args = args, others = others, 
+    out <- list(args = args, others = others,
                 mode = mode, method = NULL, engine = NULL)
     # TODO: make_classes has wrong order; go from specific to general
     class(out) <- make_classes("rand_forest")
@@ -84,23 +84,28 @@ rand_forest <-
 print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
+
+  if(!is.null(x$method$fit_args)) {
+    cat("Model fit template:\n")
+    print(show_call(x))
+  }
   invisible(x)
 }
 
 ###################################################################
 
 #' Update a Random Forest Specification
-#' 
+#'
 #' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch. 
-#'  
+#'  in lieu of recreating the object from scratch.
+#'
 #' @export
 #' @inheritParams rand_forest
-#' @param object A random forest model specification. 
+#' @param object A random forest model specification.
 #' @param fresh A logical for whether the arguments should be
-#'  modifed in-place of or replaced wholesale. 
+#'  modifed in-place of or replaced wholesale.
 #' @return An updated model specification.
-#' @examples 
+#' @examples
 #' model <- rand_forest(mtry = 10, min_n = 3)
 #' model
 #' update(model, mtry = 1)
@@ -115,9 +120,9 @@ update.rand_forest <-
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
-    
+
     args <- list(mtry = mtry, trees = trees, min_n = min_n)
-    
+
     # TODO make these blocks into a function amd document well
     if (fresh) {
       object$args <- args
@@ -128,14 +133,14 @@ update.rand_forest <-
       if (length(args) > 0)
         object$args[names(args)] <- args
     }
-    
+
     if (length(others) > 0) {
       if (fresh)
         object$others <- others
       else
         object$others[names(others)] <- others
     }
-    
+
     object
   }
 
@@ -144,7 +149,7 @@ update.rand_forest <-
 #' @export
 translate.rand_forest <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
-  
+
   if (x$engine == "spark") {
     if (x$mode == "unknown")
       stop(
@@ -153,17 +158,20 @@ translate.rand_forest <- function(x, engine, ...) {
         call. = FALSE
       )
     else
-      x$method$fit_call$type <- x$mode
+      x$method$fit_args$type <- x$mode
+
+    # See "Details" in ?ml_random_forest_classifier
+    if (is.numeric(x$method$fit_args$feature_subset_strategy))
+      x$method$fit_args$feature_subset_strategy <-
+        paste(x$method$fit_args$feature_subset_strategy)
   }
-    
+
   # add checks to error trap or change things for this method
   if (x$engine == "ranger") {
-    if (any(names(x$others) == "importance"))
-      if (is.logical(x$others$importance))
+    if (any(names(x$method$fit_args) == "importance"))
+      if (is.logical(x$method$fit_args$importance))
         stop("`importance` should be a character value. See ?ranger::ranger.",
              call. = FALSE)
   }
   x
 }
-
-## TODO make a class-specific constructor that customizes the rf syntax + checks

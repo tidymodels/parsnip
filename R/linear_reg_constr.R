@@ -1,6 +1,6 @@
 
-logistic_reg_arg_key <- data.frame(
-  glm    =  c(        NA,                  NA),
+linear_reg_arg_key <- data.frame(
+  lm     =  c(        NA,                  NA),
   glmnet =  c(   "lambda",             "alpha"),
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
@@ -8,31 +8,28 @@ logistic_reg_arg_key <- data.frame(
   row.names =  c("regularization", "mixture")
 )
 
-logistic_reg_modes <- "classification"
+linear_reg_modes <- "regression"
 
-logistic_reg_engines <- data.frame(
-  glm    = TRUE,
+linear_reg_engines <- data.frame(
+  lm    = TRUE,
   glmnet = TRUE,
   spark  = TRUE,
   stan   = TRUE,
-  row.names =  c("classification")
+  row.names =  c("regression")
 )
 
 ###################################################################
 
-logistic_reg_glm_fit <-
+linear_reg_lm_fit <-
   list(
     libs = "stats",
     interface = "formula",
     protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "stats", fun = "glm"),
-    alternates =
-      list(
-        family = expr(binomial)
-      )
+    fit_name = c(pkg = "stats", fun = "lm"),
+    alternates = list()
   )
 
-logistic_reg_glmnet_fit <-
+linear_reg_glmnet_fit <-
   list(
     libs = "glmnet",
     interface = "matrix",
@@ -40,11 +37,11 @@ logistic_reg_glmnet_fit <-
     fit_name = c(pkg = "glmnet", fun = "glmnet"),
     alternates =
       list(
-        family = "binomial"
+        family = "gaussian"
       )
   )
 
-logistic_reg_stan_fit <-
+linear_reg_stan_fit <-
   list(
     libs = "rstanarm",
     interface = "formula",
@@ -52,19 +49,16 @@ logistic_reg_stan_fit <-
     fit_name = c(pkg = "rstanarm", fun = "stan_glm"),
     alternates =
       list(
-        family = expr(binomial)
+        family = "gaussian"
       )
   )
 
 
-logistic_reg_spark_fit <-
+linear_reg_spark_fit <-
   list(
     libs = "sparklyr",
     interface = "formula",
     protect = c("x", "formula", "weight_col"),
-    fit_name = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
-    alternates =
-      list(
-        family = "binomial"
-      )
+    fit_name = c(pkg = "sparklyr", fun = "ml_linear_regression"),
+    alternates = list()
   )

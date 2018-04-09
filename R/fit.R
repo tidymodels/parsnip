@@ -109,11 +109,11 @@ fit.model_spec <-
            control = fit_control(),
            ...
   ) {
-    call_interface <-
-      check_interface(formula, recipe, x, y, data, match.call(expand.dots = TRUE))
+    cl <- match.call(expand.dots = TRUE)
+    fit_interface <-
+      check_interface(formula, recipe, x, y, data, cl)
     object$engine <- engine
     object <- check_engine(object)
-
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -122,231 +122,21 @@ fit.model_spec <-
     load_libs(object, control$verbosity < 2)
 
     res <- switch(
-      call_interface,
-      formula = fit_formula(object, formula, data, control = control, ...),
-      recipe = fit_recipe(object, recipe, data, control = control, ...),
-      xy = fit_xy(object, x, y, control = control, ...),
+      fit_interface,
+      formula = fit_interface_formula(
+        object = object,
+        formula = cl$formula,
+        data = cl$data,
+        control = control,
+        ...
+      ),
+      matrix = fit_interface_matrix(x, y, object, control, ...),
+      data.frame = fit_interface_data.frame(x, y, object, control, ...),
+      recipe = fit_interface_recipe(recipe, data, object, control, ...),
       stop("Wrong interface type")
     )
 
     res
-}
-
-###################################################################
-
-#' @importFrom stats as.formula
-fit_formula <- function(object, formula, data, engine = engine, control, ...) {
-  opts <- quos(...)
-  # Look up the model's interface (e.g. formula, recipes, etc)
-  # and delagate to the connector functions (`formula_to_recipe` etc)
-  if(object$method$interface == "formula") {
-    fit_expr <- object$method$fit_call
-    fit_expr[["data"]] <- quote(data)
-    fit_expr$formula <- rlang::get_expr(formula)
-    res <-
-      eval_mod(
-        fit_expr,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        env = current_env()
-      )
-  } else {
-    if(object$method$interface %in% c("data.frame", "matrix", "spark")) {
-      res <- formula_to_xy(object = object, formula = formula, data = data, control)
-    } else {
-      stop("I don't know about the ",
-           object$method$interface, " interface.",
-           call. = FALSE)
-    }
-  }
-  res
-}
-
-
-xy_to_xy <- function(object, x, y, control, ...) {
-  fit_expr <- object$method$fit_call
-  fit_expr[["x"]] <- quote(x)
-  fit_expr[["y"]] <- quote(y)
-    eval_mod(
-      fit_expr,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      env = current_env()
-    )
-}
-xy_to_matrix <- function(object, x, y, control, ...) {
-  if (object$method$interface == "matrix" && !is.matrix(x))
-    x <- as.matrix(x)
-  xy_to_xy(object, x, y, control, ...)
-}
-xy_to_df <- function(object, x, y, control, ...) {
-  if (object$method$interface == "data.frame" && !is.data.frame(x))
-    x <- as.data.frame(x)
-  xy_to_xy(object, x, y, control, ...)
-}
-xy_to_spark <- function(object, x, y, control, ...) {
-  sdf <- sparklyr::sdf_bind_cols(x, y)
-  fit_expr <- object$method$fit_call
-  fit_expr[["x"]] <- quote(sdf)
-  fit_expr[["features_col"]] <- quote(colnames(x))
-  fit_expr[["label_col"]] <- quote(colnames(y))
-    eval_mod(
-      fit_expr,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      env = current_env()
-    )
-}
-
-
-fit_xy <- function(object, x, y, control, ...) {
-  opts <- quos(...)
-
-  res <- switch(
-    object$method$interface,
-    formula = xy_to_formula(object = object, x = x, y = y, control, ...),
-    matrix = xy_to_matrix(object = object, x = x, y = y, control, ...),
-    data.frame = xy_to_df(object = object, x = x, y = y, control, ...),
-    spark = xy_to_spark(object = object, x = x, y = y, control, ...),
-    stop("Unknown interface")
-  )
-  res
-}
-
-fit_recipe <- function(object, recipe, data, control, ...) {
-  opts <- quos(...)
-
-  # Look up the model's interface (e.g. formula, recipes, etc)
-  # and delegate to the connector functions (`recipe_to_formula` etc)
-  if(object$method$interface == "formula") {
-    res <- recipe_to_formula(object = object, recipe = recipe, data = data, control)
-  } else {
-    if(object$method$interface %in% c("data.frame", "matrix")) {
-      res <- recipe_to_xy(object = object, recipe = recipe, data = data, control)
-    } else {
-      stop("I don't know about the ",
-           object$method$interface, " interface.",
-           call. = FALSE)
-    }
-  }
-  res
-
-}
-
-
-#placeholder
-fit_spark <- function(object, remote, engine = engine, control, ...) {
-  NULL
-}
-
-### or.... let `data, `x` and `y` be remote spark data tables or specifications
-
-
-
-###################################################################
-
-formula_to_recipe <- function(object, formula, data, control) {
-  # execute the formula
-  # extract terms _and roles_
-  # put into recipe
-
-}
-
-# TODO find a hook for whether to make dummies or not. Test cases
-# are all numeric. Solve via the fit the method object via entry for
-# `requires_dummies`
-
-#' @importFrom  stats model.frame model.response terms
-formula_to_xy <- function(object, formula, data, control) {
-  # Q: how do we fill in the other standard things here (subset, contrasts etc)?
-  # Q: add a "matrix" option here and invoke model.matrix
-  x <- stats::model.frame(formula, data)
-  y <- model.response(x)
-
-  # Remove outcome column(s) from `x`
-  outcome_cols <- attr(terms(x), "response")
-  if (!isTRUE(all.equal(outcome_cols, 0))) {
-    x <- x[,-outcome_cols, drop = FALSE]
-  }
-
-  object$method$fit_call[["x"]] <- quote(x)
-  object$method$fit_call[["y"]] <- quote(y)
-
-  eval_mod(
-    object$method$fit_call,
-    capture = control$verbosity == 0,
-    catch = control$catch,
-    env = current_env()
-  )
-}
-
-###################################################################
-
-#' @importFrom recipes prep juice all_predictors all_outcomes
-recipe_to_formula <- function(object, recipe, data, control) {
-  # TODO case weights
-  recipe <-
-    prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
-  dat <- juice(recipe, all_predictors(), all_outcomes())
-  dat <- as.data.frame(dat)
-
-  data_info <- summary(recipe)
-  y_names <- data_info$variable[data_info$role == "outcome"]
-  if (length(y_names) > 1)
-    y_names <-
-    paste0("cbind(", paste0(y_names, collapse = ","), ")")
-
-  fit_expr <- object$method$fit_call
-  fit_expr$formula <- as.formula(paste0(y_names, "~."))
-  fit_expr$data <- quote(dat)
-  eval_mod(
-    fit_expr,
-    capture = control$verbosity == 0,
-    catch = control$catch,
-    env = current_env()
-  )
-}
-
-recipe_to_xy <- function(object, recipe, data, control) {
-  # TODO case weights
-  recipe <-
-    prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
-
-  x <- juice(recipe, all_predictors())
-  x <- as.data.frame(x)
-  y <- juice(recipe, all_outcomes())
-  if (ncol(y) > 1)
-    y <- as.data.frame(y)
-  else
-    y <- y[[1]]
-
-  fit_expr <- object$method$fit_call
-
-  fit_expr[["x"]] <- quote(x)
-  fit_expr[["y"]] <- quote(y)
-
-  eval_mod(
-    fit_expr,
-    capture = control$verbosity == 0,
-    catch = control$catch,
-    env = current_env()
-  )
-}
-
-###################################################################
-
-xy_to_formula <- function(object, x, y, control) {
-  if(!is.data.frame(x))
-    x <- as.data.frame(x)
-  x$.y <- y
-  fit_expr <- object$method$fit_call
-  fit_expr$formula <- as.formula(.y ~ .)
-  fit_expr$data <- quote(x)
-  eval_tidy(fit_expr, env = current_env())
-}
-
-xy_to_recipe <- function(object, x, y, control) {
-
 }
 
 ###################################################################
@@ -418,24 +208,39 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
   inher(formula, "formula", cl)
   inher(recipe, "recipe", cl)
   inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
+
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
-  if(!is.null(y) && !is.vector(y))
+  if (!is.null(y) && !is.vector(y))
     inher(y, c("data.frame", "matrix", "factor", "tbl_spark"), cl)
   inher(data, c("data.frame", "matrix", "tbl_spark"), cl)
 
-  x_interface <- !is.null(x) & !is.null(y)
+  # rule out spark data sets that don't use the formula interface
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
+    stop("spark objects can only be used with the formula interface to `fit` ",
+         "with a spark data object.", call. = FALSE)
+
+  # Determine the `fit` interface
+  matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+  df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
   rec_interface <- !is.null(recipe) & !is.null(data)
   form_interface <- !is.null(formula) & !is.null(data)
-  if (!(x_interface | rec_interface | form_interface))
+
+  if (!(matrix_interface | df_interface | rec_interface | form_interface))
     stop("Incomplete specification of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
-  if (sum(c(x_interface, rec_interface, form_interface)) > 1)
+  if (sum(c(matrix_interface, df_interface, rec_interface, form_interface)) > 1)
     stop("Too many specifications of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
-  if(x_interface) return("xy")
-  if(rec_interface) return("recipe")
-  if(form_interface) return("formula")
-  stop("Error in checking the interface")
+
+  if (matrix_interface)
+    return("data.frame")
+  if (df_interface)
+    return("data.frame")
+  if (rec_interface)
+    return("recipe")
+  if (form_interface)
+    return("formula")
+  stop("Error when checking the interface")
 }
 
 

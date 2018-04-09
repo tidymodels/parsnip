@@ -1,6 +1,6 @@
-#' General Interface for Logistic Regression Models
+#' General Interface for Linear Regression Models
 #'
-#' `logistic_reg` is a way to generate a _specification_ of a model
+#' `linear_reg` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  different packages in R, Stan, or via Spark. The main arguments for the
 #'  model are:
@@ -17,20 +17,20 @@
 #'  functions.
 #'
 #' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `logistic_reg`,the
-#'  mode will always be "classification".
+#'  to determine the _mode_ of the model. For `linear_reg`,the
+#'  mode will always be "regression".
 #'
 #' The model can be created using the [fit()] function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"glm"` or `"glmnet"`
+#' \item \pkg{R}:  `"lm"` or `"glmnet"`
 #' \item \pkg{Stan}:  `"stan"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #' @param mode A single character string for the type of model.
-#'  The only possible value for this model is "classification".
+#'  The only possible value for this model is "regression".
 #' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `stats::glm`,
+#'  underlying models (e.g., `stats::lm`,
 #'  `rstanarm::stan_glm`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
@@ -44,22 +44,22 @@
 #'  the ellipses will result in an error. Use `others` instead.
 #' @seealso [varying()], [fit()]
 #' @examples
-#' logistic_reg()
+#' linear_reg()
 #' # Parameters can be represented by a placeholder:
-#' logistic_reg(regularization = varying())
+#' linear_reg(regularization = varying())
 #' @export
 #' @importFrom purrr map_lgl
-logistic_reg <-
-  function(mode = "classification",
+linear_reg <-
+  function(mode = "regression",
            regularization = NULL,
            mixture = NULL,
            others = list(),
            ...) {
     check_empty_ellipse(...)
-    if (!(mode %in% logistic_reg_modes))
+    if (!(mode %in% linear_reg_modes))
       stop(
         "`mode` should be one of: ",
-        paste0("'", logistic_reg_modes, "'", collapse = ", "),
+        paste0("'", linear_reg_modes, "'", collapse = ", "),
         call. = FALSE
       )
 
@@ -81,13 +81,13 @@ logistic_reg <-
       method = NULL,
       engine = NULL
     )
-    class(out) <- make_classes("logistic_reg")
+    class(out) <- make_classes("linear_reg")
     out
   }
 
 #' @export
-print.logistic_reg <- function(x, ...) {
-  cat("Logistic Regression Model Specification (", x$mode, ")\n\n", sep = "")
+print.linear_reg <- function(x, ...) {
+  cat("Linear Regression Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
   if(!is.null(x$method$fit_args)) {
@@ -100,25 +100,25 @@ print.logistic_reg <- function(x, ...) {
 
 ###################################################################
 
-#' Update a Logistic Regression Specification
+#' Update a Linear Regression Specification
 #'
 #' If parameters need to be modified, this function can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams logistic_reg
-#' @param object A logistic reression model specification.
+#' @inheritParams linear_reg
+#' @param object A linear reression model specification.
 #' @param fresh A logical for whether the arguments should be
 #'  modifed in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
-#' model <- logistic_reg(regularization = 10, mixture = 0.1)
+#' model <- linear_reg(regularization = 10, mixture = 0.1)
 #' model
 #' update(model, regularization = 1)
 #' update(model, regularization = 1, fresh = TRUE)
-#' @method update logistic_reg
-#' @rdname logistic_reg
+#' @method update linear_reg
+#' @rdname linear_reg
 #' @export
-update.logistic_reg <-
+update.linear_reg <-
   function(object,
            regularization = NULL, mixture = NULL,
            others = list(),

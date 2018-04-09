@@ -13,7 +13,7 @@ tester <-
 test_that('good args', {
   expect_equal(tester(NULL, formula = f, data = iris), "formula")
   expect_equal(tester(NULL, recipe = rec, data = iris), "recipe")
-  expect_equal(tester(NULL, x = iris, y = iris), "xy")
+  expect_equal(tester(NULL, x = iris, y = iris), "data.frame")
   expect_equal(tester(NULL, f, data = iris), "formula")
   expect_equal(tester(NULL, formula = f, data = iris, y = iris), "formula")
 })
@@ -29,4 +29,3 @@ test_that('wrong args', {
   expect_error(tester(NULL, f,  x = iris, y = iris, data = iris))
 })
 
-  

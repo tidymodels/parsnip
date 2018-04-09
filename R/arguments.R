@@ -41,10 +41,9 @@ varying <- function()
 
 deharmonize <- function(args, key, engine) {
   nms <- names(args)
-  for(i in seq_along(args)) {
-    names(args)[i] <- key[ nms[i] , engine ]
-  }
-  args
+  orig_names <- key[nms, engine]
+  names(args) <- orig_names
+  args[!is.na(orig_names)]
 }
 
 parse_engine_options <- function(x) {
@@ -83,11 +82,10 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
   x
 }
 
-check_others <- function(args, x) {
-
+check_others <- function(args, obj) {
   # Make sure that we are not trying to modify an argument that
   # is explicitly protected in the method metadata
-  common_args <- intersect(x$protect, names(args))
+  common_args <- intersect(obj$protect, names(args))
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
@@ -95,23 +93,5 @@ check_others <- function(args, x) {
             "and were removed: ",
             common_args, call. = FALSE)
   }
-
-  # If there are not ellipses in function, make sure that the
-  # args exist in the fit call
-  if (length(args) > 0 & !x$has_dots) {
-    o_names <- names(args)
-    missing_args <- o_names[!(o_names %in% names(x$fit))]
-    if (length(missing_args) > 0) {
-      args[o_names %in% missing_args] <- NULL
-      warning(
-        "Some argument(s) do not correspond to this function: ",
-        paste0("`", o_names, "`", collapse = ", "),
-        call. = FALSE
-      )
-    }
-  }
   args
 }
-
-
-

@@ -6,17 +6,16 @@ library(rlang)
 #TODO add spark test cases (in another file that is ignored on build?)
 
 test_that('primary arguments', {
-  basic <- logistic_reg()
-  basic_glm <- translate(basic, engine = "glm")
+  basic <- linear_reg()
+  basic_lm <- translate(basic, engine = "lm")
   basic_glmnet <- translate(basic, engine = "glmnet")
   basic_stan <- translate(basic, engine = "stan")
   basic_spark <- translate(basic, engine = "spark")
-  expect_equal(basic_glm$method$fit_args,
+  expect_equal(basic_lm$method$fit_args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
-                 family = quote(binomial)
+                 weights = quote(missing_arg())
                )
   )
   expect_equal(basic_glmnet$method$fit_args,
@@ -24,7 +23,7 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 family = "binomial"
+                 family = "gaussian"
                )
   )
   expect_equal(basic_stan$method$fit_args,
@@ -32,19 +31,18 @@ test_that('primary arguments', {
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 family = quote(binomial)
+                 family = "gaussian"
                )
   )
   expect_equal(basic_spark$method$fit_args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg()),
-                 family = "binomial"
+                 weight_col = quote(missing_arg())
                )
   )
 
-  mixture <- logistic_reg(mixture = 0.128)
+  mixture <- linear_reg(mixture = 0.128)
   mixture_glmnet <- translate(mixture, engine = "glmnet")
   mixture_spark <- translate(mixture, engine = "spark")
   expect_equal(mixture_glmnet$method$fit_args,
@@ -53,7 +51,7 @@ test_that('primary arguments', {
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  alpha = 0.128,
-                 family = "binomial"
+                 family = "gaussian"
                )
   )
   expect_equal(mixture_spark$method$fit_args,
@@ -61,12 +59,11 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 elastic_net_param = 0.128,
-                 family = "binomial"
+                 elastic_net_param = 0.128
                )
   )
 
-  regularization <- logistic_reg(regularization = 1)
+  regularization <- linear_reg(regularization = 1)
   regularization_glmnet <- translate(regularization, engine = "glmnet")
   regularization_spark <- translate(regularization, engine = "spark")
   expect_equal(regularization_glmnet$method$fit_args,
@@ -75,7 +72,7 @@ test_that('primary arguments', {
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  lambda = 1,
-                 family = "binomial"
+                 family = "gaussian"
                )
   )
   expect_equal(regularization_spark$method$fit_args,
@@ -83,12 +80,11 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 reg_param = 1,
-                 family = "binomial"
+                 reg_param = 1
                )
   )
 
-  mixture_v <- logistic_reg(mixture = varying())
+  mixture_v <- linear_reg(mixture = varying())
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   mixture_v_spark <- translate(mixture_v, engine = "spark")
   expect_equal(mixture_v_glmnet$method$fit_args,
@@ -97,7 +93,7 @@ test_that('primary arguments', {
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  alpha = varying(),
-                 family = "binomial"
+                 family = "gaussian"
                )
   )
   expect_equal(mixture_v_spark$method$fit_args,
@@ -105,36 +101,35 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 elastic_net_param = varying(),
-                 family = "binomial"
+                 elastic_net_param = varying()
                )
   )
 
 })
 
 test_that('engine arguments', {
-  glm_fam <- logistic_reg(others = list(family = expr(binomial(link = "probit"))))
-  expect_equal(translate(glm_fam, engine = "glm")$method$fit_args,
+  lm_fam <- linear_reg(others = list(model = FALSE))
+  expect_equal(translate(lm_fam, engine = "lm")$method$fit_args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 family = quote(binomial(link = "probit"))
+                 model = FALSE
                )
   )
 
-  glmnet_nlam <- logistic_reg(others = list(nlambda = 10))
+  glmnet_nlam <- linear_reg(others = list(nlambda = 10))
   expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  nlambda = 10,
-                 family = "binomial"
+                 family = "gaussian"
                )
   )
 
-  stan_samp <- logistic_reg(others = list(chains = 1, iter = 5))
+  stan_samp <- linear_reg(others = list(chains = 1, iter = 5))
   expect_equal(translate(stan_samp, engine = "stan")$method$fit_args,
                list(
                  formula = quote(missing_arg()),
@@ -142,18 +137,17 @@ test_that('engine arguments', {
                  weights = quote(missing_arg()),
                  chains = 1,
                  iter = 5,
-                 family = quote(binomial)
+                 family = "gaussian"
                )
   )
 
-  spark_iter <- logistic_reg(others = list(max_iter = 20))
+  spark_iter <- linear_reg(others = list(max_iter = 20))
   expect_equal(translate(spark_iter, engine = "spark")$method$fit_args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
                  weight_col = quote(missing_arg()),
-                 max_iter = 20,
-                 family = "binomial"
+                 max_iter = 20
                )
   )
 
@@ -161,20 +155,20 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- logistic_reg(             others = list(family = expr(binomial(link = "probit"))))
-  expr1_exp <- logistic_reg(mixture = 0, others = list(family = expr(binomial(link = "probit"))))
+  expr1     <- linear_reg(             others = list(model = FALSE))
+  expr1_exp <- linear_reg(mixture = 0, others = list(model = FALSE))
 
-  expr2     <- logistic_reg(mixture = varying())
-  expr2_exp <- logistic_reg(mixture = varying(), others = list(nlambda = 10))
+  expr2     <- linear_reg(mixture = varying())
+  expr2_exp <- linear_reg(mixture = varying(), others = list(nlambda = 10))
 
-  expr3     <- logistic_reg(mixture = 0, regularization = varying())
-  expr3_exp <- logistic_reg(mixture = 1)
+  expr3     <- linear_reg(mixture = 0, regularization = varying())
+  expr3_exp <- linear_reg(mixture = 1)
 
-  expr4     <- logistic_reg(mixture = 0, others = list(nlambda = 10))
-  expr4_exp <- logistic_reg(mixture = 0, others = list(nlambda = 10, pmax = 2))
+  expr4     <- linear_reg(mixture = 0, others = list(nlambda = 10))
+  expr4_exp <- linear_reg(mixture = 0, others = list(nlambda = 10, pmax = 2))
 
-  expr5     <- logistic_reg(mixture = 1, others = list(nlambda = 10))
-  expr5_exp <- logistic_reg(mixture = 1, others = list(nlambda = 10, pmax = 2))
+  expr5     <- linear_reg(mixture = 1, others = list(nlambda = 10))
+  expr5_exp <- linear_reg(mixture = 1, others = list(nlambda = 10, pmax = 2))
 
   expect_equal(update(expr1, mixture = 0), expr1_exp)
   expect_equal(update(expr2, others = list(nlambda = 10)), expr2_exp)
@@ -185,105 +179,111 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(logistic_reg(ase.weights = var))
-  expect_error(logistic_reg(mode = "regression"))
-  expect_error(logistic_reg(regularization = -1))
-  expect_error(logistic_reg(mixture = -1))
-  expect_error(translate(logistic_reg(), engine = "wat?"))
-  expect_warning(translate(logistic_reg(), engine = NULL))
-  expect_error(translate(logistic_reg(formula = y ~ x)))
-  expect_warning(translate(logistic_reg(others = list(x = iris[,1:3], y = iris$Species)), engine = "glmnet"))
-  expect_warning(translate(logistic_reg(others = list(formula = y ~ x)), engine = "glm"))
+  expect_error(linear_reg(ase.weights = var))
+  expect_error(linear_reg(mode = "classification"))
+  expect_error(linear_reg(regularization = -1))
+  expect_error(linear_reg(mixture = -1))
+  expect_error(translate(linear_reg(), engine = "wat?"))
+  expect_warning(translate(linear_reg(), engine = NULL))
+  expect_error(translate(linear_reg(formula = y ~ x)))
+  expect_warning(translate(linear_reg(others = list(x = iris[,1:3], y = iris$Species)), engine = "glmnet"))
+  expect_warning(translate(linear_reg(others = list(formula = y ~ x)), engine = "lm"))
 })
 
 ###################################################################
 
-data("lending_club")
-lending_club <- head(lending_club, 200)
-lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
-num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
-lc_bad_form <- as.formula(funded_amnt ~ term)
-lc_basic <- logistic_reg()
+
+iris_form <- as.formula(Sepal.Width ~ log(Sepal.Length) + Species)
+num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Width")
+iris_bad_form <- as.formula(Species ~ term)
+iris_basic <- linear_reg()
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-lc_rec <- recipe(Class ~ funded_amnt + annual_inc + num_il_tl,
-                 data = lending_club)
-bad_rec <-
-  recipe(total_bal_il ~ funded_amnt + annual_inc + num_il_tl,
-         data = lending_club)
+iris_rec <- recipe(Sepal.Length ~ ., data = iris) %>%
+  step_dummy(Species)
+bad_rec <- recipe(Species ~ ., data = iris)
+mvar_rec <- recipe(Sepal.Length + Petal.Width ~ ., data = iris) %>%
+  step_dummy(Species)
 
-
-test_that('glm execution', {
+test_that('lm execution', {
   skip_on_cran()
 
   # passes interactively but not on R CMD check
   # expect_error(
   #   res <- fit(
-  #     lc_basic,
-  #     lc_form,
-  #     data = lending_club,
+  #     iris_basic,
+  #     iris_form,
+  #     data = iris,
   #     control = ctrl,
-  #     engine = "glm"
+  #     engine = "lm"
   #   ),
   #   regexp = NA
   # )
   expect_error(
     res <- fit(
-      lc_basic,
-      x = lending_club[, num_pred],
-      y = lending_club$Class,
-      engine = "glm",
+      iris_basic,
+      x = iris[, num_pred],
+      y = iris$Sepal.Length,
+      engine = "lm",
       control = ctrl
     ),
     regexp = NA
   )
   expect_error(
     res <- fit(
-      lc_basic,
-      recipe = lc_rec,
-      data = lending_club,
-      engine = "glm",
+      iris_basic,
+      recipe = iris_rec,
+      data = iris,
+      engine = "lm",
       control = ctrl
     ),
     regexp = NA
   )
   expect_error(
     res <- fit(
-      lc_basic,
-      lc_bad_form,
-      data = lending_club,
-      engine = "glm",
+      iris_basic,
+      iris_bad_form,
+      data = iris,
+      engine = "lm",
       control = ctrl
     )
   )
 
-  glm_form_catch <- fit(
-    lc_basic,
-    lc_bad_form,
-    data = lending_club,
-    engine = "glm",
+  lm_form_catch <- fit(
+    iris_basic,
+    iris_bad_form,
+    data = iris,
+    engine = "lm",
     control = caught_ctrl
   )
-  expect_true(inherits(glm_form_catch, "try-error"))
+  expect_true(inherits(lm_form_catch, "try-error"))
 
-  glm_xy_catch <- fit(
-    lc_basic,
-    engine = "glm",
-    control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
-  )
-  expect_true(inherits(glm_xy_catch, "try-error"))
+  ## multivariate y
 
-  glm_rec_catch <- fit(
-    lc_basic,
-    recipe = bad_rec,
-    data = lending_club,
-    engine = "glm",
-    control = caught_ctrl
+  expect_error(
+    res <- fit(
+      iris_basic,
+      cbind(Sepal.Width, Petal.Width) ~ .,
+      data = iris,
+      control = ctrl,
+      engine = "lm"
+    ),
+    regexp = NA
   )
-  expect_true(inherits(glm_rec_catch, "try-error"))
+
+  # TODO: embeds data in call
+  expect_error(
+    res <- fit(
+      iris_basic,
+      recipe = mvar_rec,
+      data = iris,
+      engine = "lm",
+      control = ctrl
+    ),
+    regexp = NA
+  )
+
 })
 
 test_that('glmnet execution', {
@@ -292,9 +292,9 @@ test_that('glmnet execution', {
   # passes interactively but not on R CMD check
   # expect_error(
   #   fit(
-  #     lc_basic,
-  #     lc_form,
-  #     data = lending_club,
+  #     iris_basic,
+  #     iris_form,
+  #     data = iris,
   #     engine = "glmnet",
   #     control = ctrl
   #   ),
@@ -303,82 +303,58 @@ test_that('glmnet execution', {
 
   expect_error(
     fit(
-      lc_basic,
+      iris_basic,
       engine = "glmnet",
       control = ctrl,
-      x = lending_club[, num_pred],
-      y = lending_club$Class
+      x = iris[, num_pred],
+      y = iris$Sepal.Length
     ),
     regexp = NA
   )
 
-  # TODO: fails because the recipe tries to convert a data frame containing a
-  # factor to a matrix (and trips an error checker). This is supposed to work
-  # well with multivariate data when the model interface is a matrix but it
-  # shouldn't automatically do that for a single column non-numeric data set.
-  # One more coded exception
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     recipe = lc_rec,
-  #     data = lending_club,
-  #     engine = "glmnet",
-  #     control = ctrl
-  #   ),
-  #   regexp = NA
-  # )
+  expect_error(
+    fit(
+      iris_basic,
+      recipe = iris_rec,
+      data = iris,
+      engine = "glmnet",
+      control = ctrl
+    ),
+    regexp = NA
+  )
 
-  # passes interactively but not on R CMD check
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     lc_bad_form,
-  #     data = lending_club,
-  #     engine = "glm",
-  #     control = ctrl
-  #   )
-  # )
-
-  # passes interactively but not on R CMD check
-  # glmnet_form_catch <- fit(
-  #   lc_basic,
-  #   lc_bad_form,
-  #   data = lending_club,
-  #   engine = "glmnet",
-  #   control = caught_ctrl
-  # )
-  # expect_true(inherits(glmnet_form_catch, "try-error"))
+  expect_error(
+    fit(
+      iris_basic,
+      iris_bad_form,
+      data = iris,
+      engine = "glm",
+      control = ctrl
+    )
+  )
 
   glmnet_xy_catch <- fit(
-    lc_basic,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il,
+    iris_basic,
+    x = iris[, num_pred],
+    y = factor(iris$Sepal.Length),
     engine = "glmnet",
     control = caught_ctrl
   )
   expect_true(inherits(glmnet_xy_catch, "try-error"))
 
-  glmnet_rec_catch <- fit(
-    lc_basic,
-    recipe = bad_rec,
-    data = lending_club,
-    engine = "glmnet",
-    control = caught_ctrl
-  )
-  expect_true(inherits(glmnet_rec_catch, "try-error"))
 })
 
 
 test_that('stan_glm execution', {
   skip_on_cran()
-  lc_basic_stan <- logistic_reg(others = list(seed = 1333))
+  iris_basic_stan <- linear_reg(others = list(seed = 1333))
 
   # passes interactively but not on R CMD check
   # expect_error(
   #   res <- fit(
-  #     lc_basic_stan,
-  #     lc_form,
-  #     data = lending_club,
+  #     iris_basic_stan,
+  #     iris_form,
+  #     data = iris,
   #     engine = "stan",
   #     control = ctrl
   #   ),
@@ -387,9 +363,9 @@ test_that('stan_glm execution', {
 
   expect_error(
     res <- fit(
-      lc_basic,
-      x = lending_club[, num_pred],
-      y = lending_club$Class,
+      iris_basic,
+      x = iris[, num_pred],
+      y = iris$Sepal.Length,
       engine = "stan",
       control = ctrl
     ),
@@ -398,9 +374,9 @@ test_that('stan_glm execution', {
 
   expect_error(
     res <- fit(
-      lc_basic,
-      recipe = lc_rec,
-      data = lending_club,
+      iris_basic,
+      recipe = iris_rec,
+      data = iris,
       engine = "stan",
       control = ctrl
     ),
@@ -409,9 +385,9 @@ test_that('stan_glm execution', {
 
   expect_silent(
     res <- fit(
-      lc_basic,
-      recipe = lc_rec,
-      data = lending_club,
+      iris_basic,
+      recipe = iris_rec,
+      data = iris,
       engine = "stan",
       control = quiet_ctrl
     )
@@ -419,36 +395,36 @@ test_that('stan_glm execution', {
 
   expect_error(
     res <- fit(
-      lc_basic,
-      lc_bad_form,
-      data = lending_club,
+      iris_basic,
+      iris_bad_form,
+      data = iris,
       engine = "stan",
       control = ctrl
     )
   )
 
   stan_form_catch <- fit(
-    lc_basic,
-    lc_bad_form,
-    data = lending_club,
+    iris_basic,
+    iris_bad_form,
+    data = iris,
     engine = "stan",
     control = caught_ctrl
   )
   expect_true(inherits(stan_form_catch, "try-error"))
 
   stan_xy_catch <- fit(
-    lc_basic,
+    iris_basic,
     engine = "stan",
     control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
+    x = iris[, num_pred],
+    y = factor(iris$Sepal.Length)
   )
   expect_true(inherits(stan_xy_catch, "try-error"))
 
   stan_rec_catch <- fit(
-    lc_basic,
+    iris_basic,
     recipe = bad_rec,
-    data = lending_club,
+    data = iris,
     engine = "stan",
     control = caught_ctrl
   )
