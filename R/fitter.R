@@ -6,6 +6,8 @@
 
 # TODO protect engine = "spark" with non-spark data object
 
+# TODO formula method and others pass symbols like formula method
+
 fit_interface_matrix <- function(x, y, object, control, ...) {
   if (object$engine == "spark")
     stop("spark objects can only be used with the formula interface to `fit` ",
@@ -238,8 +240,13 @@ recipe_data <- function(recipe, data, control, output = "matrix", combine = FALS
         x = juice(recipe, all_predictors(), composition = output),
         y = juice(recipe, all_outcomes(), composition = output)
       )
-    if (ncol(out$y) == 1)
-      out$y <- out$y[[1]]
+    if (ncol(out$y) == 1) {
+      if (is.matrix(out$y))
+        out$y <- out$y[, 1]
+      else
+        out$y <- out$y[[1]]
+    }
+
   }
   out
 }
