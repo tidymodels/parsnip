@@ -153,9 +153,13 @@ formula_to_formula <-
     fit_args <- object$method$fit_args
 
     if (isTRUE(unname(object$method$fit_name["pkg"] == "sparklyr"))) {
-      fit_args$x <- data
+      x <- data
+      fit_args$x <- quote(x)
     } else {
-      fit_args$data <- data
+      if (is.name(data) | is.call(data))
+        fit_args$data <- data
+      else
+        fit_args$data <- quote(data)
     }
     fit_args$formula <- formula
 
