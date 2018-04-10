@@ -115,6 +115,12 @@ fit.model_spec <-
     object$engine <- engine
     object <- check_engine(object)
 
+    if (engine == "spark" && !inherits(data, "tbl_spark"))
+      stop(
+        "spark objects can only be used with the formula interface to `fit` ",
+        "with a spark data object.", call. = FALSE
+      )
+
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
     check_installs(object)  # TODO rewrite with pkgman
