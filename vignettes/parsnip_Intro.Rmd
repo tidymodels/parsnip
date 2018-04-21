@@ -45,7 +45,7 @@ The package makes the translation between `trees` and the real names in each of 
 
 Some terminology:
 
-* The **model type** differentiates models. Example types are: random forests, logistic regression, linear sup[port vector machines, etc. 
+* The **model type** differentiates models. Example types are: random forests, logistic regression, linear support vector machines, etc. 
 * The **mode** of the model denotes how it will be used. Two common modes are _classification_ and _regression_. Others would include "censored regression" and "risk regression" (parametric and Cox PH models for censored data, respectively), as well as unsupervised models (e.g. "clustering"). 
 * The **computational engine** indicates how the actual model might be fit. These are often R packages (such as `randomForest` or `ranger`) but might also be methods outside of R (e.g. Stan, Spark, and others). 
 
