@@ -15,7 +15,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    rlang (>= 0.1.6.9003),
+    rlang (>= 0.2.0.9001),
     purrr,
     recipes,
     utils
