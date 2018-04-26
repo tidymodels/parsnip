@@ -101,3 +101,20 @@ resolve_args <- function(args, ...) {
   }
   args
 }
+
+
+# A function to convert a R formula to spark format
+surv_to_spark_formula <- function(f) {
+  if (!inherits(f, "formula"))
+    stop("A formula is required.")
+  if (length(f[[2]]) != 3)
+    stop("spark requires the `Surv` object to have a ",
+         "censoring indicator.")
+  if (!all.equal(f[[2]][[1]], as.name("Surv")))
+    stop("The formula sould contain a `Surv` object.")
+  f2 <- f
+  f2[[2]] <- f[[2]][[2]]
+  list(formula = f2, censor = deparse(f[[2]][[3]]))
+}
+
+
