@@ -111,7 +111,7 @@ fit.model_spec <-
   ) {
     cl <- match.call(expand.dots = TRUE)
     fit_interface <-
-      check_interface(formula, recipe, x, y, data, cl)
+      check_interface(formula, recipe, x, y, data, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 
@@ -210,7 +210,7 @@ show_call <- function(x)
 has_both_or_none <- function(a, b)
   (!is.null(a) & is.null(b)) | (is.null(a) & !is.null(b))
 
-check_interface <- function(formula, recipe, x, y, data, cl) {
+check_interface <- function(formula, recipe, x, y, data, cl, model) {
   inher(formula, "formula", cl)
   inher(recipe, "recipe", cl)
   inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
@@ -237,6 +237,10 @@ check_interface <- function(formula, recipe, x, y, data, cl) {
   if (sum(c(matrix_interface, df_interface, rec_interface, form_interface)) > 1)
     stop("Too many specifications of arguments; used either 'x/y', ",
          "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
+
+  if (inherits(model, "surv_reg") &&
+      (matrix_interface | df_interface))
+    stop("Survival models must use the formula or recipe interface.", call. = FALSE)
 
   if (matrix_interface)
     return("data.frame")
