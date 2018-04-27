@@ -32,7 +32,7 @@ specifc_model <- function(x) {
 possible_engines <- function(object, ...) {
   cls <- specifc_model(object)
   key_df <- get(paste(cls, "engines", sep = "_"))
-  colnames(key_df[object$mode, ])
+  colnames(key_df[object$mode, , drop = FALSE])
 }
 
 check_engine <- function(object) {
