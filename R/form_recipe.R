@@ -42,20 +42,18 @@ formula.surv_reg <- function(x, recipe, ...) {
   
   # engine-speciifc options (e.g. spark needing censor var in text)
   if (!is.null(x$engine) && x$engine == "flexsurv") {
-    extra_ind <- which(rec_vars$role %in% flexsurv_params)
-    if (length(extra_ind) > 0) {
-      extra_terms <- paste0(
-        rec_vars$role[extra_ind], "(",
-        rec_vars$variable[extra_ind], ")"
-        )
-      form_text <- paste0(form_text, "+", paste0(extra_terms, collapse = "+"))
-    }
+    spec_text <- specials(rec_vars, flexsurv_params)
+    form_text <- paste0(form_text, spec_text)
     if (any(rec_vars$role == "strata"))
       warning(
         "`flexsurv` does not use the `strata` function; instead use ",
         "the parameter roles for differential values (e.g. `sigma`).",
         call. = FALSE
       )
+  }
+  if (!is.null(x$engine) && x$engine == "survival") {
+    spec_text <- specials(rec_vars, survival_params)
+    form_text <- paste0(form_text, spec_text)
   }
   
   form <- try(as.formula(form_text), silent = TRUE)
@@ -65,3 +63,19 @@ formula.surv_reg <- function(x, recipe, ...) {
 }
 
 flexsurv_params <- c("sigma", "shape", "sdlog", "Q", "k", "P", "S1", "s2")
+survival_params <- c("strata", "cluster")
+
+# This will add terms to the formulas based on _specials_ such as survival stratas etc
+specials <- function(info, specials) {
+  extra_ind <- which(info$role %in% specials)
+  if (length(extra_ind) > 0) {
+    extra_terms <- paste0(
+      info$role[extra_ind], "(",
+      info$variable[extra_ind], ")"
+    )
+    form_text <- paste0("+", paste0(extra_terms, collapse = "+"))
+  } else form_text <- ""
+  form_text
+}
+
+
