@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="General Interface for Logistic Regression Models — logistic_reg" />
@@ -56,8 +59,6 @@ in lieu of recreating the object from scratch." />
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -73,7 +74,7 @@ in lieu of recreating the object from scratch." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">parsnip</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9001</span>
       </span>
     </div>
 
@@ -103,8 +104,10 @@ in lieu of recreating the object from scratch." />
     <div class="page-header">
     <h1>General Interface for Logistic Regression Models</h1>
     
+    <div class="hidden name"><code>logistic_reg.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>logistic_reg</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
@@ -122,6 +125,7 @@ functions.</p>
 <p>If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
@@ -165,12 +169,12 @@ the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>A logistic reression model specification.</p></td>
+      <td><p>A logistic regression model specification.</p></td>
     </tr>
     <tr>
       <th>fresh</th>
       <td><p>A logical for whether the arguments should be
-modifed in-place of or replaced wholesale.</p></td>
+modified in-place of or replaced wholesale.</p></td>
     </tr>
     </table>
     

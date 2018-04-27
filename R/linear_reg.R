@@ -106,9 +106,9 @@ print.linear_reg <- function(x, ...) {
 #'  in lieu of recreating the object from scratch.
 #'
 #' @inheritParams linear_reg
-#' @param object A linear reression model specification.
+#' @param object A linear regression model specification.
 #' @param fresh A logical for whether the arguments should be
-#'  modifed in-place of or replaced wholesale.
+#'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
 #' model <- linear_reg(regularization = 10, mixture = 0.1)

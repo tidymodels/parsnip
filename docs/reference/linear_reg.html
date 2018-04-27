@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Random Forest Models — rand_forest • parsnip</title>
+<title>General Interface for Linear Regression Models — linear_reg • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,17 +30,16 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="General Interface for Random Forest Models — rand_forest" />
+<meta property="og:title" content="General Interface for Linear Regression Models — linear_reg" />
 
-<meta property="og:description" content="rand_forest is a way to generate a specification of a model
+<meta property="og:description" content="linear_reg is a way to generate a specification of a model
 before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
+different packages in R, Stan, or via Spark. The main arguments for the
 model are:
-mtry: The number of predictors that will be
-randomly sampled at each split when creating the tree models.
-trees: The number of trees contained in the ensemble.
-min_n: The minimum number of data points in a node
-that are required for the node to be split further.
+regularization: The total amount of regularization
+in the model. Note that this must be zero for some engines.
+mixture: The proportion of L2 regularization in
+the model. Note that this will be ignored for some engines.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the others argument. If left to their defaults
@@ -103,22 +102,21 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Random Forest Models</h1>
+    <h1>General Interface for Linear Regression Models</h1>
     
-    <div class="hidden name"><code>rand_forest.Rd</code></div>
+    <div class="hidden name"><code>linear_reg.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>rand_forest</code> is a way to generate a <em>specification</em> of a model
+    <p><code>linear_reg</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
+different packages in R, Stan, or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>mtry</code>: The number of predictors that will be
-randomly sampled at each split when creating the tree models.</p></li>
-<li><p><code>trees</code>: The number of trees contained in the ensemble.</p></li>
-<li><p><code>min_n</code>: The minimum number of data points in a node
-that are required for the node to be split further.</p></li>
+<li><p><code>regularization</code>: The total amount of regularization
+in the model. Note that this must be zero for some engines.</p></li>
+<li><p><code>mixture</code>: The proportion of L2 regularization in
+the model. Note that this will be ignored for some engines.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the <code>others</code> argument. If left to their defaults
@@ -129,12 +127,12 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>linear_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
 
-<span class='co'># S3 method for rand_forest</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for linear_reg</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,38 +140,36 @@ in lieu of recreating the object from scratch.</p>
     <tr>
       <th>mode</th>
       <td><p>A single character string for the type of model.
-Possible values for this model are "unknown", "regression", or
-"classification".</p></td>
+The only possible value for this model is "regression".</p></td>
     </tr>
     <tr>
-      <th>mtry</th>
-      <td><p>An integer for the number of predictors that will
-be randomly sampled at each split when creating the tree models.</p></td>
+      <th>regularization</th>
+      <td><p>An non-negative number representing the
+total amount of regularization.</p></td>
     </tr>
     <tr>
-      <th>trees</th>
-      <td><p>An integer for the number of trees contained in
-the ensemble.</p></td>
-    </tr>
-    <tr>
-      <th>min_n</th>
-      <td><p>An integer for the minimum number of data points
-in a node that are required for the node to be split further.</p></td>
+      <th>mixture</th>
+      <td><p>A number between zero and one (inclusive) that
+represents the proportion of regularization that is used for the
+L2 penalty (i.e. weight decay, or ridge regression) versus L1
+(the lasso).</p></td>
     </tr>
     <tr>
       <th>others</th>
       <td><p>A named list of arguments to be used by the
-underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/ranger/topics/ranger'>ranger::ranger</a></code>,
-<code><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest::randomForest</a></code>, etc.). .</p></td>
+underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/stats/topics/lm'>stats::lm</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/rstanarm/topics/stan_glm'>rstanarm::stan_glm</a></code>, etc.). These are not evaluated
+until the model is fit and will be substituted into the model
+fit expression.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Used for method consistency. Any arguments passed to
+      <td><p>Used for S3 method consistency. Any arguments passed to
 the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>A random forest model specification.</p></td>
+      <td><p>A linear regression model specification.</p></td>
     </tr>
     <tr>
       <th>fresh</th>
@@ -189,16 +185,14 @@ modified in-place of or replaced wholesale.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>rand_forest</code>, the
-possible modes are "regression" and "classification".</p>
+to determine the <em>mode</em> of the model. For <code>linear_reg</code>,the
+mode will always be "regression".</p>
 <p>The model can be created using the <code><a href='fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"ranger"</code> or <code>"randomForests"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"lm"</code> or <code>"glmnet"</code></p></li>
+<li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
-    <p>Main parameter arguments (and those in <code>others</code>) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>mtry = expr(floor(sqrt(p)))</code>).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -206,30 +200,27 @@ argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/q
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>2000</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (classification)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   trees = 2000
+    <pre class="examples"><div class='input'><span class='fu'>linear_reg</span>()</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
+<span class='fu'>linear_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>rand_forest</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt;   regularization = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>linear_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+<span class='no'>model</span></div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 10
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt;   regularization = 10
+#&gt;   mixture = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 1
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt;   regularization = 1
+#&gt;   mixture = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 1
+#&gt;   regularization = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

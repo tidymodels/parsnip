@@ -32,10 +32,10 @@ fit expression.}
 \item{...}{Used for S3 method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{others} instead.}
 
-\item{object}{A logistic reression model specification.}
+\item{object}{A logistic regression model specification.}
 
 \item{fresh}{A logical for whether the arguments should be
-modifed in-place of or replaced wholesale.}
+modified in-place of or replaced wholesale.}
 }
 \value{
 An updated model specification.

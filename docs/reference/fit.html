@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Fit a Model Specification to a Dataset — fit" />
@@ -44,8 +47,6 @@ routine." />
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -61,7 +62,7 @@ routine." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">parsnip</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9001</span>
       </span>
     </div>
 
@@ -91,13 +92,16 @@ routine." />
     <div class="page-header">
     <h1>Fit a Model Specification to a Dataset</h1>
     
+    <div class="hidden name"><code>fit.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>fit</code> will take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>fit</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -210,17 +214,8 @@ objects used to fit the model.</p>
       <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
 <span class='co'># NOTE: use named arguments for "recipe" and "data" when using this interface</span>
-<span class='fu'>library</span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: broom</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>lend_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
+<span class='fu'>library</span>(<span class='no'>recipes</span>)
+<span class='no'>lend_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
                    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
 
 <span class='no'>using_recipe</span> <span class='kw'>&lt;-</span>

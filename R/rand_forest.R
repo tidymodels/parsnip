@@ -103,7 +103,7 @@ print.rand_forest <- function(x, ...) {
 #' @inheritParams rand_forest
 #' @param object A random forest model specification.
 #' @param fresh A logical for whether the arguments should be
-#'  modifed in-place of or replaced wholesale.
+#'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
 #' model <- rand_forest(mtry = 10, min_n = 3)
@@ -123,7 +123,7 @@ update.rand_forest <-
 
     args <- list(mtry = mtry, trees = trees, min_n = min_n)
 
-    # TODO make these blocks into a function amd document well
+    # TODO make these blocks into a function and document well
     if (fresh) {
       object$args <- args
     } else {

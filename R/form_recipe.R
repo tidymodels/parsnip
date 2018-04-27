@@ -1,7 +1,7 @@
 # Class for creating an appropriate formula for a model based on the roles
 # contained in the recipe. 
 
-# maybe use `formula` generic with `formula.model_spec` acting as the generic?
+#' @importFrom stats formula
 
 formula.model_spec <- function(x, recipe, ...) {
   rec_vars <- summary(recipe)

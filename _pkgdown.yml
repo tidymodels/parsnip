@@ -2,15 +2,20 @@ template:
   params:
     bootswatch: united
 
+figures:
+  fig.width: 8
+  fig.height: 5.75
+
 reference:
   - title: Models
     contents:
-      - rand_forest
+      - linear_reg
       - logistic_reg   
+      - rand_forest
+      - surv_reg   
   - title: Infrastructure
     contents:
       - translate
-      - update
       - fit
       - fit_control
       - varying
