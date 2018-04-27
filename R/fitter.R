@@ -226,18 +226,17 @@ formula_to_matrix <- function(object, formula, data, control, ...) {
 
 #' @importFrom recipes prep juice all_predictors all_outcomes
 
-recipe_data <- function(recipe, data, control, output = "matrix", combine = FALSE) {
+# add case weights as extra object returned (out$weights)
+recipe_data <- function(recipe, data, object, control, output = "matrix", combine = FALSE) {
   recipe <-
     prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
 
   if (combine) {
-    out <- list(data = juice(recipe, all_predictors(), all_outcomes(), composition = output))
-    data_info <- summary(recipe)
-    y_names <- data_info$variable[data_info$role == "outcome"]
-    if (length(y_names) > 1)
-      out$form <- paste0("cbind(", paste0(y_names, collapse = ","), ")~.")
-    else
-      out$form <- paste0(y_names, "~.")
+    out <- list(
+      data = juice(recipe, composition = output),
+      form = formula(object, (recipe))
+    )
+
   } else {
     out <-
       list(
@@ -257,16 +256,16 @@ recipe_data <- function(recipe, data, control, output = "matrix", combine = FALS
 
 recipe_to_formula <-
   function(object, recipe, data, control, ...) {
-    info <- recipe_data(recipe, data, control, output = "tibble", combine = TRUE)
+    info <- recipe_data(recipe, data, object, control, output = "tibble", combine = TRUE)
     formula_to_formula(object, info$form, info$data, control, ...)
   }
 
 recipe_to_data.frame <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, control, output = "tibble", combine = FALSE)
+  info <- recipe_data(recipe, data, object, control, output = "tibble", combine = FALSE)
   xy_to_xy(object, info$x, info$y, control, ...)
 }
 
 recipe_to_matrix <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, control, output = "matrix", combine = FALSE)
+  info <- recipe_data(recipe, data, object, control, output = "matrix", combine = FALSE)
   xy_to_xy(object, info$x, info$y, control, ...)
 }
