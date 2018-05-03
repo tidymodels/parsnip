@@ -26,7 +26,7 @@ This package provides functions and methods to create and manipulate functions c
 
 ### Motivation
 
-Modeling functions across different R packages can have very different interfaces. If you would like to try different approaches, there is a lot of syntactical minutiae to remember. The problem worsens when you move in-between platforms (e.g. doing a logistic regression in R's `glm` verses Spark's implementation). 
+Modeling functions across different R packages can have very different interfaces. If you would like to try different approaches, there is a lot of syntactical minutiae to remember. The problem worsens when you move in-between platforms (e.g. doing a logistic regression in R's `glm` versus Spark's implementation). 
 
 `parsnip` tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:
 
