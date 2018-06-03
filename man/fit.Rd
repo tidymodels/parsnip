@@ -7,9 +7,8 @@
 \usage{
 fit(object, ...)
 
-\method{fit}{model_spec}(object, formula = NULL, recipe = NULL, x = NULL,
-  y = NULL, data = NULL, engine = object$engine,
-  control = fit_control(), ...)
+\method{fit}{model_spec}(object, formula = NULL, x = NULL, y = NULL,
+  data = NULL, engine = object$engine, control = fit_control(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
@@ -22,10 +21,6 @@ specification.}
 \item{formula}{An object of class "formula" (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.}
-
-\item{recipe}{Optional, depending on the interface (see Details
-below). An object of class \code{\link[recipes:recipe]{recipes::recipe()}}. Note: when
-needed, a \emph{named argument} should be used.}
 
 \item{x}{Optional, depending on the interface (see Details
 below). Can be data frame or matrix of predictors. Note: when
@@ -95,20 +90,8 @@ using_xy <-
       y = lending_club$Class,
       engine = "glm")
 
-# NOTE: use named arguments for "recipe" and "data" when using this interface
-library(recipes)
-lend_rec <- recipe(Class ~ funded_amnt + int_rate,
-                   data = lending_club)
-
-using_recipe <-
-  fit(lm_mod,
-      recipe = lend_rec,
-      data = lending_club,
-      engine = "glm")
-
 coef(using_formula)
 coef(using_xy)
-coef(using_recipe)
 
 # Using other options:
 

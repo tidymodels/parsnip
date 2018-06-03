@@ -2,7 +2,6 @@
 # Q: think about case weights in each instance below
 # Q: where/how to add data checks (e.g. factors for classification)
 
-
 #' Fit a Model Specification to a Dataset
 #'
 #' `fit` will take a model specification, translate the required
@@ -13,9 +12,6 @@
 #' @param formula An object of class "formula" (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
-#' @param recipe Optional, depending on the interface (see Details
-#'  below). An object of class [recipes::recipe()]. Note: when
-#'  needed, a \emph{named argument} should be used.
 #' @param x Optional, depending on the interface (see Details
 #'  below). Can be data frame or matrix of predictors. Note: when
 #'  needed, a \emph{named argument} should be used.
@@ -73,20 +69,8 @@
 #'       y = lending_club$Class,
 #'       engine = "glm")
 #'
-#' # NOTE: use named arguments for "recipe" and "data" when using this interface
-#' library(recipes)
-#' lend_rec <- recipe(Class ~ funded_amnt + int_rate,
-#'                    data = lending_club)
-#'
-#' using_recipe <-
-#'   fit(lm_mod,
-#'       recipe = lend_rec,
-#'       data = lending_club,
-#'       engine = "glm")
-#'
 #' coef(using_formula)
 #' coef(using_xy)
-#' coef(using_recipe)
 #'
 #' # Using other options:
 #'
@@ -101,7 +85,6 @@ fit <- function (object, ...)
 fit.model_spec <-
   function(object,
            formula = NULL,
-           recipe = NULL,
            x = NULL,
            y = NULL,
            data = NULL,
@@ -111,7 +94,7 @@ fit.model_spec <-
   ) {
     cl <- match.call(expand.dots = TRUE)
     fit_interface <-
-      check_interface(formula, recipe, x, y, data, cl, object)
+      check_interface(formula, x, y, data, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 
@@ -138,7 +121,6 @@ fit.model_spec <-
       ),
       matrix = fit_interface_matrix(x, y, object, control, ...),
       data.frame = fit_interface_data.frame(x, y, object, control, ...),
-      recipe = fit_interface_recipe(recipe, data, object, control, ...),
       stop("Wrong interface type")
     )
 
@@ -210,9 +192,8 @@ show_call <- function(x)
 has_both_or_none <- function(a, b)
   (!is.null(a) & is.null(b)) | (is.null(a) & !is.null(b))
 
-check_interface <- function(formula, recipe, x, y, data, cl, model) {
+check_interface <- function(formula, x, y, data, cl, model) {
   inher(formula, "formula", cl)
-  inher(recipe, "recipe", cl)
   inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
@@ -228,26 +209,23 @@ check_interface <- function(formula, recipe, x, y, data, cl, model) {
   # Determine the `fit` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
-  rec_interface <- !is.null(recipe) & !is.null(data)
   form_interface <- !is.null(formula) & !is.null(data)
 
-  if (!(matrix_interface | df_interface | rec_interface | form_interface))
-    stop("Incomplete specification of arguments; used either 'x/y', ",
-         "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
-  if (sum(c(matrix_interface, df_interface, rec_interface, form_interface)) > 1)
-    stop("Too many specifications of arguments; used either 'x/y', ",
-         "'formula/data', or 'recipe/data' combinations.", call. = FALSE)
+  if (!(matrix_interface | df_interface | form_interface))
+    stop("Incomplete specification of arguments; used either 'x/y', or ",
+         "'formula/data' combinations.", call. = FALSE)
+  if (sum(c(matrix_interface, df_interface, form_interface)) > 1)
+    stop("Too many specifications of arguments; used either 'x/y' or ",
+         "'formula/data' combinations.", call. = FALSE)
 
   if (inherits(model, "surv_reg") &&
       (matrix_interface | df_interface))
-    stop("Survival models must use the formula or recipe interface.", call. = FALSE)
+    stop("Survival models must use the formula interface.", call. = FALSE)
 
   if (matrix_interface)
     return("data.frame")
   if (df_interface)
     return("data.frame")
-  if (rec_interface)
-    return("recipe")
   if (form_interface)
     return("formula")
   stop("Error when checking the interface")

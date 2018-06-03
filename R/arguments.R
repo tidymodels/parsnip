@@ -18,19 +18,6 @@ null_value <- function(x) {
   res
 }
 
-#recipes:::fun_calls
-func_calls <- function (f)  {
-  if (is.function(f)) {
-    func_calls(body(f))
-  }
-  else if (is.call(f)) {
-    fname <- as.character(f[[1]])
-    if (identical(fname, ".Internal"))
-      return(fname)
-    unique(c(fname, unlist(lapply(f[-1], func_calls), use.names = FALSE)))
-  }
-}
-
 #' A Placeholder Function for Argument Values
 #'
 #' [varying()] is used when a parameter will be specified at a later date.

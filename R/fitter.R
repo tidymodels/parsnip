@@ -2,7 +2,7 @@
 #  `check_interface`. The "model interface" is what the underlying
 #  model uses. These functions go from one to another.
 
-# TODO return pp objects like terms or recipe
+# TODO return pp objects like terms
 
 # TODO protect engine = "spark" with non-spark data object
 
@@ -47,20 +47,6 @@ fit_interface_formula <- function(formula, data, object, control, ...) {
   )
 }
 
-fit_interface_recipe <- function(recipe, data, object, control, ...) {
-  if (object$engine == "spark")
-    stop("spark objects can only be used with the formula interface to `fit` ",
-         "with a spark data object.", call. = FALSE)
-  switch(
-    object$method$interface,
-    data.frame = recipe_to_data.frame(object, recipe, data, control, ...),
-    formula = recipe_to_formula(object, recipe, data, control, ...),
-    matrix = recipe_to_matrix(object, recipe, data, control, ...),
-    stop("I don't know about model interface '",
-         object$method$interface, "'.", call. = FALSE)
-  )
-}
-
 ###################################################################
 ## starts with some x/y interface (either matrix or data frame)
 ## in `fit`
@@ -82,13 +68,18 @@ xy_to_xy <- function(object, x, y, control, ...) {
     object$method$fit_args
   )
 
-  eval_mod(
+  res <- list(lvl = levels(y), spec = object)
+  
+  res$fit <- eval_mod(
     fit_call,
     capture = control$verbosity == 0,
     catch = control$catch,
     env = current_env(),
     ...
   )
+  res$preproc <- NA
+  class(res) <- "model_fit"
+  res
 }
 
 data.frame_to_data.frame <- function(object, x, y, control, ...) {
@@ -167,14 +158,17 @@ formula_to_formula <-
                           ns = object$method$fit_name["pkg"],
                           fit_args)
 
-    res <-
-      eval_mod(
+    res <- list(lvl = levels(y), spec = object)
+    
+    res$fit <- eval_mod(
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
         env = current_env(),
         ...
       )
+    res$preproc <- NA
+    class(res) <- "model_fit"
     res
   }
 
@@ -219,53 +213,4 @@ formula_to_matrix <- function(object, formula, data, control, ...) {
   x <- x[, !(colnames(x) %in% "(Intercept)"), drop = FALSE]
 
   xy_to_xy(object, x, y, control, ...)
-}
-
-###################################################################
-## Start with recipe interface in `fit`
-
-#' @importFrom recipes prep juice all_predictors all_outcomes
-
-# add case weights as extra object returned (out$weights)
-recipe_data <- function(recipe, data, object, control, output = "matrix", combine = FALSE) {
-  recipe <-
-    prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
-
-  if (combine) {
-    out <- list(
-      data = juice(recipe, composition = output),
-      form = formula(object, (recipe))
-    )
-
-  } else {
-    out <-
-      list(
-        x = juice(recipe, all_predictors(), composition = output),
-        y = juice(recipe, all_outcomes(), composition = output)
-      )
-    if (ncol(out$y) == 1) {
-      if (is.matrix(out$y))
-        out$y <- out$y[, 1]
-      else
-        out$y <- out$y[[1]]
-    }
-
-  }
-  out
-}
-
-recipe_to_formula <-
-  function(object, recipe, data, control, ...) {
-    info <- recipe_data(recipe, data, object, control, output = "tibble", combine = TRUE)
-    formula_to_formula(object, info$form, info$data, control, ...)
-  }
-
-recipe_to_data.frame <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, object, control, output = "tibble", combine = FALSE)
-  xy_to_xy(object, info$x, info$y, control, ...)
-}
-
-recipe_to_matrix <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, object, control, output = "matrix", combine = FALSE)
-  xy_to_xy(object, info$x, info$y, control, ...)
 }

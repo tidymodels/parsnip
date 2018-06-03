@@ -1,6 +1,5 @@
 library(testthat)
 library(parsnip)
-library(recipes)
 
 test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
@@ -324,11 +323,6 @@ ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
-lc_rec <- recipe(Class ~ funded_amnt + annual_inc+ num_il_tl,
-                 data = lending_club)
-bad_lc_rec <- recipe(total_bal_il ~ funded_amnt + annual_inc+ num_il_tl,
-                     data = lending_club)
-
 
 test_that('ranger execution', {
   skip_on_cran()
@@ -349,16 +343,6 @@ test_that('ranger execution', {
       lc_ranger,
       x = lending_club[, num_pred],
       y = lending_club$Class,
-      engine = "ranger",
-      control = ctrl
-    ),
-    regexp = NA
-  )
-  expect_error(
-    res <- fit(
-      lc_ranger,
-      recipe = lc_rec,
-      data = lending_club,
       engine = "ranger",
       control = ctrl
     ),
@@ -392,15 +376,6 @@ test_that('ranger execution', {
     y = lending_club$total_bal_il
   )
   expect_true(inherits(ranger_xy_catch, "try-error"))
-
-  ranger_rec_catch <- fit(
-    bad_ranger_cls,
-    recipe = bad_lc_rec,
-    data = lending_club,
-    engine = "ranger",
-    control = caught_ctrl
-  )
-  expect_true(inherits(ranger_rec_catch, "try-error"))
 })
 
 test_that('randomForest execution', {
@@ -425,17 +400,6 @@ test_that('randomForest execution', {
       control = ctrl,
       x = lending_club[, num_pred],
       y = lending_club$Class
-    ),
-    regexp = NA
-  )
-
-  expect_error(
-    fit(
-      lc_basic,
-      recipe = lc_rec,
-      data = lending_club,
-      engine = "randomForest",
-      control = ctrl
     ),
     regexp = NA
   )
@@ -469,14 +433,6 @@ test_that('randomForest execution', {
   )
   expect_true(inherits(randomForest_xy_catch, "try-error"))
 
-  randomForest_rec_catch <- fit(
-    bad_rf_cls,
-    recipe = bad_lc_rec,
-    data = lending_club,
-    engine = "randomForest",
-    control = caught_ctrl
-  )
-  expect_true(inherits(randomForest_rec_catch, "try-error"))
 })
 
 #TODO add spark test cases (in another file that is ignored on build?)
@@ -497,7 +453,6 @@ ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
 quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
-car_rec <- recipe(mpg ~ ., data = mtcars)
 
 
 
@@ -525,16 +480,6 @@ test_that('ranger execution', {
     ),
     regexp = NA
   )
-  expect_error(
-    res <- fit(
-      car_basic,
-      recipe = car_rec,
-      data = mtcars,
-      engine = "ranger",
-      control = ctrl
-    ),
-    regexp = NA
-  )
 
   ranger_form_catch <- fit(
     bad_ranger_reg,
@@ -554,14 +499,6 @@ test_that('ranger execution', {
   )
   expect_true(inherits(ranger_xy_catch, "try-error"))
 
-  ranger_rec_catch <- fit(
-    bad_ranger_reg,
-    engine = "ranger",
-    control = caught_ctrl,
-    car_form,
-    data = mtcars
-  )
-  expect_true(inherits(ranger_rec_catch, "try-error"))
 })
 
 test_that('randomForest execution', {
@@ -590,16 +527,6 @@ test_that('randomForest execution', {
     regexp = NA
   )
 
-  expect_error(
-    fit(
-      car_basic,
-      recipe = car_rec,
-      data = mtcars,
-      engine = "randomForest",
-      control = ctrl
-    ),
-    regexp = NA
-  )
 
   # passes interactively but not on R CMD check
   # randomForest_form_catch <- fit(
@@ -620,13 +547,5 @@ test_that('randomForest execution', {
   )
   expect_true(inherits(randomForest_xy_catch, "try-error"))
 
-  randomForest_rec_catch <- fit(
-    bad_rf_reg,
-    recipe = car_rec,
-    data = mtcars,
-    engine = "randomForest",
-    control = caught_ctrl
-  )
-  expect_true(inherits(randomForest_rec_catch, "try-error"))
 })
 
