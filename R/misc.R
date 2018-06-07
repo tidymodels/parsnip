@@ -101,3 +101,11 @@ resolve_args <- function(args, ...) {
   }
   args
 }
+
+levels_from_formula <- function(f, dat) {
+  levels(eval_tidy(f[[2]], dat))
+}
+
+is_spark <- function(x)
+  isTRUE(unname(x$method$fit_name["pkg"] == "sparklyr"))
+
