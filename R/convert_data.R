@@ -71,7 +71,7 @@ convert_form_to_xy_fit <-function(
   if (indicators) {
     x <- model.matrix(mod_terms, mod_frame, contrasts)
   } else
-    x <- mod_frame
+    x <- delete.response(mod_frame)
   
   ## TODO maybe an option not to do this?
   x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
