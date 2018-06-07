@@ -44,7 +44,19 @@ of model (e.g. linear regression, random forest, etc.).}
 \code{catch}. See \code{\link[=fit_control]{fit_control()}}.}
 }
 \value{
-An object for the fitted model.
+A \code{model_fit} object that contains several elements:
+\itemize{
+\item \code{lvl}: If the outcome is a factor, this contains
+the factor levels at the time of model fitting.
+\item \code{spec}: The model specification object
+(\code{object} in the call to \code{fit})
+\item \code{fit}: when the model is executed without error,
+this is the model object. Otherwise, it is a \code{try-error}
+object with the error message.
+\item \code{preproc}: any objects needed to convert between
+a formula and non-formula interface (such as the \code{terms}
+object)
+}
 }
 \description{
 \code{fit} will take a model specification, translate the required
@@ -90,9 +102,6 @@ using_xy <-
       y = lending_club$Class,
       engine = "glm")
 
-coef(using_formula)
-coef(using_xy)
-
-# Using other options:
-
+using_formula
+using_xy
 }

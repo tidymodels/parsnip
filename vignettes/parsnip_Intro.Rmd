@@ -128,10 +128,12 @@ fit(rf_mod, mpg ~ ., data = mtcars, engine = "ranger")
 ```
 
 ```
+## parsnip model object
+## 
 ## Ranger result
 ## 
 ## Call:
-##  ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000, case.weights = NULL) 
+##  ranger::ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5, 1)) 
 ## 
 ## Type:                             Regression 
 ## Number of trees:                  2000 
@@ -140,22 +142,25 @@ fit(rf_mod, mpg ~ ., data = mtcars, engine = "ranger")
 ## Mtry:                             3 
 ## Target node size:                 5 
 ## Variable importance mode:         none 
-## OOB prediction error (MSE):       5.710382 
-## R squared (OOB):                  0.8427936
+## Splitrule:                        variance 
+## OOB prediction error (MSE):       5.71 
+## R squared (OOB):                  0.843
 ```
+
 
 ```r
 fit(rf_mod, mpg ~ ., data = mtcars, engine = "randomForest")
 ```
 
 ```
+## parsnip model object
 ## 
 ## Call:
-##  randomForest(x = x, y = y, ntree = 2000) 
+##  randomForest(x = as.data.frame(x), y = y, ntree = 2000) 
 ##                Type of random forest: regression
 ##                      Number of trees: 2000
 ## No. of variables tried at each split: 3
 ## 
-##           Mean of squared residuals: 5.746345
-##                     % Var explained: 83.67
+##           Mean of squared residuals: 5.6
+##                     % Var explained: 84.1
 ```

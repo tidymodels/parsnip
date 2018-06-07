@@ -70,18 +70,27 @@
 #'       x = lending_club[, c("funded_amnt", "int_rate")],
 #'       y = lending_club$Class,
 #'       engine = "glm")
-#'
-#' coef(using_formula)
-#' coef(using_xy)
-#'
-#' # Using other options:
-#'
+#' 
+#' using_formula
+#' using_xy
 #' @export
 #' @rdname fit
 fit <- function (object, ...)
   UseMethod("fit")
 
-#' @return An object for the fitted model.
+#' @return A `model_fit` object that contains several elements:
+#' \itemize{
+#'   \item \code{lvl}: If the outcome is a factor, this contains
+#'    the factor levels at the time of model fitting.
+#'   \item \code{spec}: The model specification object 
+#'    (\code{object} in the call to \code{fit})
+#'   \item \code{fit}: when the model is executed without error,
+#'    this is the model object. Otherwise, it is a \code{try-error}
+#'    object with the error message. 
+#'   \item \code{preproc}: any objects needed to convert between
+#'    a formula and non-formula interface (such as the \code{terms}
+#'    object)
+#' }
 #' @export
 #' @rdname fit
 fit.model_spec <-
@@ -293,13 +302,11 @@ check_interface <- function(formula, x, y, data, cl, model) {
 #' @method print model_fit
 #' @export
 print.model_fit <- function(x, ...) {
-  print(x$spec)
-  cat("\n")
+  cat("parsnip model object\n\n")
   
   if(inherits(x$fit, "try-error")) {
     cat("Model fit failed with error:\n", x$fit, "\n")
   } else {
-    cat("Model Results:\n")
     print(x$fit, ...)
   }
   invisible(x)
