@@ -2,6 +2,8 @@
 # Q: think about case weights in each instance below
 # Q: where/how to add data checks (e.g. factors for classification)
 
+# TODO write a better deparser for calls to avoid off-screen text and tabs
+
 #' Fit a Model Specification to a Dataset
 #'
 #' `fit` will take a model specification, translate the required
@@ -85,7 +87,7 @@ fit <- function (object, ...)
 fit.model_spec <-
   function(object,
            formula = NULL,
-           x = NULL,
+           x = NULL, #TODO move these after data?
            y = NULL,
            data = NULL,
            engine = object$engine,
@@ -110,20 +112,77 @@ fit.model_spec <-
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
 
-    res <- switch(
-      fit_interface,
-      formula = fit_interface_formula(
-        object = object,
-        formula = cl$formula,
-        data = cl$data,
-        control = control,
-        ...
-      ),
-      matrix = fit_interface_matrix(x, y, object, control, ...),
-      data.frame = fit_interface_data.frame(x, y, object, control, ...),
-      stop("Wrong interface type")
-    )
+    interfaces <- paste(fit_interface, object$method$interface, sep = "_")
 
+    source('~/tmp/ps_2.R')
+    # Now call the wrappers that transition between the interface
+    # called here ("fit" interface) that will direct traffic to 
+    # what the underlying model uses. For example, if a formula is
+    # used here, `fit_interface_formula` will determine if a 
+    # translation has to be made if the model interface is x/y/ 
+    res <-
+      switch(
+        interfaces,
+        # homogeneous combinations:
+        formula_formula = 
+          form_form(
+            object = object,
+            formula = cl$formula,
+            data = cl$data,
+            control = control,
+            ...
+          ),
+        matrix_matrix = , data.frame_matrix = 
+          xy_xy(
+            object = object,
+            x = x,
+            y = y,
+            control = control,
+            target = "matrix",
+            ...
+          ),
+
+        data.frame_data.frame =, matrix_data.frame =
+          xy_xy(
+            object = object,
+            x = x,
+            y = y,
+            control = control,
+            target = "data.frame",
+            ...
+          ),
+        
+        # heterogenous combinations
+        formula_matrix =  
+          form_xy(
+            object = object,
+            formula = formula,
+            data = data,
+            control = control,
+            target = object$method$interface,
+            ...
+          ),
+        formula_data.frame =  
+          form_xy(
+            object = object,
+            formula = formula,
+            data = data,
+            control = control,
+            target = object$method$interface,
+            ...
+          ),
+        
+        matrix_formula =,  data.frame_formula =
+          xy_form(
+            object = object,
+            x = x,
+            y = y,
+            control = control,
+            ...
+          ),
+        stop(interfaces, " is unknown")
+      )
+    
     res
 }
 
@@ -231,6 +290,18 @@ check_interface <- function(formula, x, y, data, cl, model) {
   stop("Error when checking the interface")
 }
 
-
-
+#' @method print model_fit
+#' @export
+print.model_fit <- function(x, ...) {
+  print(x$spec)
+  cat("\n")
+  
+  if(inherits(x$fit, "try-error")) {
+    cat("Model fit failed with error:\n", x$fit, "\n")
+  } else {
+    cat("Model Results:\n")
+    print(x$fit, ...)
+  }
+  invisible(x)
+}
 
