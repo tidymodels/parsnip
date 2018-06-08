@@ -6,6 +6,34 @@
 #'
 #' @param x A model specification.
 #' @param ... Not currently used.
+#' @details 
+#' `translate` produces a _template_ call that lacks the specific
+#'  argument values (such as `data`, etc). These are filled in once
+#'  `fit` is called with the specifics of the data for the model.
+#'  The call may also include `varying` arguments if these are in
+#'  the specification.
+#'
+#' It does contain the resolved argument names that are specific to
+#'  the model fitting function/engine.
+#'
+#' This function can be useful when you need to understand how
+#'  `parsnip` goes from a generic model specific to a model fitting
+#'  function.
+#' @examples 
+#' lm_spec <- linear_reg(regularization = 0.01)
+#' 
+#' # `regularization` is tranlsated to `lambda`
+#' translate(lm_spec, engine = "glmnet")
+#' 
+#' # `regularization` not applicable for this model.
+#' translate(lm_spec, engine = "lm")
+#'
+#' # `regularization` is tranlsated to `reg_param`
+#' translate(lm_spec, engine = "spark")
+#' 
+#' # with a placeholder for an unknown argument value:
+#' translate(linear_reg(mixture = varying()), engine = "glmnet")
+#' 
 #' @export
 
 translate <- function (x, ...)

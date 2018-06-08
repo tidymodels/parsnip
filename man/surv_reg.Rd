@@ -57,14 +57,7 @@ mode will always be "regression".
 
 Since survival models typically involve censoring (and require the use of
 \code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit]{fit()}} function will require that the
-survival model be specified via the formula or recipes interfaces.
-
-For recipes, right censoring indicators should be specified
-using the "censoring var" role (see examples below). Also, for
-the engine that uses \code{flexsurv::flexsurvfit}, extra roles can
-be used for non-location parameters (e.g. \code{sigma} or \code{sdlog}) so
-that other distributional parameters can be functions or
-covariates. See the example below as well as Jackson (2016).
+survival model be specified via the formula interface.
 
 Also, for the \code{flexsurv::flexsurvfit} engine, the typical
 \code{strata} function cannot be used. To achieve the same effect,
@@ -80,30 +73,6 @@ following \emph{engines}:
 surv_reg()
 # Parameters can be represented by a placeholder:
 surv_reg(dist = varying())
-
-# Examples of using recipes with the `fit` function
-
-library(dplyr)
-library(recipes)
-library(survival)
-data(lung)
-
-surv_rec <- recipe(time ~ ., data = lung) \%>\%
-  add_role(status, new_role = "censoring var") \%>\%
-  # exclude some vars from being in the model
-  add_role(inst, sex, ph.karno, pat.karno, meal.cal, wt.loss,
-           new_role = "other variables")
-
-log_normal_mod <- surv_reg(dist = "lnorm")
-
-fit(log_normal_mod, recipe = surv_rec, data = lung, engine = "flexsurv")
-
-# make the normal variance be a function of gender:
-
-strata_model <- surv_rec \%>\%
-  add_role(sex, new_role = "sdlog")
-
-fit(log_normal_mod, recipe = strata_model, data = lung, engine = "flexsurv")
 
 model <- surv_reg(dist = "weibull")
 model

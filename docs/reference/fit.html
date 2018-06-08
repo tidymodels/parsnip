@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,6 +38,7 @@
 code by substituting arguments, and execute the model fit
 routine." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -106,9 +109,8 @@ routine.</p>
     <pre class="usage"><span class='fu'>fit</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'>fit</span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
+<span class='fu'>fit</span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,12 +131,6 @@ specification.</p></td>
       <td><p>An object of class "formula" (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.</p></td>
-    </tr>
-    <tr>
-      <th>recipe</th>
-      <td><p>Optional, depending on the interface (see Details
-below). An object of class <code><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>. Note: when
-needed, a <em>named argument</em> should be used.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -171,7 +167,19 @@ of model (e.g. linear regression, random forest, etc.).</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object for the fitted model.</p>
+    <p>A <code>model_fit</code> object that contains several elements:</p><ul>
+<li><p><code>lvl</code>: If the outcome is a factor, this contains
+the factor levels at the time of model fitting.</p></li>
+<li><p><code>spec</code>: The model specification object
+(<code>object</code> in the call to <code>fit</code>)</p></li>
+<li><p><code>fit</code>: when the model is executed without error,
+this is the model object. Otherwise, it is a <code>try-error</code>
+object with the error message.</p></li>
+<li><p><code>preproc</code>: any objects needed to convert between
+a formula and non-formula interface (such as the <code>terms</code>
+object)</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -204,8 +212,12 @@ objects used to fit the model.</p>
   <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
       <span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
       <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
-      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
-
+      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
 <span class='co'># NOTE: use named arguments for "x" and "y" when using this interface</span>
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
   <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
@@ -213,24 +225,30 @@ objects used to fit the model.</p>
       <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>,
       <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
-<span class='co'># NOTE: use named arguments for "recipe" and "data" when using this interface</span>
-<span class='fu'>library</span>(<span class='no'>recipes</span>)
-<span class='no'>lend_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
-                   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
-
-<span class='no'>using_recipe</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>fit</span>(<span class='no'>lm_mod</span>,
-      <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='no'>lend_rec</span>,
-      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
-      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
-
-<span class='fu'>coef</span>(<span class='no'>using_formula</span>)</div><div class='output co'>#&gt;   (Intercept)   funded_amnt      int_rate 
-#&gt;  5.130680e+00  2.766853e-06 -1.586043e-01 </div><div class='input'><span class='fu'>coef</span>(<span class='no'>using_xy</span>)</div><div class='output co'>#&gt;   (Intercept)   funded_amnt      int_rate 
-#&gt;  5.130680e+00  2.766853e-06 -1.586043e-01 </div><div class='input'><span class='fu'>coef</span>(<span class='no'>using_recipe</span>)</div><div class='output co'>#&gt;   (Intercept)   funded_amnt      int_rate 
-#&gt;  5.130680e+00  2.766853e-06 -1.586043e-01 </div><div class='input'>
-# Using other options:
-
-</div></pre>
+<span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:  stats::glm(formula = Class ~ funded_amnt + int_rate, family = binomial, 
+#&gt;     data = lending_club)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  funded_amnt     int_rate  
+#&gt;   5.131e+00    2.767e-06   -1.586e-01  
+#&gt; 
+#&gt; Degrees of Freedom: 9856 Total (i.e. Null);  9854 Residual
+#&gt; Null Deviance:	    4055 
+#&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='no'>using_xy</span></div><div class='output co'>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:  stats::glm(formula = ..y ~ ., family = binomial, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  funded_amnt     int_rate  
+#&gt;   5.131e+00    2.767e-06   -1.586e-01  
+#&gt; 
+#&gt; Degrees of Freedom: 9856 Total (i.e. Null);  9854 Residual
+#&gt; Null Deviance:	    4055 
+#&gt; Residual Deviance: 3698 	AIC: 3704</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

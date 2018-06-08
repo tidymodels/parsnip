@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -45,6 +47,7 @@ functions.
 If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -174,13 +177,7 @@ to determine the <em>mode</em> of the model. For <code>surv_reg</code>,the
 mode will always be "regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
 <code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='fit.html'>fit()</a></code> function will require that the
-survival model be specified via the formula or recipes interfaces.</p>
-<p>For recipes, right censoring indicators should be specified
-using the "censoring var" role (see examples below). Also, for
-the engine that uses <code>flexsurv::flexsurvfit</code>, extra roles can
-be used for non-location parameters (e.g. <code>sigma</code> or <code>sdlog</code>) so
-that other distributional parameters can be functions or
-covariates. See the example below as well as Jackson (2016).</p>
+survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
@@ -206,68 +203,6 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = varying()
-#&gt; </div><div class='input'>
-<span class='co'># Examples of using recipes with the `fit` function</span>
-
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='fu'>library</span>(<span class='no'>recipes</span>)
-<span class='fu'>library</span>(<span class='no'>survival</span>)
-<span class='fu'>data</span>(<span class='no'>lung</span>)
-
-<span class='no'>surv_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>time</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lung</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/add_role'>add_role</a></span>(<span class='no'>status</span>, <span class='kw'>new_role</span> <span class='kw'>=</span> <span class='st'>"censoring var"</span>) <span class='kw'>%&gt;%</span>
-  <span class='co'># exclude some vars from being in the model</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/add_role'>add_role</a></span>(<span class='no'>inst</span>, <span class='no'>sex</span>, <span class='no'>ph.karno</span>, <span class='no'>pat.karno</span>, <span class='no'>meal.cal</span>, <span class='no'>wt.loss</span>,
-           <span class='kw'>new_role</span> <span class='kw'>=</span> <span class='st'>"other variables"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Changing role(s) for status</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Changing role(s) for inst, sex, ph.karno, pat.karno, meal.cal, wt.loss</span></div><div class='input'>
-<span class='no'>log_normal_mod</span> <span class='kw'>&lt;-</span> <span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)
-
-<span class='fu'><a href='fit.html'>fit</a></span>(<span class='no'>log_normal_mod</span>, <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='no'>surv_rec</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lung</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"flexsurv"</span>)</div><div class='output co'>#&gt; Call:
-#&gt; flexsurv::flexsurvreg(formula = Surv(time, status) ~ age + ph.ecog, 
-#&gt;     data = data, dist = "lnorm")
-#&gt; 
-#&gt; Estimates: 
-#&gt;          data mean  est       L95%      U95%      se        exp(est)  L95%    
-#&gt; meanlog        NA    7.41390   6.37130   8.45651   0.53195        NA        NA
-#&gt; sdlog          NA    1.05052   0.94101   1.17278   0.05901        NA        NA
-#&gt; age      62.45815   -0.02253  -0.03906  -0.00599   0.00844   0.97772   0.96169
-#&gt; ph.ecog   0.95154   -0.34580  -0.55109  -0.14051   0.10474   0.70765   0.57632
-#&gt;          U95%    
-#&gt; meanlog        NA
-#&gt; sdlog          NA
-#&gt; age       0.99403
-#&gt; ph.ecog   0.86891
-#&gt; 
-#&gt; N = 227,  Events: 164,  Censored: 63
-#&gt; Total time at risk: 69522
-#&gt; Log-likelihood = -1152.728, df = 4
-#&gt; AIC = 2313.455
-#&gt; </div><div class='input'>
-<span class='co'># make the normal variance be a function of gender:</span>
-
-<span class='no'>strata_model</span> <span class='kw'>&lt;-</span> <span class='no'>surv_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/recipes/topics/add_role'>add_role</a></span>(<span class='no'>sex</span>, <span class='kw'>new_role</span> <span class='kw'>=</span> <span class='st'>"sdlog"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Changing role(s) for sex</span></div><div class='input'>
-<span class='fu'><a href='fit.html'>fit</a></span>(<span class='no'>log_normal_mod</span>, <span class='kw'>recipe</span> <span class='kw'>=</span> <span class='no'>strata_model</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lung</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"flexsurv"</span>)</div><div class='output co'>#&gt; Call:
-#&gt; flexsurv::flexsurvreg(formula = Surv(time, status) ~ age + ph.ecog + 
-#&gt;     sdlog(sex), data = data, dist = "lnorm")
-#&gt; 
-#&gt; Estimates: 
-#&gt;             data mean  est       L95%      U95%      se        exp(est)
-#&gt; meanlog           NA    7.35177   6.29235   8.41119   0.54053        NA
-#&gt; sdlog             NA    1.15480   0.81414   1.63800   0.20595        NA
-#&gt; age         62.45815   -0.02144  -0.03837  -0.00452   0.00863   0.97878
-#&gt; ph.ecog      0.95154   -0.33938  -0.54554  -0.13322   0.10519   0.71221
-#&gt; sdlog(sex)   1.39648   -0.07113  -0.31799   0.17572   0.12595   0.93134
-#&gt;             L95%      U95%    
-#&gt; meanlog           NA        NA
-#&gt; sdlog             NA        NA
-#&gt; age          0.96236   0.99549
-#&gt; ph.ecog      0.57953   0.87527
-#&gt; sdlog(sex)   0.72761   1.19210
-#&gt; 
-#&gt; N = 227,  Events: 164,  Censored: 63
-#&gt; Total time at risk: 69522
-#&gt; Log-likelihood = -1152.571, df = 5
-#&gt; AIC = 2315.142
 #&gt; </div><div class='input'>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"weibull"</span>)
 <span class='no'>model</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)

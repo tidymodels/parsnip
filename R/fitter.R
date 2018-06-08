@@ -1,158 +1,13 @@
-# The "fit_interface" is what was supplied to `fit` as defined by
-#  `check_interface`. The "model interface" is what the underlying
-#  model uses. These functions go from one to another.
-
-# TODO return pp objects like terms or recipe
-
-# TODO protect engine = "spark" with non-spark data object
-
-# TODO formula method and others pass symbols like formula method
-
-fit_interface_matrix <- function(x, y, object, control, ...) {
-  if (object$engine == "spark")
-    stop("spark objects can only be used with the formula interface to `fit` ",
-         "with a spark data object.", call. = FALSE)
-  switch(
-    object$method$interface,
-    data.frame = matrix_to_data.frame(object, x, y, control, ...),
-    matrix =         matrix_to_matrix(object, x, y, control, ...),
-    formula =       matrix_to_formula(object, x, y, control, ...),
-    stop("I don't know about model interface '",
-         object$method$interface, "'.", call. = FALSE)
-    )
-}
-
-fit_interface_data.frame <- function(x, y, object, control, ...) {
-  if (object$engine == "spark")
-    stop("spark objects can only be used with the formula interface to `fit` ",
-         "with a spark data object.", call. = FALSE)
-  switch(
-    object$method$interface,
-    data.frame = data.frame_to_data.frame(object, x, y, control, ...),
-    matrix =         data.frame_to_matrix(object, x, y, control, ...),
-    formula =       data.frame_to_formula(object, x, y, control, ...),
-    stop("I don't know about model interface '",
-         object$method$interface, "'.", call. = FALSE)
-  )
-}
-
-fit_interface_formula <- function(formula, data, object, control, ...) {
-  switch(
-    object$method$interface,
-    data.frame = formula_to_data.frame(object, formula, data, control, ...),
-    matrix =         formula_to_matrix(object, formula, data, control, ...),
-    formula =       formula_to_formula(object, formula, data, control, ...),
-    stop("I don't know about model interface '",
-         object$method$interface, "'.", call. = FALSE)
-  )
-}
-
-fit_interface_recipe <- function(recipe, data, object, control, ...) {
-  if (object$engine == "spark")
-    stop("spark objects can only be used with the formula interface to `fit` ",
-         "with a spark data object.", call. = FALSE)
-  switch(
-    object$method$interface,
-    data.frame = recipe_to_data.frame(object, recipe, data, control, ...),
-    formula = recipe_to_formula(object, recipe, data, control, ...),
-    matrix = recipe_to_matrix(object, recipe, data, control, ...),
-    stop("I don't know about model interface '",
-         object$method$interface, "'.", call. = FALSE)
-  )
-}
-
-###################################################################
-## starts with some x/y interface (either matrix or data frame)
-## in `fit`
-
-#' @importFrom dplyr bind_cols
-
-xy_to_xy <- function(object, x, y, control, ...) {
-
-  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit`",
-         call. = FALSE)
-
-  object$method$fit_args[["x"]] <- quote(x)
-  object$method$fit_args[["y"]] <- quote(y)
-
-  fit_call <- make_call(
-    fun = object$method$fit_name["fun"],
-    ns = object$method$fit_name["pkg"],
-    object$method$fit_args
-  )
-
-  eval_mod(
-    fit_call,
-    capture = control$verbosity == 0,
-    catch = control$catch,
-    env = current_env(),
-    ...
-  )
-}
-
-data.frame_to_data.frame <- function(object, x, y, control, ...) {
-  if (!is.data.frame(x))
-    x <- as.data.frame(x)
-  if (is.matrix(y) && isTRUE(ncol(y) > 1))
-    y <- as.data.frame(y)
-  xy_to_xy(object, x, y, control, ...)
-}
-
-matrix_to_matrix <- function(object, x, y, control, ...) {
-  if (!is.matrix(x))
-    x <- as.matrix(x)
-  if (!is.matrix(y) && isTRUE(ncol(y) > 1))
-    y <- as.matrix(y)
-  xy_to_xy(object, x, y, control, ...)
-}
-
-data.frame_to_matrix <- function(object, x, y, control, ...) {
-  matrix_to_matrix(object, x, y, control, ...)
-}
-
-matrix_to_data.frame <- function(object, x, y, control, ...) {
-  data.frame_to_data.frame(object, x, y, control, ...)
-}
-
-matrix_to_formula <- function(object, x, y, control, ...) {
-  if (!is.data.frame(x))
-    x <- as.data.frame(x)
-
-  # bind y to x and make formula
-  if (is.data.frame(y) | is.matrix(y)) {
-    if (ncol(y) == 1) {
-      x$.outcome <- y[, 1]
-      form <- .outcome ~ .
-    } else {
-      if (!is.data.frame(y))
-        x <- as.data.frame(y)
-      x <- bind_cols(x, y)
-      form <- paste0("cbind(", paste0(colnames(y), collapse = ","), ")~.")
-    }
-  } else {
-    x$.outcome <- y
-    form <- .outcome ~ .
-  }
-  formula_to_formula(object, formula = form, data = x, control, ...)
-}
-
-data.frame_to_formula <- function(object, x, y, control, ...) {
-  matrix_to_formula(object, x, y, control, ...)
-}
-
-###################################################################
-## Start with formula interface in `fit`
+# Homogenous interfaces first
 
 #' @importFrom  stats model.frame model.response terms as.formula model.matrix
-
-formula_to_formula <-
+form_form <-
   function(object, formula, data, control, ...) {
     opts <- quos(...)
 
     fit_args <- object$method$fit_args
 
-    if (isTRUE(unname(object$method$fit_name["pkg"] == "sparklyr"))) {
+    if (is_spark(object)) {
       x <- data
       fit_args$x <- quote(x)
     } else {
@@ -161,111 +16,227 @@ formula_to_formula <-
       else
         fit_args$data <- quote(data)
     }
+
+    tmp_data <- eval_tidy(data)
+
+    if (is.name(formula))
+      formula <- eval_tidy(formula)
+
     fit_args$formula <- formula
 
-    fit_call <- make_call(fun = object$method$fit_name["fun"],
-                          ns = object$method$fit_name["pkg"],
-                          fit_args)
+    # check to see of there are any `expr` in the arguments then
+    # run a function that evaluates the data and subs in the
+    # values of the expressions. we would have to evaluate the
+    # formula (perhaps with and without dummy variables) to get
+    # the appropraite number of columns. (`..vars..` vs `..cols..`)
+    # Perhaps use `convert_form_to_xy_fit` here to get the results.
 
-    res <-
-      eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        env = current_env(),
-        ...
-      )
+    data_stats <- get_descr_form(formula, data)
+    n_obs <- data_stats$obs
+    n_cols <- data_stats$cols
+    n_preds <- data_stats$preds
+    n_levs <- data_stats$levs
+    n_facts <- data_stats$facts
+
+    fit_call <- make_call(
+      fun = object$method$fit_name["fun"],
+      ns = object$method$fit_name["pkg"],
+      fit_args
+    )
+
+    res <- list(
+      lvl = levels_from_formula(
+        formula,
+        eval_tidy(data)
+      ),
+      spec = object
+    )
+
+    res$fit <- eval_mod(
+      fit_call,
+      capture = control$verbosity == 0,
+      catch = control$catch,
+      env = current_env(),
+      ...
+    )
+    res$preproc <- NA
+    class(res) <- "model_fit"
     res
   }
 
-formula_to_data.frame <- function(object, formula, data, control, ...) {
-  if (is.name(data))
-    data <- eval_tidy(data, env = caller_env())
+xy_xy <- function(object, x, y, control, target = "none", ...) {
 
-  if (!is.data.frame(data))
-    data = as.data.frame(data)
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
+    stop("spark objects can only be used with the formula interface to `fit`",
+         call. = FALSE)
 
-  # TODO: how do we fill in the other standard things here (subset, contrasts etc)?
+  object$method$fit_args[["y"]] <- quote(y)
+  object$method$fit_args[["x"]] <-
+    switch(
+      target,
+      none = quote(x),
+      data.frame = quote(as.data.frame(x)),
+      matrix = quote(as.matrix(x)),
+      stop("Invalid data type target: ", target)
+    )
 
-  x <- stats::model.frame(eval(formula), eval(data))
-  y <- model.response(x)
+  data_stats <- get_descr_xy(x, y)
+  n_obs <- data_stats$obs
+  n_cols <- data_stats$cols
+  n_preds <- data_stats$preds
+  n_levs <- data_stats$levs
+  n_facts <- data_stats$facts
 
-  # Remove outcome column(s) from `x`
-  outcome_cols <- attr(terms(x), "response")
-  if (!isTRUE(all.equal(outcome_cols, 0))) {
-    x <- x[, -outcome_cols, drop = FALSE]
-  }
-  xy_to_xy(object, x, y, control, ...)
+  fit_call <- make_call(
+    fun = object$method$fit_name["fun"],
+    ns = object$method$fit_name["pkg"],
+    object$method$fit_args
+  )
+
+  res <- list(lvl = levels(y), spec = object)
+
+  res$fit <- eval_mod(
+    fit_call,
+    capture = control$verbosity == 0,
+    catch = control$catch,
+    env = current_env(),
+    ...
+  )
+  res$preproc <- NA
+  class(res) <- "model_fit"
+  res
 }
 
-formula_to_matrix <- function(object, formula, data, control, ...) {
-  if (is.name(data))
-    data <- eval_tidy(data, env = caller_env())
+form_xy <- function(object, formula, data, control,
+                    target = "none", ...) {
+  data_obj <- convert_form_to_xy_fit(
+    formula = formula,
+    data = data,
+    ...,
+    composition = target
+    # indicators
+  )
+  res <- list(
+    lvl = levels_from_formula(
+      formula,
+      eval_tidy(data)
+    ),
+    spec = object
+  )
 
-  if (!is.data.frame(data))
-    data = as.data.frame(data)
+  res$fit <- xy_xy(
+    object = object,
+    x = data_obj$x,
+    y = data_obj$y, #weights! offsets!
+    control = control,
+    target = target
+    )
+  data_obj$x <- NULL
+  data_obj$y <- NULL
+  data_obj$weights <- NULL
+  data_obj$offset <- NULL
+  res$preproc <- data_obj
+  class(res) <- "model_fit"
+  res
+}
 
-  # TODO: how do we fill in the other standard things here (subset, etc)?
-
-  x <- stats::model.frame(eval(formula), eval(data))
-  trms <- attr(x, "terms")
-  y <- model.response(x)
-  if (is.data.frame(y))
-    y <- as.matrix(y)
-
-  # TODO sparse model matrices?
-  x <- model.matrix(trms, data = x, contrasts.arg = getOption("contrasts"))
-  # TODO Assume no intercept for now
-  x <- x[, !(colnames(x) %in% "(Intercept)"), drop = FALSE]
-
-  xy_to_xy(object, x, y, control, ...)
+xy_form <- function(object, x, y, control, ...) {
+  data_obj <-
+    convert_xy_to_form_fit(
+      x = x,
+      y = y,
+      weights = NULL,
+      y_name = "..y"
+    )
+  # which terms etc goes in the preproc slot here?
+  res <- form_form(
+    object = object,
+    formula = data_obj$formula,
+    data = data_obj$data,
+    control = control,
+    ...
+  )
+  res$preproc <- data_obj[["x_var"]]
+  res
 }
 
 ###################################################################
-## Start with recipe interface in `fit`
+##
 
-#' @importFrom recipes prep juice all_predictors all_outcomes
+#' @name descriptors
+#' @aliases descriptors
+#' @aliases descriptrs
+#' @title Data Set Characteristics Available when Fitting Models
+#' @description When using the `fit` functions there are some
+#'  variables that will be available for use in arguments. For
+#'  example, if the user would like to choose an argument value
+#'  based on the current number of rows in a data set, the `n_obs`
+#'  variable can be used. See Details below.
+#' @details
+#' Existing variables:
+#'   \itemize{
+#'   \item `n_obs`: the current number of rows in the data set.
+#'   \item `n_cols`: the number of columns in the data set that are
+#'     associated with the predictors prior to dummy variable creation.
+#'   \item `n_preds`: the number of predictors after dummy variables
+#'     are created (if any).
+#'   \item `n_facts`: the number of factor predictors in the dat set.
+#'   \item `n_levs`: If the outcome is a factor, this is a table
+#'     with the counts for each level (and `NA` otherwise)
+#'   }
+NULL
 
-# add case weights as extra object returned (out$weights)
-recipe_data <- function(recipe, data, object, control, output = "matrix", combine = FALSE) {
-  recipe <-
-    prep(recipe, training = data, retain = TRUE, verbose = control$verbosity > 1)
+get_descr_form <- function(formula, data) {
+  if(is.name(formula))
+    formula <- eval_tidy(formula)
+  if(is.name(data))
+    data <- eval_tidy(data)
 
-  if (combine) {
-    out <- list(
-      data = juice(recipe, composition = output),
-      form = formula(object, (recipe))
-    )
+  tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
 
-  } else {
-    out <-
-      list(
-        x = juice(recipe, all_predictors(), composition = output),
-        y = juice(recipe, all_outcomes(), composition = output)
-      )
-    if (ncol(out$y) == 1) {
-      if (is.matrix(out$y))
-        out$y <- out$y[, 1]
-      else
-        out$y <- out$y[[1]]
-    }
+  if(is.factor(tmp_dat$y)) {
+    n_levs <- table(tmp_dat$y, dnn = NULL)
+  } else n_levs <- NA
 
-  }
-  out
+  n_cols <- ncol(tmp_dat$x)
+  n_preds <- ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
+  n_obs <- nrow(data)
+  n_facts <- sum(vapply(tmp_dat$x, is.factor, logical(1)))
+
+  list(
+    cols = n_cols,
+    preds = n_preds,
+    obs = n_obs,
+    levs = n_levs,
+    facts = n_facts
+  )
 }
 
-recipe_to_formula <-
-  function(object, recipe, data, control, ...) {
-    info <- recipe_data(recipe, data, object, control, output = "tibble", combine = TRUE)
-    formula_to_formula(object, info$form, info$data, control, ...)
-  }
 
-recipe_to_data.frame <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, object, control, output = "tibble", combine = FALSE)
-  xy_to_xy(object, info$x, info$y, control, ...)
+get_descr_xy <- function(x, y) {
+  if(is.name(x))
+    x <- eval_tidy(x)
+  if(is.name(y))
+    x <- eval_tidy(y)
+
+  if(is.factor(y)) {
+    n_levs <- table(y, dnn = NULL)
+  } else n_levs <- NA
+
+  n_cols  <- ncol(x)
+  n_preds <- ncol(x)
+  n_obs   <- nrow(x)
+  n_facts <- if(is.data.frame(x))
+    sum(vapply(x, is.factor, logical(1)))
+  else
+    sum(apply(x, 2, is.factor)) # would this always be zero?
+
+  list(
+    cols = n_cols,
+    preds = n_preds,
+    obs = n_obs,
+    levs = n_levs,
+    facts = n_facts
+  )
 }
 
-recipe_to_matrix <- function(object, recipe, data, control, ...) {
-  info <- recipe_data(recipe, data, object, control, output = "matrix", combine = FALSE)
-  xy_to_xy(object, info$x, info$y, control, ...)
-}

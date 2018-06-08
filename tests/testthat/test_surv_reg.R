@@ -1,6 +1,5 @@
 library(testthat)
 library(parsnip)
-library(recipes)
 library(rlang)
 library(flexsurv)
 
@@ -86,18 +85,6 @@ bc$group2 <- bc$group
 basic_form <- Surv(recyrs, censrec) ~ group
 complete_form <- Surv(recyrs) ~ group
 
-basic_rec <- recipe(recyrs ~ ., data = bc) %>%
-  add_role(censrec, new_role = "censoring var") %>%
-  step_rm(rectime)
-
-no_cens_rec <- recipe(recyrs ~ ., data = bc) %>%
-  step_rm(rectime, censrec)
-
-extra_param_rec <- recipe(recyrs ~ ., data = bc) %>%
-  add_role(censrec, new_role = "censoring var") %>%
-  add_role(group2, new_role = "shape") %>%
-  step_rm(rectime)
-
 surv_basic <- surv_reg()
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -135,35 +122,5 @@ test_that('flexsurv execution', {
       engine = "flexsurv",
       control = ctrl
     )
-  )
-  expect_error(
-    res <- fit(
-      surv_basic,
-      recipe = basic_rec,
-      data = bc,
-      engine = "flexsurv",
-      control = ctrl
-    ),
-    regexp = NA
-  )
-  expect_error(
-    res <- fit(
-      surv_basic,
-      recipe = no_cens_rec,
-      data = bc,
-      engine = "flexsurv",
-      control = ctrl
-    ),
-    regexp = NA
-  )
-  expect_error(
-    res <- fit(
-      surv_basic,
-      recipe = extra_param_rec,
-      data = bc,
-      engine = "flexsurv",
-      control = ctrl
-    ),
-    regexp = NA
   )
 })

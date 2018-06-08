@@ -7,9 +7,8 @@
 \usage{
 fit(object, ...)
 
-\method{fit}{model_spec}(object, formula = NULL, recipe = NULL, x = NULL,
-  y = NULL, data = NULL, engine = object$engine,
-  control = fit_control(), ...)
+\method{fit}{model_spec}(object, formula = NULL, x = NULL, y = NULL,
+  data = NULL, engine = object$engine, control = fit_control(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
@@ -22,10 +21,6 @@ specification.}
 \item{formula}{An object of class "formula" (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.}
-
-\item{recipe}{Optional, depending on the interface (see Details
-below). An object of class \code{\link[recipes:recipe]{recipes::recipe()}}. Note: when
-needed, a \emph{named argument} should be used.}
 
 \item{x}{Optional, depending on the interface (see Details
 below). Can be data frame or matrix of predictors. Note: when
@@ -49,7 +44,19 @@ of model (e.g. linear regression, random forest, etc.).}
 \code{catch}. See \code{\link[=fit_control]{fit_control()}}.}
 }
 \value{
-An object for the fitted model.
+A \code{model_fit} object that contains several elements:
+\itemize{
+\item \code{lvl}: If the outcome is a factor, this contains
+the factor levels at the time of model fitting.
+\item \code{spec}: The model specification object
+(\code{object} in the call to \code{fit})
+\item \code{fit}: when the model is executed without error,
+this is the model object. Otherwise, it is a \code{try-error}
+object with the error message.
+\item \code{preproc}: any objects needed to convert between
+a formula and non-formula interface (such as the \code{terms}
+object)
+}
 }
 \description{
 \code{fit} will take a model specification, translate the required
@@ -95,21 +102,6 @@ using_xy <-
       y = lending_club$Class,
       engine = "glm")
 
-# NOTE: use named arguments for "recipe" and "data" when using this interface
-library(recipes)
-lend_rec <- recipe(Class ~ funded_amnt + int_rate,
-                   data = lending_club)
-
-using_recipe <-
-  fit(lm_mod,
-      recipe = lend_rec,
-      data = lending_club,
-      engine = "glm")
-
-coef(using_formula)
-coef(using_xy)
-coef(using_recipe)
-
-# Using other options:
-
+using_formula
+using_xy
 }
