@@ -70,7 +70,7 @@
 #'       x = lending_club[, c("funded_amnt", "int_rate")],
 #'       y = lending_club$Class,
 #'       engine = "glm")
-#' 
+#'
 #' using_formula
 #' using_xy
 #' @export
@@ -82,11 +82,11 @@ fit <- function (object, ...)
 #' \itemize{
 #'   \item \code{lvl}: If the outcome is a factor, this contains
 #'    the factor levels at the time of model fitting.
-#'   \item \code{spec}: The model specification object 
+#'   \item \code{spec}: The model specification object
 #'    (\code{object} in the call to \code{fit})
 #'   \item \code{fit}: when the model is executed without error,
 #'    this is the model object. Otherwise, it is a \code{try-error}
-#'    object with the error message. 
+#'    object with the error message.
 #'   \item \code{preproc}: any objects needed to convert between
 #'    a formula and non-formula interface (such as the \code{terms}
 #'    object)
@@ -123,17 +123,16 @@ fit.model_spec <-
 
     interfaces <- paste(fit_interface, object$method$interface, sep = "_")
 
-    source('~/tmp/ps_2.R')
     # Now call the wrappers that transition between the interface
-    # called here ("fit" interface) that will direct traffic to 
+    # called here ("fit" interface) that will direct traffic to
     # what the underlying model uses. For example, if a formula is
-    # used here, `fit_interface_formula` will determine if a 
-    # translation has to be made if the model interface is x/y/ 
+    # used here, `fit_interface_formula` will determine if a
+    # translation has to be made if the model interface is x/y/
     res <-
       switch(
         interfaces,
         # homogeneous combinations:
-        formula_formula = 
+        formula_formula =
           form_form(
             object = object,
             formula = cl$formula,
@@ -141,7 +140,7 @@ fit.model_spec <-
             control = control,
             ...
           ),
-        matrix_matrix = , data.frame_matrix = 
+        matrix_matrix = , data.frame_matrix =
           xy_xy(
             object = object,
             x = x,
@@ -160,9 +159,9 @@ fit.model_spec <-
             target = "data.frame",
             ...
           ),
-        
+
         # heterogenous combinations
-        formula_matrix =  
+        formula_matrix =
           form_xy(
             object = object,
             formula = formula,
@@ -171,7 +170,7 @@ fit.model_spec <-
             target = object$method$interface,
             ...
           ),
-        formula_data.frame =  
+        formula_data.frame =
           form_xy(
             object = object,
             formula = formula,
@@ -180,7 +179,7 @@ fit.model_spec <-
             target = object$method$interface,
             ...
           ),
-        
+
         matrix_formula =,  data.frame_formula =
           xy_form(
             object = object,
@@ -191,7 +190,7 @@ fit.model_spec <-
           ),
         stop(interfaces, " is unknown")
       )
-    
+
     res
 }
 
@@ -303,7 +302,7 @@ check_interface <- function(formula, x, y, data, cl, model) {
 #' @export
 print.model_fit <- function(x, ...) {
   cat("parsnip model object\n\n")
-  
+
   if(inherits(x$fit, "try-error")) {
     cat("Model fit failed with error:\n", x$fit, "\n")
   } else {
