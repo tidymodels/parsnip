@@ -16,12 +16,12 @@ linear_reg(mode = "regression", regularization = NULL, mixture = NULL,
 The only possible value for this model is "regression".}
 
 \item{regularization}{An non-negative number representing the
-total amount of regularization.}
+total amount of regularization (\code{glmnet} and \code{spark} only).}
 
 \item{mixture}{A number between zero and one (inclusive) that
 represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
-(the lasso).}
+(the lasso) (\code{glmnet} and \code{spark} only).}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{stats::lm},
@@ -47,7 +47,7 @@ different packages in R, Stan, or via Spark. The main arguments for the
 model are:
 \itemize{
 \item \code{regularization}: The total amount of regularization
-in the model. Note that this must be zero for some engines.
+in the model. Note that this must be zero for some engines .
 \item \code{mixture}: The proportion of L2 regularization in
 the model. Note that this will be ignored for some engines.
 }

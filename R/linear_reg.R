@@ -6,7 +6,7 @@
 #'  model are:
 #' \itemize{
 #'   \item \code{regularization}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
+#'  in the model. Note that this must be zero for some engines .
 #'   \item \code{mixture}: The proportion of L2 regularization in
 #'  the model. Note that this will be ignored for some engines.
 #' }
@@ -35,11 +35,11 @@
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
 #' @param regularization An non-negative number representing the
-#'  total amount of regularization.
+#'  total amount of regularization (`glmnet` and `spark` only).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
 #'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
-#'  (the lasso).
+#'  (the lasso) (`glmnet` and `spark` only).
 #' @param ... Used for S3 method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
 #' @seealso [varying()], [fit()]
