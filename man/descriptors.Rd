@@ -2,6 +2,11 @@
 % Please edit documentation in R/fitter.R
 \name{descriptors}
 \alias{descriptors}
+\alias{n_obs}
+\alias{n_cols}
+\alias{n_preds}
+\alias{n_facts}
+\alias{n_levs}
 \title{Data Set Characteristics Available when Fitting Models}
 \description{
 When using the \code{fit} functions there are some
@@ -21,5 +26,37 @@ are created (if any).
 \item \code{n_facts}: the number of factor predictors in the dat set.
 \item \code{n_levs}: If the outcome is a factor, this is a table
 with the counts for each level (and \code{NA} otherwise)
+}
+
+For example, if you use the model formula \code{Sepal.Width ~ .} with the \code{iris}
+data, the values would be
+\preformatted{
+ n_cols  =   4     (the 4 columns in `iris`)
+ n_preds =   5     (3 numeric columns + 2 from Species dummy variables)
+ n_obs   = 150
+ n_levs  =  NA     (no factor outcome)
+ n_facts =   1     (the Species predictor)
+}
+
+If the formula \code{Species ~ .} where used:
+\preformatted{
+ n_cols  =   4     (the 4 numeric columns in `iris`)
+ n_preds =   4     (same)
+ n_obs   = 150
+ n_levs  =  c(setosa = 50, versicolor = 50, virginica = 50)
+ n_facts =   0
+}
+
+To use these in a model fit, either \code{expression} or \code{rlang::expr} can be
+used to delay the evaluation of the argument value until the time when the
+model is run via \code{fit} (and the variables listed above are available).
+For example:
+
+\preformatted{
+library(rlang)
+
+data("lending_club")
+
+rand_forest(mode = "classification", mtry = expr(n_cols - 2))
 }
 }

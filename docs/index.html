@@ -8,8 +8,8 @@
 <title>A Common API to Modeling and analysis Functions • parsnip</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="A Common API to Modeling and analysis Functions">
 <meta property="og:description" content="A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. R, spark, stan, etc). ">
 <meta name="twitter:card" content="summary">
@@ -58,27 +58,27 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#parsnip" class="anchor"></a>parsnip</h1></div>
 <p>One issue with different functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest <em>classification</em> model, we might have:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># From randomForest</span>
-rf_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">randomForest</span>(x, y, <span class="dt">mtry =</span> <span class="dv">12</span>, <span class="dt">ntree =</span> <span class="dv">2000</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)
-
-<span class="co"># From ranger</span>
-rf_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">ranger</span>(
-  y <span class="op">~</span><span class="st"> </span>., 
-  <span class="dt">data =</span> dat, 
-  <span class="dt">mtry =</span> <span class="dv">12</span>, 
-  <span class="dt">num.trees =</span> <span class="dv">2000</span>, 
-  <span class="dt">importance =</span> <span class="st">'impurity'</span>
-)
-
-<span class="co"># From sparklyr</span>
-rf_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">ml_random_forest</span>(
-  dat, 
-  <span class="dt">intercept =</span> <span class="ot">FALSE</span>, 
-  <span class="dt">response =</span> <span class="st">"y"</span>, 
-  <span class="dt">features =</span> <span class="kw">names</span>(dat)[<span class="kw">names</span>(dat) <span class="op">!=</span><span class="st"> "y"</span>], 
-  <span class="dt">col.sample.rate =</span> <span class="dv">12</span>,
-  <span class="dt">num.trees =</span> <span class="dv">2000</span>
-)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># From randomForest</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">rf_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">randomForest</span>(x, y, <span class="dt">mtry =</span> <span class="dv">12</span>, <span class="dt">ntree =</span> <span class="dv">2000</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># From ranger</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">rf_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">ranger</span>(</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  y <span class="op">~</span><span class="st"> </span>., </a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="dt">data =</span> dat, </a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="dt">mtry =</span> <span class="dv">12</span>, </a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  <span class="dt">num.trees =</span> <span class="dv">2000</span>, </a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="dt">importance =</span> <span class="st">'impurity'</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co"># From sparklyr</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">rf_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">ml_random_forest</span>(</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  dat, </a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="dt">intercept =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="dt">response =</span> <span class="st">"y"</span>, </a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="dt">features =</span> <span class="kw">names</span>(dat)[<span class="kw">names</span>(dat) <span class="op">!=</span><span class="st"> "y"</span>], </a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">  <span class="dt">col.sample.rate =</span> <span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">  <span class="dt">num.trees =</span> <span class="dv">2000</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">)</a></code></pre></div>
 <p>Note that the model syntax is very different and that the argument names (and formats) are also different. This is a pain if you go between implementations.</p>
 <p>In this example, the <strong>type</strong> of model is “random forest” while the <strong>mode</strong> of the model is “classification” (as opposed to regression, survival analysis, etc).</p>
 <p>The idea of <code>parsnip</code> is to:</p>
@@ -87,8 +87,8 @@ rf_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">ml_r
 <li>Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call <code>rand_forest</code> instead of <code><a href="http://www.rdocumentation.org/packages/ranger/topics/ranger">ranger::ranger</a></code> or other specific packages.</li>
 <li>Harmonize the argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users can remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging. To install it, use:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(devtools)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"topepo/parsnip"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">require</span>(devtools)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"topepo/parsnip"</span>)</a></code></pre></div>
 </div>
   </div>
 

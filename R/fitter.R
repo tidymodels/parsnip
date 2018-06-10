@@ -164,8 +164,7 @@ xy_form <- function(object, x, y, control, ...) {
 ##
 
 #' @name descriptors
-#' @aliases descriptors
-#' @aliases descriptrs
+#' @aliases descriptors n_obs n_cols n_preds n_facts n_levs
 #' @title Data Set Characteristics Available when Fitting Models
 #' @description When using the `fit` functions there are some
 #'  variables that will be available for use in arguments. For
@@ -184,6 +183,38 @@ xy_form <- function(object, x, y, control, ...) {
 #'   \item `n_levs`: If the outcome is a factor, this is a table
 #'     with the counts for each level (and `NA` otherwise)
 #'   }
+#'
+#' For example, if you use the model formula `Sepal.Width ~ .` with the `iris`
+#'  data, the values would be
+#' \preformatted{
+#'  n_cols  =   4     (the 4 columns in `iris`)
+#'  n_preds =   5     (3 numeric columns + 2 from Species dummy variables)
+#'  n_obs   = 150
+#'  n_levs  =  NA     (no factor outcome)
+#'  n_facts =   1     (the Species predictor)
+#' }
+#'
+#' If the formula `Species ~ .` where used:
+#' \preformatted{
+#'  n_cols  =   4     (the 4 numeric columns in `iris`)
+#'  n_preds =   4     (same)
+#'  n_obs   = 150
+#'  n_levs  =  c(setosa = 50, versicolor = 50, virginica = 50)
+#'  n_facts =   0
+#' }
+#'
+#' To use these in a model fit, either `expression` or `rlang::expr` can be
+#' used to delay the evaluation of the argument value until the time when the
+#' model is run via `fit` (and the variables listed above are available).
+#' For example:
+#'
+#' \preformatted{
+#' library(rlang)
+#'
+#' data("lending_club")
+#'
+#' rand_forest(mode = "classification", mtry = expr(n_cols - 2))
+#' }
 NULL
 
 get_descr_form <- function(formula, data) {

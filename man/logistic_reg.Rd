@@ -16,12 +16,12 @@ logistic_reg(mode = "classification", regularization = NULL,
 The only possible value for this model is "classification".}
 
 \item{regularization}{An non-negative number representing the
-total amount of regularization.}
+total amount of regularization (\code{glmnet} and \code{spark} only).}
 
 \item{mixture}{A number between zero and one (inclusive) that
 represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
-(the lasso).}
+(the lasso) (\code{glmnet} and \code{spark} only).}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{stats::glm},
