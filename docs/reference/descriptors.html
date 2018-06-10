@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • parsnip</title>
+<title>Data Set Characteristics Available when Fitting Models — descriptors • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,14 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Data Set Characteristics Available when Fitting Models — descriptors" />
+
+<meta property="og:description" content="When using the fit functions there are some
+variables that will be available for use in arguments. For
+example, if the user would like to choose an argument value
+based on the current number of rows in a data set, the n_obs
+variable can be used. See Details below." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -45,7 +52,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -85,28 +92,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+    <h1>Data Set Characteristics Available when Fitting Models</h1>
+    
+    <div class="hidden name"><code>descriptors.Rd</code></div>
     </div>
 
-    <div id="parsnip-0-0-0-9000" class="section level1">
-<h1 class="page-header">
-<a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+    <div class="ref-description">
+    
+    <p>When using the <code>fit</code> functions there are some
+variables that will be available for use in arguments. For
+example, if the user would like to choose an argument value
+based on the current number of rows in a data set, the <code>n_obs</code>
+variable can be used. See Details below.</p>
+    
+    </div>
+
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Existing variables:</p><ul>
+<li><p><code>n_obs</code>: the current number of rows in the data set.</p></li>
+<li><p><code>n_cols</code>: the number of columns in the data set that are
+associated with the predictors prior to dummy variable creation.</p></li>
+<li><p><code>n_preds</code>: the number of predictors after dummy variables
+are created (if any).</p></li>
+<li><p><code>n_facts</code>: the number of factor predictors in the dat set.</p></li>
+<li><p><code>n_levs</code>: If the outcome is a factor, this is a table
+with the counts for each level (and <code>NA</code> otherwise)</p></li>
 </ul>
-</div>
-  </div>
+    <p>For example, if you use the model formula <code>Sepal.Width ~ .</code> with the <code>iris</code>
+data, the values would be</p><pre>
+ n_cols  =   4     (the 4 columns in `iris`)
+ n_preds =   5     (3 numeric columns + 2 from Species dummy variables)
+ n_obs   = 150
+ n_levs  =  NA     (no factor outcome)
+ n_facts =   1     (the Species predictor)
+</pre>
+    <p>If the formula <code>Species ~ .</code> where used:</p><pre>
+ n_cols  =   4     (the 4 numeric columns in `iris`)
+ n_preds =   4     (same)
+ n_obs   = 150
+ n_levs  =  c(setosa = 50, versicolor = 50, virginica = 50)
+ n_facts =   0
+</pre>
+    <p>To use these in a model fit, either <code>expression</code> or <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr</a></code> can be
+used to delay the evaluation of the argument value until the time when the
+model is run via <code>fit</code> (and the variables listed above are available).
+For example:</p>
+<pre>
+library(rlang)
+    data("lending_club")
+    rand_forest(mode = "classification", mtry = expr(n_cols - 2))
+</pre>
+    
 
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#parsnip-0-0-0-9000">0.0.0.9000</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
+  </div>
 </div>
 
       <footer>

@@ -13,12 +13,14 @@ reference:
       - logistic_reg   
       - rand_forest
       - surv_reg   
+      - mlp
   - title: Infrastructure
     contents:
       - translate
       - fit
       - fit_control
       - varying
+      - descriptors
   - title: Data
     contents:
      - lending_club      
