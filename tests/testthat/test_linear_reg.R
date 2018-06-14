@@ -10,14 +10,14 @@ test_that('primary arguments', {
   basic_glmnet <- translate(basic, engine = "glmnet")
   basic_stan <- translate(basic, engine = "stan")
   basic_spark <- translate(basic, engine = "spark")
-  expect_equal(basic_lm$method$fit_args,
+  expect_equal(basic_lm$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
                  weights = quote(missing_arg())
                )
   )
-  expect_equal(basic_glmnet$method$fit_args,
+  expect_equal(basic_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -25,7 +25,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(basic_stan$method$fit_args,
+  expect_equal(basic_stan$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -33,7 +33,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(basic_spark$method$fit_args,
+  expect_equal(basic_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -44,7 +44,7 @@ test_that('primary arguments', {
   mixture <- linear_reg(mixture = 0.128)
   mixture_glmnet <- translate(mixture, engine = "glmnet")
   mixture_spark <- translate(mixture, engine = "spark")
-  expect_equal(mixture_glmnet$method$fit_args,
+  expect_equal(mixture_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -53,7 +53,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(mixture_spark$method$fit_args,
+  expect_equal(mixture_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -65,7 +65,7 @@ test_that('primary arguments', {
   regularization <- linear_reg(regularization = 1)
   regularization_glmnet <- translate(regularization, engine = "glmnet")
   regularization_spark <- translate(regularization, engine = "spark")
-  expect_equal(regularization_glmnet$method$fit_args,
+  expect_equal(regularization_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -74,7 +74,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(regularization_spark$method$fit_args,
+  expect_equal(regularization_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -86,7 +86,7 @@ test_that('primary arguments', {
   mixture_v <- linear_reg(mixture = varying())
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   mixture_v_spark <- translate(mixture_v, engine = "spark")
-  expect_equal(mixture_v_glmnet$method$fit_args,
+  expect_equal(mixture_v_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -95,7 +95,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(mixture_v_spark$method$fit_args,
+  expect_equal(mixture_v_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -108,7 +108,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   lm_fam <- linear_reg(others = list(model = FALSE))
-  expect_equal(translate(lm_fam, engine = "lm")$method$fit_args,
+  expect_equal(translate(lm_fam, engine = "lm")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -118,7 +118,7 @@ test_that('engine arguments', {
   )
 
   glmnet_nlam <- linear_reg(others = list(nlambda = 10))
-  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit_args,
+  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -129,7 +129,7 @@ test_that('engine arguments', {
   )
 
   stan_samp <- linear_reg(others = list(chains = 1, iter = 5))
-  expect_equal(translate(stan_samp, engine = "stan")$method$fit_args,
+  expect_equal(translate(stan_samp, engine = "stan")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -141,7 +141,7 @@ test_that('engine arguments', {
   )
 
   spark_iter <- linear_reg(others = list(max_iter = 20))
-  expect_equal(translate(spark_iter, engine = "spark")$method$fit_args,
+  expect_equal(translate(spark_iter, engine = "spark")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),

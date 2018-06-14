@@ -8,7 +8,7 @@ test_that('primary arguments', {
   basic <- surv_reg()
   basic_flexsurv <- translate(basic, engine = "flexsurv")
 
-  expect_equal(basic_flexsurv$method$fit_args,
+  expect_equal(basic_flexsurv$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -19,7 +19,7 @@ test_that('primary arguments', {
 
   normal <- surv_reg(dist = "lnorm")
   normal_flexsurv <- translate(normal, engine = "flexsurv")
-  expect_equal(normal_flexsurv$method$fit_args,
+  expect_equal(normal_flexsurv$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -30,7 +30,7 @@ test_that('primary arguments', {
 
   dist_v <- surv_reg(dist = varying())
   dist_v_flexsurv <- translate(dist_v, engine = "flexsurv")
-  expect_equal(dist_v_flexsurv$method$fit_args,
+  expect_equal(dist_v_flexsurv$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -42,7 +42,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   fs_cl <- surv_reg(others = list(cl = .99))
-  expect_equal(translate(fs_cl, engine = "flexsurv")$method$fit_args,
+  expect_equal(translate(fs_cl, engine = "flexsurv")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),

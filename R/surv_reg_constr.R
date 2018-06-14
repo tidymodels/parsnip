@@ -18,8 +18,10 @@ surv_reg_engines <- data.frame(
 surv_reg_flexsurv_fit <-
   list(
     libs = c("survival", "flexsurv"),
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "flexsurv", fun = "flexsurvreg"),
-    alternates = list()
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "flexsurv", fun = "flexsurvreg"),
+      alternates = list()
+    )
   )

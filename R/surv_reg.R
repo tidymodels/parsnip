@@ -83,7 +83,7 @@ print.surv_reg <- function(x, ...) {
   cat("Parametric Survival Regression Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit_args)) {
+  if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -149,8 +149,8 @@ translate.surv_reg <- function(x, engine, ...) {
 
   if (x$engine == "flexsurv") {
     # `dist` has no default in the function
-    if (all(names(x$method$fit_args) != "dist"))
-      x$method$fit_args$dist <- "weibull"
+    if (all(names(x$method$fit$args) != "dist"))
+      x$method$fit$args$dist <- "weibull"
   }
   x
 }

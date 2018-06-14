@@ -23,36 +23,65 @@ rand_forest_engines <- data.frame(
 rand_forest_ranger_fit <-
   list(
     libs = "ranger",
-    interface = "formula",
-    protect = c("formula", "data", "case.weights"),
-    fit_name = c(pkg = "ranger", fun = "ranger"),
-    alternates =
-      list(
-        num.threads = 1,
-        verbose = FALSE,
-        seed = expr(sample.int(10^5, 1))
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "case.weights"),
+      func = c(pkg = "ranger", fun = "ranger"),
+      alternates =
+        list(
+          num.threads = 1,
+          verbose = FALSE,
+          seed = expr(sample.int(10^5, 1))
+        )
+    ), 
+    pred = list(
+      pre = NULL,
+      post = function(object) object$predictions,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          type = "response",
+          seed = sample.int(10^5, 1),
+          verbose = FALSE
+        )
+    )
   )
 
 rand_forest_randomForest_fit <-
   list(
     libs = "randomForest",
-    interface = "data.frame",
-    protect = c("x", "y"),
-    fit_name = c(pkg = "randomForest", fun = "randomForest"),
-    alternates =
-      list()
+    fit = list(
+      interface = "data.frame",
+      protect = c("x", "y"),
+      func = c(pkg = "randomForest", fun = "randomForest"),
+      alternates =
+        list()
+    ),
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
+    )
   )
 
 
 rand_forest_spark_fit <-
   list(
     libs = "sparklyr",
-    interface = "formula",
-    protect = c("x", "formula", "type"),
-    fit_name = c(pkg = "sparklyr", fun = "ml_random_forest"),
-    alternates =
-      list(
-        seed = expr(sample.int(10^5, 1))
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("x", "formula", "type"),
+      func = c(pkg = "sparklyr", fun = "ml_random_forest"),
+      alternates =
+        list(
+          seed = expr(sample.int(10^5, 1))
+        )
+    )
   )

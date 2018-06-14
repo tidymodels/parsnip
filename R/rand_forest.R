@@ -85,7 +85,7 @@ print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit_args)) {
+  if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -158,18 +158,18 @@ translate.rand_forest <- function(x, engine, ...) {
         call. = FALSE
       )
     else
-      x$method$fit_args$type <- x$mode
+      x$method$fit$args$type <- x$mode
 
     # See "Details" in ?ml_random_forest_classifier
-    if (is.numeric(x$method$fit_args$feature_subset_strategy))
-      x$method$fit_args$feature_subset_strategy <-
-        paste(x$method$fit_args$feature_subset_strategy)
+    if (is.numeric(x$method$fit$args$feature_subset_strategy))
+      x$method$fit$args$feature_subset_strategy <-
+        paste(x$method$fit$args$feature_subset_strategy)
   }
 
   # add checks to error trap or change things for this method
   if (x$engine == "ranger") {
-    if (any(names(x$method$fit_args) == "importance"))
-      if (is.logical(x$method$fit_args$importance))
+    if (any(names(x$method$fit$args) == "importance"))
+      if (is.logical(x$method$fit$args$importance))
         stop("`importance` should be a character value. See ?ranger::ranger.",
              call. = FALSE)
   }

@@ -23,48 +23,56 @@ logistic_reg_engines <- data.frame(
 logistic_reg_glm_fit <-
   list(
     libs = "stats",
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "stats", fun = "glm"),
-    alternates =
-      list(
-        family = expr(binomial)
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "stats", fun = "glm"),
+      alternates =
+        list(
+          family = expr(binomial)
+        )
+    )
   )
 
 logistic_reg_glmnet_fit <-
   list(
     libs = "glmnet",
-    interface = "matrix",
-    protect = c("x", "y", "weights"),
-    fit_name = c(pkg = "glmnet", fun = "glmnet"),
-    alternates =
-      list(
-        family = "binomial"
-      )
+    fit = list(
+      interface = "matrix",
+      protect = c("x", "y", "weights"),
+      func = c(pkg = "glmnet", fun = "glmnet"),
+      alternates =
+        list(
+          family = "binomial"
+        )
+    )
   )
 
 logistic_reg_stan_fit <-
   list(
     libs = "rstanarm",
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "rstanarm", fun = "stan_glm"),
-    alternates =
-      list(
-        family = expr(binomial)
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "rstanarm", fun = "stan_glm"),
+      alternates =
+        list(
+          family = expr(binomial)
+        )
+    )
   )
 
 
 logistic_reg_spark_fit <-
   list(
     libs = "sparklyr",
-    interface = "formula",
-    protect = c("x", "formula", "weight_col"),
-    fit_name = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
-    alternates =
-      list(
-        family = "binomial"
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("x", "formula", "weight_col"),
+      func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
+      alternates =
+        list(
+          family = "binomial"
+        )
+    )
   )

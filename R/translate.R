@@ -49,7 +49,7 @@ translate.default <- function(x, engine, ...) {
 
   # check for installs
 
-  x$method <- get_model_fit_info(x, x$engine)
+  x$method <- get_model_info(x, x$engine)
 
   arg_key <- getFromNamespace(
     paste0(specifc_model(x), "_arg_key"),
@@ -62,23 +62,23 @@ translate.default <- function(x, engine, ...) {
   # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
   # being altered
-  x$others <- check_others(x$others, x$method)
+  x$others <- check_others(x$others, x$method$fit)
 
   # keep only modified args
   modifed_args <- !vapply(actual_args, null_value, lgl(1))
   actual_args <- actual_args[modifed_args]
 
   # look for alternates if not modified in other
-  if(length(x$method$alternates) > 0) {
-    in_other <- names(x$method$alternates) %in% names(x$others)
-    x$alternates <- x$method$alternates[!in_other]
+  if(length(x$method$fit$alternates) > 0) {
+    in_other <- names(x$method$fit$alternates) %in% names(x$others)
+    x$alternates <- x$method$fit$alternates[!in_other]
   }
 
   # combine primary, others, and alternates
-  protected <- lapply(x$method$protect, function(x) expr(missing_arg()))
-  names(protected) <- x$method$protect
+  protected <- lapply(x$method$fit$protect, function(x) expr(missing_arg()))
+  names(protected) <- x$method$fit$protect
 
-  x$method$fit_args <- c(protected, actual_args, x$others, x$alternates)
+  x$method$fit$args <- c(protected, actual_args, x$others, x$alternates)
 
   # put in correct order
   x

@@ -6,7 +6,7 @@ test_that('primary arguments', {
   mtry_ranger <- translate(mtry, engine = "ranger")
   mtry_randomForest <- translate(mtry, engine = "randomForest")
   mtry_spark <- translate(mtry, engine = "spark")
-  expect_equal(mtry_ranger$method$fit_args,
+  expect_equal(mtry_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -17,14 +17,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(mtry_randomForest$method$fit_args,
+  expect_equal(mtry_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  mtry = 4
                )
   )
-  expect_equal(mtry_spark$method$fit_args,
+  expect_equal(mtry_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -37,7 +37,7 @@ test_that('primary arguments', {
   trees_ranger <- translate(trees, engine = "ranger")
   trees_randomForest <- translate(trees, engine = "randomForest")
   trees_spark <- translate(trees, engine = "spark")
-  expect_equal(trees_ranger$method$fit_args,
+  expect_equal(trees_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -48,14 +48,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(trees_randomForest$method$fit_args,
+  expect_equal(trees_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  ntree = 1000
                )
   )
-  expect_equal(trees_spark$method$fit_args,
+  expect_equal(trees_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -69,7 +69,7 @@ test_that('primary arguments', {
   min_n_ranger <- translate(min_n, engine = "ranger")
   min_n_randomForest <- translate(min_n, engine = "randomForest")
   min_n_spark <- translate(min_n, engine = "spark")
-  expect_equal(min_n_ranger$method$fit_args,
+  expect_equal(min_n_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -80,14 +80,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(min_n_randomForest$method$fit_args,
+  expect_equal(min_n_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  nodesize = 5
                )
   )
-  expect_equal(min_n_spark$method$fit_args,
+  expect_equal(min_n_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -101,7 +101,7 @@ test_that('primary arguments', {
   mtry_v_ranger <- translate(mtry_v, engine = "ranger")
   mtry_v_randomForest <- translate(mtry_v, engine = "randomForest")
   mtry_v_spark <- translate(mtry_v, engine = "spark")
-  expect_equal(mtry_v_ranger$method$fit_args,
+  expect_equal(mtry_v_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -112,14 +112,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(mtry_v_randomForest$method$fit_args,
+  expect_equal(mtry_v_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  mtry = varying()
                )
   )
-  expect_equal(mtry_v_spark$method$fit_args,
+  expect_equal(mtry_v_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -133,7 +133,7 @@ test_that('primary arguments', {
   trees_v_ranger <- translate(trees_v, engine = "ranger")
   trees_v_randomForest <- translate(trees_v, engine = "randomForest")
   trees_v_spark <- translate(trees_v, engine = "spark")
-  expect_equal(trees_v_ranger$method$fit_args,
+  expect_equal(trees_v_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -144,14 +144,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(trees_v_randomForest$method$fit_args,
+  expect_equal(trees_v_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  ntree = varying()
                )
   )
-  expect_equal(trees_v_spark$method$fit_args,
+  expect_equal(trees_v_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -165,7 +165,7 @@ test_that('primary arguments', {
   min_n_v_ranger <- translate(min_n_v, engine = "ranger")
   min_n_v_randomForest <- translate(min_n_v, engine = "randomForest")
   min_n_v_spark <- translate(min_n_v, engine = "spark")
-  expect_equal(min_n_v_ranger$method$fit_args,
+  expect_equal(min_n_v_ranger$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -176,14 +176,14 @@ test_that('primary arguments', {
                  seed = quote(sample.int(10^5, 1))
                )
   )
-  expect_equal(min_n_v_randomForest$method$fit_args,
+  expect_equal(min_n_v_randomForest$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  nodesize = varying()
                )
   )
-  expect_equal(min_n_v_spark$method$fit_args,
+  expect_equal(min_n_v_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -196,7 +196,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   ranger_imp <- rand_forest(mode = "classification", others = list(importance = "impurity"))
-  expect_equal(translate(ranger_imp, engine = "ranger")$method$fit_args,
+  expect_equal(translate(ranger_imp, engine = "ranger")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -209,7 +209,7 @@ test_that('engine arguments', {
   )
 
   randomForest_votes <- rand_forest(mode = "regression", others = list(norm.votes = FALSE))
-  expect_equal(translate(randomForest_votes, engine = "randomForest")$method$fit_args,
+  expect_equal(translate(randomForest_votes, engine = "randomForest")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -218,7 +218,7 @@ test_that('engine arguments', {
   )
 
   spark_gain <- rand_forest(mode = "regression", others = list(min_info_gain = 2))
-  expect_equal(translate(spark_gain, engine = "spark")$method$fit_args,
+  expect_equal(translate(spark_gain, engine = "spark")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -229,7 +229,7 @@ test_that('engine arguments', {
   )
 
   ranger_samp_frac <- rand_forest(mode = "regression", others = list(sample.fraction = varying()))
-  expect_equal(translate(ranger_samp_frac, engine = "ranger")$method$fit_args,
+  expect_equal(translate(ranger_samp_frac, engine = "ranger")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -243,7 +243,7 @@ test_that('engine arguments', {
 
 
   randomForest_votes_v <- rand_forest(mode = "regression", others = list(norm.votes = FALSE, sampsize = varying()))
-  expect_equal(translate(randomForest_votes_v, engine = "randomForest")$method$fit_args,
+  expect_equal(translate(randomForest_votes_v, engine = "randomForest")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -253,7 +253,7 @@ test_that('engine arguments', {
   )
 
   spark_bins_v <- rand_forest(mode = "regression", others = list(uid = "id label", max_bins = varying()))
-  expect_equal(translate(spark_bins_v, engine = "spark")$method$fit_args,
+  expect_equal(translate(spark_bins_v, engine = "spark")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),

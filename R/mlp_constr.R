@@ -20,21 +20,23 @@ mlp_engines <- data.frame(
 mlp_keras_fit <-
   list(
     libs = c("keras", "magrittr"),
-    interface = "matrix",
-    protect = c("x", "y"),
-    fit_name = c(pkg = "parsnip", fun = "keras_mlp"),
-    alternates =
-      list()
+    fit = list(
+      interface = "matrix",
+      protect = c("x", "y"),
+      func = c(pkg = "parsnip", fun = "keras_mlp"),
+      alternates = list()
+    )
   )
 
 mlp_nnet_fit <-
   list(
     libs = "nnet",
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "nnet", fun = "nnet"),
-    alternates =
-      list(trace = FALSE)
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "nnet", fun = "nnet"),
+      alternates = list(trace = FALSE)
+    )
   )
 
 ###################################################################

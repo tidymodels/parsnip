@@ -121,7 +121,7 @@ fit.model_spec <-
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
 
-    interfaces <- paste(fit_interface, object$method$interface, sep = "_")
+    interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
 
     # Now call the wrappers that transition between the interface
     # called here ("fit" interface) that will direct traffic to
@@ -167,7 +167,7 @@ fit.model_spec <-
             formula = formula,
             data = data,
             control = control,
-            target = object$method$interface,
+            target = object$method$fit$interface,
             ...
           ),
         formula_data.frame =
@@ -176,7 +176,7 @@ fit.model_spec <-
             formula = formula,
             data = data,
             control = control,
-            target = object$method$interface,
+            target = object$method$fit$interface,
             ...
           ),
 

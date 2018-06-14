@@ -5,7 +5,7 @@ form_form <-
   function(object, formula, data, control, ...) {
     opts <- quos(...)
 
-    fit_args <- object$method$fit_args
+    fit_args <- object$method$fit$args
 
     if (is_spark(object)) {
       x <- data
@@ -39,8 +39,8 @@ form_form <-
     n_facts <- data_stats$facts
 
     fit_call <- make_call(
-      fun = object$method$fit_name["fun"],
-      ns = object$method$fit_name["pkg"],
+      fun = object$method$fit$func["fun"],
+      ns = object$method$fit$func["pkg"],
       fit_args
     )
 
@@ -70,8 +70,8 @@ xy_xy <- function(object, x, y, control, target = "none", ...) {
     stop("spark objects can only be used with the formula interface to `fit`",
          call. = FALSE)
 
-  object$method$fit_args[["y"]] <- quote(y)
-  object$method$fit_args[["x"]] <-
+  object$method$fit$args[["y"]] <- quote(y)
+  object$method$fit$args[["x"]] <-
     switch(
       target,
       none = quote(x),
@@ -88,9 +88,9 @@ xy_xy <- function(object, x, y, control, target = "none", ...) {
   n_facts <- data_stats$facts
 
   fit_call <- make_call(
-    fun = object$method$fit_name["fun"],
-    ns = object$method$fit_name["pkg"],
-    object$method$fit_args
+    fun = object$method$fit$func["fun"],
+    ns = object$method$fit$func["pkg"],
+    object$method$fit$args
   )
 
   res <- list(lvl = levels(y), spec = object)

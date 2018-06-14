@@ -5,7 +5,7 @@ test_that('primary arguments', {
   units <- mlp(mode = "regression", units = 4)
   units_nnet <- translate(units, engine = "nnet")
   units_keras <- translate(units, engine = "keras")
-  expect_equal(units_nnet$method$fit_args,
+  expect_equal(units_nnet$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -14,7 +14,7 @@ test_that('primary arguments', {
                  trace = FALSE
                )
   )
-  expect_equal(units_keras$method$fit_args,
+  expect_equal(units_keras$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -24,7 +24,7 @@ test_that('primary arguments', {
 
   no_units <- mlp(mode = "regression")
   no_units_nnet <- translate(no_units, engine = "nnet")
-  expect_equal(no_units_nnet$method$fit_args,
+  expect_equal(no_units_nnet$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -33,7 +33,7 @@ test_that('primary arguments', {
                  trace = FALSE
                )
   )
-  expect_equal(units_keras$method$fit_args,
+  expect_equal(units_keras$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -49,7 +49,7 @@ test_that('primary arguments', {
     )
   all_args_nnet <- translate(all_args, engine = "nnet")
   all_args_keras <- translate(all_args, engine = "keras")
-  expect_equal(all_args_nnet$method$fit_args,
+  expect_equal(all_args_nnet$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -61,7 +61,7 @@ test_that('primary arguments', {
                  linout = FALSE
                )
   )
-  expect_equal(all_args_keras$method$fit_args,
+  expect_equal(all_args_keras$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -76,7 +76,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   nnet_hess <- mlp(mode = "classification", others = list(Hess = TRUE))
-  expect_equal(translate(nnet_hess, engine = "nnet")$method$fit_args,
+  expect_equal(translate(nnet_hess, engine = "nnet")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -89,7 +89,7 @@ test_that('engine arguments', {
   )
 
   keras_val <- mlp(mode = "regression", others = list(validation_split = 0.2))
-  expect_equal(translate(keras_val, engine = "keras")$method$fit_args,
+  expect_equal(translate(keras_val, engine = "keras")$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -99,7 +99,7 @@ test_that('engine arguments', {
 
 
   nnet_tol <- mlp(mode = "regression", others = list(abstol = varying()))
-  expect_equal(translate(nnet_tol, engine = "nnet")$method$fit_args,
+  expect_equal(translate(nnet_tol, engine = "nnet")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),

@@ -23,42 +23,50 @@ linear_reg_engines <- data.frame(
 linear_reg_lm_fit <-
   list(
     libs = "stats",
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "stats", fun = "lm"),
-    alternates = list()
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "stats", fun = "lm"),
+      alternates = list()
+    )
   )
 
 linear_reg_glmnet_fit <-
   list(
     libs = "glmnet",
-    interface = "matrix",
-    protect = c("x", "y", "weights"),
-    fit_name = c(pkg = "glmnet", fun = "glmnet"),
-    alternates =
-      list(
-        family = "gaussian"
-      )
+    fit = list(
+      interface = "matrix",
+      protect = c("x", "y", "weights"),
+      func = c(pkg = "glmnet", fun = "glmnet"),
+      alternates =
+        list(
+          family = "gaussian"
+        )
+    )
   )
 
 linear_reg_stan_fit <-
   list(
     libs = "rstanarm",
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
-    fit_name = c(pkg = "rstanarm", fun = "stan_glm"),
-    alternates =
-      list(
-        family = "gaussian"
-      )
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "rstanarm", fun = "stan_glm"),
+      alternates =
+        list(
+          family = "gaussian"
+        )
+    )
   )
 
 
 linear_reg_spark_fit <-
   list(
     libs = "sparklyr",
-    interface = "formula",
-    protect = c("x", "formula", "weight_col"),
-    fit_name = c(pkg = "sparklyr", fun = "ml_linear_regression"),
-    alternates = list()
+    fit = list(
+      interface = "formula",
+      protect = c("x", "formula", "weight_col"),
+      func = c(pkg = "sparklyr", fun = "ml_linear_regression"),
+      alternates = list()
+    )
   )

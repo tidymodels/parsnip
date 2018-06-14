@@ -117,7 +117,7 @@ print.mlp <- function(x, ...) {
   cat("Single Layer Neural Network Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit_args)) {
+  if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -193,7 +193,7 @@ translate.mlp <- function(x, engine, ...) {
   if (engine == "nnet") {
     if (x$mode == "classification") {
       if (length(x$others) == 0  || !any(names(x$others) == "linout"))
-        x$method$fit_args$linout <- FALSE
+        x$method$fit$args$linout <- FALSE
     }
   }
   x

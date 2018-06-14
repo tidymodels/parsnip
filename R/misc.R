@@ -75,8 +75,8 @@ is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
 show_call <- function(object) {
-  call2(object$method$fit_name["fun"], !!!object$method$fit_args,
-        .ns = object$method$fit_name["pkg"])
+  call2(object$method$fit$func["fun"], !!!object$method$fit$args,
+        .ns = object$method$fit$func["pkg"])
 }
 
 make_call <- function(fun, ns, args, ...) {
@@ -107,5 +107,5 @@ levels_from_formula <- function(f, dat) {
 }
 
 is_spark <- function(x)
-  isTRUE(unname(x$method$fit_name["pkg"] == "sparklyr"))
+  isTRUE(unname(x$method$fit$func["pkg"] == "sparklyr"))
 
