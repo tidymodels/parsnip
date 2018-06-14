@@ -156,7 +156,7 @@ xy_form <- function(object, x, y, control, ...) {
     control = control,
     ...
   )
-  res$preproc <- data_obj[["x_var"]]
+  res$preproc <- data_obj["x_var"]
   res
 }
 
