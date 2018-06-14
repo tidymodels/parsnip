@@ -28,6 +28,17 @@ linear_reg_lm_fit <-
       protect = c("formula", "data", "weights"),
       func = c(pkg = "stats", fun = "lm"),
       alternates = list()
+    ), 
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          type = "response"
+        )
     )
   )
 
@@ -42,6 +53,18 @@ linear_reg_glmnet_fit <-
         list(
           family = "gaussian"
         )
+    ), 
+    pred = list(
+      pre = NULL,
+      post = function(x) unname(x[,1]),
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newx = quote(as.matrix(newdata)),
+          type = "response",
+          s = quote(object$spec$args$regularization)
+        )
     )
   )
 
@@ -55,6 +78,17 @@ linear_reg_stan_fit <-
       alternates =
         list(
           family = "gaussian"
+        )
+    ), 
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          type = "response"
         )
     )
   )
