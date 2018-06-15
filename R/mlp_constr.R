@@ -25,6 +25,16 @@ mlp_keras_fit <-
       protect = c("x", "y"),
       func = c(pkg = "parsnip", fun = "keras_mlp"),
       alternates = list()
+    ), 
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(newdata))
+        )
     )
   )
 
@@ -36,6 +46,17 @@ mlp_nnet_fit <-
       protect = c("formula", "data", "weights"),
       func = c(pkg = "nnet", fun = "nnet"),
       alternates = list(trace = FALSE)
+    ), 
+    pred = list(
+      pre = NULL,
+      post = function(results, object) unname(results[,1]),
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          type = "raw"
+        )
     )
   )
 
@@ -147,7 +168,8 @@ keras_mlp <-
     for(arg in names(arg_values$fit)) 
       fit_call[[arg]] <- arg_values$fit[[arg]]    
 
-    model <- eval_tidy(fit_call)
+    history <- eval_tidy(fit_call)
+    model
   }
 
 parse_keras_args <- function(...) {

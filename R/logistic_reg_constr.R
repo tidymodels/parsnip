@@ -31,6 +31,17 @@ logistic_reg_glm_fit <-
         list(
           family = expr(binomial)
         )
+    ), 
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          type = "response"
+        )
     )
   )
 

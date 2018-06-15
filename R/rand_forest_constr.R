@@ -36,7 +36,7 @@ rand_forest_ranger_fit <-
     ), 
     pred = list(
       pre = NULL,
-      post = function(object) object$predictions,
+      post = function(results, object) results$predictions,
       func = c(fun = "predict"),
       args =
         list(

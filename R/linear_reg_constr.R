@@ -56,7 +56,7 @@ linear_reg_glmnet_fit <-
     ), 
     pred = list(
       pre = NULL,
-      post = function(x) unname(x[,1]),
+      post = function(results, object) unname(results[,1]),
       func = c(fun = "predict"),
       args =
         list(
