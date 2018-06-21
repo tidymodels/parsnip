@@ -124,7 +124,7 @@ form_xy <- function(object, formula, data, control,
     spec = object
   )
 
-  res$fit <- xy_xy(
+  res <- xy_xy(
     object = object,
     x = data_obj$x,
     y = data_obj$y, #weights! offsets!
