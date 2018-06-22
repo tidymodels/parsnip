@@ -11,7 +11,7 @@ form_form <-
       x <- data
       fit_args$x <- quote(x)
     } else {
-      if (is.name(data) | is.call(data))
+      if (is.name(data) || is.call(data))
         fit_args$data <- data
       else
         fit_args$data <- quote(data)
@@ -19,7 +19,7 @@ form_form <-
 
     tmp_data <- eval_tidy(data)
 
-    if (is.name(formula))
+    if (is.name(formula) || is.call(formula))
       formula <- eval_tidy(formula)
 
     fit_args$formula <- formula
@@ -218,9 +218,9 @@ xy_form <- function(object, x, y, control, ...) {
 NULL
 
 get_descr_form <- function(formula, data) {
-  if(is.name(formula))
+  if(is.name(formula) || is.call(formula))
     formula <- eval_tidy(formula)
-  if(is.name(data))
+  if(is.name(data) || is.call(data))
     data <- eval_tidy(data)
 
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
@@ -245,9 +245,9 @@ get_descr_form <- function(formula, data) {
 
 
 get_descr_xy <- function(x, y) {
-  if(is.name(x))
+  if(is.name(x) || is.call(x))
     x <- eval_tidy(x)
-  if(is.name(y))
+  if(is.name(y) || is.call(y))
     x <- eval_tidy(y)
 
   if(is.factor(y)) {
