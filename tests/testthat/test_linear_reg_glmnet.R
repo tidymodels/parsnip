@@ -1,10 +1,10 @@
 library(testthat)
 library(parsnip)
 library(rlang)
+library(glmnet)
 
 ###################################################################
 
-iris_form <- as.formula(Sepal.Length ~ log(Sepal.Width) + Species)
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- linear_reg(regularization = .1, mixture = .3)
@@ -61,14 +61,14 @@ test_that('glmnet prediction, single lambda', {
   uni_pred <-
     predict(res_xy$fit,
             newx = as.matrix(iris[1:5, num_pred]),
-            s = iris_basic$args$regularization)
+            s = iris_basic$spec$args$regularization)
   uni_pred <- unname(uni_pred[,1])
 
   expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
-    iris_form,
+    Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
     engine = "glmnet",
     control = ctrl
@@ -80,7 +80,7 @@ test_that('glmnet prediction, single lambda', {
   form_pred <-
     predict(res_form$fit,
             newx = form_pred,
-            s = res_form$spec$args$regularization)
+            s = res_form$spec$spec$args$regularization)
   form_pred <- unname(form_pred[,1])
   expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
@@ -101,16 +101,16 @@ test_that('glmnet prediction, multiple lambda', {
   mult_pred <-
     predict(res_xy$fit,
             newx = as.matrix(iris[1:5, num_pred]),
-            s = iris_mult$args$regularization)
+            s = res_xy$spec$args$regularization)
   mult_pred <- stack(as.data.frame(mult_pred))
-  mult_pred$lambda <- rep(iris_mult$args$regularization, each = 5)
+  mult_pred$lambda <- rep(res_xy$spec$args$regularization, each = 5)
   mult_pred <- mult_pred[,-2]
 
   expect_equal(mult_pred, predict(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_mult,
-    iris_form,
+    Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
     engine = "glmnet",
     control = ctrl
@@ -123,7 +123,9 @@ test_that('glmnet prediction, multiple lambda', {
     predict(res_form$fit,
             newx = form_mat,
             s = res_form$spec$args$regularization)
-  form_pred <- unname(form_pred[,1])
+  form_pred <- stack(as.data.frame(form_pred))
+  form_pred$lambda <- rep(res_form$spec$args$regularization, each = 5)
+  form_pred <- form_pred[,-2]
   expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
@@ -154,7 +156,7 @@ test_that('glmnet prediction, all lambda', {
 
   res_form <- fit(
     iris_all,
-    iris_form,
+    Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
     engine = "glmnet",
     control = ctrl

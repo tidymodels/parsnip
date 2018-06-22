@@ -2,8 +2,6 @@ library(testthat)
 library(parsnip)
 library(rlang)
 
-#TODO add spark test cases (in another file that is ignored on build?)
-
 test_that('primary arguments', {
   basic <- linear_reg()
   basic_lm <- translate(basic, engine = "lm")
@@ -191,7 +189,6 @@ test_that('bad input', {
 
 ###################################################################
 
-iris_form <- as.formula(Sepal.Length ~ log(Sepal.Width) + Species)
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- linear_reg()
@@ -206,7 +203,7 @@ test_that('lm execution', {
   # expect_error(
   #   res <- fit(
   #     iris_basic,
-  #     iris_form,
+  #     Sepal.Length ~ log(Sepal.Width) + Species,
   #     data = iris,
   #     control = ctrl,
   #     engine = "lm"
@@ -262,7 +259,7 @@ test_that('lm execution', {
 test_that('lm prediction', {
   uni_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris)
   uni_pred <- unname(predict(uni_lm, newdata = iris[1:5, ]))
-  inl_lm <- lm(iris_form, data = iris)
+  inl_lm <- lm(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
   inl_pred <- unname(predict(inl_lm, newdata = iris[1:5, ]))
   mv_lm <- lm(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
   mv_pred <- as.data.frame(predict(mv_lm, newdata = iris[1:5, ]))
@@ -279,7 +276,7 @@ test_that('lm prediction', {
 
   res_form <- fit(
     iris_basic,
-    iris_form,
+    Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
     engine = "lm",
     control = ctrl
