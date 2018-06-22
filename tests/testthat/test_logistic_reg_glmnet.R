@@ -55,7 +55,7 @@ test_that('glmnet prediction, one lambda', {
     predict(xy_fit$fit,
             newx = as.matrix(lending_club[1:7, num_pred]),
             s = xy_fit$spec$args$regularization, type = "response")
-  uni_pred <- predict(xy_fit$fit, newx = lending_club[1:7, num_pred], type = "response")
+  uni_pred <- predict(xy_fit$fit, newx = as.matrix(lending_club[1:7, num_pred]), type = "response")
   uni_pred <- ifelse(uni_pred >= 0.5, "good", "bad")
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
