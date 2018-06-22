@@ -15,31 +15,23 @@ predict_class.model_fit <- function (object, newdata, ...) {
   if(object$spec$mode != "classification")
     stop("`predict.model_fit` is for predicting factor outcomes.",
          call. = FALSE)
-  fit_interface <- object$spec$method$fit$interface
 
-  if (!all(is.na(object$preproc))) {
-    # Translation code
-    if (fit_interface == "formula") {
-      newdata <- convert_xy_to_form_new(object$preproc, newdata)
-    } else {
-      newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
-    }
-  }
-
-  # preprocess data
-  if(!is.null(object$spec$method$pred$pre)) {
-    newdata <- object$spec$method$pred$pre(newdata, object)
-  }
+  newdata <- prepare_data(object, newdata)
 
   # create prediction call
-  pred_call <- make_pred_call(object$spec$method$pred)
+  pred_call <- make_pred_call(object$spec$method$classes)
 
   res <- eval_tidy(pred_call)
-  # post-process the predictions
 
-  if(!is.null(object$spec$method$pred$post)) {
-    res <- object$spec$method$pred$post(res, object)
+  # post-process the predictions
+  if(!is.null(object$spec$method$classes$post)) {
+    res <- object$spec$method$classes$post(res, object)
   }
+
+  # coerce levels to those in `object`
+  if(is.vector(res))
+    res <- factor(as.character(res), levels = object$lvl) else
+      res$values <- factor(as.character(res$values), levels = object$lvl)
 
   res
 }

@@ -33,8 +33,21 @@ rand_forest_ranger_fit <-
           verbose = FALSE,
           seed = expr(sample.int(10^5, 1))
         )
-    ), 
+    ),
     pred = list(
+      pre = NULL,
+      post = function(results, object) results$predictions,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          type = "response",
+          seed = sample.int(10^5, 1),
+          verbose = FALSE
+        )
+    ),
+    classes = list(
       pre = NULL,
       post = function(results, object) results$predictions,
       func = c(fun = "predict"),
@@ -60,6 +73,16 @@ rand_forest_randomForest_fit <-
         list()
     ),
     pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
+    ),
+    classes = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),

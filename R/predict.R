@@ -15,21 +15,8 @@ predict.model_fit <- function (object, newdata, ...) {
     stop("`predict.model_fit` is for predicting numeric outcomes.  ",
          "Use `predict_class` or `predict_prob` for ",
          "classification models.", call. = FALSE)
-  fit_interface <- object$spec$method$fit$interface
 
-  if (!all(is.na(object$preproc))) {
-    # Translation code
-    if (fit_interface == "formula") {
-      newdata <- convert_xy_to_form_new(object$preproc, newdata)
-    } else {
-      newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
-    }
-  }
-
-  # preprocess data
-  if (!is.null(object$spec$method$pred$pre)) {
-    newdata <- object$spec$method$pred$pre(newdata, object)
-  }
+  newdata <- prepare_data(object, newdata)
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred)
@@ -57,5 +44,24 @@ make_pred_call <- function(x) {
     cl <-   call2(x$func["fun"],!!!x$args)
 
   cl
+}
+
+prepare_data <- function(object, newdata) {
+  fit_interface <- object$spec$method$fit$interface
+
+  if (!all(is.na(object$preproc))) {
+    # Translation code
+    if (fit_interface == "formula") {
+      newdata <- convert_xy_to_form_new(object$preproc, newdata)
+    } else {
+      newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
+    }
+  }
+
+  # preprocess data
+  if (!is.null(object$spec$method$pred$pre)) {
+    newdata <- object$spec$method$pred$pre(newdata, object)
+  }
+  newdata
 }
 

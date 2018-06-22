@@ -20,6 +20,28 @@ logistic_reg_engines <- data.frame(
 
 ###################################################################
 
+prob_to_class_2 <- function(x, object) {
+  x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
+  unname(x)
+}
+
+organize_glmnet_class <- function(x, object) {
+  if (ncol(x) == 1) {
+    res <- prob_to_class_2(x[, 1], object)
+  } else {
+    n <- nrow(x)
+    res <- utils::stack(as.data.frame(x))
+    res$values <- prob_to_class_2(res$values, object)
+    if (!is.null(object$spec$args$regularization))
+      res$lambda <- rep(object$spec$args$regularization, each = n) else
+        res$lambda <- rep(object$fit$lambda, each = n)
+    res <- res[, colnames(res) %in% c("values", "lambda")]
+  }
+  res
+}
+
+###################################################################
+
 logistic_reg_glm_fit <-
   list(
     libs = "stats",
@@ -31,15 +53,15 @@ logistic_reg_glm_fit <-
         list(
           family = expr(binomial)
         )
-    ), 
-    pred = list(
+    ),
+    classes = list(
       pre = NULL,
-      post = NULL,
+      post = prob_to_class_2,
       func = c(fun = "predict"),
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
+          newdata = quote(newdata),
           type = "response"
         )
     )
@@ -56,6 +78,18 @@ logistic_reg_glmnet_fit <-
         list(
           family = "binomial"
         )
+    ),
+    classes = list(
+      pre = NULL,
+      post = organize_glmnet_class,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newx = quote(as.matrix(newdata)),
+          type = "response",
+          s = quote(object$spec$args$regularization)
+        )
     )
   )
 
@@ -69,6 +103,26 @@ logistic_reg_stan_fit <-
       alternates =
         list(
           family = expr(binomial)
+        )
+    ),
+    pred = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
+    ),
+    classes = list(
+      pre = NULL,
+      post = prob_to_class_2,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
         )
     )
   )
@@ -87,3 +141,5 @@ logistic_reg_spark_fit <-
         )
     )
   )
+
+
