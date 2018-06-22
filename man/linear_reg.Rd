@@ -72,6 +72,16 @@ following \emph{engines}:
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
 }
+
+When using \code{glmnet} models, there is the option to pass
+multiple values (or no values) to the \code{regularization} argument.
+This can have an effect on the model object results. When using
+the \code{predict} method in these cases, the return object type
+depends on the value of \code{regularization}. If a single value is
+given, the results will be a simple numeric vector. When
+multiple values or no values for \code{regularization} are used in
+\code{linear_reg}, the \code{predict} method will return a data frame with
+columns \code{values} and \code{lambda}.
 }
 \examples{
 linear_reg()

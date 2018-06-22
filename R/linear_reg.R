@@ -15,18 +15,6 @@
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.
-#'
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `linear_reg`,the
-#'  mode will always be "regression".
-#'
-#' The model can be created using the [fit()] function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"lm"` or `"glmnet"`
-#' \item \pkg{Stan}:  `"stan"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param others A named list of arguments to be used by the
@@ -42,6 +30,30 @@
 #'  (the lasso) (`glmnet` and `spark` only).
 #' @param ... Used for S3 method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
+#'
+#' @details
+#' The data given to the function are not saved and are only used
+#'  to determine the _mode_ of the model. For `linear_reg`,the
+#'  mode will always be "regression".
+#'
+#' The model can be created using the [fit()] function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"lm"` or `"glmnet"`
+#' \item \pkg{Stan}:  `"stan"`
+#' \item \pkg{Spark}: `"spark"`
+#' }
+#'
+#' When using `glmnet` models, there is the option to pass
+#'  multiple values (or no values) to the `regularization` argument.
+#'  This can have an effect on the model object results. When using
+#'  the `predict` method in these cases, the return object type
+#'  depends on the value of `regularization`. If a single value is
+#'  given, the results will be a simple numeric vector. When
+#'  multiple values or no values for `regularization` are used in
+#'  `linear_reg`, the `predict` method will return a data frame with
+#'  columns `values` and `lambda`.
+#'
 #' @seealso [varying()], [fit()]
 #' @examples
 #' linear_reg()
@@ -63,10 +75,12 @@ linear_reg <-
         call. = FALSE
       )
 
-    if (is.numeric(regularization) && regularization < 0)
+    if (all(is.numeric(regularization)) && any(regularization < 0))
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
+    if (length(mixture) > 1)
+      stop("Only one value of `mixture` is allowed.", call. = FALSE)
 
     args <- list(regularization = regularization, mixture = mixture)
 

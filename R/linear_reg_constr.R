@@ -20,6 +20,23 @@ linear_reg_engines <- data.frame(
 
 ###################################################################
 
+organize_glmnet_pred <- function(x, object) {
+  if (ncol(x) == 1) {
+    res <- x[, 1]
+    res <- unname(res)
+  } else {
+    n <- nrow(x)
+    res <- utils::stack(as.data.frame(x))
+    if (!is.null(object$spec$args$regularization))
+      res$lambda <- rep(object$spec$args$regularization, each = n) else
+        res$lambda <- rep(object$fit$lambda, each = n)
+    res <- res[, colnames(res) %in% c("values", "lambda")]
+  }
+  res
+}
+
+###################################################################
+
 linear_reg_lm_fit <-
   list(
     libs = "stats",
@@ -28,7 +45,7 @@ linear_reg_lm_fit <-
       protect = c("formula", "data", "weights"),
       func = c(pkg = "stats", fun = "lm"),
       alternates = list()
-    ), 
+    ),
     pred = list(
       pre = NULL,
       post = NULL,
@@ -36,7 +53,7 @@ linear_reg_lm_fit <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
+          newdata = quote(newdata),
           type = "response"
         )
     )
@@ -53,10 +70,10 @@ linear_reg_glmnet_fit <-
         list(
           family = "gaussian"
         )
-    ), 
+    ),
     pred = list(
       pre = NULL,
-      post = function(results, object) unname(results[,1]),
+      post = organize_glmnet_pred,
       func = c(fun = "predict"),
       args =
         list(
@@ -79,7 +96,7 @@ linear_reg_stan_fit <-
         list(
           family = "gaussian"
         )
-    ), 
+    ),
     pred = list(
       pre = NULL,
       post = NULL,
@@ -87,8 +104,7 @@ linear_reg_stan_fit <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
-          type = "response"
+          newdata = quote(newdata)
         )
     )
   )
@@ -104,3 +120,6 @@ linear_reg_spark_fit <-
       alternates = list()
     )
   )
+
+
+

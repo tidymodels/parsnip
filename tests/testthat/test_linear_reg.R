@@ -191,8 +191,8 @@ test_that('bad input', {
 
 ###################################################################
 
-iris_form <- as.formula(Sepal.Width ~ log(Sepal.Length) + Species)
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Width")
+iris_form <- as.formula(Sepal.Length ~ log(Sepal.Width) + Species)
+num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- linear_reg()
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
@@ -257,4 +257,41 @@ test_that('lm execution', {
     regexp = NA
   )
 
+})
+
+test_that('lm prediction', {
+  uni_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris)
+  uni_pred <- unname(predict(uni_lm, newdata = iris[1:5, ]))
+  inl_lm <- lm(iris_form, data = iris)
+  inl_pred <- unname(predict(inl_lm, newdata = iris[1:5, ]))
+  mv_lm <- lm(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
+  mv_pred <- as.data.frame(predict(mv_lm, newdata = iris[1:5, ]))
+
+  res_xy <- fit(
+    iris_basic,
+    x = iris[, num_pred],
+    y = iris$Sepal.Length,
+    engine = "lm",
+    control = ctrl
+  )
+
+  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred]))
+
+  res_form <- fit(
+    iris_basic,
+    iris_form,
+    data = iris,
+    engine = "lm",
+    control = ctrl
+  )
+  expect_equal(inl_pred, predict(res_form, iris[1:5, ]))
+
+  res_mv <- fit(
+    iris_basic,
+    cbind(Sepal.Width, Petal.Width) ~ .,
+    data = iris,
+    control = ctrl,
+    engine = "lm"
+  )
+  expect_equal(mv_pred, predict(res_mv, iris[1:5,]))
 })
