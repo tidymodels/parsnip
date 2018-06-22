@@ -277,32 +277,3 @@ test_that('nnet execution, regression', {
     regexp = NA
   )
 })
-
-test_that('keras execution', {
-  skip_on_cran()
-  skip_if_not_installed("keras")
-
-  # passes interactively but not on R CMD check
-  expect_error(
-    parsnip::fit(
-      car_basic,
-      car_form,
-      data = mtcars,
-      engine = "keras",
-      control = ctrl
-    ),
-    regexp = NA
-  )
-
-  expect_error(
-    parsnip::fit(
-      car_basic,
-      x = mtcars[, num_pred],
-      y = mtcars$mpg,
-      engine = "keras",
-      control = ctrl
-    ),
-    regexp = NA
-  )
-})
-
