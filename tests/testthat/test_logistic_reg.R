@@ -201,7 +201,6 @@ data("lending_club")
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
-lc_bad_form <- as.formula(funded_amnt ~ term)
 lc_basic <- logistic_reg()
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -234,7 +233,7 @@ test_that('glm execution', {
   expect_error(
     res <- fit(
       lc_basic,
-      lc_bad_form,
+      funded_amnt ~ term,
       data = lending_club,
       engine = "glm",
       control = ctrl
@@ -244,7 +243,7 @@ test_that('glm execution', {
   # passes interactively but not on R CMD check
   # glm_form_catch <- fit(
   #   lc_basic,
-  #   lc_bad_form,
+  #   funded_amnt ~ term,
   #   data = lending_club,
   #   engine = "glm",
   #   control = caught_ctrl
@@ -272,7 +271,7 @@ test_that('glm prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(res$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
   xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)

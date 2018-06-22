@@ -41,7 +41,7 @@ test_that('stan_glm execution', {
   expect_error(
     res <- fit(
       iris_basic,
-      iris_bad_form,
+      Species ~ term,
       data = iris,
       engine = "stan",
       control = ctrl
