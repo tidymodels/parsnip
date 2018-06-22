@@ -9,3 +9,4 @@ tests\testthat\test_logistic_reg_glmnet.R
 tests\testthat\test_logistic_reg_stan.R
 tests\testthat\test_rand_forest.R
 tests\testthat\test_surv_reg.R
+tests\testthat\test_mlp_reg.R
