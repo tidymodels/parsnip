@@ -20,9 +20,9 @@ predict.model_fit <- function (object, newdata, ...) {
   if (!all(is.na(object$preproc))) {
     # Translation code
     if (fit_interface == "formula") {
-      newdata <- parsnip:::convert_xy_to_form_new(object$preproc, newdata)
+      newdata <- convert_xy_to_form_new(object$preproc, newdata)
     } else {
-      newdata <- parsnip:::convert_form_to_xy_new(object$preproc, newdata)$x
+      newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
     }
   }
 
