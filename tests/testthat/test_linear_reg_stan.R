@@ -5,7 +5,6 @@ library(rstanarm)
 
 ###################################################################
 
-iris_form <- as.formula(Sepal.Width ~ log(Sepal.Length) + Species)
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- linear_reg()
@@ -21,7 +20,7 @@ test_that('stan_glm execution', {
   expect_error(
     res <- fit(
       iris_basic,
-      iris_form,
+      Sepal.Width ~ log(Sepal.Length) + Species,
       data = iris,
       control = ctrl,
       engine = "stan"
@@ -55,7 +54,7 @@ test_that('stan_glm execution', {
 test_that('stan prediction', {
   uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))
-  inl_stan <- stan_glm(iris_form, data = iris, seed = 123)
+  inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123)
   inl_pred <- unname(predict(inl_stan, newdata = iris[1:5, c("Sepal.Length", "Species")]))
 
   res_xy <- fit(
@@ -70,7 +69,7 @@ test_that('stan prediction', {
 
   res_form <- fit(
     iris_basic,
-    iris_form,
+    Sepal.Width ~ log(Sepal.Length) + Species,
     data = iris,
     engine = "stan",
     control = ctrl

@@ -261,121 +261,21 @@ test_that('glm execution', {
   expect_true(inherits(glm_xy_catch$fit, "try-error"))
 })
 
-test_that('glmnet execution', {
+test_that('glm prediction', {
   skip_on_cran()
 
-  # passes interactively but not on R CMD check
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     lc_form,
-  #     data = lending_club,
-  #     engine = "glmnet",
-  #     control = ctrl
-  #   ),
-  #   regexp = NA
-  # )
-
-  expect_error(
-    fit(
-      lc_basic,
-      engine = "glmnet",
-      control = ctrl,
-      x = lending_club[, num_pred],
-      y = lending_club$Class
-    ),
-    regexp = NA
-  )
-
-  # passes interactively but not on R CMD check
-  # expect_error(
-  #   fit(
-  #     lc_basic,
-  #     lc_bad_form,
-  #     data = lending_club,
-  #     engine = "glm",
-  #     control = ctrl
-  #   )
-  # )
-
-  # passes interactively but not on R CMD check
-  # glmnet_form_catch <- fit(
-  #   lc_basic,
-  #   lc_bad_form,
-  #   data = lending_club,
-  #   engine = "glmnet",
-  #   control = caught_ctrl
-  # )
-  # expect_true(inherits(glmnet_form_catch$fit, "try-error"))
-
-  glmnet_xy_catch <- fit(
+  classes_xy <- fit(
     lc_basic,
     x = lending_club[, num_pred],
-    y = lending_club$total_bal_il,
-    engine = "glmnet",
-    control = caught_ctrl
+    y = lending_club$Class,
+    engine = "glm",
+    control = ctrl
   )
-  expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
+
+  xy_pred <- predict(res$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
+  xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
+  xy_pred <- unname(xy_pred)
+  expect_equal(xy_pred, predict_class(classes_xy, lending_club[1:7, num_pred]))
 
 })
-
-
-test_that('stan_glm execution', {
-  skip_on_cran()
-  lc_basic_stan <- logistic_reg(others = list(seed = 1333))
-
-  # passes interactively but not on R CMD check
-  # expect_error(
-  #   res <- fit(
-  #     lc_basic_stan,
-  #     lc_form,
-  #     data = lending_club,
-  #     engine = "stan",
-  #     control = ctrl
-  #   ),
-  #   regexp = NA
-  # )
-
-  # passes interactively but not on R CMD check
-  # expect_error(
-  #   res <- fit(
-  #     lc_basic,
-  #     x = lending_club[, num_pred],
-  #     y = lending_club$Class,
-  #     engine = "stan",
-  #     control = ctrl
-  #   ),
-  #   regexp = NA
-  # )
-
-  expect_error(
-    res <- fit(
-      lc_basic,
-      lc_bad_form,
-      data = lending_club,
-      engine = "stan",
-      control = ctrl
-    )
-  )
-
-  # passes interactively but not on R CMD check
-  # stan_form_catch <- fit(
-  #   lc_basic,
-  #   lc_bad_form,
-  #   data = lending_club,
-  #   engine = "stan",
-  #   control = caught_ctrl
-  # )
-  # expect_true(inherits(stan_form_catch$fit, "try-error"))
-
-  stan_xy_catch <- fit(
-    lc_basic,
-    engine = "stan",
-    control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
-  )
-  expect_true(inherits(stan_xy_catch$fit, "try-error"))
-
-})
-
