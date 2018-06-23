@@ -2,8 +2,6 @@ library(testthat)
 library(parsnip)
 library(rlang)
 
-#TODO add spark test cases (in another file that is ignored on build?)
-
 test_that('primary arguments', {
   basic <- logistic_reg()
   basic_glm <- translate(basic, engine = "glm")
@@ -261,8 +259,6 @@ test_that('glm execution', {
 })
 
 test_that('glm prediction', {
-
-
   classes_xy <- fit(
     lc_basic,
     x = lending_club[, num_pred],
@@ -276,5 +272,23 @@ test_that('glm prediction', {
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
   expect_equal(xy_pred, predict_class(classes_xy, lending_club[1:7, num_pred]))
+
+})
+
+test_that('glm probabilities', {
+  classes_xy <- fit(
+    lc_basic,
+    x = lending_club[, num_pred],
+    y = lending_club$Class,
+    engine = "glm",
+    control = ctrl
+  )
+
+  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- tibble(bad = 1 - xy_pred, good = xy_pred)
+  expect_equal(xy_pred, predict_classprob(classes_xy, lending_club[1:7, num_pred]))
+
+  one_row <- predict_classprob(classes_xy, lending_club[1, num_pred])
+  expect_equal(xy_pred[1,], one_row)
 
 })

@@ -40,6 +40,22 @@ organize_glmnet_class <- function(x, object) {
   res
 }
 
+organize_glmnet_prob <- function(x, object) {
+  if (ncol(x) == 1) {
+    res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+    colnames(res) <- object$lvl
+  } else {
+    n <- nrow(x)
+    res <- utils::stack(as.data.frame(x))
+    res <- tibble(v1 = 1 - res$values, v2 = res$values)
+    colnames(res) <- object$lvl
+    if (!is.null(object$spec$args$regularization))
+      res$lambda <- rep(object$spec$args$regularization, each = n) else
+        res$lambda <- rep(object$fit$lambda, each = n)
+  }
+  res
+}
+
 ###################################################################
 
 logistic_reg_glm_fit <-
@@ -57,6 +73,21 @@ logistic_reg_glm_fit <-
     classes = list(
       pre = NULL,
       post = prob_to_class_2,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          type = "response"
+        )
+    ),
+    prob = list(
+      pre = NULL,
+      post = function(x, object) {
+        x <- tibble(v1 = 1 - x, v2 = x)
+        colnames(x) <- object$lvl
+        x
+      },
       func = c(fun = "predict"),
       args =
         list(
@@ -82,6 +113,18 @@ logistic_reg_glmnet_fit <-
     classes = list(
       pre = NULL,
       post = organize_glmnet_class,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newx = quote(as.matrix(newdata)),
+          type = "response",
+          s = quote(object$spec$args$regularization)
+        )
+    ),
+    prob = list(
+      pre = NULL,
+      post = organize_glmnet_prob,
       func = c(fun = "predict"),
       args =
         list(

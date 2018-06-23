@@ -1,6 +1,7 @@
 library(testthat)
 library(parsnip)
 library(rlang)
+library(tibble)
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
@@ -14,7 +15,6 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 
 test_that('glmnet execution', {
-
 
   expect_error(
     fit(
@@ -38,11 +38,7 @@ test_that('glmnet execution', {
 
 })
 
-
-
 test_that('glmnet prediction, one lambda', {
-
-
   xy_fit <- fit(
     logistic_reg(regularization = 0.1),
     engine = "glmnet",
@@ -86,8 +82,6 @@ test_that('glmnet prediction, one lambda', {
 
 
 test_that('glmnet prediction, mulitiple lambda', {
-
-
   xy_fit <- fit(
     logistic_reg(regularization = c(0.01, 0.1)),
     engine = "glmnet",
@@ -134,7 +128,6 @@ test_that('glmnet prediction, mulitiple lambda', {
 
 test_that('glmnet prediction, no lambda', {
 
-
   xy_fit <- fit(
     logistic_reg(others = list(nlambda =  11)),
     engine = "glmnet",
@@ -176,5 +169,131 @@ test_that('glmnet prediction, no lambda', {
   form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
   form_pred <- form_pred[, -2]
   expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
+})
+
+
+test_that('glmnet probabilities, one lambda', {
+  xy_fit <- fit(
+    logistic_reg(regularization = 0.1),
+    engine = "glmnet",
+    control = ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$Class
+  )
+
+  uni_pred <-
+    predict(xy_fit$fit,
+            newx = as.matrix(lending_club[1:7, num_pred]),
+            s = xy_fit$spec$args$regularization, type = "response")[,1]
+  uni_pred <- tibble(bad = 1 - uni_pred, good = uni_pred)
+
+  expect_equal(uni_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+
+  res_form <- fit(
+    logistic_reg(regularization = 0.1),
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "glmnet",
+    control = ctrl
+  )
+
+  form_mat <- model.matrix(Class ~ log(funded_amnt) + int_rate, data = lending_club)
+  form_mat <- form_mat[1:7, -1]
+
+  form_pred <-
+    predict(res_form$fit,
+            newx = form_mat,
+            s = res_form$spec$args$regularization, type = "response")[, 1]
+  form_pred <- tibble(bad = 1 - form_pred, good = form_pred)
+  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
+  one_row <- predict_classprob(res_form, lending_club[1, c("funded_amnt", "int_rate")])
+  expect_equal(form_pred[1,], one_row)
+
+})
+
+test_that('glmnet probabilities, mulitiple lambda', {
+  xy_fit <- fit(
+    logistic_reg(regularization = c(0.01, 0.1)),
+    engine = "glmnet",
+    control = ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$Class
+  )
+
+  mult_pred <-
+    predict(xy_fit$fit,
+            newx = as.matrix(lending_club[1:7, num_pred]),
+            s = xy_fit$spec$args$regularization, type = "response")
+  mult_pred <- stack(as.data.frame(mult_pred))
+  mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
+  mult_pred$lambda <- rep(xy_fit$spec$args$regularization, each = 7)
+
+  expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+
+  res_form <- fit(
+    logistic_reg(regularization = c(0.01, 0.1)),
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "glmnet",
+    control = ctrl
+  )
+
+  form_mat <- model.matrix(Class ~ log(funded_amnt) + int_rate, data = lending_club)
+  form_mat <- form_mat[1:7, -1]
+
+  form_pred <-
+    predict(res_form$fit,
+            newx = form_mat,
+            s = res_form$spec$args$regularization, type = "response")
+  form_pred <- stack(as.data.frame(form_pred))
+  form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
+  form_pred$lambda <- rep(res_form$spec$args$regularization, each = 7)
+
+  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
+})
+
+
+test_that('glmnet probabilities, no lambda', {
+  xy_fit <- fit(
+    logistic_reg(),
+    engine = "glmnet",
+    control = ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$Class
+  )
+
+  mult_pred <-
+    predict(xy_fit$fit,
+            newx = as.matrix(lending_club[1:7, num_pred]),
+            type = "response")
+  mult_pred <- stack(as.data.frame(mult_pred))
+  mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
+  mult_pred$lambda <- rep(xy_fit$fit$lambda, each = 7)
+
+  expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+
+  res_form <- fit(
+    logistic_reg(),
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "glmnet",
+    control = ctrl
+  )
+
+  form_mat <- model.matrix(Class ~ log(funded_amnt) + int_rate, data = lending_club)
+  form_mat <- form_mat[1:7, -1]
+
+  form_pred <-
+    predict(res_form$fit,
+            newx = form_mat,
+            type = "response")
+  form_pred <- stack(as.data.frame(form_pred))
+  form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
+  form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
+
+  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
