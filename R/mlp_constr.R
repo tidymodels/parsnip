@@ -28,8 +28,38 @@ mlp_keras_fit <-
     ),
     pred = list(
       pre = NULL,
-      post = NULL,
+      post = function(x, object) {
+        if (ncol(x) == 1)
+          x <- x[,1]
+        x
+      },
       func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(newdata))
+        )
+    ),
+    classes = list(
+      pre = NULL,
+      post = function(x, object) {
+        object$lvl[x + 1]
+      },
+      func = c(fun = "predict_classes"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(newdata))
+        )
+    ),
+    prob = list(
+      pre = NULL,
+      post = function(x, object) {
+        x <- as_tibble(x)
+        colnames(x) <- object$lvl
+        x
+      },
+      func = c(fun = "predict_proba"),
       args =
         list(
           object = quote(object$fit),
@@ -95,7 +125,6 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
     require(keras)
-    on.exit(keras::backend()$clear_session())
 
     if(decay > 0 & dropout > 0)
       stop("Please use either dropoput or weight decay.", call. = FALSE)
