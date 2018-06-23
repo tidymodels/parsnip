@@ -29,7 +29,7 @@ predict_class.model_fit <- function (object, newdata, ...) {
   }
 
   # coerce levels to those in `object`
-  if(is.vector(res))
+  if(is.vector(res) || is.factor(res))
     res <- factor(as.character(res), levels = object$lvl) else
       res$values <- factor(as.character(res$values), levels = object$lvl)
 
