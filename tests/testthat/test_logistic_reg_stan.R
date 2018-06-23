@@ -2,24 +2,34 @@ library(testthat)
 library(parsnip)
 library(rlang)
 
+context("execution tests for stan logistic regression")
+
+
 data("lending_club")
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
-lc_bad_form <- as.formula(funded_amnt ~ term)
-lc_basic <- logistic_reg()
+lc_basic <- logistic_reg(others = list(seed = 1333, chains = 1))
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
+xy_fit <- fit(
+  logistic_reg(others = list(seed =  11, chains = 1)),
+  engine = "stan",
+  control = ctrl,
+  x = lending_club[, num_pred],
+  y = lending_club$Class
+)
+
+print(xy_fit)
+
 test_that('stan_glm execution', {
-  skip_on_cran()
-  lc_basic_stan <- logistic_reg(others = list(seed = 1333))
 
   expect_error(
     res <- fit(
       lc_basic,
-      lc_bad_form,
+      funded_amnt ~ term,
       data = lending_club,
       engine = "stan",
       control = ctrl
@@ -39,10 +49,9 @@ test_that('stan_glm execution', {
 
 
 test_that('stan_glm prediction', {
-  skip_on_cran()
 
   xy_fit <- fit(
-    logistic_reg(others = list(seed =  11)),
+    logistic_reg(others = list(seed =  11, chains = 1)),
     engine = "stan",
     control = ctrl,
     x = lending_club[, num_pred],
@@ -59,7 +68,7 @@ test_that('stan_glm prediction', {
   expect_equal(xy_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(others = list(seed =  11)),
+    logistic_reg(others = list(seed =  11, chains = 1)),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
     engine = "stan",

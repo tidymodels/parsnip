@@ -91,7 +91,7 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('flexsurv execution', {
-  skip_on_cran()
+
 
   # passes interactively but not on R CMD check
   expect_error(

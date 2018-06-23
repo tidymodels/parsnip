@@ -1,3 +1,5 @@
+context("execution tests for stan linear regression")
+
 library(testthat)
 library(parsnip)
 library(rlang)
@@ -7,14 +9,12 @@ library(rstanarm)
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg()
+iris_basic <- linear_reg(others = list(seed = 10, chains = 1))
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('stan_glm execution', {
-  skip_on_cran()
-  iris_basic_stan <- linear_reg(others = list(seed = 1333))
 
   # passes interactively but not on R CMD check
   expect_error(
@@ -54,11 +54,11 @@ test_that('stan_glm execution', {
 test_that('stan prediction', {
   uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))
-  inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123)
+  inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)
   inl_pred <- unname(predict(inl_stan, newdata = iris[1:5, c("Sepal.Length", "Species")]))
 
   res_xy <- fit(
-    linear_reg(others = list(seed = 123)),
+    linear_reg(others = list(seed = 123, chains = 1)),
     x = iris[, num_pred],
     y = iris$Sepal.Length,
     engine = "stan",

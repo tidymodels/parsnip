@@ -14,7 +14,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 
 test_that('glmnet execution', {
-  skip_on_cran()
+
 
   expect_error(
     fit(
@@ -41,7 +41,7 @@ test_that('glmnet execution', {
 
 
 test_that('glmnet prediction, one lambda', {
-  skip_on_cran()
+
 
   xy_fit <- fit(
     logistic_reg(regularization = 0.1),
@@ -86,7 +86,7 @@ test_that('glmnet prediction, one lambda', {
 
 
 test_that('glmnet prediction, mulitiple lambda', {
-  skip_on_cran()
+
 
   xy_fit <- fit(
     logistic_reg(regularization = c(0.01, 0.1)),
@@ -133,7 +133,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 })
 
 test_that('glmnet prediction, no lambda', {
-  skip_on_cran()
+
 
   xy_fit <- fit(
     logistic_reg(others = list(nlambda =  11)),

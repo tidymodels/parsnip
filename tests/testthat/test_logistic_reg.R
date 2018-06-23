@@ -207,7 +207,7 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glm execution', {
-  skip_on_cran()
+
 
   # passes interactively but not on R CMD check
   # expect_error(
@@ -261,7 +261,7 @@ test_that('glm execution', {
 })
 
 test_that('glm prediction', {
-  skip_on_cran()
+
 
   classes_xy <- fit(
     lc_basic,
