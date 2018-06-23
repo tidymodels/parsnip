@@ -1,8 +1,5 @@
 library(testthat)
 library(parsnip)
-
-cat("`nnet` installed? ", any(rownames(installed.packages()) == "nnet"), "\n")
-
 library(nnet)
 
 
@@ -18,9 +15,9 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 
 test_that('nnet execution, classification', {
-  
+
   skip_if_not_installed("nnet")
-  
+
   expect_error(
     res <- parsnip::fit(
       iris_nnet,
@@ -41,7 +38,7 @@ test_that('nnet execution, classification', {
     ),
     regexp = NA
   )
-  
+
   expect_error(
     res <- parsnip::fit(
       iris_nnet,
@@ -62,11 +59,11 @@ test_that('nnet classification prediction', {
     engine = "nnet",
     control = ctrl
   )
-  
+
   xy_pred <- predict(xy_fit$fit, newdata = iris[1:8, num_pred], type = "class")
   xy_pred <- factor(xy_pred, levels = levels(iris$Species))
   expect_equal(xy_pred, predict_class(xy_fit, newdata = iris[1:8, num_pred]))
-  
+
   form_fit <- fit(
     iris_nnet,
     Species ~ .,
@@ -74,7 +71,7 @@ test_that('nnet classification prediction', {
     engine = "nnet",
     control = ctrl
   )
-  
+
   form_pred <- predict(form_fit$fit, newdata = iris[1:8, num_pred], type = "class")
   form_pred <- factor(form_pred, levels = levels(iris$Species))
   expect_equal(form_pred, predict_class(form_fit, newdata = iris[1:8, num_pred]))
@@ -97,9 +94,9 @@ caught_ctrl <- list(verbosity = 1, catch = TRUE)
 quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 test_that('nnet execution, regression', {
-  
+
   skip_if_not_installed("nnet")
-  
+
   expect_error(
     res <- parsnip::fit(
       car_basic,
@@ -110,7 +107,7 @@ test_that('nnet execution, regression', {
     ),
     regexp = NA
   )
-  
+
   expect_error(
     res <- parsnip::fit(
       car_basic,
@@ -133,11 +130,11 @@ test_that('nnet regression prediction', {
     engine = "nnet",
     control = ctrl
   )
-  
+
   xy_pred <- predict(xy_fit$fit, newdata = mtcars[1:8, -1])[,1]
   xy_pred <- unname(xy_pred)
   expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, -1]))
-  
+
   form_fit <- fit(
     car_basic,
     mpg ~ .,
@@ -145,7 +142,7 @@ test_that('nnet regression prediction', {
     engine = "nnet",
     control = ctrl
   )
-  
+
   form_pred <- predict(form_fit$fit, newdata = mtcars[1:8, -1])[,1]
   form_pred <- unname(form_pred)
   expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, -1]))
