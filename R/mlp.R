@@ -194,6 +194,9 @@ translate.mlp <- function(x, engine, ...) {
     if (x$mode == "classification") {
       if (length(x$others) == 0  || !any(names(x$others) == "linout"))
         x$method$fit$args$linout <- FALSE
+    } else {
+      if (length(x$others) == 0  || !any(names(x$others) == "linout"))
+        x$method$fit$args$linout <- TRUE
     }
   }
   x

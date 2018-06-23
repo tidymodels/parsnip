@@ -25,7 +25,7 @@ mlp_keras_fit <-
       protect = c("x", "y"),
       func = c(pkg = "parsnip", fun = "keras_mlp"),
       alternates = list()
-    ), 
+    ),
     pred = list(
       pre = NULL,
       post = NULL,
@@ -46,7 +46,7 @@ mlp_nnet_fit <-
       protect = c("formula", "data", "weights"),
       func = c(pkg = "nnet", fun = "nnet"),
       alternates = list(trace = FALSE)
-    ), 
+    ),
     pred = list(
       pre = NULL,
       post = function(results, object) unname(results[,1]),
@@ -56,6 +56,17 @@ mlp_nnet_fit <-
           object = quote(object$fit),
           newdata = quote(newdata),
           type = "raw"
+        )
+    ),
+    classes = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          type = "class"
         )
     )
   )
@@ -85,22 +96,22 @@ keras_mlp <-
            ...) {
     require(keras)
     on.exit(keras::backend()$clear_session())
-    
+
     if(decay > 0 & dropout > 0)
       stop("Please use either dropoput or weight decay.", call. = FALSE)
-    
+
     if (!is.matrix(x))
       x <- as.matrix(x)
 
     if(is.character(y))
       y <- as.factor(y)
     factor_y <- is.factor(y)
-    
+
     if (factor_y)
       y <- class2ind(y)
     else
       y <- matrix(y, ncol = 1)
-    
+
     model <- keras_model_sequential()
     if(decay > 0) {
       model %>%
@@ -110,7 +121,7 @@ keras_mlp <-
           input_shape = ncol(x),
           kernel_regularizer = regularizer_l2(decay),
           kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
-        ) 
+        )
     } else {
       model %>%
         layer_dense(
@@ -118,9 +129,9 @@ keras_mlp <-
           activation = act,
           input_shape = ncol(x),
           kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
-        ) 
+        )
     }
-    if(dropout > 0) 
+    if(dropout > 0)
       model %>%
       layer_dense(
         units = units,
@@ -133,14 +144,14 @@ keras_mlp <-
     if (factor_y)
       model <- model %>%
       layer_dense(
-        units = ncol(y), 
+        units = ncol(y),
         activation = 'softmax',
         kernel_initializer = initializer_glorot_uniform(seed = seeds[3])
       )
     else
       model <- model %>%
       layer_dense(
-        units = 1, 
+        units = 1,
         activation = 'linear',
         kernel_initializer = initializer_glorot_uniform(seed = seeds[3])
       )
@@ -149,24 +160,24 @@ keras_mlp <-
     compile_call <- expr(
       keras::compile(object = model)
     )
-    if(!any(names(arg_values$compile) == "loss")) 
-      compile_call$loss <- 
+    if(!any(names(arg_values$compile) == "loss"))
+      compile_call$loss <-
       if(factor_y) "binary_crossentropy" else "mse"
-    if(!any(names(arg_values$compile) == "optimizer")) 
+    if(!any(names(arg_values$compile) == "optimizer"))
       compile_call$optimizer <- "adam"
-    for(arg in names(arg_values$compile)) 
+    for(arg in names(arg_values$compile))
       compile_call[[arg]] <- arg_values$compile[[arg]]
-        
+
     model <- eval_tidy(compile_call)
 
     fit_call <- expr(
       keras::fit(object = model)
     )
     fit_call$x <- quote(x)
-    fit_call$y <- quote(y)    
+    fit_call$y <- quote(y)
     fit_call$epochs <- epochs
-    for(arg in names(arg_values$fit)) 
-      fit_call[[arg]] <- arg_values$fit[[arg]]    
+    for(arg in names(arg_values$fit))
+      fit_call[[arg]] <- arg_values$fit[[arg]]
 
     history <- eval_tidy(fit_call)
     model
@@ -199,14 +210,14 @@ parse_keras_args <- function(...) {
   )
   dots <- list(...)
   dots <- dots[!(names(dots) %in% exclusions)]
-  
+
   list(
-    fit = dots[names(dots) %in% fit_args], 
+    fit = dots[names(dots) %in% fit_args],
     compile = dots[names(dots) %in% compile_args]
   )
 }
 
-mlp_num_weights <- function(p, units, classes) 
+mlp_num_weights <- function(p, units, classes)
  ((p+1) * units) + ((units+1) * classes)
 
 
