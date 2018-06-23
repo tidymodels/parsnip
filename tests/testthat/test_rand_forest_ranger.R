@@ -100,7 +100,7 @@ test_that('ranger classification prediction', {
 })
 
 
-test_that('randomForest classification probabilities', {
+test_that('ranger classification probabilities', {
   xy_fit <- fit(
     rand_forest(mode = "classification", others = list(probability = TRUE, seed = 3566)),
     x = lending_club[, num_pred],
