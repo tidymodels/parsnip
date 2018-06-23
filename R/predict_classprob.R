@@ -16,6 +16,9 @@ predict_classprob.model_fit <- function (object, newdata, ...) {
     stop("`predict.model_fit` is for predicting factor outcomes.",
          call. = FALSE)
   
+  if (!any(names(object$spec$method) == "prob"))
+    stop("No class probability module defined for this model.", call. = FALSE)
+  
   newdata <- prepare_data(object, newdata)
   
   # preprocess data

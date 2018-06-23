@@ -16,6 +16,9 @@ predict.model_fit <- function (object, newdata, ...) {
          "Use `predict_class` or `predict_prob` for ",
          "classification models.", call. = FALSE)
 
+  if (!any(names(object$spec$method) == "pred"))
+    stop("No prediction module defined for this model.", call. = FALSE)
+
   newdata <- prepare_data(object, newdata)
 
   # preprocess data

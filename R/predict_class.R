@@ -16,6 +16,9 @@ predict_class.model_fit <- function (object, newdata, ...) {
     stop("`predict.model_fit` is for predicting factor outcomes.",
          call. = FALSE)
 
+  if (!any(names(object$spec$method) == "classes"))
+    stop("No class prediction module defined for this model.", call. = FALSE)
+
   newdata <- prepare_data(object, newdata)
 
   # preprocess data
