@@ -18,6 +18,10 @@ predict_class.model_fit <- function (object, newdata, ...) {
 
   newdata <- prepare_data(object, newdata)
 
+  # preprocess data
+  if (!is.null(object$spec$method$classes$pre))
+    newdata <- object$spec$method$classes$pre(newdata, object)
+
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$classes)
 

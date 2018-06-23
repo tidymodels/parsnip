@@ -18,6 +18,10 @@ predict.model_fit <- function (object, newdata, ...) {
 
   newdata <- prepare_data(object, newdata)
 
+  # preprocess data
+  if (!is.null(object$spec$method$pred$pre))
+    newdata <- object$spec$method$pred$pre(newdata, object)
+
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred)
 
@@ -58,10 +62,6 @@ prepare_data <- function(object, newdata) {
     }
   }
 
-  # preprocess data
-  if (!is.null(object$spec$method$pred$pre)) {
-    newdata <- object$spec$method$pred$pre(newdata, object)
-  }
   newdata
 }
 
