@@ -17,7 +17,7 @@ predict_classprob(object, ...)
 \item{...}{Arguments to pass to other methods (not currently used).}
 }
 \value{
-An tibble with columns for each class.
+A tibble with columns for each class.
 }
 \description{
 Apply a model to create class probability predictions when the outcome is
