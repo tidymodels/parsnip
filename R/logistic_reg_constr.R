@@ -148,9 +148,13 @@ logistic_reg_stan_fit <-
           family = expr(binomial)
         )
     ),
-    pred = list(
+    classes = list(
       pre = NULL,
-      post = NULL,
+      post = function(x, object) {
+        x <- object$fit$family$linkinv(x)
+        x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
+        unname(x)
+      },
       func = c(fun = "predict"),
       args =
         list(
@@ -158,9 +162,14 @@ logistic_reg_stan_fit <-
           newdata = quote(newdata)
         )
     ),
-    classes = list(
+    prob = list(
       pre = NULL,
-      post = prob_to_class_2,
+      post = function(x, object) {
+        x <- object$fit$family$linkinv(x)
+        x <- tibble(v1 = 1 - x, v2 = x)
+        colnames(x) <- object$lvl
+        x
+      },
       func = c(fun = "predict"),
       args =
         list(
