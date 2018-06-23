@@ -62,8 +62,8 @@ rand_forest_ranger_fit <-
     ),
     prob = list(
       pre = function(x, object) {
-        if (is.matrix(object$fit$predictions))
-          stop("`ranger model does not appear to use class probabilities. Was ",
+        if (object$fit$forest$treetype != "Probability estimation")
+          stop("`ranger` model does not appear to use class probabilities. Was ",
                "the model fit with `probability = TRUE`?",
                call. = FALSE)
         x
