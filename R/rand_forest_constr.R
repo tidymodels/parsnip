@@ -59,6 +59,27 @@ rand_forest_ranger_fit <-
           seed = sample.int(10^5, 1),
           verbose = FALSE
         )
+    ),
+    prob = list(
+      pre = function(x, object) {
+        if (is.matrix(object$fit$predictions))
+          stop("`ranger model does not appear to use class probabilities. Was ",
+               "the model fit with `probability = TRUE`?",
+               call. = FALSE)
+        x
+      },
+      post = function(x, object) {
+        x <- x$prediction
+        as_tibble(x)
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata),
+          seed = sample.int(10^5, 1),
+          verbose = FALSE
+        )
     )
   )
 
@@ -90,6 +111,19 @@ rand_forest_randomForest_fit <-
         list(
           object = quote(object$fit),
           newdata = quote(newdata)
+        )
+    ),
+    prob = list(
+      pre = NULL,
+      post = function(x, object) {
+        as_tibble(x)
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          type = "prob"
         )
     )
   )
