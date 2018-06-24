@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A Placeholder Function for Argument Values — varying • parsnip</title>
+<title>Model Predictions — predict.model_fit • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="A Placeholder Function for Argument Values — varying" />
+<meta property="og:title" content="Model Predictions — predict.model_fit" />
 
-<meta property="og:description" content="varying() is used when a parameter will be specified at a later date." />
+<meta property="og:description" content="Apply a model to create different types of predictions. predict is used
+when the outcome is a simple number. For classification models,
+predict_class and  predict_classprob can be used." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,25 +102,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A Placeholder Function for Argument Values</h1>
+    <h1>Model Predictions</h1>
     
-    <div class="hidden name"><code>varying.Rd</code></div>
+    <div class="hidden name"><code>predict.model_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>varying()</code> is used when a parameter will be specified at a later date.</p>
+    <p>Apply a model to create different types of predictions. <code>predict</code> is used
+when the outcome is a simple number. For classification models,
+<code>predict_class</code> and  <code>predict_classprob</code> can be used.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>varying</span>()</pre>
-        
+    <pre class="usage"><span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>An object of class <code>model_fit</code></p></td>
+    </tr>
+    <tr>
+      <th>newdata</th>
+      <td><p>A rectangular data object, such as a data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments to pass to other methods (not currently used).</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>predict</code> returns an unnamed numeric vector. <code>predict_class</code> returns
+a factor variable and <code>predict_classprob</code> generates a tibble with a column
+for each class level.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

@@ -16,6 +16,7 @@ reference:
       - mlp
   - title: Infrastructure
     contents:
+      - predict.model_fit
       - translate
       - fit
       - fit_control
@@ -29,6 +30,10 @@ navbar:
   left:
   - text: Basic Usage 
     href: articles/parsnip_Intro.html   
+  - text: "Articles"
+    menu:
+     - text: Regression Modeling
+       href: articles/articles/Regression.html 
   - text: Reference
     href: reference/index.html
 

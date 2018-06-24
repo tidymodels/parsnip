@@ -1,13 +1,5 @@
-#' Classification Model Predictions
-#'
-#' Apply a model to create predictions when the outcome is
-#' qualitative.
-#'
-#' @param object An object of class `model_fit`
-#' @param newdata A rectangular data object, such as a data frame.
-#' @param ... Arguments to pass to other methods (not currently used).
-#' @return An unnamed factor vector of predictions with the same
-#' levels as the original outcome.
+#' @rdname predict.model_fit
+#' @inheritParams predict.model_fit
 #' @method predict_class model_fit
 #' @export predict_class.model_fit
 #' @export
@@ -44,6 +36,7 @@ predict_class.model_fit <- function (object, newdata, ...) {
 }
 
 #' @export
-#' @rdname predict_class.model_fit
+#' @rdname predict.model_fit
+#' @inheritParams predict.model_fit
 predict_class <- function (object, ...)
   UseMethod("predict_class")

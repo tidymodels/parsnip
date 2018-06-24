@@ -83,6 +83,18 @@ in lieu of recreating the object from scratch." />
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/articles/Regression.html">Regression Modeling</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -193,6 +205,15 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
+    <p>When using <code>glmnet</code> models, there is the option to pass
+multiple values (or no values) to the <code>regularization</code> argument.
+This can have an effect on the model object results. When using
+the <code>predict</code> method in these cases, the return object type
+depends on the value of <code>regularization</code>. If a single value is
+given, the results will be a simple numeric vector. When
+multiple values or no values for <code>regularization</code> are used in
+<code>linear_reg</code>, the <code>predict</code> method will return a data frame with
+columns <code>values</code> and <code>lambda</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -1,12 +1,15 @@
-#' Regression Model Predictions
+#' Model Predictions
 #'
-#' Apply a model to create predictions when the outcome is a simple
-#' number.
+#' Apply a model to create different types of predictions. `predict` is used
+#' when the outcome is a simple number. For classification models,
+#' `predict_class` and  `predict_classprob` can be used.
 #'
 #' @param object An object of class `model_fit`
 #' @param newdata A rectangular data object, such as a data frame.
 #' @param ... Arguments to pass to other methods (not currently used).
-#' @return An unnamed numeric vector of predictions.
+#' @return `predict` returns an unnamed numeric vector. `predict_class` returns
+#'  a factor variable and `predict_classprob` generates a tibble with a column
+#'  for each class level.
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
