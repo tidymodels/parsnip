@@ -27,7 +27,7 @@ rand_forest_ranger_fit <-
       interface = "formula",
       protect = c("formula", "data", "case.weights"),
       func = c(pkg = "ranger", fun = "ranger"),
-      alternates =
+      defaults =
         list(
           num.threads = 1,
           verbose = FALSE,
@@ -90,7 +90,7 @@ rand_forest_randomForest_fit <-
       interface = "data.frame",
       protect = c("x", "y"),
       func = c(pkg = "randomForest", fun = "randomForest"),
-      alternates =
+      defaults =
         list()
     ),
     pred = list(
@@ -136,7 +136,7 @@ rand_forest_spark_fit <-
       interface = "formula",
       protect = c("x", "formula", "type"),
       func = c(pkg = "sparklyr", fun = "ml_random_forest"),
-      alternates =
+      defaults =
         list(
           seed = expr(sample.int(10^5, 1))
         )

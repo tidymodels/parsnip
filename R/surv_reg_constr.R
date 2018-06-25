@@ -22,6 +22,6 @@ surv_reg_flexsurv_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "flexsurv", fun = "flexsurvreg"),
-      alternates = list()
+      defaults = list()
     )
   )

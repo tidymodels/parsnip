@@ -65,7 +65,7 @@ logistic_reg_glm_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "stats", fun = "glm"),
-      alternates =
+      defaults =
         list(
           family = expr(binomial)
         )
@@ -105,7 +105,7 @@ logistic_reg_glmnet_fit <-
       interface = "matrix",
       protect = c("x", "y", "weights"),
       func = c(pkg = "glmnet", fun = "glmnet"),
-      alternates =
+      defaults =
         list(
           family = "binomial"
         )
@@ -143,7 +143,7 @@ logistic_reg_stan_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "rstanarm", fun = "stan_glm"),
-      alternates =
+      defaults =
         list(
           family = expr(binomial)
         )
@@ -187,7 +187,7 @@ logistic_reg_spark_fit <-
       interface = "formula",
       protect = c("x", "formula", "weight_col"),
       func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
-      alternates =
+      defaults =
         list(
           family = "binomial"
         )

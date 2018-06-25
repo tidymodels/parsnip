@@ -119,7 +119,7 @@ boost_tree_xgboost_fit <-
       interface = "matrix",
       protect = c("data", "weight"),
       func = c(pkg = "parsnip", fun = "xgb_train"),
-      alternates =
+      defaults =
         list(
           nthread = 1,
           verbose = 0

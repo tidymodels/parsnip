@@ -44,7 +44,7 @@ linear_reg_lm_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "stats", fun = "lm"),
-      alternates = list()
+      defaults = list()
     ),
     pred = list(
       pre = NULL,
@@ -66,7 +66,7 @@ linear_reg_glmnet_fit <-
       interface = "matrix",
       protect = c("x", "y", "weights"),
       func = c(pkg = "glmnet", fun = "glmnet"),
-      alternates =
+      defaults =
         list(
           family = "gaussian"
         )
@@ -92,7 +92,7 @@ linear_reg_stan_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "rstanarm", fun = "stan_glm"),
-      alternates =
+      defaults =
         list(
           family = "gaussian"
         )
@@ -117,7 +117,7 @@ linear_reg_spark_fit <-
       interface = "formula",
       protect = c("x", "formula", "weight_col"),
       func = c(pkg = "sparklyr", fun = "ml_linear_regression"),
-      alternates = list()
+      defaults = list()
     )
   )
 

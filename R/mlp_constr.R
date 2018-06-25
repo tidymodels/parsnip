@@ -24,7 +24,7 @@ mlp_keras_fit <-
       interface = "matrix",
       protect = c("x", "y"),
       func = c(pkg = "parsnip", fun = "keras_mlp"),
-      alternates = list()
+      defaults = list()
     ),
     pred = list(
       pre = NULL,
@@ -75,7 +75,7 @@ mlp_nnet_fit <-
       interface = "formula",
       protect = c("formula", "data", "weights"),
       func = c(pkg = "nnet", fun = "nnet"),
-      alternates = list(trace = FALSE)
+      defaults = list(trace = FALSE)
     ),
     pred = list(
       pre = NULL,
