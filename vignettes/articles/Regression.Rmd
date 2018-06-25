@@ -40,7 +40,7 @@ ames <- make_ames()
 library(rsample)
 
 set.seed(4595)
-data_split <- initial_split(ames, strata = "Sale_Price")
+data_split <- initial_split(ames, strata = "Sale_Price", p = 0.75)
 
 ames_train <- training(data_split)
 ames_test  <- testing(data_split)

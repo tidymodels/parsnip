@@ -32,8 +32,12 @@ navbar:
     href: articles/parsnip_Intro.html   
   - text: "Articles"
     menu:
-     - text: Regression Modeling
+     - text: Regression modeling
        href: articles/articles/Regression.html 
+     - text: Classification modeling
+       href: articles/articles/Classification.html    
+     - text: Making a parsnip model from scratch
+       href: articles/articles/Scratch.html              
   - text: Reference
     href: reference/index.html
 

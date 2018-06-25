@@ -47,7 +47,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/articles/Regression.html">Regression Modeling</a>
+      <a href="../../articles/articles/Regression.html">Regression modeling</a>
+    </li>
+    <li>
+      <a href="../../articles/articles/Classification.html">Classification modeling</a>
+    </li>
+    <li>
+      <a href="../../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
   </ul>
 </li>
@@ -84,7 +90,7 @@
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(rsample)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">set.seed</span>(<span class="dv">4595</span>)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">data_split &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/initial_split">initial_split</a></span>(ames, <span class="dt">strata =</span> <span class="st">"Sale_Price"</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">data_split &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/initial_split">initial_split</a></span>(ames, <span class="dt">strata =</span> <span class="st">"Sale_Price"</span>, <span class="dt">p =</span> <span class="fl">0.75</span>)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">ames_train &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/initial_split">training</a></span>(data_split)</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">ames_test  &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/initial_split">testing</a></span>(data_split)</a></code></pre></div>
