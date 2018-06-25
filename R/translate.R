@@ -6,7 +6,7 @@
 #'
 #' @param x A model specification.
 #' @param ... Not currently used.
-#' @details 
+#' @details
 #' `translate` produces a _template_ call that lacks the specific
 #'  argument values (such as `data`, etc). These are filled in once
 #'  `fit` is called with the specifics of the data for the model.
@@ -19,21 +19,21 @@
 #' This function can be useful when you need to understand how
 #'  `parsnip` goes from a generic model specific to a model fitting
 #'  function.
-#' @examples 
+#' @examples
 #' lm_spec <- linear_reg(regularization = 0.01)
-#' 
+#'
 #' # `regularization` is tranlsated to `lambda`
 #' translate(lm_spec, engine = "glmnet")
-#' 
+#'
 #' # `regularization` not applicable for this model.
 #' translate(lm_spec, engine = "lm")
 #'
 #' # `regularization` is tranlsated to `reg_param`
 #' translate(lm_spec, engine = "spark")
-#' 
+#'
 #' # with a placeholder for an unknown argument value:
 #' translate(linear_reg(mixture = varying()), engine = "glmnet")
-#' 
+#'
 #' @export
 
 translate <- function (x, ...)
@@ -51,10 +51,7 @@ translate.default <- function(x, engine, ...) {
 
   x$method <- get_model_info(x, x$engine)
 
-  arg_key <- getFromNamespace(
-    paste0(specifc_model(x), "_arg_key"),
-    ns = "parsnip"
-    )
+  arg_key <- get_module(specifc_model(x))
 
   # deharmonize primary arguments
   actual_args <- deharmonize(x$args, arg_key, x$engine)
@@ -83,3 +80,29 @@ translate.default <- function(x, engine, ...) {
   # put in correct order
   x
 }
+
+get_module <- function(nm) {
+  arg_key <- try(
+    getFromNamespace(
+      paste0(nm, "_arg_key"),
+      ns = "parsnip"
+    ),
+    silent = TRUE
+  )
+  if(inherits(arg_key, "try-error")) {
+    arg_key <- try(
+      get(paste0(nm, "_arg_key")),
+      silent = TRUE
+    )
+  }
+  if(inherits(arg_key, "try-error")) {
+    stop(
+      "Cannot find the model code: `",
+      paste0(nm, "_arg_key"),
+      "`", call. = FALSE
+    )
+  }
+  arg_key
+}
+
+
