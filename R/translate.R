@@ -109,10 +109,10 @@ get_module <- function(nm) {
 #' @export
 print.model_spec <- function(x, ...) {
   cat("Model Specification (", x$mode, ")\n\n", sep = "")
-  parsnip:::model_printer(x, ...)
+  model_printer(x, ...)
   if (!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
-    print(parsnip:::show_call(x))
+    print(show_call(x))
   }
   invisible(x)
 }
