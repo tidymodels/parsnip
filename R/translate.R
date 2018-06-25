@@ -65,17 +65,17 @@ translate.default <- function(x, engine, ...) {
   modifed_args <- !vapply(actual_args, null_value, lgl(1))
   actual_args <- actual_args[modifed_args]
 
-  # look for alternates if not modified in other
-  if(length(x$method$fit$alternates) > 0) {
-    in_other <- names(x$method$fit$alternates) %in% names(x$others)
-    x$alternates <- x$method$fit$alternates[!in_other]
+  # look for defaults if not modified in other
+  if(length(x$method$fit$defaults) > 0) {
+    in_other <- names(x$method$fit$defaults) %in% names(x$others)
+    x$defaults <- x$method$fit$defaults[!in_other]
   }
 
-  # combine primary, others, and alternates
+  # combine primary, others, and defaults
   protected <- lapply(x$method$fit$protect, function(x) expr(missing_arg()))
   names(protected) <- x$method$fit$protect
 
-  x$method$fit$args <- c(protected, actual_args, x$others, x$alternates)
+  x$method$fit$args <- c(protected, actual_args, x$others, x$defaults)
 
   # put in correct order
   x
@@ -106,3 +106,13 @@ get_module <- function(nm) {
 }
 
 
+#' @export
+print.model_spec <- function(x, ...) {
+  cat("Model Specification (", x$mode, ")\n\n", sep = "")
+  parsnip:::model_printer(x, ...)
+  if (!is.null(x$method$fit$args)) {
+    cat("Model fit template:\n")
+    print(parsnip:::show_call(x))
+  }
+  invisible(x)
+}
