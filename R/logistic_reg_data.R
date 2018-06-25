@@ -58,7 +58,7 @@ organize_glmnet_prob <- function(x, object) {
 
 ###################################################################
 
-logistic_reg_glm_fit <-
+logistic_reg_glm_data <-
   list(
     libs = "stats",
     fit = list(
@@ -98,7 +98,7 @@ logistic_reg_glm_fit <-
     )
   )
 
-logistic_reg_glmnet_fit <-
+logistic_reg_glmnet_data <-
   list(
     libs = "glmnet",
     fit = list(
@@ -136,7 +136,7 @@ logistic_reg_glmnet_fit <-
     )
   )
 
-logistic_reg_stan_fit <-
+logistic_reg_stan_data <-
   list(
     libs = "rstanarm",
     fit = list(
@@ -180,7 +180,7 @@ logistic_reg_stan_fit <-
   )
 
 
-logistic_reg_spark_fit <-
+logistic_reg_spark_data <-
   list(
     libs = "sparklyr",
     fit = list(

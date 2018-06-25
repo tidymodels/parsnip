@@ -37,7 +37,7 @@ organize_glmnet_pred <- function(x, object) {
 
 ###################################################################
 
-linear_reg_lm_fit <-
+linear_reg_lm_data <-
   list(
     libs = "stats",
     fit = list(
@@ -59,7 +59,7 @@ linear_reg_lm_fit <-
     )
   )
 
-linear_reg_glmnet_fit <-
+linear_reg_glmnet_data <-
   list(
     libs = "glmnet",
     fit = list(
@@ -85,7 +85,7 @@ linear_reg_glmnet_fit <-
     )
   )
 
-linear_reg_stan_fit <-
+linear_reg_stan_data <-
   list(
     libs = "rstanarm",
     fit = list(
@@ -110,7 +110,7 @@ linear_reg_stan_fit <-
   )
 
 
-linear_reg_spark_fit <-
+linear_reg_spark_data <-
   list(
     libs = "sparklyr",
     fit = list(

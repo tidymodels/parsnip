@@ -17,7 +17,7 @@ mlp_engines <- data.frame(
 ###################################################################
 
 
-mlp_keras_fit <-
+mlp_keras_data <-
   list(
     libs = c("keras", "magrittr"),
     fit = list(
@@ -68,7 +68,7 @@ mlp_keras_fit <-
     )
   )
 
-mlp_nnet_fit <-
+mlp_nnet_data <-
   list(
     libs = "nnet",
     fit = list(

@@ -5,7 +5,7 @@ get_model_info <-  function (x, engine)  {
          "classification, etc.) ",
          "so that the model code can be finalized", call. = FALSE)
   cls <- specifc_model(x)
-  nm <- paste(cls, engine, "fit", sep = "_")
+  nm <- paste(cls, engine, "data", sep = "_")
   res <- try(get(nm), silent = TRUE)
   if (inherits(res, "try-error"))
     stop("Can't find model object ", nm)

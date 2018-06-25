@@ -20,7 +20,7 @@ rand_forest_engines <- data.frame(
 ###################################################################
 
 
-rand_forest_ranger_fit <-
+rand_forest_ranger_data <-
   list(
     libs = "ranger",
     fit = list(
@@ -83,7 +83,7 @@ rand_forest_ranger_fit <-
     )
   )
 
-rand_forest_randomForest_fit <-
+rand_forest_randomForest_data <-
   list(
     libs = "randomForest",
     fit = list(
@@ -129,7 +129,7 @@ rand_forest_randomForest_fit <-
   )
 
 
-rand_forest_spark_fit <-
+rand_forest_spark_data <-
   list(
     libs = "sparklyr",
     fit = list(

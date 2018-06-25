@@ -15,7 +15,7 @@ surv_reg_engines <- data.frame(
 
 ###################################################################
 
-surv_reg_flexsurv_fit <-
+surv_reg_flexsurv_data <-
   list(
     libs = c("survival", "flexsurv"),
     fit = list(

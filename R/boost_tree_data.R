@@ -112,7 +112,7 @@ xgb_pred <- function(object, newdata, ...) {
 ###################################################################
 
 
-boost_tree_xgboost_fit <-
+boost_tree_xgboost_data <-
   list(
     libs = "xgboost",
     fit = list(
