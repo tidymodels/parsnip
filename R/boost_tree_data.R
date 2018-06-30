@@ -1,6 +1,7 @@
 
 boost_tree_arg_key <- data.frame(
   xgboost = c("max_depth", "nrounds", "eta", "colsample_bytree", "min_child_weight", "gamma", "subsample"),
+  C5.0 =    c(         NA,  "trials",    NA,                NA,         "minCases",       NA,    "sample"),
   stringsAsFactors = FALSE,
   row.names =  c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size")
 )
@@ -8,7 +9,8 @@ boost_tree_arg_key <- data.frame(
 boost_tree_modes <- c("classification", "regression", "unknown")
 
 boost_tree_engines <- data.frame(
-  xgboost =       rep(TRUE, 3),
+  xgboost =    rep(TRUE, 3),
+  C5.0    =    c(            TRUE,        FALSE,      TRUE),
   row.names =  c("classification", "regression", "unknown")
 )
 
@@ -17,7 +19,7 @@ boost_tree_engines <- data.frame(
 #' @export
 xgb_train <- function(
   x, y,
-  max_depth = 6, nrounds = 100, eta  = 0.3, colsample_bytree = 1,
+  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
   min_child_weight = 1, gamma = 0, subsample = 1, ...) {
 
   num_class <- if (length(levels(y)) > 2) length(levels(y)) else NULL
@@ -108,6 +110,31 @@ xgb_pred <- function(object, newdata, ...) {
   x
 }
 
+#' @export
+C5.0_train <- function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
+  other_args <- list(...)
+  protect_ctrl <- c("minCases", "sample")
+  protect_fit <- "trials"
+  other_args <- other_args[!(other_args %in% c(protect_ctrl, protect_fit))]
+  ctrl_args <- other_args[names(other_args) %in% names(formals(C5.0Control))]
+  fit_args <- other_args[names(other_args) %in% names(formals(C5.0.default))]
+
+  ctrl <- expr(C5.0Control())
+  ctrl$minCases <- minCases
+  ctrl$sample <- sample
+  for(i in names(ctrl_args))
+    ctrl[[i]] <- ctrl_args[[i]]
+
+  fit_call <- expr(C5.0(x = x, y = y))
+  fit_call$trials <- trials
+  fit_call$control <- ctrl
+  if(!is.null(weights))
+    fit_call$weights <- quote(weights)
+
+  for(i in names(fit_args))
+    fit_call[[i]] <- fit_args[[i]]
+  eval_tidy(fit_call)
+}
 
 ###################################################################
 
@@ -117,7 +144,7 @@ boost_tree_xgboost_data <-
     libs = "xgboost",
     fit = list(
       interface = "matrix",
-      protect = c("data", "weight"),
+      protect = "data",
       func = c(pkg = "parsnip", fun = "xgb_train"),
       defaults =
         list(
@@ -171,3 +198,38 @@ boost_tree_xgboost_data <-
         )
     )
   )
+
+
+boost_tree_C5.0_data <-
+  list(
+    libs = "C50",
+    fit = list(
+      interface = "data.frame",
+      protect = c("x", "y", "weights"),
+      func = c(pkg = "parsnip", fun = "C5.0_train"),
+      defaults = list()
+    ),
+    classes = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args = list(
+        object = quote(object$fit),
+        newdata = quote(newdata)
+      )
+    ),
+    prob = list(
+      pre = NULL,
+      post = function(x, object) {
+        as_tibble(x)
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          type = "prob"
+        )
+    )
+  )
+

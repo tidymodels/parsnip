@@ -18,8 +18,7 @@
 #'   from iteration-to-iteration.
 #'   \item \code{loss_reduction}: The reduction in the loss function required
 #'   to split further.
-#'   \item \code{sample_size}: The amount of data exposed to the fitting routine
-#'   at each iteration of boosting.
+#'   \item \code{sample_size}: The amount of data exposed to the fitting routine.
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
@@ -34,7 +33,7 @@
 #' The model can be created using the [fit()] function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"xgboost"`
+#' \item \pkg{R}:  `"xgboost"`, `"C5.0"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #' @param mode A single character string for the type of model.
@@ -43,19 +42,21 @@
 #' @param others A named list of arguments to be used by the
 #'  underlying models (e.g., `xgboost::xgb.train`, etc.). .
 #' @param mtry An number for the number (or proportion) of predictors that will
-#'  be randomly sampled at each split when creating the tree models.
+#'  be randomly sampled at each split when creating the tree models (`xgboost`
+#'  only).
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
 #' @param tree_depth An integer for the maximum deopth of the tree (i.e. number
-#'  of splits).
+#'  of splits) (`xgboost` only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration.
+#'   from iteration-to-iteration (`xgboost` only).
 #' @param loss_reduction A number for the reduction in the loss function required
-#'   to split further.
+#'   to split further  (`xgboost` only).
 #' @param sample_size An number for the number (or proportion) of data that is
-#' exposed to the fitting routine at each iteration.
+#'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
+#'  each iteration while `C5.0` samples once during traning.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
 #' @details Main parameter arguments (and those in `others`) can avoid
@@ -84,6 +85,15 @@ boost_tree <-
            paste0("'", boost_tree_modes, "'", collapse = ", "),
            call. = FALSE)
 
+    if (is.numeric(trees) && trees < 0)
+      stop("`trees` should be >= 1", call. = FALSE)
+    if (is.numeric(sample_size) && (sample_size < 0 | sample_size > 1))
+      stop("`sample_size` should be within [0,1]", call. = FALSE)
+    if (is.numeric(tree_depth) && tree_depth < 0)
+      stop("`tree_depth` should be >= 1", call. = FALSE)
+    if (is.numeric(min_n) && min_n < 0)
+      stop("`min_n` should be >= 1", call. = FALSE)
+
     args <- list(
       mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,
       learn_rate = learn_rate, loss_reduction = loss_reduction,
@@ -93,10 +103,8 @@ boost_tree <-
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
 
-    # write a constructor function
     out <- list(args = args, others = others,
                 mode = mode, method = NULL, engine = NULL)
-    # TODO: make_classes has wrong order; go from specific to general
     class(out) <- make_classes("boost_tree")
     out
   }

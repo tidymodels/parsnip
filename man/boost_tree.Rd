@@ -20,7 +20,8 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{mtry}{An number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models.}
+be randomly sampled at each split when creating the tree models (\code{xgboost}
+only).}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -29,16 +30,17 @@ the ensemble.}
 in a node that are required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum deopth of the tree (i.e. number
-of splits).}
+of splits) (\code{xgboost} only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration.}
+from iteration-to-iteration (\code{xgboost} only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further.}
+to split further  (\code{xgboost} only).}
 
 \item{sample_size}{An number for the number (or proportion) of data that is
-exposed to the fitting routine at each iteration.}
+exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
+each iteration while \code{C5.0} samples once during traning.}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{xgboost::xgb.train}, etc.). .}
@@ -71,8 +73,7 @@ splits).
 from iteration-to-iteration.
 \item \code{loss_reduction}: The reduction in the loss function required
 to split further.
-\item \code{sample_size}: The amount of data exposed to the fitting routine
-at each iteration of boosting.
+\item \code{sample_size}: The amount of data exposed to the fitting routine.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
@@ -91,7 +92,7 @@ possible modes are "regression" and "classification".
 The model can be created using the \code{\link[=fit]{fit()}} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"xgboost"}
+\item \pkg{R}:  \code{"xgboost"}, \code{"C5.0"}
 \item \pkg{Spark}: \code{"spark"}
 }
 

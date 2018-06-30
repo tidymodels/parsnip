@@ -12,3 +12,5 @@ test_rand_forest_randomForest
 test_surv_reg
 test_mlp_keras
 test_mlp_nnet
+test_boost_tree_C50.R
+test_boost_tree_xgboost.R

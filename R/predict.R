@@ -10,6 +10,7 @@
 #' @return `predict` returns an unnamed numeric vector. `predict_class` returns
 #'  a factor variable and `predict_classprob` generates a tibble with a column
 #'  for each class level.
+#' @importFrom stats predict
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
