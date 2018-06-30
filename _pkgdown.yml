@@ -9,11 +9,12 @@ figures:
 reference:
   - title: Models
     contents:
+      - boost_tree
       - linear_reg
-      - logistic_reg   
+      - logistic_reg
+      - mlp   
       - rand_forest
       - surv_reg   
-      - mlp
   - title: Infrastructure
     contents:
       - predict.model_fit

@@ -47,8 +47,7 @@ learn_rate: The rate at which the boosting algorithm adapts
 from iteration-to-iteration.
 loss_reduction: The reduction in the loss function required
 to split further.
-sample_size: The amount of data exposed to the fitting routine
-at each iteration of boosting.
+sample_size: The amount of data exposed to the fitting routine.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the others argument. If left to their defaults
@@ -151,8 +150,7 @@ splits).</p></li>
 from iteration-to-iteration.</p></li>
 <li><p><code>loss_reduction</code>: The reduction in the loss function required
 to split further.</p></li>
-<li><p><code>sample_size</code>: The amount of data exposed to the fitting routine
-at each iteration of boosting.</p></li>
+<li><p><code>sample_size</code>: The amount of data exposed to the fitting routine.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the <code>others</code> argument. If left to their defaults
@@ -185,7 +183,8 @@ Possible values for this model are "unknown", "regression", or
     <tr>
       <th>mtry</th>
       <td><p>An number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models.</p></td>
+be randomly sampled at each split when creating the tree models (<code>xgboost</code>
+only).</p></td>
     </tr>
     <tr>
       <th>trees</th>
@@ -200,22 +199,23 @@ in a node that are required for the node to be split further.</p></td>
     <tr>
       <th>tree_depth</th>
       <td><p>An integer for the maximum deopth of the tree (i.e. number
-of splits).</p></td>
+of splits) (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>learn_rate</th>
       <td><p>A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration.</p></td>
+from iteration-to-iteration (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>loss_reduction</th>
       <td><p>A number for the reduction in the loss function required
-to split further.</p></td>
+to split further  (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>sample_size</th>
       <td><p>An number for the number (or proportion) of data that is
-exposed to the fitting routine at each iteration.</p></td>
+exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at at
+each iteration while <code>C5.0</code> samples once during traning.</p></td>
     </tr>
     <tr>
       <th>others</th>
@@ -249,7 +249,7 @@ to determine the <em>mode</em> of the model. For <code>boost_tree</code>, the
 possible modes are "regression" and "classification".</p>
 <p>The model can be created using the <code><a href='fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"xgboost"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"xgboost"</code>, <code>"C5.0"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
     <p>Main parameter arguments (and those in <code>others</code>) can avoid
