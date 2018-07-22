@@ -23,7 +23,7 @@
 #'  to determine the _mode_ of the model. For `rand_forest`, the
 #'  possible modes are "regression" and "classification".
 #'
-#' The model can be created using the [fit()] function using the
+#' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"ranger"` or `"randomForests"`

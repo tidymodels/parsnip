@@ -73,11 +73,6 @@
 #'
 #' using_formula
 #' using_xy
-#' @export
-#' @rdname fit
-fit <- function (object, ...)
-  UseMethod("fit")
-
 #' @return A `model_fit` object that contains several elements:
 #' \itemize{
 #'   \item \code{lvl}: If the outcome is a factor, this contains
@@ -92,7 +87,8 @@ fit <- function (object, ...)
 #'    object)
 #' }
 #' @export
-#' @rdname fit
+#' @export fit.model_spec
+#' @importFrom  modelgenerics fit
 fit.model_spec <-
   function(object,
            formula = NULL,

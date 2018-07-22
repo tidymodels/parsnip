@@ -12,7 +12,8 @@ LazyData: true
 ByteCompile: true
 VignetteBuilder: knitr
 Depends:
-    R (>= 2.10)
+    R (>= 2.10),
+    modelgenerics
 Imports: 
     dplyr,
     rlang (>= 0.2.0.9001),
@@ -27,5 +28,5 @@ Suggests:
     rmarkdown,
     survival
 Remotes:
-    tidyverse/rlang
-
+    tidyverse/rlang,
+    topepo/modelgenerics

@@ -25,7 +25,7 @@
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
-#' The model can be created using the [fit()] function using the
+#' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"flexsurv"`

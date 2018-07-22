@@ -67,7 +67,7 @@ nnet_fit <- mlp(
   epochs = 100, units = 5, dropout = 0.1, 
   others = list(verbose = 0, validation_split = .20)
 ) %>%
-  parsnip::fit(Status ~ ., data = juice(credit_rec), engine = "keras")
+  parsnip::fit.model_spec(Status ~ ., data = juice(credit_rec), engine = "keras")
 
 nnet_fit
 ```

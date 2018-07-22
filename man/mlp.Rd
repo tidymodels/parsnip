@@ -80,7 +80,7 @@ The data given to the function are not saved and are only used
 to determine the \emph{mode} of the model. For \code{mlp}, the
 possible modes are "regression" and "classification".
 
-The model can be created using the \code{\link[=fit]{fit()}} function using the
+The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{"nnet"}

@@ -20,7 +20,7 @@
 #'  to determine the _mode_ of the model. For `logistic_reg`,the
 #'  mode will always be "classification".
 #'
-#' The model can be created using the [fit()] function using the
+#' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"glm"` or `"glmnet"`

@@ -36,7 +36,7 @@
 #'  to determine the _mode_ of the model. For `linear_reg`,the
 #'  mode will always be "regression".
 #'
-#' The model can be created using the [fit()] function using the
+#' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"lm"` or `"glmnet"`

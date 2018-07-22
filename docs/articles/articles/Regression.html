@@ -109,7 +109,7 @@
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">rf_xy_fit &lt;-<span class="st"> </span>rf_defaults <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../../reference/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">x =</span> ames_train[, preds],</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">y =</span> <span class="kw">log10</span>(ames_train<span class="op">$</span>Sale_Price),</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -129,8 +129,9 @@
 <a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; Mtry:                             2 </span></a>
 <a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; Target node size:                 5 </span></a>
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; Variable importance mode:         none </span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; OOB prediction error (MSE):       0.00866 </span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; R squared (OOB):                  0.727</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; Splitrule:                        variance </span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; OOB prediction error (MSE):       0.00866 </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; R squared (OOB):                  0.727</span></a></code></pre></div>
 <p>The non-formula interface doesn’t do anything to the predictors before giving it to the underlying model function. This particular model does <em>not</em> require indicator variables to be create prior to the model (note that the output shows “Number of independent variables: 5”).</p>
 <p>For regression models, the basic <code>predict</code> method can be used:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">test_results &lt;-<span class="st"> </span>ames_test <span class="op">%&gt;%</span></a>
@@ -169,7 +170,7 @@
 </ul>
 <p>Now, for illustration, let’s use the formula method using some new parameter values:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -188,11 +189,12 @@
 <a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; Mtry:                             3 </span></a>
 <a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; Target node size:                 5 </span></a>
 <a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; Variable importance mode:         none </span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; OOB prediction error (MSE):       0.0086 </span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; R squared (OOB):                  0.729</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; Splitrule:                        variance </span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; OOB prediction error (MSE):       0.0086 </span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; R squared (OOB):                  0.729</span></a></code></pre></div>
 <p>Suppose that there was some feature in the <code>randomForest</code> package that we’d like to evaluate. To do so, the only part of the syntaxt that needs to change is the <code>engine</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"randomForest"</span></a>
@@ -221,7 +223,7 @@
 <p>Since <code>ranger</code> won’t create indicator values, <code>n_cols</code> would be appropriate for using <code>mtry</code> for a bagging model.</p>
 <p>For example, let’s use an expression with the <code>n_cols</code> descriptor to fit a bagging model:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="kw">expr</span>(n_cols), <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -240,8 +242,9 @@
 <a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; Mtry:                             5 </span></a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; Target node size:                 5 </span></a>
 <a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; Variable importance mode:         none </span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; OOB prediction error (MSE):       0.00881 </span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; R squared (OOB):                  0.722</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; Splitrule:                        variance </span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; OOB prediction error (MSE):       0.00881 </span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; R squared (OOB):                  0.722</span></a></code></pre></div>
 </div>
 <div id="penalized-logistic-regression" class="section level1">
 <h1 class="hasAnchor">
@@ -262,7 +265,7 @@
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co"># Now let's fit the model using the processed version of the data</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb8-14" data-line-number="14">glmn_fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/linear_reg.html">linear_reg</a></span>(<span class="dt">regularization =</span> <span class="fl">0.001</span>, <span class="dt">mixture =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="st">   </span><span class="kw"><a href="../../reference/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="st">   </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb8-16" data-line-number="16">    Sale_Price <span class="op">~</span><span class="st"> </span>.,</a>
 <a class="sourceLine" id="cb8-17" data-line-number="17">    <span class="dt">data =</span> <span class="kw">juice</span>(norm_recipe),</a>
 <a class="sourceLine" id="cb8-18" data-line-number="18">    <span class="dt">engine =</span> <span class="st">"glmnet"</span></a>
