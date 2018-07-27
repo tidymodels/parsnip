@@ -5,10 +5,11 @@
 \alias{update.mlp}
 \title{General Interface for Single Layer Neural Network}
 \usage{
-mlp(mode = "unknown", units = NULL, weight_decay = NULL, dropout = NULL,
-  epochs = NULL, activation = NULL, others = list(), ...)
+mlp(mode = "unknown", hidden_units = NULL, regularization = NULL,
+  dropout = NULL, epochs = NULL, activation = NULL, others = list(),
+  ...)
 
-\method{update}{mlp}(object, units = NULL, weight_decay = NULL,
+\method{update}{mlp}(object, hidden_units = NULL, regularization = NULL,
   dropout = NULL, epochs = NULL, activation = NULL, others = list(),
   fresh = FALSE, ...)
 }
@@ -17,9 +18,9 @@ mlp(mode = "unknown", units = NULL, weight_decay = NULL, dropout = NULL,
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
-\item{units}{An integer for the number of units in the hidden model.}
+\item{hidden_units}{An integer for the number of units in the hidden model.}
 
-\item{weight_decay}{A non-negative numeric value for the amount of weight
+\item{regularization}{A non-negative numeric value for the amount of weight
 decay.}
 
 \item{dropout}{A number between 0 (inclusive) and 1 denoting the proportion
@@ -54,8 +55,8 @@ a model before fitting and allows the model to be created using
 different packages in R or via keras The main arguments for the
 model are:
 \itemize{
-\item \code{units}: The number of units in the hidden layer.
-\item \code{weight_decay}: The amount of L2 regularization (aka weight
+\item \code{hidden_units}: The number of units in the hidden layer.
+\item \code{regularization}: The amount of L2 regularization (aka weight
 decay).
 \item \code{dropout}: The proportion of parameters randomly dropped out of
 the model (\code{keras} only).
@@ -67,7 +68,7 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions. One exception is \code{units} when \code{nnet::nnet} is used; that
+functions. One exception is \code{hidden_units} when \code{nnet::nnet} is used; that
 function's \code{size} argument has no default so a value of 5 units will be
 used. Also, unless otherwise specified, the \code{linout} argument to
 \code{nnet::nnet} will be set to \code{TRUE} when a regression model is created.
@@ -89,19 +90,19 @@ following \emph{engines}:
 
 Main parameter arguments (and those in \code{others}) can avoid
 evaluation until the underlying function is executed by wrapping the
-argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{units = expr(num_preds * 2)}).
+argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{hidden_units = expr(num_preds * 2)}).
 
-An error is thrown if both \code{weight_decay} and \code{dropout} are specified for
+An error is thrown if both \code{regularization} and \code{dropout} are specified for
 \code{keras} models.
 }
 \examples{
-mlp(mode = "classification", weight_decay = 0.01)
+mlp(mode = "classification", regularization = 0.01)
 # Parameters can be represented by a placeholder:
-mlp(mode = "regression", units = varying())
-model <- mlp(units = 10, dropout = 0.30)
+mlp(mode = "regression", hidden_units = varying())
+model <- mlp(hidden_units = 10, dropout = 0.30)
 model
-update(model, units = 2)
-update(model, units = 2, fresh = TRUE)
+update(model, hidden_units = 2)
+update(model, hidden_units = 2, fresh = TRUE)
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

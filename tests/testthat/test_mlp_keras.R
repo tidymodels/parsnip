@@ -7,7 +7,7 @@ library(tibble)
 
 num_pred <- names(iris)[1:4]
 
-iris_keras <- mlp(mode = "classification", units = 2)
+iris_keras <- mlp(mode = "classification", hidden_units = 2)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -170,7 +170,7 @@ test_that('keras execution, regression', {
 
 test_that('keras regression prediction', {
   xy_fit <- parsnip::fit(
-    mlp(mode = "regression", units = 2, epochs = 500, weight_decay = .1),
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, regularization = .1),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
     engine = "keras",

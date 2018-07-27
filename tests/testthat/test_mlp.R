@@ -2,10 +2,10 @@ library(testthat)
 library(parsnip)
 
 test_that('primary arguments', {
-  units <- mlp(mode = "regression", units = 4)
-  units_nnet <- translate(units, engine = "nnet")
-  units_keras <- translate(units, engine = "keras")
-  expect_equal(units_nnet$method$fit$args,
+  hidden_units <- mlp(mode = "regression", hidden_units = 4)
+  hidden_units_nnet <- translate(hidden_units, engine = "nnet")
+  hidden_units_keras <- translate(hidden_units, engine = "keras")
+  expect_equal(hidden_units_nnet$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -15,17 +15,17 @@ test_that('primary arguments', {
                  linout = TRUE
                )
   )
-  expect_equal(units_keras$method$fit$args,
+  expect_equal(hidden_units_keras$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 units = 4
+                 hidden_units = 4
                )
   )
 
-  no_units <- mlp(mode = "regression")
-  no_units_nnet <- translate(no_units, engine = "nnet")
-  expect_equal(no_units_nnet$method$fit$args,
+  no_hidden_units <- mlp(mode = "regression")
+  no_hidden_units_nnet <- translate(no_hidden_units, engine = "nnet")
+  expect_equal(no_hidden_units_nnet$method$fit$args,
                list(
                  formula = quote(missing_arg()),
                  data = quote(missing_arg()),
@@ -35,18 +35,18 @@ test_that('primary arguments', {
                  linout = TRUE
                )
   )
-  expect_equal(units_keras$method$fit$args,
+  expect_equal(hidden_units_keras$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 units = 4
+                 hidden_units = 4
                )
   )
 
   all_args <-
     mlp(
       mode = "classification",
-      epochs = 2, units = 4, weight_decay = 0.0001,
+      epochs = 2, hidden_units = 4, regularization = 0.0001,
       dropout = 0, activation = "softmax"
     )
   all_args_nnet <- translate(all_args, engine = "nnet")
@@ -67,8 +67,8 @@ test_that('primary arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 units = 4,
-                 weight_decay = 1e-04,
+                 hidden_units = 4,
+                 regularization = 1e-04,
                  dropout = 0,
                  epochs = 2,
                  activation = "softmax"
@@ -118,24 +118,24 @@ test_that('engine arguments', {
 
 test_that('updating', {
   expr1     <- mlp(mode = "regression",            others = list(Hess = FALSE, abstol = varying()))
-  expr1_exp <- mlp(mode = "regression", units = 2, others = list(Hess = FALSE, abstol = varying()))
+  expr1_exp <- mlp(mode = "regression", hidden_units = 2, others = list(Hess = FALSE, abstol = varying()))
 
-  expr2     <- mlp(mode = "regression", units = 7)
-  expr2_exp <- mlp(mode = "regression", units = 7, others = list(Hess = FALSE))
+  expr2     <- mlp(mode = "regression", hidden_units = 7)
+  expr2_exp <- mlp(mode = "regression", hidden_units = 7, others = list(Hess = FALSE))
 
-  expr3     <- mlp(mode = "regression", units = 7, epochs = varying())
+  expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = varying())
 
-  expr3_exp <- mlp(mode = "regression", units = 2)
+  expr3_exp <- mlp(mode = "regression", hidden_units = 2)
 
-  expr4     <- mlp(mode = "classification", units = 2, others = list(Hess = TRUE, abstol = varying()))
-  expr4_exp <- mlp(mode = "classification", units = 2, others = list(Hess = FALSE, abstol = varying()))
+  expr4     <- mlp(mode = "classification", hidden_units = 2, others = list(Hess = TRUE, abstol = varying()))
+  expr4_exp <- mlp(mode = "classification", hidden_units = 2, others = list(Hess = FALSE, abstol = varying()))
 
-  expr5     <- mlp(mode = "classification", units = 2, others = list(Hess = FALSE))
-  expr5_exp <- mlp(mode = "classification", units = 2, others = list(Hess = FALSE, abstol = varying()))
+  expr5     <- mlp(mode = "classification", hidden_units = 2, others = list(Hess = FALSE))
+  expr5_exp <- mlp(mode = "classification", hidden_units = 2, others = list(Hess = FALSE, abstol = varying()))
 
-  expect_equal(update(expr1, units = 2), expr1_exp)
+  expect_equal(update(expr1, hidden_units = 2), expr1_exp)
   expect_equal(update(expr2, others = list(Hess = FALSE)), expr2_exp)
-  expect_equal(update(expr3, units = 2, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr3, hidden_units = 2, fresh = TRUE), expr3_exp)
   expect_equal(update(expr4, others = list(Hess = FALSE)), expr4_exp)
   expect_equal(update(expr5, others = list(Hess = FALSE, abstol = varying())), expr5_exp)
 

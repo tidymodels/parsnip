@@ -1,9 +1,9 @@
 
 mlp_arg_key <- data.frame(
   nnet = c("size", "decay", NA_character_, "maxit", NA_character_),
-  keras = c("units", "weight_decay", "dropout", "epochs", "activation"),
+  keras = c("hidden_units", "regularization", "dropout", "epochs", "activation"),
   stringsAsFactors = FALSE,
-  row.names =  c("units", "weight_decay", "dropout", "epochs", "activation")
+  row.names =  c("hidden_units", "regularization", "dropout", "epochs", "activation")
 )
 
 mlp_modes <- c("classification", "regression", "unknown")
@@ -121,7 +121,7 @@ class2ind <- function (x, drop2nd = FALSE) {
 #' @export
 keras_mlp <-
   function(x, y,
-           units = 5, decay = 0, dropout = 0, epochs = 20, act = "softmax",
+           hidden_units = 5, decay = 0, dropout = 0, epochs = 20, act = "softmax",
            seeds = sample.int(10^5, size = 3),
            ...) {
     require(keras)
@@ -145,7 +145,7 @@ keras_mlp <-
     if(decay > 0) {
       model %>%
         layer_dense(
-          units = units,
+          units = hidden_units,
           activation = act,
           input_shape = ncol(x),
           kernel_regularizer = regularizer_l2(decay),
@@ -154,7 +154,7 @@ keras_mlp <-
     } else {
       model %>%
         layer_dense(
-          units = units,
+          units = hidden_units,
           activation = act,
           input_shape = ncol(x),
           kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
@@ -163,7 +163,7 @@ keras_mlp <-
     if(dropout > 0)
       model %>%
       layer_dense(
-        units = units,
+        units = hidden_units,
         activation = act,
         input_shape = ncol(x),
         kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
@@ -246,8 +246,8 @@ parse_keras_args <- function(...) {
   )
 }
 
-mlp_num_weights <- function(p, units, classes)
- ((p+1) * units) + ((units+1) * classes)
+mlp_num_weights <- function(p, hidden_units, classes)
+ ((p+1) * hidden_units) + ((hidden_units+1) * classes)
 
 
 

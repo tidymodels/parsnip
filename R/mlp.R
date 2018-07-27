@@ -5,8 +5,8 @@
 #'  different packages in R or via keras The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{units}: The number of units in the hidden layer.
-#'   \item \code{weight_decay}: The amount of L2 regularization (aka weight
+#'   \item \code{hidden_units}: The number of units in the hidden layer.
+#'   \item \code{regularization}: The amount of L2 regularization (aka weight
 #'     decay).
 #'   \item \code{dropout}: The proportion of parameters randomly dropped out of
 #'     the model (`keras` only).
@@ -18,7 +18,7 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions. One exception is `units` when `nnet::nnet` is used; that
+#'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
 #'  function's `size` argument has no default so a value of 5 units will be
 #'  used. Also, unless otherwise specified, the `linout` argument to
 #'  `nnet::nnet` will be set to `TRUE` when a regression model is created.
@@ -39,8 +39,8 @@
 #' @param others A named list of arguments to be used by the
 #'  underlying models (e.g., `nnet::nnet`,
 #'  `keras::fit`, `keras::compile`, etc.). .
-#' @param units An integer for the number of units in the hidden model.
-#' @param weight_decay A non-negative numeric value for the amount of weight
+#' @param hidden_units An integer for the number of units in the hidden model.
+#' @param regularization A non-negative numeric value for the amount of weight
 #'  decay.
 #' @param dropout A number between 0 (inclusive) and 1 denoting the proportion
 #'  of model parameters randomly set to zero during model training.
@@ -54,38 +54,38 @@
 #'  the ellipses will result in an error. Use `others` instead.
 #' @details Main parameter arguments (and those in `others`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()] (e.g. `units = expr(num_preds * 2)`).
+#'  argument in [rlang::expr()] (e.g. `hidden_units = expr(num_preds * 2)`).
 #'
-#'  An error is thrown if both `weight_decay` and `dropout` are specified for
+#'  An error is thrown if both `regularization` and `dropout` are specified for
 #'  `keras` models.
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples
-#' mlp(mode = "classification", weight_decay = 0.01)
+#' mlp(mode = "classification", regularization = 0.01)
 #' # Parameters can be represented by a placeholder:
-#' mlp(mode = "regression", units = varying())
+#' mlp(mode = "regression", hidden_units = varying())
 #' @export
 
 mlp <-
   function(mode = "unknown",
-           units = NULL, weight_decay = NULL, dropout = NULL, epochs = NULL,
+           hidden_units = NULL, regularization = NULL, dropout = NULL, epochs = NULL,
            activation = NULL,
            others = list(),
            ...) {
     check_empty_ellipse(...)
 
     act_funs <- c("linear", "softmax", "relu", "elu")
-    if (is.numeric(units))
-      if (units < 2)
+    if (is.numeric(hidden_units))
+      if (hidden_units < 2)
         stop("There must be at least two hidden units", call. = FALSE)
-    if (is.numeric(weight_decay))
-      if (weight_decay < 0)
+    if (is.numeric(regularization))
+      if (regularization < 0)
         stop("The amount of weight decay must be >= 0.", call. = FALSE)
     if (is.numeric(dropout))
       if (dropout < 0 | dropout >= 1)
         stop("The dropout proportion must be on [0, 1).", call. = FALSE)
-    if (is.numeric(weight_decay) & is.numeric(dropout))
-      if (dropout > 0 & weight_decay > 0)
+    if (is.numeric(regularization) & is.numeric(dropout))
+      if (dropout > 0 & regularization > 0)
         stop("Both weight decay and dropout should not be specified.", call. = FALSE)
     if (is.character(activation))
       if (!any(activation %in% c(act_funs)))
@@ -98,7 +98,7 @@ mlp <-
            paste0("'", mlp_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    args <- list(units = units, weight_decay = weight_decay, dropout = dropout,
+    args <- list(hidden_units = hidden_units, regularization = regularization, dropout = dropout,
                  epochs = epochs, activation = activation)
 
     no_value <- !vapply(others, is.null, logical(1))
@@ -138,23 +138,23 @@ print.mlp <- function(x, ...) {
 #'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
-#' model <- mlp(units = 10, dropout = 0.30)
+#' model <- mlp(hidden_units = 10, dropout = 0.30)
 #' model
-#' update(model, units = 2)
-#' update(model, units = 2, fresh = TRUE)
+#' update(model, hidden_units = 2)
+#' update(model, hidden_units = 2, fresh = TRUE)
 #' @method update mlp
 #' @rdname mlp
 #' @export
 update.mlp <-
   function(object,
-           units = NULL, weight_decay = NULL, dropout = NULL,
+           hidden_units = NULL, regularization = NULL, dropout = NULL,
            epochs = NULL, activation = NULL,
            others = list(),
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
 
-    args <- list(units = units, weight_decay = weight_decay, dropout = dropout,
+    args <- list(hidden_units = hidden_units, regularization = regularization, dropout = dropout,
                  epochs = epochs, activation = activation)
 
     # TODO make these blocks into a function and document well
@@ -184,8 +184,8 @@ update.mlp <-
 translate.mlp <- function(x, engine, ...) {
 
   if (engine == "nnet") {
-    if(is.null(x$args$units))
-      x$args$units <- 5
+    if(is.null(x$args$hidden_units))
+      x$args$hidden_units <- 5
   }
 
   x <- translate.default(x, engine, ...)

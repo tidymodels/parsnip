@@ -7,7 +7,7 @@ library(nnet)
 
 num_pred <- names(iris)[1:4]
 
-iris_nnet <- mlp(mode = "classification", units = 2)
+iris_nnet <- mlp(mode = "classification", hidden_units = 2)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)

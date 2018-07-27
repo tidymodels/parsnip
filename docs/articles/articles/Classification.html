@@ -111,10 +111,10 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">57974</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">nnet_fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlp.html">mlp</a></span>(</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dt">mode =</span> <span class="st">"classification"</span>, </a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">epochs =</span> <span class="dv">100</span>, <span class="dt">units =</span> <span class="dv">5</span>, <span class="dt">dropout =</span> <span class="fl">0.1</span>, </a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">epochs =</span> <span class="dv">100</span>, <span class="dt">hidden_units =</span> <span class="dv">5</span>, <span class="dt">dropout =</span> <span class="fl">0.1</span>, </a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">others =</span> <span class="kw">list</span>(<span class="dt">verbose =</span> <span class="dv">0</span>, <span class="dt">validation_split =</span> <span class="fl">.20</span>)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/parsnip/topics/fit.model_spec">fit.model_spec</a></span>(Status <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/recipes/topics/juice">juice</a></span>(credit_rec), <span class="dt">engine =</span> <span class="st">"keras"</span>)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/parsnip/topics/fit">fit.model_spec</a></span>(Status <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/recipes/topics/juice">juice</a></span>(credit_rec), <span class="dt">engine =</span> <span class="st">"keras"</span>)</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">nnet_fit</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; parsnip model object</span></a>
@@ -150,12 +150,12 @@
 <a class="sourceLine" id="cb4-12" data-line-number="12">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/roc_auc">roc_auc</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; [1] 0.82</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/accuracy">accuracy</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [1] 0.805</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [1] 0.803</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/conf_mat">conf_mat</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;       bad  186   90</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;       good 127  710</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;       bad  185   91</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;       good 128  709</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

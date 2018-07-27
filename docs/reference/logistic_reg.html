@@ -38,7 +38,7 @@ different packages in R, Stan, or via Spark. The main arguments for the
 model are:
 regularization: The total amount of regularization
 in the model. Note that this must be zero for some engines.
-mixture: The proportion of L2 regularization in
+mixture: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
@@ -133,7 +133,7 @@ different packages in R, Stan, or via Spark. The main arguments for the
 model are:</p><ul>
 <li><p><code>regularization</code>: The total amount of regularization
 in the model. Note that this must be zero for some engines.</p></li>
-<li><p><code>mixture</code>: The proportion of L2 regularization in
+<li><p><code>mixture</code>: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
@@ -205,7 +205,7 @@ modified in-place of or replaced wholesale.</p></td>
     <p>The data given to the function are not saved and are only used
 to determine the <em>mode</em> of the model. For <code>logistic_reg</code>,the
 mode will always be "classification".</p>
-<p>The model can be created using the <code>fit()</code> function using the
+<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/modelgenerics/topics/generics'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"glm"</code> or <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
@@ -214,7 +214,7 @@ following <em>engines</em>:</p><ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code>fit()</code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/modelgenerics/topics/generics'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
