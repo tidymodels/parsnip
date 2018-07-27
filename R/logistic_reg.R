@@ -7,7 +7,7 @@
 #' \itemize{
 #'   \item \code{regularization}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The proportion of L2 regularization in
+#'   \item \code{mixture}: The proportion of L1 regularization in
 #'  the model. Note that this will be ignored for some engines.
 #' }
 #' These arguments are converted to their specific names at the

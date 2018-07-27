@@ -12,7 +12,7 @@
 #'   \item \code{trees}: The number of trees contained in the ensemble.
 #'   \item \code{min_n}: The minimum number of data points in a node
 #'   that are required for the node to be split further.
-#'   \item \code{tree_depth}: The maximum deopth of the tree (i.e. number of
+#'   \item \code{tree_depth}: The maximum depth of the tree (i.e. number of
 #'  splits).
 #'   \item \code{learn_rate}: The rate at which the boosting algorithm adapts
 #'   from iteration-to-iteration.
