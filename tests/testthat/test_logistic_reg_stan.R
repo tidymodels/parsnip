@@ -1,4 +1,5 @@
 library(testthat)
+context("logistic regression execution with stan")
 library(parsnip)
 library(rlang)
 library(tibble)

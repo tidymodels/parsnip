@@ -1,4 +1,5 @@
 library(testthat)
+context("logistic regression")
 library(parsnip)
 library(rlang)
 

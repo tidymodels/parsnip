@@ -1,4 +1,5 @@
 library(testthat)
+context("parametric survival models")
 library(parsnip)
 library(rlang)
 library(flexsurv)

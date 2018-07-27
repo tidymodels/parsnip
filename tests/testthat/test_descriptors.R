@@ -1,4 +1,5 @@
 library(testthat)
+context("descriptor variables")
 library(parsnip)
 
 template <- function(col, pred, ob, lev, fact) 

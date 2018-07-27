@@ -1,6 +1,5 @@
-context("execution tests for stan linear regression")
-
 library(testthat)
+context("linear regression execution with stan")
 library(parsnip)
 library(rlang)
 library(rstanarm)

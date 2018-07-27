@@ -1,4 +1,5 @@
 library(testthat)
+context("simple neural networks")
 library(parsnip)
 
 test_that('primary arguments', {

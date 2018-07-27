@@ -1,4 +1,5 @@
 library(testthat)
+context("simple neural network execution with keras")
 library(parsnip)
 library(keras)
 library(tibble)

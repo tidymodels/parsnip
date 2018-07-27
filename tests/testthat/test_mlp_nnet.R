@@ -1,4 +1,5 @@
 library(testthat)
+context("simple neural network execution with nnet")
 library(parsnip)
 library(nnet)
 
