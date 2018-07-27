@@ -1,6 +1,5 @@
 # General TODOs
 # Q: think about case weights in each instance below
-# Q: where/how to add data checks (e.g. factors for classification)
 
 # TODO write a better deparser for calls to avoid off-screen text and tabs
 
@@ -86,9 +85,8 @@
 #'    a formula and non-formula interface (such as the \code{terms}
 #'    object)
 #' }
+#' @rdname fit
 #' @export
-#' @export fit.model_spec
-#' @importFrom  modelgenerics fit
 fit.model_spec <-
   function(object,
            formula = NULL,

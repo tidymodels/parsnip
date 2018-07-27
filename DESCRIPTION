@@ -12,14 +12,14 @@ LazyData: true
 ByteCompile: true
 VignetteBuilder: knitr
 Depends:
-    R (>= 2.10),
-    modelgenerics
+    R (>= 2.10)
 Imports: 
     dplyr,
     rlang (>= 0.2.0.9001),
     purrr,
     utils,
-    tibble
+    tibble,
+    modelgenerics
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Suggests: 
@@ -28,5 +28,4 @@ Suggests:
     rmarkdown,
     survival
 Remotes:
-    tidyverse/rlang,
-    topepo/modelgenerics
+    tidyverse/rlang
