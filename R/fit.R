@@ -87,6 +87,7 @@
 #' }
 #' @rdname fit
 #' @export
+#' @export fit.model_spec
 fit.model_spec <-
   function(object,
            formula = NULL,
