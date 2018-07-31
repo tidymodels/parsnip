@@ -150,12 +150,12 @@
 <a class="sourceLine" id="cb4-12" data-line-number="12">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/roc_auc">roc_auc</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; [1] 0.82</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/accuracy">accuracy</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [1] 0.803</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [1] 0.805</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/yardstick/topics/conf_mat">conf_mat</a></span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;       bad  185   91</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;       good 128  709</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;       bad  180   84</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;       good 133  716</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
