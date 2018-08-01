@@ -33,7 +33,7 @@ test_that('randomForest classification execution', {
   # )
 
   expect_error(
-    fit(
+    fit_xy(
       lc_basic,
       engine = "randomForest",
       control = ctrl,
@@ -63,7 +63,7 @@ test_that('randomForest classification execution', {
   # )
   # expect_true(inherits(randomForest_form_catch, "try-error"))
 
-  randomForest_xy_catch <- fit(
+  randomForest_xy_catch <- fit_xy(
     bad_rf_cls,
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il,
@@ -76,7 +76,7 @@ test_that('randomForest classification execution', {
 
 
 test_that('randomForest classification prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -102,7 +102,7 @@ test_that('randomForest classification prediction', {
 })
 
 test_that('randomForest classification probabilities', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -163,7 +163,7 @@ test_that('randomForest regression execution', {
   # )
 
   expect_error(
-    fit(
+    fit_xy(
       car_basic,
       x = mtcars,
       y = mtcars$mpg,
@@ -183,7 +183,7 @@ test_that('randomForest regression execution', {
   # )
   # expect_true(inherits(randomForest_form_catch, "try-error"))
 
-  randomForest_xy_catch <- fit(
+  randomForest_xy_catch <- fit_xy(
     bad_rf_reg,
     x = mtcars,
     y = mtcars$mpg,
@@ -197,7 +197,7 @@ test_that('randomForest regression execution', {
 test_that('randomForest regression prediction', {
 
 
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     car_basic,
     x = mtcars,
     y = mtcars$mpg,

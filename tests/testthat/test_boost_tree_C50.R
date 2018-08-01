@@ -29,7 +29,7 @@ test_that('C5.0 execution', {
     regexp = NA
   )
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       lc_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
@@ -58,7 +58,7 @@ test_that('C5.0 execution', {
   )
   expect_true(inherits(C5.0_form_catch$fit, "try-error"))
 
-  C5.0_xy_catch <- fit(
+  C5.0_xy_catch <- fit_xy(
     lc_basic,
     engine = "C5.0",
     control = caught_ctrl,
@@ -69,7 +69,7 @@ test_that('C5.0 execution', {
 })
 
 test_that('C5.0 prediction', {
-  classes_xy <- fit(
+  classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -83,7 +83,7 @@ test_that('C5.0 prediction', {
 })
 
 test_that('C5.0 probabilities', {
-  classes_xy <- fit(
+  classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,

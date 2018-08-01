@@ -16,7 +16,7 @@ ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
-xy_fit <- fit(
+xy_fit <- fit_xy(
   logistic_reg(others = list(seed =  11, chains = 1)),
   engine = "stan",
   control = ctrl,
@@ -37,7 +37,7 @@ test_that('stan_glm execution', {
     )
   )
 
-  stan_xy_catch <- fit(
+  stan_xy_catch <- fit_xy(
     lc_basic,
     engine = "stan",
     control = caught_ctrl,
@@ -51,7 +51,7 @@ test_that('stan_glm execution', {
 
 test_that('stan_glm prediction', {
 
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),
     engine = "stan",
     control = ctrl,
@@ -91,7 +91,7 @@ test_that('stan_glm prediction', {
 
 test_that('stan_glm probability', {
 
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),
     engine = "stan",
     control = ctrl,

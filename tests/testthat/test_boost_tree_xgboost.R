@@ -30,7 +30,7 @@ test_that('xgboost execution, classification', {
     regexp = NA
   )
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       iris_xgboost,
       x = iris[, num_pred],
       y = iris$Species,
@@ -53,7 +53,7 @@ test_that('xgboost execution, classification', {
 
 
 test_that('xgboost classification prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     iris_xgboost,
     x = iris[, num_pred],
     y = iris$Species,
@@ -112,7 +112,7 @@ test_that('xgboost execution, regression', {
   )
 
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
@@ -126,7 +126,7 @@ test_that('xgboost execution, regression', {
 
 
 test_that('xgboost regression prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
     y = mtcars$mpg,

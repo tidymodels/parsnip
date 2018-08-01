@@ -15,10 +15,9 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glmnet execution', {
-
-
+  
   expect_error(
-    fit(
+    fit_xy(
       iris_basic,
       engine = "glmnet",
       control = ctrl,
@@ -38,7 +37,7 @@ test_that('glmnet execution', {
     )
   )
 
-  glmnet_xy_catch <- fit(
+  glmnet_xy_catch <- fit_xy(
     iris_basic,
     x = iris[, num_pred],
     y = factor(iris$Sepal.Length),
@@ -51,7 +50,7 @@ test_that('glmnet execution', {
 
 test_that('glmnet prediction, single lambda', {
 
-  res_xy <- fit(
+  res_xy <- fit_xy(
     iris_basic,
     engine = "glmnet",
     control = ctrl,
@@ -91,7 +90,7 @@ test_that('glmnet prediction, multiple lambda', {
 
   iris_mult <- linear_reg(regularization = c(.01, 0.1), mixture = .3)
 
-  res_xy <- fit(
+  res_xy <- fit_xy(
     iris_mult,
     engine = "glmnet",
     control = ctrl,
@@ -134,7 +133,7 @@ test_that('glmnet prediction, all lambda', {
 
   iris_all <- linear_reg(mixture = .3)
 
-  res_xy <- fit(
+  res_xy <- fit_xy(
     iris_all,
     engine = "glmnet",
     control = ctrl,

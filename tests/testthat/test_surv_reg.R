@@ -116,7 +116,7 @@ test_that('flexsurv execution', {
     regexp = NA
   )
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       surv_basic,
       x = bc[, "group", drop = FALSE],
       y = bc$recyrs,

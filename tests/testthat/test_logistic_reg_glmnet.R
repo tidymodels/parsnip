@@ -18,7 +18,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('glmnet execution', {
 
   expect_error(
-    fit(
+    fit_xy(
       lc_basic,
       engine = "glmnet",
       control = ctrl,
@@ -28,7 +28,7 @@ test_that('glmnet execution', {
     regexp = NA
   )
 
-  glmnet_xy_catch <- fit(
+  glmnet_xy_catch <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il,
@@ -40,7 +40,7 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, one lambda', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(regularization = 0.1),
     engine = "glmnet",
     control = ctrl,
@@ -83,7 +83,7 @@ test_that('glmnet prediction, one lambda', {
 
 
 test_that('glmnet prediction, mulitiple lambda', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(regularization = c(0.01, 0.1)),
     engine = "glmnet",
     control = ctrl,
@@ -129,7 +129,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 
 test_that('glmnet prediction, no lambda', {
 
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(others = list(nlambda =  11)),
     engine = "glmnet",
     control = ctrl,
@@ -175,7 +175,7 @@ test_that('glmnet prediction, no lambda', {
 
 
 test_that('glmnet probabilities, one lambda', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(regularization = 0.1),
     engine = "glmnet",
     control = ctrl,
@@ -215,7 +215,7 @@ test_that('glmnet probabilities, one lambda', {
 })
 
 test_that('glmnet probabilities, mulitiple lambda', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(regularization = c(0.01, 0.1)),
     engine = "glmnet",
     control = ctrl,
@@ -258,7 +258,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
 
 test_that('glmnet probabilities, no lambda', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     logistic_reg(),
     engine = "glmnet",
     control = ctrl,
