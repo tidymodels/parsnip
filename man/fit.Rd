@@ -70,7 +70,9 @@ required by the underlying model.
 
 When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-\code{fit`` is invoked, the original data are references when the model is fit. However, if the underlying model uses something else, such as}x\code{/}y`, the formula is evaluated and
+\code{fit} is invoked, the original data are references
+when the model is fit. However, if the underlying model uses
+something else, such as \code{x}/\code{y}, the formula is evaluated and
 the data are converted to the required format. In this case, any
 calls in the resulting model objects reference the temporary
 objects used to fit the model.
@@ -94,7 +96,7 @@ using_formula <-
 
 using_xy <-
   lm_mod \%>\%
-  fit_cy(x = lending_club[, c("funded_amnt", "int_rate")],
+  fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
          y = lending_club$Class,
          engine = "glm")
 

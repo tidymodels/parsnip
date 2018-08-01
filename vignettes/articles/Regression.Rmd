@@ -67,7 +67,7 @@ preds <- c("Longitude", "Latitude", "Lot_Area", "Neighborhood", "Year_Sold")
 
 library(tidyverse)
 rf_xy_fit <- rf_defaults %>%
-  fit(
+  fit_xy(
     x = ames_train[, preds],
     y = log10(ames_train$Sale_Price),
     engine = "ranger"

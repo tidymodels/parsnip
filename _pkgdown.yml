@@ -19,7 +19,8 @@ reference:
     contents:
       - predict.model_fit
       - translate
-      - fit
+      - fit.model_spec
+      - fit_xy
       - fit_control
       - varying
       - descriptors
