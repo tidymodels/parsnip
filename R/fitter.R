@@ -31,13 +31,15 @@ form_form <-
     # the appropraite number of columns. (`..vars..` vs `..cols..`)
     # Perhaps use `convert_form_to_xy_fit` here to get the results.
 
-    data_stats <- get_descr_form(formula, data)
-    n_obs <- data_stats$obs
-    n_cols <- data_stats$cols
-    n_preds <- data_stats$preds
-    n_levs <- data_stats$levs
-    n_facts <- data_stats$facts
-
+    if (make_descr(object)) {
+      data_stats <- get_descr_form(formula, data)
+      n_obs <- data_stats$obs
+      n_cols <- data_stats$cols
+      n_preds <- data_stats$preds
+      n_levs <- data_stats$levs
+      n_facts <- data_stats$facts
+    }
+    
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],
       ns = object$method$fit$func["pkg"],
@@ -80,13 +82,15 @@ xy_xy <- function(object, x, y, control, target = "none", ...) {
       stop("Invalid data type target: ", target)
     )
 
-  data_stats <- get_descr_xy(x, y)
-  n_obs <- data_stats$obs
-  n_cols <- data_stats$cols
-  n_preds <- data_stats$preds
-  n_levs <- data_stats$levs
-  n_facts <- data_stats$facts
-
+  if (make_descr(object)) {
+    data_stats <- get_descr_xy(x, y)
+    n_obs <- data_stats$obs
+    n_cols <- data_stats$cols
+    n_preds <- data_stats$preds
+    n_levs <- data_stats$levs
+    n_facts <- data_stats$facts
+  }
+  
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
     ns = object$method$fit$func["pkg"],
