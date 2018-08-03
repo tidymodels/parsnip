@@ -3,6 +3,7 @@ context("random forest execution with ranger")
 library(parsnip)
 library(ranger)
 library(tibble)
+library(rlang)
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
@@ -221,3 +222,97 @@ test_that('ranger regression prediction', {
 
 })
 
+test_that('additional descriptor tests', {
+  
+  quoted_xy <- fit(
+    rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
+    x = mtcars[, -1],
+    y = mtcars$mpg,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(quoted_xy$fit$mtry, 4)
+  
+  quoted_f <- fit(
+    rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
+    mpg ~ ., data = mtcars,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(quoted_f$fit$mtry, 4)
+  
+  expr_xy <- fit(
+    rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
+    x = mtcars[, -1],
+    y = mtcars$mpg,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(expr_xy$fit$mtry, 4)
+  
+  expr_f <- fit(
+    rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
+    mpg ~ ., data = mtcars,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(expr_f$fit$mtry, 4)
+  
+  ##
+  
+  exp_wts <- quote(c(min(n_levs), 20, 10))
+  
+  quoted_other_xy <- fit(
+    rand_forest(
+      mode = "classification",
+      mtry = quote(2),
+      others = list(class.weights = quote(c(min(n_levs), 20, 10)))
+    ),
+    x = iris[, 1:4],
+    y = iris$Species,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(quoted_other_xy$fit$mtry, 2)
+  expect_equal(quoted_other_xy$fit$call$class.weights, exp_wts)
+  
+  quoted_other_f <- fit(
+    rand_forest(
+      mode = "classification",
+      mtry = expr(2),
+      others = list(class.weights = quote(c(min(n_levs), 20, 10)))
+    ),
+    Species ~ ., data = iris,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(quoted_other_f$fit$mtry, 2)
+  expect_equal(quoted_other_f$fit$call$class.weights, exp_wts)
+  
+  expr_other_xy <- fit(
+    rand_forest(
+      mode = "classification",
+      mtry = expr(2),
+      others = list(class.weights = expr(c(min(n_levs), 20, 10)))
+    ), 
+    x = iris[, 1:4],
+    y = iris$Species,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(expr_other_xy$fit$mtry, 2)
+  expect_equal(expr_other_xy$fit$call$class.weights, exp_wts)
+  
+  expr_other_f <- fit(
+    rand_forest(
+      mode = "classification",
+      mtry = expr(2),
+      others = list(class.weights = expr(c(min(n_levs), 20, 10)))
+    ),
+    Species ~ ., data = iris,
+    engine = "ranger",
+    control = ctrl
+  )
+  expect_equal(expr_other_f$fit$mtry, 2)
+  expect_equal(expr_other_f$fit$call$class.weights, exp_wts)
+})

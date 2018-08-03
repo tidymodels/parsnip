@@ -9,6 +9,43 @@ species_tab <- table(iris$Species, dnn = NULL)
 
 ###################################################################
 
+context("Should descriptors be created?")
+
+test_that("make_descr", {
+  expect_false(parsnip:::make_descr(rand_forest()))
+  expect_false(parsnip:::make_descr(rand_forest(mtry = 3)))
+  expect_false(parsnip:::make_descr(rand_forest(mtry = varying())))  
+  expect_true(parsnip:::make_descr(rand_forest(mtry = expr(..num))))
+  expect_false(parsnip:::make_descr(rand_forest(mtry = expr(3))))
+  expect_false(parsnip:::make_descr(rand_forest(mtry = quote(3))))
+  expect_true(parsnip:::make_descr(rand_forest(mtry = quote(..num))))
+  
+  expect_false(parsnip:::make_descr(rand_forest(others = list(arrrg = 3))))
+  expect_false(parsnip:::make_descr(rand_forest(others = list(arrrg = varying()))))
+  expect_true(parsnip:::make_descr(rand_forest(others = list(arrrg = expr(..num)))))
+  expect_false(parsnip:::make_descr(rand_forest(others = list(arrrg = expr(3)))))
+  expect_false(parsnip:::make_descr(rand_forest(others = list(arrrg = quote(3)))))
+  expect_true(parsnip:::make_descr(rand_forest(others = list(arrrg = quote(..num)))))
+  expect_true(
+    parsnip:::make_descr(
+      rand_forest(
+        mtry = 3,
+        others = list(arrrg = quote(..num)))
+    )
+  )
+  expect_true(
+    parsnip:::make_descr(
+      rand_forest(
+        mtry = quote(..num),
+        others = list(arrrg = 3))
+    )
+  )
+})
+
+
+
+###################################################################
+
 context("Testing formula -> xy conversion")
 
 test_that("numeric y and dummy vars", {
