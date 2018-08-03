@@ -4,9 +4,9 @@
 form_form <-
   function(object, formula, data, control, ...) {
     opts <- quos(...)
-
+    
     fit_args <- object$method$fit$args
-
+    
     if (is_spark(object)) {
       x <- data
       fit_args$x <- quote(x)
@@ -16,34 +16,36 @@ form_form <-
       else
         fit_args$data <- quote(data)
     }
-
+    
     tmp_data <- eval_tidy(data)
-
+    
     if (is.name(formula) || is.call(formula))
       formula <- eval_tidy(formula)
-
+    
     fit_args$formula <- formula
-
+    
     # check to see of there are any `expr` in the arguments then
     # run a function that evaluates the data and subs in the
     # values of the expressions. we would have to evaluate the
     # formula (perhaps with and without dummy variables) to get
     # the appropraite number of columns. (`..vars..` vs `..cols..`)
     # Perhaps use `convert_form_to_xy_fit` here to get the results.
-
-    data_stats <- get_descr_form(formula, data)
-    n_obs <- data_stats$obs
-    n_cols <- data_stats$cols
-    n_preds <- data_stats$preds
-    n_levs <- data_stats$levs
-    n_facts <- data_stats$facts
-
+    
+    if (make_descr(object)) {
+      data_stats <- get_descr_form(formula, data)
+      n_obs <- data_stats$obs
+      n_cols <- data_stats$cols
+      n_preds <- data_stats$preds
+      n_levs <- data_stats$levs
+      n_facts <- data_stats$facts
+    }
+    
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],
       ns = object$method$fit$func["pkg"],
       fit_args
     )
-
+    
     res <- list(
       lvl = levels_from_formula(
         formula,
@@ -51,7 +53,7 @@ form_form <-
       ),
       spec = object
     )
-
+    
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
@@ -65,11 +67,11 @@ form_form <-
   }
 
 xy_xy <- function(object, x, y, control, target = "none", ...) {
-
+  
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
     stop("spark objects can only be used with the formula interface to `fit`",
          call. = FALSE)
-
+  
   object$method$fit$args[["y"]] <- quote(y)
   object$method$fit$args[["x"]] <-
     switch(
@@ -79,22 +81,24 @@ xy_xy <- function(object, x, y, control, target = "none", ...) {
       matrix = quote(as.matrix(x)),
       stop("Invalid data type target: ", target)
     )
-
-  data_stats <- get_descr_xy(x, y)
-  n_obs <- data_stats$obs
-  n_cols <- data_stats$cols
-  n_preds <- data_stats$preds
-  n_levs <- data_stats$levs
-  n_facts <- data_stats$facts
-
+  
+  if (make_descr(object)) {
+    data_stats <- get_descr_xy(x, y)
+    n_obs <- data_stats$obs
+    n_cols <- data_stats$cols
+    n_preds <- data_stats$preds
+    n_levs <- data_stats$levs
+    n_facts <- data_stats$facts
+  }
+  
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
     ns = object$method$fit$func["pkg"],
     object$method$fit$args
   )
-
+  
   res <- list(lvl = levels(y), spec = object)
-
+  
   res$fit <- eval_mod(
     fit_call,
     capture = control$verbosity == 0,
@@ -123,14 +127,14 @@ form_xy <- function(object, formula, data, control,
     ),
     spec = object
   )
-
+  
   res <- xy_xy(
     object = object,
     x = data_obj$x,
     y = data_obj$y, #weights! offsets!
     control = control,
     target = target
-    )
+  )
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL
@@ -222,18 +226,18 @@ get_descr_form <- function(formula, data) {
     formula <- eval_tidy(formula)
   if(is.name(data) || is.call(data))
     data <- eval_tidy(data)
-
+  
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
-
+  
   if(is.factor(tmp_dat$y)) {
     n_levs <- table(tmp_dat$y, dnn = NULL)
   } else n_levs <- NA
-
+  
   n_cols <- ncol(tmp_dat$x)
   n_preds <- ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   n_obs <- nrow(data)
   n_facts <- sum(vapply(tmp_dat$x, is.factor, logical(1)))
-
+  
   list(
     cols = n_cols,
     preds = n_preds,
@@ -249,11 +253,11 @@ get_descr_xy <- function(x, y) {
     x <- eval_tidy(x)
   if(is.name(y) || is.call(y))
     x <- eval_tidy(y)
-
+  
   if(is.factor(y)) {
     n_levs <- table(y, dnn = NULL)
   } else n_levs <- NA
-
+  
   n_cols  <- ncol(x)
   n_preds <- ncol(x)
   n_obs   <- nrow(x)
@@ -261,7 +265,7 @@ get_descr_xy <- function(x, y) {
     sum(vapply(x, is.factor, logical(1)))
   else
     sum(apply(x, 2, is.factor)) # would this always be zero?
-
+  
   list(
     cols = n_cols,
     preds = n_preds,
