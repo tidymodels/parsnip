@@ -2,6 +2,7 @@
 % Please edit documentation in R/fit.R
 \name{fit.model_spec}
 \alias{fit.model_spec}
+\alias{fit}
 \title{Fit a Model Specification to a Dataset}
 \usage{
 \method{fit}{model_spec}(object, formula = NULL, x = NULL, y = NULL,
