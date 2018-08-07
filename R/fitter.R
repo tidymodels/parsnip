@@ -30,7 +30,7 @@ form_form <-
     # formula (perhaps with and without dummy variables) to get
     # the appropraite number of columns. (`..vars..` vs `..cols..`)
     # Perhaps use `convert_form_to_xy_fit` here to get the results.
-    
+
     if (make_descr(object)) {
       data_stats <- get_descr_form(formula, data)
       n_obs <- data_stats$obs
@@ -81,7 +81,7 @@ xy_xy <- function(object, x, y, control, target = "none", ...) {
       matrix = quote(as.matrix(x)),
       stop("Invalid data type target: ", target)
     )
-  
+
   if (make_descr(object)) {
     data_stats <- get_descr_xy(x, y)
     n_obs <- data_stats$obs

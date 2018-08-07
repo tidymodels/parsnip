@@ -10,52 +10,26 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<!-- Bootstrap -->
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
-
-
-  <link href="../extra.css" rel="stylesheet">
-  
-<meta property="og:title" content="General Interface for Parametric Survival Models — surv_reg" />
-
-<meta property="og:description" content="surv_reg is a way to generate a specification of a model
-before fitting and allows the model to be created using
-R. The main argument for the
-model is:
-dist: The probability distribution of the outcome.
-This argument is converted to its specific names at the
-time that the model is fit. Other options and argument can be
-set using the others argument. If left to its default
-here (NULL), the value is taken from the underlying model
-functions.
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch." />
-<meta name="twitter:card" content="summary" />
-
-
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
   </head>
 
   <body>
@@ -69,14 +43,14 @@ in lieu of recreating the object from scratch." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">parsnip</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9001</span>
-      </span>
-    </div>
 
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">parsnip</a>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
+      </div>
+    </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
 </li>
@@ -99,14 +73,13 @@ in lieu of recreating the object from scratch." />
   </ul>
 </li>
 <li>
+  <a href="../news/index.html">News</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
         
       </ul>
-      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -191,12 +164,12 @@ modified in-place of or replaced wholesale.</p></td>
 to determine the <em>mode</em> of the model. For <code>surv_reg</code>,the
 mode will always be "regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
-<code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='http://www.rdocumentation.org/packages/modelgenerics/topics/generics'>fit()</a></code> function will require that the
+<code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code>fit()</code> function will require that the
 survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
-<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/modelgenerics/topics/generics'>fit()</a></code> function using the
+<p>The model can be created using the <code>fit()</code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"flexsurv"</code></p></li>
 </ul>
@@ -208,7 +181,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/modelgenerics/topics/generics'>fit()</a></code>, <code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code>fit()</code>, <code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -250,14 +223,23 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 </div>
 
       <footer>
-      <div class="copyright">
+      <div class="tidyverse">
+  <p>parsnip is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
   <p>Developed by Max Kuhn.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
-</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
+ gtag('config', 'UA-115082821-1');
+</script>
       </footer>
    </div>
 

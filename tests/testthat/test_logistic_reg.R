@@ -220,7 +220,7 @@ test_that('glm execution', {
   #   regexp = NA
   # )
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       lc_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
@@ -249,7 +249,7 @@ test_that('glm execution', {
   # )
   # expect_true(inherits(glm_form_catch$fit, "try-error"))
 
-  glm_xy_catch <- fit(
+  glm_xy_catch <- fit_xy(
     lc_basic,
     engine = "glm",
     control = caught_ctrl,
@@ -260,7 +260,7 @@ test_that('glm execution', {
 })
 
 test_that('glm prediction', {
-  classes_xy <- fit(
+  classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -277,7 +277,7 @@ test_that('glm prediction', {
 })
 
 test_that('glm probabilities', {
-  classes_xy <- fit(
+  classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$Class,

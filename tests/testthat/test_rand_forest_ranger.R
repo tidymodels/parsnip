@@ -37,7 +37,7 @@ test_that('ranger classification execution', {
   # )
 
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       lc_ranger,
       x = lending_club[, num_pred],
       y = lending_club$Class,
@@ -67,7 +67,7 @@ test_that('ranger classification execution', {
   # )
   # expect_true(inherits(ranger_form_catch$fit, "try-error"))
 
-  ranger_xy_catch <- fit(
+  ranger_xy_catch <- fit_xy(
     bad_ranger_cls,
     engine = "ranger",
     control = caught_ctrl,
@@ -78,7 +78,7 @@ test_that('ranger classification execution', {
 })
 
 test_that('ranger classification prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     rand_forest(mode = "classification"),
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -103,7 +103,7 @@ test_that('ranger classification prediction', {
 
 
 test_that('ranger classification probabilities', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     rand_forest(mode = "classification", others = list(probability = TRUE, seed = 3566)),
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -130,7 +130,7 @@ test_that('ranger classification probabilities', {
   form_pred <- as_tibble(form_pred)
   expect_equal(form_pred, predict_classprob(form_fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")]))
 
-  no_prob_model <- fit(
+  no_prob_model <- fit_xy(
     rand_forest(mode = "classification"),
     x = lending_club[, num_pred],
     y = lending_club$Class,
@@ -175,7 +175,7 @@ test_that('ranger regression execution', {
   # )
   # passes interactively but not on R CMD check
   # expect_error(
-  #   res <- fit(
+  #   res <- fit_xy(
   #     car_basic,
   #     x = mtcars,
   #     y = mtcars$mpg,
@@ -195,7 +195,7 @@ test_that('ranger regression execution', {
   # )
   # expect_true(inherits(ranger_form_catch$fit, "try-error"))
 
-  ranger_xy_catch <- fit(
+  ranger_xy_catch <- fit_xy(
     bad_ranger_reg,
     engine = "ranger",
     control = caught_ctrl,
@@ -208,7 +208,7 @@ test_that('ranger regression execution', {
 
 test_that('ranger regression prediction', {
 
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -224,7 +224,7 @@ test_that('ranger regression prediction', {
 
 test_that('additional descriptor tests', {
   
-  quoted_xy <- fit(
+  quoted_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -241,7 +241,7 @@ test_that('additional descriptor tests', {
   )
   expect_equal(quoted_f$fit$mtry, 4)
   
-  expr_xy <- fit(
+  expr_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -262,7 +262,7 @@ test_that('additional descriptor tests', {
   
   exp_wts <- quote(c(min(n_levs), 20, 10))
   
-  quoted_other_xy <- fit(
+  quoted_other_xy <- fit_xy(
     rand_forest(
       mode = "classification",
       mtry = quote(2),
@@ -289,7 +289,7 @@ test_that('additional descriptor tests', {
   expect_equal(quoted_other_f$fit$mtry, 2)
   expect_equal(quoted_other_f$fit$call$class.weights, exp_wts)
   
-  expr_other_xy <- fit(
+  expr_other_xy <- fit_xy(
     rand_forest(
       mode = "classification",
       mtry = expr(2),

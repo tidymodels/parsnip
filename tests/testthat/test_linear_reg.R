@@ -212,7 +212,7 @@ test_that('lm execution', {
   #   regexp = NA
   # )
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       iris_basic,
       x = iris[, num_pred],
       y = iris$Sepal.Length,
@@ -265,7 +265,7 @@ test_that('lm prediction', {
   mv_lm <- lm(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
   mv_pred <- as.data.frame(predict(mv_lm, newdata = iris[1:5, ]))
 
-  res_xy <- fit(
+  res_xy <- fit_xy(
     iris_basic,
     x = iris[, num_pred],
     y = iris$Sepal.Length,

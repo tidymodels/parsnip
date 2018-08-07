@@ -6,14 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Regression Example • parsnip</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
-<meta property="og:title" content="Regression Example">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- tidyverse --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><!-- mathjax --><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -28,14 +24,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../../index.html">parsnip</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9001</span>
-      </span>
-    </div>
 
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../../index.html">parsnip</a>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
+      </div>
+    </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../../articles/parsnip_Intro.html">Basic Usage</a>
 </li>
@@ -58,10 +54,13 @@
   </ul>
 </li>
 <li>
+  <a href="../../news/index.html">News</a>
+</li>
+<li>
   <a href="../../reference/index.html">Reference</a>
 </li>
+        
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -109,7 +108,7 @@
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">rf_xy_fit &lt;-<span class="st"> </span>rf_defaults <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/modelgenerics/topics/generics">fit</a></span>(</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../../reference/fit.html">fit_xy</a></span>(</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">x =</span> ames_train[, preds],</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">y =</span> <span class="kw">log10</span>(ames_train<span class="op">$</span>Sale_Price),</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -170,7 +169,7 @@
 </ul>
 <p>Now, for illustration, let’s use the formula method using some new parameter values:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/modelgenerics/topics/generics">fit</a></span>(</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -194,7 +193,7 @@
 <a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; R squared (OOB):                  0.729</span></a></code></pre></div>
 <p>Suppose that there was some feature in the <code>randomForest</code> package that we’d like to evaluate. To do so, the only part of the syntaxt that needs to change is the <code>engine</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/modelgenerics/topics/generics">fit</a></span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"randomForest"</span></a>
@@ -223,7 +222,7 @@
 <p>Since <code>ranger</code> won’t create indicator values, <code>n_cols</code> would be appropriate for using <code>mtry</code> for a bagging model.</p>
 <p>For example, let’s use an expression with the <code>n_cols</code> descriptor to fit a bagging model:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="kw">expr</span>(n_cols), <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/modelgenerics/topics/generics">fit</a></span>(</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="kw">log10</span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">data =</span> ames_train,</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">engine =</span> <span class="st">"ranger"</span></a>
@@ -265,7 +264,7 @@
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co"># Now let's fit the model using the processed version of the data</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb8-14" data-line-number="14">glmn_fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/linear_reg.html">linear_reg</a></span>(<span class="dt">regularization =</span> <span class="fl">0.001</span>, <span class="dt">mixture =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/modelgenerics/topics/generics">fit</a></span>(</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="st">   </span><span class="kw">fit</span>(</a>
 <a class="sourceLine" id="cb8-16" data-line-number="16">    Sale_Price <span class="op">~</span><span class="st"> </span>.,</a>
 <a class="sourceLine" id="cb8-17" data-line-number="17">    <span class="dt">data =</span> <span class="kw">juice</span>(norm_recipe),</a>
 <a class="sourceLine" id="cb8-18" data-line-number="18">    <span class="dt">engine =</span> <span class="st">"glmnet"</span></a>
@@ -331,15 +330,22 @@
 </div>
 
 
-      <footer><div class="copyright">
+      <footer><div class="tidyverse">
+  <p>parsnip is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
   <p>Developed by Max Kuhn.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
-</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-      </footer>
+ gtag('config', 'UA-115082821-1');
+</script></footer>
 </div>
 
   

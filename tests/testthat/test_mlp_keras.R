@@ -33,7 +33,7 @@ test_that('keras execution, classification', {
   keras::backend()$clear_session()
   
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       iris_keras,
       x = iris[, num_pred],
       y = iris$Species,
@@ -58,7 +58,7 @@ test_that('keras execution, classification', {
 
 
 test_that('keras classification prediction', {
-  xy_fit <- parsnip::fit(
+  xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
     y = iris$Species,
@@ -89,7 +89,7 @@ test_that('keras classification prediction', {
 
 
 test_that('keras classification probabilities', {
-  xy_fit <- parsnip::fit(
+  xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
     y = iris$Species,
@@ -156,7 +156,7 @@ test_that('keras execution, regression', {
   keras::backend()$clear_session()
   
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
@@ -170,7 +170,7 @@ test_that('keras execution, regression', {
 
 
 test_that('keras regression prediction', {
-  xy_fit <- parsnip::fit(
+  xy_fit <- parsnip::fit_xy(
     mlp(mode = "regression", hidden_units = 2, epochs = 500, regularization = .1),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,

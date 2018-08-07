@@ -266,7 +266,7 @@ Previously, when discussing the `pred` information:
 
 > For `pred`, the model requires an unnamed numeric vector output **(usually)**.
 
-There are some models (e.g. `glmnet`, `plsr`, `Cubust`, etc.) that can make predictions for different models from the same fitted model object. We want to facilitate that here so that, for these cases, the current convention is to return a tibble with the prediction in a column called `values` and have extra columns for any parameters that define the different sub-models. 
+There are some models (e.g. `glmnet`, `plsr`, `Cubist`, etc.) that can make predictions for different models from the same fitted model object. We want to facilitate that here so that, for these cases, the current convention is to return a tibble with the prediction in a column called `values` and have extra columns for any parameters that define the different sub-models. 
 
 For example, if I fit a linear regression model via `glmnet` and get four values of the regularization parameter (`lambda`):
 
@@ -340,7 +340,7 @@ This would **not** include making dummy variables and `model.matrix` stuff. `par
 
 ### Why would I postprocess my predictions? 
 
-What comes back from some R functions make be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix (narrator: they don't). If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
+What comes back from some R functions make be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix^[_narrator_: they don't]. If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
 
 Another example is the predict method for `ranger`, which encapsulates the actual predictions in a more complex object structure. 
 

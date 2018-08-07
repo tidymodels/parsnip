@@ -30,7 +30,7 @@ test_that('nnet execution, classification', {
     regexp = NA
   )
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       iris_nnet,
       x = iris[, num_pred],
       y = iris$Species,
@@ -53,7 +53,7 @@ test_that('nnet execution, classification', {
 
 
 test_that('nnet classification prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     iris_nnet,
     x = iris[, num_pred],
     y = iris$Species,
@@ -110,7 +110,7 @@ test_that('nnet execution, regression', {
   )
 
   expect_error(
-    res <- parsnip::fit(
+    res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
@@ -124,7 +124,7 @@ test_that('nnet execution, regression', {
 
 
 test_that('nnet regression prediction', {
-  xy_fit <- fit(
+  xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
     y = mtcars$mpg,

@@ -27,7 +27,7 @@ test_that('stan_glm execution', {
     regexp = NA
   )
   expect_error(
-    res <- fit(
+    res <- fit_xy(
       iris_basic,
       x = iris[, num_pred],
       y = iris$Sepal.Length,
@@ -56,7 +56,7 @@ test_that('stan prediction', {
   inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)
   inl_pred <- unname(predict(inl_stan, newdata = iris[1:5, c("Sepal.Length", "Species")]))
 
-  res_xy <- fit(
+  res_xy <- fit_xy(
     linear_reg(others = list(seed = 123, chains = 1)),
     x = iris[, num_pred],
     y = iris$Sepal.Length,

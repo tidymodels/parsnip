@@ -3,10 +3,14 @@
 \name{fit.model_spec}
 \alias{fit.model_spec}
 \alias{fit}
+\alias{fit_xy}
 \title{Fit a Model Specification to a Dataset}
 \usage{
-\method{fit}{model_spec}(object, formula = NULL, x = NULL, y = NULL,
-  data = NULL, engine = object$engine, control = fit_control(), ...)
+\method{fit}{model_spec}(object, formula = NULL, data = NULL,
+  engine = object$engine, control = fit_control(), ...)
+
+fit_xy(object, x = NULL, y = NULL, engine = object$engine,
+  control = fit_control(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec}}
@@ -14,15 +18,6 @@
 \item{formula}{An object of class "formula" (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.}
-
-\item{x}{Optional, depending on the interface (see Details
-below). Can be data frame or matrix of predictors. Note: when
-needed, a \emph{named argument} should be used.}
-
-\item{y}{Optional, depending on the interface (see Details
-below). Can be a vector, data frame or matrix of predictors (the
-latter two in case of multivariate outcomes). Note: when needed,
-a \emph{named argument} should be used.}
 
 \item{data}{Optional, depending on the interface (see Details
 below). A data frame containing all relevant variables (e.g.
@@ -40,6 +35,10 @@ of model (e.g. linear regression, random forest, etc.).}
 ignored. Other options required to fit the model should be
 passed using the \code{others} argument in the original model
 specification.}
+
+\item{x}{A matrix or data frame of predictors.}
+
+\item{y}{A vector, matrix or data frame of outcome data.}
 }
 \value{
 A \code{model_fit} object that contains several elements:
@@ -57,22 +56,22 @@ object)
 }
 }
 \description{
-\code{fit} will take a model specification, translate the required
+\code{fit} and \code{fit_xy} take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.
 }
 \details{
-\code{fit} substitutes the current arguments in the model
+\code{fit} and \code{fit_xy} substitute the current arguments in the model
 specification into the computational engine's code, checks them
 for validity, then fits the model using the data and the
 engine-specific code. Different model functions have different
-interfaces (e.g. formula or \code{x}/\code{y}) and \code{fit} translates
-between the interface used when \code{fit} was invoked and the one
+interfaces (e.g. formula or \code{x}/\code{y}) and these functions translate
+between the interface used when \code{fit} or \code{fit_xy} were invoked and the one
 required by the underlying model.
 
-When possible, \code{fit} attempts to avoid making copies of the
+When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-fit is invoked with a formula, the original data are references
+\code{fit} is invoked, the original data are references
 when the model is fit. However, if the underlying model uses
 something else, such as \code{x}/\code{y}, the formula is evaluated and
 the data are converted to the required format. In this case, any
@@ -83,22 +82,24 @@ objects used to fit the model.
 # Although `glm` only has a formula interface, different
 # methods for specifying the model can be used
 
+library(dplyr)
 data("lending_club")
 
 lm_mod <- logistic_reg()
 
+lm_mod <- logistic_reg()
+
 using_formula <-
-  fit(lm_mod,
-      Class ~ funded_amnt + int_rate,
+  lm_mod \%>\%
+  fit(Class ~ funded_amnt + int_rate,
       data = lending_club,
       engine = "glm")
 
-# NOTE: use named arguments for "x" and "y" when using this interface
 using_xy <-
-  fit(lm_mod,
-      x = lending_club[, c("funded_amnt", "int_rate")],
-      y = lending_club$Class,
-      engine = "glm")
+  lm_mod \%>\%
+  fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
+         y = lending_club$Class,
+         engine = "glm")
 
 using_formula
 using_xy

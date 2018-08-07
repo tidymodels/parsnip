@@ -10,38 +10,26 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<!-- Bootstrap -->
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
-
-
-  <link href="../extra.css" rel="stylesheet">
-  
-<meta property="og:title" content="Function reference" />
-
-
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
   </head>
 
   <body>
@@ -55,14 +43,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">parsnip</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9001</span>
-      </span>
-    </div>
 
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">parsnip</a>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
+      </div>
+    </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
 </li>
@@ -85,14 +73,13 @@
   </ul>
 </li>
 <li>
+  <a href="../news/index.html">News</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
         
       </ul>
-      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -109,6 +96,7 @@
     <table class="ref-index">
 
     <colgroup>
+      
       <col class="alias" />
       <col class="title" />
     </colgroup>
@@ -121,37 +109,37 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="boost_tree.html">boost_tree()</a></code> <code><a href="boost_tree.html">update(<i>&lt;boost_tree&gt;</i>)</a></code> </p>
         </td>
         <td><p>General Interface for Boosted Trees</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="linear_reg.html">linear_reg()</a></code> <code><a href="linear_reg.html">update(<i>&lt;linear_reg&gt;</i>)</a></code> </p>
         </td>
         <td><p>General Interface for Linear Regression Models</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="logistic_reg.html">logistic_reg()</a></code> <code><a href="logistic_reg.html">update(<i>&lt;logistic_reg&gt;</i>)</a></code> </p>
         </td>
         <td><p>General Interface for Logistic Regression Models</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="mlp.html">mlp()</a></code> <code><a href="mlp.html">update(<i>&lt;mlp&gt;</i>)</a></code> </p>
         </td>
         <td><p>General Interface for Single Layer Neural Network</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="rand_forest.html">rand_forest()</a></code> <code><a href="rand_forest.html">update(<i>&lt;rand_forest&gt;</i>)</a></code> </p>
         </td>
         <td><p>General Interface for Random Forest Models</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="surv_reg.html">surv_reg()</a></code> <code><a href="surv_reg.html">update(<i>&lt;surv_reg&gt;</i>)</a></code> </p>
         </td>
@@ -165,37 +153,49 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
+        <td>
+          <p><code><a href="model_spec.html">model_spec</a></code> </p>
+        </td>
+        <td><p>Model Specification Information</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_fit.html">model_fit</a></code> </p>
+        </td>
+        <td><p>Model Fit Object Information</p></td>
+      </tr><tr>
+        
         <td>
           <p><code><a href="predict.model_fit.html">predict(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="predict.model_fit.html">predict_class()</a></code> <code><a href="predict.model_fit.html">predict_classprob()</a></code> </p>
         </td>
         <td><p>Model Predictions</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="translate.html">translate()</a></code> </p>
         </td>
         <td><p>Resolve a Model Specification for a Computational Engine</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
-          <p><code><a href="fit.html">fit(<i>&lt;model_spec&gt;</i>)</a></code> </p>
+          <p><code><a href="fit.html">fit(<i>&lt;model_spec&gt;</i>)</a></code> <code><a href="fit.html">fit_xy()</a></code> </p>
         </td>
         <td><p>Fit a Model Specification to a Dataset</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="fit_control.html">fit_control()</a></code> </p>
         </td>
         <td><p>Control the fit function</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="varying.html">varying()</a></code> </p>
         </td>
         <td><p>A Placeholder Function for Argument Values</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="descriptors.html">descriptors</a></code> </p>
         </td>
@@ -209,7 +209,7 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="lending_club.html">lending_club</a></code> </p>
         </td>
@@ -230,14 +230,23 @@
 </div>
 
       <footer>
-      <div class="copyright">
+      <div class="tidyverse">
+  <p>parsnip is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
   <p>Developed by Max Kuhn.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
-</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
+ gtag('config', 'UA-115082821-1');
+</script>
       </footer>
    </div>
 

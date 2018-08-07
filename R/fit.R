@@ -5,7 +5,7 @@
 
 #' Fit a Model Specification to a Dataset
 #'
-#' `fit` will take a model specification, translate the required
+#' `fit` and `fit_xy` take a model specification, translate the required
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #'
@@ -14,13 +14,6 @@
 #' @param formula An object of class "formula" (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
-#' @param x Optional, depending on the interface (see Details
-#'  below). Can be data frame or matrix of predictors. Note: when
-#'  needed, a \emph{named argument} should be used.
-#' @param y Optional, depending on the interface (see Details
-#'  below). Can be a vector, data frame or matrix of predictors (the
-#'  latter two in case of multivariate outcomes). Note: when needed,
-#'  a \emph{named argument} should be used.
 #' @param data Optional, depending on the interface (see Details
 #'  below). A data frame containing all relevant variables (e.g.
 #'  outcome(s), predictors, case weights, etc). Note: when needed, a
@@ -34,17 +27,17 @@
 #'  ignored. Other options required to fit the model should be
 #'  passed using the `others` argument in the original model
 #'  specification.
-#' @details  `fit` substitutes the current arguments in the model
+#' @details  `fit` and `fit_xy` substitute the current arguments in the model
 #'  specification into the computational engine's code, checks them
 #'  for validity, then fits the model using the data and the
 #'  engine-specific code. Different model functions have different
-#'  interfaces (e.g. formula or `x`/`y`) and `fit` translates
-#'  between the interface used when `fit` was invoked and the one
+#'  interfaces (e.g. formula or `x`/`y`) and these functions translate
+#'  between the interface used when `fit` or `fit_xy` were invoked and the one
 #'  required by the underlying model.
 #'
-#' When possible, `fit` attempts to avoid making copies of the
+#' When possible, these functions attempt to avoid making copies of the
 #'  data. For example, if the underlying model uses a formula and
-#'  fit is invoked with a formula, the original data are references
+#'  `fit` is invoked, the original data are references
 #'  when the model is fit. However, if the underlying model uses
 #'  something else, such as `x`/`y`, the formula is evaluated and
 #'  the data are converted to the required format. In this case, any
@@ -54,22 +47,24 @@
 #' # Although `glm` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'
+#' library(dplyr)
 #' data("lending_club")
 #'
 #' lm_mod <- logistic_reg()
 #'
+#' lm_mod <- logistic_reg()
+#' 
 #' using_formula <-
-#'   fit(lm_mod,
-#'       Class ~ funded_amnt + int_rate,
+#'   lm_mod %>%
+#'   fit(Class ~ funded_amnt + int_rate,
 #'       data = lending_club,
 #'       engine = "glm")
-#'
-#' # NOTE: use named arguments for "x" and "y" when using this interface
+#' 
 #' using_xy <-
-#'   fit(lm_mod,
-#'       x = lending_club[, c("funded_amnt", "int_rate")],
-#'       y = lending_club$Class,
-#'       engine = "glm")
+#'   lm_mod %>%
+#'   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
+#'          y = lending_club$Class,
+#'          engine = "glm")
 #'
 #' using_formula
 #' using_xy
@@ -86,14 +81,15 @@
 #'    a formula and non-formula interface (such as the \code{terms}
 #'    object)
 #' }
+#'  
+#' @param x A matrix or data frame of predictors.
+#' @param y A vector, matrix or data frame of outcome data. 
 #' @rdname fit
 #' @export
 #' @export fit.model_spec
 fit.model_spec <-
   function(object,
            formula = NULL,
-           x = NULL, #TODO move these after data?
-           y = NULL,
            data = NULL,
            engine = object$engine,
            control = fit_control(),
@@ -101,7 +97,7 @@ fit.model_spec <-
   ) {
     cl <- match.call(expand.dots = TRUE)
     fit_interface <-
-      check_interface(formula, x, y, data, cl, object)
+      check_interface(formula, data, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 
@@ -136,25 +132,6 @@ fit.model_spec <-
             control = control,
             ...
           ),
-        matrix_matrix = , data.frame_matrix =
-          xy_xy(
-            object = object,
-            x = x,
-            y = y,
-            control = control,
-            target = "matrix",
-            ...
-          ),
-
-        data.frame_data.frame =, matrix_data.frame =
-          xy_xy(
-            object = object,
-            x = x,
-            y = y,
-            control = control,
-            target = "data.frame",
-            ...
-          ),
 
         # heterogenous combinations
         formula_matrix =
@@ -176,6 +153,79 @@ fit.model_spec <-
             ...
           ),
 
+        stop(interfaces, " is unknown")
+      )
+
+    res
+}
+
+###################################################################
+
+
+# TODO make a generic
+
+#' @rdname fit
+#' @export
+#' @inheritParams fit.model_spec
+#' 
+fit_xy <-
+  function(object,
+           x = NULL, 
+           y = NULL,
+           engine = object$engine,
+           control = fit_control(),
+           ...
+  ) {
+    cl <- match.call(expand.dots = TRUE)
+    fit_interface <-
+      check_xy_interface(x, y, cl, object)
+    object$engine <- engine
+    object <- check_engine(object)
+    
+    if (engine == "spark")
+      stop(
+        "spark objects can only be used with the formula interface to `fit` ",
+        "with a spark data object.", call. = FALSE
+      )
+    
+    # sub in arguments to actual syntax for corresponding engine
+    object <- translate(object, engine = object$engine)
+    check_installs(object)  # TODO rewrite with pkgman
+    # TODO Should probably just load the namespace
+    load_libs(object, control$verbosity < 2)
+    
+    interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
+    
+    # Now call the wrappers that transition between the interface
+    # called here ("fit" interface) that will direct traffic to
+    # what the underlying model uses. For example, if a formula is
+    # used here, `fit_interface_formula` will determine if a
+    # translation has to be made if the model interface is x/y/
+    res <-
+      switch(
+        interfaces,
+        # homogeneous combinations:
+        matrix_matrix = , data.frame_matrix =
+          xy_xy(
+            object = object,
+            x = x,
+            y = y,
+            control = control,
+            target = "matrix",
+            ...
+          ),
+        
+        data.frame_data.frame =, matrix_data.frame =
+          xy_xy(
+            object = object,
+            x = x,
+            y = y,
+            control = control,
+            target = "data.frame",
+            ...
+          ),
+        
+        # heterogenous combinations
         matrix_formula =,  data.frame_formula =
           xy_form(
             object = object,
@@ -186,9 +236,12 @@ fit.model_spec <-
           ),
         stop(interfaces, " is unknown")
       )
-
+    
     res
-}
+  }
+
+
+
 
 ###################################################################
 
@@ -233,13 +286,11 @@ inher <- function(x, cls, cl) {
     obj <- deparse(call[["x"]])
     if (length(cls) > 1)
       stop(
-        show_call(cl),
         "`", obj, "` should be one of the following classes: ",
         paste0("'", cls, "'", collapse = ", "), call. = FALSE
       )
     else
       stop(
-        show_call(cl),
         "`", obj, "` should be a ", cls, " object", call. = FALSE
       )
   }
@@ -248,49 +299,50 @@ inher <- function(x, cls, cl) {
 
 ###################################################################
 
-show_call <- function(x)
+show_call <- function(x) {
   paste("`fit` call:\n ", paste(deparse(x), sep = "\n", collapse = "\n"),
         "\n", sep = "")
+}
 
 has_both_or_none <- function(a, b)
   (!is.null(a) & is.null(b)) | (is.null(a) & !is.null(b))
 
-check_interface <- function(formula, x, y, data, cl, model) {
+check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
-  inher(x, c("data.frame", "matrix", "tbl_spark"), cl)
+  inher(data, c("data.frame", "tbl_spark"), cl)
 
+  # Determine the `fit` interface
+  form_interface <- !is.null(formula) & !is.null(data)
+
+  if (form_interface)
+    return("formula")
+  stop("Error when checking the interface")
+}
+
+check_xy_interface <- function(x, y, cl, model) {
+  inher(x, c("data.frame", "matrix"), cl)
+  
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if (!is.null(y) && !is.vector(y))
-    inher(y, c("data.frame", "matrix", "factor", "tbl_spark"), cl)
-  inher(data, c("data.frame", "matrix", "tbl_spark"), cl)
+    inher(y, c("data.frame", "matrix", "factor"), cl)
 
   # rule out spark data sets that don't use the formula interface
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit` ",
+    stop("spark objects can only be used with the formula interface via `fit` ",
          "with a spark data object.", call. = FALSE)
-
+  
   # Determine the `fit` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
-  form_interface <- !is.null(formula) & !is.null(data)
-
-  if (!(matrix_interface | df_interface | form_interface))
-    stop("Incomplete specification of arguments; used either 'x/y', or ",
-         "'formula/data' combinations.", call. = FALSE)
-  if (sum(c(matrix_interface, df_interface, form_interface)) > 1)
-    stop("Too many specifications of arguments; used either 'x/y' or ",
-         "'formula/data' combinations.", call. = FALSE)
 
   if (inherits(model, "surv_reg") &&
       (matrix_interface | df_interface))
     stop("Survival models must use the formula interface.", call. = FALSE)
-
+  
   if (matrix_interface)
     return("data.frame")
   if (df_interface)
     return("data.frame")
-  if (form_interface)
-    return("formula")
   stop("Error when checking the interface")
 }
 
