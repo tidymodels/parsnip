@@ -28,4 +28,5 @@ Suggests:
     rmarkdown,
     survival
 Remotes:
-    tidyverse/rlang
+    tidyverse/rlang,
+    tidymodels/modelgenerics
