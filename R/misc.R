@@ -29,9 +29,9 @@ print_arg_list <- function(x, ...) {
   others <- c("name", "call", "expression")
   atomic <- vapply(x, is.atomic, logical(1))
   x2 <- x
-  x2[atomic] <- lapply(x2[atomic], format, ...)
   x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
-  paste0("  ", names(x2), " = ", x2, collaspe = "\n")
+  res <- paste0("  ", names(x2), " = ", x2, collaspe = "\n")
+  cat(res, sep = "")
 }
 
 model_printer <- function(x, ...) {

@@ -9,6 +9,7 @@
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #'
+#' @aliases fit
 #' @param object An object of class `model_spec`
 #' @param formula An object of class "formula" (or one that can
 #'  be coerced to that class): a symbolic description of the model

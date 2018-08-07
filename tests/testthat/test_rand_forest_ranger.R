@@ -224,7 +224,7 @@ test_that('ranger regression prediction', {
 
 test_that('additional descriptor tests', {
   
-  quoted_xy <- fit(
+  quoted_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -241,7 +241,7 @@ test_that('additional descriptor tests', {
   )
   expect_equal(quoted_f$fit$mtry, 4)
   
-  expr_xy <- fit(
+  expr_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -262,7 +262,7 @@ test_that('additional descriptor tests', {
   
   exp_wts <- quote(c(min(n_levs), 20, 10))
   
-  quoted_other_xy <- fit(
+  quoted_other_xy <- fit_xy(
     rand_forest(
       mode = "classification",
       mtry = quote(2),
@@ -289,7 +289,7 @@ test_that('additional descriptor tests', {
   expect_equal(quoted_other_f$fit$mtry, 2)
   expect_equal(quoted_other_f$fit$call$class.weights, exp_wts)
   
-  expr_other_xy <- fit(
+  expr_other_xy <- fit_xy(
     rand_forest(
       mode = "classification",
       mtry = expr(2),

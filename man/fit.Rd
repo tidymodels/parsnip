@@ -2,6 +2,7 @@
 % Please edit documentation in R/fit.R
 \name{fit.model_spec}
 \alias{fit.model_spec}
+\alias{fit}
 \alias{fit_xy}
 \title{Fit a Model Specification to a Dataset}
 \usage{
