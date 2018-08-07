@@ -1,11 +1,20 @@
-#' @import rlang
-
-
+#' Prepend a new class
+#' 
+#' This adds an extra class to a base class of "model_spec".
+#' 
+#' @param prefix A character string for a class. 
+#' @return A character vector. 
+#' @keywords internal
+#' @export
 make_classes <- function(prefix) {
   c(prefix, "model_spec")
 }
 
-
+#' Check to ensure that ellipses are empty
+#' @param ... Extra arguments.
+#' @return If an error is not thrown (from non-empty ellipses), a NULL list.
+#' @keywords internal
+#' @export
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms))
@@ -34,6 +43,15 @@ print_arg_list <- function(x, ...) {
   cat(res, sep = "")
 }
 
+#' Print helper for model objects
+#' 
+#' A common format function that prints information about the model object (e.g. 
+#' arguments, calls, packages, etc). 
+#' 
+#' @param x A model object.
+#' @param ... Not currently used.
+#' @keywords internal
+#' @export
 model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(non_null_args) > 0) {
@@ -74,6 +92,13 @@ load_libs <- function(x, quiet) {
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
+
+#' Print the model call
+#' 
+#' @param x A "model_spec" object. 
+#' @return A character string.
+#' @keywords internal
+#' @export
 show_call <- function(object) {
   call2(object$method$fit$func["fun"], !!!object$method$fit$args,
         .ns = object$method$fit$func["pkg"])

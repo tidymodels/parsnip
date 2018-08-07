@@ -100,7 +100,7 @@ mixture_da <-
   function(mode = "classification",  subclasses = NULL, others = list(), ...) {
     
     # start with some basic error traps
-    parsnip:::check_empty_ellipse(...)
+    check_empty_ellipse(...)
     
     if (!(mode %in% mixture_da_modes))
       stop("`mode` should be one of: ",
@@ -117,7 +117,7 @@ mixture_da <-
                 mode = mode, method = NULL, engine = NULL)
     
     # set classes in the correct order
-    class(out) <- parsnip:::make_classes("mixture_da")
+    class(out) <- make_classes("mixture_da")
     out
   }
 ```

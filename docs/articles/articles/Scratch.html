@@ -143,7 +143,7 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="cf">function</span>(<span class="dt">mode =</span> <span class="st">"classification"</span>,  <span class="dt">subclasses =</span> <span class="ot">NULL</span>, <span class="dt">others =</span> <span class="kw">list</span>(), ...) {</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="co"># start with some basic error traps</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    parsnip<span class="op">:::</span><span class="kw">check_empty_ellipse</span>(...)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw"><a href="../../reference/check_empty_ellipse.html">check_empty_ellipse</a></span>(...)</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">    </a>
 <a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="cf">if</span> (<span class="op">!</span>(mode <span class="op">%in%</span><span class="st"> </span>mixture_da_modes))</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">      <span class="kw">stop</span>(<span class="st">"`mode` should be one of: "</span>,</a>
@@ -160,7 +160,7 @@
 <a class="sourceLine" id="cb6-19" data-line-number="19">                <span class="dt">mode =</span> mode, <span class="dt">method =</span> <span class="ot">NULL</span>, <span class="dt">engine =</span> <span class="ot">NULL</span>)</a>
 <a class="sourceLine" id="cb6-20" data-line-number="20">    </a>
 <a class="sourceLine" id="cb6-21" data-line-number="21">    <span class="co"># set classes in the correct order</span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22">    <span class="kw">class</span>(out) &lt;-<span class="st"> </span>parsnip<span class="op">:::</span><span class="kw">make_classes</span>(<span class="st">"mixture_da"</span>)</a>
+<a class="sourceLine" id="cb6-22" data-line-number="22">    <span class="kw">class</span>(out) &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/make_classes.html">make_classes</a></span>(<span class="st">"mixture_da"</span>)</a>
 <a class="sourceLine" id="cb6-23" data-line-number="23">    out</a>
 <a class="sourceLine" id="cb6-24" data-line-number="24">  }</a></code></pre></div>
 <p>This is pretty simple since the data are not exposed to this function.</p>

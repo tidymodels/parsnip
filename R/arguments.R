@@ -1,3 +1,4 @@
+#' @import rlang
 
 does_it_vary <- function(x) {
   if(is.null(x)) {

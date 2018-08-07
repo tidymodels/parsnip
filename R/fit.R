@@ -299,10 +299,6 @@ inher <- function(x, cls, cl) {
 
 ###################################################################
 
-show_call <- function(x) {
-  paste("`fit` call:\n ", paste(deparse(x), sep = "\n", collapse = "\n"),
-        "\n", sep = "")
-}
 
 has_both_or_none <- function(a, b)
   (!is.null(a) & is.null(b)) | (is.null(a) & !is.null(b))
