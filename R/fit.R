@@ -95,13 +95,22 @@ fit.model_spec <-
            control = fit_control(),
            ...
   ) {
+    dots <- quos(...)
+    if (all(c("x", "y") %in% names(dots)))
+      stop("`fit.model_spec` is for the formula methods. Use `fit_xy` instead.",
+           call. = FALSE)
     cl <- match.call(expand.dots = TRUE)
+    # Create an environment with the evaluated argument objects. This will be
+    # used when a model call is made later. 
+    eval_env <- rlang::env()
+    eval_env$data <- data
+    eval_env$formula <- formula
     fit_interface <-
-      check_interface(formula, data, cl, object)
+      check_interface(eval_env$formula, eval_env$data, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 
-    if (engine == "spark" && !inherits(data, "tbl_spark"))
+    if (engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
       stop(
         "spark objects can only be used with the formula interface to `fit` ",
         "with a spark data object.", call. = FALSE
@@ -127,28 +136,24 @@ fit.model_spec <-
         formula_formula =
           form_form(
             object = object,
-            formula = cl$formula,
-            data = cl$data,
             control = control,
-            ...
+            env = eval_env
           ),
 
         # heterogenous combinations
         formula_matrix =
           form_xy(
             object = object,
-            formula = formula,
-            data = data,
             control = control,
+            env = eval_env,
             target = object$method$fit$interface,
             ...
           ),
         formula_data.frame =
           form_xy(
             object = object,
-            formula = formula,
-            data = data,
             control = control,
+            env = eval_env,
             target = object$method$fit$interface,
             ...
           ),
@@ -177,8 +182,11 @@ fit_xy <-
            ...
   ) {
     cl <- match.call(expand.dots = TRUE)
+    eval_env <- rlang::env()
+    eval_env$x <- x
+    eval_env$y <- y
     fit_interface <-
-      check_xy_interface(x, y, cl, object)
+      check_xy_interface(eval_env$x, eval_env$y, cl, object)
     object$engine <- engine
     object <- check_engine(object)
     
@@ -208,8 +216,7 @@ fit_xy <-
         matrix_matrix = , data.frame_matrix =
           xy_xy(
             object = object,
-            x = x,
-            y = y,
+            env = eval_env,
             control = control,
             target = "matrix",
             ...
@@ -218,8 +225,7 @@ fit_xy <-
         data.frame_data.frame =, matrix_data.frame =
           xy_xy(
             object = object,
-            x = x,
-            y = y,
+            env = eval_env,
             control = control,
             target = "data.frame",
             ...
@@ -229,8 +235,7 @@ fit_xy <-
         matrix_formula =,  data.frame_formula =
           xy_form(
             object = object,
-            x = x,
-            y = y,
+            env = eval_env,
             control = control,
             ...
           ),
