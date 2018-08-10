@@ -28,7 +28,7 @@ library(mda)
  * It eliminates a lot of duplicate code.
  * Since the expressions are not evaluated until fitting, it eliminates a large amount of package dependencies.
 
-A `parsnip` model function is itself very general. For example, the `logistc_reg` function itself doesn't have any model code within it. Instead, each model function is associated with one or more computational _engines_. These might be different R packages or some function in another language (that can be evaluated by R).  
+A `parsnip` model function is itself very general. For example, the `logistic_reg` function itself doesn't have any model code within it. Instead, each model function is associated with one or more computational _engines_. These might be different R packages or some function in another language (that can be evaluated by R).  
 
 This vignette describes the process of creating a new model function that uses multiple engines. As an example, we'll create a function for _mixture discriminant analysis_. There are [a few packages](http://search.r-project.org/cgi-bin/namazu.cgi?query=%22mixture+discriminant%22&max=100&result=normal&sort=score&idxname=functions) that do this but we'll focus on `mda::mda`:
 
