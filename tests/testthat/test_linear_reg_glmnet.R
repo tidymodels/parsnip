@@ -2,7 +2,6 @@ library(testthat)
 context("linear regression execution with glmnet")
 library(parsnip)
 library(rlang)
-library(glmnet)
 
 ###################################################################
 
@@ -15,6 +14,8 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glmnet execution', {
+  
+  skip_if_not_installed("glmnet")
   
   expect_error(
     fit_xy(
@@ -49,6 +50,8 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, single lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   res_xy <- fit_xy(
     iris_basic,
@@ -87,6 +90,8 @@ test_that('glmnet prediction, single lambda', {
 
 
 test_that('glmnet prediction, multiple lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   iris_mult <- linear_reg(regularization = c(.01, 0.1), mixture = .3)
 
@@ -130,6 +135,8 @@ test_that('glmnet prediction, multiple lambda', {
 })
 
 test_that('glmnet prediction, all lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   iris_all <- linear_reg(mixture = .3)
 

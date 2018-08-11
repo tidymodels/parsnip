@@ -2,7 +2,6 @@ library(testthat)
 context("linear regression execution with stan")
 library(parsnip)
 library(rlang)
-library(rstanarm)
 
 ###################################################################
 
@@ -15,6 +14,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('stan_glm execution', {
 
+  skip_if_not_installed("rstanarm")
+  
   # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
@@ -51,6 +52,9 @@ test_that('stan_glm execution', {
 
 
 test_that('stan prediction', {
+  
+  skip_if_not_installed("rstanarm")
+  
   uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))
   inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)

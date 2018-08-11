@@ -1,7 +1,6 @@
 library(testthat)
 context("random forest execution with randomForest")
 library(parsnip)
-library(randomForest)
 library(tibble)
 
 data("lending_club")
@@ -19,7 +18,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('randomForest classification execution', {
 
-
+  skip_if_not_installed("randomForest")
+  
   # passes interactively but not on R CMD check
   # expect_error(
   #   fit(
@@ -76,6 +76,9 @@ test_that('randomForest classification execution', {
 
 
 test_that('randomForest classification prediction', {
+  
+  skip_if_not_installed("randomForest")
+  
   xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
@@ -102,6 +105,9 @@ test_that('randomForest classification prediction', {
 })
 
 test_that('randomForest classification probabilities', {
+  
+  skip_if_not_installed("randomForest")
+  
   xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
@@ -149,6 +155,7 @@ quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 test_that('randomForest regression execution', {
 
+  skip_if_not_installed("randomForest")
 
   # passes interactively but not on R CMD check
   # expect_error(
@@ -196,7 +203,8 @@ test_that('randomForest regression execution', {
 
 test_that('randomForest regression prediction', {
 
-
+  skip_if_not_installed("randomForest")
+  
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars,

@@ -1,7 +1,6 @@
 library(testthat)
 context("simple neural network execution with keras")
 library(parsnip)
-library(keras)
 library(tibble)
 
 ###################################################################
@@ -13,7 +12,6 @@ iris_keras <- mlp(mode = "classification", hidden_units = 2)
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-
 
 test_that('keras execution, classification', {
   
@@ -58,6 +56,9 @@ test_that('keras execution, classification', {
 
 
 test_that('keras classification prediction', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
@@ -89,6 +90,9 @@ test_that('keras classification prediction', {
 
 
 test_that('keras classification probabilities', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
@@ -167,9 +171,10 @@ test_that('keras execution, regression', {
   )
 })
 
-
-
 test_that('keras regression prediction', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     mlp(mode = "regression", hidden_units = 2, epochs = 500, regularization = .1),
     x = mtcars[, c("cyl", "disp")],
@@ -203,6 +208,9 @@ test_that('keras regression prediction', {
 nn_dat <- read.csv("nnet_test.txt")
 
 test_that('multivariate nnet formula', {
+  
+  skip_if_not_installed("keras")
+  
   nnet_form <- 
     mlp(
       mode = "regression",

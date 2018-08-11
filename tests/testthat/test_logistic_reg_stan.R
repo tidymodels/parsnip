@@ -27,6 +27,8 @@ xy_fit <- fit_xy(
 
 test_that('stan_glm execution', {
 
+  skip_if_not_installed("rstanarm")
+  
   expect_error(
     res <- fit(
       lc_basic,
@@ -50,6 +52,8 @@ test_that('stan_glm execution', {
 
 
 test_that('stan_glm prediction', {
+  
+  skip_if_not_installed("rstanarm")
 
   xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),
@@ -91,6 +95,8 @@ test_that('stan_glm prediction', {
 
 test_that('stan_glm probability', {
 
+  skip_if_not_installed("rstanarm")
+  
   xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),
     engine = "stan",

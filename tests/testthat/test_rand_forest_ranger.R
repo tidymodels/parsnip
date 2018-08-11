@@ -1,7 +1,6 @@
 library(testthat)
 context("random forest execution with ranger")
 library(parsnip)
-library(ranger)
 library(tibble)
 library(rlang)
 
@@ -23,6 +22,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 
 test_that('ranger classification execution', {
+
+  skip_if_not_installed("ranger")
 
   # passes interactively but not on R CMD check
   # expect_error(
@@ -78,6 +79,9 @@ test_that('ranger classification execution', {
 })
 
 test_that('ranger classification prediction', {
+  
+  skip_if_not_installed("ranger")
+  
   xy_fit <- fit_xy(
     rand_forest(mode = "classification"),
     x = lending_club[, num_pred],
@@ -103,6 +107,9 @@ test_that('ranger classification prediction', {
 
 
 test_that('ranger classification probabilities', {
+  
+  skip_if_not_installed("ranger")
+  
   xy_fit <- fit_xy(
     rand_forest(mode = "classification", others = list(probability = TRUE, seed = 3566)),
     x = lending_club[, num_pred],
@@ -161,7 +168,8 @@ quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 test_that('ranger regression execution', {
 
-
+  skip_if_not_installed("ranger")
+  
   # passes interactively but not on R CMD check
   # expect_error(
   #   res <- fit(
@@ -208,6 +216,8 @@ test_that('ranger regression execution', {
 
 test_that('ranger regression prediction', {
 
+  skip_if_not_installed("ranger")
+  
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
@@ -223,6 +233,8 @@ test_that('ranger regression prediction', {
 })
 
 test_that('additional descriptor tests', {
+  
+  skip_if_not_installed("ranger")
   
   quoted_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),

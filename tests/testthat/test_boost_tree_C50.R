@@ -2,7 +2,6 @@ library(testthat)
 context("boosted tree execution with C5.0")
 library(parsnip)
 library(tibble)
-library(C50)
 
 ###################################################################
 
@@ -16,7 +15,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('C5.0 execution', {
 
-
+  skip_if_not_installed("C50")
+  
   # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
@@ -69,6 +69,9 @@ test_that('C5.0 execution', {
 })
 
 test_that('C5.0 prediction', {
+  
+  skip_if_not_installed("C50")
+  
   classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
@@ -83,6 +86,9 @@ test_that('C5.0 prediction', {
 })
 
 test_that('C5.0 probabilities', {
+  
+  skip_if_not_installed("C50")
+  
   classes_xy <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],

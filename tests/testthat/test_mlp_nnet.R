@@ -1,8 +1,6 @@
 library(testthat)
 context("simple neural network execution with nnet")
 library(parsnip)
-library(nnet)
-
 
 ###################################################################
 
@@ -53,6 +51,9 @@ test_that('nnet execution, classification', {
 
 
 test_that('nnet classification prediction', {
+  
+  skip_if_not_installed("nnet")
+  
   xy_fit <- fit_xy(
     iris_nnet,
     x = iris[, num_pred],
@@ -124,6 +125,9 @@ test_that('nnet execution, regression', {
 
 
 test_that('nnet regression prediction', {
+  
+  skip_if_not_installed("nnet")
+  
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
@@ -154,6 +158,9 @@ test_that('nnet regression prediction', {
 nn_dat <- read.csv("nnet_test.txt")
 
 test_that('multivariate nnet formula', {
+  
+  skip_if_not_installed("nnet")
+  
   nnet_form <- 
     mlp(
       mode = "regression",
