@@ -16,6 +16,15 @@ mlp_engines <- data.frame(
 
 ###################################################################
 
+maybe_multivariate <- function(results, object) {
+  if (isTRUE(ncol(results) > 1))
+    results <- as_tibble(results)
+  else
+    unname(results[, 1])
+  results
+}
+
+###################################################################
 
 mlp_keras_data <-
   list(
@@ -28,11 +37,7 @@ mlp_keras_data <-
     ),
     pred = list(
       pre = NULL,
-      post = function(x, object) {
-        if (ncol(x) == 1)
-          x <- x[,1]
-        x
-      },
+      post = maybe_multivariate,
       func = c(fun = "predict"),
       args =
         list(
@@ -79,7 +84,7 @@ mlp_nnet_data <-
     ),
     pred = list(
       pre = NULL,
-      post = function(results, object) unname(results[,1]),
+      post = maybe_multivariate,
       func = c(fun = "predict"),
       args =
         list(
@@ -138,9 +143,13 @@ keras_mlp <-
 
     if (factor_y)
       y <- class2ind(y)
-    else
-      y <- matrix(y, ncol = 1)
-
+    else {
+      if (isTRUE(ncol(y) > 1))
+        y <- as.matrix(y)
+      else
+        y <- matrix(y, ncol = 1)
+    }
+    
     model <- keras_model_sequential()
     if(decay > 0) {
       model %>%
@@ -180,7 +189,7 @@ keras_mlp <-
     else
       model <- model %>%
       layer_dense(
-        units = 1,
+        units = ncol(y),
         activation = 'linear',
         kernel_initializer = initializer_glorot_uniform(seed = seeds[3])
       )
