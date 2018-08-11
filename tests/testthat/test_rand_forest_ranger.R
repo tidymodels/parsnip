@@ -218,7 +218,7 @@ test_that('ranger regression prediction', {
 
   xy_pred <- predict(xy_fit$fit, data = tail(mtcars[, -1]))$prediction
 
-  expect_equal(xy_pred, predict(xy_fit, newdata = tail(mtcars[, -1])))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = tail(mtcars[, -1])))
 
 })
 

@@ -135,7 +135,7 @@ test_that('xgboost regression prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -146,6 +146,6 @@ test_that('xgboost regression prediction', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, -1]))
 })
 

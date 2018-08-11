@@ -134,7 +134,7 @@ test_that('nnet regression prediction', {
 
   xy_pred <- predict(xy_fit$fit, newdata = mtcars[1:8, -1])[,1]
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -146,7 +146,7 @@ test_that('nnet regression prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = mtcars[1:8, -1])[,1]
   form_pred <- unname(form_pred)
-  expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, -1]))
 })
 
 ###################################################################
@@ -166,7 +166,7 @@ test_that('multivariate nnet formula', {
       engine = "nnet"
     )
   expect_equal(length(nnet_form$fit$wts), 24)
-  nnet_form_pred <- predict(nnet_form, newdata = nn_dat[1:5, -(1:3)])
+  nnet_form_pred <- predict_num(nnet_form, newdata = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_pred), 3)
   expect_equal(nrow(nnet_form_pred), 5)
   expect_equal(names(nnet_form_pred), c("V1", "V2", "V3")) 
@@ -183,7 +183,7 @@ test_that('multivariate nnet formula', {
       engine = "nnet"
     )
   expect_equal(length(nnet_xy$fit$wts), 24)
-  nnet_form_xy <- predict(nnet_xy, newdata = nn_dat[1:5, -(1:3)])
+  nnet_form_xy <- predict_num(nnet_xy, newdata = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_xy), 3)
   expect_equal(nrow(nnet_form_xy), 5)
   expect_equal(names(nnet_form_xy), c("V1", "V2", "V3")) 
