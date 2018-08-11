@@ -2,6 +2,7 @@
 #' @inheritParams predict.model_fit
 #' @method predict_num model_fit
 #' @export predict_num.model_fit
+#' @export
 # TODO add ...
 predict_num.model_fit <- function (object, newdata, ...) {
   if (object$spec$mode != "regression")
