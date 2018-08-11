@@ -10,7 +10,6 @@ output:
 
 ```{r ex_setup, include=FALSE}
 knitr::opts_chunk$set(
-  message = FALSE,
   digits = 3,
   collapse = TRUE,
   comment = "#>"
@@ -18,12 +17,9 @@ knitr::opts_chunk$set(
 options(digits = 3)
 library(parsnip)
 library(AmesHousing)
-library(recipes)
-library(tidyverse)
-library(rsample)
-library(yardstick)
 library(ranger)
 library(randomForest)
+library(ggplot2)
 
 preds <- c("Longitude", "Latitude", "Lot_Area", "Neighborhood", "Year_Sold")
 pred_names <- paste0("`", preds, "`")
@@ -37,7 +33,7 @@ The Ames housing data will be used to to demonstrate how regression models can b
 library(AmesHousing)
 ames <- make_ames()
 
-library(rsample)
+library(tidymodels)
 
 set.seed(4595)
 data_split <- initial_split(ames, strata = "Sale_Price", p = 0.75)
@@ -65,7 +61,6 @@ The model will be fit with the `ranger` package. Since we didn't add any extra a
 ```{r rf-basic-xy}
 preds <- c("Longitude", "Latitude", "Lot_Area", "Neighborhood", "Year_Sold")
 
-library(tidyverse)
 rf_xy_fit <- rf_defaults %>%
   fit_xy(
     x = ames_train[, preds],
@@ -77,20 +72,19 @@ rf_xy_fit
 
 The non-formula interface doesn't do anything to the predictors before giving it to the underlying model function. This particular model does _not_ require indicator variables to be create prior to the model (note that the output shows "Number of independent variables:  5"). 
 
-For regression models, the basic `predict` method can be used:
+For regression models, the basic `predict` method can be used and returns a tibble with a column named `.pred`:
 
 ```{r rf-basic-xy-pred}
 test_results <- ames_test %>%
   select(Sale_Price) %>%
-  mutate(
-    Sale_Price = log10(Sale_Price),
-    `random forest` = predict(rf_xy_fit, newdata = ames_test[, preds])
-  ) 
+  mutate(Sale_Price = log10(Sale_Price)) %>%
+  bind_cols(
+    predict(rf_xy_fit, newdata = ames_test[, preds])
+  )
 test_results
 
 # summarize performance
-library(yardstick)
-test_results %>% metrics(truth = Sale_Price, estimate = `random forest`) 
+test_results %>% metrics(truth = Sale_Price, estimate = .pred) 
 ```
 Note that: 
 
@@ -181,8 +175,13 @@ To get the predictions for this specific value of `lambda` (aka `regularization`
 # First, get the processed version of the test set predictors:
 test_normalized <- bake(norm_recipe, newdata = ames_test, all_predictors())
 
-test_results <- test_results %>%
-  mutate(glmnet = predict(glmn_fit, newdata = test_normalized)) 
+test_results <- 
+  test_results %>%
+  rename(`random forest` = .pred) %>%
+  bind_cols(
+    predict(glmn_fit, newdata = test_normalized) %>%
+      rename(glmnet = .pred)
+  )
 test_results
 
 test_results %>% metrics(truth = Sale_Price, estimate = glmnet) 
@@ -192,5 +191,6 @@ test_results %>%
   ggplot(aes(x = prediction, y = Sale_Price)) + 
   geom_abline(col = "green", lty = 2) + 
   geom_point(alpha = .4) + 
-  facet_wrap(~model)
+  facet_wrap(~model) + 
+  coord_fixed()
 ```

@@ -21,7 +21,8 @@ Imports:
     purrr,
     utils,
     tibble,
-    modelgenerics
+    modelgenerics,
+    glue
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Suggests: 

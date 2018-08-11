@@ -247,13 +247,11 @@ mda_fit <- mda_spec %>%
   fit(Species ~ ., data = iris_train, engine = "mda")
 mda_fit
 
-predict_classprob(mda_fit, newdata = iris_test) %>%
-  mutate(Species = iris_test$Species)
+predict(mda_fit, newdata = iris_test) %>%
+  bind_cols(iris_test %>% select(Species))
 
-predict_class(mda_fit, newdata = iris_test) %>% 
-  as_tibble() %>%
-  set_names("Predicted") %>%
-  mutate(Species = iris_test$Species)
+predict(mda_fit, newdata = iris_test, type = "prob") %>% 
+  bind_cols(iris_test %>% select(Species))
 ```
 
 # Pro-tips, what-ifs, exceptions, FAQ, and minutiae
