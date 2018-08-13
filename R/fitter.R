@@ -261,3 +261,5 @@ get_descr_xy <- function(x, y) {
   )
 }
 
+#' @importFrom utils globalVariables
+utils::globalVariables("data")

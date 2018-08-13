@@ -22,14 +22,18 @@ Imports:
     utils,
     tibble,
     modelgenerics,
-    glue
+    glue,
+    magrittr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
-    survival
+    survival,
+    keras,
+    C50,
+    xgboost
 Remotes:
     tidyverse/rlang,
     tidymodels/modelgenerics

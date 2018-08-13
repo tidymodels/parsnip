@@ -32,7 +32,7 @@ mlp_keras_data <-
     fit = list(
       interface = "matrix",
       protect = c("x", "y"),
-      func = c(pkg = "parsnip", fun = "keras_mlp"),
+      func = c(pkg = NULL, fun = "keras_mlp"),
       defaults = list()
     ),
     pred = list(
@@ -123,13 +123,11 @@ class2ind <- function (x, drop2nd = FALSE) {
   y
 }
 
-#' @export
 keras_mlp <-
   function(x, y,
            hidden_units = 5, decay = 0, dropout = 0, epochs = 20, act = "softmax",
            seeds = sample.int(10^5, size = 3),
            ...) {
-    require(keras)
 
     if(decay > 0 & dropout > 0)
       stop("Please use either dropoput or weight decay.", call. = FALSE)
@@ -150,48 +148,48 @@ keras_mlp <-
         y <- matrix(y, ncol = 1)
     }
     
-    model <- keras_model_sequential()
+    model <- keras::keras_model_sequential()
     if(decay > 0) {
       model %>%
-        layer_dense(
+        keras::layer_dense(
           units = hidden_units,
           activation = act,
           input_shape = ncol(x),
-          kernel_regularizer = regularizer_l2(decay),
-          kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
+          kernel_regularizer = keras::regularizer_l2(decay),
+          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
     } else {
       model %>%
-        layer_dense(
+        keras::layer_dense(
           units = hidden_units,
           activation = act,
           input_shape = ncol(x),
-          kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
+          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
     }
     if(dropout > 0)
       model %>%
-      layer_dense(
+      keras::layer_dense(
         units = hidden_units,
         activation = act,
         input_shape = ncol(x),
-        kernel_initializer = initializer_glorot_uniform(seed = seeds[1])
+        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
       ) %>%
-      layer_dropout(rate = dropout, seed = seeds[2])
+      keras::layer_dropout(rate = dropout, seed = seeds[2])
 
     if (factor_y)
       model <- model %>%
-      layer_dense(
+      keras::layer_dense(
         units = ncol(y),
         activation = 'softmax',
-        kernel_initializer = initializer_glorot_uniform(seed = seeds[3])
+        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
       )
     else
       model <- model %>%
-      layer_dense(
+      keras::layer_dense(
         units = ncol(y),
         activation = 'linear',
-        kernel_initializer = initializer_glorot_uniform(seed = seeds[3])
+        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
       )
 
     arg_values <- parse_keras_args(...)
