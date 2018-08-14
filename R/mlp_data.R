@@ -16,16 +16,6 @@ mlp_engines <- data.frame(
 
 ###################################################################
 
-maybe_multivariate <- function(results, object) {
-  if (isTRUE(ncol(results) > 1))
-    results <- as_tibble(results)
-  else
-    results <- unname(results[, 1])
-  results
-}
-
-###################################################################
-
 mlp_keras_data <-
   list(
     libs = c("keras", "magrittr"),

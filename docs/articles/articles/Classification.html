@@ -162,14 +162,14 @@
 <a class="sourceLine" id="cb4-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">roc_auc</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] 0.82</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] 0.818</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [1] 0.795</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [1] 0.792</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">conf_mat</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;       bad  176   91</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;       good 137  709</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;       bad  173   91</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;       good 140  709</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
