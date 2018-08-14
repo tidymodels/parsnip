@@ -150,7 +150,10 @@ final model, including the intercept.</p></td>
     <tr>
       <th>others</th>
       <td><p>A named list of arguments to be used by the
-underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/earth/topics/earth'>earth::earth</a></code>, etc.). .</p></td>
+underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/earth/topics/earth'>earth::earth</a></code>, etc.). If the outcome is a factor
+and <code>mode = "classification"</code>, <code>others</code> can include the <code>glm</code> argument to
+<code><a href='http://www.rdocumentation.org/packages/earth/topics/earth'>earth::earth</a></code>. If this argument is not passed, it will be added prior to
+the fitting occurs.</p></td>
     </tr>
     <tr>
       <th>...</th>

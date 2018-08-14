@@ -207,6 +207,8 @@
 <a href="#the-pred-module" class="anchor"></a>The <code>pred</code> module</h3>
 <p>This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For <code>pred</code>, the model requires an unnamed numeric vector output (usually).</p>
 <p>Examples are <a href="https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R">here</a> and <a href="https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R">here</a>.</p>
+<p>For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results).</p>
+<p>Note that the <code>pred</code> module maps to the <code>predict_num</code> function in <code>parsnip</code>.</p>
 </div>
 <div id="the-classes-module" class="section level3">
 <h3 class="hasAnchor">
@@ -353,9 +355,10 @@
 <h1 class="hasAnchor">
 <a href="#pro-tips-what-ifs-exceptions-faq-and-minutiae" class="anchor"></a>Pro-tips, what-ifs, exceptions, FAQ, and minutiae</h1>
 <p>There are various things that came to mind while writing this document.</p>
-<div id="do-i-have-to-return-a-simple-vector-for-predict-and-predict_class" class="section level3">
+<div id="do-i-have-to-return-a-simple-vector-for-predict_num-and-predict_class" class="section level3">
 <h3 class="hasAnchor">
-<a href="#do-i-have-to-return-a-simple-vector-for-predict-and-predict_class" class="anchor"></a>Do I have to return a simple vector for <code>predict</code> and <code>predict_class</code>?</h3>
+<a href="#do-i-have-to-return-a-simple-vector-for-predict_num-and-predict_class" class="anchor"></a>Do I have to return a simple vector for <code>predict_num</code> and <code>predict_class</code>?</h3>
+<p><em>(Note: how to return submodels is being debated right now. This section may change)</em></p>
 <p>Previously, when discussing the <code>pred</code> information:</p>
 <blockquote>
 <p>For <code>pred</code>, the model requires an unnamed numeric vector output <strong>(usually)</strong>.</p>
@@ -381,6 +384,7 @@
 <a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; 11         22.1     0.000515</span></a>
 <a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; 12         26.3     0.000515</span></a></code></pre></div>
 <p><em>However</em>, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (<code>lambda</code>, in this case).</p>
+<p>Also, as previously mentioned, a matrix or data frame can be used for multivariate outcomes.</p>
 </div>
 <div id="what-is-defaults-slot-and-why-do-i-need-them" class="section level3">
 <h3 class="hasAnchor">
@@ -434,11 +438,12 @@
 <a class="sourceLine" id="cb16-13" data-line-number="13">  x</a>
 <a class="sourceLine" id="cb16-14" data-line-number="14">}</a></code></pre></div>
 <p>As another example, <code><a href="http://www.rdocumentation.org/packages/nnet/topics/nnet">nnet::nnet</a></code> has an option for the final layer to be linear (called <code>linout</code>). If <code>mode = "regression"</code>, that should probably be set to <code>TRUE</code>. You couldn’t do this with the <code>args</code> (described above) since you need the function translated first.</p>
+<p>In cases where the model requires different defaults, the <code>translate</code> method can also be used. See the code for the <code>mars</code> function to see how to check and potentially switch arguments for classification models.</p>
 </div>
 <div id="my-model-fit-requires-more-than-one-function-call--so-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#my-model-fit-requires-more-than-one-function-call--so-" class="anchor"></a>My model fit requires more than one function call. So….?</h3>
-<p>The best course of action is to write wrapper so that it can be one call. This was the case with <code>xgboost</code> and <code>keras</code>.</p>
+<p>The best course of action is to write wrapper so that it can be one call. This was the case with <code>xgboost</code>, <code>C5.0</code>, and <code>keras</code>.</p>
 </div>
 <div id="why-would-i-preprocess-my-data" class="section level3">
 <h3 class="hasAnchor">

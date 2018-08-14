@@ -165,6 +165,11 @@ This is defined only for regression models (so is not added to the list). The co
 
 Examples are [here](https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R) and [here](https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R). 
 
+For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results). 
+
+Note that the `pred` module maps to the `predict_num` function in `parsnip`. 
+
+
 ### The `classes` module
 
 To make hard class predictions, the `classes` object contains the details. The elements of the list are:
@@ -258,7 +263,9 @@ predict(mda_fit, newdata = iris_test, type = "prob") %>%
 
 There are various things that came to mind while writing this document. 
 
-### Do I have to return a simple vector for `predict` and `predict_class`?
+### Do I have to return a simple vector for `predict_num` and `predict_class`?
+
+_(Note: how to return submodels is being debated right now. This section may change)_
 
 Previously, when discussing the `pred` information:
 
@@ -275,6 +282,8 @@ linear_reg(others = list(nlambda = 4)) %>%
 ```
 
 _However_, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (`lambda`, in this case). 
+
+Also, as previously mentioned, a matrix or data frame can be used for multivariate outcomes. 
 
 ### What is `defaults` slot and why do I need them?
 
@@ -324,10 +333,12 @@ translate.rand_forest <- function (x, engine, ...){
 
 As another example, `nnet::nnet` has an option for the final layer to be linear (called `linout`). If `mode = "regression"`, that should probably be set to `TRUE`. You couldn't do this with the `args` (described above) since you need the function translated first. 
 
+In cases where the model requires different defaults, the `translate` method can also be used. See the code for the `mars` function to see how to check and potentially switch arguments for classification models. 
+
 
 ### My model fit requires more than one function call. So....?
 
-The best course of action is to write wrapper so that it can be one call. This was the case with `xgboost` and `keras`. 
+The best course of action is to write wrapper so that it can be one call. This was the case with `xgboost`, `C5.0`, and `keras`. 
 
 ### Why would I preprocess my data?
 
