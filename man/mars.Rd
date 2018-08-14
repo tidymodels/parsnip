@@ -24,7 +24,10 @@ final model, including the intercept.}
 \item{prune_method}{The pruning method.}
 
 \item{others}{A named list of arguments to be used by the
-underlying models (e.g., \code{earth::earth}, etc.). .}
+underlying models (e.g., \code{earth::earth}, etc.). If the outcome is a factor
+and \code{mode = "classification"}, \code{others} can include the \code{glm} argument to
+\code{earth::earth}. If this argument is not passed, it will be added prior to
+the fitting occurs.}
 
 \item{...}{Used for method consistency. Any arguments passed to
 the ellipses will result in an error. Use \code{others} instead.}

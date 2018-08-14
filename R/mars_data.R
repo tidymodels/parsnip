@@ -38,28 +38,22 @@ mars_earth_data <-
     classes = list(
       pre = NULL,
       post = function(x, object) {
-        if (is.vector(x)) {
-          x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
-        } else {
-          x <- object$lvl[apply(x, 1, which.max)]
-        }
+        x <- ifelse(x[,1] >= 0.5, object$lvl[2], object$lvl[1])
         x
       },
       func = c(fun = "predict"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(newdata),
+          type = "response"
         )
     ),
     prob = list(
       pre = NULL,
       post = function(x, object) {
-        if (is.vector(x)) {
-          x <- tibble(v1 = 1 - x, v2 = x)
-        } else {
-          x <- as_tibble(x)
-        }
+        x <- x[,1]
+        x <- tibble(v1 = 1 - x, v2 = x)
         colnames(x) <- object$lvl
         x
       },
@@ -67,7 +61,8 @@ mars_earth_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(newdata),
+          type = "response"
         )
     )
   )

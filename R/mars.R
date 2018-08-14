@@ -34,7 +34,10 @@
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
 #' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `earth::earth`, etc.). .
+#'  underlying models (e.g., `earth::earth`, etc.). If the outcome is a factor
+#'  and `mode = "classification"`, `others` can include the `glm` argument to
+#'  `earth::earth`. If this argument is not passed, it will be added prior to
+#'  the fitting occurs.  
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept. 
 #' @param prod_degree The highest possible interaction degree.
@@ -153,6 +156,15 @@ update.mars <-
 
 #' @export
 translate.mars <- function(x, engine, ...) {
+  
+  # If classification is being done, the `glm` options should be used. Check to
+  # see if it is there and, if not, add the default value. 
+  if (x$mode == "classification") {
+    if (!("glm" %in% names(x$others))) {
+      x$others$glm <- quote(list(family = stats::binomial))
+    }
+  }
+  
   x <- translate.default(x, engine, ...)
   x
 }

@@ -21,7 +21,8 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 nprune = 4
+                 nprune = 4,
+                 glm = quote(list(family = stats::binomial))
                )
   )
 
@@ -111,7 +112,6 @@ test_that('mars execution', {
   
   skip_if_not_installed("earth")
 
-  # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       iris_basic,
@@ -198,3 +198,34 @@ test_that('mars prediction', {
   )
   expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
 })
+
+
+###################################################################
+
+data("lending_club")
+
+test_that('classification', {
+  
+  skip_if_not_installed("earth")
+
+  expect_error(
+    glm_mars <- mars(mode = "classification") %>%
+      fit(Class ~ ., data = lending_club[-(1:5),], engine = "earth"),
+    regexp = NA
+  )
+  expect_true(!is.null(glm_mars$fit$glm.list))
+  parsnip_pred <- predict_classprob(glm_mars, newdata = lending_club[1:5, -ncol(lending_club)])
+  
+  library(earth)  
+  earth_fit <- earth(Class ~ ., data = lending_club[-(1:5),],
+                     glm = list(family = binomial))
+  earth_pred <- 
+    predict(
+      earth_fit, 
+      newdata = lending_club[1:5, -ncol(lending_club)], 
+      type = "response"
+    )
+
+  expect_equal(parsnip_pred[["good"]], earth_pred[,1])  
+})
+
