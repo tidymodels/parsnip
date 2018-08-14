@@ -54,6 +54,7 @@ test_that('stan_glm execution', {
 test_that('stan_glm prediction', {
   
   skip_if_not_installed("rstanarm")
+  library(rstanarm)
 
   xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),

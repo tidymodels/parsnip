@@ -54,6 +54,7 @@ test_that('xgboost classification prediction', {
   
   skip_if_not_installed("xgboost")
   
+  library(xgboost)
   xy_fit <- fit_xy(
     iris_xgboost,
     x = iris[, num_pred],
