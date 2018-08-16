@@ -168,3 +168,26 @@ translate.mars <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
   x
 }
+
+###################################################################
+
+#' @importFrom purrr map_dfr
+earth_submodel_pred <- function(object, newdata, terms = 2:3, ...) {
+  map_dfr(terms, earth_reg_updater, object = object, newdata = newdata, ...)
+}
+
+#' @importFrom tibble as_tibble tibble
+#' @importFrom stats update
+earth_reg_updater <- function(num, object, newdata, ...) {
+  object <- update(object, nprune = num)
+  pred <- predict(object, newdata, ...)
+  if (ncol(pred) == 1) {
+    res <- tibble::tibble(.pred = pred[, 1], nprune = num)
+  } else {
+    res <- tibble::as_tibble(res)
+    names(res) <- paste0(".pred_", names(res))
+    res$nprune <- num
+  }
+  res
+}
+
