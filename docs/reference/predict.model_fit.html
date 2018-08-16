@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model Predictions — predict.model_fit • parsnip</title>
+<title>Model predictions — predict.model_fit • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -90,21 +90,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model Predictions</h1>
+    <h1>Model predictions</h1>
     
     <div class="hidden name"><code>predict.model_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply a model to create different types of predictions. <code>predict</code> is used
-when the outcome is a simple number. For classification models,
-<code>predict_class</code> and  <code>predict_classprob</code> can be used.</p>
+    <p>Apply a model to create different types of predictions.
+<code>predict</code> can be used for all types of models and used the
+"type" argument for more specificity. Other functions can be
+used for each type of prediction (see Details).</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_fit</span>
 <span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
@@ -114,7 +115,12 @@ when the outcome is a simple number. For classification models,
 <span class='co'># S3 method for model_fit</span>
 <span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
 
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,6 +134,13 @@ when the outcome is a simple number. For classification models,
       <td><p>A rectangular data object, such as a data frame.</p></td>
     </tr>
     <tr>
+      <th>type</th>
+      <td><p>A single character value or <code>NULL</code>. Possible values
+are "numeric", "class", "probs", "link", or "raw" (the last two
+are not yet implemented). When <code>NULL</code>, <code>predict</code> will choose an
+appropriate value based on the model's mode.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Arguments to pass to other methods (not currently used).</p></td>
     </tr>
@@ -135,11 +148,49 @@ when the outcome is a simple number. For classification models,
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>predict</code> returns an unnamed numeric vector. <code>predict_class</code> returns
-a factor variable and <code>predict_classprob</code> generates a tibble with a column
-for each class level.</p>
+    <p>See Details.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If "type" is not supplied to <code>predict</code>, then a choice
+is made (<code>type = "numeric"</code> for regression models and
+<code>type = "class"</code> for classification).</p>
+<p><code>predict</code> is designed to provide a tidy results. There will be
+a tibble as many rows in the output as there are rows in
+<code>newdata</code> and the column names will be predictable. For numeric
+results with a single outcome, the tibble will have a <code>.pred</code>
+column and <code>.pred_Yname</code> for multivariate results. For
+hard class predictions, the column is named <code>.pred_class</code>
+and, when <code>type = "prob"</code>, the columns are
+<code>.pred_classlevel</code>.</p>
+<p>The more specific prediction functions (e.g. <code>predict_num</code>)
+return non-tibble results. <code>predict_num</code> generates a vector (for
+univariate models) or a data frame (multivariate).
+<code>predict_class</code> returns a factor and <code>predict_classprob</code> returns
+a data frame with columns for the factor levels.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
+
+<span class='no'>lm_model</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>fit</span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>), <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
+
+<span class='fu'>predict</span>(<span class='no'>lm_model</span>, <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 1
+#&gt;    .pred
+#&gt;    &lt;dbl&gt;
+#&gt;  1  23.4
+#&gt;  2  23.3
+#&gt;  3  27.6
+#&gt;  4  21.5
+#&gt;  5  17.6
+#&gt;  6  21.6
+#&gt;  7  13.9
+#&gt;  8  21.7
+#&gt;  9  25.6
+#&gt; 10  17.1</div><div class='input'><span class='fu'>predict_num</span>(<span class='no'>lm_model</span>, <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>))</div><div class='output co'>#&gt;  [1] 23.43006 23.29639 27.62870 21.54678 17.57028 21.58316 13.90725 21.70176
+#&gt;  [9] 25.61122 17.11206</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -147,7 +198,11 @@ for each class level.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

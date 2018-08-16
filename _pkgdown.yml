@@ -15,6 +15,7 @@ reference:
       - boost_tree
       - linear_reg
       - logistic_reg
+      - mars
       - mlp   
       - rand_forest
       - surv_reg   

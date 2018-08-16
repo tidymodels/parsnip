@@ -17,6 +17,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glmnet execution', {
 
+  skip_if_not_installed("glmnet")
+  
   expect_error(
     fit_xy(
       lc_basic,
@@ -40,6 +42,9 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, one lambda', {
+  
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(regularization = 0.1),
     engine = "glmnet",
@@ -83,6 +88,9 @@ test_that('glmnet prediction, one lambda', {
 
 
 test_that('glmnet prediction, mulitiple lambda', {
+  
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(regularization = c(0.01, 0.1)),
     engine = "glmnet",
@@ -129,6 +137,8 @@ test_that('glmnet prediction, mulitiple lambda', {
 
 test_that('glmnet prediction, no lambda', {
 
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(others = list(nlambda =  11)),
     engine = "glmnet",
@@ -175,6 +185,9 @@ test_that('glmnet prediction, no lambda', {
 
 
 test_that('glmnet probabilities, one lambda', {
+  
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(regularization = 0.1),
     engine = "glmnet",
@@ -215,6 +228,9 @@ test_that('glmnet probabilities, one lambda', {
 })
 
 test_that('glmnet probabilities, mulitiple lambda', {
+  
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(regularization = c(0.01, 0.1)),
     engine = "glmnet",
@@ -258,6 +274,9 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
 
 test_that('glmnet probabilities, no lambda', {
+  
+  skip_if_not_installed("glmnet")
+  
   xy_fit <- fit_xy(
     logistic_reg(),
     engine = "glmnet",

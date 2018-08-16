@@ -1,7 +1,6 @@
 library(testthat)
 context("simple neural network execution with keras")
 library(parsnip)
-library(keras)
 library(tibble)
 
 ###################################################################
@@ -13,7 +12,6 @@ iris_keras <- mlp(mode = "classification", hidden_units = 2)
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-
 
 test_that('keras execution, classification', {
   
@@ -58,6 +56,9 @@ test_that('keras execution, classification', {
 
 
 test_that('keras classification prediction', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
@@ -89,6 +90,9 @@ test_that('keras classification prediction', {
 
 
 test_that('keras classification probabilities', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     iris_keras,
     x = iris[, num_pred],
@@ -167,9 +171,10 @@ test_that('keras execution, regression', {
   )
 })
 
-
-
 test_that('keras regression prediction', {
+  
+  skip_if_not_installed("keras")
+  
   xy_fit <- parsnip::fit_xy(
     mlp(mode = "regression", hidden_units = 2, epochs = 500, regularization = .1),
     x = mtcars[, c("cyl", "disp")],
@@ -179,7 +184,7 @@ test_that('keras regression prediction', {
   )
   
   xy_pred <- predict(xy_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
   
   keras::backend()$clear_session()
   
@@ -192,8 +197,55 @@ test_that('keras regression prediction', {
   )
   
   form_pred <- predict(form_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
+  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
   
   keras::backend()$clear_session()
 })
 
+
+###################################################################
+
+nn_dat <- read.csv("nnet_test.txt")
+
+test_that('multivariate nnet formula', {
+  
+  skip_if_not_installed("keras")
+  
+  nnet_form <- 
+    mlp(
+      mode = "regression",
+      hidden_units = 3,
+      regularization = 0.01
+    ) %>% 
+    parsnip::fit(
+      cbind(V1, V2, V3) ~ ., 
+      data = nn_dat[-(1:5),], 
+      engine = "keras"
+    )
+  expect_equal(length(unlist(get_weights(nnet_form$fit))), 24)
+  nnet_form_pred <- predict_num(nnet_form, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(ncol(nnet_form_pred), 3)
+  expect_equal(nrow(nnet_form_pred), 5)
+  expect_equal(names(nnet_form_pred), c("V1", "V2", "V3")) 
+  
+  keras::backend()$clear_session()
+  
+  nnet_xy <- 
+    mlp(
+      mode = "regression",
+      hidden_units = 3,
+      regularization = 0.01
+    ) %>% 
+    parsnip::fit_xy(
+      x = nn_dat[-(1:5), -(1:3)], 
+      y = nn_dat[-(1:5),   1:3 ], 
+      engine = "keras"
+    )
+  expect_equal(length(unlist(get_weights(nnet_xy$fit))), 24)
+  nnet_form_xy <- predict_num(nnet_xy, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(ncol(nnet_form_xy), 3)
+  expect_equal(nrow(nnet_form_xy), 5)
+  expect_equal(names(nnet_form_xy), c("V1", "V2", "V3")) 
+  
+  keras::backend()$clear_session()
+})

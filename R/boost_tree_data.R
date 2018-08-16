@@ -16,7 +16,6 @@ boost_tree_engines <- data.frame(
 
 ###################################################################
 
-#' @export
 xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
@@ -91,7 +90,7 @@ xgb_train <- function(
   eval_tidy(call, env = current_env())
 }
 
-#' @export
+#' @importFrom stats binomial
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
     newdata <- as.matrix(newdata)
@@ -103,29 +102,28 @@ xgb_pred <- function(object, newdata, ...) {
   x = switch(
     object$params$objective,
     "reg:linear" =, "reg:logistic" =, "binary:logistic" = res,
-    "binary:logitraw" = binomial()$linkinv(res),
+    "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
     res
   )
   x
 }
 
-#' @export
 C5.0_train <- function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
   other_args <- list(...)
   protect_ctrl <- c("minCases", "sample")
   protect_fit <- "trials"
   other_args <- other_args[!(other_args %in% c(protect_ctrl, protect_fit))]
-  ctrl_args <- other_args[names(other_args) %in% names(formals(C5.0Control))]
-  fit_args <- other_args[names(other_args) %in% names(formals(C5.0.default))]
+  ctrl_args <- other_args[names(other_args) %in% names(formals(C50::C5.0Control))]
+  fit_args <- other_args[names(other_args) %in% names(formals(C50::C5.0.default))]
 
-  ctrl <- expr(C5.0Control())
+  ctrl <- expr(C50::C5.0Control())
   ctrl$minCases <- minCases
   ctrl$sample <- sample
   for(i in names(ctrl_args))
     ctrl[[i]] <- ctrl_args[[i]]
 
-  fit_call <- expr(C5.0(x = x, y = y))
+  fit_call <- expr(C50::C5.0(x = x, y = y))
   fit_call$trials <- trials
   fit_call$control <- ctrl
   if(!is.null(weights))
@@ -145,7 +143,7 @@ boost_tree_xgboost_data <-
     fit = list(
       interface = "matrix",
       protect = "data",
-      func = c(pkg = "parsnip", fun = "xgb_train"),
+      func = c(pkg = NULL, fun = "xgb_train"),
       defaults =
         list(
           nthread = 1,
@@ -172,7 +170,7 @@ boost_tree_xgboost_data <-
         }
         x
       },
-      func = c(pkg = "parsnip", fun = "xgb_pred"),
+      func = c(pkg = NULL, fun = "xgb_pred"),
       args =
         list(
           object = quote(object$fit),
@@ -190,7 +188,7 @@ boost_tree_xgboost_data <-
         colnames(x) <- object$lvl
         x
       },
-      func = c(pkg = "parsnip", fun = "xgb_pred"),
+      func = c(pkg = NULL, fun = "xgb_pred"),
       args =
         list(
           object = quote(object$fit),
@@ -206,7 +204,7 @@ boost_tree_C5.0_data <-
     fit = list(
       interface = "data.frame",
       protect = c("x", "y", "weights"),
-      func = c(pkg = "parsnip", fun = "C5.0_train"),
+      func = c(pkg = NULL, fun = "C5.0_train"),
       defaults = list()
     ),
     classes = list(

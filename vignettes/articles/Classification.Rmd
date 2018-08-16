@@ -10,18 +10,14 @@ output:
   
 ```{r ex_setup, include=FALSE}
 knitr::opts_chunk$set(
-  message = FALSE,
   digits = 3,
   collapse = TRUE,
   comment = "#>"
 )
 options(digits = 3)
 library(parsnip)
-library(recipes)
-library(tidyverse)
-library(rsample)
-library(yardstick)
 library(tibble)
+library(ggplot2)
 
 theme_set(theme_bw())
 ```
@@ -29,8 +25,7 @@ theme_set(theme_bw())
 To demonstrate `parsnip` for classification models, the credit data will be used. 
 
 ```{r credit-split}
-library(recipes)
-library(rsample)
+library(tidymodels)
 
 data(credit_data)
 
@@ -76,8 +71,6 @@ In `parsnip`, the `predict` function is only appropriate for numeric outcomes wh
 
 
 ```{r credit-perf}
-library(tibble)
-
 test_results <- credit_test %>%
   select(Status) %>%
   as_tibble() %>%
@@ -86,7 +79,6 @@ test_results <- credit_test %>%
     `nnet prob`  = predict_classprob(nnet_fit, newdata = test_normalized) %>% pull(good)
   )
 
-library(yardstick)
 test_results %>% roc_auc(truth = Status, estimate = `nnet prob`)
 test_results %>% accuracy(truth = Status, estimate = `nnet class`)
 test_results %>% conf_mat(truth = Status, estimate = `nnet class`)

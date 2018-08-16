@@ -112,7 +112,7 @@ make_call <- function(fun, ns, args, ...) {
       is_missing_arg(x) | is.null(x), logical(1))
   args <- args[!discard]
 
-  if (!is.null(ns)) {
+  if (!is.null(ns) & !is.na(ns)) {
     out <- call2(fun, !!!args, .ns = ns)
   } else
     out <- call2(fun, !!!args)

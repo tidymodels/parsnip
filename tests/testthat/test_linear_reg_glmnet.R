@@ -2,7 +2,6 @@ library(testthat)
 context("linear regression execution with glmnet")
 library(parsnip)
 library(rlang)
-library(glmnet)
 
 ###################################################################
 
@@ -15,6 +14,8 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glmnet execution', {
+  
+  skip_if_not_installed("glmnet")
   
   expect_error(
     fit_xy(
@@ -49,6 +50,8 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, single lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   res_xy <- fit_xy(
     iris_basic,
@@ -64,7 +67,7 @@ test_that('glmnet prediction, single lambda', {
             s = iris_basic$spec$args$regularization)
   uni_pred <- unname(uni_pred[,1])
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -82,11 +85,13 @@ test_that('glmnet prediction, single lambda', {
             newx = form_pred,
             s = res_form$spec$spec$args$regularization)
   form_pred <- unname(form_pred[,1])
-  expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 
 test_that('glmnet prediction, multiple lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   iris_mult <- linear_reg(regularization = c(.01, 0.1), mixture = .3)
 
@@ -106,7 +111,7 @@ test_that('glmnet prediction, multiple lambda', {
   mult_pred$lambda <- rep(res_xy$spec$args$regularization, each = 5)
   mult_pred <- mult_pred[,-2]
 
-  expect_equal(mult_pred, predict(res_xy, iris[1:5, num_pred]))
+  expect_equal(mult_pred, predict_num(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_mult,
@@ -126,10 +131,12 @@ test_that('glmnet prediction, multiple lambda', {
   form_pred <- stack(as.data.frame(form_pred))
   form_pred$lambda <- rep(res_form$spec$args$regularization, each = 5)
   form_pred <- form_pred[,-2]
-  expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 test_that('glmnet prediction, all lambda', {
+  
+  skip_if_not_installed("glmnet")
 
   iris_all <- linear_reg(mixture = .3)
 
@@ -146,7 +153,7 @@ test_that('glmnet prediction, all lambda', {
   all_pred$lambda <- rep(res_xy$fit$lambda, each = 5)
   all_pred <- all_pred[,-2]
 
-  expect_equal(all_pred, predict(res_xy, iris[1:5, num_pred]))
+  expect_equal(all_pred, predict_num(res_xy, iris[1:5, num_pred]))
 
     # test that the lambda seq is in the right order (since no docs on this)
   tmp_pred <- predict(res_xy$fit, newx = as.matrix(iris[1:5, num_pred]),
@@ -170,7 +177,7 @@ test_that('glmnet prediction, all lambda', {
   form_pred$lambda <- rep(res_form$fit$lambda, each = 5)
   form_pred <- form_pred[,-2]
 
-  expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 

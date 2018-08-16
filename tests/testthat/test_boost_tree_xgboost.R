@@ -1,7 +1,6 @@
 library(testthat)
 context("boosted tree execution with xgboost")
 library(parsnip)
-library(xgboost)
 
 
 ###################################################################
@@ -13,7 +12,6 @@ iris_xgboost <- boost_tree(mode = "classification", trees = 2)
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-
 
 test_that('xgboost execution, classification', {
 
@@ -53,6 +51,10 @@ test_that('xgboost execution, classification', {
 
 
 test_that('xgboost classification prediction', {
+  
+  skip_if_not_installed("xgboost")
+  
+  library(xgboost)
   xy_fit <- fit_xy(
     iris_xgboost,
     x = iris[, num_pred],
@@ -126,6 +128,9 @@ test_that('xgboost execution, regression', {
 
 
 test_that('xgboost regression prediction', {
+  
+  skip_if_not_installed("xgboost")
+  
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
@@ -135,7 +140,7 @@ test_that('xgboost regression prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -146,6 +151,6 @@ test_that('xgboost regression prediction', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, -1]))
 })
 

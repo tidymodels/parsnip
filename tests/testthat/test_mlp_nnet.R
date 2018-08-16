@@ -1,8 +1,6 @@
 library(testthat)
 context("simple neural network execution with nnet")
 library(parsnip)
-library(nnet)
-
 
 ###################################################################
 
@@ -53,6 +51,9 @@ test_that('nnet execution, classification', {
 
 
 test_that('nnet classification prediction', {
+  
+  skip_if_not_installed("nnet")
+  
   xy_fit <- fit_xy(
     iris_nnet,
     x = iris[, num_pred],
@@ -124,6 +125,9 @@ test_that('nnet execution, regression', {
 
 
 test_that('nnet regression prediction', {
+  
+  skip_if_not_installed("nnet")
+  
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
@@ -134,7 +138,7 @@ test_that('nnet regression prediction', {
 
   xy_pred <- predict(xy_fit$fit, newdata = mtcars[1:8, -1])[,1]
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, predict(xy_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -146,6 +150,51 @@ test_that('nnet regression prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = mtcars[1:8, -1])[,1]
   form_pred <- unname(form_pred)
-  expect_equal(form_pred, predict(form_fit, newdata = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, -1]))
 })
+
+###################################################################
+
+nn_dat <- read.csv("nnet_test.txt")
+
+test_that('multivariate nnet formula', {
+  
+  skip_if_not_installed("nnet")
+  
+  nnet_form <- 
+    mlp(
+      mode = "regression",
+      hidden_units = 3,
+      regularization = 0.01
+    ) %>% 
+    parsnip::fit(
+      cbind(V1, V2, V3) ~ ., 
+      data = nn_dat[-(1:5),], 
+      engine = "nnet"
+    )
+  expect_equal(length(nnet_form$fit$wts), 24)
+  nnet_form_pred <- predict_num(nnet_form, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(ncol(nnet_form_pred), 3)
+  expect_equal(nrow(nnet_form_pred), 5)
+  expect_equal(names(nnet_form_pred), c("V1", "V2", "V3")) 
+  
+  nnet_xy <- 
+    mlp(
+      mode = "regression",
+      hidden_units = 3,
+      regularization = 0.01
+    ) %>% 
+    parsnip::fit_xy(
+      x = nn_dat[-(1:5), -(1:3)], 
+      y = nn_dat[-(1:5),   1:3 ], 
+      engine = "nnet"
+    )
+  expect_equal(length(nnet_xy$fit$wts), 24)
+  nnet_form_xy <- predict_num(nnet_xy, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(ncol(nnet_form_xy), 3)
+  expect_equal(nrow(nnet_form_xy), 5)
+  expect_equal(names(nnet_form_xy), c("V1", "V2", "V3")) 
+})
+
+
 
