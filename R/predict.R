@@ -8,9 +8,10 @@
 #' @param object An object of class `model_fit`
 #' @param newdata A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "probs", "link", or "raw" (the last two
-#'  are not yet implemented). When `NULL`, `predict` will choose an
-#'  appropriate value based on the model's mode.
+#'  are "numeric", "class", "probs", "link", "conf_int", "pred_int",
+#'  or "raw" (the last two are not yet implemented). When `NULL`,
+#'  `predict` will choose an appropriate value based on the model's
+#'  mode.
 #' @param ... Arguments to pass to other methods (not currently used).
 #' @details If "type" is not supplied to `predict`, then a choice
 #'  is made (`type = "numeric"` for regression models and 
@@ -23,9 +24,11 @@
 #'  column and `.pred_Yname` for multivariate results. For
 #'  hard class predictions, the column is named `.pred_class`
 #'  and, when `type = "prob"`, the columns are 
-#'  `.pred_classlevel`.
+#'  `.pred_classlevel`. `type = "conf_int"` and ``type = "pred_int"`
+#'  return tibles with columns `.pred_lower` and `.pred_upper` with
+#'  an attribute for the confidence level. 
 #' 
-#' The more specific prediction functions (e.g. `predict_num`)
+#' The more specific prediction functions (e.g. `predict_num`) can 
 #'  return non-tibble results. `predict_num` generates a vector (for
 #'  univariate models) or a data frame (multivariate).
 #'  `predict_class` returns a factor and `predict_classprob` returns
@@ -40,6 +43,7 @@
 #' 
 #' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
 #' predict_num(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
+#' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg), type = "conf_int")
 #' @importFrom stats predict
 #' @method predict model_fit
 #' @export predict.model_fit
@@ -48,24 +52,24 @@ predict.model_fit <- function (object, newdata, type = NULL, ...) {
   type <- check_pred_type(object, type)
   res <- switch(
     type,
-    numeric = predict_num(object = object, newdata = newdata),
-    class   = predict_class(object = object, newdata = newdata),
-    prob    = predict_classprob(object = object, newdata = newdata),
-    stop("I don't know about type =", type, call. = FALSE)
+    numeric  = predict_num(object = object, newdata = newdata, ...),
+    class    = predict_class(object = object, newdata = newdata, ...),
+    prob     = predict_classprob(object = object, newdata = newdata, ...),
+    conf_int = predict_confint(object = object, newdata = newdata, ...),
+    pred_int = predict_predint(object = object, newdata = newdata, ...),
+    stop("I don't know about type = '", "'", type, call. = FALSE)
   )
   res <- switch(
     type,
     numeric = format_num(res),
     class   = format_class(res),
     prob    = format_classprobs(res),
-    stop("I don't know about type =", type, call. = FALSE)
+    res
   )
   res
 }
 
-# TODO: add a type for both class and probs
-
-pred_types <- c("raw", "numeric", "class", "link", "prob")
+pred_types <- c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int")
 
 #' @importFrom glue glue_collapse
 check_pred_type <- function(object, type) {
@@ -82,6 +86,9 @@ check_pred_type <- function(object, type) {
          call. = FALSE)
   if (type == "numeric" & object$spec$mode != "regression")
     stop("For numeric predictions, the object should be a regression model.",
+         call. = FALSE)
+  if (type %in% c("conf_int", "pred_int") & object$spec$mode != "regression")
+    stop("For interval predictions, the object should be a regression model.",
          call. = FALSE)
   if (type == "class" & object$spec$mode != "classification")
     stop("For class predictions, the object should be a classification model.",

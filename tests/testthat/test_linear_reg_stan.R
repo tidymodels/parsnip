@@ -82,3 +82,48 @@ test_that('stan prediction', {
   )
   expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]), tolerance = 0.001)
 })
+
+
+test_that('lm intervals', {
+  res_xy <- fit_xy(
+    linear_reg(others = list(seed = 1333, chains = 10, iter = 1000)),
+    x = iris[, num_pred],
+    y = iris$Sepal.Length,
+    engine = "stan",
+    control = quiet_ctrl
+  )
+  
+  confidence_parsnip <-
+    predict(res_xy,
+            newdata = iris[1:5,],
+            type = "conf_int",
+            level = 0.93)
+  
+  prediction_parsnip <-
+    predict(res_xy,
+            newdata = iris[1:5,],
+            type = "pred_int",
+            level = 0.93)
+  
+  prediction_stan <- 
+    predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
+                        prob = 0.93)
+  
+  stan_post <- posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
+                                 seed = 13)
+  stan_lower <- apply(stan_post, 2, quantile, prob = 0.035) 
+  stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
+  
+  expect_equivalent(confidence_parsnip$.pred_lower, stan_lower)
+  expect_equivalent(confidence_parsnip$.pred_upper, stan_upper)
+  
+  expect_equivalent(prediction_parsnip$.pred_lower, 
+                    prediction_stan[, "3.5%"], 
+                    tol = 0.01)
+  expect_equivalent(prediction_parsnip$.pred_upper, 
+                    prediction_stan[, "96.5%"], 
+                    tol = 0.01)
+})
+
+
+

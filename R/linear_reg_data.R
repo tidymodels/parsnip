@@ -56,6 +56,40 @@ linear_reg_lm_data <-
           newdata = quote(newdata),
           type = "response"
         )
+    ),
+    confint = list(
+      pre = NULL,
+      post = function(results, object) {
+        tibble::as_tibble(results) %>%
+          dplyr::select(-fit) %>%
+          setNames(c(".pred_lower", ".pred_upper"))
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          interval = "confidence",
+          level = quote(level),
+          type = "response"
+        )
+    ),
+    predint = list(
+      pre = NULL,
+      post = function(results, object) {
+        tibble::as_tibble(results) %>%
+          dplyr::select(-fit) %>%
+          setNames(c(".pred_lower", ".pred_upper"))
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          interval = "prediction",
+          level = quote(level),
+          type = "response"
+        )
     )
   )
 
@@ -105,6 +139,56 @@ linear_reg_stan_data <-
         list(
           object = quote(object$fit),
           newdata = quote(newdata)
+        )
+    ),
+    confint = list(
+      pre = NULL,
+      post = function(results, object) {
+        tibble(
+          .pred_lower = 
+            convert_stan_interval(
+              results, 
+              level = object$spec$method$confint$args$level
+            ),
+          .pred_upper = 
+            convert_stan_interval(
+              results, 
+              level = object$spec$method$confint$args$level,
+              lower = FALSE
+          ),
+        )
+      },
+      func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          seed = expr(sample.int(10^5, 1))
+        )
+    ),
+    predint = list(
+      pre = NULL,
+      post = function(results, object) {
+        tibble(
+          .pred_lower = 
+            convert_stan_interval(
+              results, 
+              level = object$spec$method$predint$args$level
+            ),
+          .pred_upper = 
+            convert_stan_interval(
+              results, 
+              level = object$spec$method$predint$args$level,
+              lower = FALSE
+            ),
+        )
+      },
+      func = c(pkg = "rstanarm", fun = "posterior_predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata),
+          seed = expr(sample.int(10^5, 1))
         )
     )
   )

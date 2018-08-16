@@ -293,3 +293,41 @@ test_that('lm prediction', {
   )
   expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
 })
+
+
+
+test_that('lm intervals', {
+  stats_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length,
+                 data = iris)
+  confidence_lm <- predict(stats_lm, newdata = iris[1:5, ], 
+                           level = 0.93, interval = "confidence")
+  prediction_lm <- predict(stats_lm, newdata = iris[1:5, ], 
+                           level = 0.93, interval = "prediction")
+  
+  res_xy <- fit_xy(
+    linear_reg(),
+    x = iris[, num_pred],
+    y = iris$Sepal.Length,
+    engine = "lm",
+    control = ctrl
+  )
+  
+  confidence_parsnip <-
+    predict(res_xy,
+            newdata = iris[1:5,],
+            type = "conf_int",
+            level = 0.93)
+  
+  expect_equivalent(confidence_parsnip$.pred_lower, confidence_lm[, "lwr"])
+  expect_equivalent(confidence_parsnip$.pred_upper, confidence_lm[, "upr"])
+  
+  prediction_parsnip <-
+    predict(res_xy,
+            newdata = iris[1:5,],
+            type = "pred_int",
+            level = 0.93)
+
+  expect_equivalent(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"])
+  expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
+})
+
