@@ -21,7 +21,7 @@ Imports:
     purrr,
     utils,
     tibble,
-    modelgenerics,
+    generics,
     glue,
     magrittr
 Roxygen: list(markdown = TRUE)
@@ -36,4 +36,4 @@ Suggests:
     xgboost
 Remotes:
     tidyverse/rlang,
-    tidymodels/modelgenerics
+    r-lib/generics

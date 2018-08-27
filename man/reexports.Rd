@@ -13,8 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{generics}{\code{\link[generics]{fit}}}
 
-  \item{modelgenerics}{\code{\link[modelgenerics]{fit}}}
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}
 

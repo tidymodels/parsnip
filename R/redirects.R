@@ -1,3 +1,3 @@
-#' @importFrom modelgenerics fit
+#' @importFrom generics fit
 #' @export
-modelgenerics::fit
+generics::fit
