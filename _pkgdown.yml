@@ -32,7 +32,8 @@ reference:
       - descriptors
   - title: Data
     contents:
-     - lending_club      
+     - lending_club   
+     - wa_churn          
 
 navbar:
   left:
