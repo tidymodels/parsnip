@@ -38,7 +38,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -59,7 +59,7 @@
 <li>
   <a href="../../reference/index.html">Reference</a>
 </li>
-        
+
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -68,26 +68,26 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Making a <code>parsnip</code> model from scratch</h1>
-            
-      
-      
+
+
+
       <div class="hidden name"><code>Scratch.Rmd</code></div>
 
     </div>
 
-    
-    
+
+
 <p><code>parsnip</code> constructs models and predictions by representing those actions in expressions. There are a few reasons for this:</p>
 <ul>
 <li>It eliminates a lot of duplicate code.</li>
 <li>Since the expressions are not evaluated until fitting, it eliminates a large amount of package dependencies.</li>
 </ul>
-<p>A <code>parsnip</code> model function is itself very general. For example, the <code>logistc_reg</code> function itself doesn’t have any model code within it. Instead, each model function is associated with one or more computational <em>engines</em>. These might be different R packages or some function in another language (that can be evaluated by R).</p>
+<p>A <code>parsnip</code> model function is itself very general. For example, the <code>logistic_reg</code> function itself doesn’t have any model code within it. Instead, each model function is associated with one or more computational <em>engines</em>. These might be different R packages or some function in another language (that can be evaluated by R).</p>
 <p>This vignette describes the process of creating a new model function that uses multiple engines. As an example, we’ll create a function for <em>mixture discriminant analysis</em>. There are <a href="http://search.r-project.org/cgi-bin/namazu.cgi?query=%22mixture+discriminant%22&amp;max=100&amp;result=normal&amp;sort=score&amp;idxname=functions">a few packages</a> that do this but we’ll focus on <code><a href="http://www.rdocumentation.org/packages/mda/topics/mda">mda::mda</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">str</span>(mda<span class="op">::</span>mda)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; function (formula = formula(data), data = sys.frame(sys.parent()), </span></a>
@@ -508,7 +508,7 @@
 </script></footer>
 </div>
 
-  
+
 
   </body>
 </html>

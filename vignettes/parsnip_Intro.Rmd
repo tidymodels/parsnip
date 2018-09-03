@@ -88,7 +88,7 @@ rf_with_seed <- rand_forest(
 rf_with_seed
 ```
 
-If the model function contains the ellipses (`...`), these additional arguments can be passed along using `engine_args`. 
+If the model function contains the ellipses (`...`), these additional arguments can be passed along using `others`. 
 
 ### Process
 
