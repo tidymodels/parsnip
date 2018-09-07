@@ -194,6 +194,15 @@ boost_tree_xgboost_data <-
           object = quote(object$fit),
           newdata = quote(newdata)
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "xgb_pred"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
     )
   )
 
@@ -228,6 +237,14 @@ boost_tree_C5.0_data <-
           newdata = quote(newdata),
           type = "prob"
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args = list(
+        object = quote(object$fit),
+        newdata = quote(newdata)
+      )
     )
   )
 

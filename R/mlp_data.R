@@ -60,6 +60,15 @@ mlp_keras_data <-
           object = quote(object$fit),
           x = quote(as.matrix(newdata))
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(newdata))
+        )
     )
   )
 
@@ -92,6 +101,15 @@ mlp_nnet_data <-
           object = quote(object$fit),
           newdata = quote(newdata),
           type = "class"
+        )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
         )
     )
   )

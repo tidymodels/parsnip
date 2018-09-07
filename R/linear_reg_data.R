@@ -90,6 +90,15 @@ linear_reg_lm_data <-
           level = quote(level),
           type = "response"
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
     )
   )
 
@@ -115,6 +124,15 @@ linear_reg_glmnet_data <-
           newx = quote(as.matrix(newdata)),
           type = "response",
           s = quote(object$spec$args$regularization)
+        )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newx = quote(as.matrix(newdata))
         )
     )
   )
@@ -189,6 +207,15 @@ linear_reg_stan_data <-
           object = quote(object$fit),
           newdata = quote(newdata),
           seed = expr(sample.int(10^5, 1))
+        )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
         )
     )
   )

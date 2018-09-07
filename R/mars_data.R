@@ -64,6 +64,15 @@ mars_earth_data <-
           newdata = quote(newdata),
           type = "response"
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
     )
   )
 

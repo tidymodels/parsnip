@@ -95,6 +95,15 @@ logistic_reg_glm_data <-
           newdata = quote(newdata),
           type = "response"
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
     )
   )
 
@@ -133,6 +142,15 @@ logistic_reg_glmnet_data <-
           type = "response",
           s = quote(object$spec$args$regularization)
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newx = quote(as.matrix(newdata))
+        )
     )
   )
 
@@ -170,6 +188,15 @@ logistic_reg_stan_data <-
         colnames(x) <- object$lvl
         x
       },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
+        )
+    ),
+    raw = list(
+      pre = NULL,
       func = c(fun = "predict"),
       args =
         list(

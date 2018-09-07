@@ -12,6 +12,10 @@
 #'  or "raw" (the last two are not yet implemented). When `NULL`,
 #'  `predict` will choose an appropriate value based on the model's
 #'  mode.
+#' @param opts A list of optional arguments to the underlying 
+#'  predict function that will be used when `type = "raw"`. The 
+#'  list should not include options for the model object or the 
+#'  new data being predicted. 
 #' @param ... Arguments to pass to other methods (not currently used).
 #' @details If "type" is not supplied to `predict`, then a choice
 #'  is made (`type = "numeric"` for regression models and 
@@ -25,8 +29,9 @@
 #'  hard class predictions, the column is named `.pred_class`
 #'  and, when `type = "prob"`, the columns are 
 #'  `.pred_classlevel`. `type = "conf_int"` and ``type = "pred_int"`
-#'  return tibles with columns `.pred_lower` and `.pred_upper` with
-#'  an attribute for the confidence level. 
+#'  return tibbles with columns `.pred_lower` and `.pred_upper` with
+#'  an attribute for the confidence level. Using `type = "raw"`
+#'  returns the unadulterated results of the prediction function.
 #' 
 #' The more specific prediction functions (e.g. `predict_num`) can 
 #'  return non-tibble results. `predict_num` generates a vector (for
@@ -44,12 +49,19 @@
 #' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
 #' predict_num(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
 #' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg), type = "conf_int")
+#' predict(
+#'    lm_model, 
+#'    mtcars %>% slice(1:3) %>% select(-mpg), 
+#'    type = "raw",
+#'    opts = list(type = "terms"))
 #' @importFrom stats predict
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
-predict.model_fit <- function (object, newdata, type = NULL, ...) {
+predict.model_fit <- function (object, newdata, type = NULL, opts = list(), ...) {
   type <- check_pred_type(object, type)
+  if (type != "raw" && length(opts) > 0)
+    warning("`opts` is only used with `type = 'raw'` and was ignored.")
   res <- switch(
     type,
     numeric  = predict_num(object = object, newdata = newdata, ...),
@@ -57,6 +69,7 @@ predict.model_fit <- function (object, newdata, type = NULL, ...) {
     prob     = predict_classprob(object = object, newdata = newdata, ...),
     conf_int = predict_confint(object = object, newdata = newdata, ...),
     pred_int = predict_predint(object = object, newdata = newdata, ...),
+    raw      = predict_raw(object = object, newdata = newdata, opts = opts, ...),
     stop("I don't know about type = '", "'", type, call. = FALSE)
   )
   res <- switch(
@@ -125,13 +138,13 @@ make_pred_call <- function(x) {
       call2(x$func["fun"],!!!x$args, .ns = x$func["pkg"])
   else
     cl <-   call2(x$func["fun"],!!!x$args)
-
+  
   cl
 }
 
 prepare_data <- function(object, newdata) {
   fit_interface <- object$spec$method$fit$interface
-
+  
   if (!all(is.na(object$preproc))) {
     # Translation code
     if (fit_interface == "formula") {
@@ -140,7 +153,7 @@ prepare_data <- function(object, newdata) {
       newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
     }
   }
-
+  
   newdata
 }
 

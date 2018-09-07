@@ -80,6 +80,15 @@ rand_forest_ranger_data <-
           seed = sample.int(10^5, 1),
           verbose = FALSE
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          data = quote(newdata)
+        )
     )
   )
 
@@ -124,6 +133,15 @@ rand_forest_randomForest_data <-
           object = quote(object$fit),
           newdata = quote(newdata),
           type = "prob"
+        )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(newdata)
         )
     )
   )
