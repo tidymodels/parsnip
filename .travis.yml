@@ -30,6 +30,15 @@ r_binary_packages:
  - Rcpp
  - RcppEigen
  - BH
+ - glmnet
+ - earth
+ - sparklyr
+ - nnet
+ - flexsurv
+ - ranger
+ - randomforest
+ - xgboost
+ - C50
 
 cache:
   packages: true
