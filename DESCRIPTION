@@ -33,7 +33,8 @@ Suggests:
     survival,
     keras,
     C50,
-    xgboost
+    xgboost,
+    covr
 Remotes:
     tidyverse/rlang,
     r-lib/generics
