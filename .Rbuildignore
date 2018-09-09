@@ -3,14 +3,4 @@
 ^pkgdown$
 ^parsnip\.Rproj$
 ^\.Rproj\.user$
-test_linear_reg_glmnet
-test_linear_reg_stan
-test_logistic_reg_glmnet
-test_logistic_reg_stan
-test_rand_forest_ranger
-test_rand_forest_randomForest
-test_surv_reg
-test_mlp_keras
-test_mlp_nnet
-test_boost_tree_C50.R
-test_boost_tree_xgboost.R
+^.travis.yml$
