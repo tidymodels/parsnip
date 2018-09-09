@@ -78,11 +78,6 @@ test_that('bad input', {
 
 ###################################################################
 
-data(bc)
-
-set.seed(4566)
-bc$group2 <- bc$group
-
 basic_form <- Surv(recyrs, censrec) ~ group
 complete_form <- Surv(recyrs) ~ group
 
@@ -94,6 +89,12 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
 
+  library(flexsurv)
+  data(bc)
+  
+  set.seed(4566)
+  bc$group2 <- bc$group
+  
   # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
