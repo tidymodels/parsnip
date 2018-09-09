@@ -85,6 +85,9 @@ test_that('stan prediction', {
 
 
 test_that('lm intervals', {
+  skip_if_not_installed("rstanarm")
+  library(rstanarm)
+  
   res_xy <- fit_xy(
     linear_reg(others = list(seed = 1333, chains = 10, iter = 1000)),
     x = iris[, num_pred],

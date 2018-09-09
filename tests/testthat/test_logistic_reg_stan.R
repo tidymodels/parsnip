@@ -16,15 +16,6 @@ ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
-xy_fit <- fit_xy(
-  logistic_reg(others = list(seed =  11, chains = 1)),
-  engine = "stan",
-  control = ctrl,
-  x = lending_club[, num_pred],
-  y = lending_club$Class
-)
-
-
 test_that('stan_glm execution', {
 
   skip_if_not_installed("rstanarm")
