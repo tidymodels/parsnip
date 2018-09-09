@@ -3,7 +3,7 @@
 #' @method predict_raw model_fit
 #' @export predict_raw.model_fit
 #' @export
-predict_raw.model_fit <- function (object, newdata, opts = list(), ...) {
+predict_raw.model_fit <- function (object, new_data, opts = list(), ...) {
   protected_args <- names(object$spec$method$raw$args)
   dup_args <- names(opts) %in% protected_args
   if (any(dup_args)) {
@@ -17,11 +17,11 @@ predict_raw.model_fit <- function (object, newdata, opts = list(), ...) {
   if (!any(names(object$spec$method) == "raw"))
     stop("No raw prediction module defined for this model.", call. = FALSE)
   
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
   
   # preprocess data
   if (!is.null(object$spec$method$raw$pre))
-    newdata <- object$spec$method$raw$pre(newdata, object)
+    new_data <- object$spec$method$raw$pre(new_data, object)
   
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$raw)

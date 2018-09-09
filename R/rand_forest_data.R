@@ -41,7 +41,7 @@ rand_forest_ranger_data <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
+          data = quote(new_data),
           type = "response",
           seed = sample.int(10^5, 1),
           verbose = FALSE
@@ -54,7 +54,7 @@ rand_forest_ranger_data <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
+          data = quote(new_data),
           type = "response",
           seed = sample.int(10^5, 1),
           verbose = FALSE
@@ -76,7 +76,7 @@ rand_forest_ranger_data <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata),
+          data = quote(new_data),
           seed = sample.int(10^5, 1),
           verbose = FALSE
         )
@@ -87,7 +87,7 @@ rand_forest_ranger_data <-
       args =
         list(
           object = quote(object$fit),
-          data = quote(newdata)
+          data = quote(new_data)
         )
     )
   )
@@ -109,7 +109,7 @@ rand_forest_randomForest_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     classes = list(
@@ -119,7 +119,7 @@ rand_forest_randomForest_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     prob = list(
@@ -131,7 +131,7 @@ rand_forest_randomForest_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "prob"
         )
     ),
@@ -141,7 +141,7 @@ rand_forest_randomForest_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )

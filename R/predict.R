@@ -6,7 +6,7 @@
 #'  used for each type of prediction (see Details).
 #'
 #' @param object An object of class `model_fit`
-#' @param newdata A rectangular data object, such as a data frame.
+#' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
 #'  are "numeric", "class", "probs", "link", "conf_int", "pred_int",
 #'  or "raw" (the last two are not yet implemented). When `NULL`,
@@ -23,7 +23,7 @@
 #'
 #' `predict` is designed to provide a tidy results. There will be
 #'  a tibble as many rows in the output as there are rows in
-#'  `newdata` and the column names will be predictable. For numeric
+#'  `new_data` and the column names will be predictable. For numeric
 #'  results with a single outcome, the tibble will have a `.pred`
 #'  column and `.pred_Yname` for multivariate results. For
 #'  hard class predictions, the column is named `.pred_class`
@@ -58,18 +58,18 @@
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
-predict.model_fit <- function (object, newdata, type = NULL, opts = list(), ...) {
+predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...) {
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0)
     warning("`opts` is only used with `type = 'raw'` and was ignored.")
   res <- switch(
     type,
-    numeric  = predict_num(object = object, newdata = newdata, ...),
-    class    = predict_class(object = object, newdata = newdata, ...),
-    prob     = predict_classprob(object = object, newdata = newdata, ...),
-    conf_int = predict_confint(object = object, newdata = newdata, ...),
-    pred_int = predict_predint(object = object, newdata = newdata, ...),
-    raw      = predict_raw(object = object, newdata = newdata, opts = opts, ...),
+    numeric  = predict_num(object = object, new_data = new_data, ...),
+    class    = predict_class(object = object, new_data = new_data, ...),
+    prob     = predict_classprob(object = object, new_data = new_data, ...),
+    conf_int = predict_confint(object = object, new_data = new_data, ...),
+    pred_int = predict_predint(object = object, new_data = new_data, ...),
+    raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     stop("I don't know about type = '", "'", type, call. = FALSE)
   )
   res <- switch(
@@ -142,18 +142,18 @@ make_pred_call <- function(x) {
   cl
 }
 
-prepare_data <- function(object, newdata) {
+prepare_data <- function(object, new_data) {
   fit_interface <- object$spec$method$fit$interface
   
   if (!all(is.na(object$preproc))) {
     # Translation code
     if (fit_interface == "formula") {
-      newdata <- convert_xy_to_form_new(object$preproc, newdata)
+      new_data <- convert_xy_to_form_new(object$preproc, new_data)
     } else {
-      newdata <- convert_form_to_xy_new(object$preproc, newdata)$x
+      new_data <- convert_form_to_xy_new(object$preproc, new_data)$x
     }
   }
   
-  newdata
+  new_data
 }
 

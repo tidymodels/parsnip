@@ -95,13 +95,13 @@ test_that('lm intervals', {
   
   confidence_parsnip <-
     predict(res_xy,
-            newdata = iris[1:5,],
+            new_data = iris[1:5,],
             type = "conf_int",
             level = 0.93)
   
   prediction_parsnip <-
     predict(res_xy,
-            newdata = iris[1:5,],
+            new_data = iris[1:5,],
             type = "pred_int",
             level = 0.93)
   

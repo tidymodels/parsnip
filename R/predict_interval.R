@@ -5,7 +5,7 @@
 #' @method predict_confint model_fit
 #' @export predict_confint.model_fit
 #' @export
-predict_confint.model_fit <- function (object, newdata, level = 0.95, ...) {
+predict_confint.model_fit <- function (object, new_data, level = 0.95, ...) {
   if(object$spec$mode != "regression")
     stop("`predict_confint` is for numeric outcomes.",
          call. = FALSE)
@@ -14,11 +14,11 @@ predict_confint.model_fit <- function (object, newdata, level = 0.95, ...) {
     stop("No confidence interval method defined for this ",
          "engine.", call. = FALSE)
   
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
   
   # preprocess data
   if (!is.null(object$spec$method$confint$pre))
-    newdata <- object$spec$method$confint$pre(newdata, object)
+    new_data <- object$spec$method$confint$pre(new_data, object)
 
   # create prediction call
   object$spec$method$confint$args$level <- level
@@ -49,7 +49,7 @@ predict_confint <- function (object, ...)
 #' @method predict_predint model_fit
 #' @export predict_predint.model_fit
 #' @export
-predict_predint.model_fit <- function (object, newdata, level = 0.95, ...) {
+predict_predint.model_fit <- function (object, new_data, level = 0.95, ...) {
   if(object$spec$mode != "regression")
     stop("`predict_predint` is for numeric outcomes.",
          call. = FALSE)
@@ -58,11 +58,11 @@ predict_predint.model_fit <- function (object, newdata, level = 0.95, ...) {
     stop("No prediction interval method defined for this ",
          "engine.", call. = FALSE)
   
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
   
   # preprocess data
   if (!is.null(object$spec$method$predint$pre))
-    newdata <- object$spec$method$predint$pre(newdata, object)
+    new_data <- object$spec$method$predint$pre(new_data, object)
   
   # create prediction call
   object$spec$method$predint$args$level <- level

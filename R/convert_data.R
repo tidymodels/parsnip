@@ -122,7 +122,7 @@ convert_form_to_xy_fit <-function(
   res
 }
 
-convert_form_to_xy_new <- function(object, newdata, na.action = na.pass,
+convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
                            composition = "data.frame") {
   if (!(composition %in% c("data.frame", "matrix")))
     stop("`composition` should be either 'data.frame' or ",
@@ -140,43 +140,43 @@ convert_form_to_xy_new <- function(object, newdata, na.action = na.pass,
 
   # If offset was done at least once in-line
   if (!is.null(offset_cols)) {
-    offset <- rep(0, nrow(newdata))
+    offset <- rep(0, nrow(new_data))
     for (i in offset_cols)
       offset <- offset +
         eval_tidy(attr(mod_terms, "variables")[[i + 1]],
-                  newdata) # use na.action here and below?
+                  new_data) # use na.action here and below?
   } else offset <- NULL
 
   if (!is.null(object$offset_expr)) {
     if (is.null(offset))
-      offset <- rep(0, nrow(newdata))
-    offset <- offset + eval_tidy(object$offset_expr, newdata)
+      offset <- rep(0, nrow(new_data))
+    offset <- offset + eval_tidy(object$offset_expr, new_data)
   }
 
-  newdata <-
+  new_data <-
     model.frame(mod_terms,
-                newdata,
+                new_data,
                 na.action = na.action,
                 xlev = object$xlevels)
 
   cl <- attr(mod_terms, "dataClasses")
   if (!is.null(cl))
-    .checkMFClasses(cl, newdata)
+    .checkMFClasses(cl, new_data)
 
   if(object$options$indicators) {
-    newdata <-
-      model.matrix(mod_terms, newdata, contrasts.arg = object$contrasts)
+    new_data <-
+      model.matrix(mod_terms, new_data, contrasts.arg = object$contrasts)
   }
 
-  newdata <- newdata[, colnames(newdata) != "(Intercept)", drop = FALSE]
+  new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
 
   if (composition == "data.frame")
-    newdata <- as.data.frame(newdata)
+    new_data <- as.data.frame(new_data)
   else {
-    if (will_make_matrix(newdata))
-      newdata <- as.matrix(newdata)
+    if (will_make_matrix(new_data))
+      new_data <- as.matrix(new_data)
   }
-  list(x = newdata, offset = offset)
+  list(x = new_data, offset = offset)
 }
 
 ###################################################################
@@ -228,11 +228,11 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y") {
   res
 }
 
-convert_xy_to_form_new <- function(object, newdata) {
-  newdata <- newdata[, object$x_var, drop = FALSE]
-  if (!is.data.frame(newdata))
-    newdata <- as.data.frame(newdata)
-  newdata
+convert_xy_to_form_new <- function(object, new_data) {
+  new_data <- new_data[, object$x_var, drop = FALSE]
+  if (!is.data.frame(new_data))
+    new_data <- as.data.frame(new_data)
+  new_data
 }
 
 

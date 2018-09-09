@@ -31,7 +31,7 @@ mars_earth_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -45,7 +45,7 @@ mars_earth_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -61,7 +61,7 @@ mars_earth_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -71,7 +71,7 @@ mars_earth_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )

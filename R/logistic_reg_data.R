@@ -77,7 +77,7 @@ logistic_reg_glm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -92,7 +92,7 @@ logistic_reg_glm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -102,7 +102,7 @@ logistic_reg_glm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )
@@ -126,7 +126,7 @@ logistic_reg_glmnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newx = quote(as.matrix(newdata)),
+          newx = quote(as.matrix(new_data)),
           type = "response",
           s = quote(object$spec$args$regularization)
         )
@@ -138,7 +138,7 @@ logistic_reg_glmnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newx = quote(as.matrix(newdata)),
+          newx = quote(as.matrix(new_data)),
           type = "response",
           s = quote(object$spec$args$regularization)
         )
@@ -149,7 +149,7 @@ logistic_reg_glmnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newx = quote(as.matrix(newdata))
+          newx = quote(as.matrix(new_data))
         )
     )
   )
@@ -177,7 +177,7 @@ logistic_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     prob = list(
@@ -192,7 +192,7 @@ logistic_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     raw = list(
@@ -201,7 +201,7 @@ logistic_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )

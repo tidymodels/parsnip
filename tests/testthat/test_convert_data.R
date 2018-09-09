@@ -32,7 +32,7 @@ test_that("numeric x and y", {
 
   expect_equal(
     mtcars[1:6, -1],
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars))$x
   )
 })
 
@@ -75,7 +75,7 @@ test_that("numeric x and y, offset", {
   expect_equal(log(mtcars$disp), observed$offset)
   expect_null(observed$weights)
 
-  new_obs <- parsnip:::convert_form_to_xy_new(observed, newdata = mtcars[1:6,])
+  new_obs <- parsnip:::convert_form_to_xy_new(observed, new_data = mtcars[1:6,])
   expect_equal(mtcars[1:6,-c(1, 3)], new_obs$x)
   expect_equal(log(mtcars$disp)[1:6], new_obs$offset)
 })
@@ -92,7 +92,7 @@ test_that("numeric x and y, offset in-line", {
   expect_equal(log(mtcars$disp), observed$offset)
   expect_null(observed$weights)
 
-  new_obs <- parsnip:::convert_form_to_xy_new(observed, newdata = mtcars[1:6,])
+  new_obs <- parsnip:::convert_form_to_xy_new(observed, new_data = mtcars[1:6,])
   expect_equal(mtcars[1:6, c("cyl", "hp")], new_obs$x)
   expect_equal(log(mtcars$disp)[1:6], new_obs$offset)
 })
@@ -111,7 +111,7 @@ test_that("numeric x and y, multiple offsets in-line", {
   expect_equal(log(mtcars$disp) + mtcars$qsec, observed$offset)
   expect_null(observed$weights)
 
-  new_obs <- parsnip:::convert_form_to_xy_new(observed, newdata = mtcars[1:6,])
+  new_obs <- parsnip:::convert_form_to_xy_new(observed, new_data = mtcars[1:6,])
   expect_equal(mtcars[1:6, c("cyl", "hp")], new_obs$x)
   expect_equal(log(mtcars$disp)[1:6] + mtcars$qsec[1:6],
                new_obs$offset)
@@ -130,7 +130,7 @@ test_that("numeric x and y, no intercept", {
 
   expect_equal(
     mtcars[1:6, -1],
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars))$x
   )
 })
 
@@ -148,7 +148,7 @@ test_that("numeric x and y, inline functions", {
 
   expect_equal(
     format_x_for_test(model.matrix(expected$terms, head(mtcars))),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars))$x
   )
 })
 
@@ -164,7 +164,7 @@ test_that("numeric y and mixed x", {
 
   expect_equal(
     format_x_for_test(model.matrix(expected$terms, head(Puromycin))),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(Puromycin))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(Puromycin))$x
   )
 })
 
@@ -183,7 +183,7 @@ test_that("numeric y and mixed x, omit missing data", {
 
   expect_equal(
     format_x_for_test(model.matrix(expected$terms, head(Puromycin_miss))),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(Puromycin_miss),
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(Puromycin_miss),
                                      na.action = na.omit)$x
   )
 })
@@ -200,7 +200,7 @@ test_that("numeric y and mixed x, include missing data", {
 
   expect_equal(
     format_x_for_test(head(expected)),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(Puromycin_miss),
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(Puromycin_miss),
                                      na.action = na.pass)$x
   )
 })
@@ -221,7 +221,7 @@ test_that("numeric y and mixed x, no dummies", {
 
   expect_equal(
     format_x_for_test(head(expected)),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(Puromycin))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(Puromycin))$x
   )
 })
 
@@ -238,7 +238,7 @@ test_that("numeric x and numeric multivariate y", {
 
   expect_equal(
     mtcars[1:6, -c(1, 3)],
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars))$x
   )
 })
 
@@ -254,7 +254,7 @@ test_that("numeric x and factor y", {
 
   expect_equal(
     head(format_x_for_test(expected$x)),
-    parsnip:::convert_form_to_xy_new(observed, newdata = head(iris))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(iris))$x
   )
 
 })
@@ -287,7 +287,7 @@ test_that("numeric x and y, matrix composition", {
   expect_equal(format_x_for_test(expected$x, df = FALSE), observed$x)
   expect_equivalent(mtcars$mpg, observed$y)
 
-  new_obs <- parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars),
+  new_obs <- parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars),
                                               composition = "matrix")
   expect_equal(as.matrix(mtcars[1:6, -1]), new_obs$x)
 })
@@ -299,7 +299,7 @@ test_that("numeric x and multivariate y, matrix composition", {
   expect_equal(format_x_for_test(expected$x, df = FALSE), observed$x)
   expect_equivalent(expected$y, observed$y)
 
-  new_obs <- parsnip:::convert_form_to_xy_new(observed, newdata = head(mtcars),
+  new_obs <- parsnip:::convert_form_to_xy_new(observed, new_data = head(mtcars),
                                               composition = "matrix")
   expect_equal(as.matrix(mtcars[1:6, -(1:2)]), new_obs$x)
 })
@@ -319,7 +319,7 @@ test_that("data frame x, vector y", {
 
   expect_equal(
     mtcars[1:6, -1],
-    parsnip:::convert_xy_to_form_new(observed, newdata = head(mtcars[,-1]))
+    parsnip:::convert_xy_to_form_new(observed, new_data = head(mtcars[,-1]))
   )
 })
 
@@ -335,7 +335,7 @@ test_that("matrix x, vector y", {
 
   expect_equal(
     mtcars[1:6, -1],
-    parsnip:::convert_xy_to_form_new(observed, newdata = as.matrix(mtcars[1:6,-1]))
+    parsnip:::convert_xy_to_form_new(observed, new_data = as.matrix(mtcars[1:6,-1]))
   )
 })
 

@@ -53,7 +53,7 @@ linear_reg_lm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "response"
         )
     ),
@@ -68,7 +68,7 @@ linear_reg_lm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           interval = "confidence",
           level = quote(level),
           type = "response"
@@ -85,7 +85,7 @@ linear_reg_lm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           interval = "prediction",
           level = quote(level),
           type = "response"
@@ -97,7 +97,7 @@ linear_reg_lm_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )
@@ -121,7 +121,7 @@ linear_reg_glmnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newx = quote(as.matrix(newdata)),
+          newx = quote(as.matrix(new_data)),
           type = "response",
           s = quote(object$spec$args$regularization)
         )
@@ -132,7 +132,7 @@ linear_reg_glmnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newx = quote(as.matrix(newdata))
+          newx = quote(as.matrix(new_data))
         )
     )
   )
@@ -156,7 +156,7 @@ linear_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     confint = list(
@@ -180,7 +180,7 @@ linear_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           seed = expr(sample.int(10^5, 1))
         )
     ),
@@ -205,7 +205,7 @@ linear_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           seed = expr(sample.int(10^5, 1))
         )
     ),
@@ -215,7 +215,7 @@ linear_reg_stan_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )

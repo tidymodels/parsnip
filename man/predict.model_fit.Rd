@@ -18,37 +18,37 @@
 \alias{predict_raw}
 \title{Model predictions}
 \usage{
-\method{predict}{model_fit}(object, newdata, type = NULL, opts = list(),
+\method{predict}{model_fit}(object, new_data, type = NULL, opts = list(),
   ...)
 
-\method{predict_class}{model_fit}(object, newdata, ...)
+\method{predict_class}{model_fit}(object, new_data, ...)
 
 predict_class(object, ...)
 
-\method{predict_classprob}{model_fit}(object, newdata, ...)
+\method{predict_classprob}{model_fit}(object, new_data, ...)
 
 predict_classprob(object, ...)
 
-\method{predict_confint}{model_fit}(object, newdata, level = 0.95, ...)
+\method{predict_confint}{model_fit}(object, new_data, level = 0.95, ...)
 
 predict_confint(object, ...)
 
-\method{predict_predint}{model_fit}(object, newdata, level = 0.95, ...)
+\method{predict_predint}{model_fit}(object, new_data, level = 0.95, ...)
 
 predict_predint(object, ...)
 
-\method{predict_num}{model_fit}(object, newdata, ...)
+\method{predict_num}{model_fit}(object, new_data, ...)
 
 predict_num(object, ...)
 
-\method{predict_raw}{model_fit}(object, newdata, opts = list(), ...)
+\method{predict_raw}{model_fit}(object, new_data, opts = list(), ...)
 
 predict_raw(object, ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_fit}}
 
-\item{newdata}{A rectangular data object, such as a data frame.}
+\item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
 are "numeric", "class", "probs", "link", "conf_int", "pred_int",
@@ -82,7 +82,7 @@ is made (\code{type = "numeric"} for regression models and
 
 \code{predict} is designed to provide a tidy results. There will be
 a tibble as many rows in the output as there are rows in
-\code{newdata} and the column names will be predictable. For numeric
+\code{new_data} and the column names will be predictable. For numeric
 results with a single outcome, the tibble will have a \code{.pred}
 column and \code{.pred_Yname} for multivariate results. For
 hard class predictions, the column is named \code{.pred_class}

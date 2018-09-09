@@ -4,7 +4,7 @@
 #' @export predict_num.model_fit
 #' @export
 # TODO add ...
-predict_num.model_fit <- function (object, newdata, ...) {
+predict_num.model_fit <- function (object, new_data, ...) {
   if (object$spec$mode != "regression")
     stop("`predict_num` is for predicting numeric outcomes.  ",
          "Use `predict_class` or `predict_prob` for ",
@@ -13,11 +13,11 @@ predict_num.model_fit <- function (object, newdata, ...) {
   if (!any(names(object$spec$method) == "pred"))
     stop("No prediction module defined for this model.", call. = FALSE)
   
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
   
   # preprocess data
   if (!is.null(object$spec$method$pred$pre))
-    newdata <- object$spec$method$pred$pre(newdata, object)
+    new_data <- object$spec$method$pred$pre(new_data, object)
   
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred)

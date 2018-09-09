@@ -75,8 +75,8 @@ test_results <- credit_test %>%
   select(Status) %>%
   as_tibble() %>%
   mutate(
-    `nnet class` = predict_class(nnet_fit, newdata = test_normalized),
-    `nnet prob`  = predict_classprob(nnet_fit, newdata = test_normalized) %>% pull(good)
+    `nnet class` = predict_class(nnet_fit, new_data = test_normalized),
+    `nnet prob`  = predict_classprob(nnet_fit, new_data = test_normalized) %>% pull(good)
   )
 
 test_results %>% roc_auc(truth = Status, estimate = `nnet prob`)

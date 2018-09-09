@@ -252,10 +252,10 @@ mda_fit <- mda_spec %>%
   fit(Species ~ ., data = iris_train, engine = "mda")
 mda_fit
 
-predict(mda_fit, newdata = iris_test) %>%
+predict(mda_fit, new_data = iris_test) %>%
   bind_cols(iris_test %>% select(Species))
 
-predict(mda_fit, newdata = iris_test, type = "prob") %>% 
+predict(mda_fit, new_data = iris_test, type = "prob") %>% 
   bind_cols(iris_test %>% select(Species))
 ```
 
@@ -278,7 +278,7 @@ For example, if I fit a linear regression model via `glmnet` and get four values
 ```{r glmnet}
 linear_reg(others = list(nlambda = 4)) %>%
   fit(mpg ~ ., data = mtcars, engine = "glmnet") %>%
-  predict(newdata = mtcars[1:3, -1])
+  predict(new_data = mtcars[1:3, -1])
 ```
 
 _However_, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (`lambda`, in this case). 

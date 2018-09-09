@@ -172,15 +172,15 @@ translate.mars <- function(x, engine, ...) {
 ###################################################################
 
 #' @importFrom purrr map_dfr
-earth_submodel_pred <- function(object, newdata, terms = 2:3, ...) {
-  map_dfr(terms, earth_reg_updater, object = object, newdata = newdata, ...)
+earth_submodel_pred <- function(object, new_data, terms = 2:3, ...) {
+  map_dfr(terms, earth_reg_updater, object = object, newdata = new_data, ...)
 }
 
 #' @importFrom tibble as_tibble tibble
 #' @importFrom stats update
-earth_reg_updater <- function(num, object, newdata, ...) {
+earth_reg_updater <- function(num, object, new_data, ...) {
   object <- update(object, nprune = num)
-  pred <- predict(object, newdata, ...)
+  pred <- predict(object, new_data, ...)
   if (ncol(pred) == 1) {
     res <- tibble::tibble(.pred = pred[, 1], nprune = num)
   } else {

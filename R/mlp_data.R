@@ -32,7 +32,7 @@ mlp_keras_data <-
       args =
         list(
           object = quote(object$fit),
-          x = quote(as.matrix(newdata))
+          x = quote(as.matrix(new_data))
         )
     ),
     classes = list(
@@ -44,7 +44,7 @@ mlp_keras_data <-
       args =
         list(
           object = quote(object$fit),
-          x = quote(as.matrix(newdata))
+          x = quote(as.matrix(new_data))
         )
     ),
     prob = list(
@@ -58,7 +58,7 @@ mlp_keras_data <-
       args =
         list(
           object = quote(object$fit),
-          x = quote(as.matrix(newdata))
+          x = quote(as.matrix(new_data))
         )
     ),
     raw = list(
@@ -67,7 +67,7 @@ mlp_keras_data <-
       args =
         list(
           object = quote(object$fit),
-          x = quote(as.matrix(newdata))
+          x = quote(as.matrix(new_data))
         )
     )
   )
@@ -88,7 +88,7 @@ mlp_nnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "raw"
         )
     ),
@@ -99,7 +99,7 @@ mlp_nnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "class"
         )
     ),
@@ -109,7 +109,7 @@ mlp_nnet_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )

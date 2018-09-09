@@ -157,7 +157,7 @@ boost_tree_xgboost_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     classes = list(
@@ -174,7 +174,7 @@ boost_tree_xgboost_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     prob = list(
@@ -192,7 +192,7 @@ boost_tree_xgboost_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     ),
     raw = list(
@@ -201,7 +201,7 @@ boost_tree_xgboost_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata)
+          newdata = quote(new_data)
         )
     )
   )
@@ -222,7 +222,7 @@ boost_tree_C5.0_data <-
       func = c(fun = "predict"),
       args = list(
         object = quote(object$fit),
-        newdata = quote(newdata)
+        newdata = quote(new_data)
       )
     ),
     prob = list(
@@ -234,7 +234,7 @@ boost_tree_C5.0_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(newdata),
+          newdata = quote(new_data),
           type = "prob"
         )
     ),
@@ -243,7 +243,7 @@ boost_tree_C5.0_data <-
       func = c(fun = "predict"),
       args = list(
         object = quote(object$fit),
-        newdata = quote(newdata)
+        newdata = quote(new_data)
       )
     )
   )

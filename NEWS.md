@@ -1,3 +1,12 @@
+# parsnip 0.0.0.9002
+
+* To be consistent with `snake_case`, `newdata` was changed to `new_data`. 
+* A `predict_raw` method was added. 
+
+# parsnip 0.0.0.9001
+
+* A package dependency suffered a new change. 
+
 # parsnip 0.0.0.9000
 
 * The `fit` interface was previously used to cover both the x/y interface as well as the formula interface. Now, `fit` is the formula interface and [`fit_xy` is for the x/y interface](https://github.com/topepo/parsnip/issues/33). 

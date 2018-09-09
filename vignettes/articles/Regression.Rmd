@@ -79,7 +79,7 @@ test_results <- ames_test %>%
   select(Sale_Price) %>%
   mutate(Sale_Price = log10(Sale_Price)) %>%
   bind_cols(
-    predict(rf_xy_fit, newdata = ames_test[, preds])
+    predict(rf_xy_fit, new_data = ames_test[, preds])
   )
 test_results
 
@@ -179,7 +179,7 @@ test_results <-
   test_results %>%
   rename(`random forest` = .pred) %>%
   bind_cols(
-    predict(glmn_fit, newdata = test_normalized) %>%
+    predict(glmn_fit, new_data = test_normalized) %>%
       rename(glmnet = .pred)
   )
 test_results

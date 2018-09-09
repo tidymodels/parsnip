@@ -214,7 +214,7 @@ test_that('classification', {
     regexp = NA
   )
   expect_true(!is.null(glm_mars$fit$glm.list))
-  parsnip_pred <- predict_classprob(glm_mars, newdata = lending_club[1:5, -ncol(lending_club)])
+  parsnip_pred <- predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
   
   library(earth)  
   earth_fit <- earth(Class ~ ., data = lending_club[-(1:5),],

@@ -105,22 +105,38 @@ used for each type of prediction (see Details).</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
+  <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
 
 <span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
 
 <span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>newdata</span>, <span class='no'>...</span>)
+<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
 
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_raw</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+
+<span class='fu'>predict_raw</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,19 +146,32 @@ used for each type of prediction (see Details).</p>
       <td><p>An object of class <code>model_fit</code></p></td>
     </tr>
     <tr>
-      <th>newdata</th>
+      <th>new_data</th>
       <td><p>A rectangular data object, such as a data frame.</p></td>
     </tr>
     <tr>
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "probs", "link", or "raw" (the last two
-are not yet implemented). When <code>NULL</code>, <code>predict</code> will choose an
-appropriate value based on the model's mode.</p></td>
+are "numeric", "class", "probs", "link", "conf_int", "pred_int",
+or "raw" (the last two are not yet implemented). When <code>NULL</code>,
+<code>predict</code> will choose an appropriate value based on the model's
+mode.</p></td>
+    </tr>
+    <tr>
+      <th>opts</th>
+      <td><p>A list of optional arguments to the underlying
+predict function that will be used when <code>type = "raw"</code>. The
+list should not include options for the model object or the
+new data being predicted.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Arguments to pass to other methods (not currently used).</p></td>
+    </tr>
+    <tr>
+      <th>level</th>
+      <td><p>A single numeric value between zero and one for the
+interval estimates.</p></td>
     </tr>
     </table>
     
@@ -157,13 +186,15 @@ is made (<code>type = "numeric"</code> for regression models and
 <code>type = "class"</code> for classification).</p>
 <p><code>predict</code> is designed to provide a tidy results. There will be
 a tibble as many rows in the output as there are rows in
-<code>newdata</code> and the column names will be predictable. For numeric
+<code>new_data</code> and the column names will be predictable. For numeric
 results with a single outcome, the tibble will have a <code>.pred</code>
 column and <code>.pred_Yname</code> for multivariate results. For
 hard class predictions, the column is named <code>.pred_class</code>
 and, when <code>type = "prob"</code>, the columns are
-<code>.pred_classlevel</code>.</p>
-<p>The more specific prediction functions (e.g. <code>predict_num</code>)
+<code>.pred_classlevel</code>. <code>type = "conf_int"</code> and ``type = "pred_int"<code>return tibbles with columns</code>.pred_lower` and `.pred_upper` with
+an attribute for the confidence level. Using `type = "raw"`
+returns the unadulterated results of the prediction function.</p>
+<p>The more specific prediction functions (e.g. <code>predict_num</code>) can
 return non-tibble results. <code>predict_num</code> generates a vector (for
 univariate models) or a data frame (multivariate).
 <code>predict_class</code> returns a factor and <code>predict_classprob</code> returns
@@ -190,7 +221,32 @@ a data frame with columns for the factor levels.</p>
 #&gt;  8  21.7
 #&gt;  9  25.6
 #&gt; 10  17.1</div><div class='input'><span class='fu'>predict_num</span>(<span class='no'>lm_model</span>, <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>))</div><div class='output co'>#&gt;  [1] 23.43006 23.29639 27.62870 21.54678 17.57028 21.58316 13.90725 21.70176
-#&gt;  [9] 25.61122 17.11206</div></pre>
+#&gt;  [9] 25.61122 17.11206</div><div class='input'><span class='fu'>predict</span>(<span class='no'>lm_model</span>, <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"conf_int"</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 2
+#&gt;    .pred_lower .pred_upper
+#&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+#&gt;  1       16.6         30.2
+#&gt;  2       16.9         29.6
+#&gt;  3       23.2         32.1
+#&gt;  4       16.6         26.5
+#&gt;  5       13.6         21.5
+#&gt;  6       16.0         27.2
+#&gt;  7        8.69        19.1
+#&gt;  8       15.0         28.4
+#&gt;  9       11.7         39.6
+#&gt; 10       10.3         23.9</div><div class='input'><span class='fu'>predict</span>(
+   <span class='no'>lm_model</span>,
+   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>),
+   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"raw"</span>,
+   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"terms"</span>))</div><div class='output co'>#&gt;            cyl       disp        hp        drat       wt      qsec         vs
+#&gt; 1 -0.001433177 -0.8113275 0.6303467 -0.06120265 2.413981 -1.567729  0.2006406
+#&gt; 2 -0.001433177 -0.8113275 0.6303467 -0.06120265 1.448871 -0.736286  0.2006406
+#&gt; 3 -0.009315653 -1.3336453 0.8557288 -0.05014798 3.549406  1.624418 -0.3511210
+#&gt;        am      gear       carb
+#&gt; 1 2.88774 0.0251268 -0.2497240
+#&gt; 2 2.88774 0.0251268 -0.2497240
+#&gt; 3 2.88774 0.0251268  0.4668753
+#&gt; attr(,"constant")
+#&gt; [1] 19.96364</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

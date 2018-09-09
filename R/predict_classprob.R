@@ -4,7 +4,7 @@
 #' @export predict_classprob.model_fit
 #' @export
 #' @importFrom tibble as_tibble is_tibble tibble
-predict_classprob.model_fit <- function (object, newdata, ...) {
+predict_classprob.model_fit <- function (object, new_data, ...) {
   if(object$spec$mode != "classification")
     stop("`predict.model_fit` is for predicting factor outcomes.",
          call. = FALSE)
@@ -12,11 +12,11 @@ predict_classprob.model_fit <- function (object, newdata, ...) {
   if (!any(names(object$spec$method) == "prob"))
     stop("No class probability module defined for this model.", call. = FALSE)
 
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
 
   # preprocess data
   if (!is.null(object$spec$method$prob$pre))
-    newdata <- object$spec$method$prob$pre(newdata, object)
+    new_data <- object$spec$method$prob$pre(new_data, object)
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$prob)

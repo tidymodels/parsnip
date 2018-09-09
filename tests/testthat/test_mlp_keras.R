@@ -58,6 +58,7 @@ test_that('keras execution, classification', {
 test_that('keras classification prediction', {
   
   skip_if_not_installed("keras")
+  library(keras)
   
   xy_fit <- parsnip::fit_xy(
     iris_keras,
@@ -69,7 +70,7 @@ test_that('keras classification prediction', {
   
   xy_pred <- predict_classes(xy_fit$fit, x = as.matrix(iris[1:8, num_pred]))
   xy_pred <- factor(levels(iris$Species)[xy_pred + 1], levels = levels(iris$Species))
-  expect_equal(xy_pred, predict_class(xy_fit, newdata = iris[1:8, num_pred]))
+  expect_equal(xy_pred, predict_class(xy_fit, new_data = iris[1:8, num_pred]))
   
   keras::backend()$clear_session()
   
@@ -83,7 +84,7 @@ test_that('keras classification prediction', {
   
   form_pred <- predict_classes(form_fit$fit, x = as.matrix(iris[1:8, num_pred]))
   form_pred <- factor(levels(iris$Species)[form_pred + 1], levels = levels(iris$Species))
-  expect_equal(form_pred, predict_class(form_fit, newdata = iris[1:8, num_pred]))
+  expect_equal(form_pred, predict_class(form_fit, new_data = iris[1:8, num_pred]))
   
   keras::backend()$clear_session()
 })
@@ -104,7 +105,7 @@ test_that('keras classification probabilities', {
   xy_pred <- predict_proba(xy_fit$fit, x = as.matrix(iris[1:8, num_pred]))
   xy_pred <- as_tibble(xy_pred)
   colnames(xy_pred) <- levels(iris$Species)
-  expect_equal(xy_pred, predict_classprob(xy_fit, newdata = iris[1:8, num_pred]))
+  expect_equal(xy_pred, predict_classprob(xy_fit, new_data = iris[1:8, num_pred]))
   
   keras::backend()$clear_session()
   
@@ -119,7 +120,7 @@ test_that('keras classification probabilities', {
   form_pred <- predict_proba(form_fit$fit, x = as.matrix(iris[1:8, num_pred]))
   form_pred <- as_tibble(form_pred)
   colnames(form_pred) <- levels(iris$Species)
-  expect_equal(form_pred, predict_classprob(form_fit, newdata = iris[1:8, num_pred]))
+  expect_equal(form_pred, predict_classprob(form_fit, new_data = iris[1:8, num_pred]))
   
   keras::backend()$clear_session()
 })
@@ -184,7 +185,7 @@ test_that('keras regression prediction', {
   )
   
   xy_pred <- predict(xy_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(xy_pred, predict_num(xy_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
+  expect_equal(xy_pred, predict_num(xy_fit, new_data = mtcars[1:8, c("cyl", "disp")]))
   
   keras::backend()$clear_session()
   
@@ -197,7 +198,7 @@ test_that('keras regression prediction', {
   )
   
   form_pred <- predict(form_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(form_pred, predict_num(form_fit, newdata = mtcars[1:8, c("cyl", "disp")]))
+  expect_equal(form_pred, predict_num(form_fit, new_data = mtcars[1:8, c("cyl", "disp")]))
   
   keras::backend()$clear_session()
 })
@@ -222,8 +223,8 @@ test_that('multivariate nnet formula', {
       data = nn_dat[-(1:5),], 
       engine = "keras"
     )
-  expect_equal(length(unlist(get_weights(nnet_form$fit))), 24)
-  nnet_form_pred <- predict_num(nnet_form, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(length(unlist(keras::get_weights(nnet_form$fit))), 24)
+  nnet_form_pred <- predict_num(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_pred), 3)
   expect_equal(nrow(nnet_form_pred), 5)
   expect_equal(names(nnet_form_pred), c("V1", "V2", "V3")) 
@@ -241,8 +242,8 @@ test_that('multivariate nnet formula', {
       y = nn_dat[-(1:5),   1:3 ], 
       engine = "keras"
     )
-  expect_equal(length(unlist(get_weights(nnet_xy$fit))), 24)
-  nnet_form_xy <- predict_num(nnet_xy, newdata = nn_dat[1:5, -(1:3)])
+  expect_equal(length(unlist(keras::get_weights(nnet_xy$fit))), 24)
+  nnet_form_xy <- predict_num(nnet_xy, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_xy), 3)
   expect_equal(nrow(nnet_form_xy), 5)
   expect_equal(names(nnet_form_xy), c("V1", "V2", "V3")) 

@@ -3,7 +3,7 @@
 #' @method predict_class model_fit
 #' @export predict_class.model_fit
 #' @export
-predict_class.model_fit <- function (object, newdata, ...) {
+predict_class.model_fit <- function (object, new_data, ...) {
   if(object$spec$mode != "classification")
     stop("`predict.model_fit` is for predicting factor outcomes.",
          call. = FALSE)
@@ -11,11 +11,11 @@ predict_class.model_fit <- function (object, newdata, ...) {
   if (!any(names(object$spec$method) == "classes"))
     stop("No class prediction module defined for this model.", call. = FALSE)
 
-  newdata <- prepare_data(object, newdata)
+  new_data <- prepare_data(object, new_data)
 
   # preprocess data
   if (!is.null(object$spec$method$classes$pre))
-    newdata <- object$spec$method$classes$pre(newdata, object)
+    new_data <- object$spec$method$classes$pre(new_data, object)
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$classes)
