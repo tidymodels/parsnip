@@ -33,7 +33,6 @@ r_binary_packages:
  - glmnet
  - earth
  - sparklyr
- - nnet
  - flexsurv
  - ranger
  - randomforest
