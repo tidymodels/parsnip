@@ -4,6 +4,9 @@ language: r
 dist: trusty
 sudo: true
 
+# until generics is finalized
+warnings_are_errors: false
+
 r:
 - release
 - devel
