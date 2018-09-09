@@ -2,7 +2,7 @@ library(testthat)
 context("parametric survival models")
 library(parsnip)
 library(rlang)
-library(flexsurv)
+library(survival)
 
 
 test_that('primary arguments', {
@@ -92,7 +92,7 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('flexsurv execution', {
-
+  skip_if_not_installed("flexsurv")
 
   # passes interactively but not on R CMD check
   expect_error(
