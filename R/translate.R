@@ -51,7 +51,7 @@ translate.default <- function(x, engine, ...) {
 
   x$method <- get_model_info(x, x$engine)
 
-  arg_key <- get_module(specifc_model(x))
+  arg_key <- get_module(specific_model(x))
 
   # deharmonize primary arguments
   actual_args <- deharmonize(x$args, arg_key, x$engine)
