@@ -43,7 +43,7 @@ rand_forest_ranger_data <-
           object = quote(object$fit),
           data = quote(new_data),
           type = "response",
-          seed = sample.int(10^5, 1),
+          seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
         )
     ),
@@ -56,7 +56,7 @@ rand_forest_ranger_data <-
           object = quote(object$fit),
           data = quote(new_data),
           type = "response",
-          seed = sample.int(10^5, 1),
+          seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
         )
     ),
@@ -77,7 +77,7 @@ rand_forest_ranger_data <-
         list(
           object = quote(object$fit),
           data = quote(new_data),
-          seed = sample.int(10^5, 1),
+          seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
         )
     ),
