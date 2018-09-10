@@ -4,7 +4,7 @@ get_model_info <-  function (x, engine)  {
     stop("Please specify a mode for the model (e.g. regression, ",
          "classification, etc.) ",
          "so that the model code can be finalized", call. = FALSE)
-  cls <- specifc_model(x)
+  cls <- specific_model(x)
   nm <- paste(cls, engine, "data", sep = "_")
   res <- try(get(nm), silent = TRUE)
   if (inherits(res, "try-error"))
@@ -12,14 +12,14 @@ get_model_info <-  function (x, engine)  {
   res
 }
 
-specifc_model <- function(x) {
+specific_model <- function(x) {
   cls <- class(x)
   cls[cls != "model_spec"]
 }
 
 
 possible_engines <- function(object, ...) {
-  cls <- specifc_model(object)
+  cls <- specific_model(object)
   key_df <- get(paste(cls, "engines", sep = "_"))
   colnames(key_df[object$mode, , drop = FALSE])
 }
