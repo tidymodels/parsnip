@@ -19,6 +19,15 @@ rand_forest_engines <- data.frame(
 
 ###################################################################
 
+ranger_class_pred <-
+  function(results, object)  {
+    if (results$treetype == "Probability estimation") {
+      res <- colnames(results$predictions)[apply(results$predictions, 1, which.max)]
+    } else {
+      res <- results$predictions
+    }
+    res
+  }
 
 rand_forest_ranger_data <-
   list(
@@ -49,7 +58,7 @@ rand_forest_ranger_data <-
     ),
     classes = list(
       pre = NULL,
-      post = function(results, object) results$predictions,
+      post = ranger_class_pred,
       func = c(fun = "predict"),
       args =
         list(

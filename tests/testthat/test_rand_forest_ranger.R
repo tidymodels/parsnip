@@ -328,3 +328,53 @@ test_that('additional descriptor tests', {
   expect_equal(expr_other_f$fit$mtry, 2)
   expect_equal(expr_other_f$fit$call$class.weights, exp_wts)
 })
+
+
+test_that('ranger classification prediction', {
+  
+  skip_if_not_installed("ranger")
+  
+  xy_class_fit <- 
+    rand_forest(mode = "classification") %>%
+    fit_xy(
+      x = iris[, 1:4],
+      y = iris$Species,
+      engine = "ranger",
+      control = ctrl
+    )
+  
+  xy_class_pred <- predict(xy_class_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  
+  expect_equal(
+    xy_class_pred, 
+    predict(xy_class_fit, new_data = iris[c(1, 51, 101), 1:4])$.pred_class
+  )
+  
+  xy_prob_fit <- 
+    rand_forest(
+      mode = "classification",
+      other = list(probability = TRUE)
+    ) %>%
+    fit_xy(
+      x = iris[, 1:4],
+      y = iris$Species,
+      engine = "ranger",
+      control = ctrl
+    )
+  
+  xy_prob_pred <- predict(xy_prob_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  
+  expect_equal(
+    xy_class_pred, 
+    predict(xy_prob_fit, new_data = iris[c(1, 51, 101), 1:4])$.pred_class
+  ) 
+  
+  xy_prob_prob <- predict(xy_prob_fit$fit, data = iris[c(1, 51, 101), 1:4], type = "response")
+  xy_prob_prob <- as_tibble(xy_prob_prob$prediction)
+  names(xy_prob_prob) <- paste0(".pred_", names(xy_prob_prob))
+  expect_equal(
+    xy_prob_prob, 
+    predict(xy_prob_fit, new_data = iris[c(1, 51, 101), 1:4], type = "prob")
+  )   
+})
+
