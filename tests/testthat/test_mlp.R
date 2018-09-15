@@ -47,7 +47,7 @@ test_that('primary arguments', {
   all_args <-
     mlp(
       mode = "classification",
-      epochs = 2, hidden_units = 4, regularization = 0.0001,
+      epochs = 2, hidden_units = 4, penalty = 0.0001,
       dropout = 0, activation = "softmax"
     )
   all_args_nnet <- translate(all_args, engine = "nnet")
@@ -69,7 +69,7 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  hidden_units = 4,
-                 regularization = 1e-04,
+                 penalty = 1e-04,
                  dropout = 0,
                  epochs = 2,
                  activation = "softmax"

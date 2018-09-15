@@ -133,34 +133,34 @@ function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>lm_spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
+    <pre class="examples"><div class='input'><span class='no'>lm_spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
 
-<span class='co'># `regularization` is tranlsated to `lambda`</span>
+<span class='co'># `penalty` is tranlsated to `lambda`</span>
 <span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glmnet"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 0.01
+#&gt;   penalty = 0.01
 #&gt; 
 #&gt; Computational engine: glmnet 
 #&gt; 
 #&gt; Model fit template:
 #&gt; glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 #&gt;     lambda = 0.01, family = "gaussian")</div><div class='input'>
-<span class='co'># `regularization` not applicable for this model.</span>
+<span class='co'># `penalty` not applicable for this model.</span>
 <span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 0.01
+#&gt;   penalty = 0.01
 #&gt; 
 #&gt; Computational engine: lm 
 #&gt; 
 #&gt; Model fit template:
 #&gt; stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</div><div class='input'>
-<span class='co'># `regularization` is tranlsated to `reg_param`</span>
+<span class='co'># `penalty` is tranlsated to `reg_param`</span>
 <span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"spark"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 0.01
+#&gt;   penalty = 0.01
 #&gt; 
 #&gt; Computational engine: spark 
 #&gt; 

@@ -1,3 +1,7 @@
+# parsnip 0.0.0.9003
+
+* `regularization` was changed to `penalty` in a few models to be consistent with [this change](tidymodels/model-implementation-principles@08d3afd). 
+
 # parsnip 0.0.0.9002
 
 * To be consistent with `snake_case`, `newdata` was changed to `new_data`. 

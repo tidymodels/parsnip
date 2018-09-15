@@ -18,8 +18,8 @@
 \alias{predict_raw}
 \title{Model predictions}
 \usage{
-\method{predict}{model_fit}(object, new_data, type = NULL, opts = list(),
-  ...)
+\method{predict}{model_fit}(object, new_data, type = NULL,
+  opts = list(), ...)
 
 \method{predict_class}{model_fit}(object, new_data, ...)
 

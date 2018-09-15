@@ -165,7 +165,7 @@ test_that('multivariate nnet formula', {
     mlp(
       mode = "regression",
       hidden_units = 3,
-      regularization = 0.01
+      penalty = 0.01
     ) %>% 
     parsnip::fit(
       cbind(V1, V2, V3) ~ ., 
@@ -182,7 +182,7 @@ test_that('multivariate nnet formula', {
     mlp(
       mode = "regression",
       hidden_units = 3,
-      regularization = 0.01
+      penalty = 0.01
     ) %>% 
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)], 

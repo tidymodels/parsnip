@@ -38,7 +38,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-
+     
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -59,7 +59,7 @@
 <li>
   <a href="../../reference/index.html">Reference</a>
 </li>
-
+        
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -68,20 +68,20 @@
 </div>
 <!--/.navbar -->
 
-
+      
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Making a <code>parsnip</code> model from scratch</h1>
-
-
-
+            
+      
+      
       <div class="hidden name"><code>Scratch.Rmd</code></div>
 
     </div>
 
-
-
+    
+    
 <p><code>parsnip</code> constructs models and predictions by representing those actions in expressions. There are a few reasons for this:</p>
 <ul>
 <li>It eliminates a lot of duplicate code.</li>
@@ -122,9 +122,9 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
 <p>As an example of a model with multiple engines, here is the object for logistic regression:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">parsnip<span class="op">:::</span>logistic_reg_arg_key</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;                glm glmnet             spark stan</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; regularization  NA lambda         reg_param   NA</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture         NA  alpha elastic_net_param   NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;         glm glmnet             spark stan</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; penalty  NA lambda         reg_param   NA</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture  NA  alpha elastic_net_param   NA</span></a></code></pre></div>
 <p>The internals of <code>parsnip</code> will use these objects during the creation of the model code.</p>
 </div>
 <div id="step-2--create-the-model-function" class="section level2">
@@ -220,7 +220,7 @@
 <li>
 <code>func</code> is the prediction function (in the same format as above). In many cases, packages have a predict method for their model’s class but this is typically not exported. In this case (and the example below), it is simple enough to make a generic call to <code>predict</code> with no associated package.</li>
 <li>
-<code>args</code> is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in <code><a href="http://www.rdocumentation.org/packages/rlang/topics/quotation">rlang::expr</a></code> so that they are not evaluated when defining the method. For <code>mda</code>, the code would be <code>predict(object, newdata, type = "class")</code>. What is actually given to the function is the <code>parsnip</code> model fit object, which includes a sub-object called <code>fit</code> and this houses the <code>mda</code> model object. If the data need to be a matrix or data frame, you could also use <code>newdata = quote(as.data.frame(newdata))</code> and so on.</li>
+<code>args</code> is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in <code><a href="http://www.rdocumentation.org/packages/rlang/topics/quotation">rlang::expr</a></code> so that they are not evaluated when defining the method. For <code>mda</code>, the code would be <code>predict(object, newdata, type = "class")</code>. What is actually given to the function is the <code>parsnip</code> model fit object, which includes a sub-object called <code>fit</code> and this houses the <code>mda</code> model object. If the data need to be a matrix or data frame, you could also use <code>new_data = quote(as.data.frame(new_data))</code> and so on.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mixture_da_mda_data<span class="op">$</span>classes &lt;-</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
@@ -228,15 +228,17 @@
 <a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="dt">post =</span> <span class="ot">NULL</span>,</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="dt">func =</span> <span class="kw">c</span>(<span class="dt">fun =</span> <span class="st">"predict"</span>),</a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="dt">args =</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">      <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">        <span class="co"># We don't want the first two arguments evaluated right now</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">        <span class="co"># since they don't exist yet. `type` is a simple object that</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">        <span class="co"># doesn't need to be deferred. </span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">        <span class="dt">object =</span> <span class="kw">quote</span>(object<span class="op">$</span>fit),</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12">        <span class="dt">newdata =</span> <span class="kw">quote</span>(newdata),</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13">        <span class="dt">type =</span> <span class="st">"class"</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">      )</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">  )</a></code></pre></div>
+<a class="sourceLine" id="cb9-7" data-line-number="7">      <span class="co"># These lists should be of the form:</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">      <span class="co"># {predict.mda argument name} = {values provided from parsnip objects}</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">      <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">        <span class="co"># We don't want the first two arguments evaluated right now</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">        <span class="co"># since they don't exist yet. `type` is a simple object that</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">        <span class="co"># doesn't need to have its evaluation deferred. </span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">        <span class="dt">object =</span> <span class="kw">quote</span>(object<span class="op">$</span>fit),</a>
+<a class="sourceLine" id="cb9-14" data-line-number="14">        <span class="dt">newdata =</span> <span class="kw">quote</span>(new_data),</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">        <span class="dt">type =</span> <span class="st">"class"</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16">      )</a>
+<a class="sourceLine" id="cb9-17" data-line-number="17">  )</a></code></pre></div>
 <p>The <code>predict_class</code> function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data.</p>
 </div>
 <div id="the-prob-module" class="section level3">
@@ -254,7 +256,7 @@
 <a class="sourceLine" id="cb10-8" data-line-number="8">    <span class="dt">args =</span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9">      <span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb10-10" data-line-number="10">        <span class="dt">object =</span> <span class="kw">quote</span>(object<span class="op">$</span>fit),</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">        <span class="dt">newdata =</span> <span class="kw">quote</span>(newdata),</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">        <span class="dt">newdata =</span> <span class="kw">quote</span>(new_data),</a>
 <a class="sourceLine" id="cb10-12" data-line-number="12">        <span class="dt">type =</span> <span class="st">"posterior"</span></a>
 <a class="sourceLine" id="cb10-13" data-line-number="13">      )</a>
 <a class="sourceLine" id="cb10-14" data-line-number="14">  )</a></code></pre></div>
@@ -311,7 +313,7 @@
 <a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-29" data-line-number="29"><span class="co">#&gt; Deviance: 12.6</span></a>
 <a class="sourceLine" id="cb12-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="kw">predict</span>(mda_fit, <span class="dt">newdata =</span> iris_test) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="kw">predict</span>(mda_fit, <span class="dt">new_data =</span> iris_test) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb12-32" data-line-number="32"><span class="st">  </span><span class="kw">bind_cols</span>(iris_test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Species))</a>
 <a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">#&gt; # A tibble: 14 x 2</span></a>
 <a class="sourceLine" id="cb12-34" data-line-number="34"><span class="co">#&gt;    .pred_class Species   </span></a>
@@ -331,7 +333,7 @@
 <a class="sourceLine" id="cb12-48" data-line-number="48"><span class="co">#&gt; 13 virginica   virginica </span></a>
 <a class="sourceLine" id="cb12-49" data-line-number="49"><span class="co">#&gt; 14 virginica   virginica</span></a>
 <a class="sourceLine" id="cb12-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb12-51" data-line-number="51"><span class="kw">predict</span>(mda_fit, <span class="dt">newdata =</span> iris_test, <span class="dt">type =</span> <span class="st">"prob"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-51" data-line-number="51"><span class="kw">predict</span>(mda_fit, <span class="dt">new_data =</span> iris_test, <span class="dt">type =</span> <span class="st">"prob"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-52" data-line-number="52"><span class="st">  </span><span class="kw">bind_cols</span>(iris_test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Species))</a>
 <a class="sourceLine" id="cb12-53" data-line-number="53"><span class="co">#&gt; # A tibble: 14 x 4</span></a>
 <a class="sourceLine" id="cb12-54" data-line-number="54"><span class="co">#&gt;    .pred_setosa .pred_versicolor .pred_virginica Species   </span></a>
@@ -367,7 +369,7 @@
 <p>For example, if I fit a linear regression model via <code>glmnet</code> and get four values of the regularization parameter (<code>lambda</code>):</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../../reference/linear_reg.html">linear_reg</a></span>(<span class="dt">others =</span> <span class="kw">list</span>(<span class="dt">nlambda =</span> <span class="dv">4</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"glmnet"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">predict</span>(<span class="dt">newdata =</span> mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">-1</span>])</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">predict</span>(<span class="dt">new_data =</span> mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">-1</span>])</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; # A tibble: 12 x 2</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt;    .pred_values .pred_lambda</span></a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></a>
@@ -508,7 +510,7 @@
 </script></footer>
 </div>
 
-
+  
 
   </body>
 </html>

@@ -5,9 +5,9 @@
 \alias{update.boost_tree}
 \title{General Interface for Boosted Trees}
 \usage{
-boost_tree(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL,
-  tree_depth = NULL, learn_rate = NULL, loss_reduction = NULL,
-  sample_size = NULL, others = list(), ...)
+boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
+  min_n = NULL, tree_depth = NULL, learn_rate = NULL,
+  loss_reduction = NULL, sample_size = NULL, others = list(), ...)
 
 \method{update}{boost_tree}(object, mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,

@@ -5,17 +5,17 @@
 \alias{update.logistic_reg}
 \title{General Interface for Logistic Regression Models}
 \usage{
-logistic_reg(mode = "classification", regularization = NULL,
-  mixture = NULL, others = list(), ...)
+logistic_reg(mode = "classification", penalty = NULL, mixture = NULL,
+  others = list(), ...)
 
-\method{update}{logistic_reg}(object, regularization = NULL, mixture = NULL,
+\method{update}{logistic_reg}(object, penalty = NULL, mixture = NULL,
   others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
-\item{regularization}{An non-negative number representing the
+\item{penalty}{An non-negative number representing the
 total amount of regularization (\code{glmnet} and \code{spark} only).}
 
 \item{mixture}{A number between zero and one (inclusive) that
@@ -46,7 +46,7 @@ before fitting and allows the model to be created using
 different packages in R, Stan, or via Spark. The main arguments for the
 model are:
 \itemize{
-\item \code{regularization}: The total amount of regularization
+\item \code{penalty}: The total amount of regularization
 in the model. Note that this must be zero for some engines.
 \item \code{mixture}: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.
@@ -76,11 +76,11 @@ following \emph{engines}:
 \examples{
 logistic_reg()
 # Parameters can be represented by a placeholder:
-logistic_reg(regularization = varying())
-model <- logistic_reg(regularization = 10, mixture = 0.1)
+logistic_reg(penalty = varying())
+model <- logistic_reg(penalty = 10, mixture = 0.1)
 model
-update(model, regularization = 1)
-update(model, regularization = 1, fresh = TRUE)
+update(model, penalty = 1)
+update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}

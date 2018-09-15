@@ -101,7 +101,7 @@
 before fitting and allows the model to be created using
 different packages in R, Stan, or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>regularization</code>: The total amount of regularization
+<li><p><code>penalty</code>: The total amount of regularization
 in the model. Note that this must be zero for some engines .</p></li>
 <li><p><code>mixture</code>: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.</p></li>
@@ -115,11 +115,11 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>linear_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>linear_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for linear_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -131,7 +131,7 @@ in lieu of recreating the object from scratch.</p>
 The only possible value for this model is "regression".</p></td>
     </tr>
     <tr>
-      <th>regularization</th>
+      <th>penalty</th>
       <td><p>An non-negative number representing the
 total amount of regularization (<code>glmnet</code> and <code>spark</code> only).</p></td>
     </tr>
@@ -182,12 +182,12 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
     <p>When using <code>glmnet</code> models, there is the option to pass
-multiple values (or no values) to the <code>regularization</code> argument.
+multiple values (or no values) to the <code>penalty</code> argument.
 This can have an effect on the model object results. When using
 the <code>predict</code> method in these cases, the return object type
-depends on the value of <code>regularization</code>. If a single value is
+depends on the value of <code>penalty</code>. If a single value is
 given, the results will be a simple numeric vector. When
-multiple values or no values for <code>regularization</code> are used in
+multiple values or no values for <code>penalty</code> are used in
 <code>linear_reg</code>, the <code>predict</code> method will return a data frame with
 columns <code>values</code> and <code>lambda</code>.</p>
     
@@ -199,25 +199,25 @@ columns <code>values</code> and <code>lambda</code>.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>linear_reg</span>()</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>linear_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>linear_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>linear_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+#&gt;   penalty = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>linear_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 <span class='no'>model</span></div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 10
+#&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 1
+#&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 1
+#&gt;   penalty = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

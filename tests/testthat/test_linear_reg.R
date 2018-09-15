@@ -61,10 +61,10 @@ test_that('primary arguments', {
                )
   )
 
-  regularization <- linear_reg(regularization = 1)
-  regularization_glmnet <- translate(regularization, engine = "glmnet")
-  regularization_spark <- translate(regularization, engine = "spark")
-  expect_equal(regularization_glmnet$method$fit$args,
+  penalty <- linear_reg(penalty = 1)
+  penalty_glmnet <- translate(penalty, engine = "glmnet")
+  penalty_spark <- translate(penalty, engine = "spark")
+  expect_equal(penalty_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -73,7 +73,7 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(regularization_spark$method$fit$args,
+  expect_equal(penalty_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -159,7 +159,7 @@ test_that('updating', {
   expr2     <- linear_reg(mixture = varying())
   expr2_exp <- linear_reg(mixture = varying(), others = list(nlambda = 10))
 
-  expr3     <- linear_reg(mixture = 0, regularization = varying())
+  expr3     <- linear_reg(mixture = 0, penalty = varying())
   expr3_exp <- linear_reg(mixture = 1)
 
   expr4     <- linear_reg(mixture = 0, others = list(nlambda = 10))
@@ -179,7 +179,7 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(linear_reg(ase.weights = var))
   expect_error(linear_reg(mode = "classification"))
-  expect_error(linear_reg(regularization = -1))
+  expect_error(linear_reg(penalty = -1))
   expect_error(linear_reg(mixture = -1))
   expect_error(translate(linear_reg(), engine = "wat?"))
   expect_warning(translate(linear_reg(), engine = NULL))

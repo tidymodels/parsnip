@@ -5,7 +5,7 @@ linear_reg_arg_key <- data.frame(
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
   stringsAsFactors = FALSE,
-  row.names =  c("regularization", "mixture")
+  row.names =  c("penalty", "mixture")
 )
 
 linear_reg_modes <- "regression"
@@ -27,8 +27,8 @@ organize_glmnet_pred <- function(x, object) {
   } else {
     n <- nrow(x)
     res <- utils::stack(as.data.frame(x))
-    if (!is.null(object$spec$args$regularization))
-      res$lambda <- rep(object$spec$args$regularization, each = n) else
+    if (!is.null(object$spec$args$penalty))
+      res$lambda <- rep(object$spec$args$penalty, each = n) else
         res$lambda <- rep(object$fit$lambda, each = n)
     res <- res[, colnames(res) %in% c("values", "lambda")]
   }
@@ -123,7 +123,7 @@ linear_reg_glmnet_data <-
           object = quote(object$fit),
           newx = quote(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$regularization)
+          s = quote(object$spec$args$penalty)
         )
     ),
     raw = list(

@@ -31,15 +31,15 @@ This function can be useful when you need to understand how
 function.
 }
 \examples{
-lm_spec <- linear_reg(regularization = 0.01)
+lm_spec <- linear_reg(penalty = 0.01)
 
-# `regularization` is tranlsated to `lambda`
+# `penalty` is tranlsated to `lambda`
 translate(lm_spec, engine = "glmnet")
 
-# `regularization` not applicable for this model.
+# `penalty` not applicable for this model.
 translate(lm_spec, engine = "lm")
 
-# `regularization` is tranlsated to `reg_param`
+# `penalty` is tranlsated to `reg_param`
 translate(lm_spec, engine = "spark")
 
 # with a placeholder for an unknown argument value:

@@ -38,7 +38,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-
+     
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -59,7 +59,7 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-
+        
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -68,20 +68,20 @@
 </div>
 <!--/.navbar -->
 
-
+      
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>parsnip Basics</h1>
-
-
-
+            
+      
+      
       <div class="hidden name"><code>parsnip_Intro.Rmd</code></div>
 
     </div>
 
-
-
+    
+    
 <p>This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources. It also contains a basic framework for model parameter tuning.</p>
 <div id="motivation" class="section level3">
 <h3 class="hasAnchor">
@@ -236,31 +236,31 @@
 <p>These models can be fit using the <code>fit</code> function. Only the model object is returned.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">fit</span>(rf_mod, mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"ranger"</span>)</a></code></pre></div>
 <pre><code>## parsnip model object
-##
+## 
 ## Ranger result
-##
+## 
 ## Call:
-##  ranger::ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5, 1))
-##
-## Type:                             Regression
-## Number of trees:                  2000
-## Sample size:                      32
-## Number of independent variables:  10
-## Mtry:                             3
-## Target node size:                 5
-## Variable importance mode:         none
-## Splitrule:                        variance
-## OOB prediction error (MSE):       5.71
+##  ranger::ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5, 1)) 
+## 
+## Type:                             Regression 
+## Number of trees:                  2000 
+## Sample size:                      32 
+## Number of independent variables:  10 
+## Mtry:                             3 
+## Target node size:                 5 
+## Variable importance mode:         none 
+## Splitrule:                        variance 
+## OOB prediction error (MSE):       5.71 
 ## R squared (OOB):                  0.843</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">fit</span>(rf_mod, mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"randomForest"</span>)</a></code></pre></div>
 <pre><code>## parsnip model object
-##
+## 
 ## Call:
-##  randomForest(x = as.data.frame(x), y = y, ntree = 2000)
+##  randomForest(x = as.data.frame(x), y = y, ntree = 2000) 
 ##                Type of random forest: regression
 ##                      Number of trees: 2000
 ## No. of variables tried at each split: 3
-##
+## 
 ##           Mean of squared residuals: 5.6
 ##                     % Var explained: 84.1</code></pre>
 </div>
@@ -297,7 +297,7 @@
 </script></footer>
 </div>
 
-
+  
 
   </body>
 </html>

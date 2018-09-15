@@ -64,10 +64,10 @@ test_that('primary arguments', {
                )
   )
 
-  regularization <- logistic_reg(regularization = 1)
-  regularization_glmnet <- translate(regularization, engine = "glmnet")
-  regularization_spark <- translate(regularization, engine = "spark")
-  expect_equal(regularization_glmnet$method$fit$args,
+  penalty <- logistic_reg(penalty = 1)
+  penalty_glmnet <- translate(penalty, engine = "glmnet")
+  penalty_spark <- translate(penalty, engine = "spark")
+  expect_equal(penalty_glmnet$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
@@ -76,7 +76,7 @@ test_that('primary arguments', {
                  family = "binomial"
                )
   )
-  expect_equal(regularization_spark$method$fit$args,
+  expect_equal(penalty_spark$method$fit$args,
                list(
                  x = quote(missing_arg()),
                  formula = quote(missing_arg()),
@@ -165,7 +165,7 @@ test_that('updating', {
   expr2     <- logistic_reg(mixture = varying())
   expr2_exp <- logistic_reg(mixture = varying(), others = list(nlambda = 10))
 
-  expr3     <- logistic_reg(mixture = 0, regularization = varying())
+  expr3     <- logistic_reg(mixture = 0, penalty = varying())
   expr3_exp <- logistic_reg(mixture = 1)
 
   expr4     <- logistic_reg(mixture = 0, others = list(nlambda = 10))
@@ -185,7 +185,7 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(logistic_reg(ase.weights = var))
   expect_error(logistic_reg(mode = "regression"))
-  expect_error(logistic_reg(regularization = -1))
+  expect_error(logistic_reg(penalty = -1))
   expect_error(logistic_reg(mixture = -1))
   expect_error(translate(logistic_reg(), engine = "wat?"))
   expect_warning(translate(logistic_reg(), engine = NULL))

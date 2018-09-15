@@ -5,8 +5,8 @@
 \alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL,
-  others = list(), ...)
+rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
+  min_n = NULL, others = list(), ...)
 
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
   min_n = NULL, others = list(), fresh = FALSE, ...)

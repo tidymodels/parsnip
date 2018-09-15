@@ -101,7 +101,7 @@
 before fitting and allows the model to be created using
 different packages in R, Stan, or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>regularization</code>: The total amount of regularization
+<li><p><code>penalty</code>: The total amount of regularization
 in the model. Note that this must be zero for some engines.</p></li>
 <li><p><code>mixture</code>: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.</p></li>
@@ -115,11 +115,11 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for logistic_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -131,7 +131,7 @@ in lieu of recreating the object from scratch.</p>
 The only possible value for this model is "classification".</p></td>
     </tr>
     <tr>
-      <th>regularization</th>
+      <th>penalty</th>
       <td><p>An non-negative number representing the
 total amount of regularization (<code>glmnet</code> and <code>spark</code> only).</p></td>
     </tr>
@@ -190,25 +190,25 @@ following <em>engines</em>:</p><ul>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>logistic_reg</span>()</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>logistic_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+<span class='fu'>logistic_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>logistic_reg</span>(<span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+#&gt;   penalty = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>logistic_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 <span class='no'>model</span></div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 10
+#&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 1
+#&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 1
+#&gt;   penalty = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

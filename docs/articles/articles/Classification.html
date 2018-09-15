@@ -85,10 +85,10 @@
 <p>To demonstrate <code>parsnip</code> for classification models, the credit data will be used.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidymodels)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ──────────────────────────── tidymodels 0.0.1.9000 ──</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; ✔ purrr     0.2.5     ✔ broom     0.5.0</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; ✔ dplyr     0.7.6     ✔ yardstick 0.0.1</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ✔ rsample   0.0.2     ✔ infer     0.3.1</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; ✔ recipes   0.1.3     ✔ dials     0.0.1</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; ✔ purrr     0.2.5           ✔ broom     0.5.0      </span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; ✔ dplyr     0.7.99.9000     ✔ yardstick 0.0.1      </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ✔ rsample   0.0.2           ✔ infer     0.3.1      </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; ✔ recipes   0.1.3           ✔ dials     0.0.1</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; possible</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ── Conflicts ──────────────────────────────────── tidymodels_conflicts() ──</span></a>
@@ -156,19 +156,19 @@
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(Status) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_class</a></span>(nnet_fit, <span class="dt">newdata =</span> test_normalized),</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_classprob</a></span>(nnet_fit, <span class="dt">newdata =</span> test_normalized) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(good)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_class</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized),</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_classprob</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(good)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">roc_auc</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] 0.821</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] 0.818</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [1] 0.798</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [1] 0.795</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">conf_mat</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;       bad  175   87</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;       good 138  713</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;       bad  176   91</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;       good 137  709</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

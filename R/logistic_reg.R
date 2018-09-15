@@ -5,7 +5,7 @@
 #'  different packages in R, Stan, or via Spark. The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{regularization}: The total amount of regularization
+#'   \item \code{penalty}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines.
 #'   \item \code{mixture}: The proportion of L1 regularization in
 #'  the model. Note that this will be ignored for some engines.
@@ -34,7 +34,7 @@
 #'  `rstanarm::stan_glm`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
-#' @param regularization An non-negative number representing the
+#' @param penalty An non-negative number representing the
 #'  total amount of regularization (`glmnet` and `spark` only).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
@@ -46,12 +46,12 @@
 #' @examples
 #' logistic_reg()
 #' # Parameters can be represented by a placeholder:
-#' logistic_reg(regularization = varying())
+#' logistic_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
-           regularization = NULL,
+           penalty = NULL,
            mixture = NULL,
            others = list(),
            ...) {
@@ -63,12 +63,12 @@ logistic_reg <-
         call. = FALSE
       )
 
-    if (is.numeric(regularization) && regularization < 0)
+    if (is.numeric(penalty) && penalty < 0)
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
 
-    args <- list(regularization = regularization, mixture = mixture)
+    args <- list(penalty = penalty, mixture = mixture)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -111,27 +111,27 @@ print.logistic_reg <- function(x, ...) {
 #'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
-#' model <- logistic_reg(regularization = 10, mixture = 0.1)
+#' model <- logistic_reg(penalty = 10, mixture = 0.1)
 #' model
-#' update(model, regularization = 1)
-#' update(model, regularization = 1, fresh = TRUE)
+#' update(model, penalty = 1)
+#' update(model, penalty = 1, fresh = TRUE)
 #' @method update logistic_reg
 #' @rdname logistic_reg
 #' @export
 update.logistic_reg <-
   function(object,
-           regularization = NULL, mixture = NULL,
+           penalty = NULL, mixture = NULL,
            others = list(),
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
 
-    if (is.numeric(regularization) && regularization < 0)
+    if (is.numeric(penalty) && penalty < 0)
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
 
-    args <- list(regularization = regularization, mixture = mixture)
+    args <- list(penalty = penalty, mixture = mixture)
 
     if (fresh) {
       object$args <- args

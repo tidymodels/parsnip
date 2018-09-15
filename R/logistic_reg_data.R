@@ -5,7 +5,7 @@ logistic_reg_arg_key <- data.frame(
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
   stringsAsFactors = FALSE,
-  row.names =  c("regularization", "mixture")
+  row.names =  c("penalty", "mixture")
 )
 
 logistic_reg_modes <- "classification"
@@ -32,8 +32,8 @@ organize_glmnet_class <- function(x, object) {
     n <- nrow(x)
     res <- utils::stack(as.data.frame(x))
     res$values <- prob_to_class_2(res$values, object)
-    if (!is.null(object$spec$args$regularization))
-      res$lambda <- rep(object$spec$args$regularization, each = n) else
+    if (!is.null(object$spec$args$penalty))
+      res$lambda <- rep(object$spec$args$penalty, each = n) else
         res$lambda <- rep(object$fit$lambda, each = n)
     res <- res[, colnames(res) %in% c("values", "lambda")]
   }
@@ -49,8 +49,8 @@ organize_glmnet_prob <- function(x, object) {
     res <- utils::stack(as.data.frame(x))
     res <- tibble(v1 = 1 - res$values, v2 = res$values)
     colnames(res) <- object$lvl
-    if (!is.null(object$spec$args$regularization))
-      res$lambda <- rep(object$spec$args$regularization, each = n) else
+    if (!is.null(object$spec$args$penalty))
+      res$lambda <- rep(object$spec$args$penalty, each = n) else
         res$lambda <- rep(object$fit$lambda, each = n)
   }
   res
@@ -128,7 +128,7 @@ logistic_reg_glmnet_data <-
           object = quote(object$fit),
           newx = quote(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$regularization)
+          s = quote(object$spec$args$penalty)
         )
     ),
     prob = list(
@@ -140,7 +140,7 @@ logistic_reg_glmnet_data <-
           object = quote(object$fit),
           newx = quote(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$regularization)
+          s = quote(object$spec$args$penalty)
         )
     ),
     raw = list(

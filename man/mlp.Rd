@@ -5,13 +5,13 @@
 \alias{update.mlp}
 \title{General Interface for Single Layer Neural Network}
 \usage{
-mlp(mode = "unknown", hidden_units = NULL, regularization = NULL,
-  dropout = NULL, epochs = NULL, activation = NULL, others = list(),
-  ...)
+mlp(mode = "unknown", hidden_units = NULL, penalty = NULL,
+  dropout = NULL, epochs = NULL, activation = NULL,
+  others = list(), ...)
 
-\method{update}{mlp}(object, hidden_units = NULL, regularization = NULL,
-  dropout = NULL, epochs = NULL, activation = NULL, others = list(),
-  fresh = FALSE, ...)
+\method{update}{mlp}(object, hidden_units = NULL, penalty = NULL,
+  dropout = NULL, epochs = NULL, activation = NULL,
+  others = list(), fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -20,7 +20,7 @@ Possible values for this model are "unknown", "regression", or
 
 \item{hidden_units}{An integer for the number of units in the hidden model.}
 
-\item{regularization}{A non-negative numeric value for the amount of weight
+\item{penalty}{A non-negative numeric value for the amount of weight
 decay.}
 
 \item{dropout}{A number between 0 (inclusive) and 1 denoting the proportion
@@ -56,7 +56,7 @@ different packages in R or via keras The main arguments for the
 model are:
 \itemize{
 \item \code{hidden_units}: The number of units in the hidden layer.
-\item \code{regularization}: The amount of L2 regularization (aka weight
+\item \code{penalty}: The amount of L2 regularization (aka weight
 decay).
 \item \code{dropout}: The proportion of parameters randomly dropped out of
 the model (\code{keras} only).
@@ -92,11 +92,11 @@ Main parameter arguments (and those in \code{others}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{hidden_units = expr(num_preds * 2)}).
 
-An error is thrown if both \code{regularization} and \code{dropout} are specified for
+An error is thrown if both \code{penalty} and \code{dropout} are specified for
 \code{keras} models.
 }
 \examples{
-mlp(mode = "classification", regularization = 0.01)
+mlp(mode = "classification", penalty = 0.01)
 # Parameters can be represented by a placeholder:
 mlp(mode = "regression", hidden_units = varying())
 model <- mlp(hidden_units = 10, dropout = 0.30)

@@ -102,7 +102,7 @@ a model before fitting and allows the model to be created using
 different packages in R or via keras The main arguments for the
 model are:</p><ul>
 <li><p><code>hidden_units</code>: The number of units in the hidden layer.</p></li>
-<li><p><code>regularization</code>: The amount of L2 regularization (aka weight
+<li><p><code>penalty</code>: The amount of L2 regularization (aka weight
 decay).</p></li>
 <li><p><code>dropout</code>: The proportion of parameters randomly dropped out of
 the model (<code>keras</code> only).</p></li>
@@ -122,14 +122,14 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
-  <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for mlp</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,7 +145,7 @@ Possible values for this model are "unknown", "regression", or
       <td><p>An integer for the number of units in the hidden model.</p></td>
     </tr>
     <tr>
-      <th>regularization</th>
+      <th>penalty</th>
       <td><p>A non-negative numeric value for the amount of weight
 decay.</p></td>
     </tr>
@@ -205,7 +205,7 @@ following <em>engines</em>:</p><ul>
     <p>Main parameter arguments (and those in <code>others</code>) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>hidden_units = expr(num_preds * 2)</code>).</p>
-<p>An error is thrown if both <code>regularization</code> and <code>dropout</code> are specified for
+<p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
 <code>keras</code> models.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -214,10 +214,10 @@ argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/q
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>regularization</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   regularization = 0.01
+#&gt;   penalty = 0.01
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Single Layer Neural Network Specification (regression)
 #&gt; 

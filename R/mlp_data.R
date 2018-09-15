@@ -1,9 +1,9 @@
 
 mlp_arg_key <- data.frame(
   nnet = c("size", "decay", NA_character_, "maxit", NA_character_),
-  keras = c("hidden_units", "regularization", "dropout", "epochs", "activation"),
+  keras = c("hidden_units", "penalty", "dropout", "epochs", "activation"),
   stringsAsFactors = FALSE,
-  row.names =  c("hidden_units", "regularization", "dropout", "epochs", "activation")
+  row.names =  c("hidden_units", "penalty", "dropout", "epochs", "activation")
 )
 
 mlp_modes <- c("classification", "regression", "unknown")

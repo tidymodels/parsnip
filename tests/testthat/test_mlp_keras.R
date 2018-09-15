@@ -177,7 +177,7 @@ test_that('keras regression prediction', {
   skip_if_not_installed("keras")
   
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2, epochs = 500, regularization = .1),
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
     engine = "keras",
@@ -216,7 +216,7 @@ test_that('multivariate nnet formula', {
     mlp(
       mode = "regression",
       hidden_units = 3,
-      regularization = 0.01
+      penalty = 0.01
     ) %>% 
     parsnip::fit(
       cbind(V1, V2, V3) ~ ., 
@@ -235,7 +235,7 @@ test_that('multivariate nnet formula', {
     mlp(
       mode = "regression",
       hidden_units = 3,
-      regularization = 0.01
+      penalty = 0.01
     ) %>% 
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)], 

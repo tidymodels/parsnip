@@ -10,7 +10,7 @@
 #'  names of these arguments may be different form their
 #'  counterparts n the underlying model function. For example, for a
 #'  `glmnet` model, the argument name for the amount of the penalty
-#'  is called "regularization" instead of "lambda" to make it more
+#'  is called "penalty" instead of "lambda" to make it more
 #'  general and usable across different types of models (and to not
 #'  be specific to a particular model function). The elements of
 #'  `args` can be quoted expressions or `varying()`. If left to

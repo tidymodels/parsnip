@@ -5,7 +5,7 @@
 #'  different packages in R, Stan, or via Spark. The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{regularization}: The total amount of regularization
+#'   \item \code{penalty}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines .
 #'   \item \code{mixture}: The proportion of L1 regularization in
 #'  the model. Note that this will be ignored for some engines.
@@ -22,7 +22,7 @@
 #'  `rstanarm::stan_glm`, etc.). These are not evaluated
 #'  until the model is fit and will be substituted into the model
 #'  fit expression.
-#' @param regularization An non-negative number representing the
+#' @param penalty An non-negative number representing the
 #'  total amount of regularization (`glmnet` and `spark` only).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
@@ -45,12 +45,12 @@
 #' }
 #'
 #' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `regularization` argument.
+#'  multiple values (or no values) to the `penalty` argument.
 #'  This can have an effect on the model object results. When using
 #'  the `predict` method in these cases, the return object type
-#'  depends on the value of `regularization`. If a single value is
+#'  depends on the value of `penalty`. If a single value is
 #'  given, the results will be a simple numeric vector. When
-#'  multiple values or no values for `regularization` are used in
+#'  multiple values or no values for `penalty` are used in
 #'  `linear_reg`, the `predict` method will return a data frame with
 #'  columns `values` and `lambda`.
 #'
@@ -58,12 +58,12 @@
 #' @examples
 #' linear_reg()
 #' # Parameters can be represented by a placeholder:
-#' linear_reg(regularization = varying())
+#' linear_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
-           regularization = NULL,
+           penalty = NULL,
            mixture = NULL,
            others = list(),
            ...) {
@@ -75,14 +75,14 @@ linear_reg <-
         call. = FALSE
       )
 
-    if (all(is.numeric(regularization)) && any(regularization < 0))
+    if (all(is.numeric(penalty)) && any(penalty < 0))
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
     if (length(mixture) > 1)
       stop("Only one value of `mixture` is allowed.", call. = FALSE)
 
-    args <- list(regularization = regularization, mixture = mixture)
+    args <- list(penalty = penalty, mixture = mixture)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -125,27 +125,27 @@ print.linear_reg <- function(x, ...) {
 #'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
 #' @examples
-#' model <- linear_reg(regularization = 10, mixture = 0.1)
+#' model <- linear_reg(penalty = 10, mixture = 0.1)
 #' model
-#' update(model, regularization = 1)
-#' update(model, regularization = 1, fresh = TRUE)
+#' update(model, penalty = 1)
+#' update(model, penalty = 1, fresh = TRUE)
 #' @method update linear_reg
 #' @rdname linear_reg
 #' @export
 update.linear_reg <-
   function(object,
-           regularization = NULL, mixture = NULL,
+           penalty = NULL, mixture = NULL,
            others = list(),
            fresh = FALSE,
            ...) {
     check_empty_ellipse(...)
 
-    if (is.numeric(regularization) && regularization < 0)
+    if (is.numeric(penalty) && penalty < 0)
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
 
-    args <- list(regularization = regularization, mixture = mixture)
+    args <- list(penalty = penalty, mixture = mixture)
 
     if (fresh) {
       object$args <- args

@@ -158,7 +158,7 @@ norm_recipe <- recipe(
 
 # Now let's fit the model using the processed version of the data
 
-glmn_fit <- linear_reg(regularization = 0.001, mixture = 0.5) %>% 
+glmn_fit <- linear_reg(penalty = 0.001, mixture = 0.5) %>% 
    fit(
     Sale_Price ~ .,
     data = juice(norm_recipe),
@@ -167,9 +167,9 @@ glmn_fit <- linear_reg(regularization = 0.001, mixture = 0.5) %>%
 glmn_fit
 ```
 
-If `regularization` were not specified, all of the `lambda` values would be computed. 
+If `penalty` were not specified, all of the `lambda` values would be computed. 
 
-To get the predictions for this specific value of `lambda` (aka `regularization`):
+To get the predictions for this specific value of `lambda` (aka `penalty`):
 
 ```{r glmn-pred}
 # First, get the processed version of the test set predictors:
