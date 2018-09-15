@@ -176,7 +176,7 @@ To make hard class predictions, the `classes` object contains the details. The e
 
  * `pre` and `post` are optional functions that can preprocess the data being fed to the prediction code and to postprocess the raw output of the predictions. These won't be need for this example, but a section below has examples of how these can be used when the model code is not easy to use. If the data being predicted has a simple type requirement, you can avoid using a `pre` function with the `args` below. 
  * `func` is the prediction function (in the same format as above). In many cases, packages have a predict method for their model's class but this is typically not exported. In this case (and the example below), it is simple enough to make a generic call to `predict` with no associated package. 
- * `args` is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in `rlang::expr` so that they are not evaluated when defining the method. For `mda`, the code would be `predict(object, newdata, type = "class")`. What is actually given to the function is the `parsnip` model fit object, which includes a sub-object called `fit` and this houses the `mda` model object. If the data need to be a matrix or data frame, you could also use `newdata = quote(as.data.frame(newdata))` and so on. 
+ * `args` is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in `rlang::expr` so that they are not evaluated when defining the method. For `mda`, the code would be `predict(object, newdata, type = "class")`. What is actually given to the function is the `parsnip` model fit object, which includes a sub-object called `fit` and this houses the `mda` model object. If the data need to be a matrix or data frame, you could also use `new_data = quote(as.data.frame(new_data))` and so on. 
 
 ```{r mda-classes}
 mixture_da_mda_data$classes <-
@@ -185,12 +185,14 @@ mixture_da_mda_data$classes <-
     post = NULL,
     func = c(fun = "predict"),
     args =
+      # These lists should be of the form:
+      # {predict.mda argument name} = {values provided from parsnip objects}
       list(
         # We don't want the first two arguments evaluated right now
         # since they don't exist yet. `type` is a simple object that
-        # doesn't need to be deferred. 
+        # doesn't need to have its evaluation deferred. 
         object = quote(object$fit),
-        newdata = quote(newdata),
+        newdata = quote(new_data),
         type = "class"
       )
   )
@@ -215,7 +217,7 @@ mixture_da_mda_data$prob <-
     args =
       list(
         object = quote(object$fit),
-        newdata = quote(newdata),
+        newdata = quote(new_data),
         type = "posterior"
       )
   )
@@ -285,7 +287,7 @@ _However_, the api is still being developed. Currently, there is not an interfac
 
 Also, as previously mentioned, a matrix or data frame can be used for multivariate outcomes. 
 
-### What is `defaults` slot and why do I need them?
+### What is the `defaults` slot and why do I need it?
 
 You might want to set defaults that can be overridden by the user. For example, for logistic regression with `glm`, it make sense to default `family = binomial`. However, if someone wants to use a different link function, they should be able to do that. For that model/engine definition, it has
 
