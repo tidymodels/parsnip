@@ -53,6 +53,13 @@
 #'  multiple values or no values for `penalty` are used in
 #'  `linear_reg`, the `predict` method will return a data frame with
 #'  columns `values` and `lambda`.
+#'  
+#' For prediction, the `stan` engine can compute posterior 
+#'  intervals analogous to confidence and prediction intervals. In 
+#'  these instances, the units are the original outcome and when 
+#'  `std_error = TRUE`, the standard deviation of the posterior 
+#'  distribution (or posterior predictive distribution as 
+#'  appropriate) is returned. 
 #'
 #' @seealso [varying()], [fit()]
 #' @examples

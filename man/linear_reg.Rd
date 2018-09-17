@@ -82,6 +82,13 @@ given, the results will be a simple numeric vector. When
 multiple values or no values for \code{penalty} are used in
 \code{linear_reg}, the \code{predict} method will return a data frame with
 columns \code{values} and \code{lambda}.
+
+For prediction, the \code{stan} engine can compute posterior
+intervals analogous to confidence and prediction intervals. In
+these instances, the units are the original outcome and when
+\code{std_error = TRUE}, the standard deviation of the posterior
+distribution (or posterior predictive distribution as
+appropriate) is returned.
 }
 \examples{
 linear_reg()

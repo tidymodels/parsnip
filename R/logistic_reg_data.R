@@ -104,6 +104,31 @@ logistic_reg_glm_data <-
           object = quote(object$fit),
           newdata = quote(new_data)
         )
+    ),
+    confint = list(
+      pre = NULL,
+      post = function(results, object) {
+        hf_lvl <- (1 - object$spec$method$confint$extras$level)/2
+        const <- 
+          qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
+        trans <- object$fit$family$linkinv
+        res <- 
+          tibble(
+            .pred_lower = trans(results$fit - const * results$se.fit),
+            .pred_upper = trans(results$fit + const * results$se.fit)
+          )
+        if(object$spec$method$confint$extras$std_error)
+          res$.std_error <- results$se.fit
+        res
+      },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          se.fit = TRUE,
+          type = "link"
+        )
     )
   )
 
@@ -202,6 +227,65 @@ logistic_reg_stan_data <-
         list(
           object = quote(object$fit),
           newdata = quote(new_data)
+        )
+    ),
+    confint = list(
+      pre = NULL,
+      post = function(results, object) {
+        res <- 
+          tibble(
+            .pred_lower = 
+              convert_stan_interval(
+                results, 
+                level = object$spec$method$confint$extras$level
+              ),
+            .pred_upper = 
+              convert_stan_interval(
+                results, 
+                level = object$spec$method$confint$extras$level,
+                lower = FALSE
+              ),
+          )
+        if(object$spec$method$confint$extras$std_error)
+          res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+        res
+      },
+      func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          transform = TRUE,
+          seed = expr(sample.int(10^5, 1))
+        )
+    ),
+    predint = list(
+      pre = NULL,
+      post = function(results, object) {
+        res <-
+          tibble(
+            .pred_lower = 
+              convert_stan_interval(
+                results, 
+                level = object$spec$method$predint$extras$level
+              ),
+            .pred_upper = 
+              convert_stan_interval(
+                results, 
+                level = object$spec$method$predint$extras$level,
+                lower = FALSE
+              ),
+          )
+        if(object$spec$method$predint$extras$std_error)
+          res$.std_error <- apply(results, 2, sd, na.rm = TRUE) 
+        res
+      },
+      func = c(pkg = "rstanarm", fun = "posterior_predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          seed = expr(sample.int(10^5, 1))
         )
     )
   )

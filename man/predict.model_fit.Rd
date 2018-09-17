@@ -29,11 +29,13 @@ predict_class(object, ...)
 
 predict_classprob(object, ...)
 
-\method{predict_confint}{model_fit}(object, new_data, level = 0.95, ...)
+\method{predict_confint}{model_fit}(object, new_data, level = 0.95,
+  std_error = FALSE, ...)
 
 predict_confint(object, ...)
 
-\method{predict_predint}{model_fit}(object, new_data, level = 0.95, ...)
+\method{predict_predint}{model_fit}(object, new_data, level = 0.95,
+  std_error = FALSE, ...)
 
 predict_predint(object, ...)
 
