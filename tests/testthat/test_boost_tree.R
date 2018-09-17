@@ -9,7 +9,8 @@ test_that('primary arguments', {
   basic_C5.0 <- translate(basic, engine = "C5.0")
   expect_equal(basic_xgboost$method$fit$args,
                list(
-                 data = quote(missing_arg()),
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
                  nthread = 1,
                  verbose = 0
                )
@@ -35,7 +36,8 @@ test_that('primary arguments', {
   )
   expect_equal(trees_xgboost$method$fit$args,
                list(
-                 data = quote(missing_arg()),
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
                  nrounds = 15,
                  nthread = 1,
                  verbose = 0
@@ -55,7 +57,8 @@ test_that('primary arguments', {
   )
   expect_equal(split_num_xgboost$method$fit$args,
                list(
-                 data = quote(missing_arg()),
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
                  min_child_weight = 15,
                  nthread = 1,
                  verbose = 0
@@ -68,7 +71,8 @@ test_that('engine arguments', {
   xgboost_print <- boost_tree(mode = "regression", others = list(print_every_n = 10L))
   expect_equal(translate(xgboost_print, engine = "xgboost")$method$fit$args,
                list(
-                 data = quote(missing_arg()),
+                 x = quote(missing_arg()),
+                 y = quote(missing_arg()),
                  print_every_n = 10L,
                  nthread = 1,
                  verbose = 0
