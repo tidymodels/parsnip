@@ -142,7 +142,7 @@ boost_tree_xgboost_data <-
     libs = "xgboost",
     fit = list(
       interface = "matrix",
-      protect = "data",
+      protect = c("x", "y"),
       func = c(pkg = NULL, fun = "xgb_train"),
       defaults =
         list(
