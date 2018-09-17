@@ -109,8 +109,7 @@ the model. Note that this will be ignored for some engines.</p></li>
 time that the model is fit. Other options and argument can be
 set using the <code>others</code> argument. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions.</p>
-<p>If parameters need to be modified, this function can be used
+functions. If parameters need to be modified, <code>update</code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -172,15 +171,53 @@ modified in-place of or replaced wholesale.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>logistic_reg</code>,the
-mode will always be "classification".</p>
+    <p>For <code>logistic_reg</code>,the mode will always be "classification".</p>
 <p>The model can be created using the <code>fit()</code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"glm"</code> or <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
+    <p>Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the <code>others</code>
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:</p>
+<p><span class="pkg">glm</span></p>
+<p><pre>
+stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+    family = binomial)
+</pre></p>
+<p><span class="pkg">glmnet</span></p>
+<p><pre>
+glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+    family = "binomial")
+</pre></p>
+<p><span class="pkg">stan</span></p>
+<p><pre>
+rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
+    weights = missing_arg(), family = binomial)
+</pre></p>
+<p><span class="pkg">spark</span></p>
+<p><pre>
+sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
+    weight_col = missing_arg(), family = "binomial")
+</pre></p>
+<p>When using <code>glmnet</code> models, there is the option to pass
+multiple values (or no values) to the <code>penalty</code> argument.
+This can have an effect on the model object results. When using
+the <code>predict</code> method in these cases, the return object type
+depends on the value of <code>penalty</code>. If a single value is
+given, the results will be a simple numeric vector. When
+multiple values or no values for <code>penalty</code> are used in
+<code>logistic_reg</code>, the <code>predict</code> method will return a data frame with
+columns <code>values</code> and <code>lambda</code>.</p>
+<p>For prediction, the <code>stan</code> engine can compute posterior
+intervals analogous to confidence and prediction intervals. In
+these instances, the units are the original outcome and when
+<code>std_error = TRUE</code>, the standard deviation of the posterior
+distribution (or posterior predictive distribution as
+appropriate) is returned. For <code>glm</code>, the standard error is in logit units
+while the intervals are in probability units.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

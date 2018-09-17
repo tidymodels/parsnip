@@ -56,20 +56,14 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions.
-
-If parameters need to be modified, this function can be used
+functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{rand_forest}, the
-possible modes are "regression" and "classification".
-
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"ranger"} or \code{"randomForests"}
+\item \pkg{R}:  \code{"ranger"} or \code{"randomForest"}
 \item \pkg{Spark}: \code{"spark"}
 }
 
@@ -77,7 +71,36 @@ Main parameter arguments (and those in \code{others}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
 
-For \code{ranger} confidence intervals, the intervals are
+Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the \code{others}
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:
+
+\pkg{ranger} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "ranger")}
+
+\pkg{ranger} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "ranger")}
+
+\pkg{randomForests} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "randomForest")}
+
+\pkg{randomForests} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "randomForest")}
+
+\pkg{spark} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "spark")}
+
+\pkg{spark} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "spark")}
+
+For \pkg{ranger} confidence intervals, the intervals are
 constructed using the form \code{estimate +/- z * std_error}. For
 classification probabilities, these values can fall outside of
 \code{[0, 1]} and will be coerced to be in this range.

@@ -55,15 +55,11 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions.
-
-If parameters need to be modified, this function can be used
+functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{logistic_reg},the
-mode will always be "classification".
+For \code{logistic_reg},the mode will always be "classification".
 
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
@@ -72,6 +68,45 @@ following \emph{engines}:
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
 }
+
+Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the \code{others}
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:
+
+\pkg{glm}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glm")}
+
+\pkg{glmnet}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glmnet")}
+
+\pkg{stan}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "stan")}
+
+\pkg{spark}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
+
+When using \code{glmnet} models, there is the option to pass
+multiple values (or no values) to the \code{penalty} argument.
+This can have an effect on the model object results. When using
+the \code{predict} method in these cases, the return object type
+depends on the value of \code{penalty}. If a single value is
+given, the results will be a simple numeric vector. When
+multiple values or no values for \code{penalty} are used in
+\code{logistic_reg}, the \code{predict} method will return a data frame with
+columns \code{values} and \code{lambda}.
+
+For prediction, the \code{stan} engine can compute posterior
+intervals analogous to confidence and prediction intervals. In
+these instances, the units are the original outcome and when
+\code{std_error = TRUE}, the standard deviation of the posterior
+distribution (or posterior predictive distribution as
+appropriate) is returned. For \code{glm}, the standard error is in logit units
+while the intervals are in probability units.
 }
 \examples{
 logistic_reg()

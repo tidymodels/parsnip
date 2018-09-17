@@ -14,7 +14,8 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions.
+#'  functions. If parameters need to be modified, `update` can be used
+#'  in lieu of recreating the object from scratch.
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param others A named list of arguments to be used by the
@@ -44,6 +45,27 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `others`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{lm}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "lm")}
+#'
+#' \pkg{glmnet}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "glmnet")}
+#'
+#' \pkg{stan}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
+#'
+#' \pkg{spark}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
+#'
 #' When using `glmnet` models, there is the option to pass
 #'  multiple values (or no values) to the `penalty` argument.
 #'  This can have an effect on the model object results. When using
@@ -53,13 +75,13 @@
 #'  multiple values or no values for `penalty` are used in
 #'  `linear_reg`, the `predict` method will return a data frame with
 #'  columns `values` and `lambda`.
-#'  
-#' For prediction, the `stan` engine can compute posterior 
-#'  intervals analogous to confidence and prediction intervals. In 
-#'  these instances, the units are the original outcome and when 
-#'  `std_error = TRUE`, the standard deviation of the posterior 
-#'  distribution (or posterior predictive distribution as 
-#'  appropriate) is returned. 
+#'
+#' For prediction, the `stan` engine can compute posterior
+#'  intervals analogous to confidence and prediction intervals. In
+#'  these instances, the units are the original outcome and when
+#'  `std_error = TRUE`, the standard deviation of the posterior
+#'  distribution (or posterior predictive distribution as
+#'  appropriate) is returned.
 #'
 #' @seealso [varying()], [fit()]
 #' @examples
@@ -121,11 +143,6 @@ print.linear_reg <- function(x, ...) {
 
 ###################################################################
 
-#' Update a Linear Regression Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
 #' @inheritParams linear_reg
 #' @param object A linear regression model specification.
 #' @param fresh A logical for whether the arguments should be

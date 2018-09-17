@@ -79,9 +79,7 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions.
-
-If parameters need to be modified, this function can be used
+functions.  If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
@@ -99,6 +97,23 @@ following \emph{engines}:
 Main parameter arguments (and those in \code{others}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
+
+Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the \code{others}
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:
+
+\pkg{xgboost} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
+
+\pkg{xgboost} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
+
+\pkg{C5.0} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
 }
 \examples{
 boost_tree(mode = "classification", trees = 20)

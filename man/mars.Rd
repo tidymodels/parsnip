@@ -58,15 +58,13 @@ These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the \code{others} argument. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions.
-
-If parameters need to be modified, this function can be used
+functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{mars}, the
-possible modes are "regression" and "classification".
+Main parameter arguments (and those in \code{others}) can avoid
+evaluation until the underlying function is executed by wrapping the
+argument in \code{\link[rlang:expr]{rlang::expr()}}.
 
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
@@ -74,9 +72,18 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"earth"}
 }
 
-Main parameter arguments (and those in \code{others}) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in \code{\link[rlang:expr]{rlang::expr()}}.
+Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the \code{others}
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:
+
+\pkg{earth} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "classification"), "earth")}
+
+\pkg{earth} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "regression"), "earth")}
 }
 \examples{
 mars(mode = "regression", num_terms = 5)
