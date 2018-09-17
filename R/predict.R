@@ -12,13 +12,13 @@
 #'  or "raw" (the last two are not yet implemented). When `NULL`,
 #'  `predict` will choose an appropriate value based on the model's
 #'  mode.
-#' @param opts A list of optional arguments to the underlying 
-#'  predict function that will be used when `type = "raw"`. The 
-#'  list should not include options for the model object or the 
-#'  new data being predicted. 
+#' @param opts A list of optional arguments to the underlying
+#'  predict function that will be used when `type = "raw"`. The
+#'  list should not include options for the model object or the
+#'  new data being predicted.
 #' @param ... Arguments to pass to other methods (not currently used).
 #' @details If "type" is not supplied to `predict`, then a choice
-#'  is made (`type = "numeric"` for regression models and 
+#'  is made (`type = "numeric"` for regression models and
 #'  `type = "class"` for classification).
 #'
 #' `predict` is designed to provide a tidy results. There will be
@@ -27,31 +27,31 @@
 #'  results with a single outcome, the tibble will have a `.pred`
 #'  column and `.pred_Yname` for multivariate results. For
 #'  hard class predictions, the column is named `.pred_class`
-#'  and, when `type = "prob"`, the columns are 
+#'  and, when `type = "prob"`, the columns are
 #'  `.pred_classlevel`. `type = "conf_int"` and ``type = "pred_int"`
 #'  return tibbles with columns `.pred_lower` and `.pred_upper` with
 #'  an attribute for the confidence level. Using `type = "raw"`
 #'  returns the unadulterated results of the prediction function.
-#' 
-#' The more specific prediction functions (e.g. `predict_num`) can 
+#'
+#' The more specific prediction functions (e.g. `predict_num`) can
 #'  return non-tibble results. `predict_num` generates a vector (for
 #'  univariate models) or a data frame (multivariate).
 #'  `predict_class` returns a factor and `predict_classprob` returns
 #'  a data frame with columns for the factor levels.
 #' @return See Details.
-#' @examples 
+#' @examples
 #' library(dplyr)
-#' 
-#' lm_model <- 
+#'
+#' lm_model <-
 #'   linear_reg() %>%
 #'   fit(mpg ~ ., data = mtcars %>% slice(11:32), engine = "lm")
-#' 
+#'
 #' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
 #' predict_num(lm_model, mtcars %>% slice(1:10) %>% select(-mpg))
 #' predict(lm_model, mtcars %>% slice(1:10) %>% select(-mpg), type = "conf_int")
 #' predict(
-#'    lm_model, 
-#'    mtcars %>% slice(1:3) %>% select(-mpg), 
+#'    lm_model,
+#'    mtcars %>% slice(1:3) %>% select(-mpg),
 #'    type = "raw",
 #'    opts = list(type = "terms"))
 #' @importFrom stats predict
@@ -100,9 +100,6 @@ check_pred_type <- function(object, type) {
   if (type == "numeric" & object$spec$mode != "regression")
     stop("For numeric predictions, the object should be a regression model.",
          call. = FALSE)
-  if (type %in% c("conf_int", "pred_int") & object$spec$mode != "regression")
-    stop("For interval predictions, the object should be a regression model.",
-         call. = FALSE)
   if (type == "class" & object$spec$mode != "classification")
     stop("For class predictions, the object should be a classification model.",
          call. = FALSE)
@@ -138,13 +135,13 @@ make_pred_call <- function(x) {
       call2(x$func["fun"],!!!x$args, .ns = x$func["pkg"])
   else
     cl <-   call2(x$func["fun"],!!!x$args)
-  
+
   cl
 }
 
 prepare_data <- function(object, new_data) {
   fit_interface <- object$spec$method$fit$interface
-  
+
   if (!all(is.na(object$preproc))) {
     # Translation code
     if (fit_interface == "formula") {
@@ -153,7 +150,7 @@ prepare_data <- function(object, new_data) {
       new_data <- convert_form_to_xy_new(object$preproc, new_data)$x
     }
   }
-  
+
   new_data
 }
 

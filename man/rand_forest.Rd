@@ -76,6 +76,11 @@ following \emph{engines}:
 Main parameter arguments (and those in \code{others}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
+
+For \code{ranger} confidence intervals, the intervals are
+constructed using the form \code{estimate +/- z * std_error}. For
+classification probabilities, these values can fall outside of
+\code{[0, 1]} and will be coerced to be in this range.
 }
 \examples{
 rand_forest(mode = "classification", trees = 2000)

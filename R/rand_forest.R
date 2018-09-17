@@ -29,6 +29,7 @@
 #' \item \pkg{R}:  `"ranger"` or `"randomForests"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
+#'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -46,6 +47,11 @@
 #' @details Main parameter arguments (and those in `others`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
+#'
+#' For `ranger` confidence intervals, the intervals are
+#'  constructed using the form `estimate +/- z * std_error`. For
+#'  classification probabilities, these values can fall outside of
+#'  `[0, 1]` and will be coerced to be in this range.
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples

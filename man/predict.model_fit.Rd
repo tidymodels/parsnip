@@ -102,7 +102,7 @@ a data frame with columns for the factor levels.
 \examples{
 library(dplyr)
 
-lm_model <- 
+lm_model <-
   linear_reg() \%>\%
   fit(mpg ~ ., data = mtcars \%>\% slice(11:32), engine = "lm")
 
@@ -110,8 +110,8 @@ predict(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg))
 predict_num(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg))
 predict(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg), type = "conf_int")
 predict(
-   lm_model, 
-   mtcars \%>\% slice(1:3) \%>\% select(-mpg), 
+   lm_model,
+   mtcars \%>\% slice(1:3) \%>\% select(-mpg),
    type = "raw",
    opts = list(type = "terms"))
 }
