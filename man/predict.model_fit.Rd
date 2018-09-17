@@ -67,6 +67,9 @@ new data being predicted.}
 
 \item{level}{A single numeric value between zero and one for the
 interval estimates.}
+
+\item{std_error}{A single logical for wether the standard error should be
+returned (assuming that the model can compute it).}
 }
 \value{
 See Details.
