@@ -58,6 +58,7 @@ organize_glmnet_prob <- function(x, object) {
 
 ###################################################################
 
+#' @importFrom stats qt
 logistic_reg_glm_data <-
   list(
     libs = "stats",
@@ -109,10 +110,10 @@ logistic_reg_glm_data <-
       pre = NULL,
       post = function(results, object) {
         hf_lvl <- (1 - object$spec$method$confint$extras$level)/2
-        const <- 
+        const <-
           qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
         trans <- object$fit$family$linkinv
-        res <- 
+        res <-
           tibble(
             .pred_lower = trans(results$fit - const * results$se.fit),
             .pred_upper = trans(results$fit + const * results$se.fit)
@@ -232,16 +233,16 @@ logistic_reg_stan_data <-
     confint = list(
       pre = NULL,
       post = function(results, object) {
-        res <- 
+        res <-
           tibble(
-            .pred_lower = 
+            .pred_lower =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$confint$extras$level
               ),
-            .pred_upper = 
+            .pred_upper =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$confint$extras$level,
                 lower = FALSE
               ),
@@ -264,20 +265,20 @@ logistic_reg_stan_data <-
       post = function(results, object) {
         res <-
           tibble(
-            .pred_lower = 
+            .pred_lower =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$predint$extras$level
               ),
-            .pred_upper = 
+            .pred_upper =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$predint$extras$level,
                 lower = FALSE
               ),
           )
         if(object$spec$method$predint$extras$std_error)
-          res$.std_error <- apply(results, 2, sd, na.rm = TRUE) 
+          res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
         res
       },
       func = c(pkg = "rstanarm", fun = "posterior_predict"),
