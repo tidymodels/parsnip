@@ -213,7 +213,7 @@ rand_forest_randomForest_data <-
     prob = list(
       pre = NULL,
       post = function(x, object) {
-        as_tibble(x)
+        as_tibble(as.data.frame(x))
       },
       func = c(fun = "predict"),
       args =
