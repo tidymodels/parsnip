@@ -54,6 +54,9 @@
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
 </li>
+<li>
+  <a href="../articles/articles/Models.html">Model List</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -154,8 +157,8 @@ used for each type of prediction (see Details).</p>
     <tr>
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "probs", "link", "conf_int", "pred_int",
-or "raw" (the last two are not yet implemented). When <code>NULL</code>,
+are "numeric", "class", "probs", "conf_int", "pred_int",
+or "raw". When <code>NULL</code>,
 <code>predict</code> will choose an appropriate value based on the model's
 mode.</p></td>
     </tr>
@@ -175,6 +178,11 @@ new data being predicted.</p></td>
       <td><p>A single numeric value between zero and one for the
 interval estimates.</p></td>
     </tr>
+    <tr>
+      <th>std_error</th>
+      <td><p>A single logical for wether the standard error should be
+returned (assuming that the model can compute it).</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -193,8 +201,7 @@ results with a single outcome, the tibble will have a <code>.pred</code>
 column and <code>.pred_Yname</code> for multivariate results. For
 hard class predictions, the column is named <code>.pred_class</code>
 and, when <code>type = "prob"</code>, the columns are
-<code>.pred_classlevel</code>. <code>type = "conf_int"</code> and ``type = "pred_int"<code>return tibbles with columns</code>.pred_lower` and `.pred_upper` with
-an attribute for the confidence level. Using `type = "raw"`
+<code>.pred_classlevel</code>. <code>type = "conf_int"</code> and type = "pred_int"<code>return tibbles with columns</code>.pred_lower<code>and</code>.pred_upper<code>with an attribute for the confidence level. Using</code>type = "raw"`
 returns the unadulterated results of the prediction function.</p>
 <p>The more specific prediction functions (e.g. <code>predict_num</code>) can
 return non-tibble results. <code>predict_num</code> generates a vector (for

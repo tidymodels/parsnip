@@ -53,8 +53,8 @@ predict_raw(object, ...)
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "probs", "link", "conf_int", "pred_int",
-or "raw" (the last two are not yet implemented). When \code{NULL},
+are "numeric", "class", "probs", "conf_int", "pred_int",
+or "raw". When \code{NULL},
 \code{predict} will choose an appropriate value based on the model's
 mode.}
 
@@ -92,8 +92,7 @@ results with a single outcome, the tibble will have a \code{.pred}
 column and \code{.pred_Yname} for multivariate results. For
 hard class predictions, the column is named \code{.pred_class}
 and, when \code{type = "prob"}, the columns are
-\code{.pred_classlevel}. \code{type = "conf_int"} and ``type = "pred_int"\code{return tibbles with columns}.pred_lower` and `.pred_upper` with
-an attribute for the confidence level. Using `type = "raw"`
+\code{.pred_classlevel}. \code{type = "conf_int"} and type = "pred_int"\code{return tibbles with columns}.pred_lower\code{and}.pred_upper\code{with an attribute for the confidence level. Using}type = "raw"`
 returns the unadulterated results of the prediction function.
 
 The more specific prediction functions (e.g. \code{predict_num}) can

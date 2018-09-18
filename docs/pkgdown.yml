@@ -3,6 +3,7 @@ pkgdown: 1.1.0.9000
 pkgdown_sha: ~
 articles:
   Classification: articles/Classification.html
+  Models: articles/Models.html
   Regression: articles/Regression.html
   Scratch: articles/Scratch.html
   parsnip_Intro: parsnip_Intro.html

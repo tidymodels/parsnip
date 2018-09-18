@@ -41,6 +41,8 @@ navbar:
   left:
   - text: Basic Usage 
     href: articles/parsnip_Intro.html   
+  - text: Model List
+    href: articles/articles/Models.html   
   - text: "Articles"
     menu:
      - text: Regression modeling

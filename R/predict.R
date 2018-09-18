@@ -8,8 +8,8 @@
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "probs", "link", "conf_int", "pred_int",
-#'  or "raw" (the last two are not yet implemented). When `NULL`,
+#'  are "numeric", "class", "probs", "conf_int", "pred_int",
+#'  or "raw". When `NULL`,
 #'  `predict` will choose an appropriate value based on the model's
 #'  mode.
 #' @param opts A list of optional arguments to the underlying
@@ -28,7 +28,7 @@
 #'  column and `.pred_Yname` for multivariate results. For
 #'  hard class predictions, the column is named `.pred_class`
 #'  and, when `type = "prob"`, the columns are
-#'  `.pred_classlevel`. `type = "conf_int"` and ``type = "pred_int"`
+#'  `.pred_classlevel`. `type = "conf_int"` and type = "pred_int"`
 #'  return tibbles with columns `.pred_lower` and `.pred_upper` with
 #'  an attribute for the confidence level. Using `type = "raw"`
 #'  returns the unadulterated results of the prediction function.
