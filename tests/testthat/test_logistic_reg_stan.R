@@ -19,7 +19,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('stan_glm execution', {
 
   skip_if_not_installed("rstanarm")
-  
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -43,7 +43,7 @@ test_that('stan_glm execution', {
 
 
 test_that('stan_glm prediction', {
-  
+
   skip_if_not_installed("rstanarm")
   library(rstanarm)
 
@@ -88,7 +88,7 @@ test_that('stan_glm prediction', {
 test_that('stan_glm probability', {
 
   skip_if_not_installed("rstanarm")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(others = list(seed =  11, chains = 1)),
     engine = "stan",
@@ -120,3 +120,60 @@ test_that('stan_glm probability', {
   form_pred <- tibble(bad = 1 - form_pred, good = form_pred)
   expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 })
+
+
+test_that('stan intervals', {
+  skip_if_not_installed("rstanarm")
+  library(rstanarm)
+
+  res_form <- fit(
+    logistic_reg(others = list(seed =  11, chains = 1)),
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "stan",
+    control = ctrl
+  )
+
+  set.seed(555)
+  confidence_parsnip <-
+    predict(res_form,
+            new_data = lending_club[1:5,],
+            type = "conf_int",
+            level = 0.93,
+            std_error = TRUE)
+
+  set.seed(555)
+  prediction_parsnip <-
+    predict(res_form,
+            new_data = lending_club[1:5,],
+            type = "pred_int",
+            level = 0.93,
+            std_error = TRUE)
+
+  stan_post <-
+    posterior_linpred(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
+                      prob = 0.93, transform = TRUE)
+
+  stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
+  stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
+  stan_std  <- apply(stan_post, 2, sd)
+
+  expect_equivalent(confidence_parsnip$.pred_lower, stan_lower)
+  expect_equivalent(confidence_parsnip$.pred_upper, stan_upper)
+  expect_equivalent(confidence_parsnip$.std_error, stan_std)
+
+  stan_pred_post <-
+    posterior_predict(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
+                      prob = 0.93)
+
+  stan_pred_lower <- apply(stan_pred_post, 2, quantile, prob = 0.035)
+  stan_pred_upper <- apply(stan_pred_post, 2, quantile, prob = 0.965)
+  stan_pred_std  <- apply(stan_pred_post, 2, sd)
+
+  expect_equivalent(prediction_parsnip$.pred_lower, stan_pred_lower)
+  expect_equivalent(prediction_parsnip$.pred_upper, stan_pred_upper)
+  expect_equivalent(prediction_parsnip$.std_error, stan_pred_std, tolerance = 0.1)
+})
+
+
+

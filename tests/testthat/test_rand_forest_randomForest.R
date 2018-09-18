@@ -19,7 +19,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('randomForest classification execution', {
 
   skip_if_not_installed("randomForest")
-  
+
   # passes interactively but not on R CMD check
   # expect_error(
   #   fit(
@@ -76,9 +76,9 @@ test_that('randomForest classification execution', {
 
 
 test_that('randomForest classification prediction', {
-  
+
   skip_if_not_installed("randomForest")
-  
+
   xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
@@ -105,9 +105,9 @@ test_that('randomForest classification prediction', {
 })
 
 test_that('randomForest classification probabilities', {
-  
+
   skip_if_not_installed("randomForest")
-  
+
   xy_fit <- fit_xy(
     lc_basic,
     x = lending_club[, num_pred],
@@ -117,7 +117,7 @@ test_that('randomForest classification probabilities', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = lending_club[1:6, num_pred], type = "prob")
-  xy_pred <- as_tibble(xy_pred)
+  xy_pred <- as_tibble(as.data.frame(xy_pred))
   expect_equal(xy_pred, predict_classprob(xy_fit, new_data = lending_club[1:6, num_pred]))
 
   one_row <- predict_classprob(xy_fit, new_data = lending_club[1, num_pred])
@@ -132,7 +132,7 @@ test_that('randomForest classification probabilities', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")], type = "prob")
-  form_pred <- as_tibble(form_pred)
+  form_pred <- as_tibble(as.data.frame(form_pred))
   expect_equal(form_pred, predict_classprob(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
 })
 
@@ -204,7 +204,7 @@ test_that('randomForest regression execution', {
 test_that('randomForest regression prediction', {
 
   skip_if_not_installed("randomForest")
-  
+
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars,
