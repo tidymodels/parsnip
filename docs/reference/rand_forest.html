@@ -110,8 +110,7 @@ that are required for the node to be split further.</p></li>
 time that the model is fit. Other options and argument can be
 set using the <code>others</code> argument. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions.</p>
-<p>If parameters need to be modified, this function can be used
+functions. If parameters need to be modified, <code>update</code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -175,17 +174,52 @@ modified in-place of or replaced wholesale.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>rand_forest</code>, the
-possible modes are "regression" and "classification".</p>
-<p>The model can be created using the <code>fit()</code> function using the
+    <p>The model can be created using the <code>fit()</code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"ranger"</code> or <code>"randomForests"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"ranger"</code> or <code>"randomForest"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
     <p>Main parameter arguments (and those in <code>others</code>) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>mtry = expr(floor(sqrt(p)))</code>).</p>
+<p>Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the <code>others</code>
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:</p>
+<p><span class="pkg">ranger</span> classification</p>
+<p><pre>
+ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+    seed = sample.int(10^5, 1))
+</pre></p>
+<p><span class="pkg">ranger</span> regression</p>
+<p><pre>
+ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+    seed = sample.int(10^5, 1))
+</pre></p>
+<p><span class="pkg">randomForests</span> classification</p>
+<p><pre>
+randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre></p>
+<p><span class="pkg">randomForests</span> regression</p>
+<p><pre>
+randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre></p>
+<p><span class="pkg">spark</span> classification</p>
+<p><pre>
+sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+    type = "classification", seed = sample.int(10^5, 1))
+</pre></p>
+<p><span class="pkg">spark</span> regression</p>
+<p><pre>
+sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+    type = "regression", seed = sample.int(10^5, 1))
+</pre></p>
+<p>For <span class="pkg">ranger</span> confidence intervals, the intervals are
+constructed using the form <code>estimate +/- z * std_error</code>. For
+classification probabilities, these values can fall outside of
+<code>[0, 1]</code> and will be coerced to be in this range.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

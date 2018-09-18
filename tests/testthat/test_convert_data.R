@@ -243,7 +243,11 @@ test_that("numeric x and numeric multivariate y", {
 })
 
 test_that("numeric x and factor y", {
-  expected <- lm(Species ~ ., data = iris, x = TRUE, y = TRUE)
+  expected <-
+    expect_warning(
+      glm(Species ~ ., data = iris, x = TRUE, y = TRUE, family = binomial()
+      )
+    )
   observed <- parsnip:::convert_form_to_xy_fit(Species ~ ., data = iris)
   expect_equal(format_x_for_test(expected$x), observed$x)
   expect_equivalent(iris$Species, observed$y)

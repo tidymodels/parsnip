@@ -15,9 +15,9 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('stan_glm execution', {
 
   skip_if_not_installed("rstanarm")
-  
+
   library(rstanarm)
-  
+
   # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
@@ -54,10 +54,10 @@ test_that('stan_glm execution', {
 
 
 test_that('stan prediction', {
-  
+
   skip_if_not_installed("rstanarm")
   library(rstanarm)
-  
+
   uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))
   inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)
@@ -84,10 +84,10 @@ test_that('stan prediction', {
 })
 
 
-test_that('lm intervals', {
+test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
   library(rstanarm)
-  
+
   res_xy <- fit_xy(
     linear_reg(others = list(seed = 1333, chains = 10, iter = 1000)),
     x = iris[, num_pred],
@@ -95,36 +95,36 @@ test_that('lm intervals', {
     engine = "stan",
     control = quiet_ctrl
   )
-  
+
   confidence_parsnip <-
     predict(res_xy,
             new_data = iris[1:5,],
             type = "conf_int",
             level = 0.93)
-  
+
   prediction_parsnip <-
     predict(res_xy,
             new_data = iris[1:5,],
             type = "pred_int",
             level = 0.93)
-  
-  prediction_stan <- 
+
+  prediction_stan <-
     predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
                         prob = 0.93)
-  
+
   stan_post <- posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
                                  seed = 13)
-  stan_lower <- apply(stan_post, 2, quantile, prob = 0.035) 
+  stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
   stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
-  
+
   expect_equivalent(confidence_parsnip$.pred_lower, stan_lower)
   expect_equivalent(confidence_parsnip$.pred_upper, stan_upper)
-  
-  expect_equivalent(prediction_parsnip$.pred_lower, 
-                    prediction_stan[, "3.5%"], 
+
+  expect_equivalent(prediction_parsnip$.pred_lower,
+                    prediction_stan[, "3.5%"],
                     tol = 0.01)
-  expect_equivalent(prediction_parsnip$.pred_upper, 
-                    prediction_stan[, "96.5%"], 
+  expect_equivalent(prediction_parsnip$.pred_upper,
+                    prediction_stan[, "96.5%"],
                     tol = 0.01)
 })
 

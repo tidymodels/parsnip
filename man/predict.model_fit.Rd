@@ -29,11 +29,13 @@ predict_class(object, ...)
 
 predict_classprob(object, ...)
 
-\method{predict_confint}{model_fit}(object, new_data, level = 0.95, ...)
+\method{predict_confint}{model_fit}(object, new_data, level = 0.95,
+  std_error = FALSE, ...)
 
 predict_confint(object, ...)
 
-\method{predict_predint}{model_fit}(object, new_data, level = 0.95, ...)
+\method{predict_predint}{model_fit}(object, new_data, level = 0.95,
+  std_error = FALSE, ...)
 
 predict_predint(object, ...)
 
@@ -65,6 +67,9 @@ new data being predicted.}
 
 \item{level}{A single numeric value between zero and one for the
 interval estimates.}
+
+\item{std_error}{A single logical for wether the standard error should be
+returned (assuming that the model can compute it).}
 }
 \value{
 See Details.
@@ -100,7 +105,7 @@ a data frame with columns for the factor levels.
 \examples{
 library(dplyr)
 
-lm_model <- 
+lm_model <-
   linear_reg() \%>\%
   fit(mpg ~ ., data = mtcars \%>\% slice(11:32), engine = "lm")
 
@@ -108,8 +113,8 @@ predict(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg))
 predict_num(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg))
 predict(lm_model, mtcars \%>\% slice(1:10) \%>\% select(-mpg), type = "conf_int")
 predict(
-   lm_model, 
-   mtcars \%>\% slice(1:3) \%>\% select(-mpg), 
+   lm_model,
+   mtcars \%>\% slice(1:3) \%>\% select(-mpg),
    type = "raw",
    opts = list(type = "terms"))
 }

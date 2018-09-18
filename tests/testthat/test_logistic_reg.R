@@ -293,3 +293,38 @@ test_that('glm probabilities', {
   expect_equal(xy_pred[1,], one_row)
 
 })
+
+
+
+test_that('glm intervals', {
+  stats_glm <- glm(Class ~ log(funded_amnt) + int_rate, data = lending_club,
+                   family = binomial)
+  pred_glm <- predict(stats_glm, newdata = lending_club[1:5, ], se.fit = TRUE)
+  t_val <- qt(0.035, df = stats_glm$df.residual, lower.tail = FALSE)
+  lower_glm <- pred_glm$fit - t_val * pred_glm$se.fit
+  upper_glm <- pred_glm$fit + t_val * pred_glm$se.fit
+
+  lower_glm <- stats_glm$family$linkinv(lower_glm)
+  upper_glm <- stats_glm$family$linkinv(upper_glm)
+
+  res <- fit(
+    logistic_reg(),
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "glm",
+    control = ctrl
+  )
+
+  confidence_parsnip <-
+    predict(res,
+            new_data = lending_club[1:5,],
+            type = "conf_int",
+            level = 0.93,
+            std_error = TRUE)
+
+  expect_equivalent(confidence_parsnip$.pred_lower, lower_glm)
+  expect_equivalent(confidence_parsnip$.pred_upper, upper_glm)
+  expect_equivalent(confidence_parsnip$.std_error, pred_glm$se.fit)
+
+})
+

@@ -17,18 +17,9 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions.
+#'  functions. If parameters need to be modified, `update` can be used
+#'  in lieu of recreating the object from scratch.
 #'
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `rand_forest`, the
-#'  possible modes are "regression" and "classification".
-#'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"ranger"` or `"randomForests"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -43,9 +34,51 @@
 #'  in a node that are required for the node to be split further.
 #' @param ... Used for method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
-#' @details Main parameter arguments (and those in `others`) can avoid
+#' @details
+#' The model can be created using the `fit()` function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"ranger"` or `"randomForest"`
+#' \item \pkg{Spark}: `"spark"`
+#' }
+#'
+#' Main parameter arguments (and those in `others`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `others`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{ranger} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "ranger")}
+#'
+#' \pkg{ranger} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "ranger")}
+#'
+#' \pkg{randomForests} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "randomForest")}
+#'
+#' \pkg{randomForests} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "randomForest")}
+#'
+#' \pkg{spark} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "spark")}
+#'
+#' \pkg{spark} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "spark")}
+#'
+#' For \pkg{ranger} confidence intervals, the intervals are
+#'  constructed using the form `estimate +/- z * std_error`. For
+#'  classification probabilities, these values can fall outside of
+#'  `[0, 1]` and will be coerced to be in this range.
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples
@@ -94,11 +127,6 @@ print.rand_forest <- function(x, ...) {
 
 ###################################################################
 
-#' Update a Random Forest Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
 #' @export
 #' @inheritParams rand_forest
 #' @param object A random forest model specification.

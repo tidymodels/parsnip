@@ -11,7 +11,7 @@
 #'    final model.
 #'   \item \code{prod_degree}: The highest possible degree of interaction between
 #'    features. A value of 1 indicates and additive model while a value of 2
-#'    allows, but does not guarantee, two-way interactions between features.  
+#'    allows, but does not guarantee, two-way interactions between features.
 #'   \item \code{prune_method}: The type of pruning. Possible values are listed
 #'    in `?earth`.
 #' }
@@ -19,17 +19,9 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions.
+#'  functions. If parameters need to be modified, `update` can be used
+#'  in lieu of recreating the object from scratch.
 #'
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `mars`, the
-#'  possible modes are "regression" and "classification".
-#'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"earth"`
-#' }
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -37,9 +29,9 @@
 #'  underlying models (e.g., `earth::earth`, etc.). If the outcome is a factor
 #'  and `mode = "classification"`, `others` can include the `glm` argument to
 #'  `earth::earth`. If this argument is not passed, it will be added prior to
-#'  the fitting occurs.  
+#'  the fitting occurs.
 #' @param num_terms The number of features that will be retained in the
-#'    final model, including the intercept. 
+#'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
 #' @param ... Used for method consistency. Any arguments passed to
@@ -47,6 +39,26 @@
 #' @details Main parameter arguments (and those in `others`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()].
+#'
+#' The model can be created using the `fit()` function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"earth"`
+#' }
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `others`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{earth} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "classification"), "earth")}
+#'
+#' \pkg{earth} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "regression"), "earth")}
+#'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples
@@ -70,10 +82,10 @@ mars <-
     if (is.numeric(num_terms) && num_terms < 0)
       stop("`num_terms` should be >= 1", call. = FALSE)
     if (!does_it_vary(prune_method) &&
-        !is.null(prune_method) && 
+        !is.null(prune_method) &&
         !is.character(prune_method))
       stop("`prune_method` should be a single string value", call. = FALSE)
-    
+
     args <- list(num_terms = num_terms,
                  prod_degree = prod_degree,
                  prune_method = prune_method)
@@ -101,11 +113,6 @@ print.mars <- function(x, ...) {
 
 ###################################################################
 
-#' Update a MARS Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
 #' @export
 #' @inheritParams mars
 #' @param object A MARS model specification.
@@ -156,15 +163,15 @@ update.mars <-
 
 #' @export
 translate.mars <- function(x, engine, ...) {
-  
+
   # If classification is being done, the `glm` options should be used. Check to
-  # see if it is there and, if not, add the default value. 
+  # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
     if (!("glm" %in% names(x$others))) {
       x$others$glm <- quote(list(family = stats::binomial))
     }
   }
-  
+
   x <- translate.default(x, engine, ...)
   x
 }

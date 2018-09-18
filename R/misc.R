@@ -1,9 +1,9 @@
 #' Prepend a new class
-#' 
+#'
 #' This adds an extra class to a base class of "model_spec".
-#' 
-#' @param prefix A character string for a class. 
-#' @return A character vector. 
+#'
+#' @param prefix A character string for a class.
+#' @return A character vector.
 #' @keywords internal
 #' @export
 make_classes <- function(prefix) {
@@ -44,10 +44,10 @@ print_arg_list <- function(x, ...) {
 }
 
 #' Print helper for model objects
-#' 
-#' A common format function that prints information about the model object (e.g. 
-#' arguments, calls, packages, etc). 
-#' 
+#'
+#' A common format function that prints information about the model object (e.g.
+#' arguments, calls, packages, etc).
+#'
 #' @param x A model object.
 #' @param ... Not currently used.
 #' @keywords internal
@@ -94,14 +94,24 @@ is_missing_arg <- function(x)
 
 
 #' Print the model call
-#' 
-#' @param x A "model_spec" object. 
+#'
+#' @param x A "model_spec" object.
 #' @return A character string.
 #' @keywords internal
 #' @export
 show_call <- function(object) {
-  call2(object$method$fit$func["fun"], !!!object$method$fit$args,
-        .ns = object$method$fit$func["pkg"])
+  if (
+    is.null(object$method$fit$func["pkg"]) ||
+    is.na(object$method$fit$func["pkg"])
+  ) {
+    res <- call2(object$method$fit$func["fun"], !!!object$method$fit$args)
+  } else {
+    res <-
+      call2(object$method$fit$func["fun"],
+            !!!object$method$fit$args,
+            .ns = object$method$fit$func["pkg"])
+  }
+  res
 }
 
 make_call <- function(fun, ns, args, ...) {
@@ -138,7 +148,7 @@ is_spark <- function(x)
 has_exprs <- function(x) {
   if(is.null(x) | does_it_vary(x) | is_missing_arg(x))
     return(FALSE)
-  is_symbolic(x) 
+  is_symbolic(x)
 }
 
 make_descr <- function(object) {
@@ -152,3 +162,16 @@ make_descr <- function(object) {
     expr_others <- FALSE
   any(expr_main) | any(expr_others)
 }
+
+show_fit <- function(mod, eng) {
+  mod <- translate(x = mod, engine = eng)
+  fit_call <- show_call(mod)
+  call_text <-  deparse(fit_call)
+  call_text <- paste0(call_text, collapse = "\n")
+  paste0(
+    "\\preformatted{\n",
+    call_text,
+    "\n}\n\n"
+  )
+}
+

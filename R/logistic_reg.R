@@ -14,19 +14,8 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using the `others` argument. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions.
-#'
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `logistic_reg`,the
-#'  mode will always be "classification".
-#'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"glm"` or `"glmnet"`
-#' \item \pkg{Stan}:  `"stan"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
+#'  functions. If parameters need to be modified, `update` can be used
+#'  in lieu of recreating the object from scratch.
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param others A named list of arguments to be used by the
@@ -42,6 +31,56 @@
 #'  (the lasso) (`glmnet` and `spark` only).
 #' @param ... Used for S3 method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
+#' @details
+#' For `logistic_reg`,the mode will always be "classification".
+#'
+#' The model can be created using the `fit()` function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"glm"` or `"glmnet"`
+#' \item \pkg{Stan}:  `"stan"`
+#' \item \pkg{Spark}: `"spark"`
+#' }
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `others`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{glm}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glm")}
+#'
+#' \pkg{glmnet}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glmnet")}
+#'
+#' \pkg{stan}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "stan")}
+#'
+#' \pkg{spark}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
+#'
+#' When using `glmnet` models, there is the option to pass
+#'  multiple values (or no values) to the `penalty` argument.
+#'  This can have an effect on the model object results. When using
+#'  the `predict` method in these cases, the return object type
+#'  depends on the value of `penalty`. If a single value is
+#'  given, the results will be a simple numeric vector. When
+#'  multiple values or no values for `penalty` are used in
+#'  `logistic_reg`, the `predict` method will return a data frame with
+#'  columns `values` and `lambda`.
+#'
+#' For prediction, the `stan` engine can compute posterior
+#'  intervals analogous to confidence and prediction intervals. In
+#'  these instances, the units are the original outcome and when
+#'  `std_error = TRUE`, the standard deviation of the posterior
+#'  distribution (or posterior predictive distribution as
+#'  appropriate) is returned. For `glm`, the standard error is in logit units
+#'  while the intervals are in probability units.
+#'
 #' @seealso [varying()], [fit()]
 #' @examples
 #' logistic_reg()
@@ -100,11 +139,6 @@ print.logistic_reg <- function(x, ...) {
 
 ###################################################################
 
-#' Update a Logistic Regression Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
 #' @inheritParams logistic_reg
 #' @param object A logistic regression model specification.
 #' @param fresh A logical for whether the arguments should be

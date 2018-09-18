@@ -388,9 +388,9 @@
 <p><em>However</em>, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (<code>lambda</code>, in this case).</p>
 <p>Also, as previously mentioned, a matrix or data frame can be used for multivariate outcomes.</p>
 </div>
-<div id="what-is-defaults-slot-and-why-do-i-need-them" class="section level3">
+<div id="what-is-the-defaults-slot-and-why-do-i-need-it" class="section level3">
 <h3 class="hasAnchor">
-<a href="#what-is-defaults-slot-and-why-do-i-need-them" class="anchor"></a>What is <code>defaults</code> slot and why do I need them?</h3>
+<a href="#what-is-the-defaults-slot-and-why-do-i-need-it" class="anchor"></a>What is the <code>defaults</code> slot and why do I need it?</h3>
 <p>You might want to set defaults that can be overridden by the user. For example, for logistic regression with <code>glm</code>, it make sense to default <code>family = binomial</code>. However, if someone wants to use a different link function, they should be able to do that. For that model/engine definition, it has</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">defaults =<span class="st"> </span><span class="kw">list</span>(<span class="dt">family =</span> <span class="kw">expr</span>(binomial))</a></code></pre></div>
 <p>so that is the default:</p>

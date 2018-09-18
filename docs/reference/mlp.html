@@ -101,23 +101,18 @@
 a model before fitting and allows the model to be created using
 different packages in R or via keras The main arguments for the
 model are:</p><ul>
-<li><p><code>hidden_units</code>: The number of units in the hidden layer.</p></li>
+<li><p><code>hidden_units</code>: The number of units in the hidden layer
+(default: 5).</p></li>
 <li><p><code>penalty</code>: The amount of L2 regularization (aka weight
-decay).</p></li>
+decay, default is zero).</p></li>
 <li><p><code>dropout</code>: The proportion of parameters randomly dropped out of
-the model (<code>keras</code> only).</p></li>
-<li><p><code>epochs</code>: The number of training iterations.</p></li>
+the model (<code>keras</code> only, default is zero).</p></li>
+<li><p><code>epochs</code>: The number of training iterations (default: 20).</p></li>
 <li><p><code>activation</code>: The type of function that connects the hidden
-layer and the input variables  (<code>keras</code> only).</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the <code>others</code> argument. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions. One exception is <code>hidden_units</code> when <code><a href='http://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> is used; that
-function's <code>size</code> argument has no default so a value of 5 units will be
-used. Also, unless otherwise specified, the <code>linout</code> argument to
-<code><a href='http://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> will be set to <code>TRUE</code> when a regression model is created.</p>
-<p>If parameters need to be modified, this function can be used
+layer and the input variables  (<code>keras</code> only, default is softmax).</p></li>
+</ul>
+
+    <p>If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -194,9 +189,16 @@ modified in-place of or replaced wholesale.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>mlp</code>, the
-possible modes are "regression" and "classification".</p>
+    <p>These arguments are converted to their specific names at the
+time that the model is fit. Other options and argument can be
+set using the <code>others</code> argument. If left to their defaults
+here (see above), the values are taken from the underlying model
+functions. One exception is <code>hidden_units</code> when <code><a href='http://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> is used; that
+function's <code>size</code> argument has no default so a value of 5 units will be
+used. Also, unless otherwise specified, the <code>linout</code> argument to
+<code><a href='http://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> will be set to <code>TRUE</code> when a regression model is created.
+If parameters need to be modified, <code>update</code> can be used
+in lieu of recreating the object from scratch.</p>
 <p>The model can be created using the <code>fit()</code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"nnet"</code></p></li>
@@ -207,6 +209,28 @@ evaluation until the underlying function is executed by wrapping the
 argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>hidden_units = expr(num_preds * 2)</code>).</p>
 <p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
 <code>keras</code> models.</p>
+<p>Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the <code>others</code>
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:</p>
+<p><span class="pkg">keras</span> classification</p>
+<p><pre>
+keras_mlp(x = missing_arg(), y = missing_arg())
+</pre></p>
+<p><span class="pkg">keras</span> regression</p>
+<p><pre>
+keras_mlp(x = missing_arg(), y = missing_arg())
+</pre></p>
+<p><span class="pkg">nnet</span> classification</p>
+<p><pre>
+nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+    size = 5, trace = FALSE, linout = FALSE)
+</pre></p>
+<p><span class="pkg">nnet</span> regression</p>
+<p><pre>
+nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+    size = 5, trace = FALSE, linout = TRUE)
+</pre></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
