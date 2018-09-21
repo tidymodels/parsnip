@@ -25,6 +25,7 @@ prob_to_class_2 <- function(x, object) {
   unname(x)
 }
 
+
 organize_glmnet_class <- function(x, object) {
   if (ncol(x) == 1) {
     res <- prob_to_class_2(x[, 1], object)
@@ -55,6 +56,72 @@ organize_glmnet_prob <- function(x, object) {
   }
   res
 }
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom dplyr full_join as_tibble arrange
+#' @importFrom tidyr gather
+#' @export
+multi_predict._elnet <-
+  function(object, x, lambda = NULL, ...) {
+    dots <- list(...)
+    if (is.null(lambda))
+      lambda <- object$lambda
+    dots$s <- lambda
+    pred <- predict(object, new_data = x, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), lambda = lambda)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, lambda)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
+
+#' @export
+multi_predict._lognet <-
+  function(object, x, lambda = NULL, ...) {
+    dots <- list(...)
+    if (is.null(lambda))
+      lambda <- object$lambda
+    if (!"type" %in% names(dots))
+      dots$type <- "class"
+    if (!(dots %in% c("class", "prob", "link"))) {
+      stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
+    } else {
+      if (dots$type == "prob")
+        dots$type <- "response"
+    }
+
+    dots$s <- lambda
+    pred <- predict(object, new_data = x, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), lambda = lambda)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    if (dots$type == "class") {
+      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
+    } else {
+      if (dots$type == "response") {
+        pred[[".pred2"]] <- 1 - pred[[".pred"]]
+        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
+        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
+      }
+    }
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, lambda)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
 
 # ------------------------------------------------------------------------------
 
@@ -306,4 +373,8 @@ logistic_reg_spark_data <-
     )
   )
 
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c("group", ".pred"))
 
