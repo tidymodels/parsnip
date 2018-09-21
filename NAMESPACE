@@ -3,6 +3,7 @@
 S3method(fit,model_spec)
 S3method(multi_predict,"_elnet")
 S3method(multi_predict,"_lognet")
+S3method(multi_predict,"_xgb.Booster")
 S3method(multi_predict,default)
 S3method(predict,model_fit)
 S3method(predict_class,model_fit)
