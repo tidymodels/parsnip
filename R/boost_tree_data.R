@@ -109,6 +109,7 @@ xgb_pred <- function(object, newdata, ...) {
   x
 }
 
+#' @importFrom purrr map_df
 #' @export
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
@@ -133,7 +134,7 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  pred <- parsnip:::xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
+  pred <- xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
 
   # switch based on prediction type
   if(object$spec$mode == "regression") {
@@ -141,10 +142,10 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
     nms <- names(pred)
   } else {
     if (type == "class") {
-      pred <- parsnip:::boost_tree_xgboost_data$classes$post(pred, object)
+      pred <- boost_tree_xgboost_data$classes$post(pred, object)
       pred <- tibble(.pred = factor(pred, levels = object$lvl))
     } else {
-      pred <- parsnip:::boost_tree_xgboost_data$prob$post(pred, object)
+      pred <- boost_tree_xgboost_data$prob$post(pred, object)
       pred <- as_tibble(pred)
       names(pred) <- paste0(".pred_", names(pred))
     }
