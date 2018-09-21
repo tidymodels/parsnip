@@ -40,19 +40,19 @@ organize_glmnet_pred <- function(x, object) {
 #' @importFrom tidyr gather
 #' @export
 multi_predict._elnet <-
-  function(object, x, type = NULL, lambda = NULL, ...) {
+  function(object, new_data, type = NULL, penalty = NULL, ...) {
     dots <- list(...)
-    if (is.null(lambda))
-      lambda <- object$fit$lambda
-    dots$s <- lambda
-    pred <- predict(object, new_data = x, type = "raw", opts = dots)
-    param_key <- tibble(group = colnames(pred), lambda = lambda)
+    if (is.null(penalty))
+      penalty <- object$fit$lambda
+    dots$s <- penalty
+    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
     pred <- gather(pred, group, .pred, -.row)
     pred <- full_join(param_key, pred, by = "group")
     pred$group <- NULL
-    pred <- arrange(pred, .row, lambda)
+    pred <- arrange(pred, .row, penalty)
     .row <- pred$.row
     pred$.row <- NULL
     pred <- split(pred, .row)

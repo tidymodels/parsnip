@@ -63,10 +63,10 @@ organize_glmnet_prob <- function(x, object) {
 #' @importFrom tidyr gather
 #' @export
 multi_predict._lognet <-
-  function(object, new_data, type = NULL, lambda = NULL, ...) {
+  function(object, new_data, type = NULL, penalty = NULL, ...) {
     dots <- list(...)
-    if (is.null(lambda))
-      lambda <- object$lambda
+    if (is.null(penalty))
+      penalty <- object$lambda
 
     if (is.null(type))
       type <- "class"
@@ -78,9 +78,9 @@ multi_predict._lognet <-
     else
       dots$type <- type
 
-    dots$s <- lambda
+    dots$s <- penalty
     pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
-    param_key <- tibble(group = colnames(pred), lambda = lambda)
+    param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
     pred <- gather(pred, group, .pred, -.row)
@@ -95,7 +95,7 @@ multi_predict._lognet <-
     }
     pred <- full_join(param_key, pred, by = "group")
     pred$group <- NULL
-    pred <- arrange(pred, .row, lambda)
+    pred <- arrange(pred, .row, penalty)
     .row <- pred$.row
     pred$.row <- NULL
     pred <- split(pred, .row)
