@@ -14,9 +14,9 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('glmnet execution', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   expect_error(
     fit_xy(
       iris_basic,
@@ -50,7 +50,7 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, single lambda', {
-  
+
   skip_if_not_installed("glmnet")
 
   res_xy <- fit_xy(
@@ -90,7 +90,7 @@ test_that('glmnet prediction, single lambda', {
 
 
 test_that('glmnet prediction, multiple lambda', {
-  
+
   skip_if_not_installed("glmnet")
 
   iris_mult <- linear_reg(penalty = c(.01, 0.1), mixture = .3)
@@ -135,7 +135,7 @@ test_that('glmnet prediction, multiple lambda', {
 })
 
 test_that('glmnet prediction, all lambda', {
-  
+
   skip_if_not_installed("glmnet")
 
   iris_all <- linear_reg(mixture = .3)
@@ -180,4 +180,20 @@ test_that('glmnet prediction, all lambda', {
   expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
+
+test_that('submodel prediction', {
+
+  skip_if_not_installed("earth")
+  library(earth)
+
+  reg_fit <-
+    linear_reg() %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ], engine = "glmnet")
+
+  pred_glmn <- predict(reg_fit$fit, as.matrix(mtcars[1:4, -1]), s = .1)
+
+  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], penalty = .1)
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred"]], unname(pred_glmn[,1]))
+})
 

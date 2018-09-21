@@ -1,3 +1,5 @@
+## nocov start
+
 data_obj <- ls(pattern = "_data$")
 data_obj <- data_obj[data_obj != "prepare_data"]
 
@@ -54,3 +56,4 @@ engine_info <-
 
 rm(engine_objects)
 
+## nocov end

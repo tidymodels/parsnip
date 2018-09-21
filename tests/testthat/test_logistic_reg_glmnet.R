@@ -18,7 +18,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('glmnet execution', {
 
   skip_if_not_installed("glmnet")
-  
+
   expect_error(
     fit_xy(
       lc_basic,
@@ -42,9 +42,9 @@ test_that('glmnet execution', {
 })
 
 test_that('glmnet prediction, one lambda', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(penalty = 0.1),
     engine = "glmnet",
@@ -88,9 +88,9 @@ test_that('glmnet prediction, one lambda', {
 
 
 test_that('glmnet prediction, mulitiple lambda', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(penalty = c(0.01, 0.1)),
     engine = "glmnet",
@@ -138,7 +138,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 test_that('glmnet prediction, no lambda', {
 
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(others = list(nlambda =  11)),
     engine = "glmnet",
@@ -185,9 +185,9 @@ test_that('glmnet prediction, no lambda', {
 
 
 test_that('glmnet probabilities, one lambda', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(penalty = 0.1),
     engine = "glmnet",
@@ -228,9 +228,9 @@ test_that('glmnet probabilities, one lambda', {
 })
 
 test_that('glmnet probabilities, mulitiple lambda', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(penalty = c(0.01, 0.1)),
     engine = "glmnet",
@@ -274,9 +274,9 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
 
 test_that('glmnet probabilities, no lambda', {
-  
+
   skip_if_not_installed("glmnet")
-  
+
   xy_fit <- fit_xy(
     logistic_reg(),
     engine = "glmnet",
@@ -317,3 +317,24 @@ test_that('glmnet probabilities, no lambda', {
   expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
+
+
+test_that('submodel prediction', {
+
+  skip_if_not_installed("glmnet")
+
+  vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
+  class_fit <-
+    logistic_reg() %>%
+    fit(churn ~ .,
+        data = wa_churn[-(1:4), c("churn", vars)],
+        engine = "glmnet")
+
+  pred_glmn <- predict(class_fit$fit, as.matrix(wa_churn[1:4, vars]), s = .1, type = "response")
+
+  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], penalty = .1, type = "prob")
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred_No"]], unname(pred_glmn[,1]))
+})
+
+
