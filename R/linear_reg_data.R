@@ -35,6 +35,32 @@ organize_glmnet_pred <- function(x, object) {
   res
 }
 
+
+#' @importFrom dplyr full_join as_tibble arrange
+#' @importFrom tidyr gather
+#' @export
+multi_predict._elnet <-
+  function(object, x, type = NULL, lambda = NULL, ...) {
+    dots <- list(...)
+    if (is.null(lambda))
+      lambda <- object$fit$lambda
+    dots$s <- lambda
+    pred <- predict(object, new_data = x, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), lambda = lambda)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, lambda)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
+
+
 # ------------------------------------------------------------------------------
 
 linear_reg_lm_data <-
@@ -162,16 +188,16 @@ linear_reg_stan_data <-
     confint = list(
       pre = NULL,
       post = function(results, object) {
-        res <- 
+        res <-
           tibble(
-            .pred_lower = 
+            .pred_lower =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$confint$extras$level
               ),
-            .pred_upper = 
+            .pred_upper =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$confint$extras$level,
                 lower = FALSE
               ),
@@ -194,20 +220,20 @@ linear_reg_stan_data <-
       post = function(results, object) {
         res <-
           tibble(
-            .pred_lower = 
+            .pred_lower =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$predint$extras$level
               ),
-            .pred_upper = 
+            .pred_upper =
               convert_stan_interval(
-                results, 
+                results,
                 level = object$spec$method$predint$extras$level,
                 lower = FALSE
               ),
           )
         if(object$spec$method$predint$extras$std_error)
-          res$.std_error <- apply(results, 2, sd, na.rm = TRUE) 
+          res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
         res
       },
       func = c(pkg = "rstanarm", fun = "posterior_predict"),
