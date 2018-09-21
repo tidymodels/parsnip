@@ -25,7 +25,7 @@ if(any(data_names$n > 1)) {
 }
 rm(data_names)
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 engine_objects <- ls(pattern = "_engines$")
 engine_objects <- engine_objects[engine_objects != "possible_engines"]

@@ -1,4 +1,4 @@
-###################################################################
+# ------------------------------------------------------------------------------
 
 # Functions to take a formula interface and get the resulting
 # objects (y, x, weights, etc) back. For the most part, this
@@ -179,7 +179,7 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
   list(x = new_data, offset = offset)
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 # The other direction where we make a formula from the data
 # objects
@@ -236,7 +236,7 @@ convert_xy_to_form_new <- function(object, new_data) {
 }
 
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 check_form_dots <- function(x) {
   good_args <- c("subset", "weights", "contrasts", "offset")

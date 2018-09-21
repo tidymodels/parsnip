@@ -14,7 +14,7 @@ boost_tree_engines <- data.frame(
   row.names =  c("classification", "regression", "unknown")
 )
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 xgb_train <- function(
   x, y,
@@ -134,7 +134,7 @@ C5.0_train <- function(x, y, weights = NULL, trials = 15, minCases = 2, sample =
   eval_tidy(fit_call)
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 
 boost_tree_xgboost_data <-

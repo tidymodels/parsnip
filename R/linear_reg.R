@@ -141,7 +141,7 @@ print.linear_reg <- function(x, ...) {
   invisible(x)
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 #' @inheritParams linear_reg
 #' @param object A linear regression model specification.

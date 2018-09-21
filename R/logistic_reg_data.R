@@ -18,7 +18,7 @@ logistic_reg_engines <- data.frame(
   row.names =  c("classification")
 )
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 prob_to_class_2 <- function(x, object) {
   x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
@@ -56,7 +56,7 @@ organize_glmnet_prob <- function(x, object) {
   res
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 #' @importFrom stats qt
 logistic_reg_glm_data <-
