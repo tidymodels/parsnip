@@ -62,44 +62,24 @@ organize_glmnet_prob <- function(x, object) {
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
-multi_predict._elnet <-
-  function(object, x, lambda = NULL, ...) {
-    dots <- list(...)
-    if (is.null(lambda))
-      lambda <- object$lambda
-    dots$s <- lambda
-    pred <- predict(object, new_data = x, type = "raw", opts = dots)
-    param_key <- tibble(group = colnames(pred), lambda = lambda)
-    pred <- as_tibble(pred)
-    pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred, -.row)
-    pred <- full_join(param_key, pred, by = "group")
-    pred$group <- NULL
-    pred <- arrange(pred, .row, lambda)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
-  }
-
-#' @export
 multi_predict._lognet <-
-  function(object, x, lambda = NULL, ...) {
+  function(object, new_data, type = NULL, lambda = NULL, ...) {
     dots <- list(...)
     if (is.null(lambda))
       lambda <- object$lambda
-    if (!"type" %in% names(dots))
-      dots$type <- "class"
-    if (!(dots %in% c("class", "prob", "link"))) {
+
+    if (is.null(type))
+      type <- "class"
+    if (!(type %in% c("class", "prob", "link"))) {
       stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
-    } else {
-      if (dots$type == "prob")
-        dots$type <- "response"
     }
+    if (type == "prob")
+      dots$type <- "response"
+    else
+      dots$type <- type
 
     dots$s <- lambda
-    pred <- predict(object, new_data = x, type = "raw", opts = dots)
+    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
     param_key <- tibble(group = colnames(pred), lambda = lambda)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
