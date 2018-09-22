@@ -18,48 +18,6 @@ linear_reg_engines <- data.frame(
   row.names =  c("regression")
 )
 
-# ------------------------------------------------------------------------------
-
-organize_glmnet_pred <- function(x, object) {
-  if (ncol(x) == 1) {
-    res <- x[, 1]
-    res <- unname(res)
-  } else {
-    n <- nrow(x)
-    res <- utils::stack(as.data.frame(x))
-    if (!is.null(object$spec$args$penalty))
-      res$lambda <- rep(object$spec$args$penalty, each = n) else
-        res$lambda <- rep(object$fit$lambda, each = n)
-    res <- res[, colnames(res) %in% c("values", "lambda")]
-  }
-  res
-}
-
-
-#' @importFrom dplyr full_join as_tibble arrange
-#' @importFrom tidyr gather
-#' @export
-multi_predict._elnet <-
-  function(object, new_data, type = NULL, penalty = NULL, ...) {
-    dots <- list(...)
-    if (is.null(penalty))
-      penalty <- object$fit$lambda
-    dots$s <- penalty
-    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
-    param_key <- tibble(group = colnames(pred), penalty = penalty)
-    pred <- as_tibble(pred)
-    pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred, -.row)
-    pred <- full_join(param_key, pred, by = "group")
-    pred$group <- NULL
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
-  }
-
 
 # ------------------------------------------------------------------------------
 

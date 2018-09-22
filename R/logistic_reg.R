@@ -187,3 +187,93 @@ update.logistic_reg <-
     object
   }
 
+
+# ------------------------------------------------------------------------------
+
+prob_to_class_2 <- function(x, object) {
+  x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
+  unname(x)
+}
+
+
+organize_glmnet_class <- function(x, object) {
+  if (ncol(x) == 1) {
+    res <- prob_to_class_2(x[, 1], object)
+  } else {
+    n <- nrow(x)
+    res <- utils::stack(as.data.frame(x))
+    res$values <- prob_to_class_2(res$values, object)
+    if (!is.null(object$spec$args$penalty))
+      res$lambda <- rep(object$spec$args$penalty, each = n) else
+        res$lambda <- rep(object$fit$lambda, each = n)
+    res <- res[, colnames(res) %in% c("values", "lambda")]
+  }
+  res
+}
+
+organize_glmnet_prob <- function(x, object) {
+  if (ncol(x) == 1) {
+    res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+    colnames(res) <- object$lvl
+  } else {
+    n <- nrow(x)
+    res <- utils::stack(as.data.frame(x))
+    res <- tibble(v1 = 1 - res$values, v2 = res$values)
+    colnames(res) <- object$lvl
+    if (!is.null(object$spec$args$penalty))
+      res$lambda <- rep(object$spec$args$penalty, each = n) else
+        res$lambda <- rep(object$fit$lambda, each = n)
+  }
+  res
+}
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom dplyr full_join as_tibble arrange
+#' @importFrom tidyr gather
+#' @export
+multi_predict._lognet <-
+  function(object, new_data, type = NULL, penalty = NULL, ...) {
+    dots <- list(...)
+    if (is.null(penalty))
+      penalty <- object$lambda
+
+    if (is.null(type))
+      type <- "class"
+    if (!(type %in% c("class", "prob", "link"))) {
+      stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
+    }
+    if (type == "prob")
+      dots$type <- "response"
+    else
+      dots$type <- type
+
+    dots$s <- penalty
+    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), penalty = penalty)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    if (dots$type == "class") {
+      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
+    } else {
+      if (dots$type == "response") {
+        pred[[".pred2"]] <- 1 - pred[[".pred"]]
+        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
+        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
+      }
+    }
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, penalty)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c("group", ".pred"))
