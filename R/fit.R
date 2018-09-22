@@ -161,7 +161,7 @@ fit.model_spec <-
         stop(interfaces, " is unknown")
       )
     model_classes <- class(res$fit)
-    class(res) <- c("model_fit", paste0("_", model_classes[1]))
+    class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
 }
 
@@ -243,7 +243,7 @@ fit_xy <-
         stop(interfaces, " is unknown")
       )
     model_classes <- class(res$fit)
-    class(res) <- c("model_fit", paste0("_", model_classes[1]))
+    class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
   }
 
