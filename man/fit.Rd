@@ -53,6 +53,8 @@ object with the error message.
 \item \code{preproc}: any objects needed to convert between
 a formula and non-formula interface (such as the \code{terms}
 object)
+The return value will also have a class related to the fitted model (e.g.
+\code{"_glm"}) before the base class of \code{"model_fit"}.
 }
 }
 \description{
