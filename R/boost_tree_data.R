@@ -14,7 +14,7 @@ boost_tree_engines <- data.frame(
   row.names =  c("classification", "regression", "unknown")
 )
 
-###################################################################
+# xgboost helpers --------------------------------------------------------------
 
 xgb_train <- function(
   x, y,
@@ -109,7 +109,57 @@ xgb_pred <- function(object, newdata, ...) {
   x
 }
 
-C5.0_train <- function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
+#' @importFrom purrr map_df
+#' @export
+multi_predict._xgb.Booster <-
+  function(object, new_data, type = NULL, trees = NULL, ...) {
+    if (is.null(trees))
+      trees <- object$fit$nIter
+    trees <- sort(trees)
+
+    if (is.null(type)) {
+      if (object$spec$mode == "classification")
+        type <- "class"
+      else
+        type <- "numeric"
+    }
+
+    res <-
+      map_df(trees, xgb_by_tree, object = object,
+             new_data = new_data, type = type, ...)
+    res <- arrange(res, .row, trees)
+    res <- split(res[, -1], res$.row)
+    names(res) <- NULL
+    tibble(.pred = res)
+  }
+
+xgb_by_tree <- function(tree, object, new_data, type, ...) {
+  pred <- xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
+
+  # switch based on prediction type
+  if(object$spec$mode == "regression") {
+    pred <- tibble(.pred = pred)
+    nms <- names(pred)
+  } else {
+    if (type == "class") {
+      pred <- boost_tree_xgboost_data$classes$post(pred, object)
+      pred <- tibble(.pred = factor(pred, levels = object$lvl))
+    } else {
+      pred <- boost_tree_xgboost_data$prob$post(pred, object)
+      pred <- as_tibble(pred)
+      names(pred) <- paste0(".pred_", names(pred))
+    }
+    nms <- names(pred)
+  }
+  pred[["trees"]] <- tree
+  pred[[".row"]] <- 1:nrow(new_data)
+  pred[, c(".row", "trees", nms)]
+}
+
+# C5.0 helpers -----------------------------------------------------------------
+
+C5.0_train <-
+  function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
   other_args <- list(...)
   protect_ctrl <- c("minCases", "sample")
   protect_fit <- "trials"
@@ -134,7 +184,42 @@ C5.0_train <- function(x, y, weights = NULL, trials = 15, minCases = 2, sample =
   eval_tidy(fit_call)
 }
 
-###################################################################
+#' @export
+multi_predict._C5.0 <-
+  function(object, new_data, type = NULL, trees = NULL, ...) {
+    if (is.null(trees))
+      trees <- min(object$fit$trials)
+    trees <- sort(trees)
+
+    if (is.null(type))
+      type <- "class"
+
+    res <-
+      map_df(trees, C50_by_tree, object = object,
+             new_data = new_data, type = type, ...)
+    res <- arrange(res, .row, trees)
+    res <- split(res[, -1], res$.row)
+    names(res) <- NULL
+    tibble(.pred = res)
+  }
+
+C50_by_tree <- function(tree, object, new_data, type, ...) {
+  pred <- predict(object$fit, newdata = new_data, trials = tree, type = type)
+
+  # switch based on prediction type
+  if (type == "class") {
+    pred <- tibble(.pred = factor(pred, levels = object$lvl))
+  } else {
+    pred <- as_tibble(pred)
+    names(pred) <- paste0(".pred_", names(pred))
+  }
+  nms <- names(pred)
+  pred[["trees"]] <- tree
+  pred[[".row"]] <- 1:nrow(new_data)
+  pred[, c(".row", "trees", nms)]
+}
+
+# ------------------------------------------------------------------------------
 
 
 boost_tree_xgboost_data <-

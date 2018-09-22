@@ -4,9 +4,9 @@
 form_form <-
   function(object, control, env, ...) {
     opts <- quos(...)
-    
+
     fit_args <- object$method$fit$args
-    
+
     if (is_spark(object)) {
       x <- data
       fit_args$x <- quote(x)
@@ -30,13 +30,13 @@ form_form <-
       env$n_levs <- data_stats$levs
       env$n_facts <- data_stats$facts
     }
-    
+
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],
       ns = object$method$fit$func["pkg"],
       fit_args
     )
-    
+
     res <- list(
       lvl = levels_from_formula( # prob rewrite this as simple subset/levels
         env$formula,
@@ -44,7 +44,7 @@ form_form <-
       ),
       spec = object
     )
-    
+
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
@@ -53,16 +53,15 @@ form_form <-
       ...
     )
     res$preproc <- NA
-    class(res) <- "model_fit"
     res
   }
 
 xy_xy <- function(object, env, control, target = "none", ...) {
-  
+
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
     stop("spark objects can only be used with the formula interface to `fit`",
          call. = FALSE)
-  
+
   object$method$fit$args[["y"]] <- quote(y)
   object$method$fit$args[["x"]] <-
     switch(
@@ -81,15 +80,15 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     env$n_levs <- data_stats$levs
     env$n_facts <- data_stats$facts
   }
-  
+
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
     ns = object$method$fit$func["pkg"],
     object$method$fit$args
   )
-  
+
   res <- list(lvl = levels(env$y), spec = object)
-  
+
   res$fit <- eval_mod(
     fit_call,
     capture = control$verbosity == 0,
@@ -98,7 +97,6 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     ...
   )
   res$preproc <- NA
-  class(res) <- "model_fit"
   res
 }
 
@@ -112,8 +110,8 @@ form_xy <- function(object, control, env,
     # indicators
   )
   env$x <- data_obj$x
-  env$y <- data_obj$y  
-  
+  env$y <- data_obj$y
+
   res <- list(
     lvl = levels_from_formula(
       env$formula,
@@ -121,7 +119,7 @@ form_xy <- function(object, control, env,
     ),
     spec = object
   )
-  
+
   res <- xy_xy(
     object = object,
     env = env, #weights! offsets!
@@ -133,7 +131,6 @@ form_xy <- function(object, control, env,
   data_obj$weights <- NULL
   data_obj$offset <- NULL
   res$preproc <- data_obj
-  class(res) <- "model_fit"
   res
 }
 
@@ -147,7 +144,7 @@ xy_form <- function(object, env, control, ...) {
     )
   env$formula <- data_obj$formula
   env$data <- data_obj$data
-  
+
   # which terms etc goes in the preproc slot here?
   res <- form_form(
     object = object,
@@ -159,7 +156,7 @@ xy_form <- function(object, env, control, ...) {
   res
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 ##
 
 #' @name descriptors
@@ -219,16 +216,16 @@ NULL
 get_descr_form <- function(formula, data) {
 
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
-  
+
   if(is.factor(tmp_dat$y)) {
     n_levs <- table(tmp_dat$y, dnn = NULL)
   } else n_levs <- NA
-  
+
   n_cols <- ncol(tmp_dat$x)
   n_preds <- ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   n_obs <- nrow(data)
   n_facts <- sum(vapply(tmp_dat$x, is.factor, logical(1)))
-  
+
   list(
     cols = n_cols,
     preds = n_preds,
@@ -243,7 +240,7 @@ get_descr_xy <- function(x, y) {
   if(is.factor(y)) {
     n_levs <- table(y, dnn = NULL)
   } else n_levs <- NA
-  
+
   n_cols  <- ncol(x)
   n_preds <- ncol(x)
   n_obs   <- nrow(x)
@@ -251,7 +248,7 @@ get_descr_xy <- function(x, y) {
     sum(vapply(x, is.factor, logical(1)))
   else
     sum(apply(x, 2, is.factor)) # would this always be zero?
-  
+
   list(
     cols = n_cols,
     preds = n_preds,

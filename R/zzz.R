@@ -1,3 +1,5 @@
+## nocov start
+
 data_obj <- ls(pattern = "_data$")
 data_obj <- data_obj[data_obj != "prepare_data"]
 
@@ -25,7 +27,7 @@ if(any(data_names$n > 1)) {
 }
 rm(data_names)
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 engine_objects <- ls(pattern = "_engines$")
 engine_objects <- engine_objects[engine_objects != "possible_engines"]
@@ -54,3 +56,4 @@ engine_info <-
 
 rm(engine_objects)
 
+## nocov end

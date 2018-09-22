@@ -53,13 +53,13 @@
 #' lm_mod <- logistic_reg()
 #'
 #' lm_mod <- logistic_reg()
-#' 
+#'
 #' using_formula <-
 #'   lm_mod %>%
 #'   fit(Class ~ funded_amnt + int_rate,
 #'       data = lending_club,
 #'       engine = "glm")
-#' 
+#'
 #' using_xy <-
 #'   lm_mod %>%
 #'   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
@@ -81,9 +81,9 @@
 #'    a formula and non-formula interface (such as the \code{terms}
 #'    object)
 #' }
-#'  
+#'
 #' @param x A matrix or data frame of predictors.
-#' @param y A vector, matrix or data frame of outcome data. 
+#' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
 #' @export
 #' @export fit.model_spec
@@ -101,7 +101,7 @@ fit.model_spec <-
            call. = FALSE)
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
-    # used when a model call is made later. 
+    # used when a model call is made later.
     eval_env <- rlang::env()
     eval_env$data <- data
     eval_env$formula <- formula
@@ -160,11 +160,12 @@ fit.model_spec <-
 
         stop(interfaces, " is unknown")
       )
-
+    model_classes <- class(res$fit)
+    class(res) <- c("model_fit", paste0("_", model_classes[1]))
     res
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 
 # TODO make a generic
@@ -172,10 +173,10 @@ fit.model_spec <-
 #' @rdname fit
 #' @export
 #' @inheritParams fit.model_spec
-#' 
+#'
 fit_xy <-
   function(object,
-           x = NULL, 
+           x = NULL,
            y = NULL,
            engine = object$engine,
            control = fit_control(),
@@ -189,21 +190,21 @@ fit_xy <-
       check_xy_interface(eval_env$x, eval_env$y, cl, object)
     object$engine <- engine
     object <- check_engine(object)
-    
+
     if (engine == "spark")
       stop(
         "spark objects can only be used with the formula interface to `fit` ",
         "with a spark data object.", call. = FALSE
       )
-    
+
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
     check_installs(object)  # TODO rewrite with pkgman
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
-    
+
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
-    
+
     # Now call the wrappers that transition between the interface
     # called here ("fit" interface) that will direct traffic to
     # what the underlying model uses. For example, if a formula is
@@ -221,7 +222,7 @@ fit_xy <-
             target = "matrix",
             ...
           ),
-        
+
         data.frame_data.frame =, matrix_data.frame =
           xy_xy(
             object = object,
@@ -230,7 +231,7 @@ fit_xy <-
             target = "data.frame",
             ...
           ),
-        
+
         # heterogenous combinations
         matrix_formula =,  data.frame_formula =
           xy_form(
@@ -241,14 +242,12 @@ fit_xy <-
           ),
         stop(interfaces, " is unknown")
       )
-    
+    model_classes <- class(res$fit)
+    class(res) <- c("model_fit", paste0("_", model_classes[1]))
     res
   }
 
-
-
-
-###################################################################
+# ------------------------------------------------------------------------------
 
 #' @importFrom utils capture.output
 eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
@@ -268,7 +267,7 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
   res
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 check_control <- function(x) {
   if (!is.list(x))
@@ -302,7 +301,7 @@ inher <- function(x, cls, cl) {
   invisible(x)
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 
 has_both_or_none <- function(a, b)
@@ -322,7 +321,7 @@ check_interface <- function(formula, data, cl, model) {
 
 check_xy_interface <- function(x, y, cl, model) {
   inher(x, c("data.frame", "matrix"), cl)
-  
+
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if (!is.null(y) && !is.vector(y))
     inher(y, c("data.frame", "matrix", "factor"), cl)
@@ -331,7 +330,7 @@ check_xy_interface <- function(x, y, cl, model) {
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
     stop("spark objects can only be used with the formula interface via `fit` ",
          "with a spark data object.", call. = FALSE)
-  
+
   # Determine the `fit` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
@@ -339,7 +338,7 @@ check_xy_interface <- function(x, y, cl, model) {
   if (inherits(model, "surv_reg") &&
       (matrix_interface | df_interface))
     stop("Survival models must use the formula interface.", call. = FALSE)
-  
+
   if (matrix_interface)
     return("data.frame")
   if (df_interface)

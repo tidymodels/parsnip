@@ -94,7 +94,7 @@ test_that('bad input', {
   expect_error(translate(mars(formula = y ~ x)))
   expect_warning(
     translate(
-      mars(mode = "regression", others = list(x = iris[,1:3], y = iris$Species)), 
+      mars(mode = "regression", others = list(x = iris[,1:3], y = iris$Species)),
       engine = "earth")
   )
 })
@@ -109,7 +109,7 @@ caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('mars execution', {
-  
+
   skip_if_not_installed("earth")
 
   expect_error(
@@ -159,10 +159,10 @@ test_that('mars execution', {
 })
 
 test_that('mars prediction', {
-  
+
   skip_if_not_installed("earth")
   library(earth)
-  
+
   uni_mars <- earth(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris)
   uni_pred <- unname(predict(uni_mars, newdata = iris[1:5, ])[,1])
   inl_mars <- earth(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
@@ -200,12 +200,49 @@ test_that('mars prediction', {
 })
 
 
+test_that('submodel prediction', {
+
+  skip_if_not_installed("earth")
+  library(earth)
+
+  reg_fit <-
+    mars(
+      num_terms = 20,
+      prune_method = "none",
+      mode = "regression",
+      others = list(keepxy = TRUE)
+    ) %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ], engine = "earth")
+
+  pruned_fit <- update(reg_fit$fit, nprune = 5)
+  pruned_pred <- predict(pruned_fit, mtcars[1:4, -1])[,1]
+
+  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], num_terms = 5)
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred"]], pruned_pred)
+
+  vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
+  class_fit <-
+    mars(mode = "classification", prune_method = "none", others = list(keepxy = TRUE)) %>%
+    fit(churn ~ .,
+        data = wa_churn[-(1:4), c("churn", vars)],
+        engine = "earth")
+
+  pruned_fit <- update(class_fit$fit, nprune = 5)
+  pruned_pred <- predict(pruned_fit, wa_churn[1:4, vars], type = "response")[,1]
+
+  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], num_terms = 5, type = "prob")
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred_No"]], pruned_pred)
+})
+
+
 ###################################################################
 
 data("lending_club")
 
 test_that('classification', {
-  
+
   skip_if_not_installed("earth")
 
   expect_error(
@@ -215,17 +252,17 @@ test_that('classification', {
   )
   expect_true(!is.null(glm_mars$fit$glm.list))
   parsnip_pred <- predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
-  
-  library(earth)  
+
+  library(earth)
   earth_fit <- earth(Class ~ ., data = lending_club[-(1:5),],
                      glm = list(family = binomial))
-  earth_pred <- 
+  earth_pred <-
     predict(
-      earth_fit, 
-      newdata = lending_club[1:5, -ncol(lending_club)], 
+      earth_fit,
+      newdata = lending_club[1:5, -ncol(lending_club)],
       type = "response"
     )
 
-  expect_equal(parsnip_pred[["good"]], earth_pred[,1])  
+  expect_equal(parsnip_pred[["good"]], earth_pred[,1])
 })
 

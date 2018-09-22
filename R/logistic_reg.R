@@ -137,7 +137,7 @@ print.logistic_reg <- function(x, ...) {
   invisible(x)
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 #' @inheritParams logistic_reg
 #' @param object A logistic regression model specification.

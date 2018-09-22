@@ -18,12 +18,13 @@ logistic_reg_engines <- data.frame(
   row.names =  c("classification")
 )
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 prob_to_class_2 <- function(x, object) {
   x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
   unname(x)
 }
+
 
 organize_glmnet_class <- function(x, object) {
   if (ncol(x) == 1) {
@@ -56,7 +57,53 @@ organize_glmnet_prob <- function(x, object) {
   res
 }
 
-###################################################################
+# ------------------------------------------------------------------------------
+
+#' @importFrom dplyr full_join as_tibble arrange
+#' @importFrom tidyr gather
+#' @export
+multi_predict._lognet <-
+  function(object, new_data, type = NULL, penalty = NULL, ...) {
+    dots <- list(...)
+    if (is.null(penalty))
+      penalty <- object$lambda
+
+    if (is.null(type))
+      type <- "class"
+    if (!(type %in% c("class", "prob", "link"))) {
+      stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
+    }
+    if (type == "prob")
+      dots$type <- "response"
+    else
+      dots$type <- type
+
+    dots$s <- penalty
+    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), penalty = penalty)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    if (dots$type == "class") {
+      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
+    } else {
+      if (dots$type == "response") {
+        pred[[".pred2"]] <- 1 - pred[[".pred"]]
+        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
+        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
+      }
+    }
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, penalty)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
+
+# ------------------------------------------------------------------------------
 
 #' @importFrom stats qt
 logistic_reg_glm_data <-
@@ -306,4 +353,8 @@ logistic_reg_spark_data <-
     )
   )
 
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c("group", ".pred"))
 
