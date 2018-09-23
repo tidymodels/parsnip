@@ -53,17 +53,18 @@ predict_raw(object, ...)
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "probs", "conf_int", "pred_int",
-or "raw". When \code{NULL},
-\code{predict} will choose an appropriate value based on the model's
-mode.}
+are "numeric", "class", "probs", "conf_int", "pred_int", or
+"raw". When \code{NULL}, \code{predict} will choose an appropriate value
+based on the model's mode.}
 
 \item{opts}{A list of optional arguments to the underlying
 predict function that will be used when \code{type = "raw"}. The
 list should not include options for the model object or the
 new data being predicted.}
 
-\item{...}{Arguments to pass to other methods (not currently used).}
+\item{...}{Ignored. To pass arguments to pass to the underlying
+function when \code{predict_raw} or \code{predict.model_fit(type = "raw")},
+use the \code{opts} argument.}
 
 \item{level}{A single numeric value between zero and one for the
 interval estimates.}
@@ -72,7 +73,26 @@ interval estimates.}
 returned (assuming that the model can compute it).}
 }
 \value{
-See Details.
+With the exception of \code{type = "raw"}, the results of
+\code{predict.model_fit} will be a tibble as many rows in the output
+as there are rows in \code{new_data} and the column names will be
+predictable. For numeric results with a single outcome, the
+tibble will have a \code{.pred} column and \code{.pred_Yname} for
+multivariate results. For hard class predictions, the column is
+named \code{.pred_class} and, when \code{type = "prob"}, the columns are
+\code{.pred_classlevel}. \code{type = "conf_int"} and type = "pred_int"\code{return tibbles with columns}.pred_lower\code{and}.pred_upper\code{with an attribute for the confidence level. In the case where intervals can be produces for class probabilities (or other non-scalar outputs), the columns will be named}.pred_lower_classlevel` and so on.
+
+Using \code{type = "raw"} with \code{predict.model_fit} (or using
+\code{predict_raw}) will return the unadulterated results of the
+prediction function.
+
+The more specific prediction functions (e.g. \code{predict_num}) can
+return non-tibble results. \code{predict_num} generates a vector (for
+univariate models) or a data frame (multivariate).
+\code{predict_class} returns a factor and \code{predict_classprob} returns
+a data frame with columns for the factor levels. Other
+type-specific prediction functions return tibbles if it is
+natural to produce more than one column of output.
 }
 \description{
 Apply a model to create different types of predictions.
@@ -85,21 +105,8 @@ If "type" is not supplied to \code{predict}, then a choice
 is made (\code{type = "numeric"} for regression models and
 \code{type = "class"} for classification).
 
-\code{predict} is designed to provide a tidy results. There will be
-a tibble as many rows in the output as there are rows in
-\code{new_data} and the column names will be predictable. For numeric
-results with a single outcome, the tibble will have a \code{.pred}
-column and \code{.pred_Yname} for multivariate results. For
-hard class predictions, the column is named \code{.pred_class}
-and, when \code{type = "prob"}, the columns are
-\code{.pred_classlevel}. \code{type = "conf_int"} and type = "pred_int"\code{return tibbles with columns}.pred_lower\code{and}.pred_upper\code{with an attribute for the confidence level. Using}type = "raw"`
-returns the unadulterated results of the prediction function.
-
-The more specific prediction functions (e.g. \code{predict_num}) can
-return non-tibble results. \code{predict_num} generates a vector (for
-univariate models) or a data frame (multivariate).
-\code{predict_class} returns a factor and \code{predict_classprob} returns
-a data frame with columns for the factor levels.
+\code{predict} is designed to provide a tidy result (see "Value"
+section below) in a tibble output format.
 }
 \examples{
 library(dplyr)

@@ -8,37 +8,50 @@
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "probs", "conf_int", "pred_int",
-#'  or "raw". When `NULL`,
-#'  `predict` will choose an appropriate value based on the model's
-#'  mode.
+#'  are "numeric", "class", "probs", "conf_int", "pred_int", or
+#'  "raw". When `NULL`, `predict` will choose an appropriate value
+#'  based on the model's mode.
+#'
 #' @param opts A list of optional arguments to the underlying
 #'  predict function that will be used when `type = "raw"`. The
 #'  list should not include options for the model object or the
 #'  new data being predicted.
-#' @param ... Arguments to pass to other methods (not currently used).
+#' @param ... Ignored. To pass arguments to pass to the underlying
+#'  function when `predict_raw` or `predict.model_fit(type = "raw")`,
+#' use the `opts` argument.
 #' @details If "type" is not supplied to `predict`, then a choice
 #'  is made (`type = "numeric"` for regression models and
 #'  `type = "class"` for classification).
 #'
-#' `predict` is designed to provide a tidy results. There will be
-#'  a tibble as many rows in the output as there are rows in
-#'  `new_data` and the column names will be predictable. For numeric
-#'  results with a single outcome, the tibble will have a `.pred`
-#'  column and `.pred_Yname` for multivariate results. For
-#'  hard class predictions, the column is named `.pred_class`
-#'  and, when `type = "prob"`, the columns are
+#' `predict` is designed to provide a tidy result (see "Value"
+#'  section below) in a tibble output format.
+#'
+#' @return With the exception of `type = "raw"`, the results of
+#'  `predict.model_fit` will be a tibble as many rows in the output
+#'  as there are rows in `new_data` and the column names will be
+#'  predictable. For numeric results with a single outcome, the
+#'  tibble will have a `.pred` column and `.pred_Yname` for
+#'  multivariate results. For hard class predictions, the column is
+#'  named `.pred_class` and, when `type = "prob"`, the columns are
 #'  `.pred_classlevel`. `type = "conf_int"` and type = "pred_int"`
 #'  return tibbles with columns `.pred_lower` and `.pred_upper` with
-#'  an attribute for the confidence level. Using `type = "raw"`
-#'  returns the unadulterated results of the prediction function.
+#'  an attribute for the confidence level. In the case where
+#'  intervals can be produces for class probabilities (or other
+#'  non-scalar outputs), the columns will be named
+#'  `.pred_lower_classlevel` and so on.
+#'
+#' Using `type = "raw"` with `predict.model_fit` (or using
+#'  `predict_raw`) will return the unadulterated results of the
+#'  prediction function.
 #'
 #' The more specific prediction functions (e.g. `predict_num`) can
 #'  return non-tibble results. `predict_num` generates a vector (for
 #'  univariate models) or a data frame (multivariate).
 #'  `predict_class` returns a factor and `predict_classprob` returns
-#'  a data frame with columns for the factor levels.
-#' @return See Details.
+#'  a data frame with columns for the factor levels. Other
+#'  type-specific prediction functions return tibbles if it is
+#'  natural to produce more than one column of output.
+
 #' @examples
 #' library(dplyr)
 #'
@@ -154,7 +167,7 @@ prepare_data <- function(object, new_data) {
   new_data
 }
 
-# Define a generic to make multiple predictions for the same model object-------
+# Define a generic to make multiple predictions for the same model object ------
 
 #' Model predictions across many sub-models
 #'
