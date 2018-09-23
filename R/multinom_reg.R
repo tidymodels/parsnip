@@ -179,14 +179,23 @@ organize_multnet_prob <- function(x, object) {
 # ------------------------------------------------------------------------------
 
 #' @export
-predict._multnet <- function(..., penalty = NULL) {
+predict._multnet <-
+  function(object, new_data, type = NULL, opts = list(), penalty = NULL, ...) {
+    dots <- list(...)
+    if (is.null(penalty))
+      penalty <- object$fit$lambda
+
   if (length(penalty) != 1)
     stop("`penalty` should be a single numeric value. ",
-         "`multi_predict` can eb used to get multiple predictions ",
+         "`multi_predict` can be used to get multiple predictions ",
          "per row of data.", call. = FALSE)
-  res <- multi_predict(..., penalty = penalty)
-  res <- map_dfr(res$.pred, function(x) x)
-  res$penalty <- NULL
+    res <- predict.model_fit(
+      object = object,
+      new_data = new_data,
+      type = type,
+      opts = opts,
+      penalty = penalty
+    )
   res
 }
 
@@ -211,7 +220,7 @@ multi_predict._multnet <-
       dots$type <- type
 
     dots$s <- penalty
-    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
+    pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
 
     format_probs <- function(x) {
       x <- as_tibble(x)
