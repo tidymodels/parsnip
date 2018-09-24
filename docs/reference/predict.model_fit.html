@@ -157,10 +157,9 @@ used for each type of prediction (see Details).</p>
     <tr>
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "probs", "conf_int", "pred_int",
-or "raw". When <code>NULL</code>,
-<code>predict</code> will choose an appropriate value based on the model's
-mode.</p></td>
+are "numeric", "class", "probs", "conf_int", "pred_int", or
+"raw". When <code>NULL</code>, <code>predict</code> will choose an appropriate value
+based on the model's mode.</p></td>
     </tr>
     <tr>
       <th>opts</th>
@@ -171,7 +170,9 @@ new data being predicted.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments to pass to other methods (not currently used).</p></td>
+      <td><p>Ignored. To pass arguments to pass to the underlying
+function when <code>predict_raw</code> or <code>predict.model_fit(type = "raw")</code>,
+use the <code>opts</code> argument.</p></td>
     </tr>
     <tr>
       <th>level</th>
@@ -187,27 +188,36 @@ returned (assuming that the model can compute it).</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>See Details.</p>
+    <p>With the exception of <code>type = "raw"</code>, the results of
+<code>predict.model_fit</code> will be a tibble as many rows in the output
+as there are rows in <code>new_data</code> and the column names will be
+predictable. For numeric results with a single outcome, the
+tibble will have a <code>.pred</code> column and <code>.pred_Yname</code> for
+multivariate results. For hard class predictions, the column is
+named <code>.pred_class</code> and, when <code>type = "prob"</code>, the columns are
+<code>.pred_classlevel</code>. <code>type = "conf_int"</code> and type = "pred_int"<code>return tibbles with columns</code>.pred_lower<code>and</code>.pred_upper<code>with an attribute for the confidence level. In the case where intervals can be produces for class probabilities (or other non-scalar outputs), the columns will be named</code>.pred_lower_classlevel` and so on.</p>
+<p>Using <code>type = "raw"</code> with <code>predict.model_fit</code> (or using
+<code>predict_raw</code>) will return the unadulterated results of the
+prediction function.</p>
+<p>The more specific prediction functions (e.g. <code>predict_num</code>) can
+return non-tibble results. <code>predict_num</code> generates a vector (for
+univariate models) or a data frame (multivariate).
+<code>predict_class</code> returns a factor and <code>predict_classprob</code> returns
+a data frame with columns for the factor levels. Other
+type-specific prediction functions return tibbles if it is
+natural to produce more than one column of output.</p>
+<p>In the case of Spark-based models, since table columns cannot
+contain dots, the same convention is used except 1) no dots
+appear in names and 2) vectors are never returned but
+type-specific prediction functions.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If "type" is not supplied to <code>predict</code>, then a choice
 is made (<code>type = "numeric"</code> for regression models and
 <code>type = "class"</code> for classification).</p>
-<p><code>predict</code> is designed to provide a tidy results. There will be
-a tibble as many rows in the output as there are rows in
-<code>new_data</code> and the column names will be predictable. For numeric
-results with a single outcome, the tibble will have a <code>.pred</code>
-column and <code>.pred_Yname</code> for multivariate results. For
-hard class predictions, the column is named <code>.pred_class</code>
-and, when <code>type = "prob"</code>, the columns are
-<code>.pred_classlevel</code>. <code>type = "conf_int"</code> and type = "pred_int"<code>return tibbles with columns</code>.pred_lower<code>and</code>.pred_upper<code>with an attribute for the confidence level. Using</code>type = "raw"`
-returns the unadulterated results of the prediction function.</p>
-<p>The more specific prediction functions (e.g. <code>predict_num</code>) can
-return non-tibble results. <code>predict_num</code> generates a vector (for
-univariate models) or a data frame (multivariate).
-<code>predict_class</code> returns a factor and <code>predict_classprob</code> returns
-a data frame with columns for the factor levels.</p>
+<p><code>predict</code> is designed to provide a tidy result (see "Value"
+section below) in a tibble output format.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
