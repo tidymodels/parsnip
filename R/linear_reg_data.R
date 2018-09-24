@@ -213,15 +213,28 @@ linear_reg_stan_data <-
     )
   )
 
-
+#' @importFrom  dplyr select rename
 linear_reg_spark_data <-
   list(
     libs = "sparklyr",
     fit = list(
       interface = "formula",
       protect = c("x", "formula", "weight_col"),
-      func = c(pkg = "sparklyr", fun = "ml_linear_regression"),
-      defaults = list()
+      func = c(pkg = "sparklyr", fun = "ml_linear_regression")
+    ),
+    pred = list(
+      pre = NULL,
+      post = function(results, object) {
+        results <- dplyr::rename(results, pred = prediction)
+        results <- dplyr::select(results, pred)
+        results
+      },
+      func = c(pkg = "sparklyr", fun = "ml_predict"),
+      args =
+        list(
+          x = quote(object$fit),
+          dataset = quote(new_data)
+        )
     )
   )
 
