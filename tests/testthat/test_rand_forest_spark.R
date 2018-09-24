@@ -30,6 +30,7 @@ test_that('spark execution', {
     spark_reg_fit <-
       fit(
         rand_forest(
+          trees = 5,
           mode = "regression",
           others = list(seed = 12)
         ),
@@ -46,6 +47,7 @@ test_that('spark execution', {
     spark_reg_fit_dup <-
       fit(
         rand_forest(
+          trees = 5,
           mode = "regression",
           others = list(seed = 12)
         ),
@@ -102,6 +104,7 @@ test_that('spark execution', {
     spark_class_fit <-
       fit(
         rand_forest(
+          trees = 5,
           mode = "classification",
           others = list(seed = 12)
         ),
@@ -118,6 +121,7 @@ test_that('spark execution', {
     spark_class_fit_dup <-
       fit(
         rand_forest(
+          trees = 5,
           mode = "classification",
           others = list(seed = 12)
         ),
