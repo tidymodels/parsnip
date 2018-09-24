@@ -53,7 +53,7 @@ rf_defaults <- rand_forest(mode = "regression")
 rf_defaults
 ```
 
-The model will be fit with the `ranger` package. Since we didn't add any extra arguments to `fit`, it will use the defaults in the specific function that is used by `ranger::ranger`. 
+The model will be fit with the `ranger` package. Since we didn't add any extra arguments to `fit`, _many_ of the arguments will be set to their defaults from the specific function that is used by `ranger::ranger`. The help pages for the model function describes the changes to the default parameters that are made and the `translate` function can also be used. 
 
 `parsnip` gives two different interfaces to the models: the formula and non-formula interfaces. Let's start with the non-formula interface:
 
