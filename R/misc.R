@@ -138,7 +138,11 @@ resolve_args <- function(args, ...) {
 }
 
 levels_from_formula <- function(f, dat) {
-  levels(eval_tidy(f[[2]], dat))
+  if (inherits(dat, "tbl_spark"))
+    res <- NULL
+  else
+    res <- levels(eval_tidy(f[[2]], dat))
+  res
 }
 
 is_spark <- function(x)

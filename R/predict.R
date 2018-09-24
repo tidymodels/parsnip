@@ -51,7 +51,12 @@
 #'  a data frame with columns for the factor levels. Other
 #'  type-specific prediction functions return tibbles if it is
 #'  natural to produce more than one column of output.
-
+#'
+#' In the case of Spark-based models, since table columns cannot
+#'  contain dots, the same convention is used except 1) no dots
+#'  appear in names and 2) vectors are never returned but
+#'  type-specific prediction functions.
+#'
 #' @examples
 #' library(dplyr)
 #'
@@ -123,16 +128,23 @@ check_pred_type <- function(object, type) {
 }
 
 format_num <- function(x) {
+  if (inherits(x, "tbl_spark"))
+    return(x)
+
   if (isTRUE(ncol(x) > 1)) {
     x <- as_tibble(x)
     names(x) <- paste0(".pred_", names(x))
   } else {
     x <- tibble(.pred = x)
   }
+
   x
 }
 
 format_class <- function(x) {
+  if (inherits(x, "tbl_spark"))
+    return(x)
+
   tibble(.pred_class = x)
 }
 

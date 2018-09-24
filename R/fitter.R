@@ -8,12 +8,12 @@ form_form <-
     fit_args <- object$method$fit$args
 
     if (is_spark(object)) {
-      x <- data
       fit_args$x <- quote(x)
+      env$x <- env$data
     } else {
       fit_args$data <- quote(data)
-      fit_args$formula <- quote(formula)
     }
+    fit_args$formula <- quote(formula)
 
     # check to see of there are any `expr` in the arguments then
     # run a function that evaluates the data and subs in the

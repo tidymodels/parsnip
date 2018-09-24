@@ -2,3 +2,5 @@
 .RData
 .Rproj.user
 .DS_Store
+tests/testthat/derby.log
+tests/testthat/logs/log4j.spark.log

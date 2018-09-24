@@ -93,6 +93,11 @@ univariate models) or a data frame (multivariate).
 a data frame with columns for the factor levels. Other
 type-specific prediction functions return tibbles if it is
 natural to produce more than one column of output.
+
+In the case of Spark-based models, since table columns cannot
+contain dots, the same convention is used except 1) no dots
+appear in names and 2) vectors are never returned but
+type-specific prediction functions.
 }
 \description{
 Apply a model to create different types of predictions.
