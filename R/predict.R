@@ -90,13 +90,16 @@ predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     stop("I don't know about type = '", "'", type, call. = FALSE)
   )
-  res <- switch(
-    type,
-    numeric = format_num(res),
-    class   = format_class(res),
-    prob    = format_classprobs(res),
-    res
-  )
+
+  if (!inherits(res, "tbl_spark")) {
+    res <- switch(
+      type,
+      numeric = format_num(res),
+      class   = format_class(res),
+      prob    = format_classprobs(res),
+      res
+    )
+  }
   res
 }
 

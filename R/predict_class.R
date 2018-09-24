@@ -28,9 +28,12 @@ predict_class.model_fit <- function (object, new_data, ...) {
   }
 
   # coerce levels to those in `object`
-  if(is.vector(res) || is.factor(res))
-    res <- factor(as.character(res), levels = object$lvl) else
+  if (is.vector(res) || is.factor(res)) {
+    res <- factor(as.character(res), levels = object$lvl)
+  } else {
+    if (!inherits(res, "tbl_spark"))
       res$values <- factor(as.character(res$values), levels = object$lvl)
+  }
 
   res
 }
