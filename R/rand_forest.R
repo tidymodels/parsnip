@@ -192,6 +192,7 @@ translate.rand_forest <- function(x, engine, ...) {
     if (is.numeric(x$method$fit$args$feature_subset_strategy))
       x$method$fit$args$feature_subset_strategy <-
         paste(x$method$fit$args$feature_subset_strategy)
+
   }
 
   # add checks to error trap or change things for this method

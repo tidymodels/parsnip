@@ -246,5 +246,19 @@ rand_forest_spark_data <-
         list(
           seed = expr(sample.int(10^5, 1))
         )
+    ),
+    pred = list(
+      pre = NULL,
+      post = function(results, object) {
+        results <- dplyr::rename(results, pred = prediction)
+        results <- dplyr::select(results, pred)
+        results
+      },
+      func = c(pkg = "sparklyr", fun = "ml_predict"),
+      args =
+        list(
+          x = quote(object$fit),
+          dataset = quote(new_data)
+        )
     )
   )
