@@ -110,8 +110,11 @@ routine.</p>
 <span class='fu'>fit</span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
-<span class='fu'>fit_xy</span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
+<span class='fu'>fit_xy</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_spec</span>
+<span class='fu'>fit_xy</span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,11 +176,9 @@ this is the model object. Otherwise, it is a <code>try-error</code>
 object with the error message.</p></li>
 <li><p><code>preproc</code>: any objects needed to convert between
 a formula and non-formula interface (such as the <code>terms</code>
-object)
-The return value will also have a class related to the fitted model (e.g.
-<code>"_glm"</code>) before the base class of <code>"model_fit"</code>.</p></li>
-</ul>
-
+object)</p></li>
+</ul><p>The return value will also have a class related to the fitted model (e.g.
+<code>"_glm"</code>) before the base class of <code>"model_fit"</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

@@ -149,24 +149,6 @@ is_spark <- function(x)
   isTRUE(unname(x$method$fit$func["pkg"] == "sparklyr"))
 
 
-has_exprs <- function(x) {
-  if(is.null(x) | does_it_vary(x) | is_missing_arg(x))
-    return(FALSE)
-  is_symbolic(x)
-}
-
-make_descr <- function(object) {
-  if (length(object$args) > 0)
-    expr_main <- map_lgl(object$args, has_exprs)
-  else
-    expr_main <- FALSE
-  if (length(object$others) > 0)
-    expr_others <- map_lgl(object$others, has_exprs)
-  else
-    expr_others <- FALSE
-  any(expr_main) | any(expr_others)
-}
-
 show_fit <- function(mod, eng) {
   mod <- translate(x = mod, engine = eng)
   fit_call <- show_call(mod)

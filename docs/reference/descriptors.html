@@ -145,6 +145,8 @@ library(rlang)
     data("lending_club")
     rand_forest(mode = "classification", mtry = expr(n_cols - 2))
 </pre>
+    <p>When no instance of <code>expr</code> is found in any of the argument
+values, the descriptor calculation code will not be executed.</p>
     
 
   </div>

@@ -23,3 +23,5 @@ format_spark_num <- function(results, object) {
   results
 }
 
+#' @importFrom utils globalVariables
+utils::globalVariables(c(".", "predicted_label", "prediction"))
