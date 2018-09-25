@@ -83,6 +83,27 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
 #'
+#' \pkg{spark} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
+#'
+#' \pkg{spark} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
+#'
+#' @note For models created using the spark engine, there are
+#'  several differences to consider. First, only the formula
+#'  interface to via `fit` is available; using `fit_xy` will
+#'  generate an error. Second, the predictions will always be in a
+#'  spark table format. The names will be the same as documented but
+#'  without the dots. Third, there is no equivalent to factor
+#'  columns in spark tables so class predictions are returned as
+#'  character columns. Fourth, to retain the model object for a new
+#'  R session (via `save`), the `model$fit` element of the `parsnip`
+#'  object should be serialized via `ml_save(object$fit)` and
+#'  separately saved to disk. In a new session, the object can be
+#'  reloaded and reattached to the `parsnip` object.
+#'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples

@@ -60,7 +60,7 @@ in lieu of recreating the object from scratch.
 }
 \details{
 The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{linear_reg},the
+to determine the \emph{mode} of the model. For \code{linear_reg}, the
 mode will always be "regression".
 
 The model can be created using the \code{fit()} function using the
@@ -108,6 +108,20 @@ these instances, the units are the original outcome and when
 \code{std_error = TRUE}, the standard deviation of the posterior
 distribution (or posterior predictive distribution as
 appropriate) is returned.
+}
+\note{
+For models created using the spark engine, there are
+several differences to consider. First, only the formula
+interface to via \code{fit} is available; using \code{fit_xy} will
+generate an error. Second, the predictions will always be in a
+spark table format. The names will be the same as documented but
+without the dots. Third, there is no equivalent to factor
+columns in spark tables so class predictions are returned as
+character columns. Fourth, to retain the model object for a new
+R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+object should be serialized via \code{ml_save(object$fit)} and
+separately saved to disk. In a new session, the object can be
+reloaded and reattached to the \code{parsnip} object.
 }
 \examples{
 linear_reg()

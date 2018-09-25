@@ -58,7 +58,7 @@ functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-For \code{multinom_reg},the mode will always be "classification".
+For \code{multinom_reg}, the mode will always be "classification".
 
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
@@ -72,6 +72,14 @@ model fit call. These can be changed by using the \code{others}
 argument to pass in the preferred values. For this type of
 model, the template of the fit calls are:
 
+\pkg{glmnet}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "glmnet")}
+
+\pkg{spark}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "spark")}
+
 When using \code{glmnet} models, there is the option to pass
 multiple values (or no values) to the \code{penalty} argument.
 This can have an effect on the model object results. When using
@@ -81,6 +89,20 @@ given, the results will be a simple numeric vector. When
 multiple values or no values for \code{penalty} are used in
 \code{multinom_reg}, the \code{predict} method will return a data frame with
 columns \code{values} and \code{lambda}.
+}
+\note{
+For models created using the spark engine, there are
+several differences to consider. First, only the formula
+interface to via \code{fit} is available; using \code{fit_xy} will
+generate an error. Second, the predictions will always be in a
+spark table format. The names will be the same as documented but
+without the dots. Third, there is no equivalent to factor
+columns in spark tables so class predictions are returned as
+character columns. Fourth, to retain the model object for a new
+R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+object should be serialized via \code{ml_save(object$fit)} and
+separately saved to disk. In a new session, the object can be
+reloaded and reattached to the \code{parsnip} object.
 }
 \examples{
 multinom_reg()

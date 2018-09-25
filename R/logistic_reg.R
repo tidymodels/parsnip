@@ -32,7 +32,7 @@
 #' @param ... Used for S3 method consistency. Any arguments passed to
 #'  the ellipses will result in an error. Use `others` instead.
 #' @details
-#' For `logistic_reg`,the mode will always be "classification".
+#' For `logistic_reg`, the mode will always be "classification".
 #'
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
@@ -80,6 +80,19 @@
 #'  distribution (or posterior predictive distribution as
 #'  appropriate) is returned. For `glm`, the standard error is in logit units
 #'  while the intervals are in probability units.
+#'
+#' @note For models created using the spark engine, there are
+#'  several differences to consider. First, only the formula
+#'  interface to via `fit` is available; using `fit_xy` will
+#'  generate an error. Second, the predictions will always be in a
+#'  spark table format. The names will be the same as documented but
+#'  without the dots. Third, there is no equivalent to factor
+#'  columns in spark tables so class predictions are returned as
+#'  character columns. Fourth, to retain the model object for a new
+#'  R session (via `save`), the `model$fit` element of the `parsnip`
+#'  object should be serialized via `ml_save(object$fit)` and
+#'  separately saved to disk. In a new session, the object can be
+#'  reloaded and reattached to the `parsnip` object.
 #'
 #' @seealso [varying()], [fit()]
 #' @examples
