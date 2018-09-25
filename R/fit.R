@@ -80,9 +80,9 @@
 #'   \item \code{preproc}: any objects needed to convert between
 #'    a formula and non-formula interface (such as the \code{terms}
 #'    object)
+#' }
 #'  The return value will also have a class related to the fitted model (e.g.
 #'  `"_glm"`) before the base class of `"model_fit"`.
-#' }
 #'
 #' @param x A matrix or data frame of predictors.
 #' @param y A vector, matrix or data frame of outcome data.
@@ -169,14 +169,18 @@ fit.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-
-# TODO make a generic
-
 #' @rdname fit
 #' @export
 #' @inheritParams fit.model_spec
 #'
-fit_xy <-
+fit_xy <- function(object, ...)
+  UseMethod("fit_xy")
+
+#' @rdname fit
+#' @export
+#' @export fit_xy.model_spec
+#' @inheritParams fit.model_spec
+fit_xy.model_spec <-
   function(object,
            x = NULL,
            y = NULL,
