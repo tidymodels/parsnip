@@ -23,56 +23,6 @@ mars_earth_data <-
       func = c(pkg = "earth", fun = "earth"),
       defaults =
         list()
-    ),
-    pred = list(
-      pre = NULL,
-      post = maybe_multivariate,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    classes = list(
-      pre = NULL,
-      post = function(x, object) {
-        x <- ifelse(x[,1] >= 0.5, object$lvl[2], object$lvl[1])
-        x
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    prob = list(
-      pre = NULL,
-      post = function(x, object) {
-        x <- x[,1]
-        x <- tibble(v1 = 1 - x, v2 = x)
-        colnames(x) <- object$lvl
-        x
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
     )
   )
 

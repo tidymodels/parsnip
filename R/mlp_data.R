@@ -80,37 +80,6 @@ mlp_nnet_data <-
       protect = c("formula", "data", "weights"),
       func = c(pkg = "nnet", fun = "nnet"),
       defaults = list(trace = FALSE)
-    ),
-    pred = list(
-      pre = NULL,
-      post = maybe_multivariate,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "raw"
-        )
-    ),
-    classes = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "class"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
     )
   )
 
@@ -155,7 +124,7 @@ keras_mlp <-
       else
         y <- matrix(y, ncol = 1)
     }
-    
+
     model <- keras::keras_model_sequential()
     if(decay > 0) {
       model %>%

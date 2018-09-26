@@ -27,39 +27,6 @@ multinom_reg_glmnet_data <-
         list(
           family = "multinomial"
         )
-    ),
-    classes = list(
-      pre = check_glmnet_lambda,
-      post = organize_multnet_class,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
-          type = "class",
-          s = quote(object$spec$args$penalty)
-        )
-    ),
-    prob = list(
-      pre = check_glmnet_lambda,
-      post = organize_multnet_prob,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
-          type = "response",
-          s = quote(object$spec$args$penalty)
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data))
-        )
     )
   )
 
@@ -73,26 +40,6 @@ multinom_reg_spark_data <-
       defaults =
         list(
           family = "multinomial"
-        )
-    ),
-    classes = list(
-      pre = NULL,
-      post = format_spark_class,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    ),
-    prob = list(
-      pre = NULL,
-      post = format_spark_probs,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
         )
     )
   )

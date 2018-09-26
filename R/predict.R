@@ -76,31 +76,25 @@
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
-predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...) {
-  type <- check_pred_type(object, type)
-  if (type != "raw" && length(opts) > 0)
-    warning("`opts` is only used with `type = 'raw'` and was ignored.")
-  res <- switch(
-    type,
-    numeric  = predict_num(object = object, new_data = new_data, ...),
-    class    = predict_class(object = object, new_data = new_data, ...),
-    prob     = predict_classprob(object = object, new_data = new_data, ...),
-    conf_int = predict_confint(object = object, new_data = new_data, ...),
-    pred_int = predict_predint(object = object, new_data = new_data, ...),
-    raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
-    stop("I don't know about type = '", "'", type, call. = FALSE)
-  )
+predict.model_fit <- function (
+  object, new_data, type = NULL, opts = list(), ...) {
 
-  if (!inherits(res, "tbl_spark")) {
-    res <- switch(
-      type,
-      numeric = format_num(res),
-      class   = format_class(res),
-      prob    = format_classprobs(res),
-      res
-    )
-  }
-  res
+  # TODO:
+  # - make sure the mode matches up
+  # - do form / x/y translate with prepare_newdata
+
+  type <- check_pred_type(object, type)
+
+  # is this enough preprocessing? or did I break something with the removals?
+  new_data <- prepare_data(object, new_data)
+
+  safe_predict(
+    object = object,
+    new_data = new_data,
+    type = type,
+    opts = opts,
+    ...
+  )
 }
 
 pred_types <- c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int")
@@ -130,33 +124,6 @@ check_pred_type <- function(object, type) {
   type
 }
 
-format_num <- function(x) {
-  if (inherits(x, "tbl_spark"))
-    return(x)
-
-  if (isTRUE(ncol(x) > 1)) {
-    x <- as_tibble(x)
-    names(x) <- paste0(".pred_", names(x))
-  } else {
-    x <- tibble(.pred = x)
-  }
-
-  x
-}
-
-format_class <- function(x) {
-  if (inherits(x, "tbl_spark"))
-    return(x)
-
-  tibble(.pred_class = x)
-}
-
-format_classprobs <- function(x) {
-  x <- as_tibble(x)
-  names(x) <- paste0(".pred_", names(x))
-  x
-}
-
 make_pred_call <- function(x) {
   if ("pkg" %in% names(x$func))
     cl <-
@@ -181,28 +148,3 @@ prepare_data <- function(object, new_data) {
 
   new_data
 }
-
-# Define a generic to make multiple predictions for the same model object ------
-
-#' Model predictions across many sub-models
-#'
-#' For some models, predictions can be made on sub-models in the model object.
-#' @param object A `model_fit` object.
-#' @param ... Optional arguments to pass to `predict.model_fit(type = "raw")`
-#'  such as `type`.
-#' @return A tibble with the same number of rows as the data being predicted.
-#'  Mostly likely, there is a list-column named `.pred` that is a tibble with
-#'  multiple rows per sub-model.
-#' @keywords internal
-#' @export
-multi_predict <- function(object, ...)
-  UseMethod("multi_predict")
-
-#' @keywords internal
-#' @export
-#' @rdname multi_predict
-multi_predict.default <- function(object, ...)
-  stop ("No `multi_predict` method exists for objects with classes ",
-        paste0("'", class(), "'", collapse = ", "), call. = FALSE)
-
-
