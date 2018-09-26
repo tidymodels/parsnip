@@ -1,9 +1,5 @@
 
 get_model_info <-  function (x, engine)  {
-  if (x$mode == "unknown")
-    stop("Please specify a mode for the model (e.g. regression, ",
-         "classification, etc.) ",
-         "so that the model code can be finalized", call. = FALSE)
   cls <- specific_model(x)
   nm <- paste(cls, engine, "data", sep = "_")
   res <- try(get(nm), silent = TRUE)
