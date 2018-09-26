@@ -1,6 +1,7 @@
 # parsnip 0.0.0.9003
 
 * `regularization` was changed to `penalty` in a few models to be consistent with [this change](tidymodels/model-implementation-principles@08d3afd). 
+* if a mode is not chosen in the model specification, it is assigned at the time of fit. [51](https://github.com/topepo/parsnip/issues/51)
 
 # parsnip 0.0.0.9002
 

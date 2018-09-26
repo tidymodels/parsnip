@@ -8,6 +8,16 @@ form_form <-
   function(object, control, env, ...) {
     opts <- quos(...)
 
+    y_levels <- levels_from_formula( # prob rewrite this as simple subset/levels
+      env$formula,
+      env$data
+    )
+
+    object <- check_mode(object, y_levels)
+
+    # sub in arguments to actual syntax for corresponding engine
+    object <- translate(object, engine = object$engine)
+
     fit_args <- object$method$fit$args
 
     if (is_spark(object)) {
@@ -41,10 +51,7 @@ form_form <-
     )
 
     res <- list(
-      lvl = levels_from_formula( # prob rewrite this as simple subset/levels
-        env$formula,
-        env$data
-      ),
+      lvl = y_levels,
       spec = object
     )
 
@@ -64,6 +71,11 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
     stop("spark objects can only be used with the formula interface to `fit`",
          call. = FALSE)
+
+  object <- check_mode(object, levels(env$y))
+
+  # sub in arguments to actual syntax for corresponding engine
+  object <- translate(object, engine = object$engine)
 
   object$method$fit$args[["y"]] <- quote(y)
   object$method$fit$args[["x"]] <-

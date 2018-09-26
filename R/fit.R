@@ -118,11 +118,12 @@ fit.model_spec <-
         "with a spark data object.", call. = FALSE
       )
 
-    # sub in arguments to actual syntax for corresponding engine
-    object <- translate(object, engine = object$engine)
     check_installs(object)  # TODO rewrite with pkgman
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
+
+    # populate `method` with the details for this model type
+    object <- get_method(object, engine = object$engine)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
 
@@ -203,8 +204,9 @@ fit_xy.model_spec <-
         "with a spark data object.", call. = FALSE
       )
 
-    # sub in arguments to actual syntax for corresponding engine
-    object <- translate(object, engine = object$engine)
+    # populate `method` with the details for this model type
+    object <- get_method(object, engine = object$engine)
+
     check_installs(object)  # TODO rewrite with pkgman
     # TODO Should probably just load the namespace
     load_libs(object, control$verbosity < 2)
