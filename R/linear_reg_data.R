@@ -33,46 +33,36 @@ linear_reg_lm_data <-
     pred = list(
       pre = NULL,
       post = NULL,
-      func = c(fun = "predict"),
+      func = c(fun = "safe_predict"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data),
+          new_data = quote(new_data),
           type = "response"
         )
     ),
     confint = list(
       pre = NULL,
-      post = function(results, object) {
-        tibble::as_tibble(results) %>%
-          dplyr::select(-fit) %>%
-          setNames(c(".pred_lower", ".pred_upper"))
-      },
-      func = c(fun = "predict"),
+      post = NULL,
+      func = c(fun = "safe_predict"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data),
-          interval = "confidence",
-          level = quote(level),
-          type = "response"
+          new_data = quote(new_data),
+          type = "conf_int",
+          level = quote(level)
         )
     ),
     predint = list(
       pre = NULL,
-      post = function(results, object) {
-        tibble::as_tibble(results) %>%
-          dplyr::select(-fit) %>%
-          setNames(c(".pred_lower", ".pred_upper"))
-      },
-      func = c(fun = "predict"),
+      post = NULL,
+      func = c(fun = "safe_predict"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data),
-          interval = "prediction",
-          level = quote(level),
-          type = "response"
+          new_data = quote(new_data),
+          type = "pred_int",
+          level = quote(level)
         )
     ),
     raw = list(

@@ -1,4 +1,4 @@
-#' @rdname predict.model_fit
+  #' @rdname predict.model_fit
 #' @inheritParams predict.model_fit
 #' @method predict_classprob model_fit
 #' @export predict_classprob.model_fit
