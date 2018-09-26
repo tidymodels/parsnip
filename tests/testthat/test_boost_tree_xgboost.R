@@ -7,7 +7,7 @@ library(parsnip)
 
 num_pred <- names(iris)[1:4]
 
-iris_xgboost <- boost_tree(mode = "classification", trees = 2)
+iris_xgboost <- boost_tree(trees = 2)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
