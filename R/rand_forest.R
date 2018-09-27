@@ -215,6 +215,10 @@ translate.rand_forest <- function(x, engine, ...) {
       if (is.logical(x$method$fit$args$importance))
         stop("`importance` should be a character value. See ?ranger::ranger.",
              call. = FALSE)
+    # unless otherwise specified, classification models are probability forests
+    if (x$mode == "classification" && !any(names(x$method$fit$args) == "probability"))
+      x$method$fit$args$probability <- TRUE
+
   }
   x
 }

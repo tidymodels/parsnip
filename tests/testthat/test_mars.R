@@ -10,7 +10,8 @@ test_that('primary arguments', {
                list(
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
-                 weights = quote(missing_arg())
+                 weights = quote(missing_arg()),
+                 keepxy = TRUE
                )
   )
 
@@ -22,7 +23,8 @@ test_that('primary arguments', {
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
                  nprune = 4,
-                 glm = quote(list(family = stats::binomial))
+                 glm = quote(list(family = stats::binomial)),
+                 keepxy = TRUE
                )
   )
 
@@ -33,7 +35,8 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 degree = 1
+                 degree = 1,
+                 keepxy = TRUE
                )
   )
 
@@ -44,7 +47,8 @@ test_that('primary arguments', {
                  x = quote(missing_arg()),
                  y = quote(missing_arg()),
                  weights = quote(missing_arg()),
-                 pmethod = varying()
+                 pmethod = varying(),
+                 keepxy = TRUE
                )
   )
 })

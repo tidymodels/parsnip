@@ -46,7 +46,8 @@ test_that('primary arguments', {
                  num.trees = 1000,
                  num.threads = 1,
                  verbose = FALSE,
-                 seed = quote(sample.int(10^5, 1))
+                 seed = quote(sample.int(10^5, 1)),
+                 probability = TRUE
                )
   )
   expect_equal(trees_randomForest$method$fit$args,
@@ -110,7 +111,8 @@ test_that('primary arguments', {
                  mtry = varying(),
                  num.threads = 1,
                  verbose = FALSE,
-                 seed = quote(sample.int(10^5, 1))
+                 seed = quote(sample.int(10^5, 1)),
+                 probability = TRUE
                )
   )
   expect_equal(mtry_v_randomForest$method$fit$args,
@@ -174,7 +176,8 @@ test_that('primary arguments', {
                  min.node.size = varying(),
                  num.threads = 1,
                  verbose = FALSE,
-                 seed = quote(sample.int(10^5, 1))
+                 seed = quote(sample.int(10^5, 1)),
+                 probability = TRUE
                )
   )
   expect_equal(min_n_v_randomForest$method$fit$args,
@@ -205,7 +208,8 @@ test_that('engine arguments', {
                  importance = "impurity",
                  num.threads = 1,
                  verbose = FALSE,
-                 seed = quote(sample.int(10^5, 1))
+                 seed = quote(sample.int(10^5, 1)),
+                 probability = TRUE
                )
   )
 

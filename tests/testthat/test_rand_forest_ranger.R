@@ -89,6 +89,8 @@ test_that('ranger classification prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, data = lending_club[1:6, num_pred])$prediction
+  xy_pred <- colnames(xy_pred)[apply(xy_pred, 1, which.max)]
+  xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   expect_equal(xy_pred, predict_class(xy_fit, new_data = lending_club[1:6, num_pred]))
 
   form_fit <- fit(
@@ -100,7 +102,10 @@ test_that('ranger classification prediction', {
   )
 
   form_pred <- predict(form_fit$fit, data = lending_club[1:6, c("funded_amnt", "int_rate")])$prediction
+  form_pred <- colnames(form_pred)[apply(form_pred, 1, which.max)]
+  form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   expect_equal(form_pred, predict_class(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
+
 })
 
 
@@ -109,7 +114,7 @@ test_that('ranger classification probabilities', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest(others = list(probability = TRUE, seed = 3566)),
+    rand_forest(others = list(seed = 3566)),
     x = lending_club[, num_pred],
     y = lending_club$Class,
     engine = "ranger",
@@ -124,7 +129,7 @@ test_that('ranger classification probabilities', {
   expect_equivalent(xy_pred[1,], one_row)
 
   form_fit <- fit(
-    rand_forest(others = list(probability = TRUE, seed = 3566)),
+    rand_forest(others = list(seed = 3566)),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
     engine = "ranger",
@@ -136,7 +141,7 @@ test_that('ranger classification probabilities', {
   expect_equal(form_pred, predict_classprob(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
 
   no_prob_model <- fit_xy(
-    rand_forest(),
+    rand_forest(others = list(probability = FALSE)),
     x = lending_club[, num_pred],
     y = lending_club$Class,
     engine = "ranger",
@@ -369,6 +374,8 @@ test_that('ranger classification prediction', {
     )
 
   xy_class_pred <- predict(xy_class_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  xy_class_pred <- colnames(xy_class_pred)[apply(xy_class_pred, 1, which.max)]
+  xy_class_pred <- factor(xy_class_pred, levels = levels(iris$Species))
 
   expect_equal(
     xy_class_pred,
@@ -376,9 +383,7 @@ test_that('ranger classification prediction', {
   )
 
   xy_prob_fit <-
-    rand_forest(
-      other = list(probability = TRUE)
-    ) %>%
+    rand_forest() %>%
     fit_xy(
       x = iris[, 1:4],
       y = iris$Species,
@@ -387,6 +392,8 @@ test_that('ranger classification prediction', {
     )
 
   xy_prob_pred <- predict(xy_prob_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  xy_prob_pred <- colnames(xy_prob_pred)[apply(xy_prob_pred, 1, which.max)]
+  xy_prob_pred <- factor(xy_prob_pred, levels = levels(iris$Species))
 
   expect_equal(
     xy_class_pred,
