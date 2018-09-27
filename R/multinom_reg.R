@@ -272,17 +272,6 @@ multi_predict._multnet <-
     tibble(.pred = pred)
   }
 
-check_glmnet_lambda <- function(dat, object) {
-  if (length(object$fit$lambda) > 1)
-    stop(
-      "`predict` doesn't work with multiple penalties (i.e. lambdas). ",
-      "Please specify a single value using `penalty = some_value` or use ",
-      "`multi_predict` to get multiple predictions per row of data.",
-      call. = FALSE
-    )
-  dat
-}
-
 # ------------------------------------------------------------------------------
 
 #' @importFrom utils globalVariables
