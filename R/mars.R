@@ -85,7 +85,7 @@ mars <-
       stop("`prod_degree` should be >= 1", call. = FALSE)
     if (is.numeric(num_terms) && num_terms < 0)
       stop("`num_terms` should be >= 1", call. = FALSE)
-    if (!does_it_vary(prune_method) &&
+    if (!is_varying(prune_method) &&
         !is.null(prune_method) &&
         !is.character(prune_method))
       stop("`prune_method` should be a single string value", call. = FALSE)

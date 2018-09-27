@@ -189,7 +189,7 @@ get_descr_xy <- function(x, y) {
 }
 
 has_exprs <- function(x) {
-  if(is.null(x) | does_it_vary(x) | is_missing_arg(x))
+  if(is.null(x) | is_varying(x) | is_missing_arg(x))
     return(FALSE)
   is_symbolic(x)
 }
