@@ -5,9 +5,12 @@
 \alias{type_sum.model_fit}
 \title{Succinct summary of parsnip object}
 \usage{
-\method{type_sum}{model_spec}(x, ...)
+\method{type_sum}{model_spec}(x)
 
-\method{type_sum}{model_fit}(x, ...)
+\method{type_sum}{model_fit}(x)
+}
+\arguments{
+\item{x}{A \code{model_spec} or \code{model_fit} object to summarise.}
 }
 \value{
 A character value.

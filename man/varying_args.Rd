@@ -44,7 +44,7 @@ rand_forest(others = list(sample.fraction = varying())) \%>\%
 
 rand_forest(
   others = list(
-    strata = expr(Class), 
+    strata = expr(Class),
     sampsize = c(varying(), varying())
   )
 ) \%>\%
