@@ -1,4 +1,9 @@
-#' @rdname predict.model_fit
+#' Other predict methods.
+#'
+#' These are internal functions not meant to be directly called by the user.
+#'
+#' @keywords internal
+#' @rdname other_predict
 #' @inheritParams predict.model_fit
 #' @method predict_class model_fit
 #' @export predict_class.model_fit
@@ -39,7 +44,8 @@ predict_class.model_fit <- function (object, new_data, ...) {
 }
 
 #' @export
-#' @rdname predict.model_fit
+#' @keywords internal
+#' @rdname other_predict
 #' @inheritParams predict.model_fit
 predict_class <- function (object, ...)
   UseMethod("predict_class")

@@ -1,4 +1,5 @@
-#' @rdname predict.model_fit
+#' @keywords internal
+#' @rdname other_predict
 #' @inheritParams predict.model_fit
 #' @method predict_classprob model_fit
 #' @export predict_classprob.model_fit
@@ -39,7 +40,8 @@ predict_classprob.model_fit <- function (object, new_data, ...) {
 }
 
 #' @export
-#' @rdname predict.model_fit
+#' @keywords internal
+#' @rdname other_predict
 #' @inheritParams predict.model_fit
 predict_classprob <- function (object, ...)
   UseMethod("predict_classprob")
