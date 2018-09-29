@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Control the fit function — fit_control • parsnip</title>
+<title>Other predict methods. — predict_class.model_fit • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,45 +93,72 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Control the fit function</h1>
+    <h1>Other predict methods.</h1>
     
-    <div class="hidden name"><code>fit_control.Rd</code></div>
+    <div class="hidden name"><code>other_predict.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Options can be passed to the <code><a href='http://www.rdocumentation.org/packages/generics/topics/generics'>fit()</a></code> function that control the output and
-computations</p>
+    <p>These are internal functions not meant to be directly called by the user.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>fit_control</span>(<span class='kw'>verbosity</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>catch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>verbosity</th>
-      <td><p>An integer where a value of zero indicates
-that no messages or output should be shown when packages are
-loaded or when the model is fit. A value of 1 means that package
-loading is quiet but model fits can produce output to the screen
-(depending on if they contain their own <code>verbose</code>-type
-argument). A value of 2 or more indicates that any output should
-be seen.</p></td>
+      <th>object</th>
+      <td><p>An object of class <code>model_fit</code></p></td>
     </tr>
     <tr>
-      <th>catch</th>
-      <td><p>A logical where a value of <code>TRUE</code> will evaluate
-the model inside of <code>try(, silent = TRUE)</code>. If the model fails,
-an object is still returned (without an error) that inherits the
-class "try-error".</p></td>
+      <th>new_data</th>
+      <td><p>A rectangular data object, such as a data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Ignored. To pass arguments to pass to the underlying
+function when <code><a href='predict.model_fit.html'>predict.model_fit(type = "raw")</a></code>,
+use the <code>opts</code> argument.</p></td>
+    </tr>
+    <tr>
+      <th>level</th>
+      <td><p>A single numeric value between zero and one for the
+interval estimates.</p></td>
+    </tr>
+    <tr>
+      <th>std_error</th>
+      <td><p>A single logical for wether the standard error should be
+returned (assuming that the model can compute it).</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A named list with the results of the function call</p>
     
 
   </div>
@@ -139,9 +166,7 @@ class "try-error".</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

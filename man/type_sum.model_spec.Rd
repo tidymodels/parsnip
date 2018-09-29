@@ -28,3 +28,4 @@ mode has not been declared or that the specification has
 For fitted models, either "\code{fit[x]}" or "\code{fit[+]}" are used
 where the "x" implies that the model fit failed in some way.
 }
+\keyword{internal}

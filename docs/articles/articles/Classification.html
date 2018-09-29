@@ -88,26 +88,28 @@
 <p>To demonstrate <code>parsnip</code> for classification models, the credit data will be used.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidymodels)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ──────────────────────────── tidymodels 0.0.1.9000 ──</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; ✔ purrr     0.2.5           ✔ broom     0.5.0      </span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; ✔ dplyr     0.7.99.9000     ✔ yardstick 0.0.1.9000 </span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ✔ rsample   0.0.2.9000      ✔ infer     0.3.1      </span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; ✔ recipes   0.1.3           ✔ dials     0.0.1.9000</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; possible</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ── Conflicts ──────────────────────────────────── tidymodels_conflicts() ──</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✖ scales::discard() masks purrr::discard()</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✖ rsample::fill()   masks tidyr::fill()</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✖ dplyr::filter()   masks stats::filter()</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✖ dplyr::lag()      masks stats::lag()</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ✖ recipes::step()   masks stats::step()</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">data</span>(credit_data)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; ✔ broom     0.5.0           ✔ purrr     0.2.5      </span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; ✔ dials     0.0.1.9000      ✔ recipes   0.1.3.9000 </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ✔ dplyr     0.7.99.9000     ✔ rsample   0.0.2      </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; ✔ infer     0.3.1           ✔ yardstick 0.0.1.9000 </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; ✔ probably  0.0.0.9000</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Conflicts ──────────────────────────────────── tidymodels_conflicts() ──</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✖ probably::as.factor()  masks base::as.factor()</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✖ probably::as.ordered() masks base::as.ordered()</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✖ purrr::discard()       masks scales::discard()</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✖ rsample::fill()        masks tidyr::fill()</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✖ dplyr::filter()        masks stats::filter()</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ✖ dplyr::lag()           masks stats::lag()</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; ✖ rsample::prepper()     masks recipes::prepper()</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; ✖ recipes::step()        masks stats::step()</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw">set.seed</span>(<span class="dv">7075</span>)</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">data_split &lt;-<span class="st"> </span><span class="kw">initial_split</span>(credit_data, <span class="dt">strata =</span> <span class="st">"Status"</span>, <span class="dt">p =</span> <span class="fl">0.75</span>)</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">credit_train &lt;-<span class="st"> </span><span class="kw">training</span>(data_split)</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">credit_test  &lt;-<span class="st"> </span><span class="kw">testing</span>(data_split)</a></code></pre></div>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw">data</span>(credit_data)</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="kw">set.seed</span>(<span class="dv">7075</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">data_split &lt;-<span class="st"> </span><span class="kw">initial_split</span>(credit_data, <span class="dt">strata =</span> <span class="st">"Status"</span>, <span class="dt">p =</span> <span class="fl">0.75</span>)</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">credit_train &lt;-<span class="st"> </span><span class="kw">training</span>(data_split)</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">credit_test  &lt;-<span class="st"> </span><span class="kw">testing</span>(data_split)</a></code></pre></div>
 <p>A single hidden layer neural network will be used to predict a person’s credit status. To do so, the columns of the predictor matrix should be numeric and on a common scale. <code>recipes</code> will be used to do so.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">credit_rec &lt;-<span class="st"> </span><span class="kw">recipe</span>(Status <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> credit_train) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw">step_knnimpute</span>(Home, Job, Marital, Income, Assets, Debt) <span class="op">%&gt;%</span></a>
@@ -158,25 +160,25 @@
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(Status) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_class</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized),</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="../../reference/predict.model_fit.html">predict_classprob</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(good)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="../../reference/other_predict.html">predict_class</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized),</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="../../reference/other_predict.html">predict_classprob</a></span>(nnet_fit, <span class="dt">new_data =</span> test_normalized) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(good)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">roc_auc</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet prob</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;   .metric .estimate</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1 roc_auc     0.818</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1 roc_auc     0.821</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;   .metric  .estimate</span></a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1 accuracy     0.797</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1 accuracy     0.798</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">conf_mat</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;       bad  175   88</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;       good 138  712</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;       bad  172   84</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;       good 141  716</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -13,6 +13,7 @@
 #' @return A character value.
 #' @importFrom tibble type_sum
 #' @method type_sum model_spec
+#' @keywords internal
 #' @export
 type_sum.model_spec <- function(x) {
   resolved <- TRUE
@@ -34,6 +35,7 @@ type_sum.model_spec <- function(x) {
 #' @rdname type_sum.model_spec
 #' @importFrom tibble type_sum
 #' @method type_sum model_fit
+#' @keywords internal
 #' @export
 type_sum.model_fit <- function(x) {
   resolved <- TRUE
