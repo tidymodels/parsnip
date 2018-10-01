@@ -74,69 +74,6 @@ test_that('randomForest classification execution', {
 
 })
 
-
-test_that('randomForest classification prediction', {
-
-  skip_if_not_installed("randomForest")
-
-  xy_fit <- fit_xy(
-    lc_basic,
-    x = lending_club[, num_pred],
-    y = lending_club$Class,
-    engine = "randomForest",
-    control = ctrl
-  )
-
-  xy_pred <- predict(xy_fit$fit, newdata = lending_club[1:6, num_pred])
-  xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, predict_class(xy_fit, new_data = lending_club[1:6, num_pred]))
-
-  form_fit <- fit(
-    lc_basic,
-    Class ~ funded_amnt + int_rate,
-    data = lending_club,
-    engine = "randomForest",
-    control = ctrl
-  )
-
-  form_pred <- predict(form_fit$fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")])
-  form_pred <- unname(form_pred)
-  expect_equal(form_pred, predict_class(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
-})
-
-test_that('randomForest classification probabilities', {
-
-  skip_if_not_installed("randomForest")
-
-  xy_fit <- fit_xy(
-    lc_basic,
-    x = lending_club[, num_pred],
-    y = lending_club$Class,
-    engine = "randomForest",
-    control = ctrl
-  )
-
-  xy_pred <- predict(xy_fit$fit, newdata = lending_club[1:6, num_pred], type = "prob")
-  xy_pred <- as_tibble(as.data.frame(xy_pred))
-  expect_equal(xy_pred, predict_classprob(xy_fit, new_data = lending_club[1:6, num_pred]))
-
-  one_row <- predict_classprob(xy_fit, new_data = lending_club[1, num_pred])
-  expect_equivalent(xy_pred[1,], one_row)
-
-  form_fit <- fit(
-    lc_basic,
-    Class ~ funded_amnt + int_rate,
-    data = lending_club,
-    engine = "randomForest",
-    control = ctrl
-  )
-
-  form_pred <- predict(form_fit$fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")], type = "prob")
-  form_pred <- as_tibble(as.data.frame(form_pred))
-  expect_equal(form_pred, predict_classprob(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
-})
-
-
 ###################################################################
 
 car_form <- as.formula(mpg ~ .)
@@ -201,21 +138,3 @@ test_that('randomForest regression execution', {
 
 })
 
-test_that('randomForest regression prediction', {
-
-  skip_if_not_installed("randomForest")
-
-  xy_fit <- fit_xy(
-    car_basic,
-    x = mtcars,
-    y = mtcars$mpg,
-    engine = "randomForest",
-    control = ctrl
-  )
-
-  xy_pred <- predict(xy_fit$fit, newdata = tail(mtcars))
-  xy_pred <- unname(xy_pred)
-
-  expect_equal(xy_pred, predict_num(xy_fit, new_data = tail(mtcars)))
-
-})

@@ -91,10 +91,10 @@ test_that('flexsurv execution', {
 
   library(flexsurv)
   data(bc)
-  
+
   set.seed(4566)
   bc$group2 <- bc$group
-  
+
   # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
