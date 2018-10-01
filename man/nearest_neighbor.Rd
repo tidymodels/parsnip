@@ -8,6 +8,10 @@ nearest_neighbor(mode = "unknown", neighbors = NULL,
   weight_func = NULL, dist_power = NULL, others = list(), ...)
 }
 \arguments{
+\item{mode}{A single character string for the type of model.
+Possible values for this model are \code{"unknown"}, \code{"regression"}, or
+\code{"classification"}.}
+
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}).}
 
