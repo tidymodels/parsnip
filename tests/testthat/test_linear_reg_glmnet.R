@@ -64,10 +64,13 @@ test_that('glmnet prediction, single lambda', {
   uni_pred <-
     predict(res_xy$fit,
             newx = as.matrix(iris[1:5, num_pred]),
-            s = iris_basic$spec$args$penalty)
+            s = 0.1)
   uni_pred <- unname(uni_pred[,1])
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equal(
+    safepredict::as_pred_tibble(uni_pred),
+    predict(res_xy, iris[1:5, num_pred], penalty = 0.1)
+  )
 
   res_form <- fit(
     iris_basic,
@@ -83,11 +86,16 @@ test_that('glmnet prediction, single lambda', {
   form_pred <-
     predict(res_form$fit,
             newx = form_pred,
-            s = res_form$spec$spec$args$penalty)
+            s = 0.1)
   form_pred <- unname(form_pred[,1])
-  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(
+    safepredict::as_pred_tibble(form_pred),
+    predict(res_form, iris[1:5, c("Sepal.Width", "Species")], penalty = 0.1))
 })
 
+
+# for now this will just check that arguments are appropriately passed to
+# safe_predict. correctness checks will live in safe_predict itself.
 
 test_that('glmnet prediction, multiple lambda', {
 
@@ -103,15 +111,15 @@ test_that('glmnet prediction, multiple lambda', {
     y = iris$Sepal.Length
   )
 
-  mult_pred <-
-    predict(res_xy$fit,
-            newx = as.matrix(iris[1:5, num_pred]),
-            s = res_xy$spec$args$penalty)
-  mult_pred <- stack(as.data.frame(mult_pred))
-  mult_pred$lambda <- rep(res_xy$spec$args$penalty, each = 5)
-  mult_pred <- mult_pred[,-2]
+  mpreds <- multi_predict(res_xy, iris[1:5, num_pred], type = "response")
+  obs_1_pred <- mpreds$.pred[[1]]
 
-  expect_equal(mult_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  # default case: one prediction at each value of lambda
+  expect_equal(nrow(obs_1_pred), length(res_xy$fit$lambda))
+
+  expect_error(
+    multi_predict(res_xy, iris[1:5, num_pred], type = "class")
+  )
 
   res_form <- fit(
     iris_mult,
@@ -120,71 +128,9 @@ test_that('glmnet prediction, multiple lambda', {
     engine = "glmnet",
     control = ctrl
   )
-
-  form_mat <- model.matrix(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
-  form_mat <- form_mat[1:5, -1]
-
-  form_pred <-
-    predict(res_form$fit,
-            newx = form_mat,
-            s = res_form$spec$args$penalty)
-  form_pred <- stack(as.data.frame(form_pred))
-  form_pred$lambda <- rep(res_form$spec$args$penalty, each = 5)
-  form_pred <- form_pred[,-2]
-  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
-
-test_that('glmnet prediction, all lambda', {
-
-  skip_if_not_installed("glmnet")
-
-  iris_all <- linear_reg(mixture = .3)
-
-  res_xy <- fit_xy(
-    iris_all,
-    engine = "glmnet",
-    control = ctrl,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length
-  )
-
-  all_pred <- predict(res_xy$fit, newx = as.matrix(iris[1:5, num_pred]))
-  all_pred <- stack(as.data.frame(all_pred))
-  all_pred$lambda <- rep(res_xy$fit$lambda, each = 5)
-  all_pred <- all_pred[,-2]
-
-  expect_equal(all_pred, predict_num(res_xy, iris[1:5, num_pred]))
-
-    # test that the lambda seq is in the right order (since no docs on this)
-  tmp_pred <- predict(res_xy$fit, newx = as.matrix(iris[1:5, num_pred]),
-                      s = res_xy$fit$lambda[5])[,1]
-  expect_equal(all_pred$values[all_pred$lambda == res_xy$fit$lambda[5]],
-               unname(tmp_pred))
-
-  res_form <- fit(
-    iris_all,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
-    engine = "glmnet",
-    control = ctrl
-  )
-
-  form_mat <- model.matrix(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
-  form_mat <- form_mat[1:5, -1]
-
-  form_pred <- predict(res_form$fit, newx = form_mat)
-  form_pred <- stack(as.data.frame(form_pred))
-  form_pred$lambda <- rep(res_form$fit$lambda, each = 5)
-  form_pred <- form_pred[,-2]
-
-  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
-})
-
 
 test_that('submodel prediction', {
-
-  skip_if_not_installed("earth")
-  library(earth)
 
   reg_fit <-
     linear_reg() %>%
@@ -192,7 +138,7 @@ test_that('submodel prediction', {
 
   pred_glmn <- predict(reg_fit$fit, as.matrix(mtcars[1:4, -1]), s = .1)
 
-  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], penalty = .1)
+  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], params = .1)
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred"]], unname(pred_glmn[,1]))
 })

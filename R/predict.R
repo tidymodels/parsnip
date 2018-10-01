@@ -95,6 +95,11 @@ predict.model_fit <- function (
   )
 }
 
+#' @export
+multi_predict.model_fit <- function(object, ...) {
+  multi_predict(object$fit, ...)
+}
+
 pred_types <- c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int")
 
 #' @importFrom glue glue_collapse
