@@ -274,7 +274,10 @@ test_that('lm prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equivalent(
+    safepredict::as_pred_tibble(uni_pred),
+    predict(res_xy, iris[1:5, num_pred], type = "response")
+  )
 
   res_form <- fit(
     iris_basic,
@@ -283,7 +286,11 @@ test_that('lm prediction', {
     engine = "lm",
     control = ctrl
   )
-  expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]))
+
+  expect_equal(
+    safepredict::as_pred_tibble(inl_pred),
+    predict(res_form, iris[1:5, ], type = "response")
+  )
 
   res_mv <- fit(
     iris_basic,
@@ -292,7 +299,11 @@ test_that('lm prediction', {
     control = ctrl,
     engine = "lm"
   )
-  expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
+
+  expect_equal(
+    safepredict::as_pred_tibble(mv_pred, paste0(".pred_", colnames(mv_pred))),
+    predict(res_mv, iris[1:5,])
+  )
 })
 
 

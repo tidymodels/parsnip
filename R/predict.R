@@ -72,7 +72,7 @@
 #'    mtcars %>% slice(1:3) %>% select(-mpg),
 #'    type = "raw",
 #'    opts = list(type = "terms"))
-#' @importFrom stats predict
+#' @importFrom safepredict safe_predict
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
@@ -83,13 +83,11 @@ predict.model_fit <- function (
   # - make sure the mode matches up
   # - do form / x/y translate with prepare_newdata
 
-  type <- check_pred_type(object, type)
-
   # is this enough preprocessing? or did I break something with the removals?
   new_data <- prepare_data(object, new_data)
 
-  safe_predict(
-    object = object,
+  safepredict::safe_predict(
+    object = object$fit,
     new_data = new_data,
     type = type,
     opts = opts,
