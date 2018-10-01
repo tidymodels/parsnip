@@ -25,7 +25,8 @@ Imports:
     glue,
     magrittr,
     stats,
-    tidyr
+    tidyr,
+    safepredict (>= 0.0.0.9000)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0.9000
 Suggests: 
@@ -37,6 +38,7 @@ Suggests:
     C50,
     xgboost,
     covr
-Remotes:
+Remotes: 
     tidyverse/rlang,
-    r-lib/generics
+    r-lib/generics,
+    alexpghayes/safepredict

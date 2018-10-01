@@ -309,7 +309,7 @@ xgb_train <- function(
     for (i in names(others))
       call[[i]] <- others[[i]]
 
-  eval_tidy(call, env = current_env())
+  eval_tidy(call, env = rlang::current_env())
 }
 
 

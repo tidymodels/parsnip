@@ -4,6 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{fit}
+\alias{multi_predict}
 \alias{\%>\%}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -15,5 +16,7 @@ below to see their documentation.
   \item{generics}{\code{\link[generics]{fit}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{safepredict}{\code{\link[safepredict]{multi_predict}}}
 }}
 

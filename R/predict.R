@@ -81,6 +81,7 @@
 #'   type = "raw",
 #'   opts = list(type = "terms")
 #' )
+#'
 #' @importFrom safepredict safe_predict
 #' @method predict model_fit
 #' @export predict.model_fit
@@ -104,9 +105,17 @@ predict.model_fit <- function (
   )
 }
 
+#' TODO
+#'
+#' @param object TODO
+#' @param ... TODO
+#'
+#' @return TODO
+#'
+#' @importFrom safepredict multi_predict
 #' @export
 multi_predict.model_fit <- function(object, ...) {
-  multi_predict(object$fit, ...)
+  safepredict::multi_predict(object$fit, ...)
 }
 
 pred_types <- c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int")

@@ -71,7 +71,7 @@ convert_form_to_xy_fit <-function(
   if (indicators) {
     x <- model.matrix(mod_terms, mod_frame, contrasts)
   } else {
-    # this still ignores -vars in formula ¯\_(ツ)_/¯
+    # this still ignores -vars in formula
     x <- model.frame(mod_terms, data)
     y_cols <- attr(mod_terms, "response")
     if (length(y_cols) > 0)

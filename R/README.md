@@ -75,11 +75,7 @@ The same is true for quosures.
 
 ## Prediction Modules
 
-Making predictions is done in a manner similar to fitting models; a call is created in the same way. However, there are additional complexities. 
-
-First, the data or model fit object may require some preprocessing to make the predict function work. This does _not_ include executing a formula method on the data but may include coercing the new data into an appropriate format. It can also be used to check for specific fit object requirements. For example, an additional option is required for the `ranger` package to compute class probabilities. The `pre` element of a prediction module can be used to check that the relavant option is set correctly. 
-
-Second, there is a high likelihood that the results of executing the prediction code will require post-processing to put the results into a usable format. `ranger`, for example, returns an object of specific class that contains the predicted values for the new data. The `post` element of the prediction module would extract this value and put it into a more consistent format. 
+TODO: Prediction is handed off to the `safepredict` package.
 
 The postprocessor can also be used to coerce the results into a [_tidy format_](https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values). 
 
