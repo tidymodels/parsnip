@@ -129,6 +129,8 @@ print.nearest_neighbor <- function(x, ...) {
 #' @export
 update.nearest_neighbor <- function(object,
                                     neighbors = NULL,
+                                    weight_func = NULL,
+                                    dist_power = NULL,
                                     others = list(),
                                     fresh = FALSE,
                                     ...) {
