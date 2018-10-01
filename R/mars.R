@@ -59,6 +59,10 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "regression"), "earth")}
 #'
+#' Note that, when the model is fit, the \pkg{earth} package only has its
+#'  namespace loaded. However, if `multi_predict` is used, the package is
+#'  attached.
+#'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples

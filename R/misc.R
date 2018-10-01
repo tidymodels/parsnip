@@ -79,13 +79,8 @@ model_printer <- function(x, ...) {
 }
 
 load_libs <- function(x, quiet) {
-  if (quiet) {
-    for (pkg in x$method$library)
-      suppressPackageStartupMessages(library(pkg, character.only = TRUE))
-  } else {
-    for (pkg in x$method$library)
-      library(pkg, character.only = TRUE)
-  }
+  for (pkg in x$method$library)
+    suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
   invisible(x)
 }
 

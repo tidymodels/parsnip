@@ -121,7 +121,7 @@ test_that('bad input', {
   expect_error(boost_tree(trees = -1))
   expect_error(boost_tree(min_n = -10))
   expect_error(translate(boost_tree(), engine = "wat?"))
-  expect_warning(expect_error(translate(boost_tree(), engine = NULL)))
+  expect_warning(translate(boost_tree(), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))
 })
 

@@ -8,13 +8,11 @@ data("lending_club")
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 
-lc_basic <- rand_forest(mode = "classification")
-lc_ranger <- rand_forest(mode = "classification", others = list(seed = 144))
+lc_basic <- rand_forest()
+lc_ranger <- rand_forest(others = list(seed = 144))
 
-bad_ranger_cls <- rand_forest(mode = "classification",
-                              others = list(min.node.size = -10))
-bad_rf_cls <- rand_forest(mode = "classification",
-                          others = list(sampsize = -10))
+bad_ranger_cls <- rand_forest(others = list(min.node.size = -10))
+bad_rf_cls <- rand_forest(others = list(sampsize = -10))
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -82,12 +80,10 @@ test_that('ranger classification execution', {
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- rand_forest(mode = "regression")
+car_basic <- rand_forest()
 
-bad_ranger_reg <- rand_forest(mode = "regression",
-                              others = list(min.node.size = -10))
-bad_rf_reg <- rand_forest(mode = "regression",
-                          others = list(sampsize = -10))
+bad_ranger_reg <- rand_forest(others = list(min.node.size = -10))
+bad_rf_reg <- rand_forest(others = list(sampsize = -10))
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -146,7 +142,7 @@ test_that('additional descriptor tests', {
   skip_if_not_installed("ranger")
 
   quoted_xy <- fit_xy(
-    rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = quote(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
     engine = "ranger",
@@ -155,7 +151,7 @@ test_that('additional descriptor tests', {
   expect_equal(quoted_xy$fit$mtry, 4)
 
   quoted_f <- fit(
-    rand_forest(mode = "classification", mtry = quote(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = quote(floor(sqrt(n_cols)) + 1)),
     mpg ~ ., data = mtcars,
     engine = "ranger",
     control = ctrl
@@ -163,7 +159,7 @@ test_that('additional descriptor tests', {
   expect_equal(quoted_f$fit$mtry, 4)
 
   expr_xy <- fit_xy(
-    rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = expr(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
     engine = "ranger",
@@ -172,7 +168,7 @@ test_that('additional descriptor tests', {
   expect_equal(expr_xy$fit$mtry, 4)
 
   expr_f <- fit(
-    rand_forest(mode = "classification", mtry = expr(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = expr(floor(sqrt(n_cols)) + 1)),
     mpg ~ ., data = mtcars,
     engine = "ranger",
     control = ctrl
@@ -185,7 +181,6 @@ test_that('additional descriptor tests', {
 
   quoted_other_xy <- fit_xy(
     rand_forest(
-      mode = "classification",
       mtry = quote(2),
       others = list(class.weights = quote(c(min(n_levs), 20, 10)))
     ),
@@ -199,7 +194,6 @@ test_that('additional descriptor tests', {
 
   quoted_other_f <- fit(
     rand_forest(
-      mode = "classification",
       mtry = expr(2),
       others = list(class.weights = quote(c(min(n_levs), 20, 10)))
     ),
@@ -212,7 +206,6 @@ test_that('additional descriptor tests', {
 
   expr_other_xy <- fit_xy(
     rand_forest(
-      mode = "classification",
       mtry = expr(2),
       others = list(class.weights = expr(c(min(n_levs), 20, 10)))
     ),
@@ -226,7 +219,6 @@ test_that('additional descriptor tests', {
 
   expr_other_f <- fit(
     rand_forest(
-      mode = "classification",
       mtry = expr(2),
       others = list(class.weights = expr(c(min(n_levs), 20, 10)))
     ),

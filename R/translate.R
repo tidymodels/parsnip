@@ -44,12 +44,12 @@ translate <- function (x, ...)
 #' @export
 translate.default <- function(x, engine, ...) {
   check_empty_ellipse(...)
+
   x$engine <- engine
   x <- check_engine(x)
 
-  # check for installs
-
-  x$method <- get_model_info(x, x$engine)
+  if (is.null(x$method))
+    x <- get_method(x, engine, ...)
 
   arg_key <- get_module(specific_model(x))
 
@@ -80,6 +80,15 @@ translate.default <- function(x, engine, ...) {
   # put in correct order
   x
 }
+
+get_method <- function(x, engine, ...) {
+  check_empty_ellipse(...)
+  x$engine <- engine
+  x <- check_engine(x)
+  x$method <- get_model_info(x, x$engine)
+  x
+}
+
 
 get_module <- function(nm) {
   arg_key <- try(
@@ -115,4 +124,15 @@ print.model_spec <- function(x, ...) {
     print(show_call(x))
   }
   invisible(x)
+}
+
+check_mode <- function(object, lvl) {
+  if (object$mode == "unknown") {
+    if (!is.null(lvl)) {
+      object$mode <- "classification"
+    } else {
+      object$mode <- "regression"
+    }
+  }
+  object
 }

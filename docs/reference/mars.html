@@ -193,12 +193,16 @@ model, the template of the fit calls are:</p>
 <p><span class="pkg">earth</span> classification</p>
 <p><pre>
 earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    glm = list(family = stats::binomial))
+    glm = list(family = stats::binomial), keepxy = TRUE)
 </pre></p>
 <p><span class="pkg">earth</span> regression</p>
 <p><pre>
-earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+    keepxy = TRUE)
 </pre></p>
+<p>Note that, when the model is fit, the <span class="pkg">earth</span> package only has its
+namespace loaded. However, if <code>multi_predict</code> is used, the package is
+attached.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
