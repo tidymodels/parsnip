@@ -1,6 +1,80 @@
+# TODO) If implementing `class::knn()`, mention that it does not have
+# the distance param because it uses Euclidean distance. And no `weight_func`
+# param.
+
+#' General Interface for K-Nearest Neighbor Models
+#'
+#' `nearest_neighbor()` is a way to generate a _specification_ of a model
+#'  before fitting and allows the model to be created using
+#'  different packages in R. The main arguments for the
+#'  model are:
+#' \itemize{
+#'   \item \code{neighbors}: The number of neighbors considered at
+#'   each prediction.
+#'   \item \code{weight_func}: The type of kernel function that weights the
+#'   distances between samples.
+#'   \item \code{dist_power}: The parameter used when calculating the Minkowski
+#'   distance. This corresponds to the Manhattan distance with `dist_power = 1`
+#'   and the Euclidean distance with `dist_power = 2`.
+#' }
+#' These arguments are converted to their specific names at the
+#'  time that the model is fit. Other options and argument can be
+#'  set using the `others` argument. If left to their defaults
+#'  here (`NULL`), the values are taken from the underlying model
+#'  functions. If parameters need to be modified, `update()` can be used
+#'  in lieu of recreating the object from scratch.
+#'
+#' @param neighbors A single integer for the number of neighbors
+#' to consider (often called `k`).
+#'
+#' @param weight_func A single character for the type of kernel function used
+#' to weight distances between samples. Valid choices are: `"rectangular"`,
+#' `"triangular"`, `"epanechnikov"`, `"biweight"`, `"triweight"`,
+#' `"cos"`, `"inv"`, `"gaussian"`, `"rank"`, or `"optimal"`.
+#'
+#' @param dist_power A single number for the parameter used in
+#' calculating Minkowski distance.
+#'
+#' @param others A named list of arguments to be used by the
+#'  underlying models (e.g., `kknn::train.kknn`). These are not evaluated
+#'  until the model is fit and will be substituted into the model
+#'  fit expression.
+#'
+#' @param ... Used for S3 method consistency. Any arguments passed to
+#'  the ellipses will result in an error. Use `others` instead.
+#'
+#' @details
+#' The model can be created using the `fit()` function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"kknn"`
+#' }
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `others`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{kknn}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
+#'
+#' @note
+#' For `kknn`, the underlying modeling function used is a restricted
+#' version of `train.kknn()` and not `kknn()`. It is set up in this way so that
+#' `parsnip` can utilize the underlying `predict.train.kknn` method to predict
+#' on new data.
+#'
+#' @seealso [varying()], [fit()]
+#'
+#' @examples
+#' nearest_neighbor()
+#'
 #' @export
 nearest_neighbor <- function(mode = "unknown",
                              neighbors = NULL,
+                             weight_func = NULL,
+                             dist_power = NULL,
                              others = list(),
                              ...) {
 
@@ -17,17 +91,18 @@ nearest_neighbor <- function(mode = "unknown",
     stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
   }
 
-  args <- list(neighbors = neighbors)
+  if(is.character(weight_func) && length(weight_func) > 1) {
+    stop("The length of `weight_func` must be 1.", call. = FALSE)
+  }
+
+  args <- list(
+    neighbors = neighbors,
+    weight_func = weight_func,
+    dist_power = dist_power
+  )
 
   no_value <- !vapply(others, is.null, logical(1))
   others <- others[no_value]
-
-  # is this the right place?
-  # have to check if length = 1 b/c kernel is one of the parameters train.kknn()
-  # optimizes over if multiple are given
-  if(!is.null(others[["kernel"]]) && length(others[["kernel"]]) > 1) {
-    stop("The length of `kernel` must be 1.", call. = FALSE)
-  }
 
   # write a constructor function
   out <- list(args = args, others = others,
@@ -64,7 +139,15 @@ update.nearest_neighbor <- function(object,
     stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
   }
 
-  args <- list(neighbors = neighbors)
+  if(is.character(weight_func) && length(weight_func) > 1) {
+    stop("The length of `weight_func` must be 1.", call. = FALSE)
+  }
+
+  args <- list(
+    neighbors = neighbors,
+    weight_func = weight_func,
+    dist_power = dist_power
+  )
 
   if (fresh) {
     object$args <- args

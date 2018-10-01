@@ -1,7 +1,7 @@
 nearest_neighbor_arg_key <- data.frame(
-  kknn = c("ks"),
-  stringsAsFactors = FALSE,
-  row.names =  c("neighbors")
+  kknn      =  c("ks",        "kernel",      "distance"),
+  row.names =  c("neighbors", "weight_func", "dist_power"),
+  stringsAsFactors = FALSE
 )
 
 nearest_neighbor_modes <- c("classification", "regression", "unknown")
@@ -20,10 +20,7 @@ nearest_neighbor_kknn_data <-
       interface = "formula",
       protect = c("formula", "data", "kmax"), # kmax is not allowed
       func = c(pkg = "kknn", fun = "train.kknn"),
-      defaults =
-        list(
-          kernel = "optimal"
-        )
+      defaults = list()
     ),
     pred = list(
       # seems unnecessary here as the predict_num catches it based on the
