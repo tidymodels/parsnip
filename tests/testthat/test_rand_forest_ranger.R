@@ -11,7 +11,7 @@ num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <- rand_forest()
 lc_ranger <- rand_forest(others = list(seed = 144))
 
-bad_ranger_cls <- rand_forest(others = list(min.node.size = -10))
+bad_ranger_cls <- rand_forest(others = list(replace = "bad"))
 bad_rf_cls <- rand_forest(others = list(sampsize = -10))
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
@@ -160,7 +160,7 @@ num_pred <- names(mtcars)[3:6]
 
 car_basic <- rand_forest()
 
-bad_ranger_reg <- rand_forest(others = list(min.node.size = -10))
+bad_ranger_reg <- rand_forest(others = list(replace = "bad"))
 bad_rf_reg <- rand_forest(others = list(sampsize = -10))
 
 ctrl <- list(verbosity = 1, catch = FALSE)

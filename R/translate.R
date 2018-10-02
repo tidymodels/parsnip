@@ -59,7 +59,8 @@ translate.default <- function(x, engine, ...) {
   # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
   # being altered
-  x$others <- check_others(x$others, x$method$fit)
+  eng_arg_key <- arg_key[[x$engine]]
+  x$others <- check_others(x$others, x$method$fit, eng_arg_key)
 
   # keep only modified args
   modifed_args <- !vapply(actual_args, null_value, lgl(1))
