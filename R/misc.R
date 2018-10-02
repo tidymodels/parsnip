@@ -67,19 +67,19 @@ model_printer <- function(x, ...) {
     if (!is.null(x$method$fit_call)) {
       cat("Fit function:\n")
       print(x$method$fit_call)
-      if (length(x$method$library) > 0) {
-        if (length(x$method$library) > 1)
+      if (length(x$method$libs) > 0) {
+        if (length(x$method$libs) > 1)
           cat("\nRequired packages:\n")
         else
           cat("\nRequired package: ")
-        cat(paste0(x$method$library, collapse = ", "), "\n")
+        cat(paste0(x$method$libs, collapse = ", "), "\n")
       }
     }
   }
 }
 
 load_libs <- function(x, quiet) {
-  for (pkg in x$method$library)
+  for (pkg in x$method$libs)
     suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
   invisible(x)
 }
