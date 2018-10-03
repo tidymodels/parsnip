@@ -15,7 +15,7 @@ Possible values for this model are \code{"unknown"}, \code{"regression"}, or
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}).}
 
-\item{weight_func}{A single character for the type of kernel function used
+\item{weight_func}{A \emph{single} character for the type of kernel function used
 to weight distances between samples. Valid choices are: \code{"rectangular"},
 \code{"triangular"}, \code{"epanechnikov"}, \code{"biweight"}, \code{"triweight"},
 \code{"cos"}, \code{"inv"}, \code{"gaussian"}, \code{"rank"}, or \code{"optimal"}.}
@@ -64,7 +64,7 @@ model fit call. These can be changed by using the \code{others}
 argument to pass in the preferred values. For this type of
 model, the template of the fit calls are:
 
-\pkg{kknn}
+\pkg{kknn} (classification or regression)
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
 }
@@ -72,7 +72,8 @@ model, the template of the fit calls are:
 For \code{kknn}, the underlying modeling function used is a restricted
 version of \code{train.kknn()} and not \code{kknn()}. It is set up in this way so that
 \code{parsnip} can utilize the underlying \code{predict.train.kknn} method to predict
-on new data.
+on new data. This also means that a single value of that function's
+\code{kernel} argument (a.k.a \code{weight_func} here) can be supplied
 }
 \examples{
 nearest_neighbor()
