@@ -77,5 +77,14 @@ nearest_neighbor_kknn_data <-
           newdata = quote(new_data),
           type = "prob"
         )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data)
+        )
     )
   )
