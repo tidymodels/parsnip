@@ -109,11 +109,11 @@ varying_args.step <- function(x, id = NULL, ...) {
 
   exclude <-
     c("terms", "role", "trained", "skip", "na.rm", "impute_with", "seed",
-      "prefix", "naming", "denom", "outcome")
+      "prefix", "naming", "denom", "outcome", "id")
   x <- x[!(names(x) %in% exclude)]
   x <- x[!map_lgl(x, is.null)]
-  res <- map(x, is_varying)
-  res <- map_lgl(res, find_varying)
+  res <- map(x, find_varying)
+  res <- map_lgl(res, any)
   tibble(
     name = names(res),
     varying = unname(res),
