@@ -2,6 +2,8 @@ library(testthat)
 context("nearest neighbor execution with kknn")
 library(parsnip)
 library(rlang)
+library(tibble)
+library(kknn)  # needed for formula interface to expose kknn::contr.dummy
 
 ###################################################################
 
@@ -72,7 +74,10 @@ test_that('kknn prediction', {
     newdata = iris[1:5, num_pred]
   )
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equivalent(
+    tibble(.pred = uni_pred),
+    predict(res_xy, iris[1:5, num_pred])
+  )
 
   # nominal
   res_xy_nom <- fit_xy(
@@ -88,7 +93,14 @@ test_that('kknn prediction', {
     newdata = iris[1:5, c("Sepal.Length", "Petal.Width")]
   )
 
-  expect_equal(uni_pred_nom, predict_class(res_xy_nom, iris[1:5, c("Sepal.Length", "Petal.Width")]))
+  expect_equivalent(
+    tibble(.pred = uni_pred_nom),
+    predict(
+      res_xy_nom,
+      iris[1:5, c("Sepal.Length", "Petal.Width")],
+      type = "class"
+    )
+  )
 
   # continuous - formula interface
   res_form <- fit(
@@ -104,5 +116,8 @@ test_that('kknn prediction', {
     newdata = iris[1:5,]
   )
 
-  expect_equal(form_pred, predict_num(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equivalent(
+    tibble(.pred = form_pred),
+    predict(res_form, iris[1:5, c("Sepal.Width", "Species")])[, 1]
+  )
 })
