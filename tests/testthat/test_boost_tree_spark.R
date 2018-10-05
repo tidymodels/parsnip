@@ -42,6 +42,9 @@ test_that('spark execution', {
     regexp = NA
   )
 
+  expect_silent(form_pred <- predict(spark_reg_fit, iris_bt_te))
+  check_predict_basic(form_pred, iris[  1:4 , -1])
+
   # check for reproducibility and passing extra arguments
   expect_error(
     spark_reg_fit_dup <-

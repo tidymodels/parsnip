@@ -126,6 +126,10 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(form_pred <- predict(res, iris))
+  check_predict_basic(form_pred, iris)
+
   expect_error(
     res <- fit_xy(
       iris_basic,
@@ -136,6 +140,9 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(form_pred <- predict(res, iris[, num_pred]))
+  check_predict_basic(form_pred, iris[, num_pred])
 
   expect_error(
     res <- fit(
@@ -159,6 +166,9 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(form_pred <- predict(res, iris))
+  check_predict_basic(form_pred, iris)
 
 })
 

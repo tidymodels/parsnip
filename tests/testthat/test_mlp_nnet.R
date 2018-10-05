@@ -27,6 +27,10 @@ test_that('nnet execution, classification', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, iris))
+  check_predict_basic(pred, iris)
+
   expect_error(
     res <- parsnip::fit_xy(
       iris_nnet,
@@ -79,6 +83,9 @@ test_that('nnet execution, regression', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, mtcars))
+  check_predict_basic(pred, mtcars)
 
   expect_error(
     res <- parsnip::fit_xy(

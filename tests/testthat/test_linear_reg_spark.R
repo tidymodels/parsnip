@@ -22,7 +22,7 @@ test_that('spark execution', {
   skip_if(inherits(sc, "try-error"))
 
   iris_linreg_tr <- copy_to(sc, iris[-(1:4),   ], "iris_linreg_tr", overwrite = TRUE)
-  iris_linreg_te <- copy_to(sc, iris[  1:4 , -1], "iris_linreg_te", overwrite = TRUE)
+  iris_linreg_te <- copy_to(sc, iris[1:4 , -1], "iris_linreg_te", overwrite = TRUE)
 
   expect_error(
     spark_fit <-
@@ -36,20 +36,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_error(
-    spark_pred <- predict(spark_fit, iris_linreg_te),
-    regexp = NA
-  )
-
-  expect_error(
-    spark_pred_num <- predict_num(spark_fit, iris_linreg_te),
-    regexp = NA
-  )
-
-  lm_fit <- lm(Sepal.Length ~ ., data = iris[-(1:4),   ])
-  lm_pred <- unname(predict(lm_fit, iris[  1:4 , -1]))
-
-  expect_equal(as.data.frame(spark_pred)$pred, lm_pred)
-  expect_equal(as.data.frame(spark_pred_num)$pred, lm_pred)
+  expect_silent(form_pred <- predict(spark_fit, iris_linreg_te))
+  check_predict_basic(form_pred, iris[1:4 , -1])
 })
 

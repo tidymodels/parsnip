@@ -15,7 +15,7 @@ test_that('glmnet execution', {
   skip_if_not_installed("glmnet")
 
   expect_error(
-    fit_xy(
+    res <- fit_xy(
       multinom_reg(),
       engine = "glmnet",
       control = ctrl,
@@ -24,6 +24,9 @@ test_that('glmnet execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, iris[, 1:4], penalty = 1))
+  check_predict_basic(pred, iris)
 
   glmnet_xy_catch <- fit_xy(
     multinom_reg(),

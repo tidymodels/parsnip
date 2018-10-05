@@ -33,7 +33,7 @@ test_that('randomForest classification execution', {
   # )
 
   expect_error(
-    fit_xy(
+    res <- fit_xy(
       lc_basic,
       engine = "randomForest",
       control = ctrl,
@@ -42,6 +42,9 @@ test_that('randomForest classification execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, lending_club[, num_pred]))
+  check_predict_basic(pred, lending_club[, num_pred])
 
   expect_error(
     fit(
@@ -107,7 +110,7 @@ test_that('randomForest regression execution', {
   # )
 
   expect_error(
-    fit_xy(
+    res <- fit_xy(
       car_basic,
       x = mtcars,
       y = mtcars$mpg,
@@ -116,6 +119,9 @@ test_that('randomForest regression execution', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, mtcars))
+  check_predict_basic(pred, mtcars)
 
   # passes interactively but not on R CMD check
   # randomForest_form_catch <- fit(

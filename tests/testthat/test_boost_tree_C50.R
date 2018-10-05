@@ -5,13 +5,16 @@ library(tibble)
 
 ###################################################################
 
+ctrl <- fit_control(verbosity = 1, catch = FALSE)
+caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
+quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+
+###################################################################
+
 data("lending_club")
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <- boost_tree(mode = "classification")
-ctrl <- fit_control(verbosity = 1, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
-quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('C5.0 execution', {
 
@@ -67,3 +70,31 @@ test_that('C5.0 execution', {
   )
   expect_true(inherits(C5.0_xy_catch$fit, "try-error"))
 })
+
+test_that("C5.0 prediction", {
+
+  skip_if_not_installed("C50")
+
+  form_fit <- fit(
+    lc_basic,
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    engine = "C5.0"
+  )
+
+  expect_silent(form_pred <- predict(form_fit, lending_club))
+  check_predict_basic(form_pred, lending_club)
+
+  xy_fit <- fit_xy(
+    lc_basic,
+    x = lending_club[, num_pred],
+    y = lending_club$Class,
+    engine = "C5.0",
+    control = ctrl
+  )
+
+  passed_data <- lending_club[, num_pred]
+  expect_silent(xy_pred <- predict(xy_fit, passed_data))
+  check_predict_basic(xy_pred, passed_data)
+})
+

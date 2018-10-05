@@ -46,6 +46,9 @@ test_that('ranger classification execution', {
     regexp = NA
   )
 
+  expect_silent(pred <- predict(res, lending_club[, num_pred]))
+  check_predict_basic(pred, lending_club[, num_pred])
+
   expect_error(
     res <- fit(
       bad_ranger_cls,

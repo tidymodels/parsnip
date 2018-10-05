@@ -37,6 +37,26 @@ test_that('stan_glm execution', {
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il
   )
+
   expect_true(inherits(stan_xy_catch$fit, "try-error"))
+
+})
+
+
+test_that('stan_glm prediction', {
+
+  skip_if_not_installed("rstanarm")
+  library(rstanarm)
+
+  xy_fit <- fit_xy(
+    logistic_reg(others = list(seed =  11, chains = 1)),
+    engine = "stan",
+    control = ctrl,
+    x = lending_club[, num_pred],
+    y = lending_club$Class
+  )
+
+  expect_silent(form_pred <- predict(xy_fit, lending_club))
+  check_predict_basic(form_pred, lending_club)
 
 })

@@ -41,6 +41,9 @@ test_that('keras execution, classification', {
     regexp = NA
   )
 
+  expect_silent(form_pred <- predict(res, iris[, num_pred]))
+  check_predict_basic(form_pred, iris[, num_pred])
+
   keras::backend()$clear_session()
 
   expect_error(
@@ -87,6 +90,9 @@ test_that('keras execution, regression', {
     ),
     regexp = NA
   )
+
+  expect_silent(pred <- predict(res, mtcars))
+  check_predict_basic(pred, mtcars)
 
   keras::backend()$clear_session()
 

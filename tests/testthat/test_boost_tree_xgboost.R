@@ -27,6 +27,10 @@ test_that('xgboost execution, classification', {
     ),
     regexp = NA
   )
+
+  expect_silent(form_pred <- predict(res, iris))
+  check_predict_basic(form_pred, iris)
+
   expect_error(
     res <- parsnip::fit_xy(
       iris_xgboost,
@@ -89,6 +93,9 @@ test_that('xgboost execution, regression', {
     ),
     regexp = NA
   )
+
+  expect_silent(xy_pred <- predict(res, mtcars[, num_pred]))
+  check_predict_basic(xy_pred, mtcars[, num_pred])
 })
 
 
