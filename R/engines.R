@@ -40,13 +40,14 @@ check_engine <- function(object) {
 
 #' @importFrom utils installed.packages
 check_installs <- function(x) {
-  lib_inst <- rownames(installed.packages())
-  if (length(x$method$libs) > 0) {
-    is_inst <- x$method$libs %in% lib_inst
+  if (length(x$method$library) > 0) {
+    lib_inst <- rownames(installed.packages())
+    is_inst <- x$method$library %in% lib_inst
     if (any(!is_inst)) {
       stop(
         "This engine requires some package installs: ",
-        paste0("'", x$method$libs[!is_inst], "'", collapse = ", ")
+        paste0("'", x$method$library[!is_inst], "'", collapse = ", "),
+        call. = FALSE
       )
     }
   }

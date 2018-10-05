@@ -1,31 +1,11 @@
 #' @import rlang
 
-does_it_vary <- function(x) {
-  if(is.null(x)) {
-    res <- FALSE
-  } else {
-    res <- if(is_quosure(x))
-      isTRUE(all.equal(x[[-1]], quote(varying())))
-    else
-      isTRUE(all.equal(x, quote(varying())))
-  }
-  res
-}
-
 null_value <- function(x) {
   res <- if(is_quosure(x))
     isTRUE(all.equal(x[[-1]], quote(NULL))) else
       isTRUE(all.equal(x, NULL))
   res
 }
-
-#' A Placeholder Function for Argument Values
-#'
-#' [varying()] is used when a parameter will be specified at a later date.
-#' @export
-varying <- function()
-  quote(varying())
-
 
 deharmonize <- function(args, key, engine) {
   nms <- names(args)

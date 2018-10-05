@@ -25,15 +25,17 @@ reference:
       - surv_reg   
   - title: Infrastructure
     contents:
-      - model_spec
-      - model_fit
-      - predict.model_fit
-      - translate
+      - descriptors
       - fit.model_spec
       - fit_xy
       - fit_control
+      - model_fit  
+      - model_spec
+      - predict.model_fit
+      - translate
       - varying
-      - descriptors
+      - varying_args
+
   - title: Data
     contents:
      - lending_club   

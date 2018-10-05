@@ -297,7 +297,7 @@
 <a class="sourceLine" id="cb12-9" data-line-number="9">mda_spec &lt;-<span class="st"> </span><span class="kw">mixture_da</span>(<span class="dt">subclasses =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11">mda_fit &lt;-<span class="st"> </span>mda_spec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="st">  </span><span class="kw">fit</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris_train, <span class="dt">engine =</span> <span class="st">"mda"</span>)</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/generics">fit</a></span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris_train, <span class="dt">engine =</span> <span class="st">"mda"</span>)</a>
 <a class="sourceLine" id="cb12-13" data-line-number="13">mda_fit</a>
 <a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; </span></a>
@@ -371,7 +371,7 @@
 <p>There are some models (e.g. <code>glmnet</code>, <code>plsr</code>, <code>Cubist</code>, etc.) that can make predictions for different models from the same fitted model object. We want to facilitate that here so that, for these cases, the current convention is to return a tibble with the prediction in a column called <code>values</code> and have extra columns for any parameters that define the different sub-models.</p>
 <p>For example, if I fit a linear regression model via <code>glmnet</code> and get four values of the regularization parameter (<code>lambda</code>):</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../../reference/linear_reg.html">linear_reg</a></span>(<span class="dt">others =</span> <span class="kw">list</span>(<span class="dt">nlambda =</span> <span class="dv">4</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">fit</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"glmnet"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/generics">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"glmnet"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">predict</span>(<span class="dt">new_data =</span> mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">-1</span>])</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; # A tibble: 12 x 2</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt;    .pred_values .pred_lambda</span></a>
