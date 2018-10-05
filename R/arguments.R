@@ -70,10 +70,11 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
   x
 }
 
-check_others <- function(args, obj) {
+check_others <- function(args, obj, core_args) {
   # Make sure that we are not trying to modify an argument that
-  # is explicitly protected in the method metadata
-  common_args <- intersect(obj$protect, names(args))
+  # is explicitly protected in the method metadata or arg_key
+  protected_args <- unique(c(obj$protect, core_args))
+  common_args <- intersect(protected_args, names(args))
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
