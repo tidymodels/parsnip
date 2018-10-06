@@ -2,14 +2,11 @@
 % Please edit documentation in R/fit.R
 \name{fit.model_spec}
 \alias{fit.model_spec}
-\alias{fit_xy}
 \alias{fit_xy.model_spec}
 \title{Fit a Model Specification to a Dataset}
 \usage{
 \method{fit}{model_spec}(object, formula = NULL, data = NULL,
   engine = object$engine, control = fit_control(), ...)
-
-fit_xy(object, ...)
 
 \method{fit_xy}{model_spec}(object, x = NULL, y = NULL,
   engine = object$engine, control = fit_control(), ...)
