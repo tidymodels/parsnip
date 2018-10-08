@@ -188,7 +188,7 @@ extra column of standard error values (if available).</p>
 
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span>
   <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/generics'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>), <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>), <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
 
 <span class='no'>pred_cars</span> <span class='kw'>&lt;-</span>
   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
