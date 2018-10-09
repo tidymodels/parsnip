@@ -5,8 +5,8 @@
 \alias{update.linear_reg}
 \title{General Interface for Linear Regression Models}
 \usage{
-linear_reg(mode = "regression", penalty = NULL, mixture = NULL,
-  others = list(), ...)
+linear_reg(mode = "regression", ..., penalty = NULL, mixture = NULL,
+  others = list())
 
 \method{update}{linear_reg}(object, penalty = NULL, mixture = NULL,
   others = list(), fresh = FALSE, ...)
@@ -14,6 +14,9 @@ linear_reg(mode = "regression", penalty = NULL, mixture = NULL,
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
+
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{penalty}{An non-negative number representing the
 total amount of regularization (\code{glmnet} and \code{spark} only).}
@@ -28,9 +31,6 @@ underlying models (e.g., \code{stats::lm},
 \code{rstanarm::stan_glm}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A linear regression model specification.}
 

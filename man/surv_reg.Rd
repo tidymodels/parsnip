@@ -5,7 +5,7 @@
 \alias{update.surv_reg}
 \title{General Interface for Parametric Survival Models}
 \usage{
-surv_reg(mode = "regression", dist = NULL, others = list(), ...)
+surv_reg(mode = "regression", ..., dist = NULL, others = list())
 
 \method{update}{surv_reg}(object, dist = NULL, others = list(),
   fresh = FALSE, ...)
@@ -14,6 +14,9 @@ surv_reg(mode = "regression", dist = NULL, others = list(), ...)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
 
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
+
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
 
@@ -21,9 +24,6 @@ the default.}
 underlying models (e.g., \code{flexsurv::flexsurvreg}). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A survival regression model specification.}
 

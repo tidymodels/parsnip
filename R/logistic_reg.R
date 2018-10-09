@@ -103,10 +103,10 @@
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
+           ...,
            penalty = NULL,
            mixture = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
     if (!(mode %in% logistic_reg_modes))
       stop(

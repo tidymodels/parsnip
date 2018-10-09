@@ -5,8 +5,8 @@
 \alias{update.logistic_reg}
 \title{General Interface for Logistic Regression Models}
 \usage{
-logistic_reg(mode = "classification", penalty = NULL, mixture = NULL,
-  others = list(), ...)
+logistic_reg(mode = "classification", ..., penalty = NULL,
+  mixture = NULL, others = list())
 
 \method{update}{logistic_reg}(object, penalty = NULL, mixture = NULL,
   others = list(), fresh = FALSE, ...)
@@ -14,6 +14,9 @@ logistic_reg(mode = "classification", penalty = NULL, mixture = NULL,
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
+
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{penalty}{An non-negative number representing the
 total amount of regularization (\code{glmnet} and \code{spark} only).}
@@ -28,9 +31,6 @@ underlying models (e.g., \code{stats::glm},
 \code{rstanarm::stan_glm}, etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A logistic regression model specification.}
 

@@ -85,10 +85,10 @@
 #' @importFrom purrr map_lgl
 multinom_reg <-
   function(mode = "classification",
+           ...,
            penalty = NULL,
            mixture = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
     if (!(mode %in% multinom_reg_modes))
       stop(

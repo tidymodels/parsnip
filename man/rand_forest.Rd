@@ -5,8 +5,8 @@
 \alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
-  min_n = NULL, others = list(), ...)
+rand_forest(mode = "unknown", ..., mtry = NULL, trees = NULL,
+  min_n = NULL, others = list())
 
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
   min_n = NULL, others = list(), fresh = FALSE, ...)
@@ -15,6 +15,9 @@ rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{mtry}{An integer for the number of predictors that will
 be randomly sampled at each split when creating the tree models.}
@@ -28,9 +31,6 @@ in a node that are required for the node to be split further.}
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{ranger::ranger},
 \code{randomForest::randomForest}, etc.). .}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A random forest model specification.}
 

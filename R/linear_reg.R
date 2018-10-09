@@ -105,10 +105,10 @@
 #' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
+           ...,
            penalty = NULL,
            mixture = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
     if (!(mode %in% linear_reg_modes))
       stop(

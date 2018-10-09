@@ -118,8 +118,8 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>())
 
 <span class='co'># S3 method for rand_forest</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -133,6 +133,11 @@ in lieu of recreating the object from scratch.</p>
       <td><p>A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>mtry</th>
@@ -154,11 +159,6 @@ in a node that are required for the node to be split further.</p></td>
       <td><p>A named list of arguments to be used by the
 underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/ranger/topics/ranger'>ranger::ranger</a></code>,
 <code><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest::randomForest</a></code>, etc.). .</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>object</th>

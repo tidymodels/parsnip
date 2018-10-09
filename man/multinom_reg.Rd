@@ -5,8 +5,8 @@
 \alias{update.multinom_reg}
 \title{General Interface for Multinomial Regression Models}
 \usage{
-multinom_reg(mode = "classification", penalty = NULL, mixture = NULL,
-  others = list(), ...)
+multinom_reg(mode = "classification", ..., penalty = NULL,
+  mixture = NULL, others = list())
 
 \method{update}{multinom_reg}(object, penalty = NULL, mixture = NULL,
   others = list(), fresh = FALSE, ...)
@@ -14,6 +14,9 @@ multinom_reg(mode = "classification", penalty = NULL, mixture = NULL,
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
+
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{penalty}{An non-negative number representing the
 total amount of regularization.}
@@ -27,9 +30,6 @@ L2 penalty (i.e. weight decay, or ridge regression) versus L1
 underlying models (e.g., \code{glmnet::glmnet} etc.). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A multinomial regression model specification.}
 

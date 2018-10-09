@@ -114,12 +114,12 @@
 
 boost_tree <-
   function(mode = "unknown",
+           ...,
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
            sample_size = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
 
     if (!(mode %in% boost_tree_modes))

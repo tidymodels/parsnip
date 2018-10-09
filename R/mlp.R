@@ -93,10 +93,10 @@
 
 mlp <-
   function(mode = "unknown",
+           ...,
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
 
     act_funs <- c("linear", "softmax", "relu", "elu")

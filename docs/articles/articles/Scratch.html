@@ -139,11 +139,11 @@
 <li>The argument names (<code>subclasses</code> here). These should be defaulted to <code>NULL</code>.</li>
 <li>An argument, <code>others</code>, that can be used to pass in other arguments to the underlying model fit functions.</li>
 <li>
-<code>...</code>, although they are not currently used.</li>
+<code>...</code>, although they are not currently used. We encourage developers to move the <code>...</code> after mode so that users are encouraged to use named arguments to the model specification.</li>
 </ul>
 <p>A basic version of the function is:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mixture_da &lt;-</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="cf">function</span>(<span class="dt">mode =</span> <span class="st">"classification"</span>,  <span class="dt">subclasses =</span> <span class="ot">NULL</span>, <span class="dt">others =</span> <span class="kw">list</span>(), ...) {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="cf">function</span>(<span class="dt">mode =</span> <span class="st">"classification"</span>, ...,  <span class="dt">subclasses =</span> <span class="ot">NULL</span>, <span class="dt">others =</span> <span class="kw">list</span>()) {</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="co"># start with some basic error traps</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw"><a href="../../reference/check_empty_ellipse.html">check_empty_ellipse</a></span>(...)</a>

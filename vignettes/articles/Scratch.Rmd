@@ -91,13 +91,13 @@ This is a fairly simple function that can follow a basic template. The main argu
  * The mode. If the model can do more than one mode, you might default this to "unknown". In our case, since it is only a classification model, it makes sense to default it to that mode. 
  * The argument names (`subclasses` here). These should be defaulted to `NULL`.
  * An argument, `others`, that can be used to pass in other arguments to the underlying model fit functions. 
- * `...`, although they are not currently used. 
+ * `...`, although they are not currently used. We encourage developers to move the `...` after mode so that users are encouraged to use named arguments to the model specification. 
 
 A basic version of the function is:
 
 ```{r model-fun}
 mixture_da <-
-  function(mode = "classification",  subclasses = NULL, others = list(), ...) {
+  function(mode = "classification", ...,  subclasses = NULL, others = list()) {
     
     # start with some basic error traps
     check_empty_ellipse(...)

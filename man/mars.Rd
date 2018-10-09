@@ -5,8 +5,8 @@
 \alias{update.mars}
 \title{General Interface for MARS}
 \usage{
-mars(mode = "unknown", num_terms = NULL, prod_degree = NULL,
-  prune_method = NULL, others = list(), ...)
+mars(mode = "unknown", ..., num_terms = NULL, prod_degree = NULL,
+  prune_method = NULL, others = list())
 
 \method{update}{mars}(object, num_terms = NULL, prod_degree = NULL,
   prune_method = NULL, others = list(), fresh = FALSE, ...)
@@ -15,6 +15,9 @@ mars(mode = "unknown", num_terms = NULL, prod_degree = NULL,
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}
@@ -28,9 +31,6 @@ underlying models (e.g., \code{earth::earth}, etc.). If the outcome is a factor
 and \code{mode = "classification"}, \code{others} can include the \code{glm} argument to
 \code{earth::earth}. If this argument is not passed, it will be added prior to
 the fitting occurs.}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A MARS model specification.}
 
