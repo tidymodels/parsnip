@@ -103,9 +103,9 @@
 
 rand_forest <-
   function(mode = "unknown",
+           ...,
            mtry = NULL, trees = NULL, min_n = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
 
     ## TODO: make a utility function here

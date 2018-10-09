@@ -4,13 +4,16 @@
 \alias{nearest_neighbor}
 \title{General Interface for K-Nearest Neighbor Models}
 \usage{
-nearest_neighbor(mode = "unknown", neighbors = NULL,
-  weight_func = NULL, dist_power = NULL, others = list(), ...)
+nearest_neighbor(mode = "unknown", ..., neighbors = NULL,
+  weight_func = NULL, dist_power = NULL, others = list())
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 Possible values for this model are \code{"unknown"}, \code{"regression"}, or
 \code{"classification"}.}
+
+\item{...}{Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}).}
@@ -27,9 +30,6 @@ calculating Minkowski distance.}
 underlying models (e.g., \code{kknn::train.kknn}). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.}
-
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 }
 \description{
 \code{nearest_neighbor()} is a way to generate a \emph{specification} of a model

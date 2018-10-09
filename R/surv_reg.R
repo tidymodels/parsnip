@@ -20,7 +20,7 @@
 #'  Since survival models typically involve censoring (and require the use of
 #'  [survival::Surv()] objects), the [fit()] function will require that the
 #'  survival model be specified via the formula interface.
-#'  
+#'
 #' Also, for the `flexsurv::flexsurvfit` engine, the typical
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
@@ -51,9 +51,9 @@
 #' @export
 surv_reg <-
   function(mode = "regression",
+           ...,
            dist = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
     if (!(mode %in% surv_reg_modes))
       stop(

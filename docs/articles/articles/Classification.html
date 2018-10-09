@@ -162,17 +162,17 @@
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;   .metric .estimate</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1 roc_auc     0.822</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 1 roc_auc     0.826</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;   .metric  .estimate</span></a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1 accuracy     0.800</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 1 accuracy     0.804</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">conf_mat</span>(<span class="dt">truth =</span> Status, <span class="dt">estimate =</span> <span class="st">`</span><span class="dt">nnet class</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;       bad  171   81</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;       good 142  719</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;       bad  178   83</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;       good 135  717</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -77,11 +77,11 @@
 #'
 #' @export
 nearest_neighbor <- function(mode = "unknown",
+                             ...,
                              neighbors = NULL,
                              weight_func = NULL,
                              dist_power = NULL,
-                             others = list(),
-                             ...) {
+                             others = list()) {
 
   check_empty_ellipse(...)
 

@@ -120,8 +120,8 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>nearest_neighbor</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nearest_neighbor</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='no'>...</span>, <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,6 +131,11 @@ in lieu of recreating the object from scratch.</p>
       <td><p>A single character string for the type of model.
 Possible values for this model are <code>"unknown"</code>, <code>"regression"</code>, or
 <code>"classification"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>neighbors</th>
@@ -155,11 +160,6 @@ calculating Minkowski distance.</p></td>
 underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/kknn/topics/train.kknn'>kknn::train.kknn</a></code>). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     </table>
     

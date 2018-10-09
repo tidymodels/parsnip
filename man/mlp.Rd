@@ -5,9 +5,9 @@
 \alias{update.mlp}
 \title{General Interface for Single Layer Neural Network}
 \usage{
-mlp(mode = "unknown", hidden_units = NULL, penalty = NULL,
+mlp(mode = "unknown", ..., hidden_units = NULL, penalty = NULL,
   dropout = NULL, epochs = NULL, activation = NULL,
-  others = list(), ...)
+  others = list())
 
 \method{update}{mlp}(object, hidden_units = NULL, penalty = NULL,
   dropout = NULL, epochs = NULL, activation = NULL,
@@ -17,6 +17,9 @@ mlp(mode = "unknown", hidden_units = NULL, penalty = NULL,
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{hidden_units}{An integer for the number of units in the hidden model.}
 
@@ -37,9 +40,6 @@ function between the hidden and output layers is automatically set to either
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{nnet::nnet},
 \code{keras::fit}, \code{keras::compile}, etc.). .}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A random forest model specification.}
 

@@ -115,7 +115,7 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='no'>...</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>())
 
 <span class='co'># S3 method for surv_reg</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
@@ -130,6 +130,11 @@ in lieu of recreating the object from scratch.</p>
 The only possible value for this model is "regression".</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Used for S3 method consistency. Any arguments passed to
+the ellipses will result in an error. Use <code>others</code> instead.</p></td>
+    </tr>
+    <tr>
       <th>dist</th>
       <td><p>A character string for the outcome distribution. "weibull" is
 the default.</p></td>
@@ -140,11 +145,6 @@ the default.</p></td>
 underlying models (e.g., <code><a href='http://www.rdocumentation.org/packages/flexsurv/topics/flexsurvreg'>flexsurv::flexsurvreg</a></code>). These are not evaluated
 until the model is fit and will be substituted into the model
 fit expression.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use <code>others</code> instead.</p></td>
     </tr>
     <tr>
       <th>object</th>

@@ -71,9 +71,9 @@
 
 mars <-
   function(mode = "unknown",
+           ...,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           others = list(),
-           ...) {
+           others = list()) {
     check_empty_ellipse(...)
 
     if (!(mode %in% mars_modes))

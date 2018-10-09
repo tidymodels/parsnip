@@ -5,9 +5,9 @@
 \alias{update.boost_tree}
 \title{General Interface for Boosted Trees}
 \usage{
-boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
+boost_tree(mode = "unknown", ..., mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, others = list(), ...)
+  loss_reduction = NULL, sample_size = NULL, others = list())
 
 \method{update}{boost_tree}(object, mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
@@ -18,6 +18,9 @@ boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{...}{Used for method consistency. Any arguments passed to
+the ellipses will result in an error. Use \code{others} instead.}
 
 \item{mtry}{An number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models (\code{xgboost}
@@ -44,9 +47,6 @@ each iteration while \code{C5.0} samples once during traning.}
 
 \item{others}{A named list of arguments to be used by the
 underlying models (e.g., \code{xgboost::xgb.train}, etc.). .}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{object}{A boosted tree model specification.}
 
