@@ -116,8 +116,8 @@ rand_forest_ranger_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          data = quote(new_data),
+          object = expr(object$fit),
+          data = expr(new_data),
           type = "response",
           seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
@@ -129,8 +129,8 @@ rand_forest_ranger_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          data = quote(new_data),
+          object = expr(object$fit),
+          data = expr(new_data),
           type = "response",
           seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
@@ -151,8 +151,8 @@ rand_forest_ranger_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          data = quote(new_data),
+          object = expr(object$fit),
+          data = expr(new_data),
           seed = expr(sample.int(10^5, 1)),
           verbose = FALSE
         )
@@ -162,8 +162,8 @@ rand_forest_ranger_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          data = quote(new_data),
+          object = expr(object$fit),
+          data = expr(new_data),
           seed = expr(sample.int(10^5, 1))
         )
     ),
@@ -173,8 +173,8 @@ rand_forest_ranger_data <-
       func = c(fun = "ranger_confint"),
       args =
         list(
-          object = quote(object),
-          new_data = quote(new_data),
+          object = expr(object),
+          new_data = expr(new_data),
           seed = expr(sample.int(10^5, 1))
         )
     )
@@ -196,8 +196,8 @@ rand_forest_randomForest_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     classes = list(
@@ -206,8 +206,8 @@ rand_forest_randomForest_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     prob = list(
@@ -218,8 +218,8 @@ rand_forest_randomForest_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "prob"
         )
     ),
@@ -228,8 +228,8 @@ rand_forest_randomForest_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     )
   )
@@ -253,8 +253,8 @@ rand_forest_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     classes = list(
@@ -263,8 +263,8 @@ rand_forest_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     prob = list(
@@ -273,8 +273,8 @@ rand_forest_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     )
   )
