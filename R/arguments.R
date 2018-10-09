@@ -64,3 +64,56 @@ check_others <- function(args, obj, core_args) {
   }
   args
 }
+
+#' Change elements of a model specification
+#'
+#' `set_args` can be used to modify the arguments of a model specification while
+#'  `set_mode` is used to change the model's mode.
+#'
+#' @param object A model specification.
+#' @param ... One or more named model arguments.
+#' @param mode A character string for the model type (e.g. "classification" or
+#'  "regression")
+#' @return An updated model object.
+#' @details `set_args` will replace existing values of the arguments.
+#'
+#' @examples
+#' rand_forest()
+#'
+#' rand_forest() %>%
+#'   set_args(mtry = 3, importance = TRUE) %>%
+#'   set_mode("regression")
+#'
+#' @export
+set_args <- function(object, ...) {
+  the_dots <- list(...)
+  if (length(the_dots) == 0)
+    stop("Please pass at least one named argument.", call. = FALSE)
+  main_args <- names(object$args)
+  new_args <- names(the_dots)
+  for (i in new_args) {
+    if (any(main_args == i)) {
+      object$args[[i]] <- the_dots[[i]]
+    } else {
+      object$others[[i]] <- the_dots[[i]]
+    }
+  }
+  object
+}
+
+#' @rdname set_args
+#' @export
+set_mode <- function(object, mode) {
+  if (is.null(mode))
+    return(object)
+  mode <- mode[1]
+  if (!(any(all_modes == mode))) {
+    stop("`mode` should be one of ",
+         paste0("'", all_modes, "'", collapse = ", "),
+         call. = FALSE)
+  }
+  object$mode <- mode
+  object
+}
+
+

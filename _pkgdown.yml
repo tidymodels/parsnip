@@ -32,6 +32,8 @@ reference:
       - model_fit  
       - model_spec
       - predict.model_fit
+      - set_args
+      - set_mode
       - translate
       - varying
       - varying_args

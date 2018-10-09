@@ -107,13 +107,11 @@ routine.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/generics'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
-<span class='fu'>fit_xy</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'>fit_xy</span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,13 +214,13 @@ objects used to fit the model.</p>
 
 <span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
   <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/generics'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
       <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
       <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
   <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fit_xy</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
          <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>,
          <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
 
