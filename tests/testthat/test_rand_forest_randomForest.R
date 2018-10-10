@@ -44,7 +44,7 @@ test_that('randomForest classification execution', {
   expect_error(
     fit(
       bad_rf_cls,
-      unded_amnt ~ term,
+      funded_amnt ~ term,
       data = lending_club,
       engine = "randomForest",
       control = ctrl
@@ -143,7 +143,7 @@ num_pred <- names(mtcars)[3:6]
 car_basic <- rand_forest(mode = "regression")
 
 bad_ranger_reg <- rand_forest(mode = "regression", min.node.size = -10)
-bad_rf_reg <- rand_forest(mode = "regression", min.node.size = -10)
+bad_rf_reg <- rand_forest(mode = "regression", nodesize = -10)
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -193,7 +193,8 @@ test_that('randomForest regression execution', {
     engine = "randomForest",
     control = caught_ctrl
   )
-  expect_true(inherits(randomForest_xy_catch$fit, "try-error"))
+
+  expect_warning(inherits(randomForest_xy_catch$fit, "try-error"))
 
 })
 
