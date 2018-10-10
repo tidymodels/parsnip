@@ -70,33 +70,48 @@ get_descr_df <- function(formula, data) {
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
 
   if(is.factor(tmp_dat$y)) {
-    n_levs <- function() {
+    .n_levs <- function() {
       table(tmp_dat$y, dnn = NULL)
     }
-  } else n_levs <- function() { NA }
+  } else .n_levs <- function() { NA }
 
-  n_cols <- function() {
+  .n_cols <- function() {
     ncol(tmp_dat$x)
   }
 
-  n_preds <- function() {
+  .n_preds <- function() {
     ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   }
 
-  n_obs <- function() {
+  .n_obs <- function() {
     nrow(data)
   }
 
-  n_facts <- function() {
+  .n_facts <- function() {
     sum(vapply(tmp_dat$x, is.factor, logical(1)))
   }
 
+  .dat <- function() {
+    data
+  }
+
+  .x <- function() {
+    tmp_dat$x
+  }
+
+  .y <- function() {
+    tmp_dat$y
+  }
+
   list(
-    n_cols = n_cols,
-    n_preds = n_preds,
-    n_obs = n_obs,
-    n_levs = n_levs,
-    n_facts = n_facts
+    .n_cols = .n_cols,
+    .n_preds = .n_preds,
+    .n_obs = .n_obs,
+    .n_levs = .n_levs,
+    .n_facts = .n_facts,
+    .dat = .dat,
+    .x = .x,
+    .y = .y
   )
 }
 

@@ -15,12 +15,8 @@ form_form <-
 
     object <- check_mode(object, y_levels)
 
-    # check to see of there are any `expr` in the arguments then
-    # run a function that evaluates the data and subs in the
-    # values of the expressions. we would have to evaluate the
-    # formula (perhaps with and without dummy variables) to get
-    # the appropraite number of columns. (`..vars..` vs `..cols..`)
-    # Perhaps use `convert_form_to_xy_fit` here to get the results.
+    # embed descriptor functions in the quosure environments
+    # for each of the args provided
 
     if (make_descr(object)) {
       data_stats <- get_descr_form(env$formula, env$data)
