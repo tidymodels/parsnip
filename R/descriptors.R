@@ -70,33 +70,48 @@ get_descr_df <- function(formula, data) {
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
 
   if(is.factor(tmp_dat$y)) {
-    n_levs <- function() {
+    .n_levs <- function() {
       table(tmp_dat$y, dnn = NULL)
     }
-  } else n_levs <- function() { NA }
+  } else .n_levs <- function() { NA }
 
-  n_cols <- function() {
+  .n_cols <- function() {
     ncol(tmp_dat$x)
   }
 
-  n_preds <- function() {
+  .n_preds <- function() {
     ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   }
 
-  n_obs <- function() {
+  .n_obs <- function() {
     nrow(data)
   }
 
-  n_facts <- function() {
+  .n_facts <- function() {
     sum(vapply(tmp_dat$x, is.factor, logical(1)))
   }
 
+  .dat <- function() {
+    data
+  }
+
+  .x <- function() {
+    tmp_dat$x
+  }
+
+  .y <- function() {
+    tmp_dat$y
+  }
+
   list(
-    n_cols = n_cols,
-    n_preds = n_preds,
-    n_obs = n_obs,
-    n_levs = n_levs,
-    n_facts = n_facts
+    .n_cols = .n_cols,
+    .n_preds = .n_preds,
+    .n_obs = .n_obs,
+    .n_levs = .n_levs,
+    .n_facts = .n_facts,
+    .dat = .dat,
+    .x = .x,
+    .y = .y
   )
 }
 
@@ -170,34 +185,78 @@ get_descr_spark <- function(formula, data) {
     y_vals <- as.table(y_vals)
   } else y_vals <- NA
 
+  obs <- dplyr::tally(data) %>% dplyr::pull()
+
+  .n_cols  <- function() length(f_term_labels)
+  .n_pred  <- function() all_preds
+  .n_obs   <- function() obs
+  .n_levs  <- function() y_vals
+  .n_facts <- function() factor_pred
+
+  # still need .x(), .y(), .dat() ?
+
   list(
-    cols = length(f_term_labels),
-    preds = all_preds,
-    obs = dplyr::tally(data) %>% dplyr::pull(),
-    levs =  y_vals,
-    facts = factor_pred
+    .n_cols  = .n_cols,
+    .n_preds = .n_preds,
+    .n_obs = .n_obs,
+    .n_levs = .n_levs,
+    .n_facts = .n_facts #,
+    # .dat = .dat,
+    # .x = .x,
+    # .y = .y
   )
 }
 
 get_descr_xy <- function(x, y) {
-  if(is.factor(y)) {
-    n_levs <- table(y, dnn = NULL)
-  } else n_levs <- NA
 
-  n_cols  <- ncol(x)
-  n_preds <- ncol(x)
-  n_obs   <- nrow(x)
-  n_facts <- if(is.data.frame(x))
-    sum(vapply(x, is.factor, logical(1)))
-  else
-    sum(apply(x, 2, is.factor)) # would this always be zero?
+  if(is.factor(y)) {
+    .n_levs <- function() {
+      table(y, dnn = NULL)
+    }
+  } else n_levs <- function() { NA }
+
+  .n_cols  <- function() {
+    ncol(x)
+  }
+
+  .n_preds <- function() {
+    ncol(x)
+  }
+
+  .n_obs   <- function() {
+    nrow(x)
+  }
+
+  .n_facts <- function() {
+    if(is.data.frame(x))
+      sum(vapply(x, is.factor, logical(1)))
+    else
+      sum(apply(x, 2, is.factor)) # would this always be zero?
+  }
+
+  .dat <- function() {
+    x <- as.data.frame(x)
+    x[[".y"]] <- y
+    x
+  }
+
+  .x <- function() {
+    x
+  }
+
+  .y <- function() {
+    y
+  }
 
   list(
-    cols = n_cols,
-    preds = n_preds,
-    obs = n_obs,
-    levs = n_levs,
-    facts = n_facts
+    .n_cols  = .n_cols,
+    .n_preds = .n_preds,
+    .n_obs = .n_obs,
+    .n_levs = .n_levs,
+    .n_facts = .n_facts,
+    .dat = .dat,
+    .x = .x,
+    .y = .y
   )
 }
 
