@@ -199,7 +199,7 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
-  ranger_imp <- rand_forest(mode = "classification", others = list(importance = "impurity"))
+  ranger_imp <- rand_forest(mode = "classification", importance = "impurity")
   expect_equal(translate(ranger_imp, engine = "ranger")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
@@ -213,7 +213,7 @@ test_that('engine arguments', {
                )
   )
 
-  randomForest_votes <- rand_forest(mode = "regression", others = list(norm.votes = FALSE))
+  randomForest_votes <- rand_forest(mode = "regression", norm.votes = FALSE)
   expect_equal(translate(randomForest_votes, engine = "randomForest")$method$fit$args,
                list(
                  x = quote(missing_arg()),
@@ -222,7 +222,7 @@ test_that('engine arguments', {
                )
   )
 
-  spark_gain <- rand_forest(mode = "regression", others = list(min_info_gain = 2))
+  spark_gain <- rand_forest(mode = "regression", min_info_gain = 2)
   expect_equal(translate(spark_gain, engine = "spark")$method$fit$args,
                list(
                  x = quote(missing_arg()),
@@ -233,7 +233,7 @@ test_that('engine arguments', {
                )
   )
 
-  ranger_samp_frac <- rand_forest(mode = "regression", others = list(sample.fraction = varying()))
+  ranger_samp_frac <- rand_forest(mode = "regression", sample.fraction = varying())
   expect_equal(translate(ranger_samp_frac, engine = "ranger")$method$fit$args,
                list(
                  formula = quote(missing_arg()),
@@ -247,7 +247,7 @@ test_that('engine arguments', {
   )
 
 
-  randomForest_votes_v <- rand_forest(mode = "regression", others = list(norm.votes = FALSE, sampsize = varying()))
+  randomForest_votes_v <- rand_forest(mode = "regression", norm.votes = FALSE, sampsize = varying())
   expect_equal(translate(randomForest_votes_v, engine = "randomForest")$method$fit$args,
                list(
                  x = quote(missing_arg()),
@@ -257,7 +257,7 @@ test_that('engine arguments', {
                )
   )
 
-  spark_bins_v <- rand_forest(mode = "regression", others = list(uid = "id label", max_bins = varying()))
+  spark_bins_v <- rand_forest(mode = "regression", uid = "id label", max_bins = varying())
   expect_equal(translate(spark_bins_v, engine = "spark")$method$fit$args,
                list(
                  x = quote(missing_arg()),
@@ -272,37 +272,36 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- rand_forest(mode = "regression",           others = list(norm.votes = FALSE, sampsize = varying()))
-  expr1_exp <- rand_forest(mode = "regression", mtry = 2, others = list(norm.votes = FALSE, sampsize = varying()))
+  expr1     <- rand_forest(mode = "regression",           norm.votes = FALSE, sampsize = varying())
+  expr1_exp <- rand_forest(mode = "regression", mtry = 2, norm.votes = FALSE, sampsize = varying())
 
   expr2     <- rand_forest(mode = "regression", mtry = 7, min_n = varying())
-  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = varying(), others = list(norm.votes = FALSE))
+  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = varying(), norm.votes = FALSE)
 
   expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = varying())
   expr3_exp <- rand_forest(mode = "regression", mtry = 2)
 
-  expr4     <- rand_forest(mode = "regression", mtry = 2, others = list(norm.votes = FALSE, sampsize = varying()))
-  expr4_exp <- rand_forest(mode = "regression", mtry = 2, others = list(norm.votes = TRUE, sampsize = varying()))
+  expr4     <- rand_forest(mode = "regression", mtry = 2, norm.votes = FALSE, sampsize = varying())
+  expr4_exp <- rand_forest(mode = "regression", mtry = 2, norm.votes = FALSE, sampsize = varying())
 
-  expr5     <- rand_forest(mode = "regression", mtry = 2, others = list(norm.votes = FALSE))
-  expr5_exp <- rand_forest(mode = "regression", mtry = 2, others = list(norm.votes = TRUE, sampsize = varying()))
+  expr5     <- rand_forest(mode = "regression", mtry = 2, norm.votes = FALSE)
+  expr5_exp <- rand_forest(mode = "regression", mtry = 2, norm.votes = TRUE, sampsize = varying())
 
   expect_equal(update(expr1, mtry = 2), expr1_exp)
-  expect_equal(update(expr2, others = list(norm.votes = FALSE)), expr2_exp)
+  expect_equal(update(expr2, norm.votes = FALSE), expr2_exp)
   expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)
-  expect_equal(update(expr4, others = list(norm.votes = TRUE)), expr4_exp)
-  expect_equal(update(expr5, others = list(norm.votes = TRUE, sampsize = varying())), expr5_exp)
+  expect_equal(update(expr4, norm.votes = TRUE), expr4_exp)
+  expect_equal(update(expr5, norm.votes = TRUE, sampsize = varying()), expr5_exp)
 
 })
 
 test_that('bad input', {
-  expect_error(rand_forest(mode = "classification", case.weights = var))
   expect_error(rand_forest(mode = "time series"))
   expect_error(translate(rand_forest(mode = "classification"), engine = "wat?"))
   expect_warning(translate(rand_forest(mode = "classification"), engine = NULL))
-  expect_error(translate(rand_forest(mode = "classification", others = list(ytest = 2))))
+  expect_error(translate(rand_forest(mode = "classification", ytest = 2)))
   expect_error(translate(rand_forest(mode = "regression", formula = y ~ x)))
-  expect_error(translate(rand_forest(mode = "classification", others = list(x = x, y = y)), engine = "randomForest"))
-  expect_error(translate(rand_forest(mode = "regression", others = list(formula = y ~ x)), engine = ""))
+  expect_warning(translate(rand_forest(mode = "classification", x = x, y = y), engine = "randomForest"))
+  expect_error(translate(rand_forest(mode = "regression", formula = y ~ x), engine = ""))
 })
 

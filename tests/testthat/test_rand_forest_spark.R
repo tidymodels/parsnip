@@ -32,7 +32,7 @@ test_that('spark execution', {
         rand_forest(
           trees = 5,
           mode = "regression",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -49,7 +49,7 @@ test_that('spark execution', {
         rand_forest(
           trees = 5,
           mode = "regression",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -106,7 +106,7 @@ test_that('spark execution', {
         rand_forest(
           trees = 5,
           mode = "classification",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -123,7 +123,7 @@ test_that('spark execution', {
         rand_forest(
           trees = 5,
           mode = "classification",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
