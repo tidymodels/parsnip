@@ -18,3 +18,18 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+descr_env <- new_environment()
+
+reset_descr_env <- function() {
+  env_poke(descr_env, ".data",  NULL)
+  env_poke(descr_env, ".x",     NULL)
+  env_poke(descr_env, ".y",     NULL)
+  env_poke(descr_env, ".cols",  NULL)
+  env_poke(descr_env, ".preds", NULL)
+  env_poke(descr_env, ".obs",   NULL)
+  env_poke(descr_env, ".levs",  NULL)
+  env_poke(descr_env, ".facts", NULL)
+  invisible(NULL)
+}
+
+reset_descr_env()

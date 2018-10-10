@@ -35,14 +35,9 @@ form_form <-
     # the appropraite number of columns. (`..vars..` vs `..cols..`)
     # Perhaps use `convert_form_to_xy_fit` here to get the results.
 
-    if (make_descr(object)) {
-      data_stats <- get_descr_form(env$formula, env$data)
-      env$n_obs <- data_stats$obs
-      env$n_cols <- data_stats$cols
-      env$n_preds <- data_stats$preds
-      env$n_levs <- data_stats$levs
-      env$n_facts <- data_stats$facts
-    }
+    make_descr_env(env$formula, env$data)
+
+    tmp <- obs()
 
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],
@@ -62,6 +57,9 @@ form_form <-
       env = env,
       ...
     )
+
+    reset_descr_env()
+
     res$preproc <- NA
     res
   }
