@@ -50,10 +50,10 @@
 #'
 #' rand_forest(mode = "classification", mtry = expr(n_cols - 2))
 #' }
-#' 
+#'
 #' When no instance of `expr` is found in any of the argument
 #'  values, the descriptor calculation code will not be executed.
-#' 
+#'
 NULL
 
 get_descr_form <- function(formula, data) {
@@ -66,24 +66,37 @@ get_descr_form <- function(formula, data) {
 }
 
 get_descr_df <- function(formula, data) {
-  
+
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
-  
+
   if(is.factor(tmp_dat$y)) {
-    n_levs <- table(tmp_dat$y, dnn = NULL)
-  } else n_levs <- NA
-  
-  n_cols <- ncol(tmp_dat$x)
-  n_preds <- ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
-  n_obs <- nrow(data)
-  n_facts <- sum(vapply(tmp_dat$x, is.factor, logical(1)))
-  
+    n_levs <- function() {
+      table(tmp_dat$y, dnn = NULL)
+    }
+  } else n_levs <- function() { NA }
+
+  n_cols <- function() {
+    ncol(tmp_dat$x)
+  }
+
+  n_preds <- function() {
+    ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
+  }
+
+  n_obs <- function() {
+    nrow(data)
+  }
+
+  n_facts <- function() {
+    sum(vapply(tmp_dat$x, is.factor, logical(1)))
+  }
+
   list(
-    cols = n_cols,
-    preds = n_preds,
-    obs = n_obs,
-    levs = n_levs,
-    facts = n_facts
+    n_cols = n_cols,
+    n_preds = n_preds,
+    n_obs = n_obs,
+    n_levs = n_levs,
+    n_facts = n_facts
   )
 }
 
@@ -93,9 +106,9 @@ get_descr_df <- function(formula, data) {
 #' @importFrom rlang syms sym
 #' @importFrom utils head
 get_descr_spark <- function(formula, data) {
-  
+
   all_vars <- all.vars(formula)
-  
+
   if("." %in% all_vars){
     tmpdata <- dplyr::collect(head(data, 1000))
     f_terms <- stats::terms(formula, data = tmpdata)
@@ -106,11 +119,11 @@ get_descr_spark <- function(formula, data) {
     term_data <- dplyr::select(data, !!! rlang::syms(f_cols))
     tmpdata <- dplyr::collect(head(term_data, 1000))
   }
-  
+
   f_term_labels <- attr(f_terms, "term.labels")
   y_ind <- attr(f_terms, "response")
   y_col <- f_cols[y_ind]
-  
+
   classes <- purrr::map(tmpdata, class)
   icats <- purrr::map_lgl(classes, ~.x == "character")
   cats <- classes[icats]
@@ -119,14 +132,14 @@ get_descr_spark <- function(formula, data) {
   cat_levels <- imap(
     cats,
     ~{
-      p <- dplyr::group_by(data, !! rlang::sym(.y)) 
+      p <- dplyr::group_by(data, !! rlang::sym(.y))
       p <- dplyr::summarise(p)
       dplyr::pull(p)
     }
-  ) 
+  )
   numeric_pred <- length(f_term_labels) - length(cat_levels)
-  
-  
+
+
   if(length(cat_levels) > 0){
     n_dummies <- purrr::map_dbl(cat_levels, ~length(.x) - 1)
     n_dummies <- sum(n_dummies)
@@ -136,19 +149,19 @@ get_descr_spark <- function(formula, data) {
     factor_pred <- 0
     all_preds <- numeric_pred
   }
-  
+
   out_cats <- classes[icats]
   out_cats <- out_cats[names(out_cats) == y_col]
-  
+
   outs <- purrr::imap(
     out_cats,
     ~{
-      p <- dplyr::group_by(data, !! sym(.y)) 
-      p <- dplyr::tally(p) 
+      p <- dplyr::group_by(data, !! sym(.y))
+      p <- dplyr::tally(p)
       dplyr::collect(p)
     }
-  ) 
-  
+  )
+
   if(length(outs) > 0){
     outs <- outs[[1]]
     y_vals <- purrr::as_vector(outs[,2])
@@ -156,7 +169,7 @@ get_descr_spark <- function(formula, data) {
     y_vals <- y_vals[order(names(y_vals))]
     y_vals <- as.table(y_vals)
   } else y_vals <- NA
-  
+
   list(
     cols = length(f_term_labels),
     preds = all_preds,
@@ -170,7 +183,7 @@ get_descr_xy <- function(x, y) {
   if(is.factor(y)) {
     n_levs <- table(y, dnn = NULL)
   } else n_levs <- NA
-  
+
   n_cols  <- ncol(x)
   n_preds <- ncol(x)
   n_obs   <- nrow(x)
@@ -178,7 +191,7 @@ get_descr_xy <- function(x, y) {
     sum(vapply(x, is.factor, logical(1)))
   else
     sum(apply(x, 2, is.factor)) # would this always be zero?
-  
+
   list(
     cols = n_cols,
     preds = n_preds,

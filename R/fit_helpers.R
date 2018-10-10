@@ -15,6 +15,31 @@ form_form <-
 
     object <- check_mode(object, y_levels)
 
+    # check to see of there are any `expr` in the arguments then
+    # run a function that evaluates the data and subs in the
+    # values of the expressions. we would have to evaluate the
+    # formula (perhaps with and without dummy variables) to get
+    # the appropraite number of columns. (`..vars..` vs `..cols..`)
+    # Perhaps use `convert_form_to_xy_fit` here to get the results.
+
+    if (make_descr(object)) {
+      data_stats <- get_descr_form(env$formula, env$data)
+
+      object$args <- purrr::map(object$args, ~{
+
+        .x_env <- rlang::quo_get_env(.x)
+
+        if(identical(.x_env, rlang::empty_env())) {
+          .x
+        } else {
+          .x_new_env <- rlang::env_bury(.x_env, !!! data_stats)
+          rlang::quo_set_env(.x, .x_new_env)
+        }
+
+      })
+
+    }
+
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
 
@@ -27,22 +52,6 @@ form_form <-
       fit_args$data <- quote(data)
     }
     fit_args$formula <- quote(formula)
-
-    # check to see of there are any `expr` in the arguments then
-    # run a function that evaluates the data and subs in the
-    # values of the expressions. we would have to evaluate the
-    # formula (perhaps with and without dummy variables) to get
-    # the appropraite number of columns. (`..vars..` vs `..cols..`)
-    # Perhaps use `convert_form_to_xy_fit` here to get the results.
-
-    if (make_descr(object)) {
-      data_stats <- get_descr_form(env$formula, env$data)
-      env$n_obs <- data_stats$obs
-      env$n_cols <- data_stats$cols
-      env$n_preds <- data_stats$preds
-      env$n_levs <- data_stats$levs
-      env$n_facts <- data_stats$facts
-    }
 
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],

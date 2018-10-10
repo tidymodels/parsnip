@@ -103,10 +103,12 @@
 
 rand_forest <-
   function(mode = "unknown",
-           ...,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           mtry = NULL, trees = NULL, min_n = NULL, ...) {
+
+    others <- enquos(...)
+    mtry   <- enquo(mtry)
+    trees  <- enquo(trees)
+    min_n  <- enquo(min_n)
 
     ## TODO: make a utility function here
     if (!(mode %in% rand_forest_modes))
