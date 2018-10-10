@@ -37,8 +37,8 @@ boost_tree_xgboost_data <-
       func = c(fun = "xgb_pred"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     classes = list(
@@ -54,8 +54,8 @@ boost_tree_xgboost_data <-
       func = c(pkg = NULL, fun = "xgb_pred"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     prob = list(
@@ -72,8 +72,8 @@ boost_tree_xgboost_data <-
       func = c(pkg = NULL, fun = "xgb_pred"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     raw = list(
@@ -81,8 +81,8 @@ boost_tree_xgboost_data <-
       func = c(fun = "xgb_pred"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     )
   )
@@ -102,8 +102,8 @@ boost_tree_C5.0_data <-
       post = NULL,
       func = c(fun = "predict"),
       args = list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
+        object = expr(object$fit),
+        newdata = expr(new_data)
       )
     ),
     prob = list(
@@ -114,8 +114,8 @@ boost_tree_C5.0_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "prob"
         )
     ),
@@ -123,8 +123,8 @@ boost_tree_C5.0_data <-
       pre = NULL,
       func = c(fun = "predict"),
       args = list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
+        object = expr(object$fit),
+        newdata = expr(new_data)
       )
     )
   )
@@ -148,8 +148,8 @@ boost_tree_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     classes = list(
@@ -158,8 +158,8 @@ boost_tree_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     prob = list(
@@ -168,8 +168,8 @@ boost_tree_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     )
   )

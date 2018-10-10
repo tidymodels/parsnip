@@ -31,8 +31,8 @@ mlp_keras_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          x = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          x = expr(as.matrix(new_data))
         )
     ),
     classes = list(
@@ -43,8 +43,8 @@ mlp_keras_data <-
       func = c(fun = "predict_classes"),
       args =
         list(
-          object = quote(object$fit),
-          x = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          x = expr(as.matrix(new_data))
         )
     ),
     prob = list(
@@ -57,8 +57,8 @@ mlp_keras_data <-
       func = c(fun = "predict_proba"),
       args =
         list(
-          object = quote(object$fit),
-          x = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          x = expr(as.matrix(new_data))
         )
     ),
     raw = list(
@@ -66,8 +66,8 @@ mlp_keras_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          x = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          x = expr(as.matrix(new_data))
         )
     )
   )
@@ -87,8 +87,8 @@ mlp_nnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "raw"
         )
     ),
@@ -98,8 +98,8 @@ mlp_nnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "class"
         )
     ),
@@ -108,8 +108,8 @@ mlp_nnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     )
   )
@@ -217,8 +217,8 @@ keras_mlp <-
     fit_call <- expr(
       keras::fit(object = model)
     )
-    fit_call$x <- quote(x)
-    fit_call$y <- quote(y)
+    fit_call$x <- expr(x)
+    fit_call$y <- expr(y)
     fit_call$epochs <- epochs
     for(arg in names(arg_values$fit))
       fit_call[[arg]] <- arg_values$fit[[arg]]

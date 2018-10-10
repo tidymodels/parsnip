@@ -21,12 +21,12 @@ form_form <-
     fit_args <- object$method$fit$args
 
     if (is_spark(object)) {
-      fit_args$x <- quote(x)
+      fit_args$x <- expr(x)
       env$x <- env$data
     } else {
-      fit_args$data <- quote(data)
+      fit_args$data <- expr(data)
     }
-    fit_args$formula <- quote(formula)
+    fit_args$formula <- expr(formula)
 
     # check to see of there are any `expr` in the arguments then
     # run a function that evaluates the data and subs in the
@@ -77,13 +77,13 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  object$method$fit$args[["y"]] <- quote(y)
+  object$method$fit$args[["y"]] <- expr(y)
   object$method$fit$args[["x"]] <-
     switch(
       target,
-      none = quote(x),
-      data.frame = quote(as.data.frame(x)),
-      matrix = quote(as.matrix(x)),
+      none = expr(x),
+      data.frame = expr(as.data.frame(x)),
+      matrix = expr(as.matrix(x)),
       stop("Invalid data type target: ", target)
     )
 

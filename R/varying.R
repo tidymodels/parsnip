@@ -3,7 +3,7 @@
 #' [varying()] is used when a parameter will be specified at a later date.
 #' @export
 varying <- function()
-  quote(varying())
+  expr(varying())
 
 #' Determine varying arguments
 #'
@@ -129,9 +129,9 @@ is_varying <- function(x) {
     res <- FALSE
   } else {
     res <- if(is_quosure(x))
-      isTRUE(all.equal(x[[-1]], quote(varying())))
+      isTRUE(all.equal(x[[-1]], expr(varying())))
     else
-      isTRUE(all.equal(x, quote(varying())))
+      isTRUE(all.equal(x, expr(varying())))
   }
   res
 }

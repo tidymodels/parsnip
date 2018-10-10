@@ -29,12 +29,12 @@ convert_form_to_xy_fit <-function(
          call. = FALSE)
 
   ## Assemble model.frame call from call arguments
-  mf_call <- quote(model.frame(formula, data))
+  mf_call <- expr(model.frame(formula, data))
   mf_call$na.action <- match.call()$na.action # TODO this should work better
-  dots <- quos(...)
+  dots <- enexprs(...)
   check_form_dots(dots)
   for(i in seq_along(dots))
-    mf_call[[ names(dots)[i] ]] <- get_expr(dots[[i]])
+    mf_call[[ names(dots)[i] ]] <- dots[[i]]
 
   # setup contrasts
   if (any(names(dots) == "contrasts"))
@@ -44,7 +44,7 @@ convert_form_to_xy_fit <-function(
 
   # For new data, save the expression to create offsets (if any)
   if (any(names(dots) == "offset"))
-    offset_expr <- get_expr(dots[["offset"]])
+    offset_expr <- dots[["offset"]]
   else
     offset_expr <- NULL
 
@@ -71,7 +71,7 @@ convert_form_to_xy_fit <-function(
   if (indicators) {
     x <- model.matrix(mod_terms, mod_frame, contrasts)
   } else {
-    # this still ignores -vars in formula ¯\_(ツ)_/¯
+    # this still ignores -vars in formula 
     x <- model.frame(mod_terms, data)
     y_cols <- attr(mod_terms, "response")
     if (length(y_cols) > 0)

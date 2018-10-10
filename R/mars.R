@@ -172,7 +172,7 @@ translate.mars <- function(x, engine, ...) {
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
     if (!("glm" %in% names(x$others))) {
-      x$others$glm <- quote(list(family = stats::binomial))
+      x$others$glm <- expr(list(family = stats::binomial))
     }
   }
 

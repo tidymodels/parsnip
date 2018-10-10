@@ -58,8 +58,6 @@ model_printer <- function(x, ...) {
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
     non_null_args <- map(non_null_args, convert_arg)
-    # non_null_args <- map(non_null_args, quo_text)
-
     cat(print_arg_list(non_null_args), "\n", sep = "")
   }
   if (length(x$others) > 0) {
@@ -90,7 +88,7 @@ load_libs <- function(x, quiet) {
 }
 
 is_missing_arg <- function(x)
-  identical(x, quote(missing_arg()))
+  identical(x, expr(missing_arg()))
 
 
 #' Print the model call

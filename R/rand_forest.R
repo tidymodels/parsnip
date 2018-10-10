@@ -106,11 +106,11 @@ rand_forest <-
            mtry = NULL, trees = NULL, min_n = NULL,
            ...) {
 
-    others <- enquos(...)
+    others <- enexprs(...)
 
-    mtry <- enquo(mtry)
-    trees <- enquo(trees)
-    min_n <- enquo(min_n)
+    mtry <- enexpr(mtry)
+    trees <- enexpr(trees)
+    min_n <- enexpr(min_n)
 
     ## TODO: make a utility function here
     if (!(mode %in% rand_forest_modes))

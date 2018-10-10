@@ -34,10 +34,10 @@ multinom_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data)),
           type = "class",
-          s = quote(object$spec$args$penalty)
+          s = expr(object$spec$args$penalty)
         )
     ),
     prob = list(
@@ -46,10 +46,10 @@ multinom_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$penalty)
+          s = expr(object$spec$args$penalty)
         )
     ),
     raw = list(
@@ -57,8 +57,8 @@ multinom_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data))
         )
     )
   )
@@ -81,8 +81,8 @@ multinom_reg_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     prob = list(
@@ -91,8 +91,8 @@ multinom_reg_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     )
   )

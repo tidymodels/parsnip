@@ -39,8 +39,8 @@ logistic_reg_glm_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "response"
         )
     ),
@@ -54,8 +54,8 @@ logistic_reg_glm_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "response"
         )
     ),
@@ -64,8 +64,8 @@ logistic_reg_glm_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     confint = list(
@@ -87,8 +87,8 @@ logistic_reg_glm_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           se.fit = TRUE,
           type = "link"
         )
@@ -113,10 +113,10 @@ logistic_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$penalty)
+          s = expr(object$spec$args$penalty)
         )
     ),
     prob = list(
@@ -125,10 +125,10 @@ logistic_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data)),
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data)),
           type = "response",
-          s = quote(object$spec$args$penalty)
+          s = expr(object$spec$args$penalty)
         )
     ),
     raw = list(
@@ -136,8 +136,8 @@ logistic_reg_glmnet_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newx = quote(as.matrix(new_data))
+          object = expr(object$fit),
+          newx = expr(as.matrix(new_data))
         )
     )
   )
@@ -164,8 +164,8 @@ logistic_reg_stan_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     prob = list(
@@ -179,8 +179,8 @@ logistic_reg_stan_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     raw = list(
@@ -188,8 +188,8 @@ logistic_reg_stan_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     ),
     confint = list(
@@ -216,8 +216,8 @@ logistic_reg_stan_data <-
       func = c(pkg = "rstanarm", fun = "posterior_linpred"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           transform = TRUE,
           seed = expr(sample.int(10^5, 1))
         )
@@ -246,8 +246,8 @@ logistic_reg_stan_data <-
       func = c(pkg = "rstanarm", fun = "posterior_predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           seed = expr(sample.int(10^5, 1))
         )
     )
@@ -272,8 +272,8 @@ logistic_reg_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     ),
     prob = list(
@@ -282,8 +282,8 @@ logistic_reg_spark_data <-
       func = c(pkg = "sparklyr", fun = "ml_predict"),
       args =
         list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
+          x = expr(object$fit),
+          dataset = expr(new_data)
         )
     )
   )

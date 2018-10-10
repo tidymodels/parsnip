@@ -29,8 +29,8 @@ mars_earth_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "response"
         )
     ),
@@ -43,8 +43,8 @@ mars_earth_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "response"
         )
     ),
@@ -59,8 +59,8 @@ mars_earth_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
+          object = expr(object$fit),
+          newdata = expr(new_data),
           type = "response"
         )
     ),
@@ -69,8 +69,8 @@ mars_earth_data <-
       func = c(fun = "predict"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
+          object = expr(object$fit),
+          newdata = expr(new_data)
         )
     )
   )

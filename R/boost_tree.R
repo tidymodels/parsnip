@@ -291,7 +291,7 @@ xgb_train <- function(
   # eval if contains expressions?
 
   main_args <- list(
-    data = quote(x),
+    data = expr(x),
     params = arg_list,
     nrounds = nrounds,
     objective = loss
@@ -399,7 +399,7 @@ C5.0_train <-
     fit_call$trials <- trials
     fit_call$control <- ctrl
     if(!is.null(weights))
-      fit_call$weights <- quote(weights)
+      fit_call$weights <- expr(weights)
 
     for(i in names(fit_args))
       fit_call[[i]] <- fit_args[[i]]

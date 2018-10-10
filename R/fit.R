@@ -96,7 +96,7 @@ fit.model_spec <-
            control = fit_control(),
            ...
   ) {
-    dots <- quos(...)
+    dots <- enexprs(...)
     if (all(c("x", "y") %in% names(dots)))
       stop("`fit.model_spec` is for the formula methods. Use `fit_xy` instead.",
            call. = FALSE)
