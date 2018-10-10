@@ -184,11 +184,10 @@ fit_xy.model_spec <-
   ) {
 
     cl <- match.call(expand.dots = TRUE)
-    eval_env <- rlang::env()
+    eval_env <- rlang::new_environment(parent = rlang::base_env())
     eval_env$x <- x
     eval_env$y <- y
-    fit_interface <-
-      check_xy_interface(eval_env$x, eval_env$y, cl, object)
+    fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 
