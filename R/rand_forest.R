@@ -191,34 +191,42 @@ update.rand_forest <-
 translate.rand_forest <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
 
+  # slightly cleaner code using
+  arg_vals <- x$method$fit$args
+
   if (x$engine == "spark") {
-    if (x$mode == "unknown")
+    if (x$mode == "unknown") {
       stop(
         "For spark random forests models, the mode cannot be 'unknown' ",
         "if the specification is to be translated.",
         call. = FALSE
       )
-    else
-      x$method$fit$args$type <- x$mode
+    } else {
+      arg_vals$type <- x$mode
+    }
 
-    # See "Details" in ?ml_random_forest_classifier
-    if (is.numeric(x$method$fit$args$feature_subset_strategy))
-      x$method$fit$args$feature_subset_strategy <-
-        paste(x$method$fit$args$feature_subset_strategy)
-
+    # See "Details" in ?ml_random_forest_classifier. `feature_subset_strategy`
+    # should be character even if it contains a number.
+    if (any(names(arg_vals) == "feature_subset_strategy") &&
+        isTRUE(is.numeric(quo_get_expr(arg_vals$feature_subset_strategy)))) {
+      arg_vals$feature_subset_strategy <-
+        paste(quo_get_expr(arg_vals$feature_subset_strategy))
+    }
   }
 
   # add checks to error trap or change things for this method
   if (x$engine == "ranger") {
-    if (any(names(x$method$fit$args) == "importance"))
-      if (is.logical(x$method$fit$args$importance))
+    if (any(names(arg_vals) == "importance"))
+      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance))))
         stop("`importance` should be a character value. See ?ranger::ranger.",
              call. = FALSE)
     # unless otherwise specified, classification models are probability forests
-    if (x$mode == "classification" && !any(names(x$method$fit$args) == "probability"))
-      x$method$fit$args$probability <- TRUE
+    if (x$mode == "classification" && !any(names(arg_vals) == "probability"))
+      arg_vals$probability <- TRUE
 
   }
+  x$method$fit$args <- arg_vals
+
   x
 }
 
