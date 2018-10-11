@@ -22,7 +22,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.  If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -30,8 +30,6 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `xgboost::xgb.train`, etc.). .
 #' @param mtry An number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models (`xgboost`
 #'  only).
@@ -48,8 +46,11 @@
 #' @param sample_size An number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
 #'  each iteration while `C5.0` samples once during traning.
-#' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
+#' @param ... Other arguments to pass to the specific engine's
+#'  model fit function (see the Engine Details section below). This
+#'  should not include arguments defined by the main parameters to
+#'  this function. For the `update` function, the ellipses can
+#'  contain the primary arguments or any others.
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree`, the
@@ -62,12 +63,15 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' Main parameter arguments (and those in `others`) can avoid
+#' Main parameter arguments (and those in `...`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
 #'
+#'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -114,13 +118,18 @@
 
 boost_tree <-
   function(mode = "unknown",
-           ...,
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
            sample_size = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others         <- enquos(...)
+    mtry           <- enquo(mtry)
+    trees          <- enquo(trees)
+    min_n          <- enquo(min_n)
+    learn_rate     <- enquo(learn_rate)
+    loss_reduction <- enquo(loss_reduction)
+    sample_size    <- enquo(sample_size)
 
     if (!(mode %in% boost_tree_modes))
       stop("`mode` should be one of: ",
@@ -184,10 +193,15 @@ update.boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL, sample_size = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others         <- enquos(...)
+    mtry           <- enquo(mtry)
+    trees          <- enquo(trees)
+    min_n          <- enquo(min_n)
+    learn_rate     <- enquo(learn_rate)
+    loss_reduction <- enquo(loss_reduction)
+    sample_size    <- enquo(sample_size)
 
     args <- list(
       mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,

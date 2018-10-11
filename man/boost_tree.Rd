@@ -5,22 +5,18 @@
 \alias{update.boost_tree}
 \title{General Interface for Boosted Trees}
 \usage{
-boost_tree(mode = "unknown", ..., mtry = NULL, trees = NULL,
+boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, others = list())
+  loss_reduction = NULL, sample_size = NULL, ...)
 
 \method{update}{boost_tree}(object, mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, others = list(),
-  fresh = FALSE, ...)
+  loss_reduction = NULL, sample_size = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{mtry}{An number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models (\code{xgboost}
@@ -45,8 +41,11 @@ to split further  (\code{xgboost} only).}
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during traning.}
 
-\item{others}{A named list of arguments to be used by the
-underlying models (e.g., \code{xgboost::xgb.train}, etc.). .}
+\item{...}{Other arguments to pass to the specific engine's
+model fit function (see the Engine Details section below). This
+should not include arguments defined by the main parameters to
+this function. For the \code{update} function, the ellipses can
+contain the primary arguments or any others.}
 
 \item{object}{A boosted tree model specification.}
 
@@ -77,7 +76,7 @@ to split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{others} argument. If left to their defaults
+set using the  \code{...} slot. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.  If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -94,12 +93,29 @@ following \emph{engines}:
 \item \pkg{Spark}: \code{"spark"}
 }
 
-Main parameter arguments (and those in \code{others}) can avoid
+Main parameter arguments (and those in \code{...}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
+}
+\note{
+For models created using the spark engine, there are
+several differences to consider. First, only the formula
+interface to via \code{fit} is available; using \code{fit_xy} will
+generate an error. Second, the predictions will always be in a
+spark table format. The names will be the same as documented but
+without the dots. Third, there is no equivalent to factor
+columns in spark tables so class predictions are returned as
+character columns. Fourth, to retain the model object for a new
+R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+object should be serialized via \code{ml_save(object$fit)} and
+separately saved to disk. In a new session, the object can be
+reloaded and reattached to the \code{parsnip} object.
+}
+\section{Engine Details}{
+
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{others}
+model fit call. These can be changed by using the \code{...}
 argument to pass in the preferred values. For this type of
 model, the template of the fit calls are:
 
@@ -123,20 +139,7 @@ model, the template of the fit calls are:
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
 }
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit} is available; using \code{fit_xy} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
+
 \examples{
 boost_tree(mode = "classification", trees = 20)
 # Parameters can be represented by a placeholder:

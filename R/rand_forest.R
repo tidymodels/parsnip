@@ -15,25 +15,21 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
 #'
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `ranger::ranger`,
-#'  `randomForest::randomForest`, etc.). .
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
@@ -42,14 +38,16 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' Main parameter arguments (and those in `others`) can avoid
+#' Main parameter arguments (and those in `...`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
 #'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
-#'  model, the template of the fit calls are:
+#'  model, the template of the fit calls are::
 #'
 #' \pkg{ranger} classification
 #'
@@ -144,11 +142,8 @@ print.rand_forest <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-#' @inheritParams rand_forest
+#' @inheritParams update.boost_tree
 #' @param object A random forest model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- rand_forest(mtry = 10, min_n = 3)
 #' model
@@ -160,10 +155,12 @@ print.rand_forest <- function(x, ...) {
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others <- enquos(...)
+    mtry   <- enquo(mtry)
+    trees  <- enquo(trees)
+    min_n  <- enquo(min_n)
 
     args <- list(mtry = mtry, trees = trees, min_n = min_n)
 
