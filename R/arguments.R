@@ -86,7 +86,7 @@ check_others <- function(args, obj, core_args) {
 #'
 #' @export
 set_args <- function(object, ...) {
-  the_dots <- list(...)
+  the_dots <- enquos(...)
   if (length(the_dots) == 0)
     stop("Please pass at least one named argument.", call. = FALSE)
   main_args <- names(object$args)

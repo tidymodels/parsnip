@@ -17,26 +17,20 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
 #'
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `earth::earth`, etc.). If the outcome is a factor
-#'  and `mode = "classification"`, `others` can include the `glm` argument to
-#'  `earth::earth`. If this argument is not passed, it will be added prior to
-#'  the fitting occurs.
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
-#' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
-#' @details Main parameter arguments (and those in `others`) can avoid
+#' @details Main parameter arguments (and those in `...`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()].
 #'
@@ -46,8 +40,10 @@
 #' \item \pkg{R}:  `"earth"`
 #' }
 #'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -71,10 +67,12 @@
 
 mars <-
   function(mode = "unknown",
-           ...,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others  <- enquos(...)
+    num_terms    <- enquo(num_terms)
+    prod_degree  <- enquo(prod_degree)
+    prune_method <- enquo(prune_method)
 
     if (!(mode %in% mars_modes))
       stop("`mode` should be one of: ",
@@ -87,7 +85,7 @@ mars <-
       stop("`num_terms` should be >= 1", call. = FALSE)
     if (!is_varying(prune_method) &&
         !is.null(prune_method) &&
-        !is.character(prune_method))
+         is.character(prune_method))
       stop("`prune_method` should be a single string value", call. = FALSE)
 
     args <- list(num_terms = num_terms,
@@ -118,11 +116,8 @@ print.mars <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-#' @inheritParams mars
+#' @inheritParams update.boost_tree
 #' @param object A MARS model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- mars(num_terms = 10, prune_method = "none")
 #' model
@@ -134,10 +129,12 @@ print.mars <- function(x, ...) {
 update.mars <-
   function(object,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others  <- enquos(...)
+    num_terms    <- enquo(num_terms)
+    prod_degree  <- enquo(prod_degree)
+    prune_method <- enquo(prune_method)
 
     args <- list(num_terms = num_terms,
                  prod_degree = prod_degree,

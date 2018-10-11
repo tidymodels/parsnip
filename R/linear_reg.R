@@ -12,25 +12,19 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `stats::lm`,
-#'  `rstanarm::stan_glm`, etc.). These are not evaluated
-#'  until the model is fit and will be substituted into the model
-#'  fit expression.
 #' @param penalty An non-negative number representing the
 #'  total amount of regularization (`glmnet` and `spark` only).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
 #'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
 #'  (the lasso) (`glmnet` and `spark` only).
-#' @param ... Used for S3 method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
 #'
 #' @details
 #' The data given to the function are not saved and are only used
@@ -45,8 +39,10 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -105,11 +101,13 @@
 #' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
-           ...,
            penalty = NULL,
            mixture = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others  <- enquos(...)
+    penalty <- enquo(penalty)
+    mixture <- enquo(mixture)
+
     if (!(mode %in% linear_reg_modes))
       stop(
         "`mode` should be one of: ",
@@ -121,7 +119,7 @@ linear_reg <-
       stop("The amount of regularization should be >= 0", call. = FALSE)
     if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
       stop("The mixture proportion should be within [0,1]", call. = FALSE)
-    if (length(mixture) > 1)
+    if (is.numeric(mixture) && length(mixture) > 1)
       stop("Only one value of `mixture` is allowed.", call. = FALSE)
 
     args <- list(penalty = penalty, mixture = mixture)
@@ -156,11 +154,8 @@ print.linear_reg <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @inheritParams linear_reg
+#' @inheritParams update.boost_tree
 #' @param object A linear regression model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- linear_reg(penalty = 10, mixture = 0.1)
 #' model
@@ -172,10 +167,11 @@ print.linear_reg <- function(x, ...) {
 update.linear_reg <-
   function(object,
            penalty = NULL, mixture = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others  <- enquos(...)
+    penalty <- enquo(penalty)
+    mixture <- enquo(mixture)
 
     if (is.numeric(penalty) && penalty < 0)
       stop("The amount of regularization should be >= 0", call. = FALSE)

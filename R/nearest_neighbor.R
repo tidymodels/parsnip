@@ -19,11 +19,11 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
-#'
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #' Possible values for this model are `"unknown"`, `"regression"`, or
 #' `"classification"`.
@@ -39,14 +39,6 @@
 #' @param dist_power A single number for the parameter used in
 #' calculating Minkowski distance.
 #'
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `kknn::train.kknn`). These are not evaluated
-#'  until the model is fit and will be substituted into the model
-#'  fit expression.
-#'
-#' @param ... Used for S3 method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
-#'
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
@@ -54,8 +46,10 @@
 #' \item \pkg{R}:  `"kknn"`
 #' }
 #'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -77,13 +71,14 @@
 #'
 #' @export
 nearest_neighbor <- function(mode = "unknown",
-                             ...,
                              neighbors = NULL,
                              weight_func = NULL,
                              dist_power = NULL,
-                             others = list()) {
-
-  check_empty_ellipse(...)
+                             ...) {
+  others      <- enquos(...)
+  neighbors   <- enquo(neighbors)
+  weight_func <- enquo(weight_func)
+  dist_power  <- enquo(dist_power)
 
   ## TODO: make a utility function here
   if (!(mode %in% nearest_neighbor_modes)) {
@@ -132,15 +127,18 @@ print.nearest_neighbor <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
+#' @inheritParams update.boost_tree
 update.nearest_neighbor <- function(object,
                                     neighbors = NULL,
                                     weight_func = NULL,
                                     dist_power = NULL,
-                                    others = list(),
                                     fresh = FALSE,
                                     ...) {
 
-  check_empty_ellipse(...)
+  others      <- enquos(...)
+  neighbors   <- enquo(neighbors)
+  weight_func <- enquo(weight_func)
+  dist_power  <- enquo(dist_power)
 
   if(is.numeric(neighbors) && !positive_int_scalar(neighbors)) {
     stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)

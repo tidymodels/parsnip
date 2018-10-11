@@ -18,7 +18,7 @@
 #'
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (see above), the values are taken from the underlying model
 #'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
 #'  function's `size` argument has no default so a value of 5 units will be
@@ -26,13 +26,11 @@
 #'  `nnet::nnet` will be set to `TRUE` when a regression model is created.
 #'  If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
-
+#'
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `nnet::nnet`,
-#'  `keras::fit`, `keras::compile`, etc.). .
 #' @param hidden_units An integer for the number of units in the hidden model.
 #' @param penalty A non-negative numeric value for the amount of weight
 #'  decay.
@@ -44,8 +42,6 @@
 #'  function between the hidden and output layers is automatically set to either
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
 #'  "linear", "softmax", "relu", and "elu"
-#' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
 #' @details
 #'
 #' The model can be created using the `fit()` function using the
@@ -55,15 +51,17 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#' Main parameter arguments (and those in `others`) can avoid
+#' Main parameter arguments (and those in `...`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `hidden_units = expr(num_preds * 2)`).
 #'
 #'  An error is thrown if both `penalty` and `dropout` are specified for
 #'  `keras` models.
 #'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -93,11 +91,16 @@
 
 mlp <-
   function(mode = "unknown",
-           ...,
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others  <- enquos(...)
+    hidden_units <- enquo(hidden_units)
+    penalty      <- enquo(penalty)
+    dropout      <- enquo(dropout)
+    epochs       <- enquo(epochs)
+    activation   <- enquo(activation)
+
 
     act_funs <- c("linear", "softmax", "relu", "elu")
     if (is.numeric(hidden_units))
@@ -157,11 +160,8 @@ print.mlp <- function(x, ...) {
 #'  in lieu of recreating the object from scratch.
 #'
 #' @export
-#' @inheritParams mlp
+#' @inheritParams update.boost_tree
 #' @param object A random forest model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- mlp(hidden_units = 10, dropout = 0.30)
 #' model
@@ -174,10 +174,14 @@ update.mlp <-
   function(object,
            hidden_units = NULL, penalty = NULL, dropout = NULL,
            epochs = NULL, activation = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others  <- enquos(...)
+    hidden_units <- enquo(hidden_units)
+    penalty      <- enquo(penalty)
+    dropout      <- enquo(dropout)
+    epochs       <- enquo(epochs)
+    activation   <- enquo(activation)
 
     args <- list(hidden_units = hidden_units, penalty = penalty, dropout = dropout,
                  epochs = epochs, activation = activation)
@@ -209,8 +213,9 @@ update.mlp <-
 translate.mlp <- function(x, engine, ...) {
 
   if (engine == "nnet") {
-    if(is.null(x$args$hidden_units))
+    if(isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
       x$args$hidden_units <- 5
+    }
   }
 
   x <- translate.default(x, engine, ...)
