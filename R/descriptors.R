@@ -1,60 +1,106 @@
 #' @name descriptors
-#' @aliases descriptors n_obs n_cols n_preds n_facts n_levs
+#' @aliases descriptors .n_obs .n_cols .n_preds .n_facts .n_levs .x .y .dat
 #' @title Data Set Characteristics Available when Fitting Models
-#' @description When using the `fit` functions there are some
+#' @description When using the `fit()` functions there are some
 #'  variables that will be available for use in arguments. For
 #'  example, if the user would like to choose an argument value
-#'  based on the current number of rows in a data set, the `n_obs`
-#'  variable can be used. See Details below.
+#'  based on the current number of rows in a data set, the `.n_obs()`
+#'  function can be used. See Details below.
 #' @details
-#' Existing variables:
+#' Existing functions:
 #'   \itemize{
-#'   \item `n_obs`: the current number of rows in the data set.
-#'   \item `n_cols`: the number of columns in the data set that are
+#'   \item `.n_obs()`: The current number of rows in the data set.
+#'   \item `.n_cols()`: The number of columns in the data set that are
 #'     associated with the predictors prior to dummy variable creation.
-#'   \item `n_preds`: the number of predictors after dummy variables
+#'   \item `.n_preds()`: The number of predictors after dummy variables
 #'     are created (if any).
-#'   \item `n_facts`: the number of factor predictors in the dat set.
-#'   \item `n_levs`: If the outcome is a factor, this is a table
-#'     with the counts for each level (and `NA` otherwise)
+#'   \item `.n_facts()`: The number of factor predictors in the dat set.
+#'   \item `.n_levs()`: If the outcome is a factor, this is a table
+#'     with the counts for each level (and `NA` otherwise).
+#'   \item `.x()`: The predictors returned in the format given. Either a
+#'   data frame or a matrix.
+#'   \item `.y()`: The known outcomes returned in the format given. Either
+#'   a vector, matrix, or data frame.
+#'   \item `.dat()`: A data frame containing all of the predictors and the
+#'   outcomes. If `fit_xy()` was used, the outcomes are attached as the
+#'   column, `..y`.
 #'   }
 #'
 #' For example, if you use the model formula `Sepal.Width ~ .` with the `iris`
 #'  data, the values would be
 #' \preformatted{
-#'  n_cols  =   4     (the 4 columns in `iris`)
-#'  n_preds =   5     (3 numeric columns + 2 from Species dummy variables)
-#'  n_obs   = 150
-#'  n_levs  =  NA     (no factor outcome)
-#'  n_facts =   1     (the Species predictor)
+#'  .n_cols()  =   4          (the 4 columns in `iris`)
+#'  .n_preds() =   5          (3 numeric columns + 2 from Species dummy variables)
+#'  .n_obs()   = 150
+#'  .n_levs()  =  NA          (no factor outcome)
+#'  .n_facts() =   1          (the Species predictor)
+#'  .y()       = <vector>     (Sepal.Width as a vector)
+#'  .x()       = <data.frame> (The other 4 columns as a data frame)
+#'  .dat()     = <data.frame> (The full data set)
 #' }
 #'
 #' If the formula `Species ~ .` where used:
 #' \preformatted{
-#'  n_cols  =   4     (the 4 numeric columns in `iris`)
-#'  n_preds =   4     (same)
-#'  n_obs   = 150
-#'  n_levs  =  c(setosa = 50, versicolor = 50, virginica = 50)
-#'  n_facts =   0
+#'  .n_cols()  =   4          (the 4 numeric columns in `iris`)
+#'  .n_preds() =   4          (same)
+#'  .n_obs()   = 150
+#'  .n_levs()  =  c(setosa = 50, versicolor = 50, virginica = 50)
+#'  .n_facts() =   0
+#'  .y()       = <vector>     (Species as a vector)
+#'  .x()       = <data.frame> (The other 4 columns as a data frame)
+#'  .dat()     = <data.frame> (The full data set)
 #' }
 #'
-#' To use these in a model fit, either `expression` or `rlang::expr` can be
-#' used to delay the evaluation of the argument value until the time when the
-#' model is run via `fit` (and the variables listed above are available).
+#' To use these in a model fit, pass them to a model specification.
+#' The evaluation is delayed until the time when the
+#' model is run via `fit()` (and the variables listed above are available).
 #' For example:
 #'
 #' \preformatted{
-#' library(rlang)
 #'
 #' data("lending_club")
 #'
-#' rand_forest(mode = "classification", mtry = expr(n_cols - 2))
+#' rand_forest(mode = "classification", mtry = .n_cols() - 2)
 #' }
 #'
-#' When no instance of `expr` is found in any of the argument
-#'  values, the descriptor calculation code will not be executed.
+#' When no descriptors are found, the computation of the descriptor values
+#' is not executed.
 #'
 NULL
+
+#' @export
+#' @rdname descriptors
+.n_cols <- function() descr_env$.n_cols()
+
+#' @export
+#' @rdname descriptors
+.n_preds <- function() descr_env$.n_preds()
+
+#' @export
+#' @rdname descriptors
+.n_obs <- function() descr_env$.n_obs()
+
+#' @export
+#' @rdname descriptors
+.n_levs <- function() descr_env$.n_levs()
+
+#' @export
+#' @rdname descriptors
+.n_facts <- function() descr_env$.n_facts()
+
+#' @export
+#' @rdname descriptors
+.x <- function() descr_env$.x()
+
+#' @export
+#' @rdname descriptors
+.y <- function() descr_env$.y()
+
+#' @export
+#' @rdname descriptors
+.dat <- function() descr_env$.dat()
+
+# Descriptor retrievers --------------------------------------------------------
 
 get_descr_form <- function(formula, data) {
   if (inherits(data, "tbl_spark")) {
@@ -209,11 +255,11 @@ get_descr_spark <- function(formula, data) {
 
 get_descr_xy <- function(x, y) {
 
-  if(is.factor(y)) {
-    .n_levs <- function() {
-      table(y, dnn = NULL)
-    }
-  } else n_levs <- function() { NA }
+  .n_levs <- if (is.factor(y)) {
+    function() table(y, dnn = NULL)
+  } else {
+    function() NA
+  }
 
   .n_cols  <- function() {
     ncol(x)
@@ -235,9 +281,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    x <- as.data.frame(x)
-    x[[".y"]] <- y
-    x
+    convert_xy_to_form_fit(x, y)
   }
 
   .x <- function() {
@@ -278,51 +322,52 @@ make_descr <- function(object) {
   any(expr_main) | any(expr_others)
 }
 
-# # given a quosure arg, does the expression contain a descriptor function?
-# find_descr <- function(x) {
-#
-#   if(is_quosure(x)) {
-#     x <- rlang::quo_get_expr(x)
-#   }
-#
-#   if(is_descr(x)) {
-#     TRUE
-#   }
-#
-#   # handles NULL, literals
-#   else if (is.atomic(x) | is.name(x)) {
-#     FALSE
-#   }
-#
-#   else if (is.call(x)) {
-#     any(rlang::squash_lgl(lapply(x, find_descr)))
-#   }
-#
-#   else {
-#     # User supplied incorrect input
-#     stop("Don't know how to handle type ", typeof(x),
-#          call. = FALSE)
-#   }
-#
-# }
-#
-# is_descr <- function(expr) {
-#
-#   descriptors <- list(
-#     expr(.n_cols),
-#     expr(.n_preds),
-#     expr(.n_obs),
-#     expr(.n_levs),
-#     expr(.n_facts),
-#     expr(.x),
-#     expr(.y),
-#     expr(.dat)
-#   )
-#
-#   any(map_lgl(descriptors, identical, y = expr))
-# }
+# Locate descriptors -----------------------------------------------------------
 
-# descrs = list of functions that actually eval .n_cols()
+# take a list of arguments, see if any require descriptors
+requires_descrs <- function(lst) {
+  any(map_lgl(lst, has_any_descrs))
+}
+
+# given a quosure arg, does the expression contain a descriptor function?
+has_any_descrs <- function(x) {
+
+  .x_expr <- rlang::get_expr(x)
+  .x_env  <- rlang::get_env(x, parent.frame())
+
+  # evaluated value
+  # required so we don't pass an empty env to findGlobals(), which is an error
+  if (identical(.x_env, rlang::empty_env())) {
+    return(FALSE)
+  }
+
+  # globals::globalsOf() is recursive and finds globals if the user passes
+  # in a function that wraps a descriptor fn
+  .globals <- globals::globalsOf(expr = .x_expr, envir = .x_env)
+  .globals <- names(.globals)
+
+  any(map_lgl(.globals, is_descr))
+}
+
+is_descr <- function(x) {
+
+  descrs <- list(
+    ".n_cols",
+    ".n_preds",
+    ".n_obs",
+    ".n_levs",
+    ".n_facts",
+    ".x",
+    ".y",
+    ".dat"
+  )
+
+  any(map_lgl(descrs, identical, y = x))
+}
+
+# Helpers for overwriting descriptors temporarily ------------------------------
+
+# descrs = list of functions that actually eval to .n_cols()
 poke_descrs <- function(descrs) {
 
   descr_names <- names(descr_env)
@@ -348,51 +393,14 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 
   # Inline everything so the call will succeed in any environment
   expr <- call2(on.exit, call2(poke_descrs, old), add = TRUE)
-  eval_bare(expr, frame)
+  rlang::eval_bare(expr, frame)
 
   invisible(old)
 }
 
-#' @export
-.n_cols <- function() {
-  descr_env$.n_cols()
-}
-
-#' @export
-.n_preds <- function() {
-  descr_env$.n_preds()
-}
-
-#' @export
-.n_obs <- function() {
-  descr_env$.n_obs()
-}
-
-#' @export
-.n_levs <- function() {
-  descr_env$.n_levs()
-}
-
-#' @export
-.n_facts <- function() {
-  descr_env$.n_facts()
-}
-
-#' @export
-.x <- function() {
-  descr_env$.x()
-}
-
-#' @export
-.y <- function() {
-  descr_env$.y()
-}
-
-#' @export
-.dat <- function() {
-  descr_env$.dat()
-}
-
+# Environment that descriptors are found in.
+# Originally set to error. At fit time, these are temporarily overriden
+# with their actual implementations
 descr_env <- rlang::new_environment(
   data = list(
     .n_cols  = function() abort("Descriptor context not set"),
