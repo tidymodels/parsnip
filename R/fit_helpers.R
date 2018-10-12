@@ -16,7 +16,7 @@ form_form <-
     object <- check_mode(object, y_levels)
 
     # if descriptors are needed, update descr_env with the calculated values
-    if(requires_descrs(object$args)) {
+    if(requires_descrs(object)) {
       data_stats <- get_descr_form(env$formula, env$data)
       scoped_descrs(data_stats)
     }
@@ -68,7 +68,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   object <- check_mode(object, levels(env$y))
 
   # if descriptors are needed, update descr_env with the calculated values
-  if(requires_descrs(object$args)) {
+  if(requires_descrs(object)) {
     data_stats <- get_descr_form(env$formula, env$data)
     scoped_descrs(data_stats)
   }

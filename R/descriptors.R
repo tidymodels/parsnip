@@ -281,7 +281,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    convert_xy_to_form_fit(x, y)
+    convert_xy_to_form_fit(x, y)$data
   }
 
   .x <- function() {
@@ -324,9 +324,12 @@ make_descr <- function(object) {
 
 # Locate descriptors -----------------------------------------------------------
 
-# take a list of arguments, see if any require descriptors
-requires_descrs <- function(lst) {
-  any(map_lgl(lst, has_any_descrs))
+# take a model spec, see if any require descriptors
+requires_descrs <- function(object) {
+  any(c(
+    map_lgl(object$args, has_any_descrs),
+    map_lgl(object$others, has_any_descrs)
+  ))
 }
 
 # given a quosure arg, does the expression contain a descriptor function?
@@ -343,7 +346,12 @@ has_any_descrs <- function(x) {
 
   # globals::globalsOf() is recursive and finds globals if the user passes
   # in a function that wraps a descriptor fn
-  .globals <- globals::globalsOf(expr = .x_expr, envir = .x_env)
+  .globals <- globals::globalsOf(
+    expr = .x_expr,
+    envir = .x_env,
+    mustExist = FALSE
+  )
+
   .globals <- names(.globals)
 
   any(map_lgl(.globals, is_descr))
