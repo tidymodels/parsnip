@@ -188,7 +188,7 @@ get_descr_spark <- function(formula, data) {
   obs <- dplyr::tally(data) %>% dplyr::pull()
 
   .n_cols  <- function() length(f_term_labels)
-  .n_pred  <- function() all_preds
+  .n_preds <- function() all_preds
   .n_obs   <- function() obs
   .n_levs  <- function() y_vals
   .n_facts <- function() factor_pred
@@ -278,3 +278,127 @@ make_descr <- function(object) {
   any(expr_main) | any(expr_others)
 }
 
+# # given a quosure arg, does the expression contain a descriptor function?
+# find_descr <- function(x) {
+#
+#   if(is_quosure(x)) {
+#     x <- rlang::quo_get_expr(x)
+#   }
+#
+#   if(is_descr(x)) {
+#     TRUE
+#   }
+#
+#   # handles NULL, literals
+#   else if (is.atomic(x) | is.name(x)) {
+#     FALSE
+#   }
+#
+#   else if (is.call(x)) {
+#     any(rlang::squash_lgl(lapply(x, find_descr)))
+#   }
+#
+#   else {
+#     # User supplied incorrect input
+#     stop("Don't know how to handle type ", typeof(x),
+#          call. = FALSE)
+#   }
+#
+# }
+#
+# is_descr <- function(expr) {
+#
+#   descriptors <- list(
+#     expr(.n_cols),
+#     expr(.n_preds),
+#     expr(.n_obs),
+#     expr(.n_levs),
+#     expr(.n_facts),
+#     expr(.x),
+#     expr(.y),
+#     expr(.dat)
+#   )
+#
+#   any(map_lgl(descriptors, identical, y = expr))
+# }
+
+# descrs = list of functions that actually eval .n_cols()
+poke_descrs <- function(descrs) {
+
+  descr_env <- rlang::pkg_env("parsnip")
+
+  old <- list(
+    .n_cols = descr_env$.n_cols,
+    .n_preds = descr_env$.n_preds,
+    .n_obs = descr_env$.n_obs,
+    .n_levs = descr_env$.n_levs,
+    .n_facts = descr_env$.n_facts,
+    .x = descr_env$.x,
+    .y = descr_env$.y,
+    .dat = descr_env$.dat
+  )
+
+  descr_env$.n_cols <- descrs$.n_cols
+  descr_env$.n_preds <- descrs$.n_preds
+  descr_env$.n_obs <- descrs$.n_obs
+  descr_env$.n_levs <- descrs$.n_levs
+  descr_env$.n_facts <- descrs$.n_facts
+  descr_env$.x <- descrs$.x
+  descr_env$.y <- descrs$.y
+  descr_env$.dat <- descrs$.dat
+
+  invisible(old)
+}
+
+# frame = evaluation frame of when the on.exit() call is made
+# we generally set it to whatever fn calls scoped_descrs()
+# which should be inside of fit()
+scoped_descrs <- function(descrs, frame = caller_env()) {
+  old <- poke_descrs(descrs)
+
+  # Inline everything so the call will succeed in any environment
+  expr <- call2(on.exit, call2(poke_descrs, old), add = TRUE)
+  eval_bare(expr, frame)
+
+  invisible(old)
+}
+
+#' @export
+.n_cols <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.n_preds <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.n_obs <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.n_levs <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.n_facts <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.x <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.y <- function() {
+  rlang::abort("dont call me")
+}
+
+#' @export
+.dat <- function() {
+  rlang::abort("dont call me")
+}

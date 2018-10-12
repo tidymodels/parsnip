@@ -32,7 +32,7 @@ test_that('spark execution', {
         boost_tree(
           trees = 5,
           mode = "regression",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -49,7 +49,7 @@ test_that('spark execution', {
         boost_tree(
           trees = 5,
           mode = "regression",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -106,7 +106,7 @@ test_that('spark execution', {
         boost_tree(
           trees = 5,
           mode = "classification",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -123,7 +123,7 @@ test_that('spark execution', {
         boost_tree(
           trees = 5,
           mode = "classification",
-          others = list(seed = 12)
+          seed = 12
         ),
         engine = "spark",
         control = ctrl,
@@ -185,7 +185,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_equal(colnames(spark_class_prob), c("pred_No", "pred_Yes"))
+  expect_equal(colnames(spark_class_prob), c("pred_0", "pred_1"))
 
   expect_equivalent(
     as.data.frame(spark_class_prob),

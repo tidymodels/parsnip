@@ -104,9 +104,12 @@ rand_forest <-
            mtry = NULL, trees = NULL, min_n = NULL, ...) {
 
     others <- enquos(...)
-    mtry   <- enquo(mtry)
-    trees  <- enquo(trees)
-    min_n  <- enquo(min_n)
+
+    args <- list(
+      mtry   = enquo(mtry),
+      trees  = enquo(trees),
+      min_n  = enquo(min_n)
+    )
 
     ## TODO: make a utility function here
     if (!(mode %in% rand_forest_modes))
@@ -114,9 +117,7 @@ rand_forest <-
            paste0("'", rand_forest_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    args <- list(mtry = mtry, trees = trees, min_n = min_n)
-
-    no_value <- !vapply(others, is.null, logical(1))
+    no_value <- !vapply(others, null_value, logical(1))
     others <- others[no_value]
 
     # write a constructor function
@@ -158,11 +159,12 @@ update.rand_forest <-
            fresh = FALSE,
            ...) {
     others <- enquos(...)
-    mtry   <- enquo(mtry)
-    trees  <- enquo(trees)
-    min_n  <- enquo(min_n)
 
-    args <- list(mtry = mtry, trees = trees, min_n = min_n)
+    args <- list(
+      mtry   = enquo(mtry),
+      trees  = enquo(trees),
+      min_n  = enquo(min_n)
+    )
 
     # TODO make these blocks into a function and document well
     if (fresh) {

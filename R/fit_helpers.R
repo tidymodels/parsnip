@@ -15,26 +15,14 @@ form_form <-
 
     object <- check_mode(object, y_levels)
 
-    # embed descriptor functions in the quosure environments
-    # for each of the args provided
-
-    if (make_descr(object)) {
+    # need to improve this to find any descriptors
+    if(make_descr(object)) {
       data_stats <- get_descr_form(env$formula, env$data)
-
-      object$args <- purrr::map(object$args, ~{
-
-        .x_env <- rlang::quo_get_env(.x)
-
-        if(identical(.x_env, rlang::empty_env())) {
-          .x
-        } else {
-          .x_new_env <- rlang::env_bury(.x_env, !!! data_stats)
-          rlang::quo_set_env(.x, .x_new_env)
-        }
-
-      })
-
+      scoped_descrs(data_stats)
     }
+
+    # evaluate quoted args once here to check them
+    check_args(object)
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -79,23 +67,14 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   object <- check_mode(object, levels(env$y))
 
-  if (make_descr(object)) {
-    data_stats <- get_descr_xy(env$x, env$y)
-
-    object$args <- purrr::map(object$args, ~{
-
-      .x_env <- rlang::quo_get_env(.x)
-
-      if(identical(.x_env, rlang::empty_env())) {
-        .x
-      } else {
-        .x_new_env <- rlang::env_bury(.x_env, !!! data_stats)
-        rlang::quo_set_env(.x, .x_new_env)
-      }
-
-    })
-
+  # need to improve this to find any descriptors
+  if(make_descr(object)) {
+    data_stats <- get_descr_form(env$formula, env$data)
+    scoped_descrs(data_stats)
   }
+
+  # evaluate quoted args once here to check them
+  check_args(object)
 
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)

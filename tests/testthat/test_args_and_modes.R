@@ -28,6 +28,9 @@ test_that('pipe arguments', {
   x <- 1:10
   mod_2 <- rand_forest(mtry = 2, var = x) %>%
     set_args(mtry = 1, something = "blah")
+
+  var_env <- rlang::current_env()
+
   expect_equal(
     quo_get_expr(mod_2$args$mtry),
     1
@@ -46,7 +49,7 @@ test_that('pipe arguments', {
   )
   expect_equal(
     quo_get_env(mod_2$others$var),
-    global_env()
+    var_env
   )
 
   expect_error(rand_forest() %>% set_args())

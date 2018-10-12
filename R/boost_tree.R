@@ -123,35 +123,25 @@ boost_tree <-
            loss_reduction = NULL,
            sample_size = NULL,
            ...) {
-    others         <- enquos(...)
-    mtry           <- enquo(mtry)
-    trees          <- enquo(trees)
-    min_n          <- enquo(min_n)
-    learn_rate     <- enquo(learn_rate)
-    loss_reduction <- enquo(loss_reduction)
-    sample_size    <- enquo(sample_size)
+
+    others <- enquos(...)
+
+    args <- list(
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n),
+      tree_depth = enquo(tree_depth),
+      learn_rate = enquo(learn_rate),
+      loss_reduction = enquo(loss_reduction),
+      sample_size = enquo(sample_size)
+    )
 
     if (!(mode %in% boost_tree_modes))
       stop("`mode` should be one of: ",
            paste0("'", boost_tree_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    if (is.numeric(trees) && trees < 0)
-      stop("`trees` should be >= 1", call. = FALSE)
-    if (is.numeric(sample_size) && (sample_size < 0 | sample_size > 1))
-      stop("`sample_size` should be within [0,1]", call. = FALSE)
-    if (is.numeric(tree_depth) && tree_depth < 0)
-      stop("`tree_depth` should be >= 1", call. = FALSE)
-    if (is.numeric(min_n) && min_n < 0)
-      stop("`min_n` should be >= 1", call. = FALSE)
-
-    args <- list(
-      mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,
-      learn_rate = learn_rate, loss_reduction = loss_reduction,
-      sample_size = sample_size
-    )
-
-    no_value <- !vapply(others, is.null, logical(1))
+    no_value <- !vapply(others, null_value, logical(1))
     others <- others[no_value]
 
     out <- list(args = args, others = others,
@@ -195,19 +185,18 @@ update.boost_tree <-
            loss_reduction = NULL, sample_size = NULL,
            fresh = FALSE,
            ...) {
-    others         <- enquos(...)
-    mtry           <- enquo(mtry)
-    trees          <- enquo(trees)
-    min_n          <- enquo(min_n)
-    learn_rate     <- enquo(learn_rate)
-    loss_reduction <- enquo(loss_reduction)
-    sample_size    <- enquo(sample_size)
+
+    others <- enquos(...)
 
     args <- list(
-      mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,
-      learn_rate = learn_rate, loss_reduction = loss_reduction,
-      sample_size = sample_size
-      )
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n),
+      tree_depth = enquo(tree_depth),
+      learn_rate = enquo(learn_rate),
+      loss_reduction = enquo(loss_reduction),
+      sample_size = enquo(sample_size)
+    )
 
     # TODO make these blocks into a function and document well
     if (fresh) {
@@ -249,6 +238,22 @@ translate.boost_tree <- function(x, engine, ...) {
   x
 }
 
+# ------------------------------------------------------------------------------
+
+check_args.boost_tree <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (is.numeric(args$trees) && args$trees < 0)
+    stop("`trees` should be >= 1", call. = FALSE)
+  if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1))
+    stop("`sample_size` should be within [0,1]", call. = FALSE)
+  if (is.numeric(args$tree_depth) && args$tree_depth < 0)
+    stop("`tree_depth` should be >= 1", call. = FALSE)
+  if (is.numeric(args$min_n) && args$min_n < 0)
+    stop("`min_n` should be >= 1", call. = FALSE)
+
+}
 
 # xgboost helpers --------------------------------------------------------------
 
