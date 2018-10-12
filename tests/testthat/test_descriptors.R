@@ -172,6 +172,26 @@ test_that("spark descriptor", {
 
 })
 
+# ------------------------------------------------------------------------------
 
+context("Descriptor helpers")
+
+test_that("can be temporarily overriden at evaluation time", {
+
+  scope_n_cols <- function() {
+    scoped_descrs(list(.n_cols = function() { 1 }))
+    .n_cols()
+  }
+
+  # .n_cols() overriden, but instantly reset
+  expect_equal(
+    scope_n_cols(),
+    1
+  )
+
+  # .n_cols() should now be reset to an error
+  expect_error(.n_cols())
+
+})
 
 
