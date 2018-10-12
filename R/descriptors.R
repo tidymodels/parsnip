@@ -325,27 +325,17 @@ make_descr <- function(object) {
 # descrs = list of functions that actually eval .n_cols()
 poke_descrs <- function(descrs) {
 
-  descr_env <- rlang::pkg_env("parsnip")
+  descr_names <- names(descr_env)
 
-  old <- list(
-    .n_cols = descr_env$.n_cols,
-    .n_preds = descr_env$.n_preds,
-    .n_obs = descr_env$.n_obs,
-    .n_levs = descr_env$.n_levs,
-    .n_facts = descr_env$.n_facts,
-    .x = descr_env$.x,
-    .y = descr_env$.y,
-    .dat = descr_env$.dat
-  )
+  old <- purrr::map(descr_names, ~{
+    descr_env[[.x]]
+  })
 
-  descr_env$.n_cols <- descrs$.n_cols
-  descr_env$.n_preds <- descrs$.n_preds
-  descr_env$.n_obs <- descrs$.n_obs
-  descr_env$.n_levs <- descrs$.n_levs
-  descr_env$.n_facts <- descrs$.n_facts
-  descr_env$.x <- descrs$.x
-  descr_env$.y <- descrs$.y
-  descr_env$.dat <- descrs$.dat
+  names(old) <- descr_names
+
+  purrr::walk(descr_names, ~{
+    descr_env[[.x]] <- descrs[[.x]]
+  })
 
   invisible(old)
 }
@@ -365,40 +355,53 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 
 #' @export
 .n_cols <- function() {
-  rlang::abort("dont call me")
+  descr_env$.n_cols()
 }
 
 #' @export
 .n_preds <- function() {
-  rlang::abort("dont call me")
+  descr_env$.n_preds()
 }
 
 #' @export
 .n_obs <- function() {
-  rlang::abort("dont call me")
+  descr_env$.n_obs()
 }
 
 #' @export
 .n_levs <- function() {
-  rlang::abort("dont call me")
+  descr_env$.n_levs()
 }
 
 #' @export
 .n_facts <- function() {
-  rlang::abort("dont call me")
+  descr_env$.n_facts()
 }
 
 #' @export
 .x <- function() {
-  rlang::abort("dont call me")
+  descr_env$.x()
 }
 
 #' @export
 .y <- function() {
-  rlang::abort("dont call me")
+  descr_env$.y()
 }
 
 #' @export
 .dat <- function() {
-  rlang::abort("dont call me")
+  descr_env$.dat()
 }
+
+descr_env <- rlang::new_environment(
+  data = list(
+    .n_cols  = function() abort("Descriptor context not set"),
+    .n_preds = function() abort("Descriptor context not set"),
+    .n_obs   = function() abort("Descriptor context not set"),
+    .n_levs  = function() abort("Descriptor context not set"),
+    .n_facts = function() abort("Descriptor context not set"),
+    .x       = function() abort("Descriptor context not set"),
+    .y       = function() abort("Descriptor context not set"),
+    .dat     = function() abort("Descriptor context not set")
+  )
+)
