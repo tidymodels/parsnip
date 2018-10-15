@@ -257,6 +257,9 @@ check_args.boost_tree <- function(object) {
 
 # xgboost helpers --------------------------------------------------------------
 
+#' Training helper for xgboost
+#'
+#' @export
 xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
@@ -399,6 +402,9 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 
 # C5.0 helpers -----------------------------------------------------------------
 
+#' Training helper for C5.0
+#'
+#' @export
 C5.0_train <-
   function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
     other_args <- list(...)

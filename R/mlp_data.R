@@ -22,7 +22,7 @@ mlp_keras_data <-
     fit = list(
       interface = "matrix",
       protect = c("x", "y"),
-      func = c(pkg = NULL, fun = "keras_mlp"),
+      func = c(pkg = "parsnip", fun = "keras_mlp"),
       defaults = list()
     ),
     pred = list(
@@ -131,6 +131,9 @@ class2ind <- function (x, drop2nd = FALSE) {
   y
 }
 
+#' MLP in Keras
+#'
+#' @export
 keras_mlp <-
   function(x, y,
            hidden_units = 5, decay = 0, dropout = 0, epochs = 20, act = "softmax",
@@ -155,7 +158,7 @@ keras_mlp <-
       else
         y <- matrix(y, ncol = 1)
     }
-    
+
     model <- keras::keras_model_sequential()
     if(decay > 0) {
       model %>%
