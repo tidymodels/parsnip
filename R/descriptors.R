@@ -238,6 +238,9 @@ get_descr_spark <- function(formula, data) {
   .n_obs   <- function() obs
   .n_levs  <- function() y_vals
   .n_facts <- function() factor_pred
+  .x       <- function() abort("Descriptor `.x()` not defined for Spark.")
+  .y       <- function() abort("Descriptor `.y()` not defined for Spark.")
+  .dat     <- function() abort("Descriptor `.dat()` not defined for Spark.")
 
   # still need .x(), .y(), .dat() ?
 
@@ -246,10 +249,10 @@ get_descr_spark <- function(formula, data) {
     .n_preds = .n_preds,
     .n_obs = .n_obs,
     .n_levs = .n_levs,
-    .n_facts = .n_facts #,
-    # .dat = .dat,
-    # .x = .x,
-    # .y = .y
+    .n_facts = .n_facts,
+    .dat = .dat,
+    .x = .x,
+    .y = .y
   )
 }
 

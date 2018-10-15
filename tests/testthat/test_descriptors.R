@@ -3,11 +3,21 @@ context("descriptor variables")
 library(parsnip)
 
 template <- function(col, pred, ob, lev, fact, dat, x, y) {
-  list(.n_cols = col, .n_preds = pred, .n_obs = ob,
-       .n_levs = lev, .n_facts = fact, .dat = dat, .x = x, .y = y)
+  lst <- list(.n_cols = col, .n_preds = pred, .n_obs = ob,
+              .n_levs = lev, .n_facts = fact, .dat = dat,
+              .x = x, .y = y)
+
+  Filter(Negate(is.null), lst)
 }
 
-eval_descrs <- function(descrs) {
+eval_descrs <- function(descrs, not = NULL) {
+
+  if(!is.null(not)) {
+    for(descr in not) {
+      descrs[[descr]] <- NULL
+    }
+  }
+
   lapply(descrs, do.call, list())
 }
 
@@ -184,29 +194,33 @@ test_that("spark descriptor", {
   npk_descr  <- copy_to(sc,  npk[, 1:4],  "npk_descr", overwrite = TRUE)
   iris_descr <- copy_to(sc,        iris, "iris_descr", overwrite = TRUE)
 
+  # spark does not allow .x, .y, .dat
+  template2 <- purrr::partial(template, x = NULL, y = NULL, dat = NULL)
+  eval_descrs2 <- purrr::partial(eval_descrs, not = c(".x", ".y", ".dat"))
+
   expect_equal(
-    template(4, 5, 150, NA, 1),
-    get_descr_form(Sepal_Width ~ ., data = iris_descr)
+    template2(4, 5, 150, NA, 1),
+    eval_descrs2(get_descr_form(Sepal_Width ~ ., data = iris_descr))
   )
   expect_equal(
-    template(1, 2, 150, NA, 1),
-    get_descr_form(Sepal_Width ~ Species, data = iris_descr)
+    template2(1, 2, 150, NA, 1),
+    eval_descrs2(get_descr_form(Sepal_Width ~ Species, data = iris_descr))
   )
   expect_equal(
-    template(1, 1, 150, NA, 0),
-    get_descr_form(Sepal_Width ~ Sepal_Length, data = iris_descr)
+    template2(1, 1, 150, NA, 0),
+    eval_descrs2(get_descr_form(Sepal_Width ~ Sepal_Length, data = iris_descr))
   )
   expect_equivalent(
-    template(4, 4, 150, species_tab, 0),
-    get_descr_form(Species ~ ., data = iris_descr)
+    template2(4, 4, 150, species_tab, 0),
+    eval_descrs2(get_descr_form(Species ~ ., data = iris_descr))
   )
   expect_equal(
-    template(1, 1, 150, species_tab, 0),
-    get_descr_form(Species ~ Sepal_Length, data = iris_descr)
+    template2(1, 1, 150, species_tab, 0),
+    eval_descrs2(get_descr_form(Species ~ Sepal_Length, data = iris_descr))
   )
   expect_equivalent(
-    template(3, 7, 24, rev(table(npk$K, dnn = NULL)), 3),
-    get_descr_form(K ~ ., data = npk_descr)
+    template2(3, 7, 24, rev(table(npk$K, dnn = NULL)), 3),
+    eval_descrs2(get_descr_form(K ~ ., data = npk_descr))
   )
 
 })
