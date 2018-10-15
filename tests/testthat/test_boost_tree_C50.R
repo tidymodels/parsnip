@@ -120,9 +120,9 @@ test_that('submodel prediction', {
         data = wa_churn[-(1:4), c("churn", vars)],
         engine = "C5.0")
 
-  pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 5, type = "prob")
+  pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 4, type = "prob")
 
-  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
+  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 4, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], unname(pred_class[, "No"]))
 })
