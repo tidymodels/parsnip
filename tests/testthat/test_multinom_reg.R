@@ -8,9 +8,9 @@ test_that('primary arguments', {
   basic_glmnet <- translate(basic, engine = "glmnet")
   expect_equal(basic_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  family = "multinomial"
                )
   )
@@ -19,9 +19,9 @@ test_that('primary arguments', {
   mixture_glmnet <- translate(mixture, engine = "glmnet")
   expect_equal(mixture_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  alpha = 0.128,
                  family = "multinomial"
                )
@@ -31,9 +31,9 @@ test_that('primary arguments', {
   penalty_glmnet <- translate(penalty, engine = "glmnet")
   expect_equal(penalty_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  lambda = 1,
                  family = "multinomial"
                )
@@ -43,9 +43,9 @@ test_that('primary arguments', {
   mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
   expect_equal(mixture_v_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  alpha = varying(),
                  family = "multinomial"
                )
@@ -57,9 +57,9 @@ test_that('engine arguments', {
   glmnet_nlam <- multinom_reg(others = list(nlambda = 10))
   expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  nlambda = 10,
                  family = "multinomial"
                )

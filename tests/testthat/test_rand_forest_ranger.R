@@ -271,7 +271,7 @@ test_that('additional descriptor tests', {
   skip_if_not_installed("ranger")
 
   quoted_xy <- fit_xy(
-    rand_forest(mtry = quote(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = expr(floor(sqrt(n_cols)) + 1)),
     x = mtcars[, -1],
     y = mtcars$mpg,
     engine = "ranger",
@@ -280,7 +280,7 @@ test_that('additional descriptor tests', {
   expect_equal(quoted_xy$fit$mtry, 4)
 
   quoted_f <- fit(
-    rand_forest(mtry = quote(floor(sqrt(n_cols)) + 1)),
+    rand_forest(mtry = expr(floor(sqrt(n_cols)) + 1)),
     mpg ~ ., data = mtcars,
     engine = "ranger",
     control = ctrl
@@ -306,12 +306,12 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- quote(c(min(n_levs), 20, 10))
+  exp_wts <- expr(c(min(n_levs), 20, 10))
 
   quoted_other_xy <- fit_xy(
     rand_forest(
-      mtry = quote(2),
-      others = list(class.weights = quote(c(min(n_levs), 20, 10)))
+      mtry = expr(2),
+      others = list(class.weights = expr(c(min(n_levs), 20, 10)))
     ),
     x = iris[, 1:4],
     y = iris$Species,
@@ -324,7 +324,7 @@ test_that('additional descriptor tests', {
   quoted_other_f <- fit(
     rand_forest(
       mtry = expr(2),
-      others = list(class.weights = quote(c(min(n_levs), 20, 10)))
+      others = list(class.weights = expr(c(min(n_levs), 20, 10)))
     ),
     Species ~ ., data = iris,
     engine = "ranger",

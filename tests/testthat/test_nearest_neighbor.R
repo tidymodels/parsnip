@@ -10,9 +10,9 @@ test_that('primary arguments', {
   expect_equal(
     object = basic_kknn$method$fit$args,
     expected = list(
-      formula = quote(missing_arg()),
-      data = quote(missing_arg()),
-      kmax = quote(missing_arg())
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
+      kmax = expr(missing_arg())
     )
   )
 
@@ -22,9 +22,9 @@ test_that('primary arguments', {
   expect_equal(
     object = neighbors_kknn$method$fit$args,
     expected = list(
-      formula = quote(missing_arg()),
-      data = quote(missing_arg()),
-      kmax = quote(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
+      kmax = expr(missing_arg()),
       ks = 5
     )
   )
@@ -35,9 +35,9 @@ test_that('primary arguments', {
   expect_equal(
     object = weight_func_kknn$method$fit$args,
     expected = list(
-      formula = quote(missing_arg()),
-      data = quote(missing_arg()),
-      kmax = quote(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
+      kmax = expr(missing_arg()),
       kernel = "triangular"
     )
   )
@@ -48,9 +48,9 @@ test_that('primary arguments', {
   expect_equal(
     object = dist_power_kknn$method$fit$args,
     expected = list(
-      formula = quote(missing_arg()),
-      data = quote(missing_arg()),
-      kmax = quote(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
+      kmax = expr(missing_arg()),
       distance = 2
     )
   )
@@ -64,9 +64,9 @@ test_that('engine arguments', {
   expect_equal(
     object = translate(kknn_scale, "kknn")$method$fit$args,
     expected = list(
-      formula = quote(missing_arg()),
-      data = quote(missing_arg()),
-      kmax = quote(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
+      kmax = expr(missing_arg()),
       scale = FALSE
     )
   )

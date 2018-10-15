@@ -8,9 +8,9 @@ test_that('primary arguments', {
   basic_mars <- translate(basic, engine = "earth")
   expect_equal(basic_mars$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  keepxy = TRUE
                )
   )
@@ -19,11 +19,11 @@ test_that('primary arguments', {
   num_terms_mars <- translate(num_terms, engine = "earth")
   expect_equal(num_terms_mars$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  nprune = 4,
-                 glm = quote(list(family = stats::binomial)),
+                 glm = expr(list(family = stats::binomial)),
                  keepxy = TRUE
                )
   )
@@ -32,9 +32,9 @@ test_that('primary arguments', {
   prod_degree_mars <- translate(prod_degree, engine = "earth")
   expect_equal(prod_degree_mars$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  degree = 1,
                  keepxy = TRUE
                )
@@ -44,9 +44,9 @@ test_that('primary arguments', {
   prune_method_v_mars <- translate(prune_method_v, engine = "earth")
   expect_equal(prune_method_v_mars$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  pmethod = varying(),
                  keepxy = TRUE
                )
@@ -57,9 +57,9 @@ test_that('engine arguments', {
   mars_keep <- mars(mode = "regression", others = list(keepxy = FALSE))
   expect_equal(translate(mars_keep, engine = "earth")$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  keepxy = FALSE
                )
   )

@@ -8,9 +8,9 @@ test_that('primary arguments', {
   hidden_units_keras <- translate(hidden_units, engine = "keras")
   expect_equal(hidden_units_nnet$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  size = 4,
                  trace = FALSE,
                  linout = TRUE
@@ -18,8 +18,8 @@ test_that('primary arguments', {
   )
   expect_equal(hidden_units_keras$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  hidden_units = 4
                )
   )
@@ -28,9 +28,9 @@ test_that('primary arguments', {
   no_hidden_units_nnet <- translate(no_hidden_units, engine = "nnet")
   expect_equal(no_hidden_units_nnet$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  size = 5,
                  trace = FALSE,
                  linout = TRUE
@@ -38,8 +38,8 @@ test_that('primary arguments', {
   )
   expect_equal(hidden_units_keras$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  hidden_units = 4
                )
   )
@@ -54,9 +54,9 @@ test_that('primary arguments', {
   all_args_keras <- translate(all_args, engine = "keras")
   expect_equal(all_args_nnet$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  size = 4,
                  decay = 1e-04,
                  maxit = 2,
@@ -66,8 +66,8 @@ test_that('primary arguments', {
   )
   expect_equal(all_args_keras$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  hidden_units = 4,
                  penalty = 1e-04,
                  dropout = 0,
@@ -82,9 +82,9 @@ test_that('engine arguments', {
   nnet_hess <- mlp(mode = "classification", others = list(Hess = TRUE))
   expect_equal(translate(nnet_hess, engine = "nnet")$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  size = 5,
                  Hess = TRUE,
                  trace = FALSE,
@@ -95,8 +95,8 @@ test_that('engine arguments', {
   keras_val <- mlp(mode = "regression", others = list(validation_split = 0.2))
   expect_equal(translate(keras_val, engine = "keras")$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  validation_split = 0.2
                )
   )
@@ -105,9 +105,9 @@ test_that('engine arguments', {
   nnet_tol <- mlp(mode = "regression", others = list(abstol = varying()))
   expect_equal(translate(nnet_tol, engine = "nnet")$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  size = 5,
                  abstol = varying(),
                  trace = FALSE,

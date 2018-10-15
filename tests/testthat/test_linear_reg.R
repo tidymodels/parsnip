@@ -11,32 +11,32 @@ test_that('primary arguments', {
   basic_spark <- translate(basic, engine = "spark")
   expect_equal(basic_lm$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg())
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg())
                )
   )
   expect_equal(basic_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  family = "gaussian"
                )
   )
   expect_equal(basic_stan$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  family = "gaussian"
                )
   )
   expect_equal(basic_spark$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg())
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg())
                )
   )
 
@@ -45,18 +45,18 @@ test_that('primary arguments', {
   mixture_spark <- translate(mixture, engine = "spark")
   expect_equal(mixture_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  alpha = 0.128,
                  family = "gaussian"
                )
   )
   expect_equal(mixture_spark$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
                  elastic_net_param = 0.128
                )
   )
@@ -66,18 +66,18 @@ test_that('primary arguments', {
   penalty_spark <- translate(penalty, engine = "spark")
   expect_equal(penalty_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  lambda = 1,
                  family = "gaussian"
                )
   )
   expect_equal(penalty_spark$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
                  reg_param = 1
                )
   )
@@ -87,18 +87,18 @@ test_that('primary arguments', {
   mixture_v_spark <- translate(mixture_v, engine = "spark")
   expect_equal(mixture_v_glmnet$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  alpha = varying(),
                  family = "gaussian"
                )
   )
   expect_equal(mixture_v_spark$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
                  elastic_net_param = varying()
                )
   )
@@ -109,9 +109,9 @@ test_that('engine arguments', {
   lm_fam <- linear_reg(others = list(model = FALSE))
   expect_equal(translate(lm_fam, engine = "lm")$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  model = FALSE
                )
   )
@@ -119,9 +119,9 @@ test_that('engine arguments', {
   glmnet_nlam <- linear_reg(others = list(nlambda = 10))
   expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 y = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  nlambda = 10,
                  family = "gaussian"
                )
@@ -130,9 +130,9 @@ test_that('engine arguments', {
   stan_samp <- linear_reg(others = list(chains = 1, iter = 5))
   expect_equal(translate(stan_samp, engine = "stan")$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  chains = 1,
                  iter = 5,
                  family = "gaussian"
@@ -142,9 +142,9 @@ test_that('engine arguments', {
   spark_iter <- linear_reg(others = list(max_iter = 20))
   expect_equal(translate(spark_iter, engine = "spark")$method$fit$args,
                list(
-                 x = quote(missing_arg()),
-                 formula = quote(missing_arg()),
-                 weight_col = quote(missing_arg()),
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
                  max_iter = 20
                )
   )

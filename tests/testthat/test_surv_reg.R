@@ -11,9 +11,9 @@ test_that('primary arguments', {
 
   expect_equal(basic_flexsurv$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  dist = "weibull"
                )
   )
@@ -22,9 +22,9 @@ test_that('primary arguments', {
   normal_flexsurv <- translate(normal, engine = "flexsurv")
   expect_equal(normal_flexsurv$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  dist = "lnorm"
                )
   )
@@ -33,9 +33,9 @@ test_that('primary arguments', {
   dist_v_flexsurv <- translate(dist_v, engine = "flexsurv")
   expect_equal(dist_v_flexsurv$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  dist = varying()
                )
   )
@@ -45,9 +45,9 @@ test_that('engine arguments', {
   fs_cl <- surv_reg(others = list(cl = .99))
   expect_equal(translate(fs_cl, engine = "flexsurv")$method$fit$args,
                list(
-                 formula = quote(missing_arg()),
-                 data = quote(missing_arg()),
-                 weights = quote(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  cl = .99,
                  dist = "weibull"
                )
