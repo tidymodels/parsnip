@@ -232,3 +232,9 @@ translate.rand_forest <- function(x, engine, ...) {
   x
 }
 
+# ------------------------------------------------------------------------------
+
+check_args.rand_forest <- function(object) {
+  # move translate checks here?
+  invisible(object)
+}

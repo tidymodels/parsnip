@@ -76,9 +76,12 @@ nearest_neighbor <- function(mode = "unknown",
                              dist_power = NULL,
                              ...) {
   others      <- enquos(...)
-  neighbors   <- enquo(neighbors)
-  weight_func <- enquo(weight_func)
-  dist_power  <- enquo(dist_power)
+
+  args <- list(
+    neighbors   = enquo(neighbors),
+    weight_func = enquo(weight_func),
+    dist_power  = enquo(dist_power)
+  )
 
   ## TODO: make a utility function here
   if (!(mode %in% nearest_neighbor_modes)) {
@@ -86,20 +89,6 @@ nearest_neighbor <- function(mode = "unknown",
          paste0("'", nearest_neighbor_modes, "'", collapse = ", "),
          call. = FALSE)
   }
-
-  if(is.numeric(neighbors) && !positive_int_scalar(neighbors)) {
-    stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
-  }
-
-  if(is.character(weight_func) && length(weight_func) > 1) {
-    stop("The length of `weight_func` must be 1.", call. = FALSE)
-  }
-
-  args <- list(
-    neighbors = neighbors,
-    weight_func = weight_func,
-    dist_power = dist_power
-  )
 
   no_value <- !vapply(others, is.null, logical(1))
   others <- others[no_value]
@@ -135,23 +124,12 @@ update.nearest_neighbor <- function(object,
                                     fresh = FALSE,
                                     ...) {
 
-  others      <- enquos(...)
-  neighbors   <- enquo(neighbors)
-  weight_func <- enquo(weight_func)
-  dist_power  <- enquo(dist_power)
-
-  if(is.numeric(neighbors) && !positive_int_scalar(neighbors)) {
-    stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
-  }
-
-  if(is.character(weight_func) && length(weight_func) > 1) {
-    stop("The length of `weight_func` must be 1.", call. = FALSE)
-  }
+  others <- enquos(...)
 
   args <- list(
-    neighbors = neighbors,
-    weight_func = weight_func,
-    dist_power = dist_power
+    neighbors   = enquo(neighbors),
+    weight_func = enquo(weight_func),
+    dist_power  = enquo(dist_power)
   )
 
   if (fresh) {
@@ -177,4 +155,21 @@ update.nearest_neighbor <- function(object,
 
 positive_int_scalar <- function(x) {
   (length(x) == 1) && (x > 0) && (x %% 1 == 0)
+}
+
+# ------------------------------------------------------------------------------
+
+check_args.nearest_neighbor <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if(is.numeric(args$neighbors) && !positive_int_scalar(args$neighbors)) {
+    stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
+  }
+
+  if(is.character(args$weight_func) && length(args$weight_func) > 1) {
+    stop("The length of `weight_func` must be 1.", call. = FALSE)
+  }
+
+  invisible(object)
 }

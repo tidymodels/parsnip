@@ -253,6 +253,7 @@ check_args.boost_tree <- function(object) {
   if (is.numeric(args$min_n) && args$min_n < 0)
     stop("`min_n` should be >= 1", call. = FALSE)
 
+  invisible(object)
 }
 
 # xgboost helpers --------------------------------------------------------------

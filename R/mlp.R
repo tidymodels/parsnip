@@ -94,40 +94,21 @@ mlp <-
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL,
            ...) {
+
     others  <- enquos(...)
-    hidden_units <- enquo(hidden_units)
-    penalty      <- enquo(penalty)
-    dropout      <- enquo(dropout)
-    epochs       <- enquo(epochs)
-    activation   <- enquo(activation)
 
-
-    act_funs <- c("linear", "softmax", "relu", "elu")
-    if (is.numeric(hidden_units))
-      if (hidden_units < 2)
-        stop("There must be at least two hidden units", call. = FALSE)
-    if (is.numeric(penalty))
-      if (penalty < 0)
-        stop("The amount of weight decay must be >= 0.", call. = FALSE)
-    if (is.numeric(dropout))
-      if (dropout < 0 | dropout >= 1)
-        stop("The dropout proportion must be on [0, 1).", call. = FALSE)
-    if (is.numeric(penalty) & is.numeric(dropout))
-      if (dropout > 0 & penalty > 0)
-        stop("Both weight decay and dropout should not be specified.", call. = FALSE)
-    if (is.character(activation))
-      if (!any(activation %in% c(act_funs)))
-        stop("`activation should be one of: ",
-             paste0("'", act_funs, "'", collapse = ", "),
-             call. = FALSE)
+    args <- list(
+      hidden_units = enquo(hidden_units),
+      penalty      = enquo(penalty),
+      dropout      = enquo(dropout),
+      epochs       = enquo(epochs),
+      activation   = enquo(activation)
+    )
 
     if (!(mode %in% mlp_modes))
       stop("`mode` should be one of: ",
            paste0("'", mlp_modes, "'", collapse = ", "),
            call. = FALSE)
-
-    args <- list(hidden_units = hidden_units, penalty = penalty, dropout = dropout,
-                 epochs = epochs, activation = activation)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -177,14 +158,14 @@ update.mlp <-
            fresh = FALSE,
            ...) {
     others  <- enquos(...)
-    hidden_units <- enquo(hidden_units)
-    penalty      <- enquo(penalty)
-    dropout      <- enquo(dropout)
-    epochs       <- enquo(epochs)
-    activation   <- enquo(activation)
 
-    args <- list(hidden_units = hidden_units, penalty = penalty, dropout = dropout,
-                 epochs = epochs, activation = activation)
+    args <- list(
+      hidden_units = enquo(hidden_units),
+      penalty      = enquo(penalty),
+      dropout      = enquo(dropout),
+      epochs       = enquo(epochs),
+      activation   = enquo(activation)
+    )
 
     # TODO make these blocks into a function and document well
     if (fresh) {
@@ -230,4 +211,37 @@ translate.mlp <- function(x, engine, ...) {
     }
   }
   x
+}
+
+# ------------------------------------------------------------------------------
+
+check_args.mlp <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (is.numeric(args$hidden_units))
+    if (args$hidden_units < 2)
+      stop("There must be at least two hidden units", call. = FALSE)
+
+  if (is.numeric(args$penalty))
+    if (args$penalty < 0)
+      stop("The amount of weight decay must be >= 0.", call. = FALSE)
+
+  if (is.numeric(args$dropout))
+    if (args$dropout < 0 | args$dropout >= 1)
+      stop("The dropout proportion must be on [0, 1).", call. = FALSE)
+
+  if (is.numeric(args$penalty) & is.numeric(args$dropout))
+    if (args$dropout > 0 & args$penalty > 0)
+      stop("Both weight decay and dropout should not be specified.", call. = FALSE)
+
+  act_funs <- c("linear", "softmax", "relu", "elu")
+
+  if (is.character(args$activation))
+    if (!any(args$activation %in% c(act_funs)))
+      stop("`activation should be one of: ",
+           paste0("'", act_funs, "'", collapse = ", "),
+           call. = FALSE)
+
+  invisible(object)
 }

@@ -22,7 +22,7 @@ form_form <-
     }
 
     # evaluate quoted args once here to check them
-    check_args(object)
+    object <- check_args(object)
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -74,7 +74,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   }
 
   # evaluate quoted args once here to check them
-  check_args(object)
+  object <- check_args(object)
 
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)

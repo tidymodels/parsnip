@@ -102,9 +102,13 @@ logistic_reg <-
            penalty = NULL,
            mixture = NULL,
            ...) {
+
     others  <- enquos(...)
-    penalty <- enquo(penalty)
-    mixture <- enquo(mixture)
+
+    args <- list(
+      penalty = enquo(penalty),
+      mixture = enquo(mixture)
+    )
 
     if (!(mode %in% logistic_reg_modes))
       stop(
@@ -112,13 +116,6 @@ logistic_reg <-
         paste0("'", logistic_reg_modes, "'", collapse = ", "),
         call. = FALSE
       )
-
-    if (is.numeric(penalty) && penalty < 0)
-      stop("The amount of regularization should be >= 0", call. = FALSE)
-    if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
-      stop("The mixture proportion should be within [0,1]", call. = FALSE)
-
-    args <- list(penalty = penalty, mixture = mixture)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -165,16 +162,13 @@ update.logistic_reg <-
            penalty = NULL, mixture = NULL,
            fresh = FALSE,
            ...) {
+
     others  <- enquos(...)
-    penalty <- enquo(penalty)
-    mixture <- enquo(mixture)
 
-    if (is.numeric(penalty) && penalty < 0)
-      stop("The amount of regularization should be >= 0", call. = FALSE)
-    if (is.numeric(mixture) && (mixture < 0 | mixture > 1))
-      stop("The mixture proportion should be within [0,1]", call. = FALSE)
-
-    args <- list(penalty = penalty, mixture = mixture)
+    args <- list(
+      penalty = enquo(penalty),
+      mixture = enquo(mixture)
+    )
 
     if (fresh) {
       object$args <- args
@@ -196,6 +190,21 @@ update.logistic_reg <-
     object
   }
 
+# ------------------------------------------------------------------------------
+
+check_args.logistic_reg <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
+    stop("The amount of regularization should be >= 0", call. = FALSE)
+  if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
+    stop("The mixture proportion should be within [0,1]", call. = FALSE)
+  if (is.numeric(args$mixture) && length(args$mixture) > 1)
+    stop("Only one value of `mixture` is allowed.", call. = FALSE)
+
+  invisible(object)
+}
 
 # ------------------------------------------------------------------------------
 

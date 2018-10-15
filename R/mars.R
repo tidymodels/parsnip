@@ -69,28 +69,19 @@ mars <-
   function(mode = "unknown",
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
            ...) {
+
     others  <- enquos(...)
-    num_terms    <- enquo(num_terms)
-    prod_degree  <- enquo(prod_degree)
-    prune_method <- enquo(prune_method)
+
+    args <- list(
+      num_terms    = enquo(num_terms),
+      prod_degree  = enquo(prod_degree),
+      prune_method = enquo(prune_method)
+    )
 
     if (!(mode %in% mars_modes))
       stop("`mode` should be one of: ",
            paste0("'", mars_modes, "'", collapse = ", "),
            call. = FALSE)
-
-    if (is.numeric(prod_degree) && prod_degree < 0)
-      stop("`prod_degree` should be >= 1", call. = FALSE)
-    if (is.numeric(num_terms) && num_terms < 0)
-      stop("`num_terms` should be >= 1", call. = FALSE)
-    if (!is_varying(prune_method) &&
-        !is.null(prune_method) &&
-         is.character(prune_method))
-      stop("`prune_method` should be a single string value", call. = FALSE)
-
-    args <- list(num_terms = num_terms,
-                 prod_degree = prod_degree,
-                 prune_method = prune_method)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -131,14 +122,14 @@ update.mars <-
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
            fresh = FALSE,
            ...) {
-    others  <- enquos(...)
-    num_terms    <- enquo(num_terms)
-    prod_degree  <- enquo(prod_degree)
-    prune_method <- enquo(prune_method)
 
-    args <- list(num_terms = num_terms,
-                 prod_degree = prod_degree,
-                 prune_method = prune_method)
+    others  <- enquos(...)
+
+    args <- list(
+      num_terms    = enquo(num_terms),
+      prod_degree  = enquo(prod_degree),
+      prune_method = enquo(prune_method)
+    )
 
     if (fresh) {
       object$args <- args
@@ -175,6 +166,26 @@ translate.mars <- function(x, engine, ...) {
 
   x <- translate.default(x, engine, ...)
   x
+}
+
+# ------------------------------------------------------------------------------
+
+check_args.mars <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (is.numeric(args$prod_degree) && args$prod_degree < 0)
+    stop("`prod_degree` should be >= 1", call. = FALSE)
+
+  if (is.numeric(args$num_terms) && args$num_terms < 0)
+    stop("`num_terms` should be >= 1", call. = FALSE)
+
+  if (!is_varying(args$prune_method) &&
+      !is.null(args$prune_method) &&
+      is.character(args$prune_method))
+    stop("`prune_method` should be a single string value", call. = FALSE)
+
+  invisible(object)
 }
 
 # ------------------------------------------------------------------------------

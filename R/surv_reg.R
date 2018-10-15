@@ -49,7 +49,10 @@ surv_reg <-
            dist = NULL,
            ...) {
     others <- enquos(...)
-    dist   <- enquo(dist)
+
+    args <- list(
+      dist = enquo(dist)
+    )
 
     if (!(mode %in% surv_reg_modes))
       stop(
@@ -57,7 +60,6 @@ surv_reg <-
         paste0("'", surv_reg_modes, "'", collapse = ", "),
         call. = FALSE
       )
-    args <- list(dist = dist)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -109,9 +111,10 @@ update.surv_reg <-
            fresh = FALSE,
            ...) {
     others <- enquos(...)
-    dist   <- enquo(dist)
 
-    args <- list(dist = dist)
+    args <- list(
+      dist = enquo(dist)
+    )
 
     if (fresh) {
       object$args <- args
@@ -139,12 +142,21 @@ update.surv_reg <-
 #' @export
 translate.surv_reg <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
-
-  if (x$engine == "flexsurv") {
-    # `dist` has no default in the function
-    if (all(names(x$method$fit$args) != "dist"))
-      x$method$fit$args$dist <- "weibull"
-  }
   x
 }
 
+# ------------------------------------------------------------------------------
+
+check_args.surv_reg <- function(object) {
+
+  if (object$engine == "flexsurv") {
+
+    args <- lapply(object$args, rlang::eval_tidy)
+
+    # `dist` has no default in the function
+    if (all(names(args) != "dist"))
+      object$args$dist <- "weibull"
+  }
+
+  invisible(object)
+}

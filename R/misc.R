@@ -176,5 +176,5 @@ check_args <- function(object) {
 }
 
 check_args.default <- function(object) {
-  # nothing to do
+  invisible(object)
 }
