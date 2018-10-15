@@ -1,11 +1,13 @@
 library(testthat)
-context("boosted trees")
 library(parsnip)
 library(rlang)
 
-new_empty_quosure <- function(expr) {
-  new_quosure(expr, env = empty_env())
-}
+# ------------------------------------------------------------------------------
+
+context("boosted trees")
+source("helpers.R")
+
+# ------------------------------------------------------------------------------
 
 test_that('primary arguments', {
   basic <- boost_tree(mode = "classification")
