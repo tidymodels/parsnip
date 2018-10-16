@@ -40,7 +40,7 @@ mlp_keras_data <-
       post = function(x, object) {
         object$lvl[x + 1]
       },
-      func = c(fun = "predict_classes"),
+      func = c(pkg = "keras", fun = "predict_classes"),
       args =
         list(
           object = quote(object$fit),
@@ -54,7 +54,7 @@ mlp_keras_data <-
         colnames(x) <- object$lvl
         x
       },
-      func = c(fun = "predict_proba"),
+      func = c(pkg = "keras", fun = "predict_proba"),
       args =
         list(
           object = quote(object$fit),
