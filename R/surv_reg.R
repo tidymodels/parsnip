@@ -154,7 +154,7 @@ check_args.surv_reg <- function(object) {
     args <- lapply(object$args, rlang::eval_tidy)
 
     # `dist` has no default in the function
-    if (all(names(args) != "dist"))
+    if (all(names(args) != "dist") || is.null(args$dist))
       object$args$dist <- "weibull"
   }
 
