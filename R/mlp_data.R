@@ -131,8 +131,26 @@ class2ind <- function (x, drop2nd = FALSE) {
   y
 }
 
-#' MLP in Keras
+
+#' Simple interface to MLP models via keras
 #'
+#' Instead of building a `keras` model sequentially, `keras_mlp` can be used to
+#'  create a feedforward network with a single hidden layer. Regularization is
+#'  via either weight decay or dropout.
+#'
+#' @param x A data frame or matrix of predictors
+#' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
+#' @param hidden_units An integer for the number of hidden units.
+#' @param decay A non-negative real number for the amount of weight decay. Either
+#'  this parameter _or_ `dropout` can specified.
+#' @param dropout The proportion of parameters to set to zero. Either
+#'  this parameter _or_ `decay` can specified.
+#' @param epochs An integer for the number of passes through the data.
+#' @param act A character string for the type of activation function between layers.
+#' @param seeds A vector of three positive integers to control randomness of the
+#'  calculations.
+#' @param ... Currently ignored.
+#' @return A `keras` model object.
 #' @export
 keras_mlp <-
   function(x, y,
