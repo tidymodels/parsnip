@@ -67,8 +67,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
 
-  # not currently working; will fix
-  # expect_equal(uni_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(uni_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = 0.1),
@@ -88,8 +87,8 @@ test_that('glmnet prediction, one lambda', {
   form_pred <- ifelse(form_pred >= 0.5, "good", "bad")
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   form_pred <- unname(form_pred)
-  # not currently working; will fix
-  # expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
+  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
@@ -118,8 +117,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   mult_pred$lambda <- rep(lams, each = 7)
   mult_pred <- mult_pred[, -2]
 
-  # not currently working; will fix
-  # expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = lams),
@@ -142,14 +140,12 @@ test_that('glmnet prediction, mulitiple lambda', {
   form_pred$lambda <- rep(lams, each = 7)
   form_pred <- form_pred[, -2]
 
-  # not currently working; will fix
-  # expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
 test_that('glmnet prediction, no lambda', {
 
-  skip("not currently working; will fix")
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
@@ -163,7 +159,7 @@ test_that('glmnet prediction, no lambda', {
   mult_pred <-
     predict(xy_fit$fit,
             newx = as.matrix(lending_club[1:7, num_pred]),
-            s = xy_fit$spec$args$penalty, type = "response")
+            s = xy_fit$fit$lambda, type = "response")
   mult_pred <- stack(as.data.frame(mult_pred))
   mult_pred$values <- ifelse(mult_pred$values >= 0.5, "good", "bad")
   mult_pred$values <- factor(mult_pred$values, levels = levels(lending_club$Class))
@@ -199,7 +195,6 @@ test_that('glmnet prediction, no lambda', {
 
 test_that('glmnet probabilities, one lambda', {
 
-  skip("not currently working; will fix")
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
@@ -243,7 +238,6 @@ test_that('glmnet probabilities, one lambda', {
 
 test_that('glmnet probabilities, mulitiple lambda', {
 
-  skip("not currently working; will fix")
   skip_if_not_installed("glmnet")
 
   lams <- c(0.01, 0.1)
@@ -292,7 +286,6 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
 test_that('glmnet probabilities, no lambda', {
 
-  skip("not currently working; will fix")
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(

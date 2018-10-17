@@ -116,4 +116,20 @@ set_mode <- function(object, mode) {
   object
 }
 
+# ------------------------------------------------------------------------------
 
+#' @importFrom rlang eval_tidy
+#' @importFrom purrr map
+maybe_eval <- function(x) {
+  # if descriptors are in `x`, eval fails
+  y <- try(rlang::eval_tidy(x), silent = TRUE)
+  if (inherits(y, "try-error"))
+    y <- x
+  y
+}
+
+eval_args <- function(spec, ...) {
+  spec$args   <- purrr::map(spec$args,   maybe_eval)
+  spec$others <- purrr::map(spec$others, maybe_eval)
+  spec
+}

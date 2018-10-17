@@ -118,11 +118,10 @@ test_that('glmnet probabilities, mulitiple lambda', {
   names(mult_pred) <- NULL
   mult_pred <- tibble(.pred = mult_pred)
 
-  # needs fixin
-  # expect_equal(
-  #   mult_pred$.pred,
-  #   multi_predict(xy_fit, iris[rows, 1:4], penalty = xy_fit$spec$args$penalty, type = "prob")$.pred
-  # )
+  expect_equal(
+    mult_pred$.pred,
+    multi_predict(xy_fit, iris[rows, 1:4], penalty = lams, type = "prob")$.pred
+  )
 
   mult_class <- names(mult_probs)[apply(mult_probs, 1, which.max)]
   mult_class <- tibble(
@@ -135,11 +134,10 @@ test_that('glmnet probabilities, mulitiple lambda', {
   names(mult_class) <- NULL
   mult_class <- tibble(.pred = mult_class)
 
-  # needs fixin
-  # expect_equal(
-  #   mult_class$.pred,
-  #   multi_predict(xy_fit, iris[rows, 1:4], penalty = xy_fit$spec$args$penalty)$.pred
-  # )
+  expect_equal(
+    mult_class$.pred,
+    multi_predict(xy_fit, iris[rows, 1:4], penalty = lams)$.pred
+  )
 })
 
 

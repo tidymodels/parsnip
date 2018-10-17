@@ -95,6 +95,8 @@ logistic_reg_glm_data <-
     )
   )
 
+# Note: For glmnet, you will need to make model-specific predict methods.
+# See logistic_reg.R
 logistic_reg_glmnet_data <-
   list(
     libs = "glmnet",

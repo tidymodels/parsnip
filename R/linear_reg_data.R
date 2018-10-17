@@ -86,6 +86,8 @@ linear_reg_lm_data <-
     )
   )
 
+# Note: For glmnet, you will need to make model-specific predict methods.
+# See linear_reg.R
 linear_reg_glmnet_data <-
   list(
     libs = "glmnet",
