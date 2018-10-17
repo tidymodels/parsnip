@@ -195,7 +195,7 @@ test_that('bad input', {
   expect_error(translate(logistic_reg(), engine = "wat?"))
   expect_warning(translate(logistic_reg(), engine = NULL))
   expect_error(translate(logistic_reg(formula = y ~ x)))
-  expect_warning(translate(logistic_reg(x = iris[,1:3], y = iris$Species)), engine = "glmnet")
+  expect_warning(translate(logistic_reg(x = iris[,1:3], y = iris$Species), engine = "glmnet"))
   expect_error(translate(logistic_reg(formula = y ~ x)), engine = "glm")
 })
 
