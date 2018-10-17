@@ -1,7 +1,13 @@
 library(testthat)
-context("logistic regression")
 library(parsnip)
 library(rlang)
+
+# ------------------------------------------------------------------------------
+
+context("logistic regression")
+source("helpers.R")
+
+# ------------------------------------------------------------------------------
 
 test_that('primary arguments', {
   basic <- logistic_reg()
@@ -14,7 +20,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 family = expr(binomial)
+                 family = expr(stats::binomial)
                )
   )
   expect_equal(basic_glmnet$method$fit$args,
@@ -30,7 +36,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 family = expr(binomial)
+                 family = expr(stats::binomial)
                )
   )
   expect_equal(basic_spark$method$fit$args,
@@ -50,7 +56,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 alpha = 0.128,
+                 alpha = new_empty_quosure(0.128),
                  family = "binomial"
                )
   )
@@ -59,7 +65,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = 0.128,
+                 elastic_net_param = new_empty_quosure(0.128),
                  family = "binomial"
                )
   )
@@ -72,7 +78,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 lambda = 1,
+                 lambda = new_empty_quosure(1),
                  family = "binomial"
                )
   )
@@ -81,7 +87,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 reg_param = 1,
+                 reg_param = new_empty_quosure(1),
                  family = "binomial"
                )
   )
@@ -94,7 +100,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 alpha = varying(),
+                 alpha = new_empty_quosure(varying()),
                  family = "binomial"
                )
   )
@@ -103,7 +109,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = varying(),
+                 elastic_net_param = new_empty_quosure(varying()),
                  family = "binomial"
                )
   )
@@ -111,46 +117,46 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
-  glm_fam <- logistic_reg(others = list(family = expr(binomial(link = "probit"))))
+  glm_fam <- logistic_reg(family = binomial(link = "probit"))
   expect_equal(translate(glm_fam, engine = "glm")$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 family = expr(binomial(link = "probit"))
+                 family = new_empty_quosure(expr(binomial(link = "probit")))
                )
   )
 
-  glmnet_nlam <- logistic_reg(others = list(nlambda = 10))
+  glmnet_nlam <- logistic_reg(nlambda = 10)
   expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 nlambda = 10,
+                 nlambda = new_empty_quosure(10),
                  family = "binomial"
                )
   )
 
-  stan_samp <- logistic_reg(others = list(chains = 1, iter = 5))
+  stan_samp <- logistic_reg(chains = 1, iter = 5)
   expect_equal(translate(stan_samp, engine = "stan")$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 chains = 1,
-                 iter = 5,
-                 family = expr(binomial)
+                 chains = new_empty_quosure(1),
+                 iter = new_empty_quosure(5),
+                 family = expr(stats::binomial)
                )
   )
 
-  spark_iter <- logistic_reg(others = list(max_iter = 20))
+  spark_iter <- logistic_reg(max_iter = 20)
   expect_equal(translate(spark_iter, engine = "spark")$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 max_iter = 20,
+                 max_iter = new_empty_quosure(20),
                  family = "binomial"
                )
   )
@@ -159,42 +165,41 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- logistic_reg(             others = list(family = expr(binomial(link = "probit"))))
-  expr1_exp <- logistic_reg(mixture = 0, others = list(family = expr(binomial(link = "probit"))))
+  expr1     <- logistic_reg(             family = expr(binomial(link = "probit")))
+  expr1_exp <- logistic_reg(mixture = 0, family = expr(binomial(link = "probit")))
 
   expr2     <- logistic_reg(mixture = varying())
-  expr2_exp <- logistic_reg(mixture = varying(), others = list(nlambda = 10))
+  expr2_exp <- logistic_reg(mixture = varying(), nlambda = 10)
 
   expr3     <- logistic_reg(mixture = 0, penalty = varying())
   expr3_exp <- logistic_reg(mixture = 1)
 
-  expr4     <- logistic_reg(mixture = 0, others = list(nlambda = 10))
-  expr4_exp <- logistic_reg(mixture = 0, others = list(nlambda = 10, pmax = 2))
+  expr4     <- logistic_reg(mixture = 0, nlambda = 10)
+  expr4_exp <- logistic_reg(mixture = 0, nlambda = 10, pmax = 2)
 
-  expr5     <- logistic_reg(mixture = 1, others = list(nlambda = 10))
-  expr5_exp <- logistic_reg(mixture = 1, others = list(nlambda = 10, pmax = 2))
+  expr5     <- logistic_reg(mixture = 1, nlambda = 10)
+  expr5_exp <- logistic_reg(mixture = 1, nlambda = 10, pmax = 2)
 
   expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, others = list(nlambda = 10)), expr2_exp)
+  expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE), expr3_exp)
-  expect_equal(update(expr4, others = list(pmax = 2)), expr4_exp)
-  expect_equal(update(expr5, others = list(nlambda = 10, pmax = 2)), expr5_exp)
+  expect_equal(update(expr4, pmax = 2), expr4_exp)
+  expect_equal(update(expr5, nlambda = 10, pmax = 2), expr5_exp)
 
 })
 
 test_that('bad input', {
-  expect_error(logistic_reg(ase.weights = var))
   expect_error(logistic_reg(mode = "regression"))
-  expect_error(logistic_reg(penalty = -1))
-  expect_error(logistic_reg(mixture = -1))
+  # expect_error(logistic_reg(penalty = -1))
+  # expect_error(logistic_reg(mixture = -1))
   expect_error(translate(logistic_reg(), engine = "wat?"))
   expect_warning(translate(logistic_reg(), engine = NULL))
   expect_error(translate(logistic_reg(formula = y ~ x)))
-  expect_warning(translate(logistic_reg(others = list(x = iris[,1:3], y = iris$Species)), engine = "glmnet"))
-  expect_warning(translate(logistic_reg(others = list(formula = y ~ x)), engine = "glm"))
+  expect_warning(translate(logistic_reg(x = iris[,1:3], y = iris$Species)), engine = "glmnet")
+  expect_error(translate(logistic_reg(formula = y ~ x)), engine = "glm")
 })
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 data("lending_club")
 lending_club <- head(lending_club, 200)

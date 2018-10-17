@@ -1,9 +1,10 @@
 library(testthat)
-context("multinomial regression execution with spark")
 library(parsnip)
 library(dplyr)
 
 # ------------------------------------------------------------------------------
+
+context("multinomial regression execution with spark")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -68,7 +69,7 @@ test_that('spark execution', {
 
   expect_equal(
     colnames(spark_class_prob),
-    c("pred_versicolor", "pred_virginica", "pred_setosa")
+    c("pred_0", "pred_1", "pred_2")
   )
 
   expect_equivalent(

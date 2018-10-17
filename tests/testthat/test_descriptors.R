@@ -1,6 +1,11 @@
 library(testthat)
-context("descriptor variables")
 library(parsnip)
+
+# ------------------------------------------------------------------------------
+
+context("descriptor variables")
+
+# ------------------------------------------------------------------------------
 
 template <- function(col, pred, ob, lev, fact, dat, x, y) {
   lst <- list(.n_cols = col, .n_preds = pred, .n_obs = ob,
@@ -40,26 +45,26 @@ test_that("requires_descrs", {
   }
 
   # core args
-  expect_false(requires_descrs(rand_forest()))
-  expect_false(requires_descrs(rand_forest(mtry = 3)))
-  expect_false(requires_descrs(rand_forest(mtry = varying())))
-  expect_true(requires_descrs(rand_forest(mtry = .n_cols())))
-  expect_false(requires_descrs(rand_forest(mtry = expr(3))))
-  expect_false(requires_descrs(rand_forest(mtry = quote(3))))
-  expect_true(requires_descrs(rand_forest(mtry = fn())))
-  expect_true(requires_descrs(rand_forest(mtry = fn2())))
+  expect_false(parsnip:::requires_descrs(rand_forest()))
+  expect_false(parsnip:::requires_descrs(rand_forest(mtry = 3)))
+  expect_false(parsnip:::requires_descrs(rand_forest(mtry = varying())))
+  expect_true(parsnip:::requires_descrs(rand_forest(mtry = .n_cols())))
+  expect_false(parsnip:::requires_descrs(rand_forest(mtry = expr(3))))
+  expect_false(parsnip:::requires_descrs(rand_forest(mtry = quote(3))))
+  expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn())))
+  expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn2())))
 
   # descriptors in `others`
-  expect_false(requires_descrs(rand_forest(arrrg = 3)))
-  expect_false(requires_descrs(rand_forest(arrrg = varying())))
-  expect_true(requires_descrs(rand_forest(arrrg = .n_obs())))
-  expect_false(requires_descrs(rand_forest(arrrg = expr(3))))
-  expect_true(requires_descrs(rand_forest(arrrg = fn())))
-  expect_true(requires_descrs(rand_forest(arrrg = fn2())))
+  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = 3)))
+  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = varying())))
+  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .n_obs())))
+  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = expr(3))))
+  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn())))
+  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn2())))
 
   # mixed
   expect_true(
-    requires_descrs(
+    parsnip:::requires_descrs(
       rand_forest(
         mtry = 3,
         arrrg = fn2())
@@ -67,7 +72,7 @@ test_that("requires_descrs", {
   )
 
   expect_true(
-    requires_descrs(
+    parsnip:::requires_descrs(
       rand_forest(
         mtry = .n_cols(),
         arrrg = 3)

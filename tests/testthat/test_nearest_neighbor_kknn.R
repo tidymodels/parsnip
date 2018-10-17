@@ -1,16 +1,20 @@
 library(testthat)
-context("nearest neighbor execution with kknn")
 library(parsnip)
 library(rlang)
 
-###################################################################
+# ------------------------------------------------------------------------------
+
+context("nearest neighbor execution with kknn")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- nearest_neighbor(neighbors = 8, weight_func = "triangular")
+
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+
+# ------------------------------------------------------------------------------
 
 test_that('kknn execution', {
 

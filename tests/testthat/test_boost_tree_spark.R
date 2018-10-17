@@ -1,9 +1,10 @@
 library(testthat)
-context("boosted tree execution with spark")
 library(parsnip)
 library(dplyr)
 
 # ------------------------------------------------------------------------------
+
+context("boosted tree execution with spark")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)

@@ -1,9 +1,9 @@
 library(testthat)
-context("boosted tree execution with xgboost")
 library(parsnip)
 
+# ------------------------------------------------------------------------------
 
-###################################################################
+context("boosted tree execution with xgboost")
 
 num_pred <- names(iris)[1:4]
 
@@ -12,6 +12,8 @@ iris_xgboost <- boost_tree(trees = 2)
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+
+# ------------------------------------------------------------------------------
 
 test_that('xgboost execution, classification', {
 
@@ -83,7 +85,7 @@ test_that('xgboost classification prediction', {
 })
 
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 num_pred <- names(mtcars)[3:6]
 
