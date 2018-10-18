@@ -8,7 +8,7 @@ context("varying parameters")
 load("recipes_examples.RData")
 
 test_that('main parsnip arguments', {
-  skip("Fixes are required")
+
   mod_1 <-
     rand_forest() %>%
     varying_args(id = "")
@@ -39,9 +39,9 @@ test_that('main parsnip arguments', {
 
 
 test_that('other parsnip arguments', {
-  skip("Fixes are required")
+
   other_1 <-
-    rand_forest(others = list(sample.fraction = varying())) %>%
+    rand_forest(sample.fraction = varying()) %>%
     varying_args(id = "only others")
   exp_1 <-
     tibble(
@@ -53,7 +53,7 @@ test_that('other parsnip arguments', {
   expect_equal(other_1, exp_1)
 
   other_2 <-
-    rand_forest(min_n = varying(), others = list(sample.fraction = varying())) %>%
+    rand_forest(min_n = varying(), sample.fraction = varying()) %>%
     varying_args(id = "only others")
   exp_2 <-
     tibble(
@@ -65,12 +65,7 @@ test_that('other parsnip arguments', {
   expect_equal(other_2, exp_2)
 
   other_3 <-
-    rand_forest(
-      others = list(
-        strata = expr(Class),
-        sampsize = c(varying(), varying())
-      )
-    ) %>%
+    rand_forest(strata = Class, sampsize = c(varying(), varying())) %>%
     varying_args(id = "add an expr")
   exp_3 <-
     tibble(
@@ -82,12 +77,7 @@ test_that('other parsnip arguments', {
   expect_equal(other_3, exp_3)
 
   other_4 <-
-    rand_forest(
-      others = list(
-        strata = expr(Class),
-        sampsize = c(12, varying())
-      )
-    ) %>%
+    rand_forest(strata = Class, sampsize = c(12, varying())) %>%
     varying_args(id = "num and varying in vec")
   exp_4 <-
     tibble(
@@ -101,7 +91,7 @@ test_that('other parsnip arguments', {
 
 
 test_that('recipe parameters', {
-  skip("Fixes are required")
+
   rec_res_1 <- varying_args(rec_1)
   exp_1 <-
     tibble(
