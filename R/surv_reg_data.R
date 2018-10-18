@@ -1,8 +1,8 @@
 
 surv_reg_arg_key <- data.frame(
-  flexsurv    =  c("dist", NA),
+  flexsurv    =  c("dist"),
   stringsAsFactors = FALSE,
-  row.names =  c("dist", "mixture")
+  row.names =  c("dist")
 )
 
 surv_reg_modes <- "regression"

@@ -25,7 +25,8 @@ Imports:
     glue,
     magrittr,
     stats,
-    tidyr
+    tidyr,
+    globals
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0.9000
 Suggests: 

@@ -1,14 +1,19 @@
 library(testthat)
-context("multinom regression execution with glmnet")
 library(parsnip)
 library(rlang)
 library(tibble)
+
+# ------------------------------------------------------------------------------
+
+context("multinom regression execution with glmnet")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 rows <- c(1, 51, 101)
+
+# ------------------------------------------------------------------------------
 
 test_that('glmnet execution', {
 
@@ -85,8 +90,10 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
   skip_if_not_installed("glmnet")
 
+  lams <- c(0.01, 0.1)
+
   xy_fit <- fit_xy(
-    multinom_reg(penalty = c(0.01, 0.1)),
+    multinom_reg(penalty = lams),
     engine = "glmnet",
     control = ctrl,
     x = iris[, 1:4],
@@ -99,12 +106,12 @@ test_that('glmnet probabilities, mulitiple lambda', {
   mult_pred <-
     predict(xy_fit$fit,
             newx = as.matrix(iris[rows, 1:4]),
-            s = xy_fit$spec$args$penalty, type = "response")
+            s = lams, type = "response")
   mult_pred <- apply(mult_pred, 3, as_tibble)
   mult_pred <- dplyr:::bind_rows(mult_pred)
   mult_probs <- mult_pred
   names(mult_pred) <- paste0(".pred_", names(mult_pred))
-  mult_pred$penalty <- rep(xy_fit$spec$args$penalty, each = 3)
+  mult_pred$penalty <- rep(lams, each = 3)
   mult_pred$row <- rep(1:3, 2)
   mult_pred <- mult_pred[order(mult_pred$row, mult_pred$penalty),]
   mult_pred <- split(mult_pred[, -5], mult_pred$row)
@@ -113,13 +120,13 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
   expect_equal(
     mult_pred$.pred,
-    multi_predict(xy_fit, iris[rows, 1:4], penalty = xy_fit$spec$args$penalty, type = "prob")$.pred
+    multi_predict(xy_fit, iris[rows, 1:4], penalty = lams, type = "prob")$.pred
   )
 
   mult_class <- names(mult_probs)[apply(mult_probs, 1, which.max)]
   mult_class <- tibble(
     .pred = mult_class,
-    penalty = rep(xy_fit$spec$args$penalty, each = 3),
+    penalty = rep(lams, each = 3),
     row = rep(1:3, 2)
   )
   mult_class <- mult_class[order(mult_class$row, mult_class$penalty),]
@@ -129,7 +136,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
   expect_equal(
     mult_class$.pred,
-    multi_predict(xy_fit, iris[rows, 1:4], penalty = xy_fit$spec$args$penalty)$.pred
+    multi_predict(xy_fit, iris[rows, 1:4], penalty = lams)$.pred
   )
 })
 

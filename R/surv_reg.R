@@ -9,7 +9,7 @@
 #' }
 #' This argument is converted to its specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to its default
+#'  set using the  `...` slot. If left to its default
 #'  here (`NULL`), the value is taken from the underlying model
 #'  functions.
 #'
@@ -30,16 +30,11 @@
 #' \itemize{
 #' \item \pkg{R}:  `"flexsurv"`
 #' }
+#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `flexsurv::flexsurvreg`). These are not evaluated
-#'  until the model is fit and will be substituted into the model
-#'  fit expression.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
-#' @param ... Used for S3 method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
 #' @seealso [varying()], [fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
@@ -51,17 +46,20 @@
 #' @export
 surv_reg <-
   function(mode = "regression",
-           ...,
            dist = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others <- enquos(...)
+
+    args <- list(
+      dist = enquo(dist)
+    )
+
     if (!(mode %in% surv_reg_modes))
       stop(
         "`mode` should be one of: ",
         paste0("'", surv_reg_modes, "'", collapse = ", "),
         call. = FALSE
       )
-    args <- list(dist = dist)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -98,11 +96,8 @@ print.surv_reg <- function(x, ...) {
 #' If parameters need to be modified, this function can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams surv_reg
+#' @inheritParams update.boost_tree
 #' @param object A survival regression model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- surv_reg(dist = "weibull")
 #' model
@@ -113,12 +108,13 @@ print.surv_reg <- function(x, ...) {
 update.surv_reg <-
   function(object,
            dist = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others <- enquos(...)
 
-    args <- list(dist = dist)
+    args <- list(
+      dist = enquo(dist)
+    )
 
     if (fresh) {
       object$args <- args
@@ -146,12 +142,21 @@ update.surv_reg <-
 #' @export
 translate.surv_reg <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
-
-  if (x$engine == "flexsurv") {
-    # `dist` has no default in the function
-    if (all(names(x$method$fit$args) != "dist"))
-      x$method$fit$args$dist <- "weibull"
-  }
   x
 }
 
+# ------------------------------------------------------------------------------
+
+check_args.surv_reg <- function(object) {
+
+  if (object$engine == "flexsurv") {
+
+    args <- lapply(object$args, rlang::eval_tidy)
+
+    # `dist` has no default in the function
+    if (all(names(args) != "dist") || is.null(args$dist))
+      object$args$dist <- "weibull"
+  }
+
+  invisible(object)
+}

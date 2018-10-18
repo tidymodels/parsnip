@@ -5,33 +5,27 @@
 \alias{update.surv_reg}
 \title{General Interface for Parametric Survival Models}
 \usage{
-surv_reg(mode = "regression", ..., dist = NULL, others = list())
+surv_reg(mode = "regression", dist = NULL, ...)
 
-\method{update}{surv_reg}(object, dist = NULL, others = list(),
-  fresh = FALSE, ...)
+\method{update}{surv_reg}(object, dist = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
 
-\item{...}{Used for S3 method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
-
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
 
-\item{others}{A named list of arguments to be used by the
-underlying models (e.g., \code{flexsurv::flexsurvreg}). These are not evaluated
-until the model is fit and will be substituted into the model
-fit expression.}
+\item{...}{Other arguments to pass to the specific engine's
+model fit function (see the Engine Details section below). This
+should not include arguments defined by the main parameters to
+this function. For the \code{update} function, the ellipses can
+contain the primary arguments or any others.}
 
 \item{object}{A survival regression model specification.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
-}
-\value{
-An updated model specification.
 }
 \description{
 \code{surv_reg} is a way to generate a \emph{specification} of a model
@@ -43,7 +37,7 @@ model is:
 }
 This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{others} argument. If left to its default
+set using the  \code{...} slot. If left to its default
 here (\code{NULL}), the value is taken from the underlying model
 functions.
 

@@ -1,9 +1,10 @@
 library(testthat)
-context("logistic regression execution with spark")
 library(parsnip)
 library(dplyr)
 
 # ------------------------------------------------------------------------------
+
+context("logistic regression execution with spark")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -78,7 +79,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_equal(colnames(spark_class_prob), c("pred_No", "pred_Yes"))
+  expect_equal(colnames(spark_class_prob), c("pred_0", "pred_1"))
 
   expect_equivalent(
     as.data.frame(spark_class_prob),
