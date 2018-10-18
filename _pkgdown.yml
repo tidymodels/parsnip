@@ -2,7 +2,7 @@ template:
   package: tidytemplate
   params:
     part_of: <a href="https://github.com/tidymodels">tidymodels</a>
-    footer: probably is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
+    footer: <code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
 
 # https://github.com/tidyverse/tidytemplate for css
 

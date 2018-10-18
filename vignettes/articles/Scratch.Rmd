@@ -30,7 +30,9 @@ library(mda)
 
 A `parsnip` model function is itself very general. For example, the `logistic_reg` function itself doesn't have any model code within it. Instead, each model function is associated with one or more computational _engines_. These might be different R packages or some function in another language (that can be evaluated by R).  
 
-This vignette describes the process of creating a new model function that uses multiple engines. As an example, we'll create a function for _mixture discriminant analysis_. There are [a few packages](http://search.r-project.org/cgi-bin/namazu.cgi?query=%22mixture+discriminant%22&max=100&result=normal&sort=score&idxname=functions) that do this but we'll focus on `mda::mda`:
+This vignette describes the process of creating a new model function. Before proceeding, take a minute and read our [guidelines on creating modeling packages](https://tidymodels.github.io/model-implementation-principles/) to get the general themes and conventions that we use.  
+
+As an example, we'll create a function for _mixture discriminant analysis_. There are [a few packages](http://search.r-project.org/cgi-bin/namazu.cgi?query=%22mixture+discriminant%22&max=100&result=normal&sort=score&idxname=functions) that do this but we'll focus on `mda::mda`:
 
 ```{r mda-str}
 str(mda::mda)
@@ -165,7 +167,7 @@ Examples are [here](https://github.com/topepo/parsnip/blob/master/R/linear_reg_d
 
 For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results). 
 
-Note that the `pred` module maps to the `predict_num` function in `parsnip`. 
+Note that the `pred` module maps to the `predict_num` function in `parsnip`. However, the user-facing `predict` function is used to generate predictions and returns a tibble with a column named `.pred` (see the example below). When creating new models, you don't have to write code for that part. 
 
 
 ### The `classes` module
@@ -196,7 +198,7 @@ mixture_da_mda_data$classes <-
   )
 ```
 
-The `predict_class` function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data.  
+The `predict_class` function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data. As with the `pred` module, the user doesn't call `predict_class` but uses `predict` instead and this produces a tibble with a column named `.pred_class` [per the model guidlines](https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values). 
 
 ### The `prob` module
 
@@ -221,6 +223,8 @@ mixture_da_mda_data$prob <-
   )
 ```
 
+The `post` element converts the output to a tibble but the main `predict` method does proper naming of the column names. 
+
 ## Does it Work? 
 
 As a developer, one thing that may come in handy is the `translate` function. This will tell you what the model's eventual syntax will be. 
@@ -228,8 +232,7 @@ As a developer, one thing that may come in handy is the `translate` function. Th
 For example:
 
 ```{r mda-code}
-library(parsnip)
-library(tidyverse)
+library(tidymodels)
 
 mixture_da(sub_classes = 2) %>%
   translate(engine = "mda")
@@ -238,9 +241,6 @@ mixture_da(sub_classes = 2) %>%
 Let's try it on the iris data:
 
 ```{r mda-data}
-library(rsample)
-library(tibble)
-
 set.seed(4622)
 iris_split <- initial_split(iris, prop = 0.90)
 iris_train <- training(iris_split)
@@ -265,32 +265,45 @@ There are various things that came to mind while writing this document.
 
 ### Do I have to return a simple vector for `predict_num` and `predict_class`?
 
-_(Note: how to return submodels is being debated right now. This section may change)_
-
 Previously, when discussing the `pred` information:
 
 > For `pred`, the model requires an unnamed numeric vector output **(usually)**.
 
-There are some models (e.g. `glmnet`, `plsr`, `Cubist`, etc.) that can make predictions for different models from the same fitted model object. We want to facilitate that here so that, for these cases, the current convention is to return a tibble with the prediction in a column called `values` and have extra columns for any parameters that define the different sub-models. 
+There are some occasions where a prediction for a single new sample may be multidimensional. Examples are enumerated [here](https://tidymodels.github.io/model-implementation-principles/notes.html#list-cols) but some easy examples are:
 
-For example, if I fit a linear regression model via `glmnet` and get four values of the regularization parameter (`lambda`):
+ * confidence or prediction intervals
+ * quantile regression predictions. 
+ 
+and so on. These can be accomodated via `predict.model_fit` using different `type` arguments. 
 
-```{r glmnet}
-linear_reg(nlambda = 4) %>%
-  fit(mpg ~ ., data = mtcars, engine = "glmnet") %>%
-  predict(new_data = mtcars[1:3, -1])
+However, there are some models (e.g. `glmnet`, `plsr`, `Cubist`, etc.) that can make predictions for different models from the same fitted model object. The regular `predict` method requires prediction from a single model but the `multi_predict` can. The guideline is to _always return the same number of rows as in `new_data`_. This means that the `.pred` column is a list-column of tibbles. 
+
+For example, for a multinomial `glmnet` model, we leave `penalty` unspecified when fitting and get predictions on a sequence of values:
+
+```{r mnom-glmnet-fit}
+mod <- multinom_reg(mixture = 1/3)
+mod_fit <- fit(mod, Species ~ ., data = iris, engine = "glmnet")
+
+preds <- multi_predict(mod_fit, iris[1:3, -5], penalty = c(0, 0.01, 0.1), type = "prob")
+preds
+preds[[".pred"]][1]
+```
+This can be easily expanded to remove the list columns:
+
+```{r mnom-glmnet-expand}
+preds %>%
+  mutate(.row = 1:nrow(preds)) %>%
+  tidyr::unnest()
 ```
 
-_However_, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (`lambda`, in this case). 
-
-Also, as previously mentioned, a matrix or data frame can be used for multivariate outcomes. 
+`multi_predict` doesn't exist for every model and needs to be implmented by the developer. See `methods("multi_predict")` for examples in this package. 
 
 ### What is the `defaults` slot and why do I need it?
 
 You might want to set defaults that can be overridden by the user. For example, for logistic regression with `glm`, it make sense to default `family = binomial`. However, if someone wants to use a different link function, they should be able to do that. For that model/engine definition, it has
 
 ```{r glm-alt, eval = FALSE}
-defaults = list(family = expr(binomial))
+defaults = list(family = expr(stats::binomial))
 ```
 
 so that is the default:
@@ -300,13 +313,13 @@ logistic_reg() %>% translate(engine = "glm")
 
 # but you can change it:
 
-logistic_reg(family = binomial(link = "probit")) %>% 
+logistic_reg(family = stats::binomial(link = "probit")) %>% 
   translate(engine = "glm")
 ```
 
 That's what `defaults` are for. 
 
-Note that I wrapped `binomial` inside of `expr`. If I didn't, it would substitute the results of executing `binomial` inside of the expression (and that's a mess). 
+Note that I wrapped `binomial` inside of `expr`. If I didn't, it would substitute the results of executing `binomial` inside of the expression (and that's a mess). Using namespaces is a good idea here. 
 
 ### What if I want more complex defaults? 
 

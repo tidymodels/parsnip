@@ -1,6 +1,4 @@
 
-# parsnip
-
 [![Travis build status](https://travis-ci.org/topepo/parsnip.svg?branch=master)](https://travis-ci.org/topepo/parsnip)
 [![Coverage status](https://codecov.io/gh/topepo/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/topepo/parsnip?branch=master)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
