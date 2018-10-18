@@ -77,24 +77,23 @@ The arguments to the default function are:
 args(rand_forest)
 ```
 
-However, there might be other arguments that you would like to change or allow to vary. These are accessible using the `others` option. This is a named list of arguments in the form of the underlying function being called. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
+However, there might be other arguments that you would like to change or allow to vary. These are accessible using the `...` slot. This is a named list of arguments in the form of the underlying function being called. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
 
 ```{r rf-seed}
 rf_with_seed <- rand_forest(
-  trees = 2000, mtry = varying(), 
-  others = list(seed = 63233), 
+  trees = 2000, 
+  mtry = varying(), 
+  seed = 63233, 
   mode = "regression"
 )
 rf_with_seed
 ```
 
-If the model function contains the ellipses (`...`), these additional arguments can be passed along using `others`. 
-
 ### Process
 
 To fit the model, you must:
 
-* define the model, including the _mode_,
+* have a defined model, including the _mode_,
 * have no `varying()` parameters, and
 * specify a computational engine. 
 
@@ -123,44 +122,52 @@ translate(rf_with_seed, engine = "randomForest")
 
 These models can be fit using the `fit` function. Only the model object is returned. 
 
-```r
+```{r, eval = FALSE}
 fit(rf_mod, mpg ~ ., data = mtcars, engine = "ranger")
 ```
 
 ```
-## parsnip model object
-## 
-## Ranger result
-## 
-## Call:
-##  ranger::ranger(formula = mpg ~ ., data = mtcars, num.trees = 2000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5, 1)) 
-## 
-## Type:                             Regression 
-## Number of trees:                  2000 
-## Sample size:                      32 
-## Number of independent variables:  10 
-## Mtry:                             3 
-## Target node size:                 5 
-## Variable importance mode:         none 
-## Splitrule:                        variance 
-## OOB prediction error (MSE):       5.71 
-## R squared (OOB):                  0.843
+#> parsnip model object
+#> 
+#> Ranger result
+#> 
+#> Call:
+#>  ranger::ranger(formula = formula, data = data, num.trees = ~2000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1)) 
+#> 
+#> Type:                             Regression 
+#> Number of trees:                  2000 
+#> Sample size:                      32 
+#> Number of independent variables:  10 
+#> Mtry:                             3 
+#> Target node size:                 5 
+#> Variable importance mode:         none 
+#> Splitrule:                        variance 
+#> OOB prediction error (MSE):       5.71 
+#> R squared (OOB):                  0.843
 ```
 
 
-```r
+```{r, eval = FALSE}
 fit(rf_mod, mpg ~ ., data = mtcars, engine = "randomForest")
 ```
 
 ```
-## parsnip model object
-## 
-## Call:
-##  randomForest(x = as.data.frame(x), y = y, ntree = 2000) 
-##                Type of random forest: regression
-##                      Number of trees: 2000
-## No. of variables tried at each split: 3
-## 
-##           Mean of squared residuals: 5.6
-##                     % Var explained: 84.1
+#> parsnip model object
+#> 
+#> 
+#> Call:
+#>  randomForest(x = as.data.frame(x), y = y, ntree = ~2000) 
+#>                Type of random forest: regression
+#>                      Number of trees: 2000
+#> No. of variables tried at each split: 3
+#> 
+#>           Mean of squared residuals: 5.6
+#>                     % Var explained: 84.1
 ```
+
+Note that, in the case of the `ranger` fit, the call object shows `num.trees = ~2000`. The tilde is the consequence of `parsnip` using quosures to process the model specification's arguments. 
+
+Normally, when a function is executed, the function's arguments are immediately evaluated. In the case of `parsnip`, the model specification's arguments are _not_; the expression is captured along with the environment where it should be evaluated. That is what a quosure does. 
+
+`parsnip` uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure. 
+
