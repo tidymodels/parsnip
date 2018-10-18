@@ -137,7 +137,6 @@ is_varying <- function(x) {
   res
 }
 
-# Error: C stack usage  7970880 is too close to the limit (in some cases)
 find_varying <- function(x) {
   if (is_quosure(x))
     x <- quo_get_expr(x)
