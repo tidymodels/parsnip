@@ -201,6 +201,31 @@ organize_multnet_prob <- function(x, object) {
 # ------------------------------------------------------------------------------
 
 #' @export
+predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
+  object$spec <- eval_args(object$spec)
+  predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
+}
+
+#' @export
+predict_class._lognet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_class.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_classprob._multnet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_classprob.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_raw._multnet <- function (object, new_data, opts = list(), ...) {
+  object$spec <- eval_args(object$spec)
+  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
+}
+
+
+#' @export
 predict._multnet <-
   function(object, new_data, type = NULL, opts = list(), penalty = NULL, ...) {
     dots <- list(...)
@@ -211,6 +236,7 @@ predict._multnet <-
     stop("`penalty` should be a single numeric value. ",
          "`multi_predict` can be used to get multiple predictions ",
          "per row of data.", call. = FALSE)
+    object$spec <- eval_args(object$spec)
     res <- predict.model_fit(
       object = object,
       new_data = new_data,
@@ -227,9 +253,13 @@ predict._multnet <-
 #' @export
 multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (is_quosure(penalty))
+      penalty <- eval_tidy(penalty)
+
     dots <- list(...)
     if (is.null(penalty))
-      penalty <- object$lambda
+      penalty <- eval_tidy(object$lambda)
+    dots$s <- penalty
 
     if (is.null(type))
       type <- "class"
@@ -241,7 +271,7 @@ multi_predict._multnet <-
     else
       dots$type <- type
 
-    dots$s <- penalty
+    object$spec <- eval_args(object$spec)
     pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
 
     format_probs <- function(x) {

@@ -247,6 +247,31 @@ organize_glmnet_prob <- function(x, object) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
+predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
+  object$spec <- eval_args(object$spec)
+  predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
+}
+
+#' @export
+predict_class._lognet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_class.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_classprob._lognet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_classprob.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
+  object$spec <- eval_args(object$spec)
+  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
+}
+
+
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
@@ -255,6 +280,7 @@ multi_predict._lognet <-
     dots <- list(...)
     if (is.null(penalty))
       penalty <- object$lambda
+    dots$s <- penalty
 
     if (is.null(type))
       type <- "class"
@@ -266,7 +292,7 @@ multi_predict._lognet <-
     else
       dots$type <- type
 
-    dots$s <- penalty
+    object$spec <- eval_args(object$spec)
     pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
     param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)

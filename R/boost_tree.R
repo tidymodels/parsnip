@@ -258,8 +258,24 @@ check_args.boost_tree <- function(object) {
 
 # xgboost helpers --------------------------------------------------------------
 
-#' Training helper for xgboost
+#' Boosted trees via xgboost
 #'
+#' `xgb_train` is a wrapper for `xgboost` tree-based models
+#'  where all of the model arguments are in the main function.
+#'
+#' @param x A data frame or matrix of predictors
+#' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
+#' @param max_depth An integer for the maximum depth of the tree.
+#' @param nrounds An integer for the number of boosting iterations.
+#' @param eta A numeric value between zero and one to control the learning rate.
+#' @param colsample_bytree Subsampling proportion of columns.
+#' @param min_child_weight A numeric value for the minimum sum of instance
+#'  weights needed in a child to continue to split.
+#' @param gamma An number for the minimum loss reduction required to make a
+#'  further partition on a leaf node of the tree
+#' @param subsample Subsampling proportion of rows.
+#' @param ... Other options to pass to `xgb.train`.
+#' @return A fitted `xgboost` object.
 #' @export
 xgb_train <- function(
   x, y,
@@ -403,8 +419,30 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 
 # C5.0 helpers -----------------------------------------------------------------
 
-#' Training helper for C5.0
+#' Boosted trees via C5.0
 #'
+#' `C5.0_train` is a wrapper for [C50::C5.0()] tree-based models
+#'  where all of the model arguments are in the main function.
+#'
+#' @param x A data frame or matrix of predictors.
+#' @param y A factor vector with 2 or more levels
+#' @param trials An integer specifying the number of boosting
+#'  iterations. A value of one indicates that a single model is
+#'  used.
+#' @param weights An optional numeric vector of case weights. Note
+#'  that the data used for the case weights will not be used as a
+#'  splitting variable in the model (see
+#'  \url{http://www.rulequest.com/see5-win.html#CASEWEIGHT} for
+#'  Quinlan's notes on case weights).
+#' @param minCases An integer for the smallest number of samples
+#'  that must be put in at least two of the splits.
+#' @param sample A value between (0, .999) that specifies the
+#'  random proportion of the data should be used to train the model.
+#'  By default, all the samples are used for model training. Samples
+#'  not used for training are used to evaluate the accuracy of the
+#'  model in the printed output.
+#' @param ... Other arguments to pass.
+#' @return A fitted C5.0 model.
 #' @export
 C5.0_train <-
   function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
