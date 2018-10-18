@@ -13,6 +13,8 @@ r:
 
 env:
   - KERAS_BACKEND="tensorflow"
+  global:
+    - MAKEFLAGS="-j 2"
 
 r_binary_packages: 
  - rstan
