@@ -39,10 +39,10 @@ function can be used. See Details below.
 Existing functions:
 \itemize{
 \item \code{.obs()}: The current number of rows in the data set.
-\item \code{.cols()}: The number of columns in the data set that are
+\item \code{.preds()}: The number of columns in the data set that are
 associated with the predictors prior to dummy variable creation.
-\item \code{.preds()}: The number of predictors after dummy variables
-are created (if any).
+\item \code{.cols()}: The number of predictor columns availible after dummy
+variables are created (if any).
 \item \code{.facts()}: The number of factor predictors in the dat set.
 \item \code{.lvls()}: If the outcome is a factor, this is a table
 with the counts for each level (and \code{NA} otherwise).
@@ -58,8 +58,8 @@ column, \code{..y}.
 For example, if you use the model formula \code{Sepal.Width ~ .} with the \code{iris}
 data, the values would be
 \preformatted{
- .cols()  =   4          (the 4 columns in `iris`)
- .preds() =   5          (3 numeric columns + 2 from Species dummy variables)
+ .preds() =   4          (the 4 columns in `iris`)
+ .cols()  =   5          (3 numeric columns + 2 from Species dummy variables)
  .obs()   = 150
  .lvls()  =  NA          (no factor outcome)
  .facts() =   1          (the Species predictor)
@@ -70,8 +70,8 @@ data, the values would be
 
 If the formula \code{Species ~ .} where used:
 \preformatted{
- .cols()  =   4          (the 4 numeric columns in `iris`)
- .preds() =   4          (same)
+ .preds() =   4          (the 4 numeric columns in `iris`)
+ .cols()  =   4          (same)
  .obs()   = 150
  .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
  .facts() =   0

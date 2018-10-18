@@ -17,8 +17,8 @@ template <- function(col, pred, ob, lev, fact, dat, x, y) {
 
 eval_descrs <- function(descrs, not = NULL) {
 
-  if(!is.null(not)) {
-    for(descr in not) {
+  if (!is.null(not)) {
+    for (descr in not) {
       descrs[[descr]] <- NULL
     }
   }
@@ -87,11 +87,11 @@ context("Testing formula -> xy conversion")
 
 test_that("numeric y and dummy vars", {
   expect_equal(
-    template(4, 5, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
+    template(5, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ ., data = iris))
   )
   expect_equal(
-    template(1, 2, 150, NA, 1, iris, iris["Species"], iris[,"Sepal.Width"]),
+    template(2, 1, 150, NA, 1, iris, iris["Species"], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ Species, data = iris))
   )
 })
@@ -126,7 +126,7 @@ test_that("factor y", {
 test_that("factors all the way down", {
   dat <- npk[,1:4]
   expect_equal(
-    template(3, 7, 24, table(npk$K, dnn = NULL), 3, dat, dat[-4], dat[,"K"]),
+    template(7, 3, 24, table(npk$K, dnn = NULL), 3, dat, dat[-4], dat[,"K"]),
     eval_descrs(get_descr_form(K ~ ., data = dat))
   )
 })
@@ -135,7 +135,7 @@ test_that("weird cases", {
   # So model.frame ignores - signs in a model formula so Species is not removed
   # prior to model.matrix; otherwise this should have n_cols = 3
   expect_equal(
-    template(4, 3, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
+    template(3, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ . - Species, data = iris))
   )
 
@@ -145,7 +145,7 @@ test_that("weird cases", {
   x <- model.frame(~poly(Sepal.Length, 3), iris)
   attributes(x) <- attributes(as.data.frame(x))[c("names", "class", "row.names")]
   expect_equal(
-    template(1, 3, 150, NA, 0, iris, x, iris[,"Sepal.Width"]),
+    template(3, 1, 150, NA, 0, iris, x, iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ poly(Sepal.Length, 3), data = iris))
   )
 
@@ -204,11 +204,11 @@ test_that("spark descriptor", {
   eval_descrs2 <- purrr::partial(eval_descrs, not = c(".x", ".y", ".dat"))
 
   expect_equal(
-    template2(4, 5, 150, NA, 1),
+    template2(5, 4, 150, NA, 1),
     eval_descrs2(get_descr_form(Sepal_Width ~ ., data = iris_descr))
   )
   expect_equal(
-    template2(1, 2, 150, NA, 1),
+    template2(2, 1, 150, NA, 1),
     eval_descrs2(get_descr_form(Sepal_Width ~ Species, data = iris_descr))
   )
   expect_equal(
@@ -224,7 +224,7 @@ test_that("spark descriptor", {
     eval_descrs2(get_descr_form(Species ~ Sepal_Length, data = iris_descr))
   )
   expect_equivalent(
-    template2(3, 7, 24, rev(table(npk$K, dnn = NULL)), 3),
+    template2(7, 3, 24, rev(table(npk$K, dnn = NULL)), 3),
     eval_descrs2(get_descr_form(K ~ ., data = npk_descr))
   )
 

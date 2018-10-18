@@ -122,15 +122,15 @@ When the model it being fit by `parsnip`, [_data descriptors_](https://topepo.gi
 
 Two relevant descriptors for what we are about to do are:
 
- * `.cols()`: the number of columns in the data set that are associated with the predictors **prior to dummy variable creation**.
- * `.preds()`: the number of predictors after dummy variables are created (if any).
+ * `.preds()`: the number of predictor _variables_ in the data set that are associated with the predictors **prior to dummy variable creation**.
+ * `.cols()`: the number of predictor _columns_ after dummy variables (or other encodings) are created.
 
-Since `ranger` won't create indicator values, `.cols()` would be appropriate for using `mtry` for a bagging model. 
+Since `ranger` won't create indicator values, `.preds()` would be appropriate for using `mtry` for a bagging model. 
 
-For example, let's use an expression with the `.cols()` descriptor to fit a bagging model: 
+For example, let's use an expression with the `.preds()` descriptor to fit a bagging model: 
 
 ```{r bagged}
-rand_forest(mode = "regression", mtry = .cols(), trees = 1000) %>%
+rand_forest(mode = "regression", mtry = .preds(), trees = 1000) %>%
   fit(
     log10(Sale_Price) ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold,
     data = ames_train,

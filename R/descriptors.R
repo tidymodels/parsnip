@@ -10,10 +10,10 @@
 #' Existing functions:
 #'   \itemize{
 #'   \item `.obs()`: The current number of rows in the data set.
-#'   \item `.cols()`: The number of columns in the data set that are
+#'   \item `.preds()`: The number of columns in the data set that are
 #'     associated with the predictors prior to dummy variable creation.
-#'   \item `.preds()`: The number of predictors after dummy variables
-#'     are created (if any).
+#'   \item `.cols()`: The number of predictor columns availible after dummy
+#'     variables are created (if any).
 #'   \item `.facts()`: The number of factor predictors in the dat set.
 #'   \item `.lvls()`: If the outcome is a factor, this is a table
 #'     with the counts for each level (and `NA` otherwise).
@@ -29,8 +29,8 @@
 #' For example, if you use the model formula `Sepal.Width ~ .` with the `iris`
 #'  data, the values would be
 #' \preformatted{
-#'  .cols()  =   4          (the 4 columns in `iris`)
-#'  .preds() =   5          (3 numeric columns + 2 from Species dummy variables)
+#'  .preds() =   4          (the 4 columns in `iris`)
+#'  .cols()  =   5          (3 numeric columns + 2 from Species dummy variables)
 #'  .obs()   = 150
 #'  .lvls()  =  NA          (no factor outcome)
 #'  .facts() =   1          (the Species predictor)
@@ -41,8 +41,8 @@
 #'
 #' If the formula `Species ~ .` where used:
 #' \preformatted{
-#'  .cols()  =   4          (the 4 numeric columns in `iris`)
-#'  .preds() =   4          (same)
+#'  .preds() =   4          (the 4 numeric columns in `iris`)
+#'  .cols()  =   4          (same)
 #'  .obs()   = 150
 #'  .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
 #'  .facts() =   0
@@ -121,11 +121,11 @@ get_descr_df <- function(formula, data) {
     }
   } else .lvls <- function() { NA }
 
-  .cols <- function() {
+  .preds <- function() {
     ncol(tmp_dat$x)
   }
 
-  .preds <- function() {
+  .cols <- function() {
     ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   }
 
@@ -233,8 +233,8 @@ get_descr_spark <- function(formula, data) {
 
   obs <- dplyr::tally(data) %>% dplyr::pull()
 
-  .cols  <- function() length(f_term_labels)
-  .preds <- function() all_preds
+  .cols  <- function() all_preds
+  .preds <- function() length(f_term_labels)
   .obs   <- function() obs
   .lvls  <- function() y_vals
   .facts <- function() factor_pred
@@ -419,8 +419,8 @@ descr_env <- rlang::new_environment(
     .obs   = function() abort("Descriptor context not set"),
     .lvls  = function() abort("Descriptor context not set"),
     .facts = function() abort("Descriptor context not set"),
-    .x       = function() abort("Descriptor context not set"),
-    .y       = function() abort("Descriptor context not set"),
-    .dat     = function() abort("Descriptor context not set")
+    .x     = function() abort("Descriptor context not set"),
+    .y     = function() abort("Descriptor context not set"),
+    .dat   = function() abort("Descriptor context not set")
   )
 )
