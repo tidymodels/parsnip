@@ -279,7 +279,7 @@ test_that('additional descriptor tests', {
   skip_if_not_installed("ranger")
 
   descr_xy <- fit_xy(
-    rand_forest(mtry = floor(sqrt(.n_cols())) + 1),
+    rand_forest(mtry = floor(sqrt(.cols())) + 1),
     x = mtcars[, -1],
     y = mtcars$mpg,
     engine = "ranger",
@@ -288,7 +288,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_xy$fit$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mtry = floor(sqrt(.n_cols())) + 1),
+    rand_forest(mtry = floor(sqrt(.cols())) + 1),
     mpg ~ ., data = mtcars,
     engine = "ranger",
     control = ctrl
@@ -296,7 +296,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_f$fit$mtry, 4)
 
   descr_xy <- fit_xy(
-    rand_forest(mtry = floor(sqrt(.n_cols())) + 1),
+    rand_forest(mtry = floor(sqrt(.cols())) + 1),
     x = mtcars[, -1],
     y = mtcars$mpg,
     engine = "ranger",
@@ -305,7 +305,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_xy$fit$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mtry = floor(sqrt(.n_cols())) + 1),
+    rand_forest(mtry = floor(sqrt(.cols())) + 1),
     mpg ~ ., data = mtcars,
     engine = "ranger",
     control = ctrl
@@ -314,12 +314,12 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- quo(c(min(.n_levs()), 20, 10))
+  exp_wts <- quo(c(min(.lvls()), 20, 10))
 
   descr_other_xy <- fit_xy(
     rand_forest(
       mtry = 2,
-      class.weights = c(min(.n_levs()), 20, 10)
+      class.weights = c(min(.lvls()), 20, 10)
     ),
     x = iris[, 1:4],
     y = iris$Species,
@@ -332,7 +332,7 @@ test_that('additional descriptor tests', {
   descr_other_f <- fit(
     rand_forest(
       mtry = 2,
-      class.weights = c(min(.n_levs()), 20, 10)
+      class.weights = c(min(.lvls()), 20, 10)
     ),
     Species ~ ., data = iris,
     engine = "ranger",
@@ -344,7 +344,7 @@ test_that('additional descriptor tests', {
   descr_other_xy <- fit_xy(
     rand_forest(
       mtry = 2,
-      class.weights = c(min(.n_levs()), 20, 10)
+      class.weights = c(min(.lvls()), 20, 10)
     ),
     x = iris[, 1:4],
     y = iris$Species,
@@ -357,7 +357,7 @@ test_that('additional descriptor tests', {
   descr_other_f <- fit(
     rand_forest(
       mtry = 2,
-      class.weights = c(min(.n_levs()), 20, 10)
+      class.weights = c(min(.lvls()), 20, 10)
     ),
     Species ~ ., data = iris,
     engine = "ranger",

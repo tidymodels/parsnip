@@ -1,21 +1,21 @@
 #' @name descriptors
-#' @aliases descriptors .n_obs .n_cols .n_preds .n_facts .n_levs .x .y .dat
+#' @aliases descriptors .obs .cols .preds .facts .lvls .x .y .dat
 #' @title Data Set Characteristics Available when Fitting Models
 #' @description When using the `fit()` functions there are some
 #'  variables that will be available for use in arguments. For
 #'  example, if the user would like to choose an argument value
-#'  based on the current number of rows in a data set, the `.n_obs()`
+#'  based on the current number of rows in a data set, the `.obs()`
 #'  function can be used. See Details below.
 #' @details
 #' Existing functions:
 #'   \itemize{
-#'   \item `.n_obs()`: The current number of rows in the data set.
-#'   \item `.n_cols()`: The number of columns in the data set that are
+#'   \item `.obs()`: The current number of rows in the data set.
+#'   \item `.cols()`: The number of columns in the data set that are
 #'     associated with the predictors prior to dummy variable creation.
-#'   \item `.n_preds()`: The number of predictors after dummy variables
+#'   \item `.preds()`: The number of predictors after dummy variables
 #'     are created (if any).
-#'   \item `.n_facts()`: The number of factor predictors in the dat set.
-#'   \item `.n_levs()`: If the outcome is a factor, this is a table
+#'   \item `.facts()`: The number of factor predictors in the dat set.
+#'   \item `.lvls()`: If the outcome is a factor, this is a table
 #'     with the counts for each level (and `NA` otherwise).
 #'   \item `.x()`: The predictors returned in the format given. Either a
 #'   data frame or a matrix.
@@ -29,26 +29,26 @@
 #' For example, if you use the model formula `Sepal.Width ~ .` with the `iris`
 #'  data, the values would be
 #' \preformatted{
-#'  .n_cols()  =   4          (the 4 columns in `iris`)
-#'  .n_preds() =   5          (3 numeric columns + 2 from Species dummy variables)
-#'  .n_obs()   = 150
-#'  .n_levs()  =  NA          (no factor outcome)
-#'  .n_facts() =   1          (the Species predictor)
-#'  .y()       = <vector>     (Sepal.Width as a vector)
-#'  .x()       = <data.frame> (The other 4 columns as a data frame)
-#'  .dat()     = <data.frame> (The full data set)
+#'  .cols()  =   4          (the 4 columns in `iris`)
+#'  .preds() =   5          (3 numeric columns + 2 from Species dummy variables)
+#'  .obs()   = 150
+#'  .lvls()  =  NA          (no factor outcome)
+#'  .facts() =   1          (the Species predictor)
+#'  .y()     = <vector>     (Sepal.Width as a vector)
+#'  .x()     = <data.frame> (The other 4 columns as a data frame)
+#'  .dat()   = <data.frame> (The full data set)
 #' }
 #'
 #' If the formula `Species ~ .` where used:
 #' \preformatted{
-#'  .n_cols()  =   4          (the 4 numeric columns in `iris`)
-#'  .n_preds() =   4          (same)
-#'  .n_obs()   = 150
-#'  .n_levs()  =  c(setosa = 50, versicolor = 50, virginica = 50)
-#'  .n_facts() =   0
-#'  .y()       = <vector>     (Species as a vector)
-#'  .x()       = <data.frame> (The other 4 columns as a data frame)
-#'  .dat()     = <data.frame> (The full data set)
+#'  .cols()  =   4          (the 4 numeric columns in `iris`)
+#'  .preds() =   4          (same)
+#'  .obs()   = 150
+#'  .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
+#'  .facts() =   0
+#'  .y()     = <vector>     (Species as a vector)
+#'  .x()     = <data.frame> (The other 4 columns as a data frame)
+#'  .dat()   = <data.frame> (The full data set)
 #' }
 #'
 #' To use these in a model fit, pass them to a model specification.
@@ -60,7 +60,7 @@
 #'
 #' data("lending_club")
 #'
-#' rand_forest(mode = "classification", mtry = .n_cols() - 2)
+#' rand_forest(mode = "classification", mtry = .cols() - 2)
 #' }
 #'
 #' When no descriptors are found, the computation of the descriptor values
@@ -70,23 +70,23 @@ NULL
 
 #' @export
 #' @rdname descriptors
-.n_cols <- function() descr_env$.n_cols()
+.cols <- function() descr_env$.cols()
 
 #' @export
 #' @rdname descriptors
-.n_preds <- function() descr_env$.n_preds()
+.preds <- function() descr_env$.preds()
 
 #' @export
 #' @rdname descriptors
-.n_obs <- function() descr_env$.n_obs()
+.obs <- function() descr_env$.obs()
 
 #' @export
 #' @rdname descriptors
-.n_levs <- function() descr_env$.n_levs()
+.lvls <- function() descr_env$.lvls()
 
 #' @export
 #' @rdname descriptors
-.n_facts <- function() descr_env$.n_facts()
+.facts <- function() descr_env$.facts()
 
 #' @export
 #' @rdname descriptors
@@ -116,24 +116,24 @@ get_descr_df <- function(formula, data) {
   tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
 
   if(is.factor(tmp_dat$y)) {
-    .n_levs <- function() {
+    .lvls <- function() {
       table(tmp_dat$y, dnn = NULL)
     }
-  } else .n_levs <- function() { NA }
+  } else .lvls <- function() { NA }
 
-  .n_cols <- function() {
+  .cols <- function() {
     ncol(tmp_dat$x)
   }
 
-  .n_preds <- function() {
+  .preds <- function() {
     ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
   }
 
-  .n_obs <- function() {
+  .obs <- function() {
     nrow(data)
   }
 
-  .n_facts <- function() {
+  .facts <- function() {
     sum(vapply(tmp_dat$x, is.factor, logical(1)))
   }
 
@@ -150,11 +150,11 @@ get_descr_df <- function(formula, data) {
   }
 
   list(
-    .n_cols = .n_cols,
-    .n_preds = .n_preds,
-    .n_obs = .n_obs,
-    .n_levs = .n_levs,
-    .n_facts = .n_facts,
+    .cols = .cols,
+    .preds = .preds,
+    .obs = .obs,
+    .lvls = .lvls,
+    .facts = .facts,
     .dat = .dat,
     .x = .x,
     .y = .y
@@ -233,11 +233,11 @@ get_descr_spark <- function(formula, data) {
 
   obs <- dplyr::tally(data) %>% dplyr::pull()
 
-  .n_cols  <- function() length(f_term_labels)
-  .n_preds <- function() all_preds
-  .n_obs   <- function() obs
-  .n_levs  <- function() y_vals
-  .n_facts <- function() factor_pred
+  .cols  <- function() length(f_term_labels)
+  .preds <- function() all_preds
+  .obs   <- function() obs
+  .lvls  <- function() y_vals
+  .facts <- function() factor_pred
   .x       <- function() abort("Descriptor `.x()` not defined for Spark.")
   .y       <- function() abort("Descriptor `.y()` not defined for Spark.")
   .dat     <- function() abort("Descriptor `.dat()` not defined for Spark.")
@@ -245,11 +245,11 @@ get_descr_spark <- function(formula, data) {
   # still need .x(), .y(), .dat() ?
 
   list(
-    .n_cols  = .n_cols,
-    .n_preds = .n_preds,
-    .n_obs = .n_obs,
-    .n_levs = .n_levs,
-    .n_facts = .n_facts,
+    .cols  = .cols,
+    .preds = .preds,
+    .obs = .obs,
+    .lvls = .lvls,
+    .facts = .facts,
     .dat = .dat,
     .x = .x,
     .y = .y
@@ -258,25 +258,25 @@ get_descr_spark <- function(formula, data) {
 
 get_descr_xy <- function(x, y) {
 
-  .n_levs <- if (is.factor(y)) {
+  .lvls <- if (is.factor(y)) {
     function() table(y, dnn = NULL)
   } else {
     function() NA
   }
 
-  .n_cols  <- function() {
+  .cols  <- function() {
     ncol(x)
   }
 
-  .n_preds <- function() {
+  .preds <- function() {
     ncol(x)
   }
 
-  .n_obs   <- function() {
+  .obs   <- function() {
     nrow(x)
   }
 
-  .n_facts <- function() {
+  .facts <- function() {
     if(is.data.frame(x))
       sum(vapply(x, is.factor, logical(1)))
     else
@@ -296,11 +296,11 @@ get_descr_xy <- function(x, y) {
   }
 
   list(
-    .n_cols  = .n_cols,
-    .n_preds = .n_preds,
-    .n_obs = .n_obs,
-    .n_levs = .n_levs,
-    .n_facts = .n_facts,
+    .cols  = .cols,
+    .preds = .preds,
+    .obs = .obs,
+    .lvls = .lvls,
+    .facts = .facts,
     .dat = .dat,
     .x = .x,
     .y = .y
@@ -363,11 +363,11 @@ has_any_descrs <- function(x) {
 is_descr <- function(x) {
 
   descrs <- list(
-    ".n_cols",
-    ".n_preds",
-    ".n_obs",
-    ".n_levs",
-    ".n_facts",
+    ".cols",
+    ".preds",
+    ".obs",
+    ".lvls",
+    ".facts",
     ".x",
     ".y",
     ".dat"
@@ -378,7 +378,7 @@ is_descr <- function(x) {
 
 # Helpers for overwriting descriptors temporarily ------------------------------
 
-# descrs = list of functions that actually eval to .n_cols()
+# descrs = list of functions that actually eval to .cols()
 poke_descrs <- function(descrs) {
 
   descr_names <- names(descr_env)
@@ -414,11 +414,11 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 # with their actual implementations
 descr_env <- rlang::new_environment(
   data = list(
-    .n_cols  = function() abort("Descriptor context not set"),
-    .n_preds = function() abort("Descriptor context not set"),
-    .n_obs   = function() abort("Descriptor context not set"),
-    .n_levs  = function() abort("Descriptor context not set"),
-    .n_facts = function() abort("Descriptor context not set"),
+    .cols  = function() abort("Descriptor context not set"),
+    .preds = function() abort("Descriptor context not set"),
+    .obs   = function() abort("Descriptor context not set"),
+    .lvls  = function() abort("Descriptor context not set"),
+    .facts = function() abort("Descriptor context not set"),
     .x       = function() abort("Descriptor context not set"),
     .y       = function() abort("Descriptor context not set"),
     .dat     = function() abort("Descriptor context not set")

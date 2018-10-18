@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • parsnip</title>
+<title>Boosted trees via xgboost — xgb_train • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,30 +93,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>Boosted trees via xgboost</h1>
     
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <div class="hidden name"><code>xgb_train.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl class='dl-horizontal'>
-  <dt>generics</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></code></p></dd>
-
-    <dt>magrittr</dt><dd><p><code>%&gt;%</code></p></dd>
-</dl>
+    <p><code>xgb_train</code> is a wrapper for <code>xgboost</code> tree-based models
+where all of the model arguments are in the main function.</p>
     
     </div>
 
-        
+    <pre class="usage"><span class='fu'>xgb_train</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A data frame or matrix of predictors</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>A vector (factor or numeric) or matrix (numeric) of outcome data.</p></td>
+    </tr>
+    <tr>
+      <th>max_depth</th>
+      <td><p>An integer for the maximum depth of the tree.</p></td>
+    </tr>
+    <tr>
+      <th>nrounds</th>
+      <td><p>An integer for the number of boosting iterations.</p></td>
+    </tr>
+    <tr>
+      <th>eta</th>
+      <td><p>A numeric value between zero and one to control the learning rate.</p></td>
+    </tr>
+    <tr>
+      <th>colsample_bytree</th>
+      <td><p>Subsampling proportion of columns.</p></td>
+    </tr>
+    <tr>
+      <th>min_child_weight</th>
+      <td><p>A numeric value for the minimum sum of instance
+weights needed in a child to continue to split.</p></td>
+    </tr>
+    <tr>
+      <th>gamma</th>
+      <td><p>An number for the minimum loss reduction required to make a
+further partition on a leaf node of the tree</p></td>
+    </tr>
+    <tr>
+      <th>subsample</th>
+      <td><p>Subsampling proportion of rows.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other options to pass to <code>xgb.train</code>.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A fitted <code>xgboost</code> object.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

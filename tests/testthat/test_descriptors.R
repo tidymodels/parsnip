@@ -8,8 +8,8 @@ context("descriptor variables")
 # ------------------------------------------------------------------------------
 
 template <- function(col, pred, ob, lev, fact, dat, x, y) {
-  lst <- list(.n_cols = col, .n_preds = pred, .n_obs = ob,
-              .n_levs = lev, .n_facts = fact, .dat = dat,
+  lst <- list(.cols = col, .preds = pred, .obs = ob,
+              .lvls = lev, .facts = fact, .dat = dat,
               .x = x, .y = y)
 
   Filter(Negate(is.null), lst)
@@ -36,7 +36,7 @@ test_that("requires_descrs", {
 
   # embedded in a function
   fn <- function() {
-    .n_cols()
+    .cols()
   }
 
   # doubly embedded
@@ -48,7 +48,7 @@ test_that("requires_descrs", {
   expect_false(parsnip:::requires_descrs(rand_forest()))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = 3)))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = varying())))
-  expect_true(parsnip:::requires_descrs(rand_forest(mtry = .n_cols())))
+  expect_true(parsnip:::requires_descrs(rand_forest(mtry = .cols())))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = expr(3))))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = quote(3))))
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn())))
@@ -57,7 +57,7 @@ test_that("requires_descrs", {
   # descriptors in `others`
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = 3)))
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = varying())))
-  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .n_obs())))
+  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .obs())))
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = expr(3))))
   expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn())))
   expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn2())))
@@ -74,7 +74,7 @@ test_that("requires_descrs", {
   expect_true(
     parsnip:::requires_descrs(
       rand_forest(
-        mtry = .n_cols(),
+        mtry = .cols(),
         arrrg = 3)
     )
   )
@@ -237,18 +237,18 @@ context("Descriptor helpers")
 test_that("can be temporarily overriden at evaluation time", {
 
   scope_n_cols <- function() {
-    scoped_descrs(list(.n_cols = function() { 1 }))
-    .n_cols()
+    scoped_descrs(list(.cols = function() { 1 }))
+    .cols()
   }
 
-  # .n_cols() overriden, but instantly reset
+  # .cols() overriden, but instantly reset
   expect_equal(
     scope_n_cols(),
     1
   )
 
-  # .n_cols() should now be reset to an error
-  expect_error(.n_cols())
+  # .cols() should now be reset to an error
+  expect_error(.cols())
 
 })
 
