@@ -1,7 +1,13 @@
+# parsnip 0.0.0.9004
+
+* Arguments to modeling functions are now captured as quosures. 
+* `others` has been replaced by `...`
+* Data descriptor names have beemn changed and are now functions. The descriptor definitions for "cols" and "preds" have been switched. 
+
 # parsnip 0.0.0.9003
 
 * `regularization` was changed to `penalty` in a few models to be consistent with [this change](tidymodels/model-implementation-principles@08d3afd). 
-* if a mode is not chosen in the model specification, it is assigned at the time of fit. [51](https://github.com/topepo/parsnip/issues/51)
+* If a mode is not chosen in the model specification, it is assigned at the time of fit. [51](https://github.com/topepo/parsnip/issues/51)
 * The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some `predict` methods, the `earth` package will need to be attached to be fully operational.
 
 # parsnip 0.0.0.9002
