@@ -23,7 +23,6 @@ test_that('stan_glm execution', {
 
   library(rstanarm)
 
-  # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       iris_basic,
