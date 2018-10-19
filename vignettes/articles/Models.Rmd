@@ -22,7 +22,7 @@ library(cli)
 library(kableExtra)
 ```
 
-```{r modelinfo, inlcude = FALSE}
+```{r modelinfo, include = FALSE}
 mod_names <- function(model, engine) {
   obj_name <- paste(model, engine, "data", sep = "_")
   tibble(module = getFromNamespace(obj_name, "parsnip") %>% names(),
@@ -41,14 +41,19 @@ engine_info <-
 The list of models accessible via `parsnip` is:
 
 ```{r model-table, results = 'asis', echo = FALSE}
-parsnip:::engine_info %>% 
+mod_list <- 
+  parsnip:::engine_info %>% 
   distinct(mode, model) %>% 
   mutate(model = paste0("`", model, "()`")) %>%
   arrange(mode, model) %>%
-  as_tibble() %>%
-  kable(format = "html") %>% 
-  kable_styling(full_width = FALSE) %>%
-  collapse_rows(columns = 1)
+  group_by(mode) %>%
+  summarize(models = paste(model, collapse = ", "))
+
+for (i in 1:nrow(mod_list)) {
+  cat(mod_list[["mode"]][i], ": ",
+      mod_list[["models"]][i], "\n\n\n", 
+      sep = "")
+}
 ```
 
 _How_ the model is created is related to the _engine_. In many cases, this is an R modeling package. In others, it may be a connection to an external system (such as Spark or Tensorflow). This table lists the engines for each model type along with the type of prediction that it can make (see `predict.model_fit()`). 

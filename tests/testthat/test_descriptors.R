@@ -8,8 +8,8 @@ context("descriptor variables")
 # ------------------------------------------------------------------------------
 
 template <- function(col, pred, ob, lev, fact, dat, x, y) {
-  lst <- list(.n_cols = col, .n_preds = pred, .n_obs = ob,
-              .n_levs = lev, .n_facts = fact, .dat = dat,
+  lst <- list(.cols = col, .preds = pred, .obs = ob,
+              .lvls = lev, .facts = fact, .dat = dat,
               .x = x, .y = y)
 
   Filter(Negate(is.null), lst)
@@ -17,8 +17,8 @@ template <- function(col, pred, ob, lev, fact, dat, x, y) {
 
 eval_descrs <- function(descrs, not = NULL) {
 
-  if(!is.null(not)) {
-    for(descr in not) {
+  if (!is.null(not)) {
+    for (descr in not) {
       descrs[[descr]] <- NULL
     }
   }
@@ -36,7 +36,7 @@ test_that("requires_descrs", {
 
   # embedded in a function
   fn <- function() {
-    .n_cols()
+    .cols()
   }
 
   # doubly embedded
@@ -48,7 +48,7 @@ test_that("requires_descrs", {
   expect_false(parsnip:::requires_descrs(rand_forest()))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = 3)))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = varying())))
-  expect_true(parsnip:::requires_descrs(rand_forest(mtry = .n_cols())))
+  expect_true(parsnip:::requires_descrs(rand_forest(mtry = .cols())))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = expr(3))))
   expect_false(parsnip:::requires_descrs(rand_forest(mtry = quote(3))))
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn())))
@@ -57,7 +57,7 @@ test_that("requires_descrs", {
   # descriptors in `others`
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = 3)))
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = varying())))
-  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .n_obs())))
+  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .obs())))
   expect_false(parsnip:::requires_descrs(rand_forest(arrrg = expr(3))))
   expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn())))
   expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn2())))
@@ -74,7 +74,7 @@ test_that("requires_descrs", {
   expect_true(
     parsnip:::requires_descrs(
       rand_forest(
-        mtry = .n_cols(),
+        mtry = .cols(),
         arrrg = 3)
     )
   )
@@ -87,11 +87,11 @@ context("Testing formula -> xy conversion")
 
 test_that("numeric y and dummy vars", {
   expect_equal(
-    template(4, 5, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
+    template(5, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ ., data = iris))
   )
   expect_equal(
-    template(1, 2, 150, NA, 1, iris, iris["Species"], iris[,"Sepal.Width"]),
+    template(2, 1, 150, NA, 1, iris, iris["Species"], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ Species, data = iris))
   )
 })
@@ -126,7 +126,7 @@ test_that("factor y", {
 test_that("factors all the way down", {
   dat <- npk[,1:4]
   expect_equal(
-    template(3, 7, 24, table(npk$K, dnn = NULL), 3, dat, dat[-4], dat[,"K"]),
+    template(7, 3, 24, table(npk$K, dnn = NULL), 3, dat, dat[-4], dat[,"K"]),
     eval_descrs(get_descr_form(K ~ ., data = dat))
   )
 })
@@ -135,7 +135,7 @@ test_that("weird cases", {
   # So model.frame ignores - signs in a model formula so Species is not removed
   # prior to model.matrix; otherwise this should have n_cols = 3
   expect_equal(
-    template(4, 3, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
+    template(3, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ . - Species, data = iris))
   )
 
@@ -145,7 +145,7 @@ test_that("weird cases", {
   x <- model.frame(~poly(Sepal.Length, 3), iris)
   attributes(x) <- attributes(as.data.frame(x))[c("names", "class", "row.names")]
   expect_equal(
-    template(1, 3, 150, NA, 0, iris, x, iris[,"Sepal.Width"]),
+    template(3, 1, 150, NA, 0, iris, x, iris[,"Sepal.Width"]),
     eval_descrs(get_descr_form(Sepal.Width ~ poly(Sepal.Length, 3), data = iris))
   )
 
@@ -204,11 +204,11 @@ test_that("spark descriptor", {
   eval_descrs2 <- purrr::partial(eval_descrs, not = c(".x", ".y", ".dat"))
 
   expect_equal(
-    template2(4, 5, 150, NA, 1),
+    template2(5, 4, 150, NA, 1),
     eval_descrs2(get_descr_form(Sepal_Width ~ ., data = iris_descr))
   )
   expect_equal(
-    template2(1, 2, 150, NA, 1),
+    template2(2, 1, 150, NA, 1),
     eval_descrs2(get_descr_form(Sepal_Width ~ Species, data = iris_descr))
   )
   expect_equal(
@@ -224,7 +224,7 @@ test_that("spark descriptor", {
     eval_descrs2(get_descr_form(Species ~ Sepal_Length, data = iris_descr))
   )
   expect_equivalent(
-    template2(3, 7, 24, rev(table(npk$K, dnn = NULL)), 3),
+    template2(7, 3, 24, rev(table(npk$K, dnn = NULL)), 3),
     eval_descrs2(get_descr_form(K ~ ., data = npk_descr))
   )
 
@@ -237,18 +237,18 @@ context("Descriptor helpers")
 test_that("can be temporarily overriden at evaluation time", {
 
   scope_n_cols <- function() {
-    scoped_descrs(list(.n_cols = function() { 1 }))
-    .n_cols()
+    scoped_descrs(list(.cols = function() { 1 }))
+    .cols()
   }
 
-  # .n_cols() overriden, but instantly reset
+  # .cols() overriden, but instantly reset
   expect_equal(
     scope_n_cols(),
     1
   )
 
-  # .n_cols() should now be reset to an error
-  expect_error(.n_cols())
+  # .cols() should now be reset to an error
+  expect_error(.cols())
 
 })
 

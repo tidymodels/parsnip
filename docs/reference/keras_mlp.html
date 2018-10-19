@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Other predict methods. — predict_class.model_fit • parsnip</title>
+<title>Simple interface to MLP models via keras — keras_mlp • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,9 +29,11 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="Other predict methods. — predict_class.model_fit" />
+<meta property="og:title" content="Simple interface to MLP models via keras — keras_mlp" />
 
-<meta property="og:description" content="These are internal functions not meant to be directly called by the user." />
+<meta property="og:description" content="Instead of building a keras model sequentially, keras_mlp can be used to
+create a feedforward network with a single hidden layer. Regularization is
+via either weight decay or dropout." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,72 +123,70 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Other predict methods.</h1>
+    <h1>Simple interface to MLP models via keras</h1>
     
-    <div class="hidden name"><code>other_predict.Rd</code></div>
+    <div class="hidden name"><code>keras_mlp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These are internal functions not meant to be directly called by the user.</p>
+    <p>Instead of building a <code>keras</code> model sequentially, <code>keras_mlp</code> can be used to
+create a feedforward network with a single hidden layer. Regularization is
+via either weight decay or dropout.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>keras_mlp</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>, <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'>sample.int</span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object of class <code>model_fit</code></p></td>
+      <th>x</th>
+      <td><p>A data frame or matrix of predictors</p></td>
     </tr>
     <tr>
-      <th>new_data</th>
-      <td><p>A rectangular data object, such as a data frame.</p></td>
+      <th>y</th>
+      <td><p>A vector (factor or numeric) or matrix (numeric) of outcome data.</p></td>
+    </tr>
+    <tr>
+      <th>hidden_units</th>
+      <td><p>An integer for the number of hidden units.</p></td>
+    </tr>
+    <tr>
+      <th>decay</th>
+      <td><p>A non-negative real number for the amount of weight decay. Either
+this parameter <em>or</em> <code>dropout</code> can specified.</p></td>
+    </tr>
+    <tr>
+      <th>dropout</th>
+      <td><p>The proportion of parameters to set to zero. Either
+this parameter <em>or</em> <code>decay</code> can specified.</p></td>
+    </tr>
+    <tr>
+      <th>epochs</th>
+      <td><p>An integer for the number of passes through the data.</p></td>
+    </tr>
+    <tr>
+      <th>act</th>
+      <td><p>A character string for the type of activation function between layers.</p></td>
+    </tr>
+    <tr>
+      <th>seeds</th>
+      <td><p>A vector of three positive integers to control randomness of the
+calculations.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Ignored. To pass arguments to pass to the underlying
-function when <code><a href='predict.model_fit.html'>predict.model_fit(type = "raw")</a></code>,
-use the <code>opts</code> argument.</p></td>
-    </tr>
-    <tr>
-      <th>level</th>
-      <td><p>A single numeric value between zero and one for the
-interval estimates.</p></td>
-    </tr>
-    <tr>
-      <th>std_error</th>
-      <td><p>A single logical for wether the standard error should be
-returned (assuming that the model can compute it).</p></td>
+      <td><p>Currently ignored.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>keras</code> model object.</p>
     
 
   </div>
@@ -194,7 +194,9 @@ returned (assuming that the model can compute it).</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

@@ -14,14 +14,15 @@ The main elements of the object are:
 names of these arguments may be different form their
 counterparts n the underlying model function. For example, for a
 \code{glmnet} model, the argument name for the amount of the penalty
-is called "penalty" instead of "lambda" to make it more
-general and usable across different types of models (and to not
-be specific to a particular model function). The elements of
-\code{args} can be quoted expressions or \code{varying()}. If left to
-their defaults (\code{NULL}), the arguments will use the underlying
-model functions default value.
-\item \code{other}: An optional vector of model-function-specific
-parameters. As with \code{args}, these can also be quoted or
+is called "penalty" instead of "lambda" to make it more general
+and usable across different types of models (and to not be
+specific to a particular model function). The elements of \code{args}
+can \code{varying()}. If left to their defaults (\code{NULL}), the
+arguments will use the underlying model functions default value.
+As discussed below, the arguments in \code{args} are captured as
+quosures and are not immediately executed.
+\item \code{...}: Optional model-function-specific
+parameters. As with \code{args}, these will be quosures and can be
 \code{varying()}.
 \item \code{mode}: The type of model, such as "regression" or
 "classification". Other modes will be added once the package
@@ -38,3 +39,100 @@ type.
 This class and structure is the basis for how \pkg{parsnip}
 stores model objects prior to seeing the data.
 }
+\section{Argument Details}{
+
+
+An important detail to understand when creating model
+specifications is that they are intended to be functionally
+independent of the data. While it is true that some tuning
+parameters are \emph{data dependent}, the model specification does
+not interact with the data at all.
+
+For example, most R functions immediately evaluate their
+arguments. For example, when calling \code{mean(dat_vec)}, the object
+\code{dat_vec} is immediately evaluated inside of the function.
+
+\code{parsnip} model functions do not do this. For example, using
+
+\preformatted{
+ rand_forest(mtry = ncol(iris) - 1)
+}
+
+\strong{does not} execute \code{ncol(iris) - 1} when creating the specification.
+This can be seen in the output:
+
+\preformatted{
+ > rand_forest(mtry = ncol(iris) - 1)
+ Random Forest Model Specification (unknown)
+
+ Main Arguments:
+   mtry = ncol(iris) - 1
+}
+
+The model functions save the argument \emph{expressions} and their
+associated environments (a.k.a. a quosure) to be evaluated later
+when either \code{\link[=fit]{fit()}} or \code{\link[=fit_xy]{fit_xy()}} are called with the actual
+data.
+
+The consequence of this strategy is that any data required to
+get the parameter values must be available when the model is
+fit. The two main ways that this can fail is if:
+
+\enumerate{
+\item The data have been modified between the creation of the
+model specification and when the model fit function is invoked.
+
+\item If the model specification is saved and loaded into a new
+session where those same data objects do not exist.
+}
+
+The best way to avoid these issues is to not reference any data
+objects in the global environment but to use data descriptors
+such as \code{.cols()}. Another way of writing the previous
+specification is
+
+\preformatted{
+ rand_forest(mtry = .cols() - 1)
+}
+
+This is not dependent on any specific data object and
+is evaluated immediately before the model fitting process begins.
+
+One less advantageous approach to solving this issue is to use
+quasiquotation. This would insert the actual R object into the
+model specification and might be the best idea when the data
+object is small. For example, using
+
+\preformatted{
+ rand_forest(mtry = ncol(!!iris) - 1)
+}
+
+would work (and be reproducible between sessions) but embeds
+the entire iris data set into the \code{mtry} expression:
+
+\preformatted{
+ > rand_forest(mtry = ncol(!!iris) - 1)
+ Random Forest Model Specification (unknown)
+
+ Main Arguments:
+   mtry = ncol(structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, <snip>
+}
+
+However, if there were an object with the number of columns in
+it, this wouldn't be too bad:
+
+\preformatted{
+ > mtry_val <- ncol(iris) - 1
+ > mtry_val
+ [1] 4
+ > rand_forest(mtry = !!mtry_val)
+ Random Forest Model Specification (unknown)
+
+ Main Arguments:
+   mtry = 4
+}
+
+More information on quosures and quasiquotation can be found at
+\url{https://tidyeval.tidyverse.org}.
+}
+

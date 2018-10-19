@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Other predict methods. — predict_class.model_fit • parsnip</title>
+<title>Boosted trees via xgboost — xgb_train • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,9 +29,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="Other predict methods. — predict_class.model_fit" />
+<meta property="og:title" content="Boosted trees via xgboost — xgb_train" />
 
-<meta property="og:description" content="These are internal functions not meant to be directly called by the user." />
+<meta property="og:description" content="xgb_train is a wrapper for xgboost tree-based models
+where all of the model arguments are in the main function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,72 +122,72 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Other predict methods.</h1>
+    <h1>Boosted trees via xgboost</h1>
     
-    <div class="hidden name"><code>other_predict.Rd</code></div>
+    <div class="hidden name"><code>xgb_train.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These are internal functions not meant to be directly called by the user.</p>
+    <p><code>xgb_train</code> is a wrapper for <code>xgboost</code> tree-based models
+where all of the model arguments are in the main function.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_predint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
-
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>xgb_train</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object of class <code>model_fit</code></p></td>
+      <th>x</th>
+      <td><p>A data frame or matrix of predictors</p></td>
     </tr>
     <tr>
-      <th>new_data</th>
-      <td><p>A rectangular data object, such as a data frame.</p></td>
+      <th>y</th>
+      <td><p>A vector (factor or numeric) or matrix (numeric) of outcome data.</p></td>
+    </tr>
+    <tr>
+      <th>max_depth</th>
+      <td><p>An integer for the maximum depth of the tree.</p></td>
+    </tr>
+    <tr>
+      <th>nrounds</th>
+      <td><p>An integer for the number of boosting iterations.</p></td>
+    </tr>
+    <tr>
+      <th>eta</th>
+      <td><p>A numeric value between zero and one to control the learning rate.</p></td>
+    </tr>
+    <tr>
+      <th>colsample_bytree</th>
+      <td><p>Subsampling proportion of columns.</p></td>
+    </tr>
+    <tr>
+      <th>min_child_weight</th>
+      <td><p>A numeric value for the minimum sum of instance
+weights needed in a child to continue to split.</p></td>
+    </tr>
+    <tr>
+      <th>gamma</th>
+      <td><p>An number for the minimum loss reduction required to make a
+further partition on a leaf node of the tree</p></td>
+    </tr>
+    <tr>
+      <th>subsample</th>
+      <td><p>Subsampling proportion of rows.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Ignored. To pass arguments to pass to the underlying
-function when <code><a href='predict.model_fit.html'>predict.model_fit(type = "raw")</a></code>,
-use the <code>opts</code> argument.</p></td>
-    </tr>
-    <tr>
-      <th>level</th>
-      <td><p>A single numeric value between zero and one for the
-interval estimates.</p></td>
-    </tr>
-    <tr>
-      <th>std_error</th>
-      <td><p>A single logical for wether the standard error should be
-returned (assuming that the model can compute it).</p></td>
+      <td><p>Other options to pass to <code>xgb.train</code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A fitted <code>xgboost</code> object.</p>
     
 
   </div>
@@ -194,7 +195,9 @@ returned (assuming that the model can compute it).</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

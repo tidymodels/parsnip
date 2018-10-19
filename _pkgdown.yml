@@ -1,6 +1,8 @@
 template:
   package: tidytemplate
-  default_assets: false
+  params:
+    part_of: <a href="https://github.com/tidymodels">tidymodels</a>
+    footer: <code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
 
 # https://github.com/tidyverse/tidytemplate for css
 
