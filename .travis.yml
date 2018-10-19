@@ -15,7 +15,9 @@ r:
 - devel
 
 env:
+  global:
   - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
 
 # until we troubleshoot these issues
 matrix:
