@@ -8,10 +8,14 @@ form_form <-
   function(object, control, env, ...) {
     opts <- quos(...)
 
-    y_levels <- levels_from_formula( # prob rewrite this as simple subset/levels
-      env$formula,
-      env$data
-    )
+    if (object$mode != "regression") {
+      y_levels <- levels_from_formula( # prob rewrite this as simple subset/levels
+        env$formula,
+        env$data
+      )
+    } else {
+      y_levels <- NULL
+    }
 
     object <- check_mode(object, y_levels)
 
