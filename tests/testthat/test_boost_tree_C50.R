@@ -21,7 +21,6 @@ test_that('C5.0 execution', {
 
   skip_if_not_installed("C50")
 
-  # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       lc_basic,
@@ -52,7 +51,6 @@ test_that('C5.0 execution', {
     )
   )
 
-  # passes interactively but not on R CMD check
   C5.0_form_catch <- fit(
     lc_basic,
     funded_amnt ~ term,

@@ -157,7 +157,13 @@
 <span class='co'># S3 method for model_fit</span>
 <span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
 
-<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>predict_num</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_quantile</span>(<span class='no'>object</span>, <span class='no'>new_data</span>,
+  <span class='kw'>quantile</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>, <span class='no'>...</span>)
+
+<span class='fu'>predict_quantile</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,6 +191,11 @@ interval estimates.</p></td>
       <th>std_error</th>
       <td><p>A single logical for wether the standard error should be
 returned (assuming that the model can compute it).</p></td>
+    </tr>
+    <tr>
+      <th>quant</th>
+      <td><p>A vector of numbers between 0 and 1 for the quantile being
+predicted.</p></td>
     </tr>
     </table>
     
