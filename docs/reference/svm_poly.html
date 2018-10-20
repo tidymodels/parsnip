@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Parametric Survival Models — surv_reg • parsnip</title>
+<title>General Interface for polynomial support vector machines — svm_poly • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,19 +29,23 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="General Interface for Parametric Survival Models — surv_reg" />
+<meta property="og:title" content="General Interface for polynomial support vector machines — svm_poly" />
 
-<meta property="og:description" content="surv_reg is a way to generate a specification of a model
+<meta property="og:description" content="svm_poly is a way to generate a specification of a model
 before fitting and allows the model to be created using
-R. The main argument for the
-model is:
-dist: The probability distribution of the outcome.
-This argument is converted to its specific names at the
+different packages in R or via Spark. The main arguments for the
+model are:
+cost: The cost of predicting a sample within or on the
+wrong side of the margin.
+degree: The polynomial degree.
+scale_factor: A scaling factor for the kernel.
+margin: The epsilon in the SVM insensitive loss function
+(regression only)
+These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  ... slot. If left to its default
-here (NULL), the value is taken from the underlying model
-functions.
-If parameters need to be modified, this function can be used
+set using the  ... slot. If left to their defaults
+here (NULL), the values are taken from the underlying model
+functions. If parameters need to be modified, update can be used
 in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
 
@@ -132,32 +136,38 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Parametric Survival Models</h1>
+    <h1>General Interface for polynomial support vector machines</h1>
     
-    <div class="hidden name"><code>surv_reg.Rd</code></div>
+    <div class="hidden name"><code>svm_poly.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>surv_reg</code> is a way to generate a <em>specification</em> of a model
+    <p><code>svm_poly</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
-R. The main argument for the
-model is:</p><ul>
-<li><p><code>dist</code>: The probability distribution of the outcome.</p></li>
-</ul><p>This argument is converted to its specific names at the
+different packages in R or via Spark. The main arguments for the
+model are:</p><ul>
+<li><p><code>cost</code>: The cost of predicting a sample within or on the
+wrong side of the margin.</p></li>
+<li><p><code>degree</code>: The polynomial degree.</p></li>
+<li><p><code>scale_factor</code>: A scaling factor for the kernel.</p></li>
+<li><p><code>margin</code>: The epsilon in the SVM insensitive loss function
+(regression only)</p></li>
+</ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to its default
-here (<code>NULL</code>), the value is taken from the underlying model
-functions.</p>
-<p>If parameters need to be modified, this function can be used
+set using the  <code>...</code> slot. If left to their defaults
+here (<code>NULL</code>), the values are taken from the underlying model
+functions. If parameters need to be modified, <code>update</code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>svm_poly</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for surv_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for svm_poly</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,12 +175,26 @@ in lieu of recreating the object from scratch.</p>
     <tr>
       <th>mode</th>
       <td><p>A single character string for the type of model.
-The only possible value for this model is "regression".</p></td>
+Possible values for this model are "unknown", "regression", or
+"classification".</p></td>
     </tr>
     <tr>
-      <th>dist</th>
-      <td><p>A character string for the outcome distribution. "weibull" is
-the default.</p></td>
+      <th>cost</th>
+      <td><p>A positive number for the cost of predicting a sample within
+or on the wrong side of the margin</p></td>
+    </tr>
+    <tr>
+      <th>degree</th>
+      <td><p>A positive number for polynomial degree.</p></td>
+    </tr>
+    <tr>
+      <th>scale_factor</th>
+      <td><p>A positive number for the polynomial scaling factor.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p>A positive number for the epsilon in the SVM insensitive
+loss function (regression only)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -182,7 +206,7 @@ contain the primary arguments or any others.</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>A survival regression model specification.</p></td>
+      <td><p>A polynomial SVM model specification.</p></td>
     </tr>
     <tr>
       <th>fresh</th>
@@ -193,19 +217,9 @@ modified in-place of or replaced wholesale.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>surv_reg</code>,the
-mode will always be "regression".</p>
-<p>Since survival models typically involve censoring (and require the use of
-<code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function will require that the
-survival model be specified via the formula interface.</p>
-<p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
-<code>strata</code> function cannot be used. To achieve the same effect,
-the extra parameter roles can be used (as described above).</p>
-<p>For <code>surv_reg</code>, the mode will always be "regression".</p>
-<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+    <p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survreg"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"kernlab"</code></p></li>
 </ul>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
@@ -214,48 +228,46 @@ following <em>engines</em>:</p><ul>
     <p>Engines may have pre-set default arguments when executing the
 model fit call. These can be changed by using the <code>...</code>
 argument to pass in the preferred values. For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">flexsurv</span></p>
+model, the template of the fit calls are::</p>
+<p><span class="pkg">kernlab</span> classification</p>
 <p><pre>
-flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-    weights = missing_arg())
+kernlab::ksvm(x = missing_arg(), y = missing_arg(), prob.model = TRUE)
 </pre></p>
-<p><span class="pkg">survreg</span></p>
+<p><span class="pkg">kernlab</span> regression</p>
 <p><pre>
-survival::survreg(formula = missing_arg(), data = missing_arg(), 
-    weights = missing_arg(), model = TRUE)
+kernlab::ksvm(x = missing_arg(), y = missing_arg())
 </pre></p>
-<p>Note that <code>model = TRUE</code> is needed to produce quantile
-predictions when there is a stratification variable and can be
-overridden in other cases.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Jackson, C. (2016). <code>flexsurv</code>: A Platform for Parametric Survival
-Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code>, <code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>surv_reg</span>()</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+    <pre class="examples"><div class='input'><span class='fu'>svm_poly</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   degree = 1.2
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+<span class='fu'>svm_poly</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   dist = varying()
-#&gt; </div><div class='input'>
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"weibull"</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt;   cost = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>svm_poly</span>(<span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+<span class='no'>model</span></div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt;   cost = 10
+#&gt;   scale_factor = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   dist = lnorm
+#&gt;   cost = 1
+#&gt;   scale_factor = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   cost = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -266,8 +278,6 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#engine-details">Engine Details</a></li>
-
-      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

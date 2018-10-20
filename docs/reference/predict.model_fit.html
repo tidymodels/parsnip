@@ -159,8 +159,8 @@ predict can be used for all types of models and used the
     <tr>
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "probs", "conf_int", "pred_int", or
-"raw". When <code>NULL</code>, <code>predict</code> will choose an appropriate value
+are "numeric", "class", "probs", "conf_int", "pred_int", "quantile",
+or "raw". When <code>NULL</code>, <code>predict</code> will choose an appropriate value
 based on the model's mode.</p></td>
     </tr>
     <tr>
@@ -193,6 +193,9 @@ columns <code>.pred_lower</code> and <code>.pred_upper</code> with an attribute 
 the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
 the columns will be named <code>.pred_lower_classlevel</code> and so on.</p>
+<p>Quantile predictions return a tibble with a column <code>.pred</code>, which is
+a list-column. Each list element contains a tibble with columns
+<code>.pred</code> and <code>.quantile</code> (and perhaps others).</p>
 <p>Using <code>type = "raw"</code> with <code>predict.model_fit</code> (or using
 <code>predict_raw</code>) will return the unadulterated results of the
 prediction function.</p>
