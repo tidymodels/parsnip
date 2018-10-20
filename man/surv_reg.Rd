@@ -57,12 +57,35 @@ Also, for the \code{flexsurv::flexsurvfit} engine, the typical
 \code{strata} function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).
 
+For \code{surv_reg}, the mode will always be "regression".
+
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"flexsurv"}
+\item \pkg{R}:  \code{"flexsurv"}, \code{"survreg"}
 }
 }
+\section{Engine Details}{
+
+
+Engines may have pre-set default arguments when executing the
+model fit call. These can be changed by using the \code{...}
+argument to pass in the preferred values. For this type of
+model, the template of the fit calls are:
+
+\pkg{flexsurv}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
+
+\pkg{survreg}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
+
+Note that \code{model = TRUE} is needed to produce quantile
+predictions when there is a stratification variable and can be
+overridden in other cases.
+}
+
 \examples{
 surv_reg()
 # Parameters can be represented by a placeholder:

@@ -162,7 +162,6 @@ test_that('randomForest regression execution', {
 
   skip_if_not_installed("randomForest")
 
-  # check: passes interactively but not on R CMD check
   expect_error(
     fit(
       car_basic,
@@ -185,7 +184,6 @@ test_that('randomForest regression execution', {
     regexp = NA
   )
 
-  # check: passes interactively but not on R CMD check
   randomForest_form_catch <- fit(
     bad_rf_reg,
     car_form,

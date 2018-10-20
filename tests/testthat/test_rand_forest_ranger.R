@@ -29,7 +29,6 @@ test_that('ranger classification execution', {
 
   skip_if_not_installed("ranger")
 
-  # check: passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       lc_ranger,
@@ -62,7 +61,6 @@ test_that('ranger classification execution', {
     )
   )
 
-  # check: passes interactively but not on R CMD check
   ranger_form_catch <- fit(
     bad_ranger_cls,
     funded_amnt ~ term,
@@ -179,7 +177,6 @@ test_that('ranger regression execution', {
 
   skip_if_not_installed("ranger")
 
-  # check:passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       car_basic,
@@ -190,7 +187,7 @@ test_that('ranger regression execution', {
     ),
     regexp = NA
   )
-  # check: passes interactively but not on R CMD check
+
   expect_error(
     res <- fit_xy(
       car_basic,
@@ -202,7 +199,7 @@ test_that('ranger regression execution', {
     regexp = NA
   )
 
-  # check: passes interactively but not on R CMD check
+
   ranger_form_catch <- fit(
     bad_ranger_reg,
     mpg ~ .,

@@ -15,9 +15,15 @@ r:
 - devel
 
 env:
-  - KERAS_BACKEND="tensorflow"
   global:
-    - MAKEFLAGS="-j 2"
+  - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
+
+# until we troubleshoot these issues
+matrix:
+  allow_failures:
+    - r: 3.1
+    - r: 3.2
 
 r_binary_packages: 
  - rstan

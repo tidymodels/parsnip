@@ -79,7 +79,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_equal(colnames(spark_class_prob), c("pred_0", "pred_1"))
+  expect_equal(colnames(spark_class_prob), c("pred_Yes", "pred_No"))
 
   expect_equivalent(
     as.data.frame(spark_class_prob),
