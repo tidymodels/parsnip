@@ -2,7 +2,6 @@
 surv_reg_arg_key <- data.frame(
   flexsurv =  c("dist"),
   survreg  =  c("dist"),
-  stan     =  c("family"),
   stringsAsFactors = FALSE,
   row.names =  c("dist")
 )
@@ -12,7 +11,6 @@ surv_reg_modes <- "regression"
 surv_reg_engines <- data.frame(
   flexsurv = TRUE,
   survreg  = TRUE,
-  stan     = TRUE,
   stringsAsFactors    = TRUE,
   row.names =  c("regression")
 )
@@ -91,32 +89,32 @@ surv_reg_survreg_data <-
 
 # ------------------------------------------------------------------------------
 
-surv_reg_stan_data <-
-  list(
-    libs = c("brms"),
-    fit = list(
-      interface = "formula",
-      protect = c("formula", "data", "weights"),
-      func = c(pkg = "brms", fun = "brm"),
-      defaults = list(
-        family = expr(brms::weibull()),
-        seed = expr(sample.int(10^5, 1))
-      )
-    ),
-    pred = list(
-      pre = NULL,
-      post = function(results, object) {
-        tibble::as_tibble(results) %>%
-          dplyr::select(Estimate) %>%
-          setNames(".pred")
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = expr(object$fit),
-          newdata = expr(new_data),
-          type = "response"
-        )
-    )
-  )
+# surv_reg_stan_data <-
+#   list(
+#     libs = c("brms"),
+#     fit = list(
+#       interface = "formula",
+#       protect = c("formula", "data", "weights"),
+#       func = c(pkg = "brms", fun = "brm"),
+#       defaults = list(
+#         family = expr(brms::weibull()),
+#         seed = expr(sample.int(10^5, 1))
+#       )
+#     ),
+#     pred = list(
+#       pre = NULL,
+#       post = function(results, object) {
+#         tibble::as_tibble(results) %>%
+#           dplyr::select(Estimate) %>%
+#           setNames(".pred")
+#       },
+#       func = c(fun = "predict"),
+#       args =
+#         list(
+#           object = expr(object$fit),
+#           newdata = expr(new_data),
+#           type = "response"
+#         )
+#     )
+#   )
 
