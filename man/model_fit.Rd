@@ -23,6 +23,25 @@ object would contain items such as the terms object and so on.
 When no information is required, this is \code{NA}.
 }
 
+As discussed in the documentation for \code{\link{model_spec}}, the
+original arguments to the specification are saved as quosures.
+These are evaluated for the \code{model_fit} object prior to fitting.
+If the resulting model object prints its call, any user-defined
+options are shown in the call preceded by a tilde (see the
+example below). This is a result of the use of quosures in the
+specification.
+
 This class and structure is the basis for how \pkg{parsnip}
 stores model objects after to seeing the data and applying a model.
+}
+\examples{
+
+# Keep the `x` matrix if the data are not too big.
+spec_obj <- linear_reg(x = ifelse(.obs() < 500, TRUE, FALSE))
+spec_obj
+
+fit_obj <- fit(spec_obj, mpg ~ ., data = mtcars, engine = "lm")
+fit_obj
+
+nrow(fit_obj$fit$x)
 }

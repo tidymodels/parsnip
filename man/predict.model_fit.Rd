@@ -19,8 +19,8 @@ predict_raw(object, ...)
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "probs", "conf_int", "pred_int", or
-"raw". When \code{NULL}, \code{predict} will choose an appropriate value
+are "numeric", "class", "probs", "conf_int", "pred_int", "quantile",
+or "raw". When \code{NULL}, \code{predict} will choose an appropriate value
 based on the model's mode.}
 
 \item{opts}{A list of optional arguments to the underlying
@@ -49,6 +49,10 @@ columns \code{.pred_lower} and \code{.pred_upper} with an attribute for
 the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
 the columns will be named \code{.pred_lower_classlevel} and so on.
+
+Quantile predictions return a tibble with a column \code{.pred}, which is
+a list-column. Each list element contains a tibble with columns
+\code{.pred} and \code{.quantile} (and perhaps others).
 
 Using \code{type = "raw"} with \code{predict.model_fit} (or using
 \code{predict_raw}) will return the unadulterated results of the

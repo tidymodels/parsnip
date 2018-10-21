@@ -24,18 +24,18 @@ varying <- function()
 #' rand_forest(mtry = varying()) %>% varying_args(id = "one arg")
 #'
 #' rand_forest(others = list(sample.fraction = varying())) %>%
-#'   varying_args(id = "only others")
+#'  varying_args(id = "only others")
 #'
 #' rand_forest(
-#'   others = list(
-#'     strata = expr(Class),
-#'     sampsize = c(varying(), varying())
-#'   )
+#'    others = list(
+#'      strata = expr(Class),
+#'      sampsize = c(varying(), varying())
+#'    )
 #' ) %>%
-#'   varying_args(id = "add an expr")
+#'    varying_args(id = "add an expr")
 #'
-#' rand_forest(others = list(classwt = c(class1 = 1, class2 = varying()))) %>%
-#'   varying_args(id = "list of values")
+#'  rand_forest(others = list(classwt = c(class1 = 1, class2 = varying()))) %>%
+#'    varying_args(id = "list of values")
 #'
 #' @export
 varying_args <- function (x, id, ...)
@@ -113,6 +113,7 @@ varying_args.step <- function(x, id = NULL, ...) {
   x <- x[!(names(x) %in% exclude)]
   x <- x[!map_lgl(x, is.null)]
   res <- map(x, find_varying)
+
   res <- map_lgl(res, any)
   tibble(
     name = names(res),
@@ -136,18 +137,19 @@ is_varying <- function(x) {
   res
 }
 
-# Error: C stack usage  7970880 is too close to the limit (in some cases)
 find_varying <- function(x) {
-  if (is.atomic(x) | is.name(x)) {
+  if (is_quosure(x))
+    x <- quo_get_expr(x)
+  if (is_varying(x)) {
+    return(TRUE)
+  } else if (is.atomic(x) | is.name(x)) {
     FALSE
-  } else if (is.call(x)) {
-    if (is_varying(x)) {
-      TRUE
-    } else {
-      find_varying(x)
+  } else if (is.call(x) || is.pairlist(x)) {
+    for (i in seq_along(x)) {
+      if (is_varying(x[[i]]))
+        return(TRUE)
     }
-  } else if (is.pairlist(x)) {
-    find_varying(x)
+    FALSE
   } else if (is.vector(x) | is.list(x)) {
     map_lgl(x, find_varying)
   } else {

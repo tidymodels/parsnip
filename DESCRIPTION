@@ -1,5 +1,5 @@
 Package: parsnip
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Title: A Common API to Modeling and analysis Functions
 Description: A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. R, spark, stan, etc). 
 Authors@R: c(
@@ -25,7 +25,8 @@ Imports:
     glue,
     magrittr,
     stats,
-    tidyr
+    tidyr,
+    globals
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0.9000
 Suggests: 

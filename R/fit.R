@@ -104,6 +104,7 @@ fit.model_spec <-
     # Create an environment with the evaluated argument objects. This will be
     # used when a model call is made later.
     eval_env <- rlang::env()
+
     eval_env$data <- data
     eval_env$formula <- formula
     fit_interface <-
@@ -181,12 +182,12 @@ fit_xy.model_spec <-
            control = fit_control(),
            ...
   ) {
+
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
-    fit_interface <-
-      check_xy_interface(eval_env$x, eval_env$y, cl, object)
+    fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
     object$engine <- engine
     object <- check_engine(object)
 

@@ -24,7 +24,7 @@ boost_tree_xgboost_data <-
     fit = list(
       interface = "matrix",
       protect = c("x", "y"),
-      func = c(pkg = NULL, fun = "xgb_train"),
+      func = c(pkg = "parsnip", fun = "xgb_train"),
       defaults =
         list(
           nthread = 1,
@@ -94,7 +94,7 @@ boost_tree_C5.0_data <-
     fit = list(
       interface = "data.frame",
       protect = c("x", "y", "weights"),
-      func = c(pkg = NULL, fun = "C5.0_train"),
+      func = c(pkg = "parsnip", fun = "C5.0_train"),
       defaults = list()
     ),
     classes = list(

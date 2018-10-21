@@ -30,7 +30,7 @@ logistic_reg_glm_data <-
       func = c(pkg = "stats", fun = "glm"),
       defaults =
         list(
-          family = expr(binomial)
+          family = expr(stats::binomial)
         )
     ),
     classes = list(
@@ -95,6 +95,8 @@ logistic_reg_glm_data <-
     )
   )
 
+# Note: For glmnet, you will need to make model-specific predict methods.
+# See logistic_reg.R
 logistic_reg_glmnet_data <-
   list(
     libs = "glmnet",
@@ -151,7 +153,7 @@ logistic_reg_stan_data <-
       func = c(pkg = "rstanarm", fun = "stan_glm"),
       defaults =
         list(
-          family = expr(binomial)
+          family = expr(stats::binomial)
         )
     ),
     classes = list(

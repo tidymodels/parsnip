@@ -56,10 +56,12 @@ model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
+    non_null_args <- map(non_null_args, convert_arg)
     cat(print_arg_list(non_null_args), "\n", sep = "")
   }
   if (length(x$others) > 0) {
     cat("Engine-Specific Arguments:\n")
+    x$others <- map(x$others, convert_arg)
     cat(print_arg_list(x$others), "\n", sep = "")
   }
   if (!is.null(x$engine)) {
@@ -95,6 +97,8 @@ is_missing_arg <- function(x)
 #' @keywords internal
 #' @export
 show_call <- function(object) {
+  object$method$fit$args <-
+    map(object$method$fit$args, convert_arg)
   if (
     is.null(object$method$fit$func["pkg"]) ||
     is.na(object$method$fit$func["pkg"])
@@ -109,7 +113,16 @@ show_call <- function(object) {
   res
 }
 
+convert_arg <- function(x) {
+  if (is_quosure(x))
+    quo_get_expr(x)
+  else
+    x
+}
+
 make_call <- function(fun, ns, args, ...) {
+
+  #args <- map(args, convert_arg)
 
   # remove any null or placeholders (`missing_args`) that remain
   discard <-
@@ -156,3 +169,24 @@ show_fit <- function(mod, eng) {
   )
 }
 
+# Check non-translated core arguments
+# Each model has its own definition of this
+check_args <- function(object) {
+  UseMethod("check_args")
+}
+
+check_args.default <- function(object) {
+  invisible(object)
+}
+
+# ------------------------------------------------------------------------------
+
+# copied form recipes
+
+names0 <- function (num, prefix = "x") {
+  if (num < 1)
+    stop("`num` should be > 0", call. = FALSE)
+  ind <- format(1:num)
+  ind <- gsub(" ", "0", ind)
+  paste0(prefix, ind)
+}

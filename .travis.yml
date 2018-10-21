@@ -8,11 +8,22 @@ sudo: true
 warnings_are_errors: false
 
 r:
+- 3.1
+- 3.2
+- oldrel
 - release
 - devel
 
 env:
+  global:
   - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
+
+# until we troubleshoot these issues
+matrix:
+  allow_failures:
+    - r: 3.1
+    - r: 3.2
 
 r_binary_packages: 
  - rstan

@@ -1,23 +1,26 @@
 library(testthat)
-context("boosted tree execution with C5.0")
 library(parsnip)
 library(tibble)
 
-###################################################################
+# ------------------------------------------------------------------------------
+
+context("boosted tree execution with C5.0")
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <- boost_tree(mode = "classification")
+
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+
+# ------------------------------------------------------------------------------
 
 test_that('C5.0 execution', {
 
   skip_if_not_installed("C50")
 
-  # passes interactively but not on R CMD check
   expect_error(
     res <- fit(
       lc_basic,
@@ -48,7 +51,6 @@ test_that('C5.0 execution', {
     )
   )
 
-  # passes interactively but not on R CMD check
   C5.0_form_catch <- fit(
     lc_basic,
     funded_amnt ~ term,
@@ -120,9 +122,9 @@ test_that('submodel prediction', {
         data = wa_churn[-(1:4), c("churn", vars)],
         engine = "C5.0")
 
-  pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 5, type = "prob")
+  pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 4, type = "prob")
 
-  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
+  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 4, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], unname(pred_class[, "No"]))
 })

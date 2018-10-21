@@ -1,9 +1,10 @@
 library(testthat)
-context("multinomial regression execution with spark")
 library(parsnip)
 library(dplyr)
 
 # ------------------------------------------------------------------------------
+
+context("multinomial regression execution with spark")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
