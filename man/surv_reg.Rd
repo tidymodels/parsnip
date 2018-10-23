@@ -5,9 +5,9 @@
 \alias{update.surv_reg}
 \title{General Interface for Parametric Survival Models}
 \usage{
-surv_reg(mode = "regression", dist = NULL, ...)
+surv_reg(mode = "regression", dist = NULL)
 
-\method{update}{surv_reg}(object, dist = NULL, fresh = FALSE, ...)
+\method{update}{surv_reg}(object, dist = NULL, fresh = FALSE)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -15,12 +15,6 @@ The only possible value for this model is "regression".}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
-
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
 
 \item{object}{A survival regression model specification.}
 
@@ -37,7 +31,7 @@ model is:
 }
 This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to its default
+set using \code{set_engine}. If left to its default
 here (\code{NULL}), the value is taken from the underlying model
 functions.
 
@@ -69,8 +63,7 @@ following \emph{engines}:
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call. For this type of
 model, the template of the fit calls are:
 
 \pkg{flexsurv}

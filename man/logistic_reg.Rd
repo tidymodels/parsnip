@@ -5,11 +5,10 @@
 \alias{update.logistic_reg}
 \title{General Interface for Logistic Regression Models}
 \usage{
-logistic_reg(mode = "classification", penalty = NULL, mixture = NULL,
-  ...)
+logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 
 \method{update}{logistic_reg}(object, penalty = NULL, mixture = NULL,
-  fresh = FALSE, ...)
+  fresh = FALSE)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -22,12 +21,6 @@ total amount of regularization (\code{glmnet} and \code{spark} only).}
 represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
 (the lasso) (\code{glmnet} and \code{spark} only).}
-
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
 
 \item{object}{A logistic regression model specification.}
 
@@ -47,7 +40,7 @@ the model. Note that this will be ignored for some engines.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to their defaults
+set using \code{set_engine}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -81,8 +74,7 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call.  For this type of
 model, the template of the fit calls are:
 
 \pkg{glm}

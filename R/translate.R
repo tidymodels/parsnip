@@ -42,8 +42,10 @@ translate <- function (x, ...)
 #' @importFrom utils getFromNamespace
 #' @importFrom purrr list_modify
 #' @export
-translate.default <- function(x, engine, ...) {
+translate.default <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
+  if (is.null(engine))
+    stop("Please set an engine.", call. = FALSE)
 
   x$engine <- engine
   x <- check_engine(x)
@@ -78,11 +80,10 @@ translate.default <- function(x, engine, ...) {
 
   x$method$fit$args <- c(protected, actual_args, x$others, x$defaults)
 
-  # put in correct order
   x
 }
 
-get_method <- function(x, engine, ...) {
+get_method <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
   x$engine <- engine
   x <- check_engine(x)

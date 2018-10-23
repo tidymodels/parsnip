@@ -52,7 +52,7 @@ the columns will be named \code{.pred_lower_classlevel} and so on.
 
 Quantile predictions return a tibble with a column \code{.pred}, which is
 a list-column. Each list element contains a tibble with columns
-\code{.pred} and \code{.quantile} (and perhaps others).
+\code{.pred} and \code{.quantile} (and perhaps other columns).
 
 Using \code{type = "raw"} with \code{predict.model_fit} (or using
 \code{predict_raw}) will return the unadulterated results of the

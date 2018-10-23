@@ -77,15 +77,12 @@ The arguments to the default function are:
 args(rand_forest)
 ```
 
-However, there might be other arguments that you would like to change or allow to vary. These are accessible using the `...` slot. This is a named list of arguments in the form of the underlying function being called. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
+However, there might be other arguments that you would like to change or allow to vary. These are accessible using `set_engine`. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
 
 ```{r rf-seed}
-rf_with_seed <- rand_forest(
-  trees = 2000, 
-  mtry = varying(), 
-  seed = 63233, 
-  mode = "regression"
-)
+rf_with_seed <- 
+  rand_forest(trees = 2000, mtry = varying(), mode = "regression") %>%
+  set_engine("ranger", seed = 63233)
 rf_with_seed
 ```
 
@@ -102,7 +99,8 @@ For example, `rf_with_seed` above is not ready for fitting due the `varying()` p
 ```{r, eval = FALSE}
 rf_with_seed %>% 
   set_args(mtry = 4) %>% 
-  fit(mpg ~ ., data = mtcars, engine = "ranger")
+  set_engine("ranger") %>%
+  fit(mpg ~ ., data = mtcars)
 ```
 
 ```
@@ -131,7 +129,8 @@ Or, using the `randomForest` package:
 set.seed(56982)
 rf_with_seed %>% 
   set_args(mtry = 4) %>% 
-  fit(mpg ~ ., data = mtcars, engine = "randomForest")
+  set_engine("randomForest") %>%
+  fit(mpg ~ ., data = mtcars)
 ```
 
 ```

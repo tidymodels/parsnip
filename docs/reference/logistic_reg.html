@@ -41,7 +41,7 @@ mixture: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  ... slot. If left to their defaults
+set using set_engine. If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update can be used
 in lieu of recreating the object from scratch." />
@@ -151,19 +151,18 @@ in the model. Note that this must be zero for some engines.</p></li>
 the model. Note that this will be ignored for some engines.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to their defaults
+set using <code>set_engine</code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code>update</code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for logistic_reg</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,14 +183,6 @@ total amount of regularization (<code>glmnet</code> and <code>spark</code> only)
 represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
 (the lasso) (<code>glmnet</code> and <code>spark</code> only).</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the <code>update</code> function, the ellipses can
-contain the primary arguments or any others.</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -233,8 +224,7 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     
     <p>Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the <code>...</code>
-argument to pass in the preferred values. For this type of
+model fit call.  For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">glm</span></p>
 <p><pre>

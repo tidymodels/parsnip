@@ -7,11 +7,11 @@
 \usage{
 boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, ...)
+  loss_reduction = NULL, sample_size = NULL)
 
 \method{update}{boost_tree}(object, mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, fresh = FALSE, ...)
+  loss_reduction = NULL, sample_size = NULL, fresh = FALSE)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -40,12 +40,6 @@ to split further  (\code{xgboost} only).}
 \item{sample_size}{An number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during traning.}
-
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
 
 \item{object}{A boosted tree model specification.}
 
@@ -76,7 +70,7 @@ to split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to their defaults
+set using the  \code{set_engine} function. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions.  If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -92,10 +86,6 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"xgboost"}, \code{"C5.0"}
 \item \pkg{Spark}: \code{"spark"}
 }
-
-Main parameter arguments (and those in \code{...}) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
 }
 \note{
 For models created using the spark engine, there are
@@ -115,9 +105,8 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
-model, the template of the fit calls are:
+model fit call.  For this type of model, the template of the
+fit calls are:
 
 \pkg{xgboost} classification
 
@@ -150,5 +139,5 @@ update(model, mtry = 1)
 update(model, mtry = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
 }

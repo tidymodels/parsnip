@@ -138,11 +138,11 @@ routine.</p>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,12 +165,6 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
 <em>named argument</em> should be used.</p></td>
     </tr>
     <tr>
-      <th>engine</th>
-      <td><p>A character string for the software that should
-be used to fit the model. This is highly dependent on the type
-of model (e.g. linear regression, random forest, etc.).</p></td>
-    </tr>
-    <tr>
       <th>control</th>
       <td><p>A named list with elements <code>verbosity</code> and
 <code>catch</code>. See <code><a href='fit_control.html'>fit_control()</a></code>.</p></td>
@@ -179,8 +173,7 @@ of model (e.g. linear regression, random forest, etc.).</p></td>
       <th>...</th>
       <td><p>Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
-passed using the <code>others</code> argument in the original model
-specification.</p></td>
+passed using <code>set_engine</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -231,7 +224,7 @@ objects used to fit the model.</p>
     <pre class="examples"><div class='input'><span class='co'># Although `glm` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘dplyr’ was built under R version 3.5.1</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
@@ -246,37 +239,13 @@ objects used to fit the model.</p>
   <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
       <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
-      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
-
+      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (object$engine == "spark" &amp;&amp; !inherits(eval_env$data, "tbl_spark")) stop("spark objects can only be used with the formula interface to `fit` ",     "with a spark data object.", call. = FALSE): missing value where TRUE/FALSE needed</span></div><div class='input'>
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
   <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
          <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>,
-         <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
-
-<span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object
-#&gt; 
-#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = stats::binomial, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)  funded_amnt     int_rate  
-#&gt;   5.131e+00    2.767e-06   -1.586e-01  
-#&gt; 
-#&gt; Degrees of Freedom: 9856 Total (i.e. Null);  9854 Residual
-#&gt; Null Deviance:	    4055 
-#&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='no'>using_xy</span></div><div class='output co'>#&gt; parsnip model object
-#&gt; 
-#&gt; 
-#&gt; Call:  stats::glm(formula = formula, family = stats::binomial, data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)  funded_amnt     int_rate  
-#&gt;   5.131e+00    2.767e-06   -1.586e-01  
-#&gt; 
-#&gt; Degrees of Freedom: 9856 Total (i.e. Null);  9854 Residual
-#&gt; Null Deviance:	    4055 
-#&gt; Residual Deviance: 3698 	AIC: 3704</div></pre>
+         <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (object$engine == "spark") stop("spark objects can only be used with the formula interface to `fit` ",     "with a spark data object.", call. = FALSE): argument is of length zero</span></div><div class='input'>
+<span class='no'>using_formula</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'using_formula' not found</span></div><div class='input'><span class='no'>using_xy</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'using_xy' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

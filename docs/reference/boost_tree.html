@@ -49,7 +49,7 @@ to split further.
 sample_size: The amount of data exposed to the fitting routine.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  ... slot. If left to their defaults
+set using the  set_engine function. If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions.  If parameters need to be modified, update can be used
 in lieu of recreating the object from scratch." />
@@ -167,7 +167,7 @@ to split further.</p></li>
 <li><p><code>sample_size</code>: The amount of data exposed to the fitting routine.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to their defaults
+set using the  <code>set_engine</code> function. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions.  If parameters need to be modified, <code>update</code> can be used
 in lieu of recreating the object from scratch.</p>
@@ -176,12 +176,12 @@ in lieu of recreating the object from scratch.</p>
 
     <pre class="usage"><span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for boost_tree</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,14 +230,6 @@ exposed to the fitting routine. For <code>xgboost</code>, the sampling is done a
 each iteration while <code>C5.0</code> samples once during traning.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the <code>update</code> function, the ellipses can
-contain the primary arguments or any others.</p></td>
-    </tr>
-    <tr>
       <th>object</th>
       <td><p>A boosted tree model specification.</p></td>
     </tr>
@@ -262,9 +254,6 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"xgboost"</code>, <code>"C5.0"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
-    <p>Main parameter arguments (and those in <code>...</code>) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>mtry = expr(floor(sqrt(p)))</code>).</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -285,9 +274,8 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     
     <p>Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the <code>...</code>
-argument to pass in the preferred values. For this type of
-model, the template of the fit calls are:</p>
+model fit call.  For this type of model, the template of the
+fit calls are:</p>
 <p><span class="pkg">xgboost</span> classification</p>
 <p><pre>
 parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
@@ -315,7 +303,7 @@ sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(),
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

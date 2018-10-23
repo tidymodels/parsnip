@@ -152,25 +152,23 @@
 </ul>
 <p>The arguments to the default function are:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">args</span>(rand_forest)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; function (mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL, </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;     ...) </span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; NULL</span></a></code></pre></div>
-<p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using the <code>...</code> slot. This is a named list of arguments in the form of the underlying function being called. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">rf_with_seed &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rand_forest.html">rand_forest</a></span>(</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">trees =</span> <span class="dv">2000</span>, </a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">mtry =</span> <span class="kw"><a href="../reference/varying.html">varying</a></span>(), </a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">seed =</span> <span class="dv">63233</span>, </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="dt">mode =</span> <span class="st">"regression"</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">rf_with_seed</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; Random Forest Model Specification (regression)</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; Main Arguments:</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;   mtry = varying()</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   trees = 2000</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; function (mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; NULL</span></a></code></pre></div>
+<p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using <code>set_engine</code>. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">rf_with_seed &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">trees =</span> <span class="dv">2000</span>, <span class="dt">mtry =</span> <span class="kw"><a href="../reference/varying.html">varying</a></span>(), <span class="dt">mode =</span> <span class="st">"regression"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="dt">seed =</span> <span class="dv">63233</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">rf_with_seed</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; Random Forest Model Specification (regression)</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; Main Arguments:</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;   mtry = varying()</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   trees = 2000</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; Engine-Specific Arguments:</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   seed = 63233</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; Engine-Specific Arguments:</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;   seed = 63233</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; Computational engine: ranger</span></a></code></pre></div>
 </div>
 <div id="process" class="section level3">
 <h3 class="hasAnchor">
@@ -184,7 +182,8 @@
 <p>For example, <code>rf_with_seed</code> above is not ready for fitting due the <code><a href="../reference/varying.html">varying()</a></code> parameter. We can set that parameter’s value and then create the model fit:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">rf_with_seed <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/set_args.html">set_args</a></span>(<span class="dt">mtry =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"ranger"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; Ranger result
@@ -206,7 +205,8 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">56982</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">rf_with_seed <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/set_args.html">set_args</a></span>(<span class="dt">mtry =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars, <span class="dt">engine =</span> <span class="st">"randomForest"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/set_engine.html">set_engine</a></span>(<span class="st">"randomForest"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; 

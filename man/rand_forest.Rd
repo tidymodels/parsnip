@@ -6,10 +6,10 @@
 \title{General Interface for Random Forest Models}
 \usage{
 rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
-  min_n = NULL, ...)
+  min_n = NULL)
 
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
-  min_n = NULL, fresh = FALSE, ...)
+  min_n = NULL, fresh = FALSE)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -24,12 +24,6 @@ the ensemble.}
 
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
-
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
 
 \item{object}{A random forest model specification.}
 
@@ -50,7 +44,7 @@ that are required for the node to be split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to their defaults
+set using \code{set_engine}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -62,10 +56,6 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"ranger"} or \code{"randomForest"}
 \item \pkg{Spark}: \code{"spark"}
 }
-
-Main parameter arguments (and those in \code{...}) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
 }
 \note{
 For models created using the spark engine, there are
@@ -85,8 +75,7 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call. For this type of
 model, the template of the fit calls are::
 
 \pkg{ranger} classification

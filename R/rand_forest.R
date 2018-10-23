@@ -15,7 +15,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the  `...` slot. If left to their defaults
+#'  set using `set_engine`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -38,15 +38,10 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' Main parameter arguments (and those in `...`) can avoid
-#'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
-#'
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
+#'  model fit call. For this type of
 #'  model, the template of the fit calls are::
 #'
 #' \pkg{ranger} classification
@@ -100,10 +95,7 @@
 #' @export
 
 rand_forest <-
-  function(mode = "unknown",
-           mtry = NULL, trees = NULL, min_n = NULL, ...) {
-
-    others <- enquos(...)
+  function(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) {
 
     args <- list(
       mtry   = enquo(mtry),
@@ -117,13 +109,10 @@ rand_forest <-
            paste0("'", rand_forest_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    no_value <- !vapply(others, null_value, logical(1))
-    others <- others[no_value]
-
     # write a constructor function
-    out <- list(args = args, others = others,
+    out <- list(args = args, others = NULL,
                 mode = mode, method = NULL, engine = NULL)
-    # TODO: make_classes has wrong order; go from specific to general
+
     class(out) <- make_classes("rand_forest")
     out
   }
@@ -156,9 +145,7 @@ print.rand_forest <- function(x, ...) {
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
-           fresh = FALSE,
-           ...) {
-    others <- enquos(...)
+           fresh = FALSE) {
 
     args <- list(
       mtry   = enquo(mtry),
@@ -176,21 +163,18 @@ update.rand_forest <-
       if (length(args) > 0)
         object$args[names(args)] <- args
     }
-
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
     object
   }
 
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.rand_forest <- function(x, engine, ...) {
+translate.rand_forest <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'ranger'` for translation.")
+    engine <- "ranger"
+  }
+
   x <- translate.default(x, engine, ...)
 
   # slightly cleaner code using
@@ -217,7 +201,7 @@ translate.rand_forest <- function(x, engine, ...) {
   }
 
   # add checks to error trap or change things for this method
-  if (x$engine == "ranger") {
+  if (engine == "ranger") {
     if (any(names(arg_vals) == "importance"))
       if (isTRUE(is.logical(quo_get_expr(arg_vals$importance))))
         stop("`importance` should be a character value. See ?ranger::ranger.",

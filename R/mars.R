@@ -17,7 +17,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the  `...` slot. If left to their defaults
+#'  set using `set_engine`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -30,11 +30,7 @@
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
-#' @details Main parameter arguments (and those in `...`) can avoid
-#'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()].
-#'
-#' The model can be created using the `fit()` function using the
+#' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"earth"`
@@ -43,8 +39,7 @@
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
+#'  model fit call.  For this type of
 #'  model, the template of the fit calls are:
 #'
 #' \pkg{earth} classification
@@ -67,10 +62,7 @@
 
 mars <-
   function(mode = "unknown",
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           ...) {
-
-    others  <- enquos(...)
+           num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
 
     args <- list(
       num_terms    = enquo(num_terms),
@@ -83,10 +75,7 @@ mars <-
            paste0("'", mars_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    no_value <- !vapply(others, is.null, logical(1))
-    others <- others[no_value]
-
-    out <- list(args = args, others = others,
+    out <- list(args = args, others = NULL,
                 mode = mode, method = NULL, engine = NULL)
     class(out) <- make_classes("mars")
     out
@@ -120,10 +109,7 @@ print.mars <- function(x, ...) {
 update.mars <-
   function(object,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           fresh = FALSE,
-           ...) {
-
-    others  <- enquos(...)
+           fresh = FALSE) {
 
     args <- list(
       num_terms    = enquo(num_terms),
@@ -141,21 +127,17 @@ update.mars <-
         object$args[names(args)] <- args
     }
 
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
     object
   }
 
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.mars <- function(x, engine, ...) {
-
+translate.mars <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'earth'` for translation.")
+    engine <- "earth"
+  }
   # If classification is being done, the `glm` options should be used. Check to
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
