@@ -22,7 +22,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to their defaults
+#'  set using the  `...` slot. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.  If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -30,8 +30,6 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `xgboost::xgb.train`, etc.). .
 #' @param mtry An number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models (`xgboost`
 #'  only).
@@ -48,8 +46,11 @@
 #' @param sample_size An number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
 #'  each iteration while `C5.0` samples once during traning.
-#' @param ... Used for method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
+#' @param ... Other arguments to pass to the specific engine's
+#'  model fit function (see the Engine Details section below). This
+#'  should not include arguments defined by the main parameters to
+#'  this function. For the `update` function, the ellipses can
+#'  contain the primary arguments or any others.
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree`, the
@@ -62,12 +63,15 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' Main parameter arguments (and those in `others`) can avoid
+#' Main parameter arguments (and those in `...`) can avoid
 #'  evaluation until the underlying function is executed by wrapping the
 #'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
 #'
+#'
+#' @section Engine Details:
+#'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `others`
+#'  model fit call. These can be changed by using the `...`
 #'  argument to pass in the preferred values. For this type of
 #'  model, the template of the fit calls are:
 #'
@@ -114,35 +118,30 @@
 
 boost_tree <-
   function(mode = "unknown",
-           ...,
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
            sample_size = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+
+    others <- enquos(...)
+
+    args <- list(
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n),
+      tree_depth = enquo(tree_depth),
+      learn_rate = enquo(learn_rate),
+      loss_reduction = enquo(loss_reduction),
+      sample_size = enquo(sample_size)
+    )
 
     if (!(mode %in% boost_tree_modes))
       stop("`mode` should be one of: ",
            paste0("'", boost_tree_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    if (is.numeric(trees) && trees < 0)
-      stop("`trees` should be >= 1", call. = FALSE)
-    if (is.numeric(sample_size) && (sample_size < 0 | sample_size > 1))
-      stop("`sample_size` should be within [0,1]", call. = FALSE)
-    if (is.numeric(tree_depth) && tree_depth < 0)
-      stop("`tree_depth` should be >= 1", call. = FALSE)
-    if (is.numeric(min_n) && min_n < 0)
-      stop("`min_n` should be >= 1", call. = FALSE)
-
-    args <- list(
-      mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,
-      learn_rate = learn_rate, loss_reduction = loss_reduction,
-      sample_size = sample_size
-    )
-
-    no_value <- !vapply(others, is.null, logical(1))
+    no_value <- !vapply(others, null_value, logical(1))
     others <- others[no_value]
 
     out <- list(args = args, others = others,
@@ -184,16 +183,20 @@ update.boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL, sample_size = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+
+    others <- enquos(...)
 
     args <- list(
-      mtry = mtry, trees = trees, min_n = min_n, tree_depth = tree_depth,
-      learn_rate = learn_rate, loss_reduction = loss_reduction,
-      sample_size = sample_size
-      )
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n),
+      tree_depth = enquo(tree_depth),
+      learn_rate = enquo(learn_rate),
+      loss_reduction = enquo(loss_reduction),
+      sample_size = enquo(sample_size)
+    )
 
     # TODO make these blocks into a function and document well
     if (fresh) {
@@ -235,9 +238,45 @@ translate.boost_tree <- function(x, engine, ...) {
   x
 }
 
+# ------------------------------------------------------------------------------
+
+check_args.boost_tree <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (is.numeric(args$trees) && args$trees < 0)
+    stop("`trees` should be >= 1", call. = FALSE)
+  if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1))
+    stop("`sample_size` should be within [0,1]", call. = FALSE)
+  if (is.numeric(args$tree_depth) && args$tree_depth < 0)
+    stop("`tree_depth` should be >= 1", call. = FALSE)
+  if (is.numeric(args$min_n) && args$min_n < 0)
+    stop("`min_n` should be >= 1", call. = FALSE)
+
+  invisible(object)
+}
 
 # xgboost helpers --------------------------------------------------------------
 
+#' Boosted trees via xgboost
+#'
+#' `xgb_train` is a wrapper for `xgboost` tree-based models
+#'  where all of the model arguments are in the main function.
+#'
+#' @param x A data frame or matrix of predictors
+#' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
+#' @param max_depth An integer for the maximum depth of the tree.
+#' @param nrounds An integer for the number of boosting iterations.
+#' @param eta A numeric value between zero and one to control the learning rate.
+#' @param colsample_bytree Subsampling proportion of columns.
+#' @param min_child_weight A numeric value for the minimum sum of instance
+#'  weights needed in a child to continue to split.
+#' @param gamma An number for the minimum loss reduction required to make a
+#'  further partition on a leaf node of the tree
+#' @param subsample Subsampling proportion of rows.
+#' @param ... Other options to pass to `xgb.train`.
+#' @return A fitted `xgboost` object.
+#' @export
 xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
@@ -380,6 +419,31 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 
 # C5.0 helpers -----------------------------------------------------------------
 
+#' Boosted trees via C5.0
+#'
+#' `C5.0_train` is a wrapper for [C50::C5.0()] tree-based models
+#'  where all of the model arguments are in the main function.
+#'
+#' @param x A data frame or matrix of predictors.
+#' @param y A factor vector with 2 or more levels
+#' @param trials An integer specifying the number of boosting
+#'  iterations. A value of one indicates that a single model is
+#'  used.
+#' @param weights An optional numeric vector of case weights. Note
+#'  that the data used for the case weights will not be used as a
+#'  splitting variable in the model (see
+#'  \url{http://www.rulequest.com/see5-win.html#CASEWEIGHT} for
+#'  Quinlan's notes on case weights).
+#' @param minCases An integer for the smallest number of samples
+#'  that must be put in at least two of the splits.
+#' @param sample A value between (0, .999) that specifies the
+#'  random proportion of the data should be used to train the model.
+#'  By default, all the samples are used for model training. Samples
+#'  not used for training are used to evaluate the accuracy of the
+#'  model in the printed output.
+#' @param ... Other arguments to pass.
+#' @return A fitted C5.0 model.
+#' @export
 C5.0_train <-
   function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
     other_args <- list(...)

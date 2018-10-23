@@ -16,7 +16,7 @@ Puromycin_miss <- Puromycin
 Puromycin_miss$state[20] <- NA
 Puromycin_miss$conc[1] <- NA
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 context("Testing formula -> xy conversion")
 
@@ -308,7 +308,7 @@ test_that("numeric x and multivariate y, matrix composition", {
   expect_equal(as.matrix(mtcars[1:6, -(1:2)]), new_obs$x)
 })
 
-###################################################################
+# ------------------------------------------------------------------------------
 
 context("Testing xy -> formula conversion")
 

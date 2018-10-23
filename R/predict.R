@@ -7,8 +7,8 @@
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "probs", "conf_int", "pred_int", or
-#'  "raw". When `NULL`, `predict` will choose an appropriate value
+#'  are "numeric", "class", "probs", "conf_int", "pred_int", "quantile",
+#'  or "raw". When `NULL`, `predict` will choose an appropriate value
 #'  based on the model's mode.
 #' @param opts A list of optional arguments to the underlying
 #'  predict function that will be used when `type = "raw"`. The
@@ -44,6 +44,10 @@
 #'  the confidence level. In the case where intervals can be
 #'  produces for class probabilities (or other non-scalar outputs),
 #'  the columns will be named `.pred_lower_classlevel` and so on.
+#'
+#' Quantile predictions return a tibble with a column `.pred`, which is
+#'  a list-column. Each list element contains a tibble with columns
+#'  `.pred` and `.quantile` (and perhaps others).
 #'
 #' Using `type = "raw"` with `predict.model_fit` (or using
 #'  `predict_raw`) will return the unadulterated results of the
@@ -96,6 +100,7 @@ predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...
     prob     = predict_classprob(object = object, new_data = new_data, ...),
     conf_int = predict_confint(object = object, new_data = new_data, ...),
     pred_int = predict_predint(object = object, new_data = new_data, ...),
+    quantile = predict_quantile(object = object, new_data = new_data, ...),
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     stop("I don't know about type = '", "'", type, call. = FALSE)
   )
@@ -112,7 +117,8 @@ predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...
   res
 }
 
-pred_types <- c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int")
+pred_types <-
+  c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int", "quantile")
 
 #' @importFrom glue glue_collapse
 check_pred_type <- function(object, type) {

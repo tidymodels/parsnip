@@ -8,12 +8,25 @@ form_form <-
   function(object, control, env, ...) {
     opts <- quos(...)
 
-    y_levels <- levels_from_formula( # prob rewrite this as simple subset/levels
-      env$formula,
-      env$data
-    )
+    if (object$mode != "regression") {
+      y_levels <- levels_from_formula( # prob rewrite this as simple subset/levels
+        env$formula,
+        env$data
+      )
+    } else {
+      y_levels <- NULL
+    }
 
     object <- check_mode(object, y_levels)
+
+    # if descriptors are needed, update descr_env with the calculated values
+    if(requires_descrs(object)) {
+      data_stats <- get_descr_form(env$formula, env$data)
+      scoped_descrs(data_stats)
+    }
+
+    # evaluate quoted args once here to check them
+    object <- check_args(object)
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -27,22 +40,6 @@ form_form <-
       fit_args$data <- quote(data)
     }
     fit_args$formula <- quote(formula)
-
-    # check to see of there are any `expr` in the arguments then
-    # run a function that evaluates the data and subs in the
-    # values of the expressions. we would have to evaluate the
-    # formula (perhaps with and without dummy variables) to get
-    # the appropraite number of columns. (`..vars..` vs `..cols..`)
-    # Perhaps use `convert_form_to_xy_fit` here to get the results.
-
-    if (make_descr(object)) {
-      data_stats <- get_descr_form(env$formula, env$data)
-      env$n_obs <- data_stats$obs
-      env$n_cols <- data_stats$cols
-      env$n_preds <- data_stats$preds
-      env$n_levs <- data_stats$levs
-      env$n_facts <- data_stats$facts
-    }
 
     fit_call <- make_call(
       fun = object$method$fit$func["fun"],
@@ -74,6 +71,15 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   object <- check_mode(object, levels(env$y))
 
+  # if descriptors are needed, update descr_env with the calculated values
+  if(requires_descrs(object)) {
+    data_stats <- get_descr_form(env$formula, env$data)
+    scoped_descrs(data_stats)
+  }
+
+  # evaluate quoted args once here to check them
+  object <- check_args(object)
+
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
@@ -86,15 +92,6 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       matrix = quote(as.matrix(x)),
       stop("Invalid data type target: ", target)
     )
-
-  if (make_descr(object)) {
-    data_stats <- get_descr_xy(env$x, env$y)
-    env$n_obs <- data_stats$obs
-    env$n_cols <- data_stats$cols
-    env$n_preds <- data_stats$preds
-    env$n_levs <- data_stats$levs
-    env$n_facts <- data_stats$facts
-  }
 
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
@@ -117,6 +114,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
 form_xy <- function(object, control, env,
                     target = "none", ...) {
+
   data_obj <- convert_form_to_xy_fit(
     formula = env$formula,
     data = env$data,

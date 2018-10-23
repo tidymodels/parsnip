@@ -2,64 +2,96 @@
 % Please edit documentation in R/descriptors.R
 \name{descriptors}
 \alias{descriptors}
-\alias{n_obs}
-\alias{n_cols}
-\alias{n_preds}
-\alias{n_facts}
-\alias{n_levs}
+\alias{.obs}
+\alias{.cols}
+\alias{.preds}
+\alias{.facts}
+\alias{.lvls}
+\alias{.x}
+\alias{.y}
+\alias{.dat}
 \title{Data Set Characteristics Available when Fitting Models}
+\usage{
+.cols()
+
+.preds()
+
+.obs()
+
+.lvls()
+
+.facts()
+
+.x()
+
+.y()
+
+.dat()
+}
 \description{
-When using the \code{fit} functions there are some
+When using the \code{fit()} functions there are some
 variables that will be available for use in arguments. For
 example, if the user would like to choose an argument value
-based on the current number of rows in a data set, the \code{n_obs}
-variable can be used. See Details below.
+based on the current number of rows in a data set, the \code{.obs()}
+function can be used. See Details below.
 }
 \details{
-Existing variables:
+Existing functions:
 \itemize{
-\item \code{n_obs}: the current number of rows in the data set.
-\item \code{n_cols}: the number of columns in the data set that are
+\item \code{.obs()}: The current number of rows in the data set.
+\item \code{.preds()}: The number of columns in the data set that are
 associated with the predictors prior to dummy variable creation.
-\item \code{n_preds}: the number of predictors after dummy variables
-are created (if any).
-\item \code{n_facts}: the number of factor predictors in the dat set.
-\item \code{n_levs}: If the outcome is a factor, this is a table
-with the counts for each level (and \code{NA} otherwise)
+\item \code{.cols()}: The number of predictor columns availible after dummy
+variables are created (if any).
+\item \code{.facts()}: The number of factor predictors in the dat set.
+\item \code{.lvls()}: If the outcome is a factor, this is a table
+with the counts for each level (and \code{NA} otherwise).
+\item \code{.x()}: The predictors returned in the format given. Either a
+data frame or a matrix.
+\item \code{.y()}: The known outcomes returned in the format given. Either
+a vector, matrix, or data frame.
+\item \code{.dat()}: A data frame containing all of the predictors and the
+outcomes. If \code{fit_xy()} was used, the outcomes are attached as the
+column, \code{..y}.
 }
 
 For example, if you use the model formula \code{Sepal.Width ~ .} with the \code{iris}
 data, the values would be
 \preformatted{
- n_cols  =   4     (the 4 columns in `iris`)
- n_preds =   5     (3 numeric columns + 2 from Species dummy variables)
- n_obs   = 150
- n_levs  =  NA     (no factor outcome)
- n_facts =   1     (the Species predictor)
+ .preds() =   4          (the 4 columns in `iris`)
+ .cols()  =   5          (3 numeric columns + 2 from Species dummy variables)
+ .obs()   = 150
+ .lvls()  =  NA          (no factor outcome)
+ .facts() =   1          (the Species predictor)
+ .y()     = <vector>     (Sepal.Width as a vector)
+ .x()     = <data.frame> (The other 4 columns as a data frame)
+ .dat()   = <data.frame> (The full data set)
 }
 
 If the formula \code{Species ~ .} where used:
 \preformatted{
- n_cols  =   4     (the 4 numeric columns in `iris`)
- n_preds =   4     (same)
- n_obs   = 150
- n_levs  =  c(setosa = 50, versicolor = 50, virginica = 50)
- n_facts =   0
+ .preds() =   4          (the 4 numeric columns in `iris`)
+ .cols()  =   4          (same)
+ .obs()   = 150
+ .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
+ .facts() =   0
+ .y()     = <vector>     (Species as a vector)
+ .x()     = <data.frame> (The other 4 columns as a data frame)
+ .dat()   = <data.frame> (The full data set)
 }
 
-To use these in a model fit, either \code{expression} or \code{rlang::expr} can be
-used to delay the evaluation of the argument value until the time when the
-model is run via \code{fit} (and the variables listed above are available).
+To use these in a model fit, pass them to a model specification.
+The evaluation is delayed until the time when the
+model is run via \code{fit()} (and the variables listed above are available).
 For example:
 
 \preformatted{
-library(rlang)
 
 data("lending_club")
 
-rand_forest(mode = "classification", mtry = expr(n_cols - 2))
+rand_forest(mode = "classification", mtry = .cols() - 2)
 }
 
-When no instance of \code{expr} is found in any of the argument
-values, the descriptor calculation code will not be executed.
+When no descriptors are found, the computation of the descriptor values
+is not executed.
 }

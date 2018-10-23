@@ -5,19 +5,16 @@
 \alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode = "unknown", ..., mtry = NULL, trees = NULL,
-  min_n = NULL, others = list())
+rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
+  min_n = NULL, ...)
 
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
-  min_n = NULL, others = list(), fresh = FALSE, ...)
+  min_n = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
-
-\item{...}{Used for method consistency. Any arguments passed to
-the ellipses will result in an error. Use \code{others} instead.}
 
 \item{mtry}{An integer for the number of predictors that will
 be randomly sampled at each split when creating the tree models.}
@@ -28,17 +25,16 @@ the ensemble.}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{others}{A named list of arguments to be used by the
-underlying models (e.g., \code{ranger::ranger},
-\code{randomForest::randomForest}, etc.). .}
+\item{...}{Other arguments to pass to the specific engine's
+model fit function (see the Engine Details section below). This
+should not include arguments defined by the main parameters to
+this function. For the \code{update} function, the ellipses can
+contain the primary arguments or any others.}
 
 \item{object}{A random forest model specification.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
-}
-\value{
-An updated model specification.
 }
 \description{
 \code{rand_forest} is a way to generate a \emph{specification} of a model
@@ -54,7 +50,7 @@ that are required for the node to be split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{others} argument. If left to their defaults
+set using the  \code{...} slot. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -67,14 +63,31 @@ following \emph{engines}:
 \item \pkg{Spark}: \code{"spark"}
 }
 
-Main parameter arguments (and those in \code{others}) can avoid
+Main parameter arguments (and those in \code{...}) can avoid
 evaluation until the underlying function is executed by wrapping the
 argument in \code{\link[rlang:expr]{rlang::expr()}} (e.g. \code{mtry = expr(floor(sqrt(p)))}).
+}
+\note{
+For models created using the spark engine, there are
+several differences to consider. First, only the formula
+interface to via \code{fit} is available; using \code{fit_xy} will
+generate an error. Second, the predictions will always be in a
+spark table format. The names will be the same as documented but
+without the dots. Third, there is no equivalent to factor
+columns in spark tables so class predictions are returned as
+character columns. Fourth, to retain the model object for a new
+R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+object should be serialized via \code{ml_save(object$fit)} and
+separately saved to disk. In a new session, the object can be
+reloaded and reattached to the \code{parsnip} object.
+}
+\section{Engine Details}{
+
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{others}
+model fit call. These can be changed by using the \code{...}
 argument to pass in the preferred values. For this type of
-model, the template of the fit calls are:
+model, the template of the fit calls are::
 
 \pkg{ranger} classification
 
@@ -105,20 +118,7 @@ constructed using the form \code{estimate +/- z * std_error}. For
 classification probabilities, these values can fall outside of
 \code{[0, 1]} and will be coerced to be in this range.
 }
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit} is available; using \code{fit_xy} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
+
 \examples{
 rand_forest(mode = "classification", trees = 2000)
 # Parameters can be represented by a placeholder:

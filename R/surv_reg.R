@@ -9,7 +9,7 @@
 #' }
 #' This argument is converted to its specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `others` argument. If left to its default
+#'  set using the  `...` slot. If left to its default
 #'  here (`NULL`), the value is taken from the underlying model
 #'  functions.
 #'
@@ -25,21 +25,39 @@
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
+#' @inheritParams boost_tree
+#' @param mode A single character string for the type of model.
+#'  The only possible value for this model is "regression".
+#' @param dist A character string for the outcome distribution. "weibull" is
+#'  the default.
+#' @details
+#' For `surv_reg`, the mode will always be "regression".
+#'
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"flexsurv"`
+#' \item \pkg{R}:  `"flexsurv"`, `"survreg"`
 #' }
-#' @param mode A single character string for the type of model.
-#'  The only possible value for this model is "regression".
-#' @param others A named list of arguments to be used by the
-#'  underlying models (e.g., `flexsurv::flexsurvreg`). These are not evaluated
-#'  until the model is fit and will be substituted into the model
-#'  fit expression.
-#' @param dist A character string for the outcome distribution. "weibull" is
-#'  the default.
-#' @param ... Used for S3 method consistency. Any arguments passed to
-#'  the ellipses will result in an error. Use `others` instead.
+#'
+#' @section Engine Details:
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call. These can be changed by using the `...`
+#'  argument to pass in the preferred values. For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{flexsurv}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
+#'
+#' \pkg{survreg}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
+#'
+#' Note that `model = TRUE` is needed to produce quantile
+#'  predictions when there is a stratification variable and can be
+#'  overridden in other cases.
+#'
 #' @seealso [varying()], [fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
@@ -51,17 +69,20 @@
 #' @export
 surv_reg <-
   function(mode = "regression",
-           ...,
            dist = NULL,
-           others = list()) {
-    check_empty_ellipse(...)
+           ...) {
+    others <- enquos(...)
+
+    args <- list(
+      dist = enquo(dist)
+    )
+
     if (!(mode %in% surv_reg_modes))
       stop(
         "`mode` should be one of: ",
         paste0("'", surv_reg_modes, "'", collapse = ", "),
         call. = FALSE
       )
-    args <- list(dist = dist)
 
     no_value <- !vapply(others, is.null, logical(1))
     others <- others[no_value]
@@ -98,11 +119,8 @@ print.surv_reg <- function(x, ...) {
 #' If parameters need to be modified, this function can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams surv_reg
+#' @inheritParams update.boost_tree
 #' @param object A survival regression model specification.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
 #' @examples
 #' model <- surv_reg(dist = "weibull")
 #' model
@@ -113,12 +131,13 @@ print.surv_reg <- function(x, ...) {
 update.surv_reg <-
   function(object,
            dist = NULL,
-           others = list(),
            fresh = FALSE,
            ...) {
-    check_empty_ellipse(...)
+    others <- enquos(...)
 
-    args <- list(dist = dist)
+    args <- list(
+      dist = enquo(dist)
+    )
 
     if (fresh) {
       object$args <- args
@@ -146,12 +165,69 @@ update.surv_reg <-
 #' @export
 translate.surv_reg <- function(x, engine, ...) {
   x <- translate.default(x, engine, ...)
-
-  if (x$engine == "flexsurv") {
-    # `dist` has no default in the function
-    if (all(names(x$method$fit$args) != "dist"))
-      x$method$fit$args$dist <- "weibull"
-  }
   x
 }
+
+# ------------------------------------------------------------------------------
+
+check_args.surv_reg <- function(object) {
+
+  if (object$engine == "flexsurv") {
+
+    args <- lapply(object$args, rlang::eval_tidy)
+
+    # `dist` has no default in the function
+    if (all(names(args) != "dist") || is.null(args$dist))
+      object$args$dist <- "weibull"
+  }
+
+  invisible(object)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom stats setNames
+#' @importFrom dplyr mutate
+survreg_quant <- function(results, object) {
+  pctl <- object$spec$method$quantile$args$p
+  n <- nrow(results)
+  p <- ncol(results)
+  results <-
+    results %>%
+    as_tibble() %>%
+    setNames(names0(p)) %>%
+    mutate(.row = 1:n) %>%
+    gather(.label, .pred, -.row) %>%
+    arrange(.row, .label) %>%
+    mutate(.quantile = rep(pctl, n)) %>%
+    dplyr::select(-.label)
+  .row <- results[[".row"]]
+  results <-
+    results %>%
+    dplyr::select(-.row)
+  results <- split(results, .row)
+  names(results) <- NULL
+  tibble(.pred = results)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom dplyr bind_rows
+flexsurv_mean <- function(results, object) {
+  results <- unclass(results)
+  results <- bind_rows(results)
+  results$est
+}
+
+#' @importFrom stats setNames
+flexsurv_quant <- function(results, object) {
+  results <- map(results, as_tibble)
+  names(results) <- NULL
+  results <- map(results, setNames, c(".quantile", ".pred", ".pred_lower", ".pred_upper"))
+}
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(".label")
 
