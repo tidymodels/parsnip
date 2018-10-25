@@ -72,24 +72,14 @@ surv_reg <- function(mode = "regression", dist = NULL) {
       dist = enquo(dist)
     )
 
-    if (!(mode %in% surv_reg_modes))
-      stop(
-        "`mode` should be one of: ",
-        paste0("'", surv_reg_modes, "'", collapse = ", "),
-        call. = FALSE
-      )
-
-
-    # write a constructor function
-    out <- list(
+    new_model_spec(
+      "surv_reg",
       args = args,
       eng_args = NULL,
       mode = mode,
       method = NULL,
       engine = NULL
     )
-    class(out) <- make_classes("surv_reg")
-    out
   }
 
 #' @export
@@ -137,7 +127,14 @@ update.surv_reg <- function(object, dist = NULL, fresh = FALSE, ...) {
       object$args[names(args)] <- args
   }
 
-  object
+  new_model_spec(
+    "surv_reg",
+    args = object$args,
+    eng_args = object$eng_args,
+    mode = object$mode,
+    method = NULL,
+    engine = object$engine
+  )
 }
 
 

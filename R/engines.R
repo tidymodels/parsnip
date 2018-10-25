@@ -74,13 +74,21 @@ check_installs <- function(x) {
 #' translate(mod, engine = "glmnet")
 #' @export
 set_engine <- function(object, engine, ...) {
+  if (!inherits(object, "model_spec")) {
+    stop("`object` should have class 'model_spec'.", call. = FALSE)
+  }
   if (!is.character(engine) | length(engine) != 1)
     stop("`engine` should be a single character value.", call. = FALSE)
 
   object$engine <- engine
   object <- check_engine(object)
 
-
-  object$eng_args  <- enquos(...)
-  object
+  new_model_spec(
+    cls = class(object)[1],
+    args = object$args,
+    eng_args = enquos(...),
+    mode = object$mode,
+    method = NULL,
+    engine = object$engine
+  )
 }

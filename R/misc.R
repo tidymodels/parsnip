@@ -202,3 +202,17 @@ update_dot_check <- function(...) {
   invisible(NULL)
 }
 
+# ------------------------------------------------------------------------------
+
+new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
+  spec_modes <- get(paste0(cls, "_modes"))
+  if (!(mode %in% spec_modes))
+    stop("`mode` should be one of: ",
+         paste0("'", spec_modes, "'", collapse = ", "),
+         call. = FALSE)
+
+  out <- list(args = args, eng_args = eng_args,
+              mode = mode, method = method, engine = engine)
+  class(out) <- make_classes(cls)
+  out
+}

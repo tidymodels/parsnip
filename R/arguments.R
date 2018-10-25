@@ -98,7 +98,14 @@ set_args <- function(object, ...) {
       object$eng_args[[i]] <- the_dots[[i]]
     }
   }
-  object
+  new_model_spec(
+    cls = class(object)[1],
+    args = object$args,
+    eng_args = object$eng_args,
+    mode = object$mode,
+    method = NULL,
+    engine = object$engine
+  )
 }
 
 #' @rdname set_args

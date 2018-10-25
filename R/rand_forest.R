@@ -103,18 +103,14 @@ rand_forest <-
       min_n  = enquo(min_n)
     )
 
-    ## TODO: make a utility function here
-    if (!(mode %in% rand_forest_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", rand_forest_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    # write a constructor function
-    out <- list(args = args, eng_args = NULL,
-                mode = mode, method = NULL, engine = NULL)
-
-    class(out) <- make_classes("rand_forest")
-    out
+    new_model_spec(
+      "rand_forest",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -163,7 +159,15 @@ update.rand_forest <-
       if (length(args) > 0)
         object$args[names(args)] <- args
     }
-    object
+
+    new_model_spec(
+      "rand_forest",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------

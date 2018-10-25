@@ -79,19 +79,14 @@ nearest_neighbor <- function(mode = "unknown",
     dist_power  = enquo(dist_power)
   )
 
-  ## TODO: make a utility function here
-  if (!(mode %in% nearest_neighbor_modes)) {
-    stop("`mode` should be one of: ",
-         paste0("'", nearest_neighbor_modes, "'", collapse = ", "),
-         call. = FALSE)
-  }
-
-  # write a constructor function
-  out <- list(args = args, eng_args = NULL,
-              mode = mode, method = NULL, engine = NULL)
-
-  class(out) <- make_classes("nearest_neighbor")
-  out
+  new_model_spec(
+    "nearest_neighbor",
+    args = args,
+    eng_args = NULL,
+    mode = mode,
+    method = NULL,
+    engine = NULL
+  )
 }
 
 #' @export
@@ -132,7 +127,14 @@ update.nearest_neighbor <- function(object,
       object$args[names(args)] <- args
   }
 
-  object
+  new_model_spec(
+    "nearest_neighbor",
+    args = object$args,
+    eng_args = object$eng_args,
+    mode = object$mode,
+    method = NULL,
+    engine = object$engine
+  )
 }
 
 

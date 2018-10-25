@@ -107,23 +107,14 @@ linear_reg <-
       mixture = enquo(mixture)
     )
 
-    if (!(mode %in% linear_reg_modes))
-      stop(
-        "`mode` should be one of: ",
-        paste0("'", linear_reg_modes, "'", collapse = ", "),
-        call. = FALSE
-      )
-
-    # write a constructor function
-    out <- list(
+    new_model_spec(
+      "linear_reg",
       args = args,
       eng_args = NULL,
       mode = mode,
       method = NULL,
       engine = NULL
     )
-    class(out) <- make_classes("linear_reg")
-    out
   }
 
 #' @export
@@ -171,7 +162,14 @@ update.linear_reg <-
         object$args[names(args)] <- args
     }
 
-    object
+    new_model_spec(
+      "linear_reg",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------

@@ -70,15 +70,14 @@ mars <-
       prune_method = enquo(prune_method)
     )
 
-    if (!(mode %in% mars_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", mars_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    out <- list(args = args, eng_args = NULL,
-                mode = mode, method = NULL, engine = NULL)
-    class(out) <- make_classes("mars")
-    out
+    new_model_spec(
+      "mars",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -127,7 +126,14 @@ update.mars <-
         object$args[names(args)] <- args
     }
 
-    object
+    new_model_spec(
+      "mars",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------

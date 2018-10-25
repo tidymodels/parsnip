@@ -122,15 +122,14 @@ boost_tree <-
       sample_size = enquo(sample_size)
     )
 
-    if (!(mode %in% boost_tree_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", boost_tree_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    out <- list(args = args, eng_args = NULL,
-                mode = mode, method = NULL, engine = NULL)
-    class(out) <- make_classes("boost_tree")
-    out
+    new_model_spec(
+      "boost_tree",
+      args,
+      eng_args = NULL,
+      mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -191,7 +190,14 @@ update.boost_tree <-
         object$args[names(args)] <- args
     }
 
-    object
+    new_model_spec(
+      "boost_tree",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------

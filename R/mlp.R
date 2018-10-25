@@ -97,17 +97,14 @@ mlp <-
       activation   = enquo(activation)
     )
 
-    if (!(mode %in% mlp_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", mlp_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    # write a constructor function
-    out <- list(args = args, eng_args = NULL,
-                mode = mode, method = NULL, engine = NULL)
-
-    class(out) <- make_classes("mlp")
-    out
+    new_model_spec(
+      "mlp",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -165,7 +162,14 @@ update.mlp <-
         object$args[names(args)] <- args
     }
 
-    object
+    new_model_spec(
+      "mlp",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------
