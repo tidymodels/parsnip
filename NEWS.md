@@ -1,3 +1,8 @@
+# parsnip 0.0.0.9005
+
+* The engine, and any associated arguments, are not specified using `set_engine`. There is no `engine` argument 
+
+
 # parsnip 0.0.0.9004
 
 * Arguments to modeling functions are now captured as quosures. 

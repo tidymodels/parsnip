@@ -83,7 +83,7 @@ surv_reg <- function(mode = "regression", dist = NULL) {
     # write a constructor function
     out <- list(
       args = args,
-      others = NULL,
+      eng_args = NULL,
       mode = mode,
       method = NULL,
       engine = NULL

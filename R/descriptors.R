@@ -318,11 +318,11 @@ make_descr <- function(object) {
     expr_main <- map_lgl(object$args, has_exprs)
   else
     expr_main <- FALSE
-  if (length(object$others) > 0)
-    expr_others <- map_lgl(object$others, has_exprs)
+  if (length(object$eng_args) > 0)
+    expr_eng_args <- map_lgl(object$eng_args, has_exprs)
   else
-    expr_others <- FALSE
-  any(expr_main) | any(expr_others)
+    expr_eng_args <- FALSE
+  any(expr_main) | any(expr_eng_args)
 }
 
 # Locate descriptors -----------------------------------------------------------
@@ -331,7 +331,7 @@ make_descr <- function(object) {
 requires_descrs <- function(object) {
   any(c(
     map_lgl(object$args, has_any_descrs),
-    map_lgl(object$others, has_any_descrs)
+    map_lgl(object$eng_args, has_any_descrs)
   ))
 }
 

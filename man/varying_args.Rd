@@ -41,7 +41,7 @@ rand_forest(mtry = varying()) \%>\% varying_args(id = "one arg")
 
 rand_forest() \%>\%
   set_engine("ranger", sample.fraction = varying()) \%>\%
-  varying_args(id = "only others")
+  varying_args(id = "only eng_args")
 
 rand_forest() \%>\%
   set_engine(

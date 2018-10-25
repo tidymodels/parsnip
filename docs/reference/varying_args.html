@@ -189,13 +189,13 @@ class that was used to call the method (<code>type</code>).</p>
 #&gt; [38;5;250m3[39m min_n FALSE   one arg model_spec</div><div class='input'>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>, <span class='kw'>sample.fraction</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()) <span class='kw'>%&gt;%</span>
-  <span class='fu'>varying_args</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"only others"</span>)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 4 x 4[39m
-#&gt;   name            varying id          type      
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m           [3m[38;5;246m&lt;lgl&gt;[39m[23m   [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;chr&gt;[39m[23m     
-#&gt; [38;5;250m1[39m mtry            FALSE   only others model_spec
-#&gt; [38;5;250m2[39m trees           FALSE   only others model_spec
-#&gt; [38;5;250m3[39m min_n           FALSE   only others model_spec
-#&gt; [38;5;250m4[39m sample.fraction TRUE    only others model_spec</div><div class='input'>
+  <span class='fu'>varying_args</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"only eng_args"</span>)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 4 x 4[39m
+#&gt;   name            varying id            type      
+#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m           [3m[38;5;246m&lt;lgl&gt;[39m[23m   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m     
+#&gt; [38;5;250m1[39m mtry            FALSE   only eng_args model_spec
+#&gt; [38;5;250m2[39m trees           FALSE   only eng_args model_spec
+#&gt; [38;5;250m3[39m min_n           FALSE   only eng_args model_spec
+#&gt; [38;5;250m4[39m sample.fraction TRUE    only eng_args model_spec</div><div class='input'>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(
     <span class='st'>"ranger"</span>,

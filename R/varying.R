@@ -25,7 +25,7 @@ varying <- function()
 #'
 #' rand_forest() %>%
 #'   set_engine("ranger", sample.fraction = varying()) %>%
-#'   varying_args(id = "only others")
+#'   varying_args(id = "only eng_args")
 #'
 #' rand_forest() %>%
 #'   set_engine(
@@ -57,8 +57,8 @@ varying_args.model_spec <- function(x, id = NULL, ...) {
   if (is.null(id))
     id <- deparse(cl$x)
   varying_args <- map(x$args, find_varying)
-  varying_others <- map(x$others, find_varying)
-  res <- c(varying_args, varying_others)
+  varying_eng_args <- map(x$eng_args, find_varying)
+  res <- c(varying_args, varying_eng_args)
   res <- map_lgl(res, any)
   tibble(
     name = names(res),

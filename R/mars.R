@@ -75,7 +75,7 @@ mars <-
            paste0("'", mars_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    out <- list(args = args, others = NULL,
+    out <- list(args = args, eng_args = NULL,
                 mode = mode, method = NULL, engine = NULL)
     class(out) <- make_classes("mars")
     out
@@ -141,8 +141,8 @@ translate.mars <- function(x, engine = x$engine, ...) {
   # If classification is being done, the `glm` options should be used. Check to
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
-    if (!("glm" %in% names(x$others))) {
-      x$others$glm <- quote(list(family = stats::binomial))
+    if (!("glm" %in% names(x$eng_args))) {
+      x$eng_args$glm <- quote(list(family = stats::binomial))
     }
   }
 
@@ -208,8 +208,8 @@ multi_predict._earth <-
     msg <-
       paste("Please use `keepxy = TRUE` as an option to enable submodel",
             "predictions with `earth`.")
-    if (any(names(object$spec$others) == "keepxy")) {
-      if(!object$spec$others$keepxy)
+    if (any(names(object$spec$eng_args) == "keepxy")) {
+      if(!object$spec$eng_args$keepxy)
         stop (msg, call. = FALSE)
     } else
       stop (msg, call. = FALSE)

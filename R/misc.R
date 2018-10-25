@@ -18,7 +18,7 @@ make_classes <- function(prefix) {
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms))
-    stop("Please pass other arguments to the model function via `others`", call. = FALSE)
+    stop("Please pass other arguments to the model function via `set_engine`", call. = FALSE)
   terms
 }
 
@@ -35,7 +35,6 @@ deparserizer <- function(x, limit = options()$width - 10) {
 }
 
 print_arg_list <- function(x, ...) {
-  others <- c("name", "call", "expression")
   atomic <- vapply(x, is.atomic, logical(1))
   x2 <- x
   x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
@@ -59,10 +58,10 @@ model_printer <- function(x, ...) {
     non_null_args <- map(non_null_args, convert_arg)
     cat(print_arg_list(non_null_args), "\n", sep = "")
   }
-  if (length(x$others) > 0) {
+  if (length(x$eng_args) > 0) {
     cat("Engine-Specific Arguments:\n")
-    x$others <- map(x$others, convert_arg)
-    cat(print_arg_list(x$others), "\n", sep = "")
+    x$eng_args <- map(x$eng_args, convert_arg)
+    cat(print_arg_list(x$eng_args), "\n", sep = "")
   }
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")

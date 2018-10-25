@@ -87,7 +87,7 @@ nearest_neighbor <- function(mode = "unknown",
   }
 
   # write a constructor function
-  out <- list(args = args, others = NULL,
+  out <- list(args = args, eng_args = NULL,
               mode = mode, method = NULL, engine = NULL)
 
   class(out) <- make_classes("nearest_neighbor")

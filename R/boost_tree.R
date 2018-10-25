@@ -127,7 +127,7 @@ boost_tree <-
            paste0("'", boost_tree_modes, "'", collapse = ", "),
            call. = FALSE)
 
-    out <- list(args = args, others = NULL,
+    out <- list(args = args, eng_args = NULL,
                 mode = mode, method = NULL, engine = NULL)
     class(out) <- make_classes("boost_tree")
     out

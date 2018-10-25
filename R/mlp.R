@@ -103,7 +103,7 @@ mlp <-
            call. = FALSE)
 
     # write a constructor function
-    out <- list(args = args, others = NULL,
+    out <- list(args = args, eng_args = NULL,
                 mode = mode, method = NULL, engine = NULL)
 
     class(out) <- make_classes("mlp")
@@ -187,10 +187,10 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 
   if (engine == "nnet") {
     if (x$mode == "classification") {
-      if (length(x$others) == 0  || !any(names(x$others) == "linout"))
+      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
         x$method$fit$args$linout <- FALSE
     } else {
-      if (length(x$others) == 0  || !any(names(x$others) == "linout"))
+      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
         x$method$fit$args$linout <- TRUE
     }
   }

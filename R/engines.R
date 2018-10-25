@@ -81,6 +81,6 @@ set_engine <- function(object, engine, ...) {
   object <- check_engine(object)
 
 
-  object$others  <- enquos(...)
+  object$eng_args  <- enquos(...)
   object
 }

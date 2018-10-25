@@ -50,7 +50,7 @@ prune_arg_list <- function(x, whitelist = NULL, modified = character(0)) {
   x
 }
 
-check_others <- function(args, obj, core_args) {
+check_eng_args <- function(args, obj, core_args) {
   # Make sure that we are not trying to modify an argument that
   # is explicitly protected in the method metadata or arg_key
   protected_args <- unique(c(obj$protect, core_args))
@@ -95,7 +95,7 @@ set_args <- function(object, ...) {
     if (any(main_args == i)) {
       object$args[[i]] <- the_dots[[i]]
     } else {
-      object$others[[i]] <- the_dots[[i]]
+      object$eng_args[[i]] <- the_dots[[i]]
     }
   }
   object
@@ -130,6 +130,6 @@ maybe_eval <- function(x) {
 
 eval_args <- function(spec, ...) {
   spec$args   <- purrr::map(spec$args,   maybe_eval)
-  spec$others <- purrr::map(spec$others, maybe_eval)
+  spec$eng_args <- purrr::map(spec$eng_args, maybe_eval)
   spec
 }

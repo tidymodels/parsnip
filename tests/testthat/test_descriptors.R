@@ -54,7 +54,7 @@ test_that("requires_descrs", {
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn())))
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn2())))
 
-  # descriptors in `others`
+  # descriptors in `eng_args`
   expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = 3)))
   expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = varying())))
   expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = .obs())))
