@@ -22,8 +22,8 @@ nearest_neighbor_kknn_data <-
       func = c(pkg = "kknn", fun = "train.kknn"),
       defaults = list()
     ),
-    pred = list(
-      # seems unnecessary here as the predict_num catches it based on the
+    numeric = list(
+      # seems unnecessary here as the predict_numeric catches it based on the
       # model mode
       pre = function(x, object) {
         if (object$fit$response != "continuous") {
@@ -60,7 +60,7 @@ nearest_neighbor_kknn_data <-
           type = "raw"
         )
     ),
-    prob = list(
+    classprob = list(
       pre = function(x, object) {
         if (!(object$fit$response %in% c("ordinal", "nominal"))) {
           stop("`kknn` model does not appear to use class predictions. Was ",

@@ -23,7 +23,7 @@ mars_earth_data <-
       func = c(pkg = "earth", fun = "earth"),
       defaults = list(keepxy = TRUE)
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = maybe_multivariate,
       func = c(fun = "predict"),
@@ -48,7 +48,7 @@ mars_earth_data <-
           type = "response"
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- x[,1]

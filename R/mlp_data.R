@@ -25,7 +25,7 @@ mlp_keras_data <-
       func = c(pkg = "parsnip", fun = "keras_mlp"),
       defaults = list()
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = maybe_multivariate,
       func = c(fun = "predict"),
@@ -47,7 +47,7 @@ mlp_keras_data <-
           x = quote(as.matrix(new_data))
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- as_tibble(x)
@@ -81,7 +81,7 @@ mlp_nnet_data <-
       func = c(pkg = "nnet", fun = "nnet"),
       defaults = list(trace = FALSE)
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = maybe_multivariate,
       func = c(fun = "predict"),

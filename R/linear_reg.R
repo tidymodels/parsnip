@@ -219,12 +219,12 @@ predict._elnet <-
   }
 
 #' @export
-predict_num._elnet <- function(object, new_data, ...) {
+predict_numeric._elnet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
   
   object$spec <- eval_args(object$spec)
-  predict_num.model_fit(object, new_data = new_data, ...)
+  predict_numeric.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export

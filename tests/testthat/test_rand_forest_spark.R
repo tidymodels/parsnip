@@ -58,7 +58,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_reg_pred_num <- predict_num(spark_reg_fit, iris_rf_te),
+    spark_reg_pred_num <- predict_numeric(spark_reg_fit, iris_rf_te),
     regexp = NA
   )
 
@@ -68,7 +68,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_reg_num_dup <- predict_num(spark_reg_fit_dup, iris_rf_te),
+    spark_reg_num_dup <- predict_numeric(spark_reg_fit_dup, iris_rf_te),
     regexp = NA
   )
 

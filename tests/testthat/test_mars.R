@@ -180,7 +180,7 @@ test_that('mars prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -188,7 +188,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))
 
   res_mv <- fit(
     iris_basic,
@@ -196,7 +196,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, predict_numeric(res_mv, iris[1:5,]))
 })
 
 

@@ -26,7 +26,7 @@ surv_reg_flexsurv_data <-
       func = c(pkg = "flexsurv", fun = "flexsurvreg"),
       defaults = list()
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = flexsurv_mean,
       func = c(fun = "summary"),
@@ -62,7 +62,7 @@ surv_reg_survreg_data <-
       func = c(pkg = "survival", fun = "survreg"),
       defaults = list(model = TRUE)
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -101,7 +101,7 @@ surv_reg_survreg_data <-
 #         seed = expr(sample.int(10^5, 1))
 #       )
 #     ),
-#     pred = list(
+#     numeric = list(
 #       pre = NULL,
 #       post = function(results, object) {
 #         tibble::as_tibble(results) %>%

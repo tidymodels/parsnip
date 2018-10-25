@@ -209,6 +209,6 @@ test_that('randomForest regression prediction', {
   xy_pred <- predict(xy_fit$fit, newdata = tail(mtcars))
   xy_pred <- unname(xy_pred)
 
-  expect_equal(xy_pred, predict_num(xy_fit, new_data = tail(mtcars)))
+  expect_equal(xy_pred, predict_numeric(xy_fit, new_data = tail(mtcars)))
 
 })

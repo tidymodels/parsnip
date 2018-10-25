@@ -44,7 +44,7 @@ logistic_reg_glm_data <-
           type = "response"
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- tibble(v1 = 1 - x, v2 = x)
@@ -121,7 +121,7 @@ logistic_reg_glmnet_data <-
           s = quote(object$spec$args$penalty)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = organize_glmnet_prob,
       func = c(fun = "predict"),
@@ -170,7 +170,7 @@ logistic_reg_stan_data <-
           newdata = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- object$fit$family$linkinv(x)
@@ -278,7 +278,7 @@ logistic_reg_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = format_spark_probs,
       func = c(pkg = "sparklyr", fun = "ml_predict"),

@@ -110,7 +110,7 @@ rand_forest_ranger_data <-
           seed = expr(sample.int(10^5, 1))
         )
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = function(results, object) results$predictions,
       func = c(fun = "predict"),
@@ -136,7 +136,7 @@ rand_forest_ranger_data <-
           verbose = FALSE
         )
     ),
-    prob = list(
+    classprob = list(
       pre = function(x, object) {
         if (object$fit$forest$treetype != "Probability estimation")
           stop("`ranger` model does not appear to use class probabilities. Was ",
@@ -190,7 +190,7 @@ rand_forest_randomForest_data <-
       defaults =
         list()
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -210,7 +210,7 @@ rand_forest_randomForest_data <-
           newdata = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         as_tibble(as.data.frame(x))
@@ -247,7 +247,7 @@ rand_forest_spark_data <-
           seed = expr(sample.int(10^5, 1))
         )
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = format_spark_num,
       func = c(pkg = "sparklyr", fun = "ml_predict"),
@@ -267,7 +267,7 @@ rand_forest_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = format_spark_probs,
       func = c(pkg = "sparklyr", fun = "ml_predict"),

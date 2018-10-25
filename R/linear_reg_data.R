@@ -30,7 +30,7 @@ linear_reg_lm_data <-
       func = c(pkg = "stats", fun = "lm"),
       defaults = list()
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -100,7 +100,7 @@ linear_reg_glmnet_data <-
           family = "gaussian"
         )
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = organize_glmnet_pred,
       func = c(fun = "predict"),
@@ -135,7 +135,7 @@ linear_reg_stan_data <-
           family = expr(stats::gaussian)
         )
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -224,7 +224,7 @@ linear_reg_spark_data <-
       protect = c("x", "formula", "weight_col"),
       func = c(pkg = "sparklyr", fun = "ml_linear_regression")
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = function(results, object) {
         results <- dplyr::rename(results, pred = prediction)

@@ -40,7 +40,7 @@ multinom_reg_glmnet_data <-
           s = quote(object$spec$args$penalty)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = check_glmnet_lambda,
       post = organize_multnet_prob,
       func = c(fun = "predict"),
@@ -85,7 +85,7 @@ multinom_reg_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = format_spark_probs,
       func = c(pkg = "sparklyr", fun = "ml_predict"),
