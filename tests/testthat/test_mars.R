@@ -1,5 +1,4 @@
 library(testthat)
-
 library(parsnip)
 library(rlang)
 
@@ -202,7 +201,6 @@ test_that('mars prediction', {
 
 
 test_that('submodel prediction', {
-  skip("need fit$call object to have real values (not quosures)")
   skip_if_not_installed("earth")
   library(earth)
 
@@ -215,12 +213,17 @@ test_that('submodel prediction', {
     set_engine("earth", keepxy = TRUE) %>%
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
-  pruned_fit <- update(reg_fit$fit, nprune = 5)
-  pruned_pred <- predict(pruned_fit, mtcars[1:4, -1])[,1]
+  tmp_reg <- reg_fit$fit
+  tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
+  tmp_reg$call[["keepxy"]]  <- eval_tidy(tmp_reg$call[["keepxy"]])
+  tmp_reg$call[["nprune"]]  <- eval_tidy(tmp_reg$call[["nprune"]])
+
+  pruned_reg <- update(tmp_reg, nprune = 5)
+  pruned_reg_pred <- predict(pruned_reg, mtcars[1:4, -1])[,1]
 
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], num_terms = 5)
   mp_res <- do.call("rbind", mp_res$.pred)
-  expect_equal(mp_res[[".pred"]], pruned_pred)
+  expect_equal(mp_res[[".pred"]], pruned_reg_pred)
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
@@ -229,12 +232,16 @@ test_that('submodel prediction', {
     fit(churn ~ .,
         data = wa_churn[-(1:4), c("churn", vars)])
 
-  pruned_fit <- update(class_fit$fit, nprune = 5)
-  pruned_pred <- predict(pruned_fit, wa_churn[1:4, vars], type = "response")[,1]
+  cls_fit <- class_fit$fit
+  cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
+  cls_fit$call[["keepxy"]]  <- eval_tidy(cls_fit$call[["keepxy"]])
+
+  pruned_cls <- update(cls_fit, nprune = 5)
+  pruned_cls_pred <- predict(pruned_cls, wa_churn[1:4, vars], type = "response")[,1]
 
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], num_terms = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
-  expect_equal(mp_res[[".pred_No"]], pruned_pred)
+  expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
 })
 
 

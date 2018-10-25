@@ -211,11 +211,20 @@ multi_predict._earth <-
 
     num_terms <- sort(num_terms)
 
+    # update.earth uses the values in the call so evaluate them if
+    # they are quosures
+    call_names <- names(object$fit$call)
+    call_names <- call_names[!(call_names %in% c("", "x", "y"))]
+    for (i in call_names) {
+      if (is_quosure(object$fit$call[[i]]))
+        object$fit$call[[i]] <- eval_tidy(object$fit$call[[i]])
+    }
+
     msg <-
       paste("Please use `keepxy = TRUE` as an option to enable submodel",
             "predictions with `earth`.")
-    if (any(names(object$spec$eng_args) == "keepxy")) {
-      if(!object$spec$eng_args$keepxy)
+    if (any(names(object$fit$call) == "keepxy")) {
+       if(!isTRUE(object$fit$call$keepxy))
         stop (msg, call. = FALSE)
     } else
       stop (msg, call. = FALSE)
