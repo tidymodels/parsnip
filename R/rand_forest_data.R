@@ -123,7 +123,7 @@ rand_forest_ranger_data <-
           verbose = FALSE
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = ranger_class_pred,
       func = c(fun = "predict"),
@@ -200,7 +200,7 @@ rand_forest_randomForest_data <-
           newdata = quote(new_data)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -257,7 +257,7 @@ rand_forest_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = format_spark_class,
       func = c(pkg = "sparklyr", fun = "ml_predict"),

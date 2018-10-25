@@ -42,7 +42,7 @@ nearest_neighbor_kknn_data <-
           type = "raw"
         )
     ),
-    classes = list(
+    class = list(
       pre = function(x, object) {
         if (!(object$fit$response %in% c("ordinal", "nominal"))) {
           stop("`kknn` model does not appear to use class predictions. Was ",

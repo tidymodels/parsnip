@@ -34,7 +34,7 @@ mars_earth_data <-
           type = "response"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         x <- ifelse(x[,1] >= 0.5, object$lvl[2], object$lvl[1])

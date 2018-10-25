@@ -35,7 +35,7 @@ mlp_keras_data <-
           x = quote(as.matrix(new_data))
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         object$lvl[x + 1]
@@ -92,7 +92,7 @@ mlp_nnet_data <-
           type = "raw"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),

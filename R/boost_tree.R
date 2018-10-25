@@ -391,7 +391,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
     nms <- names(pred)
   } else {
     if (type == "class") {
-      pred <- boost_tree_xgboost_data$classes$post(pred, object)
+      pred <- boost_tree_xgboost_data$class$post(pred, object)
       pred <- tibble(.pred = factor(pred, levels = object$lvl))
     } else {
       pred <- boost_tree_xgboost_data$classprob$post(pred, object)

@@ -33,7 +33,7 @@ logistic_reg_glm_data <-
           family = expr(stats::binomial)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = prob_to_class_2,
       func = c(fun = "predict"),
@@ -109,7 +109,7 @@ logistic_reg_glmnet_data <-
           family = "binomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = organize_glmnet_class,
       func = c(fun = "predict"),
@@ -156,7 +156,7 @@ logistic_reg_stan_data <-
           family = expr(stats::binomial)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         x <- object$fit$family$linkinv(x)
@@ -268,7 +268,7 @@ logistic_reg_spark_data <-
           family = "binomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = format_spark_class,
       func = c(pkg = "sparklyr", fun = "ml_predict"),

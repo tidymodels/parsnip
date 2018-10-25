@@ -41,7 +41,7 @@ boost_tree_xgboost_data <-
           newdata = quote(new_data)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         if (is.vector(x)) {
@@ -97,7 +97,7 @@ boost_tree_C5.0_data <-
       func = c(pkg = "parsnip", fun = "C5.0_train"),
       defaults = list()
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -152,7 +152,7 @@ boost_tree_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = format_spark_class,
       func = c(pkg = "sparklyr", fun = "ml_predict"),

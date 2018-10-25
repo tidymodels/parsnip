@@ -28,7 +28,7 @@ multinom_reg_glmnet_data <-
           family = "multinomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = check_glmnet_lambda,
       post = organize_multnet_class,
       func = c(fun = "predict"),
@@ -75,7 +75,7 @@ multinom_reg_spark_data <-
           family = "multinomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = format_spark_class,
       func = c(pkg = "sparklyr", fun = "ml_predict"),
