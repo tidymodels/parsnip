@@ -62,10 +62,8 @@ _How_ the model is created is related to the _engine_. In many cases, this is an
   map2_dfr(engine_info$model, engine_info$engine, mod_names) %>%
   dplyr::filter(!(module %in% c("libs", "fit"))) %>%
   mutate(
-    module = ifelse(module == "pred", "num", module),
     module = ifelse(module == "confint", "conf_int", module),
     module = ifelse(module == "predint", "pred_int", module),   
-    module = ifelse(module == "classes", "class", module),  
     module = paste0("`", module, "`"),
     model = paste0("`", model, "()`"),
     ) %>%
@@ -76,5 +74,5 @@ _How_ the model is created is related to the _engine_. In many cases, this is an
   collapse_rows(columns = 1)
 ```
 
-Models can be added by the user too. See the "Making a `parsnip` model from scratch" vignette. 
+Models can be added by the user too. See the ["Making a `parsnip` model from scratch" vignette](Scratch.html).
 

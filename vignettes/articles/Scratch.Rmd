@@ -155,27 +155,27 @@ mixture_da_mda_data$fit <-
   )
 ```
 
-### The `pred` module
+### The `numeric` module
 
-This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For `pred`, the model requires an unnamed numeric vector output (usually). 
+This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For `numeric`, the model requires an unnamed numeric vector output (usually). 
 
 Examples are [here](https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R) and [here](https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R). 
 
 For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results). 
 
-Note that the `pred` module maps to the `predict_num` function in `parsnip`. However, the user-facing `predict` function is used to generate predictions and returns a tibble with a column named `.pred` (see the example below). When creating new models, you don't have to write code for that part. 
+Note that the `numeric` module maps to the `predict_numeric` function in `parsnip`. However, the user-facing `predict` function is used to generate predictions and returns a tibble with a column named `.pred` (see the example below). When creating new models, you don't have to write code for that part. 
 
 
-### The `classes` module
+### The `class` module
 
-To make hard class predictions, the `classes` object contains the details. The elements of the list are:
+To make hard class predictions, the `class` object contains the details. The elements of the list are:
 
  * `pre` and `post` are optional functions that can preprocess the data being fed to the prediction code and to postprocess the raw output of the predictions. These won't be need for this example, but a section below has examples of how these can be used when the model code is not easy to use. If the data being predicted has a simple type requirement, you can avoid using a `pre` function with the `args` below. 
  * `func` is the prediction function (in the same format as above). In many cases, packages have a predict method for their model's class but this is typically not exported. In this case (and the example below), it is simple enough to make a generic call to `predict` with no associated package. 
  * `args` is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in `rlang::expr` so that they are not evaluated when defining the method. For `mda`, the code would be `predict(object, newdata, type = "class")`. What is actually given to the function is the `parsnip` model fit object, which includes a sub-object called `fit` and this houses the `mda` model object. If the data need to be a matrix or data frame, you could also use `new_data = quote(as.data.frame(new_data))` and so on. 
 
-```{r mda-classes}
-mixture_da_mda_data$classes <-
+```{r mda-class}
+mixture_da_mda_data$class <-
   list(
     pre = NULL,
     post = NULL,
@@ -196,14 +196,14 @@ mixture_da_mda_data$classes <-
 
 The `predict_class` function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data. As with the `pred` module, the user doesn't call `predict_class` but uses `predict` instead and this produces a tibble with a column named `.pred_class` [per the model guidlines](https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values). 
 
-### The `prob` module
+### The `classprob` module
 
-This defines the class probabilities (if they can be computed). The format is identical to the `classes` module but the output is expected to be a tibble with columns for each factor level. 
+This defines the class probabilities (if they can be computed). The format is identical to the `class` module but the output is expected to be a tibble with columns for each factor level. 
 
 As an example of the `post` function, the data frame created by `mda:::predict.mda` will be converted to a tibble. The arguments are `x` (the raw results coming from the predict method) and `object` (the `parsnip` model fit object). The latter has a sub-object called `lvl` which is a character string of the outcome's factor levels (if any). 
 
-```{r mda-prob}
-mixture_da_mda_data$prob <-
+```{r mda-classprob}
+mixture_da_mda_data$classprob <-
   list(
     pre = NULL,
     post = function(x, object) {
@@ -263,9 +263,9 @@ There are various things that came to mind while writing this document.
 
 ### Do I have to return a simple vector for `predict_num` and `predict_class`?
 
-Previously, when discussing the `pred` information:
+Previously, when discussing the `numeric` information:
 
-> For `pred`, the model requires an unnamed numeric vector output **(usually)**.
+> For `numeric`, the model requires an unnamed numeric vector output **(usually)**.
 
 There are some occasions where a prediction for a single new sample may be multidimensional. Examples are enumerated [here](https://tidymodels.github.io/model-implementation-principles/notes.html#list-cols) but some easy examples are:
 
