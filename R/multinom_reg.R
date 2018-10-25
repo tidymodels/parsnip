@@ -236,6 +236,9 @@ predict._multnet <-
 #' @export
 multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
 

@@ -359,6 +359,9 @@ xgb_pred <- function(object, newdata, ...) {
 #' @export
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     if (is.null(trees))
       trees <- object$fit$nIter
     trees <- sort(trees)
@@ -458,6 +461,9 @@ C5.0_train <-
 #' @export
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     if (is.null(trees))
       trees <- min(object$fit$trials)
     trees <- sort(trees)

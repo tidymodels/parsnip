@@ -230,24 +230,36 @@ organize_glmnet_prob <- function(x, object) {
 
 #' @export
 predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
 }
 
 #' @export
 predict_class._lognet <- function (object, new_data, ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
 predict_classprob._lognet <- function (object, new_data, ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
 predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
@@ -258,6 +270,9 @@ predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
 #' @export
 multi_predict._lognet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     dots <- list(...)
     if (is.null(penalty))
       penalty <- object$lambda

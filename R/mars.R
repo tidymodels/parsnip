@@ -206,6 +206,9 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 #' @export
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     if (is.null(num_terms))
       num_terms <- object$fit$selected.terms[-1]
 

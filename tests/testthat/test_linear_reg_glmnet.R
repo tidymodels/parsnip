@@ -198,5 +198,10 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], penalty = .1)
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred"]], unname(pred_glmn[,1]))
+  
+  expect_error(
+    multi_predict(reg_fit, newdata = mtcars[1:4, -1], penalty = .1), 
+    "Did you mean"
+  )
 })
 

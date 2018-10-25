@@ -134,6 +134,12 @@ test_that('glmnet probabilities, mulitiple lambda', {
     mult_class$.pred,
     multi_predict(xy_fit, iris[rows, 1:4], penalty = lams)$.pred
   )
+  
+  expect_error(
+    multi_predict(xy_fit, newdata = iris[rows, 1:4], penalty = lams), 
+    "Did you mean"
+  )
+  
 })
 
 

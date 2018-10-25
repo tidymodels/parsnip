@@ -322,3 +322,14 @@ test_that('lm intervals', {
   expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
 })
 
+
+test_that('newdata error trapping', {
+  res_xy <- fit_xy(
+    iris_basic,
+    x = iris[, num_pred],
+    y = iris$Sepal.Length,
+    control = ctrl
+  )
+  expect_error(predict(res_xy, newdata = iris[1:3, num_pred]), "Did you mean")
+})
+
