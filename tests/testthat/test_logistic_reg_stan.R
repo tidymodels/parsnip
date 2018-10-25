@@ -29,14 +29,12 @@ test_that('stan_glm execution', {
       lc_basic,
       funded_amnt ~ term,
       data = lending_club,
-      engine = "stan",
       control = ctrl
     )
   )
 
   stan_xy_catch <- fit_xy(
     lc_basic,
-    engine = "stan",
     control = caught_ctrl,
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il
@@ -53,7 +51,6 @@ test_that('stan_glm prediction', {
   xy_fit <- fit_xy(
     logistic_reg() %>%
       set_engine("stan", seed = 1333, chains = 1),
-    engine = "stan",
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -74,7 +71,6 @@ test_that('stan_glm prediction', {
       set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 
@@ -96,7 +92,6 @@ test_that('stan_glm probability', {
   xy_fit <- fit_xy(
     logistic_reg() %>%
       set_engine("stan", seed = 1333, chains = 1),
-    engine = "stan",
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -115,7 +110,6 @@ test_that('stan_glm probability', {
       set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 
@@ -137,7 +131,6 @@ test_that('stan intervals', {
       set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 

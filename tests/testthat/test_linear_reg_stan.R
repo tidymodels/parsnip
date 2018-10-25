@@ -11,9 +11,9 @@ iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- linear_reg() %>%
   set_engine("stan", seed = 10, chains = 1)
 
-ctrl <- fit_control(verbosity = 0, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+ctrl <- fit_control(verbosity = 0L, catch = FALSE)
+caught_ctrl <- fit_control(verbosity = 0L, catch = TRUE)
+quiet_ctrl <- fit_control(verbosity = 0L, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

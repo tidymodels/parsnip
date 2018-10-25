@@ -9,8 +9,8 @@ context("simple neural network execution with keras")
 num_pred <- names(iris)[1:4]
 
 iris_keras <-
-  mlp(mode = "classification", hidden_units = 2) %>%
-  set_engine("keras", verbose = 0, epochs = 10)
+  mlp(mode = "classification", hidden_units = 2, epochs = 10) %>%
+  set_engine("keras", verbose = 0)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -130,8 +130,8 @@ mtcars <- as.data.frame(scale(mtcars))
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- mlp(mode = "regression") %>%
-  set_engine("keras", verbose = 0, epochs = 10)
+car_basic <- mlp(mode = "regression", epochs = 10) %>%
+  set_engine("keras", verbose = 0)
 
 bad_keras_reg <-
   mlp(mode = "regression") %>%
@@ -176,8 +176,8 @@ test_that('keras regression prediction', {
   skip_if_not_installed("keras")
 
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2) %>%
-      set_engine("keras", epochs = 500, penalty = .1, verbose = 0),
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) %>%
+      set_engine("keras", verbose = 0),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
     control = ctrl
@@ -211,8 +211,8 @@ test_that('multivariate nnet formula', {
   skip_if_not_installed("keras")
 
   nnet_form <-
-    mlp(mode = "regression", hidden_units = 3)  %>%
-    set_engine("keras", penalty = 0.01, verbose = 0) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
+    set_engine("keras", verbose = 0) %>%
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
       data = nn_dat[-(1:5),]
@@ -226,8 +226,8 @@ test_that('multivariate nnet formula', {
   keras::backend()$clear_session()
 
   nnet_xy <-
-    mlp(mode = "regression", hidden_units = 3)  %>%
-    set_engine("keras", penalty = 0.01, verbose = 0) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
+    set_engine("keras", verbose = 0) %>%
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
       y = nn_dat[-(1:5),   1:3 ]
