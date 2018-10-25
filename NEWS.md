@@ -1,6 +1,6 @@
 # parsnip 0.0.0.9005
 
-* The engine, and any associated arguments, are not specified using `set_engine`. There is no `engine` argument 
+* The engine, and any associated arguments, are now specified using `set_engine`. There is no `engine` argument 
 
 
 # parsnip 0.0.0.9004
