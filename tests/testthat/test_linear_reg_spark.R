@@ -28,8 +28,7 @@ test_that('spark execution', {
   expect_error(
     spark_fit <-
       fit(
-        linear_reg(),
-        engine = "spark",
+        linear_reg() %>% set_engine("spark"),
         control = ctrl,
         Sepal_Length ~ .,
         data = iris_linreg_tr

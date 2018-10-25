@@ -74,7 +74,7 @@ predict can be used for all types of models and used the
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -221,25 +221,74 @@ extra column of standard error values (if available).</p>
 
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span>
   <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>), <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (object$engine == "spark" &amp;&amp; !inherits(eval_env$data, "tbl_spark")) stop("spark objects can only be used with the formula interface to `fit` ",     "with a spark data object.", call. = FALSE): missing value where TRUE/FALSE needed</span></div><div class='input'>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>))
+
 <span class='no'>pred_cars</span> <span class='kw'>&lt;-</span>
   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>)
 
-<span class='fu'>predict</span>(<span class='no'>lm_model</span>, <span class='no'>pred_cars</span>)</div><div class='output co'>#&gt; <span class='error'>Error in predict(lm_model, pred_cars): object 'lm_model' not found</span></div><div class='input'>
+<span class='fu'>predict</span>(<span class='no'>lm_model</span>, <span class='no'>pred_cars</span>)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 10 x 1[39m
+#&gt;    .pred
+#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m  23.4
+#&gt; [38;5;250m 2[39m  23.3
+#&gt; [38;5;250m 3[39m  27.6
+#&gt; [38;5;250m 4[39m  21.5
+#&gt; [38;5;250m 5[39m  17.6
+#&gt; [38;5;250m 6[39m  21.6
+#&gt; [38;5;250m 7[39m  13.9
+#&gt; [38;5;250m 8[39m  21.7
+#&gt; [38;5;250m 9[39m  25.6
+#&gt; [38;5;250m10[39m  17.1</div><div class='input'>
 <span class='fu'>predict</span>(
   <span class='no'>lm_model</span>,
   <span class='no'>pred_cars</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"conf_int"</span>,
   <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.90</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in predict(lm_model, pred_cars, type = "conf_int", level = 0.9): object 'lm_model' not found</span></div><div class='input'>
+)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 10 x 2[39m
+#&gt;    .pred_lower .pred_upper
+#&gt;          [3m[38;5;246m&lt;dbl&gt;[39m[23m       [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m       17.9         29.0
+#&gt; [38;5;250m 2[39m       18.1         28.5
+#&gt; [38;5;250m 3[39m       24.0         31.3
+#&gt; [38;5;250m 4[39m       17.5         25.6
+#&gt; [38;5;250m 5[39m       14.3         20.8
+#&gt; [38;5;250m 6[39m       17.0         26.2
+#&gt; [38;5;250m 7[39m        9.65        18.2
+#&gt; [38;5;250m 8[39m       16.2         27.2
+#&gt; [38;5;250m 9[39m       14.2         37.0
+#&gt; [38;5;250m10[39m       11.5         22.7</div><div class='input'>
 <span class='fu'>predict</span>(
   <span class='no'>lm_model</span>,
   <span class='no'>pred_cars</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"raw"</span>,
   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"terms"</span>)
-)</div><div class='output co'>#&gt; <span class='error'>Error in predict(lm_model, pred_cars, type = "raw", opts = list(type = "terms")): object 'lm_model' not found</span></div></pre>
+)</div><div class='output co'>#&gt;             cyl       disp         hp        drat         wt      qsec
+#&gt; 1  -0.001433177 -0.8113275  0.6303467 -0.06120265  2.4139815 -1.567729
+#&gt; 2  -0.001433177 -0.8113275  0.6303467 -0.06120265  1.4488706 -0.736286
+#&gt; 3  -0.009315653 -1.3336453  0.8557288 -0.05014798  3.5494061  1.624418
+#&gt; 4  -0.001433177  0.1730406  0.6303467  0.12009386  0.1620561  2.856736
+#&gt; 5   0.006449298  1.1975870 -0.2314083  0.10461733 -0.6895124 -0.736286
+#&gt; 6  -0.001433177 -0.1584303  0.6966356  0.19084372 -0.7652074  4.014817
+#&gt; 7   0.006449298  1.1975870 -1.1594522  0.09135173 -1.1815297 -2.488255
+#&gt; 8  -0.009315653 -0.9449204  1.2667197 -0.01477305  0.2566748  3.688179
+#&gt; 9  -0.009315653 -1.0041833  0.8292133 -0.06562451  0.4080647  7.993866
+#&gt; 10 -0.001433177 -0.7349888  0.4579957 -0.06562451 -0.6895124  1.164155
+#&gt;            vs       am        gear       carb
+#&gt; 1   0.2006406  2.88774  0.02512680 -0.2497240
+#&gt; 2   0.2006406  2.88774  0.02512680 -0.2497240
+#&gt; 3  -0.3511210  2.88774  0.02512680  0.4668753
+#&gt; 4  -0.3511210 -2.40645 -0.06700481  0.4668753
+#&gt; 5   0.2006406 -2.40645 -0.06700481  0.2280089
+#&gt; 6  -0.3511210 -2.40645 -0.06700481  0.4668753
+#&gt; 7   0.2006406 -2.40645 -0.06700481 -0.2497240
+#&gt; 8  -0.3511210 -2.40645  0.02512680  0.2280089
+#&gt; 9  -0.3511210 -2.40645  0.02512680  0.2280089
+#&gt; 10 -0.3511210 -2.40645  0.02512680 -0.2497240
+#&gt; attr(,"constant")
+#&gt; [1] 19.96364</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

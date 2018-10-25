@@ -8,7 +8,7 @@
 linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 
 \method{update}{linear_reg}(object, penalty = NULL, mixture = NULL,
-  fresh = FALSE)
+  fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -26,6 +26,8 @@ L2 penalty (i.e. weight decay, or ridge regression) versus L1
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{linear_reg} is a way to generate a \emph{specification} of a model

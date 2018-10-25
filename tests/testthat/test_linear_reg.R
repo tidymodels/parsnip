@@ -11,10 +11,10 @@ source("helpers.R")
 
 test_that('primary arguments', {
   basic <- linear_reg()
-  basic_lm <- translate(basic, engine = "lm")
-  basic_glmnet <- translate(basic, engine = "glmnet")
-  basic_stan <- translate(basic, engine = "stan")
-  basic_spark <- translate(basic, engine = "spark")
+  basic_lm <- translate(basic %>% set_engine("lm"))
+  basic_glmnet <- translate(basic %>% set_engine("glmnet"))
+  basic_stan <- translate(basic %>% set_engine("stan"))
+  basic_spark <- translate(basic %>% set_engine("spark"))
   expect_equal(basic_lm$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -47,8 +47,8 @@ test_that('primary arguments', {
   )
 
   mixture <- linear_reg(mixture = 0.128)
-  mixture_glmnet <- translate(mixture, engine = "glmnet")
-  mixture_spark <- translate(mixture, engine = "spark")
+  mixture_glmnet <- translate(mixture %>% set_engine("glmnet"))
+  mixture_spark <- translate(mixture %>% set_engine("spark"))
   expect_equal(mixture_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -68,8 +68,8 @@ test_that('primary arguments', {
   )
 
   penalty <- linear_reg(penalty = 1)
-  penalty_glmnet <- translate(penalty, engine = "glmnet")
-  penalty_spark <- translate(penalty, engine = "spark")
+  penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
+  penalty_spark <- translate(penalty %>% set_engine("spark"))
   expect_equal(penalty_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -89,8 +89,8 @@ test_that('primary arguments', {
   )
 
   mixture_v <- linear_reg(mixture = varying())
-  mixture_v_glmnet <- translate(mixture_v, engine = "glmnet")
-  mixture_v_spark <- translate(mixture_v, engine = "spark")
+  mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
+  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
   expect_equal(mixture_v_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -112,8 +112,8 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
-  lm_fam <- linear_reg(model = FALSE)
-  expect_equal(translate(lm_fam, engine = "lm")$method$fit$args,
+  lm_fam <- linear_reg() %>% set_engine("lm", model = FALSE)
+  expect_equal(translate(lm_fam)$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
@@ -122,8 +122,8 @@ test_that('engine arguments', {
                )
   )
 
-  glmnet_nlam <- linear_reg(nlambda = 10)
-  expect_equal(translate(glmnet_nlam, engine = "glmnet")$method$fit$args,
+  glmnet_nlam <- linear_reg() %>% set_engine("glmnet", nlambda = 10)
+  expect_equal(translate(glmnet_nlam)$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
@@ -133,8 +133,8 @@ test_that('engine arguments', {
                )
   )
 
-  stan_samp <- linear_reg(chains = 1, iter = 5)
-  expect_equal(translate(stan_samp, engine = "stan")$method$fit$args,
+  stan_samp <- linear_reg() %>% set_engine("stan", chains = 1, iter = 5)
+  expect_equal(translate(stan_samp)$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
@@ -145,8 +145,8 @@ test_that('engine arguments', {
                )
   )
 
-  spark_iter <- linear_reg(max_iter = 20)
-  expect_equal(translate(spark_iter, engine = "spark")$method$fit$args,
+  spark_iter <- linear_reg() %>% set_engine("spark", max_iter = 20)
+  expect_equal(translate(spark_iter)$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
@@ -159,26 +159,23 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- linear_reg(             model = FALSE)
-  expr1_exp <- linear_reg(mixture = 0, model = FALSE)
+  expr1     <- linear_reg() %>% set_engine("lm", model = FALSE)
+  expr1_exp <- linear_reg(mixture = 0) %>% set_engine("lm", model = FALSE)
 
-  expr2     <- linear_reg(mixture = varying())
-  expr2_exp <- linear_reg(mixture = varying(), nlambda = 10)
+  expr2     <- linear_reg(mixture = varying()) %>% set_engine("glmnet")
+  expr2_exp <- linear_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = 10)
 
-  expr3     <- linear_reg(mixture = 0, penalty = varying())
-  expr3_exp <- linear_reg(mixture = 1)
+  expr3     <- linear_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet")
+  expr3_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet")
 
-  expr4     <- linear_reg(mixture = 0, nlambda = 10)
-  expr4_exp <- linear_reg(mixture = 0, nlambda = 10, pmax = 2)
+  expr4     <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr4_exp <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
-  expr5     <- linear_reg(mixture = 1, nlambda = 10)
-  expr5_exp <- linear_reg(mixture = 1, nlambda = 10, pmax = 2)
+  expr5     <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
+  expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
   expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE), expr3_exp)
-  expect_equal(update(expr4, pmax = 2), expr4_exp)
-  expect_equal(update(expr5, nlambda = 10, pmax = 2), expr5_exp)
 
 })
 
@@ -187,17 +184,17 @@ test_that('bad input', {
   # expect_error(linear_reg(penalty = -1))
   # expect_error(linear_reg(mixture = -1))
   expect_error(translate(linear_reg(), engine = "wat?"))
-  expect_warning(translate(linear_reg(), engine = NULL))
+  expect_error(translate(linear_reg(), engine = NULL))
   expect_error(translate(linear_reg(formula = y ~ x)))
-  expect_warning(translate(linear_reg(x = iris[,1:3], y = iris$Species), engine = "glmnet"))
-  expect_warning(translate(linear_reg(formula = y ~ x), engine = "lm"))
+  expect_error(translate(linear_reg(x = iris[,1:3], y = iris$Species) %>% set_engine("glmnet")))
+  expect_error(translate(linear_reg(formula = y ~ x)  %>% set_engine("lm")))
 })
 
 # ------------------------------------------------------------------------------
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg()
+iris_basic <- linear_reg() %>% set_engine("lm")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -212,8 +209,7 @@ test_that('lm execution', {
       iris_basic,
       Sepal.Length ~ log(Sepal.Width) + Species,
       data = iris,
-      control = ctrl,
-      engine = "lm"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -222,7 +218,6 @@ test_that('lm execution', {
       iris_basic,
       x = iris[, num_pred],
       y = iris$Sepal.Length,
-      engine = "lm",
       control = ctrl
     ),
     regexp = NA
@@ -233,7 +228,6 @@ test_that('lm execution', {
       iris_basic,
       iris_bad_form,
       data = iris,
-      engine = "lm",
       control = ctrl
     )
   )
@@ -242,7 +236,6 @@ test_that('lm execution', {
     iris_basic,
     iris_bad_form,
     data = iris,
-    engine = "lm",
     control = caught_ctrl
   )
   expect_true(inherits(lm_form_catch$fit, "try-error"))
@@ -254,8 +247,7 @@ test_that('lm execution', {
       iris_basic,
       cbind(Sepal.Width, Petal.Width) ~ .,
       data = iris,
-      control = ctrl,
-      engine = "lm"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -274,7 +266,6 @@ test_that('lm prediction', {
     iris_basic,
     x = iris[, num_pred],
     y = iris$Sepal.Length,
-    engine = "lm",
     control = ctrl
   )
 
@@ -284,7 +275,6 @@ test_that('lm prediction', {
     iris_basic,
     Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
-    engine = "lm",
     control = ctrl
   )
   expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]))
@@ -293,8 +283,7 @@ test_that('lm prediction', {
     iris_basic,
     cbind(Sepal.Width, Petal.Width) ~ .,
     data = iris,
-    control = ctrl,
-    engine = "lm"
+    control = ctrl
   )
   expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
 })
@@ -308,10 +297,9 @@ test_that('lm intervals', {
                            level = 0.93, interval = "prediction")
 
   res_xy <- fit_xy(
-    linear_reg(),
+    linear_reg()  %>% set_engine("lm"),
     x = iris[, num_pred],
     y = iris$Sepal.Length,
-    engine = "lm",
     control = ctrl
   )
 

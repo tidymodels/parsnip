@@ -136,7 +136,8 @@ print.multinom_reg <- function(x, ...) {
 update.multinom_reg <-
   function(object,
            penalty = NULL, mixture = NULL,
-           fresh = FALSE) {
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)

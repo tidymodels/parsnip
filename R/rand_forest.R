@@ -145,8 +145,8 @@ print.rand_forest <- function(x, ...) {
 update.rand_forest <-
   function(object,
            mtry = NULL, trees = NULL, min_n = NULL,
-           fresh = FALSE) {
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),

@@ -73,7 +73,7 @@ information about a model that has been fit to the data." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -164,9 +164,31 @@ stores model objects after to seeing the data and applying a model.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Keep the `x` matrix if the data are not too big.</span>
-<span class='no'>spec_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'><a href='descriptors.html'>.obs</a></span>() <span class='kw'>&lt;</span> <span class='fl'>500</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; <span class='error'>Error in linear_reg(x = ifelse(.obs() &lt; 500, TRUE, FALSE)): unused argument (x = ifelse(.obs() &lt; 500, TRUE, FALSE))</span></div><div class='input'><span class='no'>spec_obj</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'spec_obj' not found</span></div><div class='input'>
-<span class='no'>fit_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>spec_obj</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in fit(spec_obj, mpg ~ ., data = mtcars, engine = "lm"): object 'spec_obj' not found</span></div><div class='input'><span class='no'>fit_obj</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'fit_obj' not found</span></div><div class='input'>
-<span class='fu'>nrow</span>(<span class='no'>fit_obj</span>$<span class='no'>fit</span>$<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='error'>Error in nrow(fit_obj$fit$x): object 'fit_obj' not found</span></div></pre>
+<span class='no'>spec_obj</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'><a href='descriptors.html'>.obs</a></span>() <span class='kw'>&lt;</span> <span class='fl'>500</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>))
+<span class='no'>spec_obj</span></div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; 
+#&gt; Engine-Specific Arguments:
+#&gt;   x = ifelse(.obs() &lt; 500, TRUE, FALSE)
+#&gt; 
+#&gt; Computational engine: lm 
+#&gt; </div><div class='input'>
+<span class='no'>fit_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>spec_obj</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='no'>fit_obj</span></div><div class='output co'>#&gt; parsnip model object
+#&gt; 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = formula, data = data, x = ~ifelse(.obs() &lt; 
+#&gt;     500, TRUE, FALSE))
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)          cyl         disp           hp         drat           wt  
+#&gt;    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  
+#&gt;        qsec           vs           am         gear         carb  
+#&gt;     0.82104      0.31776      2.52023      0.65541     -0.19942  
+#&gt; </div><div class='input'>
+<span class='fu'>nrow</span>(<span class='no'>fit_obj</span>$<span class='no'>fit</span>$<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 32</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

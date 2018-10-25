@@ -12,7 +12,7 @@ source("helpers.R")
 
 test_that('primary arguments', {
   basic <- surv_reg()
-  basic_flexsurv <- translate(basic, engine = "flexsurv")
+  basic_flexsurv <- translate(basic %>% set_engine("flexsurv"))
 
   expect_equal(basic_flexsurv$method$fit$args,
                list(
@@ -23,7 +23,7 @@ test_that('primary arguments', {
   )
 
   normal <- surv_reg(dist = "lnorm")
-  normal_flexsurv <- translate(normal, engine = "flexsurv")
+  normal_flexsurv <- translate(normal %>% set_engine("flexsurv"))
   expect_equal(normal_flexsurv$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -34,7 +34,7 @@ test_that('primary arguments', {
   )
 
   dist_v <- surv_reg(dist = varying())
-  dist_v_flexsurv <- translate(dist_v, engine = "flexsurv")
+  dist_v_flexsurv <- translate(dist_v %>% set_engine("flexsurv"))
   expect_equal(dist_v_flexsurv$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -46,8 +46,8 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
-  fs_cl <- surv_reg(cl = .99)
-  expect_equal(translate(fs_cl, engine = "flexsurv")$method$fit$args,
+  fs_cl <- surv_reg()
+  expect_equal(translate(fs_cl %>% set_engine("flexsurv", cl = .99))$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
@@ -60,20 +60,13 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- surv_reg(                cl = .99)
-  expr1_exp <- surv_reg(dist = "lnorm", cl = .99)
-
-  expr2     <- surv_reg(dist = varying())
-  expr2_exp <- surv_reg(dist = varying(), cl = .99)
-
+  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = .99)
+  expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
   expect_equal(update(expr1, dist = "lnorm"), expr1_exp)
-  expect_equal(update(expr2, cl = .99), expr2_exp)
 })
 
 test_that('bad input', {
-  expect_error(surv_reg(mode = "classification"))
-  expect_error(translate(surv_reg(), engine = "wat?"))
-  expect_warning(translate(surv_reg(), engine = NULL))
-  expect_error(translate(surv_reg(formula = y ~ x)))
-  expect_warning(translate(surv_reg(formula = y ~ x), engine = "flexsurv"))
+  expect_error(surv_reg(mode = ", classification"))
+  expect_error(translate(surv_reg() %>% set_engine("wat")))
+  expect_error(translate(surv_reg() %>% set_engine(NULL)))
 })

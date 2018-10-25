@@ -21,8 +21,7 @@ test_that('glmnet execution', {
 
   expect_error(
     fit_xy(
-      multinom_reg(),
-      engine = "glmnet",
+      multinom_reg() %>% set_engine("glmnet"),
       control = ctrl,
       x = iris[, 1:4],
       y = iris$Species
@@ -31,10 +30,10 @@ test_that('glmnet execution', {
   )
 
   glmnet_xy_catch <- fit_xy(
-    multinom_reg(),
+    multinom_reg() %>% set_engine("glmnet"),
     x = iris[, 2:5],
     y = iris$Sepal.Length,
-    engine = "glmnet",
+    ,
     control = caught_ctrl
   )
   expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
@@ -46,8 +45,7 @@ test_that('glmnet prediction, one lambda', {
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
-    multinom_reg(penalty = 0.1),
-    engine = "glmnet",
+    multinom_reg(penalty = 0.1) %>% set_engine("glmnet"),
     control = ctrl,
     x = iris[, 1:4],
     y = iris$Species
@@ -64,10 +62,9 @@ test_that('glmnet prediction, one lambda', {
   expect_equal(uni_pred, predict(xy_fit, iris[rows, 1:4], type = "class")$.pred_class)
 
   res_form <- fit(
-    multinom_reg(penalty = 0.1),
+    multinom_reg(penalty = 0.1) %>% set_engine("glmnet"),
     Species ~ log(Sepal.Width) + Petal.Width,
     data = iris,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -93,8 +90,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   lams <- c(0.01, 0.1)
 
   xy_fit <- fit_xy(
-    multinom_reg(penalty = lams),
-    engine = "glmnet",
+    multinom_reg(penalty = lams) %>% set_engine("glmnet"),
     control = ctrl,
     x = iris[, 1:4],
     y = iris$Species

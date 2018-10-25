@@ -30,8 +30,7 @@ test_that('spark execution', {
   expect_error(
     spark_class_fit <-
       fit(
-        logistic_reg(),
-        engine = "spark",
+        logistic_reg() %>% set_engine("spark"),
         control = ctrl,
         churn ~ .,
         data = churn_logit_tr
@@ -43,8 +42,7 @@ test_that('spark execution', {
   expect_error(
     spark_class_fit_dup <-
       fit(
-        logistic_reg(),
-        engine = "spark",
+        logistic_reg() %>% set_engine("spark"),
         control = ctrl,
         churn ~ .,
         data = churn_logit_tr
@@ -79,7 +77,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_equal(colnames(spark_class_prob), c("pred_Yes", "pred_No"))
+  expect_equal(colnames(spark_class_prob), c("pred_No", "pred_Yes"))
 
   expect_equivalent(
     as.data.frame(spark_class_prob),

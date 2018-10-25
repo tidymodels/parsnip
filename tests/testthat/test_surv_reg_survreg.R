@@ -8,8 +8,8 @@ library(tibble)
 basic_form <- Surv(time, status) ~ group
 complete_form <- Surv(time) ~ group
 
-surv_basic <- surv_reg()
-surv_lnorm <- surv_reg(dist = "lognormal")
+surv_basic <- surv_reg() %>% set_engine("survreg")
+surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survreg")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -24,8 +24,7 @@ test_that('survival execution', {
       surv_basic,
       Surv(time, status) ~ age + sex,
       data = lung,
-      control = ctrl,
-      engine = "survreg"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -34,8 +33,7 @@ test_that('survival execution', {
       surv_lnorm,
       Surv(time) ~ age + sex,
       data = lung,
-      control = ctrl,
-      engine = "survreg"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -44,7 +42,6 @@ test_that('survival execution', {
       surv_basic,
       x = lung[, c("age", "sex")],
       y = lung$time,
-      engine = "survreg",
       control = ctrl
     )
   )
@@ -56,8 +53,7 @@ test_that('survival prediction', {
     surv_basic,
     Surv(time, status) ~ age + sex,
     data = lung,
-    control = ctrl,
-    engine = "survreg"
+    control = ctrl
   )
   exp_pred <- predict(res$fit, head(lung))
   exp_pred <- tibble(.pred = unname(exp_pred))

@@ -7,7 +7,7 @@ context("changing arguments and engine")
 
 test_that('pipe arguments', {
   mod_1 <- rand_forest() %>%
-    set_args(mtry = 1, something = "blah")
+    set_args(mtry = 1)
   expect_equal(
     quo_get_expr(mod_1$args$mtry),
     1
@@ -16,18 +16,9 @@ test_that('pipe arguments', {
     quo_get_env(mod_1$args$mtry),
     empty_env()
   )
-  expect_equal(
-    quo_get_expr(mod_1$others$something),
-    "blah"
-    )
-  expect_equal(
-    quo_get_env(mod_1$others$something),
-    empty_env()
-  )
 
-  x <- 1:10
-  mod_2 <- rand_forest(mtry = 2, var = x) %>%
-    set_args(mtry = 1, something = "blah")
+  mod_2 <- rand_forest(mtry = 2) %>%
+    set_args(mtry = 1)
 
   var_env <- rlang::current_env()
 
@@ -38,18 +29,6 @@ test_that('pipe arguments', {
   expect_equal(
     quo_get_env(mod_2$args$mtry),
     empty_env()
-  )
-  expect_equal(
-    quo_get_expr(mod_2$others$something),
-    "blah"
-  )
-  expect_equal(
-    quo_get_env(mod_2$others$something),
-    empty_env()
-  )
-  expect_equal(
-    quo_get_env(mod_2$others$var),
-    var_env
   )
 
   expect_error(rand_forest() %>% set_args())

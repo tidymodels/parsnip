@@ -144,8 +144,8 @@ update.mlp <-
   function(object,
            hidden_units = NULL, penalty = NULL, dropout = NULL,
            epochs = NULL, activation = NULL,
-           fresh = FALSE) {
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       hidden_units = enquo(hidden_units),
       penalty      = enquo(penalty),

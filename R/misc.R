@@ -190,3 +190,16 @@ names0 <- function (num, prefix = "x") {
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
 }
+
+
+# ------------------------------------------------------------------------------
+
+update_dot_check <- function(...) {
+  dots <- enquos(...)
+  if (length(dots) > 0)
+    stop("Extra arguments will be ignored: ",
+         paste0("`", names(dots), "`", collapse = ", "),
+         call. = FALSE)
+  invisible(NULL)
+}
+

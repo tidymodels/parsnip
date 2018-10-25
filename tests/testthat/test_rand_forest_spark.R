@@ -30,12 +30,8 @@ test_that('spark execution', {
   expect_error(
     spark_reg_fit <-
       fit(
-        rand_forest(
-          trees = 5,
-          mode = "regression",
-          seed = 12
-        ),
-        engine = "spark",
+        rand_forest(trees = 5, mode = "regression") %>%
+          set_engine("spark", seed = 12),
         control = ctrl,
         Sepal_Length ~ .,
         data = iris_rf_tr
@@ -47,12 +43,8 @@ test_that('spark execution', {
   expect_error(
     spark_reg_fit_dup <-
       fit(
-        rand_forest(
-          trees = 5,
-          mode = "regression",
-          seed = 12
-        ),
-        engine = "spark",
+        rand_forest(trees = 5, mode = "regression") %>%
+          set_engine("spark", seed = 12),
         control = ctrl,
         Sepal_Length ~ .,
         data = iris_rf_tr
@@ -104,12 +96,8 @@ test_that('spark execution', {
   expect_error(
     spark_class_fit <-
       fit(
-        rand_forest(
-          trees = 5,
-          mode = "classification",
-          seed = 12
-        ),
-        engine = "spark",
+        rand_forest(trees = 5, mode = "classification") %>%
+          set_engine("spark", seed = 12),
         control = ctrl,
         churn ~ .,
         data = churn_rf_tr
@@ -121,12 +109,8 @@ test_that('spark execution', {
   expect_error(
     spark_class_fit_dup <-
       fit(
-        rand_forest(
-          trees = 5,
-          mode = "classification",
-          seed = 12
-        ),
-        engine = "spark",
+        rand_forest(trees = 5, mode = "classification") %>%
+          set_engine("spark", seed = 12),
         control = ctrl,
         churn ~ .,
         data = churn_rf_tr
@@ -186,7 +170,7 @@ test_that('spark execution', {
     regexp = NA
   )
 
-  expect_equal(colnames(spark_class_prob), c("pred_0", "pred_1"))
+  expect_equal(colnames(spark_class_prob), c("pred_No", "pred_Yes"))
 
   expect_equivalent(
     as.data.frame(spark_class_prob),

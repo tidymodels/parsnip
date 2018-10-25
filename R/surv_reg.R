@@ -121,24 +121,24 @@ print.surv_reg <- function(x, ...) {
 #' @method update surv_reg
 #' @rdname surv_reg
 #' @export
-update.surv_reg <- function(object, dist = NULL, fresh = FALSE) {
+update.surv_reg <- function(object, dist = NULL, fresh = FALSE, ...) {
+  update_dot_check(...)
+  args <- list(
+    dist = enquo(dist)
+  )
 
-    args <- list(
-      dist = enquo(dist)
-    )
-
-    if (fresh) {
-      object$args <- args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-    }
-
-    object
+  if (fresh) {
+    object$args <- args
+  } else {
+    null_args <- map_lgl(args, null_value)
+    if (any(null_args))
+      args <- args[!null_args]
+    if (length(args) > 0)
+      object$args[names(args)] <- args
   }
+
+  object
+}
 
 
 # ------------------------------------------------------------------------------

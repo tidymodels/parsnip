@@ -150,6 +150,7 @@ print.boost_tree <- function(x, ...) {
 #' @export
 #' @inheritParams boost_tree
 #' @param object A boosted tree model specification.
+#' @param ... Not used for `update`.
 #' @param fresh A logical for whether the arguments should be
 #'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
@@ -166,7 +167,9 @@ update.boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL, sample_size = NULL,
-           fresh = FALSE) {
+           fresh = FALSE, ...) {
+    update_dot_check(...)
+
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),

@@ -9,7 +9,8 @@ mlp(mode = "unknown", hidden_units = NULL, penalty = NULL,
   dropout = NULL, epochs = NULL, activation = NULL)
 
 \method{update}{mlp}(object, hidden_units = NULL, penalty = NULL,
-  dropout = NULL, epochs = NULL, activation = NULL, fresh = FALSE)
+  dropout = NULL, epochs = NULL, activation = NULL, fresh = FALSE,
+  ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -36,6 +37,8 @@ function between the hidden and output layers is automatically set to either
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{mlp}, for multilayer perceptron, is a way to generate a \emph{specification} of

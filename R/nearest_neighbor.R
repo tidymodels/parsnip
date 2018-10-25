@@ -114,8 +114,8 @@ update.nearest_neighbor <- function(object,
                                     neighbors = NULL,
                                     weight_func = NULL,
                                     dist_power = NULL,
-                                    fresh = FALSE) {
-
+                                    fresh = FALSE, ...) {
+  update_dot_check(...)
   args <- list(
     neighbors   = enquo(neighbors),
     weight_func = enquo(weight_func),

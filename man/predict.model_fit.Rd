@@ -85,7 +85,8 @@ library(dplyr)
 
 lm_model <-
   linear_reg() \%>\%
-  fit(mpg ~ ., data = mtcars \%>\% slice(11:32), engine = "lm")
+  set_engine("lm") \%>\%
+  fit(mpg ~ ., data = mtcars \%>\% slice(11:32))
 
 pred_cars <-
   mtcars \%>\%

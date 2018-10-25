@@ -11,7 +11,7 @@ boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
 
 \method{update}{boost_tree}(object, mtry = NULL, trees = NULL,
   min_n = NULL, tree_depth = NULL, learn_rate = NULL,
-  loss_reduction = NULL, sample_size = NULL, fresh = FALSE)
+  loss_reduction = NULL, sample_size = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -45,6 +45,8 @@ each iteration while \code{C5.0} samples once during traning.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \value{
 An updated model specification.

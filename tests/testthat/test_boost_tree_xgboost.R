@@ -7,7 +7,9 @@ context("boosted tree execution with xgboost")
 
 num_pred <- names(iris)[1:4]
 
-iris_xgboost <- boost_tree(trees = 2)
+iris_xgboost <-
+  boost_tree(trees = 2) %>%
+  set_engine("xgboost")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -24,7 +26,6 @@ test_that('xgboost execution, classification', {
       iris_xgboost,
       Species ~ Sepal.Width + Sepal.Length,
       data = iris,
-      engine = "xgboost",
       control = ctrl
     ),
     regexp = NA
@@ -34,7 +35,6 @@ test_that('xgboost execution, classification', {
       iris_xgboost,
       x = iris[, num_pred],
       y = iris$Species,
-      engine = "xgboost",
       control = ctrl
     ),
     regexp = NA
@@ -45,7 +45,6 @@ test_that('xgboost execution, classification', {
       iris_xgboost,
       Species ~ novar,
       data = iris,
-      engine = "xgboost",
       control = ctrl
     )
   )
@@ -61,7 +60,6 @@ test_that('xgboost classification prediction', {
     iris_xgboost,
     x = iris[, num_pred],
     y = iris$Species,
-    engine = "xgboost",
     control = ctrl
   )
 
@@ -74,7 +72,6 @@ test_that('xgboost classification prediction', {
     iris_xgboost,
     Species ~ .,
     data = iris,
-    engine = "xgboost",
     control = ctrl
   )
 
@@ -89,12 +86,17 @@ test_that('xgboost classification prediction', {
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- boost_tree(mode = "regression")
+car_basic <-
+  boost_tree(mode = "regression") %>%
+  set_engine("xgboost")
 
-bad_xgboost_reg <- boost_tree(mode = "regression",
-                              others = list(min.node.size = -10))
-bad_rf_reg <- boost_tree(mode = "regression",
-                         others = list(sampsize = -10))
+bad_xgboost_reg <-
+  boost_tree(mode = "regression") %>%
+  set_engine("xgboost", min.node.size = -10)
+
+bad_rf_reg <-
+  boost_tree(mode = "regression") %>%
+  set_engine("xgboost", sampsize = -10)
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -109,7 +111,6 @@ test_that('xgboost execution, regression', {
       car_basic,
       mpg ~ .,
       data = mtcars,
-      engine = "xgboost",
       control = ctrl
     ),
     regexp = NA
@@ -120,7 +121,6 @@ test_that('xgboost execution, regression', {
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
-      engine = "xgboost",
       control = ctrl
     ),
     regexp = NA
@@ -137,7 +137,6 @@ test_that('xgboost regression prediction', {
     car_basic,
     x = mtcars[, -1],
     y = mtcars$mpg,
-    engine = "xgboost",
     control = ctrl
   )
 
@@ -148,7 +147,6 @@ test_that('xgboost regression prediction', {
     car_basic,
     mpg ~ .,
     data = mtcars,
-    engine = "xgboost",
     control = ctrl
   )
 
@@ -164,11 +162,9 @@ test_that('submodel prediction', {
   library(xgboost)
 
   reg_fit <-
-    boost_tree(
-      trees = 20,
-      mode = "regression"
-    ) %>%
-    fit(mpg ~ ., data = mtcars[-(1:4), ], engine = "xgboost")
+    boost_tree(trees = 20, mode = "regression") %>%
+    set_engine("xgboost") %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   x <-  xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
 
@@ -182,9 +178,8 @@ test_that('submodel prediction', {
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
     boost_tree(trees = 20, mode = "classification") %>%
-    fit(churn ~ .,
-        data = wa_churn[-(1:4), c("churn", vars)],
-        engine = "xgboost")
+    set_engine("xgboost") %>%
+    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
   x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
 

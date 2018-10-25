@@ -9,7 +9,7 @@ rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
   min_n = NULL)
 
 \method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
-  min_n = NULL, fresh = FALSE)
+  min_n = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -29,6 +29,8 @@ in a node that are required for the node to be split further.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{rand_forest} is a way to generate a \emph{specification} of a model

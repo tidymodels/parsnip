@@ -9,7 +9,7 @@ mars(mode = "unknown", num_terms = NULL, prod_degree = NULL,
   prune_method = NULL)
 
 \method{update}{mars}(object, num_terms = NULL, prod_degree = NULL,
-  prune_method = NULL, fresh = FALSE)
+  prune_method = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -27,6 +27,8 @@ final model, including the intercept.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{mars} is a way to generate a \emph{specification} of a model before

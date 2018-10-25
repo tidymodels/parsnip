@@ -9,7 +9,8 @@
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #'
-#' @param object An object of class `model_spec`
+#' @param object An object of class `model_spec` that has a chosen engine
+#'  (via [set_engine()]).
 #' @param formula An object of class "formula" (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
@@ -45,21 +46,20 @@
 #' library(dplyr)
 #' data("lending_club")
 #'
-#' lm_mod <- logistic_reg()
+#' lr_mod <- logistic_reg()
 #'
-#' lm_mod <- logistic_reg()
+#' lr_mod <- logistic_reg()
 #'
 #' using_formula <-
-#'   lm_mod %>%
-#'   fit(Class ~ funded_amnt + int_rate,
-#'       data = lending_club,
-#'       engine = "glm")
+#'   lr_mod %>%
+#'   set_engine("glm") %>%
+#'   fit(Class ~ funded_amnt + int_rate, data = lending_club)
 #'
 #' using_xy <-
-#'   lm_mod %>%
+#'   lr_mod %>%
+#'    set_engine("glm") %>%
 #'   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
-#'          y = lending_club$Class,
-#'          engine = "glm")
+#'          y = lending_club$Class)
 #'
 #' using_formula
 #' using_xy
@@ -79,6 +79,7 @@
 #'  The return value will also have a class related to the fitted model (e.g.
 #'  `"_glm"`) before the base class of `"model_fit"`.
 #'
+#' @seealso [set_engine()], [fit_control()], `model_spec`, `model_fit`
 #' @param x A matrix or data frame of predictors.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit

@@ -7,7 +7,7 @@
 \usage{
 surv_reg(mode = "regression", dist = NULL)
 
-\method{update}{surv_reg}(object, dist = NULL, fresh = FALSE)
+\method{update}{surv_reg}(object, dist = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -20,6 +20,8 @@ the default.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{surv_reg} is a way to generate a \emph{specification} of a model

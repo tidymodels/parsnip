@@ -109,8 +109,8 @@ print.mars <- function(x, ...) {
 update.mars <-
   function(object,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           fresh = FALSE) {
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
@@ -164,7 +164,7 @@ check_args.mars <- function(object) {
 
   if (!is_varying(args$prune_method) &&
       !is.null(args$prune_method) &&
-      is.character(args$prune_method))
+      !is.character(args$prune_method))
     stop("`prune_method` should be a single string value", call. = FALSE)
 
   invisible(object)

@@ -8,21 +8,24 @@ context("check predict output structures")
 
 lm_fit <-
   linear_reg(mode = "regression") %>%
-  fit(Sepal.Length ~ ., data = iris, engine = "lm")
+  set_engine("lm") %>%
+  fit(Sepal.Length ~ ., data = iris)
 
 class_dat <- airquality[complete.cases(airquality),]
 class_dat$Ozone <- factor(ifelse(class_dat$Ozone >= 31, "high", "low"))
 
 lr_fit <-
   logistic_reg() %>%
-  fit(Ozone ~ ., data = class_dat, engine = "glm")
+  set_engine("glm") %>%
+  fit(Ozone ~ ., data = class_dat)
 
 class_dat2 <- airquality[complete.cases(airquality),]
 class_dat2$Ozone <- factor(ifelse(class_dat2$Ozone >= 31, "high+values", "2low"))
 
 lr_fit_2 <-
   logistic_reg() %>%
-  fit(Ozone ~ ., data = class_dat2, engine = "glm")
+  set_engine("glm") %>%
+  fit(Ozone ~ ., data = class_dat2)
 
 # ------------------------------------------------------------------------------
 
