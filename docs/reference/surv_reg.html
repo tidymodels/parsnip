@@ -38,7 +38,7 @@ model is:
 dist: The probability distribution of the outcome.
 This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using the  ... slot. If left to its default
+set using set_engine. If left to its default
 here (NULL), the value is taken from the underlying model
 functions.
 If parameters need to be modified, this function can be used
@@ -83,7 +83,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@ model is:</p><ul>
 <li><p><code>dist</code>: The probability distribution of the outcome.</p></li>
 </ul><p>This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to its default
+set using <code>set_engine</code>. If left to its default
 here (<code>NULL</code>), the value is taken from the underlying model
 functions.</p>
 <p>If parameters need to be modified, this function can be used
@@ -154,7 +154,7 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for surv_reg</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
@@ -173,14 +173,6 @@ The only possible value for this model is "regression".</p></td>
 the default.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the <code>update</code> function, the ellipses can
-contain the primary arguments or any others.</p></td>
-    </tr>
-    <tr>
       <th>object</th>
       <td><p>A survival regression model specification.</p></td>
     </tr>
@@ -188,6 +180,10 @@ contain the primary arguments or any others.</p></td>
       <th>fresh</th>
       <td><p>A logical for whether the arguments should be
 modified in-place of or replaced wholesale.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used for <code>update</code>.</p></td>
     </tr>
     </table>
     
@@ -202,10 +198,31 @@ survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
+<p>For <code>surv_reg</code>, the mode will always be "regression".</p>
 <p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survreg"</code></p></li>
 </ul>
+    
+    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
+
+    
+    <p>Engines may have pre-set default arguments when executing the
+model fit call. For this type of
+model, the template of the fit calls are:</p>
+<p><span class="pkg">flexsurv</span></p>
+<p><pre>
+flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
+    weights = missing_arg())
+</pre></p>
+<p><span class="pkg">survreg</span></p>
+<p><pre>
+survival::survreg(formula = missing_arg(), data = missing_arg(), 
+    weights = missing_arg(), model = TRUE)
+</pre></p>
+<p>Note that <code>model = TRUE</code> is needed to produce quantile
+predictions when there is a stratification variable and can be
+overridden in other cases.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -242,6 +259,8 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#engine-details">Engine Details</a></li>
 
       <li><a href="#references">References</a></li>
 

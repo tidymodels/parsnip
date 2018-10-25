@@ -54,28 +54,24 @@ test_that("requires_descrs", {
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn())))
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn2())))
 
-  # descriptors in `others`
-  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = 3)))
-  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = varying())))
-  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = .obs())))
-  expect_false(parsnip:::requires_descrs(rand_forest(arrrg = expr(3))))
-  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn())))
-  expect_true(parsnip:::requires_descrs(rand_forest(arrrg = fn2())))
+  # descriptors in `eng_args`
+  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = 3)))
+  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = varying())))
+  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = .obs())))
+  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = expr(3))))
+  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = fn())))
+  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = fn2())))
 
   # mixed
   expect_true(
     parsnip:::requires_descrs(
-      rand_forest(
-        mtry = 3,
-        arrrg = fn2())
+      rand_forest(mtry = 3) %>% set_engine("ranger", arrrg = fn2())
     )
   )
 
   expect_true(
     parsnip:::requires_descrs(
-      rand_forest(
-        mtry = .cols(),
-        arrrg = 3)
+      rand_forest(mtry = .cols()) %>% set_engine("ranger", arrrg = 3)
     )
   )
 })

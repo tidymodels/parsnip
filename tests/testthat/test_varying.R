@@ -41,31 +41,34 @@ test_that('main parsnip arguments', {
 test_that('other parsnip arguments', {
 
   other_1 <-
-    rand_forest(sample.fraction = varying()) %>%
-    varying_args(id = "only others")
+    rand_forest() %>%
+    set_engine("ranger", sample.fraction = varying()) %>%
+    varying_args(id = "only engine args")
   exp_1 <-
     tibble(
       name = c("mtry", "trees", "min_n", "sample.fraction"),
       varying = c(rep(FALSE, 3), TRUE),
-      id = rep("only others", 4),
+      id = rep("only engine args", 4),
       type = rep("model_spec", 4)
     )
   expect_equal(other_1, exp_1)
 
   other_2 <-
-    rand_forest(min_n = varying(), sample.fraction = varying()) %>%
-    varying_args(id = "only others")
+    rand_forest(min_n = varying())  %>%
+    set_engine("ranger", sample.fraction = varying()) %>%
+    varying_args(id = "only engine args")
   exp_2 <-
     tibble(
       name = c("mtry", "trees", "min_n", "sample.fraction"),
       varying = c(rep(FALSE, 2), rep(TRUE, 2)),
-      id = rep("only others", 4),
+      id = rep("only engine args", 4),
       type = rep("model_spec", 4)
     )
   expect_equal(other_2, exp_2)
 
   other_3 <-
-    rand_forest(strata = Class, sampsize = c(varying(), varying())) %>%
+    rand_forest()  %>%
+    set_engine("ranger", strata = Class, sampsize = c(varying(), varying())) %>%
     varying_args(id = "add an expr")
   exp_3 <-
     tibble(
@@ -77,7 +80,8 @@ test_that('other parsnip arguments', {
   expect_equal(other_3, exp_3)
 
   other_4 <-
-    rand_forest(strata = Class, sampsize = c(12, varying())) %>%
+    rand_forest()  %>%
+    set_engine("ranger", strata = Class, sampsize = c(12, varying())) %>%
     varying_args(id = "num and varying in vec")
   exp_4 <-
     tibble(

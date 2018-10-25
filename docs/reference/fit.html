@@ -74,7 +74,7 @@ routine." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -138,18 +138,19 @@ routine.</p>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>engine</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class <code>model_spec</code></p></td>
+      <td><p>An object of class <code>model_spec</code> that has a chosen engine
+(via <code><a href='set_engine.html'>set_engine()</a></code>).</p></td>
     </tr>
     <tr>
       <th>formula</th>
@@ -165,12 +166,6 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
 <em>named argument</em> should be used.</p></td>
     </tr>
     <tr>
-      <th>engine</th>
-      <td><p>A character string for the software that should
-be used to fit the model. This is highly dependent on the type
-of model (e.g. linear regression, random forest, etc.).</p></td>
-    </tr>
-    <tr>
       <th>control</th>
       <td><p>A named list with elements <code>verbosity</code> and
 <code>catch</code>. See <code><a href='fit_control.html'>fit_control()</a></code>.</p></td>
@@ -179,8 +174,7 @@ of model (e.g. linear regression, random forest, etc.).</p></td>
       <th>...</th>
       <td><p>Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
-passed using the <code>others</code> argument in the original model
-specification.</p></td>
+passed using <code>set_engine</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -226,33 +220,36 @@ the data are converted to the required format. In this case, any
 calls in the resulting model objects reference the temporary
 objects used to fit the model.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='fit_control.html'>fit_control()</a></code>, <code>model_spec</code>, <code>model_fit</code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Although `glm` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘dplyr’ was built under R version 3.5.1</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'>data</span>(<span class='st'>"lending_club"</span>)
 
-<span class='no'>lm_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
+<span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
-<span class='no'>lm_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
+<span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
 <span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
-  <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>,
-      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>,
-      <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
+  <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
 
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
-  <span class='no'>lm_mod</span> <span class='kw'>%&gt;%</span>
+  <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
-         <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>,
-         <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glm"</span>)
+         <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>)
 
 <span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object
 #&gt; 
@@ -286,6 +283,8 @@ objects used to fit the model.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

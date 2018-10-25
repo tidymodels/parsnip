@@ -9,7 +9,8 @@
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #'
-#' @param object An object of class `model_spec`
+#' @param object An object of class `model_spec` that has a chosen engine
+#'  (via [set_engine()]).
 #' @param formula An object of class "formula" (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
@@ -17,15 +18,11 @@
 #'  below). A data frame containing all relevant variables (e.g.
 #'  outcome(s), predictors, case weights, etc). Note: when needed, a
 #'  \emph{named argument} should be used.
-#' @param engine A character string for the software that should
-#'  be used to fit the model. This is highly dependent on the type
-#'  of model (e.g. linear regression, random forest, etc.).
 #' @param control A named list with elements `verbosity` and
 #'  `catch`. See [fit_control()].
 #' @param ... Not currently used; values passed here will be
 #'  ignored. Other options required to fit the model should be
-#'  passed using the `others` argument in the original model
-#'  specification.
+#'  passed using `set_engine`.
 #' @details  `fit` and `fit_xy` substitute the current arguments in the model
 #'  specification into the computational engine's code, checks them
 #'  for validity, then fits the model using the data and the
@@ -49,21 +46,20 @@
 #' library(dplyr)
 #' data("lending_club")
 #'
-#' lm_mod <- logistic_reg()
+#' lr_mod <- logistic_reg()
 #'
-#' lm_mod <- logistic_reg()
+#' lr_mod <- logistic_reg()
 #'
 #' using_formula <-
-#'   lm_mod %>%
-#'   fit(Class ~ funded_amnt + int_rate,
-#'       data = lending_club,
-#'       engine = "glm")
+#'   lr_mod %>%
+#'   set_engine("glm") %>%
+#'   fit(Class ~ funded_amnt + int_rate, data = lending_club)
 #'
 #' using_xy <-
-#'   lm_mod %>%
+#'   lr_mod %>%
+#'    set_engine("glm") %>%
 #'   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
-#'          y = lending_club$Class,
-#'          engine = "glm")
+#'          y = lending_club$Class)
 #'
 #' using_formula
 #' using_xy
@@ -83,6 +79,7 @@
 #'  The return value will also have a class related to the fitted model (e.g.
 #'  `"_glm"`) before the base class of `"model_fit"`.
 #'
+#' @seealso [set_engine()], [fit_control()], `model_spec`, `model_fit`
 #' @param x A matrix or data frame of predictors.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
@@ -92,11 +89,13 @@ fit.model_spec <-
   function(object,
            formula = NULL,
            data = NULL,
-           engine = object$engine,
            control = fit_control(),
            ...
   ) {
     dots <- quos(...)
+    if (any(names(dots) == "engine"))
+      stop("Use `set_engine` to supply the engine.", call. = FALSE)
+
     if (all(c("x", "y") %in% names(dots)))
       stop("`fit.model_spec` is for the formula methods. Use `fit_xy` instead.",
            call. = FALSE)
@@ -109,10 +108,8 @@ fit.model_spec <-
     eval_env$formula <- formula
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
-    object$engine <- engine
-    object <- check_engine(object)
 
-    if (engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
+    if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
       stop(
         "spark objects can only be used with the formula interface to `fit` ",
         "with a spark data object.", call. = FALSE
@@ -122,7 +119,7 @@ fit.model_spec <-
     object <- get_method(object, engine = object$engine)
 
     check_installs(object)  # TODO rewrite with pkgman
-    # TODO Should probably just load the namespace
+
     load_libs(object, control$verbosity < 2)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
@@ -178,20 +175,20 @@ fit_xy.model_spec <-
   function(object,
            x = NULL,
            y = NULL,
-           engine = object$engine,
            control = fit_control(),
            ...
   ) {
+    dots <- quos(...)
+    if (any(names(dots) == "engine"))
+      stop("Use `set_engine` to supply the engine.", call. = FALSE)
 
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
-    object$engine <- engine
-    object <- check_engine(object)
 
-    if (engine == "spark")
+    if (object$engine == "spark")
       stop(
         "spark objects can only be used with the formula interface to `fit` ",
         "with a spark data object.", call. = FALSE
@@ -201,7 +198,7 @@ fit_xy.model_spec <-
     object <- get_method(object, engine = object$engine)
 
     check_installs(object)  # TODO rewrite with pkgman
-    # TODO Should probably just load the namespace
+
     load_libs(object, control$verbosity < 2)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")

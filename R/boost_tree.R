@@ -22,7 +22,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the  `...` slot. If left to their defaults
+#'  set using the  `set_engine` function. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions.  If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -46,11 +46,6 @@
 #' @param sample_size An number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
 #'  each iteration while `C5.0` samples once during traning.
-#' @param ... Other arguments to pass to the specific engine's
-#'  model fit function (see the Engine Details section below). This
-#'  should not include arguments defined by the main parameters to
-#'  this function. For the `update` function, the ellipses can
-#'  contain the primary arguments or any others.
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree`, the
@@ -63,17 +58,12 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' Main parameter arguments (and those in `...`) can avoid
-#'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()] (e.g. `mtry = expr(floor(sqrt(p)))`).
-#'
 #'
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
-#'  model, the template of the fit calls are:
+#'  model fit call.  For this type of model, the template of the
+#'  fit calls are:
 #'
 #' \pkg{xgboost} classification
 #'
@@ -109,7 +99,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [varying()], [fit()], [set_engine()]
 #' @examples
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:
@@ -121,11 +111,7 @@ boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
-           sample_size = NULL,
-           ...) {
-
-    others <- enquos(...)
-
+           sample_size = NULL) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -136,18 +122,14 @@ boost_tree <-
       sample_size = enquo(sample_size)
     )
 
-    if (!(mode %in% boost_tree_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", boost_tree_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    no_value <- !vapply(others, null_value, logical(1))
-    others <- others[no_value]
-
-    out <- list(args = args, others = others,
-                mode = mode, method = NULL, engine = NULL)
-    class(out) <- make_classes("boost_tree")
-    out
+    new_model_spec(
+      "boost_tree",
+      args,
+      eng_args = NULL,
+      mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -167,6 +149,7 @@ print.boost_tree <- function(x, ...) {
 #' @export
 #' @inheritParams boost_tree
 #' @param object A boosted tree model specification.
+#' @param ... Not used for `update`.
 #' @param fresh A logical for whether the arguments should be
 #'  modified in-place of or replaced wholesale.
 #' @return An updated model specification.
@@ -183,10 +166,8 @@ update.boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL, sample_size = NULL,
-           fresh = FALSE,
-           ...) {
-
-    others <- enquos(...)
+           fresh = FALSE, ...) {
+    update_dot_check(...)
 
     args <- list(
       mtry = enquo(mtry),
@@ -209,23 +190,27 @@ update.boost_tree <-
         object$args[names(args)] <- args
     }
 
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
-    object
+    new_model_spec(
+      "boost_tree",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.boost_tree <- function(x, engine, ...) {
+translate.boost_tree <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'xgboost'` for translation.")
+    engine <- "xgboost"
+  }
   x <- translate.default(x, engine, ...)
 
-  if (x$engine == "spark") {
+  if (engine == "spark") {
     if (x$mode == "unknown")
       stop(
         "For spark boosted trees models, the mode cannot be 'unknown' ",

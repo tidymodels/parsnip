@@ -47,7 +47,7 @@
 #'
 #' Quantile predictions return a tibble with a column `.pred`, which is
 #'  a list-column. Each list element contains a tibble with columns
-#'  `.pred` and `.quantile` (and perhaps others).
+#'  `.pred` and `.quantile` (and perhaps other columns).
 #'
 #' Using `type = "raw"` with `predict.model_fit` (or using
 #'  `predict_raw`) will return the unadulterated results of the
@@ -63,7 +63,8 @@
 #'
 #' lm_model <-
 #'   linear_reg() %>%
-#'   fit(mpg ~ ., data = mtcars %>% slice(11:32), engine = "lm")
+#'   set_engine("lm") %>%
+#'   fit(mpg ~ ., data = mtcars %>% slice(11:32))
 #'
 #' pred_cars <-
 #'   mtcars %>%

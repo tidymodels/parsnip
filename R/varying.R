@@ -23,18 +23,20 @@ varying <- function()
 #'
 #' rand_forest(mtry = varying()) %>% varying_args(id = "one arg")
 #'
-#' rand_forest(others = list(sample.fraction = varying())) %>%
-#'  varying_args(id = "only others")
+#' rand_forest() %>%
+#'   set_engine("ranger", sample.fraction = varying()) %>%
+#'   varying_args(id = "only eng_args")
 #'
-#' rand_forest(
-#'    others = list(
-#'      strata = expr(Class),
+#' rand_forest() %>%
+#'   set_engine(
+#'     "ranger",
+#'     strata = expr(Class),
 #'      sampsize = c(varying(), varying())
-#'    )
-#' ) %>%
-#'    varying_args(id = "add an expr")
+#'   ) %>%
+#'   varying_args(id = "add an expr")
 #'
-#'  rand_forest(others = list(classwt = c(class1 = 1, class2 = varying()))) %>%
+#'  rand_forest() %>%
+#'    set_engine("ranger", classwt = c(class1 = 1, class2 = varying())) %>%
 #'    varying_args(id = "list of values")
 #'
 #' @export
@@ -55,8 +57,8 @@ varying_args.model_spec <- function(x, id = NULL, ...) {
   if (is.null(id))
     id <- deparse(cl$x)
   varying_args <- map(x$args, find_varying)
-  varying_others <- map(x$others, find_varying)
-  res <- c(varying_args, varying_others)
+  varying_eng_args <- map(x$eng_args, find_varying)
+  res <- c(varying_args, varying_eng_args)
   res <- map_lgl(res, any)
   tibble(
     name = names(res),

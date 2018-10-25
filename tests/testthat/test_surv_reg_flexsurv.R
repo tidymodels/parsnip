@@ -2,13 +2,14 @@ library(testthat)
 library(parsnip)
 library(rlang)
 library(survival)
+library(tibble)
 
 # ------------------------------------------------------------------------------
 
 basic_form <- Surv(recyrs, censrec) ~ group
 complete_form <- Surv(recyrs) ~ group
 
-surv_basic <- surv_reg()
+surv_basic <- surv_reg() %>% set_engine("flexsurv")
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
@@ -29,8 +30,7 @@ test_that('flexsurv execution', {
       surv_basic,
       Surv(recyrs, censrec) ~ group,
       data = bc,
-      control = ctrl,
-      engine = "flexsurv"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -39,8 +39,7 @@ test_that('flexsurv execution', {
       surv_basic,
       Surv(recyrs) ~ group,
       data = bc,
-      control = ctrl,
-      engine = "flexsurv"
+      control = ctrl
     ),
     regexp = NA
   )
@@ -49,7 +48,6 @@ test_that('flexsurv execution', {
       surv_basic,
       x = bc[, "group", drop = FALSE],
       y = bc$recyrs,
-      engine = "flexsurv",
       control = ctrl
     )
   )
@@ -68,8 +66,7 @@ test_that('flexsurv prediction', {
     surv_basic,
     Surv(recyrs, censrec) ~ group,
     data = bc,
-    control = ctrl,
-    engine = "flexsurv"
+    control = ctrl
   )
   exp_pred <- summary(res$fit, head(bc), type = "mean")
   exp_pred <- do.call("rbind", unclass(exp_pred))

@@ -44,7 +44,7 @@ distance. This corresponds to the Manhattan distance with dist_power = 1
 and the Euclidean distance with dist_power = 2.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  ... slot. If left to their defaults
+set using set_engine. If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
@@ -88,7 +88,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -157,7 +157,7 @@ distance. This corresponds to the Manhattan distance with <code>dist_power = 1</
 and the Euclidean distance with <code>dist_power = 2</code>.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to their defaults
+set using <code>set_engine</code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code>update()</code> can be used
 in lieu of recreating the object from scratch.</p>
@@ -165,7 +165,7 @@ in lieu of recreating the object from scratch.</p>
     </div>
 
     <pre class="usage"><span class='fu'>nearest_neighbor</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,14 +193,6 @@ to weight distances between samples. Valid choices are: <code>"rectangular"</cod
       <td><p>A single number for the parameter used in
 calculating Minkowski distance.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the <code>update</code> function, the ellipses can
-contain the primary arguments or any others.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -222,8 +214,7 @@ on new data. This also means that a single value of that function's
 
     
     <p>Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the <code>...</code>
-argument to pass in the preferred values. For this type of
+model fit call. For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">kknn</span> (classification or regression)</p>
 <p><pre>
@@ -237,7 +228,10 @@ kknn::train.kknn(formula = missing_arg(), data = missing_arg(),
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>nearest_neighbor</span>()</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
+    <pre class="examples"><div class='input'><span class='fu'>nearest_neighbor</span>(<span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='fl'>11</span>)</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   neighbors = 11
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

@@ -73,7 +73,7 @@ information about a model that has been fit to the data." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -164,13 +164,17 @@ stores model objects after to seeing the data and applying a model.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Keep the `x` matrix if the data are not too big.</span>
-<span class='no'>spec_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'><a href='descriptors.html'>.obs</a></span>() <span class='kw'>&lt;</span> <span class='fl'>500</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>))
+<span class='no'>spec_obj</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'><a href='descriptors.html'>.obs</a></span>() <span class='kw'>&lt;</span> <span class='fl'>500</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>))
 <span class='no'>spec_obj</span></div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Engine-Specific Arguments:
 #&gt;   x = ifelse(.obs() &lt; 500, TRUE, FALSE)
+#&gt; 
+#&gt; Computational engine: lm 
 #&gt; </div><div class='input'>
-<span class='no'>fit_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>spec_obj</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
+<span class='no'>fit_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>spec_obj</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='no'>fit_obj</span></div><div class='output co'>#&gt; parsnip model object
 #&gt; 
 #&gt; 

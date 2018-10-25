@@ -54,14 +54,12 @@ test_normalized <- bake(credit_rec, newdata = credit_test, all_predictors())
 `keras` will be used to fit a model with 5 hidden units and uses a 10% dropout rate to regularize the model. At each training iteration (aka epoch) a random 20% of the data will be used to measure the cross-entropy of the model. 
 
 ```{r credit-nnet}
-library(keras)
-
 set.seed(57974)
-nnet_fit <- mlp(
-  epochs = 100, hidden_units = 5, dropout = 0.1, 
-  others = list(verbose = 0, validation_split = .20)
-) %>%
-  parsnip::fit.model_spec(Status ~ ., data = juice(credit_rec), engine = "keras")
+nnet_fit <-
+  mlp(epochs = 100, hidden_units = 5, dropout = 0.1) %>%
+  # Also set engine-specific arguments: 
+  set_engine("keras", verbose = 0, validation_split = .20) %>%
+  fit(Status ~ ., data = juice(credit_rec))
 
 nnet_fit
 ```

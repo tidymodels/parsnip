@@ -12,8 +12,8 @@ source("helpers.R")
 
 test_that('primary arguments', {
   hidden_units <- mlp(mode = "regression", hidden_units = 4)
-  hidden_units_nnet <- translate(hidden_units, engine = "nnet")
-  hidden_units_keras <- translate(hidden_units, engine = "keras")
+  hidden_units_nnet <- translate(hidden_units %>% set_engine("nnet"))
+  hidden_units_keras <- translate(hidden_units %>% set_engine("keras"))
   expect_equal(hidden_units_nnet$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -33,7 +33,7 @@ test_that('primary arguments', {
   )
 
   no_hidden_units <- mlp(mode = "regression")
-  no_hidden_units_nnet <- translate(no_hidden_units, engine = "nnet")
+  no_hidden_units_nnet <- translate(no_hidden_units %>% set_engine("nnet"))
   expect_equal(no_hidden_units_nnet$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -58,8 +58,8 @@ test_that('primary arguments', {
       epochs = 2, hidden_units = 4, penalty = 0.0001,
       dropout = 0, activation = "softmax"
     )
-  all_args_nnet <- translate(all_args, engine = "nnet")
-  all_args_keras <- translate(all_args, engine = "keras")
+  all_args_nnet <- translate(all_args %>% set_engine("nnet"))
+  all_args_keras <- translate(all_args %>% set_engine("keras"))
   expect_equal(all_args_nnet$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -87,8 +87,8 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
-  nnet_hess <- mlp(mode = "classification", Hess = TRUE)
-  expect_equal(translate(nnet_hess, engine = "nnet")$method$fit$args,
+  nnet_hess <- mlp(mode = "classification") %>% set_engine("nnet", Hess = TRUE)
+  expect_equal(translate(nnet_hess)$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
@@ -100,8 +100,8 @@ test_that('engine arguments', {
                )
   )
 
-  keras_val <- mlp(mode = "regression", validation_split = 0.2)
-  expect_equal(translate(keras_val, engine = "keras")$method$fit$args,
+  keras_val <- mlp(mode = "regression") %>% set_engine("keras", validation_split = 0.2)
+  expect_equal(translate(keras_val)$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
@@ -110,8 +110,8 @@ test_that('engine arguments', {
   )
 
 
-  nnet_tol <- mlp(mode = "regression", abstol = varying())
-  expect_equal(translate(nnet_tol, engine = "nnet")$method$fit$args,
+  nnet_tol <- mlp(mode = "regression") %>% set_engine("nnet", abstol = varying())
+  expect_equal(translate(nnet_tol)$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
@@ -126,36 +126,34 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- mlp(mode = "regression",                   Hess = FALSE, abstol = varying())
-  expr1_exp <- mlp(mode = "regression", hidden_units = 2, Hess = FALSE, abstol = varying())
+  expr1     <- mlp(mode = "regression") %>%
+    set_engine("nnet", Hess = FALSE, abstol = varying())
+  expr1_exp <- mlp(mode = "regression", hidden_units = 2) %>%
+    set_engine("nnet", Hess = FALSE, abstol = varying())
 
-  expr2     <- mlp(mode = "regression", hidden_units = 7)
-  expr2_exp <- mlp(mode = "regression", hidden_units = 7, Hess = FALSE)
+  expr2     <- mlp(mode = "regression", hidden_units = 7) %>% set_engine("nnet")
+  expr2_exp <- mlp(mode = "regression", hidden_units = 7) %>% set_engine("nnet", Hess = FALSE)
 
-  expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = varying())
+  expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = varying()) %>% set_engine("keras")
 
-  expr3_exp <- mlp(mode = "regression", hidden_units = 2)
+  expr3_exp <- mlp(mode = "regression", hidden_units = 2) %>% set_engine("keras")
 
-  expr4     <- mlp(mode = "classification", hidden_units = 2, Hess = TRUE, abstol = varying())
-  expr4_exp <- mlp(mode = "classification", hidden_units = 2, Hess = FALSE, abstol = varying())
+  expr4     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
+  expr4_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
 
-  expr5     <- mlp(mode = "classification", hidden_units = 2, Hess = FALSE)
-  expr5_exp <- mlp(mode = "classification", hidden_units = 2, Hess = FALSE, abstol = varying())
+  expr5     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE)
+  expr5_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
 
   expect_equal(update(expr1, hidden_units = 2), expr1_exp)
-  expect_equal(update(expr2,Hess = FALSE), expr2_exp)
   expect_equal(update(expr3, hidden_units = 2, fresh = TRUE), expr3_exp)
-  expect_equal(update(expr4,Hess = FALSE), expr4_exp)
-  expect_equal(update(expr5,Hess = FALSE, abstol = varying()), expr5_exp)
 
 })
 
 test_that('bad input', {
   expect_error(mlp(mode = "time series"))
-  expect_error(translate(mlp(mode = "classification"), engine = "wat?"))
-  expect_error(translate(mlp(mode = "classification",ytest = 2)))
-  expect_error(translate(mlp(mode = "regression", formula = y ~ x)))
-  expect_warning(translate(mlp(mode = "classification", x = x, y = y), engine = "keras"))
-  expect_error(translate(mlp(mode = "regression", formula = y ~ x), engine = ""))
+  expect_error(translate(mlp(mode = "classification") %>% set_engine("wat?")))
+  expect_warning(translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)))
+  expect_error(translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras")))
+  expect_error(translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine()))
 })
 

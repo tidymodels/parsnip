@@ -31,8 +31,7 @@ test_that('spark execution', {
   expect_error(
     spark_class_fit <-
       fit(
-        multinom_reg(),
-        engine = "spark",
+        multinom_reg() %>% set_engine("spark"),
         control = ctrl,
         Species ~ .,
         data = iris_tr

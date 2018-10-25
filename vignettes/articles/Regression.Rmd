@@ -61,11 +61,12 @@ The model will be fit with the `ranger` package. Since we didn't add any extra a
 ```{r rf-basic-xy}
 preds <- c("Longitude", "Latitude", "Lot_Area", "Neighborhood", "Year_Sold")
 
-rf_xy_fit <- rf_defaults %>%
+rf_xy_fit <- 
+  rf_defaults %>%
+  set_engine("ranger") %>%
   fit_xy(
     x = ames_train[, preds],
-    y = log10(ames_train$Sale_Price),
-    engine = "ranger"
+    y = log10(ames_train$Sale_Price)
   )
 rf_xy_fit
 ```
@@ -95,22 +96,22 @@ Now, for illustration, let's use the formula method using some new parameter val
 
 ```{r rf-basic-form}
 rand_forest(mode = "regression", mtry = 3, trees = 1000) %>%
+  set_engine("ranger") %>%
   fit(
     log10(Sale_Price) ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold,
-    data = ames_train,
-    engine = "ranger"
+    data = ames_train
   )
 ```
  
-Suppose that there was some feature in the `randomForest` package that we'd like to evaluate. To do so, the only part of the syntaxt that needs to change is the `engine` argument:
+Suppose that there was some feature in the `randomForest` package that we'd like to evaluate. To do so, the only part of the syntaxt that needs to change is the `set_engine` argument:
 
 
 ```{r rf-rf}
 rand_forest(mode = "regression", mtry = 3, trees = 1000) %>%
+  set_engine("randomForest") %>%
   fit(
     log10(Sale_Price) ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold,
-    data = ames_train,
-    engine = "randomForest"
+    data = ames_train
   )
 ```
 
@@ -131,10 +132,10 @@ For example, let's use an expression with the `.preds()` descriptor to fit a bag
 
 ```{r bagged}
 rand_forest(mode = "regression", mtry = .preds(), trees = 1000) %>%
+  set_engine("ranger") %>%
   fit(
     log10(Sale_Price) ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold,
-    data = ames_train,
-    engine = "ranger"
+    data = ames_train
   )
 ```
 
@@ -158,12 +159,10 @@ norm_recipe <- recipe(
 
 # Now let's fit the model using the processed version of the data
 
-glmn_fit <- linear_reg(penalty = 0.001, mixture = 0.5) %>% 
-   fit(
-    Sale_Price ~ .,
-    data = juice(norm_recipe),
-    engine = "glmnet"
-  )
+glmn_fit <- 
+  linear_reg(penalty = 0.001, mixture = 0.5) %>% 
+  set_engine("glmnet") %>%
+  fit(Sale_Price ~ ., data = juice(norm_recipe))
 glmn_fit
 ```
 

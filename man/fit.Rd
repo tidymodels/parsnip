@@ -6,13 +6,14 @@
 \title{Fit a Model Specification to a Dataset}
 \usage{
 \method{fit}{model_spec}(object, formula = NULL, data = NULL,
-  engine = object$engine, control = fit_control(), ...)
+  control = fit_control(), ...)
 
 \method{fit_xy}{model_spec}(object, x = NULL, y = NULL,
-  engine = object$engine, control = fit_control(), ...)
+  control = fit_control(), ...)
 }
 \arguments{
-\item{object}{An object of class \code{model_spec}}
+\item{object}{An object of class \code{model_spec} that has a chosen engine
+(via \code{\link[=set_engine]{set_engine()}}).}
 
 \item{formula}{An object of class "formula" (or one that can
 be coerced to that class): a symbolic description of the model
@@ -23,17 +24,12 @@ below). A data frame containing all relevant variables (e.g.
 outcome(s), predictors, case weights, etc). Note: when needed, a
 \emph{named argument} should be used.}
 
-\item{engine}{A character string for the software that should
-be used to fit the model. This is highly dependent on the type
-of model (e.g. linear regression, random forest, etc.).}
-
 \item{control}{A named list with elements \code{verbosity} and
 \code{catch}. See \code{\link[=fit_control]{fit_control()}}.}
 
 \item{...}{Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
-passed using the \code{others} argument in the original model
-specification.}
+passed using \code{set_engine}.}
 
 \item{x}{A matrix or data frame of predictors.}
 
@@ -86,22 +82,24 @@ objects used to fit the model.
 library(dplyr)
 data("lending_club")
 
-lm_mod <- logistic_reg()
+lr_mod <- logistic_reg()
 
-lm_mod <- logistic_reg()
+lr_mod <- logistic_reg()
 
 using_formula <-
-  lm_mod \%>\%
-  fit(Class ~ funded_amnt + int_rate,
-      data = lending_club,
-      engine = "glm")
+  lr_mod \%>\%
+  set_engine("glm") \%>\%
+  fit(Class ~ funded_amnt + int_rate, data = lending_club)
 
 using_xy <-
-  lm_mod \%>\%
+  lr_mod \%>\%
+   set_engine("glm") \%>\%
   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
-         y = lending_club$Class,
-         engine = "glm")
+         y = lending_club$Class)
 
 using_formula
 using_xy
+}
+\seealso{
+\code{\link[=set_engine]{set_engine()}}, \code{\link[=fit_control]{fit_control()}}, \code{model_spec}, \code{model_fit}
 }

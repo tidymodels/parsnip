@@ -11,17 +11,17 @@ data("lending_club")
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
-lc_basic <- logistic_reg(seed = 1333, chains = 1)
+lc_basic <-
+  logistic_reg() %>%
+  set_engine("stan", seed = 1333, chains = 1)
 
-ctrl <- fit_control(verbosity = 1, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
+ctrl <- fit_control(verbosity = 0, catch = FALSE)
+caught_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 
 test_that('stan_glm execution', {
-  skip("currently have an issue with environments not finding model.frame.")
-
   skip_if_not_installed("rstanarm")
 
   expect_error(
@@ -29,14 +29,12 @@ test_that('stan_glm execution', {
       lc_basic,
       funded_amnt ~ term,
       data = lending_club,
-      engine = "stan",
       control = ctrl
     )
   )
 
   stan_xy_catch <- fit_xy(
     lc_basic,
-    engine = "stan",
     control = caught_ctrl,
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il
@@ -47,14 +45,12 @@ test_that('stan_glm execution', {
 
 
 test_that('stan_glm prediction', {
-  skip("currently have an issue with environments not finding model.frame.")
-
   skip_if_not_installed("rstanarm")
   library(rstanarm)
 
   xy_fit <- fit_xy(
-    logistic_reg(seed =  11, chains = 1),
-    engine = "stan",
+    logistic_reg() %>%
+      set_engine("stan", seed = 1333, chains = 1),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -71,10 +67,10 @@ test_that('stan_glm prediction', {
   expect_equal(xy_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(seed =  11, chains = 1),
+    logistic_reg() %>%
+      set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 
@@ -91,13 +87,11 @@ test_that('stan_glm prediction', {
 
 
 test_that('stan_glm probability', {
-  skip("currently have an issue with environments not finding model.frame.")
-
   skip_if_not_installed("rstanarm")
 
   xy_fit <- fit_xy(
-    logistic_reg(seed =  11, chains = 1),
-    engine = "stan",
+    logistic_reg() %>%
+      set_engine("stan", seed = 1333, chains = 1),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -112,10 +106,10 @@ test_that('stan_glm probability', {
   expect_equal(xy_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(seed =  11, chains = 1),
+    logistic_reg() %>%
+      set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 
@@ -129,16 +123,14 @@ test_that('stan_glm probability', {
 
 
 test_that('stan intervals', {
-  skip("currently have an issue with environments not finding model.frame.")
-
   skip_if_not_installed("rstanarm")
   library(rstanarm)
 
   res_form <- fit(
-    logistic_reg(seed =  11, chains = 1),
+    logistic_reg() %>%
+      set_engine("stan", seed = 1333, chains = 1),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "stan",
     control = ctrl
   )
 

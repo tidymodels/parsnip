@@ -5,7 +5,7 @@
 \title{General Interface for K-Nearest Neighbor Models}
 \usage{
 nearest_neighbor(mode = "unknown", neighbors = NULL,
-  weight_func = NULL, dist_power = NULL, ...)
+  weight_func = NULL, dist_power = NULL)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -22,12 +22,6 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 
 \item{dist_power}{A single number for the parameter used in
 calculating Minkowski distance.}
-
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
 }
 \description{
 \code{nearest_neighbor()} is a way to generate a \emph{specification} of a model
@@ -45,7 +39,7 @@ and the Euclidean distance with \code{dist_power = 2}.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to their defaults
+set using \code{set_engine}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.
@@ -68,8 +62,7 @@ on new data. This also means that a single value of that function's
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call. For this type of
 model, the template of the fit calls are:
 
 \pkg{kknn} (classification or regression)
@@ -78,7 +71,7 @@ model, the template of the fit calls are:
 }
 
 \examples{
-nearest_neighbor()
+nearest_neighbor(neighbors = 11)
 
 }
 \seealso{

@@ -18,7 +18,7 @@ make_classes <- function(prefix) {
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms))
-    stop("Please pass other arguments to the model function via `others`", call. = FALSE)
+    stop("Please pass other arguments to the model function via `set_engine`", call. = FALSE)
   terms
 }
 
@@ -35,7 +35,6 @@ deparserizer <- function(x, limit = options()$width - 10) {
 }
 
 print_arg_list <- function(x, ...) {
-  others <- c("name", "call", "expression")
   atomic <- vapply(x, is.atomic, logical(1))
   x2 <- x
   x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
@@ -59,10 +58,10 @@ model_printer <- function(x, ...) {
     non_null_args <- map(non_null_args, convert_arg)
     cat(print_arg_list(non_null_args), "\n", sep = "")
   }
-  if (length(x$others) > 0) {
+  if (length(x$eng_args) > 0) {
     cat("Engine-Specific Arguments:\n")
-    x$others <- map(x$others, convert_arg)
-    cat(print_arg_list(x$others), "\n", sep = "")
+    x$eng_args <- map(x$eng_args, convert_arg)
+    cat(print_arg_list(x$eng_args), "\n", sep = "")
   }
   if (!is.null(x$engine)) {
     cat("Computational engine:", x$engine, "\n\n")
@@ -189,4 +188,31 @@ names0 <- function (num, prefix = "x") {
   ind <- format(1:num)
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
+}
+
+
+# ------------------------------------------------------------------------------
+
+update_dot_check <- function(...) {
+  dots <- enquos(...)
+  if (length(dots) > 0)
+    stop("Extra arguments will be ignored: ",
+         paste0("`", names(dots), "`", collapse = ", "),
+         call. = FALSE)
+  invisible(NULL)
+}
+
+# ------------------------------------------------------------------------------
+
+new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
+  spec_modes <- get(paste0(cls, "_modes"))
+  if (!(mode %in% spec_modes))
+    stop("`mode` should be one of: ",
+         paste0("'", spec_modes, "'", collapse = ", "),
+         call. = FALSE)
+
+  out <- list(args = args, eng_args = eng_args,
+              mode = mode, method = method, engine = engine)
+  class(out) <- make_classes(cls)
+  out
 }

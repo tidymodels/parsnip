@@ -8,7 +8,9 @@ context("simple neural network execution with keras")
 
 num_pred <- names(iris)[1:4]
 
-iris_keras <- mlp(mode = "classification", hidden_units = 2, verbose = 0, epochs = 10)
+iris_keras <-
+  mlp(mode = "classification", hidden_units = 2, epochs = 10) %>%
+  set_engine("keras", verbose = 0)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -25,7 +27,6 @@ test_that('keras execution, classification', {
       iris_keras,
       Species ~ Sepal.Width + Sepal.Length,
       data = iris,
-      engine = "keras",
       control = ctrl
     ),
     regexp = NA
@@ -38,7 +39,6 @@ test_that('keras execution, classification', {
       iris_keras,
       x = iris[, num_pred],
       y = iris$Species,
-      engine = "keras",
       control = ctrl
     ),
     regexp = NA
@@ -51,7 +51,6 @@ test_that('keras execution, classification', {
       iris_keras,
       Species ~ novar,
       data = iris,
-      engine = "keras",
       control = ctrl
     )
   )
@@ -67,7 +66,6 @@ test_that('keras classification prediction', {
     iris_keras,
     x = iris[, num_pred],
     y = iris$Species,
-    engine = "keras",
     control = ctrl
   )
 
@@ -81,7 +79,6 @@ test_that('keras classification prediction', {
     iris_keras,
     Species ~ .,
     data = iris,
-    engine = "keras",
     control = ctrl
   )
 
@@ -101,7 +98,6 @@ test_that('keras classification probabilities', {
     iris_keras,
     x = iris[, num_pred],
     y = iris$Species,
-    engine = "keras",
     control = ctrl
   )
 
@@ -116,7 +112,6 @@ test_that('keras classification probabilities', {
     iris_keras,
     Species ~ .,
     data = iris,
-    engine = "keras",
     control = ctrl
   )
 
@@ -135,9 +130,12 @@ mtcars <- as.data.frame(scale(mtcars))
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- mlp(mode = "regression", verbose = 0, epochs = 10)
+car_basic <- mlp(mode = "regression", epochs = 10) %>%
+  set_engine("keras", verbose = 0)
 
-bad_keras_reg <- mlp(mode = "regression", min.node.size = -10)
+bad_keras_reg <-
+  mlp(mode = "regression") %>%
+  set_engine("keras", min.node.size = -10)
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -155,7 +153,6 @@ test_that('keras execution, regression', {
       car_basic,
       mpg ~ .,
       data = mtcars,
-      engine = "keras",
       control = ctrl
     ),
     regexp = NA
@@ -168,7 +165,6 @@ test_that('keras execution, regression', {
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
-      engine = "keras",
       control = ctrl
     ),
     regexp = NA
@@ -180,10 +176,10 @@ test_that('keras regression prediction', {
   skip_if_not_installed("keras")
 
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1, verbose = 0),
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) %>%
+      set_engine("keras", verbose = 0),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
-    engine = "keras",
     control = ctrl
   )
 
@@ -195,8 +191,7 @@ test_that('keras regression prediction', {
   form_fit <- parsnip::fit(
     car_basic,
     mpg ~ .,
-    data = mtcars[, c("cyl", "disp", "mpg")],,
-    engine = "keras",
+    data = mtcars[, c("cyl", "disp", "mpg")],
     control = ctrl
   )
 
@@ -216,16 +211,11 @@ test_that('multivariate nnet formula', {
   skip_if_not_installed("keras")
 
   nnet_form <-
-    mlp(
-      mode = "regression",
-      hidden_units = 3,
-      penalty = 0.01,
-      verbose = 0
-    ) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
+    set_engine("keras", verbose = 0) %>%
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
-      data = nn_dat[-(1:5),],
-      engine = "keras"
+      data = nn_dat[-(1:5),]
     )
   expect_equal(length(unlist(keras::get_weights(nnet_form$fit))), 24)
   nnet_form_pred <- predict_num(nnet_form, new_data = nn_dat[1:5, -(1:3)])
@@ -236,16 +226,11 @@ test_that('multivariate nnet formula', {
   keras::backend()$clear_session()
 
   nnet_xy <-
-    mlp(
-      mode = "regression",
-      hidden_units = 3,
-      penalty = 0.01,
-      verbose = 0
-    ) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
+    set_engine("keras", verbose = 0) %>%
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
-      y = nn_dat[-(1:5),   1:3 ],
-      engine = "keras"
+      y = nn_dat[-(1:5),   1:3 ]
     )
   expect_equal(length(unlist(keras::get_weights(nnet_xy$fit))), 24)
   nnet_form_xy <- predict_num(nnet_xy, new_data = nn_dat[1:5, -(1:3)])

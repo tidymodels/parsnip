@@ -8,7 +8,8 @@ context("nearest neighbor execution with kknn")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- nearest_neighbor(neighbors = 8, weight_func = "triangular")
+iris_basic <- nearest_neighbor(neighbors = 8, weight_func = "triangular") %>%
+  set_engine("kknn")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -25,7 +26,6 @@ test_that('kknn execution', {
   expect_error(
     fit_xy(
       iris_basic,
-      engine = "kknn",
       control = ctrl,
       x = iris[, num_pred],
       y = iris$Sepal.Length
@@ -38,7 +38,6 @@ test_that('kknn execution', {
   expect_error(
     fit_xy(
       iris_basic,
-      engine = "kknn",
       control = ctrl,
       x = iris[, c("Sepal.Length", "Petal.Width")],
       y = iris$Species
@@ -51,7 +50,7 @@ test_that('kknn execution', {
       iris_basic,
       iris_bad_form,
       data = iris,
-      engine = "kknn",
+
       control = ctrl
     )
   )
@@ -65,7 +64,6 @@ test_that('kknn prediction', {
   # continuous
   res_xy <- fit_xy(
     iris_basic,
-    engine = "kknn",
     control = ctrl,
     x = iris[, num_pred],
     y = iris$Sepal.Length
@@ -81,7 +79,6 @@ test_that('kknn prediction', {
   # nominal
   res_xy_nom <- fit_xy(
     iris_basic,
-    engine = "kknn",
     control = ctrl,
     x = iris[, c("Sepal.Length", "Petal.Width")],
     y = iris$Species
@@ -94,12 +91,12 @@ test_that('kknn prediction', {
 
   expect_equal(uni_pred_nom, predict_class(res_xy_nom, iris[1:5, c("Sepal.Length", "Petal.Width")]))
 
+  library(kknn) # see https://github.com/KlausVigo/kknn/issues/16
   # continuous - formula interface
   res_form <- fit(
     iris_basic,
     Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
-    engine = "kknn",
     control = ctrl
   )
 

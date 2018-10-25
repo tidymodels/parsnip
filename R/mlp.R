@@ -18,7 +18,7 @@
 #'
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the  `...` slot. If left to their defaults
+#'  set using `set_engine`. If left to their defaults
 #'  here (see above), the values are taken from the underlying model
 #'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
 #'  function's `size` argument has no default so a value of 5 units will be
@@ -51,18 +51,13 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#' Main parameter arguments (and those in `...`) can avoid
-#'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()] (e.g. `hidden_units = expr(num_preds * 2)`).
-#'
 #'  An error is thrown if both `penalty` and `dropout` are specified for
 #'  `keras` models.
 #'
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
+#'  model fit call. For this type of
 #'  model, the template of the fit calls are:
 #'
 #' \pkg{keras} classification
@@ -92,10 +87,7 @@
 mlp <-
   function(mode = "unknown",
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
-           activation = NULL,
-           ...) {
-
-    others  <- enquos(...)
+           activation = NULL) {
 
     args <- list(
       hidden_units = enquo(hidden_units),
@@ -105,20 +97,14 @@ mlp <-
       activation   = enquo(activation)
     )
 
-    if (!(mode %in% mlp_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", mlp_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    no_value <- !vapply(others, is.null, logical(1))
-    others <- others[no_value]
-
-    # write a constructor function
-    out <- list(args = args, others = others,
-                mode = mode, method = NULL, engine = NULL)
-    # TODO: make_classes has wrong order; go from specific to general
-    class(out) <- make_classes("mlp")
-    out
+    new_model_spec(
+      "mlp",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -155,10 +141,8 @@ update.mlp <-
   function(object,
            hidden_units = NULL, penalty = NULL, dropout = NULL,
            epochs = NULL, activation = NULL,
-           fresh = FALSE,
-           ...) {
-    others  <- enquos(...)
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       hidden_units = enquo(hidden_units),
       penalty      = enquo(penalty),
@@ -178,20 +162,24 @@ update.mlp <-
         object$args[names(args)] <- args
     }
 
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
-    object
+    new_model_spec(
+      "mlp",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.mlp <- function(x, engine, ...) {
+translate.mlp <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'keras'` for translation.")
+    engine <- "keras"
+  }
 
   if (engine == "nnet") {
     if(isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
@@ -203,10 +191,10 @@ translate.mlp <- function(x, engine, ...) {
 
   if (engine == "nnet") {
     if (x$mode == "classification") {
-      if (length(x$others) == 0  || !any(names(x$others) == "linout"))
+      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
         x$method$fit$args$linout <- FALSE
     } else {
-      if (length(x$others) == 0  || !any(names(x$others) == "linout"))
+      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
         x$method$fit$args$linout <- TRUE
     }
   }
@@ -218,10 +206,6 @@ translate.mlp <- function(x, engine, ...) {
 check_args.mlp <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-
-  if (is.numeric(args$hidden_units))
-    if (args$hidden_units < 2)
-      stop("There must be at least two hidden units", call. = FALSE)
 
   if (is.numeric(args$penalty))
     if (args$penalty < 0)

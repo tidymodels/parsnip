@@ -7,7 +7,9 @@ context("simple neural network execution with nnet")
 
 num_pred <- names(iris)[1:4]
 
-iris_nnet <- mlp(mode = "classification", hidden_units = 2)
+iris_nnet <-
+  mlp(mode = "classification", hidden_units = 2) %>%
+  set_engine("nnet")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -24,7 +26,6 @@ test_that('nnet execution, classification', {
       iris_nnet,
       Species ~ Sepal.Width + Sepal.Length,
       data = iris,
-      engine = "nnet",
       control = ctrl
     ),
     regexp = NA
@@ -34,7 +35,6 @@ test_that('nnet execution, classification', {
       iris_nnet,
       x = iris[, num_pred],
       y = iris$Species,
-      engine = "nnet",
       control = ctrl
     ),
     regexp = NA
@@ -45,7 +45,6 @@ test_that('nnet execution, classification', {
       iris_nnet,
       Species ~ novar,
       data = iris,
-      engine = "nnet",
       control = ctrl
     )
   )
@@ -60,7 +59,6 @@ test_that('nnet classification prediction', {
     iris_nnet,
     x = iris[, num_pred],
     y = iris$Species,
-    engine = "nnet",
     control = ctrl
   )
 
@@ -72,7 +70,6 @@ test_that('nnet classification prediction', {
     iris_nnet,
     Species ~ .,
     data = iris,
-    engine = "nnet",
     control = ctrl
   )
 
@@ -86,10 +83,16 @@ test_that('nnet classification prediction', {
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- mlp(mode = "regression")
+car_basic <-
+  mlp(mode = "regression") %>%
+  set_engine("nnet")
 
-bad_nnet_reg <- mlp(mode = "regression", min.node.size = -10)
-bad_rf_reg <- mlp(mode = "regression", sampsize = -10)
+bad_nnet_reg <-
+  mlp(mode = "regression") %>%
+  set_engine("nnet", min.node.size = -10)
+bad_rf_reg <-
+  mlp(mode = "regression") %>%
+  set_engine("nnet", sampsize = -10)
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -107,7 +110,6 @@ test_that('nnet execution, regression', {
       car_basic,
       mpg ~ .,
       data = mtcars,
-      engine = "nnet",
       control = ctrl
     ),
     regexp = NA
@@ -118,7 +120,6 @@ test_that('nnet execution, regression', {
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
-      engine = "nnet",
       control = ctrl
     ),
     regexp = NA
@@ -135,7 +136,6 @@ test_that('nnet regression prediction', {
     car_basic,
     x = mtcars[, -1],
     y = mtcars$mpg,
-    engine = "nnet",
     control = ctrl
   )
 
@@ -147,7 +147,6 @@ test_that('nnet regression prediction', {
     car_basic,
     mpg ~ .,
     data = mtcars,
-    engine = "nnet",
     control = ctrl
   )
 
@@ -169,11 +168,11 @@ test_that('multivariate nnet formula', {
       mode = "regression",
       hidden_units = 3,
       penalty = 0.01
-    ) %>%
+    )  %>%
+    set_engine("nnet") %>%
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
-      data = nn_dat[-(1:5),],
-      engine = "nnet"
+      data = nn_dat[-(1:5),]
     )
   expect_equal(length(nnet_form$fit$wts), 24)
   nnet_form_pred <- predict_num(nnet_form, new_data = nn_dat[1:5, -(1:3)])
@@ -187,10 +186,10 @@ test_that('multivariate nnet formula', {
       hidden_units = 3,
       penalty = 0.01
     ) %>%
+    set_engine("nnet") %>%
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
-      y = nn_dat[-(1:5),   1:3 ],
-      engine = "nnet"
+      y = nn_dat[-(1:5),   1:3 ]
     )
   expect_equal(length(nnet_xy$fit$wts), 24)
   nnet_form_xy <- predict_num(nnet_xy, new_data = nn_dat[1:5, -(1:3)])

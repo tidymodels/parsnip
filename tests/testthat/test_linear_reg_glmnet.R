@@ -8,8 +8,10 @@ context("linear regression execution with glmnet")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg(penalty = .1, mixture = .3, nlambda = 15)
-no_lambda <- linear_reg(mixture = .3)
+iris_basic <- linear_reg(penalty = .1, mixture = .3) %>%
+  set_engine("glmnet", nlambda = 15)
+no_lambda <- linear_reg(mixture = .3) %>%
+  set_engine("glmnet")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -24,7 +26,6 @@ test_that('glmnet execution', {
   expect_error(
     fit_xy(
       iris_basic,
-      engine = "glmnet",
       control = ctrl,
       x = iris[, num_pred],
       y = iris$Sepal.Length
@@ -37,7 +38,6 @@ test_that('glmnet execution', {
       iris_basic,
       iris_bad_form,
       data = iris,
-      engine = "glm",
       control = ctrl
     )
   )
@@ -46,7 +46,6 @@ test_that('glmnet execution', {
     iris_basic,
     x = iris[, num_pred],
     y = factor(iris$Sepal.Length),
-    engine = "glmnet",
     control = caught_ctrl
   )
   expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
@@ -59,7 +58,6 @@ test_that('glmnet prediction, single lambda', {
 
   res_xy <- fit_xy(
     iris_basic,
-    engine = "glmnet",
     control = ctrl,
     x = iris[, num_pred],
     y = iris$Sepal.Length
@@ -77,7 +75,6 @@ test_that('glmnet prediction, single lambda', {
     iris_basic,
     Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -100,11 +97,11 @@ test_that('glmnet prediction, multiple lambda', {
 
   lams <- c(.01, 0.1)
 
-  iris_mult <- linear_reg(penalty = lams, mixture = .3)
+  iris_mult <- linear_reg(penalty = lams, mixture = .3) %>%
+    set_engine("glmnet")
 
   res_xy <- fit_xy(
     iris_mult,
-    engine = "glmnet",
     control = ctrl,
     x = iris[, num_pred],
     y = iris$Sepal.Length
@@ -124,7 +121,6 @@ test_that('glmnet prediction, multiple lambda', {
     iris_mult,
     Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -146,11 +142,11 @@ test_that('glmnet prediction, all lambda', {
 
   skip_if_not_installed("glmnet")
 
-  iris_all <- linear_reg(mixture = .3)
+  iris_all <- linear_reg(mixture = .3) %>%
+    set_engine("glmnet")
 
   res_xy <- fit_xy(
     iris_all,
-    engine = "glmnet",
     control = ctrl,
     x = iris[, num_pred],
     y = iris$Sepal.Length
@@ -173,7 +169,6 @@ test_that('glmnet prediction, all lambda', {
     iris_all,
     Sepal.Length ~ log(Sepal.Width) + Species,
     data = iris,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -195,7 +190,8 @@ test_that('submodel prediction', {
 
   reg_fit <-
     linear_reg() %>%
-    fit(mpg ~ ., data = mtcars[-(1:4), ], engine = "glmnet")
+    set_engine("glmnet") %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   pred_glmn <- predict(reg_fit$fit, as.matrix(mtcars[1:4, -1]), s = .1)
 

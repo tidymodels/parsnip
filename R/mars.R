@@ -17,7 +17,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the  `...` slot. If left to their defaults
+#'  set using `set_engine`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -30,11 +30,7 @@
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
-#' @details Main parameter arguments (and those in `...`) can avoid
-#'  evaluation until the underlying function is executed by wrapping the
-#'  argument in [rlang::expr()].
-#'
-#' The model can be created using the `fit()` function using the
+#' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"earth"`
@@ -43,8 +39,7 @@
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
+#'  model fit call.  For this type of
 #'  model, the template of the fit calls are:
 #'
 #' \pkg{earth} classification
@@ -67,10 +62,7 @@
 
 mars <-
   function(mode = "unknown",
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           ...) {
-
-    others  <- enquos(...)
+           num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
 
     args <- list(
       num_terms    = enquo(num_terms),
@@ -78,18 +70,14 @@ mars <-
       prune_method = enquo(prune_method)
     )
 
-    if (!(mode %in% mars_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", mars_modes, "'", collapse = ", "),
-           call. = FALSE)
-
-    no_value <- !vapply(others, is.null, logical(1))
-    others <- others[no_value]
-
-    out <- list(args = args, others = others,
-                mode = mode, method = NULL, engine = NULL)
-    class(out) <- make_classes("mars")
-    out
+    new_model_spec(
+      "mars",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      method = NULL,
+      engine = NULL
+    )
   }
 
 #' @export
@@ -120,11 +108,8 @@ print.mars <- function(x, ...) {
 update.mars <-
   function(object,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           fresh = FALSE,
-           ...) {
-
-    others  <- enquos(...)
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
@@ -141,26 +126,29 @@ update.mars <-
         object$args[names(args)] <- args
     }
 
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
-    object
+    new_model_spec(
+      "mars",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.mars <- function(x, engine, ...) {
-
+translate.mars <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'earth'` for translation.")
+    engine <- "earth"
+  }
   # If classification is being done, the `glm` options should be used. Check to
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
-    if (!("glm" %in% names(x$others))) {
-      x$others$glm <- quote(list(family = stats::binomial))
+    if (!("glm" %in% names(x$eng_args))) {
+      x$eng_args$glm <- quote(list(family = stats::binomial))
     }
   }
 
@@ -182,7 +170,7 @@ check_args.mars <- function(object) {
 
   if (!is_varying(args$prune_method) &&
       !is.null(args$prune_method) &&
-      is.character(args$prune_method))
+      !is.character(args$prune_method))
     stop("`prune_method` should be a single string value", call. = FALSE)
 
   invisible(object)
@@ -223,11 +211,20 @@ multi_predict._earth <-
 
     num_terms <- sort(num_terms)
 
+    # update.earth uses the values in the call so evaluate them if
+    # they are quosures
+    call_names <- names(object$fit$call)
+    call_names <- call_names[!(call_names %in% c("", "x", "y"))]
+    for (i in call_names) {
+      if (is_quosure(object$fit$call[[i]]))
+        object$fit$call[[i]] <- eval_tidy(object$fit$call[[i]])
+    }
+
     msg <-
       paste("Please use `keepxy = TRUE` as an option to enable submodel",
             "predictions with `earth`.")
-    if (any(names(object$spec$others) == "keepxy")) {
-      if(!object$spec$others$keepxy)
+    if (any(names(object$fit$call) == "keepxy")) {
+       if(!isTRUE(object$fit$call$keepxy))
         stop (msg, call. = FALSE)
     } else
       stop (msg, call. = FALSE)

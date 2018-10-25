@@ -5,8 +5,7 @@
 \alias{update.multinom_reg}
 \title{General Interface for Multinomial Regression Models}
 \usage{
-multinom_reg(mode = "classification", penalty = NULL, mixture = NULL,
-  ...)
+multinom_reg(mode = "classification", penalty = NULL, mixture = NULL)
 
 \method{update}{multinom_reg}(object, penalty = NULL, mixture = NULL,
   fresh = FALSE, ...)
@@ -23,16 +22,12 @@ represents the proportion of regularization that is used for the
 L2 penalty (i.e. weight decay, or ridge regression) versus L1
 (the lasso) (\code{glmnet} only).}
 
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
-
 \item{object}{A multinomial regression model specification.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{multinom_reg} is a way to generate a \emph{specification} of a model
@@ -47,7 +42,7 @@ the model. Note that this will be ignored for some engines.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the \code{...} slot. If left to their defaults
+set using \code{set_engine}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
@@ -80,8 +75,7 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call.  For this type of
 model, the template of the fit calls are:
 
 \pkg{glmnet}

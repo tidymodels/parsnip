@@ -6,7 +6,7 @@
 \title{General Interface for MARS}
 \usage{
 mars(mode = "unknown", num_terms = NULL, prod_degree = NULL,
-  prune_method = NULL, ...)
+  prune_method = NULL)
 
 \method{update}{mars}(object, num_terms = NULL, prod_degree = NULL,
   prune_method = NULL, fresh = FALSE, ...)
@@ -23,16 +23,12 @@ final model, including the intercept.}
 
 \item{prune_method}{The pruning method.}
 
-\item{...}{Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the \code{update} function, the ellipses can
-contain the primary arguments or any others.}
-
 \item{object}{A MARS model specification.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
+
+\item{...}{Not used for \code{update}.}
 }
 \description{
 \code{mars} is a way to generate a \emph{specification} of a model before
@@ -50,16 +46,12 @@ in \code{?earth}.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  \code{...} slot. If left to their defaults
+set using \code{set_engine}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-Main parameter arguments (and those in \code{...}) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in \code{\link[rlang:expr]{rlang::expr()}}.
-
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
@@ -70,8 +62,7 @@ following \emph{engines}:
 
 
 Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the \code{...}
-argument to pass in the preferred values. For this type of
+model fit call.  For this type of
 model, the template of the fit calls are:
 
 \pkg{earth} classification

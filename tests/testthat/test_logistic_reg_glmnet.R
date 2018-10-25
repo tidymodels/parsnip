@@ -12,7 +12,7 @@ lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_bad_form <- as.formula(funded_amnt ~ term)
-lc_basic <- logistic_reg()
+lc_basic <- logistic_reg() %>% set_engine("glmnet")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -27,7 +27,6 @@ test_that('glmnet execution', {
   expect_error(
     fit_xy(
       lc_basic,
-      engine = "glmnet",
       control = ctrl,
       x = lending_club[, num_pred],
       y = lending_club$Class
@@ -39,7 +38,6 @@ test_that('glmnet execution', {
     lc_basic,
     x = lending_club[, num_pred],
     y = lending_club$total_bal_il,
-    engine = "glmnet",
     control = caught_ctrl
   )
   expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
@@ -51,8 +49,7 @@ test_that('glmnet prediction, one lambda', {
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
-    logistic_reg(penalty = 0.1),
-    engine = "glmnet",
+    logistic_reg(penalty = 0.1) %>% set_engine("glmnet"),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -70,10 +67,9 @@ test_that('glmnet prediction, one lambda', {
   expect_equal(uni_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(penalty = 0.1),
+    logistic_reg(penalty = 0.1) %>% set_engine("glmnet"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -100,8 +96,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   lams <- c(0.01, 0.1)
 
   xy_fit <- fit_xy(
-    logistic_reg(penalty = lams),
-    engine = "glmnet",
+    logistic_reg(penalty = lams) %>% set_engine("glmnet"),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -120,10 +115,9 @@ test_that('glmnet prediction, mulitiple lambda', {
   expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(penalty = lams),
+    logistic_reg(penalty = lams) %>% set_engine("glmnet"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -149,8 +143,7 @@ test_that('glmnet prediction, no lambda', {
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
-    logistic_reg(nlambda =  11),
-    engine = "glmnet",
+    logistic_reg() %>% set_engine("glmnet", nlambda =  11),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -169,10 +162,9 @@ test_that('glmnet prediction, no lambda', {
   expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(nlambda =  11),
+    logistic_reg() %>% set_engine("glmnet", nlambda =  11),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -198,8 +190,7 @@ test_that('glmnet probabilities, one lambda', {
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
-    logistic_reg(penalty = 0.1),
-    engine = "glmnet",
+    logistic_reg(penalty = 0.1)  %>% set_engine("glmnet"),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -214,10 +205,9 @@ test_that('glmnet probabilities, one lambda', {
   expect_equal(uni_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(penalty = 0.1),
+    logistic_reg(penalty = 0.1)  %>% set_engine("glmnet"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -243,8 +233,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   lams <- c(0.01, 0.1)
 
   xy_fit <- fit_xy(
-    logistic_reg(penalty = lams),
-    engine = "glmnet",
+    logistic_reg(penalty = lams)  %>% set_engine("glmnet"),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -261,10 +250,9 @@ test_that('glmnet probabilities, mulitiple lambda', {
   expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(penalty = lams),
+    logistic_reg(penalty = lams)  %>% set_engine("glmnet"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -289,8 +277,7 @@ test_that('glmnet probabilities, no lambda', {
   skip_if_not_installed("glmnet")
 
   xy_fit <- fit_xy(
-    logistic_reg(),
-    engine = "glmnet",
+    logistic_reg()  %>% set_engine("glmnet"),
     control = ctrl,
     x = lending_club[, num_pred],
     y = lending_club$Class
@@ -307,10 +294,9 @@ test_that('glmnet probabilities, no lambda', {
   expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
-    logistic_reg(),
+    logistic_reg() %>% set_engine("glmnet"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
-    engine = "glmnet",
     control = ctrl
   )
 
@@ -337,9 +323,8 @@ test_that('submodel prediction', {
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
     logistic_reg() %>%
-    fit(churn ~ .,
-        data = wa_churn[-(1:4), c("churn", vars)],
-        engine = "glmnet")
+    set_engine("glmnet") %>%
+    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
   pred_glmn <- predict(class_fit$fit, as.matrix(wa_churn[1:4, vars]), s = .1, type = "response")
 

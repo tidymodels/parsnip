@@ -88,7 +88,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9004</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@ in lieu of recreating the object from scratch.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mlp</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for mlp</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -208,14 +208,6 @@ function between the hidden and output layers is automatically set to either
 "linear", "softmax", "relu", and "elu"</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments to pass to the specific engine's
-model fit function (see the Engine Details section below). This
-should not include arguments defined by the main parameters to
-this function. For the <code>update</code> function, the ellipses can
-contain the primary arguments or any others.</p></td>
-    </tr>
-    <tr>
       <th>object</th>
       <td><p>A random forest model specification.</p></td>
     </tr>
@@ -224,13 +216,17 @@ contain the primary arguments or any others.</p></td>
       <td><p>A logical for whether the arguments should be
 modified in-place of or replaced wholesale.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used for <code>update</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code>...</code> slot. If left to their defaults
+set using <code>set_engine</code>. If left to their defaults
 here (see above), the values are taken from the underlying model
 functions. One exception is <code>hidden_units</code> when <code><a href='http://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> is used; that
 function's <code>size</code> argument has no default so a value of 5 units will be
@@ -243,18 +239,14 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"nnet"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
-    <p>Main parameter arguments (and those in <code>...</code>) can avoid
-evaluation until the underlying function is executed by wrapping the
-argument in <code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::expr()</a></code> (e.g. <code>hidden_units = expr(num_preds * 2)</code>).</p>
-<p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
+    <p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
 <code>keras</code> models.</p>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     
     <p>Engines may have pre-set default arguments when executing the
-model fit call. These can be changed by using the <code>...</code>
-argument to pass in the preferred values. For this type of
+model fit call. For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">keras</span> classification</p>
 <p><pre>

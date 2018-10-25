@@ -12,7 +12,7 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using the `...` slot. If left to their defaults
+#'  set using `set_engine`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update` can be used
 #'  in lieu of recreating the object from scratch.
@@ -38,8 +38,7 @@
 #' @section Engine Details:
 #'
 #' Engines may have pre-set default arguments when executing the
-#'  model fit call. These can be changed by using the `...`
-#'  argument to pass in the preferred values. For this type of
+#'  model fit call.  For this type of
 #'  model, the template of the fit calls are:
 #'
 #' \pkg{glmnet}
@@ -83,35 +82,21 @@
 multinom_reg <-
   function(mode = "classification",
            penalty = NULL,
-           mixture = NULL,
-           ...) {
-    others  <- enquos(...)
+           mixture = NULL) {
 
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
 
-    if (!(mode %in% multinom_reg_modes))
-      stop(
-        "`mode` should be one of: ",
-        paste0("'", multinom_reg_modes, "'", collapse = ", "),
-        call. = FALSE
-      )
-
-    no_value <- !vapply(others, is.null, logical(1))
-    others <- others[no_value]
-
-    # write a constructor function
-    out <- list(
+    new_model_spec(
+      "multinom_reg",
       args = args,
-      others = others,
+      eng_args = NULL,
       mode = mode,
       method = NULL,
       engine = NULL
     )
-    class(out) <- make_classes("multinom_reg")
-    out
   }
 
 #' @export
@@ -142,10 +127,8 @@ print.multinom_reg <- function(x, ...) {
 update.multinom_reg <-
   function(object,
            penalty = NULL, mixture = NULL,
-           fresh = FALSE,
-           ...) {
-    others  <- enquos(...)
-
+           fresh = FALSE, ...) {
+    update_dot_check(...)
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -161,14 +144,14 @@ update.multinom_reg <-
         object$args[names(args)] <- args
     }
 
-    if (length(others) > 0) {
-      if (fresh)
-        object$others <- others
-      else
-        object$others[names(others)] <- others
-    }
-
-    object
+    new_model_spec(
+      "multinom_reg",
+      args = object$args,
+      eng_args = object$eng_args,
+      mode = object$mode,
+      method = NULL,
+      engine = object$engine
+    )
   }
 
 # ------------------------------------------------------------------------------
