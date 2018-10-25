@@ -1,6 +1,6 @@
 
-[![Travis build status](https://travis-ci.org/topepo/parsnip.svg?branch=master)](https://travis-ci.org/topepo/parsnip)
-[![Coverage status](https://codecov.io/gh/topepo/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/topepo/parsnip?branch=master)
+[![Travis build status](https://travis-ci.org/tidymodels/parsnip.svg?branch=master)](https://travis-ci.org/tidymodels/parsnip)
+[![Coverage status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
 ![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 
 
@@ -44,5 +44,5 @@ To install it, use:
 
 ```r
 require(devtools)
-install_github("topepo/parsnip")
+install_github("tidymodels/parsnip")
 ```

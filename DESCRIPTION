@@ -6,8 +6,8 @@ Authors@R: c(
     person("Max", "Kuhn", , "max@rstudio.com", c("aut", "cre")),
     person("RStudio", role = "cph"))
 Maintainer: Max Kuhn <max@rstudio.com>
-URL: https://topepo.github.io/parsnip
-BugReports: https://github.com/topepo/parsnip/issues
+URL: https://tidymodels.github.io/parsnip
+BugReports: https://github.com/tidymodels/parsnip/issues
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
