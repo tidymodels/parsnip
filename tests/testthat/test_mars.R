@@ -180,7 +180,7 @@ test_that('mars prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -188,7 +188,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))
 
   res_mv <- fit(
     iris_basic,
@@ -196,7 +196,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, predict_numeric(res_mv, iris[1:5,]))
 })
 
 
@@ -242,6 +242,11 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], num_terms = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
+  
+  expect_error(
+    multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5), 
+    "Did you mean"
+  )
 })
 
 

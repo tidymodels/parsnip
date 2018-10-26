@@ -29,6 +29,10 @@ the model fitting function/engine.
 This function can be useful when you need to understand how
 \code{parsnip} goes from a generic model specific to a model fitting
 function.
+
+\strong{Note}: this function is used internally and users should only use it
+to understand what the underlying syntax would be. It should not be used
+to modify the model specification.
 }
 \examples{
 lm_spec <- linear_reg(penalty = 0.01)

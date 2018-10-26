@@ -26,6 +26,8 @@ reference:
       - nearest_neighbor
       - rand_forest
       - surv_reg   
+      - svm_poly
+      - svm_rbf
   - title: Infrastructure
     contents:
       - descriptors

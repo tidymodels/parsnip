@@ -140,9 +140,9 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
 <p>As an example of a model with multiple engines, here is the object for logistic regression:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">parsnip<span class="op">:::</span>logistic_reg_arg_key</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;         glm glmnet             spark stan</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; penalty  NA lambda         reg_param   NA</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture  NA  alpha elastic_net_param   NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;         glm glmnet             spark stan keras</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; penalty  NA lambda         reg_param   NA decay</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture  NA  alpha elastic_net_param   NA  &lt;NA&gt;</span></a></code></pre></div>
 <p>The internals of <code>parsnip</code> will use these objects during the creation of the model code.</p>
 </div>
 <div id="step-2--create-the-model-function" class="section level2">
@@ -214,18 +214,18 @@
 <a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">defaults =</span> <span class="kw">list</span>()</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">  )</a></code></pre></div>
 </div>
-<div id="the-pred-module" class="section level3">
+<div id="the-numeric-module" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-pred-module" class="anchor"></a>The <code>pred</code> module</h3>
-<p>This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For <code>pred</code>, the model requires an unnamed numeric vector output (usually).</p>
+<a href="#the-numeric-module" class="anchor"></a>The <code>numeric</code> module</h3>
+<p>This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For <code>numeric</code>, the model requires an unnamed numeric vector output (usually).</p>
 <p>Examples are <a href="https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R">here</a> and <a href="https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R">here</a>.</p>
 <p>For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results).</p>
-<p>Note that the <code>pred</code> module maps to the <code>predict_num</code> function in <code>parsnip</code>. However, the user-facing <code>predict</code> function is used to generate predictions and returns a tibble with a column named <code>.pred</code> (see the example below). When creating new models, you don’t have to write code for that part.</p>
+<p>Note that the <code>numeric</code> module maps to the <code>predict_numeric</code> function in <code>parsnip</code>. However, the user-facing <code>predict</code> function is used to generate predictions and returns a tibble with a column named <code>.pred</code> (see the example below). When creating new models, you don’t have to write code for that part.</p>
 </div>
-<div id="the-classes-module" class="section level3">
+<div id="the-class-module" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-classes-module" class="anchor"></a>The <code>classes</code> module</h3>
-<p>To make hard class predictions, the <code>classes</code> object contains the details. The elements of the list are:</p>
+<a href="#the-class-module" class="anchor"></a>The <code>class</code> module</h3>
+<p>To make hard class predictions, the <code>class</code> object contains the details. The elements of the list are:</p>
 <ul>
 <li>
 <code>pre</code> and <code>post</code> are optional functions that can preprocess the data being fed to the prediction code and to postprocess the raw output of the predictions. These won’t be need for this example, but a section below has examples of how these can be used when the model code is not easy to use. If the data being predicted has a simple type requirement, you can avoid using a <code>pre</code> function with the <code>args</code> below.</li>
@@ -234,7 +234,7 @@
 <li>
 <code>args</code> is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in <code><a href="https://rlang.r-lib.org/reference/quotation.html">rlang::expr</a></code> so that they are not evaluated when defining the method. For <code>mda</code>, the code would be <code>predict(object, newdata, type = "class")</code>. What is actually given to the function is the <code>parsnip</code> model fit object, which includes a sub-object called <code>fit</code> and this houses the <code>mda</code> model object. If the data need to be a matrix or data frame, you could also use <code>new_data = quote(as.data.frame(new_data))</code> and so on.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mixture_da_mda_data<span class="op">$</span>classes &lt;-</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mixture_da_mda_data<span class="op">$</span>class &lt;-</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="dt">pre =</span> <span class="ot">NULL</span>,</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="dt">post =</span> <span class="ot">NULL</span>,</a>
@@ -253,12 +253,12 @@
 <a class="sourceLine" id="cb9-17" data-line-number="17">  )</a></code></pre></div>
 <p>The <code>predict_class</code> function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data. As with the <code>pred</code> module, the user doesn’t call <code>predict_class</code> but uses <code>predict</code> instead and this produces a tibble with a column named <code>.pred_class</code> <a href="https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values">per the model guidlines</a>.</p>
 </div>
-<div id="the-prob-module" class="section level3">
+<div id="the-classprob-module" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-prob-module" class="anchor"></a>The <code>prob</code> module</h3>
-<p>This defines the class probabilities (if they can be computed). The format is identical to the <code>classes</code> module but the output is expected to be a tibble with columns for each factor level.</p>
+<a href="#the-classprob-module" class="anchor"></a>The <code>classprob</code> module</h3>
+<p>This defines the class probabilities (if they can be computed). The format is identical to the <code>class</code> module but the output is expected to be a tibble with columns for each factor level.</p>
 <p>As an example of the <code>post</code> function, the data frame created by <code>mda:::predict.mda</code> will be converted to a tibble. The arguments are <code>x</code> (the raw results coming from the predict method) and <code>object</code> (the <code>parsnip</code> model fit object). The latter has a sub-object called <code>lvl</code> which is a character string of the outcome’s factor levels (if any).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mixture_da_mda_data<span class="op">$</span>prob &lt;-</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mixture_da_mda_data<span class="op">$</span>classprob &lt;-</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">pre =</span> <span class="ot">NULL</span>,</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="dt">post =</span> <span class="cf">function</span>(x, object) {</a>
@@ -371,9 +371,9 @@
 <div id="do-i-have-to-return-a-simple-vector-for-predict_num-and-predict_class" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do-i-have-to-return-a-simple-vector-for-predict_num-and-predict_class" class="anchor"></a>Do I have to return a simple vector for <code>predict_num</code> and <code>predict_class</code>?</h3>
-<p>Previously, when discussing the <code>pred</code> information:</p>
+<p>Previously, when discussing the <code>numeric</code> information:</p>
 <blockquote>
-<p>For <code>pred</code>, the model requires an unnamed numeric vector output <strong>(usually)</strong>.</p>
+<p>For <code>numeric</code>, the model requires an unnamed numeric vector output <strong>(usually)</strong>.</p>
 </blockquote>
 <p>There are some occasions where a prediction for a single new sample may be multidimensional. Examples are enumerated <a href="https://tidymodels.github.io/model-implementation-principles/notes.html#list-cols">here</a> but some easy examples are:</p>
 <ul>

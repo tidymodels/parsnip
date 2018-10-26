@@ -101,8 +101,8 @@
     
 <p><code>parsnip</code> contains wrappers for a number of models. For example, the <code>parsnip</code> function <code><a href="../../reference/rand_forest.html">rand_forest()</a></code> can be used to create a random forest model. The <strong>mode</strong> of a model is related to its goal. Examples would be regression and classification.</p>
 <p>The list of models accessible via <code>parsnip</code> is:</p>
-<p>classification: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code></p>
-<p>regression: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/surv_reg.html">surv_reg()</a></code></p>
+<p>classification: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/svm_poly.html">svm_poly()</a></code>, <code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code></p>
+<p>regression: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/surv_reg.html">surv_reg()</a></code>, <code><a href="../../reference/svm_poly.html">svm_poly()</a></code>, <code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code></p>
 <p><em>How</em> the model is created is related to the <em>engine</em>. In many cases, this is an R modeling package. In others, it may be a connection to an external system (such as Spark or Tensorflow). This table lists the engines for each model type along with the type of prediction that it can make (see <code><a href="../../reference/predict.model_fit.html">predict.model_fit()</a></code>).</p>
 <table class="table table">
 <thead><tr>
@@ -116,16 +116,16 @@ engine
 <code>class</code>
 </th>
 <th style="text-align:left;">
+<code>classprob</code>
+</th>
+<th style="text-align:left;">
 <code>conf_int</code>
 </th>
 <th style="text-align:left;">
-<code>num</code>
+<code>numeric</code>
 </th>
 <th style="text-align:left;">
 <code>pred_int</code>
-</th>
-<th style="text-align:left;">
-<code>prob</code>
 </th>
 <th style="text-align:left;">
 <code>quantile</code>
@@ -146,16 +146,16 @@ C5.0
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -172,9 +172,6 @@ spark
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -182,6 +179,9 @@ spark
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -198,9 +198,6 @@ xgboost
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -208,6 +205,9 @@ xgboost
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -217,7 +217,7 @@ xgboost
 </td>
 </tr>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="4">
+<td style="text-align:left;vertical-align: middle !important;" rowspan="5">
 <code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
 </td>
 <td style="text-align:left;">
@@ -230,10 +230,10 @@ glmnet
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -247,22 +247,48 @@ glmnet
 </tr>
 <tr>
 <td style="text-align:left;">
+keras
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 lm
 </td>
 <td style="text-align:left;">
 ×
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -282,10 +308,10 @@ spark
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -305,16 +331,16 @@ stan
 ×
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -324,7 +350,7 @@ stan
 </td>
 </tr>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="4">
+<td style="text-align:left;vertical-align: middle !important;" rowspan="5">
 <code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
 </td>
 <td style="text-align:left;">
@@ -337,13 +363,13 @@ glm
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -360,16 +386,16 @@ glmnet
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -380,22 +406,48 @@ glmnet
 </tr>
 <tr>
 <td style="text-align:left;">
+keras
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 spark
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -415,10 +467,10 @@ stan
 ✔
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -441,9 +493,6 @@ earth
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -451,6 +500,9 @@ earth
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -470,9 +522,6 @@ keras
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -480,6 +529,9 @@ keras
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -499,7 +551,36 @@ nnet
 ×
 </td>
 <td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="3">
+<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
+</td>
+<td style="text-align:left;">
+glmnet
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -515,11 +596,11 @@ nnet
 </td>
 </tr>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
-<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
+<td style="text-align:left;">
+keras
 </td>
 <td style="text-align:left;">
-glmnet
+✔
 </td>
 <td style="text-align:left;">
 ✔
@@ -534,13 +615,10 @@ glmnet
 ×
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 </tr>
 <tr>
@@ -551,16 +629,16 @@ spark
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -580,9 +658,6 @@ kknn
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -590,6 +665,9 @@ kknn
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -609,9 +687,6 @@ randomForest
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -619,6 +694,9 @@ randomForest
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -641,10 +719,10 @@ ranger
 ✔
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -661,9 +739,6 @@ spark
 ✔
 </td>
 <td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
@@ -671,6 +746,9 @@ spark
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -693,10 +771,10 @@ flexsurv
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -719,10 +797,10 @@ survreg
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -734,9 +812,67 @@ survreg
 ×
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+<code><a href="../../reference/svm_poly.html">svm_poly()</a></code>
+</td>
+<td style="text-align:left;">
+kernlab
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code>
+</td>
+<td style="text-align:left;">
+kernlab
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
 </tbody>
 </table>
-<p>Models can be added by the user too. See the “Making a <code>parsnip</code> model from scratch” vignette.</p>
+<p>Models can be added by the user too. See the <a href="Scratch.html">“Making a <code>parsnip</code> model from scratch” vignette</a>.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

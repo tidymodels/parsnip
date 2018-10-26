@@ -14,8 +14,11 @@ multinom_reg(mode = "classification", penalty = NULL, mixture = NULL)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
-\item{penalty}{An non-negative number representing the
-total amount of regularization.}
+\item{penalty}{An non-negative number representing the total
+amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
+For \code{keras} models, this corresponds to purely L2 regularization
+(aka weight decay) while the other models can be a combination
+of L1 and L2 (depending on the value of \code{mixture}).}
 
 \item{mixture}{A number between zero and one (inclusive) that
 represents the proportion of regularization that is used for the
@@ -32,7 +35,7 @@ modified in-place of or replaced wholesale.}
 \description{
 \code{multinom_reg} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
-different packages in R or Spark. The main arguments for the
+different packages in R, keras, or Spark. The main arguments for the
 model are:
 \itemize{
 \item \code{penalty}: The total amount of regularization
@@ -55,6 +58,7 @@ following \emph{engines}:
 \itemize{
 \item \pkg{R}:   \code{"glmnet"}
 \item \pkg{Stan}:  \code{"stan"}
+\item \pkg{keras}: \code{"keras"}
 }
 }
 \note{
@@ -85,6 +89,10 @@ model, the template of the fit calls are:
 \pkg{spark}
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "spark")}
+
+\pkg{keras}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "keras")}
 
 When using \code{glmnet} models, there is the option to pass
 multiple values (or no values) to the \code{penalty} argument.

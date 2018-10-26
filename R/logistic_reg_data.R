@@ -4,6 +4,7 @@ logistic_reg_arg_key <- data.frame(
   glmnet =  c(   "lambda",             "alpha"),
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
+  keras  =  c(   "decay",                  NA),  
   stringsAsFactors = FALSE,
   row.names =  c("penalty", "mixture")
 )
@@ -15,6 +16,7 @@ logistic_reg_engines <- data.frame(
   glmnet = TRUE,
   spark  = TRUE,
   stan   = TRUE,
+  keras  = TRUE,
   row.names =  c("classification")
 )
 
@@ -33,7 +35,7 @@ logistic_reg_glm_data <-
           family = expr(stats::binomial)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = prob_to_class_2,
       func = c(fun = "predict"),
@@ -44,7 +46,7 @@ logistic_reg_glm_data <-
           type = "response"
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- tibble(v1 = 1 - x, v2 = x)
@@ -109,7 +111,7 @@ logistic_reg_glmnet_data <-
           family = "binomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = organize_glmnet_class,
       func = c(fun = "predict"),
@@ -121,7 +123,7 @@ logistic_reg_glmnet_data <-
           s = quote(object$spec$args$penalty)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = organize_glmnet_prob,
       func = c(fun = "predict"),
@@ -156,7 +158,7 @@ logistic_reg_stan_data <-
           family = expr(stats::binomial)
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         x <- object$fit$family$linkinv(x)
@@ -170,7 +172,7 @@ logistic_reg_stan_data <-
           newdata = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- object$fit$family$linkinv(x)
@@ -268,7 +270,7 @@ logistic_reg_spark_data <-
           family = "binomial"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = format_spark_class,
       func = c(pkg = "sparklyr", fun = "ml_predict"),
@@ -278,7 +280,7 @@ logistic_reg_spark_data <-
           dataset = quote(new_data)
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = format_spark_probs,
       func = c(pkg = "sparklyr", fun = "ml_predict"),
@@ -290,3 +292,39 @@ logistic_reg_spark_data <-
     )
   )
 
+logistic_reg_keras_data <-
+  list(
+    libs = c("keras", "magrittr"),
+    fit = list(
+      interface = "matrix",
+      protect = c("x", "y"),
+      func = c(pkg = "parsnip", fun = "keras_mlp"),
+      defaults = list(hidden_units = 1, act = "linear")
+    ),
+    class = list(
+      pre = NULL,
+      post = function(x, object) {
+        object$lvl[x + 1]
+      },
+      func = c(pkg = "keras", fun = "predict_classes"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(new_data))
+        )
+    ),
+    classprob = list(
+      pre = NULL,
+      post = function(x, object) {
+        x <- as_tibble(x)
+        colnames(x) <- object$lvl
+        x
+      },
+      func = c(pkg = "keras", fun = "predict_proba"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(new_data))
+        )
+    )
+  )

@@ -2,7 +2,7 @@
 #'
 #' `multinom_reg` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
-#'  different packages in R or Spark. The main arguments for the
+#'  different packages in R, keras, or Spark. The main arguments for the
 #'  model are:
 #' \itemize{
 #'   \item \code{penalty}: The total amount of regularization
@@ -19,8 +19,11 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
-#' @param penalty An non-negative number representing the
-#'  total amount of regularization.
+#' @param penalty An non-negative number representing the total
+#'  amount of regularization (`glmnet`, `keras`, and `spark` only).
+#'  For `keras` models, this corresponds to purely L2 regularization
+#'  (aka weight decay) while the other models can be a combination
+#'  of L1 and L2 (depending on the value of `mixture`).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
 #'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
@@ -33,6 +36,7 @@
 #' \itemize{
 #' \item \pkg{R}:   `"glmnet"`
 #' \item \pkg{Stan}:  `"stan"`
+#' \item \pkg{keras}: `"keras"`
 #' }
 #'
 #' @section Engine Details:
@@ -48,6 +52,10 @@
 #' \pkg{spark}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "spark")}
+#'
+#' \pkg{keras}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "keras")}
 #'
 #' When using `glmnet` models, there is the option to pass
 #'  multiple values (or no values) to the `penalty` argument.
@@ -236,6 +244,9 @@ predict._multnet <-
 #' @export
 multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
 

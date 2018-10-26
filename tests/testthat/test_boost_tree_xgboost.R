@@ -141,7 +141,7 @@ test_that('xgboost regression prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(xy_pred, predict_num(xy_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict_numeric(xy_fit, new_data = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -151,7 +151,7 @@ test_that('xgboost regression prediction', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(form_pred, predict_num(form_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict_numeric(form_fit, new_data = mtcars[1:8, -1]))
 })
 
 
@@ -188,5 +188,10 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pred_class)
+  
+  expect_error(
+    multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 5, type = "prob"), 
+    "Did you mean"
+  )
 })
 

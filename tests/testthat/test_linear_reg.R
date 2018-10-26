@@ -269,7 +269,7 @@ test_that('lm prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict_num(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -277,7 +277,7 @@ test_that('lm prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, predict_num(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))
 
   res_mv <- fit(
     iris_basic,
@@ -285,7 +285,7 @@ test_that('lm prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, predict_num(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, predict_numeric(res_mv, iris[1:5,]))
 })
 
 test_that('lm intervals', {
@@ -320,5 +320,16 @@ test_that('lm intervals', {
 
   expect_equivalent(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"])
   expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
+})
+
+
+test_that('newdata error trapping', {
+  res_xy <- fit_xy(
+    iris_basic,
+    x = iris[, num_pred],
+    y = iris$Sepal.Length,
+    control = ctrl
+  )
+  expect_error(predict(res_xy, newdata = iris[1:3, num_pred]), "Did you mean")
 })
 

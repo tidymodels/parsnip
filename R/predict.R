@@ -91,12 +91,15 @@
 #' @export predict.model_fit
 #' @export
 predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0)
     warning("`opts` is only used with `type = 'raw'` and was ignored.")
   res <- switch(
     type,
-    numeric  = predict_num(object = object, new_data = new_data, ...),
+    numeric  = predict_numeric(object = object, new_data = new_data, ...),
     class    = predict_class(object = object, new_data = new_data, ...),
     prob     = predict_classprob(object = object, new_data = new_data, ...),
     conf_int = predict_confint(object = object, new_data = new_data, ...),

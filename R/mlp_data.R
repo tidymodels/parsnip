@@ -25,7 +25,7 @@ mlp_keras_data <-
       func = c(pkg = "parsnip", fun = "keras_mlp"),
       defaults = list()
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = maybe_multivariate,
       func = c(fun = "predict"),
@@ -35,7 +35,7 @@ mlp_keras_data <-
           x = quote(as.matrix(new_data))
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = function(x, object) {
         object$lvl[x + 1]
@@ -47,7 +47,7 @@ mlp_keras_data <-
           x = quote(as.matrix(new_data))
         )
     ),
-    prob = list(
+    classprob = list(
       pre = NULL,
       post = function(x, object) {
         x <- as_tibble(x)
@@ -72,6 +72,17 @@ mlp_keras_data <-
     )
   )
 
+
+nnet_softmax <- function(results, object) {
+  if (ncol(results) == 1)
+    results <- cbind(1 - results, results)
+    
+  results <- apply(results, 1, function(x) exp(x)/sum(exp(x)))
+  results <- as_tibble(t(results))
+  names(results) <- paste0(".pred_", object$lvl)
+  results
+}
+
 mlp_nnet_data <-
   list(
     libs = "nnet",
@@ -81,7 +92,7 @@ mlp_nnet_data <-
       func = c(pkg = "nnet", fun = "nnet"),
       defaults = list(trace = FALSE)
     ),
-    pred = list(
+    numeric = list(
       pre = NULL,
       post = maybe_multivariate,
       func = c(fun = "predict"),
@@ -92,7 +103,7 @@ mlp_nnet_data <-
           type = "raw"
         )
     ),
-    classes = list(
+    class = list(
       pre = NULL,
       post = NULL,
       func = c(fun = "predict"),
@@ -101,6 +112,17 @@ mlp_nnet_data <-
           object = quote(object$fit),
           newdata = quote(new_data),
           type = "class"
+        )
+    ),
+    classprob = list(
+      pre = NULL,
+      post = nnet_softmax,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          type = "raw"
         )
     ),
     raw = list(
@@ -113,6 +135,7 @@ mlp_nnet_data <-
         )
     )
   )
+
 
 # ------------------------------------------------------------------------------
 

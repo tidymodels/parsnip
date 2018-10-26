@@ -2,8 +2,8 @@
 #'
 #' `logistic_reg` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
-#'  different packages in R, Stan, or via Spark. The main arguments for the
-#'  model are:
+#'  different packages in R, Stan, keras, or via Spark. The main 
+#'  arguments for the model are:
 #' \itemize{
 #'   \item \code{penalty}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines.
@@ -19,8 +19,11 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
-#' @param penalty An non-negative number representing the
-#'  total amount of regularization (`glmnet` and `spark` only).
+#' @param penalty An non-negative number representing the total
+#'  amount of regularization (`glmnet`, `keras`, and `spark` only).
+#'  For `keras` models, this corresponds to purely L2 regularization
+#'  (aka weight decay) while the other models can be a combination
+#'  of L1 and L2 (depending on the value of `mixture`).
 #' @param mixture A number between zero and one (inclusive) that
 #'  represents the proportion of regularization that is used for the
 #'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
@@ -34,6 +37,7 @@
 #' \item \pkg{R}:  `"glm"` or `"glmnet"`
 #' \item \pkg{Stan}:  `"stan"`
 #' \item \pkg{Spark}: `"spark"`
+#' \item \pkg{keras}: `"keras"`
 #' }
 #'
 #' @section Engine Details:
@@ -58,6 +62,10 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
 #'
+#' \pkg{keras}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
+#' 
 #' When using `glmnet` models, there is the option to pass
 #'  multiple values (or no values) to the `penalty` argument.
 #'  This can have an effect on the model object results. When using
@@ -230,24 +238,36 @@ organize_glmnet_prob <- function(x, object) {
 
 #' @export
 predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
 }
 
 #' @export
 predict_class._lognet <- function (object, new_data, ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
 predict_classprob._lognet <- function (object, new_data, ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
 predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
+  if (any(names(enquos(...)) == "newdata"))
+    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+  
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
@@ -258,6 +278,9 @@ predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
 #' @export
 multi_predict._lognet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    
     dots <- list(...)
     if (is.null(penalty))
       penalty <- object$lambda

@@ -31,7 +31,7 @@ lr_fit_2 <-
 
 test_that('regression predictions', {
   expect_true(is_tibble(predict(lm_fit, new_data = iris[1:5,-1])))
-  expect_true(is.vector(predict_num(lm_fit, new_data = iris[1:5,-1])))
+  expect_true(is.vector(predict_numeric(lm_fit, new_data = iris[1:5,-1])))
   expect_equal(names(predict(lm_fit, new_data = iris[1:5,-1])), ".pred")
 })
 

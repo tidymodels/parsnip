@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Multinomial Regression Models — multinom_reg • parsnip</title>
+<title>General interface for radial basis function support vector machines — svm_rbf • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,16 +29,18 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="General Interface for Multinomial Regression Models — multinom_reg" />
+<meta property="og:title" content="General interface for radial basis function support vector machines — svm_rbf" />
 
-<meta property="og:description" content="multinom_reg is a way to generate a specification of a model
+<meta property="og:description" content="svm_rbf is a way to generate a specification of a model
 before fitting and allows the model to be created using
-different packages in R, keras, or Spark. The main arguments for the
+different packages in R or via Spark. The main arguments for the
 model are:
-penalty: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-mixture: The proportion of L1 regularization in
-the model. Note that this will be ignored for some engines.
+cost: The cost of predicting a sample within or on the
+wrong side of the margin.
+rbf_sigma: The precision parameter for the radial basis
+function.
+margin: The epsilon in the SVM insensitive loss function
+(regression only)
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using set_engine. If left to their defaults
@@ -134,21 +136,23 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Multinomial Regression Models</h1>
+    <h1>General interface for radial basis function support vector machines</h1>
     
-    <div class="hidden name"><code>multinom_reg.Rd</code></div>
+    <div class="hidden name"><code>svm_rbf.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>multinom_reg</code> is a way to generate a <em>specification</em> of a model
+    <p><code>svm_rbf</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
-different packages in R, keras, or Spark. The main arguments for the
+different packages in R or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>penalty</code>: The total amount of regularization
-in the model. Note that this must be zero for some engines.</p></li>
-<li><p><code>mixture</code>: The proportion of L1 regularization in
-the model. Note that this will be ignored for some engines.</p></li>
+<li><p><code>cost</code>: The cost of predicting a sample within or on the
+wrong side of the margin.</p></li>
+<li><p><code>rbf_sigma</code>: The precision parameter for the radial basis
+function.</p></li>
+<li><p><code>margin</code>: The epsilon in the SVM insensitive loss function
+(regression only)</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using <code>set_engine</code>. If left to their defaults
@@ -158,11 +162,12 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>multinom_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>svm_rbf</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rbf_sigma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='co'># S3 method for multinom_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for svm_rbf</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rbf_sigma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,26 +175,26 @@ in lieu of recreating the object from scratch.</p>
     <tr>
       <th>mode</th>
       <td><p>A single character string for the type of model.
-The only possible value for this model is "classification".</p></td>
+Possible values for this model are "unknown", "regression", or
+"classification".</p></td>
     </tr>
     <tr>
-      <th>penalty</th>
-      <td><p>An non-negative number representing the total
-amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
-For <code>keras</code> models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
+      <th>cost</th>
+      <td><p>A positive number for the cost of predicting a sample within
+or on the wrong side of the margin</p></td>
     </tr>
     <tr>
-      <th>mixture</th>
-      <td><p>A number between zero and one (inclusive) that
-represents the proportion of regularization that is used for the
-L2 penalty (i.e. weight decay, or ridge regression) versus L1
-(the lasso) (<code>glmnet</code> only).</p></td>
+      <th>rbf_sigma</th>
+      <td><p>A positive number for radial basis function.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p>A positive number for the epsilon in the SVM insensitive
+loss function (regression only)</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>A multinomial regression model specification.</p></td>
+      <td><p>A radial basis function SVM model specification.</p></td>
     </tr>
     <tr>
       <th>fresh</th>
@@ -204,59 +209,26 @@ modified in-place of or replaced wholesale.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For <code>multinom_reg</code>, the mode will always be "classification".</p>
-<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+    <p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:   <code>"glmnet"</code></p></li>
-<li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
-<li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"kernlab"</code></p></li>
 </ul>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via <code>fit</code> is available; using <code>fit_xy</code> will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via <code>save</code>), the <code>model$fit</code> element of the <code>parsnip</code>
-object should be serialized via <code>ml_save(object$fit)</code> and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the <code>parsnip</code> object.</p>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     
     <p>Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">glmnet</span></p>
+model fit call. For this type of
+model, the template of the fit calls are::</p>
+<p><span class="pkg">kernlab</span> classification</p>
 <p><pre>
-glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    family = "multinomial")
+kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot", 
+    prob.model = TRUE)
 </pre></p>
-<p><span class="pkg">spark</span></p>
+<p><span class="pkg">kernlab</span> regression</p>
 <p><pre>
-sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-    weight_col = missing_arg(), family = "multinomial")
+kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot")
 </pre></p>
-<p><span class="pkg">keras</span></p>
-<p><pre>
-parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-    act = "linear")
-</pre></p>
-<p>When using <code>glmnet</code> models, there is the option to pass
-multiple values (or no values) to the <code>penalty</code> argument.
-This can have an effect on the model object results. When using
-the <code>predict</code> method in these cases, the return object type
-depends on the value of <code>penalty</code>. If a single value is
-given, the results will be a simple numeric vector. When
-multiple values or no values for <code>penalty</code> are used in
-<code>multinom_reg</code>, the <code>predict</code> method will return a data frame with
-columns <code>values</code> and <code>lambda</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -264,27 +236,30 @@ columns <code>values</code> and <code>lambda</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>multinom_reg</span>()</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'>svm_rbf</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>rbf_sigma</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt; Radial Basis Function Support Vector Machine Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   rbf_sigma = 0.2
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>multinom_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+<span class='fu'>svm_rbf</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Radial Basis Function Support Vector Machine Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   penalty = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>multinom_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt;   cost = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>svm_rbf</span>(<span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>rbf_sigma</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+<span class='no'>model</span></div><div class='output co'>#&gt; Radial Basis Function Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   penalty = 10
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt;   cost = 10
+#&gt;   rbf_sigma = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Radial Basis Function Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   penalty = 1
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt;   cost = 1
+#&gt;   rbf_sigma = 0.1
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Radial Basis Function Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   penalty = 1
+#&gt;   cost = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -293,8 +268,6 @@ columns <code>values</code> and <code>lambda</code>.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
 
       <li><a href="#engine-details">Engine Details</a></li>
 
