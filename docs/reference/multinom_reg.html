@@ -33,7 +33,7 @@
 
 <meta property="og:description" content="multinom_reg is a way to generate a specification of a model
 before fitting and allows the model to be created using
-different packages in R or Spark. The main arguments for the
+different packages in R, keras, or Spark. The main arguments for the
 model are:
 penalty: The total amount of regularization
 in the model. Note that this must be zero for some engines.
@@ -143,7 +143,7 @@ in lieu of recreating the object from scratch." />
     
     <p><code>multinom_reg</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
-different packages in R or Spark. The main arguments for the
+different packages in R, keras, or Spark. The main arguments for the
 model are:</p><ul>
 <li><p><code>penalty</code>: The total amount of regularization
 in the model. Note that this must be zero for some engines.</p></li>
@@ -174,8 +174,11 @@ The only possible value for this model is "classification".</p></td>
     </tr>
     <tr>
       <th>penalty</th>
-      <td><p>An non-negative number representing the
-total amount of regularization.</p></td>
+      <td><p>An non-negative number representing the total
+amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
+For <code>keras</code> models, this corresponds to purely L2 regularization
+(aka weight decay) while the other models can be a combination
+of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
     </tr>
     <tr>
       <th>mixture</th>
@@ -206,6 +209,7 @@ modified in-place of or replaced wholesale.</p></td>
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:   <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
+<li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -238,6 +242,11 @@ glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
 <p><pre>
 sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
     weight_col = missing_arg(), family = "multinomial")
+</pre></p>
+<p><span class="pkg">keras</span></p>
+<p><pre>
+parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
+    act = "linear")
 </pre></p>
 <p>When using <code>glmnet</code> models, there is the option to pass
 multiple values (or no values) to the <code>penalty</code> argument.

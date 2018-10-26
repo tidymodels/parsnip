@@ -140,9 +140,9 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
 <p>As an example of a model with multiple engines, here is the object for logistic regression:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">parsnip<span class="op">:::</span>logistic_reg_arg_key</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;         glm glmnet             spark stan</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; penalty  NA lambda         reg_param   NA</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture  NA  alpha elastic_net_param   NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;         glm glmnet             spark stan keras</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; penalty  NA lambda         reg_param   NA decay</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; mixture  NA  alpha elastic_net_param   NA  &lt;NA&gt;</span></a></code></pre></div>
 <p>The internals of <code>parsnip</code> will use these objects during the creation of the model code.</p>
 </div>
 <div id="step-2--create-the-model-function" class="section level2">
