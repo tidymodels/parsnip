@@ -17,7 +17,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    rlang (>= 0.2.0.9001),
+    rlang (>=  0.3.0.1),
     purrr,
     utils,
     tibble,
@@ -38,6 +38,4 @@ Suggests:
     C50,
     xgboost,
     covr
-Remotes:
-    tidyverse/rlang,
-    r-lib/generics
+
