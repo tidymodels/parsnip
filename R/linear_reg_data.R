@@ -4,6 +4,7 @@ linear_reg_arg_key <- data.frame(
   glmnet =  c(   "lambda",             "alpha"),
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
+  keras  =  c(   "decay",                  NA),
   stringsAsFactors = FALSE,
   row.names =  c("penalty", "mixture")
 )
@@ -11,10 +12,11 @@ linear_reg_arg_key <- data.frame(
 linear_reg_modes <- "regression"
 
 linear_reg_engines <- data.frame(
-  lm    = TRUE,
+  lm     = TRUE,
   glmnet = TRUE,
   spark  = TRUE,
   stan   = TRUE,
+  keras  = TRUE,
   row.names =  c("regression")
 )
 
@@ -240,5 +242,24 @@ linear_reg_spark_data <-
     )
   )
 
-
+linear_reg_keras_data <-
+  list(
+    libs = c("keras", "magrittr"),
+    fit = list(
+      interface = "matrix",
+      protect = c("x", "y"),
+      func = c(pkg = "parsnip", fun = "keras_mlp"),
+      defaults = list(hidden_units = 1, act = "linear")
+    ),
+    numeric = list(
+      pre = NULL,
+      post = maybe_multivariate,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          x = quote(as.matrix(new_data))
+        )
+    )
+  )
 

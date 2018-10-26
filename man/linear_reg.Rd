@@ -14,8 +14,11 @@ linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
 
-\item{penalty}{An non-negative number representing the
-total amount of regularization (\code{glmnet} and \code{spark} only).}
+\item{penalty}{An non-negative number representing the total
+amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
+For \code{keras} models, this corresponds to purely L2 regularization
+(aka weight decay) while the other models can be a combination
+of L1 and L2 (depending on the value of \code{mixture}).}
 
 \item{mixture}{A number between zero and one (inclusive) that
 represents the proportion of regularization that is used for the
@@ -32,11 +35,11 @@ modified in-place of or replaced wholesale.}
 \description{
 \code{linear_reg} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
-different packages in R, Stan, or via Spark. The main arguments for the
-model are:
+different packages in R, Stan, keras, or via Spark. The main
+arguments for the model are:
 \itemize{
 \item \code{penalty}: The total amount of regularization
-in the model. Note that this must be zero for some engines .
+in the model. Note that this must be zero for some engines.
 \item \code{mixture}: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.
 }
@@ -58,6 +61,7 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"lm"} or \code{"glmnet"}
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
+\item \pkg{keras}: \code{"keras"}
 }
 }
 \note{
@@ -96,6 +100,10 @@ model, the template of the fit calls are:
 \pkg{spark}
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
+
+\pkg{keras}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
 
 When using \code{glmnet} models, there is the option to pass
 multiple values (or no values) to the \code{penalty} argument.
