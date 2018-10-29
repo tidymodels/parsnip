@@ -437,17 +437,21 @@ C5.0_train <-
     other_args <- list(...)
     protect_ctrl <- c("minCases", "sample")
     protect_fit <- "trials"
+    f_names <- names(formals(getFromNamespace("C5.0.default", "C50")))
+    c_names <- names(formals(getFromNamespace("C5.0Control", "C50")))
     other_args <- other_args[!(other_args %in% c(protect_ctrl, protect_fit))]
-    ctrl_args <- other_args[names(other_args) %in% names(formals(C50::C5.0Control))]
-    fit_args <- other_args[names(other_args) %in% names(formals(C50::C5.0.default))]
+    ctrl_args <- other_args[names(other_args) %in% c_names]
+    fit_args <- other_args[names(other_args) %in% f_names]
 
-    ctrl <- expr(C50::C5.0Control())
+    ctrl <- call2("C5.0Control", .ns = "C50")
     ctrl$minCases <- minCases
     ctrl$sample <- sample
     for(i in names(ctrl_args))
       ctrl[[i]] <- ctrl_args[[i]]
 
-    fit_call <- expr(C50::C5.0(x = x, y = y))
+    fit_call <- call2("C5.0", .ns = "C50")
+    fit_call$x <- expr(x)
+    fit_call$y <- expr(y)
     fit_call$trials <- trials
     fit_call$control <- ctrl
     if(!is.null(weights))
