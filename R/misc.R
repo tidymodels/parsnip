@@ -216,3 +216,22 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   class(out) <- make_classes(cls)
   out
 }
+
+# ------------------------------------------------------------------------------
+
+check_outcome <- function(y, spec) {
+  if (spec$mode == "unknown") {
+    return(invisible(NULL))
+  } else if (spec$mode == "regression") {
+    if (!is.numeric(y))
+      stop("The model outcome should be numeric for regression models.",
+           call. = FALSE)
+  } else if (spec$mode == "classification") {
+    if (!is.factor(y)) {
+      stop("The model outcome should be a factor for regression models.",
+           call. = FALSE)
+    }
+  }
+  invisible(NULL)
+}
+
