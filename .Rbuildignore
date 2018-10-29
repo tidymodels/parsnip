@@ -4,3 +4,4 @@
 ^parsnip\.Rproj$
 ^\.Rproj\.user$
 ^.travis.yml$
+^R/README\.md$
