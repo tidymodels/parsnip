@@ -91,7 +91,7 @@ test_that('keras classification prediction', {
 
 
 test_that('keras classification probabilities', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
 
   xy_fit <- parsnip::fit_xy(
