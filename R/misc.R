@@ -79,9 +79,14 @@ model_printer <- function(x, ...) {
   }
 }
 
-load_libs <- function(x, quiet) {
-  for (pkg in x$method$libs)
+load_libs <- function(x, quiet, attach = FALSE) {
+  for (pkg in x$method$libs) {
+    if(attach) {
     suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
+    } else {
+      library(pkg, character.only = TRUE)
+    }
+  }
   invisible(x)
 }
 
@@ -216,3 +221,22 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   class(out) <- make_classes(cls)
   out
 }
+
+# ------------------------------------------------------------------------------
+
+check_outcome <- function(y, spec) {
+  if (spec$mode == "unknown") {
+    return(invisible(NULL))
+  } else if (spec$mode == "regression") {
+    if (!is.numeric(y))
+      stop("The model outcome should be numeric for regression models.",
+           call. = FALSE)
+  } else if (spec$mode == "classification") {
+    if (!is.factor(y)) {
+      stop("The model outcome should be a factor for regression models.",
+           call. = FALSE)
+    }
+  }
+  invisible(NULL)
+}
+

@@ -159,19 +159,24 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+  parsnip:::load_libs(res, attach = TRUE)
 
 })
 
 test_that('mars prediction', {
   skip_if_not_installed("earth")
-  library(earth)
 
-  uni_mars <- earth(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris)
-  uni_pred <- unname(predict(uni_mars, newdata = iris[1:5, ])[,1])
-  inl_mars <- earth(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
-  inl_pred <- unname(predict(inl_mars, newdata = iris[1:5, ])[,1])
-  mv_mars <- earth(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
-  mv_pred <- as.data.frame(predict(mv_mars, newdata = iris[1:5, ]))
+  uni_pred <- c(5.02371514510488, 4.70502120747471, 4.78973285129011, 4.81152592623742,
+                5.08745393263092)
+  inl_pred <- c(5.07584328502019, 4.64927636051174, 4.82786784324037, 4.74001260567429,
+                5.15379794835255)
+  mv_pred <-
+    structure(
+      list(Sepal.Width =
+             c(3.4874092243636, 3.34173526636919, 3.17647644756747, 3.14280919018489, 3.41457224536639),
+           Petal.Width =
+             c(0.237414046784062, 0.221455118452782, 0.18348960240454, 0.219523313672823, 0.229434582618422
+             )), class = "data.frame", row.names = c(NA, -5L))
 
   res_xy <- fit_xy(
     iris_basic,
@@ -202,7 +207,6 @@ test_that('mars prediction', {
 
 test_that('submodel prediction', {
   skip_if_not_installed("earth")
-  library(earth)
 
   reg_fit <-
     mars(
@@ -242,9 +246,9 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], num_terms = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
-  
+
   expect_error(
-    multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5), 
+    multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5),
     "Did you mean"
   )
 })
@@ -266,16 +270,10 @@ test_that('classification', {
   expect_true(!is.null(glm_mars$fit$glm.list))
   parsnip_pred <- predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
 
-  library(earth)
-  earth_fit <- earth(Class ~ ., data = lending_club[-(1:5),],
-                     glm = list(family = binomial))
   earth_pred <-
-    predict(
-      earth_fit,
-      newdata = lending_club[1:5, -ncol(lending_club)],
-      type = "response"
-    )
+    c(0.95631355972526, 0.971917781277731, 0.894245392500336, 0.962667553751077,
+      0.985827594261896)
 
-  expect_equal(parsnip_pred[["good"]], earth_pred[,1])
+  expect_equal(parsnip_pred[["good"]], earth_pred)
 })
 

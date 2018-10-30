@@ -46,7 +46,6 @@ test_that('stan_glm execution', {
 
 test_that('stan_glm prediction', {
   skip_if_not_installed("rstanarm")
-  library(rstanarm)
 
   xy_fit <- fit_xy(
     logistic_reg() %>%
@@ -124,7 +123,6 @@ test_that('stan_glm probability', {
 
 test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
-  library(rstanarm)
 
   res_form <- fit(
     logistic_reg() %>%

@@ -19,7 +19,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 # ------------------------------------------------------------------------------
 
 test_that('keras execution, classification', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
 
   expect_error(
@@ -58,7 +58,7 @@ test_that('keras execution, classification', {
 
 
 test_that('keras classification prediction', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
   library(keras)
 
@@ -145,7 +145,7 @@ quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 
 test_that('keras execution, regression', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
 
   expect_error(
@@ -172,7 +172,7 @@ test_that('keras execution, regression', {
 })
 
 test_that('keras regression prediction', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
 
   xy_fit <- parsnip::fit_xy(
@@ -207,7 +207,7 @@ test_that('keras regression prediction', {
 nn_dat <- read.csv("nnet_test.txt")
 
 test_that('multivariate nnet formula', {
-
+  skip_on_cran()
   skip_if_not_installed("keras")
 
   nnet_form <-

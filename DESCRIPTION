@@ -35,7 +35,7 @@ Suggests:
     rmarkdown,
     survival,
     keras,
-    C50,
     xgboost,
-    covr
+    covr,
+    sparklyr
 

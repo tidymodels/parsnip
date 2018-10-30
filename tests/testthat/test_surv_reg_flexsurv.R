@@ -6,8 +6,8 @@ library(tibble)
 
 # ------------------------------------------------------------------------------
 
-basic_form <- Surv(recyrs, censrec) ~ group
-complete_form <- Surv(recyrs) ~ group
+basic_form <- Surv(time, status) ~ age
+complete_form <- Surv(time) ~ age
 
 surv_basic <- surv_reg() %>% set_engine("flexsurv")
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
@@ -19,17 +19,11 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
 
-  library(flexsurv)
-  data(bc)
-
-  set.seed(4566)
-  bc$group2 <- bc$group
-
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(recyrs, censrec) ~ group,
-      data = bc,
+      Surv(time, status) ~ age,
+      data = lung,
       control = ctrl
     ),
     regexp = NA
@@ -37,8 +31,8 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(recyrs) ~ group,
-      data = bc,
+      Surv(time) ~ age,
+      data = lung,
       control = ctrl
     ),
     regexp = NA
@@ -46,8 +40,8 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit_xy(
       surv_basic,
-      x = bc[, "group", drop = FALSE],
-      y = bc$recyrs,
+      x = lung[, "age", drop = FALSE],
+      y = lung$time,
       control = ctrl
     )
   )
@@ -56,20 +50,14 @@ test_that('flexsurv execution', {
 test_that('flexsurv prediction', {
   skip_if_not_installed("flexsurv")
 
-  library(flexsurv)
-  data(bc)
-
-  set.seed(4566)
-  bc$group2 <- bc$group
-
   res <- fit(
     surv_basic,
-    Surv(recyrs, censrec) ~ group,
-    data = bc,
+    Surv(time, status) ~ age,
+    data = lung,
     control = ctrl
   )
-  exp_pred <- summary(res$fit, head(bc), type = "mean")
+  exp_pred <- summary(res$fit, head(lung), type = "mean")
   exp_pred <- do.call("rbind", unclass(exp_pred))
   exp_pred <- tibble(.pred = exp_pred$est)
-  expect_equal(exp_pred, predict(res, head(bc)))
+  expect_equal(exp_pred, predict(res, head(lung)))
 })

@@ -91,7 +91,6 @@ test_that('kknn prediction', {
 
   expect_equal(uni_pred_nom, predict_class(res_xy_nom, iris[1:5, c("Sepal.Length", "Petal.Width")]))
 
-  library(kknn) # see https://github.com/KlausVigo/kknn/issues/16
   # continuous - formula interface
   res_form <- fit(
     iris_basic,
