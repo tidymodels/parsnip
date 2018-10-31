@@ -361,7 +361,7 @@ multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
     if (is.null(trees))
       trees <- object$fit$nIter
     trees <- sort(trees)
@@ -409,7 +409,8 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 
 #' Boosted trees via C5.0
 #'
-#' `C5.0_train` is a wrapper for [C50::C5.0()] tree-based models
+#' `C5.0_train` is a wrapper for the `C5.0()` function in the
+#' \pkg{C50} package that fits tree-based models
 #'  where all of the model arguments are in the main function.
 #'
 #' @param x A data frame or matrix of predictors.
@@ -467,7 +468,7 @@ multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
     if (is.null(trees))
       trees <- min(object$fit$trials)
     trees <- sort(trees)

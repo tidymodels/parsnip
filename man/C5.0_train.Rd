@@ -37,6 +37,7 @@ model in the printed output.}
 A fitted C5.0 model.
 }
 \description{
-\code{C5.0_train} is a wrapper for \code{\link[C50:C5.0]{C50::C5.0()}} tree-based models
+\code{C5.0_train} is a wrapper for the \code{C5.0()} function in the
+\pkg{C50} package that fits tree-based models
 where all of the model arguments are in the main function.
 }

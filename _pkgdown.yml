@@ -18,6 +18,7 @@ reference:
   - title: Models
     contents:
       - boost_tree
+      - decision_tree
       - linear_reg
       - logistic_reg
       - mars

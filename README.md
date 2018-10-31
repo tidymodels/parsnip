@@ -32,7 +32,11 @@ rf_3 <- ml_random_forest(
 
 Note that the model syntax is very different and that the argument names (and formats) are also different. This is a pain if you go between implementations. 
 
-In this example, the **type** of model is "random forest" while the **mode** of the model is "classification" (as opposed to regression, survival analysis, etc). 
+In this example, 
+
+ * the **type** of model is "random forest" 
+ * the **mode** of the model is "classification" (as opposed to regression,  etc). 
+ * the computational **engine** is the name of the R package. 
 
 
 The idea of `parsnip` is to:
@@ -40,6 +44,25 @@ The idea of `parsnip` is to:
 * Separate the definition of a model from its evaluation.
 * Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call `rand_forest` instead of `ranger::ranger` or other specific packages. 
 * Harmonize the argument names (e.g. `n.trees`, `ntrees`, `trees`) so that users can remember a single name. This will help _across_ model types too so that `trees` will be the same argument across random forest as well as boosting or bagging. 
+
+Using the example above, the `parsnip` approach would be
+
+```r
+rand_forest(mtry = 12, trees = 2000) %>%
+  set_engine("ranger", importance = 'impurity') %>%
+  fit(y ~ ., data = dat)
+```
+
+The engine can be easily changed and the mode can be determined when `fit` is called. To use Spark, the change is simple:
+
+```r
+rand_forest(mtry = 12, trees = 2000) %>%
+  set_engine("spark") %>%
+  fit(y ~ ., data = dat)
+```
+
+
+
 To install it, use:
 
 ```r

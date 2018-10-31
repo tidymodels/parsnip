@@ -73,7 +73,7 @@ along with whether they are fully specified or not." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9005</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
         </div>
       </div>
     </div>
@@ -171,8 +171,10 @@ class that was used to call the method (<code>type</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='fu'>library</span>(<span class='no'>rlang</span>)
-
+<span class='fu'>library</span>(<span class='no'>rlang</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘rlang’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    is_false, is_null, is_true</span></div><div class='input'>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>varying_args</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"plain"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `list_len()` is soft-deprecated as of rlang 0.2.0.</span>
 #&gt; <span class='warning'>Please use `new_list()` instead</span>
 #&gt; <span class='warning'>[90mThis warning is displayed once per session.[39m</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 4[39m
@@ -241,7 +243,7 @@ class that was used to call the method (<code>type</code>).</p>
 
 <div class="author">
   <p>
-    Developed by Max Kuhn.
+    Developed by Max Kuhn, Davis Vaughan.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

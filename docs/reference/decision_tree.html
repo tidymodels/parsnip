@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Random Forest Models — rand_forest • parsnip</title>
+<title>General Interface for Decision Tree Models — decision_tree • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,15 +29,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="General Interface for Random Forest Models — rand_forest" />
+<meta property="og:title" content="General Interface for Decision Tree Models — decision_tree" />
 
-<meta property="og:description" content="rand_forest is a way to generate a specification of a model
+<meta property="og:description" content="decision_tree is a way to generate a specification of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
 model are:
-mtry: The number of predictors that will be
-randomly sampled at each split when creating the tree models.
-trees: The number of trees contained in the ensemble.
+cost_complexity: The cost/complexity parameter (a.k.a. Cp)
+used by CART models (rpart only).
+tree_depth: The maximum depth of a tree (rpart and
+spark only).
 min_n: The minimum number of data points in a node
 that are required for the node to be split further.
 These arguments are converted to their specific names at the
@@ -135,20 +136,21 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Random Forest Models</h1>
+    <h1>General Interface for Decision Tree Models</h1>
     
-    <div class="hidden name"><code>rand_forest.Rd</code></div>
+    <div class="hidden name"><code>decision_tree.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>rand_forest</code> is a way to generate a <em>specification</em> of a model
+    <p><code>decision_tree</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>mtry</code>: The number of predictors that will be
-randomly sampled at each split when creating the tree models.</p></li>
-<li><p><code>trees</code>: The number of trees contained in the ensemble.</p></li>
+<li><p><code>cost_complexity</code>: The cost/complexity parameter (a.k.a. <code>Cp</code>)
+used by CART models (<code>rpart</code> only).</p></li>
+<li><p><code>tree_depth</code>: The <em>maximum</em> depth of a tree (<code>rpart</code> and
+<code>spark</code> only).</p></li>
 <li><p><code>min_n</code>: The minimum number of data points in a node
 that are required for the node to be split further.</p></li>
 </ul><p>These arguments are converted to their specific names at the
@@ -160,12 +162,12 @@ in lieu of recreating the object from scratch.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>decision_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='co'># S3 method for rand_forest</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for decision_tree</span>
+<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,14 +179,13 @@ Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
     </tr>
     <tr>
-      <th>mtry</th>
-      <td><p>An integer for the number of predictors that will
-be randomly sampled at each split when creating the tree models.</p></td>
+      <th>cost_complexity</th>
+      <td><p>A positive number for the the cost/complexity
+parameter (a.k.a. <code>Cp</code>) used by CART models (<code>rpart</code> only).</p></td>
     </tr>
     <tr>
-      <th>trees</th>
-      <td><p>An integer for the number of trees contained in
-the ensemble.</p></td>
+      <th>tree_depth</th>
+      <td><p>An integer for maximum depth of the tree.</p></td>
     </tr>
     <tr>
       <th>min_n</th>
@@ -210,9 +211,14 @@ modified in-place of or replaced wholesale.</p></td>
 
     <p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"ranger"</code> or <code>"randomForest"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"rpart"</code> or <code>"C5.0"</code> (classification only)</p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
+    <p>Note that, for <code>rpart</code> models, but <code>cost_complexity</code> and
+<code>tree_depth</code> can be both be specified but the package will give
+precedence to <code>cost_complexity</code>. Also, <code>tree_depth</code> values
+greater than 30 <code>rpart</code> will give nonsense results on 32-bit
+machines.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -235,40 +241,29 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     <p>Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are::</p>
-<p><span class="pkg">ranger</span> classification</p>
+<p><span class="pkg">rpart</span> classification</p>
 <p><pre>
-ranger::ranger(formula = missing_arg(), data = missing_arg(), 
-    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
-    seed = sample.int(10^5, 1), probability = TRUE)
+rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 </pre></p>
-<p><span class="pkg">ranger</span> regression</p>
+<p><span class="pkg">rpart</span> regression</p>
 <p><pre>
-ranger::ranger(formula = missing_arg(), data = missing_arg(), 
-    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
-    seed = sample.int(10^5, 1))
+rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 </pre></p>
-<p><span class="pkg">randomForests</span> classification</p>
+<p><span class="pkg">C5.0</span> classification</p>
 <p><pre>
-randomForest::randomForest(x = missing_arg(), y = missing_arg())
-</pre></p>
-<p><span class="pkg">randomForests</span> regression</p>
-<p><pre>
-randomForest::randomForest(x = missing_arg(), y = missing_arg())
+parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+    trials = 1)
 </pre></p>
 <p><span class="pkg">spark</span> classification</p>
 <p><pre>
-sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
-    type = "classification", seed = sample.int(10^5, 1))
+sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
+    seed = sample.int(10^5, 1), type = "classification")
 </pre></p>
 <p><span class="pkg">spark</span> regression</p>
 <p><pre>
-sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
-    type = "regression", seed = sample.int(10^5, 1))
+sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
+    seed = sample.int(10^5, 1), type = "regression")
 </pre></p>
-<p>For <span class="pkg">ranger</span> confidence intervals, the intervals are
-constructed using the form <code>estimate +/- z * std_error</code>. For
-classification probabilities, these values can fall outside of
-<code>[0, 1]</code> and will be coerced to be in this range.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -276,30 +271,30 @@ classification probabilities, these values can fall outside of
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>2000</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'>decision_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   trees = 2000
+#&gt;   tree_depth = 5
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
+<span class='fu'>decision_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>rand_forest</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+#&gt;   cost_complexity = varying()
+#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>decision_tree</span>(<span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='no'>model</span></div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 10
+#&gt;   cost_complexity = 10
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 1
+#&gt;   cost_complexity = 1
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   mtry = 1
+#&gt;   cost_complexity = 1
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
