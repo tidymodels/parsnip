@@ -39,6 +39,6 @@ those cases.}
 A fitted rpart model.
 }
 \description{
-\code{rpart_train} is a wrapper for \code{\link[rpart:rpart]{rpart::rpart()}} tree-based models
+\code{rpart_train} is a wrapper for \code{rpart()} tree-based models
 where all of the model arguments are in the main function.
 }

@@ -500,3 +500,9 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   pred[[".row"]] <- 1:nrow(new_data)
   pred[, c(".row", "trees", nms)]
 }
+
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c(".row"))
