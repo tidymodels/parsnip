@@ -120,7 +120,7 @@ fit.model_spec <-
 
     check_installs(object)  # TODO rewrite with pkgman
 
-    load_libs(object, control$verbosity < 2)
+    check_installs(object)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
 
@@ -199,7 +199,7 @@ fit_xy.model_spec <-
 
     check_installs(object)  # TODO rewrite with pkgman
 
-    load_libs(object, control$verbosity < 2)
+    check_installs(object)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
 

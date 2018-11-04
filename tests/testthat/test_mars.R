@@ -217,10 +217,12 @@ test_that('submodel prediction', {
     set_engine("earth", keepxy = TRUE) %>%
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
+  parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
   tmp_reg <- reg_fit$fit
   tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
   tmp_reg$call[["keepxy"]]  <- eval_tidy(tmp_reg$call[["keepxy"]])
   tmp_reg$call[["nprune"]]  <- eval_tidy(tmp_reg$call[["nprune"]])
+
 
   pruned_reg <- update(tmp_reg, nprune = 5)
   pruned_reg_pred <- predict(pruned_reg, mtcars[1:4, -1])[,1]

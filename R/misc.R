@@ -79,17 +79,6 @@ model_printer <- function(x, ...) {
   }
 }
 
-load_libs <- function(x, quiet, attach = FALSE) {
-  for (pkg in x$method$libs) {
-    if(attach) {
-    suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
-    } else {
-      library(pkg, character.only = TRUE)
-    }
-  }
-  invisible(x)
-}
-
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 

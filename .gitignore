@@ -4,3 +4,4 @@
 .DS_Store
 tests/testthat/derby.log
 tests/testthat/logs/
+*.history

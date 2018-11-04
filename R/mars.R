@@ -110,6 +110,7 @@ update.mars <-
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
            fresh = FALSE, ...) {
     update_dot_check(...)
+
     args <- list(
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
@@ -180,6 +181,7 @@ check_args.mars <- function(object) {
 
 #' @importFrom purrr map_dfr
 earth_submodel_pred <- function(object, new_data, terms = 2:3, ...) {
+  load_libs(object, quiet = TRUE, attach = TRUE)
   map_dfr(terms, earth_reg_updater, object = object, newdata = new_data, ...)
 }
 
@@ -208,7 +210,9 @@ multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
+    load_libs(object, quiet = TRUE, attach = TRUE)
+
     if (is.null(num_terms))
       num_terms <- object$fit$selected.terms[-1]
 
@@ -231,9 +235,6 @@ multi_predict._earth <-
         stop (msg, call. = FALSE)
     } else
       stop (msg, call. = FALSE)
-
-    if (!exists("earth"))
-      suppressPackageStartupMessages(attachNamespace("earth"))
 
     if (is.null(type)) {
       if (object$spec$mode == "classification")

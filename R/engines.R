@@ -38,20 +38,42 @@ check_engine <- function(object) {
   object
 }
 
-#' @importFrom utils installed.packages
+# ------------------------------------------------------------------------------
+
+shhhh <- function(x)
+  suppressPackageStartupMessages(requireNamespace(x, quietly = TRUE))
+
+is_installed <- function(pkg) {
+  res <- try(shhhh(pkg), silent = TRUE)
+  res
+}
+
+#' @importFrom purrr map_lgl
 check_installs <- function(x) {
-  if (length(x$method$library) > 0) {
-    lib_inst <- rownames(installed.packages())
-    is_inst <- x$method$library %in% lib_inst
+  if (length(x$method$libs) > 0) {
+    is_inst <- map_lgl(x$method$libs, is_installed)
     if (any(!is_inst)) {
       stop(
         "This engine requires some package installs: ",
-        paste0("'", x$method$library[!is_inst], "'", collapse = ", "),
+        paste0("'", x$method$libs[!is_inst], "'", collapse = ", "),
         call. = FALSE
       )
     }
   }
 }
+
+load_libs <- function(x, quiet, attach = FALSE) {
+  for (pkg in x$method$libs) {
+    if (!attach) {
+      suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
+    } else {
+      library(pkg, character.only = TRUE)
+    }
+  }
+  invisible(x)
+}
+
+# ------------------------------------------------------------------------------
 
 #' Declare a computational engine and specific arguments
 #'
