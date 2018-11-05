@@ -118,8 +118,6 @@ fit.model_spec <-
     # populate `method` with the details for this model type
     object <- get_method(object, engine = object$engine)
 
-    check_installs(object)  # TODO rewrite with pkgman
-
     check_installs(object)
 
     interfaces <- paste(fit_interface, object$method$fit$interface, sep = "_")
@@ -196,8 +194,6 @@ fit_xy.model_spec <-
 
     # populate `method` with the details for this model type
     object <- get_method(object, engine = object$engine)
-
-    check_installs(object)  # TODO rewrite with pkgman
 
     check_installs(object)
 
