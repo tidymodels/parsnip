@@ -1,7 +1,7 @@
 
 [![Travis build status](https://travis-ci.org/tidymodels/parsnip.svg?branch=master)](https://travis-ci.org/tidymodels/parsnip)
 [![Coverage status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
-![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
 
 One issue with different functions available in R _that do the same thing_ is that they can have different interfaces and arguments. For example, to fit a random forest _classification_ model, we might have:
