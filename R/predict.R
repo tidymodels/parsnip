@@ -7,7 +7,7 @@
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "probs", "conf_int", "pred_int", "quantile",
+#'  are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
 #'  or "raw". When `NULL`, `predict` will choose an appropriate value
 #'  based on the model's mode.
 #' @param opts A list of optional arguments to the underlying
