@@ -246,13 +246,13 @@ multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
 
     dots <- list(...)
     if (is.null(penalty))
-      penalty <- eval_tidy(object$lambda)
+      penalty <- eval_tidy(object$fit$lambda)
     dots$s <- penalty
 
     if (is.null(type))
