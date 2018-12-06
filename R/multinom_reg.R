@@ -184,9 +184,7 @@ organize_multnet_class <- function(x, object) {
 
 organize_multnet_prob <- function(x, object) {
   x <- x[,,1]
-  x <- as_tibble(x)
-  names(x) <- paste0(".pred_", names(x))
-  x
+  as_tibble(x)
 }
 
 # ------------------------------------------------------------------------------
@@ -246,7 +244,7 @@ multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
 
