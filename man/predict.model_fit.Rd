@@ -19,7 +19,7 @@ predict_raw(object, ...)
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "probs", "conf_int", "pred_int", "quantile",
+are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
 or "raw". When \code{NULL}, \code{predict} will choose an appropriate value
 based on the model's mode.}
 
