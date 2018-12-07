@@ -250,7 +250,7 @@ multi_predict._multnet <-
 
     dots <- list(...)
     if (is.null(penalty))
-      penalty <- eval_tidy(object$lambda)
+      penalty <- eval_tidy(object$fit$lambda)
     dots$s <- penalty
 
     if (is.null(type))

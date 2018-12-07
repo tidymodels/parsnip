@@ -331,11 +331,18 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], penalty = .1, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], unname(pred_glmn[,1]))
-  
+
   expect_error(
-    multi_predict(class_fit, newdata = wa_churn[1:4, vars], penalty = .1, type = "prob"), 
+    multi_predict(class_fit, newdata = wa_churn[1:4, vars], penalty = .1, type = "prob"),
     "Did you mean"
   )
+
+  # Can predict using default penalty. See #108
+  expect_error(
+    multi_predict(class_fit, new_data = wa_churn[1:4, vars]),
+    NA
+  )
+
 })
 
 
