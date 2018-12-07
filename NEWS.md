@@ -1,5 +1,13 @@
 # parsnip 0.0.1.9000
 
+## Bug fixes
+
+* For multinomial regression, the `.pred_` prefix is now only added to prediction
+column names once (#107).
+
+* For multinomial regression using glmnet, `multi_predict()` now pulls the 
+correct default penalty (#108).
+
 # parsnip 0.0.1
 
 First CRAN release
