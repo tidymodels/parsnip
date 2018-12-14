@@ -48,7 +48,7 @@ credit_rec <- recipe(Status ~ ., data = credit_train) %>%
 
 # juice() will be used to get the processed training set back
 
-test_normalized <- bake(credit_rec, newdata = credit_test, all_predictors())
+test_normalized <- bake(credit_rec, new_data = credit_test, all_predictors())
 ```
 
 `keras` will be used to fit a model with 5 hidden units and uses a 10% dropout rate to regularize the model. At each training iteration (aka epoch) a random 20% of the data will be used to measure the cross-entropy of the model. 
@@ -76,7 +76,7 @@ test_results <- credit_test %>%
     `nnet prob`  = predict_classprob(nnet_fit, new_data = test_normalized) %>% pull(good)
   )
 
-test_results %>% roc_auc(truth = Status, estimate = `nnet prob`)
-test_results %>% accuracy(truth = Status, estimate = `nnet class`)
-test_results %>% conf_mat(truth = Status, estimate = `nnet class`)
+test_results %>% roc_auc(truth = Status, `nnet prob`)
+test_results %>% accuracy(truth = Status, `nnet class`)
+test_results %>% conf_mat(truth = Status, `nnet class`)
 ```
