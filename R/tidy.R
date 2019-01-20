@@ -15,10 +15,4 @@
 #'   fit(Class ~ funded_amnt + int_rate, data = lending_club) %>%
 #'   # tidying model object and passing arguments to broom:::tidy.glm
 #'   tidy(conf.int = TRUE, exponentiate = TRUE)
-tidy.model_fit <- function(x, ...) {
-  tryCatch(generics::tidy(x$fit, ...),
-    error = function(error) {
-      cat("Error:", error$message)
-    }
-  )
-}
+tidy.model_fit <- function(x, ...) generics::tidy(x$fit, ...)
