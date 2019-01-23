@@ -1,0 +1,165 @@
+#' Fit a simple, non-informative model
+#'
+#' Fit a single mean or largest class model
+#'
+#' \code{null_model} emulates other model building functions, but returns the
+#' simplest model possible given a training set: a single mean for numeric
+#' outcomes and the most prevalent class for factor outcomes. When class
+#' probabilities are requested, the percentage of the training set samples with
+#' the most prevalent class is returned.
+#'
+#' @aliases null_model null_model.default predict.null_model
+#' @param x An optional matrix or data frame of predictors. These values are
+#' not used in the model fit
+#' @param y A numeric vector (for regression) or factor (for classification) of
+#' outcomes
+#' @param \dots Optional arguments (not yet used)
+#' @param object An object of class \code{null_model}
+#' @param newdata A matrix or data frame of predictors (only used to determine
+#' the number of predictions to return)
+#' @param type Either "raw" (for regression), "class" or "prob" (for
+#' classification)
+#' @return The output of \code{null_model} is a list of class \code{null_model}
+#' with elements \item{call }{the function call} \item{value }{the mean of
+#' \code{y} or the most prevalent class} \item{levels }{when \code{y} is a
+#' factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
+#' is a factor, a data frame with a column for each class (\code{NULL}
+#' otherwise). The column for the most prevalent class has the proportion of
+#' the training samples with that class (the other columns are zero). } \item{n
+#' }{the number of elements in \code{y}}
+#'
+#' \code{predict.null_model} returns a either a factor or numeric vector
+#' depending on the class of \code{y}. All predictions are always the same.
+#' @keywords models
+#' @examples
+#'
+#' outcome <- factor(sample(letters[1:2],
+#'                          size = 100,
+#'                          prob = c(.1, .9),
+#'                          replace = TRUE))
+#' useless <- null_model(y = outcome)
+#' useless
+#' predict(useless, matrix(NA, nrow = 10))
+#'
+#' @export
+null_model <- function (x, ...) UseMethod("null_model")
+
+#' @export
+#' @rdname null_model
+null_model.default <- function(x = NULL, y, ...)
+{
+
+  if(is.factor(y))
+  {
+    lvls <- levels(y)
+    tab <- table(y)
+    value <- names(tab)[which.max(tab)]
+    pct <- tab/sum(tab)
+  } else {
+    lvls <- NULL
+    pct <- NULL
+    value <- mean(y, na.rm = TRUE)
+  }
+  structure(
+    list(call = match.call(),
+         value = value,
+         levels = lvls,
+         pct = pct,
+         n = length(y)),
+    class = "null_model")
+}
+
+#' @export
+#' @rdname null_model
+print.null_model <- function(x, ...)
+{
+  cat("Null",
+      ifelse(is.null(x$levels), "Classification", "Regression"),
+      "Model\n")
+  x$call
+
+  cat("Predicted Value:",
+      ifelse(is.null(x$levels), format(x$value), x$value),
+      "\n")
+}
+
+#' @export
+#' @rdname null_model
+predict.null_model <- function (object, newdata = NULL, type  = NULL, ...)
+{
+  if(is.null(type))
+  {
+    type <- if(is.null(object$levels)) "raw" else "class"
+  }
+
+  n <- if(is.null(newdata)) object$n else nrow(newdata)
+  if(!is.null(object$levels))
+  {
+    if(type == "prob")
+    {
+      out <- matrix(rep(object$pct, n), nrow = n, byrow = TRUE)
+      colnames(out) <- object$levels
+      out <- as.data.frame(out)
+    } else {
+      out <- factor(rep(object$value, n), levels = object$levels)
+    }
+  } else {
+    if(type %in% c("prob", "class")) stop("ony raw predicitons are applicable to regression models")
+    out <- rep(object$value, n)
+  }
+  out
+}
+
+#' General Interface for null models
+#'
+#' `nullmodel` is a way to generate a _specification_ of a model before
+#'  fitting and allows the model to be created using R. It doens't have any
+#'  main arguments.
+#'
+#' @param mode A single character string for the type of model.
+#'  Possible values for this model are "unknown", "regression", or
+#'  "classification".
+#' @details The model can be created using the `fit()` function using the
+#'  following _engines_:
+#' \itemize{
+#' \item \pkg{R}:  `"parsnip"`
+#' }
+#'
+#' @section Engine Details:
+#'
+#' Engines may have pre-set default arguments when executing the
+#'  model fit call.  For this type of
+#'  model, the template of the fit calls are:
+#'
+#' \pkg{parsnip} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "classification"), "parsnip")}
+#'
+#' \pkg{parsnip} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "regression"), "parsnip")}
+#'
+#' @importFrom purrr map_lgl
+#' @seealso [varying()], [fit()]
+#' @examples
+#' nullmodel(mode = "regression")
+#' @export
+nullmodel <-
+  function(mode = "classification") {
+    # Check for correct mode
+    if (!(mode %in% nullmodel_modes))
+      stop("`mode` should be one of: ",
+           paste0("'", nullmodel_modes, "'", collapse = ", "),
+           call. = FALSE)
+
+    # Capture the arguments in quosures
+    args <- list()
+
+    # Save some empty slots for future parts of the specification
+    out <- list(args = args, eng_args = NULL,
+                mode = mode, method = NULL, engine = NULL)
+
+    # set classes in the correct order
+    class(out) <- make_classes("nullmodel")
+    out
+  }
