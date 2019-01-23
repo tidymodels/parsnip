@@ -50,7 +50,9 @@ logistic_reg_glm_data <-
       pre = NULL,
       post = function(x, object) {
         x <- tibble(v1 = 1 - x, v2 = x)
-        colnames(x) <- object$lvl
+        if (!is.null(object$lvl))
+          colnames(x) <- object$lvl
+        else (colnames(x) <- c("0", "1"))
         x
       },
       func = c(fun = "predict"),
