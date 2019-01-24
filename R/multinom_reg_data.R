@@ -2,7 +2,8 @@
 multinom_reg_arg_key <- data.frame(
   glmnet =  c(   "lambda",             "alpha"),
   spark  =  c("reg_param", "elastic_net_param"),
-  keras  =  c(    "decay",                  NA),  
+  keras  =  c(    "decay",                  NA),
+  nnet   =  c(         NA,                  NA),
   stringsAsFactors = FALSE,
   row.names =  c("penalty", "mixture")
 )
@@ -13,6 +14,7 @@ multinom_reg_engines <- data.frame(
   glmnet = TRUE,
   spark  = TRUE,
   keras  = TRUE,
+  nnet   = TRUE,
   row.names =  c("classification")
 )
 
@@ -135,4 +137,39 @@ multinom_reg_keras_data <-
           x = quote(as.matrix(new_data))
         )
     )
+  )
+
+multinom_reg_nnet_data <-
+  list(
+    libs = "nnet",
+    fit = list(
+      interface = "formula",
+      protect = c("formula", "data", "weights"),
+      func = c(pkg = "nnet", fun = "multinom"),
+      defaults = list()
+    ),
+    class = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "class"
+        )
+      ),
+    classprob = list(
+      pre = NULL,
+      post = function(x, object) {
+        tibble::as_tibble(x)
+        },
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          type = "prob"
+          )
+      )
   )
