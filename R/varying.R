@@ -140,25 +140,46 @@ is_varying <- function(x) {
 }
 
 find_varying <- function(x) {
-  if (is_quosure(x))
+
+  # Early exit for empty elements (like list())
+  if (length(x) == 0L) {
+    return(FALSE)
+  }
+
+  # turn quosures into expressions before continuing
+  if (is_quosure(x)) {
     x <- quo_get_expr(x)
+  }
+
   if (is_varying(x)) {
     return(TRUE)
-  } else if (is.atomic(x) | is.name(x)) {
-    FALSE
-  } else if (is.call(x) || is.pairlist(x)) {
+  }
+
+  if (is.atomic(x) | is.name(x)) {
+    return(FALSE)
+  }
+
+  # Walk along the call and look for varying() elements
+  if (is.call(x) || is.pairlist(x)) {
+
     for (i in seq_along(x)) {
+
       if (is_varying(x[[i]]))
         return(TRUE)
+
     }
-    FALSE
-  } else if (is.vector(x) | is.list(x)) {
-    map_lgl(x, find_varying)
-  } else {
-    # User supplied incorrect input
-    stop("Don't know how to handle type ", typeof(x),
-         call. = FALSE)
+
+    return(FALSE)
   }
+
+  # Recursive call
+  if (is.vector(x) | is.list(x)) {
+    any_nested_varying <- any(map_lgl(x, find_varying))
+    return(any_nested_varying)
+  }
+
+  # User supplied incorrect input
+  stop("Don't know how to handle type ", typeof(x), call. = FALSE)
 }
 
 caller_method <- function(cl) {

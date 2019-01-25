@@ -120,3 +120,21 @@ test_that('recipe parameters', {
   expect_equal(rec_res_4, exp_4)
 })
 
+test_that("empty lists return FALSE - #131", {
+  expect_equal(
+    parsnip:::find_varying(list()),
+    FALSE
+  )
+})
+
+test_that("lists with multiple elements return a single logical - #131", {
+  expect_equal(
+    parsnip:::find_varying(list(1, 2)),
+    FALSE
+  )
+
+  expect_equal(
+    parsnip:::find_varying(list(1, varying())),
+    TRUE
+  )
+})
