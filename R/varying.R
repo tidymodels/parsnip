@@ -101,19 +101,31 @@ varying_args.recipe <- function(x, id = NULL, ...) {
 #' @rdname varying_args
 varying_args.step <- function(x, id = NULL, ...) {
   cl <- match.call()
-  if (!is.null(id) && !is.character(id))
+
+  if (!is.null(id) && !is.character(id)) {
     stop ("`id` should be a single character string.", call. = FALSE)
+  }
+
   id <- id[1]
 
-  if (is.null(id))
+  if (is.null(id)) {
     id <- deparse(cl$x)
+  }
 
-  exclude <-
-    c("terms", "role", "trained", "skip", "na.rm", "impute_with", "seed",
-      "prefix", "naming", "denom", "outcome", "id")
-  x <- x[!(names(x) %in% exclude)]
+  # Grab the step class before the subset, as that removes the class
+  step_type <- class(x)[1]
+
+  # Remove NULL argument steps. These are reserved
+  # for deprecated args or those set at prep() time.
   x <- x[!map_lgl(x, is.null)]
+
   res <- map_lgl(x, find_varying)
+
+  # ensure the user didn't specify a non-varying argument as varying()
+  validate_only_allowed_step_args(res, step_type)
+
+  # remove the non-varying arguments as they are not important
+  res <- res[!(names(x) %in% non_varying_step_arguments)]
 
   tibble(
     name = names(res),
@@ -122,6 +134,37 @@ varying_args.step <- function(x, id = NULL, ...) {
     type = caller_method(cl)
   )
 }
+
+validate_only_allowed_step_args <- function(x, step_type) {
+
+  check_allowed_arg <- function(x, nm) {
+
+    # not varying
+    if (rlang::is_false(x)) {
+      return(invisible(x))
+    }
+
+    # not a non-varying step arg name
+    bad_nm <- nm %in% non_varying_step_arguments
+    if (!bad_nm) {
+      return(invisible(x))
+    }
+
+    rlang::abort(glue::glue(
+      "The following argument for a recipe step of type ",
+      "'{step_type}' is not allowed to vary: '{nm}'."
+    ))
+  }
+
+  purrr::iwalk(x, check_allowed_arg)
+  invisible(x)
+}
+
+non_varying_step_arguments <- c(
+  "terms", "role", "trained", "skip",
+  "na.rm", "impute_with", "seed",
+  "prefix", "naming", "denom", "outcome", "id"
+)
 
 # helpers ----------------------------------------------------------------------
 

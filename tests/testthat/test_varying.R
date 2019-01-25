@@ -147,3 +147,14 @@ test_that("varying() deeply nested in calls can be located - #134", {
     TRUE
   )
 })
+
+test_that("recipe steps with non-varying args error if specified as varying()", {
+
+  rec_bad_varying <- rec_1
+  rec_bad_varying$steps[[1]]$skip <- varying()
+
+  expect_error(
+    varying_args(rec_bad_varying),
+    "The following argument for a recipe step of type 'step_center' is not allowed to vary: 'skip'."
+  )
+})
