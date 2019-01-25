@@ -147,3 +147,14 @@ test_that("varying() deeply nested in calls can be located - #134", {
     TRUE
   )
 })
+
+test_that("recipe steps with non-varying args error if specified as varying()", {
+
+  # role cannot vary!
+  rec_bad_varying <- recipes::step_bs(rec_1, Sepal.Length, role = varying())
+
+  expect_error(
+    varying_args(rec_bad_varying),
+    "The following argument for a recipe step of type 'step_bs' is not allowed to vary: 'role'."
+  )
+})
