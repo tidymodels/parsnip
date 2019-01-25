@@ -8,7 +8,7 @@ source("helpers.R")
 
 
 test_that('primary arguments', {
-  basic <- nullmodel(mode = "regression")
+  basic <- null_model(mode = "regression")
   basic_nullmodel <- translate(basic %>% set_engine("parsnip"))
   expect_equal(basic_nullmodel$method$fit$args,
                list(
@@ -20,7 +20,7 @@ test_that('primary arguments', {
 
 
 test_that('engine arguments', {
-  nullmodel_keep <- nullmodel(mode = "regression")
+  nullmodel_keep <- null_model(mode = "regression")
   expect_equal(translate(nullmodel_keep %>% set_engine("parsnip", keepxy = FALSE))$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -31,12 +31,12 @@ test_that('engine arguments', {
 })
 
 test_that('bad input', {
-  expect_error(translate(nullmodel() %>% set_engine("wat?")))
-  expect_error(translate(nullmodel(mode = "regression") %>% set_engine()))
-  expect_error(translate(nullmodel(formula = y ~ x)))
+  expect_error(translate(null_model() %>% set_engine("wat?")))
+  expect_error(translate(null_model(mode = "regression") %>% set_engine()))
+  expect_error(translate(null_model(formula = y ~ x)))
   expect_warning(
     translate(
-      nullmodel(mode = "regression") %>% set_engine("parsnip", x = iris[,1:3], y = iris$Species)
+      null_model(mode = "regression") %>% set_engine("parsnip", x = iris[,1:3], y = iris$Species)
     )
   )
 })
@@ -45,7 +45,7 @@ test_that('bad input', {
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- nullmodel(mode = "regression") %>% set_engine("parsnip")
+iris_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
 
 # ------------------------------------------------------------------------------
 
@@ -111,11 +111,11 @@ test_that('nullmodel prediction', {
 test_that('classification', {
 
   expect_error(
-    nullmodel <- nullmodel(mode = "classification") %>%
+    null_model <- null_model(mode = "classification") %>%
       set_engine("parsnip") %>%
       fit(Species ~ ., data = iris),
     regexp = NA
   )
-  expect_true(!is.null(nullmodel$fit))
+  expect_true(!is.null(null_model$fit))
 })
 

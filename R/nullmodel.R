@@ -2,24 +2,24 @@
 #'
 #' Fit a single mean or largest class model
 #'
-#' \code{null_model} emulates other model building functions, but returns the
+#' \code{nullmodel} emulates other model building functions, but returns the
 #' simplest model possible given a training set: a single mean for numeric
 #' outcomes and the most prevalent class for factor outcomes. When class
 #' probabilities are requested, the percentage of the training set samples with
 #' the most prevalent class is returned.
 #'
-#' @aliases null_model null_model.default predict.null_model
+#' @aliases nullmodel nullmodel.default predict.nullmodel
 #' @param x An optional matrix or data frame of predictors. These values are
 #' not used in the model fit
 #' @param y A numeric vector (for regression) or factor (for classification) of
 #' outcomes
 #' @param \dots Optional arguments (not yet used)
-#' @param object An object of class \code{null_model}
+#' @param object An object of class \code{nullmodel}
 #' @param newdata A matrix or data frame of predictors (only used to determine
 #' the number of predictions to return)
 #' @param type Either "raw" (for regression), "class" or "prob" (for
 #' classification)
-#' @return The output of \code{null_model} is a list of class \code{null_model}
+#' @return The output of \code{nullmodel} is a list of class \code{nullmodel}
 #' with elements \item{call }{the function call} \item{value }{the mean of
 #' \code{y} or the most prevalent class} \item{levels }{when \code{y} is a
 #' factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
@@ -28,7 +28,7 @@
 #' the training samples with that class (the other columns are zero). } \item{n
 #' }{the number of elements in \code{y}}
 #'
-#' \code{predict.null_model} returns a either a factor or numeric vector
+#' \code{predict.nullmodel} returns a either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
 #' @keywords models
 #' @examples
@@ -37,16 +37,16 @@
 #'                          size = 100,
 #'                          prob = c(.1, .9),
 #'                          replace = TRUE))
-#' useless <- null_model(y = outcome)
+#' useless <- nullmodel(y = outcome)
 #' useless
-#' predict(useless, matrix(NA, nrow = 10))
+#' predict(useless, matrix(NA, nrow = 5))
 #'
 #' @export
-null_model <- function (x, ...) UseMethod("null_model")
+nullmodel <- function (x, ...) UseMethod("nullmodel")
 
 #' @export
-#' @rdname null_model
-null_model.default <- function(x = NULL, y, ...)
+#' @rdname nullmodel
+nullmodel.default <- function(x = NULL, y, ...)
 {
 
   if(is.factor(y))
@@ -66,12 +66,12 @@ null_model.default <- function(x = NULL, y, ...)
          levels = lvls,
          pct = pct,
          n = length(y)),
-    class = "null_model")
+    class = "nullmodel")
 }
 
 #' @export
-#' @rdname null_model
-print.null_model <- function(x, ...)
+#' @rdname nullmodel
+print.nullmodel <- function(x, ...)
 {
   cat("Null",
       ifelse(is.null(x$levels), "Classification", "Regression"),
@@ -84,8 +84,8 @@ print.null_model <- function(x, ...)
 }
 
 #' @export
-#' @rdname null_model
-predict.null_model <- function (object, newdata = NULL, type  = NULL, ...)
+#' @rdname nullmodel
+predict.nullmodel <- function (object, newdata = NULL, type  = NULL, ...)
 {
   if(is.null(type))
   {
@@ -112,7 +112,7 @@ predict.null_model <- function (object, newdata = NULL, type  = NULL, ...)
 
 #' General Interface for null models
 #'
-#' `nullmodel` is a way to generate a _specification_ of a model before
+#' `null_model` is a way to generate a _specification_ of a model before
 #'  fitting and allows the model to be created using R. It doens't have any
 #'  main arguments.
 #'
@@ -133,23 +133,23 @@ predict.null_model <- function (object, newdata = NULL, type  = NULL, ...)
 #'
 #' \pkg{parsnip} classification
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "classification"), "parsnip")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
 #'
 #' \pkg{parsnip} regression
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "regression"), "parsnip")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
 #' @examples
-#' nullmodel(mode = "regression")
+#' null_model(mode = "regression")
 #' @export
-nullmodel <-
+null_model <-
   function(mode = "classification") {
     # Check for correct mode
-    if (!(mode %in% nullmodel_modes))
+    if (!(mode %in% null_model_modes))
       stop("`mode` should be one of: ",
-           paste0("'", nullmodel_modes, "'", collapse = ", "),
+           paste0("'", null_model_modes, "'", collapse = ", "),
            call. = FALSE)
 
     # Capture the arguments in quosures
@@ -160,6 +160,6 @@ nullmodel <-
                 mode = mode, method = NULL, engine = NULL)
 
     # set classes in the correct order
-    class(out) <- make_classes("nullmodel")
+    class(out) <- make_classes("null_model")
     out
   }

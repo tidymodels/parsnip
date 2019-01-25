@@ -2,46 +2,68 @@
 % Please edit documentation in R/nullmodel.R
 \name{nullmodel}
 \alias{nullmodel}
-\title{General Interface for null models}
+\alias{nullmodel.default}
+\alias{predict.nullmodel}
+\alias{print.nullmodel}
+\title{Fit a simple, non-informative model}
 \usage{
-nullmodel(mode = "classification")
+nullmodel(x, ...)
+
+\method{nullmodel}{default}(x = NULL, y, ...)
+
+\method{print}{nullmodel}(x, ...)
+
+\method{predict}{nullmodel}(object, newdata = NULL, type = NULL, ...)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+\item{x}{An optional matrix or data frame of predictors. These values are
+not used in the model fit}
+
+\item{\dots}{Optional arguments (not yet used)}
+
+\item{y}{A numeric vector (for regression) or factor (for classification) of
+outcomes}
+
+\item{object}{An object of class \code{nullmodel}}
+
+\item{newdata}{A matrix or data frame of predictors (only used to determine
+the number of predictions to return)}
+
+\item{type}{Either "raw" (for regression), "class" or "prob" (for
+classification)}
+}
+\value{
+The output of \code{nullmodel} is a list of class \code{nullmodel}
+with elements \item{call }{the function call} \item{value }{the mean of
+\code{y} or the most prevalent class} \item{levels }{when \code{y} is a
+factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
+is a factor, a data frame with a column for each class (\code{NULL}
+otherwise). The column for the most prevalent class has the proportion of
+the training samples with that class (the other columns are zero). } \item{n
+}{the number of elements in \code{y}}
+
+\code{predict.nullmodel} returns a either a factor or numeric vector
+depending on the class of \code{y}. All predictions are always the same.
 }
 \description{
-\code{nullmodel} is a way to generate a \emph{specification} of a model before
-fitting and allows the model to be created using R. It doens't have any
-main arguments.
+Fit a single mean or largest class model
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"parsnip"}
+\code{nullmodel} emulates other model building functions, but returns the
+simplest model possible given a training set: a single mean for numeric
+outcomes and the most prevalent class for factor outcomes. When class
+probabilities are requested, the percentage of the training set samples with
+the most prevalent class is returned.
 }
-}
-\section{Engine Details}{
-
-
-Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:
-
-\pkg{parsnip} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "classification"), "parsnip")}
-
-\pkg{parsnip} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nullmodel(mode = "regression"), "parsnip")}
-}
-
 \examples{
-nullmodel(mode = "regression")
+
+outcome <- factor(sample(letters[1:2],
+                         size = 100,
+                         prob = c(.1, .9),
+                         replace = TRUE))
+useless <- nullmodel(y = outcome)
+useless
+predict(useless, matrix(NA, nrow = 5))
+
 }
-\seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
-}
+\keyword{models}

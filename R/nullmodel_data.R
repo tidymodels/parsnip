@@ -1,25 +1,25 @@
-nullmodel_arg_key <- data.frame(
+null_model_arg_key <- data.frame(
   parsnip   =  NULL,
   row.names =  NULL,
   stringsAsFactors = FALSE
 )
 
-nullmodel_modes <- c("classification", "regression", "unknown")
+null_model_modes <- c("classification", "regression", "unknown")
 
-nullmodel_engines <- data.frame(
+null_model_engines <- data.frame(
   parsnip   = c(TRUE, TRUE, FALSE),
   row.names =  c("classification", "regression", "unknown")
 )
 
 # ------------------------------------------------------------------------------
 
-nullmodel_parsnip_data <-
+null_model_parsnip_data <-
   list(
     libs = "parsnip",
     fit = list(
       interface = "matrix",
       protect = c("x", "y"),
-      func = c(fun = "null_model"),
+      func = c(fun = "nullmodel"),
       defaults = list()
       ),
     class = list(
