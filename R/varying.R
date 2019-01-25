@@ -139,6 +139,8 @@ is_varying <- function(x) {
 
 find_varying <- function(x) {
 
+  # STEP 1 - Early exits
+
   # Early exit for empty elements (like list())
   if (length(x) == 0L) {
     return(FALSE)
@@ -157,27 +159,17 @@ find_varying <- function(x) {
     return(FALSE)
   }
 
-  # Walk along the call and look for varying() elements
-  if (is.call(x) || is.pairlist(x)) {
+  # STEP 2 - Recursion
 
-    for (i in seq_along(x)) {
+  varying_elems <- vector("logical", length = length(x))
 
-      if (is_varying(x[[i]]))
-        return(TRUE)
-
-    }
-
-    return(FALSE)
+  for (i in seq_along(x)) {
+    varying_elems[i] <- find_varying(x[[i]])
   }
 
-  # Recursive call
-  if (is.vector(x) | is.list(x)) {
-    any_nested_varying <- any(map_lgl(x, find_varying))
-    return(any_nested_varying)
-  }
+  any_varying_elems <- any(varying_elems)
 
-  # User supplied incorrect input
-  stop("Don't know how to handle type ", typeof(x), call. = FALSE)
+  return(any_varying_elems)
 }
 
 caller_method <- function(cl) {

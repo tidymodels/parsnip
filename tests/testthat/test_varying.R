@@ -138,3 +138,12 @@ test_that("lists with multiple elements return a single logical - #131", {
     TRUE
   )
 })
+
+test_that("varying() deeply nested in calls can be located - #134", {
+  deep_varying <- rlang::call2("list", x = list(xx = list(xxx = varying())))
+
+  expect_equal(
+    parsnip:::find_varying(deep_varying),
+    TRUE
+  )
+})
