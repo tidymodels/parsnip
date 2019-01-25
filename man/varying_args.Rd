@@ -7,52 +7,53 @@
 \alias{varying_args.step}
 \title{Determine varying arguments}
 \usage{
-varying_args(x, id, ...)
+varying_args(x, ...)
 
-\method{varying_args}{model_spec}(x, id = NULL, ...)
+\method{varying_args}{model_spec}(x, ...)
 
-\method{varying_args}{recipe}(x, id = NULL, ...)
+\method{varying_args}{recipe}(x, ...)
 
-\method{varying_args}{step}(x, id = NULL, ...)
+\method{varying_args}{step}(x, ...)
 }
 \arguments{
-\item{x}{An object}
-
-\item{id}{A string describing the object \code{x}.}
+\item{x}{A \code{model_spec} or a \code{recipe}.}
 
 \item{...}{Not currently used.}
 }
 \value{
-A tibble with columns for the parameter name (\code{name}), whether is
+A tibble with columns for the parameter name (\code{name}), whether it
 contains \emph{any} varying value (\code{varying}), the \code{id} for the object, and the
 class that was used to call the method (\code{type}).
 }
 \description{
-\code{varying_args} takes a model specification and lists all of the arguments
-along with whether they are fully specified or not.
+\code{varying_args()} takes a model specification or a recipe and returns a tibble
+of information on all possible varying arguments and whether or not they
+are actually varying.
+}
+\details{
+The \code{id} column is determined differently depending on whether a \code{model_spec}
+or a \code{recipe} is used. For a \code{model_spec}, the first class is used. For
+a \code{recipe}, the unique step \code{id} is used.
 }
 \examples{
-library(dplyr)
-library(rlang)
 
-rand_forest() \%>\% varying_args(id = "plain")
+# List all possible varying args for the random forest spec
+rand_forest() \%>\% varying_args()
 
-rand_forest(mtry = varying()) \%>\% varying_args(id = "one arg")
+# mtry is now recognized as varying
+rand_forest(mtry = varying()) \%>\% varying_args()
 
+# Even engine specific arguments can vary
 rand_forest() \%>\%
   set_engine("ranger", sample.fraction = varying()) \%>\%
-  varying_args(id = "only eng_args")
+  varying_args()
 
 rand_forest() \%>\%
   set_engine(
-    "ranger",
-    strata = expr(Class),
-     sampsize = c(varying(), varying())
+    "randomForest",
+    strata = Class,
+    sampsize = varying()
   ) \%>\%
-  varying_args(id = "add an expr")
-
- rand_forest() \%>\%
-   set_engine("ranger", classwt = c(class1 = 1, class2 = varying())) \%>\%
-   varying_args(id = "list of values")
+  varying_args()
 
 }
