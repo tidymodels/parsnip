@@ -140,7 +140,7 @@ validate_only_allowed_step_args <- function(x, step_type) {
   check_allowed_arg <- function(x, nm) {
 
     # not varying
-    if (isFALSE(x)) {
+    if (rlang::is_false(x)) {
       return(invisible(x))
     }
 
