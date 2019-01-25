@@ -56,10 +56,9 @@ varying_args.model_spec <- function(x, id = NULL, ...) {
 
   if (is.null(id))
     id <- deparse(cl$x)
-  varying_args <- map(x$args, find_varying)
-  varying_eng_args <- map(x$eng_args, find_varying)
+  varying_args <- map_lgl(x$args, find_varying)
+  varying_eng_args <- map_lgl(x$eng_args, find_varying)
   res <- c(varying_args, varying_eng_args)
-  res <- map_lgl(res, any)
   tibble(
     name = names(res),
     varying = unname(res),
@@ -114,9 +113,8 @@ varying_args.step <- function(x, id = NULL, ...) {
       "prefix", "naming", "denom", "outcome", "id")
   x <- x[!(names(x) %in% exclude)]
   x <- x[!map_lgl(x, is.null)]
-  res <- map(x, find_varying)
+  res <- map_lgl(x, find_varying)
 
-  res <- map_lgl(res, any)
   tibble(
     name = names(res),
     varying = unname(res),
@@ -140,25 +138,38 @@ is_varying <- function(x) {
 }
 
 find_varying <- function(x) {
-  if (is_quosure(x))
+
+  # STEP 1 - Early exits
+
+  # Early exit for empty elements (like list())
+  if (length(x) == 0L) {
+    return(FALSE)
+  }
+
+  # turn quosures into expressions before continuing
+  if (is_quosure(x)) {
     x <- quo_get_expr(x)
+  }
+
   if (is_varying(x)) {
     return(TRUE)
-  } else if (is.atomic(x) | is.name(x)) {
-    FALSE
-  } else if (is.call(x) || is.pairlist(x)) {
-    for (i in seq_along(x)) {
-      if (is_varying(x[[i]]))
-        return(TRUE)
-    }
-    FALSE
-  } else if (is.vector(x) | is.list(x)) {
-    map_lgl(x, find_varying)
-  } else {
-    # User supplied incorrect input
-    stop("Don't know how to handle type ", typeof(x),
-         call. = FALSE)
   }
+
+  if (is.atomic(x) | is.name(x)) {
+    return(FALSE)
+  }
+
+  # STEP 2 - Recursion
+
+  varying_elems <- vector("logical", length = length(x))
+
+  for (i in seq_along(x)) {
+    varying_elems[i] <- find_varying(x[[i]])
+  }
+
+  any_varying_elems <- any(varying_elems)
+
+  return(any_varying_elems)
 }
 
 caller_method <- function(cl) {
