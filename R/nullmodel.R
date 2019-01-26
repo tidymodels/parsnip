@@ -46,11 +46,9 @@ nullmodel <- function (x, ...) UseMethod("nullmodel")
 
 #' @export
 #' @rdname nullmodel
-nullmodel.default <- function(x = NULL, y, ...)
-{
+nullmodel.default <- function(x = NULL, y, ...) {
 
-  if(is.factor(y))
-  {
+  if(is.factor(y)) {
     lvls <- levels(y)
     tab <- table(y)
     value <- names(tab)[which.max(tab)]
@@ -71,8 +69,7 @@ nullmodel.default <- function(x = NULL, y, ...)
 
 #' @export
 #' @rdname nullmodel
-print.nullmodel <- function(x, ...)
-{
+print.nullmodel <- function(x, ...) {
   cat("Null",
       ifelse(is.null(x$levels), "Classification", "Regression"),
       "Model\n")
