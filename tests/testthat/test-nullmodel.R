@@ -43,7 +43,7 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
+num_pred <-c("Sepal.Length", "Sepal.Width", "Petal.Width")
 iris_bad_form <- as.formula(Species ~ term)
 iris_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
 
@@ -63,7 +63,7 @@ test_that('nullmodel execution', {
     res <- fit_xy(
       iris_basic,
       x = iris[, num_pred],
-      y = iris$Sepal.Length
+      y = iris$Petal.Length
     ),
     regexp = NA
   )
@@ -80,27 +80,20 @@ test_that('nullmodel execution', {
 
 test_that('nullmodel prediction', {
 
-  uni_pred <- tibble(.pred = rep(5.843333, 5))
-  inl_pred <- rep(5.843333, 5)
-
-  mv_pred <-
-    structure(
-      list(Sepal.Width = seq_len(10),
-           Petal.Width = seq_len(10)),
-      class = "data.frame",
-      row.names = c(NA, -10L))
+  uni_pred <- tibble(.pred = rep(3.758, 5))
+  inl_pred <- rep(3.758, 5)
 
   res_xy <- fit_xy(
     iris_basic,
     x = iris[, num_pred],
-    y = iris$Sepal.Length
+    y = iris$Petal.Length
   )
 
-  expect_equal(uni_pred, predict(res_xy, new_data = iris[1, num_pred]))
+  expect_equal(uni_pred, predict(res_xy, new_data = iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
-    Sepal.Length ~ log(Sepal.Width) + Species,
+    Petal.Length ~ log(Sepal.Width) + Species,
     data = iris
   )
   expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))

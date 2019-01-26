@@ -13,7 +13,7 @@ nullmodel(x, ...)
 
 \method{print}{nullmodel}(x, ...)
 
-\method{predict}{nullmodel}(object, newdata = NULL, type = NULL, ...)
+\method{predict}{nullmodel}(object, new_data = NULL, type = NULL, ...)
 }
 \arguments{
 \item{x}{An optional matrix or data frame of predictors. These values are
@@ -26,7 +26,7 @@ outcomes}
 
 \item{object}{An object of class \code{nullmodel}}
 
-\item{newdata}{A matrix or data frame of predictors (only used to determine
+\item{new_data}{A matrix or data frame of predictors (only used to determine
 the number of predictions to return)}
 
 \item{type}{Either "raw" (for regression), "class" or "prob" (for

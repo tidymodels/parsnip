@@ -15,7 +15,7 @@
 #' outcomes
 #' @param \dots Optional arguments (not yet used)
 #' @param object An object of class \code{nullmodel}
-#' @param newdata A matrix or data frame of predictors (only used to determine
+#' @param new_data A matrix or data frame of predictors (only used to determine
 #' the number of predictions to return)
 #' @param type Either "raw" (for regression), "class" or "prob" (for
 #' classification)
@@ -85,18 +85,14 @@ print.nullmodel <- function(x, ...)
 
 #' @export
 #' @rdname nullmodel
-predict.nullmodel <- function (object, newdata = NULL, type  = NULL, ...)
-{
-  if(is.null(type))
-  {
+predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
+  if(is.null(type)) {
     type <- if(is.null(object$levels)) "raw" else "class"
   }
 
-  n <- if(is.null(newdata)) object$n else nrow(newdata)
-  if(!is.null(object$levels))
-  {
-    if(type == "prob")
-    {
+  n <- if(is.null(new_data)) object$n else nrow(new_data)
+  if(!is.null(object$levels)) {
+    if(type == "prob") {
       out <- matrix(rep(object$pct, n), nrow = n, byrow = TRUE)
       colnames(out) <- object$levels
       out <- as.data.frame(out)

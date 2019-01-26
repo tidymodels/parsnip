@@ -41,7 +41,7 @@ null_model_parsnip_data <-
         list(
           object = quote(object$fit),
           new_data = quote(new_data),
-          type = "raw"
+          type = "numeric"
         )
       ),
     raw = list(
