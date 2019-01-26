@@ -48,6 +48,7 @@ nullmodel <- function (x, ...) UseMethod("nullmodel")
 #' @rdname nullmodel
 nullmodel.default <- function(x = NULL, y, ...) {
 
+
   if(is.factor(y)) {
     lvls <- levels(y)
     tab <- table(y)
@@ -56,14 +57,19 @@ nullmodel.default <- function(x = NULL, y, ...) {
   } else {
     lvls <- NULL
     pct <- NULL
-    value <- mean(y, na.rm = TRUE)
+    if(is.null(dim(y))) {
+      value <- mean(y, na.rm = TRUE)
+    } else {
+      value <- colMeans(y, na.rm = TRUE)
+    }
   }
+
   structure(
     list(call = match.call(),
          value = value,
          levels = lvls,
          pct = pct,
-         n = length(y)),
+         n = length(y[[1]])),
     class = "nullmodel")
 }
 
@@ -75,9 +81,16 @@ print.nullmodel <- function(x, ...) {
       "Model\n")
   x$call
 
-  cat("Predicted Value:",
-      ifelse(is.null(x$levels), format(x$value), x$value),
-      "\n")
+  if (length(x$value) == 1) {
+    cat("Predicted Value:",
+        ifelse(is.null(x$levels), format(x$value), x$value),
+        "\n")
+  } else {
+    cat("Predicted Value:\n",
+        names(x$value), "\n",
+        x$value,
+        "\n")
+  }
 }
 
 #' @export
@@ -98,7 +111,14 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
     }
   } else {
     if(type %in% c("prob", "class")) stop("ony raw predicitons are applicable to regression models")
-    out <- rep(object$value, n)
+    if(length(object$value) == 1) {
+      out <- rep(object$value, n)
+    } else {
+      out <- as_tibble(matrix(rep(object$value, n),
+                              ncol = length(object$value), byrow = TRUE))
+
+      names(out) <- names(object$value)
+    }
   }
   out
 }

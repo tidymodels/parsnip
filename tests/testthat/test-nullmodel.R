@@ -76,12 +76,25 @@ test_that('nullmodel execution', {
     )
   )
 
+  ## multivariate y
+
+  expect_error(
+    res <- fit(
+      iris_basic,
+      cbind(Sepal.Width, Petal.Width) ~ .,
+      data = iris
+    ),
+    regexp = NA
+  )
+
 })
 
 test_that('nullmodel prediction', {
 
   uni_pred <- tibble(.pred = rep(3.758, 5))
   inl_pred <- rep(3.758, 5)
+  mw_pred <- tibble(gear = rep(3.6875, 5),
+                    carb = rep(2.8125, 5))
 
   res_xy <- fit_xy(
     iris_basic,
@@ -97,6 +110,15 @@ test_that('nullmodel prediction', {
     data = iris
   )
   expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))
+
+  # Multivariate y
+  res <- fit(
+    iris_basic,
+    cbind(gear, carb) ~ .,
+    data = mtcars
+  )
+
+  expect_equal(mw_pred, predict_numeric(res, mtcars[1:5, ]))
 })
 
 # ------------------------------------------------------------------------------
