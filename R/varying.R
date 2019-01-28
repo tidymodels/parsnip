@@ -6,6 +6,10 @@ varying <- function() {
   quote(varying())
 }
 
+#' @importFrom generics varying_args
+#' @export
+generics::varying_args
+
 #' Determine varying arguments
 #'
 #' `varying_args()` takes a model specification or a recipe and returns a tibble
@@ -16,7 +20,7 @@ varying <- function() {
 #' or a `recipe` is used. For a `model_spec`, the first class is used. For
 #' a `recipe`, the unique step `id` is used.
 #'
-#' @param x A `model_spec` or a `recipe`.
+#' @param object A `model_spec` or a `recipe`.
 #' @param full A single logical. Should all possible varying parameters be
 #' returned? If `FALSE`, then only the parameters that
 #' are actually varying are returned.
@@ -53,27 +57,20 @@ varying <- function() {
 #'   ) %>%
 #'   varying_args()
 #'
-#' @export
-varying_args <- function (x, ...) {
-  UseMethod("varying_args")
-}
-
 #' @importFrom purrr map map_lgl
 #' @export
-#' @export varying_args.model_spec
-#' @rdname varying_args
-varying_args.model_spec <- function(x, full = TRUE, ...) {
+varying_args.model_spec <- function(object, full = TRUE, ...) {
 
   # use the model_spec top level class as the id
-  id <- class(x)[1]
+  id <- class(object)[1]
 
-  if (length(x$args) == 0L & length(x$eng_args) == 0L) {
+  if (length(object$args) == 0L & length(object$eng_args) == 0L) {
     return(varying_tbl())
   }
 
   # Locate varying args in spec args and engine specific args
-  varying_args <- map_lgl(x$args, find_varying)
-  varying_eng_args <- map_lgl(x$eng_args, find_varying)
+  varying_args <- map_lgl(object$args, find_varying)
+  varying_eng_args <- map_lgl(object$eng_args, find_varying)
 
   res <- c(varying_args, varying_eng_args)
 
@@ -97,42 +94,40 @@ varying_args.model_spec <- function(x, full = TRUE, ...) {
 
 #' @importFrom purrr map2_dfr map_chr
 #' @export
-#' @export varying_args.recipe
-#' @rdname varying_args
-varying_args.recipe <- function(x, full = TRUE, ...) {
+#' @rdname varying_args.model_spec
+varying_args.recipe <- function(object, full = TRUE, ...) {
 
-  steps <- x$steps
+  steps <- object$steps
 
   if (length(steps) == 0L) {
     return(varying_tbl())
   }
 
-  map_dfr(x$steps, varying_args, full = full)
+  map_dfr(object$steps, varying_args, full = full)
 }
 
 #' @importFrom purrr map map_lgl
 #' @export
-#' @export varying_args.step
-#' @rdname varying_args
-varying_args.step <- function(x, full = TRUE, ...) {
+#' @rdname varying_args.model_spec
+varying_args.step <- function(object, full = TRUE, ...) {
 
   # Unique step id
-  id <- x$id
+  id <- object$id
 
   # Grab the step class before the subset, as that removes the class
-  step_type <- class(x)[1]
+  step_type <- class(object)[1]
 
   # Remove NULL argument steps. These are reserved
   # for deprecated args or those set at prep() time.
-  x <- x[!map_lgl(x, is.null)]
+  object <- object[!map_lgl(object, is.null)]
 
-  res <- map_lgl(x, find_varying)
+  res <- map_lgl(object, find_varying)
 
   # ensure the user didn't specify a non-varying argument as varying()
   validate_only_allowed_step_args(res, step_type)
 
   # remove the non-varying arguments as they are not important
-  res <- res[!(names(x) %in% non_varying_step_arguments)]
+  res <- res[!(names(object) %in% non_varying_step_arguments)]
 
   varying_tbl(
     name = names(res),
