@@ -2,75 +2,81 @@
 #'
 #' [varying()] is used when a parameter will be specified at a later date.
 #' @export
-varying <- function()
+varying <- function() {
   quote(varying())
+}
 
 #' Determine varying arguments
 #'
-#' `varying_args` takes a model specification and lists all of the arguments
-#'  along with whether they are fully specified or not.
-#' @param x An object
-#' @param id A string describing the object `x`.
+#' `varying_args()` takes a model specification or a recipe and returns a tibble
+#' of information on all possible varying arguments and whether or not they
+#' are actually varying.
+#'
+#' The `id` column is determined differently depending on whether a `model_spec`
+#' or a `recipe` is used. For a `model_spec`, the first class is used. For
+#' a `recipe`, the unique step `id` is used.
+#'
+#' @param x A `model_spec` or a `recipe`.
+#'
 #' @param ... Not currently used.
-#' @return A tibble with columns for the parameter name (`name`), whether is
-#'  contains _any_ varying value (`varying`), the `id` for the object, and the
-#'  class that was used to call the method (`type`).
+#'
+#' @return A tibble with columns for the parameter name (`name`), whether it
+#' contains _any_ varying value (`varying`), the `id` for the object, and the
+#' class that was used to call the method (`type`).
+#'
 #' @examples
-#' library(dplyr)
-#' library(rlang)
 #'
-#' rand_forest() %>% varying_args(id = "plain")
+#' # List all possible varying args for the random forest spec
+#' rand_forest() %>% varying_args()
 #'
-#' rand_forest(mtry = varying()) %>% varying_args(id = "one arg")
+#' # mtry is now recognized as varying
+#' rand_forest(mtry = varying()) %>% varying_args()
 #'
+#' # Even engine specific arguments can vary
 #' rand_forest() %>%
 #'   set_engine("ranger", sample.fraction = varying()) %>%
-#'   varying_args(id = "only eng_args")
+#'   varying_args()
 #'
 #' rand_forest() %>%
 #'   set_engine(
-#'     "ranger",
-#'     strata = expr(Class),
-#'      sampsize = c(varying(), varying())
+#'     "randomForest",
+#'     strata = Class,
+#'     sampsize = varying()
 #'   ) %>%
-#'   varying_args(id = "add an expr")
-#'
-#'  rand_forest() %>%
-#'    set_engine("ranger", classwt = c(class1 = 1, class2 = varying())) %>%
-#'    varying_args(id = "list of values")
+#'   varying_args()
 #'
 #' @export
-varying_args <- function (x, id, ...)
+varying_args <- function (x, ...) {
   UseMethod("varying_args")
+}
 
 #' @importFrom purrr map map_lgl
 #' @export
 #' @export varying_args.model_spec
 #' @rdname varying_args
-varying_args.model_spec <- function(x, id = NULL, ...) {
-  cl <- match.call()
+varying_args.model_spec <- function(x, ...) {
 
-  if (!is.null(id) && !is.character(id))
-    stop ("`id` should be a single character string.", call. = FALSE)
-  id <- id[1]
+  # use the model_spec top level class as the id
+  id <- class(x)[1]
 
-  if (is.null(id))
-    id <- deparse(cl$x)
+  if (length(x$args) == 0L & length(x$eng_args) == 0L) {
+    return(varying_tbl())
+  }
+
+  # Locate varying args in spec args and engine specific args
   varying_args <- map_lgl(x$args, find_varying)
   varying_eng_args <- map_lgl(x$eng_args, find_varying)
+
   res <- c(varying_args, varying_eng_args)
-  tibble(
+
+  varying_tbl(
     name = names(res),
     varying = unname(res),
     id = id,
-    type = caller_method(cl)
+    type = "model_spec"
   )
-}
 
-# NOTE Look at the `sampsize` and `classwt` examples above. Using varying() in
-#  a vector will convert it to list. When the model-specific `translate` is
-#  run, we should catch those and convert them back to vectors if the varying
-#  parameter has been replaced with a real value.
+}
 
 # Need to figure out a way to meld the results of varying_args with
 #  parameter objects from `dials` or from novel parameters in the user's
@@ -81,36 +87,29 @@ varying_args.model_spec <- function(x, id = NULL, ...) {
 # Maybe use this data as substrate to make a new object type (param_set?) that
 #  would have its own methods for grids and random sampling.
 
-# lots of code duplication below and probably poor planning; just a prototype.
-# once the generics package is done, these will go into recipes
-
 #' @importFrom purrr map2_dfr map_chr
 #' @export
 #' @export varying_args.recipe
 #' @rdname varying_args
-varying_args.recipe <- function(x, id = NULL, ...) {
-  step_type <- map_chr(x$steps, function(x) class(x)[1])
-  step_type <- make.names(step_type, unique = TRUE) # change with new tibble version
-  res <- map2_dfr(x$steps, step_type, varying_args)
-  res
+varying_args.recipe <- function(x, ...) {
+
+  steps <- x$steps
+
+  if (length(steps) == 0L) {
+    return(varying_tbl())
+  }
+
+  map_dfr(x$steps, varying_args)
 }
 
 #' @importFrom purrr map map_lgl
 #' @export
 #' @export varying_args.step
 #' @rdname varying_args
-varying_args.step <- function(x, id = NULL, ...) {
-  cl <- match.call()
+varying_args.step <- function(x, ...) {
 
-  if (!is.null(id) && !is.character(id)) {
-    stop ("`id` should be a single character string.", call. = FALSE)
-  }
-
-  id <- id[1]
-
-  if (is.null(id)) {
-    id <- deparse(cl$x)
-  }
+  # Unique step id
+  id <- x$id
 
   # Grab the step class before the subset, as that removes the class
   step_type <- class(x)[1]
@@ -127,12 +126,29 @@ varying_args.step <- function(x, id = NULL, ...) {
   # remove the non-varying arguments as they are not important
   res <- res[!(names(x) %in% non_varying_step_arguments)]
 
-  tibble(
+  varying_tbl(
     name = names(res),
     varying = unname(res),
     id = id,
-    type = caller_method(cl)
+    type = "step"
   )
+
+}
+
+# useful for standardization and for creating a 0 row varying tbl
+# (i.e. for when there are no steps in a recipe)
+varying_tbl <- function(name = character(),
+                        varying = logical(),
+                        id = character(),
+                        type = character()) {
+
+  tibble(
+    name = name,
+    varying = varying,
+    id = id,
+    type = type
+  )
+
 }
 
 validate_only_allowed_step_args <- function(x, step_type) {
@@ -214,11 +230,3 @@ find_varying <- function(x) {
 
   return(any_varying_elems)
 }
-
-caller_method <- function(cl) {
-  x <- cl[[1]]
-  x <- deparse(x)
-  x <- gsub("varying_args.", "", x, fixed = TRUE)
-  x
-}
-
