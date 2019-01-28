@@ -175,3 +175,22 @@ test_that("recipe steps with non-varying args error if specified as varying()", 
     "The following argument for a recipe step of type 'step_center' is not allowed to vary: 'skip'."
   )
 })
+
+test_that("`full = FALSE` returns only varying arguments", {
+
+  x_spec <- rand_forest(min_n = varying())  %>%
+    set_engine("ranger", sample.fraction = varying())
+
+  x_rec <- rec_1
+
+  expect_equal(
+    varying_args(x_spec, full = FALSE)$name,
+    c("min_n", "sample.fraction")
+  )
+
+  expect_equal(
+    varying_args(x_rec, full = FALSE)$name,
+    c("K", "num")
+  )
+
+})

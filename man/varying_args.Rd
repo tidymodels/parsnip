@@ -9,21 +9,25 @@
 \usage{
 varying_args(x, ...)
 
-\method{varying_args}{model_spec}(x, ...)
+\method{varying_args}{model_spec}(x, full = TRUE, ...)
 
-\method{varying_args}{recipe}(x, ...)
+\method{varying_args}{recipe}(x, full = TRUE, ...)
 
-\method{varying_args}{step}(x, ...)
+\method{varying_args}{step}(x, full = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{model_spec} or a \code{recipe}.}
 
 \item{...}{Not currently used.}
+
+\item{full}{A single logical. Should all possible varying parameters be
+returned? If \code{FALSE}, then only the parameters that
+are actually varying are returned.}
 }
 \value{
 A tibble with columns for the parameter name (\code{name}), whether it
-contains \emph{any} varying value (\code{varying}), the \code{id} for the object, and the
-class that was used to call the method (\code{type}).
+contains \emph{any} varying value (\code{varying}), the \code{id} for the object (\code{id}),
+and the class that was used to call the method (\code{type}).
 }
 \description{
 \code{varying_args()} takes a model specification or a recipe and returns a tibble
@@ -47,6 +51,11 @@ rand_forest(mtry = varying()) \%>\% varying_args()
 rand_forest() \%>\%
   set_engine("ranger", sample.fraction = varying()) \%>\%
   varying_args()
+
+# List only the arguments that actually vary
+rand_forest() \%>\%
+  set_engine("ranger", sample.fraction = varying()) \%>\%
+  varying_args(full = FALSE)
 
 rand_forest() \%>\%
   set_engine(

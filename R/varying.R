@@ -17,12 +17,15 @@ varying <- function() {
 #' a `recipe`, the unique step `id` is used.
 #'
 #' @param x A `model_spec` or a `recipe`.
+#' @param full A single logical. Should all possible varying parameters be
+#' returned? If `FALSE`, then only the parameters that
+#' are actually varying are returned.
 #'
 #' @param ... Not currently used.
 #'
 #' @return A tibble with columns for the parameter name (`name`), whether it
-#' contains _any_ varying value (`varying`), the `id` for the object, and the
-#' class that was used to call the method (`type`).
+#' contains _any_ varying value (`varying`), the `id` for the object (`id`),
+#' and the class that was used to call the method (`type`).
 #'
 #' @examples
 #'
@@ -36,6 +39,11 @@ varying <- function() {
 #' rand_forest() %>%
 #'   set_engine("ranger", sample.fraction = varying()) %>%
 #'   varying_args()
+#'
+#' # List only the arguments that actually vary
+#' rand_forest() %>%
+#'   set_engine("ranger", sample.fraction = varying()) %>%
+#'   varying_args(full = FALSE)
 #'
 #' rand_forest() %>%
 #'   set_engine(
@@ -54,7 +62,7 @@ varying_args <- function (x, ...) {
 #' @export
 #' @export varying_args.model_spec
 #' @rdname varying_args
-varying_args.model_spec <- function(x, ...) {
+varying_args.model_spec <- function(x, full = TRUE, ...) {
 
   # use the model_spec top level class as the id
   id <- class(x)[1]
@@ -73,9 +81,9 @@ varying_args.model_spec <- function(x, ...) {
     name = names(res),
     varying = unname(res),
     id = id,
-    type = "model_spec"
+    type = "model_spec",
+    full = full
   )
-
 }
 
 # Need to figure out a way to meld the results of varying_args with
@@ -91,7 +99,7 @@ varying_args.model_spec <- function(x, ...) {
 #' @export
 #' @export varying_args.recipe
 #' @rdname varying_args
-varying_args.recipe <- function(x, ...) {
+varying_args.recipe <- function(x, full = TRUE, ...) {
 
   steps <- x$steps
 
@@ -99,14 +107,14 @@ varying_args.recipe <- function(x, ...) {
     return(varying_tbl())
   }
 
-  map_dfr(x$steps, varying_args)
+  map_dfr(x$steps, varying_args, full = full)
 }
 
 #' @importFrom purrr map map_lgl
 #' @export
 #' @export varying_args.step
 #' @rdname varying_args
-varying_args.step <- function(x, ...) {
+varying_args.step <- function(x, full = TRUE, ...) {
 
   # Unique step id
   id <- x$id
@@ -130,9 +138,9 @@ varying_args.step <- function(x, ...) {
     name = names(res),
     varying = unname(res),
     id = id,
-    type = "step"
+    type = "step",
+    full = full
   )
-
 }
 
 # useful for standardization and for creating a 0 row varying tbl
@@ -140,15 +148,21 @@ varying_args.step <- function(x, ...) {
 varying_tbl <- function(name = character(),
                         varying = logical(),
                         id = character(),
-                        type = character()) {
+                        type = character(),
+                        full = FALSE) {
 
-  tibble(
+  vry_tbl <- tibble(
     name = name,
     varying = varying,
     id = id,
     type = type
   )
 
+  if (!full) {
+    vry_tbl <- vry_tbl[vry_tbl$varying,]
+  }
+
+  vry_tbl
 }
 
 validate_only_allowed_step_args <- function(x, step_type) {
