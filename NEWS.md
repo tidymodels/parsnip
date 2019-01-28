@@ -1,6 +1,16 @@
 # parsnip 0.0.1.9000
 
-## Bug fixes
+## Other Changes
+
+* `varying_args()` now has a `full` argument to control whether the full set
+of possible varying arguments is returned (as opposed to only the arguments
+that are actually varying).
+
+## Bug Fixes
+
+* `varying_args()` now uses the version from the `generics` package. This means
+that the first argument, `x`, has been renamed to `object` to align with 
+generics.
 
 * For the recipes step method of `varying_args()`, there is now error checking
 to catch if a user tries to specify an argument that _cannot_ be varying as 
