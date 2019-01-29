@@ -134,3 +134,4 @@ test_that('classification', {
   expect_true(!is.null(null_model$fit))
 })
 
+

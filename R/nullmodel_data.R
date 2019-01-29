@@ -23,14 +23,28 @@ null_model_parsnip_data <-
       defaults = list()
       ),
     class = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          new_data = quote(new_data),
+          type = "class"
+        )
+    ),
+    classprob = list(
         pre = NULL,
-        post = NULL,
+        post = function(x, object) {
+          str(as_tibble(x))
+          as_tibble(x)
+        },
         func = c(fun = "predict"),
         args =
           list(
             object = quote(object$fit),
             new_data = quote(new_data),
-            type = "class"
+            type = "prob"
           )
       ),
     numeric = list(
