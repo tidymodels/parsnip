@@ -93,7 +93,7 @@
 predict.model_fit <- function (object, new_data, type = NULL, opts = list(), ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-  
+
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0)
     warning("`opts` is only used with `type = 'raw'` and was ignored.")
@@ -224,4 +224,7 @@ multi_predict.default <- function(object, ...)
   stop ("No `multi_predict` method exists for objects with classes ",
         paste0("'", class(), "'", collapse = ", "), call. = FALSE)
 
-
+#' @export
+predict.model_spec <- function(object, ...) {
+  stop("You must use `fit` on your model specification before you can use `predict`.", call. = FALSE)
+}
