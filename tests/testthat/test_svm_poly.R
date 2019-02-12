@@ -304,16 +304,14 @@ test_that('svm poly raw classification output', {
   kern_raw <-
     structure(
       list(
-        .pred_setosa = c(-1.7938088695119926985200, 1.0625214185831244328995, 0.3823300859367214643569),
-        .pred_versicolor = c(-1.481864199067975507162, 0.965571713317597501991, 1.216915825521836413969),
-        .pred_virginica = c(0.5042163903735015217933, -1.1640234770560717869614, 3.7827641413457531172071)),
+        setosa = c(-1.7938088695119926985200, 1.0625214185831244328995, 0.3823300859367214643569),
+        versicolor = c(-1.481864199067975507162, 0.965571713317597501991, 1.216915825521836413969),
+        virginica = c(0.5042163903735015217933, -1.1640234770560717869614, 3.7827641413457531172071)),
       row.names = c(NA,-3L),
       class = c("tbl_df", "tbl", "data.frame"))
 
 
-  browser()
   parsnip_raw <- predict(cls_form, iris[ind, -5], type = "raw")
-  browser()
   expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_raw))
 
   parsnip_xy_raw <- predict(cls_xy_form, iris[ind, -5], type = "raw")
