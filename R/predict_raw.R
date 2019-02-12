@@ -13,20 +13,24 @@ predict_raw.model_fit <- function (object, new_data, opts = list(), ...) {
     object$spec$method$raw$args <-
       c(object$spec$method$raw$args, opts)
   }
-  
+
   if (!any(names(object$spec$method) == "raw"))
     stop("No raw prediction module defined for this model.", call. = FALSE)
-  
+
   new_data <- prepare_data(object, new_data)
-  
+
   # preprocess data
   if (!is.null(object$spec$method$raw$pre))
     new_data <- object$spec$method$raw$pre(new_data, object)
-  
+
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$raw)
-  
+
   res <- eval_tidy(pred_call)
+
+  if (!is.null(object$spec$method$raw$post)) {
+    res <- object$spec$method$raw$post(res, object)
+  }
 
   res
 }
