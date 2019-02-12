@@ -265,3 +265,57 @@ test_that('svm poly classification probabilities', {
   parsnip_xy_probs <- predict(cls_xy_form, iris[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
 })
+
+test_that('svm poly raw classification output', {
+
+  skip_if_not_installed("kernlab")
+
+  ind <- c(1, 51, 101)
+
+  set.seed(34562)
+  cls_form <-
+    fit(
+      cls_mod,
+      Species ~ .,
+      data = iris,
+      control = ctrl
+    )
+
+  kern_class <-
+    structure(
+      list(
+        .pred_class =
+          structure(1:3, .Label = c("setosa", "versicolor", "virginica"), class = "factor")),
+      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+
+  parsnip_class <- predict(cls_form, iris[ind, -5])
+  expect_equal(kern_class, parsnip_class)
+
+  set.seed(34562)
+  cls_xy_form <-
+    fit_xy(
+      cls_mod,
+      x = iris[, 1:4],
+      y = iris$Species,
+      control = ctrl
+    )
+  expect_equal(cls_form$fit, cls_xy_form$fit)
+
+  kern_raw <-
+    structure(
+      list(
+        .pred_setosa = c(-1.7938088695119926985200, 1.0625214185831244328995, 0.3823300859367214643569),
+        .pred_versicolor = c(-1.481864199067975507162, 0.965571713317597501991, 1.216915825521836413969),
+        .pred_virginica = c(0.5042163903735015217933, -1.1640234770560717869614, 3.7827641413457531172071)),
+      row.names = c(NA,-3L),
+      class = c("tbl_df", "tbl", "data.frame"))
+
+
+  browser()
+  parsnip_raw <- predict(cls_form, iris[ind, -5], type = "raw")
+  browser()
+  expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_raw))
+
+  parsnip_xy_raw <- predict(cls_xy_form, iris[ind, -5], type = "raw")
+  expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_xy_raw))
+})
