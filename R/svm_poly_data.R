@@ -59,6 +59,7 @@ svm_poly_kernlab_data <-
     ),
     raw = list(
       pre = NULL,
+      post = function(result, object) as_tibble(result),
       func = c(pkg = "kernlab", fun = "predict"),
       args =
         list(
