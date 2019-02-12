@@ -63,7 +63,8 @@ svm_poly_kernlab_data <-
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data)
+          newdata = quote(new_data),
+          type = "decision"
         )
     )
   )
