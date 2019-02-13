@@ -61,8 +61,9 @@ svm_poly_kernlab_data <-
       pre = NULL,
       post = function(result, object) {
         result = as_tibble(result)
-        names(result) = object$lvl
-        result
+        lvls = object$lvl
+        names(result) = lvls[1:ncol(result)]
+        as_tibble(result)
       },
       func = c(pkg = "kernlab", fun = "predict"),
       args =
