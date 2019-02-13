@@ -61,7 +61,7 @@ svm_poly_kernlab_data <-
       pre = NULL,
       post = function(result, object) {
         result = as_tibble(result)
-        lvls = object$lvl
+        lvls = paste0(".decision_", object$lvl)
         names(result) = lvls[1:ncol(result)]
         as_tibble(result)
       },
