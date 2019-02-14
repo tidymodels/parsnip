@@ -226,5 +226,5 @@ multi_predict.default <- function(object, ...)
 
 #' @export
 predict.model_spec <- function(object, ...) {
-  stop("You must use `fit` on your model specification before you can use `predict`.", call. = FALSE)
+  stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
 }
