@@ -281,16 +281,6 @@ test_that('svm poly raw classification output', {
       control = ctrl
     )
 
-  kern_class <-
-    structure(
-      list(
-        .pred_class =
-          structure(1:3, .Label = c("setosa", "versicolor", "virginica"), class = "factor")),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
-
-  parsnip_class <- predict(cls_form, iris[ind, -5])
-  expect_equal(kern_class, parsnip_class)
-
   set.seed(34562)
   cls_xy_form <-
     fit_xy(
@@ -299,7 +289,6 @@ test_that('svm poly raw classification output', {
       y = iris$Species,
       control = ctrl
     )
-  expect_equal(cls_form$fit, cls_xy_form$fit)
 
   kern_raw <-
     structure(
@@ -310,6 +299,45 @@ test_that('svm poly raw classification output', {
       row.names = c(NA,-3L),
       class = c("tbl_df", "tbl", "data.frame"))
 
+  parsnip_raw <- predict(cls_form, iris[ind, -5], type = "raw")
+  expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_raw))
+
+  parsnip_xy_raw <- predict(cls_xy_form, iris[ind, -5], type = "raw")
+  expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_xy_raw))
+})
+
+test_that('svm poly raw classification output - binary', {
+
+  skip_if_not_installed("kernlab")
+
+  ind <- c(1, 51, 101)
+
+  set.seed(34562)
+  cls_form <-
+    fit(
+      cls_mod,
+      Species ~ .,
+      data = iris[1:100,],
+      control = ctrl
+    )
+
+  set.seed(34562)
+  cls_xy_form <-
+    fit_xy(
+      cls_mod,
+      x = iris[1:100, 1:4],
+      y = iris[1:100,]$Species,
+      control = ctrl
+    )
+  expect_equal(cls_form$fit, cls_xy_form$fit)
+
+  kern_raw <-
+    structure(
+      list(
+        .decision_setosa = c(-1.4888535538855891537935, 0.9995139681507999585008, 1.7672372311335777794739)
+      ),
+      row.names = c(NA,-3L),
+      class = c("tbl_df", "tbl", "data.frame"))
 
   parsnip_raw <- predict(cls_form, iris[ind, -5], type = "raw")
   expect_equal(as.data.frame(kern_raw), as.data.frame(parsnip_raw))
