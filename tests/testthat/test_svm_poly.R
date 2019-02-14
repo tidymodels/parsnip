@@ -311,13 +311,14 @@ test_that('svm poly raw classification output - binary', {
   skip_if_not_installed("kernlab")
 
   ind <- c(1, 51, 101)
+  two_classes_df = iris[1:100,]
 
   set.seed(34562)
   cls_form <-
     fit(
       cls_mod,
       Species ~ .,
-      data = iris[1:100,],
+      data = two_classes_df,
       control = ctrl
     )
 
@@ -325,8 +326,8 @@ test_that('svm poly raw classification output - binary', {
   cls_xy_form <-
     fit_xy(
       cls_mod,
-      x = iris[1:100, 1:4],
-      y = iris[1:100,]$Species,
+      x = two_classes_df[, 1:4],
+      y = two_classes_df$Species,
       control = ctrl
     )
   expect_equal(cls_form$fit, cls_xy_form$fit)
