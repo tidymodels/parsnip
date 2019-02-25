@@ -1,5 +1,9 @@
 # parsnip 0.0.1.9000
 
+## New Features
+
+* A "null model" is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).  
+
 ## Other Changes
 
 * `varying_args()` now has a `full` argument to control whether the full set
@@ -25,6 +29,8 @@ column names once (#107).
 
 * For multinomial regression using glmnet, `multi_predict()` now pulls the 
 correct default penalty (#108).
+
+
 
 # parsnip 0.0.1
 

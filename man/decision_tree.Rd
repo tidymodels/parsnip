@@ -29,10 +29,10 @@ in a node that are required for the node to be split further.}
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
 
-\item{...}{Not used for \code{update}.}
+\item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{decision_tree} is a way to generate a \emph{specification} of a model
+\code{decision_tree()} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
 model are:
@@ -46,9 +46,9 @@ that are required for the node to be split further.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using \code{set_engine}. If left to their defaults
+set using \code{set_engine()}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update} can be used
+functions. If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
@@ -68,13 +68,13 @@ machines.
 \note{
 For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via \code{fit} is available; using \code{fit_xy} will
+interface to via \code{fit()} is available; using \code{fit_xy()} will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
 columns in spark tables so class predictions are returned as
 character columns. Fourth, to retain the model object for a new
-R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
 object should be serialized via \code{ml_save(object$fit)} and
 separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.

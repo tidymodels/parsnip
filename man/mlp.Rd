@@ -38,10 +38,10 @@ function between the hidden and output layers is automatically set to either
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
 
-\item{...}{Not used for \code{update}.}
+\item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{mlp}, for multilayer perceptron, is a way to generate a \emph{specification} of
+\code{mlp()}, for multilayer perceptron, is a way to generate a \emph{specification} of
 a model before fitting and allows the model to be created using
 different packages in R or via keras The main arguments for the
 model are:
@@ -63,13 +63,13 @@ in lieu of recreating the object from scratch.
 \details{
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using \code{set_engine}. If left to their defaults
+set using \code{set_engine()}. If left to their defaults
 here (see above), the values are taken from the underlying model
 functions. One exception is \code{hidden_units} when \code{nnet::nnet} is used; that
 function's \code{size} argument has no default so a value of 5 units will be
 used. Also, unless otherwise specified, the \code{linout} argument to
-\code{nnet::nnet} will be set to \code{TRUE} when a regression model is created.
-If parameters need to be modified, \code{update} can be used
+\code{nnet::nnet()} will be set to \code{TRUE} when a regression model is created.
+If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.
 
 The model can be created using the \code{fit()} function using the

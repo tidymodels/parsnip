@@ -12,14 +12,14 @@ translate(x, ...)
 \item{...}{Not currently used.}
 }
 \description{
-\code{translate} will translate a model specification into a code
+\code{translate()} will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts.
 }
 \details{
-\code{translate} produces a \emph{template} call that lacks the specific
+\code{translate()} produces a \emph{template} call that lacks the specific
 argument values (such as \code{data}, etc). These are filled in once
-\code{fit} is called with the specifics of the data for the model.
+\code{fit()} is called with the specifics of the data for the model.
 The call may also include \code{varying} arguments if these are in
 the specification.
 

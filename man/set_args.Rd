@@ -21,11 +21,11 @@ set_mode(object, mode)
 An updated model object.
 }
 \description{
-\code{set_args} can be used to modify the arguments of a model specification while
-\code{set_mode} is used to change the model's mode.
+\code{set_args()} can be used to modify the arguments of a model specification while
+\code{set_mode()} is used to change the model's mode.
 }
 \details{
-\code{set_args} will replace existing values of the arguments.
+\code{set_args()} will replace existing values of the arguments.
 }
 \examples{
 rand_forest()

@@ -77,7 +77,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 
 #' Declare a computational engine and specific arguments
 #'
-#' `set_engine` is used to specify which package or system will be used
+#' `set_engine()` is used to specify which package or system will be used
 #'  to fit the model, along with any arguments specific to that software.
 #'
 #' @param object A model specification.

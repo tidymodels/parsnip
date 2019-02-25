@@ -67,15 +67,15 @@ check_eng_args <- function(args, obj, core_args) {
 
 #' Change elements of a model specification
 #'
-#' `set_args` can be used to modify the arguments of a model specification while
-#'  `set_mode` is used to change the model's mode.
+#' `set_args()` can be used to modify the arguments of a model specification while
+#'  `set_mode()` is used to change the model's mode.
 #'
 #' @param object A model specification.
 #' @param ... One or more named model arguments.
 #' @param mode A character string for the model type (e.g. "classification" or
 #'  "regression")
 #' @return An updated model object.
-#' @details `set_args` will replace existing values of the arguments.
+#' @details `set_args()` will replace existing values of the arguments.
 #'
 #' @examples
 #' rand_forest()

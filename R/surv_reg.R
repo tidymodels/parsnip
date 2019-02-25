@@ -1,6 +1,6 @@
 #' General Interface for Parametric Survival Models
 #'
-#' `surv_reg` is a way to generate a _specification_ of a model
+#' `surv_reg()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  R. The main argument for the
 #'  model is:
@@ -9,12 +9,12 @@
 #' }
 #' This argument is converted to its specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine`. If left to its default
+#'  set using `set_engine()`. If left to its default
 #'  here (`NULL`), the value is taken from the underlying model
 #'  functions.
 #'
 #' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `surv_reg`,the
+#'  to determine the _mode_ of the model. For `surv_reg()`,the
 #'  mode will always be "regression".
 #'
 #'  Since survival models typically involve censoring (and require the use of
@@ -31,7 +31,7 @@
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
-#' For `surv_reg`, the mode will always be "regression".
+#' For `surv_reg()`, the mode will always be "regression".
 #'
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:

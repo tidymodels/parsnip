@@ -29,7 +29,7 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
 
 \item{...}{Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
-passed using \code{set_engine}.}
+passed using \code{set_engine()}.}
 
 \item{x}{A matrix or data frame of predictors.}
 
@@ -53,22 +53,22 @@ The return value will also have a class related to the fitted model (e.g.
 \code{"_glm"}) before the base class of \code{"model_fit"}.
 }
 \description{
-\code{fit} and \code{fit_xy} take a model specification, translate the required
+\code{fit()} and \code{fit_xy()} take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.
 }
 \details{
-\code{fit} and \code{fit_xy} substitute the current arguments in the model
+\code{fit()} and \code{fit_xy()} substitute the current arguments in the model
 specification into the computational engine's code, checks them
 for validity, then fits the model using the data and the
 engine-specific code. Different model functions have different
 interfaces (e.g. formula or \code{x}/\code{y}) and these functions translate
-between the interface used when \code{fit} or \code{fit_xy} were invoked and the one
+between the interface used when \code{fit()} or \code{fit_xy()} were invoked and the one
 required by the underlying model.
 
 When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-\code{fit} is invoked, the original data are references
+\code{fit()} is invoked, the original data are references
 when the model is fit. However, if the underlying model uses
 something else, such as \code{x}/\code{y}, the formula is evaluated and
 the data are converted to the required format. In this case, any
@@ -76,7 +76,7 @@ calls in the resulting model objects reference the temporary
 objects used to fit the model.
 }
 \examples{
-# Although `glm` only has a formula interface, different
+# Although `glm()` only has a formula interface, different
 # methods for specifying the model can be used
 
 library(dplyr)

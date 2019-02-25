@@ -5,7 +5,7 @@
 
 #' Fit a Model Specification to a Dataset
 #'
-#' `fit` and `fit_xy` take a model specification, translate the required
+#' `fit()` and `fit_xy()` take a model specification, translate the required
 #'  code by substituting arguments, and execute the model fit
 #'  routine.
 #'
@@ -22,25 +22,25 @@
 #'  `catch`. See [fit_control()].
 #' @param ... Not currently used; values passed here will be
 #'  ignored. Other options required to fit the model should be
-#'  passed using `set_engine`.
-#' @details  `fit` and `fit_xy` substitute the current arguments in the model
+#'  passed using `set_engine()`.
+#' @details  `fit()` and `fit_xy()` substitute the current arguments in the model
 #'  specification into the computational engine's code, checks them
 #'  for validity, then fits the model using the data and the
 #'  engine-specific code. Different model functions have different
 #'  interfaces (e.g. formula or `x`/`y`) and these functions translate
-#'  between the interface used when `fit` or `fit_xy` were invoked and the one
+#'  between the interface used when `fit()` or `fit_xy()` were invoked and the one
 #'  required by the underlying model.
 #'
 #' When possible, these functions attempt to avoid making copies of the
 #'  data. For example, if the underlying model uses a formula and
-#'  `fit` is invoked, the original data are references
+#'  `fit()` is invoked, the original data are references
 #'  when the model is fit. However, if the underlying model uses
 #'  something else, such as `x`/`y`, the formula is evaluated and
 #'  the data are converted to the required format. In this case, any
 #'  calls in the resulting model objects reference the temporary
 #'  objects used to fit the model.
 #' @examples
-#' # Although `glm` only has a formula interface, different
+#' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'
 #' library(dplyr)
@@ -305,7 +305,7 @@ check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
   inher(data, c("data.frame", "tbl_spark"), cl)
 
-  # Determine the `fit` interface
+  # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
 
   if (form_interface)
@@ -322,10 +322,10 @@ check_xy_interface <- function(x, y, cl, model) {
 
   # rule out spark data sets that don't use the formula interface
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface via `fit` ",
+    stop("spark objects can only be used with the formula interface via `fit()` ",
          "with a spark data object.", call. = FALSE)
 
-  # Determine the `fit` interface
+  # Determine the `fit()` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
 

@@ -30,10 +30,10 @@ L2 penalty (i.e. weight decay, or ridge regression) versus L1
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
 
-\item{...}{Not used for \code{update}.}
+\item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{logistic_reg} is a way to generate a \emph{specification} of a model
+\code{logistic_reg()} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
 different packages in R, Stan, keras, or via Spark. The main
 arguments for the model are:
@@ -45,13 +45,13 @@ the model. Note that this will be ignored for some engines.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using \code{set_engine}. If left to their defaults
+set using \code{set_engine()}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update} can be used
+functions. If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
-For \code{logistic_reg}, the mode will always be "classification".
+For \code{logistic_reg()}, the mode will always be "classification".
 
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
@@ -65,13 +65,13 @@ following \emph{engines}:
 \note{
 For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via \code{fit} is available; using \code{fit_xy} will
+interface to via \code{fit()} is available; using \code{fit_xy()} will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
 columns in spark tables so class predictions are returned as
 character columns. Fourth, to retain the model object for a new
-R session (via \code{save}), the \code{model$fit} element of the \code{parsnip}
+R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
 object should be serialized via \code{ml_save(object$fit)} and
 separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.
@@ -106,11 +106,11 @@ model, the template of the fit calls are:
 When using \code{glmnet} models, there is the option to pass
 multiple values (or no values) to the \code{penalty} argument.
 This can have an effect on the model object results. When using
-the \code{predict} method in these cases, the return object type
+the \code{predict()} method in these cases, the return object type
 depends on the value of \code{penalty}. If a single value is
 given, the results will be a simple numeric vector. When
 multiple values or no values for \code{penalty} are used in
-\code{logistic_reg}, the \code{predict} method will return a data frame with
+\code{logistic_reg()}, the \code{predict()} method will return a data frame with
 columns \code{values} and \code{lambda}.
 
 For prediction, the \code{stan} engine can compute posterior

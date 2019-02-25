@@ -39,7 +39,7 @@ and the Euclidean distance with \code{dist_power = 2}.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using \code{set_engine}. If left to their defaults
+set using \code{set_engine()}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.

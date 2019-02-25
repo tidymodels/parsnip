@@ -1,15 +1,15 @@
 #' Resolve a Model Specification for a Computational Engine
 #'
-#' `translate` will translate a model specification into a code
+#' `translate()` will translate a model specification into a code
 #'  object that is specific to a particular engine (e.g. R package).
 #'  It translates generic parameters to their counterparts.
 #'
 #' @param x A model specification.
 #' @param ... Not currently used.
 #' @details
-#' `translate` produces a _template_ call that lacks the specific
+#' `translate()` produces a _template_ call that lacks the specific
 #'  argument values (such as `data`, etc). These are filled in once
-#'  `fit` is called with the specifics of the data for the model.
+#'  `fit()` is called with the specifics of the data for the model.
 #'  The call may also include `varying` arguments if these are in
 #'  the specification.
 #'

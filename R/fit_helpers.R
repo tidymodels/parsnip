@@ -1,5 +1,5 @@
 # These functions are the go-betweens between parsnip::fit (or parsnip::fit_xy)
-# and the underlying model function (such as ranger::ranger). So if `fit_xy` is
+# and the underlying model function (such as ranger::ranger). So if `fit_xy()` is
 # used to fit a ranger model, there needs to be a conversion from x/y format
 # data to formula/data objects and so on.
 
