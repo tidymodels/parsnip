@@ -1,5 +1,5 @@
 # These functions are the go-betweens between parsnip::fit (or parsnip::fit_xy)
-# and the underlying model function (such as ranger::ranger). So if `fit_xy` is
+# and the underlying model function (such as ranger::ranger). So if `fit_xy()` is
 # used to fit a ranger model, there needs to be a conversion from x/y format
 # data to formula/data objects and so on.
 
@@ -66,7 +66,7 @@ form_form <-
 xy_xy <- function(object, env, control, target = "none", ...) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit`",
+    stop("spark objects can only be used with the formula interface to `fit()`",
          call. = FALSE)
 
   object <- check_mode(object, levels(env$y))

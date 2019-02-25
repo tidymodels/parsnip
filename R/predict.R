@@ -1,14 +1,14 @@
 #' Model predictions
 #'
 #' Apply a model to create different types of predictions.
-#'  `predict` can be used for all types of models and used the
+#'  `predict()` can be used for all types of models and used the
 #'  "type" argument for more specificity.
 #'
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
 #'  are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-#'  or "raw". When `NULL`, `predict` will choose an appropriate value
+#'  or "raw". When `NULL`, `predict()` will choose an appropriate value
 #'  based on the model's mode.
 #' @param opts A list of optional arguments to the underlying
 #'  predict function that will be used when `type = "raw"`. The
@@ -17,11 +17,11 @@
 #' @param ... Ignored. To pass arguments to pass to the underlying
 #'  function when `predict.model_fit(type = "raw")`,
 #' use the `opts` argument.
-#' @details If "type" is not supplied to `predict`, then a choice
+#' @details If "type" is not supplied to `predict()`, then a choice
 #'  is made (`type = "numeric"` for regression models and
 #'  `type = "class"` for classification).
 #'
-#' `predict` is designed to provide a tidy result (see "Value"
+#' `predict()` is designed to provide a tidy result (see "Value"
 #'  section below) in a tibble output format.
 #'
 #'  When using `type = "conf_int"` and `type = "pred_int"`, the options
@@ -29,7 +29,7 @@
 #'   extra column of standard error values (if available).
 #'
 #' @return With the exception of `type = "raw"`, the results of
-#'  `predict.model_fit` will be a tibble as many rows in the output
+#'  `predict.model_fit()` will be a tibble as many rows in the output
 #'  as there are rows in `new_data` and the column names will be
 #'  predictable.
 #'
@@ -49,8 +49,8 @@
 #'  a list-column. Each list element contains a tibble with columns
 #'  `.pred` and `.quantile` (and perhaps other columns).
 #'
-#' Using `type = "raw"` with `predict.model_fit` (or using
-#'  `predict_raw`) will return the unadulterated results of the
+#' Using `type = "raw"` with `predict.model_fit()` (or using
+#'  `predict_raw()`) will return the unadulterated results of the
 #'  prediction function.
 #'
 #' In the case of Spark-based models, since table columns cannot
@@ -131,10 +131,10 @@ check_pred_type <- function(object, type) {
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
-             stop("Type should be 'regression' or 'classification'.", call. = FALSE))
+             stop("`type` should be 'regression' or 'classification'.", call. = FALSE))
   }
   if (!(type %in% pred_types))
-    stop("'type' should be one of: ",
+    stop("`type` should be one of: ",
          glue_collapse(pred_types, sep = ", ", last = " and "),
          call. = FALSE)
   if (type == "numeric" & object$spec$mode != "regression")

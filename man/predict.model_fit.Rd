@@ -20,7 +20,7 @@ predict_raw(object, ...)
 
 \item{type}{A single character value or \code{NULL}. Possible values
 are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-or "raw". When \code{NULL}, \code{predict} will choose an appropriate value
+or "raw". When \code{NULL}, \code{predict()} will choose an appropriate value
 based on the model's mode.}
 
 \item{opts}{A list of optional arguments to the underlying
@@ -34,7 +34,7 @@ use the \code{opts} argument.}
 }
 \value{
 With the exception of \code{type = "raw"}, the results of
-\code{predict.model_fit} will be a tibble as many rows in the output
+\code{predict.model_fit()} will be a tibble as many rows in the output
 as there are rows in \code{new_data} and the column names will be
 predictable.
 
@@ -54,8 +54,8 @@ Quantile predictions return a tibble with a column \code{.pred}, which is
 a list-column. Each list element contains a tibble with columns
 \code{.pred} and \code{.quantile} (and perhaps other columns).
 
-Using \code{type = "raw"} with \code{predict.model_fit} (or using
-\code{predict_raw}) will return the unadulterated results of the
+Using \code{type = "raw"} with \code{predict.model_fit()} (or using
+\code{predict_raw()}) will return the unadulterated results of the
 prediction function.
 
 In the case of Spark-based models, since table columns cannot
@@ -65,15 +65,15 @@ type-specific prediction functions.
 }
 \description{
 Apply a model to create different types of predictions.
-\code{predict} can be used for all types of models and used the
+\code{predict()} can be used for all types of models and used the
 "type" argument for more specificity.
 }
 \details{
-If "type" is not supplied to \code{predict}, then a choice
+If "type" is not supplied to \code{predict()}, then a choice
 is made (\code{type = "numeric"} for regression models and
 \code{type = "class"} for classification).
 
-\code{predict} is designed to provide a tidy result (see "Value"
+\code{predict()} is designed to provide a tidy result (see "Value"
 section below) in a tibble output format.
 
 When using \code{type = "conf_int"} and \code{type = "pred_int"}, the options

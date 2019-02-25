@@ -7,8 +7,8 @@
 
 predict_numeric.model_fit <- function (object, new_data, ...) {
   if (object$spec$mode != "regression")
-    stop("`predict_numeric` is for predicting numeric outcomes.  ",
-         "Use `predict_class` or `predict_classprob` for ",
+    stop("`predict_numeric()` is for predicting numeric outcomes.  ",
+         "Use `predict_class()` or `predict_classprob()` for ",
          "classification models.", call. = FALSE)
 
   if (!any(names(object$spec$method) == "numeric"))

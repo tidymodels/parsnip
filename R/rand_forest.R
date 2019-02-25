@@ -2,7 +2,7 @@
 
 #' General Interface for Random Forest Models
 #'
-#' `rand_forest` is a way to generate a _specification_ of a model
+#' `rand_forest()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  different packages in R or via Spark. The main arguments for the
 #'  model are:
@@ -15,9 +15,9 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine`. If left to their defaults
+#'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update` can be used
+#'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
 #' @inheritParams boost_tree
@@ -75,7 +75,7 @@
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
-#'  interface to via `fit` is available; using `fit_xy` will
+#'  interface to via `fit()` is available; using `fit_xy()` will
 #'  generate an error. Second, the predictions will always be in a
 #'  spark table format. The names will be the same as documented but
 #'  without the dots. Third, there is no equivalent to factor

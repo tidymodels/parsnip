@@ -33,7 +33,7 @@ the number of predictions to return)}
 classification)}
 }
 \value{
-The output of \code{nullmodel} is a list of class \code{nullmodel}
+The output of \code{nullmodel()} is a list of class \code{nullmodel}
 with elements \item{call }{the function call} \item{value }{the mean of
 \code{y} or the most prevalent class} \item{levels }{when \code{y} is a
 factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
@@ -42,14 +42,15 @@ otherwise). The column for the most prevalent class has the proportion of
 the training samples with that class (the other columns are zero). } \item{n
 }{the number of elements in \code{y}}
 
-\code{predict.nullmodel} returns a either a factor or numeric vector
+\code{predict.nullmodel()} returns a either a factor or numeric vector
 depending on the class of \code{y}. All predictions are always the same.
 }
 \description{
-Fit a single mean or largest class model
+Fit a single mean or largest class model. \code{nullmodel()} is the underlying
+computational function for the \code{null_model()} specification.
 }
 \details{
-\code{nullmodel} emulates other model building functions, but returns the
+\code{nullmodel()} emulates other model building functions, but returns the
 simplest model possible given a training set: a single mean for numeric
 outcomes and the most prevalent class for factor outcomes. When class
 probabilities are requested, the percentage of the training set samples with

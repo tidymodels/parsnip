@@ -7,7 +7,7 @@
 #' @importFrom tibble as_tibble is_tibble tibble
 predict_classprob.model_fit <- function (object, new_data, ...) {
   if(object$spec$mode != "classification")
-    stop("`predict.model_fit` is for predicting factor outcomes.",
+    stop("`predict.model_fit()` is for predicting factor outcomes.",
          call. = FALSE)
 
   if (!any(names(object$spec$method) == "classprob"))

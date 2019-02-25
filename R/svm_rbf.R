@@ -1,6 +1,6 @@
 #' General interface for radial basis function support vector machines
 #'
-#' `svm_rbf` is a way to generate a _specification_ of a model
+#' `svm_rbf()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  different packages in R or via Spark. The main arguments for the
 #'  model are:
@@ -14,9 +14,9 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine`. If left to their defaults
+#'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update` can be used
+#'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
 #' @inheritParams boost_tree

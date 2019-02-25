@@ -20,7 +20,7 @@ engine. These are captured as quosures and can be \code{varying()}.}
 An updated model specification.
 }
 \description{
-\code{set_engine} is used to specify which package or system will be used
+\code{set_engine()} is used to specify which package or system will be used
 to fit the model, along with any arguments specific to that software.
 }
 \examples{

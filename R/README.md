@@ -33,19 +33,19 @@ list(
 
 `func` describes the function call (instead of having it in open code). `protect` identifies the arguments that the user should _not_ be allowed to modify, and `defaults` is a list of values that should be set but the user _can_ override.
 
-To create the model fit call, the `protect` arguments are populated with the appropriate objects (usually from the data set), and `rlang::call2` is used to create a call that can be executed. The `translate` function can be used to show the call prototype if there is need to see it (or debugging). 
+To create the model fit call, the `protect` arguments are populated with the appropriate objects (usually from the data set), and `rlang::call2` is used to create a call that can be executed. The `translate()` function can be used to show the call prototype if there is need to see it (or debugging). 
 
 In the chunk above, the value of the `family` object is quoted (i.e., `expr(binomial)`). If this is not quotes, R will execute the value of the option when the package is compiled. In this case, the full function definition of the binomial family object will be embedded into the model call. Arguments are frequently quoted when making the call so that data objects or objects that don't exist when the package is compiled will not be embedded. (also see the enviromnets section below)
 
 Additional notes:
 
- * In cases where the model fit function is not a single function call, a wrapper function can be written to deal with this. See `parsnip::keras_mlp` and `parsnip::xgb_train`. this usually triggers package dependencies though. 
- * The `defaults` argument is not the only place to set defaults. The `translate` method for an model specification gets the last word on arguments. It is also a good place to deal with common argument errors and to make defaults based on the _mode_ of the model (e.g. classification or regression). 
+ * In cases where the model fit function is not a single function call, a wrapper function can be written to deal with this. See `parsnip::keras_mlp()` and `parsnip::xgb_train()`. this usually triggers package dependencies though. 
+ * The `defaults` argument is not the only place to set defaults. The `translate()` method for an model specification gets the last word on arguments. It is also a good place to deal with common argument errors and to make defaults based on the _mode_ of the model (e.g. classification or regression). 
  * Users can also pass in quoted arguments
  
 ## Environments
 
-One of the first things that the `fit` function does is to make a new environment and store the data set and associated objects. For example:
+One of the first things that the `fit()` function does is to make a new environment and store the data set and associated objects. For example:
 
 ```r
 eval_env <- rlang::env()
@@ -53,7 +53,7 @@ eval_env$data <- data
 eval_env$formula <- formula
 ```    
 
-This is designed to avoid any issues when executing the call object on the data using `eval_tidy`. 
+This is designed to avoid any issues when executing the call object on the data using `eval_tidy()`. 
 
 Any quoted arguments (such as the `family` example given above) are evaluated in this environment just before the model call is evaluated. For a user passes in an argument that is `floor(nrow(data)/3)`, this will be evaluated at this time in the captured environment. 
 

@@ -1,8 +1,9 @@
 #' Fit a simple, non-informative model
 #'
-#' Fit a single mean or largest class model
+#' Fit a single mean or largest class model. `nullmodel()` is the underlying
+#' computational function for the `null_model()` specification.
 #'
-#' \code{nullmodel} emulates other model building functions, but returns the
+#' `nullmodel()` emulates other model building functions, but returns the
 #' simplest model possible given a training set: a single mean for numeric
 #' outcomes and the most prevalent class for factor outcomes. When class
 #' probabilities are requested, the percentage of the training set samples with
@@ -19,7 +20,7 @@
 #' the number of predictions to return)
 #' @param type Either "raw" (for regression), "class" or "prob" (for
 #' classification)
-#' @return The output of \code{nullmodel} is a list of class \code{nullmodel}
+#' @return The output of `nullmodel()` is a list of class \code{nullmodel}
 #' with elements \item{call }{the function call} \item{value }{the mean of
 #' \code{y} or the most prevalent class} \item{levels }{when \code{y} is a
 #' factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
@@ -28,7 +29,7 @@
 #' the training samples with that class (the other columns are zero). } \item{n
 #' }{the number of elements in \code{y}}
 #'
-#' \code{predict.nullmodel} returns a either a factor or numeric vector
+#' `predict.nullmodel()` returns a either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
 #' @keywords models
 #' @examples
@@ -110,7 +111,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
       out <- factor(rep(object$value, n), levels = object$levels)
     }
   } else {
-    if(type %in% c("prob", "class")) stop("ony raw predicitons are applicable to regression models")
+    if(type %in% c("prob", "class")) stop("Only numeric predicitons are applicable to regression models")
     if(length(object$value) == 1) {
       out <- rep(object$value, n)
     } else {
@@ -125,7 +126,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 
 #' General Interface for null models
 #'
-#' `null_model` is a way to generate a _specification_ of a model before
+#' `null_model()` is a way to generate a _specification_ of a model before
 #'  fitting and allows the model to be created using R. It doens't have any
 #'  main arguments.
 #'

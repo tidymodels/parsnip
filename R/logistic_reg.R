@@ -1,6 +1,6 @@
 #' General Interface for Logistic Regression Models
 #'
-#' `logistic_reg` is a way to generate a _specification_ of a model
+#' `logistic_reg()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  different packages in R, Stan, keras, or via Spark. The main
 #'  arguments for the model are:
@@ -12,9 +12,9 @@
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine`. If left to their defaults
+#'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update` can be used
+#'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
@@ -29,7 +29,7 @@
 #'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
 #'  (the lasso) (`glmnet` and `spark` only).
 #' @details
-#' For `logistic_reg`, the mode will always be "classification".
+#' For `logistic_reg()`, the mode will always be "classification".
 #'
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
@@ -69,11 +69,11 @@
 #' When using `glmnet` models, there is the option to pass
 #'  multiple values (or no values) to the `penalty` argument.
 #'  This can have an effect on the model object results. When using
-#'  the `predict` method in these cases, the return object type
+#'  the `predict()` method in these cases, the return object type
 #'  depends on the value of `penalty`. If a single value is
 #'  given, the results will be a simple numeric vector. When
 #'  multiple values or no values for `penalty` are used in
-#'  `logistic_reg`, the `predict` method will return a data frame with
+#'  `logistic_reg()`, the `predict()` method will return a data frame with
 #'  columns `values` and `lambda`.
 #'
 #' For prediction, the `stan` engine can compute posterior
@@ -86,13 +86,13 @@
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
-#'  interface to via `fit` is available; using `fit_xy` will
+#'  interface to via `fit()` is available; using `fit_xy()` will
 #'  generate an error. Second, the predictions will always be in a
 #'  spark table format. The names will be the same as documented but
 #'  without the dots. Third, there is no equivalent to factor
 #'  columns in spark tables so class predictions are returned as
 #'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save`), the `model$fit` element of the `parsnip`
+#'  R session (via `save()`), the `model$fit` element of the `parsnip`
 #'  object should be serialized via `ml_save(object$fit)` and
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.

@@ -1,6 +1,6 @@
 #' General Interface for Single Layer Neural Network
 #'
-#' `mlp`, for multilayer perceptron, is a way to generate a _specification_ of
+#' `mlp()`, for multilayer perceptron, is a way to generate a _specification_ of
 #'  a model before fitting and allows the model to be created using
 #'  different packages in R or via keras The main arguments for the
 #'  model are:
@@ -18,13 +18,13 @@
 #'
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine`. If left to their defaults
+#'  set using `set_engine()`. If left to their defaults
 #'  here (see above), the values are taken from the underlying model
 #'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
 #'  function's `size` argument has no default so a value of 5 units will be
 #'  used. Also, unless otherwise specified, the `linout` argument to
-#'  `nnet::nnet` will be set to `TRUE` when a regression model is created.
-#'  If parameters need to be modified, `update` can be used
+#'  `nnet::nnet()` will be set to `TRUE` when a regression model is created.
+#'  If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
 #' @inheritParams boost_tree
