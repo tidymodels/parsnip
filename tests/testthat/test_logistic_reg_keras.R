@@ -161,7 +161,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict_proba(lr_fit$fit, as.matrix(te_dat[, -1])) %>%
+    keras::predict_proba(lr_fit$fit, as.matrix(te_dat[, -1])) %>%
     as_tibble() %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
@@ -178,7 +178,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict_proba(plrfit$fit, as.matrix(te_dat[, -1])) %>%
+    keras::predict_proba(plrfit$fit, as.matrix(te_dat[, -1])) %>%
     as_tibble() %>%
     setNames(paste0(".pred_", lr_fit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -1], type = "prob")

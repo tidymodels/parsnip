@@ -1,13 +1,13 @@
-#' Other predict methods.
-#'
-#' These are internal functions not meant to be directly called by the user.
-#'
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-#' @method predict_class model_fit
-#' @export predict_class.model_fit
-#' @export
+# Other predict methods.
+#
+# These are internal functions not meant to be directly called by the user.
+#
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+# @method predict_class model_fit
+# @export predict_class.model_fit
+# @export
 predict_class.model_fit <- function (object, new_data, ...) {
   if(object$spec$mode != "classification")
     stop("`predict.model_fit()` is for predicting factor outcomes.",
@@ -43,9 +43,9 @@ predict_class.model_fit <- function (object, new_data, ...) {
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
 predict_class <- function (object, ...)
   UseMethod("predict_class")

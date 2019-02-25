@@ -64,7 +64,7 @@ test_that('nnet classification prediction', {
 
   xy_pred <- predict(xy_fit$fit, newdata = iris[1:8, num_pred], type = "class")
   xy_pred <- factor(xy_pred, levels = levels(iris$Species))
-  expect_equal(xy_pred, predict_class(xy_fit, new_data = iris[1:8, num_pred]))
+  expect_equal(xy_pred, parsnip:::predict_class(xy_fit, new_data = iris[1:8, num_pred]))
 
   form_fit <- fit(
     iris_nnet,
@@ -75,7 +75,7 @@ test_that('nnet classification prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = iris[1:8, num_pred], type = "class")
   form_pred <- factor(form_pred, levels = levels(iris$Species))
-  expect_equal(form_pred, predict_class(form_fit, new_data = iris[1:8, num_pred]))
+  expect_equal(form_pred, parsnip:::predict_class(form_fit, new_data = iris[1:8, num_pred]))
 })
 
 
@@ -141,7 +141,7 @@ test_that('nnet regression prediction', {
 
   xy_pred <- predict(xy_fit$fit, newdata = mtcars[1:8, -1])[,1]
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, predict_numeric(xy_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(xy_pred, parsnip:::predict_numeric(xy_fit, new_data = mtcars[1:8, -1]))
 
   form_fit <- fit(
     car_basic,
@@ -152,7 +152,7 @@ test_that('nnet regression prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = mtcars[1:8, -1])[,1]
   form_pred <- unname(form_pred)
-  expect_equal(form_pred, predict_numeric(form_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(form_pred, parsnip:::predict_numeric(form_fit, new_data = mtcars[1:8, -1]))
 })
 
 # ------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ test_that('multivariate nnet formula', {
       data = nn_dat[-(1:5),]
     )
   expect_equal(length(nnet_form$fit$wts), 24)
-  nnet_form_pred <- predict_numeric(nnet_form, new_data = nn_dat[1:5, -(1:3)])
+  nnet_form_pred <- parsnip:::predict_numeric(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_pred), 3)
   expect_equal(nrow(nnet_form_pred), 5)
   expect_equal(names(nnet_form_pred), c("V1", "V2", "V3"))
@@ -192,7 +192,7 @@ test_that('multivariate nnet formula', {
       y = nn_dat[-(1:5),   1:3 ]
     )
   expect_equal(length(nnet_xy$fit$wts), 24)
-  nnet_form_xy <- predict_numeric(nnet_xy, new_data = nn_dat[1:5, -(1:3)])
+  nnet_form_xy <- parsnip:::predict_numeric(nnet_xy, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(ncol(nnet_form_xy), 3)
   expect_equal(nrow(nnet_form_xy), 5)
   expect_equal(names(nnet_form_xy), c("V1", "V2", "V3"))

@@ -185,7 +185,7 @@ test_that('mars prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -193,7 +193,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, parsnip:::predict_numeric(res_form, iris[1:5, ]))
 
   res_mv <- fit(
     iris_basic,
@@ -201,7 +201,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, predict_numeric(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, parsnip:::predict_numeric(res_mv, iris[1:5,]))
 })
 
 
@@ -270,7 +270,7 @@ test_that('classification', {
     regexp = NA
   )
   expect_true(!is.null(glm_mars$fit$glm.list))
-  parsnip_pred <- predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
+  parsnip_pred <- parsnip:::predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
 
   earth_pred <-
     c(0.95631355972526, 0.971917781277731, 0.894245392500336, 0.962667553751077,

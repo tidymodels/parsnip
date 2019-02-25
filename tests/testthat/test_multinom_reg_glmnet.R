@@ -58,7 +58,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <- factor(uni_pred[,1], levels = levels(iris$Species))
   uni_pred <- unname(uni_pred)
 
-  expect_equal(uni_pred, predict_class(xy_fit, iris[rows, 1:4]))
+  expect_equal(uni_pred, parsnip:::predict_class(xy_fit, iris[rows, 1:4]))
   expect_equal(uni_pred, predict(xy_fit, iris[rows, 1:4], type = "class")$.pred_class)
 
   res_form <- fit(
@@ -77,7 +77,7 @@ test_that('glmnet prediction, one lambda', {
             s = res_form$spec$args$penalty,
             type = "class")
   form_pred <- factor(form_pred[,1], levels = levels(iris$Species))
-  expect_equal(form_pred, predict_class(res_form, iris[rows, c("Sepal.Width", "Petal.Width")]))
+  expect_equal(form_pred, parsnip:::predict_class(res_form, iris[rows, c("Sepal.Width", "Petal.Width")]))
   expect_equal(form_pred, predict(res_form, iris[rows, c("Sepal.Width", "Petal.Width")], type = "class")$.pred_class)
 
 })

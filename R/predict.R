@@ -49,9 +49,8 @@
 #'  a list-column. Each list element contains a tibble with columns
 #'  `.pred` and `.quantile` (and perhaps other columns).
 #'
-#' Using `type = "raw"` with `predict.model_fit()` (or using
-#'  `predict_raw()`) will return the unadulterated results of the
-#'  prediction function.
+#' Using `type = "raw"` with `predict.model_fit()` will return 
+#'  the unadulterated results of the prediction function.
 #'
 #' In the case of Spark-based models, since table columns cannot
 #'  contain dots, the same convention is used except 1) no dots

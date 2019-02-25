@@ -1,11 +1,11 @@
-#' @keywords internal
-#' @rdname other_predict
-#' @param quant A vector of numbers between 0 and 1 for the quantile being 
-#'  predicted. 
-#' @inheritParams predict.model_fit
-#' @method predict_quantile model_fit
-#' @export predict_quantile.model_fit
-#' @export
+# @keywords internal
+# @rdname other_predict
+# @param quant A vector of numbers between 0 and 1 for the quantile being 
+#  predicted. 
+# @inheritParams predict.model_fit
+# @method predict_quantile model_fit
+# @export predict_quantile.model_fit
+# @export
 predict_quantile.model_fit <-
   function (object, new_data, quantile = (1:9)/10, ...) {
     
@@ -33,9 +33,9 @@ predict_quantile.model_fit <-
     res
   }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
 predict_quantile <- function (object, ...)
   UseMethod("predict_quantile")

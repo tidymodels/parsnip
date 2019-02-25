@@ -1,13 +1,13 @@
-#' @keywords internal
-#' @rdname other_predict
-#' @param level A single numeric value between zero and one for the
-#'  interval estimates.
-#' @param std_error A single logical for wether the standard error should be
-#'  returned (assuming that the model can compute it).
-#' @inheritParams predict.model_fit
-#' @method predict_confint model_fit
-#' @export predict_confint.model_fit
-#' @export
+# @keywords internal
+# @rdname other_predict
+# @param level A single numeric value between zero and one for the
+#  interval estimates.
+# @param std_error A single logical for wether the standard error should be
+#  returned (assuming that the model can compute it).
+# @inheritParams predict.model_fit
+# @method predict_confint model_fit
+# @export predict_confint.model_fit
+# @export
 predict_confint.model_fit <-
   function (object, new_data, level = 0.95, std_error = FALSE, ...) {
 
@@ -38,21 +38,21 @@ predict_confint.model_fit <-
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
 predict_confint <- function (object, ...)
   UseMethod("predict_confint")
 
 ##################################################################
 
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-#' @method predict_predint model_fit
-#' @export predict_predint.model_fit
-#' @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+# @method predict_predint model_fit
+# @export predict_predint.model_fit
+# @export
 predict_predint.model_fit <-
   function (object, new_data, level = 0.95, std_error = FALSE, ...) {
 
@@ -84,10 +84,10 @@ predict_predint.model_fit <-
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
 predict_predint <- function (object, ...)
   UseMethod("predict_predint")
 

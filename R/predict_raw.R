@@ -1,8 +1,8 @@
-#' @rdname predict.model_fit
-#' @inheritParams predict.model_fit
-#' @method predict_raw model_fit
-#' @export predict_raw.model_fit
-#' @export
+# @rdname predict.model_fit
+# @inheritParams predict.model_fit
+# @method predict_raw model_fit
+# @export predict_raw.model_fit
+# @export
 predict_raw.model_fit <- function (object, new_data, opts = list(), ...) {
   protected_args <- names(object$spec$method$raw$args)
   dup_args <- names(opts) %in% protected_args
@@ -32,8 +32,8 @@ predict_raw.model_fit <- function (object, new_data, opts = list(), ...) {
 }
 
 
-#' @export
-#' @rdname predict.model_fit
-#' @inheritParams predict_raw.model_fit
+# @export
+# @rdname predict.model_fit
+# @inheritParams predict_raw.model_fit
 predict_raw <- function (object, ...)
   UseMethod("predict_raw")

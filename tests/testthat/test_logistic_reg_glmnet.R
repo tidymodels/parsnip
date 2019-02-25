@@ -64,7 +64,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
 
-  expect_equal(uni_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(uni_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = 0.1) %>% set_engine("glmnet"),
@@ -84,7 +84,7 @@ test_that('glmnet prediction, one lambda', {
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   form_pred <- unname(form_pred)
 
-  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
@@ -112,7 +112,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   mult_pred$lambda <- rep(lams, each = 7)
   mult_pred <- mult_pred[, -2]
 
-  expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = lams) %>% set_engine("glmnet"),
@@ -134,7 +134,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   form_pred$lambda <- rep(lams, each = 7)
   form_pred <- form_pred[, -2]
 
-  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
@@ -159,7 +159,7 @@ test_that('glmnet prediction, no lambda', {
   mult_pred$lambda <- rep(xy_fit$fit$lambda, each = 7)
   mult_pred <- mult_pred[, -2]
 
-  expect_equal(mult_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet", nlambda =  11),
@@ -180,7 +180,7 @@ test_that('glmnet prediction, no lambda', {
   form_pred$values <- factor(form_pred$values, levels = levels(lending_club$Class))
   form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
   form_pred <- form_pred[, -2]
-  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
@@ -202,7 +202,7 @@ test_that('glmnet probabilities, one lambda', {
             s = 0.1, type = "response")[,1]
   uni_pred <- tibble(bad = 1 - uni_pred, good = uni_pred)
 
-  expect_equal(uni_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(uni_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = 0.1)  %>% set_engine("glmnet"),
@@ -219,9 +219,9 @@ test_that('glmnet probabilities, one lambda', {
             newx = form_mat,
             s = 0.1, type = "response")[, 1]
   form_pred <- tibble(bad = 1 - form_pred, good = form_pred)
-  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
-  one_row <- predict_classprob(res_form, lending_club[1, c("funded_amnt", "int_rate")])
+  one_row <- parsnip:::predict_classprob(res_form, lending_club[1, c("funded_amnt", "int_rate")])
   expect_equal(form_pred[1,], one_row)
 
 })
@@ -247,7 +247,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
   mult_pred$lambda <- rep(lams, each = 7)
 
-  expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg(penalty = lams)  %>% set_engine("glmnet"),
@@ -267,7 +267,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
   form_pred$lambda <- rep(lams, each = 7)
 
-  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
@@ -291,7 +291,7 @@ test_that('glmnet probabilities, no lambda', {
   mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
   mult_pred$lambda <- rep(xy_fit$fit$lambda, each = 7)
 
-  expect_equal(mult_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet"),
@@ -311,7 +311,7 @@ test_that('glmnet probabilities, no lambda', {
   form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
   form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
 
-  expect_equal(form_pred, predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
 
 })
 
