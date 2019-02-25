@@ -64,7 +64,7 @@ convert_form_to_xy_fit <-function(
 
   w <- as.vector(model.weights(mod_frame))
   if (!is.null(w) && !is.numeric(w))
-    stop("'weights' must be a numeric vector", call. = FALSE)
+    stop("`weights` must be a numeric vector", call. = FALSE)
 
   offset <- as.vector(model.offset(mod_frame))
   if (!is.null(offset)) {
@@ -219,7 +219,7 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y") {
 
   if (!is.null(weights)) {
     if (!is.numeric(weights))
-      stop("'weights' must be a numeric vector", call. = FALSE)
+      stop("`weights` must be a numeric vector", call. = FALSE)
     if (length(weights) != nrow(x))
       stop("`weights` should have ", nrow(x), " elements", call. = FALSE)
   }

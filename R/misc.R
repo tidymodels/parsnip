@@ -18,7 +18,7 @@ make_classes <- function(prefix) {
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms))
-    stop("Please pass other arguments to the model function via `set_engine`", call. = FALSE)
+    stop("Please pass other arguments to the model function via `set_engine()`", call. = FALSE)
   terms
 }
 

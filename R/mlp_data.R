@@ -143,7 +143,7 @@ mlp_nnet_data <-
 
 class2ind <- function (x, drop2nd = FALSE) {
   if (!is.factor(x))
-    stop("'x' should be a factor")
+    stop("`x` should be a factor")
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL

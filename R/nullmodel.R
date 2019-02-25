@@ -110,7 +110,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
       out <- factor(rep(object$value, n), levels = object$levels)
     }
   } else {
-    if(type %in% c("prob", "class")) stop("ony raw predicitons are applicable to regression models")
+    if(type %in% c("prob", "class")) stop("Only numeric predicitons are applicable to regression models")
     if(length(object$value) == 1) {
       out <- rep(object$value, n)
     } else {

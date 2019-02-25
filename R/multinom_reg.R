@@ -223,7 +223,7 @@ predict._multnet <-
 
   if (length(penalty) != 1)
     stop("`penalty` should be a single numeric value. ",
-         "`multi_predict` can be used to get multiple predictions ",
+         "`multi_predict()` can be used to get multiple predictions ",
          "per row of data.", call. = FALSE)
     object$spec <- eval_args(object$spec)
     res <- predict.model_fit(
@@ -299,9 +299,9 @@ multi_predict._multnet <-
 check_glmnet_lambda <- function(dat, object) {
   if (length(object$fit$lambda) > 1)
     stop(
-      "`predict` doesn't work with multiple penalties (i.e. lambdas). ",
+      "`predict()` doesn't work with multiple penalties (i.e. lambdas). ",
       "Please specify a single value using `penalty = some_value` or use ",
-      "`multi_predict` to get multiple predictions per row of data.",
+      "`multi_predict()` to get multiple predictions per row of data.",
       call. = FALSE
     )
   dat

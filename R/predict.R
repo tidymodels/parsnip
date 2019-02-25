@@ -131,10 +131,10 @@ check_pred_type <- function(object, type) {
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
-             stop("Type should be 'regression' or 'classification'.", call. = FALSE))
+             stop("`type` should be 'regression' or 'classification'.", call. = FALSE))
   }
   if (!(type %in% pred_types))
-    stop("'type' should be one of: ",
+    stop("`type` should be one of: ",
          glue_collapse(pred_types, sep = ", ", last = " and "),
          call. = FALSE)
   if (type == "numeric" & object$spec$mode != "regression")

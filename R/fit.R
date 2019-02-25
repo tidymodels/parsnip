@@ -94,10 +94,10 @@ fit.model_spec <-
   ) {
     dots <- quos(...)
     if (any(names(dots) == "engine"))
-      stop("Use `set_engine` to supply the engine.", call. = FALSE)
+      stop("Use `set_engine()` to supply the engine.", call. = FALSE)
 
     if (all(c("x", "y") %in% names(dots)))
-      stop("`fit.model_spec` is for the formula methods. Use `fit_xy` instead.",
+      stop("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.",
            call. = FALSE)
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
@@ -111,7 +111,7 @@ fit.model_spec <-
 
     if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
       stop(
-        "spark objects can only be used with the formula interface to `fit` ",
+        "spark objects can only be used with the formula interface to `fit()` ",
         "with a spark data object.", call. = FALSE
       )
 
@@ -178,7 +178,7 @@ fit_xy.model_spec <-
   ) {
     dots <- quos(...)
     if (any(names(dots) == "engine"))
-      stop("Use `set_engine` to supply the engine.", call. = FALSE)
+      stop("Use `set_engine()` to supply the engine.", call. = FALSE)
 
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
@@ -188,7 +188,7 @@ fit_xy.model_spec <-
 
     if (object$engine == "spark")
       stop(
-        "spark objects can only be used with the formula interface to `fit` ",
+        "spark objects can only be used with the formula interface to `fit()` ",
         "with a spark data object.", call. = FALSE
       )
 

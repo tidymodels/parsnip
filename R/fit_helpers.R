@@ -66,7 +66,7 @@ form_form <-
 xy_xy <- function(object, env, control, target = "none", ...) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit`",
+    stop("spark objects can only be used with the formula interface to `fit()`",
          call. = FALSE)
 
   object <- check_mode(object, levels(env$y))
