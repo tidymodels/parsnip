@@ -5,6 +5,7 @@
 #' @param prefix A character string for a class.
 #' @return A character vector.
 #' @keywords internal
+#' @importFrom rlang is_empty
 #' @export
 make_classes <- function(prefix) {
   c(prefix, "model_spec")
@@ -50,6 +51,7 @@ print_arg_list <- function(x, ...) {
 #' @param x A model object.
 #' @param ... Not currently used.
 #' @keywords internal
+#' @importFrom rlang lgl
 #' @export
 model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]

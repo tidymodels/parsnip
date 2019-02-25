@@ -46,6 +46,7 @@ translate <- function (x, ...)
 
 #' @importFrom utils getFromNamespace
 #' @importFrom purrr list_modify
+#' @importFrom rlang lgl
 #' @export
 translate.default <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
