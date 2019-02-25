@@ -26,12 +26,12 @@ fit_control <- function(verbosity = 1L, catch = FALSE) {
   res
 }
 
-# '@export
+#' @export
 print.fit_control <- function(x, ...) {
   cat("parsnip control object\n")
   if (x$verbosity > 1)
-    cat(" verbose mode\n")
-  if (x$catch > 1)
-    cat(" fit errors will be caught\n")
+    cat(" - verbose level", x$verbosity, "\n")
+  if (x$catch)
+    cat(" - fit errors will be caught\n")
   invisible(x)
 }
