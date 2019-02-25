@@ -23,7 +23,7 @@ test_that('good args', {
   expect_equal(   tester(NULL, formula = f, data = iris, model = rmod), "formula")
   expect_equal(tester_xy(NULL, x = iris, y = iris, model = rmod), "data.frame")
   expect_equal(   tester(NULL, f, data = iris, model = rmod), "formula")
-  expect_equal(   tester(NULL, f, data = sprk, model = rmod), "formula")  
+  expect_equal(   tester(NULL, f, data = sprk, model = rmod), "formula")
 })
 
 #test_that('unnamed args', {
@@ -37,3 +37,26 @@ test_that('wrong args', {
  expect_error(tester(NULL, f,  data = as.matrix(iris[, 1:4])))
 })
 
+test_that('single column df for issue #129', {
+
+  expect_error(
+    lm1 <-
+      linear_reg() %>%
+      set_engine("lm") %>%
+      fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE]),
+    regexp = NA
+  )
+  expect_error(
+    lm2 <-
+      linear_reg() %>%
+      set_engine("lm") %>%
+      fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE]),
+    regexp = NA
+  )
+  lm3 <-
+    linear_reg() %>%
+    set_engine("lm") %>%
+    fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
+  expect_equal(coef(lm1), coef(lm3))
+  expect_equal(coef(lm2), coef(lm3))
+})
