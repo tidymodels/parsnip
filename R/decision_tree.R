@@ -112,7 +112,7 @@ decision_tree <-
 
 #' @export
 print.decision_tree <- function(x, ...) {
-  cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
+  cat("Decision Tree Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
   if(!is.null(x$method$fit$args)) {
