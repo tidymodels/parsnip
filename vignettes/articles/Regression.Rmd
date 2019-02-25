@@ -172,7 +172,7 @@ To get the predictions for this specific value of `lambda` (aka `penalty`):
 
 ```{r glmn-pred}
 # First, get the processed version of the test set predictors:
-test_normalized <- bake(norm_recipe, newdata = ames_test, all_predictors())
+test_normalized <- bake(norm_recipe, new_data = ames_test, all_predictors())
 
 test_results <- 
   test_results %>%

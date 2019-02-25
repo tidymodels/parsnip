@@ -2,76 +2,86 @@
 #'
 #' [varying()] is used when a parameter will be specified at a later date.
 #' @export
-varying <- function()
+varying <- function() {
   quote(varying())
+}
+
+#' @importFrom generics varying_args
+#' @export
+generics::varying_args
 
 #' Determine varying arguments
 #'
-#' `varying_args` takes a model specification and lists all of the arguments
-#'  along with whether they are fully specified or not.
-#' @param x An object
-#' @param id A string describing the object `x`.
+#' `varying_args()` takes a model specification or a recipe and returns a tibble
+#' of information on all possible varying arguments and whether or not they
+#' are actually varying.
+#'
+#' The `id` column is determined differently depending on whether a `model_spec`
+#' or a `recipe` is used. For a `model_spec`, the first class is used. For
+#' a `recipe`, the unique step `id` is used.
+#'
+#' @param object A `model_spec` or a `recipe`.
+#' @param full A single logical. Should all possible varying parameters be
+#' returned? If `FALSE`, then only the parameters that
+#' are actually varying are returned.
+#'
 #' @param ... Not currently used.
-#' @return A tibble with columns for the parameter name (`name`), whether is
-#'  contains _any_ varying value (`varying`), the `id` for the object, and the
-#'  class that was used to call the method (`type`).
+#'
+#' @return A tibble with columns for the parameter name (`name`), whether it
+#' contains _any_ varying value (`varying`), the `id` for the object (`id`),
+#' and the class that was used to call the method (`type`).
+#'
 #' @examples
-#' library(dplyr)
-#' library(rlang)
 #'
-#' rand_forest() %>% varying_args(id = "plain")
+#' # List all possible varying args for the random forest spec
+#' rand_forest() %>% varying_args()
 #'
-#' rand_forest(mtry = varying()) %>% varying_args(id = "one arg")
+#' # mtry is now recognized as varying
+#' rand_forest(mtry = varying()) %>% varying_args()
 #'
+#' # Even engine specific arguments can vary
 #' rand_forest() %>%
 #'   set_engine("ranger", sample.fraction = varying()) %>%
-#'   varying_args(id = "only eng_args")
+#'   varying_args()
+#'
+#' # List only the arguments that actually vary
+#' rand_forest() %>%
+#'   set_engine("ranger", sample.fraction = varying()) %>%
+#'   varying_args(full = FALSE)
 #'
 #' rand_forest() %>%
 #'   set_engine(
-#'     "ranger",
-#'     strata = expr(Class),
-#'      sampsize = c(varying(), varying())
+#'     "randomForest",
+#'     strata = Class,
+#'     sampsize = varying()
 #'   ) %>%
-#'   varying_args(id = "add an expr")
+#'   varying_args()
 #'
-#'  rand_forest() %>%
-#'    set_engine("ranger", classwt = c(class1 = 1, class2 = varying())) %>%
-#'    varying_args(id = "list of values")
-#'
-#' @export
-varying_args <- function (x, id, ...)
-  UseMethod("varying_args")
-
 #' @importFrom purrr map map_lgl
 #' @export
-#' @export varying_args.model_spec
-#' @rdname varying_args
-varying_args.model_spec <- function(x, id = NULL, ...) {
-  cl <- match.call()
+varying_args.model_spec <- function(object, full = TRUE, ...) {
 
-  if (!is.null(id) && !is.character(id))
-    stop ("`id` should be a single character string.", call. = FALSE)
-  id <- id[1]
+  # use the model_spec top level class as the id
+  id <- class(object)[1]
 
-  if (is.null(id))
-    id <- deparse(cl$x)
-  varying_args <- map(x$args, find_varying)
-  varying_eng_args <- map(x$eng_args, find_varying)
+  if (length(object$args) == 0L & length(object$eng_args) == 0L) {
+    return(varying_tbl())
+  }
+
+  # Locate varying args in spec args and engine specific args
+  varying_args <- map_lgl(object$args, find_varying)
+  varying_eng_args <- map_lgl(object$eng_args, find_varying)
+
   res <- c(varying_args, varying_eng_args)
-  res <- map_lgl(res, any)
-  tibble(
+
+  varying_tbl(
     name = names(res),
     varying = unname(res),
     id = id,
-    type = caller_method(cl)
+    type = "model_spec",
+    full = full
   )
 }
-
-# NOTE Look at the `sampsize` and `classwt` examples above. Using varying() in
-#  a vector will convert it to list. When the model-specific `translate` is
-#  run, we should catch those and convert them back to vectors if the varying
-#  parameter has been replaced with a real value.
 
 # Need to figure out a way to meld the results of varying_args with
 #  parameter objects from `dials` or from novel parameters in the user's
@@ -82,48 +92,104 @@ varying_args.model_spec <- function(x, id = NULL, ...) {
 # Maybe use this data as substrate to make a new object type (param_set?) that
 #  would have its own methods for grids and random sampling.
 
-# lots of code duplication below and probably poor planning; just a prototype.
-# once the generics package is done, these will go into recipes
-
 #' @importFrom purrr map2_dfr map_chr
 #' @export
-#' @export varying_args.recipe
-#' @rdname varying_args
-varying_args.recipe <- function(x, id = NULL, ...) {
-  step_type <- map_chr(x$steps, function(x) class(x)[1])
-  step_type <- make.names(step_type, unique = TRUE) # change with new tibble version
-  res <- map2_dfr(x$steps, step_type, varying_args)
-  res
+#' @rdname varying_args.model_spec
+varying_args.recipe <- function(object, full = TRUE, ...) {
+
+  steps <- object$steps
+
+  if (length(steps) == 0L) {
+    return(varying_tbl())
+  }
+
+  map_dfr(object$steps, varying_args, full = full)
 }
 
 #' @importFrom purrr map map_lgl
 #' @export
-#' @export varying_args.step
-#' @rdname varying_args
-varying_args.step <- function(x, id = NULL, ...) {
-  cl <- match.call()
-  if (!is.null(id) && !is.character(id))
-    stop ("`id` should be a single character string.", call. = FALSE)
-  id <- id[1]
+#' @rdname varying_args.model_spec
+varying_args.step <- function(object, full = TRUE, ...) {
 
-  if (is.null(id))
-    id <- deparse(cl$x)
+  # Unique step id
+  id <- object$id
 
-  exclude <-
-    c("terms", "role", "trained", "skip", "na.rm", "impute_with", "seed",
-      "prefix", "naming", "denom", "outcome", "id")
-  x <- x[!(names(x) %in% exclude)]
-  x <- x[!map_lgl(x, is.null)]
-  res <- map(x, find_varying)
+  # Grab the step class before the subset, as that removes the class
+  step_type <- class(object)[1]
 
-  res <- map_lgl(res, any)
-  tibble(
+  # Remove NULL argument steps. These are reserved
+  # for deprecated args or those set at prep() time.
+  object <- object[!map_lgl(object, is.null)]
+
+  res <- map_lgl(object, find_varying)
+
+  # ensure the user didn't specify a non-varying argument as varying()
+  validate_only_allowed_step_args(res, step_type)
+
+  # remove the non-varying arguments as they are not important
+  res <- res[!(names(object) %in% non_varying_step_arguments)]
+
+  varying_tbl(
     name = names(res),
     varying = unname(res),
     id = id,
-    type = caller_method(cl)
+    type = "step",
+    full = full
   )
 }
+
+# useful for standardization and for creating a 0 row varying tbl
+# (i.e. for when there are no steps in a recipe)
+varying_tbl <- function(name = character(),
+                        varying = logical(),
+                        id = character(),
+                        type = character(),
+                        full = FALSE) {
+
+  vry_tbl <- tibble(
+    name = name,
+    varying = varying,
+    id = id,
+    type = type
+  )
+
+  if (!full) {
+    vry_tbl <- vry_tbl[vry_tbl$varying,]
+  }
+
+  vry_tbl
+}
+
+validate_only_allowed_step_args <- function(x, step_type) {
+
+  check_allowed_arg <- function(x, nm) {
+
+    # not varying
+    if (rlang::is_false(x)) {
+      return(invisible(x))
+    }
+
+    # not a non-varying step arg name
+    bad_nm <- nm %in% non_varying_step_arguments
+    if (!bad_nm) {
+      return(invisible(x))
+    }
+
+    rlang::abort(glue::glue(
+      "The following argument for a recipe step of type ",
+      "'{step_type}' is not allowed to vary: '{nm}'."
+    ))
+  }
+
+  purrr::iwalk(x, check_allowed_arg)
+  invisible(x)
+}
+
+non_varying_step_arguments <- c(
+  "terms", "role", "trained", "skip",
+  "na.rm", "impute_with", "seed",
+  "prefix", "naming", "denom", "outcome", "id"
+)
 
 # helpers ----------------------------------------------------------------------
 
@@ -140,31 +206,36 @@ is_varying <- function(x) {
 }
 
 find_varying <- function(x) {
-  if (is_quosure(x))
+
+  # STEP 1 - Early exits
+
+  # Early exit for empty elements (like list())
+  if (length(x) == 0L) {
+    return(FALSE)
+  }
+
+  # turn quosures into expressions before continuing
+  if (is_quosure(x)) {
     x <- quo_get_expr(x)
+  }
+
   if (is_varying(x)) {
     return(TRUE)
-  } else if (is.atomic(x) | is.name(x)) {
-    FALSE
-  } else if (is.call(x) || is.pairlist(x)) {
-    for (i in seq_along(x)) {
-      if (is_varying(x[[i]]))
-        return(TRUE)
-    }
-    FALSE
-  } else if (is.vector(x) | is.list(x)) {
-    map_lgl(x, find_varying)
-  } else {
-    # User supplied incorrect input
-    stop("Don't know how to handle type ", typeof(x),
-         call. = FALSE)
   }
-}
 
-caller_method <- function(cl) {
-  x <- cl[[1]]
-  x <- deparse(x)
-  x <- gsub("varying_args.", "", x, fixed = TRUE)
-  x
-}
+  if (is.atomic(x) | is.name(x)) {
+    return(FALSE)
+  }
 
+  # STEP 2 - Recursion
+
+  varying_elems <- vector("logical", length = length(x))
+
+  for (i in seq_along(x)) {
+    varying_elems[i] <- find_varying(x[[i]])
+  }
+
+  any_varying_elems <- any(varying_elems)
+
+  return(any_varying_elems)
+}
