@@ -3,6 +3,7 @@
 ## New Features
 
 * A "null model" is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).  
+* `fit_xy()` can take a single column data frame or matrix for `y` without error 
 
 ## Other Changes
 
@@ -38,7 +39,7 @@ First CRAN release
 
 # parsnip 0.0.0.9005
 
-* The engine, and any associated arguments, are now specified using `set_engine`. There is no `engine` argument 
+* The engine, and any associated arguments, are now specified using `set_engine()`. There is no `engine` argument 
 
 
 # parsnip 0.0.0.9004
@@ -64,7 +65,7 @@ First CRAN release
 
 # parsnip 0.0.0.9000
 
-* The `fit` interface was previously used to cover both the x/y interface as well as the formula interface. Now, `fit` is the formula interface and [`fit_xy` is for the x/y interface](https://github.com/topepo/parsnip/issues/33). 
+* The `fit` interface was previously used to cover both the x/y interface as well as the formula interface. Now, `fit()` is the formula interface and [`fit_xy()` is for the x/y interface](https://github.com/topepo/parsnip/issues/33). 
 * Added a `NEWS.md` file to track changes to the package.
 * `predict` methods were [overhauled](https://github.com/topepo/parsnip/issues/34) to be [consistent](https://github.com/topepo/parsnip/issues/41).
 * MARS was added. 

@@ -180,6 +180,14 @@ fit_xy.model_spec <-
     if (any(names(dots) == "engine"))
       stop("Use `set_engine()` to supply the engine.", call. = FALSE)
 
+    if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
+      if (is.matrix(y)) {
+        y <- y[, 1]
+      } else {
+        y <- y[[1]]
+      }
+    }
+
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
