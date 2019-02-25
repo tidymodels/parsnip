@@ -11,6 +11,8 @@
 of possible varying arguments is returned (as opposed to only the arguments
 that are actually varying).
 
+* `fit_control()` not returns an S3 method. 
+
 ## Bug Fixes
 
 * `varying_args()` now uses the version from the `generics` package. This means

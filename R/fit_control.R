@@ -1,8 +1,8 @@
 #' Control the fit function
-#' 
-#' Options can be passed to the [fit()] function that control the output and 
+#'
+#' Options can be passed to the [fit()] function that control the output and
 #'  computations
-#'  
+#'
 #' @param verbosity An integer where a value of zero indicates
 #'  that no messages or output should be shown when packages are
 #'  loaded or when the model is fit. A value of 1 means that package
@@ -14,12 +14,24 @@
 #'  the model inside of `try(, silent = TRUE)`. If the model fails,
 #'  an object is still returned (without an error) that inherits the
 #'  class "try-error".
-#' @return A named list with the results of the function call
+#' @return An S3 object with class "fit_control" that is a named list with the
+#' results of the function call
 #' @export
-#' 
+#'
 
 fit_control <- function(verbosity = 1L, catch = FALSE) {
   res <- list(verbosity = verbosity, catch = catch)
   res <- check_control(res)
+  class(res) <- "fit_control"
   res
+}
+
+#' @export
+print.fit_control <- function(x, ...) {
+  cat("parsnip control object\n")
+  if (x$verbosity > 1)
+    cat(" - verbose level", x$verbosity, "\n")
+  if (x$catch)
+    cat(" - fit errors will be caught\n")
+  invisible(x)
 }

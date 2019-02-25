@@ -21,7 +21,8 @@ an object is still returned (without an error) that inherits the
 class "try-error".}
 }
 \value{
-A named list with the results of the function call
+An S3 object with class "fit_control" that is a named list with the
+results of the function call
 }
 \description{
 Options can be passed to the \code{\link[=fit]{fit()}} function that control the output and
