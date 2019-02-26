@@ -67,10 +67,10 @@ test_that('classification model', {
     predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
   exp_ci_res <-
     tibble(
-      .pred_bad_lower = rep(NA_real_, 7),
-      .pred_bad_upper = rep(NA_real_, 7),
-      .pred_good_lower = rep(NA_real_, 7),
-      .pred_good_upper = rep(NA_real_, 7)
+      .pred_lower_bad = rep(NA_real_, 7),
+      .pred_upper_bad = rep(NA_real_, 7),
+      .pred_lower_good = rep(NA_real_, 7),
+      .pred_upper_good = rep(NA_real_, 7)
       )
   expect_equal(ci_res, exp_ci_res)
 })
