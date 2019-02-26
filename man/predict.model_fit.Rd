@@ -22,9 +22,21 @@ predict function that will be used when \code{type = "raw"}. The
 list should not include options for the model object or the
 new data being predicted.}
 
-\item{...}{Ignored. To pass arguments to pass to the underlying
-function when \code{predict.model_fit(type = "raw")},
-use the \code{opts} argument.}
+\item{...}{Arguments to the underlying model's prediction
+function cannot be passed here (see \code{opts}). There are some
+\code{parsnip} related options that can be passed, depending on the
+value of \code{type}. Possible arguments are:
+\itemize{
+\item \code{level}: for \code{type}s of "conf_int" and "pred_int" this
+is the parameter for the tail area of the intervals
+(e.g. confidence level for confidence intervals).
+\item \code{std_error}: add the standard error of fit or
+prediction for \code{type}s of "conf_int" and "pred_int".
+\item \code{quantile}: the quantile(s) for quantile regression
+(not implemented yet)
+\item \code{time}: the time(s) for hazard probability estimates
+(not implemented yet)
+}}
 }
 \value{
 With the exception of \code{type = "raw"}, the results of
@@ -55,6 +67,11 @@ In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
 type-specific prediction functions.
+
+When the model fit failed and the error was captured, the
+\code{predict()} function will return the same structure as above but
+filled with missing values. This does not currently work for
+multivariate models.
 }
 \description{
 Apply a model to create different types of predictions.

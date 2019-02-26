@@ -1,6 +1,7 @@
 library(testthat)
 library(parsnip)
 library(tibble)
+library(dplyr)
 
 # ------------------------------------------------------------------------------
 
@@ -58,3 +59,21 @@ test_that('non-standard levels', {
   expect_equal(names(parsnip:::predict_classprob(lr_fit_2, new_data = class_dat2[1:5,-1])),
                c("2low", "high+values"))
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('bad predict args', {
+  lm_model <-
+    linear_reg() %>%
+    set_engine("lm") %>%
+    fit(mpg ~ ., data = mtcars %>% slice(11:32))
+
+  pred_cars <-
+    mtcars %>%
+    slice(1:10) %>%
+    select(-mpg)
+
+  expect_error(predict(lm_model, pred_cars, yes = "no"))
+  expect_error(predict(lm_model, pred_cars, type = "conf_int", level = 0.95, yes = "no"))
+})
+
