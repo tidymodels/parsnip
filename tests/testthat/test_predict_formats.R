@@ -71,7 +71,7 @@ test_that('bad predict args', {
   pred_cars <-
     mtcars %>%
     slice(1:10) %>%
-    select(-mpg)
+    dplyr::select(-mpg)
 
   expect_error(predict(lm_model, pred_cars, yes = "no"))
   expect_error(predict(lm_model, pred_cars, type = "conf_int", level = 0.95, yes = "no"))
