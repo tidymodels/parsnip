@@ -5,7 +5,7 @@
 # @export predict_numeric.model_fit
 # @export
 
-predict_numeric.model_fit <- function (object, new_data, ...) {
+predict_numeric.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "regression")
     stop("`predict_numeric()` is for predicting numeric outcomes.  ",
          "Use `predict_class()` or `predict_classprob()` for ",
@@ -13,6 +13,11 @@ predict_numeric.model_fit <- function (object, new_data, ...) {
 
   if (!any(names(object$spec$method) == "numeric"))
     stop("No prediction module defined for this model.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    # TODO handle multivariate cases
+    return(failed_numeric(n = nrow(new_data)))
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -44,5 +49,23 @@ predict_numeric.model_fit <- function (object, new_data, ...) {
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict_numeric.model_fit
-predict_numeric <- function (object, ...)
+predict_numeric <- function(object, ...)
   UseMethod("predict_numeric")
+
+# ------------------------------------------------------------------------------
+
+# Some `predict()` helpers for failed models:
+
+failed_numeric <- function(n, nms = ".pred") {
+  res <- matrix(NA_real_, ncol = length(nms), nrow = n)
+  if (length(nms) > 1) {
+    colnames(res) <- nms
+    res <- as_tibble(res)
+  } else {
+    res <- res[,1]
+  }
+  res
+}
+
+
+

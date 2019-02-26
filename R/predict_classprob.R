@@ -5,13 +5,17 @@
 # @export predict_classprob.model_fit
 # @export
 #' @importFrom tibble as_tibble is_tibble tibble
-predict_classprob.model_fit <- function (object, new_data, ...) {
-  if(object$spec$mode != "classification")
+predict_classprob.model_fit <- function(object, new_data, ...) {
+  if (object$spec$mode != "classification")
     stop("`predict.model_fit()` is for predicting factor outcomes.",
          call. = FALSE)
 
   if (!any(names(object$spec$method) == "classprob"))
     stop("No class probability module defined for this model.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    return(failed_classprob(n = nrow(new_data), lvl = object$lvl))
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -25,7 +29,7 @@ predict_classprob.model_fit <- function (object, new_data, ...) {
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$classprob$post)) {
+  if (!is.null(object$spec$method$classprob$post)) {
     res <- object$spec$method$classprob$post(res, object)
   }
 
@@ -43,5 +47,17 @@ predict_classprob.model_fit <- function (object, new_data, ...) {
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
-predict_classprob <- function (object, ...)
+predict_classprob <- function(object, ...)
   UseMethod("predict_classprob")
+
+
+# ------------------------------------------------------------------------------
+
+# Some `predict()` helpers for failed models:
+
+failed_classprob <- function(n, lvl) {
+  res <- matrix(NA_real_, nrow = n, ncol = length(lvl))
+  colnames(res) <- lvl
+  as_tibble(res)
+}
+

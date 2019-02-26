@@ -8,13 +8,17 @@
 # @method predict_class model_fit
 # @export predict_class.model_fit
 # @export
-predict_class.model_fit <- function (object, new_data, ...) {
-  if(object$spec$mode != "classification")
+predict_class.model_fit <- function(object, new_data, ...) {
+  if (object$spec$mode != "classification")
     stop("`predict.model_fit()` is for predicting factor outcomes.",
          call. = FALSE)
 
   if (!any(names(object$spec$method) == "class"))
     stop("No class prediction module defined for this model.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    return(failed_class(n = nrow(new_data), lvl = object$lvl))
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -28,7 +32,7 @@ predict_class.model_fit <- function (object, new_data, ...) {
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$class$post)) {
+  if (!is.null(object$spec$method$class$post)) {
     res <- object$spec$method$class$post(res, object)
   }
 
@@ -47,5 +51,16 @@ predict_class.model_fit <- function (object, new_data, ...) {
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
-predict_class <- function (object, ...)
+predict_class <- function(object, ...)
   UseMethod("predict_class")
+
+# ------------------------------------------------------------------------------
+
+# Some `predict()` helpers for failed models:
+
+failed_class <- function(n, lvl) {
+  res <- rep(NA_character_, n)
+  res <- factor(res, levels = lvl)
+  res
+}
+
