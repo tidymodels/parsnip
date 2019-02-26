@@ -15,7 +15,7 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
          "engine.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_int(n = nrow(new_data), lvl = object$lvl))
+    return(failed_int(lvl = object$lvl))
   }
 
   new_data <- prepare_data(object, new_data)
@@ -52,7 +52,7 @@ predict_confint <- function(object, ...)
 
 # Some `predict()` helpers for failed models:
 
-failed_int <- function(n, lvl = NULL, nms = ".pred") {
+failed_int <- function(n = 1, lvl = NULL, nms = ".pred") {
   # TODO figure out multivariate models
   if (is.null(lvl)) {
     res <- matrix(NA_real_, nrow = n, ncol = length(nms) * 2)
@@ -81,7 +81,7 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
          "engine.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_int(n = nrow(new_data), lvl = object$lvl))
+    return(failed_int(lvl = object$lvl))
   }
 
   new_data <- prepare_data(object, new_data)

@@ -16,7 +16,7 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
 
   if (inherits(object$fit, "try-error")) {
     # TODO handle multivariate cases
-    return(failed_numeric(n = nrow(new_data)))
+    return(failed_numeric())
   }
 
   new_data <- prepare_data(object, new_data)
@@ -56,7 +56,7 @@ predict_numeric <- function(object, ...)
 
 # Some `predict()` helpers for failed models:
 
-failed_numeric <- function(n, nms = ".pred") {
+failed_numeric <- function(n = 1, nms = ".pred") {
   res <- matrix(NA_real_, ncol = length(nms), nrow = n)
   if (length(nms) > 1) {
     colnames(res) <- nms

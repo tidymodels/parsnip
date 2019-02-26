@@ -17,7 +17,7 @@ predict_class.model_fit <- function(object, new_data, ...) {
     stop("No class prediction module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_class(n = nrow(new_data), lvl = object$lvl))
+    return(failed_class(lvl = object$lvl))
   }
 
   new_data <- prepare_data(object, new_data)
@@ -58,7 +58,7 @@ predict_class <- function(object, ...)
 
 # Some `predict()` helpers for failed models:
 
-failed_class <- function(n, lvl) {
+failed_class <- function(n = 1, lvl) {
   res <- rep(NA_character_, n)
   res <- factor(res, levels = lvl)
   res
