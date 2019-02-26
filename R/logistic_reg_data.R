@@ -86,8 +86,8 @@ logistic_reg_glm_data <-
         res_1$lo <- 1 - res_2$hi
         res_1$hi <- 1 - res_2$lo
         res <- bind_cols(res_1, res_2)
-        lo_nms <- paste0(".pred_", object$lvl, "_lower")
-        hi_nms <- paste0(".pred_", object$lvl, "_upper")
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
         colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
         if (object$spec$method$confint$extras$std_error)
@@ -225,8 +225,8 @@ logistic_reg_stan_data <-
         res_1$lo <- 1 - res_2$hi
         res_1$hi <- 1 - res_2$lo
         res <- bind_cols(res_1, res_2)
-        lo_nms <- paste0(".pred_", object$lvl, "_lower")
-        hi_nms <- paste0(".pred_", object$lvl, "_upper")
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
         colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
         if (object$spec$method$confint$extras$std_error)
@@ -263,8 +263,8 @@ logistic_reg_stan_data <-
         res_1$lo <- 1 - res_2$hi
         res_1$hi <- 1 - res_2$lo
         res <- bind_cols(res_1, res_2)
-        lo_nms <- paste0(".pred_", object$lvl, "_lower")
-        hi_nms <- paste0(".pred_", object$lvl, "_upper")
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
         colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
         if (object$spec$method$predint$extras$std_error)

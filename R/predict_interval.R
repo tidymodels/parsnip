@@ -60,7 +60,7 @@ failed_int <- function(n, lvl = NULL, nms = ".pred") {
   } else {
     res <- matrix(NA_real_, ncol = length(lvl) * 2, nrow = n)
     nms <- expand.grid(c("lower", "upper"), lvl)
-    nms <- paste(".pred", nms$Var2, nms$Var1, sep = "_")
+    nms <- paste(".pred", nms$Var1, nms$Var2, sep = "_")
     colnames(res) <- nms
   }
   as_tibble(res)

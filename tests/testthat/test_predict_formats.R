@@ -66,10 +66,11 @@ test_that('bad predict args', {
   lm_model <-
     linear_reg() %>%
     set_engine("lm") %>%
-    fit(mpg ~ ., data = mtcars)
+    fit(mpg ~ ., data = mtcars %>%  dplyr::slice(11:32))
 
   pred_cars <-
     mtcars %>%
+    dplyr::slice(1:10) %>%
     dplyr::select(-mpg)
 
   expect_error(predict(lm_model, pred_cars, yes = "no"))

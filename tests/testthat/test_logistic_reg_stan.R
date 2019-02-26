@@ -156,10 +156,10 @@ test_that('stan intervals', {
   stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
   stan_std  <- apply(stan_post, 2, sd)
 
-  expect_equivalent(confidence_parsnip$.pred_good_lower, stan_lower)
-  expect_equivalent(confidence_parsnip$.pred_good_upper, stan_upper)
-  expect_equivalent(confidence_parsnip$.pred_bad_lower, 1 - stan_upper)
-  expect_equivalent(confidence_parsnip$.pred_bad_upper, 1 - stan_lower)
+  expect_equivalent(confidence_parsnip$.pred_lower_good, stan_lower)
+  expect_equivalent(confidence_parsnip$.pred_upper_good, stan_upper)
+  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - stan_upper)
+  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - stan_lower)
   expect_equivalent(confidence_parsnip$.std_error, stan_std)
 
   stan_pred_post <-
@@ -170,10 +170,10 @@ test_that('stan intervals', {
   stan_pred_upper <- apply(stan_pred_post, 2, quantile, prob = 0.965)
   stan_pred_std  <- apply(stan_pred_post, 2, sd)
 
-  expect_equivalent(prediction_parsnip$.pred_good_lower, stan_pred_lower)
-  expect_equivalent(prediction_parsnip$.pred_good_upper, stan_pred_upper)
-  expect_equivalent(prediction_parsnip$.pred_bad_lower, 1 - stan_pred_upper)
-  expect_equivalent(prediction_parsnip$.pred_bad_upper, 1 - stan_pred_lower)
+  expect_equivalent(prediction_parsnip$.pred_lower_good, stan_pred_lower)
+  expect_equivalent(prediction_parsnip$.pred_upper_good, stan_pred_upper)
+  expect_equivalent(prediction_parsnip$.pred_lower_bad, 1 - stan_pred_upper)
+  expect_equivalent(prediction_parsnip$.pred_upper_bad, 1 - stan_pred_lower)
   expect_equivalent(prediction_parsnip$.std_error, stan_pred_std, tolerance = 0.1)
 })
 
