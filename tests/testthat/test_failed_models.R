@@ -17,7 +17,7 @@ data("lending_club")
 
 lending_club <-
   lending_club %>%
-  slice(1:200) %>%
+  dplyr::slice(1:200) %>%
   mutate(big_num = Inf)
 
 lvl <- levels(lending_club$Class)
@@ -54,17 +54,17 @@ test_that('classification model', {
     set_engine("glm") %>%
     fit(Class ~ log(funded_amnt) + int_rate + big_num, data = lending_club, control = ctrl)
 
-  cls_res <- predict(log_reg, lending_club %>% slice(1:7) %>% dplyr::select(-Class))
+  cls_res <- predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class))
   exp_cls_res <- tibble(.pred_class = factor(rep(NA_character_, 7), levels = lvl))
   expect_equal(cls_res, exp_cls_res)
 
   prb_res <-
-    predict(log_reg, lending_club %>% slice(1:7) %>% dplyr::select(-Class), type = "prob")
+    predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "prob")
   exp_prb_res <- tibble(.pred_bad = rep(NA_real_, 7), .pred_good = rep(NA_real_, 7))
   expect_equal(prb_res, exp_prb_res)
 
   ci_res <-
-    predict(log_reg, lending_club %>% slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
+    predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
   exp_ci_res <-
     tibble(
       .pred_bad_lower = rep(NA_real_, 7),
