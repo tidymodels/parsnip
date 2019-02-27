@@ -58,3 +58,22 @@ test_that('non-standard levels', {
   expect_equal(names(predict_classprob(lr_fit_2, new_data = class_dat2[1:5,-1])),
                c("2low", "high+values"))
 })
+
+test_that('non-factor classification', {
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = Species == "setosa"))
+  )
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = ifelse(Species == "setosa", 1, 0)))
+  )
+  expect_error(
+    multinom_reg() %>%
+      set_engine("glmnet") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = as.character(Species)))
+  )
+})
+

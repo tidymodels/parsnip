@@ -34,14 +34,14 @@ test_that('glmnet execution', {
     regexp = NA
   )
 
-  glmnet_xy_catch <- fit_xy(
-    lc_basic,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il,
-    control = caught_ctrl
+  expect_error(
+    glmnet_xy_catch <- fit_xy(
+      lc_basic,
+      x = lending_club[, num_pred],
+      y = lending_club$total_bal_il,
+      control = caught_ctrl
+    )
   )
-  expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
-
 })
 
 test_that('glmnet prediction, one lambda', {

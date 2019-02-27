@@ -244,23 +244,24 @@ test_that('glm execution', {
     )
   )
 
-  # passes interactively but not on R CMD check
-  # glm_form_catch <- fit(
-  #   lc_basic,
-  #   funded_amnt ~ term,
-  #   data = lending_club,
-  #
-  #   control = caught_ctrl
-  # )
-  # expect_true(inherits(glm_form_catch$fit, "try-error"))
-
-  glm_xy_catch <- fit_xy(
-    lc_basic,
-    control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
+  # wrong outcome type
+  expect_error(
+    glm_form_catch <- fit(
+      lc_basic,
+      funded_amnt ~ term,
+      data = lending_club,
+      control = caught_ctrl
+    )
   )
-  expect_true(inherits(glm_xy_catch$fit, "try-error"))
+
+  expect_error(
+    glm_xy_catch <- fit_xy(
+      lc_basic,
+      control = caught_ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$total_bal_il
+    )
+  )
 })
 
 test_that('glm prediction', {

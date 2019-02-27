@@ -13,6 +13,8 @@ that are actually varying).
 
 * `fit_control()` not returns an S3 method. 
 
+* For classification models, an error occurs if the outcome data are not encoded as factors (#115). 
+
 ## Bug Fixes
 
 * `varying_args()` now uses the version from the `generics` package. This means

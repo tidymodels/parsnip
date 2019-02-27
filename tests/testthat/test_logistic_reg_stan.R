@@ -24,6 +24,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('stan_glm execution', {
   skip_if_not_installed("rstanarm")
 
+  library(rstanarm)
+
   expect_error(
     res <- fit(
       lc_basic,
@@ -149,8 +151,8 @@ test_that('stan intervals', {
             std_error = TRUE)
 
   stan_post <-
-    posterior_linpred(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
-                      prob = 0.93, transform = TRUE)
+    rstanarm::posterior_linpred(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
+                                prob = 0.93, transform = TRUE)
 
   stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
   stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)

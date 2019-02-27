@@ -5,3 +5,5 @@
 tests/testthat/derby.log
 tests/testthat/logs/
 *.history
+derby.log
+logs/*

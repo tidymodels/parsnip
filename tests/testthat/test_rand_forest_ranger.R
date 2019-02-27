@@ -86,10 +86,9 @@ test_that('ranger classification prediction', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest() %>% set_engine("ranger"),
+    rand_forest() %>% set_mode("classification") %>% set_engine("ranger"),
     x = lending_club[, num_pred],
     y = lending_club$Class,
-
     control = ctrl
   )
 
@@ -99,7 +98,7 @@ test_that('ranger classification prediction', {
   expect_equal(xy_pred, predict_class(xy_fit, new_data = lending_club[1:6, num_pred]))
 
   form_fit <- fit(
-    rand_forest() %>% set_engine("ranger"),
+    rand_forest() %>% set_mode("classification") %>% set_engine("ranger"),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
 
@@ -119,7 +118,7 @@ test_that('ranger classification probabilities', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest() %>% set_engine("ranger", seed = 3566),
+    rand_forest() %>% set_mode("classification") %>% set_engine("ranger", seed = 3566),
     x = lending_club[, num_pred],
     y = lending_club$Class,
 
@@ -134,7 +133,7 @@ test_that('ranger classification probabilities', {
   expect_equivalent(xy_pred[1,], one_row)
 
   form_fit <- fit(
-    rand_forest()  %>% set_engine("ranger", seed = 3566),
+    rand_forest() %>% set_mode("classification") %>% set_engine("ranger", seed = 3566),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
 
@@ -149,7 +148,6 @@ test_that('ranger classification probabilities', {
     rand_forest() %>% set_engine("ranger", probability = FALSE),
     x = lending_club[, num_pred],
     y = lending_club$Class,
-
     control = ctrl
   )
 
@@ -348,7 +346,7 @@ test_that('ranger classification prediction', {
   skip_if_not_installed("ranger")
 
   xy_class_fit <-
-    rand_forest()  %>% set_engine("ranger") %>%
+    rand_forest() %>% set_mode("classification")  %>% set_engine("ranger") %>%
     fit_xy(
       x = iris[, 1:4],
       y = iris$Species,
@@ -366,6 +364,7 @@ test_that('ranger classification prediction', {
 
   xy_prob_fit <-
     rand_forest() %>%
+    set_mode("classification") %>%
     set_engine("ranger") %>%
     fit_xy(
       x = iris[, 1:4],

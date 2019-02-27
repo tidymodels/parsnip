@@ -54,9 +54,9 @@ test_that('stan_glm execution', {
 test_that('stan prediction', {
   skip_if_not_installed("rstanarm")
 
-  uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
+  uni_stan <- rstanarm::stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))
-  inl_stan <- stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)
+  inl_stan <- rstanarm::stan_glm(Sepal.Width ~ log(Sepal.Length) + Species, data = iris, seed = 123, chains = 1)
   inl_pred <- unname(predict(inl_stan, newdata = iris[1:5, c("Sepal.Length", "Species")]))
 
   res_xy <- fit_xy(
@@ -103,11 +103,11 @@ test_that('stan intervals', {
             level = 0.93)
 
   prediction_stan <-
-    predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
-                        prob = 0.93)
+    rstanarm::predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
+                                  prob = 0.93)
 
-  stan_post <- posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
-                                 seed = 13)
+  stan_post <- rstanarm::posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
+                                           seed = 13)
   stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
   stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
 
