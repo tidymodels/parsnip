@@ -18,7 +18,8 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
     stop("No raw prediction module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    stop("Model fit failed; cannot make predictions.")
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)

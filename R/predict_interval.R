@@ -15,7 +15,8 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
          "engine.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_int(lvl = object$lvl))
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)
@@ -50,24 +51,6 @@ predict_confint <- function(object, ...)
 
 # ------------------------------------------------------------------------------
 
-# Some `predict()` helpers for failed models:
-
-failed_int <- function(n = 1, lvl = NULL, nms = ".pred") {
-  # TODO figure out multivariate models
-  if (is.null(lvl)) {
-    res <- matrix(NA_real_, nrow = n, ncol = length(nms) * 2)
-    colnames(res) <- c(".pred_lower", ".pred_upper")
-  } else {
-    res <- matrix(NA_real_, ncol = length(lvl) * 2, nrow = n)
-    nms <- expand.grid(c("lower", "upper"), lvl)
-    nms <- paste(".pred", nms$Var1, nms$Var2, sep = "_")
-    colnames(res) <- nms
-  }
-  as_tibble(res)
-}
-
-# ------------------------------------------------------------------------------
-
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
@@ -81,7 +64,8 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
          "engine.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_int(lvl = object$lvl))
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)

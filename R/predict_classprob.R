@@ -14,7 +14,8 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
     stop("No class probability module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    return(failed_classprob(lvl = object$lvl))
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)
@@ -49,15 +50,3 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
 # @inheritParams predict.model_fit
 predict_classprob <- function(object, ...)
   UseMethod("predict_classprob")
-
-
-# ------------------------------------------------------------------------------
-
-# Some `predict()` helpers for failed models:
-
-failed_classprob <- function(n = 1, lvl) {
-  res <- matrix(NA_real_, nrow = n, ncol = length(lvl))
-  colnames(res) <- lvl
-  as_tibble(res)
-}
-

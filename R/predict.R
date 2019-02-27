@@ -112,6 +112,11 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   if (any(names(the_dots) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
+  if (inherits(object$fit, "try-error")) {
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
+  }
+
   other_args <- c("level", "std_error", "quantile") # "time" for survival probs later
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
@@ -242,8 +247,13 @@ prepare_data <- function(object, new_data) {
 #'  multiple rows per sub-model.
 #' @keywords internal
 #' @export
-multi_predict <- function(object, ...)
+multi_predict <- function(object, ...) {
+  if (inherits(object$fit, "try-error")) {
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
+  }
   UseMethod("multi_predict")
+}
 
 #' @keywords internal
 #' @export
@@ -256,11 +266,3 @@ multi_predict.default <- function(object, ...)
 predict.model_spec <- function(object, ...) {
   stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
 }
-
-
-failed_class <- function(n, lvl) {
-  tibble(.pred = rep(NA_real_, n))
-}
-
-
-

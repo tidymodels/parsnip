@@ -15,8 +15,8 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
     stop("No prediction module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    # TODO handle multivariate cases
-    return(failed_numeric())
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)
@@ -51,21 +51,3 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
 # @inheritParams predict_numeric.model_fit
 predict_numeric <- function(object, ...)
   UseMethod("predict_numeric")
-
-# ------------------------------------------------------------------------------
-
-# Some `predict()` helpers for failed models:
-
-failed_numeric <- function(n = 1, nms = ".pred") {
-  res <- matrix(NA_real_, ncol = length(nms), nrow = n)
-  if (length(nms) > 1) {
-    colnames(res) <- nms
-    res <- as_tibble(res)
-  } else {
-    res <- res[,1]
-  }
-  res
-}
-
-
-

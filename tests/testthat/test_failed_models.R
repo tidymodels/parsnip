@@ -34,15 +34,14 @@ test_that('numeric model', {
     set_engine("lm") %>%
     fit(Sepal.Length ~ ., data = iris_bad, control = ctrl)
 
-  num_res <- predict(lm_mod, iris_bad[1:11, -1])
-  expect_equal(num_res, tibble(.pred = rep(NA_real_, 1)))
+  expect_warning(num_res <- predict(lm_mod, iris_bad[1:11, -1]))
+  expect_equal(num_res, NULL)
 
-  exp_int_res <- tibble(.pred_lower = rep(NA_real_, 1), .pred_upper = rep(NA_real_, 1))
-  ci_res <- predict(lm_mod, iris_bad[1:11, -1], type = "conf_int")
-  expect_equal(ci_res, exp_int_res)
+  expect_warning(ci_res <- predict(lm_mod, iris_bad[1:11, -1], type = "conf_int"))
+  expect_equal(ci_res, NULL)
 
-  pi_res <- predict(lm_mod, iris_bad[1:11, -1], type = "pred_int")
-  expect_equal(pi_res, exp_int_res)
+  expect_warning(pi_res <- predict(lm_mod, iris_bad[1:11, -1], type = "pred_int"))
+  expect_equal(pi_res, NULL)
 
 })
 
@@ -54,24 +53,22 @@ test_that('classification model', {
     set_engine("glm") %>%
     fit(Class ~ log(funded_amnt) + int_rate + big_num, data = lending_club, control = ctrl)
 
-  cls_res <- predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class))
-  exp_cls_res <- tibble(.pred_class = factor(rep(NA_character_, 1), levels = lvl))
-  expect_equal(cls_res, exp_cls_res)
+  expect_warning(
+    cls_res <-
+      predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class))
+  )
+  expect_equal(cls_res, NULL)
 
-  prb_res <-
-    predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "prob")
-  exp_prb_res <- tibble(.pred_bad = rep(NA_real_, 1), .pred_good = rep(NA_real_, 1))
-  expect_equal(prb_res, exp_prb_res)
+  expect_warning(
+    prb_res <-
+      predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "prob")
+  )
+  expect_equal(prb_res, NULL)
 
-  ci_res <-
-    predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
-  exp_ci_res <-
-    tibble(
-      .pred_lower_bad  = rep(NA_real_, 1),
-      .pred_upper_bad  = rep(NA_real_, 1),
-      .pred_lower_good = rep(NA_real_, 1),
-      .pred_upper_good = rep(NA_real_, 1)
-      )
-  expect_equal(ci_res, exp_ci_res)
+  expect_warning(
+    ci_res <-
+      predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
+  )
+  expect_equal(ci_res, NULL)
 })
 
