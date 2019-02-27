@@ -3,6 +3,7 @@
 ## New Features
 
 * A "null model" is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).  
+
 * `fit_xy()` can take a single column data frame or matrix for `y` without error 
 
 ## Other Changes
@@ -12,6 +13,8 @@ of possible varying arguments is returned (as opposed to only the arguments
 that are actually varying).
 
 * `fit_control()` not returns an S3 method. 
+
+* The prediction modules (e.g. `predict_class`, `predict_numeric`, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them. 
 
 ## Bug Fixes
 
@@ -33,6 +36,7 @@ column names once (#107).
 * For multinomial regression using glmnet, `multi_predict()` now pulls the 
 correct default penalty (#108).
 
+* Confidence and prediction intervals for logistic regression were only computed the intervals for a single level. Both are now computed. (#156)
 
 
 # parsnip 0.0.1

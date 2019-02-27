@@ -67,14 +67,14 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
 #'
 #' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument.
-#'  This can have an effect on the model object results. When using
-#'  the `predict()` method in these cases, the return object type
-#'  depends on the value of `penalty`. If a single value is
-#'  given, the results will be a simple numeric vector. When
-#'  multiple values or no values for `penalty` are used in
-#'  `logistic_reg()`, the `predict()` method will return a data frame with
-#'  columns `values` and `lambda`.
+#'  multiple values (or no values) to the `penalty` argument. This
+#'  can have an effect on the model object results. When using the
+#'  `predict()` method in these cases, the return value depends on
+#'  the value of `penalty`. When using `predict()`, only a single
+#'  value of the penalty can be used. When predicting on multiple
+#'  penalties, the `multi_predict()` function can be used. It
+#'  returns a tibble with a list column called `.pred` that contains
+#'  a tibble with all of the penalty results.
 #'
 #' For prediction, the `stan` engine can compute posterior
 #'  intervals analogous to confidence and prediction intervals. In
@@ -235,15 +235,98 @@ organize_glmnet_prob <- function(x, object) {
 }
 
 # ------------------------------------------------------------------------------
+# glmnet call stack for linear regression using `predict` when object has
+# classes "_lognet" and "model_fit" (for class predictions):
+#
+#  predict()
+# 	predict._lognet(penalty = NULL)    <-- checks and sets penalty
+#    predict.model_fit()               <-- checks for extra vars in ...
+#     predict_class()
+#      predict_class._lognet()
+#       predict_class.model_fit()
+#        predict.lognet()
+
+
+# glmnet call stack for linear regression using `multi_predict` when object has
+# classes "_lognet" and "model_fit" (for class predictions):
+#
+# 	multi_predict()
+#    multi_predict._lognet(penalty = NULL)
+#      predict._lognet(multi = TRUE)           <-- checks and sets penalty
+#       predict.model_fit()                    <-- checks for extra vars in ...
+#        predict_raw()
+#         predict_raw._lognet()
+#          predict_raw.model_fit(opts = list(s = penalty))
+#           predict.lognet()
+
+# ------------------------------------------------------------------------------
 
 #' @export
-predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
+predict._lognet <- function (object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+
+  object$spec$args$penalty <- check_penalty(penalty, object, multi)
 
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
 }
+
+
+#' @importFrom dplyr full_join as_tibble arrange
+#' @importFrom tidyr gather
+#' @export
+multi_predict._lognet <-
+  function(object, new_data, type = NULL, penalty = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+
+    if (is_quosure(penalty))
+      penalty <- eval_tidy(penalty)
+
+    dots <- list(...)
+    if (is.null(penalty))
+      penalty <- eval_tidy(object$fit$lambda)
+    dots$s <- penalty
+
+    if (is.null(type))
+      type <- "class"
+    if (!(type %in% c("class", "prob", "link", "raw"))) {
+      stop ("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
+    }
+    if (type == "prob")
+      dots$type <- "response"
+    else
+      dots$type <- type
+
+    object$spec <- eval_args(object$spec)
+    pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
+    param_key <- tibble(group = colnames(pred), penalty = penalty)
+    pred <- as_tibble(pred)
+    pred$.row <- 1:nrow(pred)
+    pred <- gather(pred, group, .pred, -.row)
+    if (dots$type == "class") {
+      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
+    } else {
+      if (dots$type == "response") {
+        pred[[".pred2"]] <- 1 - pred[[".pred"]]
+        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
+        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
+      }
+    }
+    pred <- full_join(param_key, pred, by = "group")
+    pred$group <- NULL
+    pred <- arrange(pred, .row, penalty)
+    .row <- pred$.row
+    pred$.row <- NULL
+    pred <- split(pred, .row)
+    names(pred) <- NULL
+    tibble(.pred = pred)
+  }
+
+
+
+
 
 #' @export
 predict_class._lognet <- function (object, new_data, ...) {
@@ -272,54 +355,6 @@ predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
-
-#' @importFrom dplyr full_join as_tibble arrange
-#' @importFrom tidyr gather
-#' @export
-multi_predict._lognet <-
-  function(object, new_data, type = NULL, penalty = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-
-    dots <- list(...)
-    if (is.null(penalty))
-      penalty <- object$fit$lambda
-    dots$s <- penalty
-
-    if (is.null(type))
-      type <- "class"
-    if (!(type %in% c("class", "prob", "link"))) {
-      stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
-    }
-    if (type == "prob")
-      dots$type <- "response"
-    else
-      dots$type <- type
-
-    object$spec <- eval_args(object$spec)
-    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
-    param_key <- tibble(group = colnames(pred), penalty = penalty)
-    pred <- as_tibble(pred)
-    pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred, -.row)
-    if (dots$type == "class") {
-      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
-    } else {
-      if (dots$type == "response") {
-        pred[[".pred2"]] <- 1 - pred[[".pred"]]
-        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
-        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
-      }
-    }
-    pred <- full_join(param_key, pred, by = "group")
-    pred$group <- NULL
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
-  }
 
 # ------------------------------------------------------------------------------
 

@@ -69,7 +69,7 @@ test_that('glmnet prediction, single lambda', {
             s = iris_basic$spec$args$penalty)
   uni_pred <- unname(uni_pred[,1])
 
-  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_basic,
@@ -87,7 +87,7 @@ test_that('glmnet prediction, single lambda', {
             s = res_form$spec$spec$args$penalty)
   form_pred <- unname(form_pred[,1])
 
-  expect_equal(form_pred, predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, parsnip:::predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 
@@ -115,7 +115,7 @@ test_that('glmnet prediction, multiple lambda', {
   mult_pred$lambda <- rep(lams, each = 5)
   mult_pred <- mult_pred[,-2]
 
-  expect_equal(mult_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(mult_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
 
   res_form <- fit(
     iris_mult,
@@ -135,7 +135,7 @@ test_that('glmnet prediction, multiple lambda', {
   form_pred$lambda <- rep(lams, each = 5)
   form_pred <- form_pred[,-2]
 
-  expect_equal(form_pred, predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, parsnip:::predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 test_that('glmnet prediction, all lambda', {
@@ -157,7 +157,7 @@ test_that('glmnet prediction, all lambda', {
   all_pred$lambda <- rep(res_xy$fit$lambda, each = 5)
   all_pred <- all_pred[,-2]
 
-  expect_equal(all_pred, predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(all_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
 
   # test that the lambda seq is in the right order (since no docs on this)
   tmp_pred <- predict(res_xy$fit, newx = as.matrix(iris[1:5, num_pred]),
@@ -180,7 +180,7 @@ test_that('glmnet prediction, all lambda', {
   form_pred$lambda <- rep(res_form$fit$lambda, each = 5)
   form_pred <- form_pred[,-2]
 
-  expect_equal(form_pred, predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, parsnip:::predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
 })
 
 
@@ -198,10 +198,56 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], penalty = .1)
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred"]], unname(pred_glmn[,1]))
-  
+
   expect_error(
-    multi_predict(reg_fit, newdata = mtcars[1:4, -1], penalty = .1), 
+    multi_predict(reg_fit, newdata = mtcars[1:4, -1], penalty = .1),
     "Did you mean"
   )
+
+  reg_fit <-
+    linear_reg(penalty = c(0, 0.01, 0.1)) %>%
+    set_engine("glmnet") %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
+
+
+  pred_glmn_all <-
+    predict(reg_fit$fit, as.matrix(mtcars[1:2, -1])) %>%
+    as.data.frame() %>%
+    stack() %>%
+    dplyr::arrange(ind)
+
+
+  mp_res_all <-
+    multi_predict(reg_fit, new_data = mtcars[1:2, -1]) %>%
+    tidyr::unnest()
+
+  expect_equal(sort(mp_res_all$.pred), sort(pred_glmn_all$values))
+
+})
+
+
+test_that('error traps', {
+
+  skip_if_not_installed("glmnet")
+
+  expect_error(
+    linear_reg(penalty = .1) %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ], penalty = .2)
+  )
+  expect_error(
+    linear_reg() %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ], penalty = 0:1)
+  )
+  expect_error(
+    linear_reg() %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ])
+  )
+
 })
 

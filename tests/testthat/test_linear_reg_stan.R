@@ -67,7 +67,7 @@ test_that('stan prediction', {
     control = quiet_ctrl
   )
 
-  expect_equal(uni_pred, predict_numeric(res_xy, iris[1:5, num_pred]), tolerance = 0.001)
+  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]), tolerance = 0.001)
 
   res_form <- fit(
     iris_basic,
@@ -75,7 +75,7 @@ test_that('stan prediction', {
     data = iris,
     control = quiet_ctrl
   )
-  expect_equal(inl_pred, predict_numeric(res_form, iris[1:5, ]), tolerance = 0.001)
+  expect_equal(inl_pred, parsnip:::predict_numeric(res_form, iris[1:5, ]), tolerance = 0.001)
 })
 
 

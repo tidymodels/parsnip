@@ -1,17 +1,22 @@
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-#' @method predict_classprob model_fit
-#' @export predict_classprob.model_fit
-#' @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+# @method predict_classprob model_fit
+# @export predict_classprob.model_fit
+# @export
 #' @importFrom tibble as_tibble is_tibble tibble
-predict_classprob.model_fit <- function (object, new_data, ...) {
-  if(object$spec$mode != "classification")
+predict_classprob.model_fit <- function(object, new_data, ...) {
+  if (object$spec$mode != "classification")
     stop("`predict.model_fit()` is for predicting factor outcomes.",
          call. = FALSE)
 
   if (!any(names(object$spec$method) == "classprob"))
     stop("No class probability module defined for this model.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -25,7 +30,7 @@ predict_classprob.model_fit <- function (object, new_data, ...) {
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$classprob$post)) {
+  if (!is.null(object$spec$method$classprob$post)) {
     res <- object$spec$method$classprob$post(res, object)
   }
 
@@ -39,9 +44,9 @@ predict_classprob.model_fit <- function (object, new_data, ...) {
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-predict_classprob <- function (object, ...)
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+predict_classprob <- function(object, ...)
   UseMethod("predict_classprob")
