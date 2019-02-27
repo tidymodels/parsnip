@@ -1,7 +1,6 @@
 library(testthat)
 library(parsnip)
 library(rlang)
-library(glmnet)
 
 # ------------------------------------------------------------------------------
 
