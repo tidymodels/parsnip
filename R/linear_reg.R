@@ -63,7 +63,7 @@
 #' \pkg{spark}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
-#' 
+#'
 #' \pkg{keras}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
@@ -216,12 +216,66 @@ organize_glmnet_pred <- function(x, object) {
 
 # ------------------------------------------------------------------------------
 
+# For `predict` methods that use `glmnet`, we have specific methods.
+# Only one value of the penalty should be allowed when called by `predict()`:
+
+check_penalty <- function(penalty = NULL, object, multi = FALSE) {
+
+  if (is.null(penalty)) {
+    penalty <- object$fit$lambda
+  }
+
+  # when using `predict()`, allow for a single lambda
+  if (!multi) {
+    if (length(penalty) != 1)
+      stop("`penalty` should be a single numeric value. ",
+           "`multi_predict()` can be used to get multiple predictions ",
+           "per row of data.", call. = FALSE)
+  }
+
+  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
+    stop("The glmnet model was fit with a single penalty value of ",
+         object$fit$lambda, ". Predicting with a value of ",
+         penalty, " will give incorrect results from `glmnet()`.",
+         call. = FALSE)
+
+  penalty
+}
+
+# ------------------------------------------------------------------------------
+# glmnet call stack for linear regression using `predict` when object has
+# classes "_elnet" and "model_fit":
+#
+#  predict()
+# 	predict._elnet(penalty = NULL)   <-- checks and sets penalty
+#    predict.model_fit()             <-- checks for extra vars in ...
+#     predict_numeric()
+#      predict_numeric._elnet()
+#       predict_numeric.model_fit()
+#        predict.elnet()
+
+
+# glmnet call stack for linear regression using `multi_predict` when object has
+# classes "_elnet" and "model_fit":
+#
+# 	multi_predict()
+#    multi_predict._elnet(penalty = NULL)
+#      predict._elnet(multi = TRUE)          <-- checks and sets penalty
+#       predict.model_fit()                  <-- checks for extra vars in ...
+#        predict_raw()
+#         predict_raw._elnet()
+#          predict_raw.model_fit(opts = list(s = penalty))
+#           predict.elnet()
+
+
 #' @export
 predict._elnet <-
-  function(object, new_data, type = NULL, opts = list(), ...) {
+  function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
+    object$spec$args$penalty <- check_penalty(penalty, object, multi)
+
     object$spec <- eval_args(object$spec)
     predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
   }
@@ -230,7 +284,7 @@ predict._elnet <-
 predict_numeric._elnet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-  
+
   object$spec <- eval_args(object$spec)
   predict_numeric.model_fit(object, new_data = new_data, ...)
 }
@@ -239,8 +293,9 @@ predict_numeric._elnet <- function(object, new_data, ...) {
 predict_raw._elnet <- function(object, new_data, opts = list(), ...)  {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-  
+
   object$spec <- eval_args(object$spec)
+  opts$s <- object$spec$args$penalty
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
@@ -251,14 +306,17 @@ multi_predict._elnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
-    
+
     dots <- list(...)
-    if (is.null(penalty))
-      penalty <- object$fit$lambda
-    dots$s <- penalty
 
     object$spec <- eval_args(object$spec)
-    pred <- predict(object, new_data = new_data, type = "raw", opts = dots)
+
+    if (is.null(penalty)) {
+      penalty <- object$fit$lambda
+    }
+
+    pred <- predict._elnet(object, new_data = new_data, type = "raw",
+                           opts = dots, penalty = penalty, multi = TRUE)
     param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)

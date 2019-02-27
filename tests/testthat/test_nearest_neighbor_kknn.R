@@ -20,6 +20,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('kknn execution', {
 
   skip_if_not_installed("kknn")
+  library(kknn)
+
 
   # continuous
   # expect no error

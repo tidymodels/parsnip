@@ -2,6 +2,7 @@ library(testthat)
 library(parsnip)
 library(rlang)
 library(glmnet)
+
 # ------------------------------------------------------------------------------
 
 context("linear regression execution with glmnet")
@@ -203,5 +204,51 @@ test_that('submodel prediction', {
     multi_predict(reg_fit, newdata = mtcars[1:4, -1], penalty = .1),
     "Did you mean"
   )
+
+  reg_fit <-
+    linear_reg(penalty = c(0, 0.01, 0.1)) %>%
+    set_engine("glmnet") %>%
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
+
+
+  pred_glmn_all <-
+    predict(reg_fit$fit, as.matrix(mtcars[1:2, -1])) %>%
+    as.data.frame() %>%
+    stack() %>%
+    dplyr::arrange(ind)
+
+
+  mp_res_all <-
+    multi_predict(reg_fit, new_data = mtcars[1:2, -1]) %>%
+    tidyr::unnest()
+
+  expect_equal(sort(mp_res_all$.pred), sort(pred_glmn_all$values))
+
+})
+
+
+test_that('error traps', {
+
+  skip_if_not_installed("glmnet")
+
+  expect_error(
+    linear_reg(penalty = .1) %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ], penalty = .2)
+  )
+  expect_error(
+    linear_reg() %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ], penalty = 0:1)
+  )
+  expect_error(
+    linear_reg() %>%
+      set_engine("glmnet") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]) %>%
+      predict(mtcars[-(1:4), ])
+  )
+
 })
 

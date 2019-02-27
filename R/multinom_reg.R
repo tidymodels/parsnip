@@ -188,54 +188,46 @@ organize_multnet_prob <- function(x, object) {
 }
 
 # ------------------------------------------------------------------------------
+# glmnet call stack for linear regression using `predict` when object has
+# classes "_multnet" and "model_fit" (for class predictions):
+#
+#  predict()
+# 	predict._multnet(penalty = NULL)   <-- checks and sets penalty
+#    predict.model_fit()               <-- checks for extra vars in ...
+#     predict_class()
+#      predict_class._multnet()
+#       predict.multnet()
 
-#' @export
-predict._lognet <- function (object, new_data, type = NULL, opts = list(), ...) {
-  object$spec <- eval_args(object$spec)
-  predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
-}
 
-#' @export
-predict_class._lognet <- function (object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_class.model_fit(object, new_data = new_data, ...)
-}
+# glmnet call stack for linear regression using `multi_predict` when object has
+# classes "_multnet" and "model_fit" (for class predictions):
+#
+# 	multi_predict()
+#    multi_predict._multnet(penalty = NULL)
+#      predict._multnet(multi = TRUE)          <-- checks and sets penalty
+#       predict.model_fit()                    <-- checks for extra vars in ...
+#        predict_raw()
+#         predict_raw._multnet()
+#          predict_raw.model_fit(opts = list(s = penalty))
+#           predict.multnet()
 
-#' @export
-predict_classprob._multnet <- function (object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_classprob.model_fit(object, new_data = new_data, ...)
-}
-
-#' @export
-predict_raw._multnet <- function (object, new_data, opts = list(), ...) {
-  object$spec <- eval_args(object$spec)
-  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
-}
-
+# ------------------------------------------------------------------------------
 
 #' @export
 predict._multnet <-
-  function(object, new_data, type = NULL, opts = list(), penalty = NULL, ...) {
-    dots <- list(...)
-    if (is.null(penalty))
-      penalty <- object$fit$lambda
+  function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
 
-  if (length(penalty) != 1)
-    stop("`penalty` should be a single numeric value. ",
-         "`multi_predict()` can be used to get multiple predictions ",
-         "per row of data.", call. = FALSE)
+    object$spec$args$penalty <- check_penalty(penalty, object, multi)
+
     object$spec <- eval_args(object$spec)
     res <- predict.model_fit(
       object = object,
       new_data = new_data,
       type = type,
-      opts = opts,
-      penalty = penalty
+      opts = opts
     )
-  res
-}
-
+    res
+  }
 
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
@@ -255,8 +247,8 @@ multi_predict._multnet <-
 
     if (is.null(type))
       type <- "class"
-    if (!(type %in% c("class", "prob", "link"))) {
-      stop ("`type` should be either 'class', 'link', or 'prob'.", call. = FALSE)
+    if (!(type %in% c("class", "prob", "link", "raw"))) {
+      stop ("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
     }
     if (type == "prob")
       dots$type <- "response"
@@ -296,6 +288,29 @@ multi_predict._multnet <-
     tibble(.pred = pred)
   }
 
+#' @export
+predict_class._multnet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_class.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_classprob._multnet <- function (object, new_data, ...) {
+  object$spec <- eval_args(object$spec)
+  predict_classprob.model_fit(object, new_data = new_data, ...)
+}
+
+#' @export
+predict_raw._multnet <- function (object, new_data, opts = list(), ...) {
+  object$spec <- eval_args(object$spec)
+  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
+}
+
+
+
+# ------------------------------------------------------------------------------
+
+# This checks as a pre-processor in the model data object
 check_glmnet_lambda <- function(dat, object) {
   if (length(object$fit$lambda) > 1)
     stop(
