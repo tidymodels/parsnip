@@ -67,14 +67,14 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
 #'
 #' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument.
-#'  This can have an effect on the model object results. When using
-#'  the `predict()` method in these cases, the return object type
-#'  depends on the value of `penalty`. If a single value is
-#'  given, the results will be a simple numeric vector. When
-#'  multiple values or no values for `penalty` are used in
-#'  `logistic_reg()`, the `predict()` method will return a data frame with
-#'  columns `values` and `lambda`.
+#'  multiple values (or no values) to the `penalty` argument. This
+#'  can have an effect on the model object results. When using the
+#'  `predict()` method in these cases, the return value depends on
+#'  the value of `penalty`. When using `predict()`, only a single
+#'  value of the penalty can be used. When predicting on multiple
+#'  penalties, the `multi_predict()` function can be used. It
+#'  returns a tibble with a list column called `.pred` that contains
+#'  a tibble with all of the penalty results.
 #'
 #' For prediction, the `stan` engine can compute posterior
 #'  intervals analogous to confidence and prediction intervals. In
