@@ -5,51 +5,15 @@ language: r
 warnings_are_errors: false
 sudo: true
 
-r:
-- 3.1
-- 3.2
-- oldrel
-- release
-- devel
-
-
 env:
   global:
   - KERAS_BACKEND="tensorflow"
   - MAKEFLAGS="-j 2"
 
-# until we troubleshoot these issues
+
 matrix:
-  allow_failures:
-    - r: 3.1
-    - r: 3.2
   include:    
     - dist: xenial
-
-r_binary_packages: 
- - RCurl
- - dplyr
- - glue
- - magrittr
- - stringi
- - stringr
- - munsell
- - rlang
- - reshape2
- - scales
- - tibble
- - ggplot2
- - Rcpp
- - RcppEigen
- - BH
- - glmnet
- - earth
- - sparklyr
- - flexsurv
- - ranger
- - randomforest
- - xgboost
- - C50
 
 cache:
   packages: true
