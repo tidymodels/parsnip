@@ -45,4 +45,5 @@ Suggests:
     kknn,
     randomForest,
     ranger,
-    rpart
+    rpart,
+    rstanarm

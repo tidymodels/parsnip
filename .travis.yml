@@ -23,10 +23,12 @@ matrix:
   allow_failures:
     - r: 3.1
     - r: 3.2
-  include:    
+  include:
     - dist: xenial
 
-r_binary_packages: 
+r_binary_packages:
+ - rstan
+ - rstanarm
  - RCurl
  - dplyr
  - glue
@@ -39,6 +41,7 @@ r_binary_packages:
  - scales
  - tibble
  - ggplot2
+ - StanHeaders
  - Rcpp
  - RcppEigen
  - BH
@@ -63,8 +66,19 @@ before_script:
   - python -m pip install --upgrade --ignore-installed --user travis keras h5py pyyaml requests Pillow scipy theano
   - R -e 'tensorflow::install_tensorflow()'
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-6
+
 before_install:
-  - sudo apt-get -y install libnlopt-dev 
+  - echo "Updating ~/.R/Makevars to know about g++-6"
+  - mkdir -p ~/.R
+  - echo "VkVSPS02CkNDPWdjYyQoVkVSKQpDWFg9ZysrJChWRVIpCg==" | base64 -d > ~/.R/Makevars
+  - cat ~/.R/Makevars
+  - sudo apt-get -y install libnlopt-dev
   - sudo apt-get update
   - sudo apt-get -y install python3
 
