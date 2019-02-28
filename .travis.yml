@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
 
-dist: xenial
+dist: trusty
 sudo: true
 
 # until generics is finalized
@@ -25,6 +25,17 @@ matrix:
   allow_failures:
     - r: 3.1
     - r: 3.2
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
 
 r_binary_packages: 
  - rstan
