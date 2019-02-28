@@ -22,6 +22,7 @@ addons:
     packages:
       - g++-6
 
+
 env:
   global:
   - KERAS_BACKEND="tensorflow"
@@ -77,9 +78,7 @@ before_install:
   - sudo apt-get -y install libnlopt-dev 
   - sudo apt-get update
   - sudo apt-get -y install python3
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
-  - echo "** Overriding src/Makevars and removing C++14 on Travis only"
-  - sed -i 's|CXX_STD = CXX14||' src/Makevars  
+
 
 after_success:
   - Rscript -e 'covr::codecov()'
