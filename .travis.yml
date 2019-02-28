@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
 
-dist: trusty
+dist: xenial
 sudo: true
 
 # until generics is finalized
@@ -13,14 +13,6 @@ r:
 - oldrel
 - release
 - devel
-
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-6
 
 
 env:
