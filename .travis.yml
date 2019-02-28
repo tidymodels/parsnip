@@ -18,6 +18,11 @@ matrix:
     - r: 3.1
     - r: 3.2
 
+r_binary_packages: 
+ - devtools
+ - magrittr
+
+
 env:
   global:
   - KERAS_BACKEND="tensorflow"
