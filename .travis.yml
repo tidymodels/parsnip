@@ -3,6 +3,7 @@ language: r
 
 # until generics is finalized
 warnings_are_errors: false
+sudo: true
 
 r:
 - 3.1
