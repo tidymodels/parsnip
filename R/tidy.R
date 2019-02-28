@@ -14,5 +14,5 @@
 #'   set_engine("glm") %>%
 #'   fit(Class ~ funded_amnt + int_rate, data = lending_club) %>%
 #'   # tidying model object and passing arguments to broom:::tidy.glm
-#'   tidy(conf.int = TRUE, exponentiate = TRUE)
+#'   tidy(exponentiate = TRUE)
 tidy.model_fit <- function(x, ...) generics::tidy(x$fit, ...)
