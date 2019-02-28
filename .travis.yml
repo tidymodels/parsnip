@@ -27,8 +27,6 @@ matrix:
     - dist: xenial
 
 r_binary_packages: 
- - rstan
- - rstanarm
  - RCurl
  - dplyr
  - glue
@@ -41,7 +39,6 @@ r_binary_packages:
  - scales
  - tibble
  - ggplot2
- - StanHeaders
  - Rcpp
  - RcppEigen
  - BH
