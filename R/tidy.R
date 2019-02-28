@@ -6,13 +6,4 @@
 #'
 #' @return a tibble
 #' @export
-#'
-#' @examples
-#' library(broom)
-#'
-#' logistic_reg() %>%
-#'   set_engine("glm") %>%
-#'   fit(Class ~ funded_amnt + int_rate, data = lending_club) %>%
-#'   # tidying model object and passing arguments to broom:::tidy.glm
-#'   tidy(exponentiate = TRUE)
 tidy.model_fit <- function(x, ...) generics::tidy(x$fit, ...)
