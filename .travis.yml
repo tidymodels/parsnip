@@ -1,19 +1,28 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
+dist: trusty
+sudo: true
 
 # until generics is finalized
 warnings_are_errors: false
-sudo: true
+
+r:
+- 3.1
+- 3.2
+- oldrel
+- release
+- devel
+
+matrix:
+  allow_failures:
+    - r: 3.1
+    - r: 3.2
 
 env:
   global:
   - KERAS_BACKEND="tensorflow"
   - MAKEFLAGS="-j 2"
 
-
-matrix:
-  include:    
-    - dist: xenial
 
 cache:
   packages: true
