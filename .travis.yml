@@ -1,5 +1,6 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
+
 dist: trusty
 sudo: true
 
@@ -13,21 +14,41 @@ r:
 - release
 - devel
 
+env:
+  global:
+  - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
+
+# until we troubleshoot these issues
 matrix:
   allow_failures:
     - r: 3.1
     - r: 3.2
 
 r_binary_packages: 
- - devtools
+  - RCurl
+ - dplyr
+ - glue
  - magrittr
-
-
-env:
-  global:
-  - KERAS_BACKEND="tensorflow"
-  - MAKEFLAGS="-j 2"
-
+ - stringi
+ - stringr
+ - munsell
+ - rlang
+ - reshape2
+ - scales
+ - tibble
+ - ggplot2
+ - Rcpp
+ - RcppEigen
+ - BH
+ - glmnet
+ - earth
+ - sparklyr
+ - flexsurv
+ - ranger
+ - randomforest
+ - xgboost
+ - C50
 
 cache:
   packages: true
@@ -45,7 +66,6 @@ before_install:
   - sudo apt-get -y install libnlopt-dev 
   - sudo apt-get update
   - sudo apt-get -y install python3
-
 
 after_success:
   - Rscript -e 'covr::codecov()'
