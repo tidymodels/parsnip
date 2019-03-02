@@ -74,9 +74,7 @@ addons:
       - g++-6
 
 before_install:
-  - echo "Updating ~/.R/Makevars to know about g++-6"
-  - mkdir -p ~/.R
-  - echo "VkVSPS02CkNDPWdjYyQoVkVSKQpDWFg9ZysrJChWRVIpCg==" | base64 -d > ~/.R/Makevars
+  - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
   - cat ~/.R/Makevars
   - sudo apt-get -y install libnlopt-dev
   - sudo apt-get update
