@@ -64,7 +64,7 @@ addons:
       g++-6
 
 before_script:
-  - mkdir -p ~/.R && echo "CXX14=g++-6` > ~/.R/Makevars
+  - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
   - cd ~
   - python -m pip install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
   - python -m pip install --upgrade --ignore-installed --user travis keras h5py pyyaml requests Pillow scipy theano
