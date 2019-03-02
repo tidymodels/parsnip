@@ -53,7 +53,6 @@ test_that('stan_glm execution', {
 
 test_that('stan prediction', {
   skip_if_not_installed("rstanarm")
-  library(rstanarm)
 
   uni_stan <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris, seed = 123)
   uni_pred <- unname(predict(uni_stan, newdata = iris[1:5, ]))

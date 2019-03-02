@@ -24,8 +24,6 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 test_that('stan_glm execution', {
   skip_if_not_installed("rstanarm")
 
-  library(rstanarm)
-
   expect_error(
     res <- fit(
       lc_basic,
