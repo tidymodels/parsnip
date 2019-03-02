@@ -126,6 +126,7 @@ test_that('stan_glm probability', {
 test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
 
+  library(rstanarm)
   res_form <- fit(
     logistic_reg() %>%
       set_engine("stan", seed = 1333, chains = 1),
@@ -151,8 +152,8 @@ test_that('stan intervals', {
             std_error = TRUE)
 
   stan_post <-
-    rstanarm::posterior_linpred(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
-                                prob = 0.93, transform = TRUE)
+    posterior_linpred(res_form$fit, newdata = lending_club[1:5, ], seed = 13,
+                      prob = 0.93, transform = TRUE)
 
   stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
   stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)

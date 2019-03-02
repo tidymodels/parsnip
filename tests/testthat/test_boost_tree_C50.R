@@ -116,11 +116,12 @@ test_that('C5.0 probabilities', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("C50")
+  library(C50)
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
     boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("C5.0", control = C50::C5.0Control(earlyStopping = FALSE)) %>%
+    set_engine("C5.0", control = C5.0Control(earlyStopping = FALSE)) %>%
     fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
   pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 4, type = "prob")
