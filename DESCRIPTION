@@ -38,6 +38,8 @@ Suggests:
     keras,
     xgboost,
     covr,
+    C50,
+    rstanarm,
     sparklyr,
     earth,
     glmnet,
