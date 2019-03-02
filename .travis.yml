@@ -14,12 +14,7 @@ r:
   - release
   - devel
 
-env:
-  global:
-  - KERAS_BACKEND="tensorflow"
-  - MAKEFLAGS="-j 2"
 
-# until we troubleshoot these issues
 matrix:
   allow_failures:
     - r: 3.1
@@ -56,11 +51,23 @@ cache:
     - $HOME/.keras
     - $HOME/.cache/pip
 
+env:
+  global:
+  - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      g++-6
 
 before_script:
   - python -m pip install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
   - python -m pip install --upgrade --ignore-installed --user travis keras h5py pyyaml requests Pillow scipy theano
   - R -e 'tensorflow::install_tensorflow()'
+  - mkdir -p ~/.R && echo "CXX14=g++-6` > ~/.R/Makevars
 
 before_install:
   - sudo apt-get -y install libnlopt-dev 
