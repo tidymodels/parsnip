@@ -75,6 +75,7 @@ addons:
 
 before_install:
   - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
+  - echo "CXX14FLAGS += -g -O2 -pedantic -g0 -fPIC" >> ~/.R/Makevars
   - cat ~/.R/Makevars
   - sudo apt-get -y install libnlopt-dev
   - sudo apt-get update
