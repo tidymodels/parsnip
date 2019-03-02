@@ -124,7 +124,6 @@ test_that('stan_glm probability', {
 test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
 
-  library(rstanarm)
   res_form <- fit(
     logistic_reg() %>%
       set_engine("stan", seed = 1333, chains = 1),
