@@ -44,6 +44,9 @@ r_binary_packages:
   - randomforest
   - xgboost
   - C50
+  - rstan
+  - StanHeaders
+  - rstanarm
 
 cache:
   packages: true
