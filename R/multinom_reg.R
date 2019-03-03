@@ -168,7 +168,7 @@ check_args.multinom_reg <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (is.numeric(args$penalty) && args$penalty < 0)
+  if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
     stop("The amount of regularization should be >= 0", call. = FALSE)
   if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
     stop("The mixture proportion should be within [0,1]", call. = FALSE)
