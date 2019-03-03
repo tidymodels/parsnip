@@ -102,14 +102,21 @@ test_that('stan intervals', {
             type = "pred_int",
             level = 0.93)
 
-  prediction_stan <-
-    predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
-                        prob = 0.93)
+  # prediction_stan <-
+  #   predictive_interval(res_xy$fit, newdata = iris[1:5, ], seed = 13,
+  #                       prob = 0.93)
+  #
+  # stan_post <- posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
+  #                                seed = 13)
+  # stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
+  # stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
 
-  stan_post <- posterior_linpred(res_xy$fit, newdata = iris[1:5, ],
-                                 seed = 13)
-  stan_lower <- apply(stan_post, 2, quantile, prob = 0.035)
-  stan_upper <- apply(stan_post, 2, quantile, prob = 0.965)
+  stan_lower <- c(`1` = 4.93164991101342, `2` = 4.60197941230393,
+                  `3` = 4.6671442757811, `4` = 4.74402724639963,
+                  `5` = 4.99248110476701)
+  stan_upper <- c(`1` = 5.1002837047058, `2` = 4.77617561853506,
+                  `3` = 4.83183673602725, `4` = 4.90844811805409,
+                  `5` = 5.16979395659009)
 
   expect_equivalent(confidence_parsnip$.pred_lower, stan_lower)
   expect_equivalent(confidence_parsnip$.pred_upper, stan_upper)
