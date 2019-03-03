@@ -8,50 +8,43 @@ sudo: true
 warnings_are_errors: false
 
 r:
-- 3.1
-- 3.2
-- oldrel
-- release
-- devel
+  - 3.1
+  - 3.2
+  - oldrel
+  - release
+  - devel
 
-env:
-  global:
-  - KERAS_BACKEND="tensorflow"
-  - MAKEFLAGS="-j 2"
 
-# until we troubleshoot these issues
 matrix:
   allow_failures:
     - r: 3.1
     - r: 3.2
 
 r_binary_packages: 
- - rstan
- - rstanarm
- - RCurl
- - dplyr
- - glue
- - magrittr
- - stringi
- - stringr
- - munsell
- - rlang
- - reshape2
- - scales
- - tibble
- - ggplot2
- - StanHeaders
- - Rcpp
- - RcppEigen
- - BH
- - glmnet
- - earth
- - sparklyr
- - flexsurv
- - ranger
- - randomforest
- - xgboost
- - C50
+  - RCurl
+  - dplyr
+  - glue
+  - magrittr
+  - stringi
+  - stringr
+  - munsell
+  - rlang
+  - reshape2
+  - scales
+  - tibble
+  - ggplot2
+  - Rcpp
+  - RcppEigen
+  - BH
+  - glmnet
+  - earth
+  - sparklyr
+  - flexsurv
+  - ranger
+  - randomforest
+  - xgboost
+  - C50
+
 
 cache:
   packages: true
@@ -59,16 +52,32 @@ cache:
     - $HOME/.keras
     - $HOME/.cache/pip
 
+env:
+  global:
+  - KERAS_BACKEND="tensorflow"
+  - MAKEFLAGS="-j 2"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      g++-6
 
 before_script:
   - python -m pip install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
   - python -m pip install --upgrade --ignore-installed --user travis keras h5py pyyaml requests Pillow scipy theano
   - R -e 'tensorflow::install_tensorflow()'
 
+
 before_install:
   - sudo apt-get -y install libnlopt-dev 
   - sudo apt-get update
   - sudo apt-get -y install python3
+  - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
+  - echo "CXX14FLAGS += -fPIC" >> ~/.R/Makevars
+ 
 
 after_success:
   - Rscript -e 'covr::codecov()'
+

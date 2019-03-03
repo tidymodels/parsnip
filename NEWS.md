@@ -14,7 +14,10 @@ that are actually varying).
 
 * `fit_control()` not returns an S3 method. 
 
+* For classification models, an error occurs if the outcome data are not encoded as factors (#115). 
+
 * The prediction modules (e.g. `predict_class`, `predict_numeric`, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them. 
+
 
 ## Bug Fixes
 

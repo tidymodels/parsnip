@@ -1,6 +1,7 @@
 library(testthat)
 library(parsnip)
 library(tibble)
+library(dplyr)
 
 # ------------------------------------------------------------------------------
 
@@ -8,6 +9,9 @@ context("boosted tree execution with C5.0")
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
+lending_club_fail <-
+  lending_club %>%
+  mutate(bad = Inf, miss = NA)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <-
   boost_tree(mode = "classification")  %>%
@@ -41,6 +45,8 @@ test_that('C5.0 execution', {
     ),
     regexp = NA
   )
+
+  # outcome is not a factor:
   expect_error(
     res <- fit(
       lc_basic,
@@ -51,19 +57,21 @@ test_that('C5.0 execution', {
     )
   )
 
+  # Model fails
   C5.0_form_catch <- fit(
     lc_basic,
-    funded_amnt ~ term,
-    data = lending_club,
+    Class ~ miss,
+    data = lending_club_fail,
     control = caught_ctrl
   )
   expect_true(inherits(C5.0_form_catch$fit, "try-error"))
 
+  # Model fails
   C5.0_xy_catch <- fit_xy(
     lc_basic,
     control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
+    x = lending_club_fail[, "miss"],
+    y = lending_club_fail$Class
   )
   expect_true(inherits(C5.0_xy_catch$fit, "try-error"))
 })
@@ -108,11 +116,12 @@ test_that('C5.0 probabilities', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("C50")
+  library(C50)
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
     boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("C5.0", control = C50::C5.0Control(earlyStopping = FALSE)) %>%
+    set_engine("C5.0", control = C5.0Control(earlyStopping = FALSE)) %>%
     fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
   pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 4, type = "prob")

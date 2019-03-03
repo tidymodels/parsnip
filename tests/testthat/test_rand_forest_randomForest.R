@@ -66,13 +66,14 @@ test_that('randomForest classification execution', {
   # )
   # expect_true(inherits(randomForest_form_catch$fit, "try-error"))
 
-  randomForest_xy_catch <- fit_xy(
-    bad_rf_cls,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il,
-    control = caught_ctrl
+  expect_error(
+    fit_xy(
+      bad_rf_cls,
+      x = lending_club[, num_pred],
+      y = lending_club$total_bal_il,
+      control = caught_ctrl
+    )
   )
-  expect_true(inherits(randomForest_xy_catch$fit, "try-error"))
 
 })
 

@@ -29,14 +29,14 @@ test_that('glmnet execution', {
     regexp = NA
   )
 
-  glmnet_xy_catch <- fit_xy(
-    multinom_reg() %>% set_engine("glmnet"),
-    x = iris[, 2:5],
-    y = iris$Sepal.Length,
-    ,
-    control = caught_ctrl
+  expect_error(
+    glmnet_xy_catch <- fit_xy(
+      multinom_reg() %>% set_engine("glmnet"),
+      x = iris[, 2:5],
+      y = iris$Sepal.Length,
+      control = caught_ctrl
+    )
   )
-  expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
 
 })
 

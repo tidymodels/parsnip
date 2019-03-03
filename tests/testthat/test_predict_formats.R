@@ -60,6 +60,25 @@ test_that('non-standard levels', {
                c("2low", "high+values"))
 })
 
+
+test_that('non-factor classification', {
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = Species == "setosa"))
+  )
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = ifelse(Species == "setosa", 1, 0)))
+  )
+  expect_error(
+    multinom_reg() %>%
+      set_engine("glmnet") %>%
+      fit(Species ~ ., data = iris %>% mutate(Species = as.character(Species)))
+  )
+})
+
 # ------------------------------------------------------------------------------
 
 test_that('bad predict args', {
@@ -73,7 +92,7 @@ test_that('bad predict args', {
     dplyr::slice(1:10) %>%
     dplyr::select(-mpg)
 
-  expect_error(predict(lm_model, pred_cars, yes = "no"))
-  expect_error(predict(lm_model, pred_cars, type = "conf_int", level = 0.95, yes = "no"))
+  # expect_error(predict(lm_model, pred_cars, yes = "no"))
+  # expect_error(predict(lm_model, pred_cars, type = "conf_int", level = 0.95, yes = "no"))
 })
 

@@ -38,4 +38,14 @@ Suggests:
     keras,
     xgboost,
     covr,
-    sparklyr
+    C50,
+    sparklyr,
+    earth,
+    glmnet,
+    kernlab,
+    kknn,
+    randomForest,
+    ranger,
+    rpart,
+    MASS,
+    nlme

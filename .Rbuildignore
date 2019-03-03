@@ -7,3 +7,6 @@
 ^\.Rproj\.user$
 ^.travis.yml$
 ^R/README\.md$
+derby.log
+^logs$
+^tests/testthat/logs$

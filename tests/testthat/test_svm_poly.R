@@ -245,19 +245,20 @@ test_that('svm poly classification probabilities', {
     )
   expect_equal(cls_form$fit, cls_xy_form$fit)
 
-  # kern_probs <-
-  #   predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
-  #   as_tibble() %>%
-  #   setNames(c('.pred_setosa', '.pred_versicolor', '.pred_virginica'))
-
+  library(kernlab)
   kern_probs <-
-    structure(
-      list(
-        .pred_setosa = c(0.982990083267231, 0.0167077303224448, 0.00930879923686657),
-        .pred_versicolor = c(0.00417116710624842, 0.946131931665357, 0.0015524073332013),
-        .pred_virginica = c(0.0128387496265202, 0.0371603380121978, 0.989138793429932)),
-      row.names = c(NA,-3L),
-      class = c("tbl_df", "tbl", "data.frame"))
+    kernlab::predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
+    as_tibble() %>%
+    setNames(c('.pred_setosa', '.pred_versicolor', '.pred_virginica'))
+
+  # kern_probs <-
+  #   structure(
+  #     list(
+  #       .pred_setosa = c(0.982990083267231, 0.0167077303224448, 0.00930879923686657),
+  #       .pred_versicolor = c(0.00417116710624842, 0.946131931665357, 0.0015524073332013),
+  #       .pred_virginica = c(0.0128387496265202, 0.0371603380121978, 0.989138793429932)),
+  #     row.names = c(NA,-3L),
+  #     class = c("tbl_df", "tbl", "data.frame"))
 
   parsnip_probs <- predict(cls_form, iris[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_probs))
