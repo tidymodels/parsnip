@@ -18,7 +18,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
-    rlang (>=  0.3.0.1),
+    rlang (>= 0.3.1),
     purrr,
     utils,
     tibble,

@@ -4,7 +4,7 @@ logistic_reg_arg_key <- data.frame(
   glmnet =  c(   "lambda",             "alpha"),
   spark  =  c("reg_param", "elastic_net_param"),
   stan   =  c(        NA,                  NA),
-  keras  =  c(   "decay",                  NA),  
+  keras  =  c(   "decay",                  NA),
   stringsAsFactors = FALSE,
   row.names =  c("penalty", "mixture")
 )
@@ -77,12 +77,20 @@ logistic_reg_glm_data <-
         const <-
           qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
         trans <- object$fit$family$linkinv
-        res <-
+        res_2 <-
           tibble(
-            .pred_lower = trans(results$fit - const * results$se.fit),
-            .pred_upper = trans(results$fit + const * results$se.fit)
+            lo = trans(results$fit - const * results$se.fit),
+            hi = trans(results$fit + const * results$se.fit)
           )
-        if(object$spec$method$confint$extras$std_error)
+        res_1 <- res_2
+        res_1$lo <- 1 - res_2$hi
+        res_1$hi <- 1 - res_2$lo
+        res <- bind_cols(res_1, res_2)
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
+        colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+
+        if (object$spec$method$confint$extras$std_error)
           res$.std_error <- results$se.fit
         res
       },
@@ -199,21 +207,29 @@ logistic_reg_stan_data <-
     confint = list(
       pre = NULL,
       post = function(results, object) {
-        res <-
+        res_2 <-
           tibble(
-            .pred_lower =
+            lo =
               convert_stan_interval(
                 results,
                 level = object$spec$method$confint$extras$level
               ),
-            .pred_upper =
+            hi =
               convert_stan_interval(
                 results,
                 level = object$spec$method$confint$extras$level,
                 lower = FALSE
               ),
           )
-        if(object$spec$method$confint$extras$std_error)
+        res_1 <- res_2
+        res_1$lo <- 1 - res_2$hi
+        res_1$hi <- 1 - res_2$lo
+        res <- bind_cols(res_1, res_2)
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
+        colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+
+        if (object$spec$method$confint$extras$std_error)
           res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
         res
       },
@@ -229,21 +245,29 @@ logistic_reg_stan_data <-
     predint = list(
       pre = NULL,
       post = function(results, object) {
-        res <-
+        res_2 <-
           tibble(
-            .pred_lower =
+            lo =
               convert_stan_interval(
                 results,
                 level = object$spec$method$predint$extras$level
               ),
-            .pred_upper =
+            hi =
               convert_stan_interval(
                 results,
                 level = object$spec$method$predint$extras$level,
                 lower = FALSE
               ),
           )
-        if(object$spec$method$predint$extras$std_error)
+        res_1 <- res_2
+        res_1$lo <- 1 - res_2$hi
+        res_1$hi <- 1 - res_2$lo
+        res <- bind_cols(res_1, res_2)
+        lo_nms <- paste0(".pred_lower_", object$lvl)
+        hi_nms <- paste0(".pred_upper_", object$lvl)
+        colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+
+        if (object$spec$method$predint$extras$std_error)
           res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
         res
       },

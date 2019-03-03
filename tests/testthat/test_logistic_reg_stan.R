@@ -64,7 +64,7 @@ test_that('stan_glm prediction', {
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
 
-  expect_equal(xy_pred, predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(xy_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg() %>%
@@ -73,6 +73,7 @@ test_that('stan_glm prediction', {
     data = lending_club,
     control = ctrl
   )
+
 
   # form_pred <-
   #   predict(res_form$fit,
@@ -84,7 +85,9 @@ test_that('stan_glm prediction', {
   form_pred <- structure(c(2L, 2L, 2L, 2L, 2L, 2L, 2L),
                          .Label = c("bad", "good"),
                          class = "factor")
-  expect_equal(form_pred, predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
+  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+
 })
 
 
@@ -106,7 +109,7 @@ test_that('stan_glm probability', {
   xy_pred <- xy_fit$fit$family$linkinv(xy_pred)
   xy_pred <- tibble(bad = 1 - xy_pred, good = xy_pred)
 
-  expect_equal(xy_pred, predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(xy_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
 
   res_form <- fit(
     logistic_reg() %>%
@@ -134,7 +137,7 @@ test_that('stan_glm probability', {
     )
   expect_equal(
     form_pred %>% as.data.frame(),
-    predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>%
+    parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>%
       as.data.frame()
   )
 })
@@ -185,8 +188,10 @@ test_that('stan intervals', {
     c(`1` = 0.0181025303127182, `2` = 0.0388665155739319, `3` = 0.0205886091162274,
       `4` = 0.0181715224502082, `5` = 0.00405145389896896)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, stan_lower)
-  expect_equivalent(confidence_parsnip$.pred_upper, stan_upper)
+  expect_equivalent(confidence_parsnip$.pred_lower_good, stan_lower)
+  expect_equivalent(confidence_parsnip$.pred_upper_good, stan_upper)
+  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - stan_upper)
+  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - stan_lower)
   expect_equivalent(confidence_parsnip$.std_error, stan_std)
 
   # stan_pred_post <-

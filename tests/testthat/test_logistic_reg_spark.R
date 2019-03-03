@@ -56,7 +56,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_pred_class <- predict_class(spark_class_fit, churn_logit_te),
+    spark_class_pred_class <- parsnip:::predict_class(spark_class_fit, churn_logit_te),
     regexp = NA
   )
 
@@ -73,7 +73,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_prob_classprob <- predict_classprob(spark_class_fit, churn_logit_te),
+    spark_class_prob_classprob <- parsnip:::predict_classprob(spark_class_fit, churn_logit_te),
     regexp = NA
   )
 

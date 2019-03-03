@@ -1,19 +1,23 @@
-#' @keywords internal
-#' @rdname other_predict
-#' @param level A single numeric value between zero and one for the
-#'  interval estimates.
-#' @param std_error A single logical for wether the standard error should be
-#'  returned (assuming that the model can compute it).
-#' @inheritParams predict.model_fit
-#' @method predict_confint model_fit
-#' @export predict_confint.model_fit
-#' @export
-predict_confint.model_fit <-
-  function (object, new_data, level = 0.95, std_error = FALSE, ...) {
+# @keywords internal
+# @rdname other_predict
+# @param level A single numeric value between zero and one for the
+#  interval estimates.
+# @param std_error A single logical for wether the standard error should be
+#  returned (assuming that the model can compute it).
+# @inheritParams predict.model_fit
+# @method predict_confint model_fit
+# @export predict_confint.model_fit
+# @export
+predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   if (is.null(object$spec$method$confint))
     stop("No confidence interval method defined for this ",
          "engine.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -29,7 +33,7 @@ predict_confint.model_fit <-
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$confint$post)) {
+  if (!is.null(object$spec$method$confint$post)) {
     res <- object$spec$method$confint$post(res, object)
   }
 
@@ -38,27 +42,31 @@ predict_confint.model_fit <-
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-predict_confint <- function (object, ...)
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+predict_confint <- function(object, ...)
   UseMethod("predict_confint")
 
-##################################################################
+# ------------------------------------------------------------------------------
 
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-#' @method predict_predint model_fit
-#' @export predict_predint.model_fit
-#' @export
-predict_predint.model_fit <-
-  function (object, new_data, level = 0.95, std_error = FALSE, ...) {
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+# @method predict_predint model_fit
+# @export predict_predint.model_fit
+# @export
+predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   if (is.null(object$spec$method$predint))
     stop("No prediction interval method defined for this ",
          "engine.", call. = FALSE)
+
+  if (inherits(object$fit, "try-error")) {
+    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    return(NULL)
+  }
 
   new_data <- prepare_data(object, new_data)
 
@@ -75,7 +83,7 @@ predict_predint.model_fit <-
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$predint$post)) {
+  if (!is.null(object$spec$method$predint$post)) {
     res <- object$spec$method$predint$post(res, object)
   }
 
@@ -84,14 +92,10 @@ predict_predint.model_fit <-
   res
 }
 
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-predict_predint <- function (object, ...)
+# @export
+# @keywords internal
+# @rdname other_predict
+# @inheritParams predict.model_fit
+predict_predint <- function(object, ...)
   UseMethod("predict_predint")
-
-
-
-
 

@@ -104,14 +104,14 @@ model, the template of the fit calls are:
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
 
 When using \code{glmnet} models, there is the option to pass
-multiple values (or no values) to the \code{penalty} argument.
-This can have an effect on the model object results. When using
-the \code{predict()} method in these cases, the return object type
-depends on the value of \code{penalty}. If a single value is
-given, the results will be a simple numeric vector. When
-multiple values or no values for \code{penalty} are used in
-\code{logistic_reg()}, the \code{predict()} method will return a data frame with
-columns \code{values} and \code{lambda}.
+multiple values (or no values) to the \code{penalty} argument. This
+can have an effect on the model object results. When using the
+\code{predict()} method in these cases, the return value depends on
+the value of \code{penalty}. When using \code{predict()}, only a single
+value of the penalty can be used. When predicting on multiple
+penalties, the \code{multi_predict()} function can be used. It
+returns a tibble with a list column called \code{.pred} that contains
+a tibble with all of the penalty results.
 
 For prediction, the \code{stan} engine can compute posterior
 intervals analogous to confidence and prediction intervals. In
