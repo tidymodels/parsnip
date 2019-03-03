@@ -247,7 +247,7 @@ test_that('svm poly classification probabilities', {
 
   library(kernlab)
   kern_probs <-
-    predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
+    kernlab::predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_setosa', '.pred_versicolor', '.pred_virginica'))
 
