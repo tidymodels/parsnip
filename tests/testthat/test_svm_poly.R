@@ -245,6 +245,7 @@ test_that('svm poly classification probabilities', {
     )
   expect_equal(cls_form$fit, cls_xy_form$fit)
 
+  library(kernlab)
   kern_probs <-
     predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
