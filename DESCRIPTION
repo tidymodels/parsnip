@@ -46,4 +46,6 @@ Suggests:
     kknn,
     randomForest,
     ranger,
-    rpart
+    rpart,
+    MASS,
+    nlme
