@@ -33,13 +33,14 @@ test_that('stan_glm execution', {
     )
   )
 
-  stan_xy_catch <- fit_xy(
-    lc_basic,
-    control = caught_ctrl,
-    x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
+  expect_error(
+    fit_xy(
+      lc_basic,
+      control = caught_ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$total_bal_il
+    )
   )
-  expect_true(inherits(stan_xy_catch$fit, "try-error"))
 
 })
 
