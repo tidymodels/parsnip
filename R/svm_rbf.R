@@ -5,11 +5,11 @@
 #'  different packages in R or via Spark. The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{cost}: The cost of predicting a sample within or on the 
-#'    wrong side of the margin. 
-#'   \item \code{rbf_sigma}: The precision parameter for the radial basis 
+#'   \item \code{cost}: The cost of predicting a sample within or on the
+#'    wrong side of the margin.
+#'   \item \code{rbf_sigma}: The precision parameter for the radial basis
 #'     function.
-#'   \item \code{margin}: The epsilon in the SVM insensitive loss function 
+#'   \item \code{margin}: The epsilon in the SVM insensitive loss function
 #'    (regression only)
 #' }
 #' These arguments are converted to their specific names at the
@@ -23,16 +23,16 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param cost A positive number for the cost of predicting a sample within 
+#' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param rbf_sigma A positive number for radial basis function.
-#' @param margin A positive number for the epsilon in the SVM insensitive 
+#' @param margin A positive number for the epsilon in the SVM insensitive
 #'   loss function (regression only)
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"kernlab"` 
+#' \item \pkg{R}:  `"kernlab"`
 #' }
 #'
 #' @section Engine Details:
@@ -60,13 +60,13 @@
 svm_rbf <-
   function(mode = "unknown",
            cost = NULL, rbf_sigma = NULL, margin = NULL) {
-    
+
     args <- list(
       cost   = enquo(cost),
       rbf_sigma  = enquo(rbf_sigma),
       margin = enquo(margin)
     )
-    
+
     new_model_spec(
       "svm_rbf",
       args = args,
@@ -81,7 +81,7 @@ svm_rbf <-
 print.svm_rbf <- function(x, ...) {
   cat("Radial Basis Function Support Vector Machine Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
-  
+
   if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
@@ -108,13 +108,13 @@ update.svm_rbf <-
            fresh = FALSE,
            ...) {
     update_dot_check(...)
-    
+
     args <- list(
       cost   = enquo(cost),
       rbf_sigma  = enquo(rbf_sigma),
       margin  = enquo(margin)
     )
-    
+
     if (fresh) {
       object$args <- args
     } else {
@@ -124,7 +124,7 @@ update.svm_rbf <-
       if (length(args) > 0)
         object$args[names(args)] <- args
     }
-    
+
     new_model_spec(
       "svm_rbf",
       args = object$args,
@@ -140,20 +140,20 @@ update.svm_rbf <-
 #' @export
 translate.svm_rbf <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine = engine, ...)
-  
+
   # slightly cleaner code using
   arg_vals <- x$method$fit$args
   arg_names <- names(arg_vals)
-  
+
   # add checks to error trap or change things for this method
   if (x$engine == "kernlab") {
-    
+
     # unless otherwise specified, classification models predict probabilities
     if (x$mode == "classification" && !any(arg_names == "prob.model"))
       arg_vals$prob.model <- TRUE
     if (x$mode == "classification" && any(arg_names == "epsilon"))
       arg_vals$epsilon <- NULL
-    
+
     # convert sigma and scale to a `kpar` argument.
     if (any(arg_names == "sigma")) {
       kpar <- expr(list())
@@ -161,10 +161,25 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
       arg_vals$sigma <- NULL
       arg_vals$kpar <- kpar
     }
-    
+
   }
+
+  if (x$engine == "liquidSVM") {
+    # convert parameter arguments
+    if (any(arg_names == "rbf_sigma")) {
+      arg_vals$gamma <- arg_vals$rbf_sigma
+      arg_vals$sigma <- NULL
+    }
+
+    if (any(arg_names == "cost")) {
+      arg_vals$lambda <- arg_vals$cost
+      arg_vals$cost <- NULL
+    }
+
+  }
+
   x$method$fit$args <- arg_vals
-  
+
   # worried about people using this to modify the specification
   x
 }
@@ -177,7 +192,7 @@ check_args.svm_rbf <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-svm_reg_post <- function(results, object) { 
+svm_reg_post <- function(results, object) {
   results[,1]
 }
 
