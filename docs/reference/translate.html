@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,9 +29,11 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="Resolve a Model Specification for a Computational Engine — translate" />
 
-<meta property="og:description" content="translate will translate a model specification into a code
+<meta property="og:description" content="translate() will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts." />
 <meta name="twitter:card" content="summary" />
@@ -74,7 +76,7 @@ It translates generic parameters to their counterparts." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
         </div>
       </div>
     </div>
@@ -130,7 +132,7 @@ It translates generic parameters to their counterparts." />
 
     <div class="ref-description">
     
-    <p><code>translate</code> will translate a model specification into a code
+    <p><code>translate()</code> will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts.</p>
     
@@ -153,9 +155,9 @@ It translates generic parameters to their counterparts.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>translate</code> produces a <em>template</em> call that lacks the specific
+    <p><code>translate()</code> produces a <em>template</em> call that lacks the specific
 argument values (such as <code>data</code>, etc). These are filled in once
-<code>fit</code> is called with the specifics of the data for the model.
+<code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> is called with the specifics of the data for the model.
 The call may also include <code>varying</code> arguments if these are in
 the specification.</p>
 <p>It does contain the resolved argument names that are specific to

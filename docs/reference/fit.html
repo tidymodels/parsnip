@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,9 +29,11 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="Fit a Model Specification to a Dataset — fit.model_spec" />
 
-<meta property="og:description" content="fit and fit_xy take a model specification, translate the required
+<meta property="og:description" content="fit() and fit_xy() take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine." />
 <meta name="twitter:card" content="summary" />
@@ -74,7 +76,7 @@ routine." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
         </div>
       </div>
     </div>
@@ -130,18 +132,18 @@ routine." />
 
     <div class="ref-description">
     
-    <p><code>fit</code> and <code>fit_xy</code> take a model specification, translate the required
+    <p><code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> and <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,7 +176,7 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
       <th>...</th>
       <td><p>Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
-passed using <code>set_engine</code>.</p></td>
+passed using <code><a href='set_engine.html'>set_engine()</a></code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -204,16 +206,16 @@ object)</p></li>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>fit</code> and <code>fit_xy</code> substitute the current arguments in the model
+    <p><code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> and <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> substitute the current arguments in the model
 specification into the computational engine's code, checks them
 for validity, then fits the model using the data and the
 engine-specific code. Different model functions have different
 interfaces (e.g. formula or <code>x</code>/<code>y</code>) and these functions translate
-between the interface used when <code>fit</code> or <code>fit_xy</code> were invoked and the one
+between the interface used when <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> or <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> were invoked and the one
 required by the underlying model.</p>
 <p>When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-<code>fit</code> is invoked, the original data are references
+<code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> is invoked, the original data are references
 when the model is fit. However, if the underlying model uses
 something else, such as <code>x</code>/<code>y</code>, the formula is evaluated and
 the data are converted to the required format. In this case, any
@@ -226,17 +228,17 @@ objects used to fit the model.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Although `glm` only has a formula interface, different</span>
+    <pre class="examples"><div class='input'><span class='co'># Although `glm()` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'>data</span>(<span class='st'>"lending_club"</span>)
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"lending_club"</span>)
 
 <span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
@@ -245,12 +247,12 @@ objects used to fit the model.</p>
 <span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
   <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
 
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
   <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
    <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'>c</span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
          <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>)
 
 <span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object

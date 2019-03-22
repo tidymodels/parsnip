@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,9 +29,11 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="General Interface for Multinomial Regression Models — multinom_reg" />
 
-<meta property="og:description" content="multinom_reg is a way to generate a specification of a model
+<meta property="og:description" content="multinom_reg() is a way to generate a specification of a model
 before fitting and allows the model to be created using
 different packages in R, keras, or Spark. The main arguments for the
 model are:
@@ -41,9 +43,9 @@ mixture: The proportion of L1 regularization in
 the model. Note that this will be ignored for some engines.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using set_engine. If left to their defaults
+set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
-functions. If parameters need to be modified, update can be used
+functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
 
@@ -85,7 +87,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
         </div>
       </div>
     </div>
@@ -141,7 +143,7 @@ in lieu of recreating the object from scratch." />
 
     <div class="ref-description">
     
-    <p><code>multinom_reg</code> is a way to generate a <em>specification</em> of a model
+    <p><code>multinom_reg()</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R, keras, or Spark. The main arguments for the
 model are:</p><ul>
@@ -151,9 +153,9 @@ in the model. Note that this must be zero for some engines.</p></li>
 the model. Note that this will be ignored for some engines.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using <code>set_engine</code>. If left to their defaults
+set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code>update</code> can be used
+functions. If parameters need to be modified, <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -161,7 +163,7 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>multinom_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for multinom_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -198,14 +200,14 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code>update</code>.</p></td>
+      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For <code>multinom_reg</code>, the mode will always be "classification".</p>
-<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+    <p>For <code>multinom_reg()</code>, the mode will always be "classification".</p>
+<p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:   <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
@@ -216,13 +218,13 @@ following <em>engines</em>:</p><ul>
 
     <p>For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via <code>fit</code> is available; using <code>fit_xy</code> will
+interface to via <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> is available; using <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
 columns in spark tables so class predictions are returned as
 character columns. Fourth, to retain the model object for a new
-R session (via <code>save</code>), the <code>model$fit</code> element of the <code>parsnip</code>
+R session (via <code><a href='https://www.rdocumentation.org/packages/base/topics/save'>save()</a></code>), the <code>model$fit</code> element of the <code>parsnip</code>
 object should be serialized via <code>ml_save(object$fit)</code> and
 separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
@@ -249,18 +251,18 @@ parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1,
     act = "linear")
 </pre></p>
 <p>When using <code>glmnet</code> models, there is the option to pass
-multiple values (or no values) to the <code>penalty</code> argument.
-This can have an effect on the model object results. When using
-the <code>predict</code> method in these cases, the return object type
-depends on the value of <code>penalty</code>. If a single value is
-given, the results will be a simple numeric vector. When
-multiple values or no values for <code>penalty</code> are used in
-<code>multinom_reg</code>, the <code>predict</code> method will return a data frame with
-columns <code>values</code> and <code>lambda</code>.</p>
+multiple values (or no values) to the <code>penalty</code> argument. This
+can have an effect on the model object results. When using the
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> method in these cases, the return value depends on
+the value of <code>penalty</code>. When using <code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code>, only a single
+value of the penalty can be used. When predicting on multiple
+penalties, the <code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It
+returns a tibble with a list column called <code>.pred</code> that contains
+a tibble with all of the penalty results.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -276,12 +278,12 @@ columns <code>values</code> and <code>lambda</code>.</p>
 #&gt; Main Arguments:
 #&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1

@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -28,6 +28,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+
 
 <meta property="og:title" content="Changelog" />
 
@@ -69,7 +71,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
         </div>
       </div>
     </div>
@@ -122,21 +124,61 @@
       
     </div>
 
+    <div id="parsnip-0-0-2" class="section level1">
+<h1 class="page-header">
+<a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> Unreleased </small>
+</h1>
+<p>Small release driven by changes in <code><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample()</a></code> in the current r-devel.</p>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li><p>A “null model” is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).</p></li>
+<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/fit_xy">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
+</ul>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<ul>
+<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
+<li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> not returns an S3 method.</p></li>
+<li><p>For classification models, an error occurs if the outcome data are not encoded as factors (#115).</p></li>
+<li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
+<li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the “r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<ul>
+<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code> now uses the version from the <code>generics</code> package. This means that the first argument, <code>x</code>, has been renamed to <code>object</code> to align with generics.</p></li>
+<li><p>For the recipes step method of <code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (#132).</p></li>
+<li><p><code>find_varying()</code>, the internal function for detecting varying arguments, now returns correct results when a size 0 argument is provided. It can also now detect varying arguments nested deeply into a call (#131, #134).</p></li>
+<li><p>For multinomial regression, the <code>.pred_</code> prefix is now only added to prediction column names once (#107).</p></li>
+<li><p>For multinomial regression using glmnet, <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (#108).</p></li>
+<li><p>Confidence and prediction intervals for logistic regression were only computed the intervals for a single level. Both are now computed. (#156)</p></li>
+</ul>
+</div>
+</div>
     <div id="parsnip-0-0-1" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-1" class="anchor"></a>parsnip 0.0.1</h1>
+<a href="#parsnip-0-0-1" class="anchor"></a>parsnip 0.0.1<small> 2018-11-12 </small>
+</h1>
 <p>First CRAN release</p>
 </div>
     <div id="parsnip-0-0-0-9005" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9005" class="anchor"></a>parsnip 0.0.0.9005</h1>
+<a href="#parsnip-0-0-0-9005" class="anchor"></a>parsnip 0.0.0.9005<small> Unreleased </small>
+</h1>
 <ul>
-<li>The engine, and any associated arguments, are now specified using <code>set_engine</code>. There is no <code>engine</code> argument</li>
+<li>The engine, and any associated arguments, are now specified using <code><a href="../reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li>
 </ul>
 </div>
     <div id="parsnip-0-0-0-9004" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9004" class="anchor"></a>parsnip 0.0.0.9004</h1>
+<a href="#parsnip-0-0-0-9004" class="anchor"></a>parsnip 0.0.0.9004<small> Unreleased </small>
+</h1>
 <ul>
 <li>Arguments to modeling functions are now captured as quosures.</li>
 <li>
@@ -147,10 +189,11 @@
 </div>
     <div id="parsnip-0-0-0-9003" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9003" class="anchor"></a>parsnip 0.0.0.9003</h1>
+<a href="#parsnip-0-0-0-9003" class="anchor"></a>parsnip 0.0.0.9003<small> Unreleased </small>
+</h1>
 <ul>
 <li>
-<code>regularization</code> was changed to <code>penalty</code> in a few models to be consistent with <a href="tidymodels/model-implementation-principles<a href='http://github.com/08d3afd'>@08d3afd</a>">this change</a>.</li>
+<code>regularization</code> was changed to <code>penalty</code> in a few models to be consistent with <a href="tidymodels/model-implementation-principles@08d3afd">this change</a>.</li>
 <li>If a mode is not chosen in the model specification, it is assigned at the time of fit. <a href="https://github.com/topepo/parsnip/issues/51">51</a>
 </li>
 <li>The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some <code>predict</code> methods, the <code>earth</code> package will need to be attached to be fully operational.</li>
@@ -158,7 +201,8 @@
 </div>
     <div id="parsnip-0-0-0-9002" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9002" class="anchor"></a>parsnip 0.0.0.9002</h1>
+<a href="#parsnip-0-0-0-9002" class="anchor"></a>parsnip 0.0.0.9002<small> Unreleased </small>
+</h1>
 <ul>
 <li>To be consistent with <code>snake_case</code>, <code>newdata</code> was changed to <code>new_data</code>.</li>
 <li>A <code>predict_raw</code> method was added.</li>
@@ -166,16 +210,18 @@
 </div>
     <div id="parsnip-0-0-0-9001" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9001" class="anchor"></a>parsnip 0.0.0.9001</h1>
+<a href="#parsnip-0-0-0-9001" class="anchor"></a>parsnip 0.0.0.9001<small> Unreleased </small>
+</h1>
 <ul>
 <li>A package dependency suffered a new change.</li>
 </ul>
 </div>
     <div id="parsnip-0-0-0-9000" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000</h1>
+<a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
+</h1>
 <ul>
-<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code>fit</code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code>fit_xy</code> is for the x/y interface</a>.</li>
+<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://www.rdocumentation.org/packages/generics/topics/fit_xy">fit_xy()</a></code> is for the x/y interface</a>.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>
 <code>predict</code> methods were <a href="https://github.com/topepo/parsnip/issues/34">overhauled</a> to be <a href="https://github.com/topepo/parsnip/issues/41">consistent</a>.</li>
@@ -188,6 +234,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#parsnip-0-0-2">0.0.2</a></li>
         <li><a href="#parsnip-0-0-1">0.0.1</a></li>
         <li><a href="#parsnip-0-0-0-9005">0.0.0.9005</a></li>
         <li><a href="#parsnip-0-0-0-9004">0.0.0.9004</a></li>

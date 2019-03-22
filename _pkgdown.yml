@@ -25,6 +25,7 @@ reference:
       - mlp  
       - multinom_reg 
       - nearest_neighbor
+      - null_model
       - rand_forest
       - surv_reg   
       - svm_poly
@@ -38,9 +39,11 @@ reference:
       - model_fit  
       - model_spec
       - predict.model_fit
+      - multi_predict
       - set_args
       - set_engine
       - set_mode
+      - tidy.model_fit
       - translate
       - varying
       - varying_args
@@ -48,7 +51,8 @@ reference:
   - title: Data
     contents:
      - lending_club   
-     - wa_churn          
+     - wa_churn   
+     - check_times       
 
 navbar:
   left:
