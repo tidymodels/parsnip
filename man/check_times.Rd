@@ -15,7 +15,7 @@ These data were collected from the CRAN web page for 13,626 R
 packages. The time to complete the standard package checking
 routine was collected In some cases, the package checking
 process is stopped due to errors and these data are treated as
-censored. It is less than 1%.
+censored. It is less than 1 percent.
 }
 \details{
 As predictors, the associated package source code were
