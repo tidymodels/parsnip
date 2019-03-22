@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,16 +29,18 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="General Interface for Parametric Survival Models — surv_reg" />
 
-<meta property="og:description" content="surv_reg is a way to generate a specification of a model
+<meta property="og:description" content="surv_reg() is a way to generate a specification of a model
 before fitting and allows the model to be created using
 R. The main argument for the
 model is:
 dist: The probability distribution of the outcome.
 This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using set_engine. If left to its default
+set using set_engine(). If left to its default
 here (NULL), the value is taken from the underlying model
 functions.
 If parameters need to be modified, this function can be used
@@ -83,7 +85,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
         </div>
       </div>
     </div>
@@ -139,14 +141,14 @@ in lieu of recreating the object from scratch." />
 
     <div class="ref-description">
     
-    <p><code>surv_reg</code> is a way to generate a <em>specification</em> of a model
+    <p><code>surv_reg()</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 R. The main argument for the
 model is:</p><ul>
 <li><p><code>dist</code>: The probability distribution of the outcome.</p></li>
 </ul><p>This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using <code>set_engine</code>. If left to its default
+set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to its default
 here (<code>NULL</code>), the value is taken from the underlying model
 functions.</p>
 <p>If parameters need to be modified, this function can be used
@@ -157,7 +159,7 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for surv_reg</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,23 +185,23 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code>update</code>.</p></td>
+      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>surv_reg</code>,the
+to determine the <em>mode</em> of the model. For <code>surv_reg()</code>,the
 mode will always be "regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
-<code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function will require that the
+<code><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function will require that the
 survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
-<p>For <code>surv_reg</code>, the mode will always be "regression".</p>
-<p>The model can be created using the <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+<p>For <code>surv_reg()</code>, the mode will always be "regression".</p>
+<p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survreg"</code></p></li>
 </ul>
@@ -231,7 +233,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='http://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code>, <code><a href='http://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code>, <code><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -247,7 +249,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'>update</span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = lnorm
