@@ -21,6 +21,7 @@ that are actually varying).
 
 * The prediction modules (e.g. `predict_class`, `predict_numeric`, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them. 
 
+ * An event time data set (`check_times`) was included that is the time (in seconds) to run `R CMD check` using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored. 
 
 ## Bug Fixes
 
