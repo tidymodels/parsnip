@@ -58,7 +58,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_reg_pred_num <- parsnip:::predict_numeric(spark_reg_fit, iris_bt_te),
+    spark_reg_pred_num <- parsnip:::predict_numeric.model_fit(spark_reg_fit, iris_bt_te),
     regexp = NA
   )
 
@@ -68,7 +68,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_reg_num_dup <- parsnip:::predict_numeric(spark_reg_fit_dup, iris_bt_te),
+    spark_reg_num_dup <- parsnip:::predict_numeric.model_fit(spark_reg_fit_dup, iris_bt_te),
     regexp = NA
   )
 
@@ -124,7 +124,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_pred_class <- parsnip:::predict_class(spark_class_fit, churn_bt_te),
+    spark_class_pred_class <- parsnip:::predict_class.model_fit(spark_class_fit, churn_bt_te),
     regexp = NA
   )
 
@@ -134,7 +134,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_dup_class <- parsnip:::predict_class(spark_class_fit_dup, churn_bt_te),
+    spark_class_dup_class <- parsnip:::predict_class.model_fit(spark_class_fit_dup, churn_bt_te),
     regexp = NA
   )
 
@@ -156,7 +156,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_prob_classprob <- parsnip:::predict_classprob(spark_class_fit, churn_bt_te),
+    spark_class_prob_classprob <- parsnip:::predict_classprob.model_fit(spark_class_fit, churn_bt_te),
     regexp = NA
   )
 
@@ -166,7 +166,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_dup_classprob <- parsnip:::predict_classprob(spark_class_fit_dup, churn_bt_te),
+    spark_class_dup_classprob <- parsnip:::predict_classprob.model_fit(spark_class_fit_dup, churn_bt_te),
     regexp = NA
   )
 

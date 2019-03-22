@@ -1,6 +1,7 @@
 library(testthat)
 library(parsnip)
 library(rlang)
+library(tibble)
 
 # ------------------------------------------------------------------------------
 
@@ -260,7 +261,9 @@ test_that('lm prediction', {
   inl_lm <- lm(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
   inl_pred <- unname(predict(inl_lm, newdata = iris[1:5, ]))
   mv_lm <- lm(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
-  mv_pred <- as.data.frame(predict(mv_lm, newdata = iris[1:5, ]))
+  mv_pred <- as_tibble(predict(mv_lm, newdata = iris[1:5, ]))
+  names(mv_pred) <- c(".pred_Sepal.Width", ".pred_Petal.Width")
+
 
   res_xy <- fit_xy(
     iris_basic,
@@ -269,7 +272,7 @@ test_that('lm prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
 
   res_form <- fit(
     iris_basic,
@@ -277,7 +280,7 @@ test_that('lm prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, parsnip:::predict_numeric(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
 
   res_mv <- fit(
     iris_basic,
@@ -285,7 +288,7 @@ test_that('lm prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, parsnip:::predict_numeric(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, predict(res_mv, iris[1:5,]))
 })
 
 test_that('lm intervals', {

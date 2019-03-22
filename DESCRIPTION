@@ -17,11 +17,11 @@ VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 Imports: 
-    dplyr,
+    dplyr (>= 0.8.0.1),
     rlang (>= 0.3.1),
     purrr,
     utils,
-    tibble,
+    tibble (>= 2.1.1),
     generics,
     glue,
     magrittr,
@@ -39,7 +39,7 @@ Suggests:
     xgboost,
     covr,
     C50,
-    sparklyr,
+    sparklyr (>= 1.0.0),
     earth,
     glmnet,
     kernlab,

@@ -42,7 +42,7 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_pred_num <- parsnip:::predict_numeric(spark_fit, iris_linreg_te),
+    spark_pred_num <- predict(spark_fit, iris_linreg_te),
     regexp = NA
   )
 

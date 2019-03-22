@@ -91,7 +91,7 @@ test_that('randomForest classification prediction', {
 
   xy_pred <- predict(xy_fit$fit, newdata = lending_club[1:6, num_pred])
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, parsnip:::predict_class(xy_fit, new_data = lending_club[1:6, num_pred]))
+  expect_equal(xy_pred, predict(xy_fit, new_data = lending_club[1:6, num_pred])$.pred_class)
 
   form_fit <- fit(
     lc_basic,
@@ -102,7 +102,10 @@ test_that('randomForest classification prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")])
   form_pred <- unname(form_pred)
-  expect_equal(form_pred, parsnip:::predict_class(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
+  expect_equal(
+    form_pred,
+    predict(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")])$.pred_class
+    )
 })
 
 test_that('randomForest classification probabilities', {
@@ -118,9 +121,10 @@ test_that('randomForest classification probabilities', {
 
   xy_pred <- predict(xy_fit$fit, newdata = lending_club[1:6, num_pred], type = "prob")
   xy_pred <- as_tibble(as.data.frame(xy_pred))
-  expect_equal(xy_pred, parsnip:::predict_classprob(xy_fit, new_data = lending_club[1:6, num_pred]))
+  names(xy_pred) <- paste0(".pred_", names(xy_pred))
+  expect_equal(xy_pred, predict(xy_fit, new_data = lending_club[1:6, num_pred], type = "prob"))
 
-  one_row <- parsnip:::predict_classprob(xy_fit, new_data = lending_club[1, num_pred])
+  one_row <- predict(xy_fit, new_data = lending_club[1, num_pred], type = "prob")
   expect_equivalent(xy_pred[1,], one_row)
 
   form_fit <- fit(
@@ -132,7 +136,11 @@ test_that('randomForest classification probabilities', {
 
   form_pred <- predict(form_fit$fit, newdata = lending_club[1:6, c("funded_amnt", "int_rate")], type = "prob")
   form_pred <- as_tibble(as.data.frame(form_pred))
-  expect_equal(form_pred, parsnip:::predict_classprob(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")]))
+  names(form_pred) <- paste0(".pred_", names(form_pred))
+  expect_equal(
+    form_pred,
+    predict(form_fit, new_data = lending_club[1:6, c("funded_amnt", "int_rate")], type = "prob")
+  )
 })
 
 
@@ -210,6 +218,6 @@ test_that('randomForest regression prediction', {
   xy_pred <- predict(xy_fit$fit, newdata = tail(mtcars))
   xy_pred <- unname(xy_pred)
 
-  expect_equal(xy_pred, parsnip:::predict_numeric(xy_fit, new_data = tail(mtcars)))
+  expect_equal(xy_pred, predict(xy_fit, new_data = tail(mtcars))$.pred)
 
 })
