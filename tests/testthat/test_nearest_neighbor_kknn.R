@@ -75,7 +75,7 @@ test_that('kknn prediction', {
     newdata = iris[1:5, num_pred]
   )
 
-  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
 
   # nominal
   res_xy_nom <- fit_xy(
@@ -90,7 +90,10 @@ test_that('kknn prediction', {
     newdata = iris[1:5, c("Sepal.Length", "Petal.Width")]
   )
 
-  expect_equal(uni_pred_nom, parsnip:::predict_class(res_xy_nom, iris[1:5, c("Sepal.Length", "Petal.Width")]))
+  expect_equal(
+    uni_pred_nom,
+    predict(res_xy_nom, iris[1:5, c("Sepal.Length", "Petal.Width")], type = "class")$.pred_class
+  )
 
   # continuous - formula interface
   res_form <- fit(
@@ -105,5 +108,5 @@ test_that('kknn prediction', {
     newdata = iris[1:5,]
   )
 
-  expect_equal(form_pred, parsnip:::predict_numeric(res_form, iris[1:5, c("Sepal.Width", "Species")]))
+  expect_equal(form_pred, predict(res_form, iris[1:5, c("Sepal.Width", "Species")])$.pred)
 })

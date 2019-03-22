@@ -276,7 +276,7 @@ test_that('glm prediction', {
   xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, parsnip:::predict_class(classes_xy, lending_club[1:7, num_pred]))
+  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
 
 })
 
@@ -289,10 +289,10 @@ test_that('glm probabilities', {
   )
 
   xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
-  xy_pred <- tibble(bad = 1 - xy_pred, good = xy_pred)
-  expect_equal(xy_pred, parsnip:::predict_classprob(classes_xy, lending_club[1:7, num_pred]))
+  xy_pred <- tibble(.pred_bad = 1 - xy_pred, .pred_good = xy_pred)
+  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
 
-  one_row <- parsnip:::predict_classprob(classes_xy, lending_club[1, num_pred])
+  one_row <- predict(classes_xy, lending_club[1, num_pred], type = "prob")
   expect_equal(xy_pred[1,], one_row)
 
 })
