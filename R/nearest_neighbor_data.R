@@ -1,5 +1,6 @@
 nearest_neighbor_arg_key <- data.frame(
   kknn      =  c("ks",        "kernel",      "distance"),
+  FNN       =  c("k",         "algorithm",   "unknown"),
   row.names =  c("neighbors", "weight_func", "dist_power"),
   stringsAsFactors = FALSE
 )
@@ -8,6 +9,7 @@ nearest_neighbor_modes <- c("classification", "regression", "unknown")
 
 nearest_neighbor_engines <- data.frame(
   kknn =       c(TRUE, TRUE, FALSE),
+  FNN  =       c(TRUE, TRUE, FALSE),
   row.names =  c("classification", "regression", "unknown")
 )
 
@@ -69,6 +71,59 @@ nearest_neighbor_kknn_data <-
         }
         x
       },
+      post = function(result, object) as_tibble(result),
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          type = "prob"
+        )
+    ),
+    raw = list(
+      pre = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data)
+        )
+    )
+  )
+
+nearest_neighbor_FNN_data <-
+  list(
+    libs = "FNN",
+    fit = list(
+      interface = "data.frame",
+      protect = c("train", "test", "cl"),
+      func = c(pkg = "parsnip", fun = "fnn_train"),
+      defaults = list()
+    ),
+    numeric = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "fnn_pred"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          type = "raw"
+        )
+    ),
+    class = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args =
+        list(
+          object = quote(object$fit),
+          newdata = quote(new_data),
+          type = "raw"
+        )
+    ),
+    classprob = list(
+      pre = NULL,
       post = function(result, object) as_tibble(result),
       func = c(fun = "predict"),
       args =

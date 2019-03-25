@@ -158,3 +158,48 @@ check_args.nearest_neighbor <- function(object) {
 
   invisible(object)
 }
+
+fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
+
+  if (is.numeric(y)) {
+    fun <- "knn.reg"
+
+    main_args <- list(
+      train = x,
+      y = y,
+      k = k,
+      algorithm = algorithm
+    )
+
+  } else {
+    fun <- "knn"
+
+    main_args <- list(
+      train = x,
+      cl = y,
+      k = k,
+      algorithm = algorithm
+    )
+  }
+
+  call <- make_call(fun = fun, ns = "FNN", main_args)
+  eval_tidy(call, env = current_env())
+}
+
+fnn_pred <- function(object, newdata, ...) {
+
+  train_data <- eval(object$call$train)
+  k <- eval(object$call$k)
+
+  if ("y" %in% names(object$call)) {
+    y <- eval(object$call$y)
+    FNN::knn.reg(train = train_data, test = newdata, y = y, k = k)$pred
+  } else {
+    cl <- eval(object$call$cl)
+    FNN::knn(train = train_data, test = newdata, cl = cl, k = k)$pred
+  }
+
+  # object$call$test <- newdata
+  # res <- eval_tidy(object$call)
+  # res$pred
+}
