@@ -71,7 +71,6 @@ svm_rbf_kernlab_data <-
   )
 
 
-
 svm_rbf_liquidSVM_data <-
   list(
     libs = "liquidSVM",
@@ -81,7 +80,6 @@ svm_rbf_liquidSVM_data <-
       func = c(pkg = "liquidSVM", fun = "svm"),
       defaults = list()
     ),
-
     numeric = list(
       pre = NULL,
       post = function(results, object) {results},
@@ -92,7 +90,6 @@ svm_rbf_liquidSVM_data <-
           newdata = quote(new_data)
         )
     ),
-
     class = list(
       pre = NULL,
       post = NULL,
@@ -103,18 +100,23 @@ svm_rbf_liquidSVM_data <-
           newdata = quote(new_data)
         )
     ),
-
     classprob = list(
-      pre = NULL,
+      pre = function(x, object) {
+        if (object$fit$predict.prob == FALSE)
+          stop("`svm` model does not appear to use class probabilities. Was ",
+               "the model fit with `predict.prob = TRUE`?",
+               call. = FALSE)
+        x
+      },
       post = function(result, object) as_tibble(result),
       func = c(pkg = NULL, fun = "predict"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data)
+          newdata = quote(new_data),
+          predict.prob = TRUE
         )
     ),
-
     raw = list(
       pre = NULL,
       func = c(pkg = NULL, fun = "predict"),

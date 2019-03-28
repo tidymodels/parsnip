@@ -1,6 +1,6 @@
 nearest_neighbor_arg_key <- data.frame(
   kknn      =  c("ks",        "kernel",      "distance"),
-  FNN       =  c("k",         "algorithm",   "unknown"),
+  FNN       =  c("k",         NA_character_,  NA_character_),
   row.names =  c("neighbors", "weight_func", "dist_power"),
   stringsAsFactors = FALSE
 )
@@ -95,47 +95,45 @@ nearest_neighbor_FNN_data <-
   list(
     libs = "FNN",
     fit = list(
-      interface = "data.frame",
-      protect = c("train", "test", "cl"),
+      interface = "matrix",
+      protect = c("train", "test", "cl", "y"),
       func = c(pkg = "parsnip", fun = "fnn_train"),
       defaults = list()
     ),
     numeric = list(
       pre = NULL,
       post = NULL,
-      func = c(fun = "fnn_pred"),
+      func = c(pkg = "parsnip", fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "raw"
+          newdata = quote(new_data)
         )
     ),
     class = list(
       pre = NULL,
       post = NULL,
-      func = c(fun = "predict"),
+      func = c(pkg = "parsnip", fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "raw"
+          newdata = quote(new_data)
         )
     ),
     classprob = list(
       pre = NULL,
       post = function(result, object) as_tibble(result),
-      func = c(fun = "predict"),
+      func = c(pkg = "parsnip", fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
           newdata = quote(new_data),
-          type = "prob"
+          prob = TRUE
         )
     ),
     raw = list(
       pre = NULL,
-      func = c(fun = "predict"),
+      func = c(pkg = "parsnip", fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),

@@ -32,12 +32,12 @@
 #' to consider (often called `k`).
 #'
 #' @param weight_func A *single* character for the type of kernel function used
-#' to weight distances between samples. Valid choices are: `"rectangular"`,
+#' to weight distances between samples (`kknn` only). Valid choices are: `"rectangular"`,
 #' `"triangular"`, `"epanechnikov"`, `"biweight"`, `"triweight"`,
 #' `"cos"`, `"inv"`, `"gaussian"`, `"rank"`, or `"optimal"`.
 #'
 #' @param dist_power A single number for the parameter used in
-#' calculating Minkowski distance.
+#' calculating Minkowski distance ((`kknn` only).
 #'
 #' @details
 #' The model can be created using the `fit()` function using the
@@ -159,46 +159,51 @@ check_args.nearest_neighbor <- function(object) {
   invisible(object)
 }
 
+
 fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
 
   if (is.numeric(y)) {
     fun <- "knn.reg"
-
     main_args <- list(
-      train = x,
-      y = y,
+      train = enquo(x),
+      y = enquo(y),
       k = k,
-      algorithm = algorithm
-    )
+      algorithm = algorithm)
+    call <- make_call(fun = fun, ns = "FNN", main_args)
+    eval_tidy(call, env = current_env())
 
   } else {
     fun <- "knn"
-
     main_args <- list(
-      train = x,
-      cl = y,
+      train = enquo(x),
+      cl = enquo(y),
       k = k,
-      algorithm = algorithm
-    )
-  }
-
-  call <- make_call(fun = fun, ns = "FNN", main_args)
-  eval_tidy(call, env = current_env())
+      algorithm = algorithm)
+    list(call = make_call(fun = fun, ns = "FNN", main_args))
+    }
 }
 
-fnn_pred <- function(object, newdata, ...) {
 
-  train_data <- eval(object$call$train)
-  k <- eval(object$call$k)
+fnn_pred <- function(object, newdata, prob = FALSE, ...) {
 
+  train_data <- eval_tidy(object$call$train)
+  k <- eval_tidy(object$call$k)
+
+  # regression
   if ("y" %in% names(object$call)) {
-    y <- eval(object$call$y)
-    FNN::knn.reg(train = train_data, test = newdata, y = y, k = k)$pred
-  } else {
-    cl <- eval(object$call$cl)
-    FNN::knn(train = train_data, test = newdata, cl = cl, k = k)$pred
-  }
+    y <- eval_tidy(object$call$y)
+    res <- FNN::knn.reg(train = train_data, test = newdata, y = y, k = k)$pred
 
+  # classification
+  } else {
+    cl <- eval_tidy(object$call$cl)
+    res <- FNN::knn(train = train_data, cl = cl, test = newdata, k = k, prob = prob)
+
+    if (prob == TRUE) {
+      res <- cbind(factor(res), winning_class = attr(res, "prob"))
+    }
+  }
+  res
   # object$call$test <- newdata
   # res <- eval_tidy(object$call)
   # res$pred
