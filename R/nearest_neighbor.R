@@ -186,25 +186,18 @@ fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
 
 fnn_pred <- function(object, newdata, prob = FALSE, ...) {
 
-  train_data <- eval_tidy(object$call$train)
-  k <- eval_tidy(object$call$k)
+  # modify the call
+  object$call$test <- newdata
+  object$call$prob <- prob
+  res <- eval_tidy(object$call)
 
-  # regression
-  if ("y" %in% names(object$call)) {
-    y <- eval_tidy(object$call$y)
-    res <- FNN::knn.reg(train = train_data, test = newdata, y = y, k = k)$pred
+  # classification result
+  if ("y" %in% names(object$call))
+    res <- res$pred
 
-  # classification
-  } else {
-    cl <- eval_tidy(object$call$cl)
-    res <- FNN::knn(train = train_data, cl = cl, test = newdata, k = k, prob = prob)
+  # probability for winning class
+  if (prob == TRUE)
+    res <- attr(res, "prob")
 
-    if (prob == TRUE) {
-      res <- attr(res, "prob")
-    }
-  }
   res
-  # object$call$test <- newdata
-  # res <- eval_tidy(object$call)
-  # res$pred
 }
