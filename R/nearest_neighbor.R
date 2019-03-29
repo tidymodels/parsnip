@@ -200,7 +200,7 @@ fnn_pred <- function(object, newdata, prob = FALSE, ...) {
     res <- FNN::knn(train = train_data, cl = cl, test = newdata, k = k, prob = prob)
 
     if (prob == TRUE) {
-      res <- cbind(factor(res), winning_class = attr(res, "prob"))
+      res <- attr(res, "prob")
     }
   }
   res
