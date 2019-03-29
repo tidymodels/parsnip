@@ -122,11 +122,7 @@ nearest_neighbor_FNN_data <-
     ),
     classprob = list(
       pre = NULL,
-      post = function(result, object) {
-        res <- as_tibble(result)
-        #names(res) <- c("1", "1")
-        res
-        },
+      post = function(result, object) as_tibble(result),
       func = c(pkg = "parsnip", fun = "fnn_pred"),
       args =
         list(
