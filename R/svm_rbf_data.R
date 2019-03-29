@@ -108,7 +108,11 @@ svm_rbf_liquidSVM_data <-
                call. = FALSE)
         x
       },
-      post = function(result, object) as_tibble(result),
+      post = function(result, object) {
+        res <- as_tibble(result)
+        names(res) <- object$lvl
+        res
+        },
       func = c(pkg = NULL, fun = "predict"),
       args =
         list(
