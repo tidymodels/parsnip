@@ -166,14 +166,14 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
 
   if (x$engine == "liquidSVM") {
     # convert parameter arguments
-    if (any(arg_names == "rbf_sigma")) {
-      arg_vals$gamma <- arg_vals$rbf_sigma
+    if (any(arg_names == "sigma")) {
+      arg_vals$gammas <- rlang::quo(1 / !!arg_vals$sigma)
       arg_vals$sigma <- NULL
     }
 
-    if (any(arg_names == "cost")) {
-      arg_vals$lambda <- arg_vals$cost
-      arg_vals$cost <- NULL
+    if (any(arg_names == "C")) {
+      arg_vals$lambdas <- arg_vals$C
+      arg_vals$C <- NULL
     }
 
   }

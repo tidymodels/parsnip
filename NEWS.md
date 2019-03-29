@@ -2,6 +2,8 @@
 
 ## New Features
 
+* New engines, liquidSVM and FNN were added for svm_rbf and nearest_neighbor model definitions respectively.
+
 * A "null model" is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).  
 
 * `fit_xy()` can take a single column data frame or matrix for `y` without error 

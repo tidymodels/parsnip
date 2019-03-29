@@ -48,4 +48,6 @@ Suggests:
     ranger,
     rpart,
     MASS,
-    nlme
+    nlme,
+    FNN,
+    liquidSVM
