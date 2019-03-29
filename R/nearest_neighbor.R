@@ -162,6 +162,7 @@ check_args.nearest_neighbor <- function(object) {
 
 fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
 
+  # regression
   if (is.numeric(y)) {
     fun <- "knn.reg"
     main_args <- list(
@@ -172,6 +173,8 @@ fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
     call <- make_call(fun = fun, ns = "FNN", main_args)
     eval_tidy(call, env = current_env())
 
+  # for classification return unevaluated call because FNN:knn
+  # trains and predicts in same call
   } else {
     fun <- "knn"
     main_args <- list(
@@ -186,18 +189,23 @@ fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
 
 fnn_pred <- function(object, newdata, prob = FALSE, ...) {
 
-  # modify the call
+  # modify the call for prediction
   object$call$test <- newdata
-  object$call$prob <- prob
-  res <- eval_tidy(object$call)
 
-  # classification result
-  if ("y" %in% names(object$call))
+  # regression result
+  if ("y" %in% names(object$call)) {
+    res <- eval_tidy(object$call)
     res <- res$pred
 
-  # probability for winning class
-  if (prob == TRUE)
-    res <- attr(res, "prob")
+  # classification result
+  } else {
+    object$call$prob <- prob
+    res <- eval_tidy(object$call)
+
+    # probability for winning class
+    if (prob == TRUE)
+      res <- attr(res, "prob")
+  }
 
   res
 }
