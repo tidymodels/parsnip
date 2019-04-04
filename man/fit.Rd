@@ -74,6 +74,10 @@ something else, such as \code{x}/\code{y}, the formula is evaluated and
 the data are converted to the required format. In this case, any
 calls in the resulting model objects reference the temporary
 objects used to fit the model.
+
+If the model engine has not been set, the model's default engine will be used
+(as discussed on each model page). If the \code{verbosity} option of
+\code{\link[=fit_control]{fit_control()}} is greater than zero, a warning will be produced.
 }
 \examples{
 # Although `glm()` only has a formula interface, different

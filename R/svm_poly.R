@@ -5,11 +5,11 @@
 #'  different packages in R or via Spark. The main arguments for the
 #'  model are:
 #' \itemize{
-#'   \item \code{cost}: The cost of predicting a sample within or on the 
-#'    wrong side of the margin. 
+#'   \item \code{cost}: The cost of predicting a sample within or on the
+#'    wrong side of the margin.
 #'   \item \code{degree}: The polynomial degree.
 #'   \item \code{scale_factor}: A scaling factor for the kernel.
-#'   \item \code{margin}: The epsilon in the SVM insensitive loss function 
+#'   \item \code{margin}: The epsilon in the SVM insensitive loss function
 #'    (regression only)
 #' }
 #' These arguments are converted to their specific names at the
@@ -23,17 +23,17 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param cost A positive number for the cost of predicting a sample within 
+#' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param degree A positive number for polynomial degree.
-#' @param scale_factor A positive number for the polynomial scaling factor. 
-#' @param margin A positive number for the epsilon in the SVM insensitive 
+#' @param scale_factor A positive number for the polynomial scaling factor.
+#' @param margin A positive number for the epsilon in the SVM insensitive
 #'   loss function (regression only)
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"kernlab"` 
+#' \item \pkg{R}:  `"kernlab"`  (the default)
 #' }
 #'
 #' @section Engine Details:
@@ -61,14 +61,14 @@
 svm_poly <-
   function(mode = "unknown",
            cost = NULL, degree = NULL, scale_factor = NULL, margin = NULL) {
-    
+
     args <- list(
       cost   = enquo(cost),
       degree  = enquo(degree),
       scale_factor  = enquo(scale_factor),
       margin = enquo(margin)
     )
-    
+
     new_model_spec(
       "svm_poly",
       args = args,
@@ -83,7 +83,7 @@ svm_poly <-
 print.svm_poly <- function(x, ...) {
   cat("Polynomial Support Vector Machine Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
-  
+
   if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
@@ -110,14 +110,14 @@ update.svm_poly <-
            fresh = FALSE,
            ...) {
     update_dot_check(...)
-    
+
     args <- list(
       cost   = enquo(cost),
       degree  = enquo(degree),
       scale_factor  = enquo(scale_factor),
       margin  = enquo(margin)
     )
-    
+
     if (fresh) {
       object$args <- args
     } else {
@@ -127,7 +127,7 @@ update.svm_poly <-
       if (length(args) > 0)
         object$args[names(args)] <- args
     }
-    
+
     new_model_spec(
       "svm_poly",
       args = object$args,
@@ -143,20 +143,20 @@ update.svm_poly <-
 #' @export
 translate.svm_poly <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine = engine, ...)
-  
+
   # slightly cleaner code using
   arg_vals <- x$method$fit$args
   arg_names <- names(arg_vals)
-  
+
   # add checks to error trap or change things for this method
   if (x$engine == "kernlab") {
-    
+
     # unless otherwise specified, classification models predict probabilities
     if (x$mode == "classification" && !any(arg_names == "prob.model"))
       arg_vals$prob.model <- TRUE
     if (x$mode == "classification" && any(arg_names == "epsilon"))
       arg_vals$epsilon <- NULL
-    
+
     # convert degree and scale to a `kpar` argument.
     if (any(arg_names %in% c("degree", "scale", "offset"))) {
       kpar <- expr(list())
@@ -167,17 +167,17 @@ translate.svm_poly <- function(x, engine = x$engine, ...) {
       if (any(arg_names == "scale")) {
         kpar$scale <- arg_vals$scale
         arg_vals$scale <- NULL
-      }    
+      }
       if (any(arg_names == "offset")) {
         kpar$offset <- arg_vals$offset
         arg_vals$offset <- NULL
-      } 
+      }
       arg_vals$kpar <- kpar
     }
-    
+
   }
   x$method$fit$args <- arg_vals
-  
+
   # worried about people using this to modify the specification
   x
 }
@@ -190,7 +190,7 @@ check_args.svm_poly <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-svm_reg_post <- function(results, object) { 
+svm_reg_post <- function(results, object) {
   results[,1]
 }
 

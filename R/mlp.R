@@ -47,7 +47,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"nnet"`
+#' \item \pkg{R}:  `"nnet"` (the default)
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'

@@ -114,7 +114,7 @@ test_that('bad input', {
     fit(bt, Species ~ ., iris) %>% set_engine("rpart")
   })
   expect_error({
-    bt <- decision_tree(min_n = -10)
+    bt <- decision_tree(min_n = 0)
     fit(bt, Species ~ ., iris)  %>% set_engine("rpart")
   })
   expect_error(translate(decision_tree(), engine = NULL))
@@ -122,3 +122,13 @@ test_that('bad input', {
 })
 
 # ------------------------------------------------------------------------------
+
+
+test_that('default engine', {
+  skip_if_not_installed("rpart")
+  expect_warning(
+    fit <- decision_tree(mode = "regression") %>% fit(mpg ~ ., data = mtcars),
+    "Engine set to"
+  )
+  expect_true(inherits(fit$fit, "rpart"))
+})

@@ -36,7 +36,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"flexsurv"`, `"survreg"`
+#' \item \pkg{R}:  `"flexsurv"`, `"survreg"` (the default)
 #' }
 #'
 #' @section Engine Details:

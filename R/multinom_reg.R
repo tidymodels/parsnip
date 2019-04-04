@@ -34,7 +34,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:   `"glmnet"`
+#' \item \pkg{R}:   `"glmnet"`  (the default)
 #' \item \pkg{Stan}:  `"stan"`
 #' \item \pkg{keras}: `"keras"`
 #' }

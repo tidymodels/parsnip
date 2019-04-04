@@ -58,7 +58,7 @@ mode will always be "regression".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"lm"} or \code{"glmnet"}
+\item \pkg{R}:  \code{"lm"}  (the default) or \code{"glmnet"}
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
 \item \pkg{keras}: \code{"keras"}
