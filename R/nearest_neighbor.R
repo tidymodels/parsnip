@@ -43,7 +43,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"kknn"`
+#' \item \pkg{R}:  `"kknn"`  (the default)
 #' }
 #'
 #' @section Engine Details:

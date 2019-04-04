@@ -85,7 +85,7 @@ possible modes are "regression" and "classification".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"xgboost"}, \code{"C5.0"}
+\item \pkg{R}:  \code{"xgboost"} (the default), \code{"C5.0"}
 \item \pkg{Spark}: \code{"spark"}
 }
 }

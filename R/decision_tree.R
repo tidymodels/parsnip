@@ -34,7 +34,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"rpart"` or `"C5.0"` (classification only)
+#' \item \pkg{R}:  `"rpart"` (the default) or `"C5.0"` (classification only)
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'

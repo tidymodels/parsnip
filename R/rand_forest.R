@@ -34,7 +34,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"ranger"` or `"randomForest"`
+#' \item \pkg{R}:  `"ranger"` (the default) or `"randomForest"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'

@@ -1,3 +1,12 @@
+# parsnip 0.0.2.9000
+
+## New Features
+
+ * `add_rowindex()` can create a column called `.row` to a data frame. 
+ 
+ * If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.  
+
+
 # parsnip 0.0.2
 
 Small release driven by changes in `sample()` in the current r-devel. 
