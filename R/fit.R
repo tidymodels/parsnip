@@ -186,8 +186,13 @@ fit_xy.model_spec <-
            ...
   ) {
     dots <- quos(...)
-    if (any(names(dots) == "engine"))
-      stop("Use `set_engine()` to supply the engine.", call. = FALSE)
+    if (is.null(object$engine)) {
+      eng_vals <- possible_engines(object)
+      object$engine <- eng_vals[1]
+      if (control$verbosity > 0) {
+        warning("Engine set to `", object$engine, "`", call. = FALSE)
+      }
+    }
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {

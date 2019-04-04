@@ -32,6 +32,7 @@ reference:
       - svm_rbf
   - title: Infrastructure
     contents:
+      - add_rowindex
       - descriptors
       - fit.model_spec
       - fit_xy
