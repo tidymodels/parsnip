@@ -16,12 +16,12 @@ Possible values for this model are \code{"unknown"}, \code{"regression"}, or
 to consider (often called \code{k}).}
 
 \item{weight_func}{A \emph{single} character for the type of kernel function used
-to weight distances between samples. Valid choices are: \code{"rectangular"},
+to weight distances between samples (\code{kknn} only). Valid choices are: \code{"rectangular"},
 \code{"triangular"}, \code{"epanechnikov"}, \code{"biweight"}, \code{"triweight"},
 \code{"cos"}, \code{"inv"}, \code{"gaussian"}, \code{"rank"}, or \code{"optimal"}.}
 
 \item{dist_power}{A single number for the parameter used in
-calculating Minkowski distance.}
+calculating Minkowski distance ((\code{kknn} only).}
 }
 \description{
 \code{nearest_neighbor()} is a way to generate a \emph{specification} of a model

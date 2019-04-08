@@ -75,14 +75,17 @@ svm_rbf_liquidSVM_data <-
   list(
     libs = "liquidSVM",
     fit = list(
-      interface = "matrix",
+      interface = "data.frame",
       protect = c("x", "y"),
       func = c(pkg = "liquidSVM", fun = "svm"),
-      defaults = list()
+      defaults =
+        list(
+        folds = 1
+      )
     ),
     numeric = list(
       pre = NULL,
-      post = function(results, object) {results},
+      post = function(results, object) results,
       func = c(pkg = NULL, fun = "predict"),
       args =
         list(
