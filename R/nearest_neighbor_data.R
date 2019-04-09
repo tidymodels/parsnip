@@ -97,13 +97,13 @@ nearest_neighbor_FNN_data <-
     fit = list(
       interface = "matrix",
       protect = c("train", "test", "cl", "y"),
-      func = c(pkg = "parsnip", fun = "fnn_train"),
+      func = c(fun = "fnn_train"),
       defaults = list()
     ),
     numeric = list(
       pre = NULL,
       post = NULL,
-      func = c(pkg = "parsnip", fun = "fnn_pred"),
+      func = c(fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
@@ -113,7 +113,7 @@ nearest_neighbor_FNN_data <-
     class = list(
       pre = NULL,
       post = NULL,
-      func = c(pkg = "parsnip", fun = "fnn_pred"),
+      func = c(fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
@@ -123,7 +123,7 @@ nearest_neighbor_FNN_data <-
     classprob = list(
       pre = NULL,
       post = function(result, object) as_tibble(result),
-      func = c(pkg = "parsnip", fun = "fnn_pred"),
+      func = c(fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
@@ -133,7 +133,7 @@ nearest_neighbor_FNN_data <-
     ),
     raw = list(
       pre = NULL,
-      func = c(pkg = "parsnip", fun = "fnn_pred"),
+      func = c(fun = "fnn_pred"),
       args =
         list(
           object = quote(object$fit),
