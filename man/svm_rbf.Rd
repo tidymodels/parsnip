@@ -56,7 +56,15 @@ The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{"kernlab"}
+\item \pkg{R}:  \code{"liquidSVM"}
 }
+}
+\note{
+For \code{liquidSVM}, the hyperparameters rbf_sigma and cost are chosen and tuned automatically
+using a 10 x 10 grid search and 5 cross-validation folds. Alternatively, a vector of parameters
+can be passed to the rbf_sigma and cost parameters, e.g. \code{cost = c(0.001, 0.01, 0.1, 1, 10)}.
+Other hyperparameter tuning configuations relating to the number of folds, adaptive grid search,
+or use of pre-defined tuning grids can be passed as part of `set_engine()``
 }
 \section{Engine Details}{
 
@@ -72,6 +80,14 @@ model, the template of the fit calls are::
 \pkg{kernlab} regression
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
+
+\pkg{liquidSVM} classification
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "classification"), "liquidSVM")}
+
+\pkg{liquidSVM} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "liquidSVM")}
 }
 
 \examples{

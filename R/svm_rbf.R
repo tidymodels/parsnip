@@ -33,6 +33,7 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"kernlab"`
+#' \item \pkg{R}:  `"liquidSVM"`
 #' }
 #'
 #' @section Engine Details:
@@ -48,6 +49,21 @@
 #' \pkg{kernlab} regression
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
+#'
+#' \pkg{liquidSVM} classification
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "classification"), "liquidSVM")}
+#'
+#' \pkg{liquidSVM} regression
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "liquidSVM")}
+#'
+#' @note
+#' For `liquidSVM`, the hyperparameters rbf_sigma and cost are chosen and tuned automatically
+#' using a 10 x 10 grid search and 5 cross-validation folds. Alternatively, a vector of parameters
+#' can be passed to the rbf_sigma and cost parameters, e.g. `cost = c(0.001, 0.01, 0.1, 1, 10)`.
+#' Other hyperparameter tuning configuations relating to the number of folds, adaptive grid search,
+#' or use of pre-defined tuning grids can be passed as part of `set_engine()``
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]

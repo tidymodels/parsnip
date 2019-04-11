@@ -44,6 +44,7 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"kknn"`
+#' \item \pkg{R}:  `"FNN"`
 #' }
 #'
 #' @section Engine Details:
@@ -55,6 +56,10 @@
 #' \pkg{kknn} (classification or regression)
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
+#'
+#' \pkg{FNN} (classification or regression)
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "FNN")}
 #'
 #' @note
 #' For `kknn`, the underlying modeling function used is a restricted

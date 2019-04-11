@@ -18,7 +18,7 @@ test_that('primary arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      folds = 1
+      folds = 5
     )
   )
 
@@ -30,7 +30,7 @@ test_that('primary arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      folds = 1,
+      folds = 5,
       gammas = quo(1 / !!new_empty_quosure(.2))
     )
   )
@@ -52,7 +52,7 @@ test_that('engine arguments', {
       predict.prob = new_empty_quosure(TRUE),
       threads = new_empty_quosure(2),
       gpus = new_empty_quosure(1),
-      folds = 1
+      folds = 5
     )
   )
 
@@ -81,12 +81,12 @@ test_that('bad input', {
 
 reg_mod <-
   svm_rbf(rbf_sigma = .1, cost = 0.25) %>%
-  set_engine("liquidSVM", random_seed = 1234) %>%
+  set_engine("liquidSVM", random_seed = 1234, folds = 1) %>%
   set_mode("regression")
 
 cls_mod <-
   svm_rbf(rbf_sigma = .1, cost = 0.125) %>%
-  set_engine("liquidSVM", random_seed = 1234) %>%
+  set_engine("liquidSVM", random_seed = 1234, folds = 1) %>%
   set_mode("classification")
 
 ctrl <- fit_control(verbosity = 0, catch = FALSE)
@@ -239,8 +239,8 @@ test_that('svm rbf classification probabilities', {
 
   liquidSVM_cls_form <-
     liquidSVM::svm(
-      x = Species ~ .,
-      y = iris,
+      Species ~ .,
+      iris,
       gammas = 1/.1,
       lambdas = 0.125,
       folds = 1,
@@ -251,7 +251,7 @@ test_that('svm rbf classification probabilities', {
     structure(list(.pred_class = predict(liquidSVM_cls_form, iris)[ind]),
       row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
 
-  parsnip_class <- predict(cls_form, iris[ind, -5])
+  parsnip_class <- predict(cls_form, new_data = iris[ind, -5])
   expect_equal(liquidSVM_class, parsnip_class)
 
   # check that parsnip xy interface and liquidSVM formula interface produce same model
@@ -268,7 +268,7 @@ test_that('svm rbf classification probabilities', {
   # check probabilities
   cls_mod <-
     svm_rbf(rbf_sigma = .1, cost = 0.125) %>%
-    set_engine("liquidSVM", random_seed = 1234, predict.prob = TRUE) %>%
+    set_engine("liquidSVM", random_seed = 1234, predict.prob = TRUE, folds = 1) %>%
     set_mode("classification")
 
   cls_form <-

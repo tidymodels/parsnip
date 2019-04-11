@@ -80,7 +80,7 @@ svm_rbf_liquidSVM_data <-
       func = c(pkg = "liquidSVM", fun = "svm"),
       defaults =
         list(
-        folds = 1
+        folds = 5
       )
     ),
     numeric = list(

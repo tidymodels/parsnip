@@ -49,6 +49,7 @@ The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{"kknn"}
+\item \pkg{R}:  \code{"FNN"}
 }
 }
 \note{
@@ -68,6 +69,10 @@ model, the template of the fit calls are:
 \pkg{kknn} (classification or regression)
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
+
+\pkg{FNN} (classification or regression)
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "FNN")}
 }
 
 \examples{
