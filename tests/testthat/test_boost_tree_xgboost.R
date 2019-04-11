@@ -66,7 +66,7 @@ test_that('xgboost classification prediction', {
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(iris[1:8, num_pred])), type = "class")
   xy_pred <- matrix(xy_pred, ncol = 3, byrow = TRUE)
   xy_pred <- factor(levels(iris$Species)[apply(xy_pred, 1, which.max)], levels = levels(iris$Species))
-  expect_equal(xy_pred, parsnip:::predict_class(xy_fit, new_data = iris[1:8, num_pred]))
+  expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "class")$.pred_class)
 
   form_fit <- fit(
     iris_xgboost,
@@ -78,7 +78,7 @@ test_that('xgboost classification prediction', {
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(iris[1:8, num_pred])), type = "class")
   form_pred <- matrix(form_pred, ncol = 3, byrow = TRUE)
   form_pred <- factor(levels(iris$Species)[apply(form_pred, 1, which.max)], levels = levels(iris$Species))
-  expect_equal(form_pred, parsnip:::predict_class(form_fit, new_data = iris[1:8, num_pred]))
+  expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred], type = "class")$.pred_class)
 })
 
 
@@ -141,7 +141,7 @@ test_that('xgboost regression prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(xy_pred, parsnip:::predict_numeric(xy_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(xy_pred, predict(xy_fit, new_data = mtcars[1:8, -1])$.pred)
 
   form_fit <- fit(
     car_basic,
@@ -151,7 +151,7 @@ test_that('xgboost regression prediction', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
-  expect_equal(form_pred, parsnip:::predict_numeric(form_fit, new_data = mtcars[1:8, -1]))
+  expect_equal(form_pred, predict(form_fit, new_data = mtcars[1:8, -1])$.pred)
 })
 
 
@@ -188,10 +188,19 @@ test_that('submodel prediction', {
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pred_class)
-  
+
   expect_error(
-    multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 5, type = "prob"), 
+    multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 5, type = "prob"),
     "Did you mean"
   )
 })
 
+
+test_that('default engine', {
+  skip_if_not_installed("xgboost")
+  expect_warning(
+    fit <- boost_tree(mode = "regression") %>% fit(mpg ~ ., data = mtcars),
+    "Engine set to"
+  )
+  expect_true(inherits(fit$fit, "xgb.Booster"))
+})

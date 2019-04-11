@@ -54,7 +54,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"xgboost"`, `"C5.0"`
+#' \item \pkg{R}:  `"xgboost"` (the default), `"C5.0"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'

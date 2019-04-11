@@ -1,4 +1,16 @@
-# parsnip 0.0.1.9000
+# parsnip 0.0.2.9000
+
+## New Features
+
+ * `add_rowindex()` can create a column called `.row` to a data frame. 
+ 
+ * If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.  
+
+
+# parsnip 0.0.2
+
+Small release driven by changes in `sample()` in the current r-devel. 
+
 
 ## New Features
 
@@ -20,6 +32,7 @@ that are actually varying).
 
 * The prediction modules (e.g. `predict_class`, `predict_numeric`, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them. 
 
+ * An event time data set (`check_times`) was included that is the time (in seconds) to run `R CMD check` using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored. 
 
 ## Bug Fixes
 

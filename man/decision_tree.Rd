@@ -55,7 +55,7 @@ in lieu of recreating the object from scratch.
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"rpart"} or \code{"C5.0"} (classification only)
+\item \pkg{R}:  \code{"rpart"} (the default) or \code{"C5.0"} (classification only)
 \item \pkg{Spark}: \code{"spark"}
 }
 

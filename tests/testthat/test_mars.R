@@ -185,7 +185,7 @@ test_that('mars prediction', {
     control = ctrl
   )
 
-  expect_equal(uni_pred, parsnip:::predict_numeric(res_xy, iris[1:5, num_pred]))
+  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
 
   res_form <- fit(
     iris_basic,
@@ -193,7 +193,7 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(inl_pred, parsnip:::predict_numeric(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
 
   res_mv <- fit(
     iris_basic,
@@ -201,7 +201,10 @@ test_that('mars prediction', {
     data = iris,
     control = ctrl
   )
-  expect_equal(mv_pred, parsnip:::predict_numeric(res_mv, iris[1:5,]))
+  expect_equal(
+    setNames(mv_pred, paste0(".pred_", names(mv_pred))) %>% as.data.frame(),
+    predict(res_mv, iris[1:5,]) %>% as.data.frame()
+  )
 })
 
 
@@ -264,18 +267,19 @@ test_that('classification', {
   skip_if_not_installed("earth")
 
   expect_error(
-    glm_mars <- mars(mode = "classification")  %>%
+    glm_mars <-
+      mars(mode = "classification")  %>%
       set_engine("earth") %>%
       fit(Class ~ ., data = lending_club[-(1:5),]),
     regexp = NA
   )
   expect_true(!is.null(glm_mars$fit$glm.list))
-  parsnip_pred <- parsnip:::predict_classprob(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)])
+  parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")
 
   earth_pred <-
     c(0.95631355972526, 0.971917781277731, 0.894245392500336, 0.962667553751077,
       0.985827594261896)
 
-  expect_equal(parsnip_pred[["good"]], earth_pred)
+  expect_equal(parsnip_pred$.pred_good, earth_pred)
 })
 

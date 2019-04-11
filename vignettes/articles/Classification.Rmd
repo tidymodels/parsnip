@@ -39,7 +39,8 @@ credit_test  <- testing(data_split)
 A single hidden layer neural network will be used to predict a person's credit status. To do so, the columns of the predictor matrix should be numeric and on a common scale. `recipes` will be used to do so.  
 
 ```{r credit-proc}
-credit_rec <- recipe(Status ~ ., data = credit_train) %>%
+credit_rec <- 
+  recipe(Status ~ ., data = credit_train) %>%
   step_knnimpute(Home, Job, Marital, Income, Assets, Debt) %>%
   step_dummy(all_nominal(), -Status) %>%
   step_center(all_predictors()) %>%
@@ -64,19 +65,22 @@ nnet_fit <-
 nnet_fit
 ```
 
-In `parsnip`, the `predict` function is only appropriate for numeric outcomes while `predict_class` and `predict_classprob` can be used for categorical outcomes.  
+In `parsnip`, the `predict` function can be used:.  
 
 
 ```{r credit-perf}
-test_results <- credit_test %>%
+test_results <- 
+  credit_test %>%
   select(Status) %>%
   as_tibble() %>%
   mutate(
-    `nnet class` = predict_class(nnet_fit, new_data = test_normalized),
-    `nnet prob`  = predict_classprob(nnet_fit, new_data = test_normalized) %>% pull(good)
+    nnet_class = predict(nnet_fit, new_data = test_normalized) %>% 
+      pull(.pred_class),
+    nnet_prob  = predict(nnet_fit, new_data = test_normalized, type = "prob") %>% 
+      pull(.pred_good)
   )
 
-test_results %>% roc_auc(truth = Status, `nnet prob`)
-test_results %>% accuracy(truth = Status, `nnet class`)
-test_results %>% conf_mat(truth = Status, `nnet class`)
+test_results %>% roc_auc(truth = Status, nnet_prob)
+test_results %>% accuracy(truth = Status, nnet_class)
+test_results %>% conf_mat(truth = Status, nnet_class)
 ```

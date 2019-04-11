@@ -55,7 +55,7 @@ in lieu of recreating the object from scratch.
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"kernlab"}
+\item \pkg{R}:  \code{"kernlab"} (the default)
 \item \pkg{R}:  \code{"liquidSVM"}
 }
 }

@@ -32,7 +32,8 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"kernlab"`
+
+#' \item \pkg{R}:  `"kernlab"` (the default)
 #' \item \pkg{R}:  `"liquidSVM"`
 #' }
 #'

@@ -23,4 +23,3 @@ multiple rows per sub-model.
 \description{
 For some models, predictions can be made on sub-models in the model object.
 }
-\keyword{internal}

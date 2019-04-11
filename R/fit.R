@@ -39,6 +39,10 @@
 #'  the data are converted to the required format. In this case, any
 #'  calls in the resulting model objects reference the temporary
 #'  objects used to fit the model.
+#'
+#' If the model engine has not been set, the model's default engine will be used
+#'  (as discussed on each model page). If the `verbosity` option of
+#'  [fit_control()] is greater than zero, a warning will be produced.
 #' @examples
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -93,8 +97,13 @@ fit.model_spec <-
            ...
   ) {
     dots <- quos(...)
-    if (any(names(dots) == "engine"))
-      stop("Use `set_engine()` to supply the engine.", call. = FALSE)
+    if (is.null(object$engine)) {
+      eng_vals <- possible_engines(object)
+      object$engine <- eng_vals[1]
+      if (control$verbosity > 0) {
+        warning("Engine set to `", object$engine, "`", call. = FALSE)
+      }
+    }
 
     if (all(c("x", "y") %in% names(dots)))
       stop("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.",
@@ -177,8 +186,13 @@ fit_xy.model_spec <-
            ...
   ) {
     dots <- quos(...)
-    if (any(names(dots) == "engine"))
-      stop("Use `set_engine()` to supply the engine.", call. = FALSE)
+    if (is.null(object$engine)) {
+      eng_vals <- possible_engines(object)
+      object$engine <- eng_vals[1]
+      if (control$verbosity > 0) {
+        warning("Engine set to `", object$engine, "`", call. = FALSE)
+      }
+    }
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {

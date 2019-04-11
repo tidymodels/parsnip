@@ -58,7 +58,7 @@ For \code{surv_reg()}, the mode will always be "regression".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"flexsurv"}, \code{"survreg"}
+\item \pkg{R}:  \code{"flexsurv"}, \code{"survreg"} (the default)
 }
 }
 \section{Engine Details}{

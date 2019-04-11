@@ -2,6 +2,7 @@ library(testthat)
 library(parsnip)
 library(rlang)
 library(tibble)
+library(tidyr)
 
 # ------------------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
 
-  expect_equal(uni_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(uni_pred, predict(xy_fit, lending_club[1:7, num_pred])$.pred_class)
 
   res_form <- fit(
     logistic_reg(penalty = 0.1) %>% set_engine("glmnet"),
@@ -84,7 +85,10 @@ test_that('glmnet prediction, one lambda', {
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   form_pred <- unname(form_pred)
 
-  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(
+    form_pred,
+    predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "class")$.pred_class
+  )
 
 })
 
@@ -109,10 +113,17 @@ test_that('glmnet prediction, mulitiple lambda', {
   mult_pred <- stack(as.data.frame(mult_pred))
   mult_pred$values <- ifelse(mult_pred$values >= 0.5, "good", "bad")
   mult_pred$values <- factor(mult_pred$values, levels = levels(lending_club$Class))
-  mult_pred$lambda <- rep(lams, each = 7)
-  mult_pred <- mult_pred[, -2]
+  mult_pred$penalty <- rep(lams, each = 7)
+  mult_pred$rows <- rep(1:7, 2)
+  mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
+  mult_pred <- mult_pred[, c("penalty", "values")]
+  names(mult_pred) <- c("penalty", ".pred")
+  mult_pred <- tibble::as_tibble(mult_pred)
 
-  expect_equal(mult_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(
+    mult_pred,
+    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "class") %>% unnest()
+    )
 
   res_form <- fit(
     logistic_reg(penalty = lams) %>% set_engine("glmnet"),
@@ -127,14 +138,21 @@ test_that('glmnet prediction, mulitiple lambda', {
   form_pred <-
     predict(res_form$fit,
             newx = form_mat,
-            type = "response")
+            s = lams)
   form_pred <- stack(as.data.frame(form_pred))
   form_pred$values <- ifelse(form_pred$values >= 0.5, "good", "bad")
   form_pred$values <- factor(form_pred$values, levels = levels(lending_club$Class))
-  form_pred$lambda <- rep(lams, each = 7)
-  form_pred <- form_pred[, -2]
+  form_pred$penalty <- rep(lams, each = 7)
+  form_pred$rows <- rep(1:7, 2)
+  form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
+  form_pred <- form_pred[, c("penalty", "values")]
+  names(form_pred) <- c("penalty", ".pred")
+  form_pred <- tibble::as_tibble(form_pred)
 
-  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(
+    form_pred,
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest()
+  )
 
 })
 
@@ -156,10 +174,14 @@ test_that('glmnet prediction, no lambda', {
   mult_pred <- stack(as.data.frame(mult_pred))
   mult_pred$values <- ifelse(mult_pred$values >= 0.5, "good", "bad")
   mult_pred$values <- factor(mult_pred$values, levels = levels(lending_club$Class))
-  mult_pred$lambda <- rep(xy_fit$fit$lambda, each = 7)
-  mult_pred <- mult_pred[, -2]
+  mult_pred$penalty <- rep(xy_fit$fit$lambda, each = 7)
+  mult_pred$rows <- rep(1:7, 2)
+  mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
+  mult_pred <- mult_pred[, c("penalty", "values")]
+  names(mult_pred) <- c("penalty", ".pred")
+  mult_pred <- tibble::as_tibble(mult_pred)
 
-  expect_equal(mult_pred, parsnip:::predict_class(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(mult_pred, multi_predict(xy_fit, lending_club[1:7, num_pred]) %>% unnest())
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet", nlambda =  11),
@@ -178,9 +200,17 @@ test_that('glmnet prediction, no lambda', {
   form_pred <- stack(as.data.frame(form_pred))
   form_pred$values <- ifelse(form_pred$values >= 0.5, "good", "bad")
   form_pred$values <- factor(form_pred$values, levels = levels(lending_club$Class))
-  form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
-  form_pred <- form_pred[, -2]
-  expect_equal(form_pred, parsnip:::predict_class(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  form_pred$penalty <- rep(res_form$fit$lambda, each = 7)
+  form_pred$rows <- rep(1:7, 2)
+  form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
+  form_pred <- form_pred[, c("penalty", "values")]
+  names(form_pred) <- c("penalty", ".pred")
+  form_pred <- tibble::as_tibble(form_pred)
+
+  expect_equal(
+    form_pred,
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest()
+  )
 
 })
 
@@ -200,9 +230,12 @@ test_that('glmnet probabilities, one lambda', {
     predict(xy_fit$fit,
             newx = as.matrix(lending_club[1:7, num_pred]),
             s = 0.1, type = "response")[,1]
-  uni_pred <- tibble(bad = 1 - uni_pred, good = uni_pred)
+  uni_pred <- tibble(.pred_bad = 1 - uni_pred, .pred_good = uni_pred)
 
-  expect_equal(uni_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(
+    uni_pred,
+    predict(xy_fit, lending_club[1:7, num_pred], type = "prob")
+    )
 
   res_form <- fit(
     logistic_reg(penalty = 0.1)  %>% set_engine("glmnet"),
@@ -218,10 +251,14 @@ test_that('glmnet probabilities, one lambda', {
     predict(res_form$fit,
             newx = form_mat,
             s = 0.1, type = "response")[, 1]
-  form_pred <- tibble(bad = 1 - form_pred, good = form_pred)
-  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  form_pred <- tibble(.pred_bad = 1 - form_pred, .pred_good = form_pred)
 
-  one_row <- parsnip:::predict_classprob(res_form, lending_club[1, c("funded_amnt", "int_rate")])
+  expect_equal(
+    form_pred,
+    predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob")
+    )
+
+  one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob")
   expect_equal(form_pred[1,], one_row)
 
 })
@@ -244,10 +281,19 @@ test_that('glmnet probabilities, mulitiple lambda', {
             newx = as.matrix(lending_club[1:7, num_pred]),
             s = lams, type = "response")
   mult_pred <- stack(as.data.frame(mult_pred))
-  mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
-  mult_pred$lambda <- rep(lams, each = 7)
+  mult_pred$penalty <- rep(lams, each = 7)
+  mult_pred$rows <- rep(1:7, 2)
+  mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
+  mult_pred$.pred_bad <- 1 - mult_pred$values
+  mult_pred <- mult_pred[, c("penalty", ".pred_bad", "values")]
+  names(mult_pred) <- c("penalty", ".pred_bad", ".pred_good")
+  mult_pred <- tibble::as_tibble(mult_pred)
 
-  expect_equal(mult_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(
+    mult_pred,
+    multi_predict(xy_fit, lending_club[1:7, num_pred], lambda = lams, type = "prob") %>%
+      unnest()
+    )
 
   res_form <- fit(
     logistic_reg(penalty = lams)  %>% set_engine("glmnet"),
@@ -264,10 +310,19 @@ test_that('glmnet probabilities, mulitiple lambda', {
             newx = form_mat,
             s = lams, type = "response")
   form_pred <- stack(as.data.frame(form_pred))
-  form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
-  form_pred$lambda <- rep(lams, each = 7)
+  form_pred$penalty <- rep(lams, each = 7)
+  form_pred$rows <- rep(1:7, 2)
+  form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
+  form_pred$.pred_bad <- 1 - form_pred$values
+  form_pred <- form_pred[, c("penalty", ".pred_bad", "values")]
+  names(form_pred) <- c("penalty", ".pred_bad", ".pred_good")
+  form_pred <- tibble::as_tibble(form_pred)
 
-  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(
+    form_pred,
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob") %>%
+      unnest()
+    )
 
 })
 
@@ -288,10 +343,18 @@ test_that('glmnet probabilities, no lambda', {
             newx = as.matrix(lending_club[1:7, num_pred]),
             type = "response")
   mult_pred <- stack(as.data.frame(mult_pred))
-  mult_pred <- tibble(bad = 1 - mult_pred$values, good = mult_pred$values)
-  mult_pred$lambda <- rep(xy_fit$fit$lambda, each = 7)
+  mult_pred$penalty <- rep(xy_fit$fit$lambda, each = 7)
+  mult_pred$rows <- rep(1:7, length(xy_fit$fit$lambda))
+  mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
+  mult_pred$.pred_bad <- 1 - mult_pred$values
+  mult_pred <- mult_pred[, c("penalty", ".pred_bad", "values")]
+  names(mult_pred) <- c("penalty", ".pred_bad", ".pred_good")
+  mult_pred <- tibble::as_tibble(mult_pred)
 
-  expect_equal(mult_pred, parsnip:::predict_classprob(xy_fit, lending_club[1:7, num_pred]))
+  expect_equal(
+    mult_pred,
+    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>% unnest()
+    )
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet"),
@@ -308,10 +371,18 @@ test_that('glmnet probabilities, no lambda', {
             newx = form_mat,
             type = "response")
   form_pred <- stack(as.data.frame(form_pred))
-  form_pred <- tibble(bad = 1 - form_pred$values, good = form_pred$values)
-  form_pred$lambda <- rep(res_form$fit$lambda, each = 7)
+  form_pred$penalty <- rep(res_form$fit$lambda, each = 7)
+  form_pred$rows <- rep(1:7, length(res_form$fit$lambda))
+  form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
+  form_pred$.pred_bad <- 1 - form_pred$values
+  form_pred <- form_pred[, c("penalty", ".pred_bad", "values")]
+  names(form_pred) <- c("penalty", ".pred_bad", ".pred_good")
+  form_pred <- tibble::as_tibble(form_pred)
 
-  expect_equal(form_pred, parsnip:::predict_classprob(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]))
+  expect_equal(
+    form_pred,
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob") %>% unnest()
+  )
 
 })
 

@@ -245,7 +245,6 @@ prepare_data <- function(object, new_data) {
 #' @return A tibble with the same number of rows as the data being predicted.
 #'  Mostly likely, there is a list-column named `.pred` that is a tibble with
 #'  multiple rows per sub-model.
-#' @keywords internal
 #' @export
 multi_predict <- function(object, ...) {
   if (inherits(object$fit, "try-error")) {
@@ -255,7 +254,6 @@ multi_predict <- function(object, ...) {
   UseMethod("multi_predict")
 }
 
-#' @keywords internal
 #' @export
 #' @rdname multi_predict
 multi_predict.default <- function(object, ...)

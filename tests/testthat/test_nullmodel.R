@@ -109,7 +109,7 @@ test_that('nullmodel prediction', {
     Petal.Length ~ log(Sepal.Width) + Species,
     data = iris
   )
-  expect_equal(inl_pred, parsnip:::predict_numeric(res_form, iris[1:5, ]))
+  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
 
   # Multivariate y
   res <- fit(
@@ -118,7 +118,10 @@ test_that('nullmodel prediction', {
     data = mtcars
   )
 
-  expect_equal(mw_pred, parsnip:::predict_numeric(res, mtcars[1:5, ]))
+  expect_equal(
+    setNames(mw_pred, paste0(".pred_", names(mw_pred))),
+    predict(res, mtcars[1:5, ])
+  )
 })
 
 # ------------------------------------------------------------------------------

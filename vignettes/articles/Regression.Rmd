@@ -146,10 +146,12 @@ A linear model might work here too. The `linear_reg` model can be used. To use r
 
 When regularization is used, the predictors should first be centered and scaled before given to the model. The formula method won't do that so some other methods will be required. We'll use `recipes` package for that (more information [here](https://tidymodels.github.io/recipes/)). 
 ```{r glmn-form}
-norm_recipe <- recipe(
-  Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold, 
-  data = ames_train
-) %>%
+norm_recipe <- 
+  recipe(
+    Sale_Price ~ Longitude + Latitude + Lot_Area + Neighborhood + Year_Sold, 
+    data = ames_train
+  ) %>%
+  step_other(Neighborhood) %>% 
   step_dummy(all_nominal()) %>%
   step_center(all_predictors()) %>%
   step_scale(all_predictors()) %>%
