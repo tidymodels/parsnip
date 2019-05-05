@@ -231,9 +231,19 @@ show_model_info <- function(mod) {
 
   engines <- current[[paste0(mod)]]
   if (nrow(engines) > 0) {
-    cat(" engines: ")
+    cat(" engines: \n")
     engines %>%
-      dplyr::mutate(lab = paste0(engine, " (", mode, ")\n")) %>%
+      dplyr::mutate(
+        mode = format(paste0(mode, ": "))
+      ) %>%
+      dplyr::group_by(mode) %>%
+      dplyr::summarize(
+        engine = paste0(sort(engine), collapse = ", ")
+      ) %>%
+      dplyr::mutate(
+        lab = paste0("   ", mode, engine, "\n")
+      ) %>%
+      dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
   } else {
@@ -246,7 +256,19 @@ show_model_info <- function(mod) {
     args %>%
       dplyr::select(engine, parsnip, original) %>%
       dplyr::distinct() %>%
-      print()
+      dplyr::mutate(
+        engine = format(paste0("   ", engine, ": ")),
+        parsnip = paste0("      ", format(parsnip), " --> ", original, "\n")
+      ) %>%
+      dplyr::group_by(engine) %>%
+      dplyr::mutate(
+        engine2 = ifelse(dplyr::row_number() == 1, engine, ""),
+        parsnip = ifelse(dplyr::row_number() == 1, paste0("\n", parsnip), parsnip),
+        lab = paste0(engine2, parsnip)
+      ) %>%
+      dplyr::ungroup() %>%
+      dplyr::pull(lab) %>%
+      cat(sep = "")
   } else {
     cat(" no registered arguments yet.")
   }
