@@ -44,7 +44,7 @@ ranger_num_confint <- function(object, new_data, ...) {
   res$.pred_upper <- res$.pred + const * std_error
   res$.pred <- NULL
 
-  if(object$spec$method$confint$extras$std_error)
+  if (object$spec$method$confint$extras$std_error)
     res$.std_error <- std_error
   res
 }
@@ -73,20 +73,20 @@ ranger_class_confint <- function(object, new_data, ...) {
   col_names <- paste0(c(".pred_lower_", ".pred_upper_"), lvl)
   res <- res[, col_names]
 
-  if(object$spec$method$confint$extras$std_error)
+  if (object$spec$method$confint$extras$std_error)
     res <- bind_cols(res, std_error)
 
   res
 }
 
 ranger_confint <- function(object, new_data, ...) {
-  if(object$fit$forest$treetype == "Regression") {
+  if (object$fit$forest$treetype == "Regression") {
     res <- ranger_num_confint(object, new_data, ...)
   } else {
-    if(object$fit$forest$treetype == "Probability estimation") {
+    if (object$fit$forest$treetype == "Probability estimation") {
       res <- ranger_class_confint(object, new_data, ...)
     } else {
-      stop ("Cannot compute confidence intervals for a ranger forest ",
+      stop("Cannot compute confidence intervals for a ranger forest ",
             "of type ", object$fit$forest$treetype, ".", call. = FALSE)
     }
   }
@@ -159,6 +159,7 @@ rand_forest_ranger_data <-
     ),
     raw = list(
       pre = NULL,
+      post = NULL,
       func = c(fun = "predict"),
       args =
         list(
@@ -361,3 +362,23 @@ register_model_arg(
   func = list(pkg = "dials", fun = "min_n")
 )
 
+register_fit(mod = "rand_forest", eng = "ranger", mode = "classification",
+             value = rand_forest_ranger_data$fit)
+
+register_fit(mod = "rand_forest", eng = "ranger", mode = "regression",
+             value = rand_forest_ranger_data$fit)
+
+register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+              type = "class", value = parsnip:::rand_forest_ranger_data$class)
+
+register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+              type = "prob", value = parsnip:::rand_forest_ranger_data$classprob)
+
+register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+              type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
+
+register_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
+              type = "numeric", value = parsnip:::rand_forest_ranger_data$numeric)
+
+register_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
+              type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
