@@ -154,9 +154,6 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   res
 }
 
-pred_types <-
-  c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int", "quantile")
-
 #' @importFrom glue glue_collapse
 check_pred_type <- function(object, type) {
   if (is.null(type)) {
