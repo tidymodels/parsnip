@@ -278,3 +278,86 @@ rand_forest_spark_data <-
         )
     )
   )
+
+
+# ------------------------------------------------------------------------------
+
+register_new_model("rand_forest")
+
+register_model_mode("rand_forest", "classification")
+register_model_mode("rand_forest", "regression")
+
+register_model_engine("rand_forest", "classification", "randomForest")
+register_model_engine("rand_forest", "classification", "ranger")
+register_model_engine("rand_forest", "classification", "spark")
+
+register_model_engine("rand_forest", "regression", "randomForest")
+register_model_engine("rand_forest", "regression", "ranger")
+register_model_engine("rand_forest", "regression", "spark")
+
+register_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "mtry",
+  original = "mtry",
+  func = list(pkg = "dials", fun = "mtry")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "trees",
+  original = "ntree",
+  func = list(pkg = "dials", fun = "trees")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "min_n",
+  original = "nodesize",
+  func = list(pkg = "dials", fun = "min_n")
+)
+
+register_model_arg(
+  mod = "rand_forest",
+  eng = "ranger",
+  val = "mtry",
+  original = "mtry",
+  func = list(pkg = "dials", fun = "mtry")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "ranger",
+  val = "trees",
+  original = "num.trees",
+  func = list(pkg = "dials", fun = "trees")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "ranger",
+  val = "min_n",
+  original = "min.node.size",
+  func = list(pkg = "dials", fun = "min_n")
+)
+
+register_model_arg(
+  mod = "rand_forest",
+  eng = "spark",
+  val = "mtry",
+  original = "feature_subset_strategy",
+  func = list(pkg = "dials", fun = "mtry")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "spark",
+  val = "trees",
+  original = "num_trees",
+  func = list(pkg = "dials", fun = "trees")
+)
+register_model_arg(
+  mod = "rand_forest",
+  eng = "spark",
+  val = "min_n",
+  original = "min_instances_per_node",
+  func = list(pkg = "dials", fun = "min_n")
+)
+
