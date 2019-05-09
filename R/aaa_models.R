@@ -1,5 +1,28 @@
+# Initialize model environment
 
-# initialize model environment
+# ------------------------------------------------------------------------------
+
+## Rules about model-related information
+
+### Definitions:
+
+# - the model is the model type (e.g. "rand_forest", "linear_reg", etc)
+# - the model's mode is the species of model such as "classification" or "regression"
+# - the engines are within a model and mode and describe the method/implementation
+#   of the model in question. These are often R package names.
+
+### The package dependencies are model- and engine-specific. They are used across modes
+
+### The `fit` information is a list of data that is needed to fit the model. This
+### information is specific to an engine and mode.
+
+### The `predict` information is also list of data that is needed to make some sort
+### of prediction on the model object. The possible types are contained in `pred_types`
+### and this information is specific to the engine, mode, and type (although there
+### are no types across different modes).
+
+# ------------------------------------------------------------------------------
+
 
 parsnip <- rlang::new_environment()
 parsnip$models <- NULL
@@ -177,17 +200,18 @@ check_pkg_val <- function(x) {
          call. = FALSE)
   invisible(NULL)
 }
+
 # ------------------------------------------------------------------------------
 
 #' @export
-register_new_model <- function(mod) {
+set_new_model <- function(mod) {
   check_mod_val(mod, new = TRUE)
 
   current <- get_model_env()
 
   current$models <- c(current$models, mod)
   current[[mod]] <- dplyr::tibble(engine = character(0), mode = character(0))
-  current[[paste0(mod, "_pkg")]] <- character(0)
+  current[[paste0(mod, "_pkgs")]] <- dplyr::tibble(engine = character(0), pkg = list())
   current[[paste0(mod, "_modes")]] <- "unknown"
   current[[paste0(mod, "_args")]] <-
     dplyr::tibble(
@@ -216,7 +240,7 @@ register_new_model <- function(mod) {
 # ------------------------------------------------------------------------------
 
 #' @export
-register_model_mode <- function(mod, mode) {
+set_model_mode <- function(mod, mode) {
   check_mod_val(mod, existance = TRUE)
   check_mode_val(mode)
 
@@ -234,7 +258,7 @@ register_model_mode <- function(mod, mode) {
 # ------------------------------------------------------------------------------
 
 #' @export
-register_model_engine <- function(mod, mode, eng) {
+set_model_engine <- function(mod, mode, eng) {
   check_mod_val(mod, existance = TRUE)
   check_mode_val(mode)
   check_mode_val(eng)
@@ -257,7 +281,7 @@ register_model_engine <- function(mod, mode, eng) {
 # ------------------------------------------------------------------------------
 
 #' @export
-register_model_arg <- function(mod, eng, val, original, func) {
+set_model_arg <- function(mod, eng, val, original, func) {
   check_mod_val(mod, existance = TRUE)
   check_arg_val(val)
   check_arg_val(original)
@@ -290,22 +314,61 @@ register_model_arg <- function(mod, eng, val, original, func) {
 # ------------------------------------------------------------------------------
 
 #' @export
-register_dependency <- function(mod, pkg) {
+set_dependency <- function(mod, eng, pkg) {
   check_mod_val(mod, existance = TRUE)
   check_pkg_val(pkg)
 
   current <- get_model_env()
+  model_info <- current[[mod]]
+  pkg_info <- current[[paste0(mod, "_pkgs")]]
 
-  current[[paste0(mod, "_pkg")]] <-
-    unique(c(current[[paste0(mod, "_pkg")]], pkg))
+  has_engine <-
+    model_info %>%
+    dplyr::distinct(engine) %>%
+    dplyr::filter(engine == eng) %>%
+    nrow()
+  if (has_engine != 1) {
+    stop("The engine '", eng, "' has not been registered for model '",
+         mod, "'. ", call. = FALSE)
+  }
+
+  existing_pkgs <-
+    pkg_info %>%
+    dplyr::filter(engine == eng)
+
+  if (nrow(existing_pkgs) == 0) {
+    pkg_info <-
+      pkg_info %>%
+      dplyr::bind_rows(tibble(engine = eng, pkg = list(pkg)))
+
+  } else {
+    old_pkgs <- existing_pkgs
+    existing_pkgs$pkg[[1]] <- c(pkg, existing_pkgs$pkg[[1]])
+    pkg_info <-
+      pkg_info %>%
+      dplyr::filter(engine != eng) %>%
+      dplyr::bind_rows(existing_pkgs)
+  }
+  current[[paste0(mod, "_pkgs")]] <- pkg_info
 
   invisible(NULL)
 }
 
+#' @export
+get_dependency <- function(mod) {
+  check_mod_val(mod, existance = TRUE)
+  pkg_name <- paste0(mod, "_pkgs")
+  if (!any(pkg_name != rlang::env_names(get_model_env()))) {
+    stop("`", mod, "` does not have a dependency list in parsnip.", call. = FALSE)
+  }
+  rlang::env_get(get_model_env(), pkg_name)
+}
+
+
 # ------------------------------------------------------------------------------
 
 #' @export
-register_fit <- function(mod, mode, eng, value) {
+set_fit <- function(mod, mode, eng, value) {
   check_mod_val(mod, existance = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
@@ -320,7 +383,7 @@ register_fit <- function(mod, mode, eng, value) {
     dplyr::filter(engine == eng & mode == !!mode) %>%
     nrow()
   if (has_engine != 1) {
-    stop("The combination of engine '", eng, "' and mode '",
+    stop("set_fit The combination of engine '", eng, "' and mode '",
          mode, "' has not been registered for model '",
          mod, "'. ", call. = FALSE)
   }
@@ -353,11 +416,20 @@ register_fit <- function(mod, mode, eng, value) {
   invisible(NULL)
 }
 
+#' @export
+get_fit <- function(mod) {
+  check_mod_val(mod, existance = TRUE)
+  fit_name <- paste0(mod, "_fit")
+  if (!any(fit_name != rlang::env_names(get_model_env()))) {
+    stop("`", mod, "` does not have a `fit` method in parsnip.", call. = FALSE)
+  }
+  rlang::env_get(get_model_env(), fit_name)
+}
 
 # ------------------------------------------------------------------------------
 
 #' @export
-register_pred <- function(mod, mode, eng, type, value) {
+set_pred <- function(mod, mode, eng, type, value) {
   check_mod_val(mod, existance = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
@@ -404,6 +476,21 @@ register_pred <- function(mod, mode, eng, type, value) {
   current[[paste0(mod, "_predict")]] <- updated
 
   invisible(NULL)
+}
+
+#' @export
+get_pred_type <- function(mod, type) {
+  check_mod_val(mod, existance = TRUE)
+  pred_name <- paste0(mod, "_predict")
+  if (!any(pred_name != rlang::env_names(get_model_env()))) {
+    stop("`", mod, "` does not have any `pred` methods in parsnip.", call. = FALSE)
+  }
+  all_preds <- rlang::env_get(get_model_env(), pred_name)
+  if (!any(all_preds$type == type)) {
+    stop("`", mod, "` does not have any `", type,
+         "` prediction methods in parsnip.", call. = FALSE)
+  }
+  dplyr::filter(all_preds, type == !!type)
 }
 
 # ------------------------------------------------------------------------------

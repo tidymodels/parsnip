@@ -87,7 +87,7 @@ ranger_confint <- function(object, new_data, ...) {
       res <- ranger_class_confint(object, new_data, ...)
     } else {
       stop("Cannot compute confidence intervals for a ranger forest ",
-            "of type ", object$fit$forest$treetype, ".", call. = FALSE)
+           "of type ", object$fit$forest$treetype, ".", call. = FALSE)
     }
   }
   res
@@ -283,34 +283,35 @@ rand_forest_spark_data <-
 
 # ------------------------------------------------------------------------------
 
-register_new_model("rand_forest")
 
-register_model_mode("rand_forest", "classification")
-register_model_mode("rand_forest", "regression")
+set_new_model("rand_forest")
 
-register_model_engine("rand_forest", "classification", "randomForest")
-register_model_engine("rand_forest", "classification", "ranger")
-register_model_engine("rand_forest", "classification", "spark")
+set_model_mode("rand_forest", "classification")
+set_model_mode("rand_forest", "regression")
 
-register_model_engine("rand_forest", "regression", "randomForest")
-register_model_engine("rand_forest", "regression", "ranger")
-register_model_engine("rand_forest", "regression", "spark")
+set_model_engine("rand_forest", "classification", "randomForest")
+set_model_engine("rand_forest", "classification", "ranger")
+set_model_engine("rand_forest", "classification", "spark")
 
-register_model_arg(
+set_model_engine("rand_forest", "regression", "randomForest")
+set_model_engine("rand_forest", "regression", "ranger")
+set_model_engine("rand_forest", "regression", "spark")
+
+set_model_arg(
   mod = "rand_forest",
   eng = "randomForest",
   val = "mtry",
   original = "mtry",
   func = list(pkg = "dials", fun = "mtry")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "randomForest",
   val = "trees",
   original = "ntree",
   func = list(pkg = "dials", fun = "trees")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "randomForest",
   val = "min_n",
@@ -318,21 +319,21 @@ register_model_arg(
   func = list(pkg = "dials", fun = "min_n")
 )
 
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "ranger",
   val = "mtry",
   original = "mtry",
   func = list(pkg = "dials", fun = "mtry")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "ranger",
   val = "trees",
   original = "num.trees",
   func = list(pkg = "dials", fun = "trees")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "ranger",
   val = "min_n",
@@ -340,21 +341,21 @@ register_model_arg(
   func = list(pkg = "dials", fun = "min_n")
 )
 
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "spark",
   val = "mtry",
   original = "feature_subset_strategy",
   func = list(pkg = "dials", fun = "mtry")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "spark",
   val = "trees",
   original = "num_trees",
   func = list(pkg = "dials", fun = "trees")
 )
-register_model_arg(
+set_model_arg(
   mod = "rand_forest",
   eng = "spark",
   val = "min_n",
@@ -362,23 +363,24 @@ register_model_arg(
   func = list(pkg = "dials", fun = "min_n")
 )
 
-register_fit(mod = "rand_forest", eng = "ranger", mode = "classification",
-             value = rand_forest_ranger_data$fit)
+set_fit(mod = "rand_forest", eng = "ranger", mode = "classification",
+        value = rand_forest_ranger_data$fit)
 
-register_fit(mod = "rand_forest", eng = "ranger", mode = "regression",
-             value = rand_forest_ranger_data$fit)
+set_fit(mod = "rand_forest", eng = "ranger", mode = "regression",
+        value = rand_forest_ranger_data$fit)
 
-register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-              type = "class", value = parsnip:::rand_forest_ranger_data$class)
+set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+         type = "class", value = parsnip:::rand_forest_ranger_data$class)
 
-register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-              type = "prob", value = parsnip:::rand_forest_ranger_data$classprob)
+set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+         type = "prob", value = parsnip:::rand_forest_ranger_data$classprob)
 
-register_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-              type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
+set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
+         type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
 
-register_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
-              type = "numeric", value = parsnip:::rand_forest_ranger_data$numeric)
+set_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
+         type = "numeric", value = parsnip:::rand_forest_ranger_data$numeric)
 
-register_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
-              type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
+set_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
+         type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
+
