@@ -302,21 +302,24 @@ set_model_arg(
   eng = "randomForest",
   val = "mtry",
   original = "mtry",
-  func = list(pkg = "dials", fun = "mtry")
+  func = list(pkg = "dials", fun = "mtry"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "randomForest",
   val = "trees",
   original = "ntree",
-  func = list(pkg = "dials", fun = "trees")
+  func = list(pkg = "dials", fun = "trees"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "randomForest",
   val = "min_n",
   original = "nodesize",
-  func = list(pkg = "dials", fun = "min_n")
+  func = list(pkg = "dials", fun = "min_n"),
+  submodels = FALSE
 )
 
 set_model_arg(
@@ -324,21 +327,24 @@ set_model_arg(
   eng = "ranger",
   val = "mtry",
   original = "mtry",
-  func = list(pkg = "dials", fun = "mtry")
+  func = list(pkg = "dials", fun = "mtry"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "ranger",
   val = "trees",
   original = "num.trees",
-  func = list(pkg = "dials", fun = "trees")
+  func = list(pkg = "dials", fun = "trees"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "ranger",
   val = "min_n",
   original = "min.node.size",
-  func = list(pkg = "dials", fun = "min_n")
+  func = list(pkg = "dials", fun = "min_n"),
+  submodels = FALSE
 )
 
 set_model_arg(
@@ -346,21 +352,24 @@ set_model_arg(
   eng = "spark",
   val = "mtry",
   original = "feature_subset_strategy",
-  func = list(pkg = "dials", fun = "mtry")
+  func = list(pkg = "dials", fun = "mtry"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "spark",
   val = "trees",
   original = "num_trees",
-  func = list(pkg = "dials", fun = "trees")
+  func = list(pkg = "dials", fun = "trees"),
+  submodels = FALSE
 )
 set_model_arg(
   mod = "rand_forest",
   eng = "spark",
   val = "min_n",
   original = "min_instances_per_node",
-  func = list(pkg = "dials", fun = "min_n")
+  func = list(pkg = "dials", fun = "min_n"),
+  submodels = FALSE
 )
 
 set_fit(mod = "rand_forest", eng = "ranger", mode = "classification",

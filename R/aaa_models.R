@@ -93,6 +93,14 @@ check_arg_val <- function(arg) {
 }
 
 #' @export
+check_submodels_val <- function(x) {
+  if (!is.logical(x) || length(x) != 1) {
+    stop("The `submodels` argument should be a single logical.", call. = FALSE)
+  }
+  invisible(NULL)
+}
+
+#' @export
 check_func_val <- function(func) {
   msg <-
     paste(
@@ -281,11 +289,12 @@ set_model_engine <- function(mod, mode, eng) {
 # ------------------------------------------------------------------------------
 
 #' @export
-set_model_arg <- function(mod, eng, val, original, func) {
+set_model_arg <- function(mod, eng, val, original, func, submodels) {
   check_mod_val(mod, existance = TRUE)
   check_arg_val(val)
   check_arg_val(original)
   check_func_val(func)
+  check_submodels_val(submodels)
 
   current <- get_model_env()
   old_args <- current[[paste0(mod, "_args")]]
@@ -295,15 +304,18 @@ set_model_arg <- function(mod, eng, val, original, func) {
       engine = eng,
       parsnip = val,
       original = original,
-      func = list(func)
+      func = list(func),
+      submodels = submodels
     )
 
+  # TODO cant currently use `distinct()` on a list column.
+  # Use `vctrs::vctrs_duplicated()` instead
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
     stop("An error occured when adding the new argument.", call. = FALSE)
   }
 
-  updated <- dplyr::distinct(updated, engine, parsnip, original)
+  updated <- dplyr::distinct(updated, engine, parsnip, original, submodels)
 
   current[[paste0(mod, "_args")]] <- updated
 
