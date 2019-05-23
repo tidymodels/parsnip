@@ -186,6 +186,7 @@ get_model_spec <- function(model, mode, engine) {
 get_args <- function(model, engine) {
   m_env <- get_model_env()
   rlang::env_get(m_env, paste0(model, "_args")) %>%
+    dplyr::filter(engine == !!engine) %>%
     dplyr::select(-engine)
 }
 
