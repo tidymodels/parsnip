@@ -38,7 +38,7 @@ pred_types <-
 #' @export
 get_model_env <- function() {
   current <- utils::getFromNamespace("parsnip", ns = "parsnip")
-  # current <- get("parsnip")
+  # current <- parsnip
   current
 }
 
@@ -581,4 +581,4 @@ show_model_info <- function(mod) {
   invisible(NULL)
 }
 
-# ------------------------------------------------------------------------------
+

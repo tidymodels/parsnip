@@ -67,11 +67,7 @@ model, the template of the fit calls are::
 
 \pkg{kernlab} classification
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "classification"), "kernlab")}
-
 \pkg{kernlab} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
 }
 
 \examples{

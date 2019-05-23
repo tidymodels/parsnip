@@ -54,7 +54,7 @@
 #'
 #' \pkg{kknn} (classification or regression)
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
+# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
 #'
 #' @note
 #' For `kknn`, the underlying modeling function used is a restricted

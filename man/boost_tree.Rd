@@ -112,23 +112,13 @@ fit calls are:
 
 \pkg{xgboost} classification
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
-
 \pkg{xgboost} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
 
 \pkg{C5.0} classification
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
-
 \pkg{spark} classification
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
-
 \pkg{spark} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
 }
 
 \examples{

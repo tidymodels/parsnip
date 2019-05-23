@@ -70,11 +70,7 @@ model, the template of the fit calls are:
 
 \pkg{flexsurv}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
-
 \pkg{survreg}
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
 
 Note that \code{model = TRUE} is needed to produce quantile
 predictions when there is a stratification variable and can be

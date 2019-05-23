@@ -32,11 +32,7 @@ model, the template of the fit calls are:
 
 \pkg{parsnip} classification
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
-
 \pkg{parsnip} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
 }
 
 \examples{

@@ -47,11 +47,11 @@
 #'
 #' \pkg{flexsurv}
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
+# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
 #'
 #' \pkg{survreg}
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
+# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
 #'
 #' Note that `model = TRUE` is needed to produce quantile
 #'  predictions when there is a stratification variable and can be

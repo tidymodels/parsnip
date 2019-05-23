@@ -147,11 +147,11 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #'
 #' \pkg{parsnip} classification
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
+# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
 #'
 #' \pkg{parsnip} regression
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
+# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]
