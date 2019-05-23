@@ -53,25 +53,32 @@ translate.default <- function(x, engine = x$engine, ...) {
   if (is.null(engine))
     stop("Please set an engine.", call. = FALSE)
 
+  mod_name <- specific_model(x)
+
   x$engine <- engine
   x <- check_engine(x)
 
+  # TODOS
+  # what to do with unknown mode?
+  if (x$mode == "unknown") {
+    stop("Model code depends on the mode; please specify one.", call. = FALSE)
+  }
+  # set the classes. Is a constructor not being used?
   if (is.null(x$method))
-    x <- get_method(x, engine, ...)
+    x$method <- get_model_spec(mod_name, x$mode, engine)
 
-  arg_key <- get_module(specific_model(x))
+  arg_key <- get_args(mod_name, engine)
 
   # deharmonize primary arguments
-  actual_args <- deharmonize(x$args, arg_key, x$engine)
+  actual_args <- unionize(x$args, arg_key)
 
   # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
   # being altered
-  eng_arg_key <- arg_key[[x$engine]]
-  x$eng_args <- check_eng_args(x$eng_args, x$method$fit, eng_arg_key)
+  x$eng_args <- check_eng_args(x$eng_args, x$method$fit, arg_key$original)
 
   # keep only modified args
-  modifed_args <- !vapply(actual_args, null_value, lgl(1))
+  modifed_args <- purrr::map_lgl(actual_args, null_value)
   actual_args <- actual_args[modifed_args]
 
   # look for defaults if not modified in other
@@ -150,23 +157,23 @@ check_mode <- function(object, lvl) {
 
 get_model_spec <- function(model, mode, engine) {
   m_env <- get_model_env()
-  env_obj <- env_names(m_env)
+  env_obj <- rlang::env_names(m_env)
   env_obj <- grep(model, env_obj, value = TRUE)
 
   res <- list()
   res$libs <-
-    env_get(m_env, paste0(model, "_pkgs")) %>%
+    rlang::env_get(m_env, paste0(model, "_pkgs")) %>%
     purrr::pluck("pkg") %>%
     purrr::pluck(1)
 
   res$fit <-
-    env_get(m_env, paste0(model, "_fit")) %>%
+    rlang::env_get(m_env, paste0(model, "_fit")) %>%
     dplyr::filter(mode == !!mode & engine == !!engine) %>%
     dplyr::pull(value) %>%
     purrr:::pluck(1)
 
   pred_code <-
-    env_get(m_env, paste0(model, "_predict")) %>%
+    rlang::env_get(m_env, paste0(model, "_predict")) %>%
     dplyr::filter(mode == !!mode & engine == !!engine) %>%
     dplyr::select(-engine, -mode)
 
@@ -178,7 +185,7 @@ get_model_spec <- function(model, mode, engine) {
 
 get_args <- function(model, engine) {
   m_env <- get_model_env()
-  env_get(m_env, paste0(model, "_args")) %>%
+  rlang::env_get(m_env, paste0(model, "_args")) %>%
     dplyr::select(-engine)
 }
 
