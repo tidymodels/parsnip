@@ -95,232 +95,17 @@ ranger_confint <- function(object, new_data, ...) {
 
 # ------------------------------------------------------------------------------
 
-
-rand_forest_ranger_data <-
-  list(
-    libs = "ranger",
-    fit = list(
-      interface = "formula",
-      protect = c("formula", "data", "case.weights"),
-      func = c(pkg = "ranger", fun = "ranger"),
-      defaults =
-        list(
-          num.threads = 1,
-          verbose = FALSE,
-          seed = expr(sample.int(10^5, 1))
-        )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = function(results, object) results$predictions,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          data = quote(new_data),
-          type = "response",
-          seed = expr(sample.int(10^5, 1)),
-          verbose = FALSE
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = ranger_class_pred,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          data = quote(new_data),
-          type = "response",
-          seed = expr(sample.int(10^5, 1)),
-          verbose = FALSE
-        )
-    ),
-    classprob = list(
-      pre = function(x, object) {
-        if (object$fit$forest$treetype != "Probability estimation")
-          stop("`ranger` model does not appear to use class probabilities. Was ",
-               "the model fit with `probability = TRUE`?",
-               call. = FALSE)
-        x
-      },
-      post = function(x, object) {
-        x <- x$prediction
-        as_tibble(x)
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          data = quote(new_data),
-          seed = expr(sample.int(10^5, 1)),
-          verbose = FALSE
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          data = quote(new_data),
-          seed = expr(sample.int(10^5, 1))
-        )
-    ),
-    confint = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "ranger_confint"),
-      args =
-        list(
-          object = quote(object),
-          new_data = quote(new_data),
-          seed = expr(sample.int(10^5, 1))
-        )
-    )
-  )
-
-rand_forest_randomForest_data <-
-  list(
-    libs = "randomForest",
-    fit = list(
-      interface = "data.frame",
-      protect = c("x", "y"),
-      func = c(pkg = "randomForest", fun = "randomForest"),
-      defaults =
-        list()
-    ),
-    numeric = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = function(x, object) {
-        as_tibble(as.data.frame(x))
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "prob"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    )
-  )
-
-
-rand_forest_spark_data <-
-  list(
-    libs = "sparklyr",
-    fit = list(
-      interface = "formula",
-      protect = c("x", "formula", "type"),
-      func = c(pkg = "sparklyr", fun = "ml_random_forest"),
-      defaults =
-        list(
-          seed = expr(sample.int(10^5, 1))
-        )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = format_spark_num,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = format_spark_class,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = format_spark_probs,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    )
-  )
-
-
-# ------------------------------------------------------------------------------
-
-
 set_new_model("rand_forest")
 
 set_model_mode("rand_forest", "classification")
 set_model_mode("rand_forest", "regression")
 
-set_model_engine("rand_forest", "classification", "randomForest")
+# ------------------------------------------------------------------------------
+# ranger components
+
 set_model_engine("rand_forest", "classification", "ranger")
-set_model_engine("rand_forest", "classification", "spark")
-
-set_model_engine("rand_forest", "regression", "randomForest")
 set_model_engine("rand_forest", "regression", "ranger")
-set_model_engine("rand_forest", "regression", "spark")
-
-set_model_arg(
-  mod = "rand_forest",
-  eng = "randomForest",
-  val = "mtry",
-  original = "mtry",
-  func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
-)
-set_model_arg(
-  mod = "rand_forest",
-  eng = "randomForest",
-  val = "trees",
-  original = "ntree",
-  func = list(pkg = "dials", fun = "trees"),
-  submodels = FALSE
-)
-set_model_arg(
-  mod = "rand_forest",
-  eng = "randomForest",
-  val = "min_n",
-  original = "nodesize",
-  func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
-)
+set_dependency("rand_forest", "ranger", "ranger")
 
 set_model_arg(
   mod = "rand_forest",
@@ -347,6 +132,291 @@ set_model_arg(
   submodels = FALSE
 )
 
+set_fit(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "case.weights"),
+    func = c(pkg = "ranger", fun = "ranger"),
+    defaults =
+      list(
+        num.threads = 1,
+        verbose = FALSE,
+        seed = expr(sample.int(10 ^ 5, 1))
+      )
+  )
+)
+
+set_fit(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "case.weights"),
+    func = c(pkg = "ranger", fun = "ranger"),
+    defaults =
+      list(
+        num.threads = 1,
+        verbose = FALSE,
+        seed = expr(sample.int(10 ^ 5, 1))
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = ranger_class_pred,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        data = quote(new_data),
+        type = "response",
+        seed = expr(sample.int(10 ^ 5, 1)),
+        verbose = FALSE
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = function(x, object) {
+      if (object$fit$forest$treetype != "Probability estimation")
+        stop(
+          "`ranger` model does not appear to use class probabilities. Was ",
+          "the model fit with `probability = TRUE`?",
+          call. = FALSE
+        )
+      x
+    },
+    post = function(x, object) {
+      x <- x$prediction
+      as_tibble(x)
+    },
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        data = quote(new_data),
+        seed = expr(sample.int(10 ^ 5, 1)),
+        verbose = FALSE
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        data = quote(new_data),
+        seed = expr(sample.int(10 ^ 5, 1))
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = function(results, object)
+      results$predictions,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        data = quote(new_data),
+        type = "response",
+        seed = expr(sample.int(10 ^ 5, 1)),
+        verbose = FALSE
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        data = quote(new_data),
+        seed = expr(sample.int(10 ^ 5, 1))
+      )
+  )
+)
+
+# ------------------------------------------------------------------------------
+# randomForest components
+
+set_model_engine("rand_forest", "classification", "randomForest")
+set_model_engine("rand_forest", "regression",     "randomForest")
+set_dependency("rand_forest", "randomForest", "randomForest")
+
+set_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "mtry",
+  original = "mtry",
+  func = list(pkg = "dials", fun = "mtry"),
+  submodels = FALSE
+)
+set_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "trees",
+  original = "ntree",
+  func = list(pkg = "dials", fun = "trees"),
+  submodels = FALSE
+)
+set_model_arg(
+  mod = "rand_forest",
+  eng = "randomForest",
+  val = "min_n",
+  original = "nodesize",
+  func = list(pkg = "dials", fun = "min_n"),
+  submodels = FALSE
+)
+
+set_fit(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "classification",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "randomForest", fun = "randomForest"),
+    defaults =
+      list()
+  )
+)
+
+set_fit(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "randomForest", fun = "randomForest"),
+    defaults =
+      list()
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(object = quote(object$fit),
+           newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(object = quote(object$fit),
+           newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+
+set_pred(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      as_tibble(as.data.frame(x))
+    },
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "prob"
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "randomForest",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(object = quote(object$fit),
+           newdata = quote(new_data))
+  )
+)
+
+# ------------------------------------------------------------------------------
+# spark components
+
+set_model_engine("rand_forest", "classification", "spark")
+set_model_engine("rand_forest", "regression", "spark")
+set_dependency("rand_forest", "spark", "sparklyr")
+
 set_model_arg(
   mod = "rand_forest",
   eng = "spark",
@@ -372,24 +442,71 @@ set_model_arg(
   submodels = FALSE
 )
 
-set_fit(mod = "rand_forest", eng = "ranger", mode = "classification",
-        value = rand_forest_ranger_data$fit)
+set_fit(
+  mod = "rand_forest",
+  eng = "spark",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("x", "formula", "type"),
+    func = c(pkg = "sparklyr", fun = "ml_random_forest"),
+    defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
+  )
+)
 
-set_fit(mod = "rand_forest", eng = "ranger", mode = "regression",
-        value = rand_forest_ranger_data$fit)
+set_fit(
+  mod = "rand_forest",
+  eng = "spark",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("x", "formula", "type"),
+    func = c(pkg = "sparklyr", fun = "ml_random_forest"),
+    defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
+  )
+)
 
-set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-         type = "class", value = parsnip:::rand_forest_ranger_data$class)
+set_pred(
+  mod = "rand_forest",
+  eng = "spark",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = format_spark_num,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args =
+      list(x = quote(object$fit),
+           dataset = quote(new_data))
+  )
+)
 
-set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-         type = "prob", value = parsnip:::rand_forest_ranger_data$classprob)
+set_pred(
+  mod = "rand_forest",
+  eng = "spark",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = format_spark_class,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args =
+      list(x = quote(object$fit),
+           dataset = quote(new_data))
+  )
+)
 
-set_pred(mod = "rand_forest", eng = "ranger", mode = "classification",
-         type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
-
-set_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
-         type = "numeric", value = parsnip:::rand_forest_ranger_data$numeric)
-
-set_pred(mod = "rand_forest", eng = "ranger", mode = "regression",
-         type = "raw", value = parsnip:::rand_forest_ranger_data$raw)
-
+set_pred(
+  mod = "rand_forest",
+  eng = "spark",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = format_spark_probs,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args =
+      list(x = quote(object$fit),
+           dataset = quote(new_data))
+  )
+)
