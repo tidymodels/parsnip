@@ -15,9 +15,9 @@ specific_model <- function(x) {
 
 
 possible_engines <- function(object, ...) {
-  cls <- specific_model(object)
-  key_df <- get(paste(cls, "engines", sep = "_"))
-  colnames(key_df[object$mode, , drop = FALSE])
+  m_env <- get_model_env()
+  engs <- rlang::env_get(m_env, specific_model(object))
+  unique(engs$engine)
 }
 
 check_engine <- function(object) {
