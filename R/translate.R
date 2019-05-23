@@ -19,11 +19,11 @@
 #' This function can be useful when you need to understand how
 #'  `parsnip` goes from a generic model specific to a model fitting
 #'  function.
-#'  
+#'
 #' **Note**: this function is used internally and users should only use it
 #'  to understand what the underlying syntax would be. It should not be used
-#'  to modify the model specification. 
-#'  
+#'  to modify the model specification.
+#'
 #' @examples
 #' lm_spec <- linear_reg(penalty = 0.01)
 #'
@@ -143,4 +143,53 @@ check_mode <- function(object, lvl) {
     }
   }
   object
+}
+
+# ------------------------------------------------------------------------------
+# new code for revised model data structures
+
+get_model_spec <- function(model, mode, engine) {
+  m_env <- get_model_env()
+  env_obj <- env_names(m_env)
+  env_obj <- grep(model, env_obj, value = TRUE)
+
+  res <- list()
+  res$libs <-
+    env_get(m_env, paste0(model, "_pkgs")) %>%
+    purrr::pluck("pkg") %>%
+    purrr::pluck(1)
+
+  res$fit <-
+    env_get(m_env, paste0(model, "_fit")) %>%
+    dplyr::filter(mode == !!mode & engine == !!engine) %>%
+    dplyr::pull(value) %>%
+    purrr:::pluck(1)
+
+  pred_code <-
+    env_get(m_env, paste0(model, "_predict")) %>%
+    dplyr::filter(mode == !!mode & engine == !!engine) %>%
+    dplyr::select(-engine, -mode)
+
+  res$pred <- pred_code[["value"]]
+  names(res$pred) <- pred_code$type
+
+  res
+}
+
+get_args <- function(model, engine) {
+  m_env <- get_model_env()
+  env_get(m_env, paste0(model, "_args")) %>%
+    dplyr::select(-engine)
+}
+
+# to replace harmonize
+unionize <- function(args, key) {
+  parsn <- tibble(parsnip = names(args), order = seq_along(args))
+  merged <-
+    dplyr::left_join(parsn, key, by = "parsnip") %>%
+    dplyr::arrange(order)
+  # TODO correct for bad merge?
+
+  names(args) <- merged$original
+  args[!is.na(merged$original)]
 }
