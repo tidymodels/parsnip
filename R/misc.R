@@ -201,7 +201,7 @@ update_dot_check <- function(...) {
 # ------------------------------------------------------------------------------
 
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  spec_modes <- get(paste0(cls, "_modes"))
+  spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
   if (!(mode %in% spec_modes))
     stop("`mode` should be one of: ",
          paste0("'", spec_modes, "'", collapse = ", "),

@@ -261,6 +261,7 @@ check_args.boost_tree <- function(object) {
 #' @param subsample Subsampling proportion of rows.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
+#' @keywords internal
 #' @export
 xgb_train <- function(
   x, y,
@@ -432,6 +433,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #'  model in the printed output.
 #' @param ... Other arguments to pass.
 #' @return A fitted C5.0 model.
+#' @keywords internal
 #' @export
 C5.0_train <-
   function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
