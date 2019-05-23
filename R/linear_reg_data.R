@@ -294,7 +294,8 @@ set_fit(
   value = list(
     interface = "formula",
     protect = c("x", "formula", "weight_col"),
-    func = c(pkg = "sparklyr", fun = "ml_linear_regression")
+    func = c(pkg = "sparklyr", fun = "ml_linear_regression"),
+    defaults = list()
   )
 )
 
@@ -319,7 +320,8 @@ set_pred(
 
 
 set_model_engine("linear_reg", "regression", "keras")
-set_dependency("linear_reg", "keras", c("keras", "magrittr"))
+set_dependency("linear_reg", "keras", "keras")
+set_dependency("linear_reg", "keras", "magrittr")
 
 set_fit(
   mod = "linear_reg",

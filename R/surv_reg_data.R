@@ -1,120 +1,130 @@
 
-surv_reg_arg_key <- data.frame(
-  survreg  =  c("dist"),
-  flexsurv =  c("dist"),
-  stringsAsFactors = FALSE,
-  row.names =  c("dist")
+set_new_model("surv_reg")
+set_model_mode("surv_reg", "regression")
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("surv_reg", "regression", "flexsurv")
+set_dependency("surv_reg", "flexsurv", "flexsurv")
+set_dependency("surv_reg", "flexsurv", "survival")
+
+set_model_arg(
+  mod = "surv_reg",
+  eng = "flexsurv",
+  val = "dist",
+  original = "dist",
+  func = list(pkg = "dials", fun = "dist"),
+  submodels = FALSE
 )
 
-surv_reg_modes <- "regression"
+set_fit(
+  mod = "surv_reg",
+  eng = "flexsurv",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "flexsurv", fun = "flexsurvreg"),
+    defaults = list()
+  )
+)
 
-surv_reg_engines <- data.frame(
-  survreg  = TRUE,
-  flexsurv = TRUE,
-  stringsAsFactors    = TRUE,
-  row.names =  c("regression")
+set_pred(
+  mod = "surv_reg",
+  eng = "flexsurv",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = flexsurv_mean,
+    func = c(fun = "summary"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "mean"
+      )
+  )
+)
+
+set_pred(
+  mod = "surv_reg",
+  eng = "flexsurv",
+  mode = "regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = flexsurv_quant,
+    func = c(fun = "summary"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "quantile",
+        quantiles = expr(quantile)
+      )
+  )
 )
 
 # ------------------------------------------------------------------------------
 
-surv_reg_flexsurv_data <-
-  list(
-    libs = c("survival", "flexsurv"),
-    fit = list(
-      interface = "formula",
-      protect = c("formula", "data", "weights"),
-      func = c(pkg = "flexsurv", fun = "flexsurvreg"),
-      defaults = list()
-    ),
-    numeric = list(
-      pre = NULL,
-      post = flexsurv_mean,
-      func = c(fun = "summary"),
-      args =
-        list(
-          object = expr(object$fit),
-          newdata = expr(new_data),
-          type = "mean"
-        )
-    ),
-    quantile = list(
-      pre = NULL,
-      post = flexsurv_quant,
-      func = c(fun = "summary"),
-      args =
-        list(
-          object = expr(object$fit),
-          newdata = expr(new_data),
-          type = "quantile",
-          quantiles = expr(quantile)
-        )
-    )
+set_model_engine("surv_reg", "regression", "survival")
+set_dependency("surv_reg", "survival", "survival")
+
+set_model_arg(
+  mod = "surv_reg",
+  eng = "survival",
+  val = "dist",
+  original = "dist",
+  func = list(pkg = "dials", fun = "dist"),
+  submodels = FALSE
+)
+
+set_fit(
+  mod = "surv_reg",
+  eng = "survival",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "survival", fun = "survreg"),
+    defaults = list(model = TRUE)
   )
+)
 
-# ------------------------------------------------------------------------------
-
-surv_reg_survreg_data <-
-  list(
-    libs = c("survival"),
-    fit = list(
-      interface = "formula",
-      protect = c("formula", "data", "weights"),
-      func = c(pkg = "survival", fun = "survreg"),
-      defaults = list(model = TRUE)
-    ),
-    numeric = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = expr(object$fit),
-          newdata = expr(new_data),
-          type = "response"
-        )
-    ),
-    quantile = list(
-      pre = NULL,
-      post = survreg_quant,
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = expr(object$fit),
-          newdata = expr(new_data),
-          type = "quantile",
-          p = expr(quantile)
-        )
-    )
+set_pred(
+  mod = "surv_reg",
+  eng = "survival",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "response"
+      )
   )
+)
 
-# ------------------------------------------------------------------------------
-
-# surv_reg_stan_data <-
-#   list(
-#     libs = c("brms"),
-#     fit = list(
-#       interface = "formula",
-#       protect = c("formula", "data", "weights"),
-#       func = c(pkg = "brms", fun = "brm"),
-#       defaults = list(
-#         family = expr(brms::weibull()),
-#         seed = expr(sample.int(10^5, 1))
-#       )
-#     ),
-#     numeric = list(
-#       pre = NULL,
-#       post = function(results, object) {
-#         tibble::as_tibble(results) %>%
-#           dplyr::select(Estimate) %>%
-#           setNames(".pred")
-#       },
-#       func = c(fun = "predict"),
-#       args =
-#         list(
-#           object = expr(object$fit),
-#           newdata = expr(new_data),
-#           type = "response"
-#         )
-#     )
-#   )
-
+set_pred(
+  mod = "surv_reg",
+  eng = "survival",
+  mode = "regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = survreg_quant,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "quantile",
+        p = expr(quantile)
+      )
+  )
+)

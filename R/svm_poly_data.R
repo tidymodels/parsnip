@@ -1,69 +1,150 @@
-svm_poly_arg_key <- data.frame(
-  kernlab   =  c(   "C", "degree",        "scale", "epsilon"),
-  row.names =  c("cost", "degree", "scale_factor",  "margin"),
-  stringsAsFactors = FALSE
-)
+set_new_model("svm_poly")
 
-svm_poly_modes <- c("classification", "regression", "unknown")
-
-svm_poly_engines <- data.frame(
-  kernlab   =  c(TRUE, TRUE, FALSE),
-  row.names =  c("classification", "regression", "unknown")
-)
+set_model_mode("svm_poly", "classification")
+set_model_mode("svm_poly", "regression")
 
 # ------------------------------------------------------------------------------
 
-svm_poly_kernlab_data <-
-  list(
-    libs = "kernlab",
-    fit = list(
-      interface = "matrix",
-      protect = c("x", "y"),
-      func = c(pkg = "kernlab", fun = "ksvm"),
-      defaults = list(
-        kernel = "polydot"
-      )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = svm_reg_post,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = function(result, object) as_tibble(result),
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "probabilities"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    )
+set_model_engine("svm_poly", "classification", "kernlab")
+set_model_engine("svm_poly", "regression", "kernlab")
+set_dependency("svm_poly", "kernlab", "kernlab")
+
+set_model_arg(
+  mod = "svm_poly",
+  eng = "kernlab",
+  val = "cost",
+  original = "C",
+  func = list(pkg = "dials", fun = "cost"),
+  submodels = FALSE
+)
+
+set_model_arg(
+  mod = "svm_poly",
+  eng = "kernlab",
+  val = "degree",
+  original = "degree",
+  func = list(pkg = "dials", fun = "degree"),
+  submodels = FALSE
+)
+
+set_model_arg(
+  mod = "svm_poly",
+  eng = "kernlab",
+  val = "scale_factor",
+  original = "scale",
+  func = list(pkg = "dials", fun = "scale_factor"),
+  submodels = FALSE
+)
+set_model_arg(
+  mod = "svm_poly",
+  eng = "kernlab",
+  val = "margin",
+  original = "epsilon",
+  func = list(pkg = "dials", fun = "margin"),
+  submodels = FALSE
+)
+
+set_fit(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "kernlab", fun = "ksvm"),
+    defaults = list(kernel = "polydot")
   )
+)
+
+set_fit(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "kernlab", fun = "ksvm"),
+    defaults = list(kernel = "polydot")
+  )
+)
+
+set_pred(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = svm_reg_post,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(result, object) as_tibble(result),
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "probabilities"
+      )
+  )
+)
+
+set_pred(
+  mod = "svm_poly",
+  eng = "kernlab",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
