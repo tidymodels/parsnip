@@ -41,7 +41,7 @@
 #'
 #' @export
 
-translate <- function (x, ...)
+translate <- function(x, ...)
   UseMethod("translate")
 
 #' @importFrom utils getFromNamespace
@@ -58,12 +58,10 @@ translate.default <- function(x, engine = x$engine, ...) {
   x$engine <- engine
   x <- check_engine(x)
 
-  # TODOS
-  # what to do with unknown mode?
   if (x$mode == "unknown") {
     stop("Model code depends on the mode; please specify one.", call. = FALSE)
   }
-  # set the classes. Is a constructor not being used?
+
   if (is.null(x$method))
     x$method <- get_model_spec(mod_name, x$mode, engine)
 
@@ -78,11 +76,11 @@ translate.default <- function(x, engine = x$engine, ...) {
   x$eng_args <- check_eng_args(x$eng_args, x$method$fit, arg_key$original)
 
   # keep only modified args
-  modifed_args <- purrr::map_lgl(actual_args, null_value)
+  modifed_args <- !purrr::map_lgl(actual_args, null_value)
   actual_args <- actual_args[modifed_args]
 
   # look for defaults if not modified in other
-  if(length(x$method$fit$defaults) > 0) {
+  if (length(x$method$fit$defaults) > 0) {
     in_other <- names(x$method$fit$defaults) %in% names(x$eng_args)
     x$defaults <- x$method$fit$defaults[!in_other]
   }
@@ -95,40 +93,6 @@ translate.default <- function(x, engine = x$engine, ...) {
 
   x
 }
-
-get_method <- function(x, engine = x$engine, ...) {
-  check_empty_ellipse(...)
-  x$engine <- engine
-  x <- check_engine(x)
-  x$method <- get_model_info(x, x$engine)
-  x
-}
-
-
-get_module <- function(nm) {
-  arg_key <- try(
-    getFromNamespace(
-      paste0(nm, "_arg_key"),
-      ns = "parsnip"
-    ),
-    silent = TRUE
-  )
-  if(inherits(arg_key, "try-error")) {
-    arg_key <- try(
-      get(paste0(nm, "_arg_key")),
-      silent = TRUE
-    )
-  }
-  if(inherits(arg_key, "try-error")) {
-    stop(
-      "Cannot find the model code: `",
-      paste0(nm, "_arg_key"),
-      "`", call. = FALSE
-    )
-  }
-  arg_key
-}
-
 
 #' @export
 print.model_spec <- function(x, ...) {
@@ -200,4 +164,11 @@ unionize <- function(args, key) {
 
   names(args) <- merged$original
   args[!is.na(merged$original)]
+}
+
+add_methods <- function(x, engine) {
+  x$engine <- engine
+  x <- check_engine(x)
+  x$method <- get_model_spec(specific_model(x), x$mode, x$engine)
+  x
 }

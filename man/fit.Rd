@@ -88,8 +88,6 @@ data("lending_club")
 
 lr_mod <- logistic_reg()
 
-lr_mod <- logistic_reg()
-
 using_formula <-
   lr_mod \%>\%
   set_engine("glm") \%>\%

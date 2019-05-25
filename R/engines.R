@@ -1,18 +1,8 @@
 
-get_model_info <-  function (x, engine)  {
-  cls <- specific_model(x)
-  nm <- paste(cls, engine, "data", sep = "_")
-  res <- try(get(nm), silent = TRUE)
-  if (inherits(res, "try-error"))
-    stop("Can't find model object ", nm)
-  res
-}
-
 specific_model <- function(x) {
   cls <- class(x)
   cls[cls != "model_spec"]
 }
-
 
 possible_engines <- function(object, ...) {
   m_env <- get_model_env()

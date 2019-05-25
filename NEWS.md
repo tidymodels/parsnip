@@ -1,5 +1,10 @@
 # parsnip 0.0.2.9000
 
+## Breaking Changes
+
+ * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. 
+ * The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation). 
+
 ## New Features
 
  * `add_rowindex()` can create a column called `.row` to a data frame. 
