@@ -387,15 +387,15 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
   pred <- xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
 
   # switch based on prediction type
-  if(object$spec$mode == "regression") {
+  if (object$spec$mode == "regression") {
     pred <- tibble(.pred = pred)
     nms <- names(pred)
   } else {
     if (type == "class") {
-      pred <- boost_tree_xgboost_data$class$post(pred, object)
+      pred <- object$spec$method$pred$class$post(pred, object)
       pred <- tibble(.pred = factor(pred, levels = object$lvl))
     } else {
-      pred <- boost_tree_xgboost_data$classprob$post(pred, object)
+      pred <- object$spec$method$pred$prob$post(pred, object)
       pred <- as_tibble(pred)
       names(pred) <- paste0(".pred_", names(pred))
     }

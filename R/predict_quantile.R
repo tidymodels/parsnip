@@ -9,7 +9,7 @@
 predict_quantile.model_fit <-
   function (object, new_data, quantile = (1:9)/10, ...) {
 
-    if (is.null(object$spec$method$quantile))
+    if (is.null(object$spec$method$pred$quantile))
       stop("No quantile prediction method defined for this ",
            "engine.", call. = FALSE)
 
@@ -21,18 +21,18 @@ predict_quantile.model_fit <-
     new_data <- prepare_data(object, new_data)
 
     # preprocess data
-    if (!is.null(object$spec$method$quantile$pre))
-      new_data <- object$spec$method$quantile$pre(new_data, object)
+    if (!is.null(object$spec$method$pred$quantile$pre))
+      new_data <- object$spec$method$pred$quantile$pre(new_data, object)
 
     # Pass some extra arguments to be used in post-processor
-    object$spec$method$quantile$args$p <- quantile
-    pred_call <- make_pred_call(object$spec$method$quantile)
+    object$spec$method$pred$quantile$args$p <- quantile
+    pred_call <- make_pred_call(object$spec$method$pred$quantile)
 
     res <- eval_tidy(pred_call)
 
     # post-process the predictions
-    if(!is.null(object$spec$method$quantile$post)) {
-      res <- object$spec$method$quantile$post(res, object)
+    if(!is.null(object$spec$method$pred$quantile$post)) {
+      res <- object$spec$method$pred$quantile$post(res, object)
     }
 
     res

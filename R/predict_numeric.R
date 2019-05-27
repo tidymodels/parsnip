@@ -11,7 +11,7 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
          "Use `predict_class()` or `predict_classprob()` for ",
          "classification models.", call. = FALSE)
 
-  if (!any(names(object$spec$method) == "numeric"))
+  if (!any(names(object$spec$method$pred) == "numeric"))
     stop("No prediction module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
@@ -22,17 +22,17 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$numeric$pre))
-    new_data <- object$spec$method$numeric$pre(new_data, object)
+  if (!is.null(object$spec$method$pred$numeric$pre))
+    new_data <- object$spec$method$pred$numeric$pre(new_data, object)
 
   # create prediction call
-  pred_call <- make_pred_call(object$spec$method$numeric)
+  pred_call <- make_pred_call(object$spec$method$pred$numeric)
 
   res <- eval_tidy(pred_call)
   # post-process the predictions
 
-  if (!is.null(object$spec$method$numeric$post)) {
-    res <- object$spec$method$numeric$post(res, object)
+  if (!is.null(object$spec$method$pred$numeric$post)) {
+    res <- object$spec$method$pred$numeric$post(res, object)
   }
 
   if (is.vector(res)) {

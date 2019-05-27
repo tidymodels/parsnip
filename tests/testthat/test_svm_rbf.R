@@ -10,7 +10,7 @@ source("helpers.R")
 # ------------------------------------------------------------------------------
 
 test_that('primary arguments', {
-  basic <- svm_rbf()
+  basic <- svm_rbf(mode = "regression")
   basic_kernlab <- translate(basic %>% set_engine("kernlab"))
 
   expect_equal(
@@ -22,7 +22,7 @@ test_that('primary arguments', {
     )
   )
 
-  rbf_sigma <- svm_rbf(rbf_sigma = .2)
+  rbf_sigma <- svm_rbf(mode = "regression", rbf_sigma = .2)
   rbf_sigma_kernlab <- translate(rbf_sigma %>% set_engine("kernlab"))
   rbf_sigma_obj <- expr(list())
   rbf_sigma_obj$sigma <- new_empty_quosure(.2)
@@ -41,7 +41,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
 
-  kernlab_cv <- svm_rbf() %>% set_engine("kernlab", cross = 10)
+  kernlab_cv <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
 
   expect_equal(
     object = translate(kernlab_cv, "kernlab")$method$fit$args,
@@ -58,11 +58,11 @@ test_that('engine arguments', {
 
 test_that('updating', {
 
-  expr1     <- svm_rbf()  %>% set_engine("kernlab", cross = 10)
-  expr1_exp <- svm_rbf(rbf_sigma = .1) %>% set_engine("kernlab", cross = 10)
+  expr1     <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr1_exp <- svm_rbf(mode = "regression", rbf_sigma = .1) %>% set_engine("kernlab", cross = 10)
 
-  expr3     <- svm_rbf(rbf_sigma = .2) %>% set_engine("kernlab")
-  expr3_exp <- svm_rbf(rbf_sigma = .3) %>% set_engine("kernlab")
+  expr3     <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
+  expr3_exp <- svm_rbf(mode = "regression", rbf_sigma = .3) %>% set_engine("kernlab")
 
   expect_equal(update(expr1, rbf_sigma = .1), expr1_exp)
   expect_equal(update(expr3, rbf_sigma = .3, fresh = TRUE), expr3_exp)
@@ -70,18 +70,18 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(svm_rbf(mode = "reallyunknown"))
-  expect_error(translate(svm_rbf() %>% set_engine( NULL)))
+  expect_error(translate(svm_rbf(mode = "regression") %>% set_engine( NULL)))
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_rbf(rbf_sigma = .1, cost = 1/4) %>%
+  svm_rbf(mode = "regression", rbf_sigma = .1, cost = 1/4) %>%
   set_engine("kernlab") %>%
   set_mode("regression")
 
 cls_mod <-
-  svm_rbf(rbf_sigma = .1, cost = 1/8) %>%
+  svm_rbf(mode = "classification", rbf_sigma = .1, cost = 1/8) %>%
   set_engine("kernlab") %>%
   set_mode("classification")
 

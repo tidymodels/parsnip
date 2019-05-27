@@ -84,7 +84,7 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(results, object) {
-      hf_lvl <- (1 - object$spec$method$confint$extras$level)/2
+      hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
       const <-
         qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
       trans <- object$fit$family$linkinv
@@ -101,7 +101,7 @@ set_pred(
       hi_nms <- paste0(".pred_upper_", object$lvl)
       colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
-      if (object$spec$method$confint$extras$std_error)
+      if (object$spec$method$pred$conf_int$extras$std_error)
         res$.std_error <- results$se.fit
       res
     },
@@ -214,7 +214,7 @@ set_dependency("logistic_reg", "spark", "sparklyr")
 
 set_model_arg(
   mod = "logistic_reg",
-  eng = "glmnet",
+  eng = "spark",
   val = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
@@ -223,9 +223,9 @@ set_model_arg(
 
 set_model_arg(
   mod = "logistic_reg",
-  eng = "glmnet",
-  val = "elastic_net_param",
-  original = "alpha",
+  eng = "spark",
+  val = "mixture",
+  original = "elastic_net_param",
   func = list(pkg = "dials", fun = "mixture"),
   submodels = FALSE
 )
@@ -439,12 +439,12 @@ set_pred(
           lo =
             convert_stan_interval(
               results,
-              level = object$spec$method$confint$extras$level
+              level = object$spec$method$pred$conf_int$extras$level
             ),
           hi =
             convert_stan_interval(
               results,
-              level = object$spec$method$confint$extras$level,
+              level = object$spec$method$pred$conf_int$extras$level,
               lower = FALSE
             ),
         )
@@ -456,7 +456,7 @@ set_pred(
       hi_nms <- paste0(".pred_upper_", object$lvl)
       colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
-      if (object$spec$method$confint$extras$std_error)
+      if (object$spec$method$pred$conf_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },
@@ -484,12 +484,12 @@ set_pred(
           lo =
             convert_stan_interval(
               results,
-              level = object$spec$method$predint$extras$level
+              level = object$spec$method$pred$pred_int$extras$level
             ),
           hi =
             convert_stan_interval(
               results,
-              level = object$spec$method$predint$extras$level,
+              level = object$spec$method$pred$pred_int$extras$level,
               lower = FALSE
             ),
         )
@@ -501,7 +501,7 @@ set_pred(
       hi_nms <- paste0(".pred_upper_", object$lvl)
       colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
 
-      if (object$spec$method$predint$extras$std_error)
+      if (object$spec$method$pred$pred_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },

@@ -141,7 +141,7 @@ set_model_arg(
   mod = "decision_tree",
   eng = "C5.0",
   val = "min_n",
-  original = "minsplit",
+  original = "minCases",
   func = list(pkg = "dials", fun = "min_n"),
   submodels = FALSE
 )

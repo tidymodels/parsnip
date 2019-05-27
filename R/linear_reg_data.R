@@ -209,16 +209,16 @@ set_pred(
           .pred_lower =
             convert_stan_interval(
               results,
-              level = object$spec$method$confint$extras$level
+              level = object$spec$method$pred$conf_int$extras$level
             ),
           .pred_upper =
             convert_stan_interval(
               results,
-              level = object$spec$method$confint$extras$level,
+              level = object$spec$method$pred$conf_int$extras$level,
               lower = FALSE
             ),
         )
-      if(object$spec$method$confint$extras$std_error)
+      if (object$spec$method$pred$conf_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },
@@ -246,16 +246,16 @@ set_pred(
           .pred_lower =
             convert_stan_interval(
               results,
-              level = object$spec$method$predint$extras$level
+              level = object$spec$method$pred$pred_int$extras$level
             ),
           .pred_upper =
             convert_stan_interval(
               results,
-              level = object$spec$method$predint$extras$level,
+              level = object$spec$method$pred$pred_int$extras$level,
               lower = FALSE
             ),
         )
-      if(object$spec$method$predint$extras$std_error)
+      if (object$spec$method$pred$pred_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },
@@ -286,6 +286,25 @@ set_pred(
 
 set_model_engine("linear_reg", "regression", "spark")
 set_dependency("linear_reg", "spark", "sparklyr")
+
+set_model_arg(
+  mod = "linear_reg",
+  eng = "spark",
+  val = "penalty",
+  original = "reg_param",
+  func = list(pkg = "dials", fun = "penalty"),
+  submodels = TRUE
+)
+
+set_model_arg(
+  mod = "linear_reg",
+  eng = "spark",
+  val = "mixture",
+  original = "elastic_net_param",
+  func = list(pkg = "dials", fun = "mixture"),
+  submodels = FALSE
+)
+
 
 set_fit(
   mod = "linear_reg",

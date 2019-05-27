@@ -160,6 +160,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' @export
 null_model <-
   function(mode = "classification") {
+    null_model_modes <- unique(get_model_env()$null_model$mode)
     # Check for correct mode
     if (!(mode %in% null_model_modes))
       stop("`mode` should be one of: ",

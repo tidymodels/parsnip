@@ -127,7 +127,7 @@ test_that('bad input', {
     bt <- boost_tree(min_n = -10)
     fit(bt, Species ~ ., iris)  %>% set_engine("xgboost")
   })
-  expect_message(translate(boost_tree(), engine = NULL))
+  expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))
 })
 

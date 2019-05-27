@@ -13,14 +13,6 @@ set_dependency("nearest_neighbor", "kknn", "kknn")
 set_model_arg(
   mod = "nearest_neighbor",
   eng = "kknn",
-  val = "num_terms",
-  original = "nprune",
-  func = list(pkg = "dials", fun = "num_terms"),
-  submodels = FALSE
-)
-set_model_arg(
-  mod = "nearest_neighbor",
-  eng = "kknn",
   val = "neighbors",
   original = "ks",
   func = list(pkg = "dials", fun = "neighbors"),
@@ -37,8 +29,8 @@ set_model_arg(
 set_model_arg(
   mod = "nearest_neighbor",
   eng = "kknn",
-  val = "distance",
-  original = "dist_power",
+  val = "dist_power",
+  original = "distance",
   func = list(pkg = "dials", fun = "distance"),
   submodels = FALSE
 )
@@ -49,7 +41,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
-    protect = c("formula", "data", "kmax"), # kmax is not allowed
+    protect = c("formula", "data", "ks"),
     func = c(pkg = "kknn", fun = "train.kknn"),
     defaults = list()
   )
@@ -61,7 +53,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data", "kmax"), # kmax is not allowed
+    protect = c("formula", "data", "ks"),
     func = c(pkg = "kknn", fun = "train.kknn"),
     defaults = list()
   )

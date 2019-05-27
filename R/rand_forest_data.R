@@ -1,24 +1,3 @@
-
-rand_forest_arg_key <- data.frame(
-  randomForest = c("mtry", "ntree", "nodesize"),
-  ranger = c("mtry", "num.trees", "min.node.size"),
-  spark =
-    c("feature_subset_strategy", "num_trees", "min_instances_per_node"),
-  stringsAsFactors = FALSE,
-  row.names =  c("mtry", "trees", "min_n")
-)
-
-rand_forest_modes <- c("classification", "regression", "unknown")
-
-rand_forest_engines <- data.frame(
-  ranger =       c(TRUE, TRUE, FALSE),
-  randomForest = c(TRUE, TRUE, FALSE),
-  spark =        c(TRUE, TRUE, FALSE),
-  row.names =  c("classification", "regression", "unknown")
-)
-
-# ------------------------------------------------------------------------------
-
 # wrappers for ranger
 ranger_class_pred <-
   function(results, object)  {
@@ -32,7 +11,7 @@ ranger_class_pred <-
 
 #' @importFrom stats qnorm
 ranger_num_confint <- function(object, new_data, ...) {
-  hf_lvl <- (1 - object$spec$method$confint$extras$level)/2
+  hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
   const <- qnorm(hf_lvl, lower.tail = FALSE)
 
   res <-
@@ -44,12 +23,12 @@ ranger_num_confint <- function(object, new_data, ...) {
   res$.pred_upper <- res$.pred + const * std_error
   res$.pred <- NULL
 
-  if (object$spec$method$confint$extras$std_error)
+  if (object$spec$method$pred$conf_int$extras$std_error)
     res$.std_error <- std_error
   res
 }
 ranger_class_confint <- function(object, new_data, ...) {
-  hf_lvl <- (1 - object$spec$method$confint$extras$level)/2
+  hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
   const <- qnorm(hf_lvl, lower.tail = FALSE)
 
   pred <- predict(object$fit, data = new_data, type = "response", ...)$predictions
@@ -73,7 +52,7 @@ ranger_class_confint <- function(object, new_data, ...) {
   col_names <- paste0(c(".pred_lower_", ".pred_upper_"), lvl)
   res <- res[, col_names]
 
-  if (object$spec$method$confint$extras$std_error)
+  if (object$spec$method$pred$conf_int$extras$std_error)
     res <- bind_cols(res, std_error)
 
   res

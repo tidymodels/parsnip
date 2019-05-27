@@ -18,3 +18,7 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+# ------------------------------------------------------------------------------
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c("value", "engine", "lab", "original", "engine2"))

@@ -10,7 +10,7 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
     stop("`predict.model_fit()` is for predicting factor outcomes.",
          call. = FALSE)
 
-  if (!any(names(object$spec$method) == "classprob"))
+  if (!any(names(object$spec$method$pred) == "prob"))
     stop("No class probability module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
@@ -21,17 +21,17 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$classprob$pre))
-    new_data <- object$spec$method$classprob$pre(new_data, object)
+  if (!is.null(object$spec$method$pred$prob$pre))
+    new_data <- object$spec$method$pred$prob$pre(new_data, object)
 
   # create prediction call
-  pred_call <- make_pred_call(object$spec$method$classprob)
+  pred_call <- make_pred_call(object$spec$method$pred$prob)
 
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if (!is.null(object$spec$method$classprob$post)) {
-    res <- object$spec$method$classprob$post(res, object)
+  if (!is.null(object$spec$method$pred$prob$post)) {
+    res <- object$spec$method$pred$prob$post(res, object)
   }
 
   # check and sort names

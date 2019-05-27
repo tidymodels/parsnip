@@ -171,7 +171,7 @@ check_args.surv_reg <- function(object) {
 #' @importFrom stats setNames
 #' @importFrom dplyr mutate
 survreg_quant <- function(results, object) {
-  pctl <- object$spec$method$quantile$args$p
+  pctl <- object$spec$method$pred$quantile$args$p
   n <- nrow(results)
   p <- ncol(results)
   results <-

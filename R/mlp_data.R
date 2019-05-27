@@ -187,11 +187,18 @@ set_model_arg(
   mod = "mlp",
   eng = "nnet",
   val = "penalty",
-  original = "penalty",
+  original = "decay",
   func = list(pkg = "dials", fun = "weight_decay"),
   submodels = FALSE
 )
-
+set_model_arg(
+  mod = "mlp",
+  eng = "nnet",
+  val = "epochs",
+  original = "maxit",
+  func = list(pkg = "dials", fun = "epochs"),
+  submodels = FALSE
+)
 set_fit(
   mod = "mlp",
   eng = "nnet",

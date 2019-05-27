@@ -134,7 +134,7 @@ get_model_spec <- function(model, mode, engine) {
     rlang::env_get(m_env, paste0(model, "_fit")) %>%
     dplyr::filter(mode == !!mode & engine == !!engine) %>%
     dplyr::pull(value) %>%
-    purrr:::pluck(1)
+    purrr::pluck(1)
 
   pred_code <-
     rlang::env_get(m_env, paste0(model, "_predict")) %>%
@@ -156,6 +156,8 @@ get_args <- function(model, engine) {
 
 # to replace harmonize
 unionize <- function(args, key) {
+  if (length(args) == 0)
+    return(args)
   parsn <- tibble(parsnip = names(args), order = seq_along(args))
   merged <-
     dplyr::left_join(parsn, key, by = "parsnip") %>%

@@ -100,7 +100,7 @@ set_dependency("multinom_reg", "spark", "sparklyr")
 
 set_model_arg(
   mod = "multinom_reg",
-  eng = "glmnet",
+  eng = "spark",
   val = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
@@ -109,9 +109,9 @@ set_model_arg(
 
 set_model_arg(
   mod = "multinom_reg",
-  eng = "glmnet",
-  val = "elastic_net_param",
-  original = "alpha",
+  eng = "spark",
+  val = "mixture",
+  original = "elastic_net_param",
   func = list(pkg = "dials", fun = "mixture"),
   submodels = FALSE
 )
