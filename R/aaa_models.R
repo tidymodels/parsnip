@@ -1,4 +1,4 @@
-# Initialize model environment
+# Initialize model environments
 
 # ------------------------------------------------------------------------------
 
@@ -35,6 +35,9 @@ pred_types <-
 
 # ------------------------------------------------------------------------------
 
+#' Tools to Register Models
+#'
+#' @keywords internal
 #' @export
 get_model_env <- function() {
   current <- utils::getFromNamespace("parsnip", ns = "parsnip")
@@ -42,13 +45,31 @@ get_model_env <- function() {
   current
 }
 
+
+
+#' Tools to Check Model Elements
+#'
+#' These functions are similar to constructors and can be used to validate
+#'  that there are no conflicts with the underlying model structures used by the
+#'  package.
+#'
+#' @param mod A single character string for the model type (e.g.
+#'  `"rand_forest"`, etc).
+#' @param new A single logical to check to see if the model that you are check
+#'  has not already been registered.
+#' @param existence A single logical to check to see if the model has already
+#'  been registered.
+#' @param mode A single character string for the model mode (e.g. "regression").
+#' @param eng A single character string for the model engine.
+#' @param arg A single character string for the model argument name.
+#' @keywords internal
 #' @export
-check_mod_val <- function(mod, new = FALSE, existance = FALSE) {
+check_mod_val <- function(mod, new = FALSE, existence = FALSE) {
   if (is_missing(mod) || length(mod) != 1)
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
 
-  if (new | existance) {
+  if (new | existence) {
     current <- get_model_env()
   }
 
@@ -58,7 +79,7 @@ check_mod_val <- function(mod, new = FALSE, existance = FALSE) {
     }
   }
 
-  if (existance) {
+  if (existence) {
     current <- get_model_env()
     if (!any(current$models == mod)) {
       stop("Model `", mod, "` has not been registered.", call. = FALSE)
@@ -68,6 +89,8 @@ check_mod_val <- function(mod, new = FALSE, existance = FALSE) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_mode_val <- function(mode) {
   if (is_missing(mode) || length(mode) != 1)
@@ -76,6 +99,8 @@ check_mode_val <- function(mode) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_engine_val <- function(eng) {
   if (is_missing(eng) || length(eng) != 1)
@@ -84,6 +109,8 @@ check_engine_val <- function(eng) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_arg_val <- function(arg) {
   if (is_missing(arg) || length(arg) != 1)
@@ -92,6 +119,8 @@ check_arg_val <- function(arg) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_submodels_val <- function(x) {
   if (!is.logical(x) || length(x) != 1) {
@@ -100,6 +129,8 @@ check_submodels_val <- function(x) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_func_val <- function(func) {
   msg <-
@@ -135,6 +166,8 @@ check_func_val <- function(func) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_fit_info <- function(x) {
   if (is.null(x)) {
@@ -167,6 +200,8 @@ check_fit_info <- function(x) {
   invisible(NULL)
 }
 
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_pred_info <- function(x, type) {
   if (all(type != pred_types)) {
@@ -200,7 +235,8 @@ check_pred_info <- function(x, type) {
   invisible(NULL)
 }
 
-
+#' @rdname check_mod_val
+#' @keywords internal
 #' @export
 check_pkg_val <- function(x) {
   if (is_missing(x) || length(x) != 1 || !is.character(x))
@@ -211,6 +247,8 @@ check_pkg_val <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_new_model <- function(mod) {
   check_mod_val(mod, new = TRUE)
@@ -247,9 +285,11 @@ set_new_model <- function(mod) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_model_mode <- function(mod, mode) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_mode_val(mode)
 
   current <- get_model_env()
@@ -265,9 +305,11 @@ set_model_mode <- function(mod, mode) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_model_engine <- function(mod, mode, eng) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_mode_val(mode)
   check_mode_val(eng)
 
@@ -288,9 +330,11 @@ set_model_engine <- function(mod, mode, eng) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_model_arg <- function(mod, eng, val, original, func, submodels) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_arg_val(val)
   check_arg_val(original)
   check_func_val(func)
@@ -325,9 +369,11 @@ set_model_arg <- function(mod, eng, val, original, func, submodels) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_dependency <- function(mod, eng, pkg) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_pkg_val(pkg)
 
   current <- get_model_env()
@@ -366,9 +412,11 @@ set_dependency <- function(mod, eng, pkg) {
   invisible(NULL)
 }
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 get_dependency <- function(mod) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   pkg_name <- paste0(mod, "_pkgs")
   if (!any(pkg_name != rlang::env_names(get_model_env()))) {
     stop("`", mod, "` does not have a dependency list in parsnip.", call. = FALSE)
@@ -379,9 +427,11 @@ get_dependency <- function(mod) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_fit <- function(mod, mode, eng, value) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
   check_fit_info(value)
@@ -428,9 +478,11 @@ set_fit <- function(mod, mode, eng, value) {
   invisible(NULL)
 }
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 get_fit <- function(mod) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   fit_name <- paste0(mod, "_fit")
   if (!any(fit_name != rlang::env_names(get_model_env()))) {
     stop("`", mod, "` does not have a `fit` method in parsnip.", call. = FALSE)
@@ -440,9 +492,11 @@ get_fit <- function(mod) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 set_pred <- function(mod, mode, eng, type, value) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
   check_pred_info(value, type)
@@ -490,9 +544,11 @@ set_pred <- function(mod, mode, eng, type, value) {
   invisible(NULL)
 }
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 get_pred_type <- function(mod, type) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   pred_name <- paste0(mod, "_predict")
   if (!any(pred_name != rlang::env_names(get_model_env()))) {
     stop("`", mod, "` does not have any `pred` methods in parsnip.", call. = FALSE)
@@ -514,9 +570,11 @@ validate_model <- function(mod) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname get_model_env
+#' @keywords internal
 #' @export
 show_model_info <- function(mod) {
-  check_mod_val(mod, existance = TRUE)
+  check_mod_val(mod, existence = TRUE)
   current <- get_model_env()
 
   cat("Information for `", mod, "`\n", sep = "")
