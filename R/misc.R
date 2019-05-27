@@ -132,14 +132,6 @@ make_call <- function(fun, ns, args, ...) {
   out
 }
 
-resolve_args <- function(args, ...) {
-  for (i in seq(along = args)) {
-    if (!is_missing_arg(args[[i]]))
-      args[[i]] <- eval_tidy(args[[i]], ...)
-  }
-  args
-}
-
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark"))
     res <- NULL

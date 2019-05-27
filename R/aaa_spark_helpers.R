@@ -20,6 +20,3 @@ format_spark_num <- function(results, object) {
   results <- dplyr::rename(results, pred = prediction)
   results
 }
-
-#' @importFrom utils globalVariables
-utils::globalVariables(c(".", "predicted_label", "prediction"))

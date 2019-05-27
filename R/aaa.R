@@ -21,4 +21,7 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @importFrom utils globalVariables
-utils::globalVariables(c("value", "engine", "lab", "original", "engine2"))
+utils::globalVariables(
+  c('.', '.label', '.pred', '.row', 'data', 'engine', 'engine2', 'group',
+    'lab', 'original', 'predicted_label', 'prediction', 'value')
+  )

@@ -208,8 +208,3 @@ flexsurv_quant <- function(results, object) {
   results <- map(results, setNames, c(".quantile", ".pred", ".pred_lower", ".pred_upper"))
 }
 
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(".label")
-

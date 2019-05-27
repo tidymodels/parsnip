@@ -503,8 +503,3 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   pred[, c(".row", "trees", nms)]
 }
 
-
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(c(".row"))

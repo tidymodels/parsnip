@@ -68,7 +68,7 @@ translate.default <- function(x, engine = x$engine, ...) {
   arg_key <- get_args(mod_name, engine)
 
   # deharmonize primary arguments
-  actual_args <- unionize(x$args, arg_key)
+  actual_args <- deharmonize(x$args, arg_key)
 
   # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
@@ -155,7 +155,7 @@ get_args <- function(model, engine) {
 }
 
 # to replace harmonize
-unionize <- function(args, key) {
+deharmonize <- function(args, key) {
   if (length(args) == 0)
     return(args)
   parsn <- tibble(parsnip = names(args), order = seq_along(args))

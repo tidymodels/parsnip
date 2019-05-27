@@ -181,9 +181,3 @@ xy_form <- function(object, env, control, ...) {
   res
 }
 
-# ------------------------------------------------------------------------------
-##
-
-
-#' @importFrom utils globalVariables
-utils::globalVariables("data")
