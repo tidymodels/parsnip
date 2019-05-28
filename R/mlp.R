@@ -62,19 +62,19 @@
 #'
 #' \pkg{keras} classification
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
 #'
 #' \pkg{keras} regression
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
 #'
 #' \pkg{nnet} classification
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
 #'
 #' \pkg{nnet} regression
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]

@@ -4,6 +4,7 @@
 
  * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. 
  * The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation). 
+ * For `surv_reg()`, the engine that uses the `survival` package is now called `survival` instead of `survreg`. 
 
 ## New Features
 

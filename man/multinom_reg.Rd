@@ -84,9 +84,15 @@ model, the template of the fit calls are:
 
 \pkg{glmnet}
 
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "glmnet")}
+
 \pkg{spark}
 
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "spark")}
+
 \pkg{keras}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "keras")}
 
 When using \code{glmnet} models, there is the option to pass
 multiple values (or no values) to the \code{penalty} argument. This

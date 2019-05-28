@@ -91,11 +91,19 @@ model, the template of the fit calls are:
 
 \pkg{keras} classification
 
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
+
 \pkg{keras} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
 
 \pkg{nnet} classification
 
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
+
 \pkg{nnet} regression
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
 }
 
 \examples{

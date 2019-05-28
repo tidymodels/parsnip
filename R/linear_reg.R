@@ -50,23 +50,23 @@
 #'
 #' \pkg{lm}
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "lm")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "lm")}
 #'
 #' \pkg{glmnet}
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "glmnet")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "glmnet")}
 #'
 #' \pkg{stan}
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
 #'
 #' \pkg{spark}
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
 #'
 #' \pkg{keras}
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
 #'
 #' When using `glmnet` models, there is the option to pass
 #'  multiple values (or no values) to the `penalty` argument. This
