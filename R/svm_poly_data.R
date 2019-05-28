@@ -12,36 +12,36 @@ set_dependency("svm_poly", "kernlab", "kernlab")
 set_model_arg(
   model = "svm_poly",
   eng = "kernlab",
-  val = "cost",
+  parsnip = "cost",
   original = "C",
   func = list(pkg = "dials", fun = "cost"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "svm_poly",
   eng = "kernlab",
-  val = "degree",
+  parsnip = "degree",
   original = "degree",
   func = list(pkg = "dials", fun = "degree"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "svm_poly",
   eng = "kernlab",
-  val = "scale_factor",
+  parsnip = "scale_factor",
   original = "scale",
   func = list(pkg = "dials", fun = "scale_factor"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "svm_poly",
   eng = "kernlab",
-  val = "margin",
+  parsnip = "margin",
   original = "epsilon",
   func = list(pkg = "dials", fun = "margin"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

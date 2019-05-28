@@ -11,10 +11,10 @@ set_dependency("surv_reg", "flexsurv", "survival")
 set_model_arg(
   model = "surv_reg",
   eng = "flexsurv",
-  val = "dist",
+  parsnip = "dist",
   original = "dist",
   func = list(pkg = "dials", fun = "dist"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -74,10 +74,10 @@ set_dependency("surv_reg", "survival", "survival")
 set_model_arg(
   model = "surv_reg",
   eng = "survival",
-  val = "dist",
+  parsnip = "dist",
   original = "dist",
   func = list(pkg = "dials", fun = "dist"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

@@ -12,28 +12,28 @@ set_dependency("svm_rbf", "kernlab", "kernlab")
 set_model_arg(
   model = "svm_rbf",
   eng = "kernlab",
-  val = "cost",
+  parsnip = "cost",
   original = "C",
   func = list(pkg = "dials", fun = "cost"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "svm_rbf",
   eng = "kernlab",
-  val = "rbf_sigma",
+  parsnip = "rbf_sigma",
   original = "sigma",
   func = list(pkg = "dials", fun = "rbf_sigma"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "svm_rbf",
   eng = "kernlab",
-  val = "margin",
+  parsnip = "margin",
   original = "epsilon",
   func = list(pkg = "dials", fun = "margin"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

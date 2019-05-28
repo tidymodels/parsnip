@@ -13,26 +13,26 @@ set_dependency("nearest_neighbor", "kknn", "kknn")
 set_model_arg(
   model = "nearest_neighbor",
   eng = "kknn",
-  val = "neighbors",
+  parsnip = "neighbors",
   original = "ks",
   func = list(pkg = "dials", fun = "neighbors"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "nearest_neighbor",
   eng = "kknn",
-  val = "weight_func",
+  parsnip = "weight_func",
   original = "kernel",
   func = list(pkg = "dials", fun = "weight_func"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "nearest_neighbor",
   eng = "kknn",
-  val = "dist_power",
+  parsnip = "dist_power",
   original = "distance",
   func = list(pkg = "dials", fun = "distance"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

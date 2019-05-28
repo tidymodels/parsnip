@@ -14,42 +14,42 @@ set_dependency("mlp", "keras", "magrittr")
 set_model_arg(
   model = "mlp",
   eng = "keras",
-  val = "hidden_units",
+  parsnip = "hidden_units",
   original = "hidden_units",
   func = list(pkg = "dials", fun = "hidden_units"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "keras",
-  val = "penalty",
+  parsnip = "penalty",
   original = "penalty",
   func = list(pkg = "dials", fun = "weight_decay"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "keras",
-  val = "dropout",
+  parsnip = "dropout",
   original = "dropout",
   func = list(pkg = "dials", fun = "dropout"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "keras",
-  val = "epochs",
+  parsnip = "epochs",
   original = "epochs",
   func = list(pkg = "dials", fun = "epochs"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "keras",
-  val = "activation",
+  parsnip = "activation",
   original = "activation",
   func = list(pkg = "dials", fun = "activation"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 
@@ -178,26 +178,26 @@ set_dependency("mlp", "nnet", "nnet")
 set_model_arg(
   model = "mlp",
   eng = "nnet",
-  val = "hidden_units",
+  parsnip = "hidden_units",
   original = "size",
   func = list(pkg = "dials", fun = "hidden_units"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "nnet",
-  val = "penalty",
+  parsnip = "penalty",
   original = "decay",
   func = list(pkg = "dials", fun = "weight_decay"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "mlp",
   eng = "nnet",
-  val = "epochs",
+  parsnip = "epochs",
   original = "maxit",
   func = list(pkg = "dials", fun = "epochs"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_fit(
   model = "mlp",

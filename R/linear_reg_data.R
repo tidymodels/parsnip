@@ -105,19 +105,19 @@ set_dependency("linear_reg", "glmnet", "glmnet")
 set_model_arg(
   model = "linear_reg",
   eng = "glmnet",
-  val = "penalty",
+  parsnip = "penalty",
   original = "lambda",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
   model = "linear_reg",
   eng = "glmnet",
-  val = "mixture",
+  parsnip = "mixture",
   original = "alpha",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -290,19 +290,19 @@ set_dependency("linear_reg", "spark", "sparklyr")
 set_model_arg(
   model = "linear_reg",
   eng = "spark",
-  val = "penalty",
+  parsnip = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
   model = "linear_reg",
   eng = "spark",
-  val = "mixture",
+  parsnip = "mixture",
   original = "elastic_net_param",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 

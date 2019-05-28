@@ -10,19 +10,19 @@ set_dependency("multinom_reg", "glmnet", "glmnet")
 set_model_arg(
   model = "multinom_reg",
   eng = "glmnet",
-  val = "penalty",
+  parsnip = "penalty",
   original = "lambda",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
   model = "multinom_reg",
   eng = "glmnet",
-  val = "mixture",
+  parsnip = "mixture",
   original = "alpha",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -101,19 +101,19 @@ set_dependency("multinom_reg", "spark", "sparklyr")
 set_model_arg(
   model = "multinom_reg",
   eng = "spark",
-  val = "penalty",
+  parsnip = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
   model = "multinom_reg",
   eng = "spark",
-  val = "mixture",
+  parsnip = "mixture",
   original = "elastic_net_param",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -173,10 +173,10 @@ set_dependency("multinom_reg", "keras", "magrittr")
 set_model_arg(
   model = "multinom_reg",
   eng = "keras",
-  val = "decay",
+  parsnip = "decay",
   original = "decay",
   func = list(pkg = "dials", fun = "weight_decay"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 

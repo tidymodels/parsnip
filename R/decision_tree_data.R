@@ -12,28 +12,28 @@ set_dependency("decision_tree", "rpart", "rpart")
 set_model_arg(
   model = "decision_tree",
   eng = "rpart",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "maxdepth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "decision_tree",
   eng = "rpart",
-  val = "min_n",
+  parsnip = "min_n",
   original = "minsplit",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "decision_tree",
   eng = "rpart",
-  val = "cost_complexity",
+  parsnip = "cost_complexity",
   original = "cp",
   func = list(pkg = "dials", fun = "cost_complexity"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -140,10 +140,10 @@ set_dependency("decision_tree", "C5.0", "C5.0")
 set_model_arg(
   model = "decision_tree",
   eng = "C5.0",
-  val = "min_n",
+  parsnip = "min_n",
   original = "minCases",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -216,19 +216,19 @@ set_dependency("decision_tree", "spark", "spark")
 set_model_arg(
   model = "decision_tree",
   eng = "spark",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "max_depth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
   model = "decision_tree",
   eng = "spark",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min_instances_per_node",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

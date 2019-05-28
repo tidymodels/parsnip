@@ -89,26 +89,26 @@ set_dependency("rand_forest", "ranger", "ranger")
 set_model_arg(
   model = "rand_forest",
   eng = "ranger",
-  val = "mtry",
+  parsnip = "mtry",
   original = "mtry",
   func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "ranger",
-  val = "trees",
+  parsnip = "trees",
   original = "num.trees",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "ranger",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min.node.size",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -262,26 +262,26 @@ set_dependency("rand_forest", "randomForest", "randomForest")
 set_model_arg(
   model = "rand_forest",
   eng = "randomForest",
-  val = "mtry",
+  parsnip = "mtry",
   original = "mtry",
   func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "randomForest",
-  val = "trees",
+  parsnip = "trees",
   original = "ntree",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "randomForest",
-  val = "min_n",
+  parsnip = "min_n",
   original = "nodesize",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
@@ -399,26 +399,26 @@ set_dependency("rand_forest", "spark", "sparklyr")
 set_model_arg(
   model = "rand_forest",
   eng = "spark",
-  val = "mtry",
+  parsnip = "mtry",
   original = "feature_subset_strategy",
   func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "spark",
-  val = "trees",
+  parsnip = "trees",
   original = "num_trees",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "rand_forest",
   eng = "spark",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min_instances_per_node",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(

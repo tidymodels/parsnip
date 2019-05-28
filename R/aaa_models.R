@@ -30,6 +30,9 @@ parsnip$modes <- c("regression", "classification", "unknown")
 
 # ------------------------------------------------------------------------------
 
+#' @rdname check_mod_val
+#' @keywords internal
+#' @export
 pred_types <-
   c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int", "quantile")
 
@@ -62,6 +65,30 @@ get_model_env <- function() {
 #' @param mode A single character string for the model mode (e.g. "regression").
 #' @param eng A single character string for the model engine.
 #' @param arg A single character string for the model argument name.
+#' @param has_submodel A single logical for whether the argument
+#'  can make predictions on mutiple submodels at once.
+#' @param func A named character vector that describes how to call
+#'  a function. `func` should have elements `pkg` and `fun`. The
+#'  former is optional but is recommended and the latter is
+#'  required. For example, `c(pkg = "stats", fun = "lm")` would be
+#'  used to invoke the usual linear regression function. In some
+#'  cases, it is helpful to use `c(fun = "predict")` when using a
+#'  package's `predict` method.
+#' @param fit_obj A list with elements `interface`, `protect`,
+#'  `func` and `defaults`. See the package vignette "Making a
+#'  `parsnip` model from scratch".
+#' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
+#'  See the package vignette "Making a `parsnip` model from scratch".
+#' @param type A single character value for the type of prediction. Possible
+#'  values are:
+#'  \Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.
+#' @param pkg An options character string for a package name.
+#' @param parsnip A single character string for the "harmonized" argument name
+#'  that `parsnip` exposes.
+#' @param original A single character string for the argument name that
+#'  underlying model function uses.
+#' @param value A list that conforms to the `fit_obj` or `pred_obj` description
+#'  above, depending on context.
 #' @keywords internal
 #' @export
 check_mod_val <- function(model, new = FALSE, existence = FALSE) {
@@ -122,8 +149,8 @@ check_arg_val <- function(arg) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_submodels_val <- function(x) {
-  if (!is.logical(x) || length(x) != 1) {
+check_submodels_val <- function(has_submodel) {
+  if (!is.logical(has_submodel) || length(has_submodel) != 1) {
     stop("The `submodels` argument should be a single logical.", call. = FALSE)
   }
   invisible(NULL)
@@ -169,31 +196,31 @@ check_func_val <- function(func) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_fit_info <- function(x) {
-  if (is.null(x)) {
+check_fit_info <- function(fit_obj) {
+  if (is.null(fit_obj)) {
     stop("The `fit` module cannot be NULL.", call. = FALSE)
   }
   exp_nms <- c("defaults", "func", "interface", "protect")
-  if (!isTRUE(all.equal(sort(names(x)), exp_nms))) {
+  if (!isTRUE(all.equal(sort(names(fit_obj)), exp_nms))) {
     stop("The `fit` module should have elements: ",
          paste0("`", exp_nms, "`", collapse = ", "),
          call. = FALSE)
   }
 
   exp_interf <- c("data.frame", "formula", "matrix")
-  if (length(x$interface) > 1) {
+  if (length(fit_obj$interface) > 1) {
     stop("The `interface` element should have a single value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
   }
-  if (!any(x$interface == exp_interf)) {
+  if (!any(fit_obj$interface == exp_interf)) {
     stop("The `interface` element should have a value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
   }
-  check_func_val(x$func)
+  check_func_val(fit_obj$func)
 
-  if (!is.list(x$defaults)) {
+  if (!is.list(fit_obj$defaults)) {
     stop("The `defaults` element should be a list: ", call. = FALSE)
   }
 
@@ -203,7 +230,7 @@ check_fit_info <- function(x) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_pred_info <- function(x, type) {
+check_pred_info <- function(pred_obj, type) {
   if (all(type != pred_types)) {
     stop("The prediction type should be one of: ",
          paste0("'", pred_types, "'", collapse = ", "),
@@ -211,24 +238,24 @@ check_pred_info <- function(x, type) {
   }
 
   exp_nms <- c("args", "func", "post", "pre")
-  if (!isTRUE(all.equal(sort(names(x)), exp_nms))) {
+  if (!isTRUE(all.equal(sort(names(pred_obj)), exp_nms))) {
     stop("The `predict` module should have elements: ",
          paste0("`", exp_nms, "`", collapse = ", "),
          call. = FALSE)
   }
 
-  if (!is.null(x$pre) & !is.function(x$pre)) {
+  if (!is.null(pred_obj$pre) & !is.function(pred_obj$pre)) {
     stop("The `pre` module should be null or a function: ",
          call. = FALSE)
   }
-  if (!is.null(x$post) & !is.function(x$post)) {
+  if (!is.null(pred_obj$post) & !is.function(pred_obj$post)) {
     stop("The `post` module should be null or a function: ",
          call. = FALSE)
   }
 
-  check_func_val(x$func)
+  check_func_val(pred_obj$func)
 
-  if (!is.list(x$args)) {
+  if (!is.list(pred_obj$args)) {
     stop("The `args` element should be a list. ", call. = FALSE)
   }
 
@@ -238,8 +265,8 @@ check_pred_info <- function(x, type) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_pkg_val <- function(x) {
-  if (is_missing(x) || length(x) != 1 || !is.character(x))
+check_pkg_val <- function(pkg) {
+  if (is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
     stop("Please supply a single character vale for the package name",
          call. = FALSE)
   invisible(NULL)
@@ -333,12 +360,12 @@ set_model_engine <- function(model, mode, eng) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_model_arg <- function(model, eng, val, original, func, submodels) {
+set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_mod_val(model, existence = TRUE)
-  check_arg_val(val)
+  check_arg_val(parsnip)
   check_arg_val(original)
   check_func_val(func)
-  check_submodels_val(submodels)
+  check_submodels_val(has_submodel)
 
   current <- get_model_env()
   old_args <- current[[paste0(model, "_args")]]
@@ -346,10 +373,10 @@ set_model_arg <- function(model, eng, val, original, func, submodels) {
   new_arg <-
     dplyr::tibble(
       engine = eng,
-      parsnip = val,
+      parsnip = parsnip,
       original = original,
       func = list(func),
-      submodels = submodels
+      has_submodel = has_submodel
     )
 
   # TODO cant currently use `distinct()` on a list column.
@@ -359,7 +386,7 @@ set_model_arg <- function(model, eng, val, original, func, submodels) {
     stop("An error occured when adding the new argument.", call. = FALSE)
   }
 
-  updated <- dplyr::distinct(updated, engine, parsnip, original, submodels)
+  updated <- dplyr::distinct(updated, engine, parsnip, original, has_submodel)
 
   current[[paste0(model, "_args")]] <- updated
 

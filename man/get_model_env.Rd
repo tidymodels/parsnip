@@ -23,7 +23,7 @@ set_model_mode(model, mode)
 
 set_model_engine(model, mode, eng)
 
-set_model_arg(model, eng, val, original, func, submodels)
+set_model_arg(model, eng, parsnip, original, func, has_submodel)
 
 set_dependency(model, eng, pkg)
 
