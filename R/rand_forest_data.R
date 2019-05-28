@@ -87,7 +87,7 @@ set_model_engine("rand_forest", "regression", "ranger")
 set_dependency("rand_forest", "ranger", "ranger")
 
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   val = "mtry",
   original = "mtry",
@@ -95,7 +95,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   val = "trees",
   original = "num.trees",
@@ -103,7 +103,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   val = "min_n",
   original = "min.node.size",
@@ -112,7 +112,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "classification",
   value = list(
@@ -129,7 +129,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "regression",
   value = list(
@@ -146,7 +146,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "classification",
   type = "class",
@@ -166,7 +166,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "classification",
   type = "prob",
@@ -196,7 +196,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "classification",
   type = "raw",
@@ -214,7 +214,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "regression",
   type = "numeric",
@@ -235,7 +235,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "regression",
   type = "raw",
@@ -260,7 +260,7 @@ set_model_engine("rand_forest", "regression",     "randomForest")
 set_dependency("rand_forest", "randomForest", "randomForest")
 
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   val = "mtry",
   original = "mtry",
@@ -268,7 +268,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   val = "trees",
   original = "ntree",
@@ -276,7 +276,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   val = "min_n",
   original = "nodesize",
@@ -285,7 +285,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "classification",
   value = list(
@@ -298,7 +298,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "regression",
   value = list(
@@ -311,7 +311,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "regression",
   type = "numeric",
@@ -326,7 +326,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "regression",
   type = "raw",
@@ -341,7 +341,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "classification",
   type = "class",
@@ -355,7 +355,7 @@ set_pred(
 
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "classification",
   type = "prob",
@@ -375,7 +375,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "randomForest",
   mode = "classification",
   type = "raw",
@@ -397,7 +397,7 @@ set_model_engine("rand_forest", "regression", "spark")
 set_dependency("rand_forest", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   val = "mtry",
   original = "feature_subset_strategy",
@@ -405,7 +405,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   val = "trees",
   original = "num_trees",
@@ -413,7 +413,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   val = "min_n",
   original = "min_instances_per_node",
@@ -422,7 +422,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -434,7 +434,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   mode = "regression",
   value = list(
@@ -446,7 +446,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   mode = "regression",
   type = "numeric",
@@ -461,7 +461,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -476,7 +476,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "spark",
   mode = "classification",
   type = "prob",

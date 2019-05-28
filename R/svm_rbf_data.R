@@ -10,7 +10,7 @@ set_model_engine("svm_rbf", "regression", "kernlab")
 set_dependency("svm_rbf", "kernlab", "kernlab")
 
 set_model_arg(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   val = "cost",
   original = "C",
@@ -19,7 +19,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   val = "rbf_sigma",
   original = "sigma",
@@ -28,7 +28,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   val = "margin",
   original = "epsilon",
@@ -37,7 +37,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "regression",
   value = list(
@@ -49,7 +49,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "classification",
   value = list(
@@ -61,7 +61,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "regression",
   type = "numeric",
@@ -79,7 +79,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "regression",
   type = "raw",
@@ -92,7 +92,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "classification",
   type = "class",
@@ -110,7 +110,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "classification",
   type = "prob",
@@ -128,7 +128,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_rbf",
+  model = "svm_rbf",
   eng = "kernlab",
   mode = "classification",
   type = "raw",

@@ -11,7 +11,7 @@ set_model_engine("mars", "regression", "earth")
 set_dependency("mars", "earth", "earth")
 
 set_model_arg(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   val = "num_terms",
   original = "nprune",
@@ -19,7 +19,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   val = "prod_degree",
   original = "degree",
@@ -27,7 +27,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   val = "prune_method",
   original = "pmethod",
@@ -36,7 +36,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "regression",
   value = list(
@@ -48,7 +48,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "classification",
   value = list(
@@ -60,7 +60,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "regression",
   type = "numeric",
@@ -78,7 +78,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "regression",
   type = "raw",
@@ -93,7 +93,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "classification",
   type = "class",
@@ -114,7 +114,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "classification",
   type = "prob",
@@ -137,7 +137,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mars",
+  model = "mars",
   eng = "earth",
   mode = "classification",
   type = "raw",

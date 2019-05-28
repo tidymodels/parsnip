@@ -10,7 +10,7 @@ set_model_engine("svm_poly", "regression", "kernlab")
 set_dependency("svm_poly", "kernlab", "kernlab")
 
 set_model_arg(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   val = "cost",
   original = "C",
@@ -19,7 +19,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   val = "degree",
   original = "degree",
@@ -28,7 +28,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   val = "scale_factor",
   original = "scale",
@@ -36,7 +36,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   val = "margin",
   original = "epsilon",
@@ -45,7 +45,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "regression",
   value = list(
@@ -57,7 +57,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "classification",
   value = list(
@@ -69,7 +69,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "regression",
   type = "numeric",
@@ -87,7 +87,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "regression",
   type = "raw",
@@ -100,7 +100,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "classification",
   type = "class",
@@ -118,7 +118,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "classification",
   type = "prob",
@@ -136,7 +136,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "svm_poly",
+  model = "svm_poly",
   eng = "kernlab",
   mode = "classification",
   type = "raw",

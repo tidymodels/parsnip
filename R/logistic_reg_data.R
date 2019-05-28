@@ -8,7 +8,7 @@ set_model_engine("logistic_reg", "classification", "glm")
 set_dependency("logistic_reg", "glm", "stats")
 
 set_fit(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glm",
   mode = "classification",
   value = list(
@@ -20,7 +20,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glm",
   mode = "classification",
   type = "class",
@@ -38,7 +38,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glm",
   mode = "classification",
   type = "prob",
@@ -60,7 +60,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glm",
   mode = "classification",
   type = "raw",
@@ -77,7 +77,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glm",
   mode = "classification",
   type = "conf_int",
@@ -122,7 +122,7 @@ set_model_engine("logistic_reg", "classification", "glmnet")
 set_dependency("logistic_reg", "glmnet", "glmnet")
 
 set_model_arg(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   val = "penalty",
   original = "lambda",
@@ -131,7 +131,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   val = "mixture",
   original = "alpha",
@@ -140,7 +140,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   mode = "classification",
   value = list(
@@ -153,7 +153,7 @@ set_fit(
 
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   mode = "classification",
   type = "class",
@@ -172,7 +172,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   mode = "classification",
   type = "prob",
@@ -191,7 +191,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "glmnet",
   mode = "classification",
   type = "raw",
@@ -213,7 +213,7 @@ set_model_engine("logistic_reg", "classification", "spark")
 set_dependency("logistic_reg", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "spark",
   val = "penalty",
   original = "reg_param",
@@ -222,7 +222,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "spark",
   val = "mixture",
   original = "elastic_net_param",
@@ -231,7 +231,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -246,7 +246,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -263,7 +263,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "spark",
   mode = "classification",
   type = "prob",
@@ -287,7 +287,7 @@ set_dependency("logistic_reg", "keras", "keras")
 set_dependency("logistic_reg", "keras", "magrittr")
 
 set_model_arg(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "keras",
   val = "decay",
   original = "decay",
@@ -296,7 +296,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "keras",
   mode = "classification",
   value = list(
@@ -308,7 +308,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "keras",
   mode = "classification",
   type = "class",
@@ -327,7 +327,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "keras",
   mode = "classification",
   type = "prob",
@@ -354,7 +354,7 @@ set_model_engine("logistic_reg", "regression", "stan")
 set_dependency("logistic_reg", "stan", "rstanarm")
 
 set_fit(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   value = list(
@@ -366,7 +366,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   type = "class",
@@ -387,7 +387,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   type = "prob",
@@ -410,7 +410,7 @@ set_pred(
 
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   type = "raw",
@@ -427,7 +427,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   type = "conf_int",
@@ -472,7 +472,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "logistic_reg",
+  model = "logistic_reg",
   eng = "stan",
   mode = "classification",
   type = "pred_int",

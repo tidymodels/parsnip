@@ -12,7 +12,7 @@ set_dependency("mlp", "keras", "keras")
 set_dependency("mlp", "keras", "magrittr")
 
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   val = "hidden_units",
   original = "hidden_units",
@@ -20,7 +20,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   val = "penalty",
   original = "penalty",
@@ -28,7 +28,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   val = "dropout",
   original = "dropout",
@@ -36,7 +36,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   val = "epochs",
   original = "epochs",
@@ -44,7 +44,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   val = "activation",
   original = "activation",
@@ -54,7 +54,7 @@ set_model_arg(
 
 
 set_fit(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "regression",
   value = list(
@@ -66,7 +66,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "classification",
   value = list(
@@ -78,7 +78,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "regression",
   type = "numeric",
@@ -95,7 +95,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "regression",
   type = "raw",
@@ -113,7 +113,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "classification",
   type = "class",
@@ -132,7 +132,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "classification",
   type = "prob",
@@ -153,7 +153,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "keras",
   mode = "classification",
   type = "raw",
@@ -176,7 +176,7 @@ set_model_engine("mlp", "regression", "nnet")
 set_dependency("mlp", "nnet", "nnet")
 
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   val = "hidden_units",
   original = "size",
@@ -184,7 +184,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   val = "penalty",
   original = "decay",
@@ -192,7 +192,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_model_arg(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   val = "epochs",
   original = "maxit",
@@ -200,7 +200,7 @@ set_model_arg(
   submodels = FALSE
 )
 set_fit(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "regression",
   value = list(
@@ -212,7 +212,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "classification",
   value = list(
@@ -224,7 +224,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "regression",
   type = "numeric",
@@ -242,7 +242,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "regression",
   type = "raw",
@@ -260,7 +260,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "classification",
   type = "class",
@@ -278,7 +278,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "classification",
   type = "prob",
@@ -296,7 +296,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "mlp",
+  model = "mlp",
   eng = "nnet",
   mode = "classification",
   type = "raw",

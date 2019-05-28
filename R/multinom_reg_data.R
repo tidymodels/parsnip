@@ -8,7 +8,7 @@ set_model_engine("multinom_reg", "classification", "glmnet")
 set_dependency("multinom_reg", "glmnet", "glmnet")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   val = "penalty",
   original = "lambda",
@@ -17,7 +17,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   val = "mixture",
   original = "alpha",
@@ -26,7 +26,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   value = list(
@@ -39,7 +39,7 @@ set_fit(
 
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "class",
@@ -58,7 +58,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "prob",
@@ -77,7 +77,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "raw",
@@ -99,7 +99,7 @@ set_model_engine("multinom_reg", "classification", "spark")
 set_dependency("multinom_reg", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   val = "penalty",
   original = "reg_param",
@@ -108,7 +108,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   val = "mixture",
   original = "elastic_net_param",
@@ -117,7 +117,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -129,7 +129,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -147,7 +147,7 @@ set_pred(
 
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   type = "prob",
@@ -171,7 +171,7 @@ set_dependency("multinom_reg", "keras", "keras")
 set_dependency("multinom_reg", "keras", "magrittr")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   val = "decay",
   original = "decay",
@@ -181,7 +181,7 @@ set_model_arg(
 
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   value = list(
@@ -193,7 +193,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   type = "class",
@@ -210,7 +210,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   type = "prob",

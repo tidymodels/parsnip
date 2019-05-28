@@ -144,8 +144,8 @@ is_spark <- function(x)
   isTRUE(unname(x$method$fit$func["pkg"] == "sparklyr"))
 
 
-show_fit <- function(mod, eng) {
-  mod <- translate(x = mod, engine = eng)
+show_fit <- function(model, eng) {
+  mod <- translate(x = model, engine = eng)
   fit_call <- show_call(mod)
   call_text <-  deparse(fit_call)
   call_text <- paste0(call_text, collapse = "\n")

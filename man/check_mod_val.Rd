@@ -12,7 +12,7 @@
 \alias{check_pkg_val}
 \title{Tools to Check Model Elements}
 \usage{
-check_mod_val(mod, new = FALSE, existence = FALSE)
+check_mod_val(model, new = FALSE, existence = FALSE)
 
 check_mode_val(mode)
 
@@ -31,7 +31,7 @@ check_pred_info(x, type)
 check_pkg_val(x)
 }
 \arguments{
-\item{mod}{A single character string for the model type (e.g.
+\item{model}{A single character string for the model type (e.g.
 \code{"rand_forest"}, etc).}
 
 \item{new}{A single logical to check to see if the model that you are check

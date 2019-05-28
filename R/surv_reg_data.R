@@ -9,7 +9,7 @@ set_dependency("surv_reg", "flexsurv", "flexsurv")
 set_dependency("surv_reg", "flexsurv", "survival")
 
 set_model_arg(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "flexsurv",
   val = "dist",
   original = "dist",
@@ -18,7 +18,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "flexsurv",
   mode = "regression",
   value = list(
@@ -30,7 +30,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "flexsurv",
   mode = "regression",
   type = "numeric",
@@ -48,7 +48,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "flexsurv",
   mode = "regression",
   type = "quantile",
@@ -72,7 +72,7 @@ set_model_engine("surv_reg", "regression", "survival")
 set_dependency("surv_reg", "survival", "survival")
 
 set_model_arg(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "survival",
   val = "dist",
   original = "dist",
@@ -81,7 +81,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "survival",
   mode = "regression",
   value = list(
@@ -93,7 +93,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "survival",
   mode = "regression",
   type = "numeric",
@@ -111,7 +111,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "surv_reg",
+  model = "surv_reg",
   eng = "survival",
   mode = "regression",
   type = "quantile",

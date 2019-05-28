@@ -8,7 +8,7 @@ set_model_engine("linear_reg", "regression", "lm")
 set_dependency("linear_reg", "lm", "stats")
 
 set_fit(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "lm",
   mode = "regression",
   value = list(
@@ -20,7 +20,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "lm",
   mode = "regression",
   type = "numeric",
@@ -38,7 +38,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "lm",
   mode = "regression",
   type = "conf_int",
@@ -61,7 +61,7 @@ set_pred(
   )
 )
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "lm",
   mode = "regression",
   type = "pred_int",
@@ -85,7 +85,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "lm",
   mode = "regression",
   type = "raw",
@@ -103,7 +103,7 @@ set_model_engine("linear_reg", "regression", "glmnet")
 set_dependency("linear_reg", "glmnet", "glmnet")
 
 set_model_arg(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "glmnet",
   val = "penalty",
   original = "lambda",
@@ -112,7 +112,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "glmnet",
   val = "mixture",
   original = "alpha",
@@ -121,7 +121,7 @@ set_model_arg(
 )
 
 set_fit(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
   value = list(
@@ -133,7 +133,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
   type = "numeric",
@@ -152,7 +152,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
   type = "raw",
@@ -172,7 +172,7 @@ set_model_engine("linear_reg", "regression", "stan")
 set_dependency("linear_reg", "stan", "rstanarm")
 
 set_fit(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "stan",
   mode = "regression",
   value = list(
@@ -184,7 +184,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "stan",
   mode = "regression",
   type = "numeric",
@@ -197,7 +197,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "stan",
   mode = "regression",
   type = "conf_int",
@@ -234,7 +234,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "stan",
   mode = "regression",
   type = "pred_int",
@@ -270,7 +270,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "stan",
   mode = "regression",
   type = "raw",
@@ -288,7 +288,7 @@ set_model_engine("linear_reg", "regression", "spark")
 set_dependency("linear_reg", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "spark",
   val = "penalty",
   original = "reg_param",
@@ -297,7 +297,7 @@ set_model_arg(
 )
 
 set_model_arg(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "spark",
   val = "mixture",
   original = "elastic_net_param",
@@ -307,7 +307,7 @@ set_model_arg(
 
 
 set_fit(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "spark",
   mode = "regression",
   value = list(
@@ -319,7 +319,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "spark",
   mode = "regression",
   type = "numeric",
@@ -343,7 +343,7 @@ set_dependency("linear_reg", "keras", "keras")
 set_dependency("linear_reg", "keras", "magrittr")
 
 set_fit(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "keras",
   mode = "regression",
   value = list(
@@ -355,7 +355,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "linear_reg",
+  model = "linear_reg",
   eng = "keras",
   mode = "regression",
   type = "numeric",
