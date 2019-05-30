@@ -90,8 +90,21 @@ get_model_env <- function() {
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
 #'  above, depending on context.
 #' @keywords internal
+#' @details These functions are available for users to add their
+#'  own models or engines (in package or otherwise) so that they can
+#'  be accessed using `parsnip`. This are more thoroughly documented
+#'  on the package web site (see references below).
+#'
+#' In short, `parsnip` stores an environment object that contains
+#'  all of the information and code about how models are used (e.g.
+#'  fitting, predicting, etc). These functions can be used to add
+#'  models to that environment as well as helper functions that can
+#'  be used to makes sure that the model data is in the right
+#'  format.
+#' @references "Making a parsnip model from scratch"
+#'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
 #' @examples
-#' # Show the infomration about a model:
+#' # Show the information about a model:
 #' show_model_info("rand_forest")
 #'
 #' # Access the model data:
