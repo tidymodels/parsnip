@@ -89,4 +89,14 @@ These functions are similar to constructors and can be used to validate
 that there are no conflicts with the underlying model structures used by the
 package.
 }
+\examples{
+# Show the infomration about a model:
+show_model_info("rand_forest")
+
+# Access the model data:
+
+current_code <- get_model_env()
+ls(envir = current_code)
+
+}
 \keyword{internal}

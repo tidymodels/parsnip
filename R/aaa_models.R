@@ -90,9 +90,18 @@ get_model_env <- function() {
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
 #'  above, depending on context.
 #' @keywords internal
+#' @examples
+#' # Show the infomration about a model:
+#' show_model_info("rand_forest")
+#'
+#' # Access the model data:
+#'
+#' current_code <- get_model_env()
+#' ls(envir = current_code)
+#'
 #' @export
 check_mod_val <- function(model, new = FALSE, existence = FALSE) {
-  if (is_missing(model) || length(model) != 1)
+  if (rlang::is_missing(model) || length(model) != 1)
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
 
@@ -120,7 +129,7 @@ check_mod_val <- function(model, new = FALSE, existence = FALSE) {
 #' @keywords internal
 #' @export
 check_mode_val <- function(mode) {
-  if (is_missing(mode) || length(mode) != 1)
+  if (rlang::is_missing(mode) || length(mode) != 1)
     stop("Please supply a character string for a mode (e.g. `'regression'`)",
          call. = FALSE)
   invisible(NULL)
@@ -130,7 +139,7 @@ check_mode_val <- function(mode) {
 #' @keywords internal
 #' @export
 check_engine_val <- function(eng) {
-  if (is_missing(eng) || length(eng) != 1)
+  if (rlang::is_missing(eng) || length(eng) != 1)
     stop("Please supply a character string for an engine (e.g. `'lm'`)",
          call. = FALSE)
   invisible(NULL)
@@ -140,7 +149,7 @@ check_engine_val <- function(eng) {
 #' @keywords internal
 #' @export
 check_arg_val <- function(arg) {
-  if (is_missing(arg) || length(arg) != 1)
+  if (rlang::is_missing(arg) || length(arg) != 1)
     stop("Please supply a character string for the argument",
          call. = FALSE)
   invisible(NULL)
@@ -166,7 +175,7 @@ check_func_val <- function(func) {
       "element 'pkg'. These should both be single character strings."
     )
 
-  if (is_missing(func) || !is.vector(func) || length(func) > 2)
+  if (rlang::is_missing(func) || !is.vector(func) || length(func) > 2)
     stop(msg, call. = FALSE)
 
   nms <- sort(names(func))
@@ -266,7 +275,7 @@ check_pred_info <- function(pred_obj, type) {
 #' @keywords internal
 #' @export
 check_pkg_val <- function(pkg) {
-  if (is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
+  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
     stop("Please supply a single character vale for the package name",
          call. = FALSE)
   invisible(NULL)
@@ -609,7 +618,7 @@ show_model_info <- function(model) {
   cat(
     " modes:",
     paste0(current[[paste0(model, "_modes")]], collapse = ", "),
-    "\n"
+    "\n\n"
   )
 
   engines <- current[[paste0(model)]]
@@ -629,6 +638,7 @@ show_model_info <- function(model) {
       dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
+    cat("\n")
   } else {
     cat(" no registered engines yet.")
   }
@@ -652,16 +662,39 @@ show_model_info <- function(model) {
       dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
+    cat("\n")
   } else {
     cat(" no registered arguments yet.")
   }
 
-  fits <- current[[paste0(model, "_fits")]]
+  fits <- current[[paste0(model, "_fit")]]
   if (nrow(fits) > 0) {
-
+    cat(" fit modules:\n")
+    fits %>%
+      dplyr::select(-value) %>%
+      mutate(engine = paste0("  ", engine)) %>%
+      as.data.frame() %>%
+      print(row.names = FALSE)
+    cat("\n")
   } else {
     cat(" no registered fit modules yet.")
   }
+
+  preds <- current[[paste0(model, "_predict")]]
+  if (nrow(preds) > 0) {
+    cat(" prediction modules:\n")
+    preds %>%
+      dplyr::group_by(mode, engine) %>%
+      dplyr::summarize(methods = paste0(sort(type), collapse = ", ")) %>%
+      dplyr::ungroup() %>%
+      mutate(mode = paste0("  ", mode)) %>%
+      as.data.frame() %>%
+      print(row.names = FALSE)
+    cat("\n")
+  } else {
+    cat(" no registered prediction modules yet.")
+  }
+
 
   invisible(NULL)
 }
