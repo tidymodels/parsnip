@@ -41,7 +41,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
-    protect = c("formula", "data", "ks"),
+    protect = c("formula", "data"),
     func = c(pkg = "kknn", fun = "train.kknn"),
     defaults = list()
   )
@@ -53,7 +53,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data", "ks"),
+    protect = c("formula", "data"),
     func = c(pkg = "kknn", fun = "train.kknn"),
     defaults = list()
   )

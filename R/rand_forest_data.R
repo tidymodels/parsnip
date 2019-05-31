@@ -199,6 +199,24 @@ set_pred(
   model = "rand_forest",
   eng = "ranger",
   mode = "classification",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "ranger_confint"),
+    args =
+      list(
+        object = quote(object),
+        new_data = quote(new_data),
+        seed = expr(sample.int(10^5, 1))
+      )
+  )
+)
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
   type = "raw",
   value = list(
     pre = NULL,
@@ -234,6 +252,24 @@ set_pred(
   )
 )
 
+
+set_pred(
+  mod = "rand_forest",
+  eng = "ranger",
+  mode = "regression",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "ranger_confint"),
+    args =
+      list(
+        object = quote(object),
+        new_data = quote(new_data),
+        seed = expr(sample.int(10^5, 1))
+      )
+  )
+)
 set_pred(
   model = "rand_forest",
   eng = "ranger",
