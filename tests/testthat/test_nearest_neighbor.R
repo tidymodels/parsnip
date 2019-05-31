@@ -18,11 +18,11 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = expr(missing_arg())
+      ks = 5
     )
   )
 
-  neighbors <- nearest_neighbor(mode = "classification", neighbors = 5)
+  neighbors <- nearest_neighbor(mode = "classification", neighbors = 2)
   neighbors_kknn <- translate(neighbors %>% set_engine("kknn"))
 
   expect_equal(
@@ -30,7 +30,7 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = new_empty_quosure(5)
+      ks = new_empty_quosure(2)
     )
   )
 
@@ -42,7 +42,7 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = expr(missing_arg()),
+      ks = 5,
       kernel = new_empty_quosure("triangular")
     )
   )
@@ -55,7 +55,7 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = expr(missing_arg()),
+      ks = 5,
       distance = new_empty_quosure(2)
     )
   )

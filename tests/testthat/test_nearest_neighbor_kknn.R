@@ -63,6 +63,7 @@ test_that('kknn execution', {
 test_that('kknn prediction', {
 
   skip_if_not_installed("kknn")
+  library(kknn)
 
   # continuous
   res_xy <- fit_xy(
