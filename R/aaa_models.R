@@ -108,7 +108,6 @@ get_model_env <- function() {
 #' show_model_info("rand_forest")
 #'
 #' # Access the model data:
-#'
 #' current_code <- get_model_env()
 #' ls(envir = current_code)
 #'
@@ -653,7 +652,7 @@ show_model_info <- function(model) {
       cat(sep = "")
     cat("\n")
   } else {
-    cat(" no registered engines yet.")
+    cat(" no registered engines.\n\n")
   }
 
   args <- current[[paste0(model, "_args")]]
@@ -677,7 +676,7 @@ show_model_info <- function(model) {
       cat(sep = "")
     cat("\n")
   } else {
-    cat(" no registered arguments yet.")
+    cat(" no registered arguments.\n\n")
   }
 
   fits <- current[[paste0(model, "_fit")]]
@@ -690,7 +689,7 @@ show_model_info <- function(model) {
       print(row.names = FALSE)
     cat("\n")
   } else {
-    cat(" no registered fit modules yet.")
+    cat(" no registered fit modules.\n\n")
   }
 
   preds <- current[[paste0(model, "_predict")]]
@@ -705,7 +704,7 @@ show_model_info <- function(model) {
       print(row.names = FALSE)
     cat("\n")
   } else {
-    cat(" no registered prediction modules yet.")
+    cat(" no registered prediction modules.\n\n")
   }
 
 
