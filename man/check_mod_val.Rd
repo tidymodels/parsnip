@@ -107,7 +107,6 @@ format.
 show_model_info("rand_forest")
 
 # Access the model data:
-
 current_code <- get_model_env()
 ls(envir = current_code)
 

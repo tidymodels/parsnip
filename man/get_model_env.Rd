@@ -13,6 +13,7 @@
 \alias{set_pred}
 \alias{get_pred_type}
 \alias{show_model_info}
+\alias{get_from_env}
 \title{Tools to Register Models}
 \usage{
 get_model_env()
@@ -38,6 +39,11 @@ set_pred(model, mode, eng, type, value)
 get_pred_type(model, type)
 
 show_model_info(model)
+
+get_from_env(items)
+}
+\arguments{
+\item{items}{A character string of objects in the model environment.}
 }
 \description{
 Tools to Register Models
