@@ -17,27 +17,27 @@
 \usage{
 get_model_env()
 
-set_new_model(mod)
+set_new_model(model)
 
-set_model_mode(mod, mode)
+set_model_mode(model, mode)
 
-set_model_engine(mod, mode, eng)
+set_model_engine(model, mode, eng)
 
-set_model_arg(mod, eng, val, original, func, submodels)
+set_model_arg(model, eng, parsnip, original, func, has_submodel)
 
-set_dependency(mod, eng, pkg)
+set_dependency(model, eng, pkg)
 
-get_dependency(mod)
+get_dependency(model)
 
-set_fit(mod, mode, eng, value)
+set_fit(model, mode, eng, value)
 
-get_fit(mod)
+get_fit(model)
 
-set_pred(mod, mode, eng, type, value)
+set_pred(model, mode, eng, type, value)
 
-get_pred_type(mod, type)
+get_pred_type(model, type)
 
-show_model_info(mod)
+show_model_info(model)
 }
 \description{
 Tools to Register Models

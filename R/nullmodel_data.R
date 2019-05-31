@@ -10,7 +10,7 @@ set_model_engine("null_model", "regression", "parsnip")
 set_dependency("null_model", "parsnip", "parsnip")
 
 set_fit(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "regression",
   value = list(
@@ -22,7 +22,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "classification",
   value = list(
@@ -34,7 +34,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "regression",
   type = "numeric",
@@ -52,7 +52,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "regression",
   type = "raw",
@@ -70,7 +70,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "classification",
   type = "class",
@@ -88,7 +88,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "classification",
   type = "prob",
@@ -109,7 +109,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "null_model",
+  model = "null_model",
   eng = "parsnip",
   mode = "classification",
   type = "raw",

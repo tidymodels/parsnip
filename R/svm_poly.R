@@ -44,11 +44,11 @@
 #'
 #' \pkg{kernlab} classification
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "classification"), "kernlab")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "classification"), "kernlab")}
 #'
 #' \pkg{kernlab} regression
 #'
-# \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [varying()], [fit()]

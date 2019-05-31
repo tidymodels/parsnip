@@ -30,6 +30,9 @@ parsnip$modes <- c("regression", "classification", "unknown")
 
 # ------------------------------------------------------------------------------
 
+#' @rdname check_mod_val
+#' @keywords internal
+#' @export
 pred_types <-
   c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int", "quantile")
 
@@ -53,7 +56,7 @@ get_model_env <- function() {
 #'  that there are no conflicts with the underlying model structures used by the
 #'  package.
 #'
-#' @param mod A single character string for the model type (e.g.
+#' @param model A single character string for the model type (e.g.
 #'  `"rand_forest"`, etc).
 #' @param new A single logical to check to see if the model that you are check
 #'  has not already been registered.
@@ -62,10 +65,55 @@ get_model_env <- function() {
 #' @param mode A single character string for the model mode (e.g. "regression").
 #' @param eng A single character string for the model engine.
 #' @param arg A single character string for the model argument name.
+#' @param has_submodel A single logical for whether the argument
+#'  can make predictions on mutiple submodels at once.
+#' @param func A named character vector that describes how to call
+#'  a function. `func` should have elements `pkg` and `fun`. The
+#'  former is optional but is recommended and the latter is
+#'  required. For example, `c(pkg = "stats", fun = "lm")` would be
+#'  used to invoke the usual linear regression function. In some
+#'  cases, it is helpful to use `c(fun = "predict")` when using a
+#'  package's `predict` method.
+#' @param fit_obj A list with elements `interface`, `protect`,
+#'  `func` and `defaults`. See the package vignette "Making a
+#'  `parsnip` model from scratch".
+#' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
+#'  See the package vignette "Making a `parsnip` model from scratch".
+#' @param type A single character value for the type of prediction. Possible
+#'  values are:
+#'  \Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.
+#' @param pkg An options character string for a package name.
+#' @param parsnip A single character string for the "harmonized" argument name
+#'  that `parsnip` exposes.
+#' @param original A single character string for the argument name that
+#'  underlying model function uses.
+#' @param value A list that conforms to the `fit_obj` or `pred_obj` description
+#'  above, depending on context.
 #' @keywords internal
+#' @details These functions are available for users to add their
+#'  own models or engines (in package or otherwise) so that they can
+#'  be accessed using `parsnip`. This are more thoroughly documented
+#'  on the package web site (see references below).
+#'
+#' In short, `parsnip` stores an environment object that contains
+#'  all of the information and code about how models are used (e.g.
+#'  fitting, predicting, etc). These functions can be used to add
+#'  models to that environment as well as helper functions that can
+#'  be used to makes sure that the model data is in the right
+#'  format.
+#' @references "Making a parsnip model from scratch"
+#'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+#' @examples
+#' # Show the information about a model:
+#' show_model_info("rand_forest")
+#'
+#' # Access the model data:
+#' current_code <- get_model_env()
+#' ls(envir = current_code)
+#'
 #' @export
-check_mod_val <- function(mod, new = FALSE, existence = FALSE) {
-  if (is_missing(mod) || length(mod) != 1)
+check_mod_val <- function(model, new = FALSE, existence = FALSE) {
+  if (rlang::is_missing(model) || length(model) != 1)
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
 
@@ -74,15 +122,15 @@ check_mod_val <- function(mod, new = FALSE, existence = FALSE) {
   }
 
   if (new) {
-    if (any(current$models == mod)) {
-      stop("Model `", mod, "` already exists", call. = FALSE)
+    if (any(current$models == model)) {
+      stop("Model `", model, "` already exists", call. = FALSE)
     }
   }
 
   if (existence) {
     current <- get_model_env()
-    if (!any(current$models == mod)) {
-      stop("Model `", mod, "` has not been registered.", call. = FALSE)
+    if (!any(current$models == model)) {
+      stop("Model `", model, "` has not been registered.", call. = FALSE)
     }
   }
 
@@ -93,7 +141,7 @@ check_mod_val <- function(mod, new = FALSE, existence = FALSE) {
 #' @keywords internal
 #' @export
 check_mode_val <- function(mode) {
-  if (is_missing(mode) || length(mode) != 1)
+  if (rlang::is_missing(mode) || length(mode) != 1)
     stop("Please supply a character string for a mode (e.g. `'regression'`)",
          call. = FALSE)
   invisible(NULL)
@@ -103,7 +151,7 @@ check_mode_val <- function(mode) {
 #' @keywords internal
 #' @export
 check_engine_val <- function(eng) {
-  if (is_missing(eng) || length(eng) != 1)
+  if (rlang::is_missing(eng) || length(eng) != 1)
     stop("Please supply a character string for an engine (e.g. `'lm'`)",
          call. = FALSE)
   invisible(NULL)
@@ -113,7 +161,7 @@ check_engine_val <- function(eng) {
 #' @keywords internal
 #' @export
 check_arg_val <- function(arg) {
-  if (is_missing(arg) || length(arg) != 1)
+  if (rlang::is_missing(arg) || length(arg) != 1)
     stop("Please supply a character string for the argument",
          call. = FALSE)
   invisible(NULL)
@@ -122,8 +170,8 @@ check_arg_val <- function(arg) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_submodels_val <- function(x) {
-  if (!is.logical(x) || length(x) != 1) {
+check_submodels_val <- function(has_submodel) {
+  if (!is.logical(has_submodel) || length(has_submodel) != 1) {
     stop("The `submodels` argument should be a single logical.", call. = FALSE)
   }
   invisible(NULL)
@@ -139,7 +187,7 @@ check_func_val <- function(func) {
       "element 'pkg'. These should both be single character strings."
     )
 
-  if (is_missing(func) || !is.vector(func) || length(func) > 2)
+  if (rlang::is_missing(func) || !is.vector(func) || length(func) > 2)
     stop(msg, call. = FALSE)
 
   nms <- sort(names(func))
@@ -169,31 +217,31 @@ check_func_val <- function(func) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_fit_info <- function(x) {
-  if (is.null(x)) {
+check_fit_info <- function(fit_obj) {
+  if (is.null(fit_obj)) {
     stop("The `fit` module cannot be NULL.", call. = FALSE)
   }
   exp_nms <- c("defaults", "func", "interface", "protect")
-  if (!isTRUE(all.equal(sort(names(x)), exp_nms))) {
+  if (!isTRUE(all.equal(sort(names(fit_obj)), exp_nms))) {
     stop("The `fit` module should have elements: ",
          paste0("`", exp_nms, "`", collapse = ", "),
          call. = FALSE)
   }
 
   exp_interf <- c("data.frame", "formula", "matrix")
-  if (length(x$interface) > 1) {
+  if (length(fit_obj$interface) > 1) {
     stop("The `interface` element should have a single value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
   }
-  if (!any(x$interface == exp_interf)) {
+  if (!any(fit_obj$interface == exp_interf)) {
     stop("The `interface` element should have a value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
   }
-  check_func_val(x$func)
+  check_func_val(fit_obj$func)
 
-  if (!is.list(x$defaults)) {
+  if (!is.list(fit_obj$defaults)) {
     stop("The `defaults` element should be a list: ", call. = FALSE)
   }
 
@@ -203,7 +251,7 @@ check_fit_info <- function(x) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_pred_info <- function(x, type) {
+check_pred_info <- function(pred_obj, type) {
   if (all(type != pred_types)) {
     stop("The prediction type should be one of: ",
          paste0("'", pred_types, "'", collapse = ", "),
@@ -211,24 +259,24 @@ check_pred_info <- function(x, type) {
   }
 
   exp_nms <- c("args", "func", "post", "pre")
-  if (!isTRUE(all.equal(sort(names(x)), exp_nms))) {
+  if (!isTRUE(all.equal(sort(names(pred_obj)), exp_nms))) {
     stop("The `predict` module should have elements: ",
          paste0("`", exp_nms, "`", collapse = ", "),
          call. = FALSE)
   }
 
-  if (!is.null(x$pre) & !is.function(x$pre)) {
+  if (!is.null(pred_obj$pre) & !is.function(pred_obj$pre)) {
     stop("The `pre` module should be null or a function: ",
          call. = FALSE)
   }
-  if (!is.null(x$post) & !is.function(x$post)) {
+  if (!is.null(pred_obj$post) & !is.function(pred_obj$post)) {
     stop("The `post` module should be null or a function: ",
          call. = FALSE)
   }
 
-  check_func_val(x$func)
+  check_func_val(pred_obj$func)
 
-  if (!is.list(x$args)) {
+  if (!is.list(pred_obj$args)) {
     stop("The `args` element should be a list. ", call. = FALSE)
   }
 
@@ -238,8 +286,8 @@ check_pred_info <- function(x, type) {
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
-check_pkg_val <- function(x) {
-  if (is_missing(x) || length(x) != 1 || !is.character(x))
+check_pkg_val <- function(pkg) {
+  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
     stop("Please supply a single character vale for the package name",
          call. = FALSE)
   invisible(NULL)
@@ -250,29 +298,29 @@ check_pkg_val <- function(x) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_new_model <- function(mod) {
-  check_mod_val(mod, new = TRUE)
+set_new_model <- function(model) {
+  check_mod_val(model, new = TRUE)
 
   current <- get_model_env()
 
-  current$models <- c(current$models, mod)
-  current[[mod]] <- dplyr::tibble(engine = character(0), mode = character(0))
-  current[[paste0(mod, "_pkgs")]] <- dplyr::tibble(engine = character(0), pkg = list())
-  current[[paste0(mod, "_modes")]] <- "unknown"
-  current[[paste0(mod, "_args")]] <-
+  current$models <- c(current$models, model)
+  current[[model]] <- dplyr::tibble(engine = character(0), mode = character(0))
+  current[[paste0(model, "_pkgs")]] <- dplyr::tibble(engine = character(0), pkg = list())
+  current[[paste0(model, "_modes")]] <- "unknown"
+  current[[paste0(model, "_args")]] <-
     dplyr::tibble(
       engine = character(0),
       parsnip = character(0),
       original = character(0),
       func = list()
     )
-  current[[paste0(mod, "_fit")]] <-
+  current[[paste0(model, "_fit")]] <-
     dplyr::tibble(
       engine = character(0),
       mode = character(0),
       value = list()
     )
-  current[[paste0(mod, "_predict")]] <-
+  current[[paste0(model, "_predict")]] <-
     dplyr::tibble(
       engine = character(0),
       mode = character(0),
@@ -288,8 +336,8 @@ set_new_model <- function(mod) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_model_mode <- function(mod, mode) {
-  check_mod_val(mod, existence = TRUE)
+set_model_mode <- function(model, mode) {
+  check_mod_val(model, existence = TRUE)
   check_mode_val(mode)
 
   current <- get_model_env()
@@ -297,8 +345,8 @@ set_model_mode <- function(mod, mode) {
   if (!any(current$modes == mode)) {
     current$modes <- unique(c(current$modes, mode))
   }
-  current[[paste0(mod, "_modes")]] <-
-    unique(c(current[[paste0(mod, "_modes")]], mode))
+  current[[paste0(model, "_modes")]] <-
+    unique(c(current[[paste0(model, "_modes")]], mode))
 
   invisible(NULL)
 }
@@ -308,21 +356,21 @@ set_model_mode <- function(mod, mode) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_model_engine <- function(mod, mode, eng) {
-  check_mod_val(mod, existence = TRUE)
+set_model_engine <- function(model, mode, eng) {
+  check_mod_val(model, existence = TRUE)
   check_mode_val(mode)
   check_mode_val(eng)
 
   current <- get_model_env()
 
   new_eng <- dplyr::tibble(engine = eng, mode = mode)
-  old_eng <- current[[mod]]
+  old_eng <- current[[model]]
   engs <-
     old_eng %>%
     dplyr::bind_rows(new_eng) %>%
     dplyr::distinct()
 
-  current[[mod]] <- engs
+  current[[model]] <- engs
 
   invisible(NULL)
 }
@@ -333,23 +381,23 @@ set_model_engine <- function(mod, mode, eng) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_model_arg <- function(mod, eng, val, original, func, submodels) {
-  check_mod_val(mod, existence = TRUE)
-  check_arg_val(val)
+set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
+  check_mod_val(model, existence = TRUE)
+  check_arg_val(parsnip)
   check_arg_val(original)
   check_func_val(func)
-  check_submodels_val(submodels)
+  check_submodels_val(has_submodel)
 
   current <- get_model_env()
-  old_args <- current[[paste0(mod, "_args")]]
+  old_args <- current[[paste0(model, "_args")]]
 
   new_arg <-
     dplyr::tibble(
       engine = eng,
-      parsnip = val,
+      parsnip = parsnip,
       original = original,
       func = list(func),
-      submodels = submodels
+      has_submodel = has_submodel
     )
 
   # TODO cant currently use `distinct()` on a list column.
@@ -359,9 +407,9 @@ set_model_arg <- function(mod, eng, val, original, func, submodels) {
     stop("An error occured when adding the new argument.", call. = FALSE)
   }
 
-  updated <- dplyr::distinct(updated, engine, parsnip, original, submodels)
+  updated <- dplyr::distinct(updated, engine, parsnip, original, has_submodel)
 
-  current[[paste0(mod, "_args")]] <- updated
+  current[[paste0(model, "_args")]] <- updated
 
   invisible(NULL)
 }
@@ -372,13 +420,13 @@ set_model_arg <- function(mod, eng, val, original, func, submodels) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_dependency <- function(mod, eng, pkg) {
-  check_mod_val(mod, existence = TRUE)
+set_dependency <- function(model, eng, pkg) {
+  check_mod_val(model, existence = TRUE)
   check_pkg_val(pkg)
 
   current <- get_model_env()
-  model_info <- current[[mod]]
-  pkg_info <- current[[paste0(mod, "_pkgs")]]
+  model_info <- current[[model]]
+  pkg_info <- current[[paste0(model, "_pkgs")]]
 
   has_engine <-
     model_info %>%
@@ -387,7 +435,7 @@ set_dependency <- function(mod, eng, pkg) {
     nrow()
   if (has_engine != 1) {
     stop("The engine '", eng, "' has not been registered for model '",
-         mod, "'. ", call. = FALSE)
+         model, "'. ", call. = FALSE)
   }
 
   existing_pkgs <-
@@ -407,7 +455,7 @@ set_dependency <- function(mod, eng, pkg) {
       dplyr::filter(engine != eng) %>%
       dplyr::bind_rows(existing_pkgs)
   }
-  current[[paste0(mod, "_pkgs")]] <- pkg_info
+  current[[paste0(model, "_pkgs")]] <- pkg_info
 
   invisible(NULL)
 }
@@ -415,11 +463,11 @@ set_dependency <- function(mod, eng, pkg) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-get_dependency <- function(mod) {
-  check_mod_val(mod, existence = TRUE)
-  pkg_name <- paste0(mod, "_pkgs")
+get_dependency <- function(model) {
+  check_mod_val(model, existence = TRUE)
+  pkg_name <- paste0(model, "_pkgs")
   if (!any(pkg_name != rlang::env_names(get_model_env()))) {
-    stop("`", mod, "` does not have a dependency list in parsnip.", call. = FALSE)
+    stop("`", model, "` does not have a dependency list in parsnip.", call. = FALSE)
   }
   rlang::env_get(get_model_env(), pkg_name)
 }
@@ -430,15 +478,15 @@ get_dependency <- function(mod) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_fit <- function(mod, mode, eng, value) {
-  check_mod_val(mod, existence = TRUE)
+set_fit <- function(model, mode, eng, value) {
+  check_mod_val(model, existence = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
   check_fit_info(value)
 
   current <- get_model_env()
-  model_info <- current[[paste0(mod)]]
-  old_fits <- current[[paste0(mod, "_fit")]]
+  model_info <- current[[paste0(model)]]
+  old_fits <- current[[paste0(model, "_fit")]]
 
   has_engine <-
     model_info %>%
@@ -447,7 +495,7 @@ set_fit <- function(mod, mode, eng, value) {
   if (has_engine != 1) {
     stop("set_fit The combination of engine '", eng, "' and mode '",
          mode, "' has not been registered for model '",
-         mod, "'. ", call. = FALSE)
+         model, "'. ", call. = FALSE)
   }
 
   has_fit <-
@@ -458,7 +506,7 @@ set_fit <- function(mod, mode, eng, value) {
   if (has_fit > 0) {
     stop("The combination of engine '", eng, "' and mode '",
          mode, "' already has a fit component for model '",
-         mod, "'. ", call. = FALSE)
+         model, "'. ", call. = FALSE)
   }
 
   new_fit <-
@@ -473,7 +521,7 @@ set_fit <- function(mod, mode, eng, value) {
     stop("An error occured when adding the new fit module", call. = FALSE)
   }
 
-  current[[paste0(mod, "_fit")]] <- updated
+  current[[paste0(model, "_fit")]] <- updated
 
   invisible(NULL)
 }
@@ -481,11 +529,11 @@ set_fit <- function(mod, mode, eng, value) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-get_fit <- function(mod) {
-  check_mod_val(mod, existence = TRUE)
-  fit_name <- paste0(mod, "_fit")
+get_fit <- function(model) {
+  check_mod_val(model, existence = TRUE)
+  fit_name <- paste0(model, "_fit")
   if (!any(fit_name != rlang::env_names(get_model_env()))) {
-    stop("`", mod, "` does not have a `fit` method in parsnip.", call. = FALSE)
+    stop("`", model, "` does not have a `fit` method in parsnip.", call. = FALSE)
   }
   rlang::env_get(get_model_env(), fit_name)
 }
@@ -495,15 +543,15 @@ get_fit <- function(mod) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-set_pred <- function(mod, mode, eng, type, value) {
-  check_mod_val(mod, existence = TRUE)
+set_pred <- function(model, mode, eng, type, value) {
+  check_mod_val(model, existence = TRUE)
   check_mode_val(mode)
   check_engine_val(eng)
   check_pred_info(value, type)
 
   current <- get_model_env()
-  model_info <- current[[paste0(mod)]]
-  old_fits <- current[[paste0(mod, "_predict")]]
+  model_info <- current[[paste0(model)]]
+  old_fits <- current[[paste0(model, "_predict")]]
 
   has_engine <-
     model_info %>%
@@ -512,7 +560,7 @@ set_pred <- function(mod, mode, eng, type, value) {
   if (has_engine != 1) {
     stop("The combination of engine '", eng, "' and mode '",
          mode, "' has not been registered for model '",
-         mod, "'. ", call. = FALSE)
+         model, "'. ", call. = FALSE)
   }
 
   has_pred <-
@@ -523,7 +571,7 @@ set_pred <- function(mod, mode, eng, type, value) {
     stop("The combination of engine '", eng, "', mode '",
          mode, "', and type '", type,
          "' already has a prediction component for model '",
-         mod, "'. ", call. = FALSE)
+         model, "'. ", call. = FALSE)
   }
 
   new_fit <-
@@ -539,7 +587,7 @@ set_pred <- function(mod, mode, eng, type, value) {
     stop("An error occured when adding the new fit module", call. = FALSE)
   }
 
-  current[[paste0(mod, "_predict")]] <- updated
+  current[[paste0(model, "_predict")]] <- updated
 
   invisible(NULL)
 }
@@ -547,15 +595,15 @@ set_pred <- function(mod, mode, eng, type, value) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-get_pred_type <- function(mod, type) {
-  check_mod_val(mod, existence = TRUE)
-  pred_name <- paste0(mod, "_predict")
+get_pred_type <- function(model, type) {
+  check_mod_val(model, existence = TRUE)
+  pred_name <- paste0(model, "_predict")
   if (!any(pred_name != rlang::env_names(get_model_env()))) {
-    stop("`", mod, "` does not have any `pred` methods in parsnip.", call. = FALSE)
+    stop("`", model, "` does not have any `pred` methods in parsnip.", call. = FALSE)
   }
   all_preds <- rlang::env_get(get_model_env(), pred_name)
   if (!any(all_preds$type == type)) {
-    stop("`", mod, "` does not have any `", type,
+    stop("`", model, "` does not have any `", type,
          "` prediction methods in parsnip.", call. = FALSE)
   }
   dplyr::filter(all_preds, type == !!type)
@@ -564,7 +612,7 @@ get_pred_type <- function(mod, type) {
 # ------------------------------------------------------------------------------
 
 #' @export
-validate_model <- function(mod) {
+validate_model <- function(model) {
   # check for consistency across engines, modes, args, etc
 }
 
@@ -573,19 +621,19 @@ validate_model <- function(mod) {
 #' @rdname get_model_env
 #' @keywords internal
 #' @export
-show_model_info <- function(mod) {
-  check_mod_val(mod, existence = TRUE)
+show_model_info <- function(model) {
+  check_mod_val(model, existence = TRUE)
   current <- get_model_env()
 
-  cat("Information for `", mod, "`\n", sep = "")
+  cat("Information for `", model, "`\n", sep = "")
 
   cat(
     " modes:",
-    paste0(current[[paste0(mod, "_modes")]], collapse = ", "),
-    "\n"
+    paste0(current[[paste0(model, "_modes")]], collapse = ", "),
+    "\n\n"
   )
 
-  engines <- current[[paste0(mod)]]
+  engines <- current[[paste0(model)]]
   if (nrow(engines) > 0) {
     cat(" engines: \n")
     engines %>%
@@ -602,11 +650,12 @@ show_model_info <- function(mod) {
       dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
+    cat("\n")
   } else {
-    cat(" no registered engines yet.")
+    cat(" no registered engines.\n\n")
   }
 
-  args <- current[[paste0(mod, "_args")]]
+  args <- current[[paste0(model, "_args")]]
   if (nrow(args) > 0) {
     cat(" arguments: \n")
     args %>%
@@ -625,16 +674,39 @@ show_model_info <- function(mod) {
       dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
+    cat("\n")
   } else {
-    cat(" no registered arguments yet.")
+    cat(" no registered arguments.\n\n")
   }
 
-  fits <- current[[paste0(mod, "_fits")]]
+  fits <- current[[paste0(model, "_fit")]]
   if (nrow(fits) > 0) {
-
+    cat(" fit modules:\n")
+    fits %>%
+      dplyr::select(-value) %>%
+      mutate(engine = paste0("  ", engine)) %>%
+      as.data.frame() %>%
+      print(row.names = FALSE)
+    cat("\n")
   } else {
-    cat(" no registered fit modules yet.")
+    cat(" no registered fit modules.\n\n")
   }
+
+  preds <- current[[paste0(model, "_predict")]]
+  if (nrow(preds) > 0) {
+    cat(" prediction modules:\n")
+    preds %>%
+      dplyr::group_by(mode, engine) %>%
+      dplyr::summarize(methods = paste0(sort(type), collapse = ", ")) %>%
+      dplyr::ungroup() %>%
+      mutate(mode = paste0("  ", mode)) %>%
+      as.data.frame() %>%
+      print(row.names = FALSE)
+    cat("\n")
+  } else {
+    cat(" no registered prediction modules.\n\n")
+  }
+
 
   invisible(NULL)
 }

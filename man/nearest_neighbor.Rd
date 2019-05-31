@@ -67,6 +67,8 @@ model fit call. For this type of
 model, the template of the fit calls are:
 
 \pkg{kknn} (classification or regression)
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(mode = "regression"), "kknn")}
 }
 
 \examples{

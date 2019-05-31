@@ -8,25 +8,25 @@ set_model_engine("multinom_reg", "classification", "glmnet")
 set_dependency("multinom_reg", "glmnet", "glmnet")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
-  val = "penalty",
+  parsnip = "penalty",
   original = "lambda",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
-  val = "mixture",
+  parsnip = "mixture",
   original = "alpha",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   value = list(
@@ -39,7 +39,7 @@ set_fit(
 
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "class",
@@ -58,7 +58,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "prob",
@@ -77,7 +77,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
   type = "raw",
@@ -99,25 +99,25 @@ set_model_engine("multinom_reg", "classification", "spark")
 set_dependency("multinom_reg", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
-  val = "penalty",
+  parsnip = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
-  val = "mixture",
+  parsnip = "mixture",
   original = "elastic_net_param",
   func = list(pkg = "dials", fun = "mixture"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -129,7 +129,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -147,7 +147,7 @@ set_pred(
 
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "spark",
   mode = "classification",
   type = "prob",
@@ -171,17 +171,17 @@ set_dependency("multinom_reg", "keras", "keras")
 set_dependency("multinom_reg", "keras", "magrittr")
 
 set_model_arg(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
-  val = "decay",
+  parsnip = "decay",
   original = "decay",
   func = list(pkg = "dials", fun = "weight_decay"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 
 set_fit(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   value = list(
@@ -193,7 +193,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   type = "class",
@@ -210,7 +210,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "multinom_reg",
+  model = "multinom_reg",
   eng = "keras",
   mode = "classification",
   type = "prob",

@@ -58,7 +58,7 @@ For \code{surv_reg()}, the mode will always be "regression".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"flexsurv"}, \code{"survreg"} (the default)
+\item \pkg{R}:  \code{"flexsurv"}, \code{"survival"} (the default)
 }
 }
 \section{Engine Details}{
@@ -70,7 +70,11 @@ model, the template of the fit calls are:
 
 \pkg{flexsurv}
 
-\pkg{survreg}
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
+
+\pkg{survival}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survival")}
 
 Note that \code{model = TRUE} is needed to produce quantile
 predictions when there is a stratification variable and can be

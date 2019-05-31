@@ -10,34 +10,34 @@ set_model_engine("decision_tree", "regression", "rpart")
 set_dependency("decision_tree", "rpart", "rpart")
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "maxdepth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
-  val = "min_n",
+  parsnip = "min_n",
   original = "minsplit",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
-  val = "cost_complexity",
+  parsnip = "cost_complexity",
   original = "cp",
   func = list(pkg = "dials", fun = "cost_complexity"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "regression",
   value = list(
@@ -49,7 +49,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "classification",
   value = list(
@@ -61,7 +61,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "regression",
   type = "numeric",
@@ -74,7 +74,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "regression",
   type = "raw",
@@ -87,7 +87,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "classification",
   type = "class",
@@ -105,7 +105,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "classification",
   type = "prob",
@@ -120,7 +120,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "rpart",
   mode = "classification",
   type = "raw",
@@ -138,16 +138,16 @@ set_model_engine("decision_tree", "classification", "C5.0")
 set_dependency("decision_tree", "C5.0", "C5.0")
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "C5.0",
-  val = "min_n",
+  parsnip = "min_n",
   original = "minCases",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "C5.0",
   mode = "classification",
   value = list(
@@ -159,7 +159,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "C5.0",
   mode = "classification",
   type = "class",
@@ -173,7 +173,7 @@ set_pred(
 
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "C5.0",
   mode = "classification",
   type = "prob",
@@ -194,7 +194,7 @@ set_pred(
 
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "C5.0",
   mode = "classification",
   type = "raw",
@@ -214,25 +214,25 @@ set_model_engine("decision_tree", "regression", "spark")
 set_dependency("decision_tree", "spark", "spark")
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "max_depth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_model_arg(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min_instances_per_node",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
   mode = "regression",
   value = list(
@@ -245,7 +245,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -258,7 +258,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
   mode = "regression",
   type = "numeric",
@@ -271,7 +271,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -284,7 +284,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "decision_tree",
+  model = "decision_tree",
   eng = "spark",
   mode = "classification",
   type = "prob",

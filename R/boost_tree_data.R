@@ -10,64 +10,64 @@ set_model_engine("boost_tree", "regression", "xgboost")
 set_dependency("boost_tree", "xgboost", "xgboost")
 
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "max_depth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "trees",
+  parsnip = "trees",
   original = "nrounds",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "learn_rate",
+  parsnip = "learn_rate",
   original = "eta",
   func = list(pkg = "dials", fun = "learn_rate"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "mtry",
+  parsnip = "mtry",
   original = "colsample_bytree",
   func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min_child_weight",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "loss_reduction",
+  parsnip = "loss_reduction",
   original = "gamma",
   func = list(pkg = "dials", fun = "loss_reduction"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
-  val = "sample_size",
+  parsnip = "sample_size",
   original = "subsample",
   func = list(pkg = "dials", fun = "sample_size"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "regression",
   value = list(
@@ -79,7 +79,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "regression",
   type = "numeric",
@@ -92,7 +92,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "regression",
   type = "raw",
@@ -105,7 +105,7 @@ set_pred(
 )
 
 set_fit(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "classification",
   value = list(
@@ -117,7 +117,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "classification",
   type = "class",
@@ -137,7 +137,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "classification",
   type = "prob",
@@ -158,7 +158,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "xgboost",
   mode = "classification",
   type = "raw",
@@ -176,32 +176,32 @@ set_model_engine("boost_tree", "classification", "C5.0")
 set_dependency("boost_tree", "C5.0", "C50")
 
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
-  val = "trees",
+  parsnip = "trees",
   original = "trials",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
-  val = "min_n",
+  parsnip = "min_n",
   original = "minCases",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
-  val = "sample_size",
+  parsnip = "sample_size",
   original = "sample",
   func = list(pkg = "dials", fun = "sample_size"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
   mode = "classification",
   value = list(
@@ -213,7 +213,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
   mode = "classification",
   type = "class",
@@ -226,7 +226,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
   mode = "classification",
   type = "prob",
@@ -246,7 +246,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "C5.0",
   mode = "classification",
   type = "raw",
@@ -266,64 +266,64 @@ set_model_engine("boost_tree", "regression", "spark")
 set_dependency("boost_tree", "spark", "sparklyr")
 
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "tree_depth",
+  parsnip = "tree_depth",
   original = "max_depth",
   func = list(pkg = "dials", fun = "tree_depth"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "trees",
+  parsnip = "trees",
   original = "max_iter",
   func = list(pkg = "dials", fun = "trees"),
-  submodels = TRUE
+  has_submodel = TRUE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "learn_rate",
+  parsnip = "learn_rate",
   original = "step_size",
   func = list(pkg = "dials", fun = "learn_rate"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "mtry",
+  parsnip = "mtry",
   original = "feature_subset_strategy",
   func = list(pkg = "dials", fun = "mtry"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "min_n",
+  parsnip = "min_n",
   original = "min_instances_per_node",
   func = list(pkg = "dials", fun = "min_n"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "min_info_gain",
+  parsnip = "min_info_gain",
   original = "gamma",
   func = list(pkg = "dials", fun = "loss_reduction"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 set_model_arg(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
-  val = "sample_size",
+  parsnip = "sample_size",
   original = "subsampling_rate",
   func = list(pkg = "dials", fun = "sample_size"),
-  submodels = FALSE
+  has_submodel = FALSE
 )
 
 set_fit(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
   mode = "regression",
   value = list(
@@ -335,7 +335,7 @@ set_fit(
 )
 
 set_fit(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
   mode = "classification",
   value = list(
@@ -347,7 +347,7 @@ set_fit(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
   mode = "regression",
   type = "numeric",
@@ -360,7 +360,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
   mode = "classification",
   type = "class",
@@ -373,7 +373,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "boost_tree",
+  model = "boost_tree",
   eng = "spark",
   mode = "classification",
   type = "prob",
