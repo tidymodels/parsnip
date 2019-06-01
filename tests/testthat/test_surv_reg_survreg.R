@@ -19,7 +19,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('survival execution', {
 
-  skip("troubleshooting travis")
+  skip_on_travis()
 
   expect_error(
     res <- fit(
@@ -50,7 +50,7 @@ test_that('survival execution', {
 })
 
 test_that('survival prediction', {
-  skip("troubleshooting travis")
+  skip_on_travis()
 
   res <- fit(
     surv_basic,
