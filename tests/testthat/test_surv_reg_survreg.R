@@ -19,6 +19,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('survival execution', {
 
+  skip()
+
   expect_error(
     res <- fit(
       surv_basic,
@@ -48,6 +50,7 @@ test_that('survival execution', {
 })
 
 test_that('survival prediction', {
+  skip()
 
   res <- fit(
     surv_basic,
