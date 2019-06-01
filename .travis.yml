@@ -9,15 +9,17 @@ warnings_are_errors: false
 
 r:
   - 3.2
-  - oldrel
-  - release
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.6
   - devel
 
 
 matrix:
   allow_failures:
     - r: 3.2
-    - r: oldrel  
+    - r: 3.5  
 
 r_binary_packages: 
   - RCurl
