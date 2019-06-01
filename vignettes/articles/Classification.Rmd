@@ -58,6 +58,7 @@ test_normalized <- bake(credit_rec, new_data = credit_test, all_predictors())
 set.seed(57974)
 nnet_fit <-
   mlp(epochs = 100, hidden_units = 5, dropout = 0.1) %>%
+  set_mode("classification") %>% 
   # Also set engine-specific arguments: 
   set_engine("keras", verbose = 0, validation_split = .20) %>%
   fit(Status ~ ., data = juice(credit_rec))
