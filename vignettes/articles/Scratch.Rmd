@@ -269,7 +269,8 @@ iris_split <- initial_split(iris, prop = 0.95)
 iris_train <- training(iris_split)
 iris_test  <-  testing(iris_split)
 
-mda_spec <- mixture_da(sub_classes = 2)
+mda_spec <- mixture_da(sub_classes = 2) %>% 
+  set_engine("mda")
 
 mda_fit <- mda_spec %>%
   fit(Species ~ ., data = iris_train, engine = "mda")
