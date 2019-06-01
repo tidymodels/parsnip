@@ -17,6 +17,7 @@ r:
 matrix:
   allow_failures:
     - r: 3.2
+    - r: oldrel  
 
 r_binary_packages: 
   - RCurl
