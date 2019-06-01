@@ -115,10 +115,22 @@ test_that('adding a new argument', {
     model = "sponge",
     eng = "gum",
     parsnip = "modeling",
-    original = "modelling",
+    original = "modelaling",
     func = list(pkg = "foo", fun = "bar"),
     has_submodel = FALSE
   )
+
+  expect_error(
+    set_model_arg(
+      model = "sponge",
+      eng = "gum",
+      parsnip = "modeling",
+      original = "modelaling",
+      func = list(pkg = "foo", fun = "bar"),
+      has_submodel = FALSE
+    )
+  )
+
 
   test_by_col(
     get_from_env("sponge_args"),

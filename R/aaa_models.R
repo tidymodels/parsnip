@@ -398,6 +398,16 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
       has_submodel = has_submodel
     )
 
+  # Do not allow people to modify existing arguments
+  combined <-
+    dplyr::inner_join(new_arg %>% dplyr::select(engine, parsnip, original),
+                      old_args %>% dplyr::select(engine, parsnip, original),
+                      by = c("engine", "parsnip", "original"))
+  if (nrow(combined) != 0) {
+    stop("A model argument already exists for ", model, " using the ",
+         eng, " engine. You cannot overwrite arguments.", call. = FALSE)
+  }
+
   # TODO cant currently use `distinct()` on a list column.
   # Use `vctrs::vctrs_duplicated()` instead
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
