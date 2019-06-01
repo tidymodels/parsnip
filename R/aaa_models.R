@@ -717,6 +717,6 @@ show_model_info <- function(model) {
 #' @param items A character string of objects in the model environment.
 get_from_env <- function(items) {
   mod_env <- get_model_env()
-  env_get(mod_env, items)
+  rlang::env_get(mod_env, items)
 }
 
