@@ -609,13 +609,6 @@ get_pred_type <- function(model, type) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-validate_model <- function(model) {
-  # check for consistency across engines, modes, args, etc
-}
-
-# ------------------------------------------------------------------------------
-
 #' @rdname check_mod_val
 #' @keywords internal
 #' @export
