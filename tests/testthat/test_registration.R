@@ -70,6 +70,7 @@ test_that('adding a new mode', {
 
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
+  expect_error(set_model_mode("sponge"))
   # TODO expect_error(set_model_mode("sponge", "banana"))
   # TODO expect_error(set_model_mode("sponge", "classification"))
 
@@ -90,6 +91,8 @@ test_that('adding a new engine', {
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
   # TODO check for bad mode, check for duplicate
+  expect_error(set_model_engine("sponge", eng = "gum"))
+  expect_error(set_model_engine("sponge", mode = "classification"))
 
 })
 
@@ -100,10 +103,22 @@ test_that('adding a new package', {
   set_dependency("sponge", "gum", "trident")
 
   expect_error(set_dependency("sponge", "gum", letters[1:2]))
+  expect_error(set_dependency("sponge", "gummies", "trident"))
 
   test_by_col(
     get_from_env("sponge_pkgs"),
     tibble(engine = "gum", pkg = list("trident"))
+  )
+
+  set_dependency("sponge", "gum", "juicy-fruit")
+  test_by_col(
+    get_from_env("sponge_pkgs"),
+    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
+  )
+
+  test_by_col(
+    get_dependency("sponge"),
+    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
   )
 })
 
@@ -115,7 +130,7 @@ test_that('adding a new argument', {
     model = "sponge",
     eng = "gum",
     parsnip = "modeling",
-    original = "modelaling",
+    original = "modelling",
     func = list(pkg = "foo", fun = "bar"),
     has_submodel = FALSE
   )
@@ -125,12 +140,11 @@ test_that('adding a new argument', {
       model = "sponge",
       eng = "gum",
       parsnip = "modeling",
-      original = "modelaling",
+      original = "modelling",
       func = list(pkg = "foo", fun = "bar"),
       has_submodel = FALSE
     )
   )
-
 
   test_by_col(
     get_from_env("sponge_args"),
@@ -201,6 +215,38 @@ test_that('adding a new argument', {
     )
   )
 
+  expect_error(
+    set_model_arg(
+      model = "sponge",
+      eng = "gum",
+      parsnip = "yodeling",
+      original = "yodelling",
+      func = c(foo = "a", bar = "b"),
+      has_submodel = FALSE
+    )
+  )
+
+  expect_error(
+    set_model_arg(
+      model = "sponge",
+      eng = "gum",
+      parsnip = "yodeling",
+      original = "yodelling",
+      func = c(foo = "a"),
+      has_submodel = FALSE
+    )
+  )
+
+  expect_error(
+    set_model_arg(
+      model = "sponge",
+      eng = "gum",
+      parsnip = "yodeling",
+      original = "yodelling",
+      func = c(fun = 2, pkg = 1),
+      has_submodel = FALSE
+    )
+  )
 })
 
 
@@ -221,6 +267,15 @@ test_that('adding a new fit', {
     eng = "gum",
     mode = "classification",
     value = fit_vals
+  )
+
+  expect_error(
+    set_fit(
+      model = "sponge",
+      eng = "gum",
+      mode = "classification",
+      value = fit_vals
+    )
   )
 
   fit_env_data <- get_from_env("sponge_fit")
@@ -304,6 +359,27 @@ test_that('adding a new fit', {
       value = fit_vals_2
     )
   )
+
+  fit_vals_3 <- fit_vals
+  fit_vals_3$interface <- letters
+  expect_error(
+    set_fit(
+      model = "sponge",
+      eng = "gum",
+      mode = "classification",
+      value = fit_vals_3
+    )
+  )
+
+  test_by_col(
+    get_fit("sponge")[, 1:2],
+    tibble(engine = "gum", mode = "classification")
+  )
+
+  expect_equal(
+    get_fit("sponge")$value[[1]],
+    fit_vals
+  )
 })
 
 
@@ -334,6 +410,16 @@ test_that('adding a new predict method', {
 
   expect_equal(
     pred_env_data$value[[1]],
+    class_vals
+  )
+
+  test_by_col(
+    get_pred_type("sponge", "class")[ 1:3],
+    tibble(engine = "gum", mode = "classification", type = "class")
+  )
+
+  expect_equal(
+    get_pred_type("sponge", "class")$value[[1]],
     class_vals
   )
 
@@ -426,5 +512,26 @@ test_that('adding a new predict method', {
     )
   )
 
+})
+
+
+
+test_that('showing model info', {
+  expect_output(
+    show_model_info("rand_forest"),
+    "Information for `rand_forest`"
+  )
+  expect_output(
+    show_model_info("rand_forest"),
+    "trees --> ntree"
+  )
+  expect_output(
+    show_model_info("rand_forest"),
+    "fit modules:"
+  )
+  expect_output(
+    show_model_info("rand_forest"),
+    "prediction modules:"
+  )
 })
 
