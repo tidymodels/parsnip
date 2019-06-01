@@ -4,6 +4,7 @@
 \name{pred_types}
 \alias{pred_types}
 \alias{check_mod_val}
+\alias{get_model_env}
 \alias{check_mode_val}
 \alias{check_engine_val}
 \alias{check_arg_val}
@@ -12,12 +13,26 @@
 \alias{check_fit_info}
 \alias{check_pred_info}
 \alias{check_pkg_val}
-\title{Tools to Check Model Elements}
+\alias{set_new_model}
+\alias{set_model_mode}
+\alias{set_model_engine}
+\alias{set_model_arg}
+\alias{set_dependency}
+\alias{get_dependency}
+\alias{set_fit}
+\alias{get_fit}
+\alias{set_pred}
+\alias{get_pred_type}
+\alias{show_model_info}
+\alias{get_from_env}
+\title{Tools to Register Models}
 \format{An object of class \code{character} of length 8.}
 \usage{
 pred_types
 
 check_mod_val(model, new = FALSE, existence = FALSE)
+
+get_model_env()
 
 check_mode_val(mode)
 
@@ -34,6 +49,30 @@ check_fit_info(fit_obj)
 check_pred_info(pred_obj, type)
 
 check_pkg_val(pkg)
+
+set_new_model(model)
+
+set_model_mode(model, mode)
+
+set_model_engine(model, mode, eng)
+
+set_model_arg(model, eng, parsnip, original, func, has_submodel)
+
+set_dependency(model, eng, pkg)
+
+get_dependency(model)
+
+set_fit(model, mode, eng, value)
+
+get_fit(model)
+
+set_pred(model, mode, eng, type, value)
+
+get_pred_type(model, type)
+
+show_model_info(model)
+
+get_from_env(items)
 }
 \arguments{
 \item{model}{A single character string for the model type (e.g.
@@ -83,6 +122,8 @@ underlying model function uses.}
 
 \item{value}{A list that conforms to the \code{fit_obj} or \code{pred_obj} description
 above, depending on context.}
+
+\item{items}{A character string of objects in the model environment.}
 }
 \description{
 These functions are similar to constructors and can be used to validate

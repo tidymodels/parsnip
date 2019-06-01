@@ -40,18 +40,6 @@ pred_types <-
 
 #' Tools to Register Models
 #'
-#' @keywords internal
-#' @export
-get_model_env <- function() {
-  current <- utils::getFromNamespace("parsnip", ns = "parsnip")
-  # current <- parsnip
-  current
-}
-
-
-
-#' Tools to Check Model Elements
-#'
 #' These functions are similar to constructors and can be used to validate
 #'  that there are no conflicts with the underlying model structures used by the
 #'  package.
@@ -89,6 +77,7 @@ get_model_env <- function() {
 #'  underlying model function uses.
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
 #'  above, depending on context.
+#' @param items A character string of objects in the model environment.
 #' @keywords internal
 #' @details These functions are available for users to add their
 #'  own models or engines (in package or otherwise) so that they can
@@ -135,6 +124,15 @@ check_mod_val <- function(model, new = FALSE, existence = FALSE) {
   }
 
   invisible(NULL)
+}
+
+#' @rdname check_mod_val
+#' @keywords internal
+#' @export
+get_model_env <- function() {
+  current <- utils::getFromNamespace("parsnip", ns = "parsnip")
+  # current <- parsnip
+  current
 }
 
 #' @rdname check_mod_val
@@ -295,7 +293,7 @@ check_pkg_val <- function(pkg) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_new_model <- function(model) {
@@ -333,7 +331,7 @@ set_new_model <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_model_mode <- function(model, mode) {
@@ -353,7 +351,7 @@ set_model_mode <- function(model, mode) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_model_engine <- function(model, mode, eng) {
@@ -378,7 +376,7 @@ set_model_engine <- function(model, mode, eng) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
@@ -417,7 +415,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_dependency <- function(model, eng, pkg) {
@@ -460,7 +458,7 @@ set_dependency <- function(model, eng, pkg) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 get_dependency <- function(model) {
@@ -475,7 +473,7 @@ get_dependency <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_fit <- function(model, mode, eng, value) {
@@ -526,7 +524,7 @@ set_fit <- function(model, mode, eng, value) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 get_fit <- function(model) {
@@ -540,7 +538,7 @@ get_fit <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 set_pred <- function(model, mode, eng, type, value) {
@@ -592,7 +590,7 @@ set_pred <- function(model, mode, eng, type, value) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 get_pred_type <- function(model, type) {
@@ -618,7 +616,7 @@ validate_model <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
 show_model_info <- function(model) {
@@ -711,10 +709,9 @@ show_model_info <- function(model) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname check_mod_val
 #' @keywords internal
 #' @export
-#' @param items A character string of objects in the model environment.
 get_from_env <- function(items) {
   mod_env <- get_model_env()
   rlang::env_get(mod_env, items)
