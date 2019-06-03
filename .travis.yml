@@ -20,7 +20,7 @@ matrix:
   allow_failures:
     - r: 3.3       # inum      install failure (seg fault)
     - r: 3.2       # partykit  install failure (libcoin needs >= 3.4.0)
-    - r: 3.5       # rmarkdown install failure  
+    - r: 3.4       # mvtnorm requires >= 3.5.0 
 
 cache:
   directories:
