@@ -382,14 +382,10 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
          eng, " engine. You cannot overwrite arguments.", call. = FALSE)
   }
 
-  # TODO cant currently use `distinct()` on a list column.
-  # Use `vctrs::vctrs_duplicated()` instead
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
     stop("An error occured when adding the new argument.", call. = FALSE)
   }
-
-  updated <- dplyr::distinct(updated, engine, parsnip, original, has_submodel)
 
   current[[paste0(model, "_args")]] <- updated
 
