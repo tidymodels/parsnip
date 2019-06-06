@@ -284,7 +284,8 @@ set_new_model <- function(model) {
       engine = character(0),
       parsnip = character(0),
       original = character(0),
-      func = list()
+      func = list(),
+      has_submodel = rlang::na_lgl
     )
   current[[paste0(model, "_fit")]] <-
     dplyr::tibble(
