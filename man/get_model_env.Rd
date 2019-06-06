@@ -3,16 +3,7 @@
 \docType{data}
 \name{pred_types}
 \alias{pred_types}
-\alias{check_mod_val}
 \alias{get_model_env}
-\alias{check_mode_val}
-\alias{check_engine_val}
-\alias{check_arg_val}
-\alias{check_submodels_val}
-\alias{check_func_val}
-\alias{check_fit_info}
-\alias{check_pred_info}
-\alias{check_pkg_val}
 \alias{set_new_model}
 \alias{set_model_mode}
 \alias{set_model_engine}
@@ -30,25 +21,7 @@
 \usage{
 pred_types
 
-check_mod_val(model, new = FALSE, existence = FALSE)
-
 get_model_env()
-
-check_mode_val(mode)
-
-check_engine_val(eng)
-
-check_arg_val(arg)
-
-check_submodels_val(has_submodel)
-
-check_func_val(func)
-
-check_fit_info(fit_obj)
-
-check_pred_info(pred_obj, type)
-
-check_pkg_val(pkg)
 
 set_new_model(model)
 
@@ -78,20 +51,15 @@ get_from_env(items)
 \item{model}{A single character string for the model type (e.g.
 \code{"rand_forest"}, etc).}
 
-\item{new}{A single logical to check to see if the model that you are check
-has not already been registered.}
-
-\item{existence}{A single logical to check to see if the model has already
-been registered.}
-
 \item{mode}{A single character string for the model mode (e.g. "regression").}
 
 \item{eng}{A single character string for the model engine.}
 
-\item{arg}{A single character string for the model argument name.}
+\item{parsnip}{A single character string for the "harmonized" argument name
+that \code{parsnip} exposes.}
 
-\item{has_submodel}{A single logical for whether the argument
-can make predictions on mutiple submodels at once.}
+\item{original}{A single character string for the argument name that
+underlying model function uses.}
 
 \item{func}{A named character vector that describes how to call
 a function. \code{func} should have elements \code{pkg} and \code{fun}. The
@@ -101,29 +69,34 @@ used to invoke the usual linear regression function. In some
 cases, it is helpful to use \code{c(fun = "predict")} when using a
 package's \code{predict} method.}
 
+\item{has_submodel}{A single logical for whether the argument
+can make predictions on mutiple submodels at once.}
+
+\item{pkg}{An options character string for a package name.}
+
+\item{value}{A list that conforms to the \code{fit_obj} or \code{pred_obj} description
+above, depending on context.}
+
+\item{type}{A single character value for the type of prediction. Possible
+values are:
+\Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.}
+
+\item{items}{A character string of objects in the model environment.}
+
+\item{new}{A single logical to check to see if the model that you are check
+has not already been registered.}
+
+\item{existence}{A single logical to check to see if the model has already
+been registered.}
+
+\item{arg}{A single character string for the model argument name.}
+
 \item{fit_obj}{A list with elements \code{interface}, \code{protect},
 \code{func} and \code{defaults}. See the package vignette "Making a
 \code{parsnip} model from scratch".}
 
 \item{pred_obj}{A list with elements \code{pre}, \code{post}, \code{func}, and \code{args}.
 See the package vignette "Making a \code{parsnip} model from scratch".}
-
-\item{type}{A single character value for the type of prediction. Possible
-values are:
-\Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.}
-
-\item{pkg}{An options character string for a package name.}
-
-\item{parsnip}{A single character string for the "harmonized" argument name
-that \code{parsnip} exposes.}
-
-\item{original}{A single character string for the argument name that
-underlying model function uses.}
-
-\item{value}{A list that conforms to the \code{fit_obj} or \code{pred_obj} description
-above, depending on context.}
-
-\item{items}{A character string of objects in the model environment.}
 }
 \description{
 These functions are similar to constructors and can be used to validate

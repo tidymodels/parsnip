@@ -30,7 +30,7 @@ parsnip$modes <- c("regression", "classification", "unknown")
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 pred_types <-
@@ -100,7 +100,14 @@ pred_types <-
 #' current_code <- get_model_env()
 #' ls(envir = current_code)
 #'
+#' @keywords internal
 #' @export
+get_model_env <- function() {
+  current <- utils::getFromNamespace("parsnip", ns = "parsnip")
+  # current <- parsnip
+  current
+}
+
 check_mod_val <- function(model, new = FALSE, existence = FALSE) {
   if (rlang::is_missing(model) || length(model) != 1)
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
@@ -126,18 +133,6 @@ check_mod_val <- function(model, new = FALSE, existence = FALSE) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
-get_model_env <- function() {
-  current <- utils::getFromNamespace("parsnip", ns = "parsnip")
-  # current <- parsnip
-  current
-}
-
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_mode_val <- function(mode) {
   if (rlang::is_missing(mode) || length(mode) != 1)
     stop("Please supply a character string for a mode (e.g. `'regression'`)",
@@ -145,9 +140,6 @@ check_mode_val <- function(mode) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_engine_val <- function(eng) {
   if (rlang::is_missing(eng) || length(eng) != 1)
     stop("Please supply a character string for an engine (e.g. `'lm'`)",
@@ -155,9 +147,6 @@ check_engine_val <- function(eng) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_arg_val <- function(arg) {
   if (rlang::is_missing(arg) || length(arg) != 1)
     stop("Please supply a character string for the argument",
@@ -165,9 +154,6 @@ check_arg_val <- function(arg) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_submodels_val <- function(has_submodel) {
   if (!is.logical(has_submodel) || length(has_submodel) != 1) {
     stop("The `submodels` argument should be a single logical.", call. = FALSE)
@@ -175,9 +161,6 @@ check_submodels_val <- function(has_submodel) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_func_val <- function(func) {
   msg <-
     paste(
@@ -212,9 +195,6 @@ check_func_val <- function(func) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_fit_info <- function(fit_obj) {
   if (is.null(fit_obj)) {
     stop("The `fit` module cannot be NULL.", call. = FALSE)
@@ -246,9 +226,6 @@ check_fit_info <- function(fit_obj) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_pred_info <- function(pred_obj, type) {
   if (all(type != pred_types)) {
     stop("The prediction type should be one of: ",
@@ -281,9 +258,6 @@ check_pred_info <- function(pred_obj, type) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
-#' @keywords internal
-#' @export
 check_pkg_val <- function(pkg) {
   if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
     stop("Please supply a single character vale for the package name",
@@ -293,7 +267,7 @@ check_pkg_val <- function(pkg) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_new_model <- function(model) {
@@ -331,7 +305,7 @@ set_new_model <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_model_mode <- function(model, mode) {
@@ -351,7 +325,7 @@ set_model_mode <- function(model, mode) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_model_engine <- function(model, mode, eng) {
@@ -376,7 +350,7 @@ set_model_engine <- function(model, mode, eng) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
@@ -425,7 +399,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_dependency <- function(model, eng, pkg) {
@@ -468,7 +442,7 @@ set_dependency <- function(model, eng, pkg) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 get_dependency <- function(model) {
@@ -483,7 +457,7 @@ get_dependency <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_fit <- function(model, mode, eng, value) {
@@ -534,7 +508,7 @@ set_fit <- function(model, mode, eng, value) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 get_fit <- function(model) {
@@ -548,7 +522,7 @@ get_fit <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 set_pred <- function(model, mode, eng, type, value) {
@@ -600,7 +574,7 @@ set_pred <- function(model, mode, eng, type, value) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 get_pred_type <- function(model, type) {
@@ -619,7 +593,7 @@ get_pred_type <- function(model, type) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 show_model_info <- function(model) {
@@ -712,7 +686,7 @@ show_model_info <- function(model) {
   invisible(NULL)
 }
 
-#' @rdname check_mod_val
+#' @rdname get_model_env
 #' @keywords internal
 #' @export
 get_from_env <- function(items) {
