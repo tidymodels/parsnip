@@ -207,12 +207,12 @@ check_fit_info <- function(fit_obj) {
   }
 
   exp_interf <- c("data.frame", "formula", "matrix")
-  if (length(fit_obj$interface) > 1) {
+  if (length(fit_obj$interface) != 1) {
     stop("The `interface` element should have a single value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
   }
-  if (!any(fit_obj$interface == exp_interf)) {
+  if (!fit_obj$interface %in% exp_interf) {
     stop("The `interface` element should have a value of : ",
          paste0("`", exp_interf, "`", collapse = ", "),
          call. = FALSE)
@@ -285,7 +285,7 @@ set_new_model <- function(model) {
       parsnip = character(0),
       original = character(0),
       func = list(),
-      has_submodel = rlang::na_lgl
+      has_submodel = logical(0)
     )
   current[[paste0(model, "_fit")]] <-
     dplyr::tibble(
@@ -472,7 +472,7 @@ set_fit <- function(model, mode, eng, value) {
     dplyr::filter(engine == eng & mode == !!mode) %>%
     nrow()
   if (has_engine != 1) {
-    stop("set_fit The combination of engine '", eng, "' and mode '",
+    stop("The combination of engine '", eng, "' and mode '",
          mode, "' has not been registered for model '",
          model, "'. ", call. = FALSE)
   }

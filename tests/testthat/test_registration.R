@@ -42,8 +42,9 @@ expect_equal(
 
 test_by_col(
   get_from_env("sponge_args"),
-  tibble(engine = character(0), parsnip = character(0),
-         original = character(0), func = vector("list"))
+  dplyr::tibble(engine = character(0), parsnip = character(0),
+                original = character(0), func = vector("list"),
+                has_submodel = logical(0))
 )
 
 test_by_col(
@@ -149,6 +150,7 @@ test_that('adding a new argument', {
   test_by_col(
     get_from_env("sponge_args"),
     tibble(engine = "gum", parsnip = "modeling", original = "modelling",
+           func = list(list(pkg = "foo", fun = "bar")),
            has_submodel = FALSE)
   )
 
