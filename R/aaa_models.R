@@ -206,17 +206,7 @@ check_fit_info <- function(fit_obj) {
          call. = FALSE)
   }
 
-  exp_interf <- c("data.frame", "formula", "matrix")
-  if (length(fit_obj$interface) != 1) {
-    stop("The `interface` element should have a single value of : ",
-         paste0("`", exp_interf, "`", collapse = ", "),
-         call. = FALSE)
-  }
-  if (!fit_obj$interface %in% exp_interf) {
-    stop("The `interface` element should have a value of : ",
-         paste0("`", exp_interf, "`", collapse = ", "),
-         call. = FALSE)
-  }
+  check_interface_val(fit_obj$interface)
   check_func_val(fit_obj$func)
 
   if (!is.list(fit_obj$defaults)) {
@@ -264,6 +254,17 @@ check_pkg_val <- function(pkg) {
          call. = FALSE)
   invisible(NULL)
 }
+
+check_interface_val <- function(x) {
+  exp_interf <- c("data.frame", "formula", "matrix")
+  if (length(x) != 1 || !(x %in% exp_interf)) {
+    stop("The `interface` element should have a single value of : ",
+         paste0("`", exp_interf, "`", collapse = ", "),
+         call. = FALSE)
+  }
+  invisible(NULL)
+}
+
 
 # ------------------------------------------------------------------------------
 
