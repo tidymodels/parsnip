@@ -283,6 +283,54 @@ predict(mda_fit, new_data = iris_test) %>%
   mutate(Species = iris_test$Species)
 ```
 
+
+# Adding an engine to an existing model
+
+The process here is _almost_ the same but more simple. You would only need to add the engine-specific aspects of the model. For example, if we wanted to fit a linear regression model using M-estimation, we could only add a new engine. The code for the `rlm` function in `MASS` is pretty similar to `lm`, so we can copy that code and change the package/function names:
+
+```{r rlm}
+set_model_engine("linear_reg", "regression", eng = "rlm")
+set_dependency("linear_reg", eng = "rlm", pkg = "MASS")
+
+set_fit(
+  model = "linear_reg",
+  eng = "rlm",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "MASS", fun = "rlm"),
+    defaults = list()
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "rlm",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "response"
+      )
+  )
+)
+
+# testing:
+linear_reg() %>% 
+  set_engine("rlm") %>% 
+  fit(mpg ~ ., data = mtcars)
+```
+
+
+
+
 # Pro-tips, what-ifs, exceptions, FAQ, and minutiae
 
 There are various things that came to mind while writing this document. 
