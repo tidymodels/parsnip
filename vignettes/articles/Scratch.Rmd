@@ -346,9 +346,10 @@ There are some models (e.g. `glmnet`, `plsr`, `Cubust`, etc.) that can make pred
 For example, if I fit a linear regression model via `glmnet` and get four values of the regularization parameter (`lambda`):
 
 ```{r glmnet, eval = FALSE}
-linear_reg(others = list(nlambda = 4)) %>%
-  fit(mpg ~ ., data = mtcars, engine = "glmnet") %>%
-  predict(newdata = mtcars[1:3, -1])
+linear_reg() %>%
+  set_engine("glmnet", nlambda = 4) %>% 
+  fit(mpg ~ ., data = mtcars) %>%
+  multi_predict(new_data = mtcars[1:3, -1])
 ```
 
 _However_, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (`lambda`, in this case). 
@@ -368,8 +369,9 @@ logistic_reg() %>% translate(engine = "glm")
 
 # but you can change it:
 
-logistic_reg(others = list(family = expr(binomial(link = "probit")))) %>% 
-  translate(engine = "glm")
+logistic_reg() %>%
+  set_engine("glm", family = expr(binomial(link = "probit"))) %>% 
+  translate()
 ```
 
 That's what `defaults` are for. 
