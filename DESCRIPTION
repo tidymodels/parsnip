@@ -50,3 +50,4 @@ Suggests:
     rpart,
     MASS,
     nlme
+Remotes: r-lib/vctrs
