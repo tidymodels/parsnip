@@ -16,6 +16,7 @@
 \alias{get_pred_type}
 \alias{show_model_info}
 \alias{get_from_env}
+\alias{pred_value_template}
 \title{Tools to Register Models}
 \format{An object of class \code{character} of length 8.}
 \usage{
@@ -46,6 +47,8 @@ get_pred_type(model, type)
 show_model_info(model)
 
 get_from_env(items)
+
+pred_value_template(pre = NULL, post = NULL, func, args = list())
 }
 \arguments{
 \item{model}{A single character string for the model type (e.g.
@@ -82,6 +85,9 @@ values are:
 \Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.}
 
 \item{items}{A character string of objects in the model environment.}
+
+\item{pre, post}{Optional functions for pre- and post-processing of prediction
+results.}
 
 \item{new}{A single logical to check to see if the model that you are check
 has not already been registered.}

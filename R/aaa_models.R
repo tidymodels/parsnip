@@ -78,6 +78,10 @@ pred_types <-
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
 #'  above, depending on context.
 #' @param items A character string of objects in the model environment.
+#' @param pre,post Optional functions for pre- and post-processing of prediction
+#'  results.
+#' @param ... Optional arguments that should be passed into the `args` slot for
+#'  prediction objects
 #' @keywords internal
 #' @details These functions are available for users to add their
 #'  own models or engines (in package or otherwise) so that they can
@@ -690,5 +694,17 @@ show_model_info <- function(model) {
 get_from_env <- function(items) {
   mod_env <- get_model_env()
   rlang::env_get(mod_env, items)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+pred_value_template <-  function(pre = NULL, post = NULL, func, ...) {
+  if (rlang::is_missing(func)) {
+    stop("Please supply a value to `func`. See `?set_pred`.", call. = FALSE)
+  }
+  list(pre = pre, post = post, func = func, args = list(...))
 }
 

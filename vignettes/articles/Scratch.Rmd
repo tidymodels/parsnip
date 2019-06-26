@@ -210,22 +210,19 @@ A similar call can be used to define  the class probability module (if they can 
 
 As an example of the `post` function, the data frame created by `mda:::predict.mda` will be converted to a tibble. The arguments are `x` (the raw results coming from the predict method) and `object` (the `parsnip` model fit object). The latter has a sub-object called `lvl` which is a character string of the outcome's factor levels (if any). 
 
-We register the probability module:
+We register the probability module. There is a template function that makes this slightly easier to format the objects:
 
 ```{r mda-prob}
 prob_info <-
-  list(
-    pre = NULL,
+  pred_value_template(
     post = function(x, object) {
-        tibble::as_tibble(x)
-      },
+      tibble::as_tibble(x)
+    },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "posterior"
-      )
+    # Now everything else is put into the `args` slot
+    object = quote(object$fit),
+    newdata = quote(new_data),
+    type = "posterior"
   )
 
 set_pred(
