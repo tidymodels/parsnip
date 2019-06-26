@@ -97,26 +97,32 @@ check_eng_val <- function(eng) {
   invisible(NULL)
 }
 
-check_mod_val <- function(model, new = FALSE, existence = FALSE) {
-  if (rlang::is_missing(model) || length(model) != 1)
+
+check_model_exists <- function(model) {
+  if (rlang::is_missing(model) || length(model) != 1) {
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
-
-  if (new | existence) {
-    current <- get_model_env()
   }
 
-  if (new) {
-    if (any(current$models == model)) {
-      stop("Model `", model, "` already exists", call. = FALSE)
-    }
+  current <- get_model_env()
+
+  if (!any(current$models == model)) {
+    stop("Model `", model, "` has not been registered.", call. = FALSE)
   }
 
-  if (existence) {
-    current <- get_model_env()
-    if (!any(current$models == model)) {
-      stop("Model `", model, "` has not been registered.", call. = FALSE)
-    }
+  invisible(NULL)
+}
+
+check_model_doesnt_exist <- function(model) {
+  if (rlang::is_missing(model) || length(model) != 1) {
+    stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
+         call. = FALSE)
+  }
+
+  current <- get_model_env()
+
+  if (any(current$models == model)) {
+    stop("Model `", model, "` already exists", call. = FALSE)
   }
 
   invisible(NULL)
@@ -265,10 +271,6 @@ check_interface_val <- function(x) {
 #'
 #' @param model A single character string for the model type (e.g.
 #'  `"rand_forest"`, etc).
-#' @param new A single logical to check to see if the model that you are check
-#'  has not already been registered.
-#' @param existence A single logical to check to see if the model has already
-#'  been registered.
 #' @param mode A single character string for the model mode (e.g. "regression").
 #' @param eng A single character string for the model engine.
 #' @param arg A single character string for the model argument name.
@@ -312,6 +314,11 @@ check_interface_val <- function(x) {
 #'  models to that environment as well as helper functions that can
 #'  be used to makes sure that the model data is in the right
 #'  format.
+#'
+#' `check_model_exists()` checks the model value and ensures that the model has
+#'  already been registered. `check_model_doesnt_exist()` checks the model value
+#'  and also checks to see if it is novel in the environment.
+#'
 #' @references "Making a parsnip model from scratch"
 #'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
 #' @examples
@@ -322,7 +329,7 @@ check_interface_val <- function(x) {
 #' @keywords internal
 #' @export
 set_new_model <- function(model) {
-  check_mod_val(model, new = TRUE)
+  check_model_doesnt_exist(model)
 
   current <- get_model_env()
 
@@ -370,7 +377,7 @@ set_new_model <- function(model) {
 #' @keywords internal
 #' @export
 set_model_mode <- function(model, mode) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_mode_val(mode)
 
   current <- get_model_env()
@@ -392,7 +399,7 @@ set_model_mode <- function(model, mode) {
 #' @keywords internal
 #' @export
 set_model_engine <- function(model, mode, eng) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_mode_val(mode)
   check_eng_val(eng)
   check_mode_val(eng)
@@ -419,7 +426,7 @@ set_model_engine <- function(model, mode, eng) {
 #' @keywords internal
 #' @export
 set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_eng_val(eng)
   check_arg_val(parsnip)
   check_arg_val(original)
@@ -456,7 +463,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @keywords internal
 #' @export
 set_dependency <- function(model, eng, pkg) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_eng_val(eng)
   check_pkg_val(pkg)
 
@@ -501,7 +508,7 @@ set_dependency <- function(model, eng, pkg) {
 #' @keywords internal
 #' @export
 get_dependency <- function(model) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   pkg_name <- paste0(model, "_pkgs")
   if (!any(pkg_name != rlang::env_names(get_model_env()))) {
     stop("`", model, "` does not have a dependency list in parsnip.", call. = FALSE)
@@ -516,7 +523,7 @@ get_dependency <- function(model) {
 #' @keywords internal
 #' @export
 set_fit <- function(model, mode, eng, value) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_eng_val(eng)
   check_mode_val(mode)
   check_engine_val(eng)
@@ -571,7 +578,7 @@ set_fit <- function(model, mode, eng, value) {
 #' @keywords internal
 #' @export
 get_fit <- function(model) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   fit_name <- paste0(model, "_fit")
   if (!any(fit_name != rlang::env_names(get_model_env()))) {
     stop("`", model, "` does not have a `fit` method in parsnip.", call. = FALSE)
@@ -585,7 +592,7 @@ get_fit <- function(model) {
 #' @keywords internal
 #' @export
 set_pred <- function(model, mode, eng, type, value) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   check_eng_val(eng)
   check_mode_val(mode)
   check_engine_val(eng)
@@ -638,7 +645,7 @@ set_pred <- function(model, mode, eng, type, value) {
 #' @keywords internal
 #' @export
 get_pred_type <- function(model, type) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   pred_name <- paste0(model, "_predict")
   if (!any(pred_name != rlang::env_names(get_model_env()))) {
     stop("`", model, "` does not have any `pred` methods in parsnip.", call. = FALSE)
@@ -657,7 +664,7 @@ get_pred_type <- function(model, type) {
 #' @keywords internal
 #' @export
 show_model_info <- function(model) {
-  check_mod_val(model, existence = TRUE)
+  check_model_exists(model)
   current <- get_model_env()
 
   cat("Information for `", model, "`\n", sep = "")

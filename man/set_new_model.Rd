@@ -79,12 +79,6 @@ results.}
 \item{...}{Optional arguments that should be passed into the \code{args} slot for
 prediction objects.}
 
-\item{new}{A single logical to check to see if the model that you are check
-has not already been registered.}
-
-\item{existence}{A single logical to check to see if the model has already
-been registered.}
-
 \item{arg}{A single character string for the model argument name.}
 
 \item{fit_obj}{A list with elements \code{interface}, \code{protect},
@@ -111,6 +105,10 @@ fitting, predicting, etc). These functions can be used to add
 models to that environment as well as helper functions that can
 be used to makes sure that the model data is in the right
 format.
+
+\code{check_model_exists()} checks the model value and ensures that the model has
+already been registered. \code{check_model_doesnt_exist()} checks the model value
+and also checks to see if it is novel in the environment.
 }
 \examples{
 # set_new_model("shallow_learning_model")
