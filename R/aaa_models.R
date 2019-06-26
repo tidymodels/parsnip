@@ -80,8 +80,9 @@ pred_types <-
 #' @param items A character string of objects in the model environment.
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
-#' @param ... Optional arguments that should be passed into the `args` slot for
-#'  prediction objects
+#' @param ... For `pred_value_template()`: optional arguments that should be
+#'  passed into the `args` slot for prediction objects. For `set_in_env()`,
+#'  named values that will be assigned to the model environment.
 #' @keywords internal
 #' @details These functions are available for users to add their
 #'  own models or engines (in package or otherwise) so that they can
@@ -696,8 +697,6 @@ show_model_info <- function(model) {
   } else {
     cat(" no registered prediction modules.\n\n")
   }
-
-
   invisible(NULL)
 }
 
@@ -707,6 +706,24 @@ show_model_info <- function(model) {
 get_from_env <- function(items) {
   mod_env <- get_model_env()
   rlang::env_get(mod_env, items)
+}
+
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+set_in_env <- function(...) {
+  mod_env <- get_model_env()
+  rlang::env_bind(mod_env, ...)
+}
+
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+set_env_val <- function(name, value) {
+  mod_env <- parsnip::get_model_env()
+  x <- list(value)
+  names(x) <- name
+  rlang::env_bind(mod_env, !!!x)
 }
 
 # ------------------------------------------------------------------------------
