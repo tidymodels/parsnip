@@ -27,7 +27,8 @@ Imports:
     magrittr,
     stats,
     tidyr,
-    globals
+    globals,
+    vctrs
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 

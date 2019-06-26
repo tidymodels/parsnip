@@ -79,11 +79,8 @@ set_in_env <- function(...) {
 #' @keywords internal
 #' @export
 set_env_val <- function(name, value) {
-  if (length(name) != 1 | length(value) != 1) {
-    stop("`name` and `value` should both be a single value.", call. = FALSE)
-  }
-  if (!is.character(name)) {
-    stop("`name` should be a character value.", call. = FALSE)
+  if (length(name) != 1 || !is.character(name)) {
+    stop("`name` should be a single character value.", call. = FALSE)
   }
   mod_env <- get_model_env()
   x <- list(value)
@@ -329,11 +326,15 @@ set_new_model <- function(model) {
 
   current <- get_model_env()
 
-  current$models <- c(current$models, model)
-  current[[model]] <- dplyr::tibble(engine = character(0), mode = character(0))
-  current[[paste0(model, "_pkgs")]] <- dplyr::tibble(engine = character(0), pkg = list())
-  current[[paste0(model, "_modes")]] <- "unknown"
-  current[[paste0(model, "_args")]] <-
+  set_env_val("models", c(current$models, model))
+  set_env_val(model, dplyr::tibble(engine = character(0), mode = character(0)))
+  set_env_val(
+    paste0(model, "_pkgs"),
+    dplyr::tibble(engine = character(0), pkg = list())
+  )
+  set_env_val(paste0(model, "_modes"), "unknown")
+  set_env_val(
+    paste0(model, "_args"),
     dplyr::tibble(
       engine = character(0),
       parsnip = character(0),
@@ -341,19 +342,24 @@ set_new_model <- function(model) {
       func = list(),
       has_submodel = logical(0)
     )
-  current[[paste0(model, "_fit")]] <-
+  )
+  set_env_val(
+    paste0(model, "_fit"),
     dplyr::tibble(
       engine = character(0),
       mode = character(0),
       value = list()
     )
-  current[[paste0(model, "_predict")]] <-
+  )
+  set_env_val(
+    paste0(model, "_predict"),
     dplyr::tibble(
       engine = character(0),
       mode = character(0),
       type = character(0),
       value = list()
     )
+  )
 
   invisible(NULL)
 }
@@ -372,9 +378,11 @@ set_model_mode <- function(model, mode) {
   if (!any(current$modes == mode)) {
     current$modes <- unique(c(current$modes, mode))
   }
-  current[[paste0(model, "_modes")]] <-
-    unique(c(current[[paste0(model, "_modes")]], mode))
 
+  set_env_val(
+    paste0(model, "_modes"),
+    unique(c(get_from_env(paste0(model, "_modes")), mode))
+  )
   invisible(NULL)
 }
 
@@ -392,20 +400,21 @@ set_model_engine <- function(model, mode, eng) {
   current <- get_model_env()
 
   new_eng <- dplyr::tibble(engine = eng, mode = mode)
-  old_eng <- current[[model]]
+  old_eng <- get_from_env(model)
+
   engs <-
     old_eng %>%
     dplyr::bind_rows(new_eng) %>%
     dplyr::distinct()
 
-  current[[model]] <- engs
+  set_env_val(model, engs)
 
   invisible(NULL)
 }
 
 
 # ------------------------------------------------------------------------------
-
+#' @importFrom vctrs vec_unique
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
@@ -418,7 +427,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_submodels_val(has_submodel)
 
   current <- get_model_env()
-  old_args <- current[[paste0(model, "_args")]]
+  old_args <- get_from_env(paste0(model, "_args"))
 
   new_arg <-
     dplyr::tibble(
@@ -429,22 +438,13 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
       has_submodel = has_submodel
     )
 
-  # Do not allow people to modify existing arguments
-  combined <-
-    dplyr::inner_join(new_arg %>% dplyr::select(engine, parsnip, original),
-                      old_args %>% dplyr::select(engine, parsnip, original),
-                      by = c("engine", "parsnip", "original"))
-  if (nrow(combined) != 0) {
-    stop("A model argument already exists for ", model, " using the ",
-         eng, " engine. You cannot overwrite arguments.", call. = FALSE)
-  }
-
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
     stop("An error occured when adding the new argument.", call. = FALSE)
   }
 
-  current[[paste0(model, "_args")]] <- updated
+  updated <- vctrs::vec_unique(updated)
+  set_env_val(paste0(model, "_args"), updated)
 
   invisible(NULL)
 }
@@ -461,8 +461,8 @@ set_dependency <- function(model, eng, pkg) {
   check_pkg_val(pkg)
 
   current <- get_model_env()
-  model_info <- current[[model]]
-  pkg_info <- current[[paste0(model, "_pkgs")]]
+  model_info <- get_from_env(model)
+  pkg_info <- get_from_env(paste0(model, "_pkgs"))
 
   has_engine <-
     model_info %>%
@@ -491,7 +491,8 @@ set_dependency <- function(model, eng, pkg) {
       dplyr::filter(engine != eng) %>%
       dplyr::bind_rows(existing_pkgs)
   }
-  current[[paste0(model, "_pkgs")]] <- pkg_info
+
+  set_env_val(paste0(model, "_pkgs"), pkg_info)
 
   invisible(NULL)
 }
@@ -522,8 +523,8 @@ set_fit <- function(model, mode, eng, value) {
   check_fit_info(value)
 
   current <- get_model_env()
-  model_info <- current[[paste0(model)]]
-  old_fits <- current[[paste0(model, "_fit")]]
+  model_info <- get_from_env(model)
+  old_fits <- get_from_env(paste0(model, "_fit"))
 
   has_engine <-
     model_info %>%
@@ -558,7 +559,10 @@ set_fit <- function(model, mode, eng, value) {
     stop("An error occured when adding the new fit module", call. = FALSE)
   }
 
-  current[[paste0(model, "_fit")]] <- updated
+  set_env_val(
+    paste0(model, "_fit"),
+    updated
+  )
 
   invisible(NULL)
 }
@@ -588,8 +592,8 @@ set_pred <- function(model, mode, eng, type, value) {
   check_pred_info(value, type)
 
   current <- get_model_env()
-  model_info <- current[[paste0(model)]]
-  old_fits <- current[[paste0(model, "_predict")]]
+  model_info <- get_from_env(model)
+  old_fits <- get_from_env(paste0(model, "_predict"))
 
   has_engine <-
     model_info %>%
@@ -625,7 +629,7 @@ set_pred <- function(model, mode, eng, type, value) {
     stop("An error occured when adding the new fit module", call. = FALSE)
   }
 
-  current[[paste0(model, "_predict")]] <- updated
+  set_env_val(paste0(model, "_predict"), updated)
 
   invisible(NULL)
 }
@@ -660,11 +664,11 @@ show_model_info <- function(model) {
 
   cat(
     " modes:",
-    paste0(current[[paste0(model, "_modes")]], collapse = ", "),
+    paste0(get_from_env(paste0(model, "_modes")), collapse = ", "),
     "\n\n"
   )
 
-  engines <- current[[paste0(model)]]
+  engines <- get_from_env(model)
   if (nrow(engines) > 0) {
     cat(" engines: \n")
     engines %>%
@@ -686,7 +690,7 @@ show_model_info <- function(model) {
     cat(" no registered engines.\n\n")
   }
 
-  args <- current[[paste0(model, "_args")]]
+  args <- get_from_env(paste0(model, "_args"))
   if (nrow(args) > 0) {
     cat(" arguments: \n")
     args %>%
@@ -710,7 +714,7 @@ show_model_info <- function(model) {
     cat(" no registered arguments.\n\n")
   }
 
-  fits <- current[[paste0(model, "_fit")]]
+  fits <- get_from_env(paste0(model, "_fit"))
   if (nrow(fits) > 0) {
     cat(" fit modules:\n")
     fits %>%
@@ -723,7 +727,7 @@ show_model_info <- function(model) {
     cat(" no registered fit modules.\n\n")
   }
 
-  preds <- current[[paste0(model, "_predict")]]
+  preds <- get_from_env(paste0(model, "_predict"))
   if (nrow(preds) > 0) {
     cat(" prediction modules:\n")
     preds %>%

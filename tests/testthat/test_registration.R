@@ -136,16 +136,17 @@ test_that('adding a new argument', {
     has_submodel = FALSE
   )
 
-  expect_error(
-    set_model_arg(
-      model = "sponge",
-      eng = "gum",
-      parsnip = "modeling",
-      original = "modelling",
-      func = list(pkg = "foo", fun = "bar"),
-      has_submodel = FALSE
-    )
+  set_model_arg(
+    model = "sponge",
+    eng = "gum",
+    parsnip = "modeling",
+    original = "modelling",
+    func = list(pkg = "foo", fun = "bar"),
+    has_submodel = FALSE
   )
+
+  args <- get_from_env("sponge_args")
+  expect_equal(sum(args$parsnip == "modeling"), 1)
 
   test_by_col(
     get_from_env("sponge_args"),
