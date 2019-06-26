@@ -112,6 +112,14 @@ get_model_env <- function() {
   current
 }
 
+
+check_eng_val <- function(eng) {
+  if (rlang::is_missing(eng) || length(eng) != 1)
+    stop("Please supply a character string for an engine name (e.g. `'lm'`)",
+         call. = FALSE)
+  invisible(NULL)
+}
+
 check_mod_val <- function(model, new = FALSE, existence = FALSE) {
   if (rlang::is_missing(model) || length(model) != 1)
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
@@ -337,6 +345,7 @@ set_model_mode <- function(model, mode) {
 set_model_engine <- function(model, mode, eng) {
   check_mod_val(model, existence = TRUE)
   check_mode_val(mode)
+  check_eng_val(eng)
   check_mode_val(eng)
 
   current <- get_model_env()
@@ -361,6 +370,7 @@ set_model_engine <- function(model, mode, eng) {
 #' @export
 set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_mod_val(model, existence = TRUE)
+  check_eng_val(eng)
   check_arg_val(parsnip)
   check_arg_val(original)
   check_func_val(func)
@@ -406,6 +416,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @export
 set_dependency <- function(model, eng, pkg) {
   check_mod_val(model, existence = TRUE)
+  check_eng_val(eng)
   check_pkg_val(pkg)
 
   current <- get_model_env()
@@ -464,6 +475,7 @@ get_dependency <- function(model) {
 #' @export
 set_fit <- function(model, mode, eng, value) {
   check_mod_val(model, existence = TRUE)
+  check_eng_val(eng)
   check_mode_val(mode)
   check_engine_val(eng)
   check_fit_info(value)
@@ -529,6 +541,7 @@ get_fit <- function(model) {
 #' @export
 set_pred <- function(model, mode, eng, type, value) {
   check_mod_val(model, existence = TRUE)
+  check_eng_val(eng)
   check_mode_val(mode)
   check_engine_val(eng)
   check_pred_info(value, type)

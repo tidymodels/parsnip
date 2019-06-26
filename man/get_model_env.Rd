@@ -48,7 +48,7 @@ show_model_info(model)
 
 get_from_env(items)
 
-pred_value_template(pre = NULL, post = NULL, func, args = list())
+pred_value_template(pre = NULL, post = NULL, func, ...)
 }
 \arguments{
 \item{model}{A single character string for the model type (e.g.
@@ -88,6 +88,9 @@ values are:
 
 \item{pre, post}{Optional functions for pre- and post-processing of prediction
 results.}
+
+\item{...}{Optional arguments that should be passed into the \code{args} slot for
+prediction objects}
 
 \item{new}{A single logical to check to see if the model that you are check
 has not already been registered.}
