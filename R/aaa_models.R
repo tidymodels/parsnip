@@ -30,77 +30,24 @@ parsnip$modes <- c("regression", "classification", "unknown")
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
-#' @keywords internal
-#' @export
 pred_types <-
-  c("raw", "numeric", "class", "link", "prob", "conf_int", "pred_int", "quantile")
+  c("raw", "numeric", "class", "prob", "conf_int", "pred_int", "quantile")
 
 # ------------------------------------------------------------------------------
 
-#' Tools to Register Models
+#' Working with the parsnip model environment
 #'
-#' These functions are similar to constructors and can be used to validate
-#'  that there are no conflicts with the underlying model structures used by the
-#'  package.
+#' These functions read and write to the environment where the package stores
+#'  information about model specifications.
 #'
-#' @param model A single character string for the model type (e.g.
-#'  `"rand_forest"`, etc).
-#' @param new A single logical to check to see if the model that you are check
-#'  has not already been registered.
-#' @param existence A single logical to check to see if the model has already
-#'  been registered.
-#' @param mode A single character string for the model mode (e.g. "regression").
-#' @param eng A single character string for the model engine.
-#' @param arg A single character string for the model argument name.
-#' @param has_submodel A single logical for whether the argument
-#'  can make predictions on mutiple submodels at once.
-#' @param func A named character vector that describes how to call
-#'  a function. `func` should have elements `pkg` and `fun`. The
-#'  former is optional but is recommended and the latter is
-#'  required. For example, `c(pkg = "stats", fun = "lm")` would be
-#'  used to invoke the usual linear regression function. In some
-#'  cases, it is helpful to use `c(fun = "predict")` when using a
-#'  package's `predict` method.
-#' @param fit_obj A list with elements `interface`, `protect`,
-#'  `func` and `defaults`. See the package vignette "Making a
-#'  `parsnip` model from scratch".
-#' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
-#'  See the package vignette "Making a `parsnip` model from scratch".
-#' @param type A single character value for the type of prediction. Possible
-#'  values are:
-#'  \Sexpr[results=rd]{paste0("'", parsnip::pred_types, "'", collapse = ", ")}.
-#' @param pkg An options character string for a package name.
-#' @param parsnip A single character string for the "harmonized" argument name
-#'  that `parsnip` exposes.
-#' @param original A single character string for the argument name that
-#'  underlying model function uses.
-#' @param value A list that conforms to the `fit_obj` or `pred_obj` description
-#'  above, depending on context.
 #' @param items A character string of objects in the model environment.
-#' @param pre,post Optional functions for pre- and post-processing of prediction
-#'  results.
-#' @param ... For `pred_value_template()`: optional arguments that should be
-#'  passed into the `args` slot for prediction objects. For `set_in_env()`,
-#'  named values that will be assigned to the model environment.
+#' @param ... Named values that will be assigned to the model environment.
+#' @param name A single character value for a new symbol in the model environment.
+#' @param value A single value for a new value in the model environment.
 #' @keywords internal
-#' @details These functions are available for users to add their
-#'  own models or engines (in package or otherwise) so that they can
-#'  be accessed using `parsnip`. This are more thoroughly documented
-#'  on the package web site (see references below).
-#'
-#' In short, `parsnip` stores an environment object that contains
-#'  all of the information and code about how models are used (e.g.
-#'  fitting, predicting, etc). These functions can be used to add
-#'  models to that environment as well as helper functions that can
-#'  be used to makes sure that the model data is in the right
-#'  format.
 #' @references "Making a parsnip model from scratch"
 #'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
 #' @examples
-#' # Show the information about a model:
-#' show_model_info("rand_forest")
-#'
 #' # Access the model data:
 #' current_code <- get_model_env()
 #' ls(envir = current_code)
@@ -109,10 +56,42 @@ pred_types <-
 #' @export
 get_model_env <- function() {
   current <- utils::getFromNamespace("parsnip", ns = "parsnip")
-  # current <- parsnip
   current
 }
 
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+get_from_env <- function(items) {
+  mod_env <- get_model_env()
+  rlang::env_get(mod_env, items)
+}
+
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+set_in_env <- function(...) {
+  mod_env <- get_model_env()
+  rlang::env_bind(mod_env, ...)
+}
+
+#' @rdname get_model_env
+#' @keywords internal
+#' @export
+set_env_val <- function(name, value) {
+  if (length(name) != 1 | length(value) != 1) {
+    stop("`name` and `value` should both be a single value.", call. = FALSE)
+  }
+  if (!is.character(name)) {
+    stop("`name` should be a character value.", call. = FALSE)
+  }
+  mod_env <- get_model_env()
+  x <- list(value)
+  names(x) <- name
+  rlang::env_bind(mod_env, !!!x)
+}
+
+# ------------------------------------------------------------------------------
 
 check_eng_val <- function(eng) {
   if (rlang::is_missing(eng) || length(eng) != 1)
@@ -281,7 +260,68 @@ check_interface_val <- function(x) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' Tools to Register Models
+#'
+#' These functions are similar to constructors and can be used to validate
+#'  that there are no conflicts with the underlying model structures used by the
+#'  package.
+#'
+#' @param model A single character string for the model type (e.g.
+#'  `"rand_forest"`, etc).
+#' @param new A single logical to check to see if the model that you are check
+#'  has not already been registered.
+#' @param existence A single logical to check to see if the model has already
+#'  been registered.
+#' @param mode A single character string for the model mode (e.g. "regression").
+#' @param eng A single character string for the model engine.
+#' @param arg A single character string for the model argument name.
+#' @param has_submodel A single logical for whether the argument
+#'  can make predictions on mutiple submodels at once.
+#' @param func A named character vector that describes how to call
+#'  a function. `func` should have elements `pkg` and `fun`. The
+#'  former is optional but is recommended and the latter is
+#'  required. For example, `c(pkg = "stats", fun = "lm")` would be
+#'  used to invoke the usual linear regression function. In some
+#'  cases, it is helpful to use `c(fun = "predict")` when using a
+#'  package's `predict` method.
+#' @param fit_obj A list with elements `interface`, `protect`,
+#'  `func` and `defaults`. See the package vignette "Making a
+#'  `parsnip` model from scratch".
+#' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
+#'  See the package vignette "Making a `parsnip` model from scratch".
+#' @param type A single character value for the type of prediction. Possible
+#'  values are: `class`, `conf_int`, `numeric`, `pred_int`, `prob`, `quantile`,
+#'   and `raw`.
+#' @param pkg An options character string for a package name.
+#' @param parsnip A single character string for the "harmonized" argument name
+#'  that `parsnip` exposes.
+#' @param original A single character string for the argument name that
+#'  underlying model function uses.
+#' @param value A list that conforms to the `fit_obj` or `pred_obj` description
+#'  above, depending on context.
+#' @param pre,post Optional functions for pre- and post-processing of prediction
+#'  results.
+#' @param ... Optional arguments that should be passed into the `args` slot for
+#'  prediction objects.
+#' @keywords internal
+#' @details These functions are available for users to add their
+#'  own models or engines (in package or otherwise) so that they can
+#'  be accessed using `parsnip`. This are more thoroughly documented
+#'  on the package web site (see references below).
+#'
+#' In short, `parsnip` stores an environment object that contains
+#'  all of the information and code about how models are used (e.g.
+#'  fitting, predicting, etc). These functions can be used to add
+#'  models to that environment as well as helper functions that can
+#'  be used to makes sure that the model data is in the right
+#'  format.
+#' @references "Making a parsnip model from scratch"
+#'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+#' @examples
+#' # set_new_model("shallow_learning_model")
+#'
+#' # Show the information about a model:
+#' show_model_info("rand_forest")
 #' @keywords internal
 #' @export
 set_new_model <- function(model) {
@@ -320,7 +360,7 @@ set_new_model <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_model_mode <- function(model, mode) {
@@ -340,7 +380,7 @@ set_model_mode <- function(model, mode) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_model_engine <- function(model, mode, eng) {
@@ -366,7 +406,7 @@ set_model_engine <- function(model, mode, eng) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
@@ -412,7 +452,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_dependency <- function(model, eng, pkg) {
@@ -456,7 +496,7 @@ set_dependency <- function(model, eng, pkg) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 get_dependency <- function(model) {
@@ -471,7 +511,7 @@ get_dependency <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_fit <- function(model, mode, eng, value) {
@@ -523,7 +563,7 @@ set_fit <- function(model, mode, eng, value) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 get_fit <- function(model) {
@@ -537,7 +577,7 @@ get_fit <- function(model) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 set_pred <- function(model, mode, eng, type, value) {
@@ -590,7 +630,7 @@ set_pred <- function(model, mode, eng, type, value) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 get_pred_type <- function(model, type) {
@@ -609,7 +649,7 @@ get_pred_type <- function(model, type) {
 
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 show_model_info <- function(model) {
@@ -700,35 +740,9 @@ show_model_info <- function(model) {
   invisible(NULL)
 }
 
-#' @rdname get_model_env
-#' @keywords internal
-#' @export
-get_from_env <- function(items) {
-  mod_env <- get_model_env()
-  rlang::env_get(mod_env, items)
-}
-
-#' @rdname get_model_env
-#' @keywords internal
-#' @export
-set_in_env <- function(...) {
-  mod_env <- get_model_env()
-  rlang::env_bind(mod_env, ...)
-}
-
-#' @rdname get_model_env
-#' @keywords internal
-#' @export
-set_env_val <- function(name, value) {
-  mod_env <- parsnip::get_model_env()
-  x <- list(value)
-  names(x) <- name
-  rlang::env_bind(mod_env, !!!x)
-}
-
 # ------------------------------------------------------------------------------
 
-#' @rdname get_model_env
+#' @rdname set_new_model
 #' @keywords internal
 #' @export
 pred_value_template <-  function(pre = NULL, post = NULL, func, ...) {
