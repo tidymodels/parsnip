@@ -282,7 +282,6 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "keras")
-set_model_engine("logistic_reg", "regression", "keras")
 set_dependency("logistic_reg", "keras", "keras")
 set_dependency("logistic_reg", "keras", "magrittr")
 
@@ -350,7 +349,6 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "stan")
-set_model_engine("logistic_reg", "regression", "stan")
 set_dependency("logistic_reg", "stan", "rstanarm")
 
 set_fit(

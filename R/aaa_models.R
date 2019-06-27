@@ -91,7 +91,7 @@ set_env_val <- function(name, value) {
 # ------------------------------------------------------------------------------
 
 check_eng_val <- function(eng) {
-  if (rlang::is_missing(eng) || length(eng) != 1)
+  if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng))
     stop("Please supply a character string for an engine name (e.g. `'lm'`)",
          call. = FALSE)
   invisible(NULL)
@@ -99,7 +99,7 @@ check_eng_val <- function(eng) {
 
 
 check_model_exists <- function(model) {
-  if (rlang::is_missing(model) || length(model) != 1) {
+  if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
   }
@@ -114,7 +114,7 @@ check_model_exists <- function(model) {
 }
 
 check_model_doesnt_exist <- function(model) {
-  if (rlang::is_missing(model) || length(model) != 1) {
+  if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
     stop("Please supply a character string for a model name (e.g. `'linear_reg'`)",
          call. = FALSE)
   }
@@ -129,21 +129,21 @@ check_model_doesnt_exist <- function(model) {
 }
 
 check_mode_val <- function(mode) {
-  if (rlang::is_missing(mode) || length(mode) != 1)
+  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode))
     stop("Please supply a character string for a mode (e.g. `'regression'`)",
          call. = FALSE)
   invisible(NULL)
 }
 
 check_engine_val <- function(eng) {
-  if (rlang::is_missing(eng) || length(eng) != 1)
+  if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng))
     stop("Please supply a character string for an engine (e.g. `'lm'`)",
          call. = FALSE)
   invisible(NULL)
 }
 
 check_arg_val <- function(arg) {
-  if (rlang::is_missing(arg) || length(arg) != 1)
+  if (rlang::is_missing(arg) || length(arg) != 1 || !is.character(arg))
     stop("Please supply a character string for the argument",
          call. = FALSE)
   invisible(NULL)
@@ -415,7 +415,7 @@ set_model_engine <- function(model, mode, eng) {
     dplyr::distinct()
 
   set_env_val(model, engs)
-
+  set_model_mode(model, mode)
   invisible(NULL)
 }
 

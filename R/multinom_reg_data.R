@@ -166,7 +166,6 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "keras")
-set_model_engine("multinom_reg", "regression", "keras")
 set_dependency("multinom_reg", "keras", "keras")
 set_dependency("multinom_reg", "keras", "magrittr")
 

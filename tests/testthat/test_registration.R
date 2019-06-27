@@ -59,8 +59,8 @@ test_by_col(
 )
 
 expect_error(set_new_model())
-# TODO expect_error(set_new_model(2))
-# TODO expect_error(set_new_model(letters[1:2]))
+expect_error(set_new_model(2))
+expect_error(set_new_model(letters[1:2]))
 })
 
 
@@ -72,16 +72,13 @@ test_that('adding a new mode', {
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
   expect_error(set_model_mode("sponge"))
-  # TODO expect_error(set_model_mode("sponge", "banana"))
-  # TODO expect_error(set_model_mode("sponge", "classification"))
-
 })
 
 
 # ------------------------------------------------------------------------------
 
 test_that('adding a new engine', {
-  set_model_engine("sponge", "classification", "gum")
+  set_model_engine("sponge", mode = "classification", eng = "gum")
 
   test_by_col(
     get_from_env("sponge"),
