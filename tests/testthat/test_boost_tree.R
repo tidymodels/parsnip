@@ -120,12 +120,12 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(boost_tree(mode = "bogus"))
   expect_error({
-    bt <- boost_tree(trees = -1)
-    fit(bt, Species ~ ., iris) %>% set_engine("xgboost")
+    bt <- boost_tree(trees = -1) %>% set_engine("xgboost")
+    fit(bt, Species ~ ., iris)
   })
   expect_error({
-    bt <- boost_tree(min_n = -10)
-    fit(bt, Species ~ ., iris)  %>% set_engine("xgboost")
+    bt <- boost_tree(min_n = -10)  %>% set_engine("xgboost")
+    fit(bt, Species ~ ., iris)
   })
   expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))
