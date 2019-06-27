@@ -13,11 +13,11 @@ data("lending_club")
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 
-lc_basic <- rand_forest() %>% set_engine("ranger")
-lc_ranger <- rand_forest() %>% set_engine("ranger", seed = 144)
+lc_basic <- rand_forest(mode = "classification") %>% set_engine("ranger")
+lc_ranger <- rand_forest(mode = "classification") %>% set_engine("ranger", seed = 144)
 
-bad_ranger_cls <- rand_forest() %>% set_engine("ranger", replace = "bad")
-bad_rf_cls <- rand_forest() %>% set_engine("ranger", sampsize = -10)
+bad_ranger_cls <- rand_forest(mode = "classification") %>% set_engine("ranger", replace = "bad")
+bad_rf_cls <- rand_forest(mode = "classification") %>% set_engine("ranger", sampsize = -10)
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -34,7 +34,6 @@ test_that('ranger classification execution', {
       lc_ranger,
       Class ~ funded_amnt + term,
       data = lending_club,
-
       control = ctrl
     ),
     regexp = NA
@@ -63,7 +62,7 @@ test_that('ranger classification execution', {
 
   ranger_form_catch <- fit(
     bad_ranger_cls,
-    funded_amnt ~ term,
+    Class ~ term,
     data = lending_club,
 
     control = caught_ctrl
@@ -75,7 +74,7 @@ test_that('ranger classification execution', {
 
     control = caught_ctrl,
     x = lending_club[, num_pred],
-    y = lending_club$total_bal_il
+    y = lending_club$Class
   )
   expect_true(inherits(ranger_xy_catch$fit, "try-error"))
 
@@ -159,7 +158,7 @@ test_that('ranger classification probabilities', {
   )
 
   no_prob_model <- fit_xy(
-    rand_forest() %>% set_engine("ranger", probability = FALSE),
+    rand_forest(mode = "classification") %>% set_engine("ranger", probability = FALSE),
     x = lending_club[, num_pred],
     y = lending_club$Class,
     control = ctrl
@@ -174,10 +173,10 @@ test_that('ranger classification probabilities', {
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- rand_forest() %>% set_engine("ranger")
+car_basic <- rand_forest(mode = "regression") %>% set_engine("ranger")
 
-bad_ranger_reg <- rand_forest() %>% set_engine("ranger", replace = "bad")
-bad_rf_reg <- rand_forest() %>% set_engine("ranger", sampsize = -10)
+bad_ranger_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", replace = "bad")
+bad_rf_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", sampsize = -10)
 
 ctrl <- list(verbosity = 1, catch = FALSE)
 caught_ctrl <- list(verbosity = 1, catch = TRUE)
@@ -251,7 +250,7 @@ test_that('ranger regression intervals', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest() %>% set_engine("ranger", keep.inbag = TRUE),
+    rand_forest(mode = "regression") %>% set_engine("ranger", keep.inbag = TRUE),
     x = mtcars[, -1],
     y = mtcars$mpg,
     control = ctrl
@@ -282,7 +281,8 @@ test_that('additional descriptor tests', {
   skip_if_not_installed("ranger")
 
   descr_xy <- fit_xy(
-    rand_forest(mtry = floor(sqrt(.cols())) + 1) %>% set_engine("ranger"),
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+      set_engine("ranger"),
     x = mtcars[, -1],
     y = mtcars$mpg,
     control = ctrl
@@ -290,14 +290,16 @@ test_that('additional descriptor tests', {
   expect_equal(descr_xy$fit$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mtry = floor(sqrt(.cols())) + 1) %>% set_engine("ranger"),
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+      set_engine("ranger"),
     mpg ~ ., data = mtcars,
     control = ctrl
   )
   expect_equal(descr_f$fit$mtry, 4)
 
   descr_xy <- fit_xy(
-    rand_forest(mtry = floor(sqrt(.cols())) + 1) %>% set_engine("ranger"),
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+      set_engine("ranger"),
     x = mtcars[, -1],
     y = mtcars$mpg,
     control = ctrl
@@ -305,7 +307,8 @@ test_that('additional descriptor tests', {
   expect_equal(descr_xy$fit$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mtry = floor(sqrt(.cols())) + 1) %>% set_engine("ranger"),
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+      set_engine("ranger"),
     mpg ~ ., data = mtcars,
     control = ctrl
   )
@@ -316,7 +319,7 @@ test_that('additional descriptor tests', {
   exp_wts <- quo(c(min(.lvls()), 20, 10))
 
   descr_other_xy <- fit_xy(
-    rand_forest(mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
     x = iris[, 1:4],
     y = iris$Species,
@@ -326,7 +329,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_other_xy$fit$call$class.weights, exp_wts)
 
   descr_other_f <- fit(
-    rand_forest(mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
     Species ~ ., data = iris,
     control = ctrl
@@ -335,7 +338,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_other_f$fit$call$class.weights, exp_wts)
 
   descr_other_xy <- fit_xy(
-    rand_forest(mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
     x = iris[, 1:4],
     y = iris$Species,
@@ -345,7 +348,7 @@ test_that('additional descriptor tests', {
   expect_equal(descr_other_xy$fit$call$class.weights, exp_wts)
 
   descr_other_f <- fit(
-    rand_forest(mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
     Species ~ ., data = iris,
     control = ctrl
@@ -410,7 +413,7 @@ test_that('ranger classification intervals', {
   skip_if_not_installed("ranger")
 
   lc_fit <- fit(
-    rand_forest() %>%
+    rand_forest(mode = "classification") %>%
       set_engine("ranger", keep.inbag = TRUE, probability = TRUE),
     Class ~ funded_amnt + int_rate,
     data = lending_club,

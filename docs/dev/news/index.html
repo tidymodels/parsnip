@@ -124,36 +124,58 @@
       
     </div>
 
-    <div id="parsnip-0-0-2" class="section level1">
+    <div id="parsnip-0-0-2-9000" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> Unreleased </small>
+<a href="#parsnip-0-0-2-9000" class="anchor"></a>parsnip 0.0.2.9000<small> Unreleased </small>
 </h1>
-<p>Small release driven by changes in <code><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample()</a></code> in the current r-devel.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code>?get_model_env()</code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</li>
+<li>The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation).</li>
+<li>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h2>
 <ul>
+<li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
+<li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
+</ul>
+</div>
+</div>
+    <div id="parsnip-0-0-2" class="section level1">
+<h1 class="page-header">
+<a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
+</h1>
+<p>Small release driven by changes in <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> in the current r-devel.</p>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<ul>
 <li><p>A “null model” is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).</p></li>
-<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/fit_xy">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other Changes</h2>
 <ul>
-<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
 <li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> not returns an S3 method.</p></li>
 <li><p>For classification models, an error occurs if the outcome data are not encoded as factors (#115).</p></li>
 <li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
-<li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the “r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
+<li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
 <ul>
-<li><p><code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code> now uses the version from the <code>generics</code> package. This means that the first argument, <code>x</code>, has been renamed to <code>object</code> to align with generics.</p></li>
-<li><p>For the recipes step method of <code><a href="https://www.rdocumentation.org/packages/generics/topics/varying_args">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (#132).</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now uses the version from the <code>generics</code> package. This means that the first argument, <code>x</code>, has been renamed to <code>object</code> to align with generics.</p></li>
+<li><p>For the recipes step method of <code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (#132).</p></li>
 <li><p><code>find_varying()</code>, the internal function for detecting varying arguments, now returns correct results when a size 0 argument is provided. It can also now detect varying arguments nested deeply into a call (#131, #134).</p></li>
 <li><p>For multinomial regression, the <code>.pred_</code> prefix is now only added to prediction column names once (#107).</p></li>
 <li><p>For multinomial regression using glmnet, <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (#108).</p></li>
@@ -221,7 +243,7 @@
 <a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://www.rdocumentation.org/packages/generics/topics/fit_xy">fit_xy()</a></code> is for the x/y interface</a>.</li>
+<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> is for the x/y interface</a>.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>
 <code>predict</code> methods were <a href="https://github.com/topepo/parsnip/issues/34">overhauled</a> to be <a href="https://github.com/topepo/parsnip/issues/41">consistent</a>.</li>
@@ -234,6 +256,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#parsnip-0-0-2-9000">0.0.2.9000</a></li>
         <li><a href="#parsnip-0-0-2">0.0.2</a></li>
         <li><a href="#parsnip-0-0-1">0.0.1</a></li>
         <li><a href="#parsnip-0-0-0-9005">0.0.0.9005</a></li>

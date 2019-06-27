@@ -322,7 +322,3 @@ check_glmnet_lambda <- function(dat, object) {
   dat
 }
 
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(c("group", ".pred"))

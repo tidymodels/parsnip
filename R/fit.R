@@ -52,8 +52,6 @@
 #'
 #' lr_mod <- logistic_reg()
 #'
-#' lr_mod <- logistic_reg()
-#'
 #' using_formula <-
 #'   lr_mod %>%
 #'   set_engine("glm") %>%
@@ -125,7 +123,7 @@ fit.model_spec <-
       )
 
     # populate `method` with the details for this model type
-    object <- get_method(object, engine = object$engine)
+    object <- add_methods(object, engine = object$engine)
 
     check_installs(object)
 
@@ -215,7 +213,7 @@ fit_xy.model_spec <-
       )
 
     # populate `method` with the details for this model type
-    object <- get_method(object, engine = object$engine)
+    object <- add_methods(object, engine = object$engine)
 
     check_installs(object)
 
@@ -239,7 +237,7 @@ fit_xy.model_spec <-
             ...
           ),
 
-        data.frame_data.frame =, matrix_data.frame =
+        data.frame_data.frame = , matrix_data.frame =
           xy_xy(
             object = object,
             env = eval_env,
@@ -249,7 +247,7 @@ fit_xy.model_spec <-
           ),
 
         # heterogenous combinations
-        matrix_formula =,  data.frame_formula =
+        matrix_formula = ,  data.frame_formula =
           xy_form(
             object = object,
             env = eval_env,
@@ -367,7 +365,7 @@ check_xy_interface <- function(x, y, cl, model) {
 print.model_fit <- function(x, ...) {
   cat("parsnip model object\n\n")
 
-  if(inherits(x$fit, "try-error")) {
+  if (inherits(x$fit, "try-error")) {
     cat("Model fit failed with error:\n", x$fit, "\n")
   } else {
     print(x$fit, ...)

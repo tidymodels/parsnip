@@ -11,7 +11,7 @@ source("helpers.R")
 # ------------------------------------------------------------------------------
 
 test_that('primary arguments', {
-  basic <- svm_poly()
+  basic <- svm_poly(mode = "regression")
   basic_kernlab <- translate(basic %>% set_engine("kernlab"))
 
   expect_equal(
@@ -23,7 +23,7 @@ test_that('primary arguments', {
     )
   )
 
-  degree <- svm_poly(degree = 2)
+  degree <- svm_poly(mode = "regression", degree = 2)
   degree_kernlab <- translate(degree %>% set_engine("kernlab"))
   degree_obj <- expr(list())
   degree_obj$degree <- new_empty_quosure(2)
@@ -38,7 +38,7 @@ test_that('primary arguments', {
     )
   )
 
-  degree_scale <- svm_poly(degree = 2, scale_factor = 1.2)
+  degree_scale <- svm_poly(mode = "regression", degree = 2, scale_factor = 1.2)
   degree_scale_kernlab <- translate(degree_scale %>% set_engine("kernlab"))
   degree_scale_obj <- expr(list())
   degree_scale_obj$degree <- new_empty_quosure(2)
@@ -58,7 +58,7 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
 
-  kernlab_cv <- svm_poly() %>% set_engine("kernlab", cross = 10)
+  kernlab_cv <- svm_poly(mode = "regression") %>% set_engine("kernlab", cross = 10)
 
   expect_equal(
     object = translate(kernlab_cv, "kernlab")$method$fit$args,
@@ -75,14 +75,14 @@ test_that('engine arguments', {
 
 test_that('updating', {
 
-  expr1     <- svm_poly()  %>% set_engine("kernlab", cross = 10)
-  expr1_exp <- svm_poly(degree = 1) %>% set_engine("kernlab", cross = 10)
+  expr1     <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr1_exp <- svm_poly(mode = "regression", degree = 1) %>% set_engine("kernlab", cross = 10)
 
-  expr2     <- svm_poly(degree = varying()) %>% set_engine("kernlab")
-  expr2_exp <- svm_poly(degree = varying(), scale_factor = 1) %>% set_engine("kernlab")
+  expr2     <- svm_poly(mode = "regression", degree = varying()) %>% set_engine("kernlab")
+  expr2_exp <- svm_poly(mode = "regression", degree = varying(), scale_factor = 1) %>% set_engine("kernlab")
 
-  expr3     <- svm_poly(degree = 2, scale_factor = varying()) %>% set_engine("kernlab")
-  expr3_exp <- svm_poly(degree = 3) %>% set_engine("kernlab")
+  expr3     <- svm_poly(mode = "regression", degree = 2, scale_factor = varying()) %>% set_engine("kernlab")
+  expr3_exp <- svm_poly(mode = "regression", degree = 3) %>% set_engine("kernlab")
 
   expect_equal(update(expr1, degree = 1), expr1_exp)
   expect_equal(update(expr2,  scale_factor = 1), expr2_exp)
@@ -97,12 +97,12 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_poly(degree = 1, cost = 1/4) %>%
+  svm_poly(mode = "regression", degree = 1, cost = 1/4) %>%
   set_engine("kernlab") %>%
   set_mode("regression")
 
 cls_mod <-
-  svm_poly(degree = 2, cost = 1/8) %>%
+  svm_poly(mode = "classification", degree = 2, cost = 1/8) %>%
   set_engine("kernlab") %>%
   set_mode("classification")
 

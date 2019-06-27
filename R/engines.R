@@ -1,23 +1,13 @@
 
-get_model_info <-  function (x, engine)  {
-  cls <- specific_model(x)
-  nm <- paste(cls, engine, "data", sep = "_")
-  res <- try(get(nm), silent = TRUE)
-  if (inherits(res, "try-error"))
-    stop("Can't find model object ", nm)
-  res
-}
-
 specific_model <- function(x) {
   cls <- class(x)
   cls[cls != "model_spec"]
 }
 
-
 possible_engines <- function(object, ...) {
-  cls <- specific_model(object)
-  key_df <- get(paste(cls, "engines", sep = "_"))
-  colnames(key_df[object$mode, , drop = FALSE])
+  m_env <- get_model_env()
+  engs <- rlang::env_get(m_env, specific_model(object))
+  unique(engs$engine)
 }
 
 check_engine <- function(object) {

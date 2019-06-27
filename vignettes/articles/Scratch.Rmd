@@ -1,8 +1,8 @@
 ---
-title: Making a `parsnip` model from scratch
+title: Making a parsnip model from scratch
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Making a `parsnip` model from scratch}
+  %\VignetteIndexEntry{Making a parsnip model from scratch}
 output:
   knitr:::html_vignette:
     toc: yes
@@ -28,7 +28,7 @@ library(mda)
  * It eliminates a lot of duplicate code.
  * Since the expressions are not evaluated until fitting, it eliminates a large amount of package dependencies.
 
-A `parsnip` model function is itself very general. For example, the `logistic_reg` function itself doesn't have any model code within it. Instead, each model function is associated with one or more computational _engines_. These might be different R packages or some function in another language (that can be evaluated by R).  
+A `parsnip` model function is itself very general. For example, the `logistic_reg()` function itself doesn't have any model code within it. Instead, each model function is associated with one or more computational _engines_. These might be different R packages or some function in another language (that can be evaluated by R).  
 
 This vignette describes the process of creating a new model function. Before proceeding, take a minute and read our [guidelines on creating modeling packages](https://tidymodels.github.io/model-implementation-principles/) to get the general themes and conventions that we use.  
 
@@ -40,59 +40,76 @@ str(mda::mda)
 
 The main hyper-parameter is the number of subclasses. We'll name our function `mixture_da`. 
 
-## Step 1. Make the objects for the general method
+## Aspects of Models
 
-There are three objects that define the parameters and other characteristics of the model function. 
+Before proceeding, it helps to to review how `parsnip` categorizes models:
 
-First, is the object that describes the model's mode(s). The modes are the type of model and the two main values are "classification" and "regression". A third mode, "unknown", is used for initializing objects but models will fail if it is used further. 
+* The model _type_ is related to the structural aspect of the model. For example, the model type `linear_reg` represents linear models (slopes and intercepts) that model a numeric outcome. Other model types in the package are `neighest_nighbors`, decision_tree`, and so on. 
 
-The convention in `parsnip` is to use the name `{model name}_modes`. In our case, we have:
+* Within a model type is the _mode_. This relates to the modeling goal. Currently the two modes in the package are "regression" and "classification". Some models have methods for both models (e.g. nearest neighbors) while others are specific to a single mode (e.g. logistic regression). 
 
-```{r modes}
-mixture_da_modes <- c("classification", "unknown")
-```
+* The computation _engine_ is a combination of the estimation method and the implementation. For example, for linear regression, one model is `"lm"` and this uses ordinal least squares analysis using the `lm` package. Another engine is `"stan"` which uses the Stan infrastructure to estimate parameters using Bayes rule. 
 
-Next, we define the engines used by the model and the associated mode. Here, the columns correspond to the engine names and rows are the modes (via row names). We have two engines and one effective mode, so our object will have the suffix `_engines`:
+When adding a model into `parsnip`, the user has to specific which modes and engines are used. The package also enables users to add a new mode or engine to an existing model. 
 
-```{r engines}
-mixture_da_engines <- data.frame(
-  mda      = TRUE,
-  row.names =  c("classification")
-)
-mixture_da_engines
-```
+## The General Process
 
-A row for "unknown" modes is not needed in this object. 
+`parsnip` stores information about the models in an internal environment object. The environment can be accessed via the function `get_model_env()`. The package includes a variety of functions that can get or set the different aspects of the models. 
 
-Now, we enumerate the _main arguments_ for each engine. `parsnip` standardizes the names of arguments across different models and engines. For example, random forest and boosting use multiple trees to create the ensemble. Instead of using different argument names, `parsnip` standardizes on `trees` and the underlying code translates to the actual arguments used by the different functions. 
+If you are adding a new model form your own package, you can use these functions to add new entries into the model environment. 
 
-In our case, the MDA argument name will be "sub_classes". 
+## Step 1. Register the Model, Modes, and Arguments. 
 
-Here, the object name will have the suffix `_arg_key` and will have columns for the engines and rows for the arguments. The entries for the data frame are the actual arguments for each engine (and is `NA` when an engine doesn't have that argument). Ours:
+We will add the MDA model using the model type `mixture_da`. Since this is a classification method, we only have to register a single mode:
 
-```{r arg-key}
-mixture_da_arg_key <- data.frame(
-  mda      =   "sub_classes",
-  row.names =  "sub_classes",
-  stringsAsFactors = FALSE
+```{r mda-reg}
+library(parsnip)
+set_new_model("mixture_da")
+set_model_mode(model = "mixture_da", mode = "classification")
+set_model_engine(
+  "mixture_da", 
+  mode = "classification", 
+  eng = "mda"
 )
 ```
 
-As an example of a model with multiple engines, here is the object for logistic regression:
+These functions should silently finish. There is also a function that can be used to show what aspects of the model have been added to `parsnip`: 
 
-```{r lr-key}
-parsnip:::logistic_reg_arg_key
+```{r mda-show-1}
+show_model_info("mixture_da")
 ```
 
-The internals of `parsnip` will use these objects during the creation of the model code. 
+The next step would be the declare the main arguments to the model. These are declared indpendnent of the mode.  To specifiy the argument, there are a few slots to fill in:
 
-## Step  2. Create the model function
+ * The name that `parsnip` uses for the argument. In general, we try to use non-jargony names for arguments (e.g. "penalty" instead of "lambda" for regularised regression). We recommend consulting [this page]() to see if an existing argument name can be used before creating a new one. 
+ 
+ * The argument name that is used by the underlying modeling function. 
+ 
+ * A function reference for a _contructor_ that will be used to generate tuning parameter values. This should be a character vector that has a named element called `fun` that is the contructor function. There is an optional element `pkg` that can be used to call the function using its namespace. 
+ 
+ * A logical value for wether the argument can be used to generate mutiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use `has_submodels = FALSE`. 
+ 
+For `mda::mda()`, the main tuning parameter is `subclasses` which we will rewrite as `sub_classes`. 
+
+```{r mda-args}
+set_model_arg(
+  model = "mixture_da",
+  eng = "mda",
+  parsnip = "sub_classes",
+  original = "subclasses",
+  func = list(pkg = "foo", fun = "bar"),
+  has_submodel = FALSE
+)
+show_model_info("mixture_da")
+```
+
+## Step 3. Create the model function
 
 This is a fairly simple function that can follow a basic template. The main arguments to our function will be:
 
- * The mode. If the model can do more than one mode, you might default this to "unknown". In our case, since it is only a classification model, it makes sense to default it to that mode. 
+ * The mode. If the model can do more than one mode, you might default this to "unknown". In our case, since it is only a classification model, it makes sense to default it to that mode so that the users won't have to specify it. 
+ 
  * The argument names (`sub_classes` here). These should be defaulted to `NULL`.
- * `...` are _not_ used in the main model function. 
 
 A basic version of the function is:
 
@@ -100,10 +117,9 @@ A basic version of the function is:
 mixture_da <-
   function(mode = "classification",  sub_classes = NULL) {
     # Check for correct mode
-    if (!(mode %in% mixture_da_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", mixture_da_modes, "'", collapse = ", "),
-           call. = FALSE)
+    if (mode  != "classification") {
+      stop("`mode` should be 'classification'", call. = FALSE)
+    }
     
     # Capture the arguments in quosures
     args <- list(sub_classes = rlang::enquo(sub_classes))
@@ -120,62 +136,50 @@ mixture_da <-
 
 This is pretty simple since the data are not exposed to this function. 
 
-## Step 3. Make the model object
+## Step 3. Add a Fit Module
 
-This is where the details of the models are specified. This will be a list that has a few different elements: 
+Now that `parsnip` knows about the model, mode, and engine, we can give it the infomration on fitting the model for our engine. 
+In infomration needed to fit the model is contained in another list. The elements are:
 
- * `libs` is a character string that has any package names that will be required for the model fit. 
- * `fit` has details for the model fit function. 
- * `pred`, `prob`, and `classes`. These are lists of details for making predictions on numbers, class probabilities, or hard class predictions (respectively). 
- 
-We'll look at each. The convention here is to name this `{model name}_{engine}_data`. We'll start with:
-
-```{r mda-start}
-mixture_da_mda_data <- list(libs = "mda")
-```
-
-### The `fit` module
-
-The main arguments are:
- 
  * `interface` a single character value that could be "formula", "data.frame", or "matrix". This defines the type of interface used by the underlying fit function (`mda::mda`, in this case). This helps the translation of the data to be in an appropriate format for the that function. 
+ 
  * `protect` is an optional list of function arguments that **should not be changeable** by the user. In this case, we probably don't want users to pass data values to these arguments (until the `fit` function is called).
+ 
  * `func` is the package and name of the function that will be called. If you are using a locally defined function, only `fun` is required. 
+ 
  * `defaults` is an optional list of arguments to the fit function that the user can change, but whose defaults can be set here. This isn't needed in this case, but is describe later in this document.
 
 For the first engine:
 
 ```{r fit-mod}
-mixture_da_mda_data$fit <-
-  list(
+set_fit(
+  model = "mixture_da",
+  eng = "mda",
+  mode = "classification",
+  value = list(
     interface = "formula",
-    protect = c("formula", "data", "weights"),
+    protect = c("formula", "data"),
     func = c(pkg = "mda", fun = "mda"),
     defaults = list()
   )
+)
+show_model_info("mixture_da")
 ```
 
-### The `numeric` module
+## Step 3. Add Modules for Prediction
 
-This is defined only for regression models (so is not added to the list). The convention used here is very similar to the two that are detailed in the next section. For `numeric`, the model requires an unnamed numeric vector output (usually). 
-
-Examples are [here](https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R) and [here](https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R). 
-
-For multivariate models, the return value should be a matrix or data frame (otherwise a vector should be the results). 
-
-Note that the `numeric` module maps to the `predict_numeric` function in `parsnip`. However, the user-facing `predict` function is used to generate predictions and returns a tibble with a column named `.pred` (see the example below). When creating new models, you don't have to write code for that part. 
-
-
-### The `class` module
-
-To make hard class predictions, the `class` object contains the details. The elements of the list are:
+Similar to the fitting module, we specify the code for making different types of predictions. To make hard class predictions, the `class` object contains the details. The elements of the list are:
 
  * `pre` and `post` are optional functions that can preprocess the data being fed to the prediction code and to postprocess the raw output of the predictions. These won't be need for this example, but a section below has examples of how these can be used when the model code is not easy to use. If the data being predicted has a simple type requirement, you can avoid using a `pre` function with the `args` below. 
  * `func` is the prediction function (in the same format as above). In many cases, packages have a predict method for their model's class but this is typically not exported. In this case (and the example below), it is simple enough to make a generic call to `predict` with no associated package. 
- * `args` is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in `rlang::expr` so that they are not evaluated when defining the method. For `mda`, the code would be `predict(object, newdata, type = "class")`. What is actually given to the function is the `parsnip` model fit object, which includes a sub-object called `fit` and this houses the `mda` model object. If the data need to be a matrix or data frame, you could also use `new_data = quote(as.data.frame(new_data))` and so on. 
+ * `args` is a list of arguments to pass to the prediction function. These will mostly likely be wrapped in `rlang::expr` so that they are not evaluated when defining the method. For `mda`, the code would be `predict(object, newdata, type = "class")`. What is actually given to the function is the `parsnip` model fit object, which includes a sub-object called `fit` and this houses the `mda` model object. If the data need to be a matrix or data frame, you could also use `newdata = quote(as.data.frame(newdata))` and so on. 
 
-```{r mda-class}
-mixture_da_mda_data$class <-
+The `parsnip` prediction code will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data.  
+
+To add this method to the model environment, a similar `set` function is used:
+
+```{r mds-class}
+class_info <- 
   list(
     pre = NULL,
     post = NULL,
@@ -192,34 +196,50 @@ mixture_da_mda_data$class <-
         type = "class"
       )
   )
-```
 
-The `predict_class` function will expect the result to be an unnamed character string or factor. This will be coerced to a factor with the same levels as the original data. As with the `pred` module, the user doesn't call `predict_class` but uses `predict` instead and this produces a tibble with a column named `.pred_class` [per the model guidlines](https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values). 
+set_pred(
+  model = "mixture_da",
+  eng = "mda",
+  mode = "classification",
+  type = "class",
+  value = class_info
+)
+```    
 
-### The `classprob` module
-
-This defines the class probabilities (if they can be computed). The format is identical to the `class` module but the output is expected to be a tibble with columns for each factor level. 
+A similar call can be used to define  the class probability module (if they can be computed). The format is identical to the `class` module but the output is expected to be a tibble with columns for each factor level. 
 
 As an example of the `post` function, the data frame created by `mda:::predict.mda` will be converted to a tibble. The arguments are `x` (the raw results coming from the predict method) and `object` (the `parsnip` model fit object). The latter has a sub-object called `lvl` which is a character string of the outcome's factor levels (if any). 
 
-```{r mda-classprob}
-mixture_da_mda_data$classprob <-
-  list(
-    pre = NULL,
+We register the probability module. There is a template function that makes this slightly easier to format the objects:
+
+```{r mda-prob}
+prob_info <-
+  pred_value_template(
     post = function(x, object) {
-        tibble::as_tibble(x)
-      },
+      tibble::as_tibble(x)
+    },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "posterior"
-      )
+    # Now everything else is put into the `args` slot
+    object = quote(object$fit),
+    newdata = quote(new_data),
+    type = "posterior"
   )
+
+set_pred(
+  model = "mixture_da",
+  eng = "mda",
+  mode = "classification",
+  type = "prob",
+  value = prob_info
+)
+
+show_model_info("mixture_da")
 ```
 
-The `post` element converts the output to a tibble but the main `predict` method does proper naming of the column names. 
+If this model could be used for regression situations, we could also add a "numeric" module. The convention used here is very similar to the two that are detailed in the next section. For `pred`, the model requires an unnamed numeric vector output (usually). 
+
+Examples are [here](https://github.com/topepo/parsnip/blob/master/R/linear_reg_data.R) and [here](https://github.com/topepo/parsnip/blob/master/R/rand_forest_data.R). 
+
 
 ## Does it Work? 
 
@@ -228,98 +248,132 @@ As a developer, one thing that may come in handy is the `translate` function. Th
 For example:
 
 ```{r mda-code}
-library(tidymodels)
+library(parsnip)
+library(tidyverse)
 
 mixture_da(sub_classes = 2) %>%
-  set_engine("mda") %>%
-  translate()
+  translate(engine = "mda")
 ```
 
 Let's try it on the iris data:
 
 ```{r mda-data}
+library(rsample)
+library(tibble)
+
 set.seed(4622)
-iris_split <- initial_split(iris, prop = 0.90)
+iris_split <- initial_split(iris, prop = 0.95)
 iris_train <- training(iris_split)
 iris_test  <-  testing(iris_split)
 
-mda_spec <- mixture_da(sub_classes = 2)
+mda_spec <- mixture_da(sub_classes = 2) %>% 
+  set_engine("mda")
 
 mda_fit <- mda_spec %>%
-  set_engine("mda") %>%
-  fit(Species ~ ., data = iris_train)
+  fit(Species ~ ., data = iris_train, engine = "mda")
 mda_fit
 
-predict(mda_fit, new_data = iris_test) %>%
-  bind_cols(iris_test %>% select(Species))
+predict(mda_fit, new_data = iris_test, type = "prob") %>%
+  mutate(Species = iris_test$Species)
 
-predict(mda_fit, new_data = iris_test, type = "prob") %>% 
-  bind_cols(iris_test %>% select(Species))
+predict(mda_fit, new_data = iris_test) %>% 
+  mutate(Species = iris_test$Species)
 ```
+
+
+# Adding an engine to an existing model
+
+The process here is _almost_ the same but more simple. You would only need to add the engine-specific aspects of the model. For example, if we wanted to fit a linear regression model using M-estimation, we could only add a new engine. The code for the `rlm` function in `MASS` is pretty similar to `lm`, so we can copy that code and change the package/function names:
+
+```{r rlm}
+set_model_engine("linear_reg", "regression", eng = "rlm")
+set_dependency("linear_reg", eng = "rlm", pkg = "MASS")
+
+set_fit(
+  model = "linear_reg",
+  eng = "rlm",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "MASS", fun = "rlm"),
+    defaults = list()
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "rlm",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "response"
+      )
+  )
+)
+
+# testing:
+linear_reg() %>% 
+  set_engine("rlm") %>% 
+  fit(mpg ~ ., data = mtcars)
+```
+
+
+
 
 # Pro-tips, what-ifs, exceptions, FAQ, and minutiae
 
 There are various things that came to mind while writing this document. 
 
-### Do I have to return a simple vector for `predict_num` and `predict_class`?
+### Do I have to return a simple vector for `predict` and `predict_class`?
 
-Previously, when discussing the `numeric` information:
+Previously, when discussing the `pred` information:
 
-> For `numeric`, the model requires an unnamed numeric vector output **(usually)**.
+> For `pred`, the model requires an unnamed numeric vector output **(usually)**.
 
-There are some occasions where a prediction for a single new sample may be multidimensional. Examples are enumerated [here](https://tidymodels.github.io/model-implementation-principles/notes.html#list-cols) but some easy examples are:
+There are some models (e.g. `glmnet`, `plsr`, `Cubust`, etc.) that can make predictions for different models from the same fitted model object. We want to facilitate that here so that, for these cases, the current convention is to return a tibble with the prediction in a column called `values` and have extra columns for any parameters that define the different sub-models. 
 
- * confidence or prediction intervals
- * quantile regression predictions. 
- 
-and so on. These can be accomodated via `predict.model_fit` using different `type` arguments. 
+For example, if I fit a linear regression model via `glmnet` and get four values of the regularization parameter (`lambda`):
 
-However, there are some models (e.g. `glmnet`, `plsr`, `Cubist`, etc.) that can make predictions for different models from the same fitted model object. The regular `predict` method requires prediction from a single model but the `multi_predict` can. The guideline is to _always return the same number of rows as in `new_data`_. This means that the `.pred` column is a list-column of tibbles. 
-
-For example, for a multinomial `glmnet` model, we leave `penalty` unspecified when fitting and get predictions on a sequence of values:
-
-```{r mnom-glmnet-fit}
-mod <- multinom_reg(mixture = 1/3) %>%
-  set_engine("glmnet")
-mod_fit <- fit(mod, Species ~ ., data = iris)
-
-preds <- multi_predict(mod_fit, iris[1:3, -5], penalty = c(0, 0.01, 0.1), type = "prob")
-preds
-preds[[".pred"]][1]
-```
-This can be easily expanded to remove the list columns:
-
-```{r mnom-glmnet-expand}
-preds %>%
-  mutate(.row = 1:nrow(preds)) %>%
-  tidyr::unnest()
+```{r glmnet, eval = FALSE}
+linear_reg() %>%
+  set_engine("glmnet", nlambda = 4) %>% 
+  fit(mpg ~ ., data = mtcars) %>%
+  multi_predict(new_data = mtcars[1:3, -1])
 ```
 
-`multi_predict` doesn't exist for every model and needs to be implmented by the developer. See `methods("multi_predict")` for examples in this package. 
+_However_, the api is still being developed. Currently, there is not an interface in the prediction functions to pass in the values of the parameters to make predictions with (`lambda`, in this case). 
 
-### What is the `defaults` slot and why do I need it?
+### What is `defaults` slot and why do I need them?
 
 You might want to set defaults that can be overridden by the user. For example, for logistic regression with `glm`, it make sense to default `family = binomial`. However, if someone wants to use a different link function, they should be able to do that. For that model/engine definition, it has
 
 ```{r glm-alt, eval = FALSE}
-defaults = list(family = expr(stats::binomial))
+defaults = list(family = expr(binomial))
 ```
 
 so that is the default:
 
-```{r glm-alt-show}
+```{r glm-alt-show, eval = FALSE}
 logistic_reg() %>% translate(engine = "glm")
 
 # but you can change it:
 
-logistic_reg() %>% 
-  set_engine("glm", family = stats::binomial(link = "probit")) %>%
+logistic_reg() %>%
+  set_engine("glm", family = expr(binomial(link = "probit"))) %>% 
   translate()
 ```
 
 That's what `defaults` are for. 
 
-Note that I wrapped `binomial` inside of `expr`. If I didn't, it would substitute the results of executing `binomial` inside of the expression (and that's a mess). Using namespaces is a good idea here. 
+Note that I wrapped `binomial` inside of `expr`. If I didn't, it would substitute the results of executing `binomial` inside of the expression (and that's a mess). 
 
 ### What if I want more complex defaults? 
 
@@ -329,39 +383,27 @@ For example, the `ranger` and `randomForest` package functions have arguments fo
 
 ```{r rf-trans, eval = FALSE}
 # Simplified version
-translate.rand_forest <- function (x, engine = x$engine, ...){
+translate.rand_forest <- function (x, engine, ...){
   # Run the general method to get the real arguments in place
   x <- translate.default(x, engine, ...)
   
-  # Make code easier to read
-  arg_vals <- x$method$fit$args
-  
   # Check and see if they make sense for the engine and/or mode:
-  if (engine == "ranger") {
-    if (any(names(arg_vals) == "importance")) 
-      # We want to check the type of `importance` but it is a quosure. We first
-      # get the expression. It is is logical, the value of `quo_get_expr` will
-      # not be an expression but the actual logical. The wrapping of `isTRUE`
-      # is there in case it is not an atomic value. 
-      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance)))) 
+  if (x$engine == "ranger") {
+    if (any(names(x$method$fit$args) == "importance")) 
+      if (is.logical(x$method$fit$args$importance)) 
         stop("`importance` should be a character value. See ?ranger::ranger.", 
              call. = FALSE)
-    if (x$mode == "classification" && !any(names(arg_vals) ==  "probability")) 
-      arg_vals$probability <- TRUE
   }
-  x$method$fit$args <- arg_vals
   x
 }
 ```
 
 As another example, `nnet::nnet` has an option for the final layer to be linear (called `linout`). If `mode = "regression"`, that should probably be set to `TRUE`. You couldn't do this with the `args` (described above) since you need the function translated first. 
 
-In cases where the model requires different defaults, the `translate` method can also be used. See the code for the `mars` function to see how to check and potentially switch arguments for classification models. 
-
 
 ### My model fit requires more than one function call. So....?
 
-The best course of action is to write wrapper so that it can be one call. This was the case with `xgboost`, `C5.0`, and `keras`. 
+The best course of action is to write wrapper so that it can be one call. This was the case with `xgboost` and `keras`. 
 
 ### Why would I preprocess my data?
 
@@ -372,7 +414,7 @@ This would **not** include making dummy variables and `model.matrix` stuff. `par
 
 ### Why would I postprocess my predictions? 
 
-What comes back from some R functions make be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix^[_narrator_: they don't]. If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
+What comes back from some R functions make be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix (narrator: they don't). If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
 
 Another example is the predict method for `ranger`, which encapsulates the actual predictions in a more complex object structure. 
 

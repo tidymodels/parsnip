@@ -101,9 +101,12 @@ test_that('regression prediction', {
     )
 
   keras_pred <-
-    predict(lm_fit$fit, as.matrix(iris[1:3,2:4])) %>%
-    as_tibble() %>%
-    setNames(".pred")
+    predict(lm_fit$fit, as.matrix(iris[1:3,2:4]))
+  colnames(keras_pred) <- ".pred"
+
+  keras_pred <-
+    keras_pred %>%
+    as_tibble()
   parsnip_pred <- predict(lm_fit, iris[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 

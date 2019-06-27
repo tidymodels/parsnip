@@ -10,7 +10,7 @@
 # @export
 predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
-  if (is.null(object$spec$method$confint))
+  if (is.null(object$spec$method$pred$conf_int))
     stop("No confidence interval method defined for this ",
          "engine.", call. = FALSE)
 
@@ -22,19 +22,19 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$confint$pre))
-    new_data <- object$spec$method$confint$pre(new_data, object)
+  if (!is.null(object$spec$method$pred$conf_int$pre))
+    new_data <- object$spec$method$pred$conf_int$pre(new_data, object)
 
   # Pass some extra arguments to be used in post-processor
-  object$spec$method$confint$extras <-
+  object$spec$method$pred$conf_int$extras <-
     list(level = level, std_error = std_error)
-  pred_call <- make_pred_call(object$spec$method$confint)
+  pred_call <- make_pred_call(object$spec$method$pred$conf_int)
 
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if (!is.null(object$spec$method$confint$post)) {
-    res <- object$spec$method$confint$post(res, object)
+  if (!is.null(object$spec$method$pred$conf_int$post)) {
+    res <- object$spec$method$pred$conf_int$post(res, object)
   }
 
   attr(res, "level") <- level
@@ -59,7 +59,7 @@ predict_confint <- function(object, ...)
 # @export
 predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
-  if (is.null(object$spec$method$predint))
+  if (is.null(object$spec$method$pred$pred_int))
     stop("No prediction interval method defined for this ",
          "engine.", call. = FALSE)
 
@@ -71,20 +71,20 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$predint$pre))
-    new_data <- object$spec$method$predint$pre(new_data, object)
+  if (!is.null(object$spec$method$pred$pred_int$pre))
+    new_data <- object$spec$method$pred$pred_int$pre(new_data, object)
 
   # create prediction call
   # Pass some extra arguments to be used in post-processor
-  object$spec$method$predint$extras <-
+  object$spec$method$pred$pred_int$extras <-
     list(level = level, std_error = std_error)
-  pred_call <- make_pred_call(object$spec$method$predint)
+  pred_call <- make_pred_call(object$spec$method$pred$pred_int)
 
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if (!is.null(object$spec$method$predint$post)) {
-    res <- object$spec$method$predint$post(res, object)
+  if (!is.null(object$spec$method$pred$pred_int$post)) {
+    res <- object$spec$method$pred$pred_int$post(res, object)
   }
 
   attr(res, "level") <- level

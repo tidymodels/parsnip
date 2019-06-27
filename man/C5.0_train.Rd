@@ -41,3 +41,4 @@ A fitted C5.0 model.
 \pkg{C50} package that fits tree-based models
 where all of the model arguments are in the main function.
 }
+\keyword{internal}

@@ -8,8 +8,8 @@ library(tibble)
 basic_form <- Surv(time, status) ~ group
 complete_form <- Surv(time) ~ group
 
-surv_basic <- surv_reg() %>% set_engine("survreg")
-surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survreg")
+surv_basic <- surv_reg() %>% set_engine("survival")
+surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survival")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
@@ -18,6 +18,8 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 # ------------------------------------------------------------------------------
 
 test_that('survival execution', {
+
+  skip_on_travis()
 
   expect_error(
     res <- fit(
@@ -48,6 +50,7 @@ test_that('survival execution', {
 })
 
 test_that('survival prediction', {
+  skip_on_travis()
 
   res <- fit(
     surv_basic,

@@ -8,7 +8,7 @@ context("boosted tree execution with xgboost")
 num_pred <- names(iris)[1:4]
 
 iris_xgboost <-
-  boost_tree(trees = 2) %>%
+  boost_tree(trees = 2, mode = "classification") %>%
   set_engine("xgboost")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)

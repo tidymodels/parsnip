@@ -261,6 +261,7 @@ check_args.boost_tree <- function(object) {
 #' @param subsample Subsampling proportion of rows.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
+#' @keywords internal
 #' @export
 xgb_train <- function(
   x, y,
@@ -386,15 +387,15 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
   pred <- xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
 
   # switch based on prediction type
-  if(object$spec$mode == "regression") {
+  if (object$spec$mode == "regression") {
     pred <- tibble(.pred = pred)
     nms <- names(pred)
   } else {
     if (type == "class") {
-      pred <- boost_tree_xgboost_data$class$post(pred, object)
+      pred <- object$spec$method$pred$class$post(pred, object)
       pred <- tibble(.pred = factor(pred, levels = object$lvl))
     } else {
-      pred <- boost_tree_xgboost_data$classprob$post(pred, object)
+      pred <- object$spec$method$pred$prob$post(pred, object)
       pred <- as_tibble(pred)
       names(pred) <- paste0(".pred_", names(pred))
     }
@@ -432,6 +433,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #'  model in the printed output.
 #' @param ... Other arguments to pass.
 #' @return A fitted C5.0 model.
+#' @keywords internal
 #' @export
 C5.0_train <-
   function(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...) {
@@ -501,8 +503,3 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   pred[, c(".row", "trees", nms)]
 }
 
-
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(c(".row"))

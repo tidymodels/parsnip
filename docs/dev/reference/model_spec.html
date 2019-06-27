@@ -177,7 +177,7 @@ independent of the data. While it is true that some tuning
 parameters are <em>data dependent</em>, the model specification does
 not interact with the data at all.</p>
 <p>For example, most R functions immediately evaluate their
-arguments. For example, when calling <code><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean(dat_vec)</a></code>, the object
+arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.html'>mean(dat_vec)</a></code>, the object
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
@@ -193,7 +193,7 @@ This can be seen in the output:</p>
 </pre>
     <p>The model functions save the argument <em>expressions</em> and their
 associated environments (a.k.a. a quosure) to be evaluated later
-when either <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> or <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> are called with the actual
+when either <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> or <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> are called with the actual
 data.</p>
 <p>The consequence of this strategy is that any data required to
 get the parameter values must be available when the model is

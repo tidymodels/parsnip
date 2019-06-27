@@ -252,6 +252,7 @@ check_args.decision_tree <- function(object) {
 #'  those cases.
 #' @param ... Other arguments to pass to either `rpart` or `rpart.control`.
 #' @return A fitted rpart model.
+#' @keywords internal
 #' @export
 rpart_train <-
   function(formula, data, weights = NULL, cp = 0.01, minsplit = 20, maxdepth = 30, ...) {

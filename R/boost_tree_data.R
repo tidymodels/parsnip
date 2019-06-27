@@ -1,175 +1,386 @@
+set_new_model("boost_tree")
 
-boost_tree_arg_key <- data.frame(
-  xgboost = c("max_depth",  "nrounds",       "eta",       "colsample_bytree",        "min_child_weight",         "gamma",        "subsample"),
-  C5.0 =    c(         NA,   "trials",          NA,                       NA,                "minCases",              NA,           "sample"),
-  spark =   c("max_depth", "max_iter", "step_size", "feature_subset_strategy", "min_instances_per_node", "min_info_gain", "subsampling_rate"),
-  stringsAsFactors = FALSE,
-  row.names =  c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size")
+set_model_mode("boost_tree", "classification")
+set_model_mode("boost_tree", "regression")
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("boost_tree", "classification", "xgboost")
+set_model_engine("boost_tree", "regression", "xgboost")
+set_dependency("boost_tree", "xgboost", "xgboost")
+
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "tree_depth",
+  original = "max_depth",
+  func = list(pkg = "dials", fun = "tree_depth"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "trees",
+  original = "nrounds",
+  func = list(pkg = "dials", fun = "trees"),
+  has_submodel = TRUE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "learn_rate",
+  original = "eta",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "mtry",
+  original = "colsample_bytree",
+  func = list(pkg = "dials", fun = "mtry"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "min_n",
+  original = "min_child_weight",
+  func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "loss_reduction",
+  original = "gamma",
+  func = list(pkg = "dials", fun = "loss_reduction"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "sample_size",
+  original = "subsample",
+  func = list(pkg = "dials", fun = "sample_size"),
+  has_submodel = FALSE
 )
 
-boost_tree_modes <- c("classification", "regression", "unknown")
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(nthread = 1, verbose = 0)
+  )
+)
 
-boost_tree_engines <- data.frame(
-  xgboost =    rep(TRUE, 3),
-  C5.0    =    c(            TRUE,        FALSE,      TRUE),
-  spark   =    rep(TRUE, 3),
-  row.names =  c("classification", "regression", "unknown")
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_pred"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_pred"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(nthread = 1, verbose = 0)
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      if (is.vector(x)) {
+        x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
+      } else {
+        x <- object$lvl[apply(x, 1, which.max)]
+      }
+      x
+    },
+    func = c(pkg = NULL, fun = "xgb_pred"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      if (is.vector(x)) {
+        x <- tibble(v1 = 1 - x, v2 = x)
+      } else {
+        x <- as_tibble(x)
+      }
+      colnames(x) <- object$lvl
+      x
+    },
+    func = c(pkg = NULL, fun = "xgb_pred"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_pred"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
 )
 
 # ------------------------------------------------------------------------------
 
-boost_tree_xgboost_data <-
-  list(
-    libs = "xgboost",
-    fit = list(
-      interface = "matrix",
-      protect = c("x", "y"),
-      func = c(pkg = "parsnip", fun = "xgb_train"),
-      defaults =
-        list(
-          nthread = 1,
-          verbose = 0
-        )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "xgb_pred"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = function(x, object) {
-        if (is.vector(x)) {
-          x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
-        } else {
-          x <- object$lvl[apply(x, 1, which.max)]
-        }
-        x
-      },
-      func = c(pkg = NULL, fun = "xgb_pred"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = function(x, object) {
-        if (is.vector(x)) {
-          x <- tibble(v1 = 1 - x, v2 = x)
-        } else {
-          x <- as_tibble(x)
-        }
-        colnames(x) <- object$lvl
-        x
-      },
-      func = c(pkg = NULL, fun = "xgb_pred"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "xgb_pred"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    )
+set_model_engine("boost_tree", "classification", "C5.0")
+set_dependency("boost_tree", "C5.0", "C50")
+
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "trees",
+  original = "trials",
+  func = list(pkg = "dials", fun = "trees"),
+  has_submodel = TRUE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "min_n",
+  original = "minCases",
+  func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "sample_size",
+  original = "sample",
+  func = list(pkg = "dials", fun = "sample_size"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "C5.0",
+  mode = "classification",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "C5.0_train"),
+    defaults = list()
   )
+)
 
+set_pred(
+  model = "boost_tree",
+  eng = "C5.0",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
 
-boost_tree_C5.0_data <-
-  list(
-    libs = "C50",
-    fit = list(
-      interface = "data.frame",
-      protect = c("x", "y", "weights"),
-      func = c(pkg = "parsnip", fun = "C5.0_train"),
-      defaults = list()
-    ),
-    class = list(
-      pre = NULL,
-      post = NULL,
-      func = c(fun = "predict"),
-      args = list(
+set_pred(
+  model = "boost_tree",
+  eng = "C5.0",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      as_tibble(x)
+    },
+    func = c(fun = "predict"),
+    args =
+      list(
         object = quote(object$fit),
-        newdata = quote(new_data)
+        newdata = quote(new_data),
+        type = "prob"
       )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = function(x, object) {
-        as_tibble(x)
-      },
-      func = c(fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "prob"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(fun = "predict"),
-      args = list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
-    )
   )
+)
 
-
-boost_tree_spark_data <-
-  list(
-    libs = "sparklyr",
-    fit = list(
-      interface = "formula",
-      protect = c("x", "formula", "type"),
-      func = c(pkg = "sparklyr", fun = "ml_gradient_boosted_trees"),
-      defaults =
-        list(
-          seed = expr(sample.int(10^5, 1))
-        )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = format_spark_num,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = format_spark_class,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = format_spark_probs,
-      func = c(pkg = "sparklyr", fun = "ml_predict"),
-      args =
-        list(
-          x = quote(object$fit),
-          dataset = quote(new_data)
-        )
-    )
+set_pred(
+  model = "boost_tree",
+  eng = "C5.0",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = quote(object$fit),
+                newdata = quote(new_data))
   )
+)
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("boost_tree", "classification", "spark")
+set_model_engine("boost_tree", "regression", "spark")
+set_dependency("boost_tree", "spark", "sparklyr")
+
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "tree_depth",
+  original = "max_depth",
+  func = list(pkg = "dials", fun = "tree_depth"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "trees",
+  original = "max_iter",
+  func = list(pkg = "dials", fun = "trees"),
+  has_submodel = TRUE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "learn_rate",
+  original = "step_size",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "mtry",
+  original = "feature_subset_strategy",
+  func = list(pkg = "dials", fun = "mtry"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "min_n",
+  original = "min_instances_per_node",
+  func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "min_info_gain",
+  original = "gamma",
+  func = list(pkg = "dials", fun = "loss_reduction"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "spark",
+  parsnip = "sample_size",
+  original = "subsampling_rate",
+  func = list(pkg = "dials", fun = "sample_size"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("x", "formula", "type"),
+    func = c(pkg = "sparklyr", fun = "ml_gradient_boosted_trees"),
+    defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
+  )
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("x", "formula", "type"),
+    func = c(pkg = "sparklyr", fun = "ml_gradient_boosted_trees"),
+    defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = format_spark_num,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args = list(x = quote(object$fit), dataset = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = format_spark_class,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args = list(x = quote(object$fit), dataset = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = format_spark_probs,
+    func = c(pkg = "sparklyr", fun = "ml_predict"),
+    args = list(x = quote(object$fit), dataset = quote(new_data))
+  )
+)

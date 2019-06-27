@@ -355,8 +355,3 @@ predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
-
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(c("group", ".pred"))

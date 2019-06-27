@@ -1,69 +1,142 @@
-svm_rbf_arg_key <- data.frame(
-  kernlab   =  c(   "C",     "sigma", "epsilon"),
-  row.names =  c("cost", "rbf_sigma",  "margin"),
-  stringsAsFactors = FALSE
-)
+set_new_model("svm_rbf")
 
-svm_rbf_modes <- c("classification", "regression", "unknown")
-
-svm_rbf_engines <- data.frame(
-  kernlab   =  c(TRUE, TRUE, FALSE),
-  row.names =  c("classification", "regression", "unknown")
-)
+set_model_mode("svm_rbf", "classification")
+set_model_mode("svm_rbf", "regression")
 
 # ------------------------------------------------------------------------------
 
-svm_rbf_kernlab_data <-
-  list(
-    libs = "kernlab",
-    fit = list(
-      interface = "matrix",
-      protect = c("x", "y"),
-      func = c(pkg = "kernlab", fun = "ksvm"),
-      defaults = list(
-        kernel = "rbfdot"
-      )
-    ),
-    numeric = list(
-      pre = NULL,
-      post = svm_reg_post,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    class = list(
-      pre = NULL,
-      post = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
-        )
-    ),
-    classprob = list(
-      pre = NULL,
-      post = function(result, object) as_tibble(result),
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "probabilities"
-        )
-    ),
-    raw = list(
-      pre = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args =
-        list(
-          object = quote(object$fit),
-          newdata = quote(new_data)
-        )
-    )
+set_model_engine("svm_rbf", "classification", "kernlab")
+set_model_engine("svm_rbf", "regression", "kernlab")
+set_dependency("svm_rbf", "kernlab", "kernlab")
+
+set_model_arg(
+  model = "svm_rbf",
+  eng = "kernlab",
+  parsnip = "cost",
+  original = "C",
+  func = list(pkg = "dials", fun = "cost"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "svm_rbf",
+  eng = "kernlab",
+  parsnip = "rbf_sigma",
+  original = "sigma",
+  func = list(pkg = "dials", fun = "rbf_sigma"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "svm_rbf",
+  eng = "kernlab",
+  parsnip = "margin",
+  original = "epsilon",
+  func = list(pkg = "dials", fun = "margin"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "kernlab", fun = "ksvm"),
+    defaults = list(kernel = "rbfdot")
   )
+)
+
+set_fit(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "kernlab", fun = "ksvm"),
+    defaults = list(kernel = "rbfdot")
+  )
+)
+
+set_pred(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = svm_reg_post,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(result, object) as_tibble(result),
+    func = c(pkg = "kernlab", fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "probabilities"
+      )
+  )
+)
+
+set_pred(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "kernlab", fun = "predict"),
+    args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+

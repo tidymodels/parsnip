@@ -110,12 +110,12 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(decision_tree(mode = "bogus"))
   expect_error({
-    bt <- decision_tree(cost_complexity = -1)
-    fit(bt, Species ~ ., iris) %>% set_engine("rpart")
+    bt <- decision_tree(cost_complexity = -1) %>% set_engine("rpart")
+    fit(bt, Species ~ ., iris)
   })
   expect_error({
-    bt <- decision_tree(min_n = 0)
-    fit(bt, Species ~ ., iris)  %>% set_engine("rpart")
+    bt <- decision_tree(min_n = 0)  %>% set_engine("rpart")
+    fit(bt, Species ~ ., iris)
   })
   expect_error(translate(decision_tree(), engine = NULL))
   expect_error(translate(decision_tree(formula = y ~ x)))

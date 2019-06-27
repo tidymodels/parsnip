@@ -29,7 +29,8 @@
 #' `"classification"`.
 #'
 #' @param neighbors A single integer for the number of neighbors
-#' to consider (often called `k`).
+#' to consider (often called `k`). For \pkg{kknn}, a value of 5
+#' is used if `neighbors` is not specified.
 #'
 #' @param weight_func A *single* character for the type of kernel function used
 #' to weight distances between samples. Valid choices are: `"rectangular"`,
@@ -54,7 +55,7 @@
 #'
 #' \pkg{kknn} (classification or regression)
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(), "kknn")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(mode = "regression"), "kknn")}
 #'
 #' @note
 #' For `kknn`, the underlying modeling function used is a restricted
@@ -148,13 +149,32 @@ check_args.nearest_neighbor <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if(is.numeric(args$neighbors) && !positive_int_scalar(args$neighbors)) {
+  if (is.numeric(args$neighbors) && !positive_int_scalar(args$neighbors)) {
     stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
   }
 
-  if(is.character(args$weight_func) && length(args$weight_func) > 1) {
+  if (is.character(args$weight_func) && length(args$weight_func) > 1) {
     stop("The length of `weight_func` must be 1.", call. = FALSE)
   }
 
   invisible(object)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
+translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'kknn'` for translation.")
+    engine <- "kknn"
+  }
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "kknn") {
+    if (!any(names(x$method$fit$args) == "ks") ||
+        is_missing_arg(x$method$fit$args$ks)) {
+      x$method$fit$args$ks <- 5
+    }
+  }
+  x
 }

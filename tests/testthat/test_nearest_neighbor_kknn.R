@@ -8,7 +8,9 @@ context("nearest neighbor execution with kknn")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- nearest_neighbor(neighbors = 8, weight_func = "triangular") %>%
+iris_basic <- nearest_neighbor(mode = "classification",
+                               neighbors = 8,
+                               weight_func = "triangular") %>%
   set_engine("kknn")
 
 ctrl <- fit_control(verbosity = 1, catch = FALSE)
@@ -31,7 +33,7 @@ test_that('kknn execution', {
       x = iris[, num_pred],
       y = iris$Sepal.Length
     ),
-    regexp = NA
+    regexp = "outcome should be a factor"
   )
 
   # nominal
@@ -61,13 +63,14 @@ test_that('kknn execution', {
 test_that('kknn prediction', {
 
   skip_if_not_installed("kknn")
+  library(kknn)
 
   # continuous
   res_xy <- fit_xy(
     iris_basic,
     control = ctrl,
     x = iris[, num_pred],
-    y = iris$Sepal.Length
+    y = iris$Species
   )
 
   uni_pred <- predict(
@@ -75,7 +78,7 @@ test_that('kknn prediction', {
     newdata = iris[1:5, num_pred]
   )
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
+  expect_equal(tibble(.pred_class = uni_pred), predict(res_xy, iris[1:5, num_pred]))
 
   # nominal
   res_xy_nom <- fit_xy(

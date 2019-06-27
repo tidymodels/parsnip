@@ -132,20 +132,20 @@ are actually varying." />
 
     <div class="ref-description">
     
-    <p><code><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args()</a></code> takes a model specification or a recipe and returns a tibble
+    <p><code><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args()</a></code> takes a model specification or a recipe and returns a tibble
 of information on all possible varying arguments and whether or not they
 are actually varying.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for recipe</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for step</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,50 +182,50 @@ a <code>recipe</code>, the unique step <code>id</code> is used.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># List all possible varying args for the random forest spec</span>
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>()</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
+<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;   name  varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry  FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> mtry  FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>2</span><span> trees FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
 <span class='co'># mtry is now recognized as varying</span>
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
+<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;   name  varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry  TRUE    rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> mtry  TRUE    rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>2</span><span> trees FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
 <span class='co'># Even engine specific arguments can vary</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>, <span class='kw'>sample.fraction</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
 #&gt;   name            varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry            FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees           FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n           FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> mtry            FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>2</span><span> trees           FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>3</span><span> min_n           FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>4</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
 <span class='co'># List only the arguments that actually vary</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>, <span class='kw'>sample.fraction</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>(<span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>(<span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   name            varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(
     <span class='st'>"randomForest"</span>,
     <span class='kw'>strata</span> <span class='kw'>=</span> <span class='no'>Class</span>,
     <span class='kw'>sampsize</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/varying_args'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 4</span><span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 4</span><span>
 #&gt;   name     varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry     FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees    FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n    FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> strata   FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> sampsize TRUE    rand_forest model_spec</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> mtry     FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>2</span><span> trees    FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>3</span><span> min_n    FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>4</span><span> strata   FALSE   rand_forest model_spec
+#&gt; </span><span style='color: #555555;'>5</span><span> sampsize TRUE    rand_forest model_spec</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

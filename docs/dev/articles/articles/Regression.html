@@ -101,20 +101,20 @@
     
     
 <p>The Ames housing data will be used to to demonstrate how regression models can be made using <code>parsnip</code>. We’ll create the data set and create a simple training/test set split:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(AmesHousing)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">ames &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/AmesHousing/topics/make_ames">make_ames</a></span>()</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(AmesHousing)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">ames &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/AmesHousing/man/make_ames.html">make_ames</a></span>()</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidymodels)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidymodels)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Registered S3 method overwritten by 'xts':</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;   method     from</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;   as.zoo.xts zoo</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ───────────────────────────────── tidymodels 0.0.2 ──</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ broom     0.5.1       ✔ recipes   0.1.4  </span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────── tidymodels 0.0.2 ──</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ broom     0.5.1       ✔ recipes   0.1.5  </span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✔ dials     0.0.2       ✔ rsample   0.0.4  </span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✔ dplyr     0.8.0.1     ✔ tibble    2.1.1  </span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✔ infer     0.4.0       ✔ yardstick 0.0.2  </span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✔ purrr     0.3.2</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ──────────────────────────────────── tidymodels_conflicts() ──</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; ✖ dplyr::combine() masks randomForest::combine()</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></a>
@@ -122,7 +122,7 @@
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; ✖ dials::margin()  masks ggplot2::margin(), randomForest::margin()</span></a>
 <a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; ✖ recipes::step()  masks stats::step()</span></a>
 <a class="sourceLine" id="cb1-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">4595</span>)</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">4595</span>)</a>
 <a class="sourceLine" id="cb1-23" data-line-number="23">data_split &lt;-<span class="st"> </span><span class="kw">initial_split</span>(ames, <span class="dt">strata =</span> <span class="st">"Sale_Price"</span>, <span class="dt">p =</span> <span class="fl">0.75</span>)</a>
 <a class="sourceLine" id="cb1-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb1-25" data-line-number="25">ames_train &lt;-<span class="st"> </span><span class="kw">training</span>(data_split)</a>
@@ -131,21 +131,21 @@
 <h1 class="hasAnchor">
 <a href="#random-forests" class="anchor"></a>Random Forests</h1>
 <p>We’ll start by fitting a random forest model to a small set of parameters. Let’s say that the model would include predictors: <code>Longitude</code>, <code>Latitude</code>, <code>Lot_Area</code>, <code>Neighborhood</code>, and <code>Year_Sold</code>. A simple random forest model can be specified via</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(parsnip)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parsnip)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">rf_defaults &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">rf_defaults</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Random Forest Model Specification (regression)</span></a></code></pre></div>
-<p>The model will be fit with the <code>ranger</code> package. Since we didn’t add any extra arguments to <code>fit</code>, <em>many</em> of the arguments will be set to their defaults from the specific function that is used by <code><a href="https://www.rdocumentation.org/packages/ranger/topics/ranger">ranger::ranger</a></code>. The help pages for the model function describes the changes to the default parameters that are made and the <code>translate</code> function can also be used.</p>
+<p>The model will be fit with the <code>ranger</code> package. Since we didn’t add any extra arguments to <code>fit</code>, <em>many</em> of the arguments will be set to their defaults from the specific function that is used by <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html">ranger::ranger</a></code>. The help pages for the model function describes the changes to the default parameters that are made and the <code>translate</code> function can also be used.</p>
 <p><code>parsnip</code> gives two different interfaces to the models: the formula and non-formula interfaces. Let’s start with the non-formula interface:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Lot_Area"</span>, <span class="st">"Neighborhood"</span>, <span class="st">"Year_Sold"</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">preds &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Lot_Area"</span>, <span class="st">"Neighborhood"</span>, <span class="st">"Year_Sold"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">rf_xy_fit &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span>rf_defaults <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit_xy">fit_xy</a></span>(</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy</a></span>(</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">x =</span> ames_train[, preds],</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log10</a></span>(ames_train<span class="op">$</span>Sale_Price)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(ames_train<span class="op">$</span>Sale_Price)</a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">  )</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">rf_xy_fit</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; parsnip model object</span></a>
@@ -169,9 +169,9 @@
 <p>For regression models, the basic <code>predict</code> method can be used and returns a tibble with a column named <code>.pred</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">test_results &lt;-<span class="st"> </span>ames_test <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(Sale_Price) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sale_Price =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log10</a></span>(Sale_Price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sale_Price =</span> <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(Sale_Price)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">bind_cols</span>(</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(rf_xy_fit, <span class="dt">new_data =</span> ames_test[, preds])</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(rf_xy_fit, <span class="dt">new_data =</span> ames_test[, preds])</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">test_results</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # A tibble: 731 x 2</span></a>
@@ -205,8 +205,8 @@
 <p>Now, for illustration, let’s use the formula method using some new parameter values:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">data =</span> ames_train</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
@@ -229,8 +229,8 @@
 <p>Suppose that there was some feature in the <code>randomForest</code> package that we’d like to evaluate. To do so, the only part of the syntaxt that needs to change is the <code>set_engine</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/set_engine.html">set_engine</a></span>(<span class="st">"randomForest"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">data =</span> ames_train</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
@@ -245,7 +245,7 @@
 <a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;           Mean of squared residuals: 0.0127</span></a>
 <a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;                     % Var explained: 58.6</span></a></code></pre></div>
 <p>Look at the formula code that was printed out, one function uses the argument name <code>ntree</code> and the other uses <code>num.trees</code>. <code>parsnip</code> doesn’t require you to know the specific names of the main arguments.</p>
-<p>Now suppose that we want to modify the value of <code>mtry</code> based on the number of predictors in the data. Usually, the default value would be <code><a href="https://www.rdocumentation.org/packages/base/topics/Round">floor(sqrt(num_predictors))</a></code>. To use a pure bagging model would require an <code>mtry</code> value equal to the total number of parameters. There may be cases where you may not know how many predictors are going to be present (perhaps due to the generation of indicator variables or a variable filter) so that might be difficult to know exactly.</p>
+<p>Now suppose that we want to modify the value of <code>mtry</code> based on the number of predictors in the data. Usually, the default value would be <code><a href="https://rdrr.io/r/base/Round.html">floor(sqrt(num_predictors))</a></code>. To use a pure bagging model would require an <code>mtry</code> value equal to the total number of parameters. There may be cases where you may not know how many predictors are going to be present (perhaps due to the generation of indicator variables or a variable filter) so that might be difficult to know exactly.</p>
 <p>When the model it being fit by <code>parsnip</code>, <a href="https://topepo.github.io/parsnip/reference/descriptors.html"><em>data descriptors</em></a> are made available. These attempt to let you know what you will have available when the model is fit. When a model object is created (say using <code>rand_forest</code>), the values of the arguments that you give it are <em>immediately evaluated</em>… unless you delay them. To delay the evaluation of any argument, you can used <code><a href="https://rlang.r-lib.org/reference/quotation.html">rlang::expr</a></code> to make an expression.</p>
 <p>Two relevant descriptors for what we are about to do are:</p>
 <ul>
@@ -258,8 +258,8 @@
 <p>For example, let’s use an expression with the <code><a href="../../reference/descriptors.html">.preds()</a></code> descriptor to fit a bagging model:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mode =</span> <span class="st">"regression"</span>, <span class="dt">mtry =</span> <span class="kw"><a href="../../reference/descriptors.html">.preds</a></span>(), <span class="dt">trees =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(Sale_Price) <span class="op">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Neighborhood <span class="op">+</span><span class="st"> </span>Year_Sold,</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">data =</span> ames_train</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
@@ -303,7 +303,7 @@
 <a class="sourceLine" id="cb8-16" data-line-number="16">glmn_fit &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb8-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../../reference/linear_reg.html">linear_reg</a></span>(<span class="dt">penalty =</span> <span class="fl">0.001</span>, <span class="dt">mixture =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="../../reference/set_engine.html">set_engine</a></span>(<span class="st">"glmnet"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(Sale_Price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> <span class="kw">juice</span>(norm_recipe))</a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(Sale_Price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> <span class="kw">juice</span>(norm_recipe))</a>
 <a class="sourceLine" id="cb8-20" data-line-number="20">glmn_fit</a>
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; </span></a>
@@ -321,7 +321,7 @@
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span>test_results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">random forest</span><span class="st">`</span> =<span class="st"> </span>.pred) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">  </span><span class="kw">bind_cols</span>(</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(glmn_fit, <span class="dt">new_data =</span> test_normalized) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(glmn_fit, <span class="dt">new_data =</span> test_normalized) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">      </span><span class="kw">rename</span>(<span class="dt">glmnet =</span> .pred)</a>
 <a class="sourceLine" id="cb9-10" data-line-number="10">  )</a>
 <a class="sourceLine" id="cb9-11" data-line-number="11">test_results</a>

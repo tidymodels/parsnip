@@ -36,7 +36,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"flexsurv"`, `"survreg"` (the default)
+#' \item \pkg{R}:  `"flexsurv"`, `"survival"` (the default)
 #' }
 #'
 #' @section Engine Details:
@@ -49,9 +49,9 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
 #'
-#' \pkg{survreg}
+#' \pkg{survival}
 #'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survreg")}
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survival")}
 #'
 #' Note that `model = TRUE` is needed to produce quantile
 #'  predictions when there is a stratification variable and can be
@@ -143,8 +143,8 @@ update.surv_reg <- function(object, dist = NULL, fresh = FALSE, ...) {
 #' @export
 translate.surv_reg <- function(x, engine = x$engine, ...) {
   if (is.null(engine)) {
-    message("Used `engine = 'survreg'` for translation.")
-    engine <- "survreg"
+    message("Used `engine = 'survival'` for translation.")
+    engine <- "survival"
   }
   x <- translate.default(x, engine, ...)
   x
@@ -171,7 +171,7 @@ check_args.surv_reg <- function(object) {
 #' @importFrom stats setNames
 #' @importFrom dplyr mutate
 survreg_quant <- function(results, object) {
-  pctl <- object$spec$method$quantile$args$p
+  pctl <- object$spec$method$pred$quantile$args$p
   n <- nrow(results)
   p <- ncol(results)
   results <-
@@ -207,9 +207,4 @@ flexsurv_quant <- function(results, object) {
   names(results) <- NULL
   results <- map(results, setNames, c(".quantile", ".pred", ".pred_lower", ".pred_upper"))
 }
-
-# ------------------------------------------------------------------------------
-
-#' @importFrom utils globalVariables
-utils::globalVariables(".label")
 

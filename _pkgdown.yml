@@ -53,7 +53,19 @@ reference:
     contents:
      - lending_club   
      - wa_churn   
-     - check_times       
+     - check_times   
+
+  - title: Developer Tools
+    contents: 
+      - set_new_model
+      - starts_with("set_model_")
+      - set_dependency
+      - set_fit
+      - set_pred
+      - show_model_info
+      - starts_with("get_")
+
+
 
 navbar:
   left:

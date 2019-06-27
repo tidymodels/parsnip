@@ -161,7 +161,7 @@ in <code>?earth</code>.</p></li>
 time that the model is fit. Other options and argument can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code> can be used
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -170,7 +170,7 @@ in lieu of recreating the object from scratch.</p>
   <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for mars</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,15 +206,15 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+    <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"earth"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"earth"</code>  (the default)</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
@@ -239,7 +239,7 @@ attached.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -253,12 +253,12 @@ attached.</p>
 #&gt; Main Arguments:
 #&gt;   num_terms = 10
 #&gt;   prune_method = none
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 1
 #&gt;   prune_method = none
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 1
