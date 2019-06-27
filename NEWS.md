@@ -11,6 +11,7 @@
  * `add_rowindex()` can create a column called `.row` to a data frame. 
  
  * If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.  
+ * `nearest_neighbor` gained a `multi_predict` method. The `multi_predict()` documentation is a little better organized.  
 
 
 # parsnip 0.0.2

@@ -4,6 +4,11 @@
 #'
 #' For some models, predictions can be made on sub-models in the model object.
 #' @param object A `model_fit` object.
+#' @param new_data A rectangular data object, such as a data frame.
+#' @param type A single character value or `NULL`. Possible values
+#'  are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
+#'  or "raw". When `NULL`, `predict()` will choose an appropriate value
+#'  based on the model's mode.
 #' @param ... Optional arguments to pass to `predict.model_fit(type = "raw")`
 #'  such as `type`.
 #' @return A tibble with the same number of rows as the data being predicted.

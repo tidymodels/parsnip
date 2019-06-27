@@ -10,7 +10,7 @@
 \alias{multi_predict._elnet}
 \alias{multi_predict._lognet}
 \alias{multi_predict._earth}
-\alias{predict._multnet}
+\alias{multi_predict._multnet}
 \alias{multi_predict._train.kknn}
 \title{Model predictions across many sub-models}
 \usage{
@@ -33,8 +33,8 @@ multi_predict(object, ...)
 \method{multi_predict}{_earth}(object, new_data, type = NULL,
   num_terms = NULL, ...)
 
-\method{predict}{_multnet}(object, new_data, type = NULL,
-  opts = list(), penalty = NULL, multi = FALSE, ...)
+\method{multi_predict}{_multnet}(object, new_data, type = NULL,
+  penalty = NULL, ...)
 
 \method{multi_predict}{_train.kknn}(object, new_data, type = NULL,
   neighbors = NULL, ...)
@@ -44,6 +44,13 @@ multi_predict(object, ...)
 
 \item{...}{Optional arguments to pass to \code{predict.model_fit(type = "raw")}
 such as \code{type}.}
+
+\item{new_data}{A rectangular data object, such as a data frame.}
+
+\item{type}{A single character value or \code{NULL}. Possible values
+are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
+or "raw". When \code{NULL}, \code{predict()} will choose an appropriate value
+based on the model's mode.}
 
 \item{trees}{An integer vector for the number of trees in the ensemble.}
 

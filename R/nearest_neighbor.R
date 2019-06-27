@@ -193,7 +193,7 @@ multi_predict._train.kknn <-
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
     if (is.null(neighbors))
-      neighbors <- rlang::eval_tidy(tt$fit$call$ks)
+      neighbors <- rlang::eval_tidy(object$fit$call$ks)
     neighbors <- sort(neighbors)
 
     if (is.null(type)) {
