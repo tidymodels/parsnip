@@ -127,6 +127,7 @@ get_model_spec <- function(model, mode, engine) {
   res <- list()
   res$libs <-
     rlang::env_get(m_env, paste0(model, "_pkgs")) %>%
+    dplyr::filter(engine == !!engine) %>%
     purrr::pluck("pkg") %>%
     purrr::pluck(1)
 
