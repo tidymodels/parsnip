@@ -187,8 +187,6 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
         "if the specification is to be translated.",
         call. = FALSE
       )
-    } else {
-      arg_vals$type <- x$mode
     }
 
     # See "Details" in ?ml_random_forest_classifier. `feature_subset_strategy`
