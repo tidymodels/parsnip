@@ -1,9 +1,11 @@
 #' @importFrom rlang expr enquos enquo quos is_quosure call2 quo_get_expr ll
 #' @importFrom rlang abort current_env get_expr is_missing is_null is_symbolic  missing_arg
 null_value <- function(x) {
-  res <- if(is_quosure(x))
-    isTRUE(all.equal(x[[-1]], quote(NULL))) else
-      isTRUE(all.equal(x, NULL))
+  if (is_quosure(x)) {
+    res <- isTRUE(all.equal(rlang::get_expr(x), expr(NULL)))
+  } else {
+    res <- isTRUE(all.equal(x, NULL))
+  }
   res
 }
 
