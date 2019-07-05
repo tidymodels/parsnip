@@ -137,7 +137,7 @@ print.boost_tree <- function(x, ...) {
   cat("Boosted Tree Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit$args)) {
+  if (!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -211,14 +211,15 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "spark") {
-    if (x$mode == "unknown")
+    if (x$mode == "unknown") {
       stop(
         "For spark boosted trees models, the mode cannot be 'unknown' ",
         "if the specification is to be translated.",
         call. = FALSE
       )
-    else
+    } else {
       x$method$fit$args$type <- x$mode
+    }
   }
   x
 }
@@ -282,27 +283,33 @@ xgb_train <- function(
     }
   }
 
-  if (is.data.frame(x))
+  if (is.data.frame(x)) {
     x <- as.matrix(x) # maybe use model.matrix here?
+  }
 
   n <- nrow(x)
   p <- ncol(x)
 
-  if (!inherits(x, "xgb.DMatrix"))
+  if (!inherits(x, "xgb.DMatrix")) {
     x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
-  else
+  } else {
     xgboost::setinfo(x, "label", y)
+  }
 
   # translate `subsample` and `colsample_bytree` to be on (0, 1] if not
-  if(subsample > 1)
+  if (subsample > 1) {
     subsample <- subsample/n
-  if(subsample > 1)
+  }
+  if (subsample > 1) {
     subsample <- 1
+  }
 
-  if(colsample_bytree > 1)
+  if (colsample_bytree > 1) {
     colsample_bytree <- colsample_bytree/p
-  if(colsample_bytree > 1)
+  }
+  if (colsample_bytree > 1) {
     colsample_bytree <- 1
+  }
 
   arg_list <- list(
     eta = eta,
@@ -321,8 +328,9 @@ xgb_train <- function(
     nrounds = nrounds,
     objective = loss
   )
-  if (!is.null(num_class))
+  if (!is.null(num_class)) {
     main_args$num_class <- num_class
+  }
 
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
 
@@ -330,9 +338,9 @@ xgb_train <- function(
   others <- list(...)
   others <-
     others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
-  if (length(others) > 0)
-    for (i in names(others))
-      call[[i]] <- others[[i]]
+  if (length(others) > 0) {
+    call <- rlang::call_modify(call, !!!others)
+  }
 
   eval_tidy(call, env = current_env())
 }
@@ -348,7 +356,7 @@ xgb_pred <- function(object, newdata, ...) {
 
   x = switch(
     object$params$objective,
-    "reg:linear" =, "reg:logistic" =, "binary:logistic" = res,
+    "reg:linear" = , "reg:logistic" = , "binary:logistic" = res,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
     res
@@ -360,11 +368,13 @@ xgb_pred <- function(object, newdata, ...) {
 #' @export
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
+    if (any(names(enquos(...)) == "newdata")) {
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    }
 
-    if (is.null(trees))
+    if (is.null(trees)) {
       trees <- object$fit$nIter
+    }
     trees <- sort(trees)
 
     if (is.null(type)) {
@@ -374,9 +384,8 @@ multi_predict._xgb.Booster <-
         type <- "numeric"
     }
 
-    res <-
-      map_df(trees, xgb_by_tree, object = object,
-             new_data = new_data, type = type, ...)
+    res <- map_df(trees, xgb_by_tree, object = object, new_data = new_data,
+                  type = type, ...)
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
@@ -449,19 +458,18 @@ C5.0_train <-
     ctrl <- call2("C5.0Control", .ns = "C50")
     ctrl$minCases <- minCases
     ctrl$sample <- sample
-    for(i in names(ctrl_args))
-      ctrl[[i]] <- ctrl_args[[i]]
+    ctrl <- rlang::call_modify(ctrl, !!!ctrl_args)
 
     fit_call <- call2("C5.0", .ns = "C50")
     fit_call$x <- expr(x)
     fit_call$y <- expr(y)
     fit_call$trials <- trials
     fit_call$control <- ctrl
-    if(!is.null(weights))
+    if (!is.null(weights)) {
       fit_call$weights <- quote(weights)
+    }
+    fit_call <- rlang::call_modify(fit_call, !!!fit_args)
 
-    for(i in names(fit_args))
-      fit_call[[i]] <- fit_args[[i]]
     eval_tidy(fit_call)
   }
 

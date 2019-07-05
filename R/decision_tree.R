@@ -273,18 +273,16 @@ rpart_train <-
     ctrl$minsplit <- minsplit
     ctrl$maxdepth <- maxdepth
     ctrl$cp <- cp
-    for(i in names(ctrl_args))
-      ctrl[[i]] <- ctrl_args[[i]]
+    ctrl <- rlang::call_modify(ctrl, !!!ctrl_args)
 
     fit_call <- call2("rpart", .ns = "rpart")
     fit_call$formula <- expr(formula)
     fit_call$data <- expr(data)
     fit_call$control <- ctrl
-    if(!is.null(weights))
+    if (!is.null(weights)) {
       fit_call$weights <- quote(weights)
-
-    for(i in names(fit_args))
-      fit_call[[i]] <- fit_args[[i]]
+    }
+    fit_call <- rlang::call_modify(fit_call, !!!fit_args)
 
     eval_tidy(fit_call)
   }
