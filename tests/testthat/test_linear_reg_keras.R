@@ -30,11 +30,11 @@ test_that('model fitting', {
   expect_error(
     fit1 <-
       fit_xy(
-      basic_mod,
-      control = ctrl,
-      x = iris[,2:4],
-      y = iris$Sepal.Length
-    ),
+        basic_mod,
+        control = ctrl,
+        x = iris[,2:4],
+        y = iris$Sepal.Length
+      ),
     regexp = NA
   )
 
@@ -119,10 +119,10 @@ test_that('regression prediction', {
       y = iris$Sepal.Length
     )
 
-  keras_pred <-
-    predict(rr_fit$fit, as.matrix(iris[1:3,2:4])) %>%
-    as_tibble() %>%
-    setNames(".pred")
+  keras_pred <- predict(rr_fit$fit, as.matrix(iris[1:3,2:4]))
+  colnames(keras_pred) <- ".pred"
+  keras_pred <- as_tibble(keras_pred)
+
   parsnip_pred <- predict(rr_fit, iris[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
