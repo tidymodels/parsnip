@@ -184,7 +184,7 @@ format_num <- function(x) {
     return(x)
 
   if (isTRUE(ncol(x) > 1)) {
-    x <- as_tibble(x)
+    x <- as_tibble(x, .name_repair = "minimal")
     names(x) <- paste0(".pred_", names(x))
   } else {
     x <- tibble(.pred = x)
@@ -201,8 +201,8 @@ format_class <- function(x) {
 }
 
 format_classprobs <- function(x) {
-  x <- as_tibble(x)
   names(x) <- paste0(".pred_", names(x))
+  x <- as_tibble(x)
   x
 }
 
