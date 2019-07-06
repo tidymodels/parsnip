@@ -375,7 +375,7 @@ keras_mlp <-
   }
 
 keras_numeric_post <- function(results, object) {
-  if (ncol(results) > 1) {
+  if (ncol(results) > 1 && !is.null(object$fit$y_names)) {
     colnames(results) <- object$fit$y_names
   }
   maybe_multivariate(results, object)
