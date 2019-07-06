@@ -370,8 +370,17 @@ keras_mlp <-
     fit_call <- rlang::call_modify(fit_call, !!!arg_values$fit)
 
     history <- eval_tidy(fit_call)
+    model$y_names <- colnames(y)
     model
   }
+
+keras_numeric_post <- function(results, object) {
+  if (ncol(results) > 1) {
+    colnames(results) <- object$fit$y_names
+  }
+  maybe_multivariate(results, object)
+}
+
 
 
 nnet_softmax <- function(results, object) {

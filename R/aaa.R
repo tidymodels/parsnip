@@ -1,7 +1,8 @@
 
 maybe_multivariate <- function(results, object) {
+
   if (isTRUE(ncol(results) > 1)) {
-    results <- as_tibble(results)
+    results <- as_tibble(results, .name_repair = "minimal")
   }  else {
     results <- unname(results[, 1])
   }

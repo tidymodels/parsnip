@@ -4,7 +4,7 @@
 
 library(testthat)
 
-context("setting keras environment")
+context("setting keras environment\n")
 
 Sys.setenv(TF_CPP_MIN_LOG_LEVEL = '3')
 try(keras:::backend(), silent = TRUE)

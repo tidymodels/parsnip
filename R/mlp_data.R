@@ -84,7 +84,7 @@ set_pred(
   type = "numeric",
   value = list(
     pre = NULL,
-    post = maybe_multivariate,
+    post = keras_numeric_post,
     func = c(fun = "predict"),
     args =
       list(

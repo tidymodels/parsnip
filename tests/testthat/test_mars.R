@@ -159,6 +159,16 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+
+  expect_error(
+    res <- fit_xy(
+      iris_basic,
+      x = iris[, 1:2],
+      y = iris[3:4],
+      control = ctrl
+    ),
+    regexp = NA
+  )
   parsnip:::load_libs(res, attach = TRUE)
 
 })
