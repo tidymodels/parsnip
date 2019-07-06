@@ -429,7 +429,7 @@ parse_keras_args <- function(...) {
 }
 
 mlp_num_weights <- function(p, hidden_units, classes) {
-  ((p+1) * hidden_units) + ((hidden_units+1) * classes)
+  ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
 }
 
 
