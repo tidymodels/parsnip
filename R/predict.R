@@ -261,3 +261,44 @@ multi_predict.default <- function(object, ...)
 predict.model_spec <- function(object, ...) {
   stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
 }
+
+
+
+#' Determine if a model can make predictions on sub-models
+#'
+#' @param object An object to test.
+#' @param ... Not currently used.
+#' @return A single logical value.
+#' @keywords internal
+#' @examples
+#' model_idea <- linear_reg() %>% set_engine("lm")
+#' has_multi_pred(model_idea)
+#' model_fit <- fit(model_idea, mpg ~ ., data = mtcars)
+#' has_multi_pred(model_fit)
+#' @importFrom utils methods
+#' @export
+has_multi_pred <- function(object, ...) {
+  UseMethod("has_multi_pred")
+}
+
+#' @export
+#' @rdname has_multi_pred
+has_multi_pred.default <- function(object, ...) {
+  FALSE
+}
+
+#' @export
+#' @rdname has_multi_pred
+has_multi_pred.model_fit <- function(object, ...) {
+  existing_mthds <- utils::methods("multi_predict")
+  tst <- paste0("multi_predict.", class(object))
+  any(tst %in% existing_mthds)
+}
+
+#' @export
+#' @rdname has_multi_pred
+has_multi_pred.workflow <- function(object, ...) {
+  has_multi_pred(object$fit$model$model)
+}
+
+
