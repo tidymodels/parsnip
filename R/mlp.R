@@ -275,27 +275,31 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    if(decay > 0 & dropout > 0)
+    if (decay > 0 & dropout > 0) {
       stop("Please use either dropoput or weight decay.", call. = FALSE)
-
-    if (!is.matrix(x))
+    }
+    if (!is.matrix(x)) {
       x <- as.matrix(x)
+    }
 
-    if(is.character(y))
+    if (is.character(y)) {
       y <- as.factor(y)
+    }
     factor_y <- is.factor(y)
 
-    if (factor_y)
+    if (factor_y) {
       y <- class2ind(y)
-    else {
-      if (isTRUE(ncol(y) > 1))
+    } else {
+      if (isTRUE(ncol(y) > 1)) {
         y <- as.matrix(y)
-      else
+      } else {
         y <- matrix(y, ncol = 1)
+      }
     }
 
     model <- keras::keras_model_sequential()
-    if(decay > 0) {
+
+    if (decay > 0) {
       model %>%
         keras::layer_dense(
           units = hidden_units,
@@ -313,53 +317,57 @@ keras_mlp <-
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
     }
-    if(dropout > 0)
-      model %>%
-      keras::layer_dense(
-        units = hidden_units,
-        activation = act,
-        input_shape = ncol(x),
-        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
-      ) %>%
-      keras::layer_dropout(rate = dropout, seed = seeds[2])
 
-    if (factor_y)
+    if (dropout > 0) {
+      model %>%
+        keras::layer_dense(
+          units = hidden_units,
+          activation = act,
+          input_shape = ncol(x),
+          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
+        ) %>%
+        keras::layer_dropout(rate = dropout, seed = seeds[2])
+    }
+
+    if (factor_y) {
       model <- model %>%
-      keras::layer_dense(
-        units = ncol(y),
-        activation = 'softmax',
-        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
-      )
-    else
+        keras::layer_dense(
+          units = ncol(y),
+          activation = 'softmax',
+          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
+        )
+    } else {
       model <- model %>%
-      keras::layer_dense(
-        units = ncol(y),
-        activation = 'linear',
-        kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
-      )
+        keras::layer_dense(
+          units = ncol(y),
+          activation = 'linear',
+          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
+        )
+    }
 
     arg_values <- parse_keras_args(...)
-    compile_call <- expr(
-      keras::compile(object = model)
-    )
-    if(!any(names(arg_values$compile) == "loss"))
-      compile_call$loss <-
-      if(factor_y) "binary_crossentropy" else "mse"
-    if(!any(names(arg_values$compile) == "optimizer"))
+    compile_call <- expr(keras::compile(object = model))
+    if (!any(names(arg_values$compile) == "loss")) {
+      if (factor_y) {
+        compile_call$loss <- "binary_crossentropy"
+      } else {
+        compile_call$loss <- "mse"
+      }
+    }
+
+    if (!any(names(arg_values$compile) == "optimizer")) {
       compile_call$optimizer <- "adam"
-    for(arg in names(arg_values$compile))
-      compile_call[[arg]] <- arg_values$compile[[arg]]
+    }
+
+    compile_call <- rlang::call_modify(compile_call, !!!arg_values$compile)
 
     model <- eval_tidy(compile_call)
 
-    fit_call <- expr(
-      keras::fit(object = model)
-    )
+    fit_call <- expr(keras::fit(object = model))
     fit_call$x <- quote(x)
     fit_call$y <- quote(y)
     fit_call$epochs <- epochs
-    for(arg in names(arg_values$fit))
-      fit_call[[arg]] <- arg_values$fit[[arg]]
+    fit_call <- rlang::call_modify(fit_call, !!!arg_values$fit)
 
     history <- eval_tidy(fit_call)
     model
