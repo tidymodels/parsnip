@@ -232,6 +232,7 @@ predict._multnet <-
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
+#' @rdname multi_predict
 multi_predict._multnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))

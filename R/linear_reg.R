@@ -302,6 +302,8 @@ predict_raw._elnet <- function(object, new_data, opts = list(), ...)  {
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
+#'@rdname multi_predict
+#' @param penalty An numeric vector of penalty values.
 multi_predict._elnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))

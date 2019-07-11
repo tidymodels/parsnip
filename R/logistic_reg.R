@@ -276,6 +276,7 @@ predict._lognet <- function (object, new_data, type = NULL, opts = list(), penal
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
+#' @rdname multi_predict
 multi_predict._lognet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))

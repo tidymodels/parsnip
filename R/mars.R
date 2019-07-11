@@ -205,6 +205,8 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 
 #' @importFrom purrr map_df
 #' @importFrom dplyr arrange
+#' @rdname multi_predict
+#' @param num_terms An integer vector for the number of MARS terms to retain.
 #' @export
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {

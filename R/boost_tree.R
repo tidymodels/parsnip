@@ -366,6 +366,8 @@ xgb_pred <- function(object, newdata, ...) {
 
 #' @importFrom purrr map_df
 #' @export
+#' @rdname multi_predict
+#' @param trees An integer vector for the number of trees in the ensemble.
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata")) {
@@ -474,6 +476,7 @@ C5.0_train <-
   }
 
 #' @export
+#' @rdname multi_predict
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))

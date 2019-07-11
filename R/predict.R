@@ -301,4 +301,3 @@ has_multi_pred.workflow <- function(object, ...) {
   has_multi_pred(object$fit$model$model)
 }
 
-
