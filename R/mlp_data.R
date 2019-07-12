@@ -76,10 +76,10 @@ mlp_keras_data <-
 nnet_softmax <- function(results, object) {
   if (ncol(results) == 1)
     results <- cbind(1 - results, results)
-    
+
   results <- apply(results, 1, function(x) exp(x)/sum(exp(x)))
   results <- as_tibble(t(results))
-  names(results) <- paste0(".pred_", object$lvl)
+  colnames(results) <- object$lvl
   results
 }
 
