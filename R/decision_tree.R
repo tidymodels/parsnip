@@ -115,7 +115,7 @@ print.decision_tree <- function(x, ...) {
   cat("Decision Tree Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit$args)) {
+  if (!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -171,8 +171,8 @@ update.decision_tree <-
 #' @export
 translate.decision_tree <- function(x, engine = x$engine, ...) {
   if (is.null(engine)) {
-    message("Used `engine = 'ranger'` for translation.")
-    engine <- "ranger"
+    message("Used `engine = 'rpart'` for translation.")
+    engine <- "rpart"
   }
 
   x <- translate.default(x, engine, ...)
@@ -183,33 +183,12 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
   if (x$engine == "spark") {
     if (x$mode == "unknown") {
       stop(
-        "For spark random forests models, the mode cannot be 'unknown' ",
+        "For spark decision tree models, the mode cannot be 'unknown' ",
         "if the specification is to be translated.",
         call. = FALSE
       )
     }
-
-    # See "Details" in ?ml_random_forest_classifier. `feature_subset_strategy`
-    # should be character even if it contains a number.
-    if (any(names(arg_vals) == "feature_subset_strategy") &&
-        isTRUE(is.numeric(quo_get_expr(arg_vals$feature_subset_strategy)))) {
-      arg_vals$feature_subset_strategy <-
-        paste(quo_get_expr(arg_vals$feature_subset_strategy))
-    }
   }
-
-  # add checks to error trap or change things for this method
-  if (engine == "ranger") {
-    if (any(names(arg_vals) == "importance"))
-      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance))))
-        stop("`importance` should be a character value. See ?ranger::ranger.",
-             call. = FALSE)
-    # unless otherwise specified, classification models are probability forests
-    if (x$mode == "classification" && !any(names(arg_vals) == "probability"))
-      arg_vals$probability <- TRUE
-
-  }
-  x$method$fit$args <- arg_vals
 
   x
 }
