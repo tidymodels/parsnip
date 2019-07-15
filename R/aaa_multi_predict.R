@@ -33,3 +33,102 @@ multi_predict.default <- function(object, ...)
 predict.model_spec <- function(object, ...) {
   stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
 }
+
+#' Tools for models that predict on sub-models
+#'
+#' `has_multi_predict()` tests to see if an object can make multiple
+#'  predictions on submodels from the same object. `multi_predict_args()`
+#'  returns the names of the argments to `multi_predict()` for this model
+#'  (if any).
+#' @param object An object to test.
+#' @param ... Not currently used.
+#' @return `has_multi_predict()` returns single logical value while
+#'  `multi_predict()` returns a character vector of argument names (or `NA`
+#'  if none exist).
+#' @keywords internal
+#' @examples
+#' lm_model_idea <- linear_reg() %>% set_engine("lm")
+#' has_multi_predict(lm_model_idea)
+#' lm_model_fit <- fit(lm_model_idea, mpg ~ ., data = mtcars)
+#' has_multi_predict(lm_model_fit)
+#'
+#' multi_predict_args(lm_model_fit)
+#'
+#' library(kknn)
+#'
+#' knn_fit <-
+#'   nearest_neighbor(mode = "regression", neighbors = 5) %>%
+#'   set_engine("kknn") %>%
+#'   fit(mpg ~ ., mtcars)
+#'
+#' multi_predict_args(knn_fit)
+#'
+#' multi_predict(knn_fit, mtcars[1, -1], neighbors = 1:4)$.pred
+#' @importFrom utils methods
+#' @export
+has_multi_predict <- function(object, ...) {
+  UseMethod("has_multi_predict")
+}
+
+#' @export
+#' @rdname has_multi_predict
+has_multi_predict.default <- function(object, ...) {
+  FALSE
+}
+
+#' @export
+#' @rdname has_multi_predict
+has_multi_predict.model_fit <- function(object, ...) {
+  existing_mthds <- utils::methods("multi_predict")
+  tst <- paste0("multi_predict.", class(object))
+  any(tst %in% existing_mthds)
+}
+
+#' @export
+#' @rdname has_multi_predict
+has_multi_predict.workflow <- function(object, ...) {
+  has_multi_predict(object$fit$model$model)
+}
+
+
+#' @rdname has_multi_predict
+#' @export
+#' @rdname has_multi_predict
+multi_predict_args <- function(object, ...) {
+  UseMethod("multi_predict_args")
+}
+
+#' @export
+#' @rdname has_multi_predict
+multi_predict_args.default <- function(object, ...) {
+  if (inherits(object, "model_fit")) {
+    res <- multi_predict_args.model_fit(object, ...)
+  } else {
+    res <- NA_character_
+  }
+  res
+}
+
+#' @export
+#' @rdname has_multi_predict
+multi_predict_args.model_fit <- function(object, ...) {
+  existing_mthds <- methods("multi_predict")
+  cls <- class(object)
+  tst <- paste0("multi_predict.", cls)
+  .fn <- tst[tst %in% existing_mthds]
+  if (length(.fn) == 0) {
+    return(NA_character_)
+  }
+
+  .fn <- getFromNamespace(.fn, ns = "parsnip")
+  omit <- c('object', 'new_data', 'type', '...')
+  args <- names(formals(.fn))
+  args[!(args %in% omit)]
+}
+
+#' @export
+#' @rdname has_multi_predict
+multi_predict_args.workflow <- function(object, ...) {
+  object <- object$fit$model$model
+
+}

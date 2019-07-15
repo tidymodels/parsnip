@@ -174,6 +174,10 @@ test_that('multivariate nnet formula', {
       cbind(V1, V2, V3) ~ .,
       data = nn_dat[-(1:5),]
     )
+
+  expect_false(has_multi_predict(nnet_form))
+  expect_equal(multi_predict_args(nnet_form), NA_character_)
+
   expect_equal(length(nnet_form$fit$wts), 24)
   nnet_form_pred <- predict(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
