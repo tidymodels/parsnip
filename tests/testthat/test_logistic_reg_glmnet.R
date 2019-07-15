@@ -26,7 +26,7 @@ test_that('glmnet execution', {
   skip_if_not_installed("glmnet")
 
   expect_error(
-    fit_xy(
+    res <- fit_xy(
       lc_basic,
       control = ctrl,
       x = lending_club[, num_pred],
@@ -34,6 +34,9 @@ test_that('glmnet execution', {
     ),
     regexp = NA
   )
+
+  expect_true(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), "penalty")
 
   expect_error(
     glmnet_xy_catch <- fit_xy(

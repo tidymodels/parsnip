@@ -139,6 +139,9 @@ test_that('mars execution', {
     regexp = NA
   )
 
+  expect_true(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), "num_terms")
+
   expect_error(
     res <- fit(
       iris_basic,

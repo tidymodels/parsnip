@@ -115,7 +115,7 @@ test_that('svm poly regression', {
   skip_if_not_installed("kernlab")
 
   expect_error(
-    fit_xy(
+    res <- fit_xy(
       reg_mod,
       control = ctrl,
       x = iris[,2:4],
@@ -123,6 +123,9 @@ test_that('svm poly regression', {
     ),
     regexp = NA
   )
+
+  expect_false(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), NA_character_)
 
   expect_error(
     fit(
