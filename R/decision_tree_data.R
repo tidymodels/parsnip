@@ -135,7 +135,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("decision_tree", "classification", "C5.0")
-set_dependency("decision_tree", "C5.0", "C5.0")
+set_dependency("decision_tree", "C5.0", "C50")
 
 set_model_arg(
   model = "decision_tree",
