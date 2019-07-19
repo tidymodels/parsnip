@@ -16,7 +16,7 @@ set_model_arg(
   parsnip = "num_terms",
   original = "nprune",
   func = list(pkg = "dials", fun = "num_terms"),
-  has_submodel = FALSE
+  has_submodel = TRUE
 )
 set_model_arg(
   model = "mars",
