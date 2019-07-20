@@ -262,7 +262,7 @@ organize_glmnet_prob <- function(x, object) {
 # ------------------------------------------------------------------------------
 
 #' @export
-predict._lognet <- function (object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
+predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
@@ -330,7 +330,7 @@ multi_predict._lognet <-
 
 
 #' @export
-predict_class._lognet <- function (object, new_data, ...) {
+predict_class._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
@@ -339,7 +339,7 @@ predict_class._lognet <- function (object, new_data, ...) {
 }
 
 #' @export
-predict_classprob._lognet <- function (object, new_data, ...) {
+predict_classprob._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
@@ -348,7 +348,7 @@ predict_classprob._lognet <- function (object, new_data, ...) {
 }
 
 #' @export
-predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
+predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
@@ -356,3 +356,10 @@ predict_raw._lognet <- function (object, new_data, opts = list(), ...) {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @export min_grid.logistic_reg
+#' @rdname min_grid
+min_grid.logistic_reg <- min_grid.linear_reg

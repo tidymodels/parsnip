@@ -249,7 +249,7 @@ multi_predict._multnet <-
     if (is.null(type))
       type <- "class"
     if (!(type %in% c("class", "prob", "link", "raw"))) {
-      stop ("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
+      stop("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
     }
     if (type == "prob")
       dots$type <- "response"
@@ -290,19 +290,19 @@ multi_predict._multnet <-
   }
 
 #' @export
-predict_class._multnet <- function (object, new_data, ...) {
+predict_class._multnet <- function(object, new_data, ...) {
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
-predict_classprob._multnet <- function (object, new_data, ...) {
+predict_classprob._multnet <- function(object, new_data, ...) {
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
 #' @export
-predict_raw._multnet <- function (object, new_data, opts = list(), ...) {
+predict_raw._multnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
@@ -323,3 +323,10 @@ check_glmnet_lambda <- function(dat, object) {
   dat
 }
 
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @export min_grid.multinom_reg
+#' @rdname min_grid
+min_grid.multinom_reg <- min_grid.linear_reg
