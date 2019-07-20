@@ -138,6 +138,23 @@ print.linear_reg <- function(x, ...) {
   invisible(x)
 }
 
+
+#' @export
+translate.linear_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "glmnet") {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    x$method$fit$args$lambda <- NULL
+    # Since the `fit` infomration is gone for the penalty, we need to have an
+    # evaludated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  x
+}
+
+
 # ------------------------------------------------------------------------------
 
 #' @inheritParams update.boost_tree
@@ -273,6 +290,11 @@ predict._elnet <-
   function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
+      penalty <- object$spec$args$penalty
+    }
 
     object$spec$args$penalty <- check_penalty(penalty, object, multi)
 
