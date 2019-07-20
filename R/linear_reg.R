@@ -336,7 +336,12 @@ multi_predict._elnet <-
     object$spec <- eval_args(object$spec)
 
     if (is.null(penalty)) {
-      penalty <- object$fit$lambda
+      # See discussion in https://github.com/tidymodels/parsnip/issues/195
+      if (!is.null(object$spec$args$penalty)) {
+        penalty <- object$spec$args$penalty
+      } else {
+        penalty <- object$fit$lambda
+      }
     }
 
     pred <- predict._elnet(object, new_data = new_data, type = "raw",

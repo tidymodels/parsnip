@@ -1,17 +1,26 @@
-# parsnip 0.0.2.9000
+# parsnip 0.0.3
+
+Unplanned release based on CRAN requirements for Solaris.
 
 ## Breaking Changes
 
  * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env()` and the [package vignette for adding models](https://tidymodels.github.io/parsnip/articles/articles/Scratch.html).
- * The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation). 
+
+ * The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation. 
+
  * For `surv_reg()`, the engine that uses the `survival` package is now called `survival` instead of `survreg`.  
+
+ * For `glmnet` models, the full regularization path is always fit regardless of the value given to `penalty`. Previously, the model was fit with passing `penalty` to `glmnet`'s `lambda` argument and the model could only make predictions at those specific values. [(#195)](https://github.com/tidymodels/parsnip/issues/195)
 
 ## New Features
 
  * `add_rowindex()` can create a column called `.row` to a data frame. 
  
  * If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.  
+
  * `nearest_neighbor` gained a `multi_predict` method. The `multi_predict()` documentation is a little better organized.  
+ 
+ * A suite of internal functions were added to help with upcoming model tuning features.  
 
 
 # parsnip 0.0.2
