@@ -279,7 +279,7 @@ set_model_arg(
   parsnip = "trees",
   original = "max_iter",
   func = list(pkg = "dials", fun = "trees"),
-  has_submodel = TRUE
+  has_submodel = FALSE
 )
 set_model_arg(
   model = "boost_tree",
