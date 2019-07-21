@@ -213,7 +213,8 @@ multi_predict._train.kknn <-
   }
 
 knn_by_k <- function(k, object, new_data, type, ...) {
-  object$fit$call$ks <- k
+  object$fit$best.parameters$k <- k
+
   predict(object, new_data = new_data, type = type, ...) %>%
     dplyr::mutate(neighbors = k, .row = dplyr::row_number()) %>%
     dplyr::select(.row, neighbors, dplyr::starts_with(".pred"))
@@ -244,8 +245,9 @@ min_grid.nearest_neighbor <- function(x, grid, ...) {
   min_grid_df <-
     dplyr::full_join(fit_only %>% rename(max_neighbor = neighbors), grid, by = fixed_args) %>%
     dplyr::filter(neighbors != max_neighbor) %>%
+    dplyr::rename(sub_neighbors = neighbors, neighbors = max_neighbor) %>%
     dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
-    dplyr::summarize(.submodels = list(list(neighbors = neighbors))) %>%
+    dplyr::summarize(.submodels = list(list(neighbors = sub_neighbors))) %>%
     dplyr::ungroup() %>%
     dplyr::full_join(fit_only, grid, by = fixed_args)
 
