@@ -4,9 +4,9 @@ Unplanned release based on CRAN requirements for Solaris.
 
 ## Breaking Changes
 
- * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env()` and the [package vignette for adding models](https://tidymodels.github.io/parsnip/articles/articles/Scratch.html).
+ * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env` and the [package vignette for adding models](https://tidymodels.github.io/parsnip/articles/articles/Scratch.html).
 
- * The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation. 
+ * The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation. 
 
  * For `surv_reg()`, the engine that uses the `survival` package is now called `survival` instead of `survreg`.  
 
@@ -18,7 +18,7 @@ Unplanned release based on CRAN requirements for Solaris.
  
  * If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.  
 
- * `nearest_neighbor` gained a `multi_predict` method. The `multi_predict()` documentation is a little better organized.  
+ * `nearest_neighbor()` gained a `multi_predict` method. The `multi_predict()` documentation is a little better organized.  
  
  * A suite of internal functions were added to help with upcoming model tuning features.  
 

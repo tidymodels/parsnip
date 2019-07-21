@@ -66,6 +66,7 @@ in lieu of recreating the object from scratch." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -85,7 +86,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -113,6 +114,9 @@ in lieu of recreating the object from scratch." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -129,6 +133,7 @@ in lieu of recreating the object from scratch." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -159,7 +164,7 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for surv_reg</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,7 +190,7 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -195,15 +200,15 @@ modified in-place of or replaced wholesale.</p></td>
 to determine the <em>mode</em> of the model. For <code>surv_reg()</code>,the
 mode will always be "regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
-<code><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code> objects), the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function will require that the
+<code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function will require that the
 survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
 <p>For <code>surv_reg()</code>, the mode will always be "regression".</p>
-<p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+<p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survreg"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survival"</code> (the default)</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
@@ -217,7 +222,7 @@ model, the template of the fit calls are:</p>
 flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
     weights = missing_arg())
 </pre></p>
-<p><span class="pkg">survreg</span></p>
+<p><span class="pkg">survival</span></p>
 <p><pre>
 survival::survreg(formula = missing_arg(), data = missing_arg(), 
     weights = missing_arg(), model = TRUE)
@@ -233,7 +238,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code>, <code><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -249,7 +254,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = lnorm
@@ -274,6 +279,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -285,11 +291,14 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
