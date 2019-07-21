@@ -61,7 +61,6 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <- factor(uni_pred[,1], levels = levels(iris$Species))
   uni_pred <- unname(uni_pred)
 
-  expect_equal(uni_pred, parsnip:::predict_class.model_fit(xy_fit, iris[rows, 1:4]))
   expect_equal(uni_pred, predict(xy_fit, iris[rows, 1:4], type = "class")$.pred_class)
 
   res_form <- fit(

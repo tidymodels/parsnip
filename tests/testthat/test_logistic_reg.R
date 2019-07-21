@@ -79,7 +79,6 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 lambda = new_empty_quosure(1),
                  family = "binomial"
                )
   )

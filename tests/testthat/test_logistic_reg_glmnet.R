@@ -62,8 +62,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <-
     predict(xy_fit$fit,
             newx = as.matrix(lending_club[1:7, num_pred]),
-            s = 0.1, type = "response")
-  uni_pred <- predict(xy_fit$fit, newx = as.matrix(lending_club[1:7, num_pred]), type = "response")
+            s = 0.1, type = "response")[,1]
   uni_pred <- ifelse(uni_pred >= 0.5, "good", "bad")
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
@@ -83,7 +82,7 @@ test_that('glmnet prediction, one lambda', {
   form_pred <-
     predict(res_form$fit,
             newx = form_mat,
-            s = 0.1)
+            s = 0.1, type = "response")[,1]
   form_pred <- ifelse(form_pred >= 0.5, "good", "bad")
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   form_pred <- unname(form_pred)
@@ -357,7 +356,7 @@ test_that('glmnet probabilities, no lambda', {
   expect_equal(
     mult_pred,
     multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>% unnest()
-    )
+  )
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet"),

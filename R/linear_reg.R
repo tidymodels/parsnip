@@ -68,9 +68,9 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
 #'
-#' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument. This
-#'  can have an effect on the model object results. When using the
+#' For `glmnet` models, the full regularization path is always fit regardless
+#' of the value given to `penalty`. Also, there is the option to pass
+#'  multiple values (or no values) to the `penalty` argument. When using the
 #'  `predict()` method in these cases, the return value depends on
 #'  the value of `penalty`. When using `predict()`, only a single
 #'  value of the penalty can be used. When predicting on multiple

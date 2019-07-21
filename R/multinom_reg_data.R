@@ -44,7 +44,7 @@ set_pred(
   mode = "classification",
   type = "class",
   value = list(
-    pre = check_glmnet_lambda,
+    pre = NULL,
     post = organize_multnet_class,
     func = c(fun = "predict"),
     args =

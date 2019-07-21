@@ -66,9 +66,9 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
 #'
-#' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument. This
-#'  can have an effect on the model object results. When using the
+#' For `glmnet` models, the full regularization path is always fit regardless
+#' of the value given to `penalty`. Also, there is the option to pass
+#'  multiple values (or no values) to the `penalty` argument. When using the
 #'  `predict()` method in these cases, the return value depends on
 #'  the value of `penalty`. When using `predict()`, only a single
 #'  value of the penalty can be used. When predicting on multiple
@@ -136,6 +136,9 @@ print.logistic_reg <- function(x, ...) {
 
   invisible(x)
 }
+
+#' @export
+translate.logistic_reg <- translate.linear_reg
 
 # ------------------------------------------------------------------------------
 
@@ -235,7 +238,7 @@ organize_glmnet_prob <- function(x, object) {
 }
 
 # ------------------------------------------------------------------------------
-# glmnet call stack for linear regression using `predict` when object has
+# glmnet call stack for logistic regression using `predict` when object has
 # classes "_lognet" and "model_fit" (for class predictions):
 #
 #  predict()
@@ -247,7 +250,7 @@ organize_glmnet_prob <- function(x, object) {
 #        predict.lognet()
 
 
-# glmnet call stack for linear regression using `multi_predict` when object has
+# glmnet call stack for logistic regression using `multi_predict` when object has
 # classes "_lognet" and "model_fit" (for class predictions):
 #
 # 	multi_predict()
@@ -265,6 +268,11 @@ organize_glmnet_prob <- function(x, object) {
 predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
   if (any(names(enquos(...)) == "newdata"))
     stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+
+  # See discussion in https://github.com/tidymodels/parsnip/issues/195
+  if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
+    penalty <- object$spec$args$penalty
+  }
 
   object$spec$args$penalty <- check_penalty(penalty, object, multi)
 
@@ -286,8 +294,16 @@ multi_predict._lognet <-
       penalty <- eval_tidy(penalty)
 
     dots <- list(...)
-    if (is.null(penalty))
-      penalty <- eval_tidy(object$fit$lambda)
+
+    if (is.null(penalty)) {
+      # See discussion in https://github.com/tidymodels/parsnip/issues/195
+      if (!is.null(object$spec$args$penalty)) {
+        penalty <- object$spec$args$penalty
+      } else {
+        penalty <- object$fit$lambda
+      }
+    }
+
     dots$s <- penalty
 
     if (is.null(type))
