@@ -113,7 +113,8 @@ utils::globalVariables(
   c('.', '.label', '.pred', '.row', 'data', 'engine', 'engine2', 'group',
     'lab', 'original', 'predicted_label', 'prediction', 'value', 'type',
     "neighbors", ".submodels", "has_submodel", "max_neighbor", "max_penalty",
-    "max_terms", "max_tree", "name", "num_terms", "penalty", "trees")
+    "max_terms", "max_tree", "name", "num_terms", "penalty", "trees",
+    "sub_neighbors")
   )
 
 # nocov end
