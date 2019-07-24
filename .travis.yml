@@ -24,7 +24,7 @@ matrix:
     - r: 3.2       # partykit  install failure (libcoin needs >= 3.4.0)
     - r: 3.4       # mvtnorm   requires >= 3.5.0
 
-r_binary_packages: 
+r_binary_packages:
   - RCurl
   - dplyr
   - glue
@@ -51,7 +51,7 @@ r_binary_packages:
 
 
 cache:
-  packages: true
+  packages: false
   directories:
     - $HOME/.keras
     - $HOME/.cache/pip
