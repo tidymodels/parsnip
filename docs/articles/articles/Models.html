@@ -40,7 +40,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -68,6 +68,9 @@
     <li>
       <a href="../../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -86,6 +89,7 @@
 <!--/.navbar -->
 
       
+
       </header><script src="Models_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -107,16 +111,16 @@
 <table class="table table">
 <thead><tr>
 <th style="text-align:left;">
-model
-</th>
-<th style="text-align:left;">
 engine
 </th>
 <th style="text-align:left;">
-<code>class</code>
+mode
 </th>
 <th style="text-align:left;">
-<code>classprob</code>
+model
+</th>
+<th style="text-align:left;">
+<code>class</code>
 </th>
 <th style="text-align:left;">
 <code>conf_int</code>
@@ -128,6 +132,9 @@ engine
 <code>pred_int</code>
 </th>
 <th style="text-align:left;">
+<code>prob</code>
+</th>
+<th style="text-align:left;">
 <code>quantile</code>
 </th>
 <th style="text-align:left;">
@@ -136,20 +143,113 @@ engine
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="3">
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+C5.0
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
 <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>
 </td>
 <td style="text-align:left;">
-C5.0
+✔
 </td>
 <td style="text-align:left;">
-✔
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+earth
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mars.html">mars()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mars.html">mars()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -166,10 +266,19 @@ C5.0
 </tr>
 <tr>
 <td style="text-align:left;">
-spark
+flexsurv
 </td>
 <td style="text-align:left;">
-✔
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/surv_reg.html">surv_reg()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -178,13 +287,10 @@ spark
 ×
 </td>
 <td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
 ✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
 </td>
 <td style="text-align:left;">
 ×
@@ -192,7 +298,13 @@ spark
 </tr>
 <tr>
 <td style="text-align:left;">
-xgboost
+glm
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
@@ -204,10 +316,10 @@ xgboost
 ×
 </td>
 <td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
-×
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -218,25 +330,28 @@ xgboost
 </tr>
 <tr>
 <td style="text-align:left;vertical-align: middle !important;" rowspan="3">
-<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
+glmnet
 </td>
 <td style="text-align:left;">
-C5.0
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
 ✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
 </td>
 <td style="text-align:left;">
 ×
@@ -247,22 +362,25 @@ C5.0
 </tr>
 <tr>
 <td style="text-align:left;">
-rpart
+classification
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
+<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -273,36 +391,45 @@ rpart
 </tr>
 <tr>
 <td style="text-align:left;">
-spark
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
 ✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
 </td>
 </tr>
 <tr>
 <td style="text-align:left;vertical-align: middle !important;" rowspan="5">
-<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
+keras
 </td>
 <td style="text-align:left;">
-glmnet
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -315,6 +442,209 @@ glmnet
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mlp.html">mlp()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mlp.html">mlp()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="4">
+kernlab
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/svm_poly.html">svm_poly()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/svm_poly.html">svm_poly()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -328,10 +658,10 @@ glmnet
 </tr>
 <tr>
 <td style="text-align:left;">
-keras
+regression
 </td>
 <td style="text-align:left;">
-×
+<code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code>
 </td>
 <td style="text-align:left;">
 ×
@@ -350,6 +680,70 @@ keras
 </td>
 <td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+kknn
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
 </td>
 </tr>
 <tr>
@@ -357,7 +751,10 @@ keras
 lm
 </td>
 <td style="text-align:left;">
-×
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
 </td>
 <td style="text-align:left;">
 ×
@@ -367,217 +764,6 @@ lm
 </td>
 <td style="text-align:left;">
 ✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-spark
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-stan
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="5">
-<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
-</td>
-<td style="text-align:left;">
-glm
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-glmnet
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-keras
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-spark
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-stan
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code><a href="../../reference/mars.html">mars()</a></code>
-</td>
-<td style="text-align:left;">
-earth
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
 </td>
 <td style="text-align:left;">
 ✔
@@ -594,39 +780,25 @@ earth
 </tr>
 <tr>
 <td style="text-align:left;vertical-align: middle !important;" rowspan="2">
-<code><a href="../../reference/mlp.html">mlp()</a></code>
-</td>
-<td style="text-align:left;">
-keras
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 nnet
 </td>
 <td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mlp.html">mlp()</a></code>
+</td>
+<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -636,6 +808,26 @@ nnet
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/mlp.html">mlp()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -648,124 +840,26 @@ nnet
 </td>
 </tr>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="3">
-<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+parsnip
 </td>
 <td style="text-align:left;">
-glmnet
+classification
 </td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-keras
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-spark
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>
-</td>
-<td style="text-align:left;">
-kknn
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
 <code><a href="../../reference/null_model.html">null_model()</a></code>
 </td>
 <td style="text-align:left;">
-parsnip
+✔
 </td>
 <td style="text-align:left;">
-✔
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -775,6 +869,26 @@ parsnip
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/null_model.html">null_model()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -787,14 +901,26 @@ parsnip
 </td>
 </tr>
 <tr>
-<td style="text-align:left;vertical-align: middle !important;" rowspan="3">
-<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
-</td>
-<td style="text-align:left;">
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
 randomForest
 </td>
 <td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
+</td>
+<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -804,6 +930,26 @@ randomForest
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -816,11 +962,14 @@ randomForest
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
 ranger
 </td>
 <td style="text-align:left;">
-✔
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
@@ -829,7 +978,39 @@ ranger
 ✔
 </td>
 <td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -842,11 +1023,26 @@ ranger
 </td>
 </tr>
 <tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+rpart
+</td>
 <td style="text-align:left;">
-spark
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ✔
@@ -856,6 +1052,290 @@ spark
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="9">
+spark
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/boost_tree.html">boost_tree()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/boost_tree.html">boost_tree()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/decision_tree.html">decision_tree()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/rand_forest.html">rand_forest()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -869,41 +1349,76 @@ spark
 </tr>
 <tr>
 <td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+stan
+</td>
+<td style="text-align:left;">
+classification
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
+<code><a href="../../reference/linear_reg.html">linear_reg()</a></code>
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+✔
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+survival
+</td>
+<td style="text-align:left;">
+regression
+</td>
+<td style="text-align:left;">
 <code><a href="../../reference/surv_reg.html">surv_reg()</a></code>
 </td>
 <td style="text-align:left;">
-flexsurv
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survreg
-</td>
-<td style="text-align:left;">
-×
-</td>
-<td style="text-align:left;">
 ×
 </td>
 <td style="text-align:left;">
@@ -911,6 +1426,9 @@ survreg
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -923,26 +1441,29 @@ survreg
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-<code><a href="../../reference/svm_poly.html">svm_poly()</a></code>
+<td style="text-align:left;vertical-align: middle !important;" rowspan="2">
+xgboost
 </td>
 <td style="text-align:left;">
-kernlab
+classification
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-×
+<code><a href="../../reference/boost_tree.html">boost_tree()</a></code>
 </td>
 <td style="text-align:left;">
 ✔
 </td>
 <td style="text-align:left;">
 ×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+×
+</td>
+<td style="text-align:left;">
+✔
 </td>
 <td style="text-align:left;">
 ×
@@ -953,22 +1474,22 @@ kernlab
 </tr>
 <tr>
 <td style="text-align:left;">
-<code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code>
+regression
 </td>
 <td style="text-align:left;">
-kernlab
+<code><a href="../../reference/boost_tree.html">boost_tree()</a></code>
 </td>
 <td style="text-align:left;">
-✔
-</td>
-<td style="text-align:left;">
-✔
+×
 </td>
 <td style="text-align:left;">
 ×
 </td>
 <td style="text-align:left;">
 ✔
+</td>
+<td style="text-align:left;">
+×
 </td>
 <td style="text-align:left;">
 ×
@@ -991,6 +1512,7 @@ kernlab
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
 </div>
@@ -1001,10 +1523,12 @@ kernlab
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

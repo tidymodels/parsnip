@@ -71,6 +71,7 @@ in lieu of recreating the object from scratch." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -90,7 +91,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -118,6 +119,9 @@ in lieu of recreating the object from scratch." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -134,6 +138,7 @@ in lieu of recreating the object from scratch." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -170,7 +175,7 @@ in lieu of recreating the object from scratch.</p>
   <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for mlp</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>)</pre>
     
@@ -220,7 +225,7 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -230,15 +235,15 @@ modified in-place of or replaced wholesale.</p></td>
 time that the model is fit. Other options and argument can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (see above), the values are taken from the underlying model
-functions. One exception is <code>hidden_units</code> when <code><a href='https://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet</a></code> is used; that
+functions. One exception is <code>hidden_units</code> when <code><a href='https://rdrr.io/pkg/nnet/man/nnet.html'>nnet::nnet</a></code> is used; that
 function's <code>size</code> argument has no default so a value of 5 units will be
 used. Also, unless otherwise specified, the <code>linout</code> argument to
-<code><a href='https://www.rdocumentation.org/packages/nnet/topics/nnet'>nnet::nnet()</a></code> will be set to <code>TRUE</code> when a regression model is created.
-If parameters need to be modified, <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code> can be used
+<code><a href='https://rdrr.io/pkg/nnet/man/nnet.html'>nnet::nnet()</a></code> will be set to <code>TRUE</code> when a regression model is created.
+If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
-<p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+<p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"nnet"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"nnet"</code> (the default)</p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
     <p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
@@ -271,7 +276,7 @@ nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -290,12 +295,12 @@ nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(
 #&gt; Main Arguments:
 #&gt;   hidden_units = 10
 #&gt;   dropout = 0.3
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   hidden_units = 2
 #&gt;   dropout = 0.3
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Single Layer Neural Network Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   hidden_units = 2
@@ -318,6 +323,7 @@ nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -329,11 +335,14 @@ nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

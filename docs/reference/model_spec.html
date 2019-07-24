@@ -56,6 +56,7 @@ information about a model that will be fit." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -75,7 +76,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -103,6 +104,9 @@ information about a model that will be fit." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -119,6 +123,7 @@ information about a model that will be fit." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -177,7 +182,7 @@ independent of the data. While it is true that some tuning
 parameters are <em>data dependent</em>, the model specification does
 not interact with the data at all.</p>
 <p>For example, most R functions immediately evaluate their
-arguments. For example, when calling <code><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean(dat_vec)</a></code>, the object
+arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.html'>mean(dat_vec)</a></code>, the object
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
@@ -193,7 +198,7 @@ This can be seen in the output:</p>
 </pre>
     <p>The model functions save the argument <em>expressions</em> and their
 associated environments (a.k.a. a quosure) to be evaluated later
-when either <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> or <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> are called with the actual
+when either <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> or <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> are called with the actual
 data.</p>
 <p>The consequence of this strategy is that any data required to
 get the parameter values must be available when the model is
@@ -256,6 +261,7 @@ it, this wouldn't be too bad:</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -267,11 +273,14 @@ it, this wouldn't be too bad:</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -62,8 +62,7 @@ test_that('glmnet prediction, one lambda', {
   uni_pred <-
     predict(xy_fit$fit,
             newx = as.matrix(lending_club[1:7, num_pred]),
-            s = 0.1, type = "response")
-  uni_pred <- predict(xy_fit$fit, newx = as.matrix(lending_club[1:7, num_pred]), type = "response")
+            s = 0.1, type = "response")[,1]
   uni_pred <- ifelse(uni_pred >= 0.5, "good", "bad")
   uni_pred <- factor(uni_pred, levels = levels(lending_club$Class))
   uni_pred <- unname(uni_pred)
@@ -83,7 +82,7 @@ test_that('glmnet prediction, one lambda', {
   form_pred <-
     predict(res_form$fit,
             newx = form_mat,
-            s = 0.1)
+            s = 0.1, type = "response")[,1]
   form_pred <- ifelse(form_pred >= 0.5, "good", "bad")
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   form_pred <- unname(form_pred)
@@ -357,7 +356,7 @@ test_that('glmnet probabilities, no lambda', {
   expect_equal(
     mult_pred,
     multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>% unnest()
-    )
+  )
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet"),
@@ -419,4 +418,35 @@ test_that('submodel prediction', {
 
 })
 
+test_that('glmnet grid reduction', {
+  reg_grid <- expand.grid(penalty = 1:3, mixture = (1:5)/5)
+  reg_grid_smol <- min_grid(logistic_reg() %>% set_engine("glmnet"), reg_grid)
+
+  expect_equal(reg_grid_smol$penalty, rep(3, 5))
+  expect_equal(reg_grid_smol$mixture, (1:5)/5)
+  for (i in 1:nrow(reg_grid_smol)) {
+    expect_equal(reg_grid_smol$.submodels[[i]], list(penalty = 1:2))
+  }
+
+  reg_ish_grid <- expand.grid(penalty = 1:3, mixture = (1:5)/5)[-3,]
+  reg_ish_grid_smol <- min_grid(logistic_reg() %>% set_engine("glmnet"), reg_ish_grid)
+
+  expect_equal(reg_ish_grid_smol$penalty, c(2, rep(3, 4)))
+  expect_equal(reg_ish_grid_smol$mixture, (1:5)/5)
+  expect_equal(reg_ish_grid_smol$.submodels[[1]], list(penalty = 1))
+  for (i in 2:nrow(reg_ish_grid_smol)) {
+    expect_equal(reg_ish_grid_smol$.submodels[[i]], list(penalty = 1:2))
+  }
+
+  reg_grid_extra <- expand.grid(penalty = 1:3, mixture = (1:5)/5, blah = 10:12)
+  reg_grid_extra_smol <- min_grid(logistic_reg() %>% set_engine("glmnet"), reg_grid_extra)
+
+  expect_equal(reg_grid_extra_smol$penalty, rep(3, 15))
+  expect_equal(reg_grid_extra_smol$mixture, rep((1:5)/5, each = 3))
+  expect_equal(reg_grid_extra_smol$blah, rep(10:12, 5))
+  for (i in 1:nrow(reg_grid_extra_smol)) {
+    expect_equal(reg_grid_extra_smol$.submodels[[i]], list(penalty = 1:2))
+  }
+
+})
 

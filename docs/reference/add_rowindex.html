@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for null models — null_model • parsnip</title>
+<title>Add a column of row numbers to a data frame — add_rowindex • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,9 @@
 
 
 
-<meta property="og:title" content="General Interface for null models — null_model" />
+<meta property="og:title" content="Add a column of row numbers to a data frame — add_rowindex" />
 
-<meta property="og:description" content="null_model() is a way to generate a specification of a model before
-fitting and allows the model to be created using R. It doens't have any
-main arguments." />
+<meta property="og:description" content="Add a column of row numbers to a data frame" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,73 +128,74 @@ main arguments." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for null models</h1>
+    <h1>Add a column of row numbers to a data frame</h1>
     
-    <div class="hidden name"><code>null_model.Rd</code></div>
+    <div class="hidden name"><code>add_rowindex.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>null_model()</code> is a way to generate a <em>specification</em> of a model before
-fitting and allows the model to be created using R. It doens't have any
-main arguments.</p>
+    <p>Add a column of row numbers to a data frame</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>)</pre>
+    <pre class="usage"><span class='fu'>add_rowindex</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mode</th>
-      <td><p>A single character string for the type of model.
-Possible values for this model are "unknown", "regression", or
-"classification".</p></td>
+      <th>x</th>
+      <td><p>A data frame</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"parsnip"</code></p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    
-    <p>Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">parsnip</span> classification</p>
-<p><pre>
-nullmodel(x = missing_arg(), y = missing_arg())
-</pre></p>
-<p><span class="pkg">parsnip</span> regression</p>
-<p><pre>
-nullmodel(x = missing_arg(), y = missing_arg())
-</pre></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <p>The same data frame with a column of 1-based integers named <code>.row</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Model Specification (regression)
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rowindex</span>()</div><div class='output co'>#&gt;     mpg cyl  disp  hp drat    wt  qsec vs am gear carb .row
+#&gt; 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4    1
+#&gt; 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4    2
+#&gt; 3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1    3
+#&gt; 4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1    4
+#&gt; 5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2    5
+#&gt; 6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1    6
+#&gt; 7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4    7
+#&gt; 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2    8
+#&gt; 9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2    9
+#&gt; 10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4   10
+#&gt; 11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4   11
+#&gt; 12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3   12
+#&gt; 13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3   13
+#&gt; 14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3   14
+#&gt; 15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4   15
+#&gt; 16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4   16
+#&gt; 17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4   17
+#&gt; 18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1   18
+#&gt; 19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2   19
+#&gt; 20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1   20
+#&gt; 21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1   21
+#&gt; 22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2   22
+#&gt; 23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2   23
+#&gt; 24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4   24
+#&gt; 25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2   25
+#&gt; 26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1   26
+#&gt; 27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2   27
+#&gt; 28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2   28
+#&gt; 29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4   29
+#&gt; 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6   30
+#&gt; 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8   31
+#&gt; 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2   32</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#engine-details">Engine Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

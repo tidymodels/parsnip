@@ -57,6 +57,7 @@ routine." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -76,7 +77,7 @@ routine." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -104,6 +105,9 @@ routine." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -120,6 +124,7 @@ routine." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -132,18 +137,18 @@ routine." />
 
     <div class="ref-description">
     
-    <p><code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> and <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> take a model specification, translate the required
+    <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,21 +211,24 @@ object)</p></li>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> and <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> substitute the current arguments in the model
+    <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> substitute the current arguments in the model
 specification into the computational engine's code, checks them
 for validity, then fits the model using the data and the
 engine-specific code. Different model functions have different
 interfaces (e.g. formula or <code>x</code>/<code>y</code>) and these functions translate
-between the interface used when <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> or <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> were invoked and the one
+between the interface used when <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> or <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> were invoked and the one
 required by the underlying model.</p>
 <p>When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-<code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> is invoked, the original data are references
+<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is invoked, the original data are references
 when the model is fit. However, if the underlying model uses
 something else, such as <code>x</code>/<code>y</code>, the formula is evaluated and
 the data are converted to the required format. In this case, any
 calls in the resulting model objects reference the temporary
 objects used to fit the model.</p>
+<p>If the model engine has not been set, the model's default engine will be used
+(as discussed on each model page). If the <code>verbosity</code> option of
+<code><a href='fit_control.html'>fit_control()</a></code> is greater than zero, a warning will be produced.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -231,28 +239,26 @@ objects used to fit the model.</p>
     <pre class="examples"><div class='input'><span class='co'># Although `glm()` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"lending_club"</span>)
-
-<span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"lending_club"</span>)
 
 <span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
 <span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
   <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
 
 <span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
   <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
    <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
          <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>)
 
 <span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object
@@ -296,6 +302,7 @@ objects used to fit the model.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -307,11 +314,14 @@ objects used to fit the model.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

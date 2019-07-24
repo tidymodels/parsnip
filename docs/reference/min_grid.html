@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for null models — null_model • parsnip</title>
+<title>Determine the minimum set of model fits — min_grid • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,11 @@
 
 
 
-<meta property="og:title" content="General Interface for null models — null_model" />
+<meta property="og:title" content="Determine the minimum set of model fits — min_grid" />
 
-<meta property="og:description" content="null_model() is a way to generate a specification of a model before
-fitting and allows the model to be created using R. It doens't have any
-main arguments." />
+<meta property="og:description" content="min_grid determines exactly what models should be fit in order to
+evaluate the entire set of tuning parameter combinations. This is for
+internal use only." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,76 +130,70 @@ main arguments." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for null models</h1>
+    <h1>Determine the minimum set of model fits</h1>
     
-    <div class="hidden name"><code>null_model.Rd</code></div>
+    <div class="hidden name"><code>min_grid.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>null_model()</code> is a way to generate a <em>specification</em> of a model before
-fitting and allows the model to be created using R. It doens't have any
-main arguments.</p>
+    <p><code>min_grid</code> determines exactly what models should be fit in order to
+evaluate the entire set of tuning parameter combinations. This is for
+internal use only.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>)</pre>
+    <pre class="usage"><span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for boost_tree</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for linear_reg</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for logistic_reg</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for mars</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for multinom_reg</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for nearest_neighbor</span>
+<span class='fu'>min_grid</span>(<span class='no'>x</span>, <span class='no'>grid</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mode</th>
-      <td><p>A single character string for the type of model.
-Possible values for this model are "unknown", "regression", or
-"classification".</p></td>
+      <th>x</th>
+      <td><p>A model specification.</p></td>
+    </tr>
+    <tr>
+      <th>grid</th>
+      <td><p>A tibble with tuning parameter combinations.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"parsnip"</code></p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    
-    <p>Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">parsnip</span> classification</p>
-<p><pre>
-nullmodel(x = missing_arg(), y = missing_arg())
-</pre></p>
-<p><span class="pkg">parsnip</span> regression</p>
-<p><pre>
-nullmodel(x = missing_arg(), y = missing_arg())
-</pre></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <p>A tibble with the minimum tuning parameters to fit and an additional
+list column with the parameter combinations used for prediction.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Model Specification (regression)
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#engine-details">Engine Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>
