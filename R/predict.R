@@ -216,10 +216,12 @@ make_pred_call <- function(x) {
   cl
 }
 
+
 prepare_data <- function(object, new_data) {
   fit_interface <- object$spec$method$fit$interface
 
-  if (!all(is.na(object$preproc))) {
+  pp_names <- names(object$preproc)
+  if (any(pp_names == "terms") | any(pp_names == "x_var")) {
     # Translation code
     if (fit_interface == "formula") {
       new_data <- convert_xy_to_form_new(object$preproc, new_data)

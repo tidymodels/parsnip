@@ -59,7 +59,7 @@ form_form <-
       env = env,
       ...
     )
-    res$preproc <- NA
+    res$preproc <- list(y_var = all.vars(env$formula[[2]]))
     res
   }
 
@@ -114,7 +114,12 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     env = env,
     ...
   )
-  res$preproc <- NA
+  if (is.vector(env$y)) {
+    y_name <- character(0)
+  } else {
+    y_name <- colnames(env$y)
+  }
+  res$preproc <- list(y_var = y_name)
   res
 }
 
@@ -144,6 +149,7 @@ form_xy <- function(object, control, env,
     control = control,
     target = target
   )
+  data_obj$y_var <- all.vars(env$formula[[2]])
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL
@@ -177,7 +183,12 @@ xy_form <- function(object, env, control, ...) {
     control = control,
     ...
   )
-  res$preproc <- data_obj["x_var"]
+  if (is.vector(env$y)) {
+    data_obj$y_var <- character(0)
+  } else {
+    data_obj$y_var <- colnames(env$y)
+  }
+  res$preproc <- data_obj[c("x_var", "y_var")]
   res
 }
 
