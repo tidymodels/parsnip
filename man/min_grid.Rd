@@ -39,6 +39,6 @@ list column with the parameter combinations used for prediction.
 \description{
 \code{min_grid} determines exactly what models should be fit in order to
 evaluate the entire set of tuning parameter combinations. This is for
-internal use only.
+internal use only and the API may change in the near future.
 }
 \keyword{internal}

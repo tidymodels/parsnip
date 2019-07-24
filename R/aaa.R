@@ -25,7 +25,7 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
 #'
 #' `min_grid` determines exactly what models should be fit in order to
 #'  evaluate the entire set of tuning parameter combinations. This is for
-#'  internal use only.
+#'  internal use only and the API may change in the near future.
 #' @param x A model specification.
 #' @param grid A tibble with tuning parameter combinations.
 #' @param ... Not currently used.
