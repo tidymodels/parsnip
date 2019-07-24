@@ -16,7 +16,7 @@ set_model_arg(
   parsnip = "neighbors",
   original = "ks",
   func = list(pkg = "dials", fun = "neighbors"),
-  has_submodel = FALSE
+  has_submodel = TRUE
 )
 set_model_arg(
   model = "nearest_neighbor",

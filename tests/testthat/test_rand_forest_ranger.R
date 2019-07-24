@@ -370,6 +370,9 @@ test_that('ranger classification prediction', {
       control = ctrl
     )
 
+  expect_false(has_multi_predict(xy_class_fit))
+  expect_equal(multi_predict_args(xy_class_fit), NA_character_)
+
   xy_class_pred <- predict(xy_class_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
   xy_class_pred <- colnames(xy_class_pred)[apply(xy_class_pred, 1, which.max)]
   xy_class_pred <- factor(xy_class_pred, levels = levels(iris$Species))

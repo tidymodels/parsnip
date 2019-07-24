@@ -178,3 +178,78 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
   }
   x
 }
+
+
+# ------------------------------------------------------------------------------
+
+#' @importFrom purrr map_df
+#' @importFrom dplyr starts_with
+#' @rdname multi_predict
+#' @param neighbors An integer vector for the number of nearest neighbors.
+#' @export
+multi_predict._train.kknn <-
+  function(object, new_data, type = NULL, neighbors = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+
+    if (is.null(neighbors))
+      neighbors <- rlang::eval_tidy(object$fit$call$ks)
+    neighbors <- sort(neighbors)
+
+    if (is.null(type)) {
+      if (object$spec$mode == "classification")
+        type <- "class"
+      else
+        type <- "numeric"
+    }
+
+    res <-
+      purrr::map_df(neighbors, knn_by_k, object = object,
+                    new_data = new_data, type = type, ...)
+    res <- dplyr::arrange(res, .row, neighbors)
+    res <- split(res[, -1], res$.row)
+    names(res) <- NULL
+    dplyr::tibble(.pred = res)
+  }
+
+knn_by_k <- function(k, object, new_data, type, ...) {
+  object$fit$best.parameters$k <- k
+
+  predict(object, new_data = new_data, type = type, ...) %>%
+    dplyr::mutate(neighbors = k, .row = dplyr::row_number()) %>%
+    dplyr::select(.row, neighbors, dplyr::starts_with(".pred"))
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @export min_grid.nearest_neighbor
+#' @rdname min_grid
+min_grid.nearest_neighbor <- function(x, grid, ...) {
+
+  grid_names <- names(grid)
+  param_info <- get_submodel_info(x, grid)
+
+  if (!any(param_info$has_submodel)) {
+    return(blank_submodels(grid))
+  }
+
+  fixed_args <- get_fixed_args(param_info)
+
+  fit_only <-
+    grid %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(neighbors = max(neighbors, na.rm = TRUE)) %>%
+    dplyr::ungroup()
+
+  min_grid_df <-
+    dplyr::full_join(fit_only %>% rename(max_neighbor = neighbors), grid, by = fixed_args) %>%
+    dplyr::filter(neighbors != max_neighbor) %>%
+    dplyr::rename(sub_neighbors = neighbors, neighbors = max_neighbor) %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(.submodels = list(list(neighbors = sub_neighbors))) %>%
+    dplyr::ungroup() %>%
+    dplyr::full_join(fit_only, grid, by = fixed_args)
+
+  min_grid_df  %>% dplyr::select(dplyr::one_of(grid_names), .submodels)
+}

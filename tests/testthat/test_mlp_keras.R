@@ -34,6 +34,10 @@ test_that('keras execution, classification', {
     regexp = NA
   )
 
+
+  expect_false(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), NA_character_)
+
   keras::backend()$clear_session()
 
   expect_error(

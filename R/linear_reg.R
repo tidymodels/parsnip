@@ -68,9 +68,9 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
 #'
-#' When using `glmnet` models, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument. This
-#'  can have an effect on the model object results. When using the
+#' For `glmnet` models, the full regularization path is always fit regardless
+#' of the value given to `penalty`. Also, there is the option to pass
+#'  multiple values (or no values) to the `penalty` argument. When using the
 #'  `predict()` method in these cases, the return value depends on
 #'  the value of `penalty`. When using `predict()`, only a single
 #'  value of the penalty can be used. When predicting on multiple
@@ -137,6 +137,23 @@ print.linear_reg <- function(x, ...) {
 
   invisible(x)
 }
+
+
+#' @export
+translate.linear_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "glmnet") {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    x$method$fit$args$lambda <- NULL
+    # Since the `fit` infomration is gone for the penalty, we need to have an
+    # evaludated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  x
+}
+
 
 # ------------------------------------------------------------------------------
 
@@ -274,6 +291,11 @@ predict._elnet <-
     if (any(names(enquos(...)) == "newdata"))
       stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
 
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
+      penalty <- object$spec$args$penalty
+    }
+
     object$spec$args$penalty <- check_penalty(penalty, object, multi)
 
     object$spec <- eval_args(object$spec)
@@ -302,6 +324,8 @@ predict_raw._elnet <- function(object, new_data, opts = list(), ...)  {
 #' @importFrom dplyr full_join as_tibble arrange
 #' @importFrom tidyr gather
 #' @export
+#'@rdname multi_predict
+#' @param penalty An numeric vector of penalty values.
 multi_predict._elnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
@@ -312,7 +336,12 @@ multi_predict._elnet <-
     object$spec <- eval_args(object$spec)
 
     if (is.null(penalty)) {
-      penalty <- object$fit$lambda
+      # See discussion in https://github.com/tidymodels/parsnip/issues/195
+      if (!is.null(object$spec$args$penalty)) {
+        penalty <- object$spec$args$penalty
+      } else {
+        penalty <- object$fit$lambda
+      }
     }
 
     pred <- predict._elnet(object, new_data = new_data, type = "raw",
@@ -330,3 +359,37 @@ multi_predict._elnet <-
     names(pred) <- NULL
     tibble(.pred = pred)
   }
+
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @export min_grid.linear_reg
+#' @rdname min_grid
+min_grid.linear_reg <- function(x, grid, ...) {
+
+  grid_names <- names(grid)
+  param_info <- get_submodel_info(x, grid)
+
+  if (!any(param_info$has_submodel)) {
+    return(blank_submodels(grid))
+  }
+
+  fixed_args <- get_fixed_args(param_info)
+
+  fit_only <-
+    grid %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(penalty = max(penalty, na.rm = TRUE)) %>%
+    dplyr::ungroup()
+
+  min_grid_df <-
+    dplyr::full_join(fit_only %>% rename(max_penalty = penalty), grid, by = fixed_args) %>%
+    dplyr::filter(penalty != max_penalty) %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(.submodels = list(list(penalty = penalty))) %>%
+    dplyr::ungroup() %>%
+    dplyr::full_join(fit_only, grid, by = fixed_args)
+
+  min_grid_df  %>% dplyr::select(dplyr::one_of(grid_names), .submodels)
+}

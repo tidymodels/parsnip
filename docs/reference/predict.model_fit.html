@@ -57,6 +57,7 @@ predict() can be used for all types of models and used the
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -76,7 +77,7 @@ predict() can be used for all types of models and used the
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -104,6 +105,9 @@ predict() can be used for all types of models and used the
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -120,6 +124,7 @@ predict() can be used for all types of models and used the
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -133,14 +138,14 @@ predict() can be used for all types of models and used the
     <div class="ref-description">
     
     <p>Apply a model to create different types of predictions.
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> can be used for all types of models and used the
+<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> can be used for all types of models and used the
 "type" argument for more specificity.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,7 +162,7 @@ predict() can be used for all types of models and used the
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
 are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-or "raw". When <code>NULL</code>, <code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> will choose an appropriate value
+or "raw". When <code>NULL</code>, <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> will choose an appropriate value
 based on the model's mode.</p></td>
     </tr>
     <tr>
@@ -213,16 +218,16 @@ contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
 type-specific prediction functions.</p>
 <p>When the model fit failed and the error was captured, the
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> function will return the same structure as above but
+<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> function will return the same structure as above but
 filled with missing values. This does not currently work for
 multivariate models.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If "type" is not supplied to <code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code>, then a choice
+    <p>If "type" is not supplied to <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, then a choice
 is made (<code>type = "numeric"</code> for regression models and
 <code>type = "class"</code> for classification).</p>
-<p><code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> is designed to provide a tidy result (see "Value"
+<p><code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> is designed to provide a tidy result (see "Value"
 section below) in a tibble output format.</p>
 <p>When using <code>type = "conf_int"</code> and <code>type = "pred_int"</code>, the options
 <code>level</code> and <code>std_error</code> can be used. The latter is a logical for an
@@ -230,54 +235,54 @@ extra column of standard error values (if available).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='no'>lm_model</span> <span class='kw'>&lt;-</span>
   <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>))
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span>:<span class='fl'>32</span>))
 
 <span class='no'>pred_cars</span> <span class='kw'>&lt;-</span>
   <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(-<span class='no'>mpg</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>lm_model</span>, <span class='no'>pred_cars</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 1</span><span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>lm_model</span>, <span class='no'>pred_cars</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 1</span><span>
 #&gt;    .pred
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  23.4
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  23.3
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  27.6
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  21.5
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  17.6
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  21.6
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  13.9
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  21.7
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  25.6
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  17.1</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>  23.4
+#&gt; </span><span style='color: #555555;'> 2</span><span>  23.3
+#&gt; </span><span style='color: #555555;'> 3</span><span>  27.6
+#&gt; </span><span style='color: #555555;'> 4</span><span>  21.5
+#&gt; </span><span style='color: #555555;'> 5</span><span>  17.6
+#&gt; </span><span style='color: #555555;'> 6</span><span>  21.6
+#&gt; </span><span style='color: #555555;'> 7</span><span>  13.9
+#&gt; </span><span style='color: #555555;'> 8</span><span>  21.7
+#&gt; </span><span style='color: #555555;'> 9</span><span>  25.6
+#&gt; </span><span style='color: #555555;'>10</span><span>  17.1</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(
   <span class='no'>lm_model</span>,
   <span class='no'>pred_cars</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"conf_int"</span>,
   <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.90</span>
-)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 2</span><span>
+)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 2</span><span>
 #&gt;    .pred_lower .pred_upper
-#&gt;          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>       17.9         29.0
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>       18.1         28.5
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>       24.0         31.3
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>       17.5         25.6
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>       14.3         20.8
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>       17.0         26.2
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>        9.65        18.2
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>       16.2         27.2
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>       14.2         37.0
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>       11.5         22.7</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(
+#&gt;          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>       17.9         29.0
+#&gt; </span><span style='color: #555555;'> 2</span><span>       18.1         28.5
+#&gt; </span><span style='color: #555555;'> 3</span><span>       24.0         31.3
+#&gt; </span><span style='color: #555555;'> 4</span><span>       17.5         25.6
+#&gt; </span><span style='color: #555555;'> 5</span><span>       14.3         20.8
+#&gt; </span><span style='color: #555555;'> 6</span><span>       17.0         26.2
+#&gt; </span><span style='color: #555555;'> 7</span><span>        9.65        18.2
+#&gt; </span><span style='color: #555555;'> 8</span><span>       16.2         27.2
+#&gt; </span><span style='color: #555555;'> 9</span><span>       14.2         37.0
+#&gt; </span><span style='color: #555555;'>10</span><span>       11.5         22.7</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(
   <span class='no'>lm_model</span>,
   <span class='no'>pred_cars</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"raw"</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"terms"</span>)
+  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"terms"</span>)
 )</div><div class='output co'>#&gt;             cyl       disp         hp        drat         wt      qsec
 #&gt; 1  -0.001433177 -0.8113275  0.6303467 -0.06120265  2.4139815 -1.567729
 #&gt; 2  -0.001433177 -0.8113275  0.6303467 -0.06120265  1.4488706 -0.736286
@@ -318,6 +323,7 @@ extra column of standard error values (if available).</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -329,11 +335,14 @@ extra column of standard error values (if available).</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

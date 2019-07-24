@@ -39,6 +39,9 @@ test_that('stan_glm execution', {
     regexp = NA
   )
 
+  expect_false(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), NA_character_)
+
   expect_error(
     res <- fit(
       iris_basic,

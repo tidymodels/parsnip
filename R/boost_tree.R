@@ -366,6 +366,8 @@ xgb_pred <- function(object, newdata, ...) {
 
 #' @importFrom purrr map_df
 #' @export
+#' @rdname multi_predict
+#' @param trees An integer vector for the number of trees in the ensemble.
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata")) {
@@ -474,6 +476,7 @@ C5.0_train <-
   }
 
 #' @export
+#' @rdname multi_predict
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
@@ -509,5 +512,43 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   pred[["trees"]] <- tree
   pred[[".row"]] <- 1:nrow(new_data)
   pred[, c(".row", "trees", nms)]
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
+#' @export min_grid.boost_tree
+#' @rdname min_grid
+min_grid.boost_tree <- function(x, grid, ...) {
+  grid_names <- names(grid)
+  param_info <- get_submodel_info(x, grid)
+
+  # No ability to do submodels? Finish here:
+  if (!any(param_info$has_submodel)) {
+    return(blank_submodels(grid))
+  }
+
+  fixed_args <- get_fixed_args(param_info)
+
+  # For boosted trees, fit the model with the most trees (conditional on the
+  # other parameters) so that you can do predictions on the smaller models.
+  fit_only <-
+    grid %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(trees = max(trees, na.rm = TRUE)) %>%
+    dplyr::ungroup()
+
+  # Add a column .submodels that is a list with what should be predicted
+  # by `multi_predict()` (assuming `predict()` has already been executed
+  # on the original value of 'trees')
+  min_grid_df <-
+    dplyr::full_join(fit_only %>% rename(max_tree = trees), grid, by = fixed_args) %>%
+    dplyr::filter(trees != max_tree) %>%
+    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
+    dplyr::summarize(.submodels = list(list(trees = trees))) %>%
+    dplyr::ungroup() %>%
+    dplyr::full_join(fit_only, grid, by = fixed_args)
+
+  min_grid_df  %>% dplyr::select(dplyr::one_of(grid_names), .submodels)
 }
 

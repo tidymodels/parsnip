@@ -70,6 +70,7 @@ in lieu of recreating the object from scratch." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -89,7 +90,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -117,6 +118,9 @@ in lieu of recreating the object from scratch." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -133,6 +137,7 @@ in lieu of recreating the object from scratch." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -159,7 +164,7 @@ wrong side of the margin.</p></li>
 time that the model is fit. Other options and argument can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code> can be used
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -168,7 +173,7 @@ in lieu of recreating the object from scratch.</p>
   <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for svm_poly</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,15 +214,15 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+    <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"kernlab"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"kernlab"</code>  (the default)</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
@@ -238,7 +243,7 @@ kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot")
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -257,12 +262,12 @@ kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot")
 #&gt; Main Arguments:
 #&gt;   cost = 10
 #&gt;   scale_factor = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = 1
 #&gt;   scale_factor = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = 1
@@ -285,6 +290,7 @@ kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot")
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -296,11 +302,14 @@ kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot")
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

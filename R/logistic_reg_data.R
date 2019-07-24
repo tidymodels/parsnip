@@ -218,7 +218,7 @@ set_model_arg(
   parsnip = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
-  has_submodel = TRUE
+  has_submodel = FALSE
 )
 
 set_model_arg(

@@ -59,6 +59,7 @@ function can be used. See Details below." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -78,7 +79,7 @@ function can be used. See Details below." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -106,6 +107,9 @@ function can be used. See Details below." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -122,6 +126,7 @@ function can be used. See Details below." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -134,7 +139,7 @@ function can be used. See Details below." />
 
     <div class="ref-description">
     
-    <p>When using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> functions there are some
+    <p>When using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> functions there are some
 variables that will be available for use in arguments. For
 example, if the user would like to choose an argument value
 based on the current number of rows in a data set, the <code>.obs()</code>
@@ -174,7 +179,7 @@ data frame or a matrix.</p></li>
 <li><p><code>.y()</code>: The known outcomes returned in the format given. Either
 a vector, matrix, or data frame.</p></li>
 <li><p><code>.dat()</code>: A data frame containing all of the predictors and the
-outcomes. If <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> was used, the outcomes are attached as the
+outcomes. If <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> was used, the outcomes are attached as the
 column, <code>..y</code>.</p></li>
 </ul>
     <p>For example, if you use the model formula <code>Sepal.Width ~ .</code> with the <code>iris</code>
@@ -200,7 +205,7 @@ data, the values would be</p><pre>
 </pre>
     <p>To use these in a model fit, pass them to a model specification.
 The evaluation is delayed until the time when the
-model is run via <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> (and the variables listed above are available).
+model is run via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> (and the variables listed above are available).
 For example:</p>
 <pre>
     data("lending_club")
@@ -221,6 +226,7 @@ is not executed.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -232,11 +238,14 @@ is not executed.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

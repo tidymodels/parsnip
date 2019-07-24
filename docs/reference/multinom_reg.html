@@ -68,6 +68,7 @@ in lieu of recreating the object from scratch." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -87,7 +88,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -115,6 +116,9 @@ in lieu of recreating the object from scratch." />
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -131,6 +135,7 @@ in lieu of recreating the object from scratch." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -155,7 +160,7 @@ the model. Note that this will be ignored for some engines.</p></li>
 time that the model is fit. Other options and argument can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code> can be used
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     
     </div>
@@ -163,7 +168,7 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>multinom_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for multinom_reg</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -200,16 +205,16 @@ modified in-place of or replaced wholesale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used for <code><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update()</a></code>.</p></td>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>multinom_reg()</code>, the mode will always be "classification".</p>
-<p>The model can be created using the <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> function using the
+<p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:   <code>"glmnet"</code></p></li>
+<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default)</p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
@@ -218,13 +223,13 @@ following <em>engines</em>:</p><ul>
 
     <p>For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code> is available; using <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit_xy'>fit_xy()</a></code> will
+interface to via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is available; using <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
 columns in spark tables so class predictions are returned as
 character columns. Fourth, to retain the model object for a new
-R session (via <code><a href='https://www.rdocumentation.org/packages/base/topics/save'>save()</a></code>), the <code>model$fit</code> element of the <code>parsnip</code>
+R session (via <code><a href='https://rdrr.io/r/base/save.html'>save()</a></code>), the <code>model$fit</code> element of the <code>parsnip</code>
 object should be serialized via <code>ml_save(object$fit)</code> and
 separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
@@ -250,11 +255,11 @@ sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(),
 parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
     act = "linear")
 </pre></p>
-<p>When using <code>glmnet</code> models, there is the option to pass
-multiple values (or no values) to the <code>penalty</code> argument. This
-can have an effect on the model object results. When using the
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> method in these cases, the return value depends on
-the value of <code>penalty</code>. When using <code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code>, only a single
+<p>For <code>glmnet</code> models, the full regularization path is always fit regardless
+of the value given to <code>penalty</code>. Also, there is the option to pass
+multiple values (or no values) to the <code>penalty</code> argument. When using the
+<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
+the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single
 value of the penalty can be used. When predicting on multiple
 penalties, the <code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It
 returns a tibble with a list column called <code>.pred</code> that contains
@@ -262,7 +267,7 @@ a tibble with all of the penalty results.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://www.rdocumentation.org/packages/generics/topics/fit'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -278,12 +283,12 @@ a tibble with all of the penalty results.</p>
 #&gt; Main Arguments:
 #&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
@@ -308,6 +313,7 @@ a tibble with all of the penalty results.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -319,11 +325,14 @@ a tibble with all of the penalty results.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

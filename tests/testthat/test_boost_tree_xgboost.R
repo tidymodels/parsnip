@@ -40,6 +40,9 @@ test_that('xgboost execution, classification', {
     regexp = NA
   )
 
+  expect_true(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), "trees")
+
   expect_error(
     res <- parsnip::fit(
       iris_xgboost,
@@ -204,3 +207,36 @@ test_that('default engine', {
   )
   expect_true(inherits(fit$fit, "xgb.Booster"))
 })
+
+test_that('boosted tree grid reduction', {
+  reg_grid <- expand.grid(trees = 1:3, learn_rate = (1:5)/5)
+  reg_grid_smol <- min_grid(boost_tree() %>% set_engine("xgboost"), reg_grid)
+
+  expect_equal(reg_grid_smol$trees, rep(3, 5))
+  expect_equal(reg_grid_smol$learn_rate, (1:5)/5)
+  for (i in 1:nrow(reg_grid_smol)) {
+    expect_equal(reg_grid_smol$.submodels[[i]], list(trees = 1:2))
+  }
+
+  reg_ish_grid <- expand.grid(trees = 1:3, learn_rate = (1:5)/5)[-3,]
+  reg_ish_grid_smol <- min_grid(boost_tree() %>% set_engine("xgboost"), reg_ish_grid)
+
+  expect_equal(reg_ish_grid_smol$trees, c(2, rep(3, 4)))
+  expect_equal(reg_ish_grid_smol$learn_rate, (1:5)/5)
+  expect_equal(reg_ish_grid_smol$.submodels[[1]], list(trees = 1))
+  for (i in 2:nrow(reg_ish_grid_smol)) {
+    expect_equal(reg_ish_grid_smol$.submodels[[i]], list(trees = 1:2))
+  }
+
+  reg_grid_extra <- expand.grid(trees = 1:3, learn_rate = (1:5)/5, blah = 10:12)
+  reg_grid_extra_smol <- min_grid(boost_tree() %>% set_engine("xgboost"), reg_grid_extra)
+
+  expect_equal(reg_grid_extra_smol$trees, rep(3, 15))
+  expect_equal(reg_grid_extra_smol$learn_rate, rep((1:5)/5, each = 3))
+  expect_equal(reg_grid_extra_smol$blah, rep(10:12, 5))
+  for (i in 1:nrow(reg_grid_extra_smol)) {
+    expect_equal(reg_grid_extra_smol$.submodels[[i]], list(trees = 1:2))
+  }
+
+})
+

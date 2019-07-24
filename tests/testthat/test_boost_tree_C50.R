@@ -46,6 +46,9 @@ test_that('C5.0 execution', {
     regexp = NA
   )
 
+  expect_true(has_multi_predict(res))
+  expect_equal(multi_predict_args(res), "trees")
+
   # outcome is not a factor:
   expect_error(
     res <- fit(

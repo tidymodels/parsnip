@@ -87,3 +87,14 @@ test_that('spark execution', {
 
 })
 
+
+test_that('spark grid reduction', {
+  reg_grid <- expand.grid(penalty = 1:3, mixture = (1:5)/5)
+  reg_grid_smol <- min_grid(logistic_reg() %>% set_engine("spark"), reg_grid)
+
+  expect_equal(reg_grid_smol$penalty, reg_grid$penalty)
+  expect_equal(reg_grid_smol$mixture, reg_grid$mixture)
+  for (i in 1:nrow(reg_grid_smol)) {
+    expect_equal(reg_grid_smol$.submodels[[i]], list())
+  }
+})

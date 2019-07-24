@@ -40,7 +40,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
         </div>
       </div>
     </div>
@@ -68,6 +68,9 @@
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -86,6 +89,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -107,14 +111,14 @@
 <p><code>parsnip</code> tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:</p>
 <ul>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest::randomForest</a></code> uses <code>ntree</code>,</li>
+<code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest::randomForest</a></code> uses <code>ntree</code>,</li>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/ranger/topics/ranger">ranger::ranger</a></code> uses <code>num.trees</code>,<br>
+<code><a href="https://rdrr.io/pkg/ranger/man/ranger.html">ranger::ranger</a></code> uses <code>num.trees</code>,<br>
 </li>
-<li>Spark’s <code><a href="https://www.rdocumentation.org/packages/sparklyr/topics/ml_random_forest">sparklyr::ml_random_forest</a></code> uses <code>num_trees</code>.</li>
+<li>Spark’s <code><a href="https://rdrr.io/pkg/sparklyr/man/ml_random_forest.html">sparklyr::ml_random_forest</a></code> uses <code>num_trees</code>.</li>
 </ul>
 <p>Rather than remembering these values, a common interface to these models can be used with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(parsnip)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parsnip)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">rf_mod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rand_forest.html">rand_forest</a></span>(<span class="dt">trees =</span> <span class="dv">2000</span>)</a></code></pre></div>
 <p>The package makes the translation between <code>trees</code> and the real names in each of the implementations.</p>
 <p>Some terminology:</p>
@@ -151,7 +155,7 @@
 <code>min_n</code>: The minimum number of data points in a node that are required for the node to be split further.</li>
 </ul>
 <p>The arguments to the default function are:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/args">args</a></span>(rand_forest)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/args.html">args</a></span>(rand_forest)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; function (mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using <code>set_engine</code>. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
@@ -183,13 +187,13 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">rf_with_seed <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/set_args.html">set_args</a></span>(<span class="dt">mtry =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; Ranger result
 #&gt; 
 #&gt; Call:
-#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~4, num.trees = ~2000,      seed = ~63233, num.threads = 1, verbose = FALSE) 
+#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~4, num.trees = ~2000,      seed = sample.int(10^5, 1), num.threads = 1, verbose = FALSE) 
 #&gt; 
 #&gt; Type:                             Regression 
 #&gt; Number of trees:                  2000 
@@ -202,24 +206,24 @@
 #&gt; OOB prediction error (MSE):       5.57 
 #&gt; R squared (OOB):                  0.847</code></pre>
 <p>Or, using the <code>randomForest</code> package:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">56982</span>)</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">56982</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">rf_with_seed <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/set_args.html">set_args</a></span>(<span class="dt">mtry =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/set_engine.html">set_engine</a></span>(<span class="st">"randomForest"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/generics/topics/fit">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a></code></pre></div>
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~2000, mtry = ~4,      seed = ~63233) 
+#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~2000, mtry = ~4) 
 #&gt;                Type of random forest: regression
 #&gt;                      Number of trees: 2000
 #&gt; No. of variables tried at each split: 4
 #&gt; 
 #&gt;           Mean of squared residuals: 5.52
 #&gt;                     % Var explained: 84.3</code></pre>
-<p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using quosures to process the model specification’s arguments.</p>
-<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the expression is captured along with the environment where it should be evaluated. That is what a quosure does.</p>
+<p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures">quosures</a> to process the model specification’s arguments.</p>
+<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/articles/2019/04/parsnip-internals/">expression is captured</a> along with the environment where it should be evaluated. That is what a quosure does.</p>
 <p><code>parsnip</code> uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure.</p>
 </div>
   </div>
@@ -228,6 +232,7 @@
       </div>
 
 </div>
+
 
 
       <footer><div class="tidyverse">
@@ -240,10 +245,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
