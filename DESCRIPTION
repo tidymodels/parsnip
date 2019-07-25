@@ -28,7 +28,7 @@ Imports:
     stats,
     tidyr,
     globals,
-    vctrs
+    vctrs (> = 0.2.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 
@@ -50,4 +50,3 @@ Suggests:
     rpart,
     MASS,
     nlme
-Remotes: r-lib/vctrs
