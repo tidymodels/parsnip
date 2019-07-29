@@ -29,3 +29,30 @@ test_that('other objects', {
 
 # ------------------------------------------------------------------------------
 
+context("getting y names from terms")
+
+test_that('getting y names from terms', {
+
+  expect_equal(
+    parsnip:::terms_y(lm(cbind(mpg, disp)  ~., data = mtcars)$terms),
+    c("mpg", "disp")
+  )
+
+  expect_equal(
+    parsnip:::terms_y(lm(mpg  ~., data = mtcars)$terms),
+    "mpg"
+  )
+
+  expect_equal(
+    parsnip:::terms_y(lm(log(mpg)  ~., data = mtcars)$terms),
+    "mpg"
+  )
+
+  expect_equal(
+    parsnip:::terms_y(terms(  ~., data = mtcars)),
+    character(0)
+  )
+
+
+})
+

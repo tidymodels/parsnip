@@ -174,10 +174,10 @@ survreg_quant <- function(results, object) {
   pctl <- object$spec$method$pred$quantile$args$p
   n <- nrow(results)
   p <- ncol(results)
+  colnames(results) <- names0(p)
   results <-
     results %>%
     as_tibble() %>%
-    setNames(names0(p)) %>%
     mutate(.row = 1:n) %>%
     gather(.label, .pred, -.row) %>%
     arrange(.row, .label) %>%

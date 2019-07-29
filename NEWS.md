@@ -22,6 +22,8 @@ Unplanned release based on CRAN requirements for Solaris.
  
  * A suite of internal functions were added to help with upcoming model tuning features.  
 
+ * A `parsnip` object always saved the name(s) of the outcome variable(s) for proper naming of the predicted values. 
+
 
 # parsnip 0.0.2
 

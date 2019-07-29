@@ -16,6 +16,8 @@ ctrl <- fit_control(verbosity = 1, catch = FALSE)
 caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
 quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
+nn_dat <- read.csv("nnet_test.txt")
+
 # ------------------------------------------------------------------------------
 
 test_that('keras execution, classification', {
@@ -106,8 +108,8 @@ test_that('keras classification probabilities', {
   )
 
   xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  xy_pred <- as_tibble(xy_pred)
   colnames(xy_pred) <- paste0(".pred_", levels(iris$Species))
+  xy_pred <- as_tibble(xy_pred)
   expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "prob"))
 
   keras::backend()$clear_session()
@@ -120,8 +122,8 @@ test_that('keras classification probabilities', {
   )
 
   form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  form_pred <- as_tibble(form_pred)
   colnames(form_pred) <- paste0(".pred_", levels(iris$Species))
+  form_pred <- as_tibble(form_pred)
   expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred], type = "prob"))
 
   keras::backend()$clear_session()
@@ -208,8 +210,6 @@ test_that('keras regression prediction', {
 
 # ------------------------------------------------------------------------------
 
-nn_dat <- read.csv("nnet_test.txt")
-
 test_that('multivariate nnet formula', {
   skip_on_cran()
   skip_if_not_installed("keras")
@@ -222,6 +222,7 @@ test_that('multivariate nnet formula', {
       data = nn_dat[-(1:5),]
     )
   expect_equal(length(unlist(keras::get_weights(nnet_form$fit))), 24)
+
   nnet_form_pred <- predict(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
 

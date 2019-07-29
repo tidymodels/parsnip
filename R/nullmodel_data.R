@@ -95,7 +95,6 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
-      str(as_tibble(x))
       as_tibble(x)
     },
     func = c(fun = "predict"),

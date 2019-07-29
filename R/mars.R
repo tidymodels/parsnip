@@ -59,7 +59,6 @@
 #' @examples
 #' mars(mode = "regression", num_terms = 5)
 #' @export
-
 mars <-
   function(mode = "unknown",
            num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
@@ -149,7 +148,7 @@ translate.mars <- function(x, engine = x$engine, ...) {
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
     if (!("glm" %in% names(x$eng_args))) {
-      x$eng_args$glm <- quote(list(family = stats::binomial))
+      x$eng_args$glm <- rlang::quo(list(family = stats::binomial))
     }
   }
 
@@ -193,8 +192,8 @@ earth_reg_updater <- function(num, object, new_data, ...) {
   if (ncol(pred) == 1) {
     res <- tibble::tibble(.pred = pred[, 1], nprune = num)
   } else {
-    res <- tibble::as_tibble(res)
     names(res) <- paste0(".pred_", names(res))
+    res <- tibble::as_tibble(res)
     res$nprune <- num
   }
   res

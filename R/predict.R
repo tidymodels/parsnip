@@ -184,7 +184,7 @@ format_num <- function(x) {
     return(x)
 
   if (isTRUE(ncol(x) > 1)) {
-    x <- as_tibble(x)
+    x <- as_tibble(x, .name_repair = "minimal")
     names(x) <- paste0(".pred_", names(x))
   } else {
     x <- tibble(.pred = x)
@@ -201,8 +201,8 @@ format_class <- function(x) {
 }
 
 format_classprobs <- function(x) {
-  x <- as_tibble(x)
   names(x) <- paste0(".pred_", names(x))
+  x <- as_tibble(x)
   x
 }
 
@@ -216,10 +216,12 @@ make_pred_call <- function(x) {
   cl
 }
 
+
 prepare_data <- function(object, new_data) {
   fit_interface <- object$spec$method$fit$interface
 
-  if (!all(is.na(object$preproc))) {
+  pp_names <- names(object$preproc)
+  if (any(pp_names == "terms") | any(pp_names == "x_var")) {
     # Translation code
     if (fit_interface == "formula") {
       new_data <- convert_xy_to_form_new(object$preproc, new_data)

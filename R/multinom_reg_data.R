@@ -216,8 +216,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
-      x <- as_tibble(x)
       colnames(x) <- object$lvl
+      x <- as_tibble(x)
       x
     },
     func = c(pkg = "keras", fun = "predict_proba"),

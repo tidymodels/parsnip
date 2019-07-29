@@ -370,6 +370,7 @@ keras_mlp <-
     fit_call <- rlang::call_modify(fit_call, !!!arg_values$fit)
 
     history <- eval_tidy(fit_call)
+    model$y_names <- colnames(y)
     model
   }
 
@@ -379,8 +380,9 @@ nnet_softmax <- function(results, object) {
     results <- cbind(1 - results, results)
 
   results <- apply(results, 1, function(x) exp(x)/sum(exp(x)))
-  results <- as_tibble(t(results))
+  results <- t(results)
   names(results) <- paste0(".pred_", object$lvl)
+  results <- as_tibble(results)
   results
 }
 
@@ -419,7 +421,7 @@ parse_keras_args <- function(...) {
 }
 
 mlp_num_weights <- function(p, hidden_units, classes) {
-  ((p+1) * hidden_units) + ((hidden_units+1) * classes)
+  ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
 }
 
 

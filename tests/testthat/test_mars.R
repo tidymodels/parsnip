@@ -29,7 +29,7 @@ test_that('primary arguments', {
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  nprune = new_empty_quosure(4),
-                 glm = expr(list(family = stats::binomial)),
+                 glm = rlang::quo(list(family = stats::binomial)),
                  keepxy = TRUE
                )
   )
@@ -162,6 +162,16 @@ test_that('mars execution', {
     ),
     regexp = NA
   )
+
+  expect_error(
+    res <- fit_xy(
+      iris_basic,
+      x = iris[, 1:2],
+      y = iris[3:4],
+      control = ctrl
+    ),
+    regexp = NA
+  )
   parsnip:::load_libs(res, attach = TRUE)
 
 })
@@ -247,6 +257,7 @@ test_that('submodel prediction', {
   cls_fit <- class_fit$fit
   cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
   cls_fit$call[["keepxy"]]  <- eval_tidy(cls_fit$call[["keepxy"]])
+  cls_fit$call[["glm"]]  <- eval_tidy(cls_fit$call[["glm"]])
 
   pruned_cls <- update(cls_fit, nprune = 5)
   pruned_cls_pred <- predict(pruned_cls, wa_churn[1:4, vars], type = "response")[,1]
