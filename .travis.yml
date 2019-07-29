@@ -48,6 +48,7 @@ r_binary_packages:
   - randomforest
   - xgboost
   - C50
+  - reticulate
 
 
 cache:
