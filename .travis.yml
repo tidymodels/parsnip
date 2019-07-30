@@ -49,6 +49,8 @@ r_binary_packages:
   - xgboost
   - C50
   - reticulate
+  - scales
+  - dials
 
 
 cache:
