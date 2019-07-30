@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tools to Register Models — get_model_env • parsnip</title>
+<title>Working with the parsnip model environment — get_model_env • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,10 @@
 
 
 
-<meta property="og:title" content="Tools to Register Models — get_model_env" />
+<meta property="og:title" content="Working with the parsnip model environment — get_model_env" />
 
-<meta property="og:description" content="Tools to Register Models" />
+<meta property="og:description" content="These functions read and write to the environment where the package stores
+information about model specifications." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -55,6 +56,7 @@
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -74,7 +76,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
         </div>
       </div>
     </div>
@@ -102,6 +104,9 @@
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -118,57 +123,117 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tools to Register Models</h1>
+    <h1>Working with the parsnip model environment</h1>
     
     <div class="hidden name"><code>get_model_env.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Tools to Register Models</p>
+    <p>These functions read and write to the environment where the package stores
+information about model specifications.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>get_model_env</span>()
 
-<span class='fu'>set_new_model</span>(<span class='no'>model</span>)
+<span class='fu'>get_from_env</span>(<span class='no'>items</span>)
 
-<span class='fu'>set_model_mode</span>(<span class='no'>model</span>, <span class='no'>mode</span>)
+<span class='fu'>set_in_env</span>(<span class='no'>...</span>)
 
-<span class='fu'>set_model_engine</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>)
+<span class='fu'>set_env_val</span>(<span class='no'>name</span>, <span class='no'>value</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>items</th>
+      <td><p>A character string of objects in the model environment.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Named values that will be assigned to the model environment.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>A single character value for a new symbol in the model environment.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>A single value for a new value in the model environment.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-<span class='fu'>set_model_arg</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>parsnip</span>, <span class='no'>original</span>, <span class='no'>func</span>, <span class='no'>has_submodel</span>)
+    <p>"Making a parsnip model from scratch"
+<a href='https://tidymodels.github.io/parsnip/articles/articles/Scratch.html'>https://tidymodels.github.io/parsnip/articles/articles/Scratch.html</a></p>
+    
 
-<span class='fu'>set_dependency</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>pkg</span>)
-
-<span class='fu'>get_dependency</span>(<span class='no'>model</span>)
-
-<span class='fu'>set_fit</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>value</span>)
-
-<span class='fu'>get_fit</span>(<span class='no'>model</span>)
-
-<span class='fu'>set_pred</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>type</span>, <span class='no'>value</span>)
-
-<span class='fu'>get_pred_type</span>(<span class='no'>model</span>, <span class='no'>type</span>)
-
-<span class='fu'>show_model_info</span>(<span class='no'>model</span>)
-
-<span class='fu'>get_from_env</span>(<span class='no'>items</span>)</pre>
-        
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Access the model data:</span>
+<span class='no'>current_code</span> <span class='kw'>&lt;-</span> <span class='fu'>get_model_env</span>()
+<span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span>(<span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>current_code</span>)</div><div class='output co'>#&gt;  [1] "boost_tree"               "boost_tree_args"         
+#&gt;  [3] "boost_tree_fit"           "boost_tree_modes"        
+#&gt;  [5] "boost_tree_pkgs"          "boost_tree_predict"      
+#&gt;  [7] "decision_tree"            "decision_tree_args"      
+#&gt;  [9] "decision_tree_fit"        "decision_tree_modes"     
+#&gt; [11] "decision_tree_pkgs"       "decision_tree_predict"   
+#&gt; [13] "linear_reg"               "linear_reg_args"         
+#&gt; [15] "linear_reg_fit"           "linear_reg_modes"        
+#&gt; [17] "linear_reg_pkgs"          "linear_reg_predict"      
+#&gt; [19] "logistic_reg"             "logistic_reg_args"       
+#&gt; [21] "logistic_reg_fit"         "logistic_reg_modes"      
+#&gt; [23] "logistic_reg_pkgs"        "logistic_reg_predict"    
+#&gt; [25] "mars"                     "mars_args"               
+#&gt; [27] "mars_fit"                 "mars_modes"              
+#&gt; [29] "mars_pkgs"                "mars_predict"            
+#&gt; [31] "mlp"                      "mlp_args"                
+#&gt; [33] "mlp_fit"                  "mlp_modes"               
+#&gt; [35] "mlp_pkgs"                 "mlp_predict"             
+#&gt; [37] "models"                   "modes"                   
+#&gt; [39] "multinom_reg"             "multinom_reg_args"       
+#&gt; [41] "multinom_reg_fit"         "multinom_reg_modes"      
+#&gt; [43] "multinom_reg_pkgs"        "multinom_reg_predict"    
+#&gt; [45] "nearest_neighbor"         "nearest_neighbor_args"   
+#&gt; [47] "nearest_neighbor_fit"     "nearest_neighbor_modes"  
+#&gt; [49] "nearest_neighbor_pkgs"    "nearest_neighbor_predict"
+#&gt; [51] "null_model"               "null_model_args"         
+#&gt; [53] "null_model_fit"           "null_model_modes"        
+#&gt; [55] "null_model_pkgs"          "null_model_predict"      
+#&gt; [57] "rand_forest"              "rand_forest_args"        
+#&gt; [59] "rand_forest_fit"          "rand_forest_modes"       
+#&gt; [61] "rand_forest_pkgs"         "rand_forest_predict"     
+#&gt; [63] "surv_reg"                 "surv_reg_args"           
+#&gt; [65] "surv_reg_fit"             "surv_reg_modes"          
+#&gt; [67] "surv_reg_pkgs"            "surv_reg_predict"        
+#&gt; [69] "svm_poly"                 "svm_poly_args"           
+#&gt; [71] "svm_poly_fit"             "svm_poly_modes"          
+#&gt; [73] "svm_poly_pkgs"            "svm_poly_predict"        
+#&gt; [75] "svm_rbf"                  "svm_rbf_args"            
+#&gt; [77] "svm_rbf_fit"              "svm_rbf_modes"           
+#&gt; [79] "svm_rbf_pkgs"             "svm_rbf_predict"         </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -181,11 +246,14 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

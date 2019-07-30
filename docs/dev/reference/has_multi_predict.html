@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Change elements of a model specification — set_args • parsnip</title>
+<title>Tools for models that predict on sub-models — has_multi_predict • parsnip</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,10 +31,12 @@
 
 
 
-<meta property="og:title" content="Change elements of a model specification — set_args" />
+<meta property="og:title" content="Tools for models that predict on sub-models — has_multi_predict" />
 
-<meta property="og:description" content="set_args() can be used to modify the arguments of a model specification while
-set_mode() is used to change the model's mode." />
+<meta property="og:description" content="has_multi_predict() tests to see if an object can make multiple
+predictions on submodels from the same object. multi_predict_args()
+returns the names of the argments to multi_predict() for this model
+(if any)." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -129,63 +131,84 @@ set_mode() is used to change the model's mode." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Change elements of a model specification</h1>
+    <h1>Tools for models that predict on sub-models</h1>
     
-    <div class="hidden name"><code>set_args.Rd</code></div>
+    <div class="hidden name"><code>has_multi_predict.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>set_args()</code> can be used to modify the arguments of a model specification while
-<code>set_mode()</code> is used to change the model's mode.</p>
+    <p><code>has_multi_predict()</code> tests to see if an object can make multiple
+predictions on submodels from the same object. <code>multi_predict_args()</code>
+returns the names of the argments to <code><a href='multi_predict.html'>multi_predict()</a></code> for this model
+(if any).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>set_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>has_multi_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='fu'>set_mode</span>(<span class='no'>object</span>, <span class='no'>mode</span>)</pre>
+<span class='co'># S3 method for default</span>
+<span class='fu'>has_multi_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>has_multi_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for workflow</span>
+<span class='fu'>has_multi_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='fu'>multi_predict_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>multi_predict_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>multi_predict_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for workflow</span>
+<span class='fu'>multi_predict_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A model specification.</p></td>
+      <td><p>An object to test.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more named model arguments.</p></td>
-    </tr>
-    <tr>
-      <th>mode</th>
-      <td><p>A character string for the model type (e.g. "classification" or
-"regression")</p></td>
+      <td><p>Not currently used.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An updated model object.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>set_args()</code> will replace existing values of the arguments.</p>
+    <p><code>has_multi_predict()</code> returns single logical value while
+<code><a href='multi_predict.html'>multi_predict()</a></code> returns a character vector of argument names (or <code>NA</code>
+if none exist).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='rand_forest.html'>rand_forest</a></span>()</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
-#&gt; </div><div class='input'>
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>set_args</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>importance</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>set_mode</span>(<span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 3
-#&gt; 
-#&gt; Engine-Specific Arguments:
-#&gt;   importance = TRUE
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>lm_model_idea</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>)
+<span class='fu'>has_multi_predict</span>(<span class='no'>lm_model_idea</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>lm_model_fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>lm_model_idea</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='fu'>has_multi_predict</span>(<span class='no'>lm_model_fit</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'>multi_predict_args</span>(<span class='no'>lm_model_fit</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>kknn</span>)
+
+<span class='no'>knn_fit</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='nearest_neighbor.html'>nearest_neighbor</a></span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
+
+<span class='fu'>multi_predict_args</span>(<span class='no'>knn_fit</span>)</div><div class='output co'>#&gt; [1] "neighbors"</div><div class='input'>
+<span class='fu'><a href='multi_predict.html'>multi_predict</a></span>(<span class='no'>knn_fit</span>, <span class='no'>mtcars</span>[<span class='fl'>1</span>, -<span class='fl'>1</span>], <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)$<span class='no'>.pred</span></div><div class='output co'>#&gt; [[1]]
+#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   neighbors .pred
+#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>         1  21  
+#&gt; </span><span style='color: #555555;'>2</span><span>         2  21  
+#&gt; </span><span style='color: #555555;'>3</span><span>         3  20.9
+#&gt; </span><span style='color: #555555;'>4</span><span>         4  21.0
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -193,8 +216,6 @@ set_mode() is used to change the model's mode." />
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

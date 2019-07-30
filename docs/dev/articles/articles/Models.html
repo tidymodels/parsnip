@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
         </div>
       </div>
     </div>
@@ -69,6 +69,9 @@
     <li>
       <a href="../../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -87,6 +90,7 @@
 <!--/.navbar -->
 
       
+
       </header><script src="Models_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -103,7 +107,7 @@
 <p><code>parsnip</code> contains wrappers for a number of models. For example, the <code>parsnip</code> function <code><a href="../../reference/rand_forest.html">rand_forest()</a></code> can be used to create a random forest model. The <strong>mode</strong> of a model is related to its goal. Examples would be regression and classification.</p>
 <p>The list of models accessible via <code>parsnip</code> is:</p>
 <p>classification: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/decision_tree.html">decision_tree()</a></code>, <code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/null_model.html">null_model()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/svm_poly.html">svm_poly()</a></code>, <code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code></p>
-<p>regression: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/decision_tree.html">decision_tree()</a></code>, <code><a href="../../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/multinom_reg.html">multinom_reg()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/null_model.html">null_model()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/surv_reg.html">surv_reg()</a></code>, <code><a href="../../reference/svm_poly.html">svm_poly()</a></code>, <code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code></p>
+<p>regression: <code><a href="../../reference/boost_tree.html">boost_tree()</a></code>, <code><a href="../../reference/decision_tree.html">decision_tree()</a></code>, <code><a href="../../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../../reference/mars.html">mars()</a></code>, <code><a href="../../reference/mlp.html">mlp()</a></code>, <code><a href="../../reference/nearest_neighbor.html">nearest_neighbor()</a></code>, <code><a href="../../reference/null_model.html">null_model()</a></code>, <code><a href="../../reference/rand_forest.html">rand_forest()</a></code>, <code><a href="../../reference/surv_reg.html">surv_reg()</a></code>, <code><a href="../../reference/svm_poly.html">svm_poly()</a></code>, <code><a href="../../reference/svm_rbf.html">svm_rbf()</a></code></p>
 <p><em>How</em> the model is created is related to the <em>engine</em>. In many cases, this is an R modeling package. In others, it may be a connection to an external system (such as Spark or Tensorflow). This table lists the engines for each model type along with the type of prediction that it can make (see <code><a href="../../reference/predict.model_fit.html">predict.model_fit()</a></code>).</p>
 <table class="table table">
 <thead><tr>
@@ -1509,6 +1513,7 @@ regression
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
 </div>
@@ -1519,10 +1524,12 @@ regression
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
