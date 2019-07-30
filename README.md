@@ -3,8 +3,8 @@
 Status](https://travis-ci.org/tidymodels/parsnip.svg?branch=master)](https://travis-ci.org/tidymodels/parsnip)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/parsnip)](http://cran.rstudio.com/package=parsnip)
-[![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](http://cran.rstudio.com/package=parsnip)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/parsnip)](https://cran.rstudio.com/package=parsnip)
+[![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 
