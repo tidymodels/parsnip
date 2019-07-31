@@ -52,6 +52,7 @@
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -71,7 +72,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
         </div>
       </div>
     </div>
@@ -99,6 +100,9 @@
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -115,6 +119,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -124,17 +129,24 @@
       
     </div>
 
-    <div id="parsnip-0-0-2-9000" class="section level1">
+    <div id="parsnip-0-0-3-9000" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-2-9000" class="anchor"></a>parsnip 0.0.2.9000<small> Unreleased </small>
+<a href="#parsnip-0-0-3-9000" class="anchor"></a>parsnip 0.0.3.9000<small> Unreleased </small>
 </h1>
+</div>
+    <div id="parsnip-0-0-3" class="section level1">
+<h1 class="page-header">
+<a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> Unreleased </small>
+</h1>
+<p>Unplanned release based on CRAN requirements for Solaris.</p>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
 <ul>
-<li>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code>?get_model_env()</code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</li>
-<li>The mode need to be declared for models that can be used for more than one mode prior to fitting and/or translation).</li>
-<li>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</li>
+<li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
+<li><p>The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation.</p></li>
+<li><p>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</p></li>
+<li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(#195)</a></p></li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
@@ -143,6 +155,9 @@
 <ul>
 <li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
 <li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
+<li><p><code><a href="../reference/nearest_neighbor.html">nearest_neighbor()</a></code> gained a <code>multi_predict</code> method. The <code><a href="../reference/multi_predict.html">multi_predict()</a></code> documentation is a little better organized.</p></li>
+<li><p>A suite of internal functions were added to help with upcoming model tuning features.</p></li>
+<li><p>A <code>parsnip</code> object always saved the name(s) of the outcome variable(s) for proper naming of the predicted values.</p></li>
 </ul>
 </div>
 </div>
@@ -215,7 +230,7 @@
 </h1>
 <ul>
 <li>
-<code>regularization</code> was changed to <code>penalty</code> in a few models to be consistent with <a href="tidymodels/model-implementation-principles@08d3afd">this change</a>.</li>
+<code>regularization</code> was changed to <code>penalty</code> in a few models to be consistent with <a href="https://tidymodels.github.io/model-implementation-principles/standardized-argument-names.html#tuning-parameters">this change</a>.</li>
 <li>If a mode is not chosen in the model specification, it is assigned at the time of fit. <a href="https://github.com/topepo/parsnip/issues/51">51</a>
 </li>
 <li>The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some <code>predict</code> methods, the <code>earth</code> package will need to be attached to be fully operational.</li>
@@ -256,7 +271,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#parsnip-0-0-2-9000">0.0.2.9000</a></li>
+        <li><a href="#parsnip-0-0-3-9000">0.0.3.9000</a></li>
+        <li><a href="#parsnip-0-0-3">0.0.3</a></li>
         <li><a href="#parsnip-0-0-2">0.0.2</a></li>
         <li><a href="#parsnip-0-0-1">0.0.1</a></li>
         <li><a href="#parsnip-0-0-0-9005">0.0.0.9005</a></li>
@@ -271,6 +287,7 @@
 
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p><code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -282,11 +299,14 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

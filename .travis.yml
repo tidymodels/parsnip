@@ -10,9 +10,6 @@ cran: https://cran.rstudio.com
 warnings_are_errors: false
 
 r:
-  - 3.2
-  - 3.3
-  - 3.4
   - 3.5
   - 3.6
   - devel
@@ -23,34 +20,6 @@ matrix:
     - r: 3.3       # inum      install failure (seg fault)
     - r: 3.2       # partykit  install failure (libcoin needs >= 3.4.0)
     - r: 3.4       # mvtnorm   requires >= 3.5.0
-
-r_binary_packages:
-  - RCurl
-  - dplyr
-  - glue
-  - magrittr
-  - stringi
-  - stringr
-  - munsell
-  - rlang
-  - reshape2
-  - scales
-  - tibble
-  - ggplot2
-  - Rcpp
-  - RcppEigen
-  - BH
-  - glmnet
-  - earth
-  - sparklyr
-  - flexsurv
-  - ranger
-  - randomforest
-  - xgboost
-  - C50
-  - reticulate
-  - scales
-  - dials
 
 
 cache:

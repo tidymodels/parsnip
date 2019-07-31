@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
         </div>
       </div>
     </div>
@@ -69,6 +69,9 @@
     <li>
       <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
     </li>
+    <li>
+      <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -87,6 +90,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -190,7 +194,7 @@
 #&gt; Ranger result
 #&gt; 
 #&gt; Call:
-#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~4, num.trees = ~2000,      seed = ~63233, num.threads = 1, verbose = FALSE) 
+#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~4, num.trees = ~2000,      seed = sample.int(10^5, 1), num.threads = 1, verbose = FALSE) 
 #&gt; 
 #&gt; Type:                             Regression 
 #&gt; Number of trees:                  2000 
@@ -212,15 +216,15 @@
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~2000, mtry = ~4,      seed = ~63233) 
+#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~2000, mtry = ~4) 
 #&gt;                Type of random forest: regression
 #&gt;                      Number of trees: 2000
 #&gt; No. of variables tried at each split: 4
 #&gt; 
 #&gt;           Mean of squared residuals: 5.52
 #&gt;                     % Var explained: 84.3</code></pre>
-<p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using quosures to process the model specification’s arguments.</p>
-<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the expression is captured along with the environment where it should be evaluated. That is what a quosure does.</p>
+<p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures">quosures</a> to process the model specification’s arguments.</p>
+<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/articles/2019/04/parsnip-internals/">expression is captured</a> along with the environment where it should be evaluated. That is what a quosure does.</p>
 <p><code>parsnip</code> uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure.</p>
 </div>
   </div>
@@ -229,6 +233,7 @@
       </div>
 
 </div>
+
 
 
       <footer><div class="tidyverse">
@@ -241,10 +246,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

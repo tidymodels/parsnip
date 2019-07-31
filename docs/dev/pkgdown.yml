@@ -1,10 +1,11 @@
 pandoc: 2.3.1
 pkgdown: 1.3.0.9100
-pkgdown_sha: 2b8150dacfcdad662773c77eb3866901695fa8e0
+pkgdown_sha: 71070c3aa5cbff0bffd5bdc599f0fffbd5065142
 articles:
   Classification: articles/Classification.html
   Models: articles/Models.html
   Regression: articles/Regression.html
   Scratch: articles/Scratch.html
+  Submodels: articles/Submodels.html
   parsnip_Intro: parsnip_Intro.html
 
