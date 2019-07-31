@@ -4,7 +4,7 @@ language: r
 dist: trusty
 sudo: true
 
-#cran: https://cran.rstudio.com
+cran: https://cran.rstudio.com
 
 # until generics is finalized
 warnings_are_errors: false
@@ -20,34 +20,6 @@ matrix:
     - r: 3.3       # inum      install failure (seg fault)
     - r: 3.2       # partykit  install failure (libcoin needs >= 3.4.0)
     - r: 3.4       # mvtnorm   requires >= 3.5.0
-
-r_binary_packages:
-  - RCurl
-  - dplyr
-  - glue
-  - magrittr
-  - stringi
-  - stringr
-  - munsell
-  - rlang
-  - reshape2
-  - scales
-  - tibble
-  - ggplot2
-  - Rcpp
-  - RcppEigen
-  - BH
-  - glmnet
-  - earth
-  - sparklyr
-  - flexsurv
-  - ranger
-  - randomforest
-  - xgboost
-  - C50
-  - reticulate
-  - testthat
-  - knitr
 
 
 cache:
