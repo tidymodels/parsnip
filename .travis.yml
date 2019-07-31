@@ -4,7 +4,7 @@ language: r
 dist: trusty
 sudo: true
 
-cran: https://cran.rstudio.com
+#cran: https://cran.rstudio.com
 
 # until generics is finalized
 warnings_are_errors: false
