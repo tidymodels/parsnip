@@ -50,7 +50,6 @@ r_binary_packages:
   - C50
   - reticulate
   - scales
-  - dials
 
 
 cache:
