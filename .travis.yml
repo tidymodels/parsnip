@@ -23,7 +23,7 @@ matrix:
 
 
 cache:
-  - ccache
+  ccache: true
   packages: true
   directories:
     - $HOME/.keras
