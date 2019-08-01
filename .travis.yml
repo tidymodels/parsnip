@@ -23,6 +23,7 @@ matrix:
 
 
 cache:
+  - ccache
   packages: true
   directories:
     - $HOME/.keras
@@ -38,7 +39,8 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      g++-6
+      - g++-6
+      - ccache
 
 before_script:
   - python -m pip install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
@@ -50,8 +52,17 @@ before_install:
   - sudo apt-get -y install libnlopt-dev
   - sudo apt-get update
   - sudo apt-get -y install python3
-  - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
+  - mkdir -p ~/.R
+  - echo 'VER=' > ~/.R/Makevars
+  - echo 'CCACHE=ccache' >> ~/.R/Makevars
+  - echo 'CC=$(CCACHE) gcc$(VER)' >> ~/.R/Makevars
+  - echo 'CXX=$(CCACHE) g++$(VER)' >> ~/.R/Makevars
+  - echo 'CXX11=$(CCACHE) g++$(VER)' >> ~/.R/Makevars
+  - echo 'CXX14=$(CCACHE) g++$(VER)' >> ~/.R/Makevars
+  - echo 'FC=$(CCACHE) gfortran$(VER)' >> ~/.R/Makevars
+  - echo 'F77=$(CCACHE) gfortran$(VER)' >> ~/.R/Makevars
   - echo "CXX14FLAGS += -fPIC" >> ~/.R/Makevars
+
 
 
 after_success:
