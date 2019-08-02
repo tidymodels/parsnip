@@ -94,6 +94,9 @@ fit.model_spec <-
            control = fit_control(),
            ...
   ) {
+    if (object$mode == "unknown") {
+      stop("Please set the mode in the model specification.", call. = FALSE)
+    }
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
@@ -183,6 +186,7 @@ fit_xy.model_spec <-
            control = fit_control(),
            ...
   ) {
+    object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
