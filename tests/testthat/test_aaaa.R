@@ -13,12 +13,12 @@ k_bk <- try(keras:::backend(), silent = TRUE)
 
 context("checking testing environment")
 
-cat("testing environment:\n")
+cat("testing environment:\n", file = stderr())
 
 print(capabilities())
 
 lps <- .libPaths()
-cat("Library paths:\n")
+cat("Library paths:\n", file = stderr())
 print(lps)
 
 installed <- lapply(lps, function(x) rownames(installed.packages(x)))
@@ -27,9 +27,10 @@ has_rstanarm <- lapply(installed, function(x) any(x == "rstanarm"))
 if (any(unlist(has_rstanarm))) {
   cat("rstanarm installed in:" ,
       paste0(lps[unlist(has_rstanarm)], collapse = ", "),
-      "\n")
+      "\n",
+      file = stderr())
 } else {
-  cat("rstanarm not installed\n")
+  cat("rstanarm not installed\n", file = stderr())
 }
 
 
