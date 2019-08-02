@@ -21,11 +21,6 @@ lps <- .libPaths()
 cat("Library paths:\n")
 print(lps)
 
-if (!inherits(k_bk, "try-error")) {
-  cat("keras backend:\n")
-  print(k_bk$tensorflow_backend)
-}
-
 installed <- lapply(lps, function(x) rownames(installed.packages(x)))
 
 has_rstanarm <- lapply(installed, function(x) any(x == "rstanarm"))
