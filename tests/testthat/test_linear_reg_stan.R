@@ -19,6 +19,7 @@ quiet_ctrl <- fit_control(verbosity = 0L, catch = TRUE)
 
 test_that('stan_glm execution', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   expect_error(
     res <- fit(
@@ -56,6 +57,7 @@ test_that('stan_glm execution', {
 
 test_that('stan prediction', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   uni_pred <- c(5.01531691055198, 4.6896592504705, 4.74907435900005, 4.82563873798984,
                 5.08044844256827)
@@ -84,6 +86,7 @@ test_that('stan prediction', {
 
 test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   res_xy <- fit_xy(
     linear_reg() %>%
@@ -115,15 +118,15 @@ test_that('stan intervals', {
   pi_upper <- c(5.59783267637042, 5.25976504318669, 5.33296516452929, 5.41050668003565,
                 5.66355828140989)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, ci_lower)
-  expect_equivalent(confidence_parsnip$.pred_upper, ci_upper)
+  expect_equivalent(confidence_parsnip$.pred_lower, ci_lower, tolerance = 1e-2)
+  expect_equivalent(confidence_parsnip$.pred_upper, ci_upper, tolerance = 1e-2)
 
   expect_equivalent(prediction_parsnip$.pred_lower,
                     pi_lower,
-                    tol = 0.01)
+                    tolerance = 1e-2)
   expect_equivalent(prediction_parsnip$.pred_upper,
                     pi_upper,
-                    tol = 0.01)
+                    tolerance = 1e-2)
 })
 
 

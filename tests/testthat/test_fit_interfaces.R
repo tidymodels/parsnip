@@ -60,3 +60,22 @@ test_that('single column df for issue #129', {
   expect_equal(coef(lm1), coef(lm3))
   expect_equal(coef(lm2), coef(lm3))
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('unknown modes', {
+  mars_spec <- set_engine(mars(), "earth")
+  expect_error(
+    fit(mars_spec, am ~ ., data = mtcars),
+    "Please set the mode in the model specification."
+  )
+  expect_error(
+    fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1]),
+    regexp = NA
+  )
+  expect_error(
+    fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class),
+    regexp = NA
+  )
+})
+

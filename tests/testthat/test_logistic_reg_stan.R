@@ -23,6 +23,7 @@ quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
 
 test_that('stan_glm execution', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   expect_error(
     res <- fit(
@@ -47,6 +48,7 @@ test_that('stan_glm execution', {
 
 test_that('stan_glm prediction', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   xy_fit <- fit_xy(
     logistic_reg() %>%
@@ -80,6 +82,7 @@ test_that('stan_glm prediction', {
 
 test_that('stan_glm probability', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   xy_fit <- fit_xy(
     logistic_reg() %>%
@@ -135,6 +138,7 @@ test_that('stan_glm probability', {
 
 test_that('stan intervals', {
   skip_if_not_installed("rstanarm")
+  skip_on_cran()
 
   res_form <- fit(
     logistic_reg() %>%
