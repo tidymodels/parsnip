@@ -234,4 +234,11 @@ terms_y <- function(x) {
 }
 
 
+# ------------------------------------------------------------------------------
+
+#'@export
+#'@rdname min_grid
+min_grid.model_spec <- function(x, grid, ...) {
+  blank_submodels(grid)
+}
 
