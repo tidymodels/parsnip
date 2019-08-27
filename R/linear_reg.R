@@ -359,37 +359,3 @@ multi_predict._elnet <-
     names(pred) <- NULL
     tibble(.pred = pred)
   }
-
-
-# ------------------------------------------------------------------------------
-
-#' @export
-#' @export min_grid.linear_reg
-#' @rdname min_grid
-min_grid.linear_reg <- function(x, grid, ...) {
-
-  grid_names <- names(grid)
-  param_info <- get_submodel_info(x, grid)
-
-  if (!any(param_info$has_submodel)) {
-    return(blank_submodels(grid))
-  }
-
-  fixed_args <- get_fixed_args(param_info)
-
-  fit_only <-
-    grid %>%
-    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
-    dplyr::summarize(penalty = max(penalty, na.rm = TRUE)) %>%
-    dplyr::ungroup()
-
-  min_grid_df <-
-    dplyr::full_join(fit_only %>% rename(max_penalty = penalty), grid, by = fixed_args) %>%
-    dplyr::filter(penalty != max_penalty) %>%
-    dplyr::group_by(!!!rlang::syms(fixed_args)) %>%
-    dplyr::summarize(.submodels = list(list(penalty = penalty))) %>%
-    dplyr::ungroup() %>%
-    dplyr::full_join(fit_only, grid, by = fixed_args)
-
-  min_grid_df  %>% dplyr::select(dplyr::one_of(grid_names), .submodels)
-}

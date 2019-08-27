@@ -232,13 +232,3 @@ terms_y <- function(x) {
   y_expr <- att$predvars[[resp_ind + 1]]
   all.vars(y_expr)
 }
-
-
-# ------------------------------------------------------------------------------
-
-#'@export
-#'@rdname min_grid
-min_grid.model_spec <- function(x, grid, ...) {
-  blank_submodels(grid)
-}
-
