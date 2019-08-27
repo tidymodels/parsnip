@@ -336,11 +336,3 @@ check_glmnet_lambda <- function(dat, object) {
     )
   dat
 }
-
-
-# ------------------------------------------------------------------------------
-
-#' @export
-#' @export min_grid.multinom_reg
-#' @rdname min_grid
-min_grid.multinom_reg <- min_grid.linear_reg

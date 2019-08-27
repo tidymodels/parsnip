@@ -371,11 +371,3 @@ predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
-
-
-# ------------------------------------------------------------------------------
-
-#' @export
-#' @export min_grid.logistic_reg
-#' @rdname min_grid
-min_grid.logistic_reg <- min_grid.linear_reg

@@ -296,35 +296,3 @@ test_that('classification', {
 
   expect_equal(parsnip_pred$.pred_good, earth_pred)
 })
-
-test_that('earth grid reduction', {
-  reg_grid <- expand.grid(num_terms = 1:3, prod_degree = 1:2)
-  reg_grid_smol <- min_grid(mars() %>% set_engine("earth"), reg_grid)
-
-  expect_equal(reg_grid_smol$num_terms, rep(3, 2))
-  expect_equal(reg_grid_smol$prod_degree, 1:2)
-  for (i in 1:nrow(reg_grid_smol)) {
-    expect_equal(reg_grid_smol$.submodels[[i]], list(num_terms = 1:2))
-  }
-
-  reg_ish_grid <- expand.grid(num_terms = 1:3, prod_degree = 1:2)[-3,]
-  reg_ish_grid_smol <- min_grid(mars() %>% set_engine("earth"), reg_ish_grid)
-
-  expect_equal(reg_ish_grid_smol$num_terms, 2:3)
-  expect_equal(reg_ish_grid_smol$prod_degree, 1:2)
-  expect_equal(reg_ish_grid_smol$.submodels[[1]], list(num_terms = 1))
-  for (i in 2:nrow(reg_ish_grid_smol)) {
-    expect_equal(reg_ish_grid_smol$.submodels[[i]], list(num_terms = 1:2))
-  }
-
-  reg_grid_extra <- expand.grid(num_terms = 1:3, prod_degree = 1:2, blah = 10:12)
-  reg_grid_extra_smol <- min_grid(mars() %>% set_engine("earth"), reg_grid_extra)
-
-  expect_equal(reg_grid_extra_smol$num_terms, rep(3, 6))
-  expect_equal(reg_grid_extra_smol$prod_degree, rep(1:2, each = 3))
-  expect_equal(reg_grid_extra_smol$blah, rep(10:12, 2))
-  for (i in 1:nrow(reg_grid_extra_smol)) {
-    expect_equal(reg_grid_extra_smol$.submodels[[i]], list(num_terms = 1:2))
-  }
-
-})
