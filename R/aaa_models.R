@@ -160,10 +160,11 @@ check_func_val <- function(func) {
   msg <-
     paste(
       "`func` should be a named vector with element 'fun' and the optional ",
-      "element 'pkg'. These should both be single character strings."
+      "elements 'pkg', 'range', 'trans', and 'values'.",
+      "`func` and 'pkg' should both be single character strings."
     )
 
-  if (rlang::is_missing(func) || !is.vector(func) || length(func) > 2)
+  if (rlang::is_missing(func) || !is.vector(func))
     stop(msg, call. = FALSE)
 
   nms <- sort(names(func))
@@ -177,13 +178,19 @@ check_func_val <- function(func) {
       stop(msg, call. = FALSE)
     }
   } else {
-    if (!isTRUE(all.equal(nms, c("fun", "pkg")))) {
+    # check for extra names:
+    allow_nms <- c("fun", "pkg", "range", "trans", "values")
+    nm_check <- nms %in% c("fun", "pkg", "range", "trans", "values")
+    not_allowed <- nms[!(nms %in% allow_nms)]
+    if (length(not_allowed) > 0) {
       stop(msg, call. = FALSE)
     }
   }
 
-
-  if (!all(purrr::map_lgl(func, is.character))) {
+  if (!is.character(func[["fun"]])) {
+    stop(msg, call. = FALSE)
+  }
+  if (any(nms == "pkg") && !is.character(func[["pkg"]])) {
     stop(msg, call. = FALSE)
   }
 

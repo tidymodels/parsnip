@@ -79,15 +79,15 @@ These functions should silently finish. There is also a function that can be use
 show_model_info("mixture_da")
 ```
 
-The next step would be the declare the main arguments to the model. These are declared indpendnent of the mode.  To specifiy the argument, there are a few slots to fill in:
+The next step would be the declare the main arguments to the model. These are declared independent of the mode.  To specify the argument, there are a few slots to fill in:
 
- * The name that `parsnip` uses for the argument. In general, we try to use non-jargony names for arguments (e.g. "penalty" instead of "lambda" for regularised regression). We recommend consulting [this page]() to see if an existing argument name can be used before creating a new one. 
+ * The name that `parsnip` uses for the argument. In general, we try to use non-jargony names for arguments (e.g. "penalty" instead of "lambda" for regularized regression). We recommend consulting [this page]() to see if an existing argument name can be used before creating a new one. 
  
  * The argument name that is used by the underlying modeling function. 
  
- * A function reference for a _contructor_ that will be used to generate tuning parameter values. This should be a character vector that has a named element called `fun` that is the contructor function. There is an optional element `pkg` that can be used to call the function using its namespace. 
+ * A function reference for a _constructor_ that will be used to generate tuning parameter values. This should be a character vector that has a named element called `fun` that is the constructor function. There is an optional element `pkg` that can be used to call the function using its namespace. If referencing functions from the `dials` package, quantitative parameters can have additional arguments in the list for `trans` and `range` while qualitative parameters can pass `values` via this list.  
  
- * A logical value for wether the argument can be used to generate mutiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use `has_submodels = FALSE`. 
+ * A logical value for wether the argument can be used to generate multiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use `has_submodels = FALSE`. 
  
 For `mda::mda()`, the main tuning parameter is `subclasses` which we will rewrite as `sub_classes`. 
 
@@ -138,8 +138,7 @@ This is pretty simple since the data are not exposed to this function.
 
 ## Step 3. Add a Fit Module
 
-Now that `parsnip` knows about the model, mode, and engine, we can give it the infomration on fitting the model for our engine. 
-In infomration needed to fit the model is contained in another list. The elements are:
+Now that `parsnip` knows about the model, mode, and engine, we can give it the information on fitting the model for our engine. The information needed to fit the model is contained in another list. The elements are:
 
  * `interface` a single character value that could be "formula", "data.frame", or "matrix". This defines the type of interface used by the underlying fit function (`mda::mda`, in this case). This helps the translation of the data to be in an appropriate format for the that function. 
  
@@ -426,3 +425,4 @@ Not yet but there will be. For example, it might make sense to have a different 
 
 If you have a suggestion, please ad a GitHub issue to discuss it. 
 
+ 

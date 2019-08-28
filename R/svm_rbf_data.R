@@ -14,7 +14,7 @@ set_model_arg(
   eng = "kernlab",
   parsnip = "cost",
   original = "C",
-  func = list(pkg = "dials", fun = "cost"),
+  func = list(pkg = "dials", fun = "cost", range = c(-10, 5)),
   has_submodel = FALSE
 )
 
