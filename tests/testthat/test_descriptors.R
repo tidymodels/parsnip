@@ -249,3 +249,21 @@ test_that("can be temporarily overriden at evaluation time", {
 })
 
 
+# ------------------------------------------------------------------------------
+
+test_that("system-level descriptor tests", {
+  skip_if_not_installed("xgboost")
+  expect_error(
+    boost_tree(mode = "regression", mtry = .cols()) %>%
+      set_engine("xgboost") %>%
+      fit_xy(x = mtcars[, -1], y = mtcars$mpg),
+    NA
+  )
+  expect_error(
+    boost_tree(mode = "regression", mtry = .cols()) %>%
+      set_engine("xgboost") %>%
+      fit(mpg ~ ., data = mtcars),
+    NA
+  )
+
+})

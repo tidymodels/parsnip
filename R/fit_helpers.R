@@ -79,7 +79,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   # if descriptors are needed, update descr_env with the calculated values
   if (requires_descrs(object)) {
-    data_stats <- get_descr_form(env$formula, env$data)
+    data_stats <- get_descr_xy(env$x, env$y)
     scoped_descrs(data_stats)
   }
 
