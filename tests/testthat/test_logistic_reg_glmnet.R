@@ -119,7 +119,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   mult_pred$rows <- rep(1:7, 2)
   mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
   mult_pred <- mult_pred[, c("penalty", "values")]
-  names(mult_pred) <- c("penalty", ".pred")
+  names(mult_pred) <- c("penalty", ".pred_class")
   mult_pred <- tibble::as_tibble(mult_pred)
 
   expect_equal(
@@ -148,7 +148,7 @@ test_that('glmnet prediction, mulitiple lambda', {
   form_pred$rows <- rep(1:7, 2)
   form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
   form_pred <- form_pred[, c("penalty", "values")]
-  names(form_pred) <- c("penalty", ".pred")
+  names(form_pred) <- c("penalty", ".pred_class")
   form_pred <- tibble::as_tibble(form_pred)
 
   expect_equal(
@@ -180,7 +180,7 @@ test_that('glmnet prediction, no lambda', {
   mult_pred$rows <- rep(1:7, 2)
   mult_pred <- mult_pred[order(mult_pred$rows, mult_pred$penalty), ]
   mult_pred <- mult_pred[, c("penalty", "values")]
-  names(mult_pred) <- c("penalty", ".pred")
+  names(mult_pred) <- c("penalty", ".pred_class")
   mult_pred <- tibble::as_tibble(mult_pred)
 
   expect_equal(mult_pred, multi_predict(xy_fit, lending_club[1:7, num_pred]) %>% unnest())
@@ -206,7 +206,7 @@ test_that('glmnet prediction, no lambda', {
   form_pred$rows <- rep(1:7, 2)
   form_pred <- form_pred[order(form_pred$rows, form_pred$penalty), ]
   form_pred <- form_pred[, c("penalty", "values")]
-  names(form_pred) <- c("penalty", ".pred")
+  names(form_pred) <- c("penalty", ".pred_class")
   form_pred <- tibble::as_tibble(form_pred)
 
   expect_equal(

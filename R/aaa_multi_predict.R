@@ -12,8 +12,10 @@
 #' @param ... Optional arguments to pass to `predict.model_fit(type = "raw")`
 #'  such as `type`.
 #' @return A tibble with the same number of rows as the data being predicted.
-#'  Mostly likely, there is a list-column named `.pred` that is a tibble with
-#'  multiple rows per sub-model.
+#'  There is a list-column named `.pred` that contains tibbles with
+#'  multiple rows per sub-model. Note that, within the tibbles, the column names
+#'  follow the usual standard based on prediction `type` (i.e. `.pred_class` for
+#'  `type = "class"` and so on).
 #' @export
 multi_predict <- function(object, ...) {
   if (inherits(object$fit, "try-error")) {
