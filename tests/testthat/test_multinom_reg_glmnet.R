@@ -123,7 +123,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
   mult_class <- names(mult_probs)[apply(mult_probs, 1, which.max)]
   mult_class <- tibble(
-    .pred = mult_class,
+    .pred_class = mult_class,
     penalty = rep(lams, each = 3),
     row = rep(1:3, 2)
   )

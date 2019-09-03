@@ -62,8 +62,10 @@ based on the model's mode.}
 }
 \value{
 A tibble with the same number of rows as the data being predicted.
-Mostly likely, there is a list-column named \code{.pred} that is a tibble with
-multiple rows per sub-model.
+There is a list-column named \code{.pred} that contains tibbles with
+multiple rows per sub-model. Note that, within the tibbles, the column names
+follow the usual standard based on prediction \code{type} (i.e. \code{.pred_class} for
+\code{type = "class"} and so on).
 }
 \description{
 For some models, predictions can be made on sub-models in the model object.

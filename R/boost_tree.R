@@ -404,7 +404,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
   } else {
     if (type == "class") {
       pred <- object$spec$method$pred$class$post(pred, object)
-      pred <- tibble(.pred = factor(pred, levels = object$lvl))
+      pred <- tibble(.pred_class = factor(pred, levels = object$lvl))
     } else {
       pred <- object$spec$method$pred$prob$post(pred, object)
       pred <- as_tibble(pred)
@@ -503,7 +503,7 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
 
   # switch based on prediction type
   if (type == "class") {
-    pred <- tibble(.pred = factor(pred, levels = object$lvl))
+    pred <- tibble(.pred_class = factor(pred, levels = object$lvl))
   } else {
     pred <- as_tibble(pred)
     names(pred) <- paste0(".pred_", names(pred))

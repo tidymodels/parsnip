@@ -309,7 +309,7 @@ multi_predict._lognet <-
     if (is.null(type))
       type <- "class"
     if (!(type %in% c("class", "prob", "link", "raw"))) {
-      stop ("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
+      stop("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
     }
     if (type == "prob")
       dots$type <- "response"
@@ -321,12 +321,12 @@ multi_predict._lognet <-
     param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred, -.row)
+    pred <- gather(pred, group, .pred_class, -.row)
     if (dots$type == "class") {
-      pred[[".pred"]] <- factor(pred[[".pred"]], levels = object$lvl)
+      pred[[".pred_class"]] <- factor(pred[[".pred_class"]], levels = object$lvl)
     } else {
       if (dots$type == "response") {
-        pred[[".pred2"]] <- 1 - pred[[".pred"]]
+        pred[[".pred2"]] <- 1 - pred[[".pred_class"]]
         names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
         pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
       }
@@ -371,3 +371,4 @@ predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
+
