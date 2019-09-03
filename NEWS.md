@@ -1,4 +1,4 @@
-# parsnip 0.0.3.9000
+# parsnip 0.0.3.9001
 
 * Some default parameter ranges were updated for SVM, KNN, and MARS models. 
 
