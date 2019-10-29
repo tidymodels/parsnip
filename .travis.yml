@@ -52,6 +52,7 @@ before_install:
   - sudo apt-get -y install python3
   - mkdir -p ~/.R && echo "CXX14=g++-6" > ~/.R/Makevars
   - echo "CXX14FLAGS += -fPIC" >> ~/.R/Makevars
+  - Rscript -e 'install.packages("nnet")'
 
 
 after_success:
