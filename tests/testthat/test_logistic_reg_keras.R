@@ -41,7 +41,6 @@ ctrl <- fit_control(verbosity = 0, catch = FALSE)
 test_that('model fitting', {
   skip_on_cran()
   skip_if_not_installed("keras")
-  cmp_slots <- c("lvl", "spec", "fit", "preproc")
 
   set.seed(257)
   expect_error(
@@ -66,7 +65,8 @@ test_that('model fitting', {
       ),
     regexp = NA
   )
-  expect_equal(fit1[cmp_slots], fit2[cmp_slots])
+  fit1$elapsed <- fit2$elapsed
+  expect_equal(fit1, fit2)
 
   expect_error(
     fit(
