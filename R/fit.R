@@ -368,6 +368,8 @@ check_xy_interface <- function(x, y, cl, model) {
 #' @export
 print.model_fit <- function(x, ...) {
   cat("parsnip model object\n\n")
+  cat("Fit in: ", paste(format(unclass(x$elapsed), digits = 2),
+                        attr(x$elapsed, "units")))
 
   if (inherits(x$fit, "try-error")) {
     cat("Model fit failed with error:\n", x$fit, "\n")

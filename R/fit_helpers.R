@@ -52,6 +52,8 @@ form_form <-
       spec = object
     )
 
+    start <- Sys.time()
+
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
@@ -59,7 +61,10 @@ form_form <-
       env = env,
       ...
     )
+
+    end <- Sys.time()
     res$preproc <- list(y_var = all.vars(env$formula[[2]]))
+    res$elapsed <- end - start
     res
   }
 
@@ -107,6 +112,8 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   res <- list(lvl = levels(env$y), spec = object)
 
+  start <- Sys.time()
+
   res$fit <- eval_mod(
     fit_call,
     capture = control$verbosity == 0,
@@ -114,12 +121,16 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     env = env,
     ...
   )
+
+  end <- Sys.time()
+
   if (is.vector(env$y)) {
     y_name <- character(0)
   } else {
     y_name <- colnames(env$y)
   }
   res$preproc <- list(y_var = y_name)
+  res$elapsed <- end - start
   res
 }
 
