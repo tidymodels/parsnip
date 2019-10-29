@@ -5,11 +5,9 @@
 \alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode = "unknown", mtry = NULL, trees = NULL,
-  min_n = NULL)
+rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL)
 
-\method{update}{rand_forest}(object, mtry = NULL, trees = NULL,
-  min_n = NULL, fresh = FALSE, ...)
+\method{update}{rand_forest}(object, mtry = NULL, trees = NULL, min_n = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -105,9 +103,9 @@ model, the template of the fit calls are::
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "spark")}
 
 For \pkg{ranger} confidence intervals, the intervals are
-constructed using the form \code{estimate +/- z * std_error}. For
+constructed using the form \verb{estimate +/- z * std_error}. For
 classification probabilities, these values can fall outside of
-\code{[0, 1]} and will be coerced to be in this range.
+\verb{[0, 1]} and will be coerced to be in this range.
 }
 
 \examples{

@@ -4,8 +4,7 @@
 \alias{predict.model_fit}
 \title{Model predictions}
 \usage{
-\method{predict}{model_fit}(object, new_data, type = NULL,
-  opts = list(), ...)
+\method{predict}{model_fit}(object, new_data, type = NULL, opts = list(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_fit}}

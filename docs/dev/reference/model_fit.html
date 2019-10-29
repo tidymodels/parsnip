@@ -32,10 +32,10 @@
 
 
 <meta property="og:title" content="Model Fit Object Information — model_fit" />
-
 <meta property="og:description" content="An object with class &quot;model_fit&quot; is a container for
 information about a model that has been fit to the data." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -76,7 +76,7 @@ information about a model that has been fit to the data." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -135,13 +135,12 @@ information about a model that has been fit to the data." />
     </div>
 
     <div class="ref-description">
-    
     <p>An object with class "model_fit" is a container for
 information about a model that has been fit to the data.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The main elements of the object are:</p><ul>
@@ -157,7 +156,8 @@ and <code>y</code> and the user passed a formula to <code>fit</code>, the <code>
 object would contain items such as the terms object and so on.
 When no information is required, this is <code>NA</code>.</p></li>
 </ul>
-    <p>As discussed in the documentation for <code><a href='model_spec.html'>model_spec</a></code>, the
+
+<p>As discussed in the documentation for <code><a href='model_spec.html'>model_spec</a></code>, the
 original arguments to the specification are saved as quosures.
 These are evaluated for the <code>model_fit</code> object prior to fitting.
 If the resulting model object prints its call, any user-defined
@@ -166,7 +166,6 @@ example below). This is a result of the use of quosures in the
 specification.</p>
 <p>This class and structure is the basis for how <span class="pkg">parsnip</span>
 stores model objects after to seeing the data and applying a model.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -200,9 +199,7 @@ stores model objects after to seeing the data and applying a model.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

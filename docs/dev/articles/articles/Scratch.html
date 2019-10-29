@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -161,12 +161,12 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  no registered fit modules.</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  no registered prediction modules.</span></a></code></pre></div>
-<p>The next step would be the declare the main arguments to the model. These are declared indpendnent of the mode. To specifiy the argument, there are a few slots to fill in:</p>
+<p>The next step would be the declare the main arguments to the model. These are declared independent of the mode. To specify the argument, there are a few slots to fill in:</p>
 <ul>
-<li><p>The name that <code>parsnip</code> uses for the argument. In general, we try to use non-jargony names for arguments (e.g. “penalty” instead of “lambda” for regularised regression). We recommend consulting <a href="">this page</a> to see if an existing argument name can be used before creating a new one.</p></li>
+<li><p>The name that <code>parsnip</code> uses for the argument. In general, we try to use non-jargony names for arguments (e.g. “penalty” instead of “lambda” for regularized regression). We recommend consulting <a href="">this page</a> to see if an existing argument name can be used before creating a new one.</p></li>
 <li><p>The argument name that is used by the underlying modeling function.</p></li>
-<li><p>A function reference for a <em>contructor</em> that will be used to generate tuning parameter values. This should be a character vector that has a named element called <code>fun</code> that is the contructor function. There is an optional element <code>pkg</code> that can be used to call the function using its namespace.</p></li>
-<li><p>A logical value for wether the argument can be used to generate mutiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use <code>has_submodels = FALSE</code>.</p></li>
+<li><p>A function reference for a <em>constructor</em> that will be used to generate tuning parameter values. This should be a character vector that has a named element called <code>fun</code> that is the constructor function. There is an optional element <code>pkg</code> that can be used to call the function using its namespace. If referencing functions from the <code>dials</code> package, quantitative parameters can have additional arguments in the list for <code>trans</code> and <code>range</code> while qualitative parameters can pass <code>values</code> via this list.</p></li>
+<li><p>A logical value for wether the argument can be used to generate multiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use <code>has_submodels = FALSE</code>.</p></li>
 </ul>
 <p>For <code><a href="https://rdrr.io/pkg/mda/man/mda.html">mda::mda()</a></code>, the main tuning parameter is <code>subclasses</code> which we will rewrite as <code>sub_classes</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/set_new_model.html">set_model_arg</a></span>(</a>
@@ -224,7 +224,7 @@
 <div id="step-3--add-a-fit-module" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-3--add-a-fit-module" class="anchor"></a>Step 3. Add a Fit Module</h2>
-<p>Now that <code>parsnip</code> knows about the model, mode, and engine, we can give it the infomration on fitting the model for our engine. In infomration needed to fit the model is contained in another list. The elements are:</p>
+<p>Now that <code>parsnip</code> knows about the model, mode, and engine, we can give it the information on fitting the model for our engine. The information needed to fit the model is contained in another list. The elements are:</p>
 <ul>
 <li><p><code>interface</code> a single character value that could be “formula”, “data.frame”, or “matrix”. This defines the type of interface used by the underlying fit function (<code><a href="https://rdrr.io/pkg/mda/man/mda.html">mda::mda</a></code>, in this case). This helps the translation of the data to be in an appropriate format for the that function.</p></li>
 <li><p><code>protect</code> is an optional list of function arguments that <strong>should not be changeable</strong> by the user. In this case, we probably don’t want users to pass data values to these arguments (until the <code>fit</code> function is called).</p></li>
@@ -560,6 +560,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

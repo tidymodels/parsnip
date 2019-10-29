@@ -32,10 +32,10 @@
 
 
 <meta property="og:title" content="Model Specification Information — model_spec" />
-
 <meta property="og:description" content="An object with class &quot;model_spec&quot; is a container for
 information about a model that will be fit." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -76,7 +76,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -135,13 +135,12 @@ information about a model that will be fit." />
     </div>
 
     <div class="ref-description">
-    
     <p>An object with class "model_spec" is a container for
 information about a model that will be fit.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The main elements of the object are:</p><ul>
@@ -155,7 +154,7 @@ specific to a particular model function). The elements of <code>args</code>
 can <code><a href='varying.html'>varying()</a></code>. If left to their defaults (<code>NULL</code>), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in <code>args</code> are captured as
-quosures and are not immediately executed.</p></li>
+quosures and are not immediately executed.</p><ul>
 <li><p><code>...</code>: Optional model-function-specific
 parameters. As with <code>args</code>, these will be quosures and can be
 <code><a href='varying.html'>varying()</a></code>.</p></li>
@@ -170,13 +169,17 @@ as well as required packages and similar data.</p></li>
 software will be used. It can be a package name or a technology
 type.</p></li>
 </ul>
-    <p>This class and structure is the basis for how <span class="pkg">parsnip</span>
-stores model objects prior to seeing the data.</p>
-    
+
+<p>This class and structure is the basis for how <span class="pkg">parsnip</span>
+stores model objects prior to seeing the data.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="argument-details"><a class="anchor" href="#argument-details"></a>Argument Details</h2>
 
     
-    <p>An important detail to understand when creating model
+
+
+<p>An important detail to understand when creating model
 specifications is that they are intended to be functionally
 independent of the data. While it is true that some tuning
 parameters are <em>data dependent</em>, the model specification does
@@ -188,15 +191,18 @@ arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.
 <pre>
  rand_forest(mtry = ncol(iris) - 1)
 </pre>
-    <p><strong>does not</strong> execute <code>ncol(iris) - 1</code> when creating the specification.
+
+<p><strong>does not</strong> execute <code>ncol(iris) - 1</code> when creating the specification.
 This can be seen in the output:</p>
 <pre>
  &gt; rand_forest(mtry = ncol(iris) - 1)
  Random Forest Model Specification (unknown)
-    Main Arguments:
+
+ Main Arguments:
    mtry = ncol(iris) - 1
 </pre>
-    <p>The model functions save the argument <em>expressions</em> and their
+
+<p>The model functions save the argument <em>expressions</em> and their
 associated environments (a.k.a. a quosure) to be evaluated later
 when either <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> or <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> are called with the actual
 data.</p>
@@ -209,14 +215,16 @@ model specification and when the model fit function is invoked.</p></li>
 <li><p>If the model specification is saved and loaded into a new
 session where those same data objects do not exist.</p></li>
 </ol>
-    <p>The best way to avoid these issues is to not reference any data
+
+<p>The best way to avoid these issues is to not reference any data
 objects in the global environment but to use data descriptors
 such as <code><a href='descriptors.html'>.cols()</a></code>. Another way of writing the previous
 specification is</p>
 <pre>
  rand_forest(mtry = .cols() - 1)
 </pre>
-    <p>This is not dependent on any specific data object and
+
+<p>This is not dependent on any specific data object and
 is evaluated immediately before the model fitting process begins.</p>
 <p>One less advantageous approach to solving this issue is to use
 quasiquotation. This would insert the actual R object into the
@@ -225,15 +233,18 @@ object is small. For example, using</p>
 <pre>
  rand_forest(mtry = ncol(!!iris) - 1)
 </pre>
-    <p>would work (and be reproducible between sessions) but embeds
+
+<p>would work (and be reproducible between sessions) but embeds
 the entire iris data set into the <code>mtry</code> expression:</p>
 <pre>
  &gt; rand_forest(mtry = ncol(!!iris) - 1)
  Random Forest Model Specification (unknown)
-    Main Arguments:
+
+ Main Arguments:
    mtry = ncol(structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, &lt;snip&gt;
 </pre>
-    <p>However, if there were an object with the number of columns in
+
+<p>However, if there were an object with the number of columns in
 it, this wouldn't be too bad:</p>
 <pre>
  &gt; mtry_val &lt;- ncol(iris) - 1
@@ -241,22 +252,21 @@ it, this wouldn't be too bad:</p>
  [1] 4
  &gt; rand_forest(mtry = !!mtry_val)
  Random Forest Model Specification (unknown)
-    Main Arguments:
+
+ Main Arguments:
    mtry = 4
 </pre>
-    <p>More information on quosures and quasiquotation can be found at
+
+<p>More information on quosures and quasiquotation can be found at
 <a href='https://tidyeval.tidyverse.org'>https://tidyeval.tidyverse.org</a>.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#argument-details">Argument Details</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

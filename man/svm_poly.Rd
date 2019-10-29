@@ -5,11 +5,23 @@
 \alias{update.svm_poly}
 \title{General interface for polynomial support vector machines}
 \usage{
-svm_poly(mode = "unknown", cost = NULL, degree = NULL,
-  scale_factor = NULL, margin = NULL)
+svm_poly(
+  mode = "unknown",
+  cost = NULL,
+  degree = NULL,
+  scale_factor = NULL,
+  margin = NULL
+)
 
-\method{update}{svm_poly}(object, cost = NULL, degree = NULL,
-  scale_factor = NULL, margin = NULL, fresh = FALSE, ...)
+\method{update}{svm_poly}(
+  object,
+  cost = NULL,
+  degree = NULL,
+  scale_factor = NULL,
+  margin = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.

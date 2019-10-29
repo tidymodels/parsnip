@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Determine varying arguments — varying_args.model_spec" />
-
 <meta property="og:description" content="varying_args() takes a model specification or a recipe and returns a tibble
 of information on all possible varying arguments and whether or not they
 are actually varying." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -77,7 +77,7 @@ are actually varying." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -136,11 +136,9 @@ are actually varying." />
     </div>
 
     <div class="ref-description">
-    
     <p><code><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args()</a></code> takes a model specification or a recipe and returns a tibble
 of information on all possible varying arguments and whether or not they
 are actually varying.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
@@ -151,7 +149,7 @@ are actually varying.</p>
 
 <span class='co'># S3 method for step</span>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></span>(<span class='no'>object</span>, <span class='kw'>full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -170,19 +168,17 @@ are actually varying are returned.</p></td>
       <td><p>Not currently used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble with columns for the parameter name (<code>name</code>), whether it
 contains <em>any</em> varying value (<code>varying</code>), the <code>id</code> for the object (<code>id</code>),
 and the class that was used to call the method (<code>type</code>).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>id</code> column is determined differently depending on whether a <code>model_spec</code>
 or a <code>recipe</code> is used. For a <code>model_spec</code>, the first class is used. For
 a <code>recipe</code>, the unique step <code>id</code> is used.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -237,11 +233,8 @@ a <code>recipe</code>, the unique step <code>id</code> is used.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -7,8 +7,7 @@
 \usage{
 linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 
-\method{update}{linear_reg}(object, penalty = NULL, mixture = NULL,
-  fresh = FALSE, ...)
+\method{update}{linear_reg}(object, penalty = NULL, mixture = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
