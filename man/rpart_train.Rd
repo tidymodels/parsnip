@@ -4,8 +4,15 @@
 \alias{rpart_train}
 \title{Decision trees via rpart}
 \usage{
-rpart_train(formula, data, weights = NULL, cp = 0.01, minsplit = 20,
-  maxdepth = 30, ...)
+rpart_train(
+  formula,
+  data,
+  weights = NULL,
+  cp = 0.01,
+  minsplit = 20,
+  maxdepth = 30,
+  ...
+)
 }
 \arguments{
 \item{formula}{A model formula.}

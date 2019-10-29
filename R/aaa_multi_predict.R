@@ -93,7 +93,6 @@ has_multi_predict.workflow <- function(object, ...) {
 }
 
 
-#' @rdname has_multi_predict
 #' @export
 #' @rdname has_multi_predict
 multi_predict_args <- function(object, ...) {

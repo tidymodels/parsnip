@@ -32,10 +32,10 @@
 
 
 <meta property="og:title" content="Decision trees via rpart — rpart_train" />
-
 <meta property="og:description" content="rpart_train is a wrapper for rpart() tree-based models
 where all of the model arguments are in the main function." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -76,7 +76,7 @@ where all of the model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -135,15 +135,20 @@ where all of the model arguments are in the main function." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>rpart_train</code> is a wrapper for <code>rpart()</code> tree-based models
 where all of the model arguments are in the main function.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rpart_train</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cp</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>minsplit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>maxdepth</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>rpart_train</span>(
+  <span class='no'>formula</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cp</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>minsplit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>maxdepth</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -189,20 +194,18 @@ those cases.</p></td>
       <td><p>Other arguments to pass to either <code>rpart</code> or <code>rpart.control</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A fitted rpart model.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

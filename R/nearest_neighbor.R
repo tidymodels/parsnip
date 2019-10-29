@@ -23,7 +23,6 @@
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #' Possible values for this model are `"unknown"`, `"regression"`, or
 #' `"classification"`.

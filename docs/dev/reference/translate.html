@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Resolve a Model Specification for a Computational Engine — translate" />
-
 <meta property="og:description" content="translate() will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -77,7 +77,7 @@ It translates generic parameters to their counterparts." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -136,15 +136,13 @@ It translates generic parameters to their counterparts." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>translate()</code> will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>translate</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -157,7 +155,7 @@ It translates generic parameters to their counterparts.</p>
       <td><p>Not currently used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>translate()</code> produces a <em>template</em> call that lacks the specific
@@ -173,7 +171,6 @@ function.</p>
 <p><strong>Note</strong>: this function is used internally and users should only use it
 to understand what the underlying syntax would be. It should not be used
 to modify the model specification.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>lm_spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
@@ -227,9 +224,7 @@ to modify the model specification.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

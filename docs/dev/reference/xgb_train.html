@@ -32,10 +32,10 @@
 
 
 <meta property="og:title" content="Boosted trees via xgboost — xgb_train" />
-
 <meta property="og:description" content="xgb_train is a wrapper for xgboost tree-based models
 where all of the model arguments are in the main function." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -76,7 +76,7 @@ where all of the model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -135,16 +135,23 @@ where all of the model arguments are in the main function." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>xgb_train</code> is a wrapper for <code>xgboost</code> tree-based models
 where all of the model arguments are in the main function.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>xgb_train</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>xgb_train</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>,
+  <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -191,20 +198,18 @@ further partition on a leaf node of the tree</p></td>
       <td><p>Other options to pass to <code>xgb.train</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A fitted <code>xgboost</code> object.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>
