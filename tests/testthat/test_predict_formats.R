@@ -28,6 +28,12 @@ lr_fit_2 <-
   set_engine("glm") %>%
   fit(Ozone ~ ., data = class_dat2)
 
+lr_fit_3 <-
+  mlp(mode = 'classification') %>%
+  set_engine("nnet") %>%
+  fit(Ozone ~ ., data = class_dat2[1:5, ])
+
+
 # ------------------------------------------------------------------------------
 
 test_that('regression predictions', {
@@ -54,8 +60,11 @@ test_that('non-standard levels', {
 
   expect_true(is_tibble(predict(lr_fit_2, new_data = class_dat2[1:5,-1], type = "prob")))
   expect_true(is_tibble(parsnip:::predict_classprob.model_fit(lr_fit_2, new_data = class_dat2[1:5,-1])))
+  final_colnames <- c(".pred_2low", ".pred_high+values")
   expect_equal(names(predict(lr_fit_2, new_data = class_dat2[1:5,-1], type = "prob")),
-               c(".pred_2low", ".pred_high+values"))
+               final_colnames)
+  expect_equal(names(predict(lr_fit_3, new_data = class_dat2, type = 'prob')),
+               final_colnames)
   expect_equal(names(parsnip:::predict_classprob.model_fit(lr_fit_2, new_data = class_dat2[1:5,-1])),
                c("2low", "high+values"))
 })
