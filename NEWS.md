@@ -1,6 +1,13 @@
 # parsnip 0.0.3.9001
 
+## New Features
+
+* The time elapsed during model fitting is stored in the `$elapsed` slot of the
+parsnip model object, and is printed when the model object is printed.
+
 * Some default parameter ranges were updated for SVM, KNN, and MARS models. 
+
+## Fixes
 
 * [A bug](https://github.com/tidymodels/parsnip/issues/208) was fixed related to using data descriptors and `fit_xy()`. 
 
