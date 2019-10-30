@@ -227,9 +227,15 @@ find_varying <- function(x) {
     return(FALSE)
   }
 
+  # isn't varying but is a function
+  if (is.function(x)) {
+    return(FALSE)
+  }
+
   # STEP 2 - Recursion
 
   varying_elems <- vector("logical", length = length(x))
+
 
   for (i in seq_along(x)) {
     varying_elems[i] <- find_varying(x[[i]])

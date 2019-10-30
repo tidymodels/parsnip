@@ -194,3 +194,12 @@ test_that("`full = FALSE` returns only varying arguments", {
   )
 
 })
+
+test_that("varying_args returns false with functions, #219", {
+  x_spec <- rand_forest(min_n = function(x) x)
+  expect_false(any(varying_args(x_spec)$varying))
+})
+
+test_that("find_varying returns false on functions", {
+  expect_false(find_varying(function(x) x))
+})
