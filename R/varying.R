@@ -236,7 +236,6 @@ find_varying <- function(x) {
 
   varying_elems <- vector("logical", length = length(x))
 
-
   for (i in seq_along(x)) {
     varying_elems[i] <- find_varying(x[[i]])
   }
