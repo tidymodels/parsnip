@@ -1,5 +1,8 @@
 # parsnip 0.0.3.9001
 
+* [A bug](https://github.com/tidymodels/parsnip/issues/222) was fixed standardizing
+the output column types of `multi_predict` and `predict` for `multinom_reg`.
+
 * Some default parameter ranges were updated for SVM, KNN, and MARS models. 
 
 * [A bug](https://github.com/tidymodels/parsnip/issues/208) was fixed related to using data descriptors and `fit_xy()`. 
