@@ -121,7 +121,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
     multi_predict(xy_fit, iris[rows, 1:4], penalty = lams, type = "prob")$.pred
   )
 
-  mult_class <- names(mult_probs)[apply(mult_probs, 1, which.max)]
+  mult_class <- factor(names(mult_probs)[apply(mult_probs, 1, which.max)])
   mult_class <- tibble(
     .pred_class = mult_class,
     penalty = rep(lams, each = 3),
