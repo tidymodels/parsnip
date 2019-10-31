@@ -139,10 +139,16 @@ print.mlp <- function(x, ...) {
 #' @export
 update.mlp <-
   function(object,
+           parameters = NULL,
            hidden_units = NULL, penalty = NULL, dropout = NULL,
            epochs = NULL, activation = NULL,
            fresh = FALSE, ...) {
     update_dot_check(...)
+
+    if (!is.null(parameters)) {
+      parameters <- check_final_param(parameters)
+    }
+
     args <- list(
       hidden_units = enquo(hidden_units),
       penalty      = enquo(penalty),
@@ -150,6 +156,8 @@ update.mlp <-
       epochs       = enquo(epochs),
       activation   = enquo(activation)
     )
+
+    args <- update_main_parameters(args, parameters)
 
     # TODO make these blocks into a function and document well
     if (fresh) {

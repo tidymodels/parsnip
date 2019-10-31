@@ -9,6 +9,7 @@ svm_rbf(mode = "unknown", cost = NULL, rbf_sigma = NULL, margin = NULL)
 
 \method{update}{svm_rbf}(
   object,
+  parameters = NULL,
   cost = NULL,
   rbf_sigma = NULL,
   margin = NULL,
@@ -30,6 +31,11 @@ or on the wrong side of the margin}
 loss function (regression only)}
 
 \item{object}{A radial basis function SVM model specification.}
+
+\item{parameters}{A 1-row tibble or named list with \emph{main}
+parameters to update. If the individual arguments are used,
+these will supersede the values in \code{parameters}. Also, using
+engine arguments in this object will result in an error.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}

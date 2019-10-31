@@ -147,6 +147,19 @@ test_that('updating', {
   expect_equal(update(expr1, hidden_units = 2), expr1_exp)
   expect_equal(update(expr3, hidden_units = 2, fresh = TRUE), expr3_exp)
 
+  param_tibb <- tibble::tibble(hidden_units = 3, dropout = .1)
+  param_list <- as.list(param_tibb)
+
+  expr4_updated <- update(expr4, param_tibb)
+  expect_equal(expr4_updated$args$hidden_units, 3)
+  expect_equal(expr4_updated$args$dropout, .1)
+  expect_equal(expr4_updated$eng_args$Hess, rlang::quo(FALSE))
+
+  expr4_updated_lst <- update(expr4, param_list)
+  expect_equal(expr4_updated_lst$args$hidden_units, 3)
+  expect_equal(expr4_updated_lst$args$dropout, .1)
+  expect_equal(expr4_updated_lst$eng_args$Hess, rlang::quo(FALSE))
+
 })
 
 test_that('bad input', {

@@ -96,6 +96,19 @@ test_that('updating', {
   # expect_equal(update(expr4 %>% set_engine("glmnet", pmax = 2)), expr4_exp)
   expect_equal(update(expr5) %>% set_engine("glmnet", nlambda = 10, pmax = 2), expr5_exp)
 
+  param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
+  param_list <- as.list(param_tibb)
+
+  expr4_updated <- update(expr4, param_tibb)
+  expect_equal(expr4_updated$args$mixture, 1/3)
+  expect_equal(expr4_updated$args$penalty, 1)
+  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
+
+  expr4_updated_lst <- update(expr4, param_list)
+  expect_equal(expr4_updated_lst$args$mixture, 1/3)
+  expect_equal(expr4_updated_lst$args$penalty, 1)
+  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
+
 })
 
 test_that('bad input', {

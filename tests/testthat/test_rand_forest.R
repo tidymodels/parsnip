@@ -317,6 +317,19 @@ test_that('updating', {
   expect_equal(update(expr1, mtry = 2), expr1_exp)
   expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)
 
+  param_tibb <- tibble::tibble(mtry = 3, trees = 10)
+  param_list <- as.list(param_tibb)
+
+  expr4_updated <- update(expr4, param_tibb)
+  expect_equal(expr4_updated$args$mtry, 3)
+  expect_equal(expr4_updated$args$trees, 10)
+  expect_equal(expr4_updated$eng_args$norm.votes, rlang::quo(FALSE))
+
+  expr4_updated_lst <- update(expr4, param_list)
+  expect_equal(expr4_updated_lst$args$mtry, 3)
+  expect_equal(expr4_updated_lst$args$trees, 10)
+  expect_equal(expr4_updated_lst$eng_args$norm.votes, rlang::quo(FALSE))
+
 })
 
 test_that('bad input', {

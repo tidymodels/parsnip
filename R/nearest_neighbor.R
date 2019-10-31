@@ -106,16 +106,24 @@ print.nearest_neighbor <- function(x, ...) {
 #' @export
 #' @inheritParams update.boost_tree
 update.nearest_neighbor <- function(object,
+                                    parameters = NULL,
                                     neighbors = NULL,
                                     weight_func = NULL,
                                     dist_power = NULL,
                                     fresh = FALSE, ...) {
   update_dot_check(...)
+
+  if (!is.null(parameters)) {
+    parameters <- check_final_param(parameters)
+  }
+
   args <- list(
     neighbors   = enquo(neighbors),
     weight_func = enquo(weight_func),
     dist_power  = enquo(dist_power)
   )
+
+  args <- update_main_parameters(args, parameters)
 
   if (fresh) {
     object$args <- args
