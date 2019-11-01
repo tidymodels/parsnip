@@ -28,6 +28,7 @@ Imports:
     stats,
     tidyr,
     globals,
+    prettyunits,
     vctrs (>= 0.2.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.99.9001

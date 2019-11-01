@@ -79,3 +79,20 @@ test_that('unknown modes', {
   )
 })
 
+test_that("elapsed time parsnip mods", {
+  lm1 <-
+    linear_reg() %>%
+    set_engine("lm") %>%
+    fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
+
+  lm2 <-
+    linear_reg() %>%
+    set_engine("lm") %>%
+    fit(mpg ~ ., data = mtcars)
+
+  expect_output(print(lm1), "Fit in:")
+  expect_output(print(lm2), "Fit in:")
+  expect_true(!is.null(lm1$elapsed))
+  expect_true(!is.null(lm2$elapsed))
+})
+
