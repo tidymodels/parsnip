@@ -121,7 +121,8 @@ test_that('glmnet probabilities, mulitiple lambda', {
     multi_predict(xy_fit, iris[rows, 1:4], penalty = lams, type = "prob")$.pred
   )
 
-  mult_class <- names(mult_probs)[apply(mult_probs, 1, which.max)]
+  mult_class <- factor(names(mult_probs)[apply(mult_probs, 1, which.max)],
+                       levels = xy_fit$lvl)
   mult_class <- tibble(
     .pred_class = mult_class,
     penalty = rep(lams, each = 3),
@@ -148,4 +149,13 @@ test_that('glmnet probabilities, mulitiple lambda', {
     NA
   )
 
+})
+
+test_that("class predictions are factors with all levels", {
+  basic <- multinom_reg() %>% set_engine("glmnet") %>% fit(Species ~ ., data = iris)
+  nd <- iris[iris$Species == "setosa", ]
+  yhat <- predict(basic, new_data = nd, penalty = .1)
+  yhat_multi <- multi_predict(basic, new_data =  nd, penalty = .1)$.pred
+  expect_is(yhat_multi[[1]]$.pred_class, "factor")
+  expect_equal(levels(yhat_multi[[1]]$.pred_class), levels(iris$Species))
 })
