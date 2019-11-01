@@ -153,10 +153,6 @@ bad_ranger_reg <- rand_forest(mode = "regression") %>%
 bad_rf_reg <- rand_forest(mode = "regression") %>%
   set_engine("randomForest", sampsize = -10)
 
-ctrl <- list(verbosity = 1, catch = FALSE)
-caught_ctrl <- list(verbosity = 1, catch = TRUE)
-quiet_ctrl <- list(verbosity = 0, catch = TRUE)
-
 # ------------------------------------------------------------------------------
 
 test_that('randomForest regression execution', {

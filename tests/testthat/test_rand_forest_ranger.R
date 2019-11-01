@@ -175,10 +175,6 @@ car_basic <- rand_forest(mode = "regression") %>% set_engine("ranger")
 bad_ranger_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", replace = "bad")
 bad_rf_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", sampsize = -10)
 
-ctrl <- list(verbosity = 1, catch = FALSE)
-caught_ctrl <- list(verbosity = 1, catch = TRUE)
-quiet_ctrl <- list(verbosity = 0, catch = TRUE)
-
 # ------------------------------------------------------------------------------
 
 test_that('ranger regression execution', {

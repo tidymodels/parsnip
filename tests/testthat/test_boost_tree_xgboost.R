@@ -98,10 +98,6 @@ bad_rf_reg <-
   boost_tree(mode = "regression") %>%
   set_engine("xgboost", sampsize = -10)
 
-ctrl <- list(verbosity = 1, catch = FALSE)
-caught_ctrl <- list(verbosity = 1, catch = TRUE)
-quiet_ctrl <- list(verbosity = 0, catch = TRUE)
-
 test_that('xgboost execution, regression', {
 
   skip_if_not_installed("xgboost")
