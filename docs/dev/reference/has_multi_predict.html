@@ -32,12 +32,12 @@
 
 
 <meta property="og:title" content="Tools for models that predict on sub-models — has_multi_predict" />
-
 <meta property="og:description" content="has_multi_predict() tests to see if an object can make multiple
 predictions on submodels from the same object. multi_predict_args()
 returns the names of the argments to multi_predict() for this model
 (if any)." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -78,7 +78,7 @@ returns the names of the argments to multi_predict() for this model
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -137,12 +137,10 @@ returns the names of the argments to multi_predict() for this model
     </div>
 
     <div class="ref-description">
-    
     <p><code>has_multi_predict()</code> tests to see if an object can make multiple
 predictions on submodels from the same object. <code>multi_predict_args()</code>
 returns the names of the argments to <code><a href='multi_predict.html'>multi_predict()</a></code> for this model
 (if any).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>has_multi_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -166,7 +164,7 @@ returns the names of the argments to <code><a href='multi_predict.html'>multi_pr
 
 <span class='co'># S3 method for workflow</span>
 <span class='fu'>multi_predict_args</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,13 +177,12 @@ returns the names of the argments to <code><a href='multi_predict.html'>multi_pr
       <td><p>Not currently used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>has_multi_predict()</code> returns single logical value while
 <code><a href='multi_predict.html'>multi_predict()</a></code> returns a character vector of argument names (or <code>NA</code>
 if none exist).</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>lm_model_idea</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>)
@@ -214,9 +211,7 @@ if none exist).</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

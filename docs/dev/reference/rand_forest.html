@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="General Interface for Random Forest Models — rand_forest" />
-
 <meta property="og:description" content="rand_forest() is a way to generate a specification of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
@@ -49,6 +48,7 @@ here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -89,7 +89,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -148,7 +148,6 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>rand_forest()</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
@@ -164,16 +163,13 @@ set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to th
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for rand_forest</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,7 +208,7 @@ modified in-place of or replaced wholesale.</p></td>
       <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
@@ -220,7 +216,7 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"ranger"</code> (the default) or <code>"randomForest"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For models created using the spark engine, there are
@@ -235,11 +231,12 @@ R session (via <code>save</code>), the <code>model$fit</code> element of the <co
 object should be serialized via <code>ml_save(object$fit)</code> and
 separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
-    
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     
-    <p>Engines may have pre-set default arguments when executing the
+
+
+<p>Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are::</p>
 <p><span class="pkg">ranger</span> classification</p>
@@ -276,11 +273,9 @@ sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(),
 constructed using the form <code>estimate +/- z * std_error</code>. For
 classification probabilities, these values can fall outside of
 <code>[0, 1]</code> and will be coerced to be in this range.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>2000</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (classification)
@@ -313,15 +308,10 @@ classification probabilities, these values can fall outside of
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#engine-details">Engine Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

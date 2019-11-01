@@ -5,11 +5,16 @@
 \alias{update.svm_rbf}
 \title{General interface for radial basis function support vector machines}
 \usage{
-svm_rbf(mode = "unknown", cost = NULL, rbf_sigma = NULL,
-  margin = NULL)
+svm_rbf(mode = "unknown", cost = NULL, rbf_sigma = NULL, margin = NULL)
 
-\method{update}{svm_rbf}(object, cost = NULL, rbf_sigma = NULL,
-  margin = NULL, fresh = FALSE, ...)
+\method{update}{svm_rbf}(
+  object,
+  cost = NULL,
+  rbf_sigma = NULL,
+  margin = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.

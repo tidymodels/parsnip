@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Fit a Model Specification to a Dataset — fit.model_spec" />
-
 <meta property="og:description" content="fit() and fit_xy() take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -77,7 +77,7 @@ routine." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -136,21 +136,17 @@ routine." />
     </div>
 
     <div class="ref-description">
-    
     <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>object</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='no'>object</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='fit_control.html'>fit_control</a></span>(), <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -192,7 +188,7 @@ passed using <code><a href='set_engine.html'>set_engine()</a></code>.</p></td>
       <td><p>A vector, matrix or data frame of outcome data.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>model_fit</code> object that contains several elements:</p><ul>
@@ -208,7 +204,6 @@ a formula and non-formula interface (such as the <code>terms</code>
 object)</p></li>
 </ul><p>The return value will also have a class related to the fitted model (e.g.
 <code>"_glm"</code>) before the base class of <code>"model_fit"</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> substitute the current arguments in the model
@@ -229,20 +224,16 @@ objects used to fit the model.</p>
 <p>If the model engine has not been set, the model's default engine will be used
 (as discussed on each model page). If the <code>verbosity</code> option of
 <code><a href='fit_control.html'>fit_control()</a></code> is greater than zero, a warning will be produced.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='fit_control.html'>fit_control()</a></code>, <code>model_spec</code>, <code>model_fit</code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Although `glm()` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
@@ -289,13 +280,9 @@ objects used to fit the model.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

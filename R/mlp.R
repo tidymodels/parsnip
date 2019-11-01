@@ -381,7 +381,7 @@ nnet_softmax <- function(results, object) {
 
   results <- apply(results, 1, function(x) exp(x)/sum(exp(x)))
   results <- t(results)
-  names(results) <- paste0(".pred_", object$lvl)
+  colnames(results) <- object$lvl
   results <- as_tibble(results)
   results
 }

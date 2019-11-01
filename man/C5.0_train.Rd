@@ -4,8 +4,7 @@
 \alias{C5.0_train}
 \title{Boosted trees via C5.0}
 \usage{
-C5.0_train(x, y, weights = NULL, trials = 15, minCases = 2,
-  sample = 0, ...)
+C5.0_train(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...)
 }
 \arguments{
 \item{x}{A data frame or matrix of predictors.}

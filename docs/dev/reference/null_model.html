@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="General Interface for null models — null_model" />
-
 <meta property="og:description" content="null_model() is a way to generate a specification of a model before
 fitting and allows the model to be created using R. It doens't have any
 main arguments." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -77,7 +77,7 @@ main arguments." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -136,15 +136,13 @@ main arguments." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>null_model()</code> is a way to generate a <em>specification</em> of a model before
 fitting and allows the model to be created using R. It doens't have any
 main arguments.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -155,18 +153,20 @@ Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"parsnip"</code></p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     
-    <p>Engines may have pre-set default arguments when executing the
+
+
+<p>Engines may have pre-set default arguments when executing the
 model fit call.  For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">parsnip</span> classification</p>
@@ -177,11 +177,9 @@ nullmodel(x = missing_arg(), y = missing_arg())
 <p><pre>
 nullmodel(x = missing_arg(), y = missing_arg())
 </pre></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='varying.html'>varying()</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Model Specification (regression)
@@ -191,13 +189,9 @@ nullmodel(x = missing_arg(), y = missing_arg())
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#engine-details">Engine Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

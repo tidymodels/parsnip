@@ -21,6 +21,7 @@ can \code{varying()}. If left to their defaults (\code{NULL}), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in \code{args} are captured as
 quosures and are not immediately executed.
+\itemize{
 \item \code{...}: Optional model-function-specific
 parameters. As with \code{args}, these will be quosures and can be
 \code{varying()}.
@@ -38,6 +39,7 @@ type.
 
 This class and structure is the basis for how \pkg{parsnip}
 stores model objects prior to seeing the data.
+}
 }
 \section{Argument Details}{
 

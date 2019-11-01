@@ -178,7 +178,6 @@ fit.model_spec <-
 #' @rdname fit
 #' @export
 #' @export fit_xy.model_spec
-#' @inheritParams fit.model_spec
 fit_xy.model_spec <-
   function(object,
            x = NULL,

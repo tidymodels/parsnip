@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Simple interface to MLP models via keras — keras_mlp" />
-
 <meta property="og:description" content="Instead of building a keras model sequentially, keras_mlp can be used to
 create a feedforward network with a single hidden layer. Regularization is
 via either weight decay or dropout." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -77,7 +77,7 @@ via either weight decay or dropout." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.3.9001</span>
         </div>
       </div>
     </div>
@@ -136,17 +136,23 @@ via either weight decay or dropout." />
     </div>
 
     <div class="ref-description">
-    
     <p>Instead of building a <code>keras</code> model sequentially, <code>keras_mlp</code> can be used to
 create a feedforward network with a single hidden layer. Regularization is
 via either weight decay or dropout.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>keras_mlp</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>, <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-  <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>keras_mlp</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>,
+  <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -190,20 +196,18 @@ calculations.</p></td>
       <td><p>Currently ignored.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>keras</code> model object.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>
