@@ -15,9 +15,9 @@ num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_bad_form <- as.formula(funded_amnt ~ term)
 lc_basic <- logistic_reg() %>% set_engine("glmnet")
 
-ctrl <- fit_control(verbosity = 1, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
-quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
+caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
+quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

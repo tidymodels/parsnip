@@ -15,9 +15,9 @@ lc_basic <-
   logistic_reg() %>%
   set_engine("stan", seed = 1333, chains = 1)
 
-ctrl <- fit_control(verbosity = 0, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 0, catch = TRUE)
-quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
+caught_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
+quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

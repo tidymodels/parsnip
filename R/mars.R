@@ -55,7 +55,7 @@
 #'  attached.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [[fit()]
 #' @examples
 #' mars(mode = "regression", num_terms = 5)
 #' @export

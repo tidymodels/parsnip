@@ -155,7 +155,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [fit()]
 #' @examples
 #' null_model(mode = "regression")
 #' @export

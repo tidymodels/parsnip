@@ -80,7 +80,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [varying()], [fit()]
+#' @seealso [[fit()]
 #' @examples
 #' multinom_reg()
 #' # Parameters can be represented by a placeholder:

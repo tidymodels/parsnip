@@ -50,7 +50,7 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [fit()]
 #' @examples
 #' svm_rbf(mode = "classification", rbf_sigma = 0.2)
 #' # Parameters can be represented by a placeholder:

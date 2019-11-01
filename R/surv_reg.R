@@ -57,7 +57,7 @@
 #'  predictions when there is a stratification variable and can be
 #'  overridden in other cases.
 #'
-#' @seealso [varying()], [fit()], [survival::Surv()]
+#' @seealso [[fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples

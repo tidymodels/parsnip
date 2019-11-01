@@ -10,9 +10,9 @@ basic_form <- Surv(time, status) ~ age
 complete_form <- Surv(time) ~ age
 
 surv_basic <- surv_reg() %>% set_engine("flexsurv")
-ctrl <- fit_control(verbosity = 1, catch = FALSE)
-caught_ctrl <- fit_control(verbosity = 1, catch = TRUE)
-quiet_ctrl <- fit_control(verbosity = 0, catch = TRUE)
+ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
+caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
+quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

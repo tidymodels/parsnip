@@ -51,7 +51,7 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [[fit()]
 #' @examples
 #' svm_poly(mode = "classification", degree = 1.2)
 #' # Parameters can be represented by a placeholder:

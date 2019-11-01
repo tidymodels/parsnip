@@ -5,30 +5,13 @@
 \alias{update.boost_tree}
 \title{General Interface for Boosted Trees}
 \usage{
-boost_tree(
-  mode = "unknown",
-  mtry = NULL,
-  trees = NULL,
-  min_n = NULL,
-  tree_depth = NULL,
-  learn_rate = NULL,
-  loss_reduction = NULL,
-  sample_size = NULL
-)
+boost_tree(mode = "unknown", mtry = NULL, trees = NULL,
+  min_n = NULL, tree_depth = NULL, learn_rate = NULL,
+  loss_reduction = NULL, sample_size = NULL)
 
-\method{update}{boost_tree}(
-  object,
-  parameters = NULL,
-  mtry = NULL,
-  trees = NULL,
-  min_n = NULL,
-  tree_depth = NULL,
-  learn_rate = NULL,
-  loss_reduction = NULL,
-  sample_size = NULL,
-  fresh = FALSE,
-  ...
-)
+\method{update}{boost_tree}(object, parameters = NULL, mtry = NULL,
+  trees = NULL, min_n = NULL, tree_depth = NULL, learn_rate = NULL,
+  loss_reduction = NULL, sample_size = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -172,5 +155,5 @@ param_values$verbose <- 0
 # model \%>\% update(param_values)
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
+[\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
 }

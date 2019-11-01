@@ -18,7 +18,7 @@ ridge_mod <-
   linear_reg(penalty = 0.1) %>%
   set_engine("keras", epochs = 50, verbose = 0)
 
-ctrl <- fit_control(verbosity = 0, catch = FALSE)
+ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 
 # ------------------------------------------------------------------------------
 

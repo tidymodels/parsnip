@@ -5,9 +5,11 @@
 \alias{fit_xy.model_spec}
 \title{Fit a Model Specification to a Dataset}
 \usage{
-\method{fit}{model_spec}(object, formula = NULL, data = NULL, control = fit_control(), ...)
+\method{fit}{model_spec}(object, formula = NULL, data = NULL,
+  control = control_parsnip(), ...)
 
-\method{fit_xy}{model_spec}(object, x = NULL, y = NULL, control = fit_control(), ...)
+\method{fit_xy}{model_spec}(object, x = NULL, y = NULL,
+  control = control_parsnip(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec} that has a chosen engine
@@ -23,7 +25,7 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
 \emph{named argument} should be used.}
 
 \item{control}{A named list with elements \code{verbosity} and
-\code{catch}. See \code{\link[=fit_control]{fit_control()}}.}
+\code{catch}. See \code{\link[=control_parsnip]{control_parsnip()}}.}
 
 \item{...}{Not currently used; values passed here will be
 ignored. Other options required to fit the model should be
@@ -75,7 +77,7 @@ objects used to fit the model.
 
 If the model engine has not been set, the model's default engine will be used
 (as discussed on each model page). If the \code{verbosity} option of
-\code{\link[=fit_control]{fit_control()}} is greater than zero, a warning will be produced.
+\code{\link[=control_parsnip]{control_parsnip()}} is greater than zero, a warning will be produced.
 }
 \examples{
 # Although `glm()` only has a formula interface, different
@@ -101,5 +103,5 @@ using_formula
 using_xy
 }
 \seealso{
-\code{\link[=set_engine]{set_engine()}}, \code{\link[=fit_control]{fit_control()}}, \code{model_spec}, \code{model_fit}
+\code{\link[=set_engine]{set_engine()}}, \code{\link[=control_parsnip]{control_parsnip()}}, \code{model_spec}, \code{model_fit}
 }

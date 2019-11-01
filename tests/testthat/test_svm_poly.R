@@ -119,7 +119,7 @@ cls_mod <-
   set_engine("kernlab") %>%
   set_mode("classification")
 
-ctrl <- fit_control(verbosity = 0, catch = FALSE)
+ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 
 # ------------------------------------------------------------------------------
 

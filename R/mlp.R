@@ -77,7 +77,7 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [[fit()]
 #' @examples
 #' mlp(mode = "classification", penalty = 0.01)
 #' # Parameters can be represented by a placeholder:

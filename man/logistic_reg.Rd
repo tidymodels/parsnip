@@ -7,14 +7,8 @@
 \usage{
 logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 
-\method{update}{logistic_reg}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
-)
+\method{update}{logistic_reg}(object, parameters = NULL,
+  penalty = NULL, mixture = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -143,5 +137,5 @@ update(model, penalty = 1)
 update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+[\code{\link[=fit]{fit()}}
 }
