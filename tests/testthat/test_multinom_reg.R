@@ -104,5 +104,3 @@ test_that('bad input', {
   expect_error(translate(multinom_reg() %>% set_engine()))
   expect_warning(translate(multinom_reg() %>% set_engine("glmnet", x = iris[,1:3], y = iris$Species)))
 })
-
-
