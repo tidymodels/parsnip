@@ -8,6 +8,8 @@ parsnip model object, and is printed when the model object is printed.
 * Some default parameter ranges were updated for SVM, KNN, and MARS models. 
 
 ## Fixes
+* [A bug](https://github.com/tidymodels/parsnip/issues/222) was fixed standardizing
+the output column types of `multi_predict` and `predict` for `multinom_reg`.
 
 * [A bug](https://github.com/tidymodels/parsnip/issues/208) was fixed related to using data descriptors and `fit_xy()`. 
 
@@ -15,7 +17,7 @@ parsnip model object, and is printed when the model object is printed.
 
 * The model `udpate()` methods gained a `parameters` argument for cases when the parameters are contained in a tibble or list. 
 
-# [A bug](https://github.com/tidymodels/parsnip/issues/174) was fixed standardizing the column names of `nnet` class probability predictions.
+* [A bug](https://github.com/tidymodels/parsnip/issues/174) was fixed standardizing the column names of `nnet` class probability predictions.
 
 
 # parsnip 0.0.3.1
