@@ -154,13 +154,20 @@ translate.logistic_reg <- translate.linear_reg
 #' @export
 update.logistic_reg <-
   function(object,
+           parameters = NULL,
            penalty = NULL, mixture = NULL,
            fresh = FALSE, ...) {
     update_dot_check(...)
+
+    if (!is.null(parameters)) {
+      parameters <- check_final_param(parameters)
+    }
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
+
+    args <- update_main_parameters(args, parameters)
 
     if (fresh) {
       object$args <- args

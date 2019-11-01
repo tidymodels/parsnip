@@ -166,7 +166,14 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>linear_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for linear_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +201,13 @@ L2 penalty (i.e. weight decay, or ridge regression) versus L1
     <tr>
       <th>object</th>
       <td><p>A linear regression model specification.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>A 1-row tibble or named list with <em>main</em>
+parameters to update. If the individual arguments are used,
+these will supersede the values in <code>parameters</code>. Also, using
+engine arguments in this object will result in an error.</p></td>
     </tr>
     <tr>
       <th>fresh</th>

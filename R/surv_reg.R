@@ -111,11 +111,18 @@ print.surv_reg <- function(x, ...) {
 #' @method update surv_reg
 #' @rdname surv_reg
 #' @export
-update.surv_reg <- function(object, dist = NULL, fresh = FALSE, ...) {
+update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
   update_dot_check(...)
+
+  if (!is.null(parameters)) {
+    parameters <- check_final_param(parameters)
+  }
+
   args <- list(
     dist = enquo(dist)
   )
+
+  args <- update_main_parameters(args, parameters)
 
   if (fresh) {
     object$args <- args

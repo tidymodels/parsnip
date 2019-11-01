@@ -105,6 +105,19 @@ test_that('updating', {
 
   expect_equal(update(expr1, cost_complexity = .1), expr1_exp)
   expect_equal(update(expr3, cost_complexity = 1, fresh = TRUE), expr3_exp)
+
+  param_tibb <- tibble::tibble(cost_complexity = 0.1, min_n = 1)
+  param_list <- as.list(param_tibb)
+
+  expr1_updated <- update(expr1, param_tibb)
+  expect_equal(expr1_updated$args$cost_complexity, 0.1)
+  expect_equal(expr1_updated$args$min_n, 1)
+  expect_equal(expr1_updated$eng_args$model, rlang::quo(FALSE))
+
+  expr1_updated_lst <- update(expr1, param_list)
+  expect_equal(expr1_updated_lst$args$cost_complexity, 0.1)
+  expect_equal(expr1_updated_lst$args$min_n, 1)
+  expect_equal(expr1_updated_lst$eng_args$model, rlang::quo(FALSE))
 })
 
 test_that('bad input', {

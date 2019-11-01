@@ -115,6 +115,19 @@ test_that('updating', {
 
   expect_equal(update(expr1, trees = 10), expr1_exp)
   expect_equal(update(expr3, trees = 1, fresh = TRUE), expr3_exp)
+
+  param_tibb <- tibble::tibble(trees = 7, mtry = 1)
+  param_list <- as.list(param_tibb)
+
+  expr1_updated <- update(expr1, param_tibb)
+  expect_equal(expr1_updated$args$trees, 7)
+  expect_equal(expr1_updated$args$mtry, 1)
+  expect_equal(expr1_updated$eng_args$verbose, rlang::quo(0))
+
+  expr1_updated_lst <- update(expr1, param_list)
+  expect_equal(expr1_updated_lst$args$trees, 7)
+  expect_equal(expr1_updated_lst$args$mtry, 1)
+  expect_equal(expr1_updated_lst$eng_args$verbose, rlang::quo(0))
 })
 
 test_that('bad input', {

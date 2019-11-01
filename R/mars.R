@@ -106,15 +106,22 @@ print.mars <- function(x, ...) {
 #' @export
 update.mars <-
   function(object,
+           parameters = NULL,
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
            fresh = FALSE, ...) {
     update_dot_check(...)
+
+    if (!is.null(parameters)) {
+      parameters <- check_final_param(parameters)
+    }
 
     args <- list(
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
       prune_method = enquo(prune_method)
     )
+
+    args <- update_main_parameters(args, parameters)
 
     if (fresh) {
       object$args <- args

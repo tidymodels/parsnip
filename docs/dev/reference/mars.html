@@ -179,6 +179,7 @@ in lieu of recreating the object from scratch.</p>
 <span class='co'># S3 method for mars</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
   <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -211,6 +212,13 @@ final model, including the intercept.</p></td>
     <tr>
       <th>object</th>
       <td><p>A MARS model specification.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>A 1-row tibble or named list with <em>main</em>
+parameters to update. If the individual arguments are used,
+these will supersede the values in <code>parameters</code>. Also, using
+engine arguments in this object will result in an error.</p></td>
     </tr>
     <tr>
       <th>fresh</th>

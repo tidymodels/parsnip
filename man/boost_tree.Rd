@@ -18,6 +18,7 @@ boost_tree(
 
 \method{update}{boost_tree}(
   object,
+  parameters = NULL,
   mtry = NULL,
   trees = NULL,
   min_n = NULL,
@@ -58,6 +59,11 @@ exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during traning.}
 
 \item{object}{A boosted tree model specification.}
+
+\item{parameters}{A 1-row tibble or named list with \emph{main}
+parameters to update. If the individual arguments are used,
+these will supersede the values in \code{parameters}. Also, using
+engine arguments in this object will result in an error.}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
@@ -155,6 +161,15 @@ model <- boost_tree(mtry = 10, min_n = 3)
 model
 update(model, mtry = 1)
 update(model, mtry = 1, fresh = TRUE)
+
+param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
+
+model \%>\% update(param_values)
+model \%>\% update(param_values, mtry = 3)
+
+param_values$verbose <- 0
+# Fails due to engine argument
+# model \%>\% update(param_values)
 }
 \seealso{
 \code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}

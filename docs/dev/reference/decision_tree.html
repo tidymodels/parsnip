@@ -177,6 +177,7 @@ in lieu of recreating the object from scratch.</p>
 <span class='co'># S3 method for decision_tree</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
   <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -210,6 +211,13 @@ in a node that are required for the node to be split further.</p></td>
     <tr>
       <th>object</th>
       <td><p>A random forest model specification.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>A 1-row tibble or named list with <em>main</em>
+parameters to update. If the individual arguments are used,
+these will supersede the values in <code>parameters</code>. Also, using
+engine arguments in this object will result in an error.</p></td>
     </tr>
     <tr>
       <th>fresh</th>
