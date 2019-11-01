@@ -66,6 +66,19 @@ test_that('updating', {
 
   expect_equal(update(expr1, rbf_sigma = .1), expr1_exp)
   expect_equal(update(expr3, rbf_sigma = .3, fresh = TRUE), expr3_exp)
+
+  param_tibb <- tibble::tibble(rbf_sigma = 3, cost = 10)
+  param_list <- as.list(param_tibb)
+
+  expr1_updated <- update(expr1, param_tibb)
+  expect_equal(expr1_updated$args$rbf_sigma, 3)
+  expect_equal(expr1_updated$args$cost, 10)
+  expect_equal(expr1_updated$eng_args$cross, rlang::quo(10))
+
+  expr1_updated_lst <- update(expr1, param_list)
+  expect_equal(expr1_updated_lst$args$rbf_sigma, 3)
+  expect_equal(expr1_updated_lst$args$cost, 10)
+  expect_equal(expr1_updated_lst$eng_args$cross, rlang::quo(10))
 })
 
 test_that('bad input', {

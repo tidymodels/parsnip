@@ -90,6 +90,19 @@ test_that('updating', {
 
   expect_equal(update(expr1, num_terms = 1), expr1_exp)
   expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_exp)
+
+  param_tibb <- tibble::tibble(num_terms = 3, prod_degree = 1)
+  param_list <- as.list(param_tibb)
+
+  expr4_updated <- update(expr4, param_tibb)
+  expect_equal(expr4_updated$args$num_terms, 3)
+  expect_equal(expr4_updated$args$prod_degree, 1)
+  expect_equal(expr4_updated$eng_args$nk, rlang::quo(10))
+
+  expr4_updated_lst <- update(expr4, param_list)
+  expect_equal(expr4_updated_lst$args$num_terms, 3)
+  expect_equal(expr4_updated_lst$args$prod_degree, 1)
+  expect_equal(expr4_updated_lst$eng_args$nk, rlang::quo(10))
 })
 
 test_that('bad input', {

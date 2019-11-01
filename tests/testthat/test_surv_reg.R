@@ -63,6 +63,15 @@ test_that('updating', {
   expr1     <- surv_reg() %>% set_engine("flexsurv", cl = .99)
   expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
   expect_equal(update(expr1, dist = "lnorm"), expr1_exp)
+
+  param_tibb <- tibble::tibble(dist = "weibull")
+  param_list <- as.list(param_tibb)
+
+  expr1_updated <- update(expr1, param_tibb)
+  expect_equal(expr1_updated$args$dist, "weibull")
+
+  expr1_updated_lst <- update(expr1, param_list)
+  expect_equal(expr1_updated_lst$args$dist, "weibull")
 })
 
 test_that('bad input', {
