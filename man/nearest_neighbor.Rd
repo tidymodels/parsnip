@@ -4,12 +4,8 @@
 \alias{nearest_neighbor}
 \title{General Interface for K-Nearest Neighbor Models}
 \usage{
-nearest_neighbor(
-  mode = "unknown",
-  neighbors = NULL,
-  weight_func = NULL,
-  dist_power = NULL
-)
+nearest_neighbor(mode = "unknown", neighbors = NULL,
+  weight_func = NULL, dist_power = NULL)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -80,5 +76,5 @@ nearest_neighbor(neighbors = 11)
 
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+[\code{\link[=fit]{fit()}}
 }

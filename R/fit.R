@@ -19,7 +19,7 @@
 #'  outcome(s), predictors, case weights, etc). Note: when needed, a
 #'  \emph{named argument} should be used.
 #' @param control A named list with elements `verbosity` and
-#'  `catch`. See [fit_control()].
+#'  `catch`. See [control_parsnip()].
 #' @param ... Not currently used; values passed here will be
 #'  ignored. Other options required to fit the model should be
 #'  passed using `set_engine()`.
@@ -42,7 +42,7 @@
 #'
 #' If the model engine has not been set, the model's default engine will be used
 #'  (as discussed on each model page). If the `verbosity` option of
-#'  [fit_control()] is greater than zero, a warning will be produced.
+#'  [control_parsnip()] is greater than zero, a warning will be produced.
 #' @examples
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -81,7 +81,7 @@
 #'  The return value will also have a class related to the fitted model (e.g.
 #'  `"_glm"`) before the base class of `"model_fit"`.
 #'
-#' @seealso [set_engine()], [fit_control()], `model_spec`, `model_fit`
+#' @seealso [set_engine()], [control_parsnip()], `model_spec`, `model_fit`
 #' @param x A matrix or data frame of predictors.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
@@ -91,7 +91,7 @@ fit.model_spec <-
   function(object,
            formula = NULL,
            data = NULL,
-           control = fit_control(),
+           control = control_parsnip(),
            ...
   ) {
     if (object$mode == "unknown") {
@@ -182,7 +182,7 @@ fit_xy.model_spec <-
   function(object,
            x = NULL,
            y = NULL,
-           control = fit_control(),
+           control = control_parsnip(),
            ...
   ) {
     object <- check_mode(object, levels(y))

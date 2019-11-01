@@ -5,22 +5,12 @@
 \alias{update.decision_tree}
 \title{General Interface for Decision Tree Models}
 \usage{
-decision_tree(
-  mode = "unknown",
-  cost_complexity = NULL,
-  tree_depth = NULL,
-  min_n = NULL
-)
+decision_tree(mode = "unknown", cost_complexity = NULL,
+  tree_depth = NULL, min_n = NULL)
 
-\method{update}{decision_tree}(
-  object,
-  parameters = NULL,
-  cost_complexity = NULL,
-  tree_depth = NULL,
-  min_n = NULL,
-  fresh = FALSE,
-  ...
-)
+\method{update}{decision_tree}(object, parameters = NULL,
+  cost_complexity = NULL, tree_depth = NULL, min_n = NULL,
+  fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -133,5 +123,5 @@ update(model, cost_complexity = 1)
 update(model, cost_complexity = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+[\code{\link[=fit]{fit()}}
 }

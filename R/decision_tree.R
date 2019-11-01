@@ -84,7 +84,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()]
+#' @seealso [[fit()]
 #' @examples
 #' decision_tree(mode = "classification", tree_depth = 5)
 #' # Parameters can be represented by a placeholder:

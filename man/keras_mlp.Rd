@@ -4,17 +4,9 @@
 \alias{keras_mlp}
 \title{Simple interface to MLP models via keras}
 \usage{
-keras_mlp(
-  x,
-  y,
-  hidden_units = 5,
-  decay = 0,
-  dropout = 0,
-  epochs = 20,
-  act = "softmax",
-  seeds = sample.int(10^5, size = 3),
-  ...
-)
+keras_mlp(x, y, hidden_units = 5, decay = 0, dropout = 0,
+  epochs = 20, act = "softmax", seeds = sample.int(10^5, size = 3),
+  ...)
 }
 \arguments{
 \item{x}{A data frame or matrix of predictors}

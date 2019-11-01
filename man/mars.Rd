@@ -5,22 +5,11 @@
 \alias{update.mars}
 \title{General Interface for MARS}
 \usage{
-mars(
-  mode = "unknown",
-  num_terms = NULL,
-  prod_degree = NULL,
-  prune_method = NULL
-)
+mars(mode = "unknown", num_terms = NULL, prod_degree = NULL,
+  prune_method = NULL)
 
-\method{update}{mars}(
-  object,
-  parameters = NULL,
-  num_terms = NULL,
-  prod_degree = NULL,
-  prune_method = NULL,
-  fresh = FALSE,
-  ...
-)
+\method{update}{mars}(object, parameters = NULL, num_terms = NULL,
+  prod_degree = NULL, prune_method = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -102,5 +91,5 @@ update(model, num_terms = 1)
 update(model, num_terms = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+[\code{\link[=fit]{fit()}}
 }

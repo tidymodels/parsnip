@@ -16,18 +16,25 @@
 #'  class "try-error".
 #' @return An S3 object with class "fit_control" that is a named list with the
 #' results of the function call
+#' @details
+#' `fit_control()` is deprecated in favor of `control_parsnip()`.
 #' @export
 #'
-
-fit_control <- function(verbosity = 1L, catch = FALSE) {
+control_parsnip <- function(verbosity = 1L, catch = FALSE) {
   res <- list(verbosity = verbosity, catch = catch)
   res <- check_control(res)
-  class(res) <- "fit_control"
+  class(res) <- "control_parsnip"
   res
 }
 
 #' @export
-print.fit_control <- function(x, ...) {
+#' @rdname control_parsnip
+fit_control <- function(verbosity = 1L, catch = FALSE) {
+  control_parsnip(verbosity = verbosity, catch = catch)
+}
+
+#' @export
+print.control_parsnip <- function(x, ...) {
   cat("parsnip control object\n")
   if (x$verbosity > 1)
     cat(" - verbose level", x$verbosity, "\n")

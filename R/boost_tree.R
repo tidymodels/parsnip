@@ -99,7 +99,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [varying()], [fit()], [set_engine()]
+#' @seealso [[fit()], [set_engine()]
 #' @examples
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:

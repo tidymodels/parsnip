@@ -43,5 +43,5 @@ model, the template of the fit calls are:
 null_model(mode = "regression")
 }
 \seealso{
-\code{\link[=varying]{varying()}}, \code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }
