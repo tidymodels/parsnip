@@ -7,6 +7,7 @@ library(tibble)
 
 context("keras linear regression")
 source("helpers.R")
+source("helper-objects.R")
 
 # ------------------------------------------------------------------------------
 
@@ -49,7 +50,6 @@ test_that('model fitting', {
       ),
     regexp = NA
   )
-  fit1$elapsed <- fit2$elapsed
   expect_equal(fit1, fit2)
 
   expect_error(

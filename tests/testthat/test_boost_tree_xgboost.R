@@ -4,16 +4,13 @@ library(parsnip)
 # ------------------------------------------------------------------------------
 
 context("boosted tree execution with xgboost")
+source("helper-objects.R")
 
 num_pred <- names(iris)[1:4]
 
 iris_xgboost <-
   boost_tree(trees = 2, mode = "classification") %>%
   set_engine("xgboost")
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

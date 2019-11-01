@@ -6,6 +6,7 @@ library(dplyr)
 # ------------------------------------------------------------------------------
 
 context("boosted tree execution with C5.0")
+source("helper-objects.R")
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
@@ -16,10 +17,6 @@ num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <-
   boost_tree(mode = "classification")  %>%
       set_engine("C5.0", bands = 2)
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

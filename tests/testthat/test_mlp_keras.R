@@ -5,16 +5,13 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("simple neural network execution with keras")
+source("helper-objects.R")
 
 num_pred <- names(iris)[1:4]
 
 iris_keras <-
   mlp(mode = "classification", hidden_units = 2, epochs = 10) %>%
   set_engine("keras", verbose = 0)
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 nn_dat <- read.csv("nnet_test.txt")
 
@@ -142,10 +139,6 @@ car_basic <- mlp(mode = "regression", epochs = 10) %>%
 bad_keras_reg <-
   mlp(mode = "regression") %>%
   set_engine("keras", min.node.size = -10)
-
-ctrl <- list(verbosity = 1, catch = FALSE)
-caught_ctrl <- list(verbosity = 1, catch = TRUE)
-quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

@@ -6,6 +6,7 @@ library(tidyr)
 # ------------------------------------------------------------------------------
 
 context("linear regression execution with glmnet")
+source("helper-objects.R")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
@@ -13,10 +14,6 @@ iris_basic <- linear_reg(penalty = .1, mixture = .3) %>%
   set_engine("glmnet", nlambda = 15)
 no_lambda <- linear_reg(mixture = .3) %>%
   set_engine("glmnet")
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

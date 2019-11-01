@@ -5,6 +5,7 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("random forest execution with randomForest")
+source("helper-objects.R")
 
 # ------------------------------------------------------------------------------
 
@@ -16,10 +17,6 @@ lc_basic <- rand_forest(mode = "classification") %>%
   set_engine("randomForest")
 bad_rf_cls <- rand_forest(mode = "classification") %>%
   set_engine("randomForest", sampsize = -10)
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

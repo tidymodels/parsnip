@@ -5,6 +5,7 @@ library(rlang)
 # ------------------------------------------------------------------------------
 
 context("nearest neighbor execution with kknn")
+source("helper-objects.R")
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)
@@ -12,10 +13,6 @@ iris_basic <- nearest_neighbor(mode = "classification",
                                neighbors = 8,
                                weight_func = "triangular") %>%
   set_engine("kknn")
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 
