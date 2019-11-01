@@ -150,3 +150,12 @@ test_that('glmnet probabilities, mulitiple lambda', {
   )
 
 })
+
+test_that("class predictions are factors with all levels", {
+  basic <- multinom_reg() %>% set_engine("glmnet") %>% fit(Species ~ ., data = iris)
+  nd <- iris[iris$Species == "setosa", ]
+  yhat <- predict(basic, new_data = nd, penalty = .1)
+  yhat_multi <- multi_predict(basic, new_data =  nd, penalty = .1)$.pred
+  expect_is(yhat_multi[[1]]$.pred_class, "factor")
+  expect_equal(levels(yhat_multi[[1]]$.pred_class), levels(iris$Species))
+})

@@ -105,13 +105,4 @@ test_that('bad input', {
   expect_warning(translate(multinom_reg() %>% set_engine("glmnet", x = iris[,1:3], y = iris$Species)))
 })
 
-test_that("predictions are factors with all levels", {
-  basic <- multinom_reg() %>% set_engine("glmnet") %>% fit(Species ~ ., data = iris)
-  nd <- iris[iris$Species == "setosa", ]
-  yhat <- predict(basic, new_data = nd, penalty = .1)
-  expect_is(yhat$.pred_class, "factor")
-  expect_equal(levels(yhat$.pred_class), levels(iris$Species))
-  yhat_multi <- multi_predict(basic, new_data =  nd, penalty = .1)$.pred
-  expect_is(yhat_multi[[1]]$.pred_class, "factor")
-  expect_equal(levels(yhat_multi[[1]]$.pred_class), levels(iris$Species))
-})
+
