@@ -290,7 +290,7 @@ multi_predict._multnet <-
       pred <-
         tibble(
           .row = rep(1:nrow(new_data), length(penalty)),
-          .pred_class = factor(as.vector(pred)),
+          .pred_class = factor(as.vector(pred), levels = object$lvl),
           penalty = rep(penalty, each = nrow(new_data))
         )
     }
