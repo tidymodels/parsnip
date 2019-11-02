@@ -6,23 +6,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Making a parsnip model from scratch • parsnip</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Making a parsnip model from scratch">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
 <body>
     <div class="container template-article">
@@ -40,7 +35,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
         </div>
       </div>
     </div>
@@ -79,7 +74,12 @@
 <li>
   <a href="../../reference/index.html">Reference</a>
 </li>
-        
+        <li>
+  <a href="https://github.com/tidymodels/parsnip">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -96,7 +96,7 @@
       <h1>Making a parsnip model from scratch</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/master/vignettes/articles/Scratch.Rmd"><code>vignettes/articles/Scratch.Rmd</code></a></small>
       <div class="hidden name"><code>Scratch.Rmd</code></div>
 
     </div>
@@ -160,12 +160,12 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  no registered fit modules.</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  no registered prediction modules.</span></a></code></pre></div>
-<p>The next step would be the declare the main arguments to the model. These are declared indpendnent of the mode. To specifiy the argument, there are a few slots to fill in:</p>
+<p>The next step would be the declare the main arguments to the model. These are declared independent of the mode. To specify the argument, there are a few slots to fill in:</p>
 <ul>
-<li><p>The name that <code>parsnip</code> uses for the argument. In general, we try to use non-jargony names for arguments (e.g. “penalty” instead of “lambda” for regularised regression). We recommend consulting <a href="">this page</a> to see if an existing argument name can be used before creating a new one.</p></li>
+<li><p>The name that <code>parsnip</code> uses for the argument. In general, we try to use non-jargony names for arguments (e.g. “penalty” instead of “lambda” for regularized regression). We recommend consulting <a href="">this page</a> to see if an existing argument name can be used before creating a new one.</p></li>
 <li><p>The argument name that is used by the underlying modeling function.</p></li>
-<li><p>A function reference for a <em>contructor</em> that will be used to generate tuning parameter values. This should be a character vector that has a named element called <code>fun</code> that is the contructor function. There is an optional element <code>pkg</code> that can be used to call the function using its namespace.</p></li>
-<li><p>A logical value for wether the argument can be used to generate mutiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use <code>has_submodels = FALSE</code>.</p></li>
+<li><p>A function reference for a <em>constructor</em> that will be used to generate tuning parameter values. This should be a character vector that has a named element called <code>fun</code> that is the constructor function. There is an optional element <code>pkg</code> that can be used to call the function using its namespace. If referencing functions from the <code>dials</code> package, quantitative parameters can have additional arguments in the list for <code>trans</code> and <code>range</code> while qualitative parameters can pass <code>values</code> via this list.</p></li>
+<li><p>A logical value for wether the argument can be used to generate multiple predictions for a single R object. For example, for boosted trees, if a model is fit with 10 boosting iterations, many modeling packages allow the model object to make predictions for any iterations less than the one used to fit the model. In general this is not the case so one would use <code>has_submodels = FALSE</code>.</p></li>
 </ul>
 <p>For <code><a href="https://rdrr.io/pkg/mda/man/mda.html">mda::mda()</a></code>, the main tuning parameter is <code>subclasses</code> which we will rewrite as <code>sub_classes</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/set_new_model.html">set_model_arg</a></span>(</a>
@@ -223,7 +223,7 @@
 <div id="step-3--add-a-fit-module" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-3--add-a-fit-module" class="anchor"></a>Step 3. Add a Fit Module</h2>
-<p>Now that <code>parsnip</code> knows about the model, mode, and engine, we can give it the infomration on fitting the model for our engine. In infomration needed to fit the model is contained in another list. The elements are:</p>
+<p>Now that <code>parsnip</code> knows about the model, mode, and engine, we can give it the information on fitting the model for our engine. The information needed to fit the model is contained in another list. The elements are:</p>
 <ul>
 <li><p><code>interface</code> a single character value that could be “formula”, “data.frame”, or “matrix”. This defines the type of interface used by the underlying fit function (<code><a href="https://rdrr.io/pkg/mda/man/mda.html">mda::mda</a></code>, in this case). This helps the translation of the data to be in an appropriate format for the that function.</p></li>
 <li><p><code>protect</code> is an optional list of function arguments that <strong>should not be changeable</strong> by the user. In this case, we probably don’t want users to pass data values to these arguments (until the <code>fit</code> function is called).</p></li>
@@ -378,7 +378,7 @@
 <a class="sourceLine" id="cb10-14" data-line-number="14">mda_fit</a>
 <a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; Fit in:  23msCall:</span></a>
 <a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; mda::mda(formula = formula, data = data, subclasses = ~2)</span></a>
 <a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt; Dimension: 4 </span></a>
@@ -462,7 +462,7 @@
 <a class="sourceLine" id="cb11-37" data-line-number="37"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
 <a class="sourceLine" id="cb11-38" data-line-number="38"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb11-39" data-line-number="39"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-40" data-line-number="40"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb11-40" data-line-number="40"><span class="co">#&gt; Fit in:  5msCall:</span></a>
 <a class="sourceLine" id="cb11-41" data-line-number="41"><span class="co">#&gt; rlm(formula = formula, data = data)</span></a>
 <a class="sourceLine" id="cb11-42" data-line-number="42"><span class="co">#&gt; Converged in 8 iterations</span></a>
 <a class="sourceLine" id="cb11-43" data-line-number="43"><span class="co">#&gt; </span></a>
@@ -559,6 +559,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

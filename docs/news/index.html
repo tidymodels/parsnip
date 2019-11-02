@@ -8,21 +8,24 @@
 
 <title>Changelog • parsnip</title>
 
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,23 +38,17 @@
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
 
   </head>
 
@@ -72,7 +69,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
         </div>
       </div>
     </div>
@@ -111,7 +108,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-        
+        <li>
+  <a href="https://github.com/tidymodels/parsnip">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -126,12 +128,43 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      
+      <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="parsnip-0-0-4" class="section level1">
+<h1 class="page-header">
+<a href="#parsnip-0-0-4" class="anchor"></a>parsnip 0.0.4<small> 2019-11-02 </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li><p>The time elapsed during model fitting is stored in the <code>$elapsed</code> slot of the parsnip model object, and is printed when the model object is printed.</p></li>
+<li><p>Some default parameter ranges were updated for SVM, KNN, and MARS models.</p></li>
+<li><p>The model <code>udpate()</code> methods gained a <code>parameters</code> argument for cases when the parameters are contained in a tibble or list.</p></li>
+<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
+</ul>
+</div>
+<div id="fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixes" class="anchor"></a>Fixes</h2>
+<ul>
+<li><p><a href="https://github.com/tidymodels/parsnip/issues/222">A bug</a> was fixed standardizing the output column types of <code>multi_predict</code> and <code>predict</code> for <code>multinom_reg</code>.</p></li>
+<li><p><a href="https://github.com/tidymodels/parsnip/issues/208">A bug</a> was fixed related to using data descriptors and <code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code>.</p></li>
+<li><p>A bug was fixed related to the column names generated by <code><a href="../reference/multi_predict.html">multi_predict()</a></code>. The top-level tibble will always have a column named <code>.pred</code> and this list column contains tibbles across sub-models. The column names for these sub-model tibbles will have names consistent with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> (which was previously incorrect). See <a href="https://github.com/tidymodels/parsnip/commit/43c15db377ea9ef27483ff209f6bd0e98cb830d2">43c15db</a>.</p></li>
+<li><p><a href="https://github.com/tidymodels/parsnip/issues/174">A bug</a> was fixed standardizing the column names of <code>nnet</code> class probability predictions.</p></li>
+</ul>
+</div>
+</div>
+    <div id="parsnip-0-0-3-1" class="section level1">
+<h1 class="page-header">
+<a href="#parsnip-0-0-3-1" class="anchor"></a>parsnip 0.0.3.1<small> 2019-08-06 </small>
+</h1>
+<p>Test case update due to CRAN running extra tests <a href="https://github.com/tidymodels/parsnip/issues/202">(<a href='https://github.com/tidymodels/parsnip/issues/202'>#202</a>)</a></p>
+</div>
     <div id="parsnip-0-0-3" class="section level1">
 <h1 class="page-header">
-<a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> Unreleased </small>
+<a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> 2019-07-31 </small>
 </h1>
 <p>Unplanned release based on CRAN requirements for Solaris.</p>
 <div id="breaking-changes" class="section level2">
@@ -141,12 +174,12 @@
 <li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
 <li><p>The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation.</p></li>
 <li><p>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</p></li>
-<li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(#195)</a></p></li>
+<li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(<a href='https://github.com/tidymodels/parsnip/issues/195'>#195</a>)</a></p></li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h2>
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
 <li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
@@ -161,9 +194,9 @@
 <a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
 </h1>
 <p>Small release driven by changes in <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> in the current r-devel.</p>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>A “null model” is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
@@ -174,8 +207,8 @@
 <a href="#other-changes" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
-<li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> not returns an S3 method.</p></li>
-<li><p>For classification models, an error occurs if the outcome data are not encoded as factors (#115).</p></li>
+<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
+<li><p>For classification models, an error occurs if the outcome data are not encoded as factors (<a href='https://github.com/tidymodels/parsnip/issues/115'>#115</a>).</p></li>
 <li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
 <li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
 </ul>
@@ -185,11 +218,11 @@
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
 <ul>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now uses the version from the <code>generics</code> package. This means that the first argument, <code>x</code>, has been renamed to <code>object</code> to align with generics.</p></li>
-<li><p>For the recipes step method of <code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (#132).</p></li>
-<li><p><code>find_varying()</code>, the internal function for detecting varying arguments, now returns correct results when a size 0 argument is provided. It can also now detect varying arguments nested deeply into a call (#131, #134).</p></li>
-<li><p>For multinomial regression, the <code>.pred_</code> prefix is now only added to prediction column names once (#107).</p></li>
-<li><p>For multinomial regression using glmnet, <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (#108).</p></li>
-<li><p>Confidence and prediction intervals for logistic regression were only computed the intervals for a single level. Both are now computed. (#156)</p></li>
+<li><p>For the recipes step method of <code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (<a href='https://github.com/tidymodels/parsnip/issues/132'>#132</a>).</p></li>
+<li><p><code>find_varying()</code>, the internal function for detecting varying arguments, now returns correct results when a size 0 argument is provided. It can also now detect varying arguments nested deeply into a call (<a href='https://github.com/tidymodels/parsnip/issues/131'>#131</a>, <a href='https://github.com/tidymodels/parsnip/issues/134'>#134</a>).</p></li>
+<li><p>For multinomial regression, the <code>.pred_</code> prefix is now only added to prediction column names once (<a href='https://github.com/tidymodels/parsnip/issues/107'>#107</a>).</p></li>
+<li><p>For multinomial regression using glmnet, <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (<a href='https://github.com/tidymodels/parsnip/issues/108'>#108</a>).</p></li>
+<li><p>Confidence and prediction intervals for logistic regression were only computed the intervals for a single level. Both are now computed. (<a href='https://github.com/tidymodels/parsnip/issues/156'>#156</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -266,6 +299,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#parsnip-0-0-4">0.0.4</a></li>
+        <li><a href="#parsnip-0-0-3-1">0.0.3.1</a></li>
         <li><a href="#parsnip-0-0-3">0.0.3</a></li>
         <li><a href="#parsnip-0-0-2">0.0.2</a></li>
         <li><a href="#parsnip-0-0-1">0.0.1</a></li>

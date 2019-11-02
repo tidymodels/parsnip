@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • parsnip</title>
+<title>Control the fit function — control_parsnip • parsnip</title>
 
 
 <!-- jquery -->
@@ -34,19 +34,13 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  genericsfit, fit_xy, varying_args
-
-  magrittr%&amp;gt;%
-
-" />
+<meta property="og:title" content="Control the fit function — control_parsnip" />
+<meta property="og:description" content="Options can be passed to the fit() function that control the output and
+computations" />
 <meta name="twitter:card" content="summary" />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -78,7 +72,7 @@ below to see their documentation.
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
         </div>
       </div>
     </div>
@@ -136,29 +130,57 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/reexports.R'><code>R/reexports.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/varying.R'><code>R/varying.R</code></a></small>
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <h1>Control the fit function</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/control_parsnip.R'><code>R/control_parsnip.R</code></a></small>
+    <div class="hidden name"><code>control_parsnip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl class='dl-horizontal'>
-  <dt>generics</dt><dd><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></code>, <code><a href='https://rdrr.io/pkg/generics/man/varying_args.html'>varying_args</a></code></p></dd>
-
-  <dt>magrittr</dt><dd><p><code>%&gt;%</code></p></dd>
-
-</dl>
+    <p>Options can be passed to the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function that control the output and
+computations</p>
     </div>
 
+    <pre class="usage"><span class='fu'>control_parsnip</span>(<span class='kw'>verbosity</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>catch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
+<span class='fu'>fit_control</span>(<span class='kw'>verbosity</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>catch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>verbosity</th>
+      <td><p>An integer where a value of zero indicates
+that no messages or output should be shown when packages are
+loaded or when the model is fit. A value of 1 means that package
+loading is quiet but model fits can produce output to the screen
+(depending on if they contain their own <code>verbose</code>-type
+argument). A value of 2 or more indicates that any output should
+be seen.</p></td>
+    </tr>
+    <tr>
+      <th>catch</th>
+      <td><p>A logical where a value of <code>TRUE</code> will evaluate
+the model inside of <code><a href='https://rdrr.io/r/base/try.html'>try(, silent = TRUE)</a></code>. If the model fails,
+an object is still returned (without an error) that inherits the
+class "try-error".</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An S3 object with class "fit_control" that is a named list with the
+results of the function call</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>fit_control()</code> is deprecated in favor of <code>control_parsnip()</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
