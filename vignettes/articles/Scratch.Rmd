@@ -44,7 +44,7 @@ The main hyper-parameter is the number of subclasses. We'll name our function `m
 
 Before proceeding, it helps to to review how `parsnip` categorizes models:
 
-* The model _type_ is related to the structural aspect of the model. For example, the model type `linear_reg` represents linear models (slopes and intercepts) that model a numeric outcome. Other model types in the package are `neighest_nighbors`, decision_tree`, and so on. 
+* The model _type_ is related to the structural aspect of the model. For example, the model type `linear_reg` represents linear models (slopes and intercepts) that model a numeric outcome. Other model types in the package are `nearest_neighbors`, `decision_tree`, and so on. 
 
 * Within a model type is the _mode_. This relates to the modeling goal. Currently the two modes in the package are "regression" and "classification". Some models have methods for both models (e.g. nearest neighbors) while others are specific to a single mode (e.g. logistic regression). 
 
