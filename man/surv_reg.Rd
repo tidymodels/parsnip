@@ -7,8 +7,7 @@
 \usage{
 surv_reg(mode = "regression", dist = NULL)
 
-\method{update}{surv_reg}(object, parameters = NULL, dist = NULL,
-  fresh = FALSE, ...)
+\method{update}{surv_reg}(object, parameters = NULL, dist = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.

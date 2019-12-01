@@ -31,7 +31,7 @@ Imports:
     prettyunits,
     vctrs (>= 0.2.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.99.9001
+RoxygenNote: 7.0.1.9000
 Suggests: 
     testthat,
     knitr,
@@ -43,7 +43,6 @@ Suggests:
     C50,
     sparklyr (>= 1.0.0),
     earth,
-    glmnet,
     kernlab,
     kknn,
     randomForest,

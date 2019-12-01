@@ -4,9 +4,18 @@
 \alias{xgb_train}
 \title{Boosted trees via xgboost}
 \usage{
-xgb_train(x, y, max_depth = 6, nrounds = 15, eta = 0.3,
-  colsample_bytree = 1, min_child_weight = 1, gamma = 0,
-  subsample = 1, ...)
+xgb_train(
+  x,
+  y,
+  max_depth = 6,
+  nrounds = 15,
+  eta = 0.3,
+  colsample_bytree = 1,
+  min_child_weight = 1,
+  gamma = 0,
+  subsample = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{A data frame or matrix of predictors}

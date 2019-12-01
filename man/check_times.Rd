@@ -50,7 +50,7 @@ directory.
 directory.
 \item \code{testthat_size}: The size on disk of files in the \code{testthat}
 directory.
-\item \code{check_time}: The time (in seconds) to run \code{R CMD check}
+\item \code{check_time}: The time (in seconds) to run \verb{R CMD check}
 using the "r-devel-windows-ix86+x86_64` flavor.
 \item \code{status}: An indicator for whether the tests completed.
 }
