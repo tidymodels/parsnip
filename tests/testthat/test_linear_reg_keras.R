@@ -7,6 +7,7 @@ library(tibble)
 
 context("keras linear regression")
 source("helpers.R")
+source("helper-objects.R")
 
 # ------------------------------------------------------------------------------
 

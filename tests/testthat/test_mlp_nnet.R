@@ -4,16 +4,13 @@ library(parsnip)
 # ------------------------------------------------------------------------------
 
 context("simple neural network execution with nnet")
+source("helper-objects.R")
 
 num_pred <- names(iris)[1:4]
 
 iris_nnet <-
   mlp(mode = "classification", hidden_units = 5) %>%
   set_engine("nnet")
-
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 
@@ -93,10 +90,6 @@ bad_nnet_reg <-
 bad_rf_reg <-
   mlp(mode = "regression") %>%
   set_engine("nnet", sampsize = -10)
-
-ctrl <- list(verbosity = 1, catch = FALSE)
-caught_ctrl <- list(verbosity = 1, catch = TRUE)
-quiet_ctrl <- list(verbosity = 0, catch = TRUE)
 
 # ------------------------------------------------------------------------------
 

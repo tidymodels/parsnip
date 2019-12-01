@@ -7,6 +7,7 @@ library(tibble)
 
 context("logistic regression")
 source("helpers.R")
+source("helper-objects.R")
 
 # ------------------------------------------------------------------------------
 
@@ -219,9 +220,6 @@ lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <- logistic_reg() %>% set_engine("glm")
-ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 test_that('glm execution', {
 
