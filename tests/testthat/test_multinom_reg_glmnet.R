@@ -15,6 +15,7 @@ rows <- c(1, 51, 101)
 test_that('glmnet execution', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   expect_error(
     res <- fit_xy(
@@ -43,6 +44,7 @@ test_that('glmnet execution', {
 test_that('glmnet prediction, one lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   xy_fit <- fit_xy(
     multinom_reg(penalty = 0.1) %>% set_engine("glmnet"),
@@ -85,6 +87,7 @@ test_that('glmnet prediction, one lambda', {
 test_that('glmnet probabilities, mulitiple lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   lams <- c(0.01, 0.1)
 
@@ -149,6 +152,9 @@ test_that('glmnet probabilities, mulitiple lambda', {
 })
 
 test_that("class predictions are factors with all levels", {
+  skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
+
   basic <- multinom_reg() %>% set_engine("glmnet") %>% fit(Species ~ ., data = iris)
   nd <- iris[iris$Species == "setosa", ]
   yhat <- predict(basic, new_data = nd, penalty = .1)
