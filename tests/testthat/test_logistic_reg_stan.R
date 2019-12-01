@@ -6,6 +6,7 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("execution tests for stan logistic regression")
+source("helper-objects.R")
 
 data("lending_club")
 lending_club <- head(lending_club, 200)
