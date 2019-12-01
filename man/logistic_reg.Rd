@@ -7,8 +7,14 @@
 \usage{
 logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 
-\method{update}{logistic_reg}(object, parameters = NULL,
-  penalty = NULL, mixture = NULL, fresh = FALSE, ...)
+\method{update}{logistic_reg}(
+  object,
+  parameters = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.

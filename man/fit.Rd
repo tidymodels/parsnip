@@ -5,11 +5,9 @@
 \alias{fit_xy.model_spec}
 \title{Fit a Model Specification to a Dataset}
 \usage{
-\method{fit}{model_spec}(object, formula = NULL, data = NULL,
-  control = control_parsnip(), ...)
+\method{fit}{model_spec}(object, formula = NULL, data = NULL, control = control_parsnip(), ...)
 
-\method{fit_xy}{model_spec}(object, x = NULL, y = NULL,
-  control = control_parsnip(), ...)
+\method{fit_xy}{model_spec}(object, x = NULL, y = NULL, control = control_parsnip(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec} that has a chosen engine

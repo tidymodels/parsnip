@@ -21,6 +21,7 @@ lc_basic <- logistic_reg() %>% set_engine("glmnet")
 test_that('glmnet execution', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   expect_error(
     res <- fit_xy(
@@ -48,6 +49,7 @@ test_that('glmnet execution', {
 test_that('glmnet prediction, one lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   xy_fit <- fit_xy(
     logistic_reg(penalty = 0.1) %>% set_engine("glmnet"),
@@ -95,6 +97,7 @@ test_that('glmnet prediction, one lambda', {
 test_that('glmnet prediction, mulitiple lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   lams <- c(0.01, 0.1)
 
@@ -158,6 +161,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 test_that('glmnet prediction, no lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   xy_fit <- fit_xy(
     logistic_reg() %>% set_engine("glmnet", nlambda =  11),
@@ -217,6 +221,7 @@ test_that('glmnet prediction, no lambda', {
 test_that('glmnet probabilities, one lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   xy_fit <- fit_xy(
     logistic_reg(penalty = 0.1)  %>% set_engine("glmnet"),
@@ -265,6 +270,7 @@ test_that('glmnet probabilities, one lambda', {
 test_that('glmnet probabilities, mulitiple lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   lams <- c(0.01, 0.1)
 
@@ -329,6 +335,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
 test_that('glmnet probabilities, no lambda', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   xy_fit <- fit_xy(
     logistic_reg()  %>% set_engine("glmnet"),
@@ -389,6 +396,7 @@ test_that('glmnet probabilities, no lambda', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("glmnet")
+  skip_if(run_glmnet)
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-

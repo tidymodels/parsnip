@@ -5,12 +5,26 @@
 \alias{update.mlp}
 \title{General Interface for Single Layer Neural Network}
 \usage{
-mlp(mode = "unknown", hidden_units = NULL, penalty = NULL,
-  dropout = NULL, epochs = NULL, activation = NULL)
+mlp(
+  mode = "unknown",
+  hidden_units = NULL,
+  penalty = NULL,
+  dropout = NULL,
+  epochs = NULL,
+  activation = NULL
+)
 
-\method{update}{mlp}(object, parameters = NULL, hidden_units = NULL,
-  penalty = NULL, dropout = NULL, epochs = NULL, activation = NULL,
-  fresh = FALSE, ...)
+\method{update}{mlp}(
+  object,
+  parameters = NULL,
+  hidden_units = NULL,
+  penalty = NULL,
+  dropout = NULL,
+  epochs = NULL,
+  activation = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.

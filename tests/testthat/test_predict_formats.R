@@ -62,6 +62,8 @@ test_that('non-standard levels', {
 
 
 test_that('non-factor classification', {
+  skip_if(run_glmnet)
+
   expect_error(
     logistic_reg() %>%
       set_engine("glm") %>%
@@ -72,6 +74,7 @@ test_that('non-factor classification', {
       set_engine("glm") %>%
       fit(Species ~ ., data = iris %>% mutate(Species = ifelse(Species == "setosa", 1, 0)))
   )
+
   expect_error(
     multinom_reg() %>%
       set_engine("glmnet") %>%

@@ -18,26 +18,19 @@ multi_predict(object, ...)
 
 \method{multi_predict}{default}(object, ...)
 
-\method{multi_predict}{_xgb.Booster}(object, new_data, type = NULL,
-  trees = NULL, ...)
+\method{multi_predict}{`_xgb.Booster`}(object, new_data, type = NULL, trees = NULL, ...)
 
-\method{multi_predict}{_C5.0}(object, new_data, type = NULL,
-  trees = NULL, ...)
+\method{multi_predict}{`_C5.0`}(object, new_data, type = NULL, trees = NULL, ...)
 
-\method{multi_predict}{_elnet}(object, new_data, type = NULL,
-  penalty = NULL, ...)
+\method{multi_predict}{`_elnet`}(object, new_data, type = NULL, penalty = NULL, ...)
 
-\method{multi_predict}{_lognet}(object, new_data, type = NULL,
-  penalty = NULL, ...)
+\method{multi_predict}{`_lognet`}(object, new_data, type = NULL, penalty = NULL, ...)
 
-\method{multi_predict}{_earth}(object, new_data, type = NULL,
-  num_terms = NULL, ...)
+\method{multi_predict}{`_earth`}(object, new_data, type = NULL, num_terms = NULL, ...)
 
-\method{multi_predict}{_multnet}(object, new_data, type = NULL,
-  penalty = NULL, ...)
+\method{multi_predict}{`_multnet`}(object, new_data, type = NULL, penalty = NULL, ...)
 
-\method{multi_predict}{_train.kknn}(object, new_data, type = NULL,
-  neighbors = NULL, ...)
+\method{multi_predict}{`_train.kknn`}(object, new_data, type = NULL, neighbors = NULL, ...)
 }
 \arguments{
 \item{object}{A \code{model_fit} object.}
