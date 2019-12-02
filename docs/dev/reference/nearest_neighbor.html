@@ -170,8 +170,12 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nearest_neighbor</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>nearest_neighbor</span>(
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
+  <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,7 +245,7 @@ kknn::train.kknn(formula = missing_arg(), data = missing_arg(),
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
