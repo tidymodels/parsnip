@@ -146,10 +146,10 @@ via either weight decay or dropout.</p>
   <span class='no'>x</span>,
   <span class='no'>y</span>,
   <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>,
+  <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>,
   <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
   <span class='no'>...</span>
 )</pre>
@@ -170,21 +170,21 @@ via either weight decay or dropout.</p>
       <td><p>An integer for the number of hidden units.</p></td>
     </tr>
     <tr>
-      <th>decay</th>
+      <th>penalty</th>
       <td><p>A non-negative real number for the amount of weight decay. Either
 this parameter <em>or</em> <code>dropout</code> can specified.</p></td>
     </tr>
     <tr>
       <th>dropout</th>
       <td><p>The proportion of parameters to set to zero. Either
-this parameter <em>or</em> <code>decay</code> can specified.</p></td>
+this parameter <em>or</em> <code>penalty</code> can specified.</p></td>
     </tr>
     <tr>
       <th>epochs</th>
       <td><p>An integer for the number of passes through the data.</p></td>
     </tr>
     <tr>
-      <th>act</th>
+      <th>activation</th>
       <td><p>A character string for the type of activation function between layers.</p></td>
     </tr>
     <tr>

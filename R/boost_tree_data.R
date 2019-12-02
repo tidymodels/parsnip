@@ -309,7 +309,7 @@ set_model_arg(
   model = "boost_tree",
   eng = "spark",
   parsnip = "min_info_gain",
-  original = "gamma",
+  original = "loss_reduction",
   func = list(pkg = "dials", fun = "loss_reduction"),
   has_submodel = FALSE
 )

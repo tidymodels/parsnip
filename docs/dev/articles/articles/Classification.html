@@ -109,12 +109,12 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; Registered S3 method overwritten by 'xts':</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;   method     from</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;   as.zoo.xts zoo</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ── Attaching packages ──────────────────────────────────────── tidymodels 0.0.3 ──</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; ── Attaching packages ───────────────────────────── tidymodels 0.0.3 ──</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; ✔ broom     0.5.2          ✔ purrr     0.3.3     </span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; ✔ dials     0.0.3.9002     ✔ recipes   0.1.7.9001</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ✔ dplyr     0.8.3          ✔ rsample   0.0.5     </span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ infer     0.5.0          ✔ yardstick 0.0.4</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ── Conflicts ─────────────────────────────────────────── tidymodels_conflicts() ──</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──</span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✖ dplyr::lag()     masks stats::lag()</span></a>
@@ -153,7 +153,7 @@
 <a class="sourceLine" id="cb3-9" data-line-number="9">nnet_fit</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; Fit in:  15.1sModel</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; Fit in:  14.8sModel</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; ________________________________________________________________________________</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; Layer (type)                        Output Shape                    Param #     </span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; ================================================================================</span></a>
@@ -190,12 +190,12 @@
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; # A tibble: 1 x 3</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   .metric  .estimator .estimate</span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1 accuracy binary         0.806</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1 accuracy binary         0.798</span></a>
 <a class="sourceLine" id="cb4-22" data-line-number="22">test_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">conf_mat</span>(<span class="dt">truth =</span> Status, nnet_class)</a>
 <a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;           Truth</span></a>
 <a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; Prediction bad good</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt;       bad  186   89</span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt;       good 127  711</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt;       bad  183   95</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt;       good 130  705</span></a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

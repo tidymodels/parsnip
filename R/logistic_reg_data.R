@@ -288,9 +288,9 @@ set_dependency("logistic_reg", "keras", "magrittr")
 set_model_arg(
   model = "logistic_reg",
   eng = "keras",
-  parsnip = "decay",
-  original = "decay",
-  func = list(pkg = "dials", fun = "weight_decay"),
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
 

@@ -112,13 +112,13 @@
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Registered S3 method overwritten by 'xts':</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;   method     from</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;   as.zoo.xts zoo</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ──────────────────────────────────────── tidymodels 0.0.3 ──</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ───────────────────────────── tidymodels 0.0.3 ──</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ broom     0.5.2            ✔ recipes   0.1.7.9001  </span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✔ dials     0.0.3.9002       ✔ rsample   0.0.5       </span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✔ dplyr     0.8.3            ✔ tibble    2.99.99.9010</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✔ infer     0.5.0            ✔ yardstick 0.0.4       </span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✔ purrr     0.3.3</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ─────────────────────────────────────────── tidymodels_conflicts() ──</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; ✖ dplyr::combine() masks randomForest::combine()</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></a>
@@ -155,7 +155,7 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10">rf_xy_fit</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; Fit in:  969msRanger result</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; Fit in:  905msRanger result</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span></a>
@@ -216,7 +216,7 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Fit in:  2.7sRanger result</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Fit in:  2.6sRanger result</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~3, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1)) </span></a>
@@ -240,7 +240,7 @@
 <a class="sourceLine" id="cb6-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; Fit in:  1.9s</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; Fit in:  1.8s</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~1000, mtry = ~3) </span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;                Type of random forest: regression</span></a>
@@ -269,7 +269,7 @@
 <a class="sourceLine" id="cb7-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Fit in:  3.7sRanger result</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Fit in:  3.6sRanger result</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~.preds(),      num.trees = ~1000, num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1)) </span></a>

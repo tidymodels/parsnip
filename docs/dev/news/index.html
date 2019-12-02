@@ -159,6 +159,13 @@
 </li>
 </ul>
 </div>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>There were some mis-mapped parameters (going between <code>parsnip</code> and the underlying model function) for <code>spark</code> boosted trees and some <code>keras</code> models. See <a href="https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8">897c927</a>.</li>
+</ul>
+</div>
 </div>
     <div id="parsnip-0-0-4" class="section level1">
 <h1 class="page-header">
@@ -196,9 +203,9 @@
 <a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> 2019-07-31 </small>
 </h1>
 <p>Unplanned release based on CRAN requirements for Solaris.</p>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
 <li><p>The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation.</p></li>

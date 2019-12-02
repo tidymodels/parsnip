@@ -265,12 +265,12 @@ class2ind <- function (x, drop2nd = FALSE) {
 #' @param x A data frame or matrix of predictors
 #' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
 #' @param hidden_units An integer for the number of hidden units.
-#' @param decay A non-negative real number for the amount of weight decay. Either
+#' @param penalty A non-negative real number for the amount of weight decay. Either
 #'  this parameter _or_ `dropout` can specified.
 #' @param dropout The proportion of parameters to set to zero. Either
-#'  this parameter _or_ `decay` can specified.
+#'  this parameter _or_ `penalty` can specified.
 #' @param epochs An integer for the number of passes through the data.
-#' @param act A character string for the type of activation function between layers.
+#' @param activation A character string for the type of activation function between layers.
 #' @param seeds A vector of three positive integers to control randomness of the
 #'  calculations.
 #' @param ... Currently ignored.
@@ -279,11 +279,11 @@ class2ind <- function (x, drop2nd = FALSE) {
 #' @export
 keras_mlp <-
   function(x, y,
-           hidden_units = 5, decay = 0, dropout = 0, epochs = 20, act = "softmax",
+           hidden_units = 5, penalty = 0, dropout = 0, epochs = 20, activation = "softmax",
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    if (decay > 0 & dropout > 0) {
+    if (penalty > 0 & dropout > 0) {
       stop("Please use either dropoput or weight decay.", call. = FALSE)
     }
     if (!is.matrix(x)) {
@@ -307,20 +307,20 @@ keras_mlp <-
 
     model <- keras::keras_model_sequential()
 
-    if (decay > 0) {
+    if (penalty > 0) {
       model %>%
         keras::layer_dense(
           units = hidden_units,
-          activation = act,
+          activation = activation,
           input_shape = ncol(x),
-          kernel_regularizer = keras::regularizer_l2(decay),
+          kernel_regularizer = keras::regularizer_l2(penalty),
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
     } else {
       model %>%
         keras::layer_dense(
           units = hidden_units,
-          activation = act,
+          activation = activation,
           input_shape = ncol(x),
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
@@ -330,7 +330,7 @@ keras_mlp <-
       model %>%
         keras::layer_dense(
           units = hidden_units,
-          activation = act,
+          activation = activation,
           input_shape = ncol(x),
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         ) %>%
