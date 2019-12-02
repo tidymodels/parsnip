@@ -12,6 +12,10 @@
 
  * `nnet` was added as an engine to `multinom_reg()` [#209](https://github.com/tidymodels/parsnip/issues/209)
 
+## Breaking Changes
+
+ * There were some mis-mapped parameters (going between `parsnip` and the underlying model function) for `spark` boosted trees and some `keras` models. See [897c927](https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8).
+
 
 # parsnip 0.0.4
 
