@@ -140,9 +140,18 @@ where all of the model arguments are in the main function." />
 where all of the model arguments are in the main function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xgb_train</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>xgb_train</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>,
+  <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,7 +205,7 @@ further partition on a leaf node of the tree</p></td>
     <p>A fitted <code>xgboost</code> object.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>

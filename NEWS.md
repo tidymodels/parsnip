@@ -1,3 +1,18 @@
+# parsnip 0.0.5
+
+## Fixes
+
+* A bug ([#206](https://github.com/tidymodels/parsnip/issues/206) and [#234](https://github.com/tidymodels/parsnip/issues/234)) was fixed that caused an error when predicting with a multinomial `glmnet` model. 
+
+## Other Changes
+
+ * `glmnet` was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain `parsnip` to that same requirement. All `glmnet` tests are run locally. 
+ 
+## New Features
+
+ * `nnet` was added as an engine to `multinom_reg()` [#209](https://github.com/tidymodels/parsnip/issues/209)
+
+
 # parsnip 0.0.4
 
 ## New Features

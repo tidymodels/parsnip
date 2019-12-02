@@ -167,8 +167,14 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>multinom_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for multinom_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,7 +226,7 @@ modified in-place of or replaced wholesale.</p></td>
     <p>For <code>multinom_reg()</code>, the mode will always be "classification".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default)</p></li>
+<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default), <code>"nnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
@@ -251,6 +257,11 @@ model, the template of the fit calls are:</p>
 <p><pre>
 glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
     family = "multinomial")
+</pre></p>
+<p><span class="pkg">nnet</span></p>
+<p><pre>
+nnet::multinom(formula = missing_arg(), data = missing_arg(), 
+    weights = missing_arg(), trace = FALSE)
 </pre></p>
 <p><span class="pkg">spark</span></p>
 <p><pre>
@@ -299,7 +310,7 @@ a tibble with all of the penalty results.</p>
 #&gt;   penalty = 1
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>

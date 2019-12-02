@@ -67,7 +67,7 @@ For \code{multinom_reg()}, the mode will always be "classification".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:   \code{"glmnet"}  (the default)
+\item \pkg{R}:   \code{"glmnet"}  (the default), \code{"nnet"}
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{keras}: \code{"keras"}
 }
@@ -96,6 +96,10 @@ model, the template of the fit calls are:
 \pkg{glmnet}
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "glmnet")}
+
+\pkg{nnet}
+
+\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "nnet")}
 
 \pkg{spark}
 
