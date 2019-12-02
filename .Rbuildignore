@@ -12,3 +12,4 @@ derby.log
 ^tests/testthat/logs$
 ^revdep$
 ^README\.md$
+^issue_template.md$

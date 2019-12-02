@@ -63,7 +63,7 @@ set_pred(
   mode = "classification",
   type = "prob",
   value = list(
-    pre = check_glmnet_lambda,
+    pre = NULL,
     post = organize_multnet_prob,
     func = c(fun = "predict"),
     args =
