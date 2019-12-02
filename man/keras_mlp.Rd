@@ -8,10 +8,10 @@ keras_mlp(
   x,
   y,
   hidden_units = 5,
-  decay = 0,
+  penalty = 0,
   dropout = 0,
   epochs = 20,
-  act = "softmax",
+  activation = "softmax",
   seeds = sample.int(10^5, size = 3),
   ...
 )
@@ -23,15 +23,15 @@ keras_mlp(
 
 \item{hidden_units}{An integer for the number of hidden units.}
 
-\item{decay}{A non-negative real number for the amount of weight decay. Either
+\item{penalty}{A non-negative real number for the amount of weight decay. Either
 this parameter \emph{or} \code{dropout} can specified.}
 
 \item{dropout}{The proportion of parameters to set to zero. Either
-this parameter \emph{or} \code{decay} can specified.}
+this parameter \emph{or} \code{penalty} can specified.}
 
 \item{epochs}{An integer for the number of passes through the data.}
 
-\item{act}{A character string for the type of activation function between layers.}
+\item{activation}{A character string for the type of activation function between layers.}
 
 \item{seeds}{A vector of three positive integers to control randomness of the
 calculations.}

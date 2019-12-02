@@ -342,6 +342,15 @@ set_model_engine("linear_reg", "regression", "keras")
 set_dependency("linear_reg", "keras", "keras")
 set_dependency("linear_reg", "keras", "magrittr")
 
+set_model_arg(
+  model = "linear_reg",
+  eng = "keras",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
 set_fit(
   model = "linear_reg",
   eng = "keras",

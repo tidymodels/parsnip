@@ -24,7 +24,7 @@ set_model_arg(
   eng = "keras",
   parsnip = "penalty",
   original = "penalty",
-  func = list(pkg = "dials", fun = "weight_decay"),
+  func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -188,7 +188,7 @@ set_model_arg(
   eng = "nnet",
   parsnip = "penalty",
   original = "decay",
-  func = list(pkg = "dials", fun = "weight_decay"),
+  func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
 set_model_arg(

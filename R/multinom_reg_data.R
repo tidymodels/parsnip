@@ -172,9 +172,9 @@ set_dependency("multinom_reg", "keras", "magrittr")
 set_model_arg(
   model = "multinom_reg",
   eng = "keras",
-  parsnip = "decay",
-  original = "decay",
-  func = list(pkg = "dials", fun = "weight_decay"),
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
 
