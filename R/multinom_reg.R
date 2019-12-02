@@ -34,7 +34,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:   `"glmnet"`  (the default)
+#' \item \pkg{R}:   `"glmnet"`  (the default), `"nnet"`
 #' \item \pkg{Stan}:  `"stan"`
 #' \item \pkg{keras}: `"keras"`
 #' }
@@ -48,6 +48,10 @@
 #' \pkg{glmnet}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "glmnet")}
+#'
+#' \pkg{nnet}
+#'
+#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::multinom_reg(), "nnet")}
 #'
 #' \pkg{spark}
 #'
@@ -196,6 +200,13 @@ organize_multnet_prob <- function(x, object) {
   x <- x[,,1]
   as_tibble(x)
 }
+
+organize_nnet_prob <- function(x, object) {
+  format_classprobs(x)
+}
+
+
+
 
 # ------------------------------------------------------------------------------
 # glmnet call stack for multinomial regression using `predict` when object has

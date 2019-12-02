@@ -226,3 +226,85 @@ set_pred(
            x = quote(as.matrix(new_data)))
   )
 )
+
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("multinom_reg", "classification", "nnet")
+set_dependency("multinom_reg", "nnet", "nnet")
+
+set_model_arg(
+  model = "multinom_reg",
+  eng = "nnet",
+  parsnip = "penalty",
+  original = "decay",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "multinom_reg",
+  eng = "nnet",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "nnet", fun = "multinom"),
+    defaults = list(trace = FALSE)
+  )
+)
+
+
+set_pred(
+  model = "multinom_reg",
+  eng = "nnet",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "class"
+      )
+  )
+)
+
+set_pred(
+  model = "multinom_reg",
+  eng = "nnet",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = organize_nnet_prob,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "prob"
+      )
+  )
+)
+
+set_pred(
+  model = "multinom_reg",
+  eng = "nnet",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data)
+      )
+  )
+)
+

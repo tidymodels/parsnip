@@ -30,8 +30,6 @@ Since there are many models available in R, there are also "side packages" that 
  * [`discrim`](https://github.com/tidymodels/discrim) contains discriminant analysis models. 
 
 
-The list of models accessible via `parsnip` is:
-
 ```{r model-table, include = FALSE}
 mod_names <- get_from_env("models")
 
@@ -44,11 +42,14 @@ mod_list <-
   summarize(models = paste(model, collapse = ", "))
 ```
 
-_How_ the model is created is related to the _engine_. In many cases, this is an R modeling package. In others, it may be a connection to an external system (such as Spark or Tensorflow). The tables below list the engines for each model type along with the type of prediction that it can make (see `predict.model_fit()`). 
+_How_ the model is created is related to the **engine**. In many cases, this is an R modeling package. In others, it may be a connection to an external system (such as Spark or Tensorflow). The tables below list the engines for each model type along with the type of prediction that it can make (see `predict.model_fit()`). 
 
-Models can be added by the user too. See the ["Making a `parsnip` model from scratch" vignette](Scratch.html).
+Models can be added by the user too. See the ["Making a {parsnip} model from scratch" vignette](Scratch.html).
 
-## Classification
+The list of models accessible via `parsnip` and `discrim` are listed below:
+
+
+## Classification Models
 
 ```{r class-table, results = 'asis', echo = FALSE}
 map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)) %>% 
@@ -65,7 +66,7 @@ map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)
   collapse_rows(columns = 1)
 ```
 
-## Regression
+## Regression Models
 
 ```{r pred-table, results = 'asis', echo = FALSE}
 map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)) %>% 
