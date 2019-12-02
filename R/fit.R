@@ -89,8 +89,8 @@
 #' @export fit.model_spec
 fit.model_spec <-
   function(object,
-           formula = NULL,
-           data = NULL,
+           formula,
+           data,
            control = control_parsnip(),
            ...
   ) {
@@ -180,8 +180,8 @@ fit.model_spec <-
 #' @export fit_xy.model_spec
 fit_xy.model_spec <-
   function(object,
-           x = NULL,
-           y = NULL,
+           x,
+           y,
            control = control_parsnip(),
            ...
   ) {
