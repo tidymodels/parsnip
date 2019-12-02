@@ -140,8 +140,15 @@ where all of the model arguments are in the main function." />
 where all of the model arguments are in the main function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rpart_train</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cp</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>minsplit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>maxdepth</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>rpart_train</span>(
+  <span class='no'>formula</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cp</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>minsplit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>maxdepth</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,7 +201,7 @@ those cases.</p></td>
     <p>A fitted rpart model.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>

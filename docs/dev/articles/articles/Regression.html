@@ -112,13 +112,13 @@
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Registered S3 method overwritten by 'xts':</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;   method     from</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;   as.zoo.xts zoo</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidymodels 0.0.3 ──</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ broom     0.5.2     ✔ recipes   0.1.7</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✔ dials     0.0.3     ✔ rsample   0.0.5</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✔ dplyr     0.8.3     ✔ tibble    2.1.3</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✔ infer     0.5.0     ✔ yardstick 0.0.4</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; ── Attaching packages ────────────────────────────────────────────────────────────────────────── tidymodels 0.0.3 ──</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; ✔ broom     0.5.2            ✔ recipes   0.1.7.9001  </span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; ✔ dials     0.0.3.9002       ✔ rsample   0.0.5       </span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; ✔ dplyr     0.8.3            ✔ tibble    2.99.99.9010</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; ✔ infer     0.5.0            ✔ yardstick 0.0.4       </span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; ✔ purrr     0.3.3</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; ── Conflicts ───────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; ✖ dplyr::combine() masks randomForest::combine()</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></a>
@@ -155,7 +155,7 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10">rf_xy_fit</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; Fit in:  1.1sRanger result</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; Fit in:  945msRanger result</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span></a>
@@ -216,7 +216,7 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Fit in:  3.3sRanger result</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Fit in:  2.7sRanger result</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~3, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1)) </span></a>
@@ -240,7 +240,7 @@
 <a class="sourceLine" id="cb6-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; Fit in:  2.3s</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; Fit in:  1.9s</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~1000, mtry = ~3) </span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;                Type of random forest: regression</span></a>
@@ -251,7 +251,7 @@
 <a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;                     % Var explained: 59.4</span></a></code></pre></div>
 <p>Look at the formula code that was printed out, one function uses the argument name <code>ntree</code> and the other uses <code>num.trees</code>. <code>parsnip</code> doesn’t require you to know the specific names of the main arguments.</p>
 <p>Now suppose that we want to modify the value of <code>mtry</code> based on the number of predictors in the data. Usually, the default value would be <code><a href="https://rdrr.io/r/base/Round.html">floor(sqrt(num_predictors))</a></code>. To use a pure bagging model would require an <code>mtry</code> value equal to the total number of parameters. There may be cases where you may not know how many predictors are going to be present (perhaps due to the generation of indicator variables or a variable filter) so that might be difficult to know exactly.</p>
-<p>When the model it being fit by <code>parsnip</code>, <a href="https://topepo.github.io/parsnip/reference/descriptors.html"><em>data descriptors</em></a> are made available. These attempt to let you know what you will have available when the model is fit. When a model object is created (say using <code>rand_forest</code>), the values of the arguments that you give it are <em>immediately evaluated</em>… unless you delay them. To delay the evaluation of any argument, you can used <code><a href="https://rlang.r-lib.org/reference/quotation.html">rlang::expr</a></code> to make an expression.</p>
+<p>When the model it being fit by <code>parsnip</code>, <a href="https://topepo.github.io/parsnip/reference/descriptors.html"><em>data descriptors</em></a> are made available. These attempt to let you know what you will have available when the model is fit. When a model object is created (say using <code>rand_forest</code>), the values of the arguments that you give it are <em>immediately evaluated</em>… unless you delay them. To delay the evaluation of any argument, you can used <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::expr</a></code> to make an expression.</p>
 <p>Two relevant descriptors for what we are about to do are:</p>
 <ul>
 <li>
@@ -269,7 +269,7 @@
 <a class="sourceLine" id="cb7-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Fit in:  4.5sRanger result</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Fit in:  3.7sRanger result</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~.preds(),      num.trees = ~1000, num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1)) </span></a>
@@ -312,7 +312,7 @@
 <a class="sourceLine" id="cb8-20" data-line-number="20">glmn_fit</a>
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; parsnip model object</span></a>
 <a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; Fit in:  11ms</span></a>
+<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; Fit in:  9ms</span></a>
 <a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; Call:  glmnet::glmnet(x = as.matrix(x), y = y, family = "gaussian",      alpha = ~0.5) </span></a>
 <a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt;    Df  %Dev Lambda</span></a>
@@ -423,12 +423,14 @@
 <a class="sourceLine" id="cb9-38" data-line-number="38"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">col =</span> <span class="st">"green"</span>, <span class="dt">lty =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-39" data-line-number="39"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">.4</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-40" data-line-number="40"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>model) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-41" data-line-number="41"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb9-41" data-line-number="41"><span class="st">  </span><span class="kw">coord_fixed</span>()</a>
+<a class="sourceLine" id="cb9-42" data-line-number="42"><span class="co">#&gt; Warning: Row indexes must be between 0 and the number of rows (0). Use `NA` as row index to obtain a row full of `NA` values.</span></a>
+<a class="sourceLine" id="cb9-43" data-line-number="43"><span class="co">#&gt; This warning is displayed once per session.</span></a></code></pre></div>
 <p><img src="Regression_files/figure-html/glmn-pred-1.png" width="768"></p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
         <div id="tocnav">
       <h2 class="hasAnchor">

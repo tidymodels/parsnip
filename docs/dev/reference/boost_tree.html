@@ -180,14 +180,31 @@ functions.  If parameters need to be modified, <code><a href='https://rdrr.io/r/
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>boost_tree</span>(
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
+  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S3 method for boost_tree</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -366,7 +383,7 @@ sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(),
 <span class='co'># Fails due to engine argument</span>
 <span class='co'># model %&gt;% update(param_values)</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>

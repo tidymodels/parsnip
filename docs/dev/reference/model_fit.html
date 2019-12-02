@@ -184,7 +184,7 @@ stores model objects after to seeing the data and applying a model.</p>
 <span class='no'>fit_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>spec_obj</span>, <span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='no'>fit_obj</span></div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit in:  2ms
+#&gt; Fit in:  1ms
 #&gt; Call:
 #&gt; stats::lm(formula = formula, data = data, x = ~ifelse(.obs() &lt; 
 #&gt;     500, TRUE, FALSE))
@@ -197,7 +197,7 @@ stores model objects after to seeing the data and applying a model.</p>
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>fit_obj</span>$<span class='no'>fit</span>$<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 32</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#details">Details</a></li>
