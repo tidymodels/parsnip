@@ -84,5 +84,26 @@ map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)
 ```
 
 
+## Parameter Mappings
+
+`parsnip` uses standardized parameter names to have some consistency between models and engines. The mapping between the `parsnip` arguments and their original names is: 
+
+```{r params, echo = FALSE, results = "asis"}
+library(tidyverse)
+envir <- parsnip::get_model_env()
+
+args <- 
+  ls(envir) %>% 
+  tibble(name = .) %>% 
+  filter(str_detect(name, "args")) %>% 
+  mutate(model = str_replace(name, "_args", ""),
+         args  = map(name, ~envir[[.x]])) %>% 
+  unnest(args) %>% 
+  select(model:original)
+
+library(DT)
+
+DT::datatable(args, filter = "top", style = 'bootstrap')
+```
 
 
