@@ -13,3 +13,4 @@ derby.log
 ^revdep$
 ^README\.md$
 ^issue_template.md$
+^\.github/workflows/R-CMD-check\.yaml$
