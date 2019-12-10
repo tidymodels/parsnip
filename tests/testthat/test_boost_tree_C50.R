@@ -8,7 +8,6 @@ library(dplyr)
 context("boosted tree execution with C5.0")
 source("helper-objects.R")
 
-data("lending_club")
 lending_club <- head(lending_club, 200)
 lending_club_fail <-
   lending_club %>%

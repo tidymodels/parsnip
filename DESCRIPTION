@@ -49,4 +49,5 @@ Suggests:
     ranger,
     rpart,
     MASS,
-    nlme
+    nlme,
+    modeldata

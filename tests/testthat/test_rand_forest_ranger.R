@@ -10,7 +10,6 @@ source("helper-objects.R")
 
 # ------------------------------------------------------------------------------
 
-data("lending_club")
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 

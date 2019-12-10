@@ -82,6 +82,7 @@ If the model engine has not been set, the model's default engine will be used
 # methods for specifying the model can be used
 
 library(dplyr)
+library(modeldata)
 data("lending_club")
 
 lr_mod <- logistic_reg()

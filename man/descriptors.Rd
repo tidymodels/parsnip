@@ -87,6 +87,7 @@ For example:
 
 \preformatted{
 
+library(modeldata)
 data("lending_club")
 
 rand_forest(mode = "classification", mtry = .cols() - 2)

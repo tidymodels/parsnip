@@ -215,7 +215,6 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-data("lending_club")
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")

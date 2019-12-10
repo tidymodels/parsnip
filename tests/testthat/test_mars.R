@@ -285,8 +285,6 @@ test_that('submodel prediction', {
 
 # ------------------------------------------------------------------------------
 
-data("lending_club")
-
 test_that('classification', {
   skip_if_not_installed("earth")
 

@@ -13,8 +13,6 @@ iris_bad <-
   iris %>%
   mutate(big_num = Inf)
 
-data("lending_club")
-
 lending_club <-
   lending_club %>%
   dplyr::slice(1:200) %>%
