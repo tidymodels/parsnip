@@ -229,7 +229,12 @@ prepare_data <- function(object, new_data) {
       new_data <- convert_form_to_xy_new(object$preproc, new_data)$x
     }
   }
-
-  new_data
+  switch(
+    fit_interface,
+    none = new_data,
+    data.frame = as.data.frame(new_data),
+    matrix = as.matrix(new_data),
+    new_data
+  )
 }
 
