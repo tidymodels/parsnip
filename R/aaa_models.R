@@ -304,7 +304,7 @@ check_interface_val <- function(x) {
 #' @param original A single character string for the argument name that
 #'  underlying model function uses.
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
-#'  above, depending on context.
+#'  below, depending on context.
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
 #' @param ... Optional arguments that should be passed into the `args` slot for
