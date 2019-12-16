@@ -48,7 +48,7 @@ Before proceeding, it helps to to review how `parsnip` categorizes models:
 
 * Within a model type is the _mode_. This relates to the modeling goal. Currently the two modes in the package are "regression" and "classification". Some models have methods for both models (e.g. nearest neighbors) while others are specific to a single mode (e.g. logistic regression). 
 
-* The computation _engine_ is a combination of the estimation method and the implementation. For example, for linear regression, one model is `"lm"` and this uses ordinary least squares analysis using the `lm` package. Another engine is `"stan"` which uses the Stan infrastructure to estimate parameters using Bayes rule. 
+* The computation _engine_ is a combination of the estimation method and the implementation. For example, for linear regression, one engine is `"lm"` and this uses ordinary least squares analysis using the `lm` package. Another engine is `"stan"` which uses the Stan infrastructure to estimate parameters using Bayes rule. 
 
 When adding a model into `parsnip`, the user has to specific which modes and engines are used. The package also enables users to add a new mode or engine to an existing model. 
 
@@ -56,7 +56,7 @@ When adding a model into `parsnip`, the user has to specific which modes and eng
 
 `parsnip` stores information about the models in an internal environment object. The environment can be accessed via the function `get_model_env()`. The package includes a variety of functions that can get or set the different aspects of the models. 
 
-If you are adding a new model form your own package, you can use these functions to add new entries into the model environment. 
+If you are adding a new model from your own package, you can use these functions to add new entries into the model environment. 
 
 ## Step 1. Register the Model, Modes, and Arguments. 
 
@@ -103,7 +103,7 @@ set_model_arg(
 show_model_info("mixture_da")
 ```
 
-## Step 3. Create the model function
+## Step 2. Create the model function
 
 This is a fairly simple function that can follow a basic template. The main arguments to our function will be:
 
@@ -146,7 +146,7 @@ Now that `parsnip` knows about the model, mode, and engine, we can give it the i
  
  * `func` is the package and name of the function that will be called. If you are using a locally defined function, only `fun` is required. 
  
- * `defaults` is an optional list of arguments to the fit function that the user can change, but whose defaults can be set here. This isn't needed in this case, but is describe later in this document.
+ * `defaults` is an optional list of arguments to the fit function that the user can change, but whose defaults can be set here. This isn't needed in this case, but is described later in this document.
 
 For the first engine:
 
@@ -165,7 +165,7 @@ set_fit(
 show_model_info("mixture_da")
 ```
 
-## Step 3. Add Modules for Prediction
+## Step 4. Add Modules for Prediction
 
 Similar to the fitting module, we specify the code for making different types of predictions. To make hard class predictions, the `class` object contains the details. The elements of the list are:
 
@@ -413,7 +413,7 @@ This would **not** include making dummy variables and `model.matrix` stuff. `par
 
 ### Why would I postprocess my predictions? 
 
-What comes back from some R functions make be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix (narrator: they don't). If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
+What comes back from some R functions may be somewhat... arcane or problematic. As an example, for `xgboost`, if you fit a multiclass boosted tree, you might expect the class probabilities to come back as a matrix (narrator: they don't). If you have four classes and make predictions on three samples, you get a vector of 12 probability values. You need to convert these to a rectangular data set. 
 
 Another example is the predict method for `ranger`, which encapsulates the actual predictions in a more complex object structure. 
 
