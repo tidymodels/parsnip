@@ -144,6 +144,9 @@ is_spark <- function(x)
   isTRUE(unname(x$method$fit$func["pkg"] == "sparklyr"))
 
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 show_fit <- function(model, eng) {
   mod <- translate(x = model, engine = eng)
   fit_call <- show_call(mod)
@@ -181,6 +184,9 @@ names0 <- function (num, prefix = "x") {
 
 # ------------------------------------------------------------------------------
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 update_dot_check <- function(...) {
   dots <- enquos(...)
   if (length(dots) > 0)
@@ -192,6 +198,9 @@ update_dot_check <- function(...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
   if (!(mode %in% spec_modes))
@@ -236,6 +245,9 @@ terms_y <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 check_final_param <- function(x) {
   if (is.null(x)) {
     return(invisible(x))
@@ -256,6 +268,9 @@ check_final_param <- function(x) {
   invisible(x)
 }
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 update_main_parameters <- function(args, param) {
 
   if (length(param) == 0) {

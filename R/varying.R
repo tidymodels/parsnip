@@ -193,14 +193,18 @@ non_varying_step_arguments <- c(
 
 # helpers ----------------------------------------------------------------------
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 is_varying <- function(x) {
-  if(is.null(x)) {
+  if (is.null(x)) {
     res <- FALSE
   } else {
-    res <- if(is_quosure(x))
-      isTRUE(all.equal(x[[-1]], quote(varying())))
-    else
-      isTRUE(all.equal(x, quote(varying())))
+    if (is_quosure(x)) {
+      res <- isTRUE(all.equal(x[[-1]], quote(varying())))
+    } else {
+      res <- isTRUE(all.equal(x, quote(varying())))
+    }
   }
   res
 }
