@@ -1,3 +1,10 @@
+#' Functions required for parsnip-adjacent packages
+#'
+#' These functions are helpful when creating new packages that will register
+#' new model specifications.
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 #' @importFrom rlang expr enquos enquo quos is_quosure call2 quo_get_expr ll
 #' @importFrom rlang abort current_env get_expr is_missing is_null is_symbolic  missing_arg
 null_value <- function(x) {

@@ -8,6 +8,8 @@
 
  * `glmnet` was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain `parsnip` to that same requirement. All `glmnet` tests are run locally. 
  
+ * A set of internal functions are now exported. These are helpful when creating a new package that registers new model specifications. 
+ 
 ## New Features
 
  * `nnet` was added as an engine to `multinom_reg()` [#209](https://github.com/tidymodels/parsnip/issues/209)
