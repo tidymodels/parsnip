@@ -140,7 +140,7 @@ rand_forest(mode = "regression", mtry = .preds(), trees = 1000) %>%
 ```
 
 
-# Penalized Logistic Regression
+# Penalized Linear Regression
 
 A linear model might work here too. The `linear_reg` model can be used. To use regularization/penalization, there are two engines that can do that here: the `glmnet` and `sparklyr` packages. The former will be used here and it only implements the non-formula method. `parsnip` will allow either to be used though. 
 
