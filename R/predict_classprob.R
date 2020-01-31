@@ -14,7 +14,7 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
     stop("No class probability module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 

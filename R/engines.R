@@ -14,8 +14,7 @@ check_engine <- function(object) {
   avail_eng <- possible_engines(object)
   if (is.null(object$engine)) {
     object$engine <- avail_eng[1]
-    warning("`engine` was NULL and updated to be '",
-            object$engine, "'", call. = FALSE)
+    rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
   }
   if (!(object$engine %in% avail_eng)) {
     stop(

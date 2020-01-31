@@ -14,7 +14,7 @@ predict_quantile.model_fit <-
            "engine.", call. = FALSE)
 
     if (inherits(object$fit, "try-error")) {
-      warning("Model fit failed; cannot make predictions.", call. = FALSE)
+      rlang::warn("Model fit failed; cannot make predictions.")
       return(NULL)
     }
 

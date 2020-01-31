@@ -18,7 +18,7 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
     stop("No raw prediction module defined for this model.", call. = FALSE)
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
