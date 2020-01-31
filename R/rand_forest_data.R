@@ -214,7 +214,7 @@ set_pred(
 )
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "classification",
   type = "raw",
@@ -254,7 +254,7 @@ set_pred(
 
 
 set_pred(
-  mod = "rand_forest",
+  model = "rand_forest",
   eng = "ranger",
   mode = "regression",
   type = "conf_int",
