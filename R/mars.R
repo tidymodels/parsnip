@@ -170,15 +170,15 @@ check_args.mars <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (is.numeric(args$prod_degree) && args$prod_degree < 0)
-    stop("`prod_degree` should be >= 1", call. = FALSE)
+    rlang::abort("`prod_degree` should be >= 1.")
 
   if (is.numeric(args$num_terms) && args$num_terms < 0)
-    stop("`num_terms` should be >= 1", call. = FALSE)
+    rlang::abort("`num_terms` should be >= 1.")
 
   if (!is_varying(args$prune_method) &&
       !is.null(args$prune_method) &&
       !is.character(args$prune_method))
-    stop("`prune_method` should be a single string value", call. = FALSE)
+    rlang::abort("`prune_method` should be a single string value.")
 
   invisible(object)
 }
@@ -217,7 +217,7 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     load_libs(object, quiet = TRUE, attach = TRUE)
 
@@ -240,9 +240,9 @@ multi_predict._earth <-
             "predictions with `earth`.")
     if (any(names(object$fit$call) == "keepxy")) {
        if (!isTRUE(object$fit$call$keepxy))
-        stop(msg, call. = FALSE)
+         rlang::abort(msg)
     } else {
-      stop(msg, call. = FALSE)
+      rlang::abort(msg)
     }
 
     if (is.null(type)) {

@@ -193,10 +193,9 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   if (x$engine == "spark") {
     if (x$mode == "unknown") {
-      stop(
-        "For spark random forests models, the mode cannot be 'unknown' ",
-        "if the specification is to be translated.",
-        call. = FALSE
+      rlang::abort(
+        glue::glue("For spark random forests models, the mode cannot ",
+                   "be 'unknown' if the specification is to be translated.")
       )
     } else {
       arg_vals$type <- x$mode
@@ -215,8 +214,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
   if (engine == "ranger") {
     if (any(names(arg_vals) == "importance"))
       if (isTRUE(is.logical(quo_get_expr(arg_vals$importance))))
-        stop("`importance` should be a character value. See ?ranger::ranger.",
-             call. = FALSE)
+        rlang::abort("`importance` should be a character value. See ?ranger::ranger.")
     # unless otherwise specified, classification models are probability forests
     if (x$mode == "classification" && !any(names(arg_vals) == "probability"))
       arg_vals$probability <- TRUE

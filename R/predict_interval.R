@@ -11,8 +11,7 @@
 predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   if (is.null(object$spec$method$pred$conf_int))
-    stop("No confidence interval method defined for this ",
-         "engine.", call. = FALSE)
+    rlang::abort("No confidence interval method defined for this engine.")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")
@@ -60,8 +59,7 @@ predict_confint <- function(object, ...)
 predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   if (is.null(object$spec$method$pred$pred_int))
-    stop("No prediction interval method defined for this ",
-         "engine.", call. = FALSE)
+    rlang::abort("No prediction interval method defined for this engine.")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")

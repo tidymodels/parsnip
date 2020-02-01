@@ -28,12 +28,16 @@ multi_predict <- function(object, ...) {
 #' @export
 #' @rdname multi_predict
 multi_predict.default <- function(object, ...)
-  stop("No `multi_predict` method exists for objects with classes ",
-       paste0("'", class(), "'", collapse = ", "), call. = FALSE)
+  rlang::abort(
+    glue::glue(
+      "No `multi_predict` method exists for objects with classes ",
+      glue::glue_collapse(glue::glue("'{class()}'"), sep = ", ")
+      )
+    )
 
 #' @export
 predict.model_spec <- function(object, ...) {
-  stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
+  rlang::abort("You must use `fit()` on your model specification before you can use `predict()`.")
 }
 
 #' Tools for models that predict on sub-models

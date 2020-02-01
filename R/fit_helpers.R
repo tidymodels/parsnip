@@ -11,8 +11,7 @@ form_form <-
       # prob rewrite this as simple subset/levels
       y_levels <- levels_from_formula(env$formula, env$data)
       if (!inherits(env$data, "tbl_spark") && is.null(y_levels))
-        stop("For classification models, the outcome should be a factor.",
-             call. =  FALSE)
+        rlang::abort("For classification models, the outcome should be a factor.")
     } else {
       y_levels <- NULL
     }
@@ -69,15 +68,13 @@ form_form <-
 xy_xy <- function(object, env, control, target = "none", ...) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface to `fit()`",
-         call. = FALSE)
+    rlang::abort("spark objects can only be used with the formula interface to `fit()`")
 
   object <- check_mode(object, levels(env$y))
 
   if (object$mode == "classification") {
     if (is.null(levels(env$y)))
-      stop("For classification models, the outcome should be a factor.",
-           call. =  FALSE)
+      rlang::abort("For classification models, the outcome should be a factor.")
   }
 
   # if descriptors are needed, update descr_env with the calculated values
@@ -99,7 +96,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       none = quote(x),
       data.frame = quote(as.data.frame(x)),
       matrix = quote(as.matrix(x)),
-      stop("Invalid data type target: ", target)
+      rlang::abort(glue::glue("Invalid data type target: {target}."))
     )
 
   fit_call <- make_call(
@@ -147,8 +144,7 @@ form_xy <- function(object, control, env,
   res <- list(lvl = levels_from_formula(env$formula, env$data), spec = object)
   if (object$mode == "classification") {
     if (is.null(res$lvl))
-      stop("For classification models, the outcome should be a factor.",
-           call. =  FALSE)
+      rlang::abort("For classification models, the outcome should be a factor.")
   }
 
   res <- xy_xy(
@@ -170,8 +166,7 @@ xy_form <- function(object, env, control, ...) {
 
   if (object$mode == "classification") {
     if (is.null(levels(env$y)))
-      stop("For classification models, the outcome should be a factor.",
-           call. =  FALSE)
+      rlang::abort("For classification models, the outcome should be a factor.")
   }
 
   data_obj <-

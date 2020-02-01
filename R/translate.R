@@ -51,7 +51,7 @@ translate <- function(x, ...)
 translate.default <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
   if (is.null(engine))
-    stop("Please set an engine.", call. = FALSE)
+    rlang::abort("Please set an engine.")
 
   mod_name <- specific_model(x)
 
@@ -59,7 +59,7 @@ translate.default <- function(x, engine = x$engine, ...) {
   x <- check_engine(x)
 
   if (x$mode == "unknown") {
-    stop("Model code depends on the mode; please specify one.", call. = FALSE)
+    rlang::abort("Model code depends on the mode; please specify one.")
   }
 
   if (is.null(x$method))

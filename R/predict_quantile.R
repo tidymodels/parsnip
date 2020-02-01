@@ -10,8 +10,7 @@ predict_quantile.model_fit <-
   function (object, new_data, quantile = (1:9)/10, ...) {
 
     if (is.null(object$spec$method$pred$quantile))
-      stop("No quantile prediction method defined for this ",
-           "engine.", call. = FALSE)
+      rlang::abort("No quantile prediction method defined for this engine.")
 
     if (inherits(object$fit, "try-error")) {
       rlang::warn("Model fit failed; cannot make predictions.")

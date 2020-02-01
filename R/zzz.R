@@ -23,7 +23,7 @@
 #'
 #' if(any(data_names$n > 1)) {
 #'   print(data_names[data_names$n > 1,])
-#'   stop("Some models have duplicate module names.")
+#'   rlang::abort("Some models have duplicate module names.")
 #' }
 #' rm(data_names)
 #'

@@ -196,11 +196,11 @@ check_args.logistic_reg <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
-    stop("The amount of regularization should be >= 0", call. = FALSE)
+    rlang::abort("The amount of regularization should be >= 0.")
   if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
-    stop("The mixture proportion should be within [0,1]", call. = FALSE)
+    rlang::abort("The mixture proportion should be within [0,1].")
   if (is.numeric(args$mixture) && length(args$mixture) > 1)
-    stop("Only one value of `mixture` is allowed.", call. = FALSE)
+    rlang::abort("Only one value of `mixture` is allowed.")
 
   invisible(object)
 }
@@ -274,7 +274,7 @@ organize_glmnet_prob <- function(x, object) {
 #' @export
 predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   # See discussion in https://github.com/tidymodels/parsnip/issues/195
   if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
@@ -295,7 +295,7 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
 multi_predict._lognet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
@@ -316,7 +316,7 @@ multi_predict._lognet <-
     if (is.null(type))
       type <- "class"
     if (!(type %in% c("class", "prob", "link", "raw"))) {
-      stop("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
+      rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
     }
     if (type == "prob")
       dots$type <- "response"
@@ -355,7 +355,7 @@ multi_predict._lognet <-
 #' @export
 predict_class._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
@@ -364,7 +364,7 @@ predict_class._lognet <- function(object, new_data, ...) {
 #' @export
 predict_classprob._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
@@ -373,7 +373,7 @@ predict_classprob._lognet <- function(object, new_data, ...) {
 #' @export
 predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)

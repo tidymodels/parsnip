@@ -53,7 +53,7 @@ check_eng_args <- function(args, obj, core_args) {
 set_args <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
-    stop("Please pass at least one named argument.", call. = FALSE)
+    rlang::abort("Please pass at least one named argument.")
   main_args <- names(object$args)
   new_args <- names(the_dots)
   for (i in new_args) {
@@ -80,9 +80,12 @@ set_mode <- function(object, mode) {
     return(object)
   mode <- mode[1]
   if (!(any(all_modes == mode))) {
-    stop("`mode` should be one of ",
-         paste0("'", all_modes, "'", collapse = ", "),
-         call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "`mode` should be one of ",
+        glue::glue_collapse(glue::glue("'{all_modes}'"), sep = ", ")
+      )
+    )
   }
   object$mode <- mode
   object

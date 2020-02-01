@@ -17,11 +17,11 @@ check_engine <- function(object) {
     rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
   }
   if (!(object$engine %in% avail_eng)) {
-    stop(
-      "engine '",object$engine,
-      "' is not availble. Please use ",  "one of: ",
-      paste0("'", avail_eng, "'", collapse = ", "),
-      call. = FALSE
+    rlang::abort(
+      glue::glue(
+        "Engine '{object$engine}' is not available. Please use one of: ",
+        glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
+      )
     )
   }
   object
@@ -42,10 +42,11 @@ check_installs <- function(x) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)
     if (any(!is_inst)) {
-      stop(
-        "This engine requires some package installs: ",
-        paste0("'", x$method$libs[!is_inst], "'", collapse = ", "),
-        call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "This engine requires some package installs: ",
+          glue::glue_collapse(glue::glue("'{x}'"), sep = ", ")
+        )
       )
     }
   }
@@ -86,10 +87,10 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' @export
 set_engine <- function(object, engine, ...) {
   if (!inherits(object, "model_spec")) {
-    stop("`object` should have class 'model_spec'.", call. = FALSE)
+    rlang::abort("`object` should have class 'model_spec'.")
   }
   if (!is.character(engine) | length(engine) != 1)
-    stop("`engine` should be a single character value.", call. = FALSE)
+    rlang::abort("`engine` should be a single character value.")
 
   object$engine <- engine
   object <- check_engine(object)

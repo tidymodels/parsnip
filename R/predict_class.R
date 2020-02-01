@@ -10,11 +10,10 @@
 # @export
 predict_class.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")
-    stop("`predict.model_fit()` is for predicting factor outcomes.",
-         call. = FALSE)
+    rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
 
   if (!any(names(object$spec$method$pred) == "class"))
-    stop("No class prediction module defined for this model.", call. = FALSE)
+    rlang::abort("No class prediction module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")
