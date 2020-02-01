@@ -4,7 +4,7 @@
 \alias{tidy.model_fit}
 \title{Turn a parsnip model object into a tidy tibble}
 \usage{
-\method{tidy}{model_fit}(x, ...)
+tidy.model_fit(x, ...)
 }
 \arguments{
 \item{x}{An object to be converted into a tidy \code{\link[tibble:tibble]{tibble::tibble()}}.}
