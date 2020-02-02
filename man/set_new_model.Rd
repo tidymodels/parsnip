@@ -67,7 +67,7 @@ can make predictions on mutiple submodels at once.}
 \item{pkg}{An options character string for a package name.}
 
 \item{value}{A list that conforms to the \code{fit_obj} or \code{pred_obj} description
-above, depending on context.}
+below, depending on context.}
 
 \item{type}{A single character value for the type of prediction. Possible
 values are: \code{class}, \code{conf_int}, \code{numeric}, \code{pred_int}, \code{prob}, \code{quantile},

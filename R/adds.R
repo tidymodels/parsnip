@@ -8,7 +8,7 @@
 #' @importFrom dplyr mutate
 add_rowindex <- function(x) {
   if (!is.data.frame(x)) {
-    stop("`x` should be a data frame.", call. = FALSE)
+    rlang::abort("`x` should be a data frame.")
   }
   if (nrow(x) > 0) {
     x <- dplyr::mutate(x, .row = 1:nrow(x))

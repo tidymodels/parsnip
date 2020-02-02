@@ -189,10 +189,11 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
   if (x$engine == "spark") {
     if (x$mode == "unknown") {
-      stop(
-        "For spark decision tree models, the mode cannot be 'unknown' ",
-        "if the specification is to be translated.",
-        call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "For spark decision tree models, the mode cannot be 'unknown' ",
+          "if the specification is to be translated."
+        )
       )
     }
   }
@@ -204,7 +205,7 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
 check_args.decision_tree <- function(object) {
   if (object$engine == "C5.0" && object$mode == "regression")
-    stop("C5.0 is classification only.", call. = FALSE)
+    rlang::abort("C5.0 is classification only.")
   invisible(object)
 }
 

@@ -19,7 +19,7 @@ make_classes <- function(prefix) {
 check_empty_ellipse <- function (...)  {
   terms <- quos(...)
   if (!is_empty(terms))
-    stop("Please pass other arguments to the model function via `set_engine()`", call. = FALSE)
+    rlang::abort("Please pass other arguments to the model function via `set_engine()`.")
   terms
 }
 
@@ -175,7 +175,7 @@ check_args.default <- function(object) {
 
 names0 <- function (num, prefix = "x") {
   if (num < 1)
-    stop("`num` should be > 0", call. = FALSE)
+    rlang::abort("`num` should be > 0.")
   ind <- format(1:num)
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
@@ -190,9 +190,12 @@ names0 <- function (num, prefix = "x") {
 update_dot_check <- function(...) {
   dots <- enquos(...)
   if (length(dots) > 0)
-    stop("Extra arguments will be ignored: ",
-         paste0("`", names(dots), "`", collapse = ", "),
-         call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "Extra arguments will be ignored: ",
+        glue::glue_collapse(glue::glue("`{names(dots)}`"), sep = ", ")
+      )
+    )
   invisible(NULL)
 }
 
@@ -204,9 +207,12 @@ update_dot_check <- function(...) {
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
   if (!(mode %in% spec_modes))
-    stop("`mode` should be one of: ",
-         paste0("'", spec_modes, "'", collapse = ", "),
-         call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "`mode` should be one of: ",
+        glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
+        )
+      )
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
@@ -221,12 +227,10 @@ check_outcome <- function(y, spec) {
     return(invisible(NULL))
   } else if (spec$mode == "regression") {
     if (!is.numeric(y))
-      stop("The model outcome should be numeric for regression models.",
-           call. = FALSE)
+      rlang::abort("The model outcome should be numeric for regression models.")
   } else if (spec$mode == "classification") {
     if (!is.factor(y)) {
-      stop("The model outcome should be a factor for regression models.",
-           call. = FALSE)
+      rlang::abort("The model outcome should be a factor for regression models.")
     }
   }
   invisible(NULL)

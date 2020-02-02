@@ -231,10 +231,11 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
   if (engine == "spark") {
     if (x$mode == "unknown") {
-      stop(
-        "For spark boosted trees models, the mode cannot be 'unknown' ",
-        "if the specification is to be translated.",
-        call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "For spark boosted trees models, the mode cannot be 'unknown' ",
+          "if the specification is to be translated."
+        )
       )
     } else {
       x$method$fit$args$type <- x$mode
@@ -250,13 +251,13 @@ check_args.boost_tree <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (is.numeric(args$trees) && args$trees < 0)
-    stop("`trees` should be >= 1", call. = FALSE)
+    rlang::abort("`trees` should be >= 1.")
   if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1))
-    stop("`sample_size` should be within [0,1]", call. = FALSE)
+    rlang::abort("`sample_size` should be within [0,1].")
   if (is.numeric(args$tree_depth) && args$tree_depth < 0)
-    stop("`tree_depth` should be >= 1", call. = FALSE)
+    rlang::abort("`tree_depth` should be >= 1.")
   if (is.numeric(args$min_n) && args$min_n < 0)
-    stop("`min_n` should be >= 1", call. = FALSE)
+    rlang::abort("`min_n` should be >= 1.")
 
   invisible(object)
 }
@@ -390,7 +391,7 @@ xgb_pred <- function(object, newdata, ...) {
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata")) {
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
     }
 
     if (is.null(trees)) {
@@ -499,7 +500,7 @@ C5.0_train <-
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     if (is.null(trees))
       trees <- min(object$fit$trials)

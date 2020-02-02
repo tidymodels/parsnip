@@ -15,10 +15,10 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   }
 
   if (!any(names(object$spec$method$pred) == "raw"))
-    stop("No raw prediction module defined for this model.", call. = FALSE)
+    rlang::abort("No raw prediction module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
