@@ -44,7 +44,7 @@ predict.model_spec <- function(object, ...) {
 #'
 #' `has_multi_predict()` tests to see if an object can make multiple
 #'  predictions on submodels from the same object. `multi_predict_args()`
-#'  returns the names of the argments to `multi_predict()` for this model
+#'  returns the names of the arguments to `multi_predict()` for this model
 #'  (if any).
 #' @param object An object to test.
 #' @param ... Not currently used.

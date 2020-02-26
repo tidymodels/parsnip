@@ -277,7 +277,7 @@ check_interface_val <- function(x) {
 #' @param eng A single character string for the model engine.
 #' @param arg A single character string for the model argument name.
 #' @param has_submodel A single logical for whether the argument
-#'  can make predictions on mutiple submodels at once.
+#'  can make predictions on multiple submodels at once.
 #' @param func A named character vector that describes how to call
 #'  a function. `func` should have elements `pkg` and `fun`. The
 #'  former is optional but is recommended and the latter is

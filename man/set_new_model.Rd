@@ -62,7 +62,7 @@ cases, it is helpful to use \code{c(fun = "predict")} when using a
 package's \code{predict} method.}
 
 \item{has_submodel}{A single logical for whether the argument
-can make predictions on mutiple submodels at once.}
+can make predictions on multiple submodels at once.}
 
 \item{pkg}{An options character string for a package name.}
 

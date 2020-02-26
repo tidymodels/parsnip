@@ -13,7 +13,7 @@ Possible values for this model are "unknown", "regression", or
 }
 \description{
 \code{null_model()} is a way to generate a \emph{specification} of a model before
-fitting and allows the model to be created using R. It doens't have any
+fitting and allows the model to be created using R. It doesn't have any
 main arguments.
 }
 \details{

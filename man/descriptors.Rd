@@ -41,7 +41,7 @@ Existing functions:
 \item \code{.obs()}: The current number of rows in the data set.
 \item \code{.preds()}: The number of columns in the data set that are
 associated with the predictors prior to dummy variable creation.
-\item \code{.cols()}: The number of predictor columns availible after dummy
+\item \code{.cols()}: The number of predictor columns available after dummy
 variables are created (if any).
 \item \code{.facts()}: The number of factor predictors in the dat set.
 \item \code{.lvls()}: If the outcome is a factor, this is a table

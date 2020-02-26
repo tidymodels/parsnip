@@ -12,7 +12,7 @@
 #'   \item `.obs()`: The current number of rows in the data set.
 #'   \item `.preds()`: The number of columns in the data set that are
 #'     associated with the predictors prior to dummy variable creation.
-#'   \item `.cols()`: The number of predictor columns availible after dummy
+#'   \item `.cols()`: The number of predictor columns available after dummy
 #'     variables are created (if any).
 #'   \item `.facts()`: The number of factor predictors in the dat set.
 #'   \item `.lvls()`: If the outcome is a factor, this is a table

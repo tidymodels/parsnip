@@ -33,7 +33,7 @@ xgb_train(
 \item{min_child_weight}{A numeric value for the minimum sum of instance
 weights needed in a child to continue to split.}
 
-\item{gamma}{An number for the minimum loss reduction required to make a
+\item{gamma}{A number for the minimum loss reduction required to make a
 further partition on a leaf node of the tree}
 
 \item{subsample}{Subsampling proportion of rows.}

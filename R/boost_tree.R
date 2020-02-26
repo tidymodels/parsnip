@@ -30,22 +30,22 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param mtry An number for the number (or proportion) of predictors that will
+#' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models (`xgboost`
 #'  only).
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @param tree_depth An integer for the maximum deopth of the tree (i.e. number
+#' @param tree_depth An integer for the maximum depth of the tree (i.e. number
 #'  of splits) (`xgboost` only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
 #'   from iteration-to-iteration (`xgboost` only).
 #' @param loss_reduction A number for the reduction in the loss function required
 #'   to split further  (`xgboost` only).
-#' @param sample_size An number for the number (or proportion) of data that is
+#' @param sample_size A number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
-#'  each iteration while `C5.0` samples once during traning.
+#'  each iteration while `C5.0` samples once during training.
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree()`, the
@@ -277,7 +277,7 @@ check_args.boost_tree <- function(object) {
 #' @param colsample_bytree Subsampling proportion of columns.
 #' @param min_child_weight A numeric value for the minimum sum of instance
 #'  weights needed in a child to continue to split.
-#' @param gamma An number for the minimum loss reduction required to make a
+#' @param gamma A number for the minimum loss reduction required to make a
 #'  further partition on a leaf node of the tree
 #' @param subsample Subsampling proportion of rows.
 #' @param ... Other options to pass to `xgb.train`.

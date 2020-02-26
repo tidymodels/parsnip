@@ -40,7 +40,7 @@ if none exist).
 \description{
 \code{has_multi_predict()} tests to see if an object can make multiple
 predictions on submodels from the same object. \code{multi_predict_args()}
-returns the names of the argments to \code{multi_predict()} for this model
+returns the names of the arguments to \code{multi_predict()} for this model
 (if any).
 }
 \examples{
