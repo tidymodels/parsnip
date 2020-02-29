@@ -40,8 +40,14 @@ predict_class.model_fit <- function(object, new_data, ...) {
   if (is.vector(res) || is.factor(res)) {
     res <- factor(as.character(res), levels = object$lvl)
   } else {
-    if (!inherits(res, "tbl_spark"))
-      res$values <- factor(as.character(res$values), levels = object$lvl)
+    if (!inherits(res, "tbl_spark")) {
+      # Now case where a parsnip model generated `res`
+      if (tibble::is_tibble(res) && ncol(res) == 1 && is.factor(res[[1]])) {
+        res <- res[[1]]
+      } else {
+        res$values <- factor(as.character(res$values), levels = object$lvl)
+      }
+    }
   }
 
   res

@@ -144,7 +144,6 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
-
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
       type,
@@ -188,7 +187,9 @@ format_num <- function(x) {
 
   if (isTRUE(ncol(x) > 1)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    names(x) <- paste0(".pred_", names(x))
+    if (!any(grepl("^\\.pred", names(x)))) {
+      names(x) <- paste0(".pred_", names(x))
+    }
   } else {
     x <- tibble(.pred = x)
   }
@@ -204,7 +205,9 @@ format_class <- function(x) {
 }
 
 format_classprobs <- function(x) {
-  names(x) <- paste0(".pred_", names(x))
+  if (!any(grepl("^\\.pred_", names(x)))) {
+    names(x) <- paste0(".pred_", names(x))
+  }
   x <- as_tibble(x)
   x
 }
