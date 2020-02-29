@@ -286,9 +286,24 @@ check_args.boost_tree <- function(object) {
 xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
-  min_child_weight = 1, gamma = 0, subsample = 1, ...) {
+  min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
+  early_stop = NULL, ...) {
 
-  num_class <- if (length(levels(y)) > 2) length(levels(y)) else NULL
+  if (length(levels(y)) > 2) {
+    num_class <- length(levels(y))
+  }  else {
+    num_class <- NULL
+  }
+  if (!is.numeric(validation) || validation < 0 || validation >= 1) {
+    rlang::abort("`validation` should be on [0, 1).")
+  }
+  if (!is.null(early_stop) || early_stop <= 0) {
+    rlang::abort(paste0("`early_stop` should be on [2, ",  nrounds, ")."))
+    if (early_stop >= nrounds) {
+      early_stop <- nrounds - 1
+      rlang::warn(paste0("`early_stop` was reduced to ", early_stop, "."))
+    }
+  }
 
   if (is.numeric(y)) {
     loss <- "reg:linear"
@@ -310,7 +325,17 @@ xgb_train <- function(
   p <- ncol(x)
 
   if (!inherits(x, "xgb.DMatrix")) {
-    x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
+    if (validation > 0) {
+      trn_index <- sample(1:n, size = floor(n * validation) + 1)
+      x <-
+        list(
+          validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA),
+          train = xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
+        )
+    } else {
+      x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
+      watchlist <- list()
+    }
   } else {
     xgboost::setinfo(x, "label", y)
   }
@@ -345,7 +370,8 @@ xgb_train <- function(
     data = quote(x),
     params = arg_list,
     nrounds = nrounds,
-    objective = loss
+    objective = loss,
+    early_stopping_rounds = early_stop
   )
   if (!is.null(num_class)) {
     main_args$num_class <- num_class
