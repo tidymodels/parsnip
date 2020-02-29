@@ -47,7 +47,7 @@ based on the model's mode.}
 
 \item{trees}{An integer vector for the number of trees in the ensemble.}
 
-\item{penalty}{An numeric vector of penalty values.}
+\item{penalty}{A numeric vector of penalty values.}
 
 \item{num_terms}{An integer vector for the number of MARS terms to retain.}
 

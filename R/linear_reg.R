@@ -19,7 +19,7 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
-#' @param penalty An non-negative number representing the total
+#' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
 #'  (aka weight decay) while the other models can be a combination
@@ -338,7 +338,7 @@ predict_raw._elnet <- function(object, new_data, opts = list(), ...)  {
 #' @importFrom tidyr gather
 #' @export
 #'@rdname multi_predict
-#' @param penalty An numeric vector of penalty values.
+#' @param penalty A numeric vector of penalty values.
 multi_predict._elnet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))

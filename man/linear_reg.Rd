@@ -20,7 +20,7 @@ linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
 
-\item{penalty}{An non-negative number representing the total
+\item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
 For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination

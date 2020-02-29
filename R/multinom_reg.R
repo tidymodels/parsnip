@@ -19,7 +19,7 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
-#' @param penalty An non-negative number representing the total
+#' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
 #'  (aka weight decay) while the other models can be a combination

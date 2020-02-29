@@ -20,7 +20,7 @@ logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
-\item{penalty}{An non-negative number representing the total
+\item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
 For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
