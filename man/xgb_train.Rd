@@ -14,6 +14,8 @@ xgb_train(
   min_child_weight = 1,
   gamma = 0,
   subsample = 1,
+  validation = 0,
+  early_stop = NULL,
   ...
 )
 }
