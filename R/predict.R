@@ -185,7 +185,7 @@ format_num <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
 
-  if (isTRUE(ncol(x) > 1)) {
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
     if (!any(grepl("^\\.pred", names(x)))) {
       names(x) <- paste0(".pred_", names(x))
