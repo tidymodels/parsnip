@@ -220,6 +220,13 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
       arg_vals$probability <- TRUE
 
   }
+
+  ## for dimensionality hardening
+  mtry <- call2("min",
+                rlang::eval_tidy(arg_vals$mtry),
+                rlang::expr(.preds()))
+  arg_vals$mtry <- mtry
+
   x$method$fit$args <- arg_vals
 
   x
