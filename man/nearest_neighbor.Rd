@@ -66,6 +66,15 @@ on new data. This also means that a single value of that function's
 \section{Engine Details}{
 
 
+The standardized parameter names in parsnip can be mapped to their original
+names in each engine:\tabular{ll}{
+   \strong{parsnip} \tab \strong{kknn} \cr
+   neighbors \tab ks \cr
+   weight_func \tab kernel \cr
+   dist_power \tab distance \cr
+}
+
+
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are:

@@ -38,6 +38,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("mars")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call.  For this type of
 #'  model, the template of the fit calls are:

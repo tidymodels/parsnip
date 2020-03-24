@@ -24,6 +24,29 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+convert_args <- function(model_name) {
+  envir <- get_model_env()
+
+  args <-
+    ls(envir) %>%
+    tibble::tibble(name = .) %>%
+    dplyr::filter(grepl("args", name)) %>%
+    dplyr::mutate(model = sub("_args", "", name),
+                  args  = purrr::map(name, ~envir[[.x]])) %>%
+    tidyr::unnest(args) %>%
+    dplyr::select(model:original)
+
+  convert_df <- args %>%
+    dplyr::filter(grepl(model_name, model)) %>%
+    dplyr::select(-model) %>%
+    tidyr::pivot_wider(names_from = engine, values_from = original)
+
+  convert_df %>%
+    knitr::kable(col.names = paste0("**", colnames(convert_df), "**"))
+
+}
+
+
 # ------------------------------------------------------------------------------
 # nocov
 
@@ -32,8 +55,8 @@ utils::globalVariables(
   c('.', '.label', '.pred', '.row', 'data', 'engine', 'engine2', 'group',
     'lab', 'original', 'predicted_label', 'prediction', 'value', 'type',
     "neighbors", ".submodels", "has_submodel", "max_neighbor", "max_penalty",
-    "max_terms", "max_tree", "name", "num_terms", "penalty", "trees",
+    "max_terms", "max_tree", "model", "name", "num_terms", "penalty", "trees",
     "sub_neighbors", ".pred_class")
-  )
+)
 
 # nocov end
