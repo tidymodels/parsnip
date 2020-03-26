@@ -91,12 +91,8 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{llll}{
-   \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \cr
-   penalty \tab lambda \tab reg_param \tab penalty \cr
-   mixture \tab alpha \tab elastic_net_param \tab NA \cr
-}
-
+names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("logistic_reg")
+}\if{html}{\out{</div>}}
 
 Engines may have pre-set default arguments when executing the
 model fit call.  For this type of

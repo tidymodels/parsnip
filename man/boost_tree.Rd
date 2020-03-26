@@ -129,18 +129,8 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{llll}{
-   \strong{parsnip} \tab \strong{xgboost} \tab \strong{C5.0} \tab \strong{spark} \cr
-   tree_depth \tab max_depth \tab NA \tab max_depth \cr
-   trees \tab nrounds \tab trials \tab max_iter \cr
-   learn_rate \tab eta \tab NA \tab step_size \cr
-   mtry \tab colsample_bytree \tab NA \tab feature_subset_strategy \cr
-   min_n \tab min_child_weight \tab minCases \tab min_instances_per_node \cr
-   loss_reduction \tab gamma \tab NA \tab NA \cr
-   sample_size \tab subsample \tab sample \tab subsampling_rate \cr
-   min_info_gain \tab NA \tab NA \tab loss_reduction \cr
-}
-
+names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("boost_tree")
+}\if{html}{\out{</div>}}
 
 Engines may have pre-set default arguments when executing the
 model fit call.  For this type of model, the template of the

@@ -70,11 +70,8 @@ following \emph{engines}:
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{lll}{
-   \strong{parsnip} \tab \strong{flexsurv} \tab \strong{survival} \cr
-   dist \tab dist \tab dist \cr
-}
-
+names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("surv_reg")
+}\if{html}{\out{</div>}}
 
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of

@@ -82,14 +82,8 @@ following \emph{engines}:
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{ll}{
-   \strong{parsnip} \tab \strong{kernlab} \cr
-   cost \tab C \cr
-   degree \tab degree \cr
-   scale_factor \tab scale \cr
-   margin \tab epsilon \cr
-}
-
+names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("svm_poly")
+}\if{html}{\out{</div>}}
 
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of
