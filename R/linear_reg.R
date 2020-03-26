@@ -37,7 +37,7 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"lm"`  (the default) or `"glmnet"`
-#' \item \pkg{Stan}:  `"stan"`
+#' \item \pkg{Stan}:  `"stan" or "stan glmer"`
 #' \item \pkg{Spark}: `"spark"`
 #' \item \pkg{keras}: `"keras"`
 #' }

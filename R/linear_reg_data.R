@@ -192,7 +192,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args = list(object = expr(object$fit), newdata = expr(new_data))
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      refresh = 0
+    )
   )
 )
 
@@ -272,6 +276,134 @@ set_pred(
 set_pred(
   model = "linear_reg",
   eng = "stan",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = expr(object$fit), newdata = expr(new_data))
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("linear_reg", "regression", "stan glmer")
+set_dependency("linear_reg", "stan glmer", "rstanarm")
+
+set_fit(
+  model = "linear_reg",
+  eng = "stan glmer",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "rstanarm", fun = "stan_glmer"),
+    defaults = list(family = expr(stats::gaussian), refresh = 0)
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "stan glmer",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post =  function(results, object) {
+      tibble(.pred = apply(results, 2, mean, na.rm = TRUE))
+    },
+    func = c(pkg = "rstanarm", fun = "posterior_predict"),
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      seed = expr(sample.int(10 ^ 5, 1))
+    )
+  )
+)
+
+
+# Note: posterior_linpred throws a warning for some examples
+# "In Ops.factor(left) : '!' not meaningful for factors" because all of the
+# predictors are included (but just the fixed effects). We should probably
+# subset new_data on only the fixed effects columns unless there is a way to
+# get posteriors on the mean linear predictor from `posterior_predict`
+set_pred(
+  model = "linear_reg",
+  eng = "stan glmer",
+  mode = "regression",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = function(results, object) {
+      res <-
+        tibble(
+          .pred_lower =
+            convert_stan_interval(
+              results,
+              level = object$spec$method$pred$conf_int$extras$level
+            ),
+          .pred_upper =
+            convert_stan_interval(
+              results,
+              level = object$spec$method$pred$conf_int$extras$level,
+              lower = FALSE
+            ),
+        )
+      if (object$spec$method$pred$conf_int$extras$std_error)
+        res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      res
+    },
+    func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        transform = TRUE,
+        seed = expr(sample.int(10^5, 1))
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "stan glmer",
+  mode = "regression",
+  type = "pred_int",
+  value = list(
+    pre = NULL,
+    post = function(results, object) {
+      res <-
+        tibble(
+          .pred_lower =
+            convert_stan_interval(
+              results,
+              level = object$spec$method$pred$pred_int$extras$level
+            ),
+          .pred_upper =
+            convert_stan_interval(
+              results,
+              level = object$spec$method$pred$pred_int$extras$level,
+              lower = FALSE
+            ),
+        )
+      if (object$spec$method$pred$pred_int$extras$std_error)
+        res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      res
+    },
+    func = c(pkg = "rstanarm", fun = "posterior_predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        seed = expr(sample.int(10^5, 1))
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "stan glmer",
   mode = "regression",
   type = "raw",
   value = list(
