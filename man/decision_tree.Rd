@@ -99,8 +99,13 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("decision_tree")
-}\if{html}{\out{</div>}}
+names in each engine:\tabular{llll}{
+   \strong{parsnip} \tab \strong{rpart} \tab \strong{C5.0} \tab \strong{spark} \cr
+   tree_depth \tab maxdepth \tab NA \tab max_depth \cr
+   min_n \tab minsplit \tab minCases \tab min_instances_per_node \cr
+   cost_complexity \tab cp \tab NA \tab NA \cr
+}
+
 
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of

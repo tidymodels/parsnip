@@ -73,8 +73,13 @@ following \emph{engines}:
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("svm_rbf")
-}\if{html}{\out{</div>}}
+names in each engine:\tabular{ll}{
+   \strong{parsnip} \tab \strong{kernlab} \cr
+   cost \tab C \cr
+   rbf_sigma \tab sigma \cr
+   margin \tab epsilon \cr
+}
+
 
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of

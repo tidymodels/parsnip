@@ -88,8 +88,13 @@ reloaded and reattached to the \code{parsnip} object.
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("rand_forest")
-}\if{html}{\out{</div>}}
+names in each engine:\tabular{llll}{
+   \strong{parsnip} \tab \strong{ranger} \tab \strong{randomForest} \tab \strong{spark} \cr
+   mtry \tab mtry \tab mtry \tab feature_subset_strategy \cr
+   trees \tab num.trees \tab ntree \tab num_trees \cr
+   min_n \tab min.node.size \tab nodesize \tab min_instances_per_node \cr
+}
+
 
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of

@@ -78,8 +78,13 @@ following \emph{engines}:
 
 
 The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\if{html}{\out{<div class="{r echo = FALSE}">}}\preformatted{convert_args("mars")
-}\if{html}{\out{</div>}}
+names in each engine:\tabular{ll}{
+   \strong{parsnip} \tab \strong{earth} \cr
+   num_terms \tab nprune \cr
+   prod_degree \tab degree \cr
+   prune_method \tab pmethod \cr
+}
+
 
 Engines may have pre-set default arguments when executing the
 model fit call.  For this type of
