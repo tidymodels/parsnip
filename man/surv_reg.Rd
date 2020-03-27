@@ -107,5 +107,5 @@ Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
 Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 }
 \seealso{
-[\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
+\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
 }

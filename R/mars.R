@@ -62,7 +62,7 @@
 #'  attached.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' mars(mode = "regression", num_terms = 5)
 #' @export
