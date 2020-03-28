@@ -30,6 +30,10 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+#' Make a table of arguments
+#' @param model_name A character string for the model
+#' @keywords internal
+#' @export
 convert_args <- function(model_name) {
   envir <- get_model_env()
 
