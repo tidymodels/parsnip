@@ -138,5 +138,5 @@ update(model, penalty = 1)
 update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

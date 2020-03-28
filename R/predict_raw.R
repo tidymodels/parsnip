@@ -1,8 +1,7 @@
-# @rdname predict.model_fit
-# @inheritParams predict.model_fit
-# @method predict_raw model_fit
-# @export predict_raw.model_fit
-# @export
+#' @rdname predict.model_fit
+#' @method predict_raw model_fit
+#' @export predict_raw.model_fit
+#' @export
 predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   protected_args <- names(object$spec$method$pred$raw$args)
   dup_args <- names(opts) %in% protected_args

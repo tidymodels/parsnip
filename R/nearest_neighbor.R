@@ -70,7 +70,7 @@
 #' on new data. This also means that a single value of that function's
 #' `kernel` argument (a.k.a `weight_func` here) can be supplied
 #'
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #'
 #' @examples
 #' nearest_neighbor(neighbors = 11)

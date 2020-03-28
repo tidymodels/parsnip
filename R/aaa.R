@@ -13,7 +13,13 @@ maybe_multivariate <- function(results, object) {
   results
 }
 
+#' Convenience function for intervals
 #' @importFrom stats quantile
+#' @export
+#' @keywords internal
+#' @param x A fitted model object
+#' @param level Level of uncertainty for intervals
+#' @param lower Is `level` the lower level?
 convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   alpha <- (1 - level) / 2
   if (!lower) {
@@ -24,6 +30,10 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+#' Make a table of arguments
+#' @param model_name A character string for the model
+#' @keywords internal
+#' @export
 convert_args <- function(model_name) {
   envir <- get_model_env()
 

@@ -1,10 +1,9 @@
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_numeric model_fit
-# @export predict_numeric.model_fit
-# @export
-
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_numeric model_fit
+#' @export predict_numeric.model_fit
+#' @export
 predict_numeric.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "regression")
     rlang::abort(glue::glue("`predict_numeric()` is for predicting numeric outcomes. ",
@@ -45,9 +44,9 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
 }
 
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict_numeric.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict_numeric.model_fit
 predict_numeric <- function(object, ...)
   UseMethod("predict_numeric")

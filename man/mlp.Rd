@@ -146,5 +146,5 @@ update(model, hidden_units = 2)
 update(model, hidden_units = 2, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

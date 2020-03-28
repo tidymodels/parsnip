@@ -94,7 +94,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' rand_forest(mode = "classification", trees = 2000)
 #' # Parameters can be represented by a placeholder:

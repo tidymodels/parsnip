@@ -105,7 +105,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [[fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()]
 #' @examples
 #' linear_reg()
 #' # Parameters can be represented by a placeholder:

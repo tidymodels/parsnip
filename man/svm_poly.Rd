@@ -114,5 +114,5 @@ update(model, cost = 1)
 update(model, cost = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }
