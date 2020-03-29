@@ -67,6 +67,8 @@
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
 #'
+#' (note that the `refresh` default prevents logging of the estimation process. Change this value in `set_engine()` will show the logs)
+#'
 #' \pkg{spark}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}

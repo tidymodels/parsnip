@@ -359,7 +359,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "rstanarm", fun = "stan_glm"),
-    defaults = list(family = expr(stats::binomial))
+    defaults = list(family = expr(stats::binomial), refresh = 0)
   )
 )
 
