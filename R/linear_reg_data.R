@@ -179,7 +179,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "rstanarm", fun = "stan_glm"),
-    defaults = list(family = expr(stats::gaussian))
+    defaults = list(family = expr(stats::gaussian), refresh = 0)
   )
 )
 

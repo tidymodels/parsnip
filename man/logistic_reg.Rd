@@ -114,6 +114,8 @@ model, the template of the fit calls are:
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "stan")}
 
+(note that the \code{refresh} default prevents logging of the estimation process. Change this value in \code{set_engine()} will show the logs)
+
 \pkg{spark}
 
 \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
