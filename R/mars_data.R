@@ -15,7 +15,7 @@ set_model_arg(
   eng = "earth",
   parsnip = "num_terms",
   original = "nprune",
-  func = list(pkg = "dials", fun = "num_terms", range = c(2, 5)),
+  func = list(pkg = "dials", fun = "num_terms", range = c(2L, 5L)),
   has_submodel = TRUE
 )
 set_model_arg(

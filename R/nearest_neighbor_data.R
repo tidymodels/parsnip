@@ -15,7 +15,7 @@ set_model_arg(
   eng = "kknn",
   parsnip = "neighbors",
   original = "ks",
-  func = list(pkg = "dials", fun = "neighbors", range = c(1, 15)),
+  func = list(pkg = "dials", fun = "neighbors", range = c(1L, 15L)),
   has_submodel = TRUE
 )
 set_model_arg(

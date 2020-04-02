@@ -1,8 +1,12 @@
-# parsnip (development version)
-
 # parsnip 0.0.5.9000
 
+Mostly behind-the-scenes changes to avoid errors with the new version of `tidyr` as well as exporting more developer functions for `parsnip`-adjacent packages. 
 
+## Other Changes
+
+* `stan` models no longer produce output by default. To change this, add the `refresh` option to `set_engine()`. 
+
+* While `parsnip` does not directly depend on `dials`, it has several S3 methods for generics in `dials`. Version 0.0.5 of `dials` added stricter validation for these methods, so changes were required for `parsnip`.   
 
 # parsnip 0.0.5
 
