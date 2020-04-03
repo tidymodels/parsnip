@@ -103,6 +103,11 @@ maybe_eval <- function(x) {
   y
 }
 
+#' Evaluate parsnip model arguments
+#' @export
+#' @keywords internal
+#' @param spec A model specification
+#' @param ... Not used.
 eval_args <- function(spec, ...) {
   spec$args   <- purrr::map(spec$args,   maybe_eval)
   spec$eng_args <- purrr::map(spec$eng_args, maybe_eval)

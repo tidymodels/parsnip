@@ -56,6 +56,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("mlp")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call. For this type of
 #'  model, the template of the fit calls are:
@@ -77,7 +84,7 @@
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' mlp(mode = "classification", penalty = 0.01)
 #' # Parameters can be represented by a placeholder:

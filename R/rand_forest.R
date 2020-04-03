@@ -40,6 +40,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("rand_forest")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call. For this type of
 #'  model, the template of the fit calls are::
@@ -87,7 +94,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' rand_forest(mode = "classification", trees = 2000)
 #' # Parameters can be represented by a placeholder:

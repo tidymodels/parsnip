@@ -104,6 +104,17 @@ An error is thrown if both \code{penalty} and \code{dropout} are specified for
 \section{Engine Details}{
 
 
+The standardized parameter names in parsnip can be mapped to their original
+names in each engine:\tabular{lll}{
+   \strong{parsnip} \tab \strong{keras} \tab \strong{nnet} \cr
+   hidden_units \tab hidden_units \tab size \cr
+   penalty \tab penalty \tab decay \cr
+   dropout \tab dropout \tab NA \cr
+   epochs \tab epochs \tab maxit \cr
+   activation \tab activation \tab NA \cr
+}
+
+
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are:
@@ -135,5 +146,5 @@ update(model, hidden_units = 2)
 update(model, hidden_units = 2, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

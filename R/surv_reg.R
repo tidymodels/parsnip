@@ -41,6 +41,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("surv_reg")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call. For this type of
 #'  model, the template of the fit calls are:
@@ -57,7 +64,7 @@
 #'  predictions when there is a stratification variable and can be
 #'  overridden in other cases.
 #'
-#' @seealso [[fit()], [survival::Surv()]
+#' @seealso [fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples

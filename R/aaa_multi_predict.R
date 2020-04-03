@@ -117,18 +117,18 @@ multi_predict_args.default <- function(object, ...) {
 #' @export
 #' @rdname has_multi_predict
 multi_predict_args.model_fit <- function(object, ...) {
-  existing_mthds <- methods("multi_predict")
-  cls <- class(object)
-  tst <- paste0("multi_predict.", cls)
-  .fn <- tst[tst %in% existing_mthds]
-  if (length(.fn) == 0) {
-    return(NA_character_)
+  model_type <- class(object$spec)[1]
+  arg_info <- get_from_env(paste0(model_type, "_args"))
+  arg_info <- arg_info[arg_info$engine == object$spec$engine,]
+  arg_info <- arg_info[arg_info$has_submodel,]
+
+  if (nrow(arg_info) == 0) {
+    res <- NA_character_
+  } else {
+    res <- arg_info[["parsnip"]]
   }
 
-  .fn <- getFromNamespace(.fn, ns = "parsnip")
-  omit <- c('object', 'new_data', 'type', '...')
-  args <- names(formals(.fn))
-  args[!(args %in% omit)]
+  res
 }
 
 #' @export

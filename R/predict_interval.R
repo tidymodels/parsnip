@@ -1,13 +1,13 @@
-# @keywords internal
-# @rdname other_predict
-# @param level A single numeric value between zero and one for the
-#  interval estimates.
-# @param std_error A single logical for wether the standard error should be
-#  returned (assuming that the model can compute it).
-# @inheritParams predict.model_fit
-# @method predict_confint model_fit
-# @export predict_confint.model_fit
-# @export
+#' @keywords internal
+#' @rdname other_predict
+#' @param level A single numeric value between zero and one for the
+#'  interval estimates.
+#' @param std_error A single logical for wether the standard error should be
+#'  returned (assuming that the model can compute it).
+#' @inheritParams predict.model_fit
+#' @method predict_confint model_fit
+#' @export predict_confint.model_fit
+#' @export
 predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   if (is.null(object$spec$method$pred$conf_int))

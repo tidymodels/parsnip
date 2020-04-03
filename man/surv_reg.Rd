@@ -69,6 +69,13 @@ following \emph{engines}:
 \section{Engine Details}{
 
 
+The standardized parameter names in parsnip can be mapped to their original
+names in each engine:\tabular{lll}{
+   \strong{parsnip} \tab \strong{flexsurv} \tab \strong{survival} \cr
+   dist \tab dist \tab dist \cr
+}
+
+
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are:
@@ -100,5 +107,5 @@ Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
 Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 }
 \seealso{
-[\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
+\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
 }

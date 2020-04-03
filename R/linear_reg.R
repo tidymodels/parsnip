@@ -44,6 +44,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("linear_reg")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call. For this type of
 #'  model, the template of the fit calls are:
@@ -59,6 +66,8 @@
 #' \pkg{stan}
 #'
 #' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
+#'
+#' (note that the `refresh` default prevents logging of the estimation process. Change this value in `set_engine()` will show the logs)
 #'
 #' \pkg{spark}
 #'
@@ -98,7 +107,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [[fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()]
 #' @examples
 #' linear_reg()
 #' # Parameters can be represented by a placeholder:

@@ -81,6 +81,16 @@ following \emph{engines}:
 \section{Engine Details}{
 
 
+The standardized parameter names in parsnip can be mapped to their original
+names in each engine:\tabular{ll}{
+   \strong{parsnip} \tab \strong{kernlab} \cr
+   cost \tab C \cr
+   degree \tab degree \cr
+   scale_factor \tab scale \cr
+   margin \tab epsilon \cr
+}
+
+
 Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are::
@@ -104,5 +114,5 @@ update(model, cost = 1)
 update(model, cost = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

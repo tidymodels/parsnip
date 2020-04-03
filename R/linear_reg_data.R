@@ -179,7 +179,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "rstanarm", fun = "stan_glm"),
-    defaults = list(family = expr(stats::gaussian))
+    defaults = list(family = expr(stats::gaussian), refresh = 0)
   )
 )
 
@@ -293,7 +293,7 @@ set_model_arg(
   parsnip = "penalty",
   original = "reg_param",
   func = list(pkg = "dials", fun = "penalty"),
-  has_submodel = TRUE
+  has_submodel = FALSE
 )
 
 set_model_arg(

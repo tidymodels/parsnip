@@ -1,13 +1,13 @@
-# @keywords internal
-# @rdname other_predict
-# @param quant A vector of numbers between 0 and 1 for the quantile being
-#  predicted.
-# @inheritParams predict.model_fit
-# @method predict_quantile model_fit
-# @export predict_quantile.model_fit
-# @export
+#' @keywords internal
+#' @rdname other_predict
+#' @param quant A vector of numbers between 0 and 1 for the quantile being
+#'  predicted.
+#' @inheritParams predict.model_fit
+#' @method predict_quantile model_fit
+#' @export predict_quantile.model_fit
+#' @export
 predict_quantile.model_fit <-
-  function (object, new_data, quantile = (1:9)/10, ...) {
+  function(object, new_data, quantile = (1:9)/10, ...) {
 
     if (is.null(object$spec$method$pred$quantile))
       rlang::abort("No quantile prediction method defined for this engine.")

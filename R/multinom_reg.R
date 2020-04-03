@@ -41,6 +41,13 @@
 #'
 #' @section Engine Details:
 #'
+#' The standardized parameter names in parsnip can be mapped to their original
+#' names in each engine:
+#'
+#' ```{r echo = FALSE}
+#' convert_args("multinom_reg")
+#' ```
+#'
 #' Engines may have pre-set default arguments when executing the
 #'  model fit call.  For this type of
 #'  model, the template of the fit calls are:
@@ -84,7 +91,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' multinom_reg()
 #' # Parameters can be represented by a placeholder:

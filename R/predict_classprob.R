@@ -1,9 +1,9 @@
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_classprob model_fit
-# @export predict_classprob.model_fit
-# @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_classprob model_fit
+#' @export predict_classprob.model_fit
+#' @export
 #' @importFrom tibble as_tibble is_tibble tibble
 predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")

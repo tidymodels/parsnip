@@ -5,6 +5,7 @@
 #'  It translates generic parameters to their counterparts.
 #'
 #' @param x A model specification.
+#' @param engine The computational engine for the model (see `?set_engine`).
 #' @param ... Not currently used.
 #' @details
 #' `translate()` produces a _template_ call that lacks the specific
@@ -47,7 +48,9 @@ translate <- function(x, ...)
 #' @importFrom utils getFromNamespace
 #' @importFrom purrr list_modify
 #' @importFrom rlang lgl
+#' @rdname translate
 #' @export
+#' @export translate.default
 translate.default <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
   if (is.null(engine))
