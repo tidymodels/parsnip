@@ -27,7 +27,7 @@ To demonstrate `parsnip` for classification models, the credit data will be used
 ```{r credit-split}
 library(tidymodels)
 
-data(credit_data)
+data(credit_data, package = "modeldata")
 
 set.seed(7075)
 data_split <- initial_split(credit_data, strata = "Status", p = 0.75)

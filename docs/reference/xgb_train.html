@@ -8,6 +8,13 @@
 
 <title>Boosted trees via xgboost — xgb_train • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -37,6 +44,7 @@
 <meta property="og:title" content="Boosted trees via xgboost — xgb_train" />
 <meta property="og:description" content="xgb_train is a wrapper for xgboost tree-based models
 where all of the model arguments are in the main function." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -55,7 +63,7 @@ where all of the model arguments are in the main function." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +80,7 @@ where all of the model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
         </div>
       </div>
     </div>
@@ -112,7 +120,7 @@ where all of the model arguments are in the main function." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -140,9 +148,18 @@ where all of the model arguments are in the main function." />
 where all of the model arguments are in the main function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xgb_train</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>xgb_train</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>,
+  <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,7 +195,7 @@ weights needed in a child to continue to split.</p></td>
     </tr>
     <tr>
       <th>gamma</th>
-      <td><p>An number for the minimum loss reduction required to make a
+      <td><p>A number for the minimum loss reduction required to make a
 further partition on a leaf node of the tree</p></td>
     </tr>
     <tr>
@@ -196,13 +213,10 @@ further partition on a leaf node of the tree</p></td>
     <p>A fitted <code>xgboost</code> object.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

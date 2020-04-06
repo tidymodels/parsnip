@@ -8,6 +8,13 @@
 
 <title>General Interface for Multinomial Regression Models — multinom_reg • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -49,6 +56,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +75,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,7 +92,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
         </div>
       </div>
     </div>
@@ -124,7 +132,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -167,8 +175,14 @@ in lieu of recreating the object from scratch.</p>
     <pre class="usage"><span class='fu'>multinom_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for multinom_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,7 +194,7 @@ The only possible value for this model is "classification".</p></td>
     </tr>
     <tr>
       <th>penalty</th>
-      <td><p>An non-negative number representing the total
+      <td><p>A non-negative number representing the total
 amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
 For <code>keras</code> models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
@@ -220,7 +234,7 @@ modified in-place of or replaced wholesale.</p></td>
     <p>For <code>multinom_reg()</code>, the mode will always be "classification".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default)</p></li>
+<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default), <code>"nnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
@@ -244,24 +258,34 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     
 
 
+<p>The standardized parameter names in parsnip can be mapped to their original
+names in each engine:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td><td><strong>nnet</strong></td></tr>
+<tr><td>penalty</td><td>lambda</td><td>reg_param</td><td>penalty</td><td>decay</td></tr>
+<tr><td>mixture</td><td>alpha</td><td>elastic_net_param</td><td>NA</td><td>NA</td></tr>
+</table>
+
+
+
 <p>Engines may have pre-set default arguments when executing the
 model fit call.  For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">glmnet</span></p>
 <p><pre>
-glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    family = "multinomial")
-</pre></p>
+<span class='kw pkg'>glmnet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/glmnet/man/glmnet.html'>glmnet</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"multinomial"</span>)</pre></p>
+<p><span class="pkg">nnet</span></p>
+<p><pre>
+<span class='kw pkg'>nnet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nnet/man/multinom.html'>multinom</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>trace</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre></p>
 <p><span class="pkg">spark</span></p>
 <p><pre>
-sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-    weight_col = missing_arg(), family = "multinomial")
-</pre></p>
+<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_logistic_regression.html'>ml_logistic_regression</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>weight_col</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"multinomial"</span>)</pre></p>
 <p><span class="pkg">keras</span></p>
 <p><pre>
-parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-    act = "linear")
-</pre></p>
+<span class='kw pkg'>parsnip</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/keras_mlp.html'>keras_mlp</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre></p>
 <p>For <code>glmnet</code> models, the full regularization path is always fit regardless
 of the value given to <code>penalty</code>. Also, there is the option to pass
 multiple values (or no values) to the <code>penalty</code> argument. When using the
@@ -273,7 +297,7 @@ returns a tibble with a list column called <code>.pred</code> that contains
 a tibble with all of the penalty results.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>multinom_reg</span>()</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
@@ -299,17 +323,10 @@ a tibble with all of the penalty results.</p>
 #&gt;   penalty = 1
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

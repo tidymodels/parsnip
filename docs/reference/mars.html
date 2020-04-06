@@ -8,6 +8,13 @@
 
 <title>General Interface for MARS — mars • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -52,6 +59,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +78,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -87,7 +95,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
         </div>
       </div>
     </div>
@@ -127,7 +135,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -170,12 +178,23 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mars</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>mars</span>(
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
+  <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S3 method for mars</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,25 +252,33 @@ following <em>engines</em>:</p><ul>
     
 
 
+<p>The standardized parameter names in parsnip can be mapped to their original
+names in each engine:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>earth</strong></td></tr>
+<tr><td>num_terms</td><td>nprune</td></tr>
+<tr><td>prod_degree</td><td>degree</td></tr>
+<tr><td>prune_method</td><td>pmethod</td></tr>
+</table>
+
+
+
 <p>Engines may have pre-set default arguments when executing the
 model fit call.  For this type of
 model, the template of the fit calls are:</p>
 <p><span class="pkg">earth</span> classification</p>
 <p><pre>
-earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    glm = list(family = stats::binomial), keepxy = TRUE)
-</pre></p>
+<span class='kw pkg'>earth</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/earth/man/earth.html'>earth</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>glm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span>), <span class='kw'>keepxy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre></p>
 <p><span class="pkg">earth</span> regression</p>
 <p><pre>
-earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    keepxy = TRUE)
-</pre></p>
+<span class='kw pkg'>earth</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/earth/man/earth.html'>earth</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>keepxy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre></p>
 <p>Note that, when the model is fit, the <span class="pkg">earth</span> package only has its
 namespace loaded. However, if <code>multi_predict</code> is used, the package is
 attached.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>mars</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; MARS Model Specification (regression)
@@ -275,16 +302,10 @@ attached.</p>
 #&gt;   num_terms = 1
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

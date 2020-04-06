@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
   comment = "#>"
   )
 options(digits = 3)
-library(parsnip)
 library(discrim)
 library(tidymodels)
 library(cli)
@@ -60,7 +59,7 @@ map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)
     model = paste0("`", model, "()`"),
     ) %>%
   mutate(check = cli::symbol$tick) %>%
-  spread(type, check, fill =  cli::symbol$times) %>%
+  tidyr::spread(type, check, fill =  cli::symbol$times) %>%
   kable(format = "html") %>% 
   kable_styling(full_width = FALSE) %>%
   collapse_rows(columns = 1)
@@ -77,7 +76,7 @@ map_dfr(mod_names, ~ get_from_env(paste0(.x, "_predict")) %>% mutate(model = .x)
     model = paste0("`", model, "()`"),
     ) %>%
   mutate(check = cli::symbol$tick) %>%
-  spread(type, check, fill =  cli::symbol$times) %>%
+  tidyr::spread(type, check, fill =  cli::symbol$times) %>%
   kable(format = "html") %>% 
   kable_styling(full_width = FALSE) %>%
   collapse_rows(columns = 1)
@@ -98,7 +97,7 @@ args <-
   filter(str_detect(name, "args")) %>% 
   mutate(model = str_replace(name, "_args", ""),
          args  = map(name, ~envir[[.x]])) %>% 
-  unnest(args) %>% 
+  tidyr::unnest(args) %>% 
   select(model:original)
 
 library(DT)

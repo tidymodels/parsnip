@@ -8,6 +8,13 @@
 
 <title>General Interface for Decision Tree Models — decision_tree • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -51,6 +58,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +77,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -86,7 +94,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
         </div>
       </div>
     </div>
@@ -126,7 +134,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -168,13 +176,23 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>decision_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>decision_tree</span>(
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
+  <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S3 method for decision_tree</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cost_complexity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -253,32 +271,37 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     
 
 
+<p>The standardized parameter names in parsnip can be mapped to their original
+names in each engine:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>rpart</strong></td><td><strong>C5.0</strong></td><td><strong>spark</strong></td></tr>
+<tr><td>tree_depth</td><td>maxdepth</td><td>NA</td><td>max_depth</td></tr>
+<tr><td>min_n</td><td>minsplit</td><td>minCases</td><td>min_instances_per_node</td></tr>
+<tr><td>cost_complexity</td><td>cp</td><td>NA</td><td>NA</td></tr>
+</table>
+
+
+
 <p>Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are::</p>
 <p><span class="pkg">rpart</span> classification</p>
 <p><pre>
-rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-</pre></p>
+<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rpart/man/rpart.html'>rpart</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
 <p><span class="pkg">rpart</span> regression</p>
 <p><pre>
-rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-</pre></p>
+<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rpart/man/rpart.html'>rpart</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
 <p><span class="pkg">C5.0</span> classification</p>
 <p><pre>
-parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    trials = 1)
-</pre></p>
+<span class='kw pkg'>parsnip</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/C5.0_train.html'>C5.0_train</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>trials</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre></p>
 <p><span class="pkg">spark</span> classification</p>
 <p><pre>
-sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
-    seed = sample.int(10^5, 1))
-</pre></p>
+<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_decision_tree.html'>ml_decision_tree_classifier</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
 <p><span class="pkg">spark</span> regression</p>
 <p><pre>
-sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
-    seed = sample.int(10^5, 1))
-</pre></p>
+<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_decision_tree.html'>ml_decision_tree_classifier</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
@@ -310,17 +333,10 @@ sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg()
 #&gt;   cost_complexity = 1
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
