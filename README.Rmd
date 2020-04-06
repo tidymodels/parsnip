@@ -1,7 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # parsnip <a href='https://tidymodels.github.io/parsnip/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
@@ -20,8 +27,7 @@ The goal of parsnip is to provide a tidy, unified interface to models that can b
 
 ## Installation
 
-
-```r
+```{r, eval = FALSE}
 # The easiest way to get parsnip is to install all of tidymodels:
 install.packages("tidymodels")
 
@@ -38,8 +44,7 @@ devtools::install_github("tidymodels/parsnip")
 
 One challenge with different modeling functions available in R _that do the same thing_ is that they can have different interfaces and arguments. For example, to fit a random forest _regression_ model, we might have:
 
-
-```r
+```{r eval=FALSE}
 # From randomForest
 rf_1 <- randomForest(
   y ~ ., 
@@ -86,67 +91,29 @@ The goals of parsnip are to:
 
 Using the example above, the `parsnip` approach would be:
 
-
-```r
+```{r}
 library(parsnip)
 
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("ranger", importance = "impurity") %>%
   set_mode("regression")
-#> Random Forest Model Specification (regression)
-#> 
-#> Main Arguments:
-#>   mtry = 10
-#>   trees = 2000
-#> 
-#> Engine-Specific Arguments:
-#>   importance = impurity
-#> 
-#> Computational engine: ranger
 ```
 
 The engine can be easily changed. To use Spark, the change is straightforward:
 
-
-```r
+```{r}
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("spark") %>%
   set_mode("regression")
-#> Random Forest Model Specification (regression)
-#> 
-#> Main Arguments:
-#>   mtry = 10
-#>   trees = 2000
-#> 
-#> Computational engine: spark
 ```
 
 Either one of these model specifications can be fit in the same way:
 
-
-```r
+```{r}
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("ranger", importance = "impurity") %>%
   set_mode("regression") %>%
   fit(mpg ~ ., data = mtcars)
-#> parsnip model object
-#> 
-#> Fit time:  69ms 
-#> Ranger result
-#> 
-#> Call:
-#>  ranger::ranger(formula = formula, data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
-#> 
-#> Type:                             Regression 
-#> Number of trees:                  2000 
-#> Sample size:                      32 
-#> Number of independent variables:  10 
-#> Mtry:                             10 
-#> Target node size:                 5 
-#> Variable importance mode:         impurity 
-#> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.859577 
-#> R squared (OOB):                  0.8386862
 ```
 
 
