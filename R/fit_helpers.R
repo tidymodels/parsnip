@@ -89,8 +89,8 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  object$method$fit$args[["y"]] <- quote(y)
-  object$method$fit$args[["x"]] <-
+  object$method$fit$args[[ object$method$fit$protect[2]] ] <- quote(y)
+  object$method$fit$args[[ object$method$fit$protect[1]] ] <-
     switch(
       target,
       none = quote(x),
