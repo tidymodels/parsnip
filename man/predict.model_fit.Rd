@@ -3,11 +3,14 @@
 \name{predict.model_fit}
 \alias{predict.model_fit}
 \alias{predict_raw.model_fit}
+\alias{predict_raw}
 \title{Model predictions}
 \usage{
 \method{predict}{model_fit}(object, new_data, type = NULL, opts = list(), ...)
 
 \method{predict_raw}{model_fit}(object, new_data, opts = list(), ...)
+
+predict_raw(object, ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_fit}}
@@ -123,3 +126,4 @@ predict(
   opts = list(type = "terms")
 )
 }
+\keyword{internal}
