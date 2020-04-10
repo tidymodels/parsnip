@@ -36,8 +36,8 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
 }
 
 
-# @export
-# @rdname predict.model_fit
-# @inheritParams predict_raw.model_fit
+#' @export
+#' @keywords internal
+#' @rdname predict.model_fit
 predict_raw <- function(object, ...)
   UseMethod("predict_raw")
