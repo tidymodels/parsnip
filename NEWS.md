@@ -2,7 +2,9 @@
 
 # parsnip 0.0.5.9000
 
+## Other Changes
 
+* S3 dispatch for `tidy()` was broken on R 4.0. 
 
 # parsnip 0.0.5
 
