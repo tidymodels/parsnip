@@ -13,6 +13,8 @@
 \alias{get_pred_type}
 \alias{show_model_info}
 \alias{pred_value_template}
+\alias{set_encoding}
+\alias{get_encoding}
 \title{Tools to Register Models}
 \usage{
 set_new_model(model)
@@ -38,6 +40,10 @@ get_pred_type(model, type)
 show_model_info(model)
 
 pred_value_template(pre = NULL, post = NULL, func, ...)
+
+set_encoding(model, mode, eng, options)
+
+get_encoding(model)
 }
 \arguments{
 \item{model}{A single character string for the model type (e.g.

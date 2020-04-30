@@ -302,6 +302,11 @@ check_interface_val <- function(x) {
 #'  below, depending on context.
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
+#' @param options A list of options for encodings. The current option is
+#' `predictor_indicators` which tells `parsnip` whether the pre-processing
+#' should make dummy variables from factor predictors. This only affects cases
+#' when [fit.model_spec()] is used and the underlying model has the x/y
+#' interface.
 #' @param ... Optional arguments that should be passed into the `args` slot for
 #'  prediction objects.
 #' @keywords internal
@@ -757,5 +762,79 @@ pred_value_template <-  function(pre = NULL, post = NULL, func, ...) {
     rlang::abort("Please supply a value to `func`. See `?set_pred`.")
   }
   list(pre = pre, post = post, func = func, args = list(...))
+}
+
+# ------------------------------------------------------------------------------
+
+check_encodings <- function(x) {
+  if (!is.list(x)) {
+    rlang::abort("`values` should be a list.")
+  }
+  req_args <- list(predictor_indicators = TRUE)
+
+  missing_args <- setdiff(names(req_args), names(x))
+  if (length(missing_args) > 0) {
+    rlang::abort(
+      glue::glue(
+        "The values passed to `set_encoding()` are missing arguments: ",
+        paste0("'", missing_args, "'", collapse = ", ")
+      )
+    )
+  }
+  extra_args <- setdiff(names(x), names(req_args))
+  if (length(extra_args) > 0) {
+    rlang::abort(
+      glue::glue(
+        "The values passed to `set_encoding()` had extra arguments: ",
+        paste0("'", extra_args, "'", collapse = ", ")
+      )
+    )
+  }
+  invisible(x)
+}
+
+#' @export
+#' @rdname set_new_model
+#' @keywords internal
+set_encoding <- function(model, mode, eng, options) {
+  check_model_exists(model)
+  check_eng_val(eng)
+  check_mode_val(mode)
+  check_encodings(options)
+
+  keys   <- tibble::tibble(model = model, engine = eng, mode = mode)
+  options <- tibble::as_tibble(options)
+  new_values <- dplyr::bind_cols(keys, options)
+
+
+  current_db_list <- ls(envir = get_model_env())
+  nm <- paste(model, "encoding", sep = "_")
+  if (any(current_db_list == nm)) {
+    current <- get_from_env(nm)
+    dup_check <-
+      current %>%
+      dplyr::inner_join(new_values, by = c("model", "engine", "mode", "predictor_indicators"))
+    if (nrow(dup_check)) {
+      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings."))
+    }
+
+  } else {
+    current <- NULL
+  }
+
+  db_values <- dplyr::bind_rows(current, new_values)
+  set_env_val(nm, db_values)
+
+  invisible(NULL)
+}
+
+
+#' @rdname set_new_model
+#' @keywords internal
+#' @export
+get_encoding <- function(model) {
+  check_model_exists(model)
+  nm <- paste0(model, "_encoding")
+  rlang::env_get(get_model_env(), nm)
 }
 
