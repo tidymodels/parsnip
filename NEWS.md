@@ -1,10 +1,10 @@
-# parsnip (development version)
-
-# parsnip 0.0.5.9000
+# parsnip 0.1.1
 
 ## Other Changes
 
 * S3 dispatch for `tidy()` was broken on R 4.0. 
+
+* The error message for missing packages was fixed (#289 and #292)
 
 # parsnip 0.0.5
 
