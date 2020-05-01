@@ -10,3 +10,7 @@ generics::fit
 #' @importFrom generics fit_xy
 #' @export
 generics::fit_xy
+
+#' @importFrom generics tidy
+#' @export
+generics::tidy

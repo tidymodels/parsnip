@@ -4,7 +4,7 @@
 \alias{tidy.nullmodel}
 \title{Tidy method for null models}
 \usage{
-tidy.nullmodel(x, ...)
+\method{tidy}{nullmodel}(x, ...)
 }
 \arguments{
 \item{x}{A \code{nullmodel} object.}
