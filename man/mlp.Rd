@@ -97,15 +97,71 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"nnet"} (the default)
 \item \pkg{keras}: \code{"keras"}
 }
+}
+\section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{mlp() \%>\% 
+  set_engine("keras") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (regression)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg())
+}\if{html}{\out{<div class="r">}}\preformatted{mlp() \%>\% 
+  set_engine("keras") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (classification)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg())
+}
 
 An error is thrown if both \code{penalty} and \code{dropout} are specified for
 \code{keras} models.
 }
-\section{Engine Details}{
 
+\subsection{nnet}{\if{html}{\out{<div class="r">}}\preformatted{mlp() \%>\% 
+  set_engine("nnet") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (regression)
+## 
+## Main Arguments:
+##   hidden_units = 5
+## 
+## Computational engine: nnet 
+## 
+## Model fit template:
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = 5, trace = FALSE, linout = TRUE)
+}\if{html}{\out{<div class="r">}}\preformatted{mlp() \%>\% 
+  set_engine("nnet") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (classification)
+## 
+## Main Arguments:
+##   hidden_units = 5
+## 
+## Computational engine: nnet 
+## 
+## Model fit template:
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = 5, trace = FALSE, linout = FALSE)
+}
+}
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{lll}{
+\subsection{Parameter translations}{
+
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{lll}{
    \strong{parsnip} \tab \strong{keras} \tab \strong{nnet} \cr
    hidden_units \tab hidden_units \tab size \cr
    penalty \tab penalty \tab decay \cr
@@ -114,26 +170,7 @@ names in each engine:\tabular{lll}{
    activation \tab activation \tab NA \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:
-
-\pkg{keras} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
-
-\pkg{keras} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
-
-\pkg{nnet} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
-
-\pkg{nnet} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
+}
 }
 
 \examples{

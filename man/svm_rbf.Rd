@@ -70,28 +70,43 @@ following \emph{engines}:
 }
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{kernlab}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot")
+}\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot", 
+##     prob.model = TRUE)
+}
+}
 
+\subsection{Parameter translations}{
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{ll}{
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{ll}{
    \strong{parsnip} \tab \strong{kernlab} \cr
    cost \tab C \cr
    rbf_sigma \tab sigma \cr
    margin \tab epsilon \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::
-
-\pkg{kernlab} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "classification"), "kernlab")}
-
-\pkg{kernlab} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
+}
 }
 
 \examples{

@@ -46,29 +46,7 @@
 #' \item \pkg{R}:  `"kknn"`  (the default)
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("nearest_neighbor")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{kknn} (classification or regression)
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(mode = "regression"), "kknn")}
-#'
-#' @note
-#' For `kknn`, the underlying modeling function used is a restricted
-#' version of `train.kknn()` and not `kknn()`. It is set up in this way so that
-#' `parsnip` can utilize the underlying `predict.train.kknn` method to predict
-#' on new data. This also means that a single value of that function's
-#' `kernel` argument (a.k.a `weight_func` here) can be supplied
+#' @includeRmd man/rmd/nearest-neighbor.Rmd details
 #'
 #' @seealso [fit()]
 #'

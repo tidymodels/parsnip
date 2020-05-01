@@ -75,32 +75,51 @@ following \emph{engines}:
 }
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.
+\subsection{earth}{\if{html}{\out{<div class="r">}}\preformatted{mars() \%>\% 
+  set_engine("earth") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (regression)
+## 
+## Computational engine: earth 
+## 
+## Model fit template:
+## earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     keepxy = TRUE)
+}\if{html}{\out{<div class="r">}}\preformatted{mars() \%>\% 
+  set_engine("earth") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (classification)
+## 
+## Engine-Specific Arguments:
+##   glm = list(family = stats::binomial)
+## 
+## Computational engine: earth 
+## 
+## Model fit template:
+## earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     glm = list(family = stats::binomial), keepxy = TRUE)
+}
 
+Note that, when the model is fit, the \code{earth} package only has its
+namespace loaded. However, if \code{multi_predict} is used, the package is
+attached.
+}
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{ll}{
+\subsection{Parameter translations}{
+
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{ll}{
    \strong{parsnip} \tab \strong{earth} \cr
    num_terms \tab nprune \cr
    prod_degree \tab degree \cr
    prune_method \tab pmethod \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:
-
-\pkg{earth} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "classification"), "earth")}
-
-\pkg{earth} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "regression"), "earth")}
-
-Note that, when the model is fit, the \pkg{earth} package only has its
-namespace loaded. However, if \code{multi_predict} is used, the package is
-attached.
+}
 }
 
 \examples{

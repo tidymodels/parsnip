@@ -59,38 +59,7 @@
 #' }
 #'
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("boost_tree")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of model, the template of the
-#'  fit calls are:
-#'
-#' \pkg{xgboost} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
-#'
-#' \pkg{xgboost} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
-#'
-#' \pkg{C5.0} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
-#'
-#' \pkg{spark} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
-#'
-#' \pkg{spark} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
+#' @includeRmd man/rmd/boost-tree.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
@@ -106,7 +75,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()]
 #' @examples
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:

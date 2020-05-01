@@ -42,57 +42,7 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("linear_reg")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{lm}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "lm")}
-#'
-#' \pkg{glmnet}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "glmnet")}
-#'
-#' \pkg{stan}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "stan")}
-#'
-#' (note that the `refresh` default prevents logging of the estimation process. Change this value in `set_engine()` will show the logs)
-#'
-#' \pkg{spark}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "spark")}
-#'
-#' \pkg{keras}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::linear_reg(), "keras")}
-#'
-#' For `glmnet` models, the full regularization path is always fit regardless
-#' of the value given to `penalty`. Also, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument. When using the
-#'  `predict()` method in these cases, the return value depends on
-#'  the value of `penalty`. When using `predict()`, only a single
-#'  value of the penalty can be used. When predicting on multiple
-#'  penalties, the `multi_predict()` function can be used. It
-#'  returns a tibble with a list column called `.pred` that contains
-#'  a tibble with all of the penalty results.
-#'
-#' For prediction, the `stan` engine can compute posterior
-#'  intervals analogous to confidence and prediction intervals. In
-#'  these instances, the units are the original outcome and when
-#'  `std_error = TRUE`, the standard deviation of the posterior
-#'  distribution (or posterior predictive distribution as
-#'  appropriate) is returned.
+#' @includeRmd man/rmd/linear-reg.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula

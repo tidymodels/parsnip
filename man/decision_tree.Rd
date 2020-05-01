@@ -96,40 +96,87 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{rpart}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
+  set_engine("rpart") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
+## 
+## Computational engine: rpart 
+## 
+## Model fit template:
+## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+}\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
+  set_engine("rpart") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+## 
+## Computational engine: rpart 
+## 
+## Model fit template:
+## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+}
 
+Note that \code{\link[rpart:rpart]{rpart::rpart()}} does not require factor
+predictors to be converted to indicator variables.
+}
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{llll}{
+\subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
+  set_engine("C5.0") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+## 
+## Computational engine: C5.0 
+## 
+## Model fit template:
+## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     trials = 1)
+}
+
+Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
+predictors to be converted to indicator variables.
+}
+
+\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
+##     seed = sample.int(10^5, 1))
+}\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
+##     seed = sample.int(10^5, 1))
+}
+}
+
+\subsection{Parameter translations}{
+
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{llll}{
    \strong{parsnip} \tab \strong{rpart} \tab \strong{C5.0} \tab \strong{spark} \cr
    tree_depth \tab maxdepth \tab NA \tab max_depth \cr
    min_n \tab minsplit \tab minCases \tab min_instances_per_node \cr
    cost_complexity \tab cp \tab NA \tab NA \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::
-
-\pkg{rpart} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "rpart")}
-
-\pkg{rpart} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "regression"), "rpart")}
-
-\pkg{C5.0} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "C5.0")}
-
-\pkg{spark} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "spark")}
-
-\pkg{spark} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "regression"), "spark")}
+}
 }
 
 \examples{
@@ -142,5 +189,5 @@ update(model, cost_complexity = 1)
 update(model, cost_complexity = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }
