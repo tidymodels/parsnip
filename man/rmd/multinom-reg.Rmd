@@ -1,0 +1,60 @@
+# Engine Details
+
+Engines may have pre-set default arguments when executing the model fit call. 
+For this type of model, the template of the fit calls are below.
+
+## glmnet
+
+```{r glmnet-cls}
+multinom_reg() %>% 
+  set_engine("glmnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+For `glmnet` models, the full regularization path is always fit regardless of the
+value given to `penalty`. Also, there is the option to pass  multiple values (or
+no values) to the `penalty` argument. When using the  `predict()` method in these
+cases, the return value depends on  the value of `penalty`. When using
+`predict()`, only a single  value of the penalty can be used. When predicting on
+multiple  penalties, the `multi_predict()` function can be used. It  returns a
+tibble with a list column called `.pred` that contains  a tibble with all of the
+penalty results.
+
+## nnet
+
+```{r nnet-cls}
+multinom_reg() %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## spark
+
+```{r spark-cls}
+multinom_reg() %>% 
+  set_engine("spark") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## keras
+
+```{r keras-cls}
+multinom_reg() %>% 
+  set_engine("keras") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Parameter translations
+
+The standardized parameter names in parsnip can be mapped to their original names
+in each engine that has main parameters:
+
+```{r echo = FALSE, results = "asis"}
+parsnip::convert_args("multinom_reg")
+```
+

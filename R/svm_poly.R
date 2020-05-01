@@ -36,26 +36,7 @@
 #' \item \pkg{R}:  `"kernlab"`  (the default)
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("svm_poly")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are::
-#'
-#' \pkg{kernlab} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "classification"), "kernlab")}
-#'
-#' \pkg{kernlab} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
+#' @includeRmd man/rmd/svm-poly.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]

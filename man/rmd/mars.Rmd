@@ -1,0 +1,34 @@
+# Engine Details
+
+Engines may have pre-set default arguments when executing the model fit call. 
+For this type of model, the template of the fit calls are below.
+
+## earth
+
+```{r earth-reg}
+mars() %>% 
+  set_engine("earth") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r earth-cls}
+mars() %>% 
+  set_engine("earth") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+Note that, when the model is fit, the `earth` package only has its  namespace
+loaded. However, if `multi_predict` is used, the package is  attached.
+
+
+## Parameter translations
+
+The standardized parameter names in parsnip can be mapped to their original names
+in each engine that has main parameters:
+
+```{r echo = FALSE, results = "asis"}
+parsnip::convert_args("mars")
+```
+

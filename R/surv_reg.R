@@ -39,30 +39,7 @@
 #' \item \pkg{R}:  `"flexsurv"`, `"survival"` (the default)
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("surv_reg")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{flexsurv}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
-#'
-#' \pkg{survival}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survival")}
-#'
-#' Note that `model = TRUE` is needed to produce quantile
-#'  predictions when there is a stratification variable and can be
-#'  overridden in other cases.
+#' @includeRmd man/rmd/surv-reg.Rmd details
 #'
 #' @seealso [fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival

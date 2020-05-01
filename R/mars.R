@@ -36,30 +36,7 @@
 #' \item \pkg{R}:  `"earth"`  (the default)
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("mars")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{earth} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "classification"), "earth")}
-#'
-#' \pkg{earth} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mars(mode = "regression"), "earth")}
-#'
-#' Note that, when the model is fit, the \pkg{earth} package only has its
-#'  namespace loaded. However, if `multi_predict` is used, the package is
-#'  attached.
+#' @includeRmd man/rmd/mars.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]

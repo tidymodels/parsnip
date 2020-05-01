@@ -1,0 +1,49 @@
+# Engine Details
+
+Engines may have pre-set default arguments when executing the model fit call. 
+For this type of model, the template of the fit calls are below:
+
+## keras
+
+```{r keras-reg}
+mlp() %>% 
+  set_engine("keras") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r keras-cls}
+mlp() %>% 
+  set_engine("keras") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+An error is thrown if both `penalty` and `dropout` are specified for `keras` models.
+
+## nnet
+
+```{r nnet-reg}
+mlp() %>% 
+  set_engine("nnet") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r nnet-cls}
+mlp() %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Parameter translations
+
+The standardized parameter names in parsnip can be mapped to their original 
+names in each engine that has main parameters:
+
+```{r echo = FALSE, results = "asis"}
+parsnip::convert_args("mlp")
+```
+

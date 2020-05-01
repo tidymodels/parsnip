@@ -38,47 +38,7 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("rand_forest")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are::
-#'
-#' \pkg{ranger} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "ranger")}
-#'
-#' \pkg{ranger} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "ranger")}
-#'
-#' \pkg{randomForests} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "randomForest")}
-#'
-#' \pkg{randomForests} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "randomForest")}
-#'
-#' \pkg{spark} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "spark")}
-#'
-#' \pkg{spark} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "spark")}
-#'
-#' For \pkg{ranger} confidence intervals, the intervals are
-#'  constructed using the form `estimate +/- z * std_error`. For
-#'  classification probabilities, these values can fall outside of
-#'  `[0, 1]` and will be coerced to be in this range.
+#' @includeRmd man/rmd/rand-forest.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula

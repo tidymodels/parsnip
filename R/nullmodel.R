@@ -140,19 +140,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' \item \pkg{R}:  `"parsnip"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{parsnip} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
-#'
-#' \pkg{parsnip} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
+#' @includeRmd man/rmd/null-model.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
