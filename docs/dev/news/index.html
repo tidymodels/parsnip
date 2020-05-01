@@ -8,24 +8,35 @@
 
 <title>Changelog • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,6 +46,8 @@
 
 
 <meta property="og:title" content="Changelog" />
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -48,11 +61,19 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,9 +88,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9001</span>
         </div>
       </div>
     </div>
@@ -77,9 +98,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -109,7 +127,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -127,13 +145,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="parsnip-0-1-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1">
+<a href="#parsnip-0-1-1" class="anchor"></a>parsnip 0.1.1<small> Unreleased </small>
+</h1>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<ul>
+<li><p>S3 dispatch for <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code> was broken on R 4.0.</p></li>
+<li><p>The error message for missing packages was fixed (<a href='https://github.com/tidymodels/parsnip/issues/289'>#289</a> and <a href='https://github.com/tidymodels/parsnip/issues/292'>#292</a>)</p></li>
+</ul>
+</div>
+</div>
     <div id="parsnip-0-0-5" class="section level1">
-<h1 class="page-header">
-<a href="#parsnip-0-0-5" class="anchor"></a>parsnip 0.0.5<small> Unreleased </small>
+<h1 class="page-header" data-toc-text="0.0.5">
+<a href="#parsnip-0-0-5" class="anchor"></a>parsnip 0.0.5<small> 2020-01-07 </small>
 </h1>
 <div id="fixes" class="section level2">
 <h2 class="hasAnchor">
@@ -142,12 +173,12 @@
 <li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206"><a href='https://github.com/tidymodels/parsnip/issues/206'>#206</a></a> and <a href="https://github.com/tidymodels/parsnip/issues/234"><a href='https://github.com/tidymodels/parsnip/issues/234'>#234</a></a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li>
 </ul>
 </div>
-<div id="other-changes" class="section level2">
+<div id="other-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
 <ul>
-<li>
-<code>glmnet</code> was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain <code>parsnip</code> to that same requirement. All <code>glmnet</code> tests are run locally.</li>
+<li><p><code>glmnet</code> was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain <code>parsnip</code> to that same requirement. All <code>glmnet</code> tests are run locally.</p></li>
+<li><p>A set of internal functions are now exported. These are helpful when creating a new package that registers new model specifications.</p></li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
@@ -168,7 +199,7 @@
 </div>
 </div>
     <div id="parsnip-0-0-4" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.4">
 <a href="#parsnip-0-0-4" class="anchor"></a>parsnip 0.0.4<small> 2019-11-02 </small>
 </h1>
 <div id="new-features-1" class="section level2">
@@ -193,13 +224,13 @@
 </div>
 </div>
     <div id="parsnip-0-0-3-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.3.1">
 <a href="#parsnip-0-0-3-1" class="anchor"></a>parsnip 0.0.3.1<small> 2019-08-06 </small>
 </h1>
 <p>Test case update due to CRAN running extra tests <a href="https://github.com/tidymodels/parsnip/issues/202">(<a href='https://github.com/tidymodels/parsnip/issues/202'>#202</a>)</a></p>
 </div>
     <div id="parsnip-0-0-3" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.3">
 <a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> 2019-07-31 </small>
 </h1>
 <p>Unplanned release based on CRAN requirements for Solaris.</p>
@@ -226,7 +257,7 @@
 </div>
 </div>
     <div id="parsnip-0-0-2" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.2">
 <a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
 </h1>
 <p>Small release driven by changes in <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> in the current r-devel.</p>
@@ -238,9 +269,9 @@
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
 </ul>
 </div>
-<div id="other-changes-1" class="section level2">
+<div id="other-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-2" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
 <li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
@@ -263,13 +294,13 @@
 </div>
 </div>
     <div id="parsnip-0-0-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.1">
 <a href="#parsnip-0-0-1" class="anchor"></a>parsnip 0.0.1<small> 2018-11-12 </small>
 </h1>
 <p>First CRAN release</p>
 </div>
     <div id="parsnip-0-0-0-9005" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9005">
 <a href="#parsnip-0-0-0-9005" class="anchor"></a>parsnip 0.0.0.9005<small> Unreleased </small>
 </h1>
 <ul>
@@ -277,7 +308,7 @@
 </ul>
 </div>
     <div id="parsnip-0-0-0-9004" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9004">
 <a href="#parsnip-0-0-0-9004" class="anchor"></a>parsnip 0.0.0.9004<small> Unreleased </small>
 </h1>
 <ul>
@@ -289,7 +320,7 @@
 </ul>
 </div>
     <div id="parsnip-0-0-0-9003" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9003">
 <a href="#parsnip-0-0-0-9003" class="anchor"></a>parsnip 0.0.0.9003<small> Unreleased </small>
 </h1>
 <ul>
@@ -301,7 +332,7 @@
 </ul>
 </div>
     <div id="parsnip-0-0-0-9002" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9002">
 <a href="#parsnip-0-0-0-9002" class="anchor"></a>parsnip 0.0.0.9002<small> Unreleased </small>
 </h1>
 <ul>
@@ -310,7 +341,7 @@
 </ul>
 </div>
     <div id="parsnip-0-0-0-9001" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9001">
 <a href="#parsnip-0-0-0-9001" class="anchor"></a>parsnip 0.0.0.9001<small> Unreleased </small>
 </h1>
 <ul>
@@ -318,7 +349,7 @@
 </ul>
 </div>
     <div id="parsnip-0-0-0-9000" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.0.9000">
 <a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
@@ -332,23 +363,9 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#parsnip-0-0-5">0.0.5</a></li>
-        <li><a href="#parsnip-0-0-4">0.0.4</a></li>
-        <li><a href="#parsnip-0-0-3-1">0.0.3.1</a></li>
-        <li><a href="#parsnip-0-0-3">0.0.3</a></li>
-        <li><a href="#parsnip-0-0-2">0.0.2</a></li>
-        <li><a href="#parsnip-0-0-1">0.0.1</a></li>
-        <li><a href="#parsnip-0-0-0-9005">0.0.0.9005</a></li>
-        <li><a href="#parsnip-0-0-0-9004">0.0.0.9004</a></li>
-        <li><a href="#parsnip-0-0-0-9003">0.0.0.9003</a></li>
-        <li><a href="#parsnip-0-0-0-9002">0.0.0.9002</a></li>
-        <li><a href="#parsnip-0-0-0-9001">0.0.0.9001</a></li>
-        <li><a href="#parsnip-0-0-0-9000">0.0.0.9000</a></li>
-      </ul>
-    </div>
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>

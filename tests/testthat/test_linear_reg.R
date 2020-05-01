@@ -225,6 +225,8 @@ test_that('lm execution', {
     ),
     regexp = NA
   )
+  expect_output(print(res), "parsnip model object")
+
   expect_error(
     res <- fit_xy(
       iris_basic,

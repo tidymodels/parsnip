@@ -2,6 +2,7 @@
 
 .onLoad <- function(libname, pkgname) {
   s3_register("broom::tidy", "model_fit")
+  s3_register("broom::tidy", "nullmodel")
 }
 
 

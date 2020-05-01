@@ -8,24 +8,35 @@
 
 <title>General Interface for Decision Tree Models — decision_tree • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -51,6 +62,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,11 +77,19 @@ in lieu of recreating the object from scratch." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,9 +104,9 @@ in lieu of recreating the object from scratch." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9001</span>
         </div>
       </div>
     </div>
@@ -94,9 +114,6 @@ in lieu of recreating the object from scratch." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -126,7 +143,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -263,32 +280,37 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     
 
 
+<p>The standardized parameter names in parsnip can be mapped to their original
+names in each engine:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>rpart</strong></td><td><strong>C5.0</strong></td><td><strong>spark</strong></td></tr>
+<tr><td>tree_depth</td><td>maxdepth</td><td>NA</td><td>max_depth</td></tr>
+<tr><td>min_n</td><td>minsplit</td><td>minCases</td><td>min_instances_per_node</td></tr>
+<tr><td>cost_complexity</td><td>cp</td><td>NA</td><td>NA</td></tr>
+</table>
+
+
+
 <p>Engines may have pre-set default arguments when executing the
 model fit call. For this type of
 model, the template of the fit calls are::</p>
 <p><span class="pkg">rpart</span> classification</p>
 <p><pre>
-rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-</pre></p>
+<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rpart/man/rpart.html'>rpart</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
 <p><span class="pkg">rpart</span> regression</p>
 <p><pre>
-rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-</pre></p>
+<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rpart/man/rpart.html'>rpart</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
 <p><span class="pkg">C5.0</span> classification</p>
 <p><pre>
-parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    trials = 1)
-</pre></p>
+<span class='kw pkg'>parsnip</span><span class='kw ns'>::</span><span class='fu'><a href='C5.0_train.html'>C5.0_train</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>trials</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre></p>
 <p><span class="pkg">spark</span> classification</p>
 <p><pre>
-sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
-    seed = sample.int(10^5, 1))
-</pre></p>
+<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_decision_tree.html'>ml_decision_tree_classifier</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
 <p><span class="pkg">spark</span> regression</p>
 <p><pre>
-sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
-    seed = sample.int(10^5, 1))
-</pre></p>
+<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_decision_tree.html'>ml_decision_tree_classifier</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
+    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
@@ -321,16 +343,9 @@ sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg()
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
