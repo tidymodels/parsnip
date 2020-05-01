@@ -182,3 +182,23 @@ null_model <-
     class(out) <- make_classes("null_model")
     out
   }
+
+
+
+#' Tidy method for null models
+#'
+#' Return the results of `nullmodel` as a tibble
+#'
+#' @param x A `nullmodel` object.
+#' @param ... Not used.
+#' @return A tibble with column `value`.
+#' @export
+#' @examples
+#' nullmodel(iris[,-5], iris$Species) %>% tidy()
+#'
+#' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
+
+tidy.nullmodel <- function(x, ...) {
+  tibble::tibble(value = x$value)
+}
+
