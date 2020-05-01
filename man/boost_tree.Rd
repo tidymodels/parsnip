@@ -153,10 +153,11 @@ call. For this type of model, the template of the fit calls are below:
 }
 
 Note that, for most engines to \code{boost_tree()}, the \code{sample_size}
-argument is in terms of the number of training set points. \code{xgboost}
-parameterizes this as the \emph{proportion} of training set samples. When
-using the \code{tune} or \code{dials} package, the \code{dials} \code{sample_prop()}
-function can be used. For example, using a parameter set:\if{html}{\out{<div class="r">}}\preformatted{mod <- 
+argument is in terms of the \emph{number} of training set points. The
+\code{xgboost} package parameterizes this as the \emph{proportion} of training set
+samples instead. When using the \code{tune} or \code{dials} packages, the
+\code{dials::sample_prop()} function can be used in that case. For example,
+using a parameter set:\if{html}{\out{<div class="r">}}\preformatted{mod <- 
   boost_tree(sample_size = tune()) \%>\% 
   set_engine("xgboost") \%>\% 
   set_mode("classification")
