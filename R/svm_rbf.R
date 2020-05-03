@@ -158,6 +158,21 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
     }
 
   }
+
+  if (x$engine == "liquidSVM") {
+    # convert parameter arguments
+    if (any(arg_names == "sigma")) {
+      arg_vals$gammas <- rlang::quo(1 / !!sqrt(arg_vals$sigma))
+      arg_vals$sigma <- NULL
+    }
+
+    if (any(arg_names == "C")) {
+      arg_vals$lambdas <- arg_vals$C
+      arg_vals$C <- NULL
+    }
+
+  }
+
   x$method$fit$args <- arg_vals
 
   # worried about people using this to modify the specification

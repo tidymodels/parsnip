@@ -172,3 +172,116 @@ set_pred(
       )
   )
 )
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("nearest_neighbor", "classification", "FNN")
+set_model_engine("nearest_neighbor", "regression", "FNN")
+set_dependency("nearest_neighbor", "FNN", "FNN")
+
+set_model_arg(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  parsnip = "neighbors",
+  original = "k",
+  func = list(pkg = "dials", fun = "neighbors"),
+  has_submodel = FALSE
+)
+set_fit(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(fun = "fnn_train"),
+    defaults = list()
+  )
+)
+set_fit(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(fun = "fnn_train"),
+    defaults = list()
+  )
+)
+set_pred(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "fnn_pred"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "fnn_pred"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "fnn_pred"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(result, object) tibble::as_tibble(result),
+    func = c(fun = "fnn_pred"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        prob = TRUE
+      )
+  )
+)
+set_pred(
+  model = "nearest_neighbor",
+  eng = "FNN",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "fnn_pred"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data))
+  )
+)

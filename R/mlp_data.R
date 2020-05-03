@@ -311,3 +311,125 @@ set_pred(
       )
   )
 )
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("mlp", "classification", "neuralnet")
+set_model_engine("mlp", "regression", "neuralnet")
+set_dependency("mlp", "neuralnet", "neuralnet")
+
+set_model_arg(
+  model = "mlp",
+  eng = "neuralnet",
+  parsnip = "hidden_units",
+  original = "hidden",
+  func = list(pkg = "dials", fun = "hidden_units"),
+  has_submodel = FALSE
+)
+set_fit(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data"),
+    func = c(pkg = "neuralnet", fun = "neuralnet"),
+    defaults = list(
+      rep = 1,
+      linear.output = FALSE
+    )
+  )
+)
+set_fit(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data"),
+    func = c(pkg = "neuralnet", fun = "neuralnet"),
+    defaults = list(
+      rep = 1,
+      linear.output = TRUE
+    )
+  )
+)
+set_pred(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = function(x, object) object$lvl[apply(x, 1, which.max)],
+    func = c(pkg = "stats", fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      colnames(x) <- object$lvl
+      tibble::as_tibble(x)
+    },
+    func = c(pkg = "stats", fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      prob = TRUE
+    )
+  )
+)
+set_pred(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "stats", fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = function(x, object) as.numeric(x),
+    func = c(pkg = "stats", fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)
+set_pred(
+  model = "mlp",
+  eng = "neuralnet",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "stats", fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
+  )
+)

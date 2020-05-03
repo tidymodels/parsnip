@@ -211,3 +211,86 @@ knn_by_k <- function(k, object, new_data, type, ...) {
     dplyr::mutate(neighbors = k, .row = dplyr::row_number()) %>%
     dplyr::select(.row, neighbors, dplyr::starts_with(".pred"))
 }
+
+# ------------------------------------------------------------------------------
+
+#' Nearest neighbors using FNN
+#'
+#' `fnn_train` is a wrapper for `FNN` fast nearest neighbor models
+#'
+#' @param x a data frame or matrix of predictors.
+#' @param y a vector (factor or numeric) or matrix (numeric) of outcome data.
+#' @param k a vector (integer) of the number of neighbours to consider.
+#' @param algorithm character, one of c("kd_tree", "cover_tree", "brute"),
+#'   default = "kd_tree"
+#' @param ... additional arguments to pass to FNN, currently unused.
+#'
+#' @return list containing the FNN call
+#' @export
+fnn_train <- function(x, y = NULL, k = 1, algorithm = "kd_tree", ...) {
+
+  # regression
+  if (is.numeric(y)) {
+    fun <- "knn.reg"
+    main_args <- list(
+      train = rlang::enquo(x),
+      y = rlang::enquo(y),
+      k = k,
+      algorithm = algorithm)
+    call <- parsnip:::make_call(fun = fun, ns = "FNN", main_args)
+    rlang::eval_tidy(call, env = rlang::current_env())
+
+    # for classification return unevaluated call because FNN:knn
+    # trains and predicts in same call
+  } else {
+    fun <- "knn"
+    main_args <- list(
+      train = rlang::enquo(x),
+      cl = rlang::enquo(y),
+      k = k,
+      algorithm = algorithm)
+    call <- parsnip:::make_call(fun = fun, ns = "FNN", main_args)
+    list(call = call)
+  }
+}
+
+
+#' Nearest neighbors prediction using FNN
+#'
+#' `fnn_pred` is a wrapper for `FNN` fast nearest neighbor models
+#'
+#' @param object parsnip model spec.
+#' @param newdata data.frame or matrix of training data.
+#' @param prob logical return predicted probability of the winning class,
+#'   default = FALSE.
+#' @param ... additional arguments to pass to FNN, currently unused.
+#'
+#' @return data.frame containing the predicted results.
+#' @export
+fnn_pred <- function(object, newdata, prob = FALSE, ...) {
+
+  # modify the call for prediction
+  object$call$test <- newdata
+
+  # regression result
+  if ("y" %in% names(object$call)) {
+    res <- rlang::eval_tidy(object$call)
+    res <- res$pred
+
+    # classification result
+  } else {
+    object$call$prob <- prob
+    lvl <- levels(rlang::eval_tidy(object$call$cl))
+    res <- rlang::eval_tidy(object$call)
+
+    # probability for winning class
+    if (prob == FALSE) {
+      attributes(res) <- NULL
+      res <- factor(lvl[res], levels = lvl)
+    } else {
+      res <- attr(res, "prob")
+    }
+  }
+
+  res
+}
