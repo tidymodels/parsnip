@@ -50,4 +50,5 @@ Suggests:
     rpart,
     MASS,
     nlme,
-    modeldata
+    modeldata,
+    liquidSVM
