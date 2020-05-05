@@ -67,6 +67,7 @@ The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:  \code{"kernlab"} (the default)
+\item \pkg{R}:  \code{"liquidSVM"}
 }
 }
 \section{Engine Details}{
@@ -96,14 +97,51 @@ call. For this type of model, the template of the fit calls are below:
 }
 }
 
+\subsection{liquidSVM}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
+  set_engine("liquidSVM") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
+## 
+## Computational engine: liquidSVM 
+## 
+## Model fit template:
+## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, 
+##     threads = 0)
+}\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
+  set_engine("liquidSVM") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
+## 
+## Computational engine: liquidSVM 
+## 
+## Model fit template:
+## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, 
+##     threads = 0)
+}
+
+Note that models created using the \code{liquidSVM} engine cannot be saved
+like conventional R objects. The \code{fit} slot of the \code{model_fit} object
+has to be saved separately using the \code{liquidSVM::write.liquidSVM()}
+function. Likewise to restore a model, the \code{fit} slot has to be replaced
+with the model that is read using the \code{liquidSVM::read.liquidSVM()}
+function.
+
+\code{liquidSVM} parameterizes the kernel parameter differently than
+\code{kernlab}. To translate between engines, \code{sigma = 1/gammas^2}. Users
+will be specifying \code{sigma} and the function translates the value to
+\code{gamma}.
+}
+
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{ll}{
-   \strong{parsnip} \tab \strong{kernlab} \cr
-   cost \tab C \cr
-   rbf_sigma \tab sigma \cr
-   margin \tab epsilon \cr
+original names in each engine that has main parameters:\tabular{lll}{
+   \strong{parsnip} \tab \strong{kernlab} \tab \strong{liquidSVM} \cr
+   cost \tab C \tab lambdas \cr
+   rbf_sigma \tab sigma \tab gammas \cr
+   margin \tab epsilon \tab NA \cr
 }
 
 }

@@ -36,11 +36,6 @@
 #' \item \pkg{R}:  `"liquidSVM"`
 #' }
 #'
-#' Note that models created using the `liquidSVM` engine cannot be saved like
-#' conventional R objects. The `fit` slot of the `model_fit` object has to be
-#' saved separately using the `liquidSVM::write.liquidSVM()` function. Likewise
-#' to restore a model, the `fit` slot has to be replaced with the model that is
-#' read using the `liquidSVM::read.liquidSVM()` function.
 #'
 #' @includeRmd man/rmd/svm-rbf.Rmd details
 #'
