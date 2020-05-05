@@ -33,7 +33,14 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"kernlab"` (the default)
+#' \item \pkg{R}:  `"liquidSVM"`
 #' }
+#'
+#' Note that models created using the `liquidSVM` engine cannot be saved like
+#' conventional R objects. The `fit` slot of the `model_fit` object has to be
+#' saved separately using the `liquidSVM::write.liquidSVM()` function. Likewise
+#' to restore a model, the `fit` slot has to be replaced with the model that is
+#' read using the `liquidSVM::read.liquidSVM()` function.
 #'
 #' @includeRmd man/rmd/svm-rbf.Rmd details
 #'
@@ -158,6 +165,21 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
     }
 
   }
+
+  if (x$engine == "liquidSVM") {
+    # convert parameter arguments
+    if (any(arg_names == "sigma")) {
+      arg_vals$gammas <- rlang::quo(1 / !!sqrt(arg_vals$sigma))
+      arg_vals$sigma <- NULL
+    }
+
+    if (any(arg_names == "C")) {
+      arg_vals$lambdas <- arg_vals$C
+      arg_vals$C <- NULL
+    }
+
+  }
+
   x$method$fit$args <- arg_vals
 
   # worried about people using this to modify the specification
