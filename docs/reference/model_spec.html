@@ -8,6 +8,13 @@
 
 <title>Model Specification Information — model_spec • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -37,6 +44,7 @@
 <meta property="og:title" content="Model Specification Information — model_spec" />
 <meta property="og:description" content="An object with class &quot;model_spec&quot; is a container for
 information about a model that will be fit." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -55,7 +63,7 @@ information about a model that will be fit." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +80,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
     </div>
@@ -80,9 +88,6 @@ information about a model that will be fit." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -112,7 +117,7 @@ information about a model that will be fit." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -155,7 +160,7 @@ specific to a particular model function). The elements of <code>args</code>
 can <code><a href='varying.html'>varying()</a></code>. If left to their defaults (<code>NULL</code>), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in <code>args</code> are captured as
-quosures and are not immediately executed.</p></li>
+quosures and are not immediately executed.</p><ul>
 <li><p><code>...</code>: Optional model-function-specific
 parameters. As with <code>args</code>, these will be quosures and can be
 <code><a href='varying.html'>varying()</a></code>.</p></li>
@@ -172,7 +177,9 @@ type.</p></li>
 </ul>
 
 <p>This class and structure is the basis for how <span class="pkg">parsnip</span>
-stores model objects prior to seeing the data.</p>
+stores model objects prior to seeing the data.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="argument-details"><a class="anchor" href="#argument-details"></a>Argument Details</h2>
 
     
@@ -188,8 +195,7 @@ arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
- rand_forest(mtry = ncol(iris) - 1)
-</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>iris</span>) - <span class='fl'>1</span>)</pre>
 
 <p><strong>does not</strong> execute <code>ncol(iris) - 1</code> when creating the specification.
 This can be seen in the output:</p>
@@ -220,8 +226,7 @@ objects in the global environment but to use data descriptors
 such as <code><a href='descriptors.html'>.cols()</a></code>. Another way of writing the previous
 specification is</p>
 <pre>
- rand_forest(mtry = .cols() - 1)
-</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='descriptors.html'>.cols</a></span>() - <span class='fl'>1</span>)</pre>
 
 <p>This is not dependent on any specific data object and
 is evaluated immediately before the model fitting process begins.</p>
@@ -230,8 +235,7 @@ quasiquotation. This would insert the actual R object into the
 model specification and might be the best idea when the data
 object is small. For example, using</p>
 <pre>
- rand_forest(mtry = ncol(!!iris) - 1)
-</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(!!<span class='no'>iris</span>) - <span class='fl'>1</span>)</pre>
 
 <p>would work (and be reproducible between sessions) but embeds
 the entire iris data set into the <code>mtry</code> expression:</p>
@@ -260,13 +264,10 @@ it, this wouldn't be too bad:</p>
 <a href='https://tidyeval.tidyverse.org'>https://tidyeval.tidyverse.org</a>.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#details">Details</a></li>
-      <li><a href="#argument-details">Argument Details</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
