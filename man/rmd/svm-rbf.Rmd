@@ -19,6 +19,32 @@ svm_rbf() %>%
   translate()
 ```
 
+## liquidSVM
+
+```{r liquidSVM-reg}
+svm_rbf() %>% 
+  set_engine("liquidSVM") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r liquidSVM-cls}
+svm_rbf() %>% 
+  set_engine("liquidSVM") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+Note that models created using the `liquidSVM` engine cannot be saved like
+conventional R objects. The `fit` slot of the `model_fit` object has to be saved
+separately using the `liquidSVM::write.liquidSVM()` function. Likewise to restore
+a model, the `fit` slot has to be replaced with the model that is read using the
+`liquidSVM::read.liquidSVM()` function.
+
+`liquidSVM` parameterizes the kernel parameter differently than `kernlab`. To 
+translate between engines, `sigma = 1/gammas^2`. Users will be specifying 
+`sigma` and the function translates the value to `gamma`. 
+
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 

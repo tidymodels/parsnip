@@ -1,10 +1,18 @@
 # parsnip 0.1.1
 
+## New Features
+
+ * `liquidSVM` was added as an engine for `svm_rbf()` (#300)
+
+## Fixes
+
+* The error message for missing packages was fixed (#289 and #292)
+
+
 ## Other Changes
 
 * S3 dispatch for `tidy()` was broken on R 4.0. 
 
-* The error message for missing packages was fixed (#289 and #292)
 
 # parsnip 0.0.5
 
