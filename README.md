@@ -91,7 +91,7 @@ The goals of parsnip are to:
     the implementation is in R, spark, or something else). For example,
     the user would call `rand_forest` instead of `ranger::ranger` or
     other specific packages.
-  - Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
+  - Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
     users only need to remember a single name. This will help *across*
     model types too so that `trees` will be the same argument across
     random forest as well as boosting or bagging.
@@ -141,7 +141,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  81ms 
+#> Fit time:  75ms 
 #> Ranger result
 #> 
 #> Call:
@@ -155,8 +155,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.947154 
-#> R squared (OOB):                  0.8362753
+#> OOB prediction error (MSE):       5.779248 
+#> R squared (OOB):                  0.8408977
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
