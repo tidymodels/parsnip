@@ -36,22 +36,10 @@
 #' \item \pkg{R}:  `"kernlab"`  (the default)
 #' }
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are::
-#'
-#' \pkg{kernlab} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "classification"), "kernlab")}
-#'
-#' \pkg{kernlab} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
+#' @includeRmd man/rmd/svm-poly.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' svm_poly(mode = "classification", degree = 1.2)
 #' # Parameters can be represented by a placeholder:

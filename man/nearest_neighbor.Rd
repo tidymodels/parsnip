@@ -56,23 +56,51 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"kknn"}  (the default)
 }
 }
-\note{
-For \code{kknn}, the underlying modeling function used is a restricted
-version of \code{train.kknn()} and not \code{kknn()}. It is set up in this way so that
-\code{parsnip} can utilize the underlying \code{predict.train.kknn} method to predict
-on new data. This also means that a single value of that function's
-\code{kernel} argument (a.k.a \code{weight_func} here) can be supplied
-}
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{kknn}{\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor() \%>\% 
+  set_engine("kknn") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (regression)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+}\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor() \%>\% 
+  set_engine("kknn") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (classification)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+}
 
+For \code{kknn}, the underlying modeling function used is a restricted
+version of \code{train.kknn()} and not \code{kknn()}. It is set up in this way so
+that \code{parsnip} can utilize the underlying \code{predict.train.kknn} method to
+predict on new data. This also means that a single value of that
+function’s \code{kernel} argument (a.k.a \code{weight_func} here) can be supplied
+}
 
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:
+\subsection{Parameter translations}{
 
-\pkg{kknn} (classification or regression)
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{ll}{
+   \strong{parsnip} \tab \strong{kknn} \cr
+   neighbors \tab ks \cr
+   weight_func \tab kernel \cr
+   dist_power \tab distance \cr
+}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(mode = "regression"), "kknn")}
+}
 }
 
 \examples{
@@ -80,5 +108,5 @@ nearest_neighbor(neighbors = 11)
 
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Common API to Modeling and Analysis Functions • parsnip</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -13,13 +19,14 @@
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="A Common API to Modeling and Analysis Functions">
 <meta property="og:description" content="A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. R, Spark, Stan, etc). ">
+<meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -35,7 +42,7 @@
         <a class="navbar-brand" href="index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
     </div>
@@ -43,9 +50,6 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -75,7 +79,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -92,64 +96,143 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+<div id="parsnip" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#parsnip" class="anchor"></a>parsnip</h1></div>
+<!-- badges: start -->
 
-
-<p>One issue with different functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest <em>classification</em> model, we might have:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># From randomForest</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">rf_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">randomForest</span>(x, y, <span class="dt">mtry =</span> <span class="dv">12</span>, <span class="dt">ntree =</span> <span class="dv">2000</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># From ranger</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">rf_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">ranger</span>(</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  y <span class="op">~</span><span class="st"> </span>., </a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="dt">data =</span> dat, </a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="dt">mtry =</span> <span class="dv">12</span>, </a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">  <span class="dt">num.trees =</span> <span class="dv">2000</span>, </a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="dt">importance =</span> <span class="st">'impurity'</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">)</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co"># From sparklyr</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">rf_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">ml_random_forest</span>(</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">  dat, </a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="dt">intercept =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="dt">response =</span> <span class="st">"y"</span>, </a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="dt">features =</span> <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(dat)[<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(dat) <span class="op">!=</span><span class="st"> "y"</span>], </a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">  <span class="dt">col.sample.rate =</span> <span class="dv">12</span>,</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">  <span class="dt">num.trees =</span> <span class="dv">2000</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">)</a></code></pre></div>
-<p>Note that the model syntax is very different and that the argument names (and formats) are also different. This is a pain if you go between implementations.</p>
-<p>In this example,</p>
+<!-- badges: end -->
+<div id="introduction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h2>
+<p>The goal of parsnip is to provide a tidy, unified interface to models that can be used to try a range of models without getting bogged down in the syntactical minutiae of the underlying packages.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># The easiest way to get parsnip is to install all of tidymodels:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Alternatively, install just parsnip:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"parsnip"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Or the development version from GitHub:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"tidymodels/parsnip"</span>)</span></code></pre></div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
+<p>One challenge with different modeling functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest <em>regression</em> model, we might have:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># From randomForest</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>rf_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">randomForest</span>(</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  y <span class="op">~</span><span class="st"> </span>., </span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">data =</span> ., </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">mtry =</span> <span class="dv">10</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="dt">ntree =</span> <span class="dv">2000</span>, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="dt">importance =</span> <span class="ot">TRUE</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># From ranger</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>rf_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">ranger</span>(</span>
+<span id="cb2-12"><a href="#cb2-12"></a>  y <span class="op">~</span><span class="st"> </span>., </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="dt">data =</span> dat, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="dt">mtry =</span> <span class="dv">10</span>, </span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="dt">num.trees =</span> <span class="dv">2000</span>, </span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="dt">importance =</span> <span class="st">"impurity"</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co"># From sparklyr</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>rf_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">ml_random_forest</span>(</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  dat, </span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="dt">intercept =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="dt">response =</span> <span class="st">"y"</span>, </span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="dt">features =</span> <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(dat)[<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(dat) <span class="op">!=</span><span class="st"> "y"</span>], </span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="dt">col.sample.rate =</span> <span class="dv">10</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="dt">num.trees =</span> <span class="dv">2000</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>)</span></code></pre></div>
+<p>Note that the model syntax can be very different and that the argument names (and formats) are also different. This is a pain if you switch between implementations.</p>
+<p>In this example:</p>
 <ul>
-<li>the <strong>type</strong> of model is “random forest”</li>
-<li>the <strong>mode</strong> of the model is “classification” (as opposed to regression, etc).</li>
+<li>the <strong>type</strong> of model is “random forest”,</li>
+<li>the <strong>mode</strong> of the model is “regression” (as opposed to classification, etc), and</li>
 <li>the computational <strong>engine</strong> is the name of the R package.</li>
 </ul>
-<p>The idea of <code>parsnip</code> is to:</p>
+<p>The goals of parsnip are to:</p>
 <ul>
 <li>Separate the definition of a model from its evaluation.</li>
 <li>Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call <code>rand_forest</code> instead of <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html">ranger::ranger</a></code> or other specific packages.</li>
-<li>Harmonize the argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users can remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging.</li>
+<li>Harmonize argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users only need to remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging.</li>
 </ul>
-<p>Using the example above, the <code>parsnip</code> approach would be</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mtry =</span> <span class="dv">12</span>, <span class="dt">trees =</span> <span class="dv">2000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="dt">importance =</span> <span class="st">'impurity'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dat)</a></code></pre></div>
-<p>The engine can be easily changed and the mode can be determined when <code>fit</code> is called. To use Spark, the change is simple:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mtry =</span> <span class="dv">12</span>, <span class="dt">trees =</span> <span class="dv">2000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"spark"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dat)</a></code></pre></div>
-<p>To install it, use:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(devtools)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"tidymodels/parsnip"</span>)</a></code></pre></div>
-
+<p>Using the example above, the <code>parsnip</code> approach would be:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parsnip)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">trees =</span> <span class="dv">2000</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="dt">importance =</span> <span class="st">"impurity"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; Random Forest Model Specification (regression)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; Main Arguments:</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;   mtry = 10</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   trees = 2000</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; Engine-Specific Arguments:</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;   importance = impurity</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; Computational engine: ranger</span></span></code></pre></div>
+<p>The engine can be easily changed. To use Spark, the change is straightforward:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">trees =</span> <span class="dv">2000</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"spark"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; Random Forest Model Specification (regression)</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; Main Arguments:</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   mtry = 10</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;   trees = 2000</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; Computational engine: spark</span></span></code></pre></div>
+<p>Either one of these model specifications can be fit in the same way:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">trees =</span> <span class="dv">2000</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="dt">importance =</span> <span class="st">"impurity"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; parsnip model object</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Fit time:  75ms </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; Ranger result</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; </span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) </span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; </span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; Type:                             Regression </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; Number of trees:                  2000 </span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; Sample size:                      32 </span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; Number of independent variables:  10 </span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; Mtry:                             10 </span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; Target node size:                 5 </span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; Variable importance mode:         impurity </span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; Splitrule:                        variance </span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; OOB prediction error (MSE):       5.779248 </span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; R squared (OOB):                  0.8408977</span></span></code></pre></div>
+<p>A list of all <code>parsnip</code> models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/"><code>tidymodels.org</code></a>.</p>
+<p>Data sets previously found in <code>parsnip</code> are now find in the <code>modeldata</code> package.</p>
+</div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>If you encounter a bug, please file a minimal reproducible example on <a href="https://github.com/tidymodels/parsnip/issues">GitHub</a>. For questions and other discussion, please use <a href="https://community.rstudio.com/">community.rstudio.com</a>.</p>
+<p>Please note that the parsnip project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+</div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=parsnip">https://​cloud.r-project.org/​package=parsnip</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/tidymodels/parsnip">https://​github.com/​tidymodels/​parsnip</a>
+<li>Browse source code at <br><a href="https://github.com/tidymodels/parsnip/">https://​github.com/​tidymodels/​parsnip/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidymodels/parsnip/issues">https://​github.com/​tidymodels/​parsnip/​issues</a>
 </li>
@@ -159,6 +242,12 @@
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></li>
+</ul>
+</div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
 <div class="developers">
@@ -173,9 +262,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/tidymodels/parsnip"><img src="https://travis-ci.org/tidymodels/parsnip.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://github.com/tidymodels/parsnip"><img src="https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/github/tidymodels/parsnip?branch=master"><img src="https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
-<li><a href="https://cran.rstudio.com/package=parsnip"><img src="http://www.r-pkg.org/badges/version/parsnip" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://CRAN.R-project.org/package=parsnip"><img src="https://www.r-pkg.org/badges/version/parsnip" alt="CRAN status"></a></li>
 <li><a href="https://cran.rstudio.com/package=parsnip"><img src="http://cranlogs.r-pkg.org/badges/parsnip" alt="Downloads"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
 </ul>

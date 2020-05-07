@@ -30,22 +30,22 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param mtry An number for the number (or proportion) of predictors that will
+#' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models (`xgboost`
 #'  only).
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @param tree_depth An integer for the maximum deopth of the tree (i.e. number
+#' @param tree_depth An integer for the maximum depth of the tree (i.e. number
 #'  of splits) (`xgboost` only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
 #'   from iteration-to-iteration (`xgboost` only).
 #' @param loss_reduction A number for the reduction in the loss function required
 #'   to split further  (`xgboost` only).
-#' @param sample_size An number for the number (or proportion) of data that is
+#' @param sample_size A number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
-#'  each iteration while `C5.0` samples once during traning.
+#'  each iteration while `C5.0` samples once during training.
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree()`, the
@@ -59,31 +59,7 @@
 #' }
 #'
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of model, the template of the
-#'  fit calls are:
-#'
-#' \pkg{xgboost} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
-#'
-#' \pkg{xgboost} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
-#'
-#' \pkg{C5.0} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
-#'
-#' \pkg{spark} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
-#'
-#' \pkg{spark} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
+#' @includeRmd man/rmd/boost-tree.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
@@ -99,7 +75,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()]
 #' @examples
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:
@@ -231,10 +207,11 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
   if (engine == "spark") {
     if (x$mode == "unknown") {
-      stop(
-        "For spark boosted trees models, the mode cannot be 'unknown' ",
-        "if the specification is to be translated.",
-        call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "For spark boosted trees models, the mode cannot be 'unknown' ",
+          "if the specification is to be translated."
+        )
       )
     } else {
       x$method$fit$args$type <- x$mode
@@ -250,13 +227,13 @@ check_args.boost_tree <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (is.numeric(args$trees) && args$trees < 0)
-    stop("`trees` should be >= 1", call. = FALSE)
+    rlang::abort("`trees` should be >= 1.")
   if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1))
-    stop("`sample_size` should be within [0,1]", call. = FALSE)
+    rlang::abort("`sample_size` should be within [0,1].")
   if (is.numeric(args$tree_depth) && args$tree_depth < 0)
-    stop("`tree_depth` should be >= 1", call. = FALSE)
+    rlang::abort("`tree_depth` should be >= 1.")
   if (is.numeric(args$min_n) && args$min_n < 0)
-    stop("`min_n` should be >= 1", call. = FALSE)
+    rlang::abort("`min_n` should be >= 1.")
 
   invisible(object)
 }
@@ -276,7 +253,7 @@ check_args.boost_tree <- function(object) {
 #' @param colsample_bytree Subsampling proportion of columns.
 #' @param min_child_weight A numeric value for the minimum sum of instance
 #'  weights needed in a child to continue to split.
-#' @param gamma An number for the minimum loss reduction required to make a
+#' @param gamma A number for the minimum loss reduction required to make a
 #'  further partition on a leaf node of the tree
 #' @param subsample Subsampling proportion of rows.
 #' @param ... Other options to pass to `xgb.train`.
@@ -416,7 +393,7 @@ xgb_pred <- function(object, newdata, ...) {
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata")) {
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
     }
 
     if (is.null(trees)) {
@@ -525,7 +502,7 @@ C5.0_train <-
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     if (is.null(trees))
       trees <- min(object$fit$trials)

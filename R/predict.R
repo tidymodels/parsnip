@@ -110,10 +110,10 @@
 predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...) {
   the_dots <- enquos(...)
   if (any(names(the_dots) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -122,14 +122,17 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
     bad_args <- paste0("`", bad_args, "`", collapse = ", ")
-    stop("The ellipses are not used to pass args to the model function's ",
-         "predict function. These arguments cannot be used: ",
-         bad_args, call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "The ellipses are not used to pass args to the model function's ",
+        "predict function. These arguments cannot be used: {bad_args}",
+      )
+    )
   }
 
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0)
-    warning("`opts` is only used with `type = 'raw'` and was ignored.")
+    rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
   res <- switch(
     type,
     numeric  = predict_numeric(object = object, new_data = new_data, ...),
@@ -139,9 +142,8 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     pred_int = predict_predint(object = object, new_data = new_data, ...),
     quantile = predict_quantile(object = object, new_data = new_data, ...),
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
-    stop("I don't know about type = '", "'", type, call. = FALSE)
+    rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
-
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
       type,
@@ -161,21 +163,21 @@ check_pred_type <- function(object, type) {
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
-             stop("`type` should be 'regression' or 'classification'.", call. = FALSE))
+             rlang::abort("`type` should be 'regression' or 'classification'."))
   }
   if (!(type %in% pred_types))
-    stop("`type` should be one of: ",
-         glue_collapse(pred_types, sep = ", ", last = " and "),
-         call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "`type` should be one of: ",
+        glue_collapse(pred_types, sep = ", ", last = " and ")
+      )
+    )
   if (type == "numeric" & object$spec$mode != "regression")
-    stop("For numeric predictions, the object should be a regression model.",
-         call. = FALSE)
+    rlang::abort("For numeric predictions, the object should be a regression model.")
   if (type == "class" & object$spec$mode != "classification")
-    stop("For class predictions, the object should be a classification model.",
-         call. = FALSE)
+    rlang::abort("For class predictions, the object should be a classification model.")
   if (type == "prob" & object$spec$mode != "classification")
-    stop("For probability predictions, the object should be a classification model.",
-         call. = FALSE)
+    rlang::abort("For probability predictions, the object should be a classification model.")
   type
 }
 
@@ -183,9 +185,11 @@ format_num <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
 
-  if (isTRUE(ncol(x) > 1)) {
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    names(x) <- paste0(".pred_", names(x))
+    if (!any(grepl("^\\.pred", names(x)))) {
+      names(x) <- paste0(".pred_", names(x))
+    }
   } else {
     x <- tibble(.pred = x)
   }
@@ -201,7 +205,9 @@ format_class <- function(x) {
 }
 
 format_classprobs <- function(x) {
-  names(x) <- paste0(".pred_", names(x))
+  if (!any(grepl("^\\.pred_", names(x)))) {
+    names(x) <- paste0(".pred_", names(x))
+  }
   x <- as_tibble(x)
   x
 }

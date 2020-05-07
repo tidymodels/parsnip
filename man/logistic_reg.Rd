@@ -20,7 +20,7 @@ logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
-\item{penalty}{An non-negative number representing the total
+\item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
 For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
@@ -88,49 +88,107 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.
+\subsection{glm}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("glm") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: glm 
+## 
+## Model fit template:
+## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     family = stats::binomial)
+}
+}
 
+\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("glmnet") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     family = "binomial")
+}
 
-Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:
+For \code{glmnet} models, the full regularization path is always fit
+regardless of the value given to \code{penalty}. Also, there is the option to
+pass multiple values (or no values) to the \code{penalty} argument. When
+using the \code{predict()} method in these cases, the return value depends on
+the value of \code{penalty}. When using \code{predict()}, only a single value of
+the penalty can be used. When predicting on multiple penalties, the
+\code{multi_predict()} function can be used. It returns a tibble with a list
+column called \code{.pred} that contains a tibble with all of the penalty
+results.
+}
 
-\pkg{glm}
+\subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("stan") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: stan 
+## 
+## Model fit template:
+## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), family = stats::binomial, refresh = 0)
+}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glm")}
+Note that the \code{refresh} default prevents logging of the estimation
+process. Change this value in \code{set_engine()} will show the logs.
 
-\pkg{glmnet}
+For prediction, the \code{stan} engine can compute posterior intervals
+analogous to confidence and prediction intervals. In these instances,
+the units are the original outcome and when \code{std_error = TRUE}, the
+standard deviation of the posterior distribution (or posterior
+predictive distribution as appropriate) is returned.
+}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glmnet")}
+\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
+##     weight_col = missing_arg(), family = "binomial")
+}
+}
 
-\pkg{stan}
+\subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("keras") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
+##     act = "linear")
+}
+}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "stan")}
+\subsection{Parameter translations}{
 
-\pkg{spark}
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{llll}{
+   \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \cr
+   penalty \tab lambda \tab reg_param \tab penalty \cr
+   mixture \tab alpha \tab elastic_net_param \tab NA \cr
+}
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
-
-\pkg{keras}
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
-
-For \code{glmnet} models, the full regularization path is always fit regardless
-of the value given to \code{penalty}. Also, there is the option to pass
-multiple values (or no values) to the \code{penalty} argument. When using the
-\code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single
-value of the penalty can be used. When predicting on multiple
-penalties, the \code{multi_predict()} function can be used. It
-returns a tibble with a list column called \code{.pred} that contains
-a tibble with all of the penalty results.
-
-For prediction, the \code{stan} engine can compute posterior
-intervals analogous to confidence and prediction intervals. In
-these instances, the units are the original outcome and when
-\code{std_error = TRUE}, the standard deviation of the posterior
-distribution (or posterior predictive distribution as
-appropriate) is returned. For \code{glm}, the standard error is in logit units
-while the intervals are in probability units.
+}
 }
 
 \examples{
@@ -143,5 +201,5 @@ update(model, penalty = 1)
 update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

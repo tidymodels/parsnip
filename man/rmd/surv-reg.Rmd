@@ -1,0 +1,34 @@
+# Engine Details
+
+Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below.
+
+## flexsurv
+
+```{r flexsurv-reg}
+surv_reg() %>% 
+  set_engine("flexsurv") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## survival
+
+```{r survival-reg}
+surv_reg() %>% 
+  set_engine("survival") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+Note that `model = TRUE` is needed to produce quantile predictions when there is 
+a stratification variable and can be overridden in other cases.
+
+## Parameter translations
+
+The standardized parameter names in parsnip can be mapped to their original names
+in each engine that has main parameters:
+
+```{r echo = FALSE, results = "asis"}
+parsnip::convert_args("surv_reg")
+```
+

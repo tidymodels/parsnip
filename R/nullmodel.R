@@ -112,7 +112,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
     }
   } else {
     if (type %in% c("prob", "class")) {
-      stop("Only numeric predicitons are applicable to regression models")
+      rlang::abort("Only numeric predicitons are applicable to regression models")
     }
     if (length(object$value) == 1) {
       out <- rep(object$value, n)
@@ -128,7 +128,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' General Interface for null models
 #'
 #' `null_model()` is a way to generate a _specification_ of a model before
-#'  fitting and allows the model to be created using R. It doens't have any
+#'  fitting and allows the model to be created using R. It doesn't have any
 #'  main arguments.
 #'
 #' @param mode A single character string for the type of model.
@@ -140,19 +140,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' \item \pkg{R}:  `"parsnip"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{parsnip} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
-#'
-#' \pkg{parsnip} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
+#' @includeRmd man/rmd/null-model.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
@@ -164,9 +152,12 @@ null_model <-
     null_model_modes <- unique(get_model_env()$null_model$mode)
     # Check for correct mode
     if (!(mode %in% null_model_modes))
-      stop("`mode` should be one of: ",
-           paste0("'", null_model_modes, "'", collapse = ", "),
-           call. = FALSE)
+      rlang::abort(
+        glue::glue(
+          "`mode` should be one of: ",
+          glue::glue_collapse(glue::glue("'{null_model_modes}'"), sep = ", ")
+          )
+        )
 
     # Capture the arguments in quosures
     args <- list()
@@ -179,3 +170,23 @@ null_model <-
     class(out) <- make_classes("null_model")
     out
   }
+
+
+
+#' Tidy method for null models
+#'
+#' Return the results of `nullmodel` as a tibble
+#'
+#' @param x A `nullmodel` object.
+#' @param ... Not used.
+#' @return A tibble with column `value`.
+#' @export
+#' @examples
+#' nullmodel(iris[,-5], iris$Species) %>% tidy()
+#'
+#' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
+
+tidy.nullmodel <- function(x, ...) {
+  tibble::tibble(value = x$value)
+}
+

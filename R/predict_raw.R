@@ -1,8 +1,7 @@
-# @rdname predict.model_fit
-# @inheritParams predict.model_fit
-# @method predict_raw model_fit
-# @export predict_raw.model_fit
-# @export
+#' @rdname predict.model_fit
+#' @method predict_raw model_fit
+#' @export predict_raw.model_fit
+#' @export
 predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   protected_args <- names(object$spec$method$pred$raw$args)
   dup_args <- names(opts) %in% protected_args
@@ -15,10 +14,10 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   }
 
   if (!any(names(object$spec$method$pred) == "raw"))
-    stop("No raw prediction module defined for this model.", call. = FALSE)
+    rlang::abort("No raw prediction module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -37,8 +36,8 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
 }
 
 
-# @export
-# @rdname predict.model_fit
-# @inheritParams predict_raw.model_fit
+#' @export
+#' @keywords internal
+#' @rdname predict.model_fit
 predict_raw <- function(object, ...)
   UseMethod("predict_raw")

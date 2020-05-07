@@ -1,6 +1,6 @@
 pandoc: 2.3.1
-pkgdown: 1.4.1.9000
-pkgdown_sha: 891cd8be82e2fdebe9ef3b2623687f7ac26297f8
+pkgdown: 1.5.1
+pkgdown_sha: ~
 articles:
   Classification: articles/Classification.html
   Models: articles/Models.html
@@ -8,4 +8,5 @@ articles:
   Scratch: articles/Scratch.html
   Submodels: articles/Submodels.html
   parsnip_Intro: parsnip_Intro.html
+last_built: 2020-05-01T01:12Z
 

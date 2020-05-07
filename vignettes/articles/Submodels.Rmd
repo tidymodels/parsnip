@@ -90,7 +90,7 @@ fold_1_df <-
   fold_1_pred %>% 
   bind_cols(pred_data %>% dplyr::select(Attrition)) %>% 
   add_rowindex() %>% 
-  unnest(.pred)
+  tidyr::unnest(.pred)
 fold_1_df
 ```
 

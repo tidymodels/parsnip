@@ -1,21 +1,20 @@
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_numeric model_fit
-# @export predict_numeric.model_fit
-# @export
-
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_numeric model_fit
+#' @export predict_numeric.model_fit
+#' @export
 predict_numeric.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "regression")
-    stop("`predict_numeric()` is for predicting numeric outcomes.  ",
-         "Use `predict_class()` or `predict_classprob()` for ",
-         "classification models.", call. = FALSE)
+    rlang::abort(glue::glue("`predict_numeric()` is for predicting numeric outcomes. ",
+                            "Use `predict_class()` or `predict_classprob()` for ",
+                            "classification models."))
 
   if (!any(names(object$spec$method$pred) == "numeric"))
-    stop("No prediction module defined for this model.", call. = FALSE)
+    rlang::abort("No prediction module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -45,9 +44,9 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
 }
 
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict_numeric.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict_numeric.model_fit
 predict_numeric <- function(object, ...)
   UseMethod("predict_numeric")

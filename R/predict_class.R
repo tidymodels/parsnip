@@ -1,23 +1,22 @@
-# Other predict methods.
-#
-# These are internal functions not meant to be directly called by the user.
-#
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_class model_fit
-# @export predict_class.model_fit
-# @export
+#' Other predict methods.
+#'
+#' These are internal functions not meant to be directly called by the user.
+#'
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_class model_fit
+#' @export predict_class.model_fit
+#' @export
 predict_class.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")
-    stop("`predict.model_fit()` is for predicting factor outcomes.",
-         call. = FALSE)
+    rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
 
   if (!any(names(object$spec$method$pred) == "class"))
-    stop("No class prediction module defined for this model.", call. = FALSE)
+    rlang::abort("No class prediction module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -41,8 +40,14 @@ predict_class.model_fit <- function(object, new_data, ...) {
   if (is.vector(res) || is.factor(res)) {
     res <- factor(as.character(res), levels = object$lvl)
   } else {
-    if (!inherits(res, "tbl_spark"))
-      res$values <- factor(as.character(res$values), levels = object$lvl)
+    if (!inherits(res, "tbl_spark")) {
+      # Now case where a parsnip model generated `res`
+      if (is.data.frame(res) && ncol(res) == 1 && is.factor(res[[1]])) {
+        res <- res[[1]]
+      } else {
+        res$values <- factor(as.character(res$values), levels = object$lvl)
+      }
+    }
   }
 
   res

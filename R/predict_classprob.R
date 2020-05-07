@@ -1,20 +1,19 @@
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_classprob model_fit
-# @export predict_classprob.model_fit
-# @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_classprob model_fit
+#' @export predict_classprob.model_fit
+#' @export
 #' @importFrom tibble as_tibble is_tibble tibble
 predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")
-    stop("`predict.model_fit()` is for predicting factor outcomes.",
-         call. = FALSE)
+    rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
 
   if (!any(names(object$spec$method$pred) == "prob"))
-    stop("No class probability module defined for this model.", call. = FALSE)
+    rlang::abort("No class probability module defined for this model.")
 
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -36,7 +35,7 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
 
   # check and sort names
   if (!is.data.frame(res) & !inherits(res, "tbl_spark"))
-    stop("The was a problem with the probability predictions.", call. = FALSE)
+    rlang::abort("The was a problem with the probability predictions.")
 
   if (!is_tibble(res) & !inherits(res, "tbl_spark"))
     res <- as_tibble(res)

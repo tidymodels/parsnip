@@ -24,9 +24,7 @@ convert_form_to_xy_fit <-function(
   composition = "data.frame"
 ) {
   if (!(composition %in% c("data.frame", "matrix")))
-    stop("`composition` should be either 'data.frame' or ",
-         "'matrix'.",
-         call. = FALSE)
+    rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
 
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
@@ -64,13 +62,14 @@ convert_form_to_xy_fit <-function(
 
   w <- as.vector(model.weights(mod_frame))
   if (!is.null(w) && !is.numeric(w))
-    stop("`weights` must be a numeric vector", call. = FALSE)
+    rlang::abort("`weights` must be a numeric vector")
 
   offset <- as.vector(model.offset(mod_frame))
   if (!is.null(offset)) {
     if (length(offset) != nrow(mod_frame))
-      stop("The offset data should have ", nrow(mod_frame),
-           "elements.", call. = FALSE)
+      rlang::abort(
+        glue::glue("The offset data should have {nrow(mod_frame)} elements.")
+        )
   }
 
   if (indicators) {
@@ -130,9 +129,7 @@ convert_form_to_xy_fit <-function(
 convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
                            composition = "data.frame") {
   if (!(composition %in% c("data.frame", "matrix")))
-    stop("`composition` should be either 'data.frame' or ",
-         "'matrix'.",
-         call. = FALSE)
+    rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
 
   mod_terms <- object$terms
   mod_terms <- delete.response(mod_terms)
@@ -193,7 +190,7 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
 # TODO slots for other roles
 convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y") {
   if (is.vector(x))
-    stop("`x` cannot be a vector", call. = FALSE)
+    rlang::abort("`x` cannot be a vector.")
 
   rn <- rownames(x)
 
@@ -219,9 +216,9 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y") {
 
   if (!is.null(weights)) {
     if (!is.numeric(weights))
-      stop("`weights` must be a numeric vector", call. = FALSE)
+      rlang::abort("`weights` must be a numeric vector")
     if (length(weights) != nrow(x))
-      stop("`weights` should have ", nrow(x), " elements", call. = FALSE)
+      rlang::abort(glue::glue("`weights` should have {nrow(x)} elements"))
   }
 
   res <- list(
@@ -247,12 +244,13 @@ check_form_dots <- function(x) {
   good_args <- c("subset", "weights", "contrasts", "offset")
   good_names <- names(x) %in% good_args
   if (any(!good_names)) {
-    stop(
-      "These argument(s) cannot be used to create the data: ",
-      paste0("`", names(x)[!good_names], "`", collapse = ", "),
-      ". Possible arguments are: ",
-      paste0("`", good_args, "`", collapse = ", "),
-      call. = FALSE
+    rlang::abort(
+      glue::glue(
+        "These argument(s) cannot be used to create the data: ",
+        glue::glue_collapse(glue::glue("`{names(x)[!good_names]}`"), sep = ", "),
+        ". Possible arguments are: ",
+        glue::glue_collapse(glue::glue("`{good_args}`"), sep = ", ")
+      )
     )
   }
   invisible(NULL)
@@ -293,10 +291,11 @@ check_dup_names <- function(x, y) {
 
   common_names <- intersect(colnames(x), colnames(y))
   if (length(common_names) > 0)
-    stop(
-      "`x` and `y` have at least one name in common: ",
-      paste0("'", common_names, "'", collapse = ", "),
-      call. = FALSE
+    rlang::abort(
+      glue::glue(
+        "`x` and `y` have at least one name in common: ",
+        glue::glue_collapse(glue::glue("'{common_names}'"), sep = ", ")
+      )
     )
   invisible(NULL)
 }

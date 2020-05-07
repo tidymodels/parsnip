@@ -96,20 +96,19 @@ fit.model_spec <-
            ...
   ) {
     if (object$mode == "unknown") {
-      stop("Please set the mode in the model specification.", call. = FALSE)
+      rlang::abort("Please set the mode in the model specification.")
     }
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-        warning("Engine set to `", object$engine, "`", call. = FALSE)
+        rlang::warn("Engine set to `{object$engine}`.")
       }
     }
 
     if (all(c("x", "y") %in% names(dots)))
-      stop("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.",
-           call. = FALSE)
+      rlang::abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
     # used when a model call is made later.
@@ -121,9 +120,11 @@ fit.model_spec <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
     if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
-      stop(
-        "spark objects can only be used with the formula interface to `fit()` ",
-        "with a spark data object.", call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "spark objects can only be used with the formula interface to `fit()` ",
+          "with a spark data object."
+        )
       )
 
     # populate `method` with the details for this model type
@@ -167,7 +168,7 @@ fit.model_spec <-
             ...
           ),
 
-        stop(interfaces, " is unknown")
+        rlang::abort(glue::glue("{interfaces} is unknown."))
       )
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
@@ -192,7 +193,7 @@ fit_xy.model_spec <-
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-        warning("Engine set to `", object$engine, "`", call. = FALSE)
+        rlang::warn(glue::glue("Engine set to `{object$engine}`."))
       }
     }
 
@@ -211,9 +212,11 @@ fit_xy.model_spec <-
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
 
     if (object$engine == "spark")
-      stop(
-        "spark objects can only be used with the formula interface to `fit()` ",
-        "with a spark data object.", call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "spark objects can only be used with the formula interface to `fit()` ",
+          "with a spark data object."
+        )
       )
 
     # populate `method` with the details for this model type
@@ -258,7 +261,7 @@ fit_xy.model_spec <-
             control = control,
             ...
           ),
-        stop(interfaces, " is unknown")
+        rlang::abort(glue::glue("{interfaces} is unknown."))
       )
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
@@ -289,16 +292,15 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
 
 check_control <- function(x) {
   if (!is.list(x))
-    stop("control should be a named list.", call. = FALSE)
+    rlang::abort("control should be a named list.")
   if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
-    stop("control should be a named list with elements 'verbosity' and 'catch'.",
-         call. = FALSE)
+    rlang::abort("control should be a named list with elements 'verbosity' and 'catch'.")
   # based on ?is.integer
   int_check <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
   if (!int_check(x$verbosity))
-    stop("verbosity should be an integer.", call. = FALSE)
+    rlang::abort("verbosity should be an integer.")
   if (!is.logical(x$catch))
-    stop("catch should be a logical.", call. = FALSE)
+    rlang::abort("catch should be a logical.")
   x
 }
 
@@ -307,13 +309,15 @@ inher <- function(x, cls, cl) {
     call <- match.call()
     obj <- deparse(call[["x"]])
     if (length(cls) > 1)
-      stop(
-        "`", obj, "` should be one of the following classes: ",
-        paste0("'", cls, "'", collapse = ", "), call. = FALSE
+      rlang::abort(
+        glue::glue(
+          "`{obj}` should be one of the following classes: ",
+          glue::glue_collapse(glue::glue("'{cls}'"), sep = ", ")
+        )
       )
     else
-      stop(
-        "`", obj, "` should be a ", cls, " object", call. = FALSE
+      rlang::abort(
+        glue::glue("`{obj}` should be a {cls} object")
       )
   }
   invisible(x)
@@ -334,7 +338,7 @@ check_interface <- function(formula, data, cl, model) {
 
   if (form_interface)
     return("formula")
-  stop("Error when checking the interface")
+  rlang::abort("Error when checking the interface.")
 }
 
 check_xy_interface <- function(x, y, cl, model) {
@@ -346,8 +350,12 @@ check_xy_interface <- function(x, y, cl, model) {
 
   # rule out spark data sets that don't use the formula interface
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
-    stop("spark objects can only be used with the formula interface via `fit()` ",
-         "with a spark data object.", call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "spark objects can only be used with the formula interface via `fit()` ",
+        "with a spark data object."
+        )
+      )
 
   # Determine the `fit()` interface
   matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
@@ -355,13 +363,13 @@ check_xy_interface <- function(x, y, cl, model) {
 
   if (inherits(model, "surv_reg") &&
       (matrix_interface | df_interface))
-    stop("Survival models must use the formula interface.", call. = FALSE)
+    rlang::abort("Survival models must use the formula interface.")
 
   if (matrix_interface)
     return("data.frame")
   if (df_interface)
     return("data.frame")
-  stop("Error when checking the interface")
+  rlang::abort("Error when checking the interface")
 }
 
 #' @method print model_fit

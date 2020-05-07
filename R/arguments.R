@@ -24,9 +24,8 @@ check_eng_args <- function(args, obj, core_args) {
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
-    warning("The following arguments cannot be manually modified ",
-            "and were removed: ",
-            common_args, call. = FALSE)
+    rlang::warn(glue::glue("The following arguments cannot be manually modified",
+                           "and were removed: {common_args}."))
   }
   args
 }
@@ -54,7 +53,7 @@ check_eng_args <- function(args, obj, core_args) {
 set_args <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
-    stop("Please pass at least one named argument.", call. = FALSE)
+    rlang::abort("Please pass at least one named argument.")
   main_args <- names(object$args)
   new_args <- names(the_dots)
   for (i in new_args) {
@@ -81,9 +80,12 @@ set_mode <- function(object, mode) {
     return(object)
   mode <- mode[1]
   if (!(any(all_modes == mode))) {
-    stop("`mode` should be one of ",
-         paste0("'", all_modes, "'", collapse = ", "),
-         call. = FALSE)
+    rlang::abort(
+      glue::glue(
+        "`mode` should be one of ",
+        glue::glue_collapse(glue::glue("'{all_modes}'"), sep = ", ")
+      )
+    )
   }
   object$mode <- mode
   object
@@ -101,6 +103,11 @@ maybe_eval <- function(x) {
   y
 }
 
+#' Evaluate parsnip model arguments
+#' @export
+#' @keywords internal
+#' @param spec A model specification
+#' @param ... Not used.
 eval_args <- function(spec, ...) {
   spec$args   <- purrr::map(spec$args,   maybe_eval)
   spec$eng_args <- purrr::map(spec$eng_args, maybe_eval)

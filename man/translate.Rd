@@ -2,14 +2,19 @@
 % Please edit documentation in R/translate.R
 \name{translate}
 \alias{translate}
+\alias{translate.default}
 \title{Resolve a Model Specification for a Computational Engine}
 \usage{
 translate(x, ...)
+
+\method{translate}{default}(x, engine = x$engine, ...)
 }
 \arguments{
 \item{x}{A model specification.}
 
 \item{...}{Not currently used.}
+
+\item{engine}{The computational engine for the model (see \code{?set_engine}).}
 }
 \description{
 \code{translate()} will translate a model specification into a code

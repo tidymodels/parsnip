@@ -37,7 +37,8 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 family = expr(stats::gaussian)
+                 family = expr(stats::gaussian),
+                 refresh = 0
                )
   )
   expect_equal(basic_spark$method$fit$args,
@@ -142,7 +143,8 @@ test_that('engine arguments', {
                  weights = expr(missing_arg()),
                  chains = new_empty_quosure(1),
                  iter = new_empty_quosure(5),
-                 family = expr(stats::gaussian)
+                 family = expr(stats::gaussian),
+                 refresh = 0
                )
   )
 
@@ -223,6 +225,8 @@ test_that('lm execution', {
     ),
     regexp = NA
   )
+  expect_output(print(res), "parsnip model object")
+
   expect_error(
     res <- fit_xy(
       iris_basic,

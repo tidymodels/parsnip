@@ -51,33 +51,10 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#'  An error is thrown if both `penalty` and `dropout` are specified for
-#'  `keras` models.
-#'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{keras} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
-#'
-#' \pkg{keras} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
-#'
-#' \pkg{nnet} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
-#'
-#' \pkg{nnet} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
+#' @includeRmd man/rmd/mlp.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' mlp(mode = "classification", penalty = 0.01)
 #' # Parameters can be represented by a placeholder:
@@ -217,23 +194,22 @@ check_args.mlp <- function(object) {
 
   if (is.numeric(args$penalty))
     if (args$penalty < 0)
-      stop("The amount of weight decay must be >= 0.", call. = FALSE)
+      rlang::abort("The amount of weight decay must be >= 0.")
 
   if (is.numeric(args$dropout))
     if (args$dropout < 0 | args$dropout >= 1)
-      stop("The dropout proportion must be on [0, 1).", call. = FALSE)
+      rlang::abort("The dropout proportion must be on [0, 1).")
 
   if (is.numeric(args$penalty) & is.numeric(args$dropout))
     if (args$dropout > 0 & args$penalty > 0)
-      stop("Both weight decay and dropout should not be specified.", call. = FALSE)
+      rlang::abort("Both weight decay and dropout should not be specified.")
 
   act_funs <- c("linear", "softmax", "relu", "elu")
 
   if (is.character(args$activation))
     if (!any(args$activation %in% c(act_funs)))
-      stop("`activation should be one of: ",
-           paste0("'", act_funs, "'", collapse = ", "),
-           call. = FALSE)
+      rlang::abort(glue::glue("`activation` should be one of: ",
+                   glue::glue_collapse(glue::glue("'{act_funs}'"), sep = ", ")))
 
   invisible(object)
 }
@@ -242,7 +218,7 @@ check_args.mlp <- function(object) {
 
 class2ind <- function (x, drop2nd = FALSE) {
   if (!is.factor(x))
-    stop("`x` should be a factor")
+    rlang::abort("`x` should be a factor")
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
@@ -284,7 +260,7 @@ keras_mlp <-
            ...) {
 
     if (penalty > 0 & dropout > 0) {
-      stop("Please use either dropoput or weight decay.", call. = FALSE)
+      rlang::abort("Please use either dropoput or weight decay.", call. = FALSE)
     }
     if (!is.matrix(x)) {
       x <- as.matrix(x)

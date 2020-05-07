@@ -19,7 +19,7 @@
 #' @export
 multi_predict <- function(object, ...) {
   if (inherits(object$fit, "try-error")) {
-    warning("Model fit failed; cannot make predictions.", call. = FALSE)
+    rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
   UseMethod("multi_predict")
@@ -28,19 +28,23 @@ multi_predict <- function(object, ...) {
 #' @export
 #' @rdname multi_predict
 multi_predict.default <- function(object, ...)
-  stop("No `multi_predict` method exists for objects with classes ",
-       paste0("'", class(), "'", collapse = ", "), call. = FALSE)
+  rlang::abort(
+    glue::glue(
+      "No `multi_predict` method exists for objects with classes ",
+      glue::glue_collapse(glue::glue("'{class()}'"), sep = ", ")
+      )
+    )
 
 #' @export
 predict.model_spec <- function(object, ...) {
-  stop("You must use `fit()` on your model specification before you can use `predict()`.", call. = FALSE)
+  rlang::abort("You must use `fit()` on your model specification before you can use `predict()`.")
 }
 
 #' Tools for models that predict on sub-models
 #'
 #' `has_multi_predict()` tests to see if an object can make multiple
 #'  predictions on submodels from the same object. `multi_predict_args()`
-#'  returns the names of the argments to `multi_predict()` for this model
+#'  returns the names of the arguments to `multi_predict()` for this model
 #'  (if any).
 #' @param object An object to test.
 #' @param ... Not currently used.
@@ -113,18 +117,18 @@ multi_predict_args.default <- function(object, ...) {
 #' @export
 #' @rdname has_multi_predict
 multi_predict_args.model_fit <- function(object, ...) {
-  existing_mthds <- methods("multi_predict")
-  cls <- class(object)
-  tst <- paste0("multi_predict.", cls)
-  .fn <- tst[tst %in% existing_mthds]
-  if (length(.fn) == 0) {
-    return(NA_character_)
+  model_type <- class(object$spec)[1]
+  arg_info <- get_from_env(paste0(model_type, "_args"))
+  arg_info <- arg_info[arg_info$engine == object$spec$engine,]
+  arg_info <- arg_info[arg_info$has_submodel,]
+
+  if (nrow(arg_info) == 0) {
+    res <- NA_character_
+  } else {
+    res <- arg_info[["parsnip"]]
   }
 
-  .fn <- getFromNamespace(.fn, ns = "parsnip")
-  omit <- c('object', 'new_data', 'type', '...')
-  args <- names(formals(.fn))
-  args[!(args %in% omit)]
+  res
 }
 
 #' @export

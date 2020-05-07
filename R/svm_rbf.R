@@ -33,21 +33,11 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"kernlab"` (the default)
+#' \item \pkg{R}:  `"liquidSVM"`
 #' }
 #'
-#' @section Engine Details:
 #'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are::
-#'
-#' \pkg{kernlab} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "classification"), "kernlab")}
-#'
-#' \pkg{kernlab} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_rbf(mode = "regression"), "kernlab")}
+#' @includeRmd man/rmd/svm-rbf.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
@@ -170,6 +160,21 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
     }
 
   }
+
+  if (x$engine == "liquidSVM") {
+    # convert parameter arguments
+    if (any(arg_names == "sigma")) {
+      arg_vals$gammas <- rlang::quo(1 / !!sqrt(arg_vals$sigma))
+      arg_vals$sigma <- NULL
+    }
+
+    if (any(arg_names == "C")) {
+      arg_vals$lambdas <- arg_vals$C
+      arg_vals$C <- NULL
+    }
+
+  }
+
   x$method$fit$args <- arg_vals
 
   # worried about people using this to modify the specification

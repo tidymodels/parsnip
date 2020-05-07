@@ -41,6 +41,7 @@ test_that('model fitting', {
       ),
     regexp = NA
   )
+  expect_output(print(fit1), "parsnip model object")
 
   set.seed(257)
   expect_error(

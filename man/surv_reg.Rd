@@ -67,23 +67,48 @@ following \emph{engines}:
 }
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.
+\subsection{flexsurv}{\if{html}{\out{<div class="r">}}\preformatted{surv_reg() \%>\% 
+  set_engine("flexsurv") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+## 
+## Computational engine: flexsurv 
+## 
+## Model fit template:
+## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
+}
+}
 
+\subsection{survival}{\if{html}{\out{<div class="r">}}\preformatted{surv_reg() \%>\% 
+  set_engine("survival") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+## 
+## Computational engine: survival 
+## 
+## Model fit template:
+## survival::survreg(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), model = TRUE)
+}
 
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:
+Note that \code{model = TRUE} is needed to produce quantile predictions when
+there is a stratification variable and can be overridden in other cases.
+}
 
-\pkg{flexsurv}
+\subsection{Parameter translations}{
 
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{lll}{
+   \strong{parsnip} \tab \strong{flexsurv} \tab \strong{survival} \cr
+   dist \tab dist \tab dist \cr
+}
 
-\pkg{survival}
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survival")}
-
-Note that \code{model = TRUE} is needed to produce quantile
-predictions when there is a stratification variable and can be
-overridden in other cases.
+}
 }
 
 \examples{
@@ -100,5 +125,5 @@ Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
 Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 }
 \seealso{
-[\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
+\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
 }

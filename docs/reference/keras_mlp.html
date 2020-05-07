@@ -8,6 +8,13 @@
 
 <title>Simple interface to MLP models via keras — keras_mlp • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -38,6 +45,7 @@
 <meta property="og:description" content="Instead of building a keras model sequentially, keras_mlp can be used to
 create a feedforward network with a single hidden layer. Regularization is
 via either weight decay or dropout." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -56,7 +64,7 @@ via either weight decay or dropout." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +81,7 @@ via either weight decay or dropout." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
     </div>
@@ -81,9 +89,6 @@ via either weight decay or dropout." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -113,7 +118,7 @@ via either weight decay or dropout." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -142,9 +147,17 @@ create a feedforward network with a single hidden layer. Regularization is
 via either weight decay or dropout.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keras_mlp</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>, <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-  <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>keras_mlp</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>,
+  <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,21 +175,21 @@ via either weight decay or dropout.</p>
       <td><p>An integer for the number of hidden units.</p></td>
     </tr>
     <tr>
-      <th>decay</th>
+      <th>penalty</th>
       <td><p>A non-negative real number for the amount of weight decay. Either
 this parameter <em>or</em> <code>dropout</code> can specified.</p></td>
     </tr>
     <tr>
       <th>dropout</th>
       <td><p>The proportion of parameters to set to zero. Either
-this parameter <em>or</em> <code>decay</code> can specified.</p></td>
+this parameter <em>or</em> <code>penalty</code> can specified.</p></td>
     </tr>
     <tr>
       <th>epochs</th>
       <td><p>An integer for the number of passes through the data.</p></td>
     </tr>
     <tr>
-      <th>act</th>
+      <th>activation</th>
       <td><p>A character string for the type of activation function between layers.</p></td>
     </tr>
     <tr>
@@ -195,13 +208,10 @@ calculations.</p></td>
     <p>A <code>keras</code> model object.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

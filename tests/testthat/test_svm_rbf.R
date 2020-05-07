@@ -117,6 +117,7 @@ test_that('svm poly regression', {
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
+  expect_output(print(res), "parsnip model object")
 
   expect_error(
     fit(
@@ -256,3 +257,5 @@ test_that('svm rbf classification probabilities', {
   parsnip_xy_probs <- predict(cls_xy_form, iris[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
 })
+
+

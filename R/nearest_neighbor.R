@@ -46,24 +46,9 @@
 #' \item \pkg{R}:  `"kknn"`  (the default)
 #' }
 #'
-#' @section Engine Details:
+#' @includeRmd man/rmd/nearest-neighbor.Rmd details
 #'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{kknn} (classification or regression)
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::nearest_neighbor(mode = "regression"), "kknn")}
-#'
-#' @note
-#' For `kknn`, the underlying modeling function used is a restricted
-#' version of `train.kknn()` and not `kknn()`. It is set up in this way so that
-#' `parsnip` can utilize the underlying `predict.train.kknn` method to predict
-#' on new data. This also means that a single value of that function's
-#' `kernel` argument (a.k.a `weight_func` here) can be supplied
-#'
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #'
 #' @examples
 #' nearest_neighbor(neighbors = 11)
@@ -157,11 +142,11 @@ check_args.nearest_neighbor <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (is.numeric(args$neighbors) && !positive_int_scalar(args$neighbors)) {
-    stop("`neighbors` must be a length 1 positive integer.", call. = FALSE)
+    rlang::abort("`neighbors` must be a length 1 positive integer.")
   }
 
   if (is.character(args$weight_func) && length(args$weight_func) > 1) {
-    stop("The length of `weight_func` must be 1.", call. = FALSE)
+    rlang::abort("The length of `weight_func` must be 1.")
   }
 
   invisible(object)
@@ -197,7 +182,7 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 multi_predict._train.kknn <-
   function(object, new_data, type = NULL, neighbors = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     if (is.null(neighbors))
       neighbors <- rlang::eval_tidy(object$fit$call$ks)

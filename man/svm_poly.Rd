@@ -79,19 +79,44 @@ following \emph{engines}:
 }
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{kernlab}{\if{html}{\out{<div class="r">}}\preformatted{svm_poly() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (regression)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot")
+}\if{html}{\out{<div class="r">}}\preformatted{svm_poly() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (classification)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "polydot", 
+##     prob.model = TRUE)
+}
+}
 
+\subsection{Parameter translations}{
 
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{ll}{
+   \strong{parsnip} \tab \strong{kernlab} \cr
+   cost \tab C \cr
+   degree \tab degree \cr
+   scale_factor \tab scale \cr
+   margin \tab epsilon \cr
+}
 
-\pkg{kernlab} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "classification"), "kernlab")}
-
-\pkg{kernlab} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::svm_poly(mode = "regression"), "kernlab")}
+}
 }
 
 \examples{
@@ -104,5 +129,5 @@ update(model, cost = 1)
 update(model, cost = 1, fresh = TRUE)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}
 }

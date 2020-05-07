@@ -19,7 +19,7 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
-#' @param penalty An non-negative number representing the total
+#' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
 #'  (aka weight decay) while the other models can be a combination
@@ -40,49 +40,7 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{glm}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glm")}
-#'
-#' \pkg{glmnet}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "glmnet")}
-#'
-#' \pkg{stan}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "stan")}
-#'
-#' \pkg{spark}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "spark")}
-#'
-#' \pkg{keras}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::logistic_reg(), "keras")}
-#'
-#' For `glmnet` models, the full regularization path is always fit regardless
-#' of the value given to `penalty`. Also, there is the option to pass
-#'  multiple values (or no values) to the `penalty` argument. When using the
-#'  `predict()` method in these cases, the return value depends on
-#'  the value of `penalty`. When using `predict()`, only a single
-#'  value of the penalty can be used. When predicting on multiple
-#'  penalties, the `multi_predict()` function can be used. It
-#'  returns a tibble with a list column called `.pred` that contains
-#'  a tibble with all of the penalty results.
-#'
-#' For prediction, the `stan` engine can compute posterior
-#'  intervals analogous to confidence and prediction intervals. In
-#'  these instances, the units are the original outcome and when
-#'  `std_error = TRUE`, the standard deviation of the posterior
-#'  distribution (or posterior predictive distribution as
-#'  appropriate) is returned. For `glm`, the standard error is in logit units
-#'  while the intervals are in probability units.
+#' @includeRmd man/rmd/logistic-reg.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
@@ -97,7 +55,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' logistic_reg()
 #' # Parameters can be represented by a placeholder:
@@ -196,11 +154,11 @@ check_args.logistic_reg <- function(object) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
-    stop("The amount of regularization should be >= 0", call. = FALSE)
+    rlang::abort("The amount of regularization should be >= 0.")
   if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
-    stop("The mixture proportion should be within [0,1]", call. = FALSE)
+    rlang::abort("The mixture proportion should be within [0,1].")
   if (is.numeric(args$mixture) && length(args$mixture) > 1)
-    stop("Only one value of `mixture` is allowed.", call. = FALSE)
+    rlang::abort("Only one value of `mixture` is allowed.")
 
   invisible(object)
 }
@@ -274,7 +232,7 @@ organize_glmnet_prob <- function(x, object) {
 #' @export
 predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   # See discussion in https://github.com/tidymodels/parsnip/issues/195
   if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
@@ -295,7 +253,7 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
 multi_predict._lognet <-
   function(object, new_data, type = NULL, penalty = NULL, ...) {
     if (any(names(enquos(...)) == "newdata"))
-      stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
     if (is_quosure(penalty))
       penalty <- eval_tidy(penalty)
@@ -316,7 +274,7 @@ multi_predict._lognet <-
     if (is.null(type))
       type <- "class"
     if (!(type %in% c("class", "prob", "link", "raw"))) {
-      stop("`type` should be either 'class', 'link', 'raw', or 'prob'.", call. = FALSE)
+      rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
     }
     if (type == "prob")
       dots$type <- "response"
@@ -355,7 +313,7 @@ multi_predict._lognet <-
 #' @export
 predict_class._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
@@ -364,7 +322,7 @@ predict_class._lognet <- function(object, new_data, ...) {
 #' @export
 predict_classprob._lognet <- function(object, new_data, ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
@@ -373,7 +331,7 @@ predict_classprob._lognet <- function(object, new_data, ...) {
 #' @export
 predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   if (any(names(enquos(...)) == "newdata"))
-    stop("Did you mean to use `new_data` instead of `newdata`?", call. = FALSE)
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)

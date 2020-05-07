@@ -39,25 +39,9 @@
 #' \item \pkg{R}:  `"flexsurv"`, `"survival"` (the default)
 #' }
 #'
-#' @section Engine Details:
+#' @includeRmd man/rmd/surv-reg.Rmd details
 #'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{flexsurv}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "flexsurv")}
-#'
-#' \pkg{survival}
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::surv_reg(), "survival")}
-#'
-#' Note that `model = TRUE` is needed to produce quantile
-#'  predictions when there is a stratification variable and can be
-#'  overridden in other cases.
-#'
-#' @seealso [[fit()], [survival::Surv()]
+#' @seealso [fit()], [survival::Surv()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples
