@@ -40,13 +40,23 @@ further partition on a leaf node of the tree}
 
 \item{subsample}{Subsampling proportion of rows.}
 
+\item{validation}{A positive number. If on \verb{[0, 1)} the value, \code{validation}
+is a random proportion of data in \code{x} and \code{y} that are used for performance
+assessment and potential early stopping. If 1 or greater, it is the \emph{number}
+of training set samples use for these purposes.}
+
+\item{early_stop}{An integer or \code{NULL}. If not \code{NULL}, it is the number of
+training iterations without improvement before stopping. If \code{validation} is
+used, performance is base on the validation set; otherwise the training set
+is used.}
+
 \item{...}{Other options to pass to \code{xgb.train}.}
 }
 \value{
 A fitted \code{xgboost} object.
 }
 \description{
-\code{xgb_train} is a wrapper for \code{xgboost} tree-based models
-where all of the model arguments are in the main function.
+\code{xgb_train} is a wrapper for \code{xgboost} tree-based models where all of the
+model arguments are in the main function.
 }
 \keyword{internal}

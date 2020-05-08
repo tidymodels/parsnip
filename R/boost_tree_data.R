@@ -65,6 +65,15 @@ set_model_arg(
   func = list(pkg = "dials", fun = "sample_size"),
   has_submodel = FALSE
 )
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "stop_iter",
+  original = "early_stop",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
 
 set_fit(
   model = "boost_tree",
