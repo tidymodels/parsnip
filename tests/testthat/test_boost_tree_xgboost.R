@@ -201,3 +201,87 @@ test_that('default engine', {
   expect_true(inherits(fit$fit, "xgb.Booster"))
 })
 
+# ------------------------------------------------------------------------------
+
+test_that('validation sets', {
+  skip_if_not_installed("xgboost")
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 20, mode = "regression") %>%
+      set_engine("xgboost", validation = .1) %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = NA
+  )
+
+  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "validation_rmse")
+
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 20, mode = "regression") %>%
+      set_engine("xgboost", validation = .1, eval_metric = "mae") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = NA
+  )
+
+  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "validation_mae")
+
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 20, mode = "regression") %>%
+      set_engine("xgboost", eval_metric = "mae") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = NA
+  )
+
+  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "training_mae")
+
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 20, mode = "regression") %>%
+      set_engine("xgboost", validation = 3) %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = "`validation` should be on"
+  )
+
+})
+
+
+# ------------------------------------------------------------------------------
+
+test_that('early stopping', {
+  skip_if_not_installed("xgboost")
+  set.seed(233456)
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 200, stop_iter = 5, mode = "regression") %>%
+      set_engine("xgboost", validation = .1) %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = NA
+  )
+
+  expect_equal(reg_fit$fit$niter - reg_fit$fit$best_iteration, 5)
+  expect_true(reg_fit$fit$niter < 200)
+
+  expect_error(
+    reg_fit <-
+      boost_tree(trees = 20, mode = "regression") %>%
+      set_engine("xgboost", validation = .1, eval_metric = "mae") %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = NA
+  )
+
+ expect_warning(
+    reg_fit <-
+      boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
+      set_engine("xgboost", validation = .1) %>%
+      fit(mpg ~ ., data = mtcars[-(1:4), ]),
+    regex = "`early_stop` was reduced to 19"
+  )
+ expect_error(
+   reg_fit <-
+     boost_tree(trees = 20, stop_iter = 0, mode = "regression") %>%
+     set_engine("xgboost", validation = .1) %>%
+     fit(mpg ~ ., data = mtcars[-(1:4), ]),
+   regex = "`early_stop` should be on"
+ )
+})

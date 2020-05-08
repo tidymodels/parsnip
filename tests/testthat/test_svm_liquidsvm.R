@@ -82,7 +82,7 @@ test_that('bad input', {
 
 reg_mod <-
   svm_rbf(rbf_sigma = .1, cost = 0.25) %>%
-  set_engine("liquidSVM", random_seed = 1234, folds = 1) %>%
+  set_engine("liquidSVM", random_seed = 1234, folds = 1, max_gamma=500) %>%
   set_mode("regression")
 
 cls_mod <-
@@ -98,24 +98,28 @@ test_that('svm rbf regression', {
 
   skip_if_not_installed("liquidSVM")
 
-  expect_error(
-    fit_xy(
-      reg_mod,
-      control = ctrl,
-      x = iris[, 2:4],
-      y = iris$Sepal.Length
-    ),
-    regexp = NA
+  expect_warning(
+    expect_error(
+      fit_xy(
+        reg_mod,
+        control = ctrl,
+        x = iris[, 2:4],
+        y = iris$Sepal.Length
+      ),
+      regexp = NA
+    )
   )
 
-  expect_error(
-    fit(
-      reg_mod,
-      Sepal.Length ~ .,
-      data = iris[, -5],
-      control = ctrl
-    ),
-    regexp = NA
+  expect_warning(
+    expect_error(
+      fit(
+        reg_mod,
+        Sepal.Length ~ .,
+        data = iris[, -5],
+        control = ctrl
+      ),
+      regexp = NA
+    )
   )
 
 })
@@ -125,42 +129,50 @@ test_that('svm rbf regression prediction', {
 
   skip_if_not_installed("liquidSVM")
 
-  reg_form <-
-    fit(
-      object = reg_mod,
-      formula = Sepal.Length ~ .,
-      data = iris[, -5],
-      control = ctrl
-    )
+  expect_warning(
+    reg_form <-
+      fit(
+        object = reg_mod,
+        formula = Sepal.Length ~ .,
+        data = iris[, -5],
+        control = ctrl
+      )
+  )
 
-  reg_xy_form <-
-    fit_xy(
-      object = reg_mod,
-      x = iris[, 2:4],
-      y = iris$Sepal.Length,
-      control = ctrl
-    )
+  expect_warning(
+    reg_xy_form <-
+      fit_xy(
+        object = reg_mod,
+        x = iris[, 2:4],
+        y = iris$Sepal.Length,
+        control = ctrl
+      )
+  )
   expect_equal(reg_form$spec, reg_xy_form$spec)
 
-  liquidSVM_form <-
-    liquidSVM::svm(
-      x = Sepal.Length ~ .,
-      y = iris[, -5],
-      gammas = .1,
-      lambdas = 0.25,
-      folds = 1,
-      random_seed = 1234
-    )
+  expect_warning(
+    liquidSVM_form <-
+      liquidSVM::svm(
+        x = Sepal.Length ~ .,
+        y = iris[, -5],
+        gammas = .1,
+        lambdas = 0.25,
+        folds = 1,
+        random_seed = 1234
+      )
+  )
 
-  liquidSVM_xy_form <-
-    liquidSVM::svm(
-      x = iris[, 2:4],
-      y = iris$Sepal.Length,
-      gammas = .1,
-      lambdas = 0.25,
-      folds = 1,
-      random_seed = 1234
-    )
+  expect_warning(
+    liquidSVM_xy_form <-
+      liquidSVM::svm(
+        x = iris[, 2:4],
+        y = iris$Sepal.Length,
+        gammas = .1,
+        lambdas = 0.25,
+        folds = 1,
+        random_seed = 1234
+      )
+  )
 
   # check coeffs for liquidSVM formula and liquidSVM xy fit interfaces
   expect_equal(liquidSVM::getSolution(liquidSVM_form)[c("coeff", "sv")],

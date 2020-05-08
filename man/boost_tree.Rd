@@ -61,7 +61,7 @@ exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
-stopping.}
+stopping  (\code{xgboost} only).}
 
 \item{object}{A boosted tree model specification.}
 

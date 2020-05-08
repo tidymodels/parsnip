@@ -123,7 +123,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 
   expect_equal(
     mult_pred,
-    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "class") %>% unnest()
+    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "class") %>% unnest(cols = c(.pred))
     )
 
   res_form <- fit(
@@ -152,7 +152,7 @@ test_that('glmnet prediction, mulitiple lambda', {
 
   expect_equal(
     form_pred,
-    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest()
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest(cols = c(.pred))
   )
 
 })
@@ -183,7 +183,7 @@ test_that('glmnet prediction, no lambda', {
   names(mult_pred) <- c("penalty", ".pred_class")
   mult_pred <- tibble::as_tibble(mult_pred)
 
-  expect_equal(mult_pred, multi_predict(xy_fit, lending_club[1:7, num_pred]) %>% unnest())
+  expect_equal(mult_pred, multi_predict(xy_fit, lending_club[1:7, num_pred]) %>% unnest(cols = c(.pred)))
 
   res_form <- fit(
     logistic_reg() %>% set_engine("glmnet", nlambda =  11),
@@ -211,7 +211,7 @@ test_that('glmnet prediction, no lambda', {
 
   expect_equal(
     form_pred,
-    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest()
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>% unnest(cols = c(.pred))
   )
 
 })
@@ -262,7 +262,7 @@ test_that('glmnet probabilities, one lambda', {
     )
 
   one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob")
-  expect_equal(form_pred[1,], one_row)
+  expect_equivalent(form_pred[1,], one_row)
 
 })
 
@@ -296,7 +296,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   expect_equal(
     mult_pred,
     multi_predict(xy_fit, lending_club[1:7, num_pred], lambda = lams, type = "prob") %>%
-      unnest()
+      unnest(cols = c(.pred))
     )
 
   res_form <- fit(
@@ -325,7 +325,7 @@ test_that('glmnet probabilities, mulitiple lambda', {
   expect_equal(
     form_pred,
     multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob") %>%
-      unnest()
+      unnest(cols = c(.pred))
     )
 
 })
@@ -386,7 +386,7 @@ test_that('glmnet probabilities, no lambda', {
 
   expect_equal(
     form_pred,
-    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob") %>% unnest()
+    multi_predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob") %>% unnest(cols = c(.pred))
   )
 
 })
