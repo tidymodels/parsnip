@@ -141,17 +141,29 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<ul>
+<li>
+<code>tidyr</code> &gt;= 1.0.0 is now required.</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
 <ul>
 <li>A new main argument was added to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="../reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</li>
 </ul>
+</div>
 </div>
     <div id="parsnip-011" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.1">
 <a href="#parsnip-011" class="anchor"></a>parsnip 0.1.1<small> 2020-05-06 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h2>
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li>
 <code>liquidSVM</code> was added as an engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/300'>#300</a>)</li>
@@ -164,9 +176,9 @@
 <li>The error message for missing packages was fixed (<a href='https://github.com/tidymodels/parsnip/issues/289'>#289</a> and <a href='https://github.com/tidymodels/parsnip/issues/292'>#292</a>)</li>
 </ul>
 </div>
-<div id="other-changes" class="section level2">
+<div id="other-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
 <ul>
 <li>S3 dispatch for <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code> was broken on R 4.0.</li>
 </ul>
@@ -183,17 +195,17 @@
 <li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206"><a href='https://github.com/tidymodels/parsnip/issues/206'>#206</a></a> and <a href="https://github.com/tidymodels/parsnip/issues/234"><a href='https://github.com/tidymodels/parsnip/issues/234'>#234</a></a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li>
 </ul>
 </div>
-<div id="other-changes-1" class="section level2">
+<div id="other-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-2" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code>glmnet</code> was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain <code>parsnip</code> to that same requirement. All <code>glmnet</code> tests are run locally.</p></li>
 <li><p>A set of internal functions are now exported. These are helpful when creating a new package that registers new model specifications.</p></li>
 </ul>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li>
 <code>nnet</code> was added as an engine to <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> <a href="https://github.com/tidymodels/parsnip/issues/209"><a href='https://github.com/tidymodels/parsnip/issues/209'>#209</a></a>
@@ -212,9 +224,9 @@
 <h1 class="page-header" data-toc-text="0.0.4">
 <a href="#parsnip-004" class="anchor"></a>parsnip 0.0.4<small> 2019-11-02 </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New Features</h2>
+<a href="#new-features-3" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>The time elapsed during model fitting is stored in the <code>$elapsed</code> slot of the parsnip model object, and is printed when the model object is printed.</p></li>
 <li><p>Some default parameter ranges were updated for SVM, KNN, and MARS models.</p></li>
@@ -254,9 +266,9 @@
 <li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(<a href='https://github.com/tidymodels/parsnip/issues/195'>#195</a>)</a></p></li>
 </ul>
 </div>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New Features</h2>
+<a href="#new-features-4" class="anchor"></a>New Features</h2>
 <ul>
 <li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
 <li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
@@ -271,17 +283,17 @@
 <a href="#parsnip-002" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
 </h1>
 <p>Small release driven by changes in <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> in the current r-devel.</p>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>New Features</h2>
+<a href="#new-features-5" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>A “null model” is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
 </ul>
 </div>
-<div id="other-changes-2" class="section level2">
+<div id="other-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-2" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-3" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
 <li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
