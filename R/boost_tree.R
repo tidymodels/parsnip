@@ -49,7 +49,7 @@
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
 #'  each iteration while `C5.0` samples once during training.
 #' @param stop_iter The number of iterations without improvement before
-#'   stopping.
+#'   stopping  (`xgboost` only).
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree()`, the
@@ -328,7 +328,7 @@ xgb_train <- function(
 
     } else {
       x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
-      wlist <- list()
+      wlist <- list(training = x)
     }
   } else {
     xgboost::setinfo(x, "label", y)
