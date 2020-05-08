@@ -17,26 +17,22 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -61,15 +57,7 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-115082821-1');
-</script>
 
   </head>
 
@@ -88,9 +76,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9001</span>
+        <div class="info">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -149,26 +137,48 @@
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="parsnip-0-1-1" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.1">
-<a href="#parsnip-0-1-1" class="anchor"></a>parsnip 0.1.1<small> Unreleased </small>
+    <div id="parsnip-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li>A new main argument was added to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="../reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</li>
+</ul>
+</div>
+    <div id="parsnip-011" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1">
+<a href="#parsnip-011" class="anchor"></a>parsnip 0.1.1<small> 2020-05-06 </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li>
+<code>liquidSVM</code> was added as an engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/300'>#300</a>)</li>
+</ul>
+</div>
+<div id="fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixes" class="anchor"></a>Fixes</h2>
+<ul>
+<li>The error message for missing packages was fixed (<a href='https://github.com/tidymodels/parsnip/issues/289'>#289</a> and <a href='https://github.com/tidymodels/parsnip/issues/292'>#292</a>)</li>
+</ul>
+</div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other Changes</h2>
 <ul>
-<li><p>S3 dispatch for <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code> was broken on R 4.0.</p></li>
-<li><p>The error message for missing packages was fixed (<a href='https://github.com/tidymodels/parsnip/issues/289'>#289</a> and <a href='https://github.com/tidymodels/parsnip/issues/292'>#292</a>)</p></li>
+<li>S3 dispatch for <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code> was broken on R 4.0.</li>
 </ul>
 </div>
 </div>
-    <div id="parsnip-0-0-5" class="section level1">
+    <div id="parsnip-005" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.5">
-<a href="#parsnip-0-0-5" class="anchor"></a>parsnip 0.0.5<small> 2020-01-07 </small>
+<a href="#parsnip-005" class="anchor"></a>parsnip 0.0.5<small> 2020-01-07 </small>
 </h1>
-<div id="fixes" class="section level2">
+<div id="fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixes" class="anchor"></a>Fixes</h2>
+<a href="#fixes-1" class="anchor"></a>Fixes</h2>
 <ul>
 <li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206"><a href='https://github.com/tidymodels/parsnip/issues/206'>#206</a></a> and <a href="https://github.com/tidymodels/parsnip/issues/234"><a href='https://github.com/tidymodels/parsnip/issues/234'>#234</a></a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li>
 </ul>
@@ -181,9 +191,9 @@
 <li><p>A set of internal functions are now exported. These are helpful when creating a new package that registers new model specifications.</p></li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h2>
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li>
 <code>nnet</code> was added as an engine to <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> <a href="https://github.com/tidymodels/parsnip/issues/209"><a href='https://github.com/tidymodels/parsnip/issues/209'>#209</a></a>
@@ -198,13 +208,13 @@
 </ul>
 </div>
 </div>
-    <div id="parsnip-0-0-4" class="section level1">
+    <div id="parsnip-004" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.4">
-<a href="#parsnip-0-0-4" class="anchor"></a>parsnip 0.0.4<small> 2019-11-02 </small>
+<a href="#parsnip-004" class="anchor"></a>parsnip 0.0.4<small> 2019-11-02 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>The time elapsed during model fitting is stored in the <code>$elapsed</code> slot of the parsnip model object, and is printed when the model object is printed.</p></li>
 <li><p>Some default parameter ranges were updated for SVM, KNN, and MARS models.</p></li>
@@ -212,9 +222,9 @@
 <li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
 </ul>
 </div>
-<div id="fixes-1" class="section level2">
+<div id="fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixes-1" class="anchor"></a>Fixes</h2>
+<a href="#fixes-2" class="anchor"></a>Fixes</h2>
 <ul>
 <li><p><a href="https://github.com/tidymodels/parsnip/issues/222">A bug</a> was fixed standardizing the output column types of <code>multi_predict</code> and <code>predict</code> for <code>multinom_reg</code>.</p></li>
 <li><p><a href="https://github.com/tidymodels/parsnip/issues/208">A bug</a> was fixed related to using data descriptors and <code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code>.</p></li>
@@ -223,15 +233,15 @@
 </ul>
 </div>
 </div>
-    <div id="parsnip-0-0-3-1" class="section level1">
+    <div id="parsnip-0031" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.3.1">
-<a href="#parsnip-0-0-3-1" class="anchor"></a>parsnip 0.0.3.1<small> 2019-08-06 </small>
+<a href="#parsnip-0031" class="anchor"></a>parsnip 0.0.3.1<small> 2019-08-06 </small>
 </h1>
 <p>Test case update due to CRAN running extra tests <a href="https://github.com/tidymodels/parsnip/issues/202">(<a href='https://github.com/tidymodels/parsnip/issues/202'>#202</a>)</a></p>
 </div>
-    <div id="parsnip-0-0-3" class="section level1">
+    <div id="parsnip-003" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.3">
-<a href="#parsnip-0-0-3" class="anchor"></a>parsnip 0.0.3<small> 2019-07-31 </small>
+<a href="#parsnip-003" class="anchor"></a>parsnip 0.0.3<small> 2019-07-31 </small>
 </h1>
 <p>Unplanned release based on CRAN requirements for Solaris.</p>
 <div id="breaking-changes-1" class="section level2">
@@ -244,9 +254,9 @@
 <li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(<a href='https://github.com/tidymodels/parsnip/issues/195'>#195</a>)</a></p></li>
 </ul>
 </div>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New Features</h2>
+<a href="#new-features-3" class="anchor"></a>New Features</h2>
 <ul>
 <li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
 <li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
@@ -256,14 +266,14 @@
 </ul>
 </div>
 </div>
-    <div id="parsnip-0-0-2" class="section level1">
+    <div id="parsnip-002" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.2">
-<a href="#parsnip-0-0-2" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
+<a href="#parsnip-002" class="anchor"></a>parsnip 0.0.2<small> 2019-03-22 </small>
 </h1>
 <p>Small release driven by changes in <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> in the current r-devel.</p>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New Features</h2>
+<a href="#new-features-4" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>A “null model” is now available that fits a predictor-free model (using the mean of the outcome for regression or the mode for classification).</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
@@ -276,7 +286,7 @@
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
 <li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
 <li><p>For classification models, an error occurs if the outcome data are not encoded as factors (<a href='https://github.com/tidymodels/parsnip/issues/115'>#115</a>).</p></li>
-<li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
+<li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
 <li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
 </ul>
 </div>
@@ -293,23 +303,23 @@
 </ul>
 </div>
 </div>
-    <div id="parsnip-0-0-1" class="section level1">
+    <div id="parsnip-001" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.1">
-<a href="#parsnip-0-0-1" class="anchor"></a>parsnip 0.0.1<small> 2018-11-12 </small>
+<a href="#parsnip-001" class="anchor"></a>parsnip 0.0.1<small> 2018-11-12 </small>
 </h1>
 <p>First CRAN release</p>
 </div>
-    <div id="parsnip-0-0-0-9005" class="section level1">
+    <div id="parsnip-0009005" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9005">
-<a href="#parsnip-0-0-0-9005" class="anchor"></a>parsnip 0.0.0.9005<small> Unreleased </small>
+<a href="#parsnip-0009005" class="anchor"></a>parsnip 0.0.0.9005<small> Unreleased </small>
 </h1>
 <ul>
 <li>The engine, and any associated arguments, are now specified using <code><a href="../reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li>
 </ul>
 </div>
-    <div id="parsnip-0-0-0-9004" class="section level1">
+    <div id="parsnip-0009004" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9004">
-<a href="#parsnip-0-0-0-9004" class="anchor"></a>parsnip 0.0.0.9004<small> Unreleased </small>
+<a href="#parsnip-0009004" class="anchor"></a>parsnip 0.0.0.9004<small> Unreleased </small>
 </h1>
 <ul>
 <li>Arguments to modeling functions are now captured as quosures.</li>
@@ -319,9 +329,9 @@
 <li>Data descriptor names have beemn changed and are now functions. The descriptor definitions for “cols” and “preds” have been switched.</li>
 </ul>
 </div>
-    <div id="parsnip-0-0-0-9003" class="section level1">
+    <div id="parsnip-0009003" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9003">
-<a href="#parsnip-0-0-0-9003" class="anchor"></a>parsnip 0.0.0.9003<small> Unreleased </small>
+<a href="#parsnip-0009003" class="anchor"></a>parsnip 0.0.0.9003<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -331,26 +341,26 @@
 <li>The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some <code>predict</code> methods, the <code>earth</code> package will need to be attached to be fully operational.</li>
 </ul>
 </div>
-    <div id="parsnip-0-0-0-9002" class="section level1">
+    <div id="parsnip-0009002" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9002">
-<a href="#parsnip-0-0-0-9002" class="anchor"></a>parsnip 0.0.0.9002<small> Unreleased </small>
+<a href="#parsnip-0009002" class="anchor"></a>parsnip 0.0.0.9002<small> Unreleased </small>
 </h1>
 <ul>
 <li>To be consistent with <code>snake_case</code>, <code>newdata</code> was changed to <code>new_data</code>.</li>
 <li>A <code>predict_raw</code> method was added.</li>
 </ul>
 </div>
-    <div id="parsnip-0-0-0-9001" class="section level1">
+    <div id="parsnip-0009001" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9001">
-<a href="#parsnip-0-0-0-9001" class="anchor"></a>parsnip 0.0.0.9001<small> Unreleased </small>
+<a href="#parsnip-0009001" class="anchor"></a>parsnip 0.0.0.9001<small> Unreleased </small>
 </h1>
 <ul>
 <li>A package dependency suffered a new change.</li>
 </ul>
 </div>
-    <div id="parsnip-0-0-0-9000" class="section level1">
+    <div id="parsnip-0009000" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9000">
-<a href="#parsnip-0-0-0-9000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
+<a href="#parsnip-0009000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> is for the x/y interface</a>.</li>

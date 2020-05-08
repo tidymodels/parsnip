@@ -17,26 +17,22 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -75,15 +71,7 @@ in lieu of recreating the object from scratch." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-115082821-1');
-</script>
 
   </head>
 
@@ -102,9 +90,9 @@ in lieu of recreating the object from scratch." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9001</span>
+        <div class="info">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -267,11 +255,97 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.</p><h3>lm</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm 
+## 
+## Model fit template:
+## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+</pre>
 
 
-<p>The standardized parameter names in parsnip can be mapped to their original
-names in each engine:</p><table class='table'>
+<h3>glmnet</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     family = "gaussian")
+</pre>
+
+<p>For <code>glmnet</code> models, the full regularization path is always fit
+regardless of the value given to <code>penalty</code>. Also, there is the option to
+pass multiple values (or no values) to the <code>penalty</code> argument. When
+using the <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
+the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single value of
+the penalty can be used. When predicting on multiple penalties, the
+<code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It returns a tibble with a list
+column called <code>.pred</code> that contains a tibble with all of the penalty
+results.</p>
+
+<h3>stan</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: stan 
+## 
+## Model fit template:
+## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), family = stats::gaussian, refresh = 0)
+</pre>
+
+<p>Note that the <code>refresh</code> default prevents logging of the estimation
+process. Change this value in <code><a href='set_engine.html'>set_engine()</a></code> will show the logs.</p>
+<p>For prediction, the <code>stan</code> engine can compute posterior intervals
+analogous to confidence and prediction intervals. In these instances,
+the units are the original outcome and when <code>std_error = TRUE</code>, the
+standard deviation of the posterior distribution (or posterior
+predictive distribution as appropriate) is returned.</p>
+
+<h3>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
+##     weight_col = missing_arg())
+</pre>
+
+
+<h3>keras</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
+##     act = "linear")
+</pre>
+
+
+<h3>Parameter translations</h3>
+
+
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
 <tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td></tr>
 <tr><td>penalty</td><td>lambda</td><td>reg_param</td><td>penalty</td></tr>
 <tr><td>mixture</td><td>alpha</td><td>elastic_net_param</td><td>NA</td></tr>
@@ -279,44 +353,7 @@ names in each engine:</p><table class='table'>
 
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">lm</span></p>
-<p><pre>
-<span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
-<p><span class="pkg">glmnet</span></p>
-<p><pre>
-<span class='kw pkg'>glmnet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/glmnet/man/glmnet.html'>glmnet</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>)</pre></p>
-<p><span class="pkg">stan</span></p>
-<p><pre>
-<span class='kw pkg'>rstanarm</span><span class='kw ns'>::</span><span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>family</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/family.html'>gaussian</a></span>, <span class='kw'>refresh</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre></p>
-<p>(note that the <code>refresh</code> default prevents logging of the estimation process. Change this value in <code><a href='set_engine.html'>set_engine()</a></code> will show the logs)</p>
-<p><span class="pkg">spark</span></p>
-<p><pre>
-<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_linear_regression.html'>ml_linear_regression</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>weight_col</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
-<p><span class="pkg">keras</span></p>
-<p><pre>
-<span class='kw pkg'>parsnip</span><span class='kw ns'>::</span><span class='fu'><a href='keras_mlp.html'>keras_mlp</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-    <span class='kw'>act</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre></p>
-<p>For <code>glmnet</code> models, the full regularization path is always fit regardless
-of the value given to <code>penalty</code>. Also, there is the option to pass
-multiple values (or no values) to the <code>penalty</code> argument. When using the
-<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
-the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single
-value of the penalty can be used. When predicting on multiple
-penalties, the <code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It
-returns a tibble with a list column called <code>.pred</code> that contains
-a tibble with all of the penalty results.</p>
-<p>For prediction, the <code>stan</code> engine can compute posterior
-intervals analogous to confidence and prediction intervals. In
-these instances, the units are the original outcome and when
-<code>std_error = TRUE</code>, the standard deviation of the posterior
-distribution (or posterior predictive distribution as
-appropriate) is returned.</p>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>

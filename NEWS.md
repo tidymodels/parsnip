@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+ * A new main argument was added to `boost_tree()` called `stop_iter` for early stopping. The `xgb_train()` function gained arguments for early stopping and a percentage of data to leave out for a validation set. 
+ 
 # parsnip 0.1.1
 
 ## New Features

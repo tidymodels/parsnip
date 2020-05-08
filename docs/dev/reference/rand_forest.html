@@ -17,26 +17,22 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -76,15 +72,7 @@ in lieu of recreating the object from scratch." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-115082821-1');
-</script>
 
   </head>
 
@@ -103,9 +91,9 @@ in lieu of recreating the object from scratch." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9001</span>
+        <div class="info">
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -266,11 +254,93 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:</p><h3>ranger</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1))
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1), probability = TRUE)
+</pre>
+
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
+factor predictors to be converted to indicator variables.</p>
+<p>For <code>ranger</code> confidence intervals, the intervals are constructed using
+the form <code>estimate +/- z * std_error</code>. For classification probabilities,
+these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
+this range.</p>
+
+<h3>randomForest</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre>
+
+<p>Note that
+<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
+not require factor predictors to be converted to indicator variables.</p>
+
+<h3>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "regression", seed = sample.int(10^5, 1))
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "classification", seed = sample.int(10^5, 1))
+</pre>
 
 
-<p>The standardized parameter names in parsnip can be mapped to their original
-names in each engine:</p><table class='table'>
+<h3>Parameter translations</h3>
+
+
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
 <tr><td><strong>parsnip</strong></td><td><strong>ranger</strong></td><td><strong>randomForest</strong></td><td><strong>spark</strong></td></tr>
 <tr><td>mtry</td><td>mtry</td><td>mtry</td><td>feature_subset_strategy</td></tr>
 <tr><td>trees</td><td>num.trees</td><td>ntree</td><td>num_trees</td></tr>
@@ -279,37 +349,7 @@ names in each engine:</p><table class='table'>
 
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::</p>
-<p><span class="pkg">ranger</span> classification</p>
-<p><pre>
-<span class='kw pkg'>ranger</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>case.weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>num.threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>), <span class='kw'>probability</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre></p>
-<p><span class="pkg">ranger</span> regression</p>
-<p><pre>
-<span class='kw pkg'>ranger</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>case.weights</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>num.threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
-<p><span class="pkg">randomForests</span> classification</p>
-<p><pre>
-<span class='kw pkg'>randomForest</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
-<p><span class="pkg">randomForests</span> regression</p>
-<p><pre>
-<span class='kw pkg'>randomForest</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>())</pre></p>
-<p><span class="pkg">spark</span> classification</p>
-<p><pre>
-<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_random_forest.html'>ml_random_forest</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
-<p><span class="pkg">spark</span> regression</p>
-<p><pre>
-<span class='kw pkg'>sparklyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sparklyr/man/ml_random_forest.html'>ml_random_forest</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>missing_arg</span>(),
-    <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>1</span>))</pre></p>
-<p>For <span class="pkg">ranger</span> confidence intervals, the intervals are
-constructed using the form <code>estimate +/- z * std_error</code>. For
-classification probabilities, these values can fall outside of
-<code>[0, 1]</code> and will be coerced to be in this range.</p>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
