@@ -26,7 +26,7 @@ Imports:
     glue,
     magrittr,
     stats,
-    tidyr,
+    tidyr (>= 1.0.0),
     globals,
     prettyunits,
     vctrs (>= 0.2.0)

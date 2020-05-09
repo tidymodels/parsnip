@@ -104,7 +104,7 @@ test_that('stan_glm probability', {
     0.0253642111906806, 0.974635788809319
   )
 
-  expect_equal(
+  expect_equivalent(
     xy_pred %>% as.data.frame(),
     parsnip:::predict_classprob.model_fit(xy_fit, lending_club[1:7, num_pred]) %>% as.data.frame()
   )
@@ -128,7 +128,7 @@ test_that('stan_glm probability', {
       0.013776487556396, 0.986223512443604,
       0.00359938202445076, 0.996400617975549
     )
-  expect_equal(
+  expect_equivalent(
     form_pred %>% as.data.frame(),
     parsnip:::predict_classprob.model_fit(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>%
       as.data.frame()

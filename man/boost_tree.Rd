@@ -13,7 +13,8 @@ boost_tree(
   tree_depth = NULL,
   learn_rate = NULL,
   loss_reduction = NULL,
-  sample_size = NULL
+  sample_size = NULL,
+  stop_iter = NULL
 )
 
 \method{update}{boost_tree}(
@@ -26,6 +27,7 @@ boost_tree(
   learn_rate = NULL,
   loss_reduction = NULL,
   sample_size = NULL,
+  stop_iter = NULL,
   fresh = FALSE,
   ...
 )
@@ -57,6 +59,9 @@ to split further  (\code{xgboost} only).}
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during training.}
+
+\item{stop_iter}{The number of iterations without improvement before
+stopping  (\code{xgboost} only).}
 
 \item{object}{A boosted tree model specification.}
 
@@ -91,6 +96,8 @@ from iteration-to-iteration.
 \item \code{loss_reduction}: The reduction in the loss function required
 to split further.
 \item \code{sample_size}: The amount of data exposed to the fitting routine.
+\item \code{stop_iter}: The number of iterations without improvement before
+stopping.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
@@ -206,6 +213,7 @@ original names in each engine that has main parameters:\tabular{llll}{
    min_n \tab min_child_weight \tab minCases \tab min_instances_per_node \cr
    loss_reduction \tab gamma \tab NA \tab NA \cr
    sample_size \tab subsample \tab sample \tab subsampling_rate \cr
+   stop_iter \tab early_stop \tab NA \tab NA \cr
    min_info_gain \tab NA \tab NA \tab loss_reduction \cr
 }
 

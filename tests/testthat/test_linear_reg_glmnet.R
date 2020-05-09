@@ -131,7 +131,7 @@ test_that('glmnet prediction, multiple lambda', {
   expect_equal(
     as.data.frame(mult_pred),
     multi_predict(res_xy, new_data = iris[1:5, num_pred], lambda = lams) %>%
-      unnest() %>%
+      unnest(cols = c(.pred)) %>%
       as.data.frame(),
     tolerance = 0.0001
   )
@@ -176,7 +176,7 @@ test_that('glmnet prediction, multiple lambda', {
   expect_equal(
     as.data.frame(form_pred),
     multi_predict(res_form, new_data = iris[1:5, ], lambda = lams) %>%
-      unnest() %>%
+      unnest(cols = c(.pred)) %>%
       as.data.frame(),
     tolerance = 0.0001
   )
@@ -206,7 +206,7 @@ test_that('glmnet prediction, all lambda', {
   names(all_pred) <- c("penalty", ".pred")
   all_pred <- tibble::as_tibble(all_pred)
 
-  expect_equal(all_pred, multi_predict(res_xy, new_data = iris[1:5,num_pred ]) %>% unnest())
+  expect_equal(all_pred, multi_predict(res_xy, new_data = iris[1:5,num_pred ]) %>% unnest(cols = c(.pred)))
 
   res_form <- fit(
     iris_all,
@@ -227,7 +227,7 @@ test_that('glmnet prediction, all lambda', {
   names(form_pred) <- c("penalty", ".pred")
   form_pred <- tibble::as_tibble(form_pred)
 
-  expect_equal(form_pred, multi_predict(res_form, iris[1:5, c("Sepal.Width", "Species")]) %>% unnest())
+  expect_equal(form_pred, multi_predict(res_form, iris[1:5, c("Sepal.Width", "Species")]) %>% unnest(cols = c(.pred)))
 })
 
 
@@ -267,7 +267,7 @@ test_that('submodel prediction', {
 
   mp_res_all <-
     multi_predict(reg_fit, new_data = mtcars[1:2, -1]) %>%
-    tidyr::unnest()
+    tidyr::unnest(cols = c(.pred))
 
   expect_equal(sort(mp_res_all$.pred), sort(pred_glmn_all$values))
 
