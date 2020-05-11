@@ -7,7 +7,7 @@ Authors@R: c(
     person(given = "Davis", family = "Vaughan", email = "davis@rstudio.com", role = c("aut")),
     person("RStudio", role = "cph"))
 Maintainer: Max Kuhn <max@rstudio.com>
-URL: https://tidymodels.github.io/parsnip, https://github.com/tidymodels/parsnip
+URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
 BugReports: https://github.com/tidymodels/parsnip/issues
 License: GPL-2
 Encoding: UTF-8
