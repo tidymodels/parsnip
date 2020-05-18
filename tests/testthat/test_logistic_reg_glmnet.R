@@ -261,8 +261,7 @@ test_that('glmnet probabilities, one lambda', {
     predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob")
     )
 
-  one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob") %>%
-    mutate_all(set_names, 1)
+  one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob")
   expect_equivalent(form_pred[1,], one_row)
 
 })
