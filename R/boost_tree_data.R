@@ -364,6 +364,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_fit(
   model = "boost_tree",
   eng = "spark",
@@ -374,6 +381,13 @@ set_fit(
     func = c(pkg = "sparklyr", fun = "ml_gradient_boosted_trees"),
     defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
   )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
