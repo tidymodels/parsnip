@@ -47,6 +47,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "mars",
+  eng = "earth",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_fit(
   model = "mars",
   eng = "earth",
@@ -57,6 +64,13 @@ set_fit(
     func = c(pkg = "earth", fun = "earth"),
     defaults = list(keepxy = TRUE)
   )
+)
+
+set_encoding(
+  model = "mars",
+  eng = "earth",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
