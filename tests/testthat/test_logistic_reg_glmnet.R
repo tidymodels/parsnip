@@ -261,7 +261,8 @@ test_that('glmnet probabilities, one lambda', {
     predict(res_form, lending_club[1:7, c("funded_amnt", "int_rate")], type = "prob")
     )
 
-  one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob")
+  one_row <- predict(res_form, lending_club[1, c("funded_amnt", "int_rate")], type = "prob") %>%
+    mutate_all(set_names, 1)
   expect_equivalent(form_pred[1,], one_row)
 
 })
@@ -358,7 +359,8 @@ test_that('glmnet probabilities, no lambda', {
 
   expect_equal(
     mult_pred,
-    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>% unnest()
+    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>%
+      unnest(cols = c(.pred))
   )
 
   res_form <- fit(
