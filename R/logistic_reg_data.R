@@ -19,6 +19,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "logistic_reg",
+  eng = "glm",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "logistic_reg",
   eng = "glm",
@@ -121,6 +128,25 @@ set_pred(
 set_model_engine("logistic_reg", "classification", "glmnet")
 set_dependency("logistic_reg", "glmnet", "glmnet")
 
+set_fit(
+  model = "logistic_reg",
+  eng = "glmnet",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "glmnet", fun = "glmnet"),
+    defaults = list(family = "binomial")
+  )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "glmnet",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_model_arg(
   model = "logistic_reg",
   eng = "glmnet",
@@ -138,19 +164,6 @@ set_model_arg(
   func = list(pkg = "dials", fun = "mixture"),
   has_submodel = FALSE
 )
-
-set_fit(
-  model = "logistic_reg",
-  eng = "glmnet",
-  mode = "classification",
-  value = list(
-    interface = "matrix",
-    protect = c("x", "y", "weights"),
-    func = c(pkg = "glmnet", fun = "glmnet"),
-    defaults = list(family = "binomial")
-  )
-)
-
 
 set_pred(
   model = "logistic_reg",
@@ -245,6 +258,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "logistic_reg",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "logistic_reg",
   eng = "spark",
@@ -306,6 +326,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "logistic_reg",
+  eng = "keras",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "logistic_reg",
   eng = "keras",
@@ -361,6 +388,13 @@ set_fit(
     func = c(pkg = "rstanarm", fun = "stan_glm"),
     defaults = list(family = expr(stats::binomial), refresh = 0)
   )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "stan",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
