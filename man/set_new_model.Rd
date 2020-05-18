@@ -85,6 +85,12 @@ results.}
 \item{...}{Optional arguments that should be passed into the \code{args} slot for
 prediction objects.}
 
+\item{options}{A list of options for engine-specific encodings. Currently,
+the option implemented is \code{predictor_indicators} which tells \code{parsnip}
+whether the pre-processing should make indicator/dummy variables from factor
+predictors. This only affects cases when \code{\link[=fit.model_spec]{fit.model_spec()}} is used and the
+underlying model has an x/y interface.}
+
 \item{arg}{A single character string for the model argument name.}
 
 \item{fit_obj}{A list with elements \code{interface}, \code{protect},
