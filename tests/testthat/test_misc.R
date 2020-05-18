@@ -56,3 +56,34 @@ test_that('getting y names from terms', {
 
 })
 
+# ------------------------------------------------------------------------------
+
+test_that('S3 method dispatch/registration', {
+
+  expect_error(
+    res <-
+      null_model() %>%
+      set_engine("parsnip") %>%
+      set_mode("regression") %>%
+      fit(mpg ~ ., data = mtcars) %>%
+      tidy(),
+    regex = NA
+  )
+  expect_true(tibble::is_tibble(res))
+
+  expect_error(
+    res <-
+      null_model() %>%
+      set_engine("parsnip") %>%
+      set_mode("classification") %>%
+      fit(Species ~ ., data = iris) %>%
+      tidy(),
+    regex = NA
+  )
+  expect_true(tibble::is_tibble(res))
+
+
+
+})
+
+

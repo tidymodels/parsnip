@@ -32,6 +32,8 @@ test_that('C5.0 execution', {
     ),
     regexp = NA
   )
+  expect_output(print(res), "parsnip model object")
+
   expect_error(
     res <- fit_xy(
       lc_basic,

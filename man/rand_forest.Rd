@@ -85,49 +85,106 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{ranger}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("ranger") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1))
+}\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("ranger") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1), probability = TRUE)
+}
 
+Note that \code{\link[ranger:ranger]{ranger::ranger()}} does not require
+factor predictors to be converted to indicator variables.
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{llll}{
+For \code{ranger} confidence intervals, the intervals are constructed using
+the form \verb{estimate +/- z * std_error}. For classification probabilities,
+these values can fall outside of \verb{[0, 1]} and will be coerced to be in
+this range.
+}
+
+\subsection{randomForest}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("randomForest") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+}\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("randomForest") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+}
+
+Note that
+\code{\link[randomForest:randomForest]{randomForest::randomForest()}} does
+not require factor predictors to be converted to indicator variables.
+}
+
+\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "regression", seed = sample.int(10^5, 1))
+}\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "classification", seed = sample.int(10^5, 1))
+}
+}
+
+\subsection{Parameter translations}{
+
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{llll}{
    \strong{parsnip} \tab \strong{ranger} \tab \strong{randomForest} \tab \strong{spark} \cr
    mtry \tab mtry \tab mtry \tab feature_subset_strategy \cr
    trees \tab num.trees \tab ntree \tab num_trees \cr
    min_n \tab min.node.size \tab nodesize \tab min_instances_per_node \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::
-
-\pkg{ranger} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "ranger")}
-
-\pkg{ranger} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "ranger")}
-
-\pkg{randomForests} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "randomForest")}
-
-\pkg{randomForests} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "randomForest")}
-
-\pkg{spark} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "classification"), "spark")}
-
-\pkg{spark} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::rand_forest(mode = "regression"), "spark")}
-
-For \pkg{ranger} confidence intervals, the intervals are
-constructed using the form \verb{estimate +/- z * std_error}. For
-classification probabilities, these values can fall outside of
-\verb{[0, 1]} and will be coerced to be in this range.
+}
 }
 
 \examples{

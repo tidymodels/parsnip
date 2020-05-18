@@ -1,10 +1,28 @@
 # parsnip (development version)
 
-# parsnip 0.0.5.9000
+## Other Changes
+
+ * `tidyr` >= 1.0.0 is now required. 
+ 
+## New Features
+
+ * A new main argument was added to `boost_tree()` called `stop_iter` for early stopping. The `xgb_train()` function gained arguments for early stopping and a percentage of data to leave out for a validation set. 
+ 
+# parsnip 0.1.1
+
+## New Features
+
+ * `liquidSVM` was added as an engine for `svm_rbf()` (#300)
+
+## Fixes
+
+* The error message for missing packages was fixed (#289 and #292)
+
 
 ## Other Changes
 
 * S3 dispatch for `tidy()` was broken on R 4.0. 
+
 
 # parsnip 0.0.5
 

@@ -8,6 +8,13 @@
 
 <title>General Interface for Multinomial Regression Models — multinom_reg • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -49,6 +56,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +75,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,8 +91,8 @@ in lieu of recreating the object from scratch." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -92,9 +100,6 @@ in lieu of recreating the object from scratch." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -124,7 +129,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -186,7 +191,7 @@ The only possible value for this model is "classification".</p></td>
     </tr>
     <tr>
       <th>penalty</th>
-      <td><p>An non-negative number representing the total
+      <td><p>A non-negative number representing the total
 amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
 For <code>keras</code> models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
@@ -247,44 +252,88 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.</p><h3>glmnet</h3>
+<p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     family = "multinomial")
+</pre>
+
+<p>For <code>glmnet</code> models, the full regularization path is always fit
+regardless of the value given to <code>penalty</code>. Also, there is the option to
+pass multiple values (or no values) to the <code>penalty</code> argument. When
+using the <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
+the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single value of
+the penalty can be used. When predicting on multiple penalties, the
+<code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It returns a tibble with a list
+column called <code>.pred</code> that contains a tibble with all of the penalty
+results.</p>
+
+<h3>nnet</h3>
+<p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: nnet 
+## 
+## Model fit template:
+## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), trace = FALSE)
+</pre>
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call.  For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">glmnet</span></p>
-<p><pre>
-glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-    family = "multinomial")
-</pre></p>
-<p><span class="pkg">nnet</span></p>
-<p><pre>
-nnet::multinom(formula = missing_arg(), data = missing_arg(), 
-    weights = missing_arg(), trace = FALSE)
-</pre></p>
-<p><span class="pkg">spark</span></p>
-<p><pre>
-sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-    weight_col = missing_arg(), family = "multinomial")
-</pre></p>
-<p><span class="pkg">keras</span></p>
-<p><pre>
-parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-    act = "linear")
-</pre></p>
-<p>For <code>glmnet</code> models, the full regularization path is always fit regardless
-of the value given to <code>penalty</code>. Also, there is the option to pass
-multiple values (or no values) to the <code>penalty</code> argument. When using the
-<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
-the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single
-value of the penalty can be used. When predicting on multiple
-penalties, the <code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It
-returns a tibble with a list column called <code>.pred</code> that contains
-a tibble with all of the penalty results.</p>
+<h3>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
+##     weight_col = missing_arg(), family = "multinomial")
+</pre>
+
+
+<h3>keras</h3>
+<p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
+##     act = "linear")
+</pre>
+
+
+<h3>Parameter translations</h3>
+
+
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td><td><strong>nnet</strong></td></tr>
+<tr><td>penalty</td><td>lambda</td><td>reg_param</td><td>penalty</td><td>decay</td></tr>
+<tr><td>mixture</td><td>alpha</td><td>elastic_net_param</td><td>NA</td><td>NA</td></tr>
+</table>
+
+
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>multinom_reg</span>()</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
@@ -311,16 +360,9 @@ a tibble with all of the penalty results.</p>
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

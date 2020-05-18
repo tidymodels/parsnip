@@ -42,10 +42,12 @@ check_installs <- function(x) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)
     if (any(!is_inst)) {
+      missing_pkg <- x$method$libs[!is_inst]
+      missing_pkg <- paste0(missing_pkg, collapse = ", ")
       rlang::abort(
         glue::glue(
           "This engine requires some package installs: ",
-          glue::glue_collapse(glue::glue("'{x}'"), sep = ", ")
+          glue::glue_collapse(glue::glue("'{missing_pkg}'"), sep = ", ")
         )
       )
     }

@@ -1,5 +1,5 @@
 Package: parsnip
-Version: 0.1.0.9001
+Version: 0.1.1.9000
 Title: A Common API to Modeling and Analysis Functions
 Description: A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. 'R', 'Spark', 'Stan', etc). 
 Authors@R: c(
@@ -7,7 +7,7 @@ Authors@R: c(
     person(given = "Davis", family = "Vaughan", email = "davis@rstudio.com", role = c("aut")),
     person("RStudio", role = "cph"))
 Maintainer: Max Kuhn <max@rstudio.com>
-URL: https://tidymodels.github.io/parsnip, https://github.com/tidymodels/parsnip
+URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
 BugReports: https://github.com/tidymodels/parsnip/issues
 License: GPL-2
 Encoding: UTF-8
@@ -26,7 +26,7 @@ Imports:
     glue,
     magrittr,
     stats,
-    tidyr,
+    tidyr (>= 1.0.0),
     globals,
     prettyunits,
     vctrs (>= 0.2.0)
@@ -50,4 +50,5 @@ Suggests:
     rpart,
     MASS,
     nlme,
-    modeldata
+    modeldata,
+    liquidSVM

@@ -8,6 +8,13 @@
 
 <title>General Interface for Parametric Survival Models — surv_reg • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -47,6 +54,7 @@ here (NULL), the value is taken from the underlying model
 functions.
 If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +73,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,8 +89,8 @@ in lieu of recreating the object from scratch." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -90,9 +98,6 @@ in lieu of recreating the object from scratch." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -122,7 +127,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -219,32 +224,56 @@ following <em>engines</em>:</p><ul>
 
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below.</p><h3>flexsurv</h3>
+<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"flexsurv"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Parametric Survival Regression Model Specification (regression)
+## 
+## Computational engine: flexsurv 
+## 
+## Model fit template:
+## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
+</pre>
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">flexsurv</span></p>
-<p><pre>
-flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-    weights = missing_arg())
-</pre></p>
-<p><span class="pkg">survival</span></p>
-<p><pre>
-survival::survreg(formula = missing_arg(), data = missing_arg(), 
-    weights = missing_arg(), model = TRUE)
-</pre></p>
-<p>Note that <code>model = TRUE</code> is needed to produce quantile
-predictions when there is a stratification variable and can be
-overridden in other cases.</p>
+<h3>survival</h3>
+<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"survival"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Parametric Survival Regression Model Specification (regression)
+## 
+## Computational engine: survival 
+## 
+## Model fit template:
+## survival::survreg(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), model = TRUE)
+</pre>
+
+<p>Note that <code>model = TRUE</code> is needed to produce quantile predictions when
+there is a stratification variable and can be overridden in other cases.</p>
+
+<h3>Parameter translations</h3>
+
+
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>flexsurv</strong></td><td><strong>survival</strong></td></tr>
+<tr><td>dist</td><td>dist</td><td>dist</td></tr>
+</table>
+
+
+
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Jackson, C. (2016). <code>flexsurv</code>: A Platform for Parametric Survival
 Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>surv_reg</span>()</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
@@ -266,16 +295,9 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

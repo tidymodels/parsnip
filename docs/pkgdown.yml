@@ -1,6 +1,6 @@
-pandoc: 2.3.1
-pkgdown: 1.4.1.9000
-pkgdown_sha: 7020a7ae5b6db1193de41964cd8f34eeba3aa716
+pandoc: 2.9.2.1
+pkgdown: 1.5.1
+pkgdown_sha: ~
 articles:
   Classification: articles/Classification.html
   Models: articles/Models.html
@@ -8,4 +8,8 @@ articles:
   Scratch: articles/Scratch.html
   Submodels: articles/Submodels.html
   parsnip_Intro: parsnip_Intro.html
+last_built: 2020-05-11T17:20Z
+urls:
+  reference: https://parsnip.tidymodels.org/reference
+  article: https://parsnip.tidymodels.org/articles
 

@@ -1,27 +1,30 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
-
-# parsnip <a href='https://tidymodels.github.io/parsnip/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# parsnip
 
 <!-- badges: start -->
-[![Build Status](https://travis-ci.org/tidymodels/parsnip.svg?branch=master)](https://travis-ci.org/tidymodels/parsnip)
-[![R build status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip)
-[![Coverage status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/parsnip)](https://cran.rstudio.com/package=parsnip)
+
+[![R build
+status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip)
+[![Coverage
+status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+
 <!-- badges: end -->
 
 ## Introduction
 
-The goal of parsnip is to provide a tidy, unified interface to models that can be used to try a range of models without getting bogged down in the syntactical minutiae of the underlying packages. 
+The goal of parsnip is to provide a tidy, unified interface to models
+that can be used to try a range of models without getting bogged down in
+the syntactical minutiae of the underlying packages.
 
 ## Installation
 
-
-```r
+``` r
 # The easiest way to get parsnip is to install all of tidymodels:
 install.packages("tidymodels")
 
@@ -33,13 +36,14 @@ install.packages("parsnip")
 devtools::install_github("tidymodels/parsnip")
 ```
 
-
 ## Getting started
 
-One challenge with different modeling functions available in R _that do the same thing_ is that they can have different interfaces and arguments. For example, to fit a random forest _regression_ model, we might have:
+One challenge with different modeling functions available in R *that do
+the same thing* is that they can have different interfaces and
+arguments. For example, to fit a random forest *regression* model, we
+might have:
 
-
-```r
+``` r
 # From randomForest
 rf_1 <- randomForest(
   y ~ ., 
@@ -69,25 +73,32 @@ rf_3 <- ml_random_forest(
 )
 ```
 
-Note that the model syntax can be very different and that the argument names (and formats) are also different. This is a pain if you switch between implementations. 
+Note that the model syntax can be very different and that the argument
+names (and formats) are also different. This is a pain if you switch
+between implementations.
 
-In this example: 
+In this example:
 
-* the **type** of model is "random forest", 
-* the **mode** of the model is "regression" (as opposed to classification, etc), and 
-* the computational **engine** is the name of the R package. 
-
+  - the **type** of model is “random forest”,
+  - the **mode** of the model is “regression” (as opposed to
+    classification, etc), and
+  - the computational **engine** is the name of the R package.
 
 The goals of parsnip are to:
 
-* Separate the definition of a model from its evaluation.
-* Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call `rand_forest` instead of `ranger::ranger` or other specific packages. 
-* Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that users only need to remember a single name. This will help _across_ model types too so that `trees` will be the same argument across random forest as well as boosting or bagging. 
+  - Separate the definition of a model from its evaluation.
+  - Decouple the model specification from the implementation (whether
+    the implementation is in R, spark, or something else). For example,
+    the user would call `rand_forest` instead of `ranger::ranger` or
+    other specific packages.
+  - Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
+    users only need to remember a single name. This will help *across*
+    model types too so that `trees` will be the same argument across
+    random forest as well as boosting or bagging.
 
 Using the example above, the `parsnip` approach would be:
 
-
-```r
+``` r
 library(parsnip)
 
 rand_forest(mtry = 10, trees = 2000) %>%
@@ -105,10 +116,10 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Computational engine: ranger
 ```
 
-The engine can be easily changed. To use Spark, the change is straightforward:
+The engine can be easily changed. To use Spark, the change is
+straightforward:
 
-
-```r
+``` r
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("spark") %>%
   set_mode("regression")
@@ -123,15 +134,14 @@ rand_forest(mtry = 10, trees = 2000) %>%
 
 Either one of these model specifications can be fit in the same way:
 
-
-```r
+``` r
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("ranger", importance = "impurity") %>%
   set_mode("regression") %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  69ms 
+#> Fit time:  75ms 
 #> Ranger result
 #> 
 #> Call:
@@ -145,14 +155,24 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.859577 
-#> R squared (OOB):                  0.8386862
+#> OOB prediction error (MSE):       5.779248 
+#> R squared (OOB):                  0.8408977
 ```
 
+A list of all `parsnip` models across different CRAN packages can be
+found at [`tidymodels.org`](https://www.tidymodels.org/find/).
 
+Data sets previously found in `parsnip` are now find in the `modeldata`
+package.
 
 ## Contributing
 
-If you encounter a bug, please file a minimal reproducible example on [GitHub](https://github.com/tidymodels/parsnip/issues). For questions and other discussion, please use [community.rstudio.com](https://community.rstudio.com/).
+If you encounter a bug, please file a minimal reproducible example on
+[GitHub](https://github.com/tidymodels/parsnip/issues). For questions
+and other discussion, please use
+[community.rstudio.com](https://community.rstudio.com/).
 
-Please note that the parsnip project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the parsnip project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

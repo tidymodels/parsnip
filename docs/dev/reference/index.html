@@ -8,6 +8,13 @@
 
 <title>Function reference • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -35,6 +42,8 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
+<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -52,7 +61,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,8 +77,8 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -77,9 +86,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -109,7 +115,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -145,6 +151,11 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -231,6 +242,11 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -276,7 +292,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="predict.model_fit.html">predict(<i>&lt;model_fit&gt;</i>)</a></code> </p>
+          <p><code><a href="predict.model_fit.html">predict(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="predict.model_fit.html">predict_raw()</a></code> </p>
         </td>
         <td><p>Model predictions</p></td>
       </tr><tr>
@@ -300,7 +316,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="tidy.model_fit.html">tidy.model_fit()</a></code> </p>
+          <p><code><a href="tidy.model_fit.html">tidy(<i>&lt;model_fit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Turn a parsnip model object into a tidy tibble</p></td>
       </tr><tr>
@@ -319,36 +335,15 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="lending_club.html">lending_club</a></code> </p>
-        </td>
-        <td><p>Loan Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="wa_churn.html">wa_churn</a></code> </p>
-        </td>
-        <td><p>Watson Churn Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_times.html">check_times</a></code> </p>
-        </td>
-        <td><p>Execution Time Data</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-developer-tools" class="hasAnchor"><a href="#section-developer-tools" class="anchor"></a>Developer Tools</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -361,13 +356,9 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-models">Models</a></li>
-      <li><a href="#section-infrastructure">Infrastructure</a></li>
-      <li><a href="#section-data">Data</a></li>
-      <li><a href="#section-developer-tools">Developer Tools</a></li>
-    </ul>
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

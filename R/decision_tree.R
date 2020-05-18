@@ -44,38 +44,7 @@
 #'  greater than 30 `rpart` will give nonsense results on 32-bit
 #'  machines.
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("decision_tree")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are::
-#'
-#' \pkg{rpart} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "rpart")}
-#'
-#' \pkg{rpart} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "regression"), "rpart")}
-#'
-#' \pkg{C5.0} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "C5.0")}
-#'
-#' \pkg{spark} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "classification"), "spark")}
-#'
-#' \pkg{spark} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::decision_tree(mode = "regression"), "spark")}
+#' @includeRmd man/rmd/decision-tree.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
@@ -91,7 +60,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()]
+#' @seealso [fit()]
 #' @examples
 #' decision_tree(mode = "classification", tree_depth = 5)
 #' # Parameters can be represented by a placeholder:

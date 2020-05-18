@@ -1,0 +1,34 @@
+# Engine Details
+
+Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below:
+
+## kknn
+
+```{r kknn-reg}
+nearest_neighbor() %>% 
+  set_engine("kknn") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r kknn-cls}
+nearest_neighbor() %>% 
+  set_engine("kknn") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+For `kknn`, the underlying modeling function used is a restricted version of
+`train.kknn()` and not `kknn()`. It is set up in this way so that `parsnip` can
+utilize the underlying `predict.train.kknn` method to predict on new data. This
+also means that a single value of that function's `kernel` argument (a.k.a
+`weight_func` here) can be supplied
+
+## Parameter translations
+
+The standardized parameter names in parsnip can be mapped to their original names in each engine that has main parameters:
+
+```{r echo = FALSE, results = "asis"}
+parsnip::convert_args("nearest_neighbor")
+```
+

@@ -51,37 +51,7 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
-#'  An error is thrown if both `penalty` and `dropout` are specified for
-#'  `keras` models.
-#'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("mlp")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call. For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{keras} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "keras")}
-#'
-#' \pkg{keras} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "keras")}
-#'
-#' \pkg{nnet} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "classification"), "nnet")}
-#'
-#' \pkg{nnet} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::mlp(mode = "regression"), "nnet")}
+#' @includeRmd man/rmd/mlp.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]

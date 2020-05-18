@@ -8,6 +8,13 @@
 
 <title>General Interface for Random Forest Models — rand_forest • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -50,6 +57,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -68,7 +76,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,8 +92,8 @@ in lieu of recreating the object from scratch." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
     </div>
@@ -93,9 +101,6 @@ in lieu of recreating the object from scratch." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -125,7 +130,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -166,12 +171,18 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for rand_forest</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,49 +254,105 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:</p><h3>ranger</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1))
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: ranger 
+## 
+## Model fit template:
+## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
+##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
+##     seed = sample.int(10^5, 1), probability = TRUE)
+</pre>
+
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
+factor predictors to be converted to indicator variables.</p>
+<p>For <code>ranger</code> confidence intervals, the intervals are constructed using
+the form <code>estimate +/- z * std_error</code>. For classification probabilities,
+these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
+this range.</p>
+
+<h3>randomForest</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: randomForest 
+## 
+## Model fit template:
+## randomForest::randomForest(x = missing_arg(), y = missing_arg())
+</pre>
+
+<p>Note that
+<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
+not require factor predictors to be converted to indicator variables.</p>
+
+<h3>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "regression", seed = sample.int(10^5, 1))
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
+##     type = "classification", seed = sample.int(10^5, 1))
+</pre>
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are::</p>
-<p><span class="pkg">ranger</span> classification</p>
-<p><pre>
-ranger::ranger(formula = missing_arg(), data = missing_arg(), 
-    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
-    seed = sample.int(10^5, 1), probability = TRUE)
-</pre></p>
-<p><span class="pkg">ranger</span> regression</p>
-<p><pre>
-ranger::ranger(formula = missing_arg(), data = missing_arg(), 
-    case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
-    seed = sample.int(10^5, 1))
-</pre></p>
-<p><span class="pkg">randomForests</span> classification</p>
-<p><pre>
-randomForest::randomForest(x = missing_arg(), y = missing_arg())
-</pre></p>
-<p><span class="pkg">randomForests</span> regression</p>
-<p><pre>
-randomForest::randomForest(x = missing_arg(), y = missing_arg())
-</pre></p>
-<p><span class="pkg">spark</span> classification</p>
-<p><pre>
-sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
-    type = "classification", seed = sample.int(10^5, 1))
-</pre></p>
-<p><span class="pkg">spark</span> regression</p>
-<p><pre>
-sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
-    type = "regression", seed = sample.int(10^5, 1))
-</pre></p>
-<p>For <span class="pkg">ranger</span> confidence intervals, the intervals are
-constructed using the form <code>estimate +/- z * std_error</code>. For
-classification probabilities, these values can fall outside of
-<code>[0, 1]</code> and will be coerced to be in this range.</p>
+<h3>Parameter translations</h3>
+
+
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>ranger</strong></td><td><strong>randomForest</strong></td><td><strong>spark</strong></td></tr>
+<tr><td>mtry</td><td>mtry</td><td>mtry</td><td>feature_subset_strategy</td></tr>
+<tr><td>trees</td><td>num.trees</td><td>ntree</td><td>num_trees</td></tr>
+<tr><td>min_n</td><td>min.node.size</td><td>nodesize</td><td>min_instances_per_node</td></tr>
+</table>
+
+
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>rand_forest</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>2000</span>)</div><div class='output co'>#&gt; Random Forest Model Specification (classification)
@@ -314,17 +381,10 @@ classification probabilities, these values can fall outside of
 #&gt;   mtry = 1
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

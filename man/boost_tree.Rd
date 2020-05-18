@@ -13,7 +13,8 @@ boost_tree(
   tree_depth = NULL,
   learn_rate = NULL,
   loss_reduction = NULL,
-  sample_size = NULL
+  sample_size = NULL,
+  stop_iter = NULL
 )
 
 \method{update}{boost_tree}(
@@ -26,6 +27,7 @@ boost_tree(
   learn_rate = NULL,
   loss_reduction = NULL,
   sample_size = NULL,
+  stop_iter = NULL,
   fresh = FALSE,
   ...
 )
@@ -57,6 +59,9 @@ to split further  (\code{xgboost} only).}
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
 each iteration while \code{C5.0} samples once during training.}
+
+\item{stop_iter}{The number of iterations without improvement before
+stopping  (\code{xgboost} only).}
 
 \item{object}{A boosted tree model specification.}
 
@@ -91,6 +96,8 @@ from iteration-to-iteration.
 \item \code{loss_reduction}: The reduction in the loss function required
 to split further.
 \item \code{sample_size}: The amount of data exposed to the fitting routine.
+\item \code{stop_iter}: The number of iterations without improvement before
+stopping.
 }
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
@@ -126,10 +133,78 @@ separately saved to disk. In a new session, the object can be
 reloaded and reattached to the \code{parsnip} object.
 }
 \section{Engine Details}{
+Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:
+\subsection{xgboost}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
+  set_engine("xgboost") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
+## 
+## Computational engine: xgboost 
+## 
+## Model fit template:
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
+##     verbose = 0)
+}\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
+  set_engine("xgboost") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+## 
+## Computational engine: xgboost 
+## 
+## Model fit template:
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
+##     verbose = 0)
+}
+}
 
+\subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
+  set_engine("C5.0") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+## 
+## Computational engine: C5.0 
+## 
+## Model fit template:
+## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+}
 
-The standardized parameter names in parsnip can be mapped to their original
-names in each engine:\tabular{llll}{
+Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
+predictors to be converted to indicator variables.
+}
+
+\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
+##     type = "regression", seed = sample.int(10^5, 1))
+}\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
+  set_engine("spark") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
+##     type = "classification", seed = sample.int(10^5, 1))
+}
+}
+
+\subsection{Parameter translations}{
+
+The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:\tabular{llll}{
    \strong{parsnip} \tab \strong{xgboost} \tab \strong{C5.0} \tab \strong{spark} \cr
    tree_depth \tab max_depth \tab NA \tab max_depth \cr
    trees \tab nrounds \tab trials \tab max_iter \cr
@@ -138,33 +213,11 @@ names in each engine:\tabular{llll}{
    min_n \tab min_child_weight \tab minCases \tab min_instances_per_node \cr
    loss_reduction \tab gamma \tab NA \tab NA \cr
    sample_size \tab subsample \tab sample \tab subsampling_rate \cr
+   stop_iter \tab early_stop \tab NA \tab NA \cr
    min_info_gain \tab NA \tab NA \tab loss_reduction \cr
 }
 
-
-Engines may have pre-set default arguments when executing the
-model fit call.  For this type of model, the template of the
-fit calls are:
-
-\pkg{xgboost} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
-
-\pkg{xgboost} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
-
-\pkg{C5.0} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
-
-\pkg{spark} classification
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
-
-\pkg{spark} regression
-
-\Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
+}
 }
 
 \examples{
@@ -186,5 +239,5 @@ param_values$verbose <- 0
 # model \%>\% update(param_values)
 }
 \seealso{
-[\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
 }

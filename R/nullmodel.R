@@ -140,19 +140,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' \item \pkg{R}:  `"parsnip"`
 #' }
 #'
-#' @section Engine Details:
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of
-#'  model, the template of the fit calls are:
-#'
-#' \pkg{parsnip} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "classification"), "parsnip")}
-#'
-#' \pkg{parsnip} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::null_model(mode = "regression"), "parsnip")}
+#' @includeRmd man/rmd/null-model.Rmd details
 #'
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
@@ -182,3 +170,23 @@ null_model <-
     class(out) <- make_classes("null_model")
     out
   }
+
+
+
+#' Tidy method for null models
+#'
+#' Return the results of `nullmodel` as a tibble
+#'
+#' @param x A `nullmodel` object.
+#' @param ... Not used.
+#' @return A tibble with column `value`.
+#' @export
+#' @examples
+#' nullmodel(iris[,-5], iris$Species) %>% tidy()
+#'
+#' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
+
+tidy.nullmodel <- function(x, ...) {
+  tibble::tibble(value = x$value)
+}
+

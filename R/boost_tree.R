@@ -19,6 +19,8 @@
 #'   \item \code{loss_reduction}: The reduction in the loss function required
 #'   to split further.
 #'   \item \code{sample_size}: The amount of data exposed to the fitting routine.
+#'   \item \code{stop_iter}: The number of iterations without improvement before
+#'   stopping.
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
@@ -46,6 +48,8 @@
 #' @param sample_size A number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
 #'  each iteration while `C5.0` samples once during training.
+#' @param stop_iter The number of iterations without improvement before
+#'   stopping  (`xgboost` only).
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree()`, the
@@ -59,38 +63,7 @@
 #' }
 #'
 #'
-#' @section Engine Details:
-#'
-#' The standardized parameter names in parsnip can be mapped to their original
-#' names in each engine:
-#'
-#' ```{r echo = FALSE}
-#' convert_args("boost_tree")
-#' ```
-#'
-#' Engines may have pre-set default arguments when executing the
-#'  model fit call.  For this type of model, the template of the
-#'  fit calls are:
-#'
-#' \pkg{xgboost} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "xgboost")}
-#'
-#' \pkg{xgboost} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "xgboost")}
-#'
-#' \pkg{C5.0} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "C5.0")}
-#'
-#' \pkg{spark} classification
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "classification"), "spark")}
-#'
-#' \pkg{spark} regression
-#'
-#' \Sexpr[results=rd]{parsnip:::show_fit(parsnip:::boost_tree(mode = "regression"), "spark")}
+#' @includeRmd man/rmd/boost-tree.Rmd details
 #'
 #' @note For models created using the spark engine, there are
 #'  several differences to consider. First, only the formula
@@ -106,7 +79,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [[fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()]
 #' @examples
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:
@@ -118,7 +91,8 @@ boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
-           sample_size = NULL) {
+           sample_size = NULL,
+           stop_iter = NULL) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -126,7 +100,8 @@ boost_tree <-
       tree_depth = enquo(tree_depth),
       learn_rate = enquo(learn_rate),
       loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size)
+      sample_size = enquo(sample_size),
+      stop_iter = enquo(stop_iter)
     )
 
     new_model_spec(
@@ -186,6 +161,7 @@ update.boost_tree <-
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL, sample_size = NULL,
+           stop_iter = NULL,
            fresh = FALSE, ...) {
     update_dot_check(...)
 
@@ -200,7 +176,8 @@ update.boost_tree <-
       tree_depth = enquo(tree_depth),
       learn_rate = enquo(learn_rate),
       loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size)
+      sample_size = enquo(sample_size),
+      stop_iter = enquo(stop_iter)
     )
 
     args <- update_main_parameters(args, parameters)
@@ -273,8 +250,8 @@ check_args.boost_tree <- function(object) {
 
 #' Boosted trees via xgboost
 #'
-#' `xgb_train` is a wrapper for `xgboost` tree-based models
-#'  where all of the model arguments are in the main function.
+#' `xgb_train` is a wrapper for `xgboost` tree-based models where all of the
+#'  model arguments are in the main function.
 #'
 #' @param x A data frame or matrix of predictors
 #' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
@@ -287,6 +264,14 @@ check_args.boost_tree <- function(object) {
 #' @param gamma A number for the minimum loss reduction required to make a
 #'  further partition on a leaf node of the tree
 #' @param subsample Subsampling proportion of rows.
+#' @param validation A positive number. If on `[0, 1)` the value, `validation`
+#' is a random proportion of data in `x` and `y` that are used for performance
+#' assessment and potential early stopping. If 1 or greater, it is the _number_
+#' of training set samples use for these purposes.
+#' @param early_stop An integer or `NULL`. If not `NULL`, it is the number of
+#' training iterations without improvement before stopping. If `validation` is
+#' used, performance is base on the validation set; otherwise the training set
+#' is used.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
@@ -294,9 +279,26 @@ check_args.boost_tree <- function(object) {
 xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
-  min_child_weight = 1, gamma = 0, subsample = 1, ...) {
+  min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
+  early_stop = NULL, ...) {
 
-  num_class <- if (length(levels(y)) > 2) length(levels(y)) else NULL
+  if (length(levels(y)) > 2) {
+    num_class <- length(levels(y))
+  }  else {
+    num_class <- NULL
+  }
+  if (!is.numeric(validation) || validation < 0 || validation >= 1) {
+    rlang::abort("`validation` should be on [0, 1).")
+  }
+  if (!is.null(early_stop)) {
+    if (early_stop <= 1) {
+      rlang::abort(paste0("`early_stop` should be on [2, ",  nrounds, ")."))
+    } else if (early_stop >= nrounds) {
+      early_stop <- nrounds - 1
+      rlang::warn(paste0("`early_stop` was reduced to ", early_stop, "."))
+    }
+  }
+
 
   if (is.numeric(y)) {
     loss <- "reg:linear"
@@ -318,7 +320,16 @@ xgb_train <- function(
   p <- ncol(x)
 
   if (!inherits(x, "xgb.DMatrix")) {
-    x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
+    if (validation > 0) {
+      trn_index <- sample(1:n, size = floor(n * validation) + 1)
+      wlist <-
+        list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
+      x <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
+
+    } else {
+      x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
+      wlist <- list(training = x)
+    }
   } else {
     xgboost::setinfo(x, "label", y)
   }
@@ -351,9 +362,11 @@ xgb_train <- function(
 
   main_args <- list(
     data = quote(x),
+    watchlist = quote(wlist),
     params = arg_list,
     nrounds = nrounds,
-    objective = loss
+    objective = loss,
+    early_stopping_rounds = early_stop
   )
   if (!is.null(num_class)) {
     main_args$num_class <- num_class
@@ -365,6 +378,9 @@ xgb_train <- function(
   others <- list(...)
   others <-
     others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
+  if (!(any(names(others) == "verbose"))) {
+    others$verbose <- 0
+  }
   if (length(others) > 0) {
     call <- rlang::call_modify(call, !!!others)
   }

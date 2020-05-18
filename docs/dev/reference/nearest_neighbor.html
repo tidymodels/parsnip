@@ -8,6 +8,13 @@
 
 <title>General Interface for K-Nearest Neighbor Models — nearest_neighbor • parsnip</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -52,6 +59,7 @@ set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
+<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +78,7 @@ in lieu of recreating the object from scratch." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -86,8 +94,8 @@ in lieu of recreating the object from scratch." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.4.9000</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
         </div>
       </div>
     </div>
@@ -95,9 +103,6 @@ in lieu of recreating the object from scratch." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../articles/parsnip_Intro.html">Basic Usage</a>
-</li>
-<li>
-  <a href="../articles/articles/Models.html">Model List</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -127,7 +132,7 @@ in lieu of recreating the object from scratch." />
   <a href="../reference/index.html">Reference</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/parsnip">
+  <a href="https://github.com/tidymodels/parsnip/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -213,29 +218,55 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"kknn"</code>  (the default)</p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>For <code>kknn</code>, the underlying modeling function used is a restricted
-version of <code>train.kknn()</code> and not <code>kknn()</code>. It is set up in this way so that
-<code>parsnip</code> can utilize the underlying <code>predict.train.kknn</code> method to predict
-on new data. This also means that a single value of that function's
-<code>kernel</code> argument (a.k.a <code>weight_func</code> here) can be supplied</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
-    
+    <p>Engines may have pre-set default arguments when executing the model fit
+call. For this type of model, the template of the fit calls are below:</p><h3>kknn</h3>
+<p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## K-Nearest Neighbor Model Specification (regression)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+</pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## K-Nearest Neighbor Model Specification (classification)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+</pre>
+
+<p>For <code>kknn</code>, the underlying modeling function used is a restricted
+version of <code>train.kknn()</code> and not <code>kknn()</code>. It is set up in this way so
+that <code>parsnip</code> can utilize the underlying <code>predict.train.kknn</code> method to
+predict on new data. This also means that a single value of that
+function’s <code>kernel</code> argument (a.k.a <code>weight_func</code> here) can be supplied</p>
+
+<h3>Parameter translations</h3>
 
 
-<p>Engines may have pre-set default arguments when executing the
-model fit call. For this type of
-model, the template of the fit calls are:</p>
-<p><span class="pkg">kknn</span> (classification or regression)</p>
-<p><pre>
-kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
-    ks = 5)
-</pre></p>
+<p>The standardized parameter names in parsnip can be mapped to their
+original names in each engine that has main parameters:</p><table class='table'>
+<tr><td><strong>parsnip</strong></td><td><strong>kknn</strong></td></tr>
+<tr><td>neighbors</td><td>ks</td></tr>
+<tr><td>weight_func</td><td>kernel</td></tr>
+<tr><td>dist_power</td><td>distance</td></tr>
+</table>
+
+
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>nearest_neighbor</span>(<span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='fl'>11</span>)</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
@@ -246,16 +277,9 @@ kknn::train.kknn(formula = missing_arg(), data = missing_arg(),
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#engine-details">Engine Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
