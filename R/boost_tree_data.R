@@ -87,6 +87,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "boost_tree",
   eng = "xgboost",
@@ -123,6 +130,13 @@ set_fit(
     func = c(pkg = "parsnip", fun = "xgb_train"),
     defaults = list(nthread = 1, verbose = 0)
   )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
@@ -219,6 +233,13 @@ set_fit(
     func = c(pkg = "parsnip", fun = "C5.0_train"),
     defaults = list()
   )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "C5.0",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
