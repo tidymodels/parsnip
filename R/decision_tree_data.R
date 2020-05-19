@@ -48,6 +48,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "decision_tree",
+  eng = "rpart",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "decision_tree",
   eng = "rpart",
@@ -58,6 +65,13 @@ set_fit(
     func = c(pkg = "rpart", fun = "rpart"),
     defaults = list()
   )
+)
+
+set_encoding(
+  model = "decision_tree",
+  eng = "rpart",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
@@ -158,6 +172,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "decision_tree",
+  eng = "C5.0",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_pred(
   model = "decision_tree",
   eng = "C5.0",
@@ -244,6 +265,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "decision_tree",
+  eng = "spark",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "decision_tree",
   eng = "spark",
@@ -255,6 +283,13 @@ set_fit(
     defaults =
       list(seed = expr(sample.int(10 ^ 5, 1)))
   )
+)
+
+set_encoding(
+  model = "decision_tree",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
