@@ -65,6 +65,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "mlp",
+  eng = "keras",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_fit(
   model = "mlp",
   eng = "keras",
@@ -75,6 +82,13 @@ set_fit(
     func = c(pkg = "parsnip", fun = "keras_mlp"),
     defaults = list()
   )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "keras",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
@@ -191,6 +205,7 @@ set_model_arg(
   func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
+
 set_model_arg(
   model = "mlp",
   eng = "nnet",
@@ -199,6 +214,7 @@ set_model_arg(
   func = list(pkg = "dials", fun = "epochs"),
   has_submodel = FALSE
 )
+
 set_fit(
   model = "mlp",
   eng = "nnet",
@@ -211,6 +227,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "mlp",
+  eng = "nnet",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_fit(
   model = "mlp",
   eng = "nnet",
@@ -221,6 +244,13 @@ set_fit(
     func = c(pkg = "nnet", fun = "nnet"),
     defaults = list(trace = FALSE)
   )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "nnet",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
