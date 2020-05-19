@@ -132,7 +132,8 @@ form_xy <- function(object, control, env,
                     target = "none", ...) {
 
   indicators <- get_encoding(class(object)[1]) %>%
-    dplyr::filter(mode == object$mode) %>%
+    dplyr::filter(mode == object$mode,
+                  engine == object$engine) %>%
     dplyr::pull(predictor_indicators)
 
   data_obj <- convert_form_to_xy_fit(
