@@ -103,7 +103,7 @@ fit.model_spec <-
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-        rlang::warn("Engine set to `{object$engine}`.")
+        rlang::warn(glue::glue("Engine set to `{object$engine}`."))
       }
     }
 
