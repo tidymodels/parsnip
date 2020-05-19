@@ -132,6 +132,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "rand_forest",
+  eng = "ranger",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "rand_forest",
   eng = "ranger",
@@ -147,6 +154,13 @@ set_fit(
         seed = expr(sample.int(10 ^ 5, 1))
       )
   )
+)
+
+set_encoding(
+  model = "rand_forest",
+  eng = "ranger",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
@@ -338,6 +352,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "rand_forest",
+  eng = "randomForest",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "rand_forest",
   eng = "randomForest",
@@ -349,6 +370,13 @@ set_fit(
     defaults =
       list()
   )
+)
+
+set_encoding(
+  model = "rand_forest",
+  eng = "randomForest",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
@@ -474,6 +502,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "rand_forest",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "rand_forest",
   eng = "spark",
@@ -484,6 +519,13 @@ set_fit(
     func = c(pkg = "sparklyr", fun = "ml_random_forest"),
     defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
   )
+)
+
+set_encoding(
+  model = "rand_forest",
+  eng = "spark",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
