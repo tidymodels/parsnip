@@ -16,8 +16,8 @@ test_that('primary arguments', {
   expect_equal(
     object = basic_kernlab$method$fit$args,
     expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "rbfdot"
     )
   )
@@ -30,8 +30,8 @@ test_that('primary arguments', {
   expect_equal(
     object = rbf_sigma_kernlab$method$fit$args,
     expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "rbfdot",
       kpar = rbf_sigma_obj
     )
@@ -46,8 +46,8 @@ test_that('engine arguments', {
   expect_equal(
     object = translate(kernlab_cv, "kernlab")$method$fit$args,
     expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      formula = expr(missing_arg()),
+      data = expr(missing_arg()),
       cross = new_empty_quosure(10),
       kernel = "rbfdot"
     )
