@@ -191,7 +191,7 @@ format_num <- function(x) {
       names(x) <- paste0(".pred_", names(x))
     }
   } else {
-    x <- tibble(.pred = x)
+    x <- tibble(.pred = unname(x))
   }
 
   x
@@ -201,7 +201,7 @@ format_class <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
 
-  tibble(.pred_class = x)
+  tibble(.pred_class = unname(x))
 }
 
 format_classprobs <- function(x) {
@@ -209,6 +209,7 @@ format_classprobs <- function(x) {
     names(x) <- paste0(".pred_", names(x))
   }
   x <- as_tibble(x)
+  x <- purrr::map_dfr(x, rlang::set_names, NULL)
   x
 }
 
