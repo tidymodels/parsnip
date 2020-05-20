@@ -251,9 +251,9 @@ test_that('glmnet probabilities, one lambda', {
   form_mat <- form_mat[1:7, -1]
 
   form_pred <-
-    predict(res_form$fit,
+    unname(predict(res_form$fit,
             newx = form_mat,
-            s = 0.1, type = "response")[, 1]
+            s = 0.1, type = "response")[, 1])
   form_pred <- tibble(.pred_bad = 1 - form_pred, .pred_good = form_pred)
 
   expect_equal(
@@ -358,7 +358,8 @@ test_that('glmnet probabilities, no lambda', {
 
   expect_equal(
     mult_pred,
-    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>% unnest()
+    multi_predict(xy_fit, lending_club[1:7, num_pred], type = "prob") %>%
+      unnest(cols = c(.pred))
   )
 
   res_form <- fit(
