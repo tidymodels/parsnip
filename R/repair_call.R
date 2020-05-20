@@ -50,8 +50,3 @@ repair_call <- function(x, data) {
   x$fit$call <- fit_call
   x
 }
-
-mod2_fit$fit$call
-repair_call(mod2_fit, mtcars)$fit$call
-
-
