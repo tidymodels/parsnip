@@ -4,6 +4,12 @@
 
  * `tidyr` >= 1.0.0 is now required. 
  
+ * SVM models produced by `kernlab` now use the formula method. This change was due to how `ksvm()` made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to `ksvm()` so that the results are closer to what one would get if `ksmv()` were called directly. 
+ 
+ * MARS models produced by `earth` now use the formula method. 
+ 
+ * Under-the-hood changes were made so that non-standard data arguments in the modeling packages can be accomodated. (#315)
+ 
 ## New Features
 
  * A new main argument was added to `boost_tree()` called `stop_iter` for early stopping. The `xgb_train()` function gained arguments for early stopping and a percentage of data to leave out for a validation set. 

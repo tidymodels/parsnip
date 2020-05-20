@@ -158,11 +158,11 @@ make_form_call <- function(object, env = NULL) {
 
   # add data arguments
   for (i in seq_along(data_args)) {
-    fit_args[[ names(data_args)[i] ]] <- sym(unname(data_args[i]))
+    fit_args[[ unname(data_args[i]) ]] <- sym(names(data_args)[i])
   }
 
   # sub in actual formula
-  fit_args[[ data_args["formula"] ]]  <- env$formula
+  fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
 
   if (object$engine == "spark") {
     env$x <- env$data
@@ -186,8 +186,8 @@ make_xy_call <- function(object, target) {
     data_args <- object$method$fit$data
   }
 
-  object$method$fit$args[[ data_args["y"] ]] <- rlang::expr(y)
-  object$method$fit$args[[ data_args["x"] ]] <-
+  object$method$fit$args[[ unname(data_args["y"]) ]] <- rlang::expr(y)
+  object$method$fit$args[[ unname(data_args["x"]) ]] <-
     switch(
       target,
       none = rlang::expr(x),
