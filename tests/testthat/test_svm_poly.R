@@ -18,7 +18,7 @@ test_that('primary arguments', {
     object = basic_kernlab$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "polydot"
     )
   )
@@ -32,7 +32,7 @@ test_that('primary arguments', {
     object = degree_kernlab$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "polydot",
       kpar = degree_obj
     )
@@ -48,7 +48,7 @@ test_that('primary arguments', {
     object = degree_scale_kernlab$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "polydot",
       kpar = degree_scale_obj
     )
@@ -64,7 +64,7 @@ test_that('engine arguments', {
     object = translate(kernlab_cv, "kernlab")$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       cross = new_empty_quosure(10),
       kernel = "polydot"
     )
@@ -189,7 +189,7 @@ test_that('svm poly regression prediction', {
       y = iris$Sepal.Length,
       control = ctrl
     )
-  expect_equal(reg_form$fit, reg_xy_form$fit)
+  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, iris[1:3, -c(1, 5)])
   expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_xy_pred))
@@ -260,7 +260,7 @@ test_that('svm poly classification probabilities', {
       y = iris$Species,
       control = ctrl
     )
-  expect_equal(cls_form$fit, cls_xy_form$fit)
+  expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
 
   library(kernlab)
   kern_probs <-

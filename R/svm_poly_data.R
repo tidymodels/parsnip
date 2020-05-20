@@ -49,8 +49,9 @@ set_fit(
   eng = "kernlab",
   mode = "regression",
   value = list(
-    interface = "matrix",
-    protect = c("x", "y"),
+    interface = "formula",
+    data = c(formula = "x", data = "data"),
+    protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "polydot")
   )
@@ -61,8 +62,9 @@ set_fit(
   eng = "kernlab",
   mode = "classification",
   value = list(
-    interface = "matrix",
-    protect = c("x", "y"),
+    interface = "formula",
+    data = c(formula = "x", data = "data"),
+    protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "polydot")
   )

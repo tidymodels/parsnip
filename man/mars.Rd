@@ -100,7 +100,7 @@ call. For this type of model, the template of the fit calls are below.
 ## Computational engine: earth 
 ## 
 ## Model fit template:
-## earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     glm = list(family = stats::binomial), keepxy = TRUE)
 }
 
