@@ -195,12 +195,33 @@ check_fit_info <- function(fit_obj) {
   if (is.null(fit_obj)) {
     rlang::abort("The `fit` module cannot be NULL.")
   }
+
+  # check required data elements
   exp_nms <- c("defaults", "func", "interface", "protect")
-  if (!isTRUE(all.equal(sort(names(fit_obj)), exp_nms))) {
+  has_req_nms <- exp_nms %in% names(fit_obj)
+
+  if (!all(has_req_nms)) {
     rlang::abort(
       glue::glue("The `fit` module should have elements: ",
       glue::glue_collapse(glue::glue("`{exp_nms}`"), sep = ", "))
       )
+  }
+
+  # check optional data elements
+  opt_nms <- c("data")
+  other_nms <- setdiff(exp_nms, names(fit_obj))
+  has_opt_nms <- other_nms %in% opt_nms
+  if (any(!has_opt_nms)) {
+    msg <- glue::glue("The `fit` module can only have optional elements: ",
+                      glue::glue_collapse(glue::glue("`{exp_nms}`"), sep = ", "))
+
+    rlang::abort(msg)
+  }
+  if (any(other_nms == "data")) {
+    data_nms <- names(fit_obj$data)
+    if (length(data_nms == 0) || any(data_nms == "")) {
+      rlang::abort("All elements of the `data` argument vector must be named.")
+    }
   }
 
   check_interface_val(fit_obj$interface)
