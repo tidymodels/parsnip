@@ -5,7 +5,8 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("simple neural network execution with keras")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 num_pred <- names(iris)[1:4]
 

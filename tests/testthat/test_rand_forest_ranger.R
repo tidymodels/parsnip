@@ -6,7 +6,8 @@ library(rlang)
 # ------------------------------------------------------------------------------
 
 context("random forest execution with ranger")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 # ------------------------------------------------------------------------------
 

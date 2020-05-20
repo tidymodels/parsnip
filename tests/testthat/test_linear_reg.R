@@ -6,8 +6,9 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("linear regression")
-source("helpers.R")
-source("helper-objects.R")
+source(test_path("helpers.R"))
+source(test_path("helper-objects.R"))
+
 
 # ------------------------------------------------------------------------------
 

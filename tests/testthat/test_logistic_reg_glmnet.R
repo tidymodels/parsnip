@@ -7,7 +7,7 @@ library(tidyr)
 # ------------------------------------------------------------------------------
 
 context("logistic regression execution with glmnet")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
 
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
