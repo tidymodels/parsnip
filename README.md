@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# parsnip
+# parsnip <a href='https://parsnip.tidymodels.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -141,7 +141,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  75ms 
+#> Fit time:  69ms 
 #> Ranger result
 #> 
 #> Call:
@@ -155,8 +155,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.779248 
-#> R squared (OOB):                  0.8408977
+#> OOB prediction error (MSE):       5.815633 
+#> R squared (OOB):                  0.839896
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
