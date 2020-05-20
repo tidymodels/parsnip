@@ -468,6 +468,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula", "type"),
     func = c(pkg = "sparklyr", fun = "ml_random_forest"),
     defaults = list(seed = expr(sample.int(10 ^ 5, 1)))
@@ -480,6 +481,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula", "type"),
     func = c(pkg = "sparklyr", fun = "ml_random_forest"),
     defaults = list(seed = expr(sample.int(10 ^ 5, 1)))

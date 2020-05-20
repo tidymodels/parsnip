@@ -312,6 +312,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula", "weight_col"),
     func = c(pkg = "sparklyr", fun = "ml_linear_regression"),
     defaults = list()
