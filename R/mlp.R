@@ -37,7 +37,7 @@
 #' @param dropout A number between 0 (inclusive) and 1 denoting the proportion
 #'  of model parameters randomly set to zero during model training.
 #' @param epochs An integer for the number of training iterations.
-#' @param activation A single character strong denoting the type of relationship
+#' @param activation A single character string denoting the type of relationship
 #'  between the original predictors and the hidden unit layer. The activation
 #'  function between the hidden and output layers is automatically set to either
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
