@@ -102,7 +102,7 @@ print.decision_tree <- function(x, ...) {
 
 #' @export
 #' @inheritParams update.boost_tree
-#' @param object A random forest model specification.
+#' @param object A decision tree model specification.
 #' @examples
 #' model <- decision_tree(cost_complexity = 10, min_n = 3)
 #' model
