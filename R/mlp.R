@@ -105,7 +105,7 @@ print.mlp <- function(x, ...) {
 #'
 #' @export
 #' @inheritParams update.boost_tree
-#' @param object A random forest model specification.
+#' @param object A multilayer perceptron model specification.
 #' @examples
 #' model <- mlp(hidden_units = 10, dropout = 0.30)
 #' model
