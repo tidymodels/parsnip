@@ -115,22 +115,6 @@ convert_arg <- function(x) {
     x
 }
 
-make_call <- function(fun, ns, args, ...) {
-
-  #args <- map(args, convert_arg)
-
-  # remove any null or placeholders (`missing_args`) that remain
-  discard <-
-    vapply(args, function(x)
-      is_missing_arg(x) | is.null(x), logical(1))
-  args <- args[!discard]
-
-  if (!is.null(ns) & !is.na(ns)) {
-    out <- call2(fun, !!!args, .ns = ns)
-  } else
-    out <- call2(fun, !!!args)
-  out
-}
 
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark"))

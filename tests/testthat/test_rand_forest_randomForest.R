@@ -5,7 +5,7 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("random forest execution with randomForest")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
 
 # ------------------------------------------------------------------------------
 

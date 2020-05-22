@@ -5,7 +5,8 @@ library(dplyr)
 # ------------------------------------------------------------------------------
 
 context("random forest execution with spark")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 # ------------------------------------------------------------------------------
 

@@ -5,8 +5,8 @@ library(rlang)
 # ------------------------------------------------------------------------------
 
 context("mars tests")
-source("helpers.R")
-source("helper-objects.R")
+source(test_path("helpers.R"))
+source(test_path("helper-objects.R"))
 
 # ------------------------------------------------------------------------------
 
@@ -15,8 +15,8 @@ test_that('primary arguments', {
   basic_mars <- translate(basic %>% set_engine("earth"))
   expect_equal(basic_mars$method$fit$args,
                list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  keepxy = TRUE
                )
@@ -26,8 +26,8 @@ test_that('primary arguments', {
   num_terms_mars <- translate(num_terms %>% set_engine("earth"))
   expect_equal(num_terms_mars$method$fit$args,
                list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  nprune = new_empty_quosure(4),
                  glm = rlang::quo(list(family = stats::binomial)),
@@ -39,8 +39,8 @@ test_that('primary arguments', {
   prod_degree_mars <- translate(prod_degree %>% set_engine("earth"))
   expect_equal(prod_degree_mars$method$fit$args,
                list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  degree = new_empty_quosure(1),
                  keepxy = TRUE
@@ -51,8 +51,8 @@ test_that('primary arguments', {
   prune_method_v_mars <- translate(prune_method_v %>% set_engine("earth"))
   expect_equal(prune_method_v_mars$method$fit$args,
                list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  pmethod = new_empty_quosure(varying()),
                  keepxy = TRUE
@@ -64,8 +64,8 @@ test_that('engine arguments', {
   mars_keep <- mars(mode = "regression")
   expect_equal(translate(mars_keep %>% set_engine("earth", keepxy = FALSE))$method$fit$args,
                list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  keepxy = new_empty_quosure(FALSE)
                )
@@ -107,16 +107,9 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  # expect_error(mars(prod_degree = -1))
-  # expect_error(mars(num_terms = -1))
   expect_error(translate(mars() %>% set_engine("wat?")))
   expect_error(translate(mars(mode = "regression") %>% set_engine()))
   expect_error(translate(mars(formula = y ~ x)))
-  expect_warning(
-    translate(
-      mars(mode = "regression") %>% set_engine("earth", x = iris[,1:3], y = iris$Species)
-      )
-  )
 })
 
 # ------------------------------------------------------------------------------
@@ -154,13 +147,16 @@ test_that('mars execution', {
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "num_terms")
 
-  expect_error(
-    res <- fit(
-      iris_basic,
-      iris_bad_form,
-      data = iris,
-      control = ctrl
-    )
+  expect_message(
+    expect_error(
+      res <- fit(
+        iris_basic,
+        iris_bad_form,
+        data = iris,
+        control = ctrl
+      )
+    ),
+    "Timing stopped"
   )
 
   ## multivariate y
@@ -259,12 +255,13 @@ test_that('submodel prediction', {
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred"]], pruned_reg_pred)
 
+  full_churn <- wa_churn[complete.cases(wa_churn), ]
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
     mars(mode = "classification", prune_method = "none")  %>%
     set_engine("earth", keepxy = TRUE) %>%
     fit(churn ~ .,
-        data = wa_churn[-(1:4), c("churn", vars)])
+        data = full_churn[-(1:4), c("churn", vars)])
 
   cls_fit <- class_fit$fit
   cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
@@ -272,9 +269,9 @@ test_that('submodel prediction', {
   cls_fit$call[["glm"]]  <- eval_tidy(cls_fit$call[["glm"]])
 
   pruned_cls <- update(cls_fit, nprune = 5)
-  pruned_cls_pred <- predict(pruned_cls, wa_churn[1:4, vars], type = "response")[,1]
+  pruned_cls_pred <- predict(pruned_cls, full_churn[1:4, vars], type = "response")[,1]
 
-  mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], num_terms = 5, type = "prob")
+  mp_res <- multi_predict(class_fit, new_data = full_churn[1:4, vars], num_terms = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
 

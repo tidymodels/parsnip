@@ -6,7 +6,7 @@ library(dplyr)
 # ------------------------------------------------------------------------------
 
 context("boosted tree execution with C5.0")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
 
 lending_club <- head(lending_club, 200)
 lending_club_fail <-

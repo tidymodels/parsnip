@@ -5,7 +5,7 @@ library(rlang)
 # ------------------------------------------------------------------------------
 
 context("poly SVM")
-source("helpers.R")
+source(test_path("helpers.R"))
 
 # ------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ test_that('primary arguments', {
     object = basic_kernlab$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "rbfdot"
     )
   )
@@ -31,7 +31,7 @@ test_that('primary arguments', {
     object = rbf_sigma_kernlab$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       kernel = "rbfdot",
       kpar = rbf_sigma_obj
     )
@@ -47,7 +47,7 @@ test_that('engine arguments', {
     object = translate(kernlab_cv, "kernlab")$method$fit$args,
     expected = list(
       x = expr(missing_arg()),
-      y = expr(missing_arg()),
+      data = expr(missing_arg()),
       cross = new_empty_quosure(10),
       kernel = "rbfdot"
     )
@@ -164,7 +164,7 @@ test_that('svm rbf regression prediction', {
       y = iris$Sepal.Length,
       control = ctrl
     )
-  expect_equal(reg_form$fit, reg_xy_form$fit)
+  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, iris[1:3, -c(1, 5)])
   expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_xy_pred))
@@ -235,7 +235,7 @@ test_that('svm rbf classification probabilities', {
       y = iris$Species,
       control = ctrl
     )
-  expect_equal(cls_form$fit, cls_xy_form$fit)
+  expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
 
   library(kernlab)
   kern_probs <-

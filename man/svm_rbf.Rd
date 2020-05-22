@@ -82,7 +82,7 @@ call. For this type of model, the template of the fit calls are below:
 ## Computational engine: kernlab 
 ## 
 ## Model fit template:
-## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot")
+## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot")
 }\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
   set_engine("kernlab") \%>\% 
   set_mode("classification") \%>\% 
@@ -92,7 +92,7 @@ call. For this type of model, the template of the fit calls are below:
 ## Computational engine: kernlab 
 ## 
 ## Model fit template:
-## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot", 
+## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot", 
 ##     prob.model = TRUE)
 }
 }
