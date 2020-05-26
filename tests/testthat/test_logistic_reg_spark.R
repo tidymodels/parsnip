@@ -5,7 +5,7 @@ library(dplyr)
 # ------------------------------------------------------------------------------
 
 context("logistic regression execution with spark")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
 
 # ------------------------------------------------------------------------------
 

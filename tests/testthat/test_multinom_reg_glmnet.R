@@ -6,7 +6,8 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("multinom regression execution with glmnet")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 rows <- c(1, 51, 101)
 

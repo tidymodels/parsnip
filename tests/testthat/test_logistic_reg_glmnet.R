@@ -7,7 +7,7 @@ library(tidyr)
 # ------------------------------------------------------------------------------
 
 context("logistic regression execution with glmnet")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
 
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
@@ -251,9 +251,9 @@ test_that('glmnet probabilities, one lambda', {
   form_mat <- form_mat[1:7, -1]
 
   form_pred <-
-    predict(res_form$fit,
+    unname(predict(res_form$fit,
             newx = form_mat,
-            s = 0.1, type = "response")[, 1]
+            s = 0.1, type = "response")[, 1])
   form_pred <- tibble(.pred_bad = 1 - form_pred, .pred_good = form_pred)
 
   expect_equal(

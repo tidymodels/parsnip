@@ -5,7 +5,8 @@ library(rlang)
 # ------------------------------------------------------------------------------
 
 context("nearest neighbor execution with kknn")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
 iris_bad_form <- as.formula(Species ~ term)

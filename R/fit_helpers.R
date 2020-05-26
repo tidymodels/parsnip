@@ -30,21 +30,7 @@ form_form <-
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
 
-    fit_args <- object$method$fit$args
-
-    if (is_spark(object)) {
-      fit_args$x <- quote(x)
-      env$x <- env$data
-    } else {
-      fit_args$data <- quote(data)
-    }
-    fit_args$formula <- quote(formula)
-
-    fit_call <- make_call(
-      fun = object$method$fit$func["fun"],
-      ns = object$method$fit$func["pkg"],
-      fit_args
-    )
+    fit_call <- make_form_call(object, env = env)
 
     res <- list(
       lvl = y_levels,
@@ -89,21 +75,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  object$method$fit$args[["y"]] <- quote(y)
-  object$method$fit$args[["x"]] <-
-    switch(
-      target,
-      none = quote(x),
-      data.frame = quote(as.data.frame(x)),
-      matrix = quote(as.matrix(x)),
-      rlang::abort(glue::glue("Invalid data type target: {target}."))
-    )
-
-  fit_call <- make_call(
-    fun = object$method$fit$func["fun"],
-    ns = object$method$fit$func["pkg"],
-    object$method$fit$args
-  )
+  fit_call <- make_xy_call(object, target)
 
   res <- list(lvl = levels(env$y), spec = object)
 

@@ -42,7 +42,8 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    data = c(formula = "x", data = "data"),
+    protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "rbfdot")
   )
@@ -61,7 +62,8 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    data = c(formula = "x", data = "data"),
+    protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "rbfdot")
   )
@@ -190,6 +192,14 @@ set_fit(
     )
   )
 )
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "liquidSVM",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "svm_rbf",
   eng = "liquidSVM",
@@ -204,6 +214,14 @@ set_fit(
     )
   )
 )
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "liquidSVM",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_pred(
   model = "svm_rbf",
   eng = "liquidSVM",

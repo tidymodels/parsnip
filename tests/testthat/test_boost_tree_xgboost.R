@@ -4,7 +4,8 @@ library(parsnip)
 # ------------------------------------------------------------------------------
 
 context("boosted tree execution with xgboost")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 num_pred <- names(iris)[1:4]
 

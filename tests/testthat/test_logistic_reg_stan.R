@@ -6,7 +6,8 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("execution tests for stan logistic regression")
-source("helper-objects.R")
+source(test_path("helper-objects.R"))
+
 
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
@@ -106,7 +107,8 @@ test_that('stan_glm probability', {
 
   expect_equivalent(
     xy_pred %>% as.data.frame(),
-    parsnip:::predict_classprob.model_fit(xy_fit, lending_club[1:7, num_pred]) %>% as.data.frame()
+    parsnip:::predict_classprob.model_fit(xy_fit, lending_club[1:7, num_pred]) %>% as.data.frame(),
+    tolerance = 0.1
   )
 
   res_form <- fit(
@@ -131,7 +133,8 @@ test_that('stan_glm probability', {
   expect_equivalent(
     form_pred %>% as.data.frame(),
     parsnip:::predict_classprob.model_fit(res_form, lending_club[1:7, c("funded_amnt", "int_rate")]) %>%
-      as.data.frame()
+      as.data.frame(),
+    tolerance = 0.1
   )
 })
 
@@ -174,11 +177,11 @@ test_that('stan intervals', {
     c(`1` = 0.0181025303127182, `2` = 0.0388665155739319, `3` = 0.0205886091162274,
       `4` = 0.0181715224502082, `5` = 0.00405145389896896)
 
-  expect_equivalent(confidence_parsnip$.pred_lower_good, stan_lower)
-  expect_equivalent(confidence_parsnip$.pred_upper_good, stan_upper)
-  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - stan_upper)
-  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - stan_lower)
-  expect_equivalent(confidence_parsnip$.std_error, stan_std)
+  expect_equivalent(confidence_parsnip$.pred_lower_good, stan_lower, tolerance = 0.01)
+  expect_equivalent(confidence_parsnip$.pred_upper_good, stan_upper, tolerance = 0.01)
+  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - stan_upper, tolerance = 0.01)
+  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - stan_lower, tolerance = 0.01)
+  expect_equivalent(confidence_parsnip$.std_error, stan_std, tolerance = 0.001)
 
   stan_pred_lower <- c(`1` = 0, `2` = 0, `3` = 0, `4` = 0, `5` = 1)
   stan_pred_upper <- c(`1` = 1, `2` = 1, `3` = 1, `4` = 1, `5` = 1)

@@ -6,8 +6,9 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("logistic regression")
-source("helpers.R")
-source("helper-objects.R")
+source(test_path("helpers.R"))
+source(test_path("helper-objects.R"))
+
 
 # ------------------------------------------------------------------------------
 
@@ -300,7 +301,9 @@ test_that('glm probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- unname(predict(classes_xy$fit,
+                            newdata = lending_club[1:7, num_pred],
+                            type = "response"))
   xy_pred <- tibble(.pred_bad = 1 - xy_pred, .pred_good = xy_pred)
   expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
 

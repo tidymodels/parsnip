@@ -249,6 +249,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula", "weight_col"),
     func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
     defaults =

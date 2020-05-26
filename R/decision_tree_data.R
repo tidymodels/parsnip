@@ -258,6 +258,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
     func = c(pkg = "sparklyr", fun = "ml_decision_tree_classifier"),
     defaults =
@@ -278,6 +279,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
+    data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
     func = c(pkg = "sparklyr", fun = "ml_decision_tree_classifier"),
     defaults =
