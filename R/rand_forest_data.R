@@ -507,7 +507,7 @@ set_encoding(
   model = "rand_forest",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = TRUE)
 )
 
 set_fit(
@@ -527,7 +527,7 @@ set_encoding(
   model = "rand_forest",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(

@@ -232,7 +232,7 @@ set_pred(
 
 set_model_engine("decision_tree", "classification", "spark")
 set_model_engine("decision_tree", "regression", "spark")
-set_dependency("decision_tree", "spark", "spark")
+set_dependency("decision_tree", "spark", "sparklyr")
 
 set_model_arg(
   model = "decision_tree",
@@ -270,7 +270,7 @@ set_encoding(
   model = "decision_tree",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = TRUE)
 )
 
 set_fit(
@@ -291,7 +291,7 @@ set_encoding(
   model = "decision_tree",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
