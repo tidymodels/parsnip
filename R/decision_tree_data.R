@@ -260,7 +260,7 @@ set_fit(
     interface = "formula",
     data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
-    func = c(pkg = "sparklyr", fun = "ml_decision_tree_classifier"),
+    func = c(pkg = "sparklyr", fun = "ml_decision_tree_regressor"),
     defaults =
       list(seed = expr(sample.int(10 ^ 5, 1)))
   )
