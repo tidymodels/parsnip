@@ -51,7 +51,7 @@ set_encoding(
   model = "mars",
   eng = "earth",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = FALSE)
 )
 
 set_fit(
@@ -70,7 +70,7 @@ set_encoding(
   model = "mars",
   eng = "earth",
   mode = "classification",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
