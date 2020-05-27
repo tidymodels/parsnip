@@ -30,8 +30,7 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
-#' Make a table of arguments
-#' @param model_name A character string for the model
+#' @rdname convert_args
 #' @keywords internal
 #' @export
 convert_args <- function(model_name) {
@@ -43,11 +42,14 @@ convert_args <- function(model_name) {
     dplyr::filter(grepl("args", name)) %>%
     dplyr::mutate(model = sub("_args", "", name),
                   args  = purrr::map(name, ~envir[[.x]])) %>%
+    dplyr::filter(grepl(model_name, model)) %>%
     tidyr::unnest(args) %>%
-    dplyr::select(model:original)
+    dplyr::select(model:original) %>%
+    full_join(get_arg_defaults(model_name)) %>%
+    mutate(original = paste0(original, " (", default, ")")) %>%
+    select(-default)
 
   convert_df <- args %>%
-    dplyr::filter(grepl(model_name, model)) %>%
     dplyr::select(-model) %>%
     tidyr::pivot_wider(names_from = engine, values_from = original)
 
@@ -56,6 +58,23 @@ convert_args <- function(model_name) {
 
 }
 
+#' @rdname convert_args
+#' @keywords internal
+#' @export
+get_arg_defaults <- function(model) {
+  check_model_exists(model)
+  gdf <- get(paste0("get_defaults_", model))
+  gdf()
+}
+
+#' @rdname convert_args
+#' @keywords internal
+#' @export
+get_arg <- function(ns, f, arg) {
+  args <- formals(getFromNamespace(f, ns))
+  args <- as.list(args)
+  as.character(args[[arg]])
+}
 
 # ------------------------------------------------------------------------------
 # nocov
