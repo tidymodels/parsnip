@@ -226,31 +226,29 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.</p><h3>flexsurv</h3>
-<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"flexsurv"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Parametric Survival Regression Model Specification (regression)
-## 
-## Computational engine: flexsurv 
-## 
-## Model fit template:
-## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg())
-</pre>
+<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"flexsurv"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: flexsurv </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), </span>
+<span class='co'>##     weights = missing_arg())</span></pre>
 
 
 <h3>survival</h3>
-<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"survival"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Parametric Survival Regression Model Specification (regression)
-## 
-## Computational engine: survival 
-## 
-## Model fit template:
-## survival::survreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), model = TRUE)
-</pre>
+<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"survival"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: survival </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## survival::survreg(formula = missing_arg(), data = missing_arg(), </span>
+<span class='co'>##     weights = missing_arg(), model = TRUE)</span></pre>
 
 <p>Note that <code>model = TRUE</code> is needed to produce quantile predictions when
 there is a stratification variable and can be overridden in other cases.</p>

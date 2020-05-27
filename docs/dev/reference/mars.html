@@ -248,30 +248,28 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.</p><h3>earth</h3>
-<p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## MARS Model Specification (regression)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     keepxy = TRUE)
-</pre><p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## MARS Model Specification (classification)
-## 
-## Engine-Specific Arguments:
-##   glm = list(family = stats::binomial)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     glm = list(family = stats::binomial), keepxy = TRUE)
-</pre>
+<p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## MARS Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: earth </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     keepxy = TRUE)</span></pre><p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## MARS Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Engine-Specific Arguments:</span>
+<span class='co'>##   glm = list(family = stats::binomial)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: earth </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     glm = list(family = stats::binomial), keepxy = TRUE)</span></pre>
 
 <p>Note that, when the model is fit, the <code>earth</code> package only has its
 namespace loaded. However, if <code>multi_predict</code> is used, the package is

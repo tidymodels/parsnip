@@ -47,7 +47,7 @@ variables that will be available for use in arguments. For
 example, if the user would like to choose an argument value
 based on the current number of rows in a data set, the .obs()
 function can be used. See Details below." />
-<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +82,7 @@ function can be used. See Details below." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
@@ -195,9 +195,9 @@ data, the values would be</p><pre>
  .obs()   = 150
  .lvls()  =  NA          (no factor outcome)
  .facts() =   1          (the Species predictor)
- .y()     = &amp;lt;vector&amp;gt;     (Sepal.Width as a vector)
- .x()     = &amp;lt;data.frame&amp;gt; (The other 4 columns as a data frame)
- .dat()   = &amp;lt;data.frame&amp;gt; (The full data set)
+ .y()     = &lt;vector&gt;     (Sepal.Width as a vector)
+ .x()     = &lt;data.frame&gt; (The other 4 columns as a data frame)
+ .dat()   = &lt;data.frame&gt; (The full data set)
 </pre>
 
 <p>If the formula <code>Species ~ .</code> where used:</p><pre>
@@ -206,9 +206,9 @@ data, the values would be</p><pre>
  .obs()   = 150
  .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
  .facts() =   0
- .y()     = &amp;lt;vector&amp;gt;     (Species as a vector)
- .x()     = &amp;lt;data.frame&amp;gt; (The other 4 columns as a data frame)
- .dat()   = &amp;lt;data.frame&amp;gt; (The full data set)
+ .y()     = &lt;vector&gt;     (Species as a vector)
+ .x()     = &lt;data.frame&gt; (The other 4 columns as a data frame)
+ .dat()   = &lt;data.frame&gt; (The full data set)
 </pre>
 
 <p>To use these in a model fit, pass them to a model specification.

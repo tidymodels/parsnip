@@ -58,15 +58,13 @@ from iteration-to-iteration.
 loss_reduction: The reduction in the loss function required
 to split further.
 sample_size: The amount of data exposed to the fitting routine.
-stop_iter: The number of iterations without improvement before
-stopping.
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the  set_engine() function. If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions.  If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
-<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,7 +99,7 @@ in lieu of recreating the object from scratch." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
@@ -179,8 +177,6 @@ from iteration-to-iteration.</p></li>
 <li><p><code>loss_reduction</code>: The reduction in the loss function required
 to split further.</p></li>
 <li><p><code>sample_size</code>: The amount of data exposed to the fitting routine.</p></li>
-<li><p><code>stop_iter</code>: The number of iterations without improvement before
-stopping.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
 set using the  <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
@@ -197,8 +193,7 @@ in lieu of recreating the object from scratch.</p>
   <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
 <span class='co'># S3 method for boost_tree</span>
@@ -212,7 +207,6 @@ in lieu of recreating the object from scratch.</p>
   <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )</pre>
@@ -262,11 +256,6 @@ to split further  (<code>xgboost</code> only).</p></td>
       <td><p>A number for the number (or proportion) of data that is
 exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at at
 each iteration while <code>C5.0</code> samples once during training.</p></td>
-    </tr>
-    <tr>
-      <th>stop_iter</th>
-      <td><p>The number of iterations without improvement before
-stopping  (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -397,7 +386,6 @@ original names in each engine that has main parameters:</p><table class='table'>
 <tr><td>min_n</td><td>min_child_weight</td><td>minCases</td><td>min_instances_per_node</td></tr>
 <tr><td>loss_reduction</td><td>gamma</td><td>NA</td><td>NA</td></tr>
 <tr><td>sample_size</td><td>subsample</td><td>sample</td><td>subsampling_rate</td></tr>
-<tr><td>stop_iter</td><td>early_stop</td><td>NA</td><td>NA</td></tr>
 <tr><td>min_info_gain</td><td>NA</td><td>NA</td><td>loss_reduction</td></tr>
 </table>
 
