@@ -42,9 +42,9 @@
 
 
 <meta property="og:title" content="Boosted trees via xgboost — xgb_train" />
-<meta property="og:description" content="xgb_train is a wrapper for xgboost tree-based models where all of the
-model arguments are in the main function." />
-<meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
+<meta property="og:description" content="xgb_train is a wrapper for xgboost tree-based models
+where all of the model arguments are in the main function." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +79,7 @@ model arguments are in the main function." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
         </div>
       </div>
@@ -141,8 +141,8 @@ model arguments are in the main function." />
     </div>
 
     <div class="ref-description">
-    <p><code>xgb_train</code> is a wrapper for <code>xgboost</code> tree-based models where all of the
-model arguments are in the main function.</p>
+    <p><code>xgb_train</code> is a wrapper for <code>xgboost</code> tree-based models
+where all of the model arguments are in the main function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>xgb_train</span>(
@@ -155,8 +155,6 @@ model arguments are in the main function.</p>
   <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>validation</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>early_stop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -200,20 +198,6 @@ further partition on a leaf node of the tree</p></td>
     <tr>
       <th>subsample</th>
       <td><p>Subsampling proportion of rows.</p></td>
-    </tr>
-    <tr>
-      <th>validation</th>
-      <td><p>A positive number. If on <code>[0, 1)</code> the value, <code>validation</code>
-is a random proportion of data in <code>x</code> and <code>y</code> that are used for performance
-assessment and potential early stopping. If 1 or greater, it is the <em>number</em>
-of training set samples use for these purposes.</p></td>
-    </tr>
-    <tr>
-      <th>early_stop</th>
-      <td><p>An integer or <code>NULL</code>. If not <code>NULL</code>, it is the number of
-training iterations without improvement before stopping. If <code>validation</code> is
-used, performance is base on the validation set; otherwise the training set
-is used.</p></td>
     </tr>
     <tr>
       <th>...</th>

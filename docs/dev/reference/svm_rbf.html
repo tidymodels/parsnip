@@ -243,50 +243,46 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>kernlab</h3>
-<p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Radial Basis Function Support Vector Machine Specification (regression)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot")
-</pre><p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Radial Basis Function Support Vector Machine Specification (classification)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), y = missing_arg(), kernel = "rbfdot", 
-##     prob.model = TRUE)
-</pre>
+<p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: kernlab </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot")</span></pre><p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: kernlab </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot", </span>
+<span class='co'>##     prob.model = TRUE)</span></pre>
 
 
 <h3>liquidSVM</h3>
-<p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"liquidSVM"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Radial Basis Function Support Vector Machine Specification (regression)
-## 
-## Computational engine: liquidSVM 
-## 
-## Model fit template:
-## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, 
-##     threads = 0)
-</pre><p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"liquidSVM"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Radial Basis Function Support Vector Machine Specification (classification)
-## 
-## Computational engine: liquidSVM 
-## 
-## Model fit template:
-## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, 
-##     threads = 0)
-</pre>
+<p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"liquidSVM"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: liquidSVM </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, </span>
+<span class='co'>##     threads = 0)</span></pre><p><div class="r"></p><pre><span class='fu'>svm_rbf</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"liquidSVM"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: liquidSVM </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, </span>
+<span class='co'>##     threads = 0)</span></pre>
 
 <p>Note that models created using the <code>liquidSVM</code> engine cannot be saved
 like conventional R objects. The <code>fit</code> slot of the <code>model_fit</code> object

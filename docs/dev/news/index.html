@@ -145,15 +145,19 @@
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other Changes</h2>
 <ul>
-<li>
-<code>tidyr</code> &gt;= 1.0.0 is now required.</li>
+<li><p><code>tidyr</code> &gt;= 1.0.0 is now required.</p></li>
+<li><p>SVM models produced by <code>kernlab</code> now use the formula method. This change was due to how <code>ksvm()</code> made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to <code>ksvm()</code> so that the results are closer to what one would get if <code>ksmv()</code> were called directly.</p></li>
+<li><p>MARS models produced by <code>earth</code> now use the formula method.</p></li>
+<li><p>Under-the-hood changes were made so that non-standard data arguments in the modeling packages can be accomodated. (<a href='https://github.com/tidymodels/parsnip/issues/315'>#315</a>)</p></li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h2>
 <ul>
-<li>A new main argument was added to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="../reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</li>
+<li><p>A new main argument was added to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="../reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</p></li>
+<li><p>If <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is used and the underlying model uses a formula, the <em>actual</em> formula is pass to the model (instead of a placeholder). This makes the model call better.</p></li>
+<li><p>A function named <code><a href="../reference/repair_call.html">repair_call()</a></code> was added. This can help change the underlying models <code>call</code> object to better reflect what they would have obtained if the model function had been used directly (instead of via <code>parsnip</code>). This is only useful when the user chooses a formula interface and the model uses a formula interface. It will also be of limited use when a recipes is used to construct the feature set in <code>workflows</code> or <code>tune</code>.</p></li>
 </ul>
 </div>
 </div>
