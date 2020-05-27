@@ -297,18 +297,3 @@ set_pred(
     args = list(object = quote(object$fit), dataset = quote(new_data))
   )
 )
-
-# ------------------------------------------------------------------------------
-
-get_defaults_decision_tree <- function() {
-  tibble::tribble(
-    ~model,         ~engine,          ~parsnip,                ~original,  ~default,
-    "decision_tree", "rpart",      "tree_depth",               "maxdepth", get_arg("rpart", "rpart.control", "maxdepth"),
-    "decision_tree", "rpart",           "min_n",               "minsplit", get_arg("rpart", "rpart.control", "minsplit"),
-    "decision_tree", "rpart", "cost_complexity",                     "cp", get_arg("rpart", "rpart.control", "cp"),
-    "decision_tree",  "C5.0",           "min_n",               "minCases", get_arg("C50", "C5.0Control", "minCases"),
-    "decision_tree", "spark",      "tree_depth",              "max_depth", get_arg("sparklyr", "ml_decision_tree", "max_depth"),
-    "decision_tree", "spark",           "min_n", "min_instances_per_node", get_arg("sparklyr", "ml_decision_tree", "min_instances_per_node"),
-  )
-}
-

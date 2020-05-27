@@ -35,7 +35,7 @@ parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{object}{A random forest model specification.}
+\item{object}{A decision tree model specification.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. If the individual arguments are used,
