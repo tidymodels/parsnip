@@ -41,9 +41,22 @@ mlp() %>%
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
-names in each engine that has main parameters:
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_mlp <- function() {
+  tibble::tribble(
+    ~model,  ~engine,  ~parsnip,          ~original,       ~default,
+    "mlp",   "keras",  "hidden_units",    "hidden_units",  get_arg("parsnip", "keras_mlp", "hidden_units"),
+    "mlp",   "keras",  "penalty",         "penalty",       get_arg("parsnip", "keras_mlp", "penalty"),
+    "mlp",   "keras",  "dropout",         "dropout",       get_arg("parsnip", "keras_mlp", "dropout"),
+    "mlp",   "keras",  "epochs",          "epochs",        get_arg("parsnip", "keras_mlp", "epochs"),
+    "mlp",   "keras",  "activation",      "activation",    get_arg("parsnip", "keras_mlp", "activation"),
+    "mlp",   "nnet",   "penalty",         "decay",         get_arg("nnet", "nnet.default", "decay"),
+    "mlp",   "nnet",   "epochs",          "maxit",         get_arg("nnet", "nnet.default", "maxit"),
+  )
+}
 parsnip::convert_args("mlp")
 ```
 
