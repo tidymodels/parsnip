@@ -204,19 +204,24 @@ predictors to be converted to indicator variables.
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{llll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{llll}{
    \strong{parsnip} \tab \strong{xgboost} \tab \strong{C5.0} \tab \strong{spark} \cr
-   tree_depth \tab max_depth \tab NA \tab max_depth \cr
-   trees \tab nrounds \tab trials \tab max_iter \cr
-   learn_rate \tab eta \tab NA \tab step_size \cr
-   mtry \tab colsample_bytree \tab NA \tab feature_subset_strategy \cr
-   min_n \tab min_child_weight \tab minCases \tab min_instances_per_node \cr
-   loss_reduction \tab gamma \tab NA \tab NA \cr
-   sample_size \tab subsample \tab sample \tab subsampling_rate \cr
+   tree_depth \tab max_depth (6) \tab NA \tab max_depth (5) \cr
+   trees \tab nrounds (15) \tab trials (15) \tab max_iter (20) \cr
+   learn_rate \tab eta (0.3) \tab NA \tab step_size (0.1) \cr
+   mtry \tab colsample_bytree (1) \tab NA \tab feature_subset_strategy (auto) \cr
+   min_n \tab min_child_weight (1) \tab minCases (2) \tab min_instances_per_node (1) \cr
+   loss_reduction \tab gamma (0) \tab NA \tab min_info_gain (0) \cr
+   sample_size \tab subsample (1) \tab sample (0) \tab subsampling_rate (1) \cr
    stop_iter \tab early_stop \tab NA \tab NA \cr
-   min_info_gain \tab NA \tab NA \tab loss_reduction \cr
 }
 
+
+For spark, the default \code{mtry} is the square root of the number of
+predictors for classification, and one-third of the predictors for
+regression.
 }
 }
 

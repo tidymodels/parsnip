@@ -41,13 +41,13 @@ of model parameters randomly set to zero during model training.}
 
 \item{epochs}{An integer for the number of training iterations.}
 
-\item{activation}{A single character strong denoting the type of relationship
+\item{activation}{A single character string denoting the type of relationship
 between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
 "linear" or "softmax" depending on the type of outcome. Possible values are:
 "linear", "softmax", "relu", and "elu"}
 
-\item{object}{A random forest model specification.}
+\item{object}{A multilayer perceptron model specification.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. If the individual arguments are used,
@@ -161,13 +161,15 @@ An error is thrown if both \code{penalty} and \code{dropout} are specified for
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{lll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{lll}{
    \strong{parsnip} \tab \strong{keras} \tab \strong{nnet} \cr
-   hidden_units \tab hidden_units \tab size \cr
-   penalty \tab penalty \tab decay \cr
-   dropout \tab dropout \tab NA \cr
-   epochs \tab epochs \tab maxit \cr
-   activation \tab activation \tab NA \cr
+   hidden_units \tab hidden_units (5) \tab size \cr
+   penalty \tab penalty (0) \tab decay (0) \cr
+   dropout \tab dropout (0) \tab NA \cr
+   epochs \tab epochs (20) \tab maxit (100) \cr
+   activation \tab activation (softmax) \tab NA \cr
 }
 
 }
