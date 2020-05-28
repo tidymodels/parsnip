@@ -50,9 +50,32 @@ boost_tree() %>%
 
 ## Parameter translations
 
-The standardized parameter names in parsnip can be mapped to their original names in each engine that has main parameters:
+The standardized parameter names in parsnip can be mapped to their original names in each engine that has main parameters. Each engine typically has a different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_boost_tree <- function() {
+  tibble::tribble(
+    ~model,         ~engine,          ~parsnip,                 ~original,  ~default,
+    "boost_tree", "xgboost",      "tree_depth",                "max_depth", get_arg("parsnip", "xgb_train", "max_depth"),
+    "boost_tree", "xgboost",           "trees",                 "nrounds",  get_arg("parsnip", "xgb_train", "nrounds"),
+    "boost_tree", "xgboost",      "learn_rate",                     "eta",  get_arg("parsnip", "xgb_train", "eta"),
+    "boost_tree", "xgboost",            "mtry",        "colsample_bytree",  get_arg("parsnip", "xgb_train", "colsample_bytree"),
+    "boost_tree", "xgboost",           "min_n",        "min_child_weight",  get_arg("parsnip", "xgb_train", "min_child_weight"),
+    "boost_tree", "xgboost",  "loss_reduction",                   "gamma",  get_arg("parsnip", "xgb_train", "gamma"),
+    "boost_tree", "xgboost",     "sample_size",               "subsample",  get_arg("parsnip", "xgb_train", "subsample"),
+    "boost_tree",    "C5.0",           "trees",                "trials",    get_arg("parsnip", "C5.0_train", "trials"),
+    "boost_tree",    "C5.0",           "min_n",                "minCases",  get_arg("C50", "C5.0Control", "minCases"),
+    "boost_tree",    "C5.0",     "sample_size",                  "sample",  get_arg("C50", "C5.0Control", "sample"),
+    "boost_tree", "spark",        "tree_depth",               "max_depth",  get_arg("sparklyr", "ml_gradient_boosted_trees", "max_depth"),
+    "boost_tree", "spark",             "trees",                "max_iter",  get_arg("sparklyr", "ml_gradient_boosted_trees", "max_iter"),
+    "boost_tree", "spark",        "learn_rate",               "step_size",  get_arg("sparklyr", "ml_gradient_boosted_trees", "step_size"),
+    "boost_tree", "spark",              "mtry", "feature_subset_strategy",  get_arg("sparklyr", "ml_gradient_boosted_trees", "feature_subset_strategy"),
+    "boost_tree", "spark",             "min_n",  "min_instances_per_node",  get_arg("sparklyr", "ml_gradient_boosted_trees", "min_instances_per_node"),
+    "boost_tree", "spark",    "loss_reduction",        "min_info_gain",     get_arg("sparklyr", "ml_gradient_boosted_trees", "min_info_gain"),
+    "boost_tree", "spark",       "sample_size",        "subsampling_rate",  get_arg("sparklyr", "ml_gradient_boosted_trees", "subsampling_rate"),
+
+  )
+}
 parsnip::convert_args("boost_tree")
 ```
 
