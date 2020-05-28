@@ -69,10 +69,20 @@ logistic_reg() %>%
 
 ## Parameter translations
 
-The standardized parameter names in parsnip can be mapped to their original names
-in each engine that has main parameters:
+The standardized parameter names in parsnip can be mapped to their original 
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_logistic_reg <- function() {
+  tibble::tribble(
+    ~model,          ~engine,     ~parsnip,            ~original,  ~default,
+    "logistic_reg",  "glmnet",    "mixture",              "alpha",  get_arg("glmnet", "glmnet", "alpha"),
+    "logistic_reg",  "spark",     "penalty",          "reg_param",  get_arg("sparklyr", "ml_logistic_regression", "reg_param"),
+    "logistic_reg",  "spark",     "mixture",  "elastic_net_param",  get_arg("sparklyr", "ml_logistic_regression", "elastic_net_param"),
+    "logistic_reg",  "keras",     "penalty",            "penalty",  get_arg("parsnip", "keras_mlp", "penalty"),
+  )
+}
 parsnip::convert_args("logistic_reg")
 ```
 
