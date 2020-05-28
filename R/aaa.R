@@ -46,7 +46,9 @@ convert_args <- function(model_name) {
     tidyr::unnest(args) %>%
     dplyr::select(model:original) %>%
     full_join(get_arg_defaults(model_name)) %>%
-    mutate(original = paste0(original, " (", default, ")")) %>%
+    mutate(original = dplyr::if_else(!is.na(default),
+                                     paste0(original, " (", default, ")"),
+                                     original)) %>%
     select(-default)
 
   convert_df <- args %>%
