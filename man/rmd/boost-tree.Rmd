@@ -69,7 +69,7 @@ get_defaults_boost_tree <- function() {
     "boost_tree", "spark",        "tree_depth",               "max_depth",  get_arg("sparklyr", "ml_gradient_boosted_trees", "max_depth"),
     "boost_tree", "spark",             "trees",                "max_iter",  get_arg("sparklyr", "ml_gradient_boosted_trees", "max_iter"),
     "boost_tree", "spark",        "learn_rate",               "step_size",  get_arg("sparklyr", "ml_gradient_boosted_trees", "step_size"),
-    "boost_tree", "spark",              "mtry", "feature_subset_strategy",  get_arg("sparklyr", "ml_gradient_boosted_trees", "feature_subset_strategy"),
+    "boost_tree", "spark",              "mtry", "feature_subset_strategy",  "see below",
     "boost_tree", "spark",             "min_n",  "min_instances_per_node",  get_arg("sparklyr", "ml_gradient_boosted_trees", "min_instances_per_node"),
     "boost_tree", "spark",    "loss_reduction",        "min_info_gain",     get_arg("sparklyr", "ml_gradient_boosted_trees", "min_info_gain"),
     "boost_tree", "spark",       "sample_size",        "subsampling_rate",  get_arg("sparklyr", "ml_gradient_boosted_trees", "subsampling_rate"),
@@ -79,3 +79,4 @@ get_defaults_boost_tree <- function() {
 parsnip::convert_args("boost_tree")
 ```
 
+For spark, the default `mtry` is the square root of the number of predictors for classification, and one-third of the predictors for regression.
