@@ -86,6 +86,6 @@ get_defaults_rand_forest <- function() {
 parsnip::convert_args("rand_forest")
 ```
 
-- The default `min_n` for both ranger and randomForest is 1 for classification and 5 for regression.
 - For randomForest and spark, the default `mtry` is the square root of the number of predictors for classification, and one-third of the predictors for regression.
 - For ranger, the default `mtry` is the square root of the number of predictors.
+- The default `min_n` for both ranger and randomForest is 1 for classification and 5 for regression.
