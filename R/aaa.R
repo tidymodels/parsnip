@@ -30,6 +30,7 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
+#' Find args for documentation
 #' @rdname convert_args
 #' @keywords internal
 #' @export
@@ -45,7 +46,8 @@ convert_args <- function(model_name) {
     dplyr::filter(grepl(model_name, model)) %>%
     tidyr::unnest(args) %>%
     dplyr::select(model:original) %>%
-    full_join(get_arg_defaults(model_name)) %>%
+    full_join(get_arg_defaults(model_name),
+              by = c("model", "engine", "parsnip", "original")) %>%
     mutate(original = dplyr::if_else(!is.na(default),
                                      paste0(original, " (", default, ")"),
                                      original)) %>%

@@ -2,14 +2,17 @@
 % Please edit documentation in R/aaa.R
 \name{convert_args}
 \alias{convert_args}
-\title{Make a table of arguments}
+\alias{get_arg_defaults}
+\alias{get_arg}
+\title{Find args for documentation}
 \usage{
 convert_args(model_name)
-}
-\arguments{
-\item{model_name}{A character string for the model}
+
+get_arg_defaults(model)
+
+get_arg(ns, f, arg)
 }
 \description{
-Make a table of arguments
+Find args for documentation
 }
 \keyword{internal}
