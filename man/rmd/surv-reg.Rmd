@@ -25,10 +25,18 @@ a stratification variable and can be overridden in other cases.
 
 ## Parameter translations
 
-The standardized parameter names in parsnip can be mapped to their original names
-in each engine that has main parameters:
+The standardized parameter names in parsnip can be mapped to their original 
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_surv_reg <- function() {
+  tibble::tribble(
+    ~model,      ~engine,     ~parsnip,     ~original,  ~default,
+    "surv_reg",  "flexsurv",  "dist",       "dist",     NA,
+    "surv_reg",  "survival",  "dist",       "dist",     NA,
+  )
+}
 parsnip::convert_args("surv_reg")
 ```
 
