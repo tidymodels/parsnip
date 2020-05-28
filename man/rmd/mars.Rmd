@@ -25,10 +25,18 @@ loaded. However, if `multi_predict` is used, the package is  attached.
 
 ## Parameter translations
 
-The standardized parameter names in parsnip can be mapped to their original names
-in each engine that has main parameters:
+The standardized parameter names in parsnip can be mapped to their original 
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_mars <- function() {
+  tibble::tribble(
+    ~model,  ~engine,     ~parsnip,        ~original,  ~default,
+    "mars",  "earth",     "prod_degree",   "degree",   get_arg("earth", "earth.fit", "degree"),
+    "mars",  "earth",     "prune_method",  "pmethod",  get_arg("earth", "earth.fit", "pmethod")[2]
+  )
+}
 parsnip::convert_args("mars")
 ```
 
