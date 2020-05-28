@@ -65,9 +65,27 @@ rand_forest() %>%
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
-names in each engine that has main parameters:
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
+get_defaults_rand_forest <- function() {
+  tibble::tribble(
+    ~model,         ~engine,          ~parsnip,   ~original,                  ~default,
+    "rand_forest",  "ranger",         "trees",    "num.trees",                get_arg("ranger", "ranger", "num.trees"),
+    "rand_forest",  "ranger",         "mtry",     "mtry",                     "see below",
+    "rand_forest",  "ranger",         "min_n",    "min.node.size",            "see below",
+    "rand_forest",  "randomForest",   "trees",    "ntree",                    get_arg("randomForest", "randomForest.default", "ntree"),
+    "rand_forest",  "randomForest",   "mtry",     "mtry",                     "see below",
+    "rand_forest",  "randomForest",   "min_n",    "nodesize",                 "see below",
+    "rand_forest",  "spark",          "trees",    "num_trees",                get_arg("sparklyr", "ml_random_forest", "num_trees"),
+    "rand_forest",  "spark",          "mtry",     "feature_subset_strategy",  "see below",
+    "rand_forest",  "spark",          "min_n",    "min_instances_per_node",   get_arg("sparklyr", "ml_random_forest", "min_instances_per_node"),
+  )
+}
 parsnip::convert_args("rand_forest")
 ```
 
+- The default `min_n` for both ranger and randomForest is 1 for classification and 5 for regression.
+- For randomForest and spark, the default `mtry` is the square root of the number of predictors for classification, and one-third of the predictors for regression.
+- For ranger, the default `mtry` is the square root of the number of predictors.
