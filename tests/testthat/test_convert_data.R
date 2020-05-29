@@ -168,6 +168,21 @@ test_that("numeric y and mixed x", {
   )
 })
 
+test_that("mixed x, no dummies, compare to a model that does not create dummies", {
+  expected <- rpart::rpart(rate ~ ., data = Puromycin)
+  data_classes <- attr(expected$terms, "dataClasses")[2:3]
+  observed <- parsnip:::convert_form_to_xy_fit(rate ~ ., data = Puromycin, indicators = FALSE)
+  expect_equal(names(data_classes), names(observed$x))
+  expect_equal(unname(data_classes), c("numeric", "factor"))
+  expect_s3_class(observed$x$state, "factor")
+  expect_equivalent(Puromycin$rate, observed$y)
+  expect_equal(expected$terms, observed$terms)
+
+  expect_null(observed$weights)
+  expect_null(observed$offset)
+})
+
+
 test_that("numeric y and mixed x, omit missing data", {
   expected <- lm(rate ~ ., data = Puromycin_miss, x = TRUE, y = TRUE)
   observed <- parsnip:::convert_form_to_xy_fit(rate ~ ., data = Puromycin_miss)

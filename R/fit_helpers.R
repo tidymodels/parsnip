@@ -103,12 +103,17 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 form_xy <- function(object, control, env,
                     target = "none", ...) {
 
+  indicators <- get_encoding(class(object)[1]) %>%
+    dplyr::filter(mode == object$mode,
+                  engine == object$engine) %>%
+    dplyr::pull(predictor_indicators)
+
   data_obj <- convert_form_to_xy_fit(
     formula = env$formula,
     data = env$data,
     ...,
-    composition = target
-    # indicators
+    composition = target,
+    indicators = indicators
   )
   env$x <- data_obj$x
   env$y <- data_obj$y

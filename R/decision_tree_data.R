@@ -48,6 +48,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "decision_tree",
+  eng = "rpart",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "decision_tree",
   eng = "rpart",
@@ -58,6 +65,13 @@ set_fit(
     func = c(pkg = "rpart", fun = "rpart"),
     defaults = list()
   )
+)
+
+set_encoding(
+  model = "decision_tree",
+  eng = "rpart",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
@@ -158,6 +172,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "decision_tree",
+  eng = "C5.0",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_pred(
   model = "decision_tree",
   eng = "C5.0",
@@ -211,7 +232,7 @@ set_pred(
 
 set_model_engine("decision_tree", "classification", "spark")
 set_model_engine("decision_tree", "regression", "spark")
-set_dependency("decision_tree", "spark", "spark")
+set_dependency("decision_tree", "spark", "sparklyr")
 
 set_model_arg(
   model = "decision_tree",
@@ -239,10 +260,17 @@ set_fit(
     interface = "formula",
     data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
-    func = c(pkg = "sparklyr", fun = "ml_decision_tree_classifier"),
+    func = c(pkg = "sparklyr", fun = "ml_decision_tree_regressor"),
     defaults =
       list(seed = expr(sample.int(10 ^ 5, 1)))
   )
+)
+
+set_encoding(
+  model = "decision_tree",
+  eng = "spark",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_fit(
@@ -257,6 +285,13 @@ set_fit(
     defaults =
       list(seed = expr(sample.int(10 ^ 5, 1)))
   )
+)
+
+set_encoding(
+  model = "decision_tree",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(

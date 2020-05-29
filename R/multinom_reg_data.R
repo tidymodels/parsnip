@@ -37,6 +37,12 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "multinom_reg",
+  eng = "glmnet",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
 
 set_pred(
   model = "multinom_reg",
@@ -129,6 +135,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "multinom_reg",
+  eng = "spark",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "multinom_reg",
   eng = "spark",
@@ -190,6 +203,13 @@ set_fit(
     func = c(pkg = "parsnip", fun = "keras_mlp"),
     defaults = list(hidden_units = 1, act = "linear")
   )
+)
+
+set_encoding(
+  model = "multinom_reg",
+  eng = "keras",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(
@@ -255,6 +275,12 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "multinom_reg",
+  eng = "nnet",
+  mode = "classification",
+  options = list(predictor_indicators = TRUE)
+)
 
 set_pred(
   model = "multinom_reg",

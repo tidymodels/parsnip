@@ -29,6 +29,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "surv_reg",
+  eng = "flexsurv",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
+)
+
 set_pred(
   model = "surv_reg",
   eng = "flexsurv",
@@ -90,6 +97,13 @@ set_fit(
     func = c(pkg = "survival", fun = "survreg"),
     defaults = list(model = TRUE)
   )
+)
+
+set_encoding(
+  model = "surv_reg",
+  eng = "survival",
+  mode = "regression",
+  options = list(predictor_indicators = TRUE)
 )
 
 set_pred(

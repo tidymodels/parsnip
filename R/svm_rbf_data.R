@@ -49,6 +49,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "svm_rbf",
   eng = "kernlab",
@@ -60,6 +67,13 @@ set_fit(
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "rbfdot")
   )
+)
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
@@ -178,6 +192,14 @@ set_fit(
     )
   )
 )
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "liquidSVM",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "svm_rbf",
   eng = "liquidSVM",
@@ -192,6 +214,14 @@ set_fit(
     )
   )
 )
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "liquidSVM",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_pred(
   model = "svm_rbf",
   eng = "liquidSVM",

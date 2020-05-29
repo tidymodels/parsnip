@@ -21,6 +21,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "null_model",
+  eng = "parsnip",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "null_model",
   eng = "parsnip",
@@ -31,6 +38,13 @@ set_fit(
     func = c(fun = "nullmodel"),
     defaults = list()
   )
+)
+
+set_encoding(
+  model = "null_model",
+  eng = "parsnip",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(

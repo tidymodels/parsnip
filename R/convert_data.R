@@ -15,7 +15,7 @@
 #' @importFrom stats .checkMFClasses .getXlevels delete.response
 #' @importFrom stats model.offset model.weights na.omit na.pass
 
-convert_form_to_xy_fit <-function(
+convert_form_to_xy_fit <- function(
   formula,
   data,
   ...,

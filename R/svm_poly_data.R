@@ -57,6 +57,13 @@ set_fit(
   )
 )
 
+set_encoding(
+  model = "svm_poly",
+  eng = "kernlab",
+  mode = "regression",
+  options = list(predictor_indicators = FALSE)
+)
+
 set_fit(
   model = "svm_poly",
   eng = "kernlab",
@@ -68,6 +75,13 @@ set_fit(
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "polydot")
   )
+)
+
+set_encoding(
+  model = "svm_poly",
+  eng = "kernlab",
+  mode = "classification",
+  options = list(predictor_indicators = FALSE)
 )
 
 set_pred(
