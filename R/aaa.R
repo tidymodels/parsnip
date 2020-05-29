@@ -30,56 +30,6 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
   res
 }
 
-#' Find args for documentation
-#' @rdname convert_args
-#' @keywords internal
-#' @export
-convert_args <- function(model_name) {
-  envir <- get_model_env()
-
-  args <-
-    ls(envir) %>%
-    tibble::tibble(name = .) %>%
-    dplyr::filter(grepl("args", name)) %>%
-    dplyr::mutate(model = sub("_args", "", name),
-                  args  = purrr::map(name, ~envir[[.x]])) %>%
-    dplyr::filter(grepl(model_name, model)) %>%
-    tidyr::unnest(args) %>%
-    dplyr::select(model:original) %>%
-    full_join(get_arg_defaults(model_name),
-              by = c("model", "engine", "parsnip", "original")) %>%
-    mutate(original = dplyr::if_else(!is.na(default),
-                                     paste0(original, " (", default, ")"),
-                                     original)) %>%
-    select(-default)
-
-  convert_df <- args %>%
-    dplyr::select(-model) %>%
-    tidyr::pivot_wider(names_from = engine, values_from = original)
-
-  convert_df %>%
-    knitr::kable(col.names = paste0("**", colnames(convert_df), "**"))
-
-}
-
-#' @rdname convert_args
-#' @keywords internal
-#' @export
-get_arg_defaults <- function(model) {
-  check_model_exists(model)
-  gdf <- get(paste0("get_defaults_", model))
-  gdf()
-}
-
-#' @rdname convert_args
-#' @keywords internal
-#' @export
-get_arg <- function(ns, f, arg) {
-  args <- formals(getFromNamespace(f, ns))
-  args <- as.list(args)
-  as.character(args[[arg]])
-}
-
 # ------------------------------------------------------------------------------
 # nocov
 

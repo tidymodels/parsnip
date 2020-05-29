@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. 
 For this type of model, the template of the fit calls are below.
 
@@ -83,6 +86,6 @@ get_defaults_logistic_reg <- function() {
     "logistic_reg",  "keras",     "penalty",            "penalty",  get_arg("parsnip", "keras_mlp", "penalty"),
   )
 }
-parsnip::convert_args("logistic_reg")
+convert_args("logistic_reg")
 ```
 

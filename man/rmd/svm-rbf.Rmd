@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. 
 For this type of model, the template of the fit calls are below:
 
@@ -63,6 +66,6 @@ get_defaults_svm_rbf <- function() {
     "svm_rbf", "liquidSVM",  "rbf_sigma",     "gammas",   "varies",
   )
 }
-parsnip::convert_args("svm_rbf")
+convert_args("svm_rbf")
 ```
 

@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below.
 
 ## flexsurv
@@ -37,6 +40,6 @@ get_defaults_surv_reg <- function() {
     "surv_reg",  "survival",  "dist",       "dist",     NA,
   )
 }
-parsnip::convert_args("surv_reg")
+convert_args("surv_reg")
 ```
 

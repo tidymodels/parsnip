@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. 
 For this type of model, the template of the fit calls are below:
 
@@ -83,7 +86,7 @@ get_defaults_rand_forest <- function() {
     "rand_forest",  "spark",          "min_n",    "min_instances_per_node",   get_arg("sparklyr", "ml_random_forest", "min_instances_per_node"),
   )
 }
-parsnip::convert_args("rand_forest")
+convert_args("rand_forest")
 ```
 
 - For randomForest and spark, the default `mtry` is the square root of the number of predictors for classification, and one-third of the predictors for regression.

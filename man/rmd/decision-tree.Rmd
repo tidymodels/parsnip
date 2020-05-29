@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below:
 
 ## rpart
@@ -66,6 +69,6 @@ get_defaults_decision_tree <- function() {
     "decision_tree", "spark",           "min_n", "min_instances_per_node", get_arg("sparklyr", "ml_decision_tree", "min_instances_per_node"),
   )
 }
-parsnip::convert_args("decision_tree")
+convert_args("decision_tree")
 ```
 

@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below:
 
 ## kknn
@@ -38,6 +41,6 @@ get_defaults_nearest_neighbor <- function() {
     "nearest_neighbor", "kknn",  "dist_power",    "distance", get_arg("kknn", "train.kknn", "distance"),
   )
 }
-parsnip::convert_args("nearest_neighbor")
+convert_args("nearest_neighbor")
 ```
 

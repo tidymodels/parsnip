@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below:
 
 ## xgboost
@@ -76,7 +79,7 @@ get_defaults_boost_tree <- function() {
 
   )
 }
-parsnip::convert_args("boost_tree")
+convert_args("boost_tree")
 ```
 
 For spark, the default `mtry` is the square root of the number of predictors for classification, and one-third of the predictors for regression.
