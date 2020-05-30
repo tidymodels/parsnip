@@ -257,13 +257,14 @@ call. For this type of model, the template of the fit calls are below.</p><h3>gl
 <p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Multinomial Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: glmnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     family = "multinomial")</span></pre>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     family = "multinomial")
+</pre>
 
 <p>For <code>glmnet</code> models, the full regularization path is always fit
 regardless of the value given to <code>penalty</code>. Also, there is the option to
@@ -279,39 +280,42 @@ results.</p>
 <p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Multinomial Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: nnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## nnet::multinom(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     weights = missing_arg(), trace = FALSE)</span></pre>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: nnet 
+## 
+## Model fit template:
+## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), trace = FALSE)
+</pre>
 
 
 <h3>spark</h3>
 <p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Multinomial Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: spark </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), </span>
-<span class='co'>##     weight_col = missing_arg(), family = "multinomial")</span></pre>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: spark 
+## 
+## Model fit template:
+## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
+##     weight_col = missing_arg(), family = "multinomial")
+</pre>
 
 
 <h3>keras</h3>
 <p><div class="r"></p><pre><span class='fu'>multinom_reg</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Multinomial Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: keras </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, </span>
-<span class='co'>##     act = "linear")</span></pre>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Multinomial Regression Model Specification (classification)
+## 
+## Computational engine: keras 
+## 
+## Model fit template:
+## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
+##     act = "linear")
+</pre>
 
 
 <h3>Parameter translations</h3>

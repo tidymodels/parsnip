@@ -225,22 +225,24 @@ call. For this type of model, the template of the fit calls are below:</p><h3>kk
 <p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = 5)</span></pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## K-Nearest Neighbor Model Specification (regression)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+</pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = 5)</span></pre>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## K-Nearest Neighbor Model Specification (classification)
+## 
+## Computational engine: kknn 
+## 
+## Model fit template:
+## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+##     ks = 5)
+</pre>
 
 <p>For <code>kknn</code>, the underlying modeling function used is a restricted
 version of <code>train.kknn()</code> and not <code>kknn()</code>. It is set up in this way so
