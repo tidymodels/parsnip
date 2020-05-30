@@ -117,6 +117,9 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     return(NULL)
   }
 
+  check_installs(object$spec)
+  load_libs(object$spec, quiet = TRUE)
+
   other_args <- c("level", "std_error", "quantile") # "time" for survival probs later
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
