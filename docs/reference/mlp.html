@@ -276,18 +276,18 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Single Layer Neural Network Specification (regression)
 ## 
 ## Computational engine: keras 
 ## 
 ## Model fit template:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg())
-</pre><p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+</pre><p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Single Layer Neural Network Specification (classification)
 ## 
 ## Computational engine: keras 
@@ -300,9 +300,9 @@ call. For this type of model, the template of the fit calls are below:</p><h3>ke
 <code>keras</code> models.</p>
 
 <h3>nnet</h3>
-<p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Single Layer Neural Network Specification (regression)
 ## 
 ## Main Arguments:
@@ -313,9 +313,9 @@ call. For this type of model, the template of the fit calls are below:</p><h3>ke
 ## Model fit template:
 ## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     size = 5, trace = FALSE, linout = TRUE)
-</pre><p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+</pre><p><div class="r"></p><pre><span class='fu'>mlp</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"nnet"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Single Layer Neural Network Specification (classification)
 ## 
 ## Main Arguments:

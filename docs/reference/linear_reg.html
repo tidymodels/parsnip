@@ -257,9 +257,9 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.</p><h3>lm</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm 
@@ -270,9 +270,9 @@ call. For this type of model, the template of the fit calls are below.</p><h3>lm
 
 
 <h3>glmnet</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: glmnet 
@@ -293,9 +293,9 @@ column called <code>.pred</code> that contains a tibble with all of the penalty
 results.</p>
 
 <h3>stan</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: stan 
@@ -314,9 +314,9 @@ standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.</p>
 
 <h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: spark 
@@ -328,9 +328,9 @@ predictive distribution as appropriate) is returned.</p>
 
 
 <h3>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: keras 

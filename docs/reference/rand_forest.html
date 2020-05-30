@@ -256,9 +256,9 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>ranger</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
 ## 
 ## Computational engine: ranger 
@@ -267,9 +267,9 @@ call. For this type of model, the template of the fit calls are below:</p><h3>ra
 ## ranger::ranger(formula = missing_arg(), data = missing_arg(), 
 ##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, 
 ##     seed = sample.int(10^5, 1))
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
 ## 
 ## Computational engine: ranger 
@@ -288,18 +288,18 @@ these values can fall outside of <code>[0, 1]</code> and will be coerced to be i
 this range.</p>
 
 <h3>randomForest</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
 ## 
 ## Computational engine: randomForest 
 ## 
 ## Model fit template:
 ## randomForest::randomForest(x = missing_arg(), y = missing_arg())
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
 ## 
 ## Computational engine: randomForest 
@@ -313,9 +313,9 @@ this range.</p>
 not require factor predictors to be converted to indicator variables.</p>
 
 <h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (regression)
 ## 
 ## Computational engine: spark 
@@ -323,9 +323,9 @@ not require factor predictors to be converted to indicator variables.</p>
 ## Model fit template:
 ## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
 ##     type = "regression", seed = sample.int(10^5, 1))
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Random Forest Model Specification (classification)
 ## 
 ## Computational engine: spark 
