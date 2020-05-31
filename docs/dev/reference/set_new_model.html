@@ -169,7 +169,11 @@ package.</p>
 
 <span class='fu'>show_model_info</span>(<span class='no'>model</span>)
 
-<span class='fu'>pred_value_template</span>(<span class='kw'>pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>post</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>func</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>pred_value_template</span>(<span class='kw'>pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>post</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>func</span>, <span class='no'>...</span>)
+
+<span class='fu'>set_encoding</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>options</span>)
+
+<span class='fu'>get_encoding</span>(<span class='no'>model</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,6 +240,14 @@ results.</p></td>
       <th>...</th>
       <td><p>Optional arguments that should be passed into the <code>args</code> slot for
 prediction objects.</p></td>
+    </tr>
+    <tr>
+      <th>options</th>
+      <td><p>A list of options for engine-specific encodings. Currently,
+the option implemented is <code>predictor_indicators</code> which tells <code>parsnip</code>
+whether the pre-processing should make indicator/dummy variables from factor
+predictors. This only affects cases when <code><a href='fit.html'>fit.model_spec()</a></code> is used and the
+underlying model has an x/y interface.</p></td>
     </tr>
     <tr>
       <th>arg</th>
