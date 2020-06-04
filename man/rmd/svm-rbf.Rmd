@@ -60,7 +60,7 @@ get_defaults_svm_rbf <- function() {
   tibble::tribble(
     ~model,    ~engine,      ~parsnip,        ~original,  ~default,
     "svm_rbf", "kernlab",    "cost",          "C",        "1",
-    "svm_rbf", "kernlab",    "rbf_sigma",     "sigma",    "1",
+    "svm_rbf", "kernlab",    "rbf_sigma",     "sigma",    "varies",
     "svm_rbf", "kernlab",    "margin",        "epsilon",  "0.1",
     "svm_rbf", "liquidSVM",  "cost",          "lambdas",  "varies",
     "svm_rbf", "liquidSVM",  "rbf_sigma",     "gammas",   "varies",
