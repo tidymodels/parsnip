@@ -3,8 +3,9 @@ url: https://parsnip.tidymodels.org
 template:
   package: tidytemplate
   params:
+    theme: tidymodels
     part_of: <a href="https://tidymodels.org">tidymodels</a>
-    footer: <code>parsnip</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
+    footer: parsnip is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
 
 # https://github.com/tidyverse/tidytemplate for css
 
