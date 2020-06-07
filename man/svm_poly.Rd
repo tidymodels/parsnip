@@ -108,12 +108,14 @@ call. For this type of model, the template of the fit calls are below:
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{ll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{ll}{
    \strong{parsnip} \tab \strong{kernlab} \cr
-   cost \tab C \cr
-   degree \tab degree \cr
-   scale_factor \tab scale \cr
-   margin \tab epsilon \cr
+   cost \tab C (1) \cr
+   degree \tab degree (1) \cr
+   scale_factor \tab scale (1) \cr
+   margin \tab epsilon (0.1) \cr
 }
 
 }

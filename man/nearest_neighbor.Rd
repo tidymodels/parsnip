@@ -93,11 +93,13 @@ function’s \code{kernel} argument (a.k.a \code{weight_func} here) can be suppl
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{ll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{ll}{
    \strong{parsnip} \tab \strong{kknn} \cr
    neighbors \tab ks \cr
-   weight_func \tab kernel \cr
-   dist_power \tab distance \cr
+   weight_func \tab kernel (optimal) \cr
+   dist_power \tab distance (2) \cr
 }
 
 }

@@ -182,10 +182,12 @@ predictive distribution as appropriate) is returned.
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{llll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{llll}{
    \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \cr
-   penalty \tab lambda \tab reg_param \tab penalty \cr
-   mixture \tab alpha \tab elastic_net_param \tab NA \cr
+   penalty \tab lambda \tab reg_param (0) \tab penalty (0) \cr
+   mixture \tab alpha (1) \tab elastic_net_param (0) \tab NA \cr
 }
 
 }

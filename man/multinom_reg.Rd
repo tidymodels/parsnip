@@ -158,10 +158,12 @@ results.
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{lllll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{lllll}{
    \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \tab \strong{nnet} \cr
-   penalty \tab lambda \tab reg_param \tab penalty \tab decay \cr
-   mixture \tab alpha \tab elastic_net_param \tab NA \tab NA \cr
+   penalty \tab lambda \tab reg_param (0) \tab penalty (0) \tab decay (0) \cr
+   mixture \tab alpha (1) \tab elastic_net_param (0) \tab NA \tab NA \cr
 }
 
 }

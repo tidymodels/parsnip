@@ -177,13 +177,24 @@ not require factor predictors to be converted to indicator variables.
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{llll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{llll}{
    \strong{parsnip} \tab \strong{ranger} \tab \strong{randomForest} \tab \strong{spark} \cr
-   mtry \tab mtry \tab mtry \tab feature_subset_strategy \cr
-   trees \tab num.trees \tab ntree \tab num_trees \cr
-   min_n \tab min.node.size \tab nodesize \tab min_instances_per_node \cr
+   mtry \tab mtry (see below) \tab mtry (see below) \tab feature_subset_strategy (see below) \cr
+   trees \tab num.trees (500) \tab ntree (500) \tab num_trees (20) \cr
+   min_n \tab min.node.size (see below) \tab nodesize (see below) \tab min_instances_per_node (1) \cr
 }
 
+\itemize{
+\item For randomForest and spark, the default \code{mtry} is the square root of
+the number of predictors for classification, and one-third of the
+predictors for regression.
+\item For ranger, the default \code{mtry} is the square root of the number of
+predictors.
+\item The default \code{min_n} for both ranger and randomForest is 1 for
+classification and 5 for regression.
+}
 }
 }
 

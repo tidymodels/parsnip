@@ -35,7 +35,7 @@ parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{object}{A random forest model specification.}
+\item{object}{A decision tree model specification.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. If the individual arguments are used,
@@ -169,11 +169,13 @@ predictors to be converted to indicator variables.
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters:\tabular{llll}{
+original names in each engine that has main parameters. Each engine
+typically has a different default value (shown in parentheses) for each
+parameter.\tabular{llll}{
    \strong{parsnip} \tab \strong{rpart} \tab \strong{C5.0} \tab \strong{spark} \cr
-   tree_depth \tab maxdepth \tab NA \tab max_depth \cr
-   min_n \tab minsplit \tab minCases \tab min_instances_per_node \cr
-   cost_complexity \tab cp \tab NA \tab NA \cr
+   tree_depth \tab maxdepth (30) \tab NA \tab max_depth (5) \cr
+   min_n \tab minsplit (20) \tab minCases (2) \tab min_instances_per_node (1) \cr
+   cost_complexity \tab cp (0.01) \tab NA \tab NA \cr
 }
 
 }

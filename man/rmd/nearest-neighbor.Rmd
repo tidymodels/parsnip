@@ -1,5 +1,8 @@
 # Engine Details
 
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
 Engines may have pre-set default arguments when executing the model fit call. For this type of model, the template of the fit calls are below:
 
 ## kknn
@@ -26,9 +29,18 @@ also means that a single value of that function's `kernel` argument (a.k.a
 
 ## Parameter translations
 
-The standardized parameter names in parsnip can be mapped to their original names in each engine that has main parameters:
+The standardized parameter names in parsnip can be mapped to their original 
+names in each engine that has main parameters. Each engine typically has a 
+different default value (shown in parentheses) for each parameter.
 
 ```{r echo = FALSE, results = "asis"}
-parsnip::convert_args("nearest_neighbor")
+get_defaults_nearest_neighbor <- function() {
+  tibble::tribble(
+    ~model,             ~engine, ~parsnip,        ~original,  ~default,
+    "nearest_neighbor", "kknn",  "weight_func",   "kernel",   get_arg("kknn", "train.kknn", "kernel"),
+    "nearest_neighbor", "kknn",  "dist_power",    "distance", get_arg("kknn", "train.kknn", "distance"),
+  )
+}
+convert_args("nearest_neighbor")
 ```
 
