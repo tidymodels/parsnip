@@ -18,6 +18,25 @@ boost_tree() %>%
   translate()
 ```
 
+Note that, for most engines to `boost_tree()`, the `sample_size` argument is in terms of the _number_ of training set points. The `xgboost` package parameterizes this as the  _proportion_ of training set samples instead. When using the `tune`, this **occurs automatically**. 
+
+If you would like to use a custom range when tuning `sample_size`, the `dials::sample_prop()` function can be used in that case. For example, using a  parameter set: 
+
+```{r xgb-update, eval = FALSE}
+mod <- 
+  boost_tree(sample_size = tune()) %>% 
+  set_engine("xgboost") %>% 
+  set_mode("classification")
+
+# update the parameters using the `dials` function
+mod_param <- 
+  mod %>% 
+  parameters() %>% 
+  update(sample_size = sample_prop(c(0.4, 0.9)))
+```
+
+Finally, note that `xgboost` models require that non-numeric predictors (e.g., factors) must be converted to dummy variables or some other numeric representation. 
+
 
 ## C5.0
 

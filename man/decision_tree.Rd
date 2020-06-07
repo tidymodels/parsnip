@@ -35,7 +35,7 @@ parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
-\item{object}{A random forest model specification.}
+\item{object}{A decision tree model specification.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. If the individual arguments are used,
@@ -150,7 +150,7 @@ predictors to be converted to indicator variables.
 ## Computational engine: spark 
 ## 
 ## Model fit template:
-## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
+## sparklyr::ml_decision_tree_regressor(x = missing_arg(), formula = missing_arg(), 
 ##     seed = sample.int(10^5, 1))
 }\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
   set_engine("spark") \%>\% 

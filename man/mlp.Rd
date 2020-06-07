@@ -41,13 +41,13 @@ of model parameters randomly set to zero during model training.}
 
 \item{epochs}{An integer for the number of training iterations.}
 
-\item{activation}{A single character strong denoting the type of relationship
+\item{activation}{A single character string denoting the type of relationship
 between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
 "linear" or "softmax" depending on the type of outcome. Possible values are:
 "linear", "softmax", "relu", and "elu"}
 
-\item{object}{A random forest model specification.}
+\item{object}{A multilayer perceptron model specification.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. If the individual arguments are used,
