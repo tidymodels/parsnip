@@ -7,8 +7,8 @@
 #' \itemize{
 #'   \item \code{penalty}: The total amount of regularization
 #'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The proportion of L1 regularization in
-#'  the model. Note that this will be ignored for some engines.
+#'   \item \code{mixture}: The mixture amounts of different types of
+#'   regularization (see below). Note that this will be ignored for some engines.
 #' }
 #' These arguments are converted to their specific names at the
 #'  time that the model is fit. Other options and argument can be
@@ -23,11 +23,11 @@
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
 #'  (aka weight decay) while the other models can be a combination
-#'  of L1 and L2 (depending on the value of `mixture`).
-#' @param mixture A number between zero and one (inclusive) that
-#'  represents the proportion of regularization that is used for the
-#'  L2 penalty (i.e. weight decay, or ridge regression) versus L1
-#'  (the lasso) (`glmnet` and `spark` only).
+#'  of L1 and L2 (depending on the value of `mixture`; see below).
+#' @param mixture A number between zero and one (inclusive) that is the
+#'  proportion of L1 regularization (i.e. lasso) in the model. When
+#'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
+#'  ridge regression is being used. (`glmnet` and `spark` only).
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `linear_reg()`, the
