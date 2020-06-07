@@ -158,6 +158,29 @@ call. For this type of model, the template of the fit calls are below:
 ## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
 ##     verbose = 0)
 }
+
+Note that, for most engines to \code{boost_tree()}, the \code{sample_size}
+argument is in terms of the \emph{number} of training set points. The
+\code{xgboost} package parameterizes this as the \emph{proportion} of training set
+samples instead. When using the \code{tune}, this \strong{occurs automatically}.
+
+If you would like to use a custom range when tuning \code{sample_size}, the
+\code{dials::sample_prop()} function can be used in that case. For example,
+using a parameter set:\if{html}{\out{<div class="r">}}\preformatted{mod <- 
+  boost_tree(sample_size = tune()) \%>\% 
+  set_engine("xgboost") \%>\% 
+  set_mode("classification")
+
+# update the parameters using the `dials` function
+mod_param <- 
+  mod \%>\% 
+  parameters() \%>\% 
+  update(sample_size = sample_prop(c(0.4, 0.9)))
+}\if{html}{\out{</div>}}
+
+Finally, note that \code{xgboost} models require that non-numeric predictors
+(e.g., factors) must be converted to dummy variables or some other
+numeric representation.
 }
 
 \subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
