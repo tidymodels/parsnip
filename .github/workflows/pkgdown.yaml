@@ -37,6 +37,8 @@ jobs:
           remotes::install_dev("pkgdown")
           remotes::install_github("tidyverse/tidytemplate")
           remotes::install_cran("tidymodels")
+          remotes::install_cran("C50")
+          remotes::install_cran("modeldata")
         shell: Rscript {0}
 
       - name: Install package

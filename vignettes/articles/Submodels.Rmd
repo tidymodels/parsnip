@@ -27,7 +27,7 @@ We'll use the attrition data in `rsample` to illustrate:
 
 ```{r}
 library(tidymodels)
-data(attrition)
+data(attrition, package = "modeldata")
 
 set.seed(4595)
 data_split <- initial_split(attrition, strata = "Attrition")
