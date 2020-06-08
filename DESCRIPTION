@@ -51,5 +51,4 @@ Suggests:
     MASS,
     nlme,
     modeldata,
-    liquidSVM,
-    ggplot2
+    liquidSVM
