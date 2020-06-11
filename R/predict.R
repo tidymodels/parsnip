@@ -23,9 +23,9 @@
 #'            is the parameter for the tail area of the intervals
 #'            (e.g. confidence level for confidence intervals).
 #'            Default value is 0.95.
-#'     \item `std_error`: add the standard error of fit or
-#'            prediction for `type`s of "conf_int" and "pred_int".
-#'            Default value is `FALSE`.
+#'     \item `std_error`: add the standard error of fit or prediction (on
+#'            the scale of the linear predictors) for `type`s of "conf_int"
+#'            and "pred_int". Default value is `FALSE`.
 #'     \item `quantile`: the quantile(s) for quantile regression
 #'            (not implemented yet)
 #'     \item `time`: the time(s) for hazard probability estimates
