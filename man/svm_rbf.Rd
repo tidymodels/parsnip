@@ -142,7 +142,7 @@ typically has a different default value (shown in parentheses) for each
 parameter.\tabular{lll}{
    \strong{parsnip} \tab \strong{kernlab} \tab \strong{liquidSVM} \cr
    cost \tab C (1) \tab lambdas (varies) \cr
-   rbf_sigma \tab sigma (1) \tab gammas (varies) \cr
+   rbf_sigma \tab sigma (varies) \tab gammas (varies) \cr
    margin \tab epsilon (0.1) \tab NA \cr
 }
 

@@ -32,7 +32,7 @@ set_model_arg(
   eng = "kernlab",
   parsnip = "margin",
   original = "epsilon",
-  func = list(pkg = "dials", fun = "margin"),
+  func = list(pkg = "dials", fun = "svm_margin"),
   has_submodel = FALSE
 )
 
