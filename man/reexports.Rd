@@ -17,6 +17,6 @@ below to see their documentation.
 \describe{
   \item{generics}{\code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
 
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 }}
 
