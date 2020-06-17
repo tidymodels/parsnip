@@ -179,7 +179,7 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    <p><code>boost_tree()</code> is a way to generate a <em>specification</em> of a model
+    <p><code><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree()</a></code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
 model are:</p><ul>
@@ -199,38 +199,38 @@ to split further.</p></li>
 stopping.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using the  <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
+set using the  <code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code> function. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions.  If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boost_tree</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
-  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>(
+  mode = <span class='st'>"unknown"</span>,
+  mtry = <span class='kw'>NULL</span>,
+  trees = <span class='kw'>NULL</span>,
+  min_n = <span class='kw'>NULL</span>,
+  tree_depth = <span class='kw'>NULL</span>,
+  learn_rate = <span class='kw'>NULL</span>,
+  loss_reduction = <span class='kw'>NULL</span>,
+  sample_size = <span class='kw'>NULL</span>,
+  stop_iter = <span class='kw'>NULL</span>
 )
 
 <span class='co'># S3 method for boost_tree</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>object</span>,
+  parameters = <span class='kw'>NULL</span>,
+  mtry = <span class='kw'>NULL</span>,
+  trees = <span class='kw'>NULL</span>,
+  min_n = <span class='kw'>NULL</span>,
+  tree_depth = <span class='kw'>NULL</span>,
+  learn_rate = <span class='kw'>NULL</span>,
+  loss_reduction = <span class='kw'>NULL</span>,
+  sample_size = <span class='kw'>NULL</span>,
+  stop_iter = <span class='kw'>NULL</span>,
+  fresh = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -312,7 +312,7 @@ modified in-place of or replaced wholesale.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>boost_tree()</code>, the
+to determine the <em>mode</em> of the model. For <code><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree()</a></code>, the
 possible modes are "regression" and "classification".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
@@ -338,19 +338,19 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>xgboost</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: xgboost </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
 <span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
-<span class='co'>##     verbose = 0)</span></pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<span class='co'>##     verbose = 0)</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: xgboost </span>
 <span class='co'>## </span>
@@ -358,31 +358,31 @@ call. For this type of model, the template of the fit calls are below:</p><h3>xg
 <span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
 <span class='co'>##     verbose = 0)</span></pre>
 
-<p>Note that, for most engines to <code>boost_tree()</code>, the <code>sample_size</code>
+<p>Note that, for most engines to <code><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree()</a></code>, the <code>sample_size</code>
 argument is in terms of the <em>number</em> of training set points. The
 <code>xgboost</code> package parameterizes this as the <em>proportion</em> of training set
 samples instead. When using the <code>tune</code>, this <strong>occurs automatically</strong>.</p>
 <p>If you would like to use a custom range when tuning <code>sample_size</code>, the
 <code><a href='https://dials.tidymodels.org/reference/trees.html'>dials::sample_prop()</a></code> function can be used in that case. For example,
-using a parameter set:<div class="r"></p><pre><span class='no'>mod</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>boost_tree</span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'>tune</span>()) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>)
+using a parameter set:<div class="r"></p><pre><span class='kw'>mod</span> <span class='op'>&lt;-</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>(sample_size = <span class='fu'>tune</span>()) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>)
 
 <span class='co'># update the parameters using the `dials` function</span>
-<span class='no'>mod_param</span> <span class='kw'>&lt;-</span>
-  <span class='no'>mod</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>parameters</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'>sample_prop</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0.9</span>)))</pre><p></div></p>
+<span class='kw'>mod_param</span> <span class='op'>&lt;-</span> 
+  <span class='kw'>mod</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>parameters</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(sample_size = <span class='fu'>sample_prop</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0.9</span>)))</pre><p></div></p>
 <p>Finally, note that <code>xgboost</code> models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
 numeric representation.</p>
 
 <h3>C5.0</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"C5.0"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"C5.0"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: C5.0 </span>
 <span class='co'>## </span>
@@ -393,19 +393,19 @@ numeric representation.</p>
 predictors to be converted to indicator variables.</p>
 
 <h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: spark </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
 <span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
-<span class='co'>##     type = "regression", seed = sample.int(10^5, 1))</span></pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<span class='co'>##     type = "regression", seed = sample.int(10^5, 1))</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: spark </span>
 <span class='co'>## </span>
@@ -440,50 +440,50 @@ regression.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>(mode = <span class='st'>"classification"</span>, trees = <span class='fl'>20</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   trees = 20
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Boosted Tree Model Specification (regression)
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>(mode = <span class='st'>"regression"</span>, mtry = <span class='fu'><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Boosted Tree Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>boost_tree</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>(mtry = <span class='fl'>10</span>, min_n = <span class='fl'>3</span>)
+<span class='kw'>model</span></div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, mtry = <span class='fl'>1</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, mtry = <span class='fl'>1</span>, fresh = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt; </div><div class='input'>
-<span class='no'>param_values</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='kw'>param_values</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(mtry = <span class='fl'>10</span>, tree_depth = <span class='fl'>5</span>)
 
-<span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>param_values</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+<span class='kw'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>param_values</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
 #&gt;   tree_depth = 5
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>param_values</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>param_values</span>, mtry = <span class='fl'>3</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
 #&gt;   tree_depth = 5
 #&gt; </div><div class='input'>
-<span class='no'>param_values</span>$<span class='no'>verbose</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='kw'>param_values</span><span class='op'>$</span><span class='kw'>verbose</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 <span class='co'># Fails due to engine argument</span>
 <span class='co'># model %&gt;% update(param_values)</span></div></pre>
   </div>

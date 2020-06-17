@@ -171,11 +171,11 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h2>
 <ul>
-<li><p>A new main argument was added to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="../reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</p></li>
+<li><p>A new main argument was added to <code><a href="https://parsnip.tidymodels.org/reference/boost_tree.html">boost_tree()</a></code> called <code>stop_iter</code> for early stopping. The <code><a href="https://parsnip.tidymodels.org/reference/xgb_train.html">xgb_train()</a></code> function gained arguments for early stopping and a percentage of data to leave out for a validation set.</p></li>
 <li><p>If <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is used and the underlying model uses a formula, the <em>actual</em> formula is pass to the model (instead of a placeholder). This makes the model call better.</p></li>
-<li><p>A function named <code><a href="../reference/repair_call.html">repair_call()</a></code> was added. This can help change the underlying models <code>call</code> object to better reflect what they would have obtained if the model function had been used directly (instead of via <code>parsnip</code>). This is only useful when the user chooses a formula interface and the model uses a formula interface. It will also be of limited use when a recipes is used to construct the feature set in <code>workflows</code> or <code>tune</code>.</p></li>
+<li><p>A function named <code><a href="https://parsnip.tidymodels.org/reference/repair_call.html">repair_call()</a></code> was added. This can help change the underlying models <code>call</code> object to better reflect what they would have obtained if the model function had been used directly (instead of via <code>parsnip</code>). This is only useful when the user chooses a formula interface and the model uses a formula interface. It will also be of limited use when a recipes is used to construct the feature set in <code>workflows</code> or <code>tune</code>.</p></li>
 <li><p>The <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function now checks to see if required modeling packages are installed. The packages are loaded (but not attached). (<a href='https://github.com/tidymodels/parsnip/issues/249'>#249</a>) (<a href='https://github.com/tidymodels/parsnip/issues/308'>#308</a>) (tidymodels/workflows<a href='https://github.com/tidymodels/parsnip/issues/45'>#45</a>)</p></li>
-<li><p>The function <code><a href="../reference/req_pkgs.html">req_pkgs()</a></code> is a user interface to determining the required packages. (<a href='https://github.com/tidymodels/parsnip/issues/308'>#308</a>)</p></li>
+<li><p>The function <code><a href="https://parsnip.tidymodels.org/reference/req_pkgs.html">req_pkgs()</a></code> is a user interface to determining the required packages. (<a href='https://github.com/tidymodels/parsnip/issues/308'>#308</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -188,7 +188,7 @@
 <a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li>
-<code>liquidSVM</code> was added as an engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/300'>#300</a>)</li>
+<code>liquidSVM</code> was added as an engine for <code><a href="https://parsnip.tidymodels.org/reference/svm_rbf.html">svm_rbf()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/300'>#300</a>)</li>
 </ul>
 </div>
 <div id="fixes" class="section level2">
@@ -230,7 +230,7 @@
 <a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li>
-<code>nnet</code> was added as an engine to <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> <a href="https://github.com/tidymodels/parsnip/issues/209"><a href='https://github.com/tidymodels/parsnip/issues/209'>#209</a></a>
+<code>nnet</code> was added as an engine to <code><a href="https://parsnip.tidymodels.org/reference/multinom_reg.html">multinom_reg()</a></code> <a href="https://github.com/tidymodels/parsnip/issues/209"><a href='https://github.com/tidymodels/parsnip/issues/209'>#209</a></a>
 </li>
 </ul>
 </div>
@@ -253,7 +253,7 @@
 <li><p>The time elapsed during model fitting is stored in the <code>$elapsed</code> slot of the parsnip model object, and is printed when the model object is printed.</p></li>
 <li><p>Some default parameter ranges were updated for SVM, KNN, and MARS models.</p></li>
 <li><p>The model <code>udpate()</code> methods gained a <code>parameters</code> argument for cases when the parameters are contained in a tibble or list.</p></li>
-<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
+<li><p><code><a href="https://parsnip.tidymodels.org/reference/control_parsnip.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="https://parsnip.tidymodels.org/reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
 </ul>
 </div>
 <div id="fixes-2" class="section level2">
@@ -262,7 +262,7 @@
 <ul>
 <li><p><a href="https://github.com/tidymodels/parsnip/issues/222">A bug</a> was fixed standardizing the output column types of <code>multi_predict</code> and <code>predict</code> for <code>multinom_reg</code>.</p></li>
 <li><p><a href="https://github.com/tidymodels/parsnip/issues/208">A bug</a> was fixed related to using data descriptors and <code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code>.</p></li>
-<li><p>A bug was fixed related to the column names generated by <code><a href="../reference/multi_predict.html">multi_predict()</a></code>. The top-level tibble will always have a column named <code>.pred</code> and this list column contains tibbles across sub-models. The column names for these sub-model tibbles will have names consistent with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> (which was previously incorrect). See <a href="https://github.com/tidymodels/parsnip/commit/43c15db377ea9ef27483ff209f6bd0e98cb830d2">43c15db</a>.</p></li>
+<li><p>A bug was fixed related to the column names generated by <code><a href="https://parsnip.tidymodels.org/reference/multi_predict.html">multi_predict()</a></code>. The top-level tibble will always have a column named <code>.pred</code> and this list column contains tibbles across sub-models. The column names for these sub-model tibbles will have names consistent with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> (which was previously incorrect). See <a href="https://github.com/tidymodels/parsnip/commit/43c15db377ea9ef27483ff209f6bd0e98cb830d2">43c15db</a>.</p></li>
 <li><p><a href="https://github.com/tidymodels/parsnip/issues/174">A bug</a> was fixed standardizing the column names of <code>nnet</code> class probability predictions.</p></li>
 </ul>
 </div>
@@ -282,9 +282,9 @@
 <h2 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <ul>
-<li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
+<li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="https://parsnip.tidymodels.org/reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
 <li><p>The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation.</p></li>
-<li><p>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</p></li>
+<li><p>For <code><a href="https://parsnip.tidymodels.org/reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</p></li>
 <li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(<a href='https://github.com/tidymodels/parsnip/issues/195'>#195</a>)</a></p></li>
 </ul>
 </div>
@@ -292,9 +292,9 @@
 <h2 class="hasAnchor">
 <a href="#new-features-4" class="anchor"></a>New Features</h2>
 <ul>
-<li><p><code><a href="../reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
+<li><p><code><a href="https://parsnip.tidymodels.org/reference/add_rowindex.html">add_rowindex()</a></code> can create a column called <code>.row</code> to a data frame.</p></li>
 <li><p>If a computational engine is not explicitly set, a default will be used. Each default is documented on the corresponding model page. A warning is issued at fit time unless verbosity is zero.</p></li>
-<li><p><code><a href="../reference/nearest_neighbor.html">nearest_neighbor()</a></code> gained a <code>multi_predict</code> method. The <code><a href="../reference/multi_predict.html">multi_predict()</a></code> documentation is a little better organized.</p></li>
+<li><p><code><a href="https://parsnip.tidymodels.org/reference/nearest_neighbor.html">nearest_neighbor()</a></code> gained a <code>multi_predict</code> method. The <code><a href="https://parsnip.tidymodels.org/reference/multi_predict.html">multi_predict()</a></code> documentation is a little better organized.</p></li>
 <li><p>A suite of internal functions were added to help with upcoming model tuning features.</p></li>
 <li><p>A <code>parsnip</code> object always saved the name(s) of the outcome variable(s) for proper naming of the predicted values.</p></li>
 </ul>
@@ -318,7 +318,7 @@
 <a href="#other-changes-3" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
-<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
+<li><p><code><a href="https://parsnip.tidymodels.org/reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
 <li><p>For classification models, an error occurs if the outcome data are not encoded as factors (<a href='https://github.com/tidymodels/parsnip/issues/115'>#115</a>).</p></li>
 <li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
 <li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
@@ -332,7 +332,7 @@
 <li><p>For the recipes step method of <code><a href="https://rdrr.io/pkg/generics/man/varying_args.html">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (<a href='https://github.com/tidymodels/parsnip/issues/132'>#132</a>).</p></li>
 <li><p><code>find_varying()</code>, the internal function for detecting varying arguments, now returns correct results when a size 0 argument is provided. It can also now detect varying arguments nested deeply into a call (<a href='https://github.com/tidymodels/parsnip/issues/131'>#131</a>, <a href='https://github.com/tidymodels/parsnip/issues/134'>#134</a>).</p></li>
 <li><p>For multinomial regression, the <code>.pred_</code> prefix is now only added to prediction column names once (<a href='https://github.com/tidymodels/parsnip/issues/107'>#107</a>).</p></li>
-<li><p>For multinomial regression using glmnet, <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (<a href='https://github.com/tidymodels/parsnip/issues/108'>#108</a>).</p></li>
+<li><p>For multinomial regression using glmnet, <code><a href="https://parsnip.tidymodels.org/reference/multi_predict.html">multi_predict()</a></code> now pulls the correct default penalty (<a href='https://github.com/tidymodels/parsnip/issues/108'>#108</a>).</p></li>
 <li><p>Confidence and prediction intervals for logistic regression were only computed the intervals for a single level. Both are now computed. (<a href='https://github.com/tidymodels/parsnip/issues/156'>#156</a>)</p></li>
 </ul>
 </div>
@@ -348,7 +348,7 @@
 <a href="#parsnip-0009005" class="anchor"></a>parsnip 0.0.0.9005<small> Unreleased </small>
 </h1>
 <ul>
-<li>The engine, and any associated arguments, are now specified using <code><a href="../reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li>
+<li>The engine, and any associated arguments, are now specified using <code><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li>
 </ul>
 </div>
     <div id="parsnip-0009004" class="section level1">
@@ -397,7 +397,7 @@
 <a href="#parsnip-0009000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> is for the x/y interface</a>.</li>
+<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code>fit_xy()</code> is for the x/y interface</a>.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>
 <code>predict</code> methods were <a href="https://github.com/topepo/parsnip/issues/34">overhauled</a> to be <a href="https://github.com/topepo/parsnip/issues/41">consistent</a>.</li>

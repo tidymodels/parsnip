@@ -163,43 +163,43 @@ function can be used. See Details below." />
     <p>When using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> functions there are some
 variables that will be available for use in arguments. For
 example, if the user would like to choose an argument value
-based on the current number of rows in a data set, the <code>.obs()</code>
+based on the current number of rows in a data set, the <code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.obs()</a></code>
 function can be used. See Details below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.cols</span>()
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.cols</a></span>()
 
-<span class='fu'>.preds</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.preds</a></span>()
 
-<span class='fu'>.obs</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.obs</a></span>()
 
-<span class='fu'>.lvls</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.lvls</a></span>()
 
-<span class='fu'>.facts</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.facts</a></span>()
 
-<span class='fu'>.x</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.x</a></span>()
 
-<span class='fu'>.y</span>()
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.y</a></span>()
 
-<span class='fu'>.dat</span>()</pre>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.dat</a></span>()</pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Existing functions:</p><ul>
-<li><p><code>.obs()</code>: The current number of rows in the data set.</p></li>
-<li><p><code>.preds()</code>: The number of columns in the data set that are
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.obs()</a></code>: The current number of rows in the data set.</p></li>
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.preds()</a></code>: The number of columns in the data set that are
 associated with the predictors prior to dummy variable creation.</p></li>
-<li><p><code>.cols()</code>: The number of predictor columns available after dummy
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.cols()</a></code>: The number of predictor columns available after dummy
 variables are created (if any).</p></li>
-<li><p><code>.facts()</code>: The number of factor predictors in the dat set.</p></li>
-<li><p><code>.lvls()</code>: If the outcome is a factor, this is a table
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.facts()</a></code>: The number of factor predictors in the dat set.</p></li>
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.lvls()</a></code>: If the outcome is a factor, this is a table
 with the counts for each level (and <code>NA</code> otherwise).</p></li>
-<li><p><code>.x()</code>: The predictors returned in the format given. Either a
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.x()</a></code>: The predictors returned in the format given. Either a
 data frame or a matrix.</p></li>
-<li><p><code>.y()</code>: The known outcomes returned in the format given. Either
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.y()</a></code>: The known outcomes returned in the format given. Either
 a vector, matrix, or data frame.</p></li>
-<li><p><code>.dat()</code>: A data frame containing all of the predictors and the
+<li><p><code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.dat()</a></code>: A data frame containing all of the predictors and the
 outcomes. If <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> was used, the outcomes are attached as the
 column, <code>..y</code>.</p></li>
 </ul>
@@ -233,10 +233,10 @@ model is run via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()
 For example:</p>
 <pre>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/modeldata'>modeldata</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"lending_club"</span>)
 
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'>.cols</span>() - <span class='fl'>2</span>)</pre>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/rand_forest.html'>rand_forest</a></span>(mode = <span class='st'>"classification"</span>, mtry = <span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.cols</a></span>() <span class='op'>-</span> <span class='fl'>2</span>)</pre>
 
 <p>When no descriptors are found, the computation of the descriptor values
 is not executed.</p>

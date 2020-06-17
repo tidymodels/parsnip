@@ -159,13 +159,13 @@
     <p>Determine required packages for a model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>req_pkgs</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'>req_pkgs</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>req_pkgs</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,8 +189,8 @@
 <p>The list does not include the <code>parsnip</code> package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>should_fail</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='fu'>req_pkgs</span>(<span class='fu'><a href='linear_reg.html'>linear_reg</a></span>()), <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>should_fail</span></div><div class='output co'>#&gt; [1] "Error : Please set an engine.\n"
+    <pre class="examples"><div class='input'><span class='kw'>should_fail</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>(<span class='fu'><a href='https://parsnip.tidymodels.org/reference/linear_reg.html'>linear_reg</a></span>()), silent = <span class='fl'>TRUE</span>)
+<span class='kw'>should_fail</span></div><div class='output co'>#&gt; [1] "Error : Please set an engine.\n"
 #&gt; attr(,"class")
 #&gt; [1] "try-error"
 #&gt; attr(,"condition")
@@ -203,20 +203,20 @@
 #&gt; </span><span style='color: #555555;'>  4. </span><span>pkgdown::build_reference(...)
 #&gt; </span><span style='color: #555555;'>  5. </span><span>purrr::map(...)
 #&gt; </span><span style='color: #555555;'>  6. </span><span>pkgdown:::.f(.x[[i]], ...)
-#&gt; </span><span style='color: #555555;'>  7. </span><span>pkgdown:::data_reference_topic(...)
-#&gt; </span><span style='color: #555555;'>  8. </span><span>pkgdown:::run_examples(...)
-#&gt; </span><span style='color: #555555;'>  9. </span><span>pkgdown:::highlight_examples(code, topic, env = env)
-#&gt; </span><span style='color: #555555;'> 10. </span><span>evaluate::evaluate(x, child_env(env), new_device = TRUE)
-#&gt; </span><span style='color: #555555;'> 11. </span><span>evaluate:::evaluate_call(...)
-#&gt; </span><span style='color: #555555;'> 21. </span><span>[ base::eval(...) ]</span><span style='color: #555555;'> with 1 more call</span><span>
-#&gt; </span><span style='color: #555555;'> 29. </span><span>parsnip:::req_pkgs.model_spec(linear_reg())</div><div class='input'>
-<span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>req_pkgs</span>()</div><div class='output co'>#&gt; [1] "glmnet"</div><div class='input'>
-<span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>req_pkgs</span>()</div><div class='output co'>#&gt; [1] "stats"</div></span></pre>
+#&gt; </span><span style='color: #555555;'>  8. </span><span>pkgdown:::data_reference_topic(...)
+#&gt; </span><span style='color: #555555;'>  9. </span><span>pkgdown:::run_examples(...)
+#&gt; </span><span style='color: #555555;'> 10. </span><span>pkgdown:::highlight_examples(code, topic, env = env)
+#&gt; </span><span style='color: #555555;'> 11. </span><span>evaluate::evaluate(x, child_env(env), new_device = TRUE)
+#&gt; </span><span style='color: #555555;'> 12. </span><span>evaluate:::evaluate_call(...)
+#&gt; </span><span style='color: #555555;'> 22. </span><span>[ base::eval(...) ]</span><span style='color: #555555;'> with 1 more call</span><span>
+#&gt; </span><span style='color: #555555;'> 30. </span><span>parsnip:::req_pkgs.model_spec(linear_reg())</div><div class='input'>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/linear_reg.html'>linear_reg</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>()</div><div class='output co'>#&gt; [1] "glmnet"</div><div class='input'>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/linear_reg.html'>linear_reg</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>mtcars</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/req_pkgs.html'>req_pkgs</a></span>()</div><div class='output co'>#&gt; [1] "stats"</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

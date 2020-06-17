@@ -171,7 +171,7 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    <p><code>svm_poly()</code> is a way to generate a <em>specification</em> of a model
+    <p><code><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly()</a></code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R or via Spark. The main arguments for the
 model are:</p><ul>
@@ -183,30 +183,30 @@ wrong side of the margin.</p></li>
 (regression only)</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
+set using <code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>svm_poly</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
-  <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>(
+  mode = <span class='st'>"unknown"</span>,
+  cost = <span class='kw'>NULL</span>,
+  degree = <span class='kw'>NULL</span>,
+  scale_factor = <span class='kw'>NULL</span>,
+  margin = <span class='kw'>NULL</span>
 )
 
 <span class='co'># S3 method for svm_poly</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cost</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>object</span>,
+  parameters = <span class='kw'>NULL</span>,
+  cost = <span class='kw'>NULL</span>,
+  degree = <span class='kw'>NULL</span>,
+  scale_factor = <span class='kw'>NULL</span>,
+  margin = <span class='kw'>NULL</span>,
+  fresh = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -269,18 +269,18 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>kernlab</h3>
-<p><div class="r"></p><pre><span class='fu'>svm_poly</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Polynomial Support Vector Machine Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Polynomial Support Vector Machine Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: kernlab </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot")</span></pre><p><div class="r"></p><pre><span class='fu'>svm_poly</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Polynomial Support Vector Machine Specification (classification)</span>
+<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot")</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"kernlab"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Polynomial Support Vector Machine Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: kernlab </span>
 <span class='co'>## </span>
@@ -311,27 +311,27 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>svm_poly</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>(mode = <span class='st'>"classification"</span>, degree = <span class='fl'>1.2</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   degree = 1.2
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>svm_poly</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (regression)
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>(mode = <span class='st'>"regression"</span>, cost = <span class='fu'><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>svm_poly</span>(<span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>scale_factor</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_poly.html'>svm_poly</a></span>(cost = <span class='fl'>10</span>, scale_factor = <span class='fl'>0.1</span>)
+<span class='kw'>model</span></div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = 10
 #&gt;   scale_factor = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, cost = <span class='fl'>1</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = 1
 #&gt;   scale_factor = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>cost</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, cost = <span class='fl'>1</span>, fresh = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Polynomial Support Vector Machine Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost = 1
