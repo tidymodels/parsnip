@@ -61,7 +61,7 @@ set_encoding(
   model = "svm_poly",
   eng = "kernlab",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_fit(
@@ -81,7 +81,7 @@ set_encoding(
   model = "svm_poly",
   eng = "kernlab",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_pred(

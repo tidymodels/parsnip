@@ -53,7 +53,7 @@ set_encoding(
   model = "svm_rbf",
   eng = "kernlab",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_fit(
@@ -73,7 +73,7 @@ set_encoding(
   model = "svm_rbf",
   eng = "kernlab",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_pred(
@@ -197,7 +197,7 @@ set_encoding(
   model = "svm_rbf",
   eng = "liquidSVM",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_fit(
@@ -219,7 +219,7 @@ set_encoding(
   model = "svm_rbf",
   eng = "liquidSVM",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(predictor_indicators = FALSE, one_hot = FALSE)
 )
 
 set_pred(

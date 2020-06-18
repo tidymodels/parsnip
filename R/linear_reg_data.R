@@ -23,7 +23,7 @@ set_encoding(
   model = "linear_reg",
   eng = "lm",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_pred(
@@ -125,7 +125,7 @@ set_encoding(
   model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = TRUE)
 )
 
 set_model_arg(
@@ -201,7 +201,7 @@ set_encoding(
   model = "linear_reg",
   eng = "stan",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_pred(
@@ -325,7 +325,7 @@ set_encoding(
   model = "linear_reg",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_model_arg(
@@ -386,7 +386,7 @@ set_encoding(
   model = "linear_reg",
   eng = "keras",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_model_arg(

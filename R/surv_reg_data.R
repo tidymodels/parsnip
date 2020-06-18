@@ -33,7 +33,7 @@ set_encoding(
   model = "surv_reg",
   eng = "flexsurv",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_pred(
@@ -103,7 +103,7 @@ set_encoding(
   model = "surv_reg",
   eng = "survival",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_pred(
