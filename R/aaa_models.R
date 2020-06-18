@@ -323,11 +323,12 @@ check_interface_val <- function(x) {
 #'  below, depending on context.
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
-#' @param options A list of options for engine-specific encodings. Currently,
-#' the option implemented is `predictor_indicators` which tells `parsnip`
-#' whether the pre-processing should make indicator/dummy variables from factor
-#' predictors. This only affects cases when [fit.model_spec()] is used and the
-#' underlying model has an x/y interface.
+#' @param options A list of options for engine-specific preprocessing encodings.
+#'  Currently, the two options implemented are `predictor_indicators` (whether
+#'  to create indicator/dummy variables from factor predictors) and `one_hot`
+#'  (whether to create the complete set of those dummy variables, rather than
+#'  the set without the baseline level). These encodings only affect cases when
+#'  [fit.model_spec()] is used and the underlying model has an x/y interface.
 #' @param ... Optional arguments that should be passed into the `args` slot for
 #'  prediction objects.
 #' @keywords internal
@@ -791,7 +792,7 @@ check_encodings <- function(x) {
   if (!is.list(x)) {
     rlang::abort("`values` should be a list.")
   }
-  req_args <- list(predictor_indicators = TRUE)
+  req_args <- list(predictor_indicators = TRUE, one_hot = TRUE)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -834,7 +835,10 @@ set_encoding <- function(model, mode, eng, options) {
     current <- get_from_env(nm)
     dup_check <-
       current %>%
-      dplyr::inner_join(new_values, by = c("model", "engine", "mode", "predictor_indicators"))
+      dplyr::inner_join(
+        new_values,
+        by = c("model", "engine", "mode", "predictor_indicators", "one_hot")
+      )
     if (nrow(dup_check)) {
       rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings."))
     }
