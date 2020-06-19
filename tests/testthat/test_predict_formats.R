@@ -3,6 +3,9 @@ library(parsnip)
 library(tibble)
 library(dplyr)
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 # ------------------------------------------------------------------------------
 
 context("check predict output structures")
@@ -10,7 +13,7 @@ context("check predict output structures")
 lm_fit <-
   linear_reg(mode = "regression") %>%
   set_engine("lm") %>%
-  fit(Sepal.Length ~ ., data = iris)
+  fit(class ~ ., data = hpc)
 
 class_dat <- airquality[complete.cases(airquality),]
 class_dat$Ozone <- factor(ifelse(class_dat$Ozone >= 31, "high", "low"))
@@ -31,9 +34,9 @@ lr_fit_2 <-
 # ------------------------------------------------------------------------------
 
 test_that('regression predictions', {
-  expect_true(is_tibble(predict(lm_fit, new_data = iris[1:5,-1])))
-  expect_true(is.vector(parsnip:::predict_numeric.model_fit(lm_fit, new_data = iris[1:5,-1])))
-  expect_equal(names(predict(lm_fit, new_data = iris[1:5,-1])), ".pred")
+  expect_true(is_tibble(predict(lm_fit, new_data = hpc[1:5,-1])))
+  expect_true(is.vector(parsnip:::predict_numeric.model_fit(lm_fit, new_data = hpc[1:5,-1])))
+  expect_equal(names(predict(lm_fit, new_data = hpc[1:5,-1])), ".pred")
 })
 
 test_that('classification predictions', {
@@ -67,18 +70,18 @@ test_that('non-factor classification', {
   expect_error(
     logistic_reg() %>%
       set_engine("glm") %>%
-      fit(Species ~ ., data = iris %>% mutate(Species = Species == "setosa"))
+      fit(class ~ ., data = hpc %>% mutate(class = class == "VF"))
   )
   expect_error(
     logistic_reg() %>%
       set_engine("glm") %>%
-      fit(Species ~ ., data = iris %>% mutate(Species = ifelse(Species == "setosa", 1, 0)))
+      fit(class ~ ., data = hpc %>% mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
   expect_error(
     multinom_reg() %>%
       set_engine("glmnet") %>%
-      fit(Species ~ ., data = iris %>% mutate(Species = as.character(Species)))
+      fit(class ~ ., data = hpc %>% mutate(class = as.character(class)))
   )
 })
 

@@ -5,11 +5,11 @@ library(parsnip)
 
 context("boosted tree execution with xgboost")
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
+num_pred <- names(hpc)[1:4]
 
-num_pred <- names(iris)[1:4]
-
-iris_xgboost <-
+hpc_xgboost <-
   boost_tree(trees = 2, mode = "classification") %>%
   set_engine("xgboost")
 
@@ -21,18 +21,18 @@ test_that('xgboost execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_xgboost,
-      Species ~ Sepal.Width + Sepal.Length,
-      data = iris,
+      hpc_xgboost,
+      class ~ compounds + input_fields,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
   )
   expect_error(
     res <- parsnip::fit_xy(
-      iris_xgboost,
-      x = iris[, num_pred],
-      y = iris$Species,
+      hpc_xgboost,
+      x = hpc[, num_pred],
+      y = hpc$class,
       control = ctrl
     ),
     regexp = NA
@@ -43,9 +43,9 @@ test_that('xgboost execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_xgboost,
-      Species ~ novar,
-      data = iris,
+      hpc_xgboost,
+      class ~ novar,
+      data = hpc,
       control = ctrl
     )
   )
@@ -58,28 +58,28 @@ test_that('xgboost classification prediction', {
 
   library(xgboost)
   xy_fit <- fit_xy(
-    iris_xgboost,
-    x = iris[, num_pred],
-    y = iris$Species,
+    hpc_xgboost,
+    x = hpc[, num_pred],
+    y = hpc$class,
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(iris[1:8, num_pred])), type = "class")
+  xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
   xy_pred <- matrix(xy_pred, ncol = 3, byrow = TRUE)
-  xy_pred <- factor(levels(iris$Species)[apply(xy_pred, 1, which.max)], levels = levels(iris$Species))
-  expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "class")$.pred_class)
+  xy_pred <- factor(levels(hpc$class)[apply(xy_pred, 1, which.max)], levels = levels(hpc$class))
+  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
 
   form_fit <- fit(
-    iris_xgboost,
-    Species ~ .,
-    data = iris,
+    hpc_xgboost,
+    class ~ .,
+    data = hpc,
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(iris[1:8, num_pred])), type = "class")
+  form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
   form_pred <- matrix(form_pred, ncol = 3, byrow = TRUE)
-  form_pred <- factor(levels(iris$Species)[apply(form_pred, 1, which.max)], levels = levels(iris$Species))
-  expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred], type = "class")$.pred_class)
+  form_pred <- factor(levels(hpc$class)[apply(form_pred, 1, which.max)], levels = levels(hpc$class))
+  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
 })
 
 

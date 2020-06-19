@@ -7,7 +7,7 @@ library(rlang)
 
 context("random forest execution with ranger")
 source(test_path("helper-objects.R"))
-
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -315,8 +315,8 @@ test_that('additional descriptor tests', {
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
-    x = iris[, 1:4],
-    y = iris$Species,
+    x = hpc[, 1:4],
+    y = hpc$class,
     control = ctrl
   )
   expect_equal(descr_other_xy$fit$mtry, 2)
@@ -325,7 +325,7 @@ test_that('additional descriptor tests', {
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
-    Species ~ ., data = iris,
+    class ~ ., data = hpc,
     control = ctrl
   )
   expect_equal(descr_other_f$fit$mtry, 2)
@@ -334,8 +334,8 @@ test_that('additional descriptor tests', {
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
-    x = iris[, 1:4],
-    y = iris$Species,
+    x = hpc[, 1:4],
+    y = hpc$class,
     control = ctrl
   )
   expect_equal(descr_other_xy$fit$mtry, 2)
@@ -344,7 +344,7 @@ test_that('additional descriptor tests', {
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
-    Species ~ ., data = iris,
+    class ~ ., data = hpc,
     control = ctrl
   )
   expect_equal(descr_other_f$fit$mtry, 2)
@@ -359,21 +359,21 @@ test_that('ranger classification prediction', {
   xy_class_fit <-
     rand_forest() %>% set_mode("classification")  %>% set_engine("ranger") %>%
     fit_xy(
-      x = iris[, 1:4],
-      y = iris$Species,
+      x = hpc[, 1:4],
+      y = hpc$class,
       control = ctrl
     )
 
   expect_false(has_multi_predict(xy_class_fit))
   expect_equal(multi_predict_args(xy_class_fit), NA_character_)
 
-  xy_class_pred <- predict(xy_class_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  xy_class_pred <- predict(xy_class_fit$fit, data = hpc[c(1, 51, 101), 1:4])$prediction
   xy_class_pred <- colnames(xy_class_pred)[apply(xy_class_pred, 1, which.max)]
-  xy_class_pred <- factor(xy_class_pred, levels = levels(iris$Species))
+  xy_class_pred <- factor(xy_class_pred, levels = levels(hpc$class))
 
   expect_equal(
     xy_class_pred,
-    predict(xy_class_fit, new_data = iris[c(1, 51, 101), 1:4])$.pred_class
+    predict(xy_class_fit, new_data = hpc[c(1, 51, 101), 1:4])$.pred_class
   )
 
   xy_prob_fit <-
@@ -381,26 +381,26 @@ test_that('ranger classification prediction', {
     set_mode("classification") %>%
     set_engine("ranger") %>%
     fit_xy(
-      x = iris[, 1:4],
-      y = iris$Species,
+      x = hpc[, 1:4],
+      y = hpc$class,
       control = ctrl
     )
 
-  xy_prob_pred <- predict(xy_prob_fit$fit, data = iris[c(1, 51, 101), 1:4])$prediction
+  xy_prob_pred <- predict(xy_prob_fit$fit, data = hpc[c(1, 51, 101), 1:4])$prediction
   xy_prob_pred <- colnames(xy_prob_pred)[apply(xy_prob_pred, 1, which.max)]
-  xy_prob_pred <- factor(xy_prob_pred, levels = levels(iris$Species))
+  xy_prob_pred <- factor(xy_prob_pred, levels = levels(hpc$class))
 
   expect_equal(
     xy_class_pred,
-    predict(xy_prob_fit, new_data = iris[c(1, 51, 101), 1:4])$.pred_class
+    predict(xy_prob_fit, new_data = hpc[c(1, 51, 101), 1:4])$.pred_class
   )
 
-  xy_prob_prob <- predict(xy_prob_fit$fit, data = iris[c(1, 51, 101), 1:4], type = "response")
+  xy_prob_prob <- predict(xy_prob_fit$fit, data = hpc[c(1, 51, 101), 1:4], type = "response")
   xy_prob_prob <- as_tibble(xy_prob_prob$prediction)
   names(xy_prob_prob) <- paste0(".pred_", names(xy_prob_prob))
   expect_equal(
     xy_prob_prob,
-    predict(xy_prob_fit, new_data = iris[c(1, 51, 101), 1:4], type = "prob")
+    predict(xy_prob_fit, new_data = hpc[c(1, 51, 101), 1:4], type = "prob")
   )
 })
 

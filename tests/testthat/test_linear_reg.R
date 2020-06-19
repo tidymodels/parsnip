@@ -8,7 +8,7 @@ library(tibble)
 context("linear regression")
 source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
-
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -203,15 +203,15 @@ test_that('bad input', {
   expect_error(translate(linear_reg(), engine = "wat?"))
   expect_error(translate(linear_reg(), engine = NULL))
   expect_error(translate(linear_reg(formula = y ~ x)))
-  expect_error(translate(linear_reg(x = iris[,1:3], y = iris$Species) %>% set_engine("glmnet")))
+  expect_error(translate(linear_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine("glmnet")))
   expect_error(translate(linear_reg(formula = y ~ x)  %>% set_engine("lm")))
 })
 
 # ------------------------------------------------------------------------------
 
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
-iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg() %>% set_engine("lm")
+num_pred <- names(hpc)[1:3]
+hpc_bad_form <- as.formula(class ~ term)
+hpc_basic <- linear_reg() %>% set_engine("lm")
 
 # ------------------------------------------------------------------------------
 
@@ -219,9 +219,9 @@ test_that('lm execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      Sepal.Length ~ log(Sepal.Width) + Species,
-      data = iris,
+      hpc_basic,
+      input_fields ~ log(compounds) + class,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -230,9 +230,9 @@ test_that('lm execution', {
 
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, num_pred],
-      y = iris$Sepal.Length,
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = hpc$input_fields,
       control = ctrl
     ),
     regexp = NA
@@ -240,17 +240,17 @@ test_that('lm execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      iris_bad_form,
-      data = iris,
+      hpc_basic,
+      hpc_bad_form,
+      data = hpc,
       control = ctrl
     )
   )
 
   lm_form_catch <- fit(
-    iris_basic,
-    iris_bad_form,
-    data = iris,
+    hpc_basic,
+    hpc_bad_form,
+    data = hpc,
     control = caught_ctrl
   )
   expect_true(inherits(lm_form_catch$fit, "try-error"))
@@ -259,9 +259,9 @@ test_that('lm execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      cbind(Sepal.Width, Petal.Width) ~ .,
-      data = iris,
+      hpc_basic,
+      cbind(compounds, iterations) ~ .,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -269,9 +269,9 @@ test_that('lm execution', {
 
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, 1:2],
-      y = iris[3:4],
+      hpc_basic,
+      x = hpc[, 1:2],
+      y = hpc[3:4],
       control = ctrl
     ),
     regexp = NA
@@ -279,59 +279,59 @@ test_that('lm execution', {
 })
 
 test_that('lm prediction', {
-  uni_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length, data = iris)
-  uni_pred <- unname(predict(uni_lm, newdata = iris[1:5, ]))
-  inl_lm <- lm(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
-  inl_pred <- unname(predict(inl_lm, newdata = iris[1:5, ]))
-  mv_lm <- lm(cbind(Sepal.Width, Petal.Width) ~ ., data = iris)
-  mv_pred <- as_tibble(predict(mv_lm, newdata = iris[1:5, ]))
-  names(mv_pred) <- c(".pred_Sepal.Width", ".pred_Petal.Width")
+  uni_lm <- lm(input_fields ~ compounds + iterations + num_pending, data = hpc)
+  uni_pred <- unname(predict(uni_lm, newdata = hpc[1:5, ]))
+  inl_lm <- lm(input_fields ~ log(compounds) + class, data = hpc)
+  inl_pred <- unname(predict(inl_lm, newdata = hpc[1:5, ]))
+  mv_lm <- lm(cbind(compounds, iterations) ~ ., data = hpc)
+  mv_pred <- as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
+  names(mv_pred) <- c(".pred_compounds", ".pred_iterations")
 
 
   res_xy <- fit_xy(
-    iris_basic,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    hpc_basic,
+    x = hpc[, num_pred],
+    y = hpc$input_fields,
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
+  expect_equal(uni_pred, predict(res_xy, hpc[1:5, num_pred])$.pred)
 
   res_form <- fit(
-    iris_basic,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
+    hpc_basic,
+    input_fields ~ log(compounds) + class,
+    data = hpc,
     control = ctrl
   )
-  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred)
 
   res_mv <- fit(
-    iris_basic,
-    cbind(Sepal.Width, Petal.Width) ~ .,
-    data = iris,
+    hpc_basic,
+    cbind(compounds, iterations) ~ .,
+    data = hpc,
     control = ctrl
   )
-  expect_equal(mv_pred, predict(res_mv, iris[1:5,]))
+  expect_equal(mv_pred, predict(res_mv, hpc[1:5,]))
 })
 
 test_that('lm intervals', {
-  stats_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length,
-                 data = iris)
-  confidence_lm <- predict(stats_lm, newdata = iris[1:5, ],
+  stats_lm <- lm(input_fields ~ compounds + iterations + num_pending,
+                 data = hpc)
+  confidence_lm <- predict(stats_lm, newdata = hpc[1:5, ],
                            level = 0.93, interval = "confidence")
-  prediction_lm <- predict(stats_lm, newdata = iris[1:5, ],
+  prediction_lm <- predict(stats_lm, newdata = hpc[1:5, ],
                            level = 0.93, interval = "prediction")
 
   res_xy <- fit_xy(
     linear_reg()  %>% set_engine("lm"),
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    x = hpc[, num_pred],
+    y = hpc$input_fields,
     control = ctrl
   )
 
   confidence_parsnip <-
     predict(res_xy,
-            new_data = iris[1:5,],
+            new_data = hpc[1:5,],
             type = "conf_int",
             level = 0.93)
 
@@ -340,7 +340,7 @@ test_that('lm intervals', {
 
   prediction_parsnip <-
     predict(res_xy,
-            new_data = iris[1:5,],
+            new_data = hpc[1:5,],
             type = "pred_int",
             level = 0.93)
 
@@ -351,12 +351,12 @@ test_that('lm intervals', {
 
 test_that('newdata error trapping', {
   res_xy <- fit_xy(
-    iris_basic,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    hpc_basic,
+    x = hpc[, num_pred],
+    y = hpc$input_fields,
     control = ctrl
   )
-  expect_error(predict(res_xy, newdata = iris[1:3, num_pred]), "Did you mean")
+  expect_error(predict(res_xy, newdata = hpc[1:3, num_pred]), "Did you mean")
 })
 
 test_that('default engine', {

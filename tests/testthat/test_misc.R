@@ -3,6 +3,9 @@
 
 context("checking for multi_predict")
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 test_that('parsnip objects', {
 
   lm_idea <- linear_reg() %>% set_engine("lm")
@@ -76,7 +79,7 @@ test_that('S3 method dispatch/registration', {
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("classification") %>%
-      fit(Species ~ ., data = iris) %>%
+      fit(class ~ ., data = hpc) %>%
       tidy(),
     regex = NA
   )

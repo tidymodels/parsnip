@@ -7,11 +7,12 @@ library(tidyr)
 
 context("linear regression execution with glmnet")
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
-iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg(penalty = .1, mixture = .3) %>%
+num_pred <- c("compounds", "iterations", "num_pending")
+hpc_bad_form <- as.formula(class ~ term)
+hpc_basic <- linear_reg(penalty = .1, mixture = .3) %>%
   set_engine("glmnet", nlambda = 15)
 no_lambda <- linear_reg(mixture = .3) %>%
   set_engine("glmnet")
@@ -25,10 +26,10 @@ test_that('glmnet execution', {
 
   expect_error(
     res <- fit_xy(
-      iris_basic,
+      hpc_basic,
       control = ctrl,
-      x = iris[, num_pred],
-      y = iris$Sepal.Length
+      x = hpc[, num_pred],
+      y = hpc$input_fields
     ),
     regexp = NA
   )
@@ -38,17 +39,17 @@ test_that('glmnet execution', {
 
   expect_error(
     fit(
-      iris_basic,
-      iris_bad_form,
-      data = iris,
+      hpc_basic,
+      hpc_bad_form,
+      data = hpc,
       control = ctrl
     )
   )
 
   glmnet_xy_catch <- fit_xy(
-    iris_basic,
-    x = iris[, num_pred],
-    y = factor(iris$Sepal.Length),
+    hpc_basic,
+    x = hpc[, num_pred],
+    y = factor(hpc$input_fields),
     control = caught_ctrl
   )
   expect_true(inherits(glmnet_xy_catch$fit, "try-error"))
@@ -61,28 +62,28 @@ test_that('glmnet prediction, single lambda', {
   skip_if(run_glmnet)
 
   res_xy <- fit_xy(
-    iris_basic,
+    hpc_basic,
     control = ctrl,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length
+    x = hpc[, num_pred],
+    y = hpc$input_fields
   )
 
   uni_pred <- c(5.05125589060219, 4.86977761622526, 4.90912345599309, 4.93931874108359,
                 5.08755154547758)
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred, tolerance = 0.0001)
+  expect_equal(uni_pred, predict(res_xy, hpc[1:5, num_pred])$.pred, tolerance = 0.0001)
 
   res_form <- fit(
-    iris_basic,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
+    hpc_basic,
+    input_fields ~ log(compounds) + class,
+    data = hpc,
     control = ctrl
   )
 
   form_pred <- c(5.23960117346944, 5.08769210344022, 5.15129212608077, 5.12000510716518,
                  5.26736239856889)
 
-  expect_equal(form_pred, predict(res_form, iris[1:5,])$.pred, tolerance = 0.0001)
+  expect_equal(form_pred, predict(res_form, hpc[1:5,])$.pred, tolerance = 0.0001)
 })
 
 
@@ -93,19 +94,19 @@ test_that('glmnet prediction, multiple lambda', {
 
   lams <- c(.01, 0.1)
 
-  iris_mult <- linear_reg(penalty = lams, mixture = .3) %>%
+  hpc_mult <- linear_reg(penalty = lams, mixture = .3) %>%
     set_engine("glmnet")
 
   res_xy <- fit_xy(
-    iris_mult,
+    hpc_mult,
     control = ctrl,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length
+    x = hpc[, num_pred],
+    y = hpc$input_fields
   )
 
   # mult_pred <-
   #   predict(res_xy$fit,
-  #           newx = as.matrix(iris[1:5, num_pred]),
+  #           newx = as.matrix(hpc[1:5, num_pred]),
   #           s = lams)
   # mult_pred <- stack(as.data.frame(mult_pred))
   # mult_pred$penalty <- rep(lams, each = 5)
@@ -131,20 +132,20 @@ test_that('glmnet prediction, multiple lambda', {
 
   expect_equal(
     as.data.frame(mult_pred),
-    multi_predict(res_xy, new_data = iris[1:5, num_pred], lambda = lams) %>%
+    multi_predict(res_xy, new_data = hpc[1:5, num_pred], lambda = lams) %>%
       unnest(cols = c(.pred)) %>%
       as.data.frame(),
     tolerance = 0.0001
   )
 
   res_form <- fit(
-    iris_mult,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
+    hpc_mult,
+    input_fields ~ log(compounds) + class,
+    data = hpc,
     control = ctrl
   )
 
-  # form_mat <- model.matrix(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
+  # form_mat <- model.matrix(input_fields ~ log(compounds) + class, data = hpc)
   # form_mat <- form_mat[1:5, -1]
   #
   # form_pred <-
@@ -176,7 +177,7 @@ test_that('glmnet prediction, multiple lambda', {
 
   expect_equal(
     as.data.frame(form_pred),
-    multi_predict(res_form, new_data = iris[1:5, ], lambda = lams) %>%
+    multi_predict(res_form, new_data = hpc[1:5, ], lambda = lams) %>%
       unnest(cols = c(.pred)) %>%
       as.data.frame(),
     tolerance = 0.0001
@@ -188,17 +189,17 @@ test_that('glmnet prediction, all lambda', {
   skip_if_not_installed("glmnet")
   skip_if(run_glmnet)
 
-  iris_all <- linear_reg(mixture = .3) %>%
+  hpc_all <- linear_reg(mixture = .3) %>%
     set_engine("glmnet")
 
   res_xy <- fit_xy(
-    iris_all,
+    hpc_all,
     control = ctrl,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length
+    x = hpc[, num_pred],
+    y = hpc$input_fields
   )
 
-  all_pred <- predict(res_xy$fit, newx = as.matrix(iris[1:5, num_pred]))
+  all_pred <- predict(res_xy$fit, newx = as.matrix(hpc[1:5, num_pred]))
   all_pred <- stack(as.data.frame(all_pred))
   all_pred$penalty <- rep(res_xy$fit$lambda, each = 5)
   all_pred$rows <- rep(1:5, 2)
@@ -207,16 +208,16 @@ test_that('glmnet prediction, all lambda', {
   names(all_pred) <- c("penalty", ".pred")
   all_pred <- tibble::as_tibble(all_pred)
 
-  expect_equal(all_pred, multi_predict(res_xy, new_data = iris[1:5,num_pred ]) %>% unnest(cols = c(.pred)))
+  expect_equal(all_pred, multi_predict(res_xy, new_data = hpc[1:5,num_pred ]) %>% unnest(cols = c(.pred)))
 
   res_form <- fit(
-    iris_all,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
+    hpc_all,
+    input_fields ~ log(compounds) + class,
+    data = hpc,
     control = ctrl
   )
 
-  form_mat <- model.matrix(Sepal.Length ~ log(Sepal.Width) + Species, data = iris)
+  form_mat <- model.matrix(input_fields ~ log(compounds) + class, data = hpc)
   form_mat <- form_mat[1:5, -1]
 
   form_pred <- predict(res_form$fit, newx = form_mat)
@@ -228,7 +229,7 @@ test_that('glmnet prediction, all lambda', {
   names(form_pred) <- c("penalty", ".pred")
   form_pred <- tibble::as_tibble(form_pred)
 
-  expect_equal(form_pred, multi_predict(res_form, iris[1:5, c("Sepal.Width", "Species")]) %>% unnest(cols = c(.pred)))
+  expect_equal(form_pred, multi_predict(res_form, hpc[1:5, c("compounds", "class")]) %>% unnest(cols = c(.pred)))
 })
 
 

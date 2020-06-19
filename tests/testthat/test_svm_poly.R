@@ -7,6 +7,8 @@ library(tibble)
 
 context("RBF SVM")
 source("helpers.R")
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -131,8 +133,8 @@ test_that('svm poly regression', {
     res <- fit_xy(
       reg_mod,
       control = ctrl,
-      x = iris[,2:4],
-      y = iris$Sepal.Length
+      x = hpc[,2:4],
+      y = hpc$compounds
     ),
     regexp = NA
   )
@@ -144,8 +146,8 @@ test_that('svm poly regression', {
   expect_error(
     fit(
       reg_mod,
-      Sepal.Length ~ .,
-      data = iris[, -5],
+      compounds ~ .,
+      data = hpc[, -5],
       control = ctrl
     ),
     regexp = NA
@@ -161,13 +163,13 @@ test_that('svm poly regression prediction', {
   reg_form <-
     fit(
       reg_mod,
-      Sepal.Length ~ .,
-      data = iris[, -5],
+      compounds ~ .,
+      data = hpc[, -5],
       control = ctrl
     )
 
   # kern_pred <-
-  #   predict(reg_form$fit, iris[1:3, -c(1, 5)]) %>%
+  #   predict(reg_form$fit, hpc[1:3, -c(1, 5)]) %>%
   #   as_tibble() %>%
   #   setNames(".pred")
   kern_pred <-
@@ -178,20 +180,20 @@ test_that('svm poly regression prediction', {
       class = c("tbl_df", "tbl", "data.frame")
     )
 
-  parsnip_pred <- predict(reg_form, iris[1:3, -c(1, 5)])
+  parsnip_pred <- predict(reg_form, hpc[1:3, -c(1, 5)])
   expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_pred))
 
 
   reg_xy_form <-
     fit_xy(
       reg_mod,
-      x = iris[, 2:4],
-      y = iris$Sepal.Length,
+      x = hpc[, 2:4],
+      y = hpc$compounds,
       control = ctrl
     )
   expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
 
-  parsnip_xy_pred <- predict(reg_xy_form, iris[1:3, -c(1, 5)])
+  parsnip_xy_pred <- predict(reg_xy_form, hpc[1:3, -c(1, 5)])
   expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_xy_pred))
 })
 
@@ -205,8 +207,8 @@ test_that('svm poly classification', {
     fit_xy(
       cls_mod,
       control = ctrl,
-      x = iris[, -5],
-      y = iris$Species
+      x = hpc[, -5],
+      y = hpc$class
     ),
     regexp = NA
   )
@@ -214,8 +216,8 @@ test_that('svm poly classification', {
   expect_error(
     fit(
       cls_mod,
-      Species ~ .,
-      data = iris,
+      class ~ .,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -234,13 +236,13 @@ test_that('svm poly classification probabilities', {
   cls_form <-
     fit(
       cls_mod,
-      Species ~ .,
-      data = iris,
+      class ~ .,
+      data = hpc,
       control = ctrl
     )
 
   # kern_class <-
-  #   tibble(.pred_class = predict(cls_form$fit, iris[ind, -5]))
+  #   tibble(.pred_class = predict(cls_form$fit, hpc[ind, -5]))
 
   kern_class <-
     structure(
@@ -249,22 +251,22 @@ test_that('svm poly classification probabilities', {
           structure(1:3, .Label = c("setosa", "versicolor", "virginica"), class = "factor")),
       row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
 
-  parsnip_class <- predict(cls_form, iris[ind, -5])
+  parsnip_class <- predict(cls_form, hpc[ind, -5])
   expect_equal(kern_class, parsnip_class)
 
   set.seed(34562)
   cls_xy_form <-
     fit_xy(
       cls_mod,
-      x = iris[, 1:4],
-      y = iris$Species,
+      x = hpc[, 1:4],
+      y = hpc$class,
       control = ctrl
     )
   expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, iris[ind, -5], type = "probabilities") %>%
+    kernlab::predict(cls_form$fit, hpc[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_setosa', '.pred_versicolor', '.pred_virginica'))
 
@@ -277,9 +279,9 @@ test_that('svm poly classification probabilities', {
   #     row.names = c(NA,-3L),
   #     class = c("tbl_df", "tbl", "data.frame"))
 
-  parsnip_probs <- predict(cls_form, iris[ind, -5], type = "prob")
+  parsnip_probs <- predict(cls_form, hpc[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_probs))
 
-  parsnip_xy_probs <- predict(cls_xy_form, iris[ind, -5], type = "prob")
+  parsnip_xy_probs <- predict(cls_xy_form, hpc[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
 })

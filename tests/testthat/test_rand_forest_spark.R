@@ -6,7 +6,7 @@ library(dplyr)
 
 context("random forest execution with spark")
 source(test_path("helper-objects.R"))
-
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -20,8 +20,8 @@ test_that('spark execution', {
 
   skip_if(inherits(sc, "try-error"))
 
-  iris_rf_tr <- copy_to(sc, iris[-(1:4),   ], "iris_rf_tr", overwrite = TRUE)
-  iris_rf_te <- copy_to(sc, iris[  1:4 , -1], "iris_rf_te", overwrite = TRUE)
+  hpc_rf_tr <- copy_to(sc, hpc[-(1:4),   ], "hpc_rf_tr", overwrite = TRUE)
+  hpc_rf_te <- copy_to(sc, hpc[  1:4 , -1], "hpc_rf_te", overwrite = TRUE)
 
   # ----------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ test_that('spark execution', {
           set_engine("spark", seed = 12),
         control = ctrl,
         Sepal_Length ~ .,
-        data = iris_rf_tr
+        data = hpc_rf_tr
       ),
     regexp = NA
   )
@@ -45,28 +45,28 @@ test_that('spark execution', {
           set_engine("spark", seed = 12),
         control = ctrl,
         Sepal_Length ~ .,
-        data = iris_rf_tr
+        data = hpc_rf_tr
       ),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_pred <- predict(spark_reg_fit, iris_rf_te),
+    spark_reg_pred <- predict(spark_reg_fit, hpc_rf_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_pred_num <- predict(spark_reg_fit, iris_rf_te),
+    spark_reg_pred_num <- predict(spark_reg_fit, hpc_rf_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_dup <- predict(spark_reg_fit_dup, iris_rf_te),
+    spark_reg_dup <- predict(spark_reg_fit_dup, hpc_rf_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_num_dup <- predict(spark_reg_fit_dup, iris_rf_te),
+    spark_reg_num_dup <- predict(spark_reg_fit_dup, hpc_rf_te),
     regexp = NA
   )
 

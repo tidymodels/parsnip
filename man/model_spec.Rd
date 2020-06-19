@@ -57,18 +57,18 @@ arguments. For example, when calling \code{mean(dat_vec)}, the object
 \code{parsnip} model functions do not do this. For example, using
 
 \preformatted{
- rand_forest(mtry = ncol(iris) - 1)
+ rand_forest(mtry = ncol(mtcars) - 1)
 }
 
-\strong{does not} execute \code{ncol(iris) - 1} when creating the specification.
+\strong{does not} execute \code{ncol(mtcars) - 1} when creating the specification.
 This can be seen in the output:
 
 \preformatted{
- > rand_forest(mtry = ncol(iris) - 1)
+ > rand_forest(mtry = ncol(mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
-   mtry = ncol(iris) - 1
+   mtry = ncol(mtcars) - 1
 }
 
 The model functions save the argument \emph{expressions} and their
@@ -106,14 +106,14 @@ model specification and might be the best idea when the data
 object is small. For example, using
 
 \preformatted{
- rand_forest(mtry = ncol(!!iris) - 1)
+ rand_forest(mtry = ncol(!!mtcars) - 1)
 }
 
 would work (and be reproducible between sessions) but embeds
-the entire iris data set into the \code{mtry} expression:
+the entire mtcars data set into the \code{mtry} expression:
 
 \preformatted{
- > rand_forest(mtry = ncol(!!iris) - 1)
+ > rand_forest(mtry = ncol(!!mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
@@ -124,14 +124,14 @@ However, if there were an object with the number of columns in
 it, this wouldn't be too bad:
 
 \preformatted{
- > mtry_val <- ncol(iris) - 1
+ > mtry_val <- ncol(mtcars) - 1
  > mtry_val
- [1] 4
+ [1] 10
  > rand_forest(mtry = !!mtry_val)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
-   mtry = 4
+   mtry = 10
 }
 
 More information on quosures and quasiquotation can be found at

@@ -18,7 +18,6 @@ A tibble with column \code{value}.
 Return the results of \code{nullmodel} as a tibble
 }
 \examples{
-nullmodel(iris[,-5], iris$Species) \%>\% tidy()
 
 nullmodel(mtcars[,-1], mtcars$mpg) \%>\% tidy()
 }

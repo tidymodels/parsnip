@@ -3,6 +3,9 @@ context("fit interfaces")
 library(parsnip)
 library(rlang)
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 f <- y ~ x
 
 smod <- surv_reg()
@@ -20,21 +23,21 @@ tester_xy <-
 
 
 test_that('good args', {
-  expect_equal(   tester(NULL, formula = f, data = iris, model = rmod), "formula")
-  expect_equal(tester_xy(NULL, x = iris, y = iris, model = rmod), "data.frame")
-  expect_equal(   tester(NULL, f, data = iris, model = rmod), "formula")
+  expect_equal(   tester(NULL, formula = f, data = hpc, model = rmod), "formula")
+  expect_equal(tester_xy(NULL, x = hpc, y = hpc, model = rmod), "data.frame")
+  expect_equal(   tester(NULL, f, data = hpc, model = rmod), "formula")
   expect_equal(   tester(NULL, f, data = sprk, model = rmod), "formula")
 })
 
 #test_that('unnamed args', {
-#  expect_error(tester(NULL, iris, y = iris, model = rmod))
-#  expect_error(tester(NULL, data = iris, model = rmod))
+#  expect_error(tester(NULL, hpc, y = hpc, model = rmod))
+#  expect_error(tester(NULL, data = hpc, model = rmod))
 #})
 #
 test_that('wrong args', {
- expect_error(tester_xy(NULL, x = sprk, y = iris, model = rmod))
- expect_error(tester_xy(NULL, x = iris, y = iris$Sepal.Length, model = smod))
- expect_error(tester(NULL, f,  data = as.matrix(iris[, 1:4])))
+ expect_error(tester_xy(NULL, x = sprk, y = hpc, model = rmod))
+ expect_error(tester_xy(NULL, x = hpc, y = hpc$compounds, model = smod))
+ expect_error(tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
 })
 
 test_that('single column df for issue #129', {

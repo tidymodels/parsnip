@@ -8,11 +8,13 @@ library(dplyr)
 
 context("nnet multinomial regression")
 source("helpers.R")
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 set.seed(352)
-dat <- iris[order(runif(nrow(iris))),]
+dat <- hpc[order(runif(150)),]
 
 tr_dat <- dat[1:140, ]
 te_dat <- dat[141:150, ]
@@ -37,7 +39,7 @@ test_that('model fitting', {
         basic_mod,
         control = ctrl,
         x = tr_dat[, -5],
-        y = tr_dat$Species
+        y = tr_dat$class
       ),
     regexp = NA
   )
@@ -50,7 +52,7 @@ test_that('model fitting', {
         basic_mod,
         control = ctrl,
         x = tr_dat[, -5],
-        y = tr_dat$Species
+        y = tr_dat$class
       ),
     regexp = NA
   )
@@ -60,7 +62,7 @@ test_that('model fitting', {
   expect_error(
     fit(
       basic_mod,
-      Species ~ .,
+      class ~ .,
       data = tr_dat,
       control = ctrl
     ),
@@ -79,7 +81,7 @@ test_that('classification prediction', {
       basic_mod,
       control = ctrl,
       x = tr_dat[, -5],
-      y = tr_dat$Species
+      y = tr_dat$class
     )
 
   nnet_pred <-
@@ -100,7 +102,7 @@ test_that('classification probabilities', {
       basic_mod,
       control = ctrl,
       x = tr_dat[, -5],
-      y = tr_dat$Species
+      y = tr_dat$class
     )
 
   nnet_pred <-

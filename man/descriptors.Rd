@@ -55,28 +55,28 @@ outcomes. If \code{fit_xy()} was used, the outcomes are attached as the
 column, \code{..y}.
 }
 
-For example, if you use the model formula \code{Sepal.Width ~ .} with the \code{iris}
+For example, if you use the model formula \code{mpg ~ .} with the \code{mtcars}
 data, the values would be
 \preformatted{
- .preds() =   4          (the 4 columns in `iris`)
- .cols()  =   5          (3 numeric columns + 2 from Species dummy variables)
- .obs()   = 150
+ .preds() =   10          (the 10 columns in `mtcars`)
+ .cols()  =   10          (10 numeric columns + 0 from dummy variables)
+ .obs()   = 32
  .lvls()  =  NA          (no factor outcome)
- .facts() =   1          (the Species predictor)
- .y()     = <vector>     (Sepal.Width as a vector)
- .x()     = <data.frame> (The other 4 columns as a data frame)
+ .facts() =   0          (no factor outcome)
+ .y()     = <vector>     (mpg as a vector)
+ .x()     = <data.frame> (The other 10 columns as a data frame)
  .dat()   = <data.frame> (The full data set)
 }
 
-If the formula \code{Species ~ .} where used:
+If the formula \code{as.character(cyl) ~ .} where used:
 \preformatted{
- .preds() =   4          (the 4 numeric columns in `iris`)
- .cols()  =   4          (same)
- .obs()   = 150
- .lvls()  =  c(setosa = 50, versicolor = 50, virginica = 50)
+ .preds() =   10          (the 10 numeric columns in `mtcars`)
+ .cols()  =   10          (same)
+ .obs()   = 32
+ .lvls()  =  c("4" = 11, "6" = 7, "8" = 14)
  .facts() =   0
- .y()     = <vector>     (Species as a vector)
- .x()     = <data.frame> (The other 4 columns as a data frame)
+ .y()     = <vector>     (as.character(cyl) as a vector)
+ .x()     = <data.frame> (The other 10 columns as a data frame)
  .dat()   = <data.frame> (The full data set)
 }
 

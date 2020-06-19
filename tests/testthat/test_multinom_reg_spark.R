@@ -6,7 +6,7 @@ library(dplyr)
 
 context("multinomial regression execution with spark")
 source(test_path("helper-objects.R"))
-
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -20,9 +20,9 @@ test_that('spark execution', {
 
   skip_if(inherits(sc, "try-error"))
 
-  iris_rows <- c(1, 51, 101)
-  iris_tr <- copy_to(sc, iris[-iris_rows,   ], "iris_tr", overwrite = TRUE)
-  iris_te <- copy_to(sc, iris[ iris_rows, -5], "iris_te", overwrite = TRUE)
+  hpc_rows <- c(1, 51, 101)
+  hpc_tr <- copy_to(sc, hpc[-hpc_rows,   ], "hpc_tr", overwrite = TRUE)
+  hpc_te <- copy_to(sc, hpc[ hpc_rows, -5], "hpc_te", overwrite = TRUE)
 
   # ----------------------------------------------------------------------------
 
@@ -31,19 +31,19 @@ test_that('spark execution', {
       fit(
         multinom_reg() %>% set_engine("spark"),
         control = ctrl,
-        Species ~ .,
-        data = iris_tr
+        class ~ .,
+        data = hpc_tr
       ),
     regexp = NA
   )
 
   expect_error(
-    spark_class_pred <- predict(spark_class_fit, iris_te),
+    spark_class_pred <- predict(spark_class_fit, hpc_te),
     regexp = NA
   )
 
   expect_error(
-    spark_class_pred_class <- predict(spark_class_fit, iris_te),
+    spark_class_pred_class <- predict(spark_class_fit, hpc_te),
     regexp = NA
   )
 
@@ -55,12 +55,12 @@ test_that('spark execution', {
   )
 
   expect_error(
-    spark_class_prob <- predict(spark_class_fit, iris_te, type = "prob"),
+    spark_class_prob <- predict(spark_class_fit, hpc_te, type = "prob"),
     regexp = NA
   )
 
   expect_error(
-    spark_class_prob_classprob <- predict(spark_class_fit, iris_te, type = "prob"),
+    spark_class_prob_classprob <- predict(spark_class_fit, hpc_te, type = "prob"),
     regexp = NA
   )
 

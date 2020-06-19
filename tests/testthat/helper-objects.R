@@ -2,6 +2,7 @@ library(modeldata)
 
 data("wa_churn")
 data("lending_club")
+data("hpc_data")
 
 # ------------------------------------------------------------------------------
 

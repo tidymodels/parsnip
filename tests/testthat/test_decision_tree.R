@@ -6,6 +6,8 @@ library(rlang)
 
 context("decision trees")
 source("helpers.R")
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -124,11 +126,11 @@ test_that('bad input', {
   expect_error(decision_tree(mode = "bogus"))
   expect_error({
     bt <- decision_tree(cost_complexity = -1) %>% set_engine("rpart")
-    fit(bt, Species ~ ., iris)
+    fit(bt, class ~ ., hpc)
   })
   expect_error({
     bt <- decision_tree(min_n = 0)  %>% set_engine("rpart")
-    fit(bt, Species ~ ., iris)
+    fit(bt, class ~ ., hpc)
   })
   expect_error(translate(decision_tree(), engine = NULL))
   expect_error(translate(decision_tree(formula = y ~ x)))
