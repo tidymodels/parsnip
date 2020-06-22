@@ -55,28 +55,28 @@ outcomes. If \code{fit_xy()} was used, the outcomes are attached as the
 column, \code{..y}.
 }
 
-For example, if you use the model formula \code{mpg ~ .} with the \code{mtcars}
-data, the values would be
+For example, if you use the model formula \code{circumference ~ .} with the
+built-in \code{Orange} data, the values would be
 \preformatted{
- .preds() =   10          (the 10 columns in `mtcars`)
- .cols()  =   10          (10 numeric columns + 0 from dummy variables)
- .obs()   = 32
+ .preds() =   2          (the 2 remaining columns in `Orange`)
+ .cols()  =   5          (1 numeric column + 4 from Tree dummy variables)
+ .obs()   = 35
  .lvls()  =  NA          (no factor outcome)
- .facts() =   0          (no factor outcome)
- .y()     = <vector>     (mpg as a vector)
- .x()     = <data.frame> (The other 10 columns as a data frame)
+ .facts() =   1          (the Tree predictor)
+ .y()     = <vector>     (circumference as a vector)
+ .x()     = <data.frame> (The other 2 columns as a data frame)
  .dat()   = <data.frame> (The full data set)
 }
 
-If the formula \code{as.character(cyl) ~ .} where used:
+If the formula \code{Tree ~ .} were used:
 \preformatted{
- .preds() =   10          (the 10 numeric columns in `mtcars`)
- .cols()  =   10          (same)
- .obs()   = 32
- .lvls()  =  c("4" = 11, "6" = 7, "8" = 14)
+ .preds() =   2          (the 2 numeric columns in `Orange`)
+ .cols()  =   2          (same)
+ .obs()   = 35
+ .lvls()  =  c("1" = 7, "2" = 7, "3" = 7, "4" = 7, "5" = 7)
  .facts() =   0
- .y()     = <vector>     (as.character(cyl) as a vector)
- .x()     = <data.frame> (The other 10 columns as a data frame)
+ .y()     = <vector>     (Tree as a vector)
+ .x()     = <data.frame> (The other 2 columns as a data frame)
  .dat()   = <data.frame> (The full data set)
 }
 
