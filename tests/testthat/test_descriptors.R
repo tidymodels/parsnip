@@ -2,7 +2,7 @@ library(testthat)
 library(parsnip)
 
 source(test_path("helper-objects.R"))
-hpc <- hpc_data[1:150, c(2:5, 8)]
+hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 # ------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ eval_descrs <- function(descrs, not = NULL) {
   lapply(descrs, do.call, list())
 }
 
-class_tab <- table(hpc_data$class, dnn = NULL)
+class_tab <- table(hpc$class, dnn = NULL)
 
 # ------------------------------------------------------------------------------
 
@@ -86,12 +86,12 @@ context("Testing formula -> xy conversion")
 
 test_that("numeric y and dummy vars", {
   expect_equal(
-    template(5, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"compounds"]),
-    eval_descrs(get_descr_form(compounds ~ ., data = hpc))
+    template(6, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ ., data = hpc))
   )
   expect_equal(
-    template(2, 1, 150, NA, 1, hpc, hpc["class"], hpc[,"compounds"]),
-    eval_descrs(get_descr_form(compounds ~ class, data = hpc))
+    template(3, 1, 150, NA, 1, hpc, hpc["class"], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ class, data = hpc))
   )
 })
 
@@ -117,8 +117,8 @@ test_that("factor y", {
     eval_descrs(get_descr_form(class ~ ., data = hpc))
   )
   expect_equal(
-    template(1, 1, 150, class_tab, 0, hpc, hpc["input_fields"], hpc[,"class"]),
-    eval_descrs(get_descr_form(class ~ input_fields, data = hpc))
+    template(1, 1, 150, class_tab, 0, hpc, hpc["compounds"], hpc[,"class"]),
+    eval_descrs(get_descr_form(class ~ compounds, data = hpc))
   )
 })
 
@@ -134,8 +134,8 @@ test_that("weird cases", {
   # So model.frame ignores - signs in a model formula so class is not removed
   # prior to model.matrix; otherwise this should have n_cols = 3
   expect_equal(
-    template(3, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"compounds"]),
-    eval_descrs(get_descr_form(compounds ~ . - class, data = hpc))
+    template(3, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ . - class, data = hpc))
   )
 
   # Oy ve! Before going to model.matrix, model.frame produces a data frame
@@ -173,7 +173,7 @@ test_that("numeric y and dummy vars", {
     eval_descrs(get_descr_xy(x = hpc[, 4:5], y = hpc[, 1:2]))
   )
 
-  hpc3 <- hpc2[,c("iterations", "class", "input_fields")]
+  hpc3 <- hpc2[,c("num_pending", "class", "compounds")]
   expect_equal(
     template(2, 2, 150, NA, 1, hpc3, hpc[, 4:5], hpc[, 1, drop = FALSE]),
     eval_descrs(get_descr_xy(x = hpc[, 4:5], y = hpc[, 1, drop = FALSE]))
