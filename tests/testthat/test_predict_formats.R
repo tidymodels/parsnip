@@ -13,7 +13,7 @@ context("check predict output structures")
 lm_fit <-
   linear_reg(mode = "regression") %>%
   set_engine("lm") %>%
-  fit(class ~ ., data = hpc)
+  fit(compounds ~ ., data = hpc)
 
 class_dat <- airquality[complete.cases(airquality),]
 class_dat$Ozone <- factor(ifelse(class_dat$Ozone >= 31, "high", "low"))

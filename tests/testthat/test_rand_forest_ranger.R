@@ -310,11 +310,11 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- quo(c(min(.lvls()), 20, 10))
+  exp_wts <- quo(c(min(.lvls()), 20, 10, 1))
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
-      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
+      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     x = hpc[, 1:4],
     y = hpc$class,
     control = ctrl
@@ -324,7 +324,7 @@ test_that('additional descriptor tests', {
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
-      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
+      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     class ~ ., data = hpc,
     control = ctrl
   )
@@ -333,7 +333,7 @@ test_that('additional descriptor tests', {
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
-      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
+      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     x = hpc[, 1:4],
     y = hpc$class,
     control = ctrl
@@ -343,7 +343,7 @@ test_that('additional descriptor tests', {
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
-      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10)),
+      set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     class ~ ., data = hpc,
     control = ctrl
   )

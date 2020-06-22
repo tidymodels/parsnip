@@ -65,7 +65,7 @@ test_that('xgboost classification prediction', {
   )
 
   xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
-  xy_pred <- matrix(xy_pred, ncol = 3, byrow = TRUE)
+  xy_pred <- matrix(xy_pred, ncol = 4, byrow = TRUE)
   xy_pred <- factor(levels(hpc$class)[apply(xy_pred, 1, which.max)], levels = levels(hpc$class))
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
 
@@ -77,7 +77,7 @@ test_that('xgboost classification prediction', {
   )
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
-  form_pred <- matrix(form_pred, ncol = 3, byrow = TRUE)
+  form_pred <- matrix(form_pred, ncol = 4, byrow = TRUE)
   form_pred <- factor(levels(hpc$class)[apply(form_pred, 1, which.max)], levels = levels(hpc$class))
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
 })
