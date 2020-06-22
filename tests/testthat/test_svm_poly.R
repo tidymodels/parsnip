@@ -6,7 +6,7 @@ library(tibble)
 # ------------------------------------------------------------------------------
 
 context("RBF SVM")
-source("helpers.R")
+source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
@@ -175,13 +175,15 @@ test_that('svm poly regression prediction', {
   kern_pred <-
     structure(
       list(
-        .pred = c(5.02154233477783, 4.71496213707127, 4.78370369917621)),
+        .pred = c(164.4739, 139.8284, 133.8760)),
       row.names = c(NA,-3L),
       class = c("tbl_df", "tbl", "data.frame")
     )
 
   parsnip_pred <- predict(reg_form, hpc[1:3, -c(1, 5)])
-  expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_pred))
+  expect_equal(as.data.frame(kern_pred),
+               as.data.frame(parsnip_pred),
+               tolerance = .0001)
 
 
   reg_xy_form <-
@@ -194,7 +196,9 @@ test_that('svm poly regression prediction', {
   expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[1:3, -c(1, 5)])
-  expect_equal(as.data.frame(kern_pred), as.data.frame(parsnip_xy_pred))
+  expect_equal(as.data.frame(kern_pred),
+               as.data.frame(parsnip_xy_pred),
+               tolerance = .0001)
 })
 
 # ------------------------------------------------------------------------------
@@ -230,58 +234,50 @@ test_that('svm poly classification probabilities', {
 
   skip_if_not_installed("kernlab")
 
-  ind <- c(1, 51, 101)
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+    droplevels()
+
+  ind <- c(1, 2, 143)
 
   set.seed(34562)
   cls_form <-
     fit(
       cls_mod,
       class ~ .,
-      data = hpc,
+      data = hpc_no_m,
       control = ctrl
     )
 
-  # kern_class <-
-  #   tibble(.pred_class = predict(cls_form$fit, hpc[ind, -5]))
+  .pred_factor <- factor(c("F", "VF", "L"), levels = c("VF", "F", "L"))
 
   kern_class <-
     structure(
       list(
-        .pred_class =
-          structure(1:3, .Label = c("setosa", "versicolor", "virginica"), class = "factor")),
+        .pred_class = .pred_factor),
       row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
 
-  parsnip_class <- predict(cls_form, hpc[ind, -5])
+  parsnip_class <- predict(cls_form, hpc_no_m[ind, -5])
   expect_equal(kern_class, parsnip_class)
 
   set.seed(34562)
   cls_xy_form <-
     fit_xy(
       cls_mod,
-      x = hpc[, 1:4],
-      y = hpc$class,
+      x = hpc_no_m[, 1:4],
+      y = hpc_no_m$class,
       control = ctrl
     )
   expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, hpc[ind, -5], type = "probabilities") %>%
+    kernlab::predict(cls_form$fit, hpc_no_m[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
-    setNames(c('.pred_setosa', '.pred_versicolor', '.pred_virginica'))
+    setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 
-  # kern_probs <-
-  #   structure(
-  #     list(
-  #       .pred_setosa = c(0.982990083267231, 0.0167077303224448, 0.00930879923686657),
-  #       .pred_versicolor = c(0.00417116710624842, 0.946131931665357, 0.0015524073332013),
-  #       .pred_virginica = c(0.0128387496265202, 0.0371603380121978, 0.989138793429932)),
-  #     row.names = c(NA,-3L),
-  #     class = c("tbl_df", "tbl", "data.frame"))
-
-  parsnip_probs <- predict(cls_form, hpc[ind, -5], type = "prob")
+  parsnip_probs <- predict(cls_form, hpc_no_m[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_probs))
 
-  parsnip_xy_probs <- predict(cls_xy_form, hpc[ind, -5], type = "prob")
+  parsnip_xy_probs <- predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
 })
