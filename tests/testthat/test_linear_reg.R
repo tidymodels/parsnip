@@ -209,7 +209,7 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-num_pred <- names(hpc)[1:3]
+num_pred <- c("input_fields", "num_pending", "iterations")
 hpc_bad_form <- as.formula(class ~ term)
 hpc_basic <- linear_reg() %>% set_engine("lm")
 
@@ -279,19 +279,18 @@ test_that('lm execution', {
 })
 
 test_that('lm prediction', {
-  uni_lm <- lm(input_fields ~ compounds + iterations + num_pending, data = hpc)
+  uni_lm <- lm(compounds ~ input_fields + num_pending + iterations, data = hpc)
   uni_pred <- unname(predict(uni_lm, newdata = hpc[1:5, ]))
-  inl_lm <- lm(input_fields ~ log(compounds) + class, data = hpc)
+  inl_lm <- lm(compounds ~ log(input_fields) + class, data = hpc)
   inl_pred <- unname(predict(inl_lm, newdata = hpc[1:5, ]))
-  mv_lm <- lm(cbind(compounds, iterations) ~ ., data = hpc)
+  mv_lm <- lm(cbind(input_fields, num_pending) ~ ., data = hpc)
   mv_pred <- as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
-  names(mv_pred) <- c(".pred_compounds", ".pred_iterations")
-
+  names(mv_pred) <- c(".pred_input_fields", ".pred_num_pending")
 
   res_xy <- fit_xy(
     hpc_basic,
     x = hpc[, num_pred],
-    y = hpc$input_fields,
+    y = hpc$compounds,
     control = ctrl
   )
 
@@ -299,23 +298,25 @@ test_that('lm prediction', {
 
   res_form <- fit(
     hpc_basic,
-    input_fields ~ log(compounds) + class,
+    compounds ~ log(input_fields) + class,
     data = hpc,
     control = ctrl
   )
+
   expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred)
 
   res_mv <- fit(
     hpc_basic,
-    cbind(compounds, iterations) ~ .,
+    cbind(input_fields, num_pending) ~ .,
     data = hpc,
     control = ctrl
   )
+
   expect_equal(mv_pred, predict(res_mv, hpc[1:5,]))
 })
 
 test_that('lm intervals', {
-  stats_lm <- lm(input_fields ~ compounds + iterations + num_pending,
+  stats_lm <- lm(compounds ~ input_fields + iterations + num_pending,
                  data = hpc)
   confidence_lm <- predict(stats_lm, newdata = hpc[1:5, ],
                            level = 0.93, interval = "confidence")
@@ -325,7 +326,7 @@ test_that('lm intervals', {
   res_xy <- fit_xy(
     linear_reg()  %>% set_engine("lm"),
     x = hpc[, num_pred],
-    y = hpc$input_fields,
+    y = hpc$compounds,
     control = ctrl
   )
 
