@@ -449,7 +449,7 @@ test_that("1 col matrix x, 1 col matrix y", {
 
 test_that("matrix x, factor y", {
   observed <- parsnip:::convert_xy_to_form_fit(as.matrix(hpc[, -5]), hpc$class)
-  expected <- hpc
+  expected <- as.data.frame(hpc)
   names(expected)[5] <- "..y"
   expect_equal(expected, observed$data)
   expect_equal(formula("..y ~ ."), observed$formula)

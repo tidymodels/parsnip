@@ -4,9 +4,9 @@ library(rlang)
 library(tibble)
 
 context("test-nullmodel")
-source("helpers.R")
+source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
-hpc <- hpc_data[1:150, c(2:5, 8)]
+hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 test_that('primary arguments', {
   basic <- null_model(mode = "regression")
@@ -44,7 +44,7 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-num_pred <- names(phc)[1:3]
+num_pred <- names(hpc)[1:3]
 hpc_bad_form <- as.formula(class ~ term)
 hpc_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
 
@@ -92,8 +92,8 @@ test_that('nullmodel execution', {
 
 test_that('nullmodel prediction', {
 
-  uni_pred <- tibble(.pred = rep(3.758, 5))
-  inl_pred <- rep(3.758, 5)
+  uni_pred <- tibble(.pred = rep(30.1, 5))
+  inl_pred <- rep(30.1, 5)
   mw_pred <- tibble(gear = rep(3.6875, 5),
                     carb = rep(2.8125, 5))
 
@@ -103,14 +103,18 @@ test_that('nullmodel prediction', {
     y = hpc$num_pending
   )
 
-  expect_equal(uni_pred, predict(res_xy, new_data = hpc[1:5, num_pred]))
+  expect_equal(uni_pred,
+               predict(res_xy, new_data = hpc[1:5, num_pred]),
+               tolerance = .01)
 
   res_form <- fit(
     hpc_basic,
     num_pending ~ log(compounds) + class,
-    data = hpc_basic
+    data = hpc
   )
-  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred)
+  expect_equal(inl_pred,
+               predict(res_form, hpc[1:5, ])$.pred,
+               tolerance = .01)
 
   # Multivariate y
   res <- fit(
