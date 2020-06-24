@@ -125,7 +125,7 @@ set_encoding(
   model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
-  options = list(predictor_indicators = TRUE, one_hot = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_model_arg(

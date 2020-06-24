@@ -41,7 +41,7 @@ set_encoding(
   model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = TRUE)
+  options = list(predictor_indicators = TRUE, one_hot = FALSE)
 )
 
 set_pred(
