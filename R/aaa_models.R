@@ -792,7 +792,7 @@ check_encodings <- function(x) {
   if (!is.list(x)) {
     rlang::abort("`values` should be a list.")
   }
-  req_args <- list(predictor_indicators = TRUE, one_hot = TRUE)
+  req_args <- list(predictor_indicators = NA, one_hot = NA)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
