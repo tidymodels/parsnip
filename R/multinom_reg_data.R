@@ -41,7 +41,7 @@ set_encoding(
   model = "multinom_reg",
   eng = "glmnet",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -139,7 +139,7 @@ set_encoding(
   model = "multinom_reg",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -209,7 +209,7 @@ set_encoding(
   model = "multinom_reg",
   eng = "keras",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -279,7 +279,7 @@ set_encoding(
   model = "multinom_reg",
   eng = "nnet",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(

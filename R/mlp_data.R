@@ -69,7 +69,7 @@ set_encoding(
   model = "mlp",
   eng = "keras",
   mode = "regression",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_fit(
@@ -88,7 +88,7 @@ set_encoding(
   model = "mlp",
   eng = "keras",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -231,7 +231,7 @@ set_encoding(
   model = "mlp",
   eng = "nnet",
   mode = "regression",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_fit(
@@ -250,7 +250,7 @@ set_encoding(
   model = "mlp",
   eng = "nnet",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(

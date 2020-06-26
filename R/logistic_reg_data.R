@@ -23,7 +23,7 @@ set_encoding(
   model = "logistic_reg",
   eng = "glm",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -144,7 +144,7 @@ set_encoding(
   model = "logistic_reg",
   eng = "glmnet",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_model_arg(
@@ -263,7 +263,7 @@ set_encoding(
   model = "logistic_reg",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -331,7 +331,7 @@ set_encoding(
   model = "logistic_reg",
   eng = "keras",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
@@ -395,7 +395,7 @@ set_encoding(
   model = "logistic_reg",
   eng = "stan",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(

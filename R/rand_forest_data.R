@@ -136,7 +136,7 @@ set_encoding(
   model = "rand_forest",
   eng = "ranger",
   mode = "classification",
-  options = list(predictor_indicators = FALSE, one_hot = FALSE)
+  options = list(predictor_indicators = "none")
 )
 
 set_fit(
@@ -160,7 +160,7 @@ set_encoding(
   model = "rand_forest",
   eng = "ranger",
   mode = "regression",
-  options = list(predictor_indicators = FALSE, one_hot = FALSE)
+  options = list(predictor_indicators = "none")
 )
 
 set_pred(
@@ -356,7 +356,7 @@ set_encoding(
   model = "rand_forest",
   eng = "randomForest",
   mode = "classification",
-  options = list(predictor_indicators = FALSE, one_hot = FALSE)
+  options = list(predictor_indicators = "none")
 )
 
 set_fit(
@@ -376,7 +376,7 @@ set_encoding(
   model = "rand_forest",
   eng = "randomForest",
   mode = "regression",
-  options = list(predictor_indicators = FALSE, one_hot = FALSE)
+  options = list(predictor_indicators = "none")
 )
 
 set_pred(
@@ -507,7 +507,7 @@ set_encoding(
   model = "rand_forest",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_fit(
@@ -527,7 +527,7 @@ set_encoding(
   model = "rand_forest",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(

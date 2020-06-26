@@ -51,7 +51,7 @@ set_encoding(
   model = "nearest_neighbor",
   eng = "kknn",
   mode = "regression",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_fit(
@@ -70,7 +70,7 @@ set_encoding(
   model = "nearest_neighbor",
   eng = "kknn",
   mode = "classification",
-  options = list(predictor_indicators = TRUE, one_hot = FALSE)
+  options = list(predictor_indicators = "traditional")
 )
 
 set_pred(
