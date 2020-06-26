@@ -324,11 +324,13 @@ check_interface_val <- function(x) {
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
 #' @param options A list of options for engine-specific preprocessing encodings.
-#'  Currently, the two options implemented are `predictor_indicators` (whether
-#'  to create indicator/dummy variables from factor predictors) and `one_hot`
-#'  (whether to create the complete set of those dummy variables, rather than
-#'  the set without the baseline level). These encodings only affect cases when
-#'  [fit.model_spec()] is used and the underlying model has an x/y interface.
+#'  Currently, the one option implemented is `predictor_indicators`, whether
+#'  and how to create indicator/dummy variables from factor predictors. There
+#'  are three options: `"none"` (do not expand factor predictors),
+#'  `"traditional"` (create a set of without the baseline level), and
+#'  `"one_hot"` (create the complete set including the baseline level). This
+#'  encoding only affects cases when [fit.model_spec()] is used and the
+#'  underlying model has an x/y interface.
 #' @param ... Optional arguments that should be passed into the `args` slot for
 #'  prediction objects.
 #' @keywords internal
@@ -792,7 +794,7 @@ check_encodings <- function(x) {
   if (!is.list(x)) {
     rlang::abort("`values` should be a list.")
   }
-  req_args <- list(predictor_indicators = NA, one_hot = NA)
+  req_args <- list(predictor_indicators = NA)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -837,7 +839,7 @@ set_encoding <- function(model, mode, eng, options) {
       current %>%
       dplyr::inner_join(
         new_values,
-        by = c("model", "engine", "mode", "predictor_indicators", "one_hot")
+        by = c("model", "engine", "mode", "predictor_indicators")
       )
     if (nrow(dup_check)) {
       rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings."))

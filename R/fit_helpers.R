@@ -108,6 +108,8 @@ form_xy <- function(object, control, env,
                   engine == object$engine) %>%
     dplyr::pull(predictor_indicators)
 
+  indicators <- indicators == "traditional"
+
   data_obj <- convert_form_to_xy_fit(
     formula = env$formula,
     data = env$data,
