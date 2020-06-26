@@ -140,11 +140,11 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  68ms 
+#> Fit time:  71ms 
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(formula = mpg ~ ., data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(formula = formula, data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  2000 
@@ -154,8 +154,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       6.037202 
-#> R squared (OOB):                  0.8337962
+#> OOB prediction error (MSE):       5.911312 
+#> R squared (OOB):                  0.837262
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
@@ -171,7 +171,7 @@ Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
   - For questions and discussions about tidymodels packages, modeling,
-    and machine learning, [join us on RStudio
+    and machine learning, please [post on RStudio
     Community](https://rstd.io/tidymodels-community).
 
   - If you think you have encountered a bug, please [submit an
