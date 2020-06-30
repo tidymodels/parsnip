@@ -18,19 +18,22 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'devel',   miniconda: '../miniconda/'}
-          - {os: macOS-latest,   r: 'release', miniconda: '../miniconda/'}
+          - {os: macOS-latest,   r: 'devel'}
+          - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: '3.6'}
           - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.5',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+        include:
+          - os: macOS-latest
+            miniconda: '../miniconda/'
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RETICULATE_MINICONDA_PATH: ${{ matrix.config.miniconda }}
+      RETICULATE_MINICONDA_PATH: ${{ matrix.miniconda }}
 
     steps:
       - uses: actions/checkout@v2
