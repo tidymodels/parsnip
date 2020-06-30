@@ -864,6 +864,20 @@ set_encoding <- function(model, mode, eng, options) {
 get_encoding <- function(model) {
   check_model_exists(model)
   nm <- paste0(model, "_encoding")
-  rlang::env_get(get_model_env(), nm)
+  res <- try(get_from_env(nm), silent = TRUE)
+  if (inherits(res, "try-error")) {
+    # for objects made before encodings were specified in parsnip
+    res <-
+      get_from_env(model) %>%
+      dplyr::mutate(
+        model = model,
+        predictor_indicators = "traditional",
+        compute_intercept = TRUE,
+        remove_intercept = TRUE
+      ) %>%
+      dplyr::select(model, engine, mode, predictor_indicators,
+                    compute_intercept, remove_intercept)
+  }
+  res
 }
 
