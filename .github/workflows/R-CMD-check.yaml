@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'devel',   miniconda: 'miniconda/'}
-          - {os: macOS-latest,   r: 'release', miniconda: 'miniconda/'}
+          - {os: macOS-latest,   r: 'devel'}
+          - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: '3.6'}
           - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
@@ -30,7 +30,6 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RETICULATE_MINICONDA_PATH: ${{ matrix.config.miniconda }}
 
     steps:
       - uses: actions/checkout@v2
@@ -71,21 +70,21 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Install TensorFlow on macOS
-        if: runner.os == 'macOS'
+      - name: Install TensorFlow on macOS and Ubuntu
+        if: runner.os != 'Windows'
+        env:
+          RETICULATE_MINICONDA_PATH: 'miniconda/'
         run: |
-          reticulate::install_miniconda()
-          reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = 'miniconda/bin/conda')
-          tensorflow::install_tensorflow(version='1.14.0', conda = 'miniconda/bin/conda')
-        shell: Rscript {0}
+          Rscript -e "reticulate::install_miniconda()"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = 'miniconda/bin/conda')"
+          Rscript -e "tensorflow::install_tensorflow(version='1.14.0', conda = 'miniconda/bin/conda')"
 
-      - name: Install TensorFlow on Ubuntu and Windows
-        if: runner.os != 'macOS'
+      - name: Install TensorFlow on Windows
+        if: runner.os == 'Windows'
         run: |
-          reticulate::install_miniconda()
-          reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')
-          tensorflow::install_tensorflow(version='1.14.0')
-        shell: Rscript {0}
+          Rscript -e "reticulate::install_miniconda()"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
+          Rscript -e "tensorflow::install_tensorflow(version='1.14.0')"
 
       - name: Session info
         run: |
