@@ -13,7 +13,6 @@ status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)]
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-
 <!-- badges: end -->
 
 ## Introduction
@@ -141,7 +140,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  69ms 
+#> Fit time:  71ms 
 #> Ranger result
 #> 
 #> Call:
@@ -155,8 +154,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.815633 
-#> R squared (OOB):                  0.839896
+#> OOB prediction error (MSE):       5.911312 
+#> R squared (OOB):                  0.837262
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
@@ -167,12 +166,21 @@ package.
 
 ## Contributing
 
-If you encounter a bug, please file a minimal reproducible example on
-[GitHub](https://github.com/tidymodels/parsnip/issues). For questions
-and other discussion, please use
-[community.rstudio.com](https://community.rstudio.com/).
-
-Please note that the parsnip project is released with a [Contributor
-Code of
+This project is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+  - For questions and discussions about tidymodels packages, modeling,
+    and machine learning, please [post on RStudio
+    Community](https://rstd.io/tidymodels-community).
+
+  - If you think you have encountered a bug, please [submit an
+    issue](https://github.com/tidymodels/parsnip/issues).
+
+  - Either way, learn how to create and share a
+    [reprex](https://rstd.io/reprex) (a minimal, reproducible example),
+    to clearly communicate about your code.
+
+  - Check out further details on [contributing guidelines for tidymodels
+    packages](https://www.tidymodels.org/contribute/) and [how to get
+    help](https://www.tidymodels.org/help/).
