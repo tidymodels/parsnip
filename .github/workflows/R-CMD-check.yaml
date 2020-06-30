@@ -25,11 +25,15 @@ jobs:
           - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.5',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+        include:
+          - os: macOS-latest
+            miniconda: '../miniconda/'
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RETICULATE_MINICONDA_PATH: ${{ matrix.miniconda }}
 
     steps:
       - uses: actions/checkout@v2
@@ -70,17 +74,15 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Install TensorFlow on macOS and Ubuntu
-        if: runner.os != 'Windows'
-        env:
-          RETICULATE_MINICONDA_PATH: '../miniconda/'
+      - name: Install TensorFlow on macOS
+        if: runner.os == 'macOS'
         run: |
           Rscript -e "reticulate::install_miniconda()"
           Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = '../miniconda/bin/conda')"
           Rscript -e "tensorflow::install_tensorflow(version='1.14.0', conda = '../miniconda/bin/conda')"
 
-      - name: Install TensorFlow on Windows
-        if: runner.os == 'Windows'
+      - name: Install TensorFlow on Windows and Ubuntu
+        if: runner.os != 'macOS'
         run: |
           Rscript -e "reticulate::install_miniconda()"
           Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
