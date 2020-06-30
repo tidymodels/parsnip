@@ -794,7 +794,9 @@ check_encodings <- function(x) {
   if (!is.list(x)) {
     rlang::abort("`values` should be a list.")
   }
-  req_args <- list(predictor_indicators = NA)
+  req_args <- list(predictor_indicators = rlang::na_chr,
+                   compute_intercept = rlang::na_lgl,
+                   remove_intercept = rlang::na_lgl)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -842,7 +844,7 @@ set_encoding <- function(model, mode, eng, options) {
         by = c("model", "engine", "mode", "predictor_indicators")
       )
     if (nrow(dup_check)) {
-      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings."))
+      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings for model '{model}'."))
     }
 
   } else {

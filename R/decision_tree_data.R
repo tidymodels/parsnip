@@ -52,7 +52,11 @@ set_encoding(
   model = "decision_tree",
   eng = "rpart",
   mode = "regression",
-  options = list(predictor_indicators = "none")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -71,7 +75,11 @@ set_encoding(
   model = "decision_tree",
   eng = "rpart",
   mode = "classification",
-  options = list(predictor_indicators = "none")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
@@ -176,7 +184,11 @@ set_encoding(
   model = "decision_tree",
   eng = "C5.0",
   mode = "classification",
-  options = list(predictor_indicators = "none")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
@@ -270,7 +282,11 @@ set_encoding(
   model = "decision_tree",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = "traditional")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -291,7 +307,11 @@ set_encoding(
   model = "decision_tree",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = "traditional")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(

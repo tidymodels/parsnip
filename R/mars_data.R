@@ -51,7 +51,11 @@ set_encoding(
   model = "mars",
   eng = "earth",
   mode = "regression",
-  options = list(predictor_indicators = "none")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -70,7 +74,11 @@ set_encoding(
   model = "mars",
   eng = "earth",
   mode = "classification",
-  options = list(predictor_indicators = "none")
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
