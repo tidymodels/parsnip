@@ -13,6 +13,7 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RETICULATE_MINICONDA_PATH: 'miniconda/'
     steps:
       - uses: actions/checkout@v2
 
