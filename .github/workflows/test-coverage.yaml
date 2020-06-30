@@ -13,7 +13,6 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RETICULATE_MINICONDA_PATH: '../miniconda/'
     steps:
       - uses: actions/checkout@v2
 
@@ -44,9 +43,11 @@ jobs:
 
       - name: Install TensorFlow
         run: |
+          Rscript -e "remotes::install_github('rstudio/reticulate')"
           Rscript -e "reticulate::install_miniconda()"
-          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = '../miniconda/bin/conda')"
-          Rscript -e "tensorflow::install_tensorflow(version='1.14.0', conda = '../miniconda/bin/conda')"
+          echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
+          Rscript -e "tensorflow::install_tensorflow(version='1.14.0')"
 
       - name: Test coverage
         run: covr::codecov()
