@@ -328,7 +328,7 @@ check_interface_val <- function(x) {
 #'  and how to create indicator/dummy variables from factor predictors. There
 #'  are three options: `"none"` (do not expand factor predictors),
 #'  `"traditional"` (create a set of without the baseline level), and
-#'  `"one-hot"` (create the complete set including the baseline level). This
+#'  `"one_hot"` (create the complete set including the baseline level). This
 #'  encoding only affects cases when [fit.model_spec()] is used and the
 #'  underlying model has an x/y interface.
 #' @param ... Optional arguments that should be passed into the `args` slot for
