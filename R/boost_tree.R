@@ -301,7 +301,7 @@ xgb_train <- function(
 
 
   if (is.numeric(y)) {
-    loss <- "reg:linear"
+    loss <- "reg:squarederror"
   } else {
     lvl <- levels(y)
     y <- as.numeric(y) - 1
@@ -399,7 +399,7 @@ xgb_pred <- function(object, newdata, ...) {
 
   x = switch(
     object$params$objective,
-    "reg:linear" = , "reg:logistic" = , "binary:logistic" = res,
+    "reg:squarederror" = , "reg:logistic" = , "binary:logistic" = res,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
     res
