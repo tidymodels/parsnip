@@ -70,16 +70,22 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
-      - name: Set Miniconda path
-        if: runner.os == 'MacOS'
+      - name: Create Miniconda on macOS and Ubuntu
+        if: runner.os != 'Windows'
         env:
           RETICULATE_MINICONDA_PATH: 'miniconda/'
+        run: |
+          Rscript -e "reticulate::install_miniconda()"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = 'miniconda/bin/conda')"
 
-      - name: Install TensorFlow
+      - name: Create Miniconda on Windows
+        if: runner.os == 'Windows'
         run: |
           Rscript -e "reticulate::install_miniconda()"
           Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
-          Rscript -e "tensorflow::install_tensorflow(version='1.14.0')"
+
+      - name: Install TensorFlow
+        run: Rscript -e "tensorflow::install_tensorflow(version='1.14.0')"
 
       - name: Session info
         run: |
