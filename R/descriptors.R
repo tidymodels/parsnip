@@ -114,7 +114,11 @@ get_descr_form <- function(formula, data) {
 
 get_descr_df <- function(formula, data) {
 
-  tmp_dat <- convert_form_to_xy_fit(formula, data, indicators = FALSE)
+  tmp_dat <-
+    convert_form_to_xy_fit(formula,
+                           data,
+                           indicators = "none",
+                           remove_intercept = TRUE)
 
   if(is.factor(tmp_dat$y)) {
     .lvls <- function() {
@@ -127,7 +131,14 @@ get_descr_df <- function(formula, data) {
   }
 
   .cols <- function() {
-    ncol(convert_form_to_xy_fit(formula, data, indicators = TRUE)$x)
+    ncol(
+      convert_form_to_xy_fit(
+        formula,
+        data,
+        indicators = "traditional",
+        remove_intercept = TRUE
+      )$x
+    )
   }
 
   .obs <- function() {
@@ -285,7 +296,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    convert_xy_to_form_fit(x, y)$data
+    convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
   }
 
   .x <- function() {
