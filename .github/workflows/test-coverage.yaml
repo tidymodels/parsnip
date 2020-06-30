@@ -46,7 +46,7 @@ jobs:
         run: |
           Rscript -e "reticulate::install_miniconda()"
           Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9', conda = 'miniconda/bin/conda')"
-          Rscript -e "tensorflow::install_tensorflow(version='1.14.0')"
+          Rscript -e "tensorflow::install_tensorflow(version='1.14.0', conda = 'miniconda/bin/conda')"
 
       - name: Test coverage
         run: covr::codecov()
