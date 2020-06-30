@@ -92,7 +92,7 @@ set_encoding(
   eng = "xgboost",
   mode = "regression",
   options = list(
-    predictor_indicators = "one_hot",
+    predictor_indicators = "one-hot",
     compute_intercept = FALSE,
     remove_intercept = FALSE
   )
@@ -141,7 +141,7 @@ set_encoding(
   eng = "xgboost",
   mode = "classification",
   options = list(
-    predictor_indicators = "one_hot",
+    predictor_indicators = "one-hot",
     compute_intercept = FALSE,
     remove_intercept = FALSE
   )

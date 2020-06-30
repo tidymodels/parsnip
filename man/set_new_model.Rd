@@ -90,7 +90,7 @@ Currently, the one option implemented is \code{predictor_indicators}, whether
 and how to create indicator/dummy variables from factor predictors. There
 are three options: \code{"none"} (do not expand factor predictors),
 \code{"traditional"} (create a set of without the baseline level), and
-\code{"one_hot"} (create the complete set including the baseline level). This
+\code{"one-hot"} (create the complete set including the baseline level). This
 encoding only affects cases when \code{\link[=fit.model_spec]{fit.model_spec()}} is used and the
 underlying model has an x/y interface.}
 
