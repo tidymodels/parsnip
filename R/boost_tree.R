@@ -301,7 +301,7 @@ xgb_train <- function(
 
 
   if (is.numeric(y)) {
-    loss <- "reg:squarederror"
+    loss <- "reg:linear"
   } else {
     lvl <- levels(y)
     y <- as.numeric(y) - 1
