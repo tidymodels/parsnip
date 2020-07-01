@@ -2,7 +2,7 @@
 library(dplyr)
 ```
 
-By default, `model.matrix()` generates binary indicator variables for all but one of the levels for factor predictors when the formula does not remove an intercept. 
+By default, `model.matrix()` generates binary indicator variables for factor predictors. When the formula does not remove an intercept, an incomplete set of indicators are created; no indicator is made for the first level of the factor.
 
 For example, `species` and `island` both have three levels:
 
@@ -10,6 +10,9 @@ For example, `species` and `island` both have three levels:
 library(dplyr)
 library(modeldata)
 data(penguins)
+
+levels(penguins$species)
+levels(penguins$island)
 
 model.matrix(~ species + island, data = penguins) %>% 
   colnames()

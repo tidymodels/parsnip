@@ -119,18 +119,18 @@ format.
 already been registered. \code{check_model_doesnt_exist()} checks the model value
 and also checks to see if it is novel in the environment.
 
-The options for encodings for \code{parsnip} dictate how the predictors should be
-handled. Overall, the goal of these options is to make sure that the data
+The options for engine-specific encodings dictate how the predictors should be
+handled. These options ensure that the data
 that \code{parsnip} gives to the underlying model allows for a model fit that is
-similar as possible to what it would have produced directly.
+as similar as possible to what it would have produced directly.
 
-For example, if \code{fit()} is used to fit a model and that model does not have
-a formula interface, it is possible that some predictor preprocessing must
+For example, if \code{fit()} is used to fit a model that does not have
+a formula interface, typically some predictor preprocessing must
 be conducted. \code{glmnet} is a good example of this.
 
 There are three options that can be used for the encodings:
 
-\code{predictor_indicators} describes, whether and how to create indicator/dummy
+\code{predictor_indicators} describes whether and how to create indicator/dummy
 variables from factor predictors. There are three options: \code{"none"} (do not
 expand factor predictors), \code{"traditional"} (apply the standard
 \code{model.matrix()} encodings), and \code{"one_hot"} (create the complete set
@@ -141,7 +141,7 @@ interface.
 Another option is \code{compute_intercept}; this controls whether \code{model.matrix()}
 should include the intercept in its formula. This affects more than the
 inclusion of an intercept column. With an intercept, \code{model.matrix()}
-computes a dummy variables for all but one factor levels. Without an
+computes dummy variables for all but one factor levels. Without an
 intercept, \code{model.matrix()} computes a full set of indicators for the
 \emph{first} factor variable, but an incomplete set for the remainder.
 

@@ -19,26 +19,32 @@ default of \code{FALSE} is supported.}
 A diagonal matrix that is \code{n}-by-\code{n}.
 }
 \description{
-This contrast function produces a model matrix that has indicator columns for
+This contrast function produces a model matrix with indicator columns for
 each level of each factor.
 }
 \details{
 By default, \code{model.matrix()} generates binary indicator variables for
-all but one of the levels for factor predictors when the formula does
-not remove an intercept.
+factor predictors. When the formula does not remove an intercept, an
+incomplete set of indicators are created; no indicator is made for the
+first level of the factor.
 
 For example, \code{species} and \code{island} both have three levels:\if{html}{\out{<div class="r">}}\preformatted{library(dplyr)
 library(modeldata)
 data(penguins)
 
-model.matrix(~ species + island, data = penguins) \%>\% 
+levels(penguins$species)
+}\if{html}{\out{</div>}}\preformatted{## [1] "Adelie"    "Chinstrap" "Gentoo"
+}\if{html}{\out{<div class="r">}}\preformatted{levels(penguins$island)
+}\if{html}{\out{</div>}}\preformatted{## [1] "Biscoe"    "Dream"     "Torgersen"
+}\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ species + island, data = penguins) \%>\% 
   colnames()
 }\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
 ## [5] "islandTorgersen"
 }
 
-When there is no intercept, the first factor receives indicators for
-\emph{all} factor levels but all other factors get all but one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
+When there is no intercept, the first factor is expanded to indicators
+for \emph{all} factor levels but all other factors are expanded to all but
+one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
   colnames()
 }\if{html}{\out{</div>}}\preformatted{## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     
 ## [5] "islandTorgersen"
@@ -46,7 +52,7 @@ When there is no intercept, the first factor receives indicators for
 
 For inference, this hybrid encoding can be problematic.
 
-To generate all indicators, this contrast can be used:\if{html}{\out{<div class="r">}}\preformatted{# Switch out the contrast method
+To generate all indicators, use this contrast:\if{html}{\out{<div class="r">}}\preformatted{# Switch out the contrast method
 old_contr <- options("contrasts")$contrasts
 new_contr <- old_contr
 new_contr["unordered"] <- "contr_one_hot"
