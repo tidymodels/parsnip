@@ -349,8 +349,8 @@ check_interface_val <- function(x) {
 #'  that `parsnip` gives to the underlying model allows for a model fit that is
 #'  as similar as possible to what it would have produced directly.
 #'
-#'  For example, if `fit()` is used to fit a model and that model does not have
-#'  a formula interface, it is possible that some predictor preprocessing must
+#'  For example, if `fit()` is used to fit a model that does not have
+#'  a formula interface, typically some predictor preprocessing must
 #'  be conducted. `glmnet` is a good example of this.
 #'
 #'   There are three options that can be used for the encodings:
