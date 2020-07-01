@@ -1,6 +1,6 @@
 #' Contrast function for one-hot encodings
 #'
-#' This contrast function produces a model matrix that has indicator columns for
+#' This contrast function produces a model matrix with indicator columns for
 #' each level of each factor.
 #'
 #' @param n A vector of character factor levels or the number of unique levels.
