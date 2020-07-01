@@ -324,13 +324,7 @@ check_interface_val <- function(x) {
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
 #' @param options A list of options for engine-specific preprocessing encodings.
-#'  Currently, the one option implemented is `predictor_indicators`, whether
-#'  and how to create indicator/dummy variables from factor predictors. There
-#'  are three options: `"none"` (do not expand factor predictors),
-#'  `"traditional"` (create a set of without the baseline level), and
-#'  `"one_hot"` (create the complete set including the baseline level). This
-#'  encoding only affects cases when [fit.model_spec()] is used and the
-#'  underlying model has an x/y interface.
+#'  See Details below.
 #' @param ... Optional arguments that should be passed into the `args` slot for
 #'  prediction objects.
 #' @keywords internal
@@ -349,6 +343,36 @@ check_interface_val <- function(x) {
 #' `check_model_exists()` checks the model value and ensures that the model has
 #'  already been registered. `check_model_doesnt_exist()` checks the model value
 #'  and also checks to see if it is novel in the environment.
+#'
+#'  The options for encodings for `parsnip` dictate how the predictors should be
+#'  handled. Overall, the goal of these options is to make sure that the data
+#'  that `parsnip` gives to the underlying model allows for a model fit that is
+#'  similar as possible to what it would have produced directly.
+#'
+#'  For example, if `fit()` is used to fit a model and that model does not have
+#'  a formula interface, it is possible that some predictor preprocessing must
+#'  be conducted. `glmnet` is a good example of this.
+#'
+#'   There are three options that can be used for the encodings:
+#'
+#'  `predictor_indicators` describes, whether and how to create indicator/dummy
+#'  variables from factor predictors. There are three options: `"none"` (do not
+#'  expand factor predictors), `"traditional"` (apply the standard
+#'  `model.matrix()` encodings), and `"one_hot"` (create the complete set
+#'  including the baseline level for all factors). This encoding only affects
+#'  cases when [fit.model_spec()] is used and the underlying model has an x/y
+#'  interface.
+#'
+#' Another option is `compute_intercept`; this controls whether `model.matrix()`
+#'  should include the intercept in its formula. This affects more than the
+#'  inclusion of an intercept column. With an intercept, `model.matrix()`
+#'  computes a dummy variables for all but one factor levels. Without an
+#'  intercept, `model.matrix()` computes a full set of indicators for the
+#'  _first_ factor variable, but an incomplete set for the remainder.
+#'
+#'  Finally, the option `remove_intercept` will remove the intercept column
+#'  _after_ `model.matrix()` is finished. This can be useful if the model
+#'  function (e.g. `lm()`) automatically generates an intercept.
 #'
 #' @references "Making a parsnip model from scratch"
 #'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
