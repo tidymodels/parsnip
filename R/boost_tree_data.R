@@ -94,7 +94,7 @@ set_encoding(
   options = list(
     predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = TRUE
   )
 )
 
@@ -143,7 +143,7 @@ set_encoding(
   options = list(
     predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = TRUE
   )
 )
 

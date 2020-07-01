@@ -176,7 +176,7 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
     .checkMFClasses(cl, new_data)
 
   if(object$options$indicators != "none") {
-    if (indicators == "one_hot") {
+    if (object$options$indicators == "one_hot") {
       old_contr <- options("contrasts")$contrasts
       on.exit(options(contrasts = old_contr))
       new_contr <- old_contr

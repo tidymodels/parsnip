@@ -104,6 +104,17 @@ set_pred(
   )
 )
 
+set_encoding(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
+)
+
 set_pred(
   model = "svm_rbf",
   eng = "kernlab",
