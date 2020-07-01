@@ -345,9 +345,9 @@ check_interface_val <- function(x) {
 #'  and also checks to see if it is novel in the environment.
 #'
 #'  The options for engine-specific encodings dictate how the predictors should be
-#'  handled. Overall, the goal of these options is to make sure that the data
+#'  handled. These options ensure that the data
 #'  that `parsnip` gives to the underlying model allows for a model fit that is
-#'  similar as possible to what it would have produced directly.
+#'  as similar as possible to what it would have produced directly.
 #'
 #'  For example, if `fit()` is used to fit a model and that model does not have
 #'  a formula interface, it is possible that some predictor preprocessing must
