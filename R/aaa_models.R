@@ -344,7 +344,7 @@ check_interface_val <- function(x) {
 #'  already been registered. `check_model_doesnt_exist()` checks the model value
 #'  and also checks to see if it is novel in the environment.
 #'
-#'  The options for encodings for `parsnip` dictate how the predictors should be
+#'  The options for engine-specific encodings dictate how the predictors should be
 #'  handled. Overall, the goal of these options is to make sure that the data
 #'  that `parsnip` gives to the underlying model allows for a model fit that is
 #'  similar as possible to what it would have produced directly.
