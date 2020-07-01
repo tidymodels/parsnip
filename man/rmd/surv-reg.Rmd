@@ -26,6 +26,8 @@ surv_reg() %>%
 Note that `model = TRUE` is needed to produce quantile predictions when there is 
 a stratification variable and can be overridden in other cases.
 
+`fit()` passes the data directly to `survival::curvreg()` so that its formula method can create dummy variables as-needed. 
+
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
