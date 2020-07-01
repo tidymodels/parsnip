@@ -366,7 +366,7 @@ check_interface_val <- function(x) {
 #' Another option is `compute_intercept`; this controls whether `model.matrix()`
 #'  should include the intercept in its formula. This affects more than the
 #'  inclusion of an intercept column. With an intercept, `model.matrix()`
-#'  computes a dummy variables for all but one factor levels. Without an
+#'  computes dummy variables for all but one factor levels. Without an
 #'  intercept, `model.matrix()` computes a full set of indicators for the
 #'  _first_ factor variable, but an incomplete set for the remainder.
 #'
