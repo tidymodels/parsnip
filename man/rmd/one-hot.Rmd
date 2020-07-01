@@ -1,0 +1,44 @@
+```{r load, include = FALSE}
+library(dplyr)
+```
+
+By default, `model.matrix()` generates binary indicator variables for all but one of the levels for factor predictors when the formula does not remove an intercept. 
+
+For example, `species` and `island` both have three levels:
+
+```{r ref-cell}
+library(dplyr)
+library(modeldata)
+data(penguins)
+
+model.matrix(~ species + island, data = penguins) %>% 
+  colnames()
+```
+
+When there is no intercept, the first factor receives indicators for _all_ factor levels but all other factors get all but one (as above):
+
+```{r hybrid}
+model.matrix(~ 0 + species + island, data = penguins) %>% 
+  colnames()
+```
+
+For inference, this hybrid encoding can be problematic. 
+
+To generate all indicators, this contrast can be used: 
+
+```{r one-hot}
+# Switch out the contrast method
+old_contr <- options("contrasts")$contrasts
+new_contr <- old_contr
+new_contr["unordered"] <- "contr_one_hot"
+options(contrasts = new_contr)
+
+model.matrix(~ species + island, data = penguins) %>% 
+  colnames()
+
+options(contrasts = old_contr)
+```
+
+Removing the intercept here does not affect the factor encodings. 
+
+ 

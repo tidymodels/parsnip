@@ -904,25 +904,3 @@ get_encoding <- function(model) {
   }
   res
 }
-
-## -----------------------------------------------------------------------------
-
-
-contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
-  if (sparse) {
-    rlang::warn("'sparse' not implmented for `contr_one_hot()`")
-  }
-  if (!contrasts) {
-    rlang::warn("'contrasts = FALSE' not implmented for `contr_one_hot()`")
-  }
-  vals <- n
-  n <- length(vals)
-  if (!is.character(vals)) {
-    vals <- format(seq_along(vals))
-  }
-  res <- diag(n)
-  rownames(res) <- vals
-  colnames(res) <- vals
-  res
-}
-

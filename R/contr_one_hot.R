@@ -9,6 +9,8 @@
 #' @param sparse This argument is for backwards compatibility and only the
 #'   default of `FALSE` is supported.
 #'
+#' @includeRmd man/rmd/one-hot.Rmd details
+#'
 #' @return A diagonal matrix that is `n`-by-`n`.
 #'
 #' @export

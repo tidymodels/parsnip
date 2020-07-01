@@ -22,3 +22,42 @@ A diagonal matrix that is \code{n}-by-\code{n}.
 This contrast function produces a model matrix that has indicator columns for
 each level of each factor.
 }
+\details{
+By default, \code{model.matrix()} generates binary indicator variables for
+all but one of the levels for factor predictors when the formula does
+not remove an intercept.
+
+For example, \code{species} and \code{island} both have three levels:\if{html}{\out{<div class="r">}}\preformatted{library(dplyr)
+library(modeldata)
+data(penguins)
+
+model.matrix(~ species + island, data = penguins) \%>\% 
+  colnames()
+}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
+}
+
+When there is no intercept, the first factor receives indicators for
+\emph{all} factor levels but all other factors get all but one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
+  colnames()
+}\if{html}{\out{</div>}}\preformatted{## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
+}
+
+For inference, this hybrid encoding can be problematic.
+
+To generate all indicators, this contrast can be used:\if{html}{\out{<div class="r">}}\preformatted{# Switch out the contrast method
+old_contr <- options("contrasts")$contrasts
+new_contr <- old_contr
+new_contr["unordered"] <- "contr_one_hot"
+options(contrasts = new_contr)
+
+model.matrix(~ species + island, data = penguins) \%>\% 
+  colnames()
+}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   
+## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"
+}\if{html}{\out{<div class="r">}}\preformatted{options(contrasts = old_contr)
+}\if{html}{\out{</div>}}
+
+Removing the intercept here does not affect the factor encodings.
+}
