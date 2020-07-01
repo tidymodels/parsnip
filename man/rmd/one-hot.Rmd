@@ -24,7 +24,7 @@ model.matrix(~ 0 + species + island, data = penguins) %>%
 
 For inference, this hybrid encoding can be problematic. 
 
-To generate all indicators, this contrast can be used: 
+To generate all indicators, use this contrast: 
 
 ```{r one-hot}
 # Switch out the contrast method
