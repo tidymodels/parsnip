@@ -355,7 +355,7 @@ check_interface_val <- function(x) {
 #'
 #'   There are three options that can be used for the encodings:
 #'
-#'  `predictor_indicators` describes, whether and how to create indicator/dummy
+#'  `predictor_indicators` describes whether and how to create indicator/dummy
 #'  variables from factor predictors. There are three options: `"none"` (do not
 #'  expand factor predictors), `"traditional"` (apply the standard
 #'  `model.matrix()` encodings), and `"one_hot"` (create the complete set
