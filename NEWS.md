@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 0.1.2
 
 ## Breaking Changes
 

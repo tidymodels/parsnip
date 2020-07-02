@@ -144,7 +144,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(formula = formula, data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(formula = mpg ~ ., data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  2000 
@@ -154,8 +154,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.911312 
-#> R squared (OOB):                  0.837262
+#> OOB prediction error (MSE):       5.699772 
+#> R squared (OOB):                  0.8430857
 ```
 
 A list of all `parsnip` models across different CRAN packages can be

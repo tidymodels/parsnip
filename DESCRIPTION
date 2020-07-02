@@ -1,5 +1,5 @@
 Package: parsnip
-Version: 0.1.1.9000
+Version: 0.1.2
 Title: A Common API to Modeling and Analysis Functions
 Description: A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. 'R', 'Spark', 'Stan', etc). 
 Authors@R: c(
