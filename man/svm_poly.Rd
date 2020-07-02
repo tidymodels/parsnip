@@ -103,6 +103,9 @@ call. For this type of model, the template of the fit calls are below:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot", 
 ##     prob.model = TRUE)
 }
+
+\code{fit()} passes the data directly to \code{kernlab::ksvm()} so that its
+formula method can create dummy variables as-needed.
 }
 
 \subsection{Parameter translations}{

@@ -180,7 +180,9 @@ mod_param <-
 
 Finally, note that \code{xgboost} models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
-numeric representation.
+numeric representation. By default, when using \code{fit()} with \code{xgboost}, a
+one-hot encoding is used to convert factor predictors to indicator
+variables.
 }
 
 \subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
@@ -196,7 +198,9 @@ numeric representation.
 }
 
 Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
-predictors to be converted to indicator variables.
+predictors to be converted to indicator variables. \code{fit()} does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model.
 }
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
@@ -222,6 +226,9 @@ predictors to be converted to indicator variables.
 ## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
 ##     type = "classification", seed = sample.int(10^5, 1))
 }
+
+\code{fit()} does not affect the encoding of the predictor values
+(i.e. factors stay factors) for this model.
 }
 
 \subsection{Parameter translations}{

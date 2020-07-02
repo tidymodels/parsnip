@@ -323,11 +323,8 @@ check_interface_val <- function(x) {
 #'  below, depending on context.
 #' @param pre,post Optional functions for pre- and post-processing of prediction
 #'  results.
-#' @param options A list of options for engine-specific encodings. Currently,
-#' the option implemented is `predictor_indicators` which tells `parsnip`
-#' whether the pre-processing should make indicator/dummy variables from factor
-#' predictors. This only affects cases when [fit.model_spec()] is used and the
-#' underlying model has an x/y interface.
+#' @param options A list of options for engine-specific preprocessing encodings.
+#'  See Details below.
 #' @param ... Optional arguments that should be passed into the `args` slot for
 #'  prediction objects.
 #' @keywords internal
@@ -346,6 +343,36 @@ check_interface_val <- function(x) {
 #' `check_model_exists()` checks the model value and ensures that the model has
 #'  already been registered. `check_model_doesnt_exist()` checks the model value
 #'  and also checks to see if it is novel in the environment.
+#'
+#'  The options for engine-specific encodings dictate how the predictors should be
+#'  handled. These options ensure that the data
+#'  that `parsnip` gives to the underlying model allows for a model fit that is
+#'  as similar as possible to what it would have produced directly.
+#'
+#'  For example, if `fit()` is used to fit a model that does not have
+#'  a formula interface, typically some predictor preprocessing must
+#'  be conducted. `glmnet` is a good example of this.
+#'
+#'   There are three options that can be used for the encodings:
+#'
+#'  `predictor_indicators` describes whether and how to create indicator/dummy
+#'  variables from factor predictors. There are three options: `"none"` (do not
+#'  expand factor predictors), `"traditional"` (apply the standard
+#'  `model.matrix()` encodings), and `"one_hot"` (create the complete set
+#'  including the baseline level for all factors). This encoding only affects
+#'  cases when [fit.model_spec()] is used and the underlying model has an x/y
+#'  interface.
+#'
+#' Another option is `compute_intercept`; this controls whether `model.matrix()`
+#'  should include the intercept in its formula. This affects more than the
+#'  inclusion of an intercept column. With an intercept, `model.matrix()`
+#'  computes dummy variables for all but one factor levels. Without an
+#'  intercept, `model.matrix()` computes a full set of indicators for the
+#'  _first_ factor variable, but an incomplete set for the remainder.
+#'
+#'  Finally, the option `remove_intercept` will remove the intercept column
+#'  _after_ `model.matrix()` is finished. This can be useful if the model
+#'  function (e.g. `lm()`) automatically generates an intercept.
 #'
 #' @references "Making a parsnip model from scratch"
 #'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
@@ -791,7 +818,9 @@ check_encodings <- function(x) {
   if (!is.list(x)) {
     rlang::abort("`values` should be a list.")
   }
-  req_args <- list(predictor_indicators = TRUE)
+  req_args <- list(predictor_indicators = rlang::na_chr,
+                   compute_intercept = rlang::na_lgl,
+                   remove_intercept = rlang::na_lgl)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -834,9 +863,12 @@ set_encoding <- function(model, mode, eng, options) {
     current <- get_from_env(nm)
     dup_check <-
       current %>%
-      dplyr::inner_join(new_values, by = c("model", "engine", "mode", "predictor_indicators"))
+      dplyr::inner_join(
+        new_values,
+        by = c("model", "engine", "mode", "predictor_indicators")
+      )
     if (nrow(dup_check)) {
-      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings."))
+      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings for model '{model}'."))
     }
 
   } else {
@@ -856,6 +888,19 @@ set_encoding <- function(model, mode, eng, options) {
 get_encoding <- function(model) {
   check_model_exists(model)
   nm <- paste0(model, "_encoding")
-  rlang::env_get(get_model_env(), nm)
+  res <- try(get_from_env(nm), silent = TRUE)
+  if (inherits(res, "try-error")) {
+    # for objects made before encodings were specified in parsnip
+    res <-
+      get_from_env(model) %>%
+      dplyr::mutate(
+        model = model,
+        predictor_indicators = "traditional",
+        compute_intercept = TRUE,
+        remove_intercept = TRUE
+      ) %>%
+      dplyr::select(model, engine, mode, predictor_indicators,
+                    compute_intercept, remove_intercept)
+  }
+  res
 }
-

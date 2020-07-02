@@ -121,7 +121,9 @@ call. For this type of model, the template of the fit calls are below:
 }
 
 Note that \code{\link[rpart:rpart]{rpart::rpart()}} does not require factor
-predictors to be converted to indicator variables.
+predictors to be converted to indicator variables. \code{fit()} does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model
 }
 
 \subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
@@ -138,7 +140,9 @@ predictors to be converted to indicator variables.
 }
 
 Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
-predictors to be converted to indicator variables.
+predictors to be converted to indicator variables. \code{fit()} does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model
 }
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
@@ -164,6 +168,9 @@ predictors to be converted to indicator variables.
 ## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
 ##     seed = sample.int(10^5, 1))
 }
+
+\code{fit()} does not affect the encoding of the predictor values
+(i.e. factors stay factors) for this model
 }
 
 \subsection{Parameter translations}{

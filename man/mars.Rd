@@ -107,6 +107,9 @@ call. For this type of model, the template of the fit calls are below.
 Note that, when the model is fit, the \code{earth} package only has its
 namespace loaded. However, if \code{multi_predict} is used, the package is
 attached.
+
+Also, \code{fit()} passes the data directly to \code{earth::earth()} so that its
+formula method can create dummy variables as-needed.
 }
 
 \subsection{Parameter translations}{

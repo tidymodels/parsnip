@@ -39,7 +39,8 @@ utils::globalVariables(
     'lab', 'original', 'predicted_label', 'prediction', 'value', 'type',
     "neighbors", ".submodels", "has_submodel", "max_neighbor", "max_penalty",
     "max_terms", "max_tree", "model", "name", "num_terms", "penalty", "trees",
-    "sub_neighbors", ".pred_class", "x", "y", "predictor_indicators")
+    "sub_neighbors", ".pred_class", "x", "y", "predictor_indicators",
+    "compute_intercept", "remove_intercept")
 )
 
 # nocov end

@@ -95,6 +95,9 @@ call. For this type of model, the template of the fit calls are below:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot", 
 ##     prob.model = TRUE)
 }
+
+\code{fit()} passes the data directly to \code{kernlab::ksvm()} so that its
+formula method can create dummy variables as-needed.
 }
 
 \subsection{liquidSVM}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
@@ -132,6 +135,9 @@ function.
 \code{kernlab}. To translate between engines, \code{sigma = 1/gammas^2}. Users
 will be specifying \code{sigma} and the function translates the value to
 \code{gamma}.
+
+\code{fit()} passes the data directly to \code{liquidSVM::svm()} so that its
+formula method can create dummy variables as-needed.
 }
 
 \subsection{Parameter translations}{

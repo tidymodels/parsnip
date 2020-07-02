@@ -20,8 +20,9 @@ convert_form_to_xy_fit <- function(
   data,
   ...,
   na.action = na.omit,
-  indicators = TRUE,
-  composition = "data.frame"
+  indicators = "traditional",
+  composition = "data.frame",
+  remove_intercept = TRUE
 ) {
   if (!(composition %in% c("data.frame", "matrix")))
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
@@ -72,8 +73,16 @@ convert_form_to_xy_fit <- function(
         )
   }
 
-  if (indicators) {
+  if (indicators != "none") {
+    if (indicators == "one_hot") {
+      old_contr <- options("contrasts")$contrasts
+      on.exit(options(contrasts = old_contr))
+      new_contr <- old_contr
+      new_contr["unordered"] <- "contr_one_hot"
+      options(contrasts = new_contr)
+    }
     x <- model.matrix(mod_terms, mod_frame, contrasts)
+
   } else {
     # this still ignores -vars in formula
     x <- model.frame(mod_terms, data)
@@ -82,14 +91,15 @@ convert_form_to_xy_fit <- function(
       x <- x[,-y_cols, drop = FALSE]
   }
 
-  ## TODO maybe an option not to do this?
-  x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
-
+  if (remove_intercept) {
+    x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
+  }
   options <-
     list(
       indicators = indicators,
       composition = composition,
-      contrasts = contrasts
+      contrasts = contrasts,
+      remove_intercept = remove_intercept
     )
 
   if (composition == "data.frame") {
@@ -165,12 +175,21 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
   if (!is.null(cl))
     .checkMFClasses(cl, new_data)
 
-  if(object$options$indicators) {
+  if(object$options$indicators != "none") {
+    if (object$options$indicators == "one_hot") {
+      old_contr <- options("contrasts")$contrasts
+      on.exit(options(contrasts = old_contr))
+      new_contr <- old_contr
+      new_contr["unordered"] <- "contr_one_hot"
+      options(contrasts = new_contr)
+    }
     new_data <-
       model.matrix(mod_terms, new_data, contrasts.arg = object$contrasts)
   }
 
-  new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
+  if(object$options$remove_intercept) {
+    new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
+  }
 
   if (composition == "data.frame")
     new_data <- as.data.frame(new_data)
@@ -188,9 +207,14 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
 
 #' @importFrom dplyr bind_cols
 # TODO slots for other roles
-convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y") {
+convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
+                                   remove_intercept = TRUE) {
   if (is.vector(x))
     rlang::abort("`x` cannot be a vector.")
+
+  if(remove_intercept) {
+    x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
+  }
 
   rn <- rownames(x)
 

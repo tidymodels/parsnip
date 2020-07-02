@@ -22,6 +22,8 @@ svm_poly() %>%
   translate()
 ```
 
+`fit()` passes the data directly to `kernlab::ksvm()` so that its formula method can create dummy variables as-needed. 
+
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 

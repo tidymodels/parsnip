@@ -22,8 +22,7 @@ rand_forest() %>%
   translate()
 ```
 
-Note that [ranger::ranger()] does not require factor predictors to be converted 
-to indicator variables. 
+Note that [ranger::ranger()] does not require factor predictors to be converted  to indicator variables. `fit()` does not affect the encoding of the predictor values (i.e. factors stay factors) for this model.
 
 For `ranger` confidence intervals, the intervals are  constructed using the form
 `estimate +/- z * std_error`. For  classification probabilities, these values can
@@ -45,8 +44,7 @@ rand_forest() %>%
   translate()
 ```
 
-Note that [randomForest::randomForest()] does not require factor predictors to be converted 
-to indicator variables. 
+Note that [randomForest::randomForest()] does not require factor predictors to be converted  to indicator variables. `fit()` does not affect the encoding of the predictor values (i.e. factors stay factors) for this model.
 
 ## spark
 
@@ -64,6 +62,7 @@ rand_forest() %>%
   translate()
 ```
 
+`fit()` does not affect the encoding of the predictor values (i.e. factors stay factors) for this model.
 
 ## Parameter translations
 
