@@ -2,12 +2,13 @@ library(testthat)
 library(parsnip)
 library(rlang)
 library(tibble)
+library(dplyr)
 
 # ------------------------------------------------------------------------------
 
 context("multinom regression execution with glmnet")
 source(test_path("helper-objects.R"))
-hpc <- hpc_data[1:150, c(2:5, 8)]
+hpc <- hpc_data[, c(2:5, 8)]
 
 rows <- c(1, 51, 101)
 
@@ -117,10 +118,14 @@ test_that('glmnet probabilities, mulitiple lambda', {
   names(mult_pred) <- NULL
   mult_pred <- tibble(.pred = mult_pred)
 
-  expect_equal(
-    mult_pred$.pred,
-    multi_predict(xy_fit, hpc[rows, 1:4], penalty = lams, type = "prob")$.pred
-  )
+  multi_pred_res <- multi_predict(xy_fit, hpc[rows, 1:4], penalty = lams, type = "prob")
+
+  for (i in seq_along(multi_pred_res$.pred)) {
+    expect_equal(
+      mult_pred      %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred")),
+      multi_pred_res %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred"))
+    )
+  }
 
   mult_class <- factor(names(mult_probs)[apply(mult_probs, 1, which.max)],
                        levels = xy_fit$lvl)
@@ -134,10 +139,14 @@ test_that('glmnet probabilities, mulitiple lambda', {
   names(mult_class) <- NULL
   mult_class <- tibble(.pred = mult_class)
 
-  expect_equal(
-    mult_class$.pred,
-    multi_predict(xy_fit, hpc[rows, 1:4], penalty = lams)$.pred
-  )
+  mult_class_res <- multi_predict(xy_fit, hpc[rows, 1:4], penalty = lams)
+
+  for (i in seq_along(mult_class_res$.pred)) {
+    expect_equal(
+      mult_class     %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred")),
+      mult_class_res %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred"))
+    )
+  }
 
   expect_error(
     multi_predict(xy_fit, newdata = hpc[rows, 1:4], penalty = lams),
@@ -157,7 +166,7 @@ test_that("class predictions are factors with all levels", {
   skip_if(run_glmnet)
 
   basic <- multinom_reg() %>% set_engine("glmnet") %>% fit(class ~ ., data = hpc)
-  nd <- hpc[hpc$class == "setosa", ]
+  nd <- hpc[hpc$class == "VF", ]
   yhat <- predict(basic, new_data = nd, penalty = .1)
   yhat_multi <- multi_predict(basic, new_data =  nd, penalty = .1)$.pred
   expect_is(yhat_multi[[1]]$.pred_class, "factor")

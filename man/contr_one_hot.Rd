@@ -28,7 +28,8 @@ factor predictors. When the formula does not remove an intercept, an
 incomplete set of indicators are created; no indicator is made for the
 first level of the factor.
 
-For example, \code{species} and \code{island} both have three levels:\if{html}{\out{<div class="r">}}\preformatted{library(dplyr)
+For example, \code{species} and \code{island} both have three levels but
+\code{model.matrix()} creates two indicator variables for each:\if{html}{\out{<div class="r">}}\preformatted{library(dplyr)
 library(modeldata)
 data(penguins)
 
@@ -42,9 +43,9 @@ levels(penguins$species)
 ## [5] "islandTorgersen"
 }
 
-When there is no intercept, the first factor is expanded to indicators
-for \emph{all} factor levels but all other factors are expanded to all but
-one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
+For a formula with no intercept, the first factor is expanded to
+indicators for \emph{all} factor levels but all other factors are expanded to
+all but one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
   colnames()
 }\if{html}{\out{</div>}}\preformatted{## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     
 ## [5] "islandTorgersen"
