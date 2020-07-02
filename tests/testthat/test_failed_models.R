@@ -3,14 +3,17 @@ library(parsnip)
 library(dplyr)
 library(rlang)
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 # ------------------------------------------------------------------------------
 
 context("prediciton with failed models")
 
 # ------------------------------------------------------------------------------
 
-iris_bad <-
-  iris %>%
+hpc_bad <-
+  hpc %>%
   mutate(big_num = Inf)
 
 lending_club <-
@@ -30,15 +33,15 @@ test_that('numeric model', {
   lm_mod <-
     linear_reg() %>%
     set_engine("lm") %>%
-    fit(Sepal.Length ~ ., data = iris_bad, control = ctrl)
+    fit(compounds ~ ., data = hpc_bad, control = ctrl)
 
-  expect_warning(num_res <- predict(lm_mod, iris_bad[1:11, -1]))
+  expect_warning(num_res <- predict(lm_mod, hpc_bad[1:11, -1]))
   expect_equal(num_res, NULL)
 
-  expect_warning(ci_res <- predict(lm_mod, iris_bad[1:11, -1], type = "conf_int"))
+  expect_warning(ci_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "conf_int"))
   expect_equal(ci_res, NULL)
 
-  expect_warning(pi_res <- predict(lm_mod, iris_bad[1:11, -1], type = "pred_int"))
+  expect_warning(pi_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "pred_int"))
   expect_equal(pi_res, NULL)
 
 })

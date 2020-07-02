@@ -8,6 +8,7 @@ library(tibble)
 context("logistic regression")
 source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
 # ------------------------------------------------------------------------------
@@ -212,7 +213,7 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(logistic_reg(mode = "regression"))
   expect_error(translate(logistic_reg(formula = y ~ x)))
-  expect_error(translate(logistic_reg(x = iris[,1:3], y = iris$Species) %>% set_engine(engine = "glmnet")))
+  expect_error(translate(logistic_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine(engine = "glmnet")))
   expect_error(translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm")))
 })
 

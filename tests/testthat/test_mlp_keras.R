@@ -6,11 +6,12 @@ library(tibble)
 
 context("simple neural network execution with keras")
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
-num_pred <- names(iris)[1:4]
+num_pred <- names(hpc)[1:4]
 
-iris_keras <-
+hpc_keras <-
   mlp(mode = "classification", hidden_units = 2, epochs = 10) %>%
   set_engine("keras", verbose = 0)
 
@@ -24,9 +25,9 @@ test_that('keras execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_keras,
-      Species ~ Sepal.Width + Sepal.Length,
-      data = iris,
+      hpc_keras,
+      class ~ compounds + input_fields,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -40,9 +41,9 @@ test_that('keras execution, classification', {
 
   expect_error(
     res <- parsnip::fit_xy(
-      iris_keras,
-      x = iris[, num_pred],
-      y = iris$Species,
+      hpc_keras,
+      x = hpc[, num_pred],
+      y = hpc$class,
       control = ctrl
     ),
     regexp = NA
@@ -52,9 +53,9 @@ test_that('keras execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_keras,
-      Species ~ novar,
-      data = iris,
+      hpc_keras,
+      class ~ novar,
+      data = hpc,
       control = ctrl
     )
   )
@@ -67,28 +68,28 @@ test_that('keras classification prediction', {
   library(keras)
 
   xy_fit <- parsnip::fit_xy(
-    iris_keras,
-    x = iris[, num_pred],
-    y = iris$Species,
+    hpc_keras,
+    x = hpc[, num_pred],
+    y = hpc$class,
     control = ctrl
   )
 
-  xy_pred <- keras::predict_classes(xy_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  xy_pred <- factor(levels(iris$Species)[xy_pred + 1], levels = levels(iris$Species))
-  expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "class")[[".pred_class"]])
+  xy_pred <- keras::predict_classes(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
+  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
   keras::backend()$clear_session()
 
   form_fit <- parsnip::fit(
-    iris_keras,
-    Species ~ .,
-    data = iris,
+    hpc_keras,
+    class ~ .,
+    data = hpc,
     control = ctrl
   )
 
-  form_pred <- keras::predict_classes(form_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  form_pred <- factor(levels(iris$Species)[form_pred + 1], levels = levels(iris$Species))
-  expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred], type = "class")[[".pred_class"]])
+  form_pred <- keras::predict_classes(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
+  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
   keras::backend()$clear_session()
 })
@@ -99,30 +100,30 @@ test_that('keras classification probabilities', {
   skip_if_not_installed("keras")
 
   xy_fit <- parsnip::fit_xy(
-    iris_keras,
-    x = iris[, num_pred],
-    y = iris$Species,
+    hpc_keras,
+    x = hpc[, num_pred],
+    y = hpc$class,
     control = ctrl
   )
 
-  xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  colnames(xy_pred) <- paste0(".pred_", levels(iris$Species))
+  xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  colnames(xy_pred) <- paste0(".pred_", levels(hpc$class))
   xy_pred <- as_tibble(xy_pred)
-  expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "prob"))
+  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob"))
 
   keras::backend()$clear_session()
 
   form_fit <- parsnip::fit(
-    iris_keras,
-    Species ~ .,
-    data = iris,
+    hpc_keras,
+    class ~ .,
+    data = hpc,
     control = ctrl
   )
 
-  form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(iris[1:8, num_pred]))
-  colnames(form_pred) <- paste0(".pred_", levels(iris$Species))
+  form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  colnames(form_pred) <- paste0(".pred_", levels(hpc$class))
   form_pred <- as_tibble(form_pred)
-  expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred], type = "prob"))
+  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob"))
 
   keras::backend()$clear_session()
 })

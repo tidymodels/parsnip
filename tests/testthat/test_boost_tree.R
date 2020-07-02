@@ -6,6 +6,8 @@ library(rlang)
 
 context("boosted trees")
 source("helpers.R")
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -134,11 +136,11 @@ test_that('bad input', {
   expect_error(boost_tree(mode = "bogus"))
   expect_error({
     bt <- boost_tree(trees = -1) %>% set_engine("xgboost")
-    fit(bt, Species ~ ., iris)
+    fit(bt, class ~ ., hpc)
   })
   expect_error({
     bt <- boost_tree(min_n = -10)  %>% set_engine("xgboost")
-    fit(bt, Species ~ ., iris)
+    fit(bt, class ~ ., hpc)
   })
   expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))

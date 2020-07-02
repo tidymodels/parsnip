@@ -6,6 +6,8 @@ library(rlang)
 
 context("multinom regression")
 source("helpers.R")
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -115,5 +117,5 @@ test_that('bad input', {
   expect_error(multinom_reg(mode = "regression"))
   expect_error(translate(multinom_reg() %>% set_engine("wat?")))
   expect_error(translate(multinom_reg() %>% set_engine()))
-  expect_warning(translate(multinom_reg() %>% set_engine("glmnet", x = iris[,1:3], y = iris$Species)))
+  expect_warning(translate(multinom_reg() %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
 })

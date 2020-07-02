@@ -7,6 +7,7 @@ library(rlang)
 context("mars tests")
 source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -114,9 +115,9 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
-iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- mars(mode = "regression") %>% set_engine("earth")
+num_pred <- colnames(hpc)[1:3]
+hpc_bad_form <- as.formula(class ~ term)
+hpc_basic <- mars(mode = "regression") %>% set_engine("earth")
 
 # ------------------------------------------------------------------------------
 
@@ -125,9 +126,9 @@ test_that('mars execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      Sepal.Length ~ log(Sepal.Width) + Species,
-      data = iris,
+      hpc_basic,
+      compounds ~ log(input_fields) + class,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -136,9 +137,9 @@ test_that('mars execution', {
 
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, num_pred],
-      y = iris$Sepal.Length,
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = hpc$num_pending,
       control = ctrl
     ),
     regexp = NA
@@ -150,9 +151,9 @@ test_that('mars execution', {
   expect_message(
     expect_error(
       res <- fit(
-        iris_basic,
-        iris_bad_form,
-        data = iris,
+        hpc_basic,
+        hpc_bad_form,
+        data = hpc,
         control = ctrl
       )
     ),
@@ -163,9 +164,9 @@ test_that('mars execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      cbind(Sepal.Width, Petal.Width) ~ .,
-      data = iris,
+      hpc_basic,
+      cbind(compounds, input_fields) ~ .,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -173,9 +174,9 @@ test_that('mars execution', {
 
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, 1:2],
-      y = iris[3:4],
+      hpc_basic,
+      x = hpc[, 1:2],
+      y = hpc[3:4],
       control = ctrl
     ),
     regexp = NA
@@ -187,44 +188,48 @@ test_that('mars execution', {
 test_that('mars prediction', {
   skip_if_not_installed("earth")
 
-  uni_pred <- c(5.02371514510488, 4.70502120747471, 4.78973285129011, 4.81152592623742,
-                5.08745393263092)
-  inl_pred <- c(5.07584328502019, 4.64927636051174, 4.82786784324037, 4.74001260567429,
-                5.15379794835255)
+  uni_pred <- c(30.1466666666667, 30.1466666666667, 30.1466666666667,
+                30.1466666666667, 30.1466666666667)
+  inl_pred <- c(538.268789262046, 141.024903718634, 141.024903718634,
+                141.024903718634, 141.024903718634)
   mv_pred <-
     structure(
-      list(Sepal.Width =
-             c(3.4874092243636, 3.34173526636919, 3.17647644756747, 3.14280919018489, 3.41457224536639),
-           Petal.Width =
-             c(0.237414046784062, 0.221455118452782, 0.18348960240454, 0.219523313672823, 0.229434582618422
-             )), class = "data.frame", row.names = c(NA, -5L))
+      list(compounds =
+             c(371.334864384913, 129.475162245595, 256.094366313268,
+               129.475162245595, 129.475162245595),
+           input_fields =
+             c(430.476046435458, 158.833790342308, 218.07635084308,
+               158.833790342308, 158.833790342308)
+           ),
+      class = "data.frame", row.names = c(NA, -5L)
+    )
 
   res_xy <- fit_xy(
-    iris_basic,
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    hpc_basic,
+    x = hpc[, num_pred],
+    y = hpc$num_pending,
     control = ctrl
   )
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred)
+  expect_equal(uni_pred, predict(res_xy, hpc[1:5, num_pred])$.pred)
 
   res_form <- fit(
-    iris_basic,
-    Sepal.Length ~ log(Sepal.Width) + Species,
-    data = iris,
+    hpc_basic,
+    compounds ~ log(input_fields) + class,
+    data = hpc,
     control = ctrl
   )
-  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred)
 
   res_mv <- fit(
-    iris_basic,
-    cbind(Sepal.Width, Petal.Width) ~ .,
-    data = iris,
+    hpc_basic,
+    cbind(compounds, input_fields) ~ .,
+    data = hpc,
     control = ctrl
   )
   expect_equal(
     setNames(mv_pred, paste0(".pred_", names(mv_pred))) %>% as.data.frame(),
-    predict(res_mv, iris[1:5,]) %>% as.data.frame()
+    predict(res_mv, hpc[1:5,]) %>% as.data.frame()
   )
 })
 

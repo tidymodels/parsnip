@@ -2,13 +2,16 @@ library(testthat)
 library(parsnip)
 library(rlang)
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 # ------------------------------------------------------------------------------
 
 context("linear regression execution with stan")
 
-num_pred <- c("Sepal.Width", "Petal.Width", "Petal.Length")
-iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- linear_reg() %>%
+num_pred <- c("compounds", "iterations", "num_pending")
+hpc_bad_form <- as.formula(class ~ term)
+hpc_basic <- linear_reg() %>%
   set_engine("stan", seed = 10, chains = 1)
 
 ctrl <- control_parsnip(verbosity = 0L, catch = FALSE)
@@ -23,18 +26,18 @@ test_that('stan_glm execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      Sepal.Width ~ log(Sepal.Length) + Species,
-      data = iris,
+      hpc_basic,
+      compounds ~ log(input_fields) + class,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
   )
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, num_pred],
-      y = iris$Sepal.Length,
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = hpc$input_fields,
       control = ctrl
     ),
     regexp = NA
@@ -45,9 +48,9 @@ test_that('stan_glm execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      Species ~ term,
-      data = iris,
+      hpc_basic,
+      class ~ term,
+      data = hpc,
       control = ctrl
     )
   )
@@ -67,20 +70,20 @@ test_that('stan prediction', {
   res_xy <- fit_xy(
     linear_reg() %>%
       set_engine("stan", seed = 10, chains = 1),
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    x = hpc[, num_pred],
+    y = hpc$input_fields,
     control = quiet_ctrl
   )
 
-  expect_equal(uni_pred, predict(res_xy, iris[1:5, num_pred])$.pred, tolerance = 0.001)
+  expect_equal(uni_pred, predict(res_xy, hpc[1:5, num_pred])$.pred, tolerance = 0.001)
 
   res_form <- fit(
-    iris_basic,
-    Sepal.Width ~ log(Sepal.Length) + Species,
-    data = iris,
+    hpc_basic,
+    compounds ~ log(input_fields) + class,
+    data = hpc,
     control = quiet_ctrl
   )
-  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred, tolerance = 0.001)
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred, tolerance = 0.001)
 })
 
 
@@ -91,20 +94,20 @@ test_that('stan intervals', {
   res_xy <- fit_xy(
     linear_reg() %>%
       set_engine("stan", seed = 1333, chains = 10, iter = 1000),
-    x = iris[, num_pred],
-    y = iris$Sepal.Length,
+    x = hpc[, num_pred],
+    y = hpc$input_fields,
     control = quiet_ctrl
   )
 
   confidence_parsnip <-
     predict(res_xy,
-            new_data = iris[1:5,],
+            new_data = hpc[1:5,],
             type = "conf_int",
             level = 0.93)
 
   prediction_parsnip <-
     predict(res_xy,
-            new_data = iris[1:5,],
+            new_data = hpc[1:5,],
             type = "pred_int",
             level = 0.93)
 

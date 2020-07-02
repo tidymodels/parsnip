@@ -2,6 +2,10 @@ library(testthat)
 context("data conversion")
 library(parsnip)
 
+source(test_path("helper-objects.R"))
+
+hpc <- hpc_data[1:150, c(2:5, 8)]
+
 # to go from lm_object$x results to our format
 format_x_for_test <- function(x, df = TRUE) {
   x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
@@ -362,22 +366,13 @@ test_that("numeric x and numeric multivariate y", {
 
 test_that("numeric x and factor y", {
   expected <-
-    expect_warning(glm(
-      Species ~ .,
-      data = iris,
-      x = TRUE,
-      y = TRUE,
-      family = binomial()
-    ))
-  observed <-
-    parsnip:::convert_form_to_xy_fit(
-      Species ~ .,
-      data = iris,
-      indicators = "traditional",
-      remove_intercept = TRUE
+    expect_warning(
+      glm(class ~ ., data = hpc, x = TRUE, y = TRUE, family = binomial()
+      )
     )
+  observed <- parsnip:::convert_form_to_xy_fit(class ~ ., data = hpc)
   expect_equal(format_x_for_test(expected$x), observed$x)
-  expect_equivalent(iris$Species, observed$y)
+  expect_equivalent(hpc$class, observed$y)
   expect_equal(expected$terms, observed$terms)
   expect_equal(expected$xlevels, observed$xlevels)
   expect_null(observed$weights)
@@ -385,7 +380,7 @@ test_that("numeric x and factor y", {
 
   expect_equal(
     head(format_x_for_test(expected$x)),
-    parsnip:::convert_form_to_xy_new(observed, new_data = head(iris))$x
+    parsnip:::convert_form_to_xy_new(observed, new_data = head(hpc))$x
   )
 
 })
@@ -596,26 +591,22 @@ test_that("1 col matrix x, 1 col matrix y", {
 
 
 test_that("matrix x, factor y", {
-  observed <-
-    parsnip:::convert_xy_to_form_fit(as.matrix(iris[,-5]),
-                                     iris$Species,
-                                     remove_intercept = TRUE)
-  expected <- iris
+  observed <- parsnip:::convert_xy_to_form_fit(as.matrix(hpc[, -5]), hpc$class)
+  expected <- as.data.frame(hpc)
   names(expected)[5] <- "..y"
   expect_equal(expected, observed$data)
   expect_equal(formula("..y ~ ."), observed$formula)
-  expect_equal(names(iris)[-5], observed$x_var)
+  expect_equal(names(hpc)[-5], observed$x_var)
   expect_null(observed$weights)
 })
 
 test_that("data frame x, factor y", {
-  observed <- parsnip:::convert_xy_to_form_fit(iris[, -5], iris$Species,
-                                               remove_intercept = TRUE)
-  expected <- iris
+  observed <- parsnip:::convert_xy_to_form_fit(hpc[, -5], hpc$class)
+  expected <- hpc
   names(expected)[5] <- "..y"
   expect_equivalent(expected, observed$data)
   expect_equal(formula("..y ~ ."), observed$formula)
-  expect_equal(names(iris)[-5], observed$x_var)
+  expect_equal(names(hpc)[-5], observed$x_var)
   expect_null(observed$weights)
 })
 

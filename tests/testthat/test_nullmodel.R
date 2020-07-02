@@ -4,8 +4,9 @@ library(rlang)
 library(tibble)
 
 context("test-nullmodel")
-source("helpers.R")
-
+source(test_path("helpers.R"))
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 test_that('primary arguments', {
   basic <- null_model(mode = "regression")
@@ -36,16 +37,16 @@ test_that('bad input', {
   expect_error(translate(null_model(formula = y ~ x)))
   expect_warning(
     translate(
-      null_model(mode = "regression") %>% set_engine("parsnip", x = iris[,1:3], y = iris$Species)
+      null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
     )
   )
 })
 
 # ------------------------------------------------------------------------------
 
-num_pred <-c("Sepal.Length", "Sepal.Width", "Petal.Width")
-iris_bad_form <- as.formula(Species ~ term)
-iris_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
+num_pred <- names(hpc)[1:3]
+hpc_bad_form <- as.formula(class ~ term)
+hpc_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
 
 # ------------------------------------------------------------------------------
 
@@ -53,26 +54,26 @@ test_that('nullmodel execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      Sepal.Length ~ log(Sepal.Width) + Species,
-      data = iris
+      hpc_basic,
+      compounds ~ log(input_fields) + class,
+      data = hpc
     ),
     regexp = NA
   )
   expect_error(
     res <- fit_xy(
-      iris_basic,
-      x = iris[, num_pred],
-      y = iris$Petal.Length
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = hpc$num_pending
     ),
     regexp = NA
   )
 
   expect_error(
     res <- fit(
-      iris_basic,
-      iris_bad_form,
-      data = iris
+      hpc_basic,
+      hpc_bad_form,
+      data = hpc
     )
   )
 
@@ -80,9 +81,9 @@ test_that('nullmodel execution', {
 
   expect_error(
     res <- fit(
-      iris_basic,
-      cbind(Sepal.Width, Petal.Width) ~ .,
-      data = iris
+      hpc_basic,
+      cbind(compounds, input_fields) ~ .,
+      data = hpc
     ),
     regexp = NA
   )
@@ -91,29 +92,33 @@ test_that('nullmodel execution', {
 
 test_that('nullmodel prediction', {
 
-  uni_pred <- tibble(.pred = rep(3.758, 5))
-  inl_pred <- rep(3.758, 5)
+  uni_pred <- tibble(.pred = rep(30.1, 5))
+  inl_pred <- rep(30.1, 5)
   mw_pred <- tibble(gear = rep(3.6875, 5),
                     carb = rep(2.8125, 5))
 
   res_xy <- fit_xy(
-    iris_basic,
-    x = iris[, num_pred],
-    y = iris$Petal.Length
+    hpc_basic,
+    x = hpc[, num_pred],
+    y = hpc$num_pending
   )
 
-  expect_equal(uni_pred, predict(res_xy, new_data = iris[1:5, num_pred]))
+  expect_equal(uni_pred,
+               predict(res_xy, new_data = hpc[1:5, num_pred]),
+               tolerance = .01)
 
   res_form <- fit(
-    iris_basic,
-    Petal.Length ~ log(Sepal.Width) + Species,
-    data = iris
+    hpc_basic,
+    num_pending ~ log(compounds) + class,
+    data = hpc
   )
-  expect_equal(inl_pred, predict(res_form, iris[1:5, ])$.pred)
+  expect_equal(inl_pred,
+               predict(res_form, hpc[1:5, ])$.pred,
+               tolerance = .01)
 
   # Multivariate y
   res <- fit(
-    iris_basic,
+    hpc_basic,
     cbind(gear, carb) ~ .,
     data = mtcars
   )
@@ -131,7 +136,7 @@ test_that('classification', {
   expect_error(
     null_model <- null_model(mode = "classification") %>%
       set_engine("parsnip") %>%
-      fit(Species ~ ., data = iris),
+      fit(class ~ ., data = hpc),
     regexp = NA
   )
   expect_true(!is.null(null_model$fit))

@@ -1,6 +1,9 @@
 library(testthat)
 library(parsnip)
 
+source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
+
 # ------------------------------------------------------------------------------
 
 context("descriptor variables")
@@ -26,7 +29,7 @@ eval_descrs <- function(descrs, not = NULL) {
   lapply(descrs, do.call, list())
 }
 
-species_tab <- table(iris$Species, dnn = NULL)
+class_tab <- table(hpc$class, dnn = NULL)
 
 # ------------------------------------------------------------------------------
 
@@ -83,39 +86,39 @@ context("Testing formula -> xy conversion")
 
 test_that("numeric y and dummy vars", {
   expect_equal(
-    template(5, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ ., data = iris))
+    template(6, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ ., data = hpc))
   )
   expect_equal(
-    template(2, 1, 150, NA, 1, iris, iris["Species"], iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ Species, data = iris))
+    template(3, 1, 150, NA, 1, hpc, hpc["class"], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ class, data = hpc))
   )
 })
 
 test_that("numeric y and x", {
   expect_equal(
-    template(1, 1, 150, NA, 0, iris, iris["Sepal.Length"], iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ Sepal.Length, data = iris))
+    template(1, 1, 150, NA, 0, hpc, hpc["input_fields"], hpc[,"compounds"]),
+    eval_descrs(get_descr_form(compounds ~ input_fields, data = hpc))
   )
   expect_equal(
     {
-      log_sep <- iris["Sepal.Length"]
-      log_sep[["Sepal.Length"]] <- log(log_sep[["Sepal.Length"]])
-      names(log_sep) <- "log(Sepal.Length)"
-      template(1, 1, 150, NA, 0, iris, log_sep, iris[,"Sepal.Width"])
+      log_sep <- hpc["input_fields"]
+      log_sep[["input_fields"]] <- log(log_sep[["input_fields"]])
+      names(log_sep) <- "log(input_fields)"
+      template(1, 1, 150, NA, 0, hpc, log_sep, hpc[,"compounds"])
     },
-    eval_descrs(get_descr_form(Sepal.Width ~ log(Sepal.Length), data = iris))
+    eval_descrs(get_descr_form(compounds ~ log(input_fields), data = hpc))
   )
 })
 
 test_that("factor y", {
   expect_equal(
-    template(4, 4, 150, species_tab, 0, iris, iris[-5], iris[,"Species"]),
-    eval_descrs(get_descr_form(Species ~ ., data = iris))
+    template(4, 4, 150, class_tab, 0, hpc, hpc[-5], hpc[,"class"]),
+    eval_descrs(get_descr_form(class ~ ., data = hpc))
   )
   expect_equal(
-    template(1, 1, 150, species_tab, 0, iris, iris["Sepal.Length"], iris[,"Species"]),
-    eval_descrs(get_descr_form(Species ~ Sepal.Length, data = iris))
+    template(1, 1, 150, class_tab, 0, hpc, hpc["compounds"], hpc[,"class"]),
+    eval_descrs(get_descr_form(class ~ compounds, data = hpc))
   )
 })
 
@@ -128,26 +131,26 @@ test_that("factors all the way down", {
 })
 
 test_that("weird cases", {
-  # So model.frame ignores - signs in a model formula so Species is not removed
+  # So model.frame ignores - signs in a model formula so class is not removed
   # prior to model.matrix; otherwise this should have n_cols = 3
   expect_equal(
-    template(3, 4, 150, NA, 1, iris, iris[-2], iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ . - Species, data = iris))
+    template(3, 4, 150, NA, 1, hpc, hpc[-2], hpc[,"input_fields"]),
+    eval_descrs(get_descr_form(input_fields ~ . - class, data = hpc))
   )
 
   # Oy ve! Before going to model.matrix, model.frame produces a data frame
   # with one column and that column is a matrix (with the results from
-  # `poly(Sepal.Length, 3)`
-  x <- model.frame(~poly(Sepal.Length, 3), iris)
+  # `poly(input_fields, 3)`
+  x <- model.frame(~poly(input_fields, 3), hpc)
   attributes(x) <- attributes(as.data.frame(x))[c("names", "class", "row.names")]
   expect_equal(
-    template(3, 1, 150, NA, 0, iris, x, iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ poly(Sepal.Length, 3), data = iris))
+    template(3, 1, 150, NA, 0, hpc, x, hpc[,"compounds"]),
+    eval_descrs(get_descr_form(compounds ~ poly(input_fields, 3), data = hpc))
   )
 
   expect_equal(
-    template(0, 0, 150, NA, 0, iris, iris[,numeric()], iris[,"Sepal.Width"]),
-    eval_descrs(get_descr_form(Sepal.Width ~ 1, data = iris))
+    template(0, 0, 150, NA, 0, hpc, hpc[,numeric()], hpc[,"compounds"]),
+    eval_descrs(get_descr_form(compounds ~ 1, data = hpc))
   )
 })
 
@@ -156,24 +159,24 @@ test_that("weird cases", {
 context("Testing xy -> formula conversion")
 
 test_that("numeric y and dummy vars", {
-  iris2 <- dplyr::rename(iris, ..y = Species)
-  rownames(iris2) <- rownames(iris2) # convert to char
+  hpc2 <- dplyr::rename(hpc, ..y = class)
+  rownames(hpc2) <- rownames(hpc2) # convert to char
   expect_equal(
-    template(4, 4, 150, species_tab, 0, iris2, iris[, 1:4], iris$Species),
-    eval_descrs(get_descr_xy(x = iris[, 1:4], y = iris$Species))
+    template(4, 4, 150, class_tab, 0, hpc2, hpc[, 1:4], hpc$class),
+    eval_descrs(get_descr_xy(x = hpc[, 1:4], y = hpc$class))
   )
 
-  iris2 <- iris[,c(4,5,1,2)]
-  rownames(iris2) <- rownames(iris2)
+  hpc2 <- hpc[,c(4,5,1,2)]
+  rownames(hpc2) <- rownames(hpc2)
   expect_equal(
-    template(2, 2, 150, NA, 1, iris2, iris[,4:5], iris[,1:2]),
-    eval_descrs(get_descr_xy(x = iris[, 4:5], y = iris[, 1:2]))
+    template(2, 2, 150, NA, 1, hpc2, hpc[,4:5], hpc[,1:2]),
+    eval_descrs(get_descr_xy(x = hpc[, 4:5], y = hpc[, 1:2]))
   )
 
-  iris3 <- iris2[,c("Petal.Width", "Species", "Sepal.Length")]
+  hpc3 <- hpc2[,c("num_pending", "class", "compounds")]
   expect_equal(
-    template(2, 2, 150, NA, 1, iris3, iris[, 4:5], iris[, 1, drop = FALSE]),
-    eval_descrs(get_descr_xy(x = iris[, 4:5], y = iris[, 1, drop = FALSE]))
+    template(2, 2, 150, NA, 1, hpc3, hpc[, 4:5], hpc[, 1, drop = FALSE]),
+    eval_descrs(get_descr_xy(x = hpc[, 4:5], y = hpc[, 1, drop = FALSE]))
   )
 })
 
@@ -193,7 +196,7 @@ test_that("spark descriptor", {
   skip_if(inherits(sc, "try-error"))
 
   npk_descr  <- copy_to(sc,  npk[, 1:4],  "npk_descr", overwrite = TRUE)
-  iris_descr <- copy_to(sc,        iris, "iris_descr", overwrite = TRUE)
+  hpc_descr <- copy_to(sc,        hpc, "hpc_descr", overwrite = TRUE)
 
   # spark does not allow .x, .y, .dat
   template2 <- purrr::partial(template, x = NULL, y = NULL, dat = NULL)
@@ -201,23 +204,23 @@ test_that("spark descriptor", {
 
   expect_equal(
     template2(5, 4, 150, NA, 1),
-    eval_descrs2(get_descr_form(Sepal_Width ~ ., data = iris_descr))
+    eval_descrs2(get_descr_form(Sepal_Width ~ ., data = hpc_descr))
   )
   expect_equal(
     template2(2, 1, 150, NA, 1),
-    eval_descrs2(get_descr_form(Sepal_Width ~ Species, data = iris_descr))
+    eval_descrs2(get_descr_form(Sepal_Width ~ class, data = hpc_descr))
   )
   expect_equal(
     template2(1, 1, 150, NA, 0),
-    eval_descrs2(get_descr_form(Sepal_Width ~ Sepal_Length, data = iris_descr))
+    eval_descrs2(get_descr_form(Sepal_Width ~ Sepal_Length, data = hpc_descr))
   )
   expect_equivalent(
-    template2(4, 4, 150, species_tab, 0),
-    eval_descrs2(get_descr_form(Species ~ ., data = iris_descr))
+    template2(4, 4, 150, class_tab, 0),
+    eval_descrs2(get_descr_form(class ~ ., data = hpc_descr))
   )
   expect_equal(
-    template2(1, 1, 150, species_tab, 0),
-    eval_descrs2(get_descr_form(Species ~ Sepal_Length, data = iris_descr))
+    template2(1, 1, 150, class_tab, 0),
+    eval_descrs2(get_descr_form(class ~ Sepal_Length, data = hpc_descr))
   )
   expect_equivalent(
     template2(7, 3, 24, rev(table(npk$K, dnn = NULL)), 3),

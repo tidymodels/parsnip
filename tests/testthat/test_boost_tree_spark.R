@@ -6,21 +6,21 @@ library(dplyr)
 
 context("boosted tree execution with spark")
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 test_that('spark execution', {
 
   skip_if_not_installed("sparklyr")
-
   library(sparklyr)
 
   sc <- try(spark_connect(master = "local"), silent = TRUE)
 
   skip_if(inherits(sc, "try-error"))
 
-  iris_bt_tr <- copy_to(sc, iris[-(1:4),   ], "iris_bt_tr", overwrite = TRUE)
-  iris_bt_te <- copy_to(sc, iris[  1:4 , -1], "iris_bt_te", overwrite = TRUE)
+  hpc_bt_tr <- copy_to(sc, hpc[-(1:4),   ], "hpc_bt_tr", overwrite = TRUE)
+  hpc_bt_te <- copy_to(sc, hpc[  1:4 , -1], "hpc_bt_te", overwrite = TRUE)
 
   # ----------------------------------------------------------------------------
 
@@ -30,8 +30,8 @@ test_that('spark execution', {
         boost_tree(trees = 5, mode = "regression") %>%
           set_engine("spark", seed = 12),
         control = ctrl,
-        Sepal_Length ~ .,
-        data = iris_bt_tr
+        class ~ .,
+        data = hpc_bt_tr
       ),
     regexp = NA
   )
@@ -43,29 +43,29 @@ test_that('spark execution', {
         boost_tree(trees = 5, mode = "regression") %>%
           set_engine("spark", seed = 12),
         control = ctrl,
-        Sepal_Length ~ .,
-        data = iris_bt_tr
+        compounds ~ .,
+        data = hpc_bt_tr
       ),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_pred <- predict(spark_reg_fit, iris_bt_te),
+    spark_reg_pred <- predict(spark_reg_fit, hpc_bt_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_pred_num <- parsnip:::predict_numeric.model_fit(spark_reg_fit, iris_bt_te),
+    spark_reg_pred_num <- parsnip:::predict_numeric.model_fit(spark_reg_fit, hpc_bt_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_dup <- predict(spark_reg_fit_dup, iris_bt_te),
+    spark_reg_dup <- predict(spark_reg_fit_dup, hpc_bt_te),
     regexp = NA
   )
 
   expect_error(
-    spark_reg_num_dup <- parsnip:::predict_numeric.model_fit(spark_reg_fit_dup, iris_bt_te),
+    spark_reg_num_dup <- parsnip:::predict_numeric.model_fit(spark_reg_fit_dup, hpc_bt_te),
     regexp = NA
   )
 

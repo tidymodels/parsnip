@@ -182,7 +182,6 @@ null_model <-
 #' @return A tibble with column `value`.
 #' @export
 #' @examples
-#' nullmodel(iris[,-5], iris$Species) %>% tidy()
 #'
 #' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
 

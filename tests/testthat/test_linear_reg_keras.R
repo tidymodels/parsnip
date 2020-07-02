@@ -8,6 +8,7 @@ library(tibble)
 context("keras linear regression")
 source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -33,8 +34,8 @@ test_that('model fitting', {
       fit_xy(
         basic_mod,
         control = ctrl,
-        x = iris[,2:4],
-        y = iris$Sepal.Length
+        x = hpc[,2:4],
+        y = hpc$compounds
       ),
     regexp = NA
   )
@@ -45,8 +46,8 @@ test_that('model fitting', {
       fit_xy(
         basic_mod,
         control = ctrl,
-        x = iris[,2:4],
-        y = iris$Sepal.Length
+        x = hpc[,2:4],
+        y = hpc$compounds
       ),
     regexp = NA
   )
@@ -56,8 +57,8 @@ test_that('model fitting', {
   expect_error(
     fit(
       basic_mod,
-      Sepal.Length ~ .,
-      data = iris[, -5],
+      compounds ~ .,
+      data = hpc[, -5],
       control = ctrl
     ),
     regexp = NA
@@ -68,8 +69,8 @@ test_that('model fitting', {
       fit_xy(
         ridge_mod,
         control = ctrl,
-        x = iris[,2:4],
-        y = iris$Sepal.Length
+        x = hpc[,2:4],
+        y = hpc$compounds
       ),
     regexp = NA
   )
@@ -77,8 +78,8 @@ test_that('model fitting', {
   expect_error(
     fit(
       ridge_mod,
-      Sepal.Length ~ .,
-      data = iris[, -5],
+      compounds ~ .,
+      data = hpc[, -5],
       control = ctrl
     ),
     regexp = NA
@@ -98,18 +99,18 @@ test_that('regression prediction', {
     fit_xy(
       basic_mod,
       control = ctrl,
-      x = iris[,2:4],
-      y = iris$Sepal.Length
+      x = hpc[,2:4],
+      y = hpc$compounds
     )
 
   keras_pred <-
-    predict(lm_fit$fit, as.matrix(iris[1:3,2:4]))
+    predict(lm_fit$fit, as.matrix(hpc[1:3,2:4]))
   colnames(keras_pred) <- ".pred"
 
   keras_pred <-
     keras_pred %>%
     as_tibble()
-  parsnip_pred <- predict(lm_fit, iris[1:3,2:4])
+  parsnip_pred <- predict(lm_fit, hpc[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
   set.seed(257)
@@ -117,15 +118,15 @@ test_that('regression prediction', {
     fit_xy(
       ridge_mod,
       control = ctrl,
-      x = iris[,2:4],
-      y = iris$Sepal.Length
+      x = hpc[,2:4],
+      y = hpc$compounds
     )
 
-  keras_pred <- predict(rr_fit$fit, as.matrix(iris[1:3,2:4]))
+  keras_pred <- predict(rr_fit$fit, as.matrix(hpc[1:3,2:4]))
   colnames(keras_pred) <- ".pred"
   keras_pred <- as_tibble(keras_pred)
 
-  parsnip_pred <- predict(rr_fit, iris[1:3,2:4])
+  parsnip_pred <- predict(rr_fit, hpc[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
 })

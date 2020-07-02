@@ -5,10 +5,11 @@ library(parsnip)
 
 context("simple neural network execution with nnet")
 source(test_path("helper-objects.R"))
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
-num_pred <- names(iris)[1:4]
+num_pred <- names(hpc)[1:4]
 
-iris_nnet <-
+hpc_nnet <-
   mlp(mode = "classification", hidden_units = 5) %>%
   set_engine("nnet")
 
@@ -20,9 +21,9 @@ test_that('nnet execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_nnet,
-      Species ~ Sepal.Width + Sepal.Length,
-      data = iris,
+      hpc_nnet,
+      class ~ compounds + input_fields,
+      data = hpc,
       control = ctrl
     ),
     regexp = NA
@@ -31,9 +32,9 @@ test_that('nnet execution, classification', {
 
   expect_error(
     res <- parsnip::fit_xy(
-      iris_nnet,
-      x = iris[, num_pred],
-      y = iris$Species,
+      hpc_nnet,
+      x = hpc[, num_pred],
+      y = hpc$class,
       control = ctrl
     ),
     regexp = NA
@@ -41,9 +42,9 @@ test_that('nnet execution, classification', {
 
   expect_error(
     res <- parsnip::fit(
-      iris_nnet,
-      Species ~ novar,
-      data = iris,
+      hpc_nnet,
+      class ~ novar,
+      data = hpc,
       control = ctrl
     )
   )
@@ -55,26 +56,26 @@ test_that('nnet classification prediction', {
   skip_if_not_installed("nnet")
 
   xy_fit <- fit_xy(
-    iris_nnet,
-    x = iris[, num_pred],
-    y = iris$Species,
+    hpc_nnet,
+    x = hpc[, num_pred],
+    y = hpc$class,
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, newdata = iris[1:8, num_pred], type = "class")
-  xy_pred <- factor(xy_pred, levels = levels(iris$Species))
-  expect_equal(xy_pred, predict(xy_fit, new_data = iris[1:8, num_pred], type = "class")$.pred_class)
+  xy_pred <- predict(xy_fit$fit, newdata = hpc[1:8, num_pred], type = "class")
+  xy_pred <- factor(xy_pred, levels = levels(hpc$class))
+  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
 
   form_fit <- fit(
-    iris_nnet,
-    Species ~ .,
-    data = iris,
+    hpc_nnet,
+    class ~ .,
+    data = hpc,
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, newdata = iris[1:8, num_pred], type = "class")
-  form_pred <- factor(form_pred, levels = levels(iris$Species))
-  expect_equal(form_pred, predict(form_fit, new_data = iris[1:8, num_pred])$.pred_class)
+  form_pred <- predict(form_fit$fit, newdata = hpc[1:8, num_pred], type = "class")
+  form_pred <- factor(form_pred, levels = levels(hpc$class))
+  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred])$.pred_class)
 })
 
 
