@@ -122,8 +122,8 @@ test_that('glmnet probabilities, mulitiple lambda', {
 
   for (i in seq_along(multi_pred_res$.pred)) {
     expect_equal(
-      mult_pred      %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred")),
-      multi_pred_res %>% slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred"))
+      mult_pred      %>% dplyr::slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred")),
+      multi_pred_res %>% dplyr::slice(i) %>% pull(.pred) %>% purrr::pluck(1) %>% dplyr::select(starts_with(".pred"))
     )
   }
 
