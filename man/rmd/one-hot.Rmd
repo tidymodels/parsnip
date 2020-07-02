@@ -18,7 +18,7 @@ model.matrix(~ species + island, data = penguins) %>%
   colnames()
 ```
 
-When there is no intercept, the first factor is expanded to indicators for _all_ factor levels but all other factors are expanded to all but one (as above):
+For a formula with no intercept, the first factor is expanded to indicators for _all_ factor levels but all other factors are expanded to all but one (as above):
 
 ```{r hybrid}
 model.matrix(~ 0 + species + island, data = penguins) %>% 
