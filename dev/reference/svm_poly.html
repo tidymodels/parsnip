@@ -288,6 +288,8 @@ call. For this type of model, the template of the fit calls are below:</p><h3>ke
 <span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot", </span>
 <span class='co'>##     prob.model = TRUE)</span></pre>
 
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/kernlab/man/ksvm.html'>kernlab::ksvm()</a></code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>Parameter translations</h3>
 

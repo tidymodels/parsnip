@@ -268,6 +268,8 @@ call. For this type of model, the template of the fit calls are below.</p><h3>fl
 
 <p>Note that <code>model = TRUE</code> is needed to produce quantile predictions when
 there is a stratification variable and can be overridden in other cases.</p>
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code>survival::curvreg()</code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>Parameter translations</h3>
 

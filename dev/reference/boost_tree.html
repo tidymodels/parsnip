@@ -376,7 +376,9 @@ using a parameter set:<div class="r"></p><pre><span class='kw'>mod</span> <span 
   <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(sample_size = <span class='fu'>sample_prop</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0.9</span>)))</pre><p></div></p>
 <p>Finally, note that <code>xgboost</code> models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
-numeric representation.</p>
+numeric representation. By default, when using <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> with <code>xgboost</code>, a
+one-hot encoding is used to convert factor predictors to indicator
+variables.</p>
 
 <h3>C5.0</h3>
 <p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
@@ -390,7 +392,9 @@ numeric representation.</p>
 <span class='co'>## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())</span></pre>
 
 <p>Note that <code><a href='https://rdrr.io/pkg/C50/man/C5.0.html'>C50::C5.0()</a></code> does not require factor
-predictors to be converted to indicator variables.</p>
+predictors to be converted to indicator variables. <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model.</p>
 
 <h3>spark</h3>
 <p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/boost_tree.html'>boost_tree</a></span>() <span class='op'>%&gt;%</span> 
@@ -413,6 +417,8 @@ predictors to be converted to indicator variables.</p>
 <span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
 <span class='co'>##     type = "classification", seed = sample.int(10^5, 1))</span></pre>
 
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+(i.e. factors stay factors) for this model.</p>
 
 <h3>Parameter translations</h3>
 

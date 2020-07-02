@@ -290,6 +290,8 @@ call. For this type of model, the template of the fit calls are below.</p><h3>ea
 <p>Note that, when the model is fit, the <code>earth</code> package only has its
 namespace loaded. However, if <code>multi_predict</code> is used, the package is
 attached.</p>
+<p>Also, <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/earth/man/earth.html'>earth::earth()</a></code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>Parameter translations</h3>
 

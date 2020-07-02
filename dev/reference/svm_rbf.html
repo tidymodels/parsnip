@@ -278,6 +278,8 @@ call. For this type of model, the template of the fit calls are below:</p><h3>ke
 <span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot", </span>
 <span class='co'>##     prob.model = TRUE)</span></pre>
 
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/kernlab/man/ksvm.html'>kernlab::ksvm()</a></code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>liquidSVM</h3>
 <p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/svm_rbf.html'>svm_rbf</a></span>() <span class='op'>%&gt;%</span> 
@@ -310,6 +312,8 @@ function.</p>
 <code>kernlab</code>. To translate between engines, <code>sigma = 1/gammas^2</code>. Users
 will be specifying <code>sigma</code> and the function translates the value to
 <code>gamma</code>.</p>
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/liquidSVM/man/svm.html'>liquidSVM::svm()</a></code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>Parameter translations</h3>
 
