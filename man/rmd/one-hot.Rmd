@@ -4,7 +4,7 @@ library(dplyr)
 
 By default, `model.matrix()` generates binary indicator variables for factor predictors. When the formula does not remove an intercept, an incomplete set of indicators are created; no indicator is made for the first level of the factor.
 
-For example, `species` and `island` both have three levels:
+For example, `species` and `island` both have three levels but `model.matrix()` creates two indicator variables for each:
 
 ```{r ref-cell}
 library(dplyr)
