@@ -85,11 +85,8 @@ results.}
 \item{...}{Optional arguments that should be passed into the \code{args} slot for
 prediction objects.}
 
-\item{options}{A list of options for engine-specific encodings. Currently,
-the option implemented is \code{predictor_indicators} which tells \code{parsnip}
-whether the pre-processing should make indicator/dummy variables from factor
-predictors. This only affects cases when \code{\link[=fit.model_spec]{fit.model_spec()}} is used and the
-underlying model has an x/y interface.}
+\item{options}{A list of options for engine-specific preprocessing encodings.
+See Details below.}
 
 \item{arg}{A single character string for the model argument name.}
 
@@ -121,6 +118,36 @@ format.
 \code{check_model_exists()} checks the model value and ensures that the model has
 already been registered. \code{check_model_doesnt_exist()} checks the model value
 and also checks to see if it is novel in the environment.
+
+The options for engine-specific encodings dictate how the predictors should be
+handled. These options ensure that the data
+that \code{parsnip} gives to the underlying model allows for a model fit that is
+as similar as possible to what it would have produced directly.
+
+For example, if \code{fit()} is used to fit a model that does not have
+a formula interface, typically some predictor preprocessing must
+be conducted. \code{glmnet} is a good example of this.
+
+There are three options that can be used for the encodings:
+
+\code{predictor_indicators} describes whether and how to create indicator/dummy
+variables from factor predictors. There are three options: \code{"none"} (do not
+expand factor predictors), \code{"traditional"} (apply the standard
+\code{model.matrix()} encodings), and \code{"one_hot"} (create the complete set
+including the baseline level for all factors). This encoding only affects
+cases when \code{\link[=fit.model_spec]{fit.model_spec()}} is used and the underlying model has an x/y
+interface.
+
+Another option is \code{compute_intercept}; this controls whether \code{model.matrix()}
+should include the intercept in its formula. This affects more than the
+inclusion of an intercept column. With an intercept, \code{model.matrix()}
+computes dummy variables for all but one factor levels. Without an
+intercept, \code{model.matrix()} computes a full set of indicators for the
+\emph{first} factor variable, but an incomplete set for the remainder.
+
+Finally, the option \code{remove_intercept} will remove the intercept column
+\emph{after} \code{model.matrix()} is finished. This can be useful if the model
+function (e.g. \code{lm()}) automatically generates an intercept.
 }
 \examples{
 # set_new_model("shallow_learning_model")

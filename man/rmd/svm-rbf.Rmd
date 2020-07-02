@@ -22,6 +22,8 @@ svm_rbf() %>%
   translate()
 ```
 
+`fit()` passes the data directly to `kernlab::ksvm()` so that its formula method can create dummy variables as-needed. 
+
 ## liquidSVM
 
 ```{r liquidSVM-reg}
@@ -47,6 +49,8 @@ a model, the `fit` slot has to be replaced with the model that is read using the
 `liquidSVM` parameterizes the kernel parameter differently than `kernlab`. To 
 translate between engines, `sigma = 1/gammas^2`. Users will be specifying 
 `sigma` and the function translates the value to `gamma`. 
+
+`fit()` passes the data directly to `liquidSVM::svm()` so that its formula method can create dummy variables as-needed. 
 
 ## Parameter translations
 

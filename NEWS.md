@@ -1,14 +1,20 @@
 # parsnip (development version)
 
+## Breaking Changes
+
+ * `parsnip` now has options to set specific types of predictor encodings for different models. For example, `ranger` models run using `parsnip` and `workflows` do the same thing by _not_ creating indicator variables. These encodings can be overridden using the `blueprint` options in `workflows`. As a consequence, it is possible to get a different model fit that previous versions of `parsnip`. More details about specific encoding changes are below. (#326)
+
 ## Other Changes
 
  * `tidyr` >= 1.0.0 is now required. 
  
- * SVM models produced by `kernlab` now use the formula method. This change was due to how `ksvm()` made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to `ksvm()` so that the results are closer to what one would get if `ksmv()` were called directly. 
+ * SVM models produced by `kernlab` now use the formula method (see breaking change notice above). This change was due to how `ksvm()` made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to `ksvm()` so that the results are closer to what one would get if `ksmv()` were called directly. 
  
  * MARS models produced by `earth` now use the formula method. 
  
- * Under-the-hood changes were made so that non-standard data arguments in the modeling packages can be accomodated. (#315)
+ * For `xgboost`, a one-hot encoding is used when indicator variables are created. 
+ 
+ * Under-the-hood changes were made so that non-standard data arguments in the modeling packages can be accommodated. (#315)
  
 ## New Features
 

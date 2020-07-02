@@ -49,13 +49,6 @@ set_fit(
   )
 )
 
-set_encoding(
-  model = "svm_rbf",
-  eng = "kernlab",
-  mode = "regression",
-  options = list(predictor_indicators = FALSE)
-)
-
 set_fit(
   model = "svm_rbf",
   eng = "kernlab",
@@ -72,8 +65,12 @@ set_fit(
 set_encoding(
   model = "svm_rbf",
   eng = "kernlab",
-  mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  mode = "regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
@@ -104,6 +101,17 @@ set_pred(
     post = NULL,
     func = c(pkg = "kernlab", fun = "predict"),
     args = list(object = quote(object$fit), newdata = quote(new_data))
+  )
+)
+
+set_encoding(
+  model = "svm_rbf",
+  eng = "kernlab",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
   )
 )
 
@@ -197,7 +205,11 @@ set_encoding(
   model = "svm_rbf",
   eng = "liquidSVM",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -219,7 +231,11 @@ set_encoding(
   model = "svm_rbf",
   eng = "liquidSVM",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(

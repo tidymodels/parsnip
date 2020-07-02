@@ -25,7 +25,11 @@ set_encoding(
   model = "null_model",
   eng = "parsnip",
   mode = "regression",
-  options = list(predictor_indicators = FALSE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -44,7 +48,11 @@ set_encoding(
   model = "null_model",
   eng = "parsnip",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(

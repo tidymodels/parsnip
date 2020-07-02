@@ -23,7 +23,11 @@ set_encoding(
   model = "linear_reg",
   eng = "lm",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE
+  )
 )
 
 set_pred(
@@ -125,7 +129,11 @@ set_encoding(
   model = "linear_reg",
   eng = "glmnet",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE
+  )
 )
 
 set_model_arg(
@@ -201,7 +209,11 @@ set_encoding(
   model = "linear_reg",
   eng = "stan",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE
+  )
 )
 
 set_pred(
@@ -325,7 +337,11 @@ set_encoding(
   model = "linear_reg",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE
+  )
 )
 
 set_model_arg(
@@ -386,7 +402,11 @@ set_encoding(
   model = "linear_reg",
   eng = "keras",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE
+  )
 )
 
 set_model_arg(

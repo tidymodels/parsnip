@@ -114,7 +114,9 @@ call. For this type of model, the template of the fit calls are below:
 }
 
 Note that \code{\link[ranger:ranger]{ranger::ranger()}} does not require
-factor predictors to be converted to indicator variables.
+factor predictors to be converted to indicator variables. \code{fit()} does
+not affect the encoding of the predictor values (i.e. factors stay
+factors) for this model.
 
 For \code{ranger} confidence intervals, the intervals are constructed using
 the form \verb{estimate +/- z * std_error}. For classification probabilities,
@@ -147,6 +149,8 @@ this range.
 Note that
 \code{\link[randomForest:randomForest]{randomForest::randomForest()}} does
 not require factor predictors to be converted to indicator variables.
+\code{fit()} does not affect the encoding of the predictor values
+(i.e. factors stay factors) for this model.
 }
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest() \%>\% 
@@ -172,6 +176,9 @@ not require factor predictors to be converted to indicator variables.
 ## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), 
 ##     type = "classification", seed = sample.int(10^5, 1))
 }
+
+\code{fit()} does not affect the encoding of the predictor values
+(i.e. factors stay factors) for this model.
 }
 
 \subsection{Parameter translations}{

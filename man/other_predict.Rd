@@ -36,9 +36,9 @@ value of \code{type}. Possible arguments are:
 is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
 Default value is 0.95.
-\item \code{std_error}: add the standard error of fit or
-prediction for \code{type}s of "conf_int" and "pred_int".
-Default value is \code{FALSE}.
+\item \code{std_error}: add the standard error of fit or prediction (on
+the scale of the linear predictors) for \code{type}s of "conf_int"
+and "pred_int". Default value is \code{FALSE}.
 \item \code{quantile}: the quantile(s) for quantile regression
 (not implemented yet)
 \item \code{time}: the time(s) for hazard probability estimates

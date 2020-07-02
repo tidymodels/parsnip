@@ -91,7 +91,11 @@ set_encoding(
   model = "boost_tree",
   eng = "xgboost",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE
+  )
 )
 
 set_pred(
@@ -136,7 +140,11 @@ set_encoding(
   model = "boost_tree",
   eng = "xgboost",
   mode = "classification",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE
+  )
 )
 
 set_pred(
@@ -239,7 +247,11 @@ set_encoding(
   model = "boost_tree",
   eng = "C5.0",
   mode = "classification",
-  options = list(predictor_indicators = FALSE)
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
@@ -369,7 +381,11 @@ set_encoding(
   model = "boost_tree",
   eng = "spark",
   mode = "regression",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_fit(
@@ -389,7 +405,11 @@ set_encoding(
   model = "boost_tree",
   eng = "spark",
   mode = "classification",
-  options = list(predictor_indicators = TRUE)
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE
+  )
 )
 
 set_pred(
