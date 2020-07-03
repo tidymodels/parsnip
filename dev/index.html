@@ -51,7 +51,7 @@
         <a class="navbar-brand" href="index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
         </div>
       </div>
     </div>
@@ -220,7 +220,7 @@
 <span class="co">#&gt; Ranger result</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
-<span class="co">#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) </span>
+<span class="co">#&gt;  ranger::ranger(formula = mpg ~ ., data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Type:                             Regression </span>
 <span class="co">#&gt; Number of trees:                  2000 </span>
@@ -230,8 +230,8 @@
 <span class="co">#&gt; Target node size:                 5 </span>
 <span class="co">#&gt; Variable importance mode:         impurity </span>
 <span class="co">#&gt; Splitrule:                        variance </span>
-<span class="co">#&gt; OOB prediction error (MSE):       5.911312 </span>
-<span class="co">#&gt; R squared (OOB):                  0.837262</span>
+<span class="co">#&gt; OOB prediction error (MSE):       5.699772 </span>
+<span class="co">#&gt; R squared (OOB):                  0.8430857</span>
 </pre></div>
 <p>A list of all <code>parsnip</code> models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/"><code>tidymodels.org</code></a>.</p>
 <p>Data sets previously found in <code>parsnip</code> are now find in the <code>modeldata</code> package.</p>

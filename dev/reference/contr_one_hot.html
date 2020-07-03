@@ -96,7 +96,7 @@ each level of each factor." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
         </div>
       </div>
     </div>
@@ -191,7 +191,8 @@ default of <code>FALSE</code> is supported.</p></td>
 factor predictors. When the formula does not remove an intercept, an
 incomplete set of indicators are created; no indicator is made for the
 first level of the factor.</p>
-<p>For example, <code>species</code> and <code>island</code> both have three levels:<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<p>For example, <code>species</code> and <code>island</code> both have three levels but
+<code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> creates two indicator variables for each:<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>penguins</span>)
 
@@ -199,9 +200,9 @@ first level of the factor.</p>
   <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre><span class='co'>## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
 <span class='co'>## [5] "islandTorgersen"</span></pre>
 
-<p>When there is no intercept, the first factor is expanded to indicators
-for <em>all</em> factor levels but all other factors are expanded to all but
-one (as above):<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(<span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='kw'>species</span> <span class='op'>+</span> <span class='kw'>island</span>, data = <span class='kw'>penguins</span>) <span class='op'>%&gt;%</span> 
+<p>For a formula with no intercept, the first factor is expanded to
+indicators for <em>all</em> factor levels but all other factors are expanded to
+all but one (as above):<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(<span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='kw'>species</span> <span class='op'>+</span> <span class='kw'>island</span>, data = <span class='kw'>penguins</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre><span class='co'>## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
 <span class='co'>## [5] "islandTorgersen"</span></pre>
 
