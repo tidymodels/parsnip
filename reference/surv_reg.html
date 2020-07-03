@@ -106,7 +106,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
         </div>
       </div>
     </div>
@@ -167,24 +167,24 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    <p><code>surv_reg()</code> is a way to generate a <em>specification</em> of a model
+    <p><code><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg()</a></code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 R. The main argument for the
 model is:</p><ul>
 <li><p><code>dist</code>: The probability distribution of the outcome.</p></li>
 </ul><p>This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to its default
+set using <code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code>. If left to its default
 here (<code>NULL</code>), the value is taken from the underlying model
 functions.</p>
 <p>If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>(mode = <span class='st'>"regression"</span>, dist = <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for surv_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>object</span>, parameters = <span class='kw'>NULL</span>, dist = <span class='kw'>NULL</span>, fresh = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,7 +224,7 @@ modified in-place of or replaced wholesale.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>surv_reg()</code>,the
+to determine the <em>mode</em> of the model. For <code><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg()</a></code>,the
 mode will always be "regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
 <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function will require that the
@@ -232,7 +232,7 @@ survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
-<p>For <code>surv_reg()</code>, the mode will always be "regression".</p>
+<p>For <code><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg()</a></code>, the mode will always be "regression".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survival"</code> (the default)</p></li>
@@ -242,10 +242,10 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.</p><h3>flexsurv</h3>
-<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"flexsurv"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"flexsurv"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: flexsurv </span>
 <span class='co'>## </span>
@@ -255,10 +255,10 @@ call. For this type of model, the template of the fit calls are below.</p><h3>fl
 
 
 <h3>survival</h3>
-<p><div class="r"></p><pre><span class='fu'>surv_reg</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"survival"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"survival"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: survival </span>
 <span class='co'>## </span>
@@ -268,6 +268,8 @@ call. For this type of model, the template of the fit calls are below.</p><h3>fl
 
 <p>Note that <code>model = TRUE</code> is needed to produce quantile predictions when
 there is a stratification variable and can be overridden in other cases.</p>
+<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> passes the data directly to <code>survival::curvreg()</code> so that its
+formula method can create dummy variables as-needed.</p>
 
 <h3>Parameter translations</h3>
 
@@ -292,19 +294,19 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>surv_reg</span>()</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>()</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>(dist = <span class='fu'><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = varying()
 #&gt; </div><div class='input'>
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>surv_reg</span>(<span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"weibull"</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/surv_reg.html'>surv_reg</a></span>(dist = <span class='st'>"weibull"</span>)
+<span class='kw'>model</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, dist = <span class='st'>"lnorm"</span>)</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = lnorm

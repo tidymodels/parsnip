@@ -111,7 +111,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
         </div>
       </div>
     </div>
@@ -172,7 +172,7 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    <p><code>nearest_neighbor()</code> is a way to generate a <em>specification</em> of a model
+    <p><code><a href='https://parsnip.tidymodels.org/reference/nearest_neighbor.html'>nearest_neighbor()</a></code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 different packages in R. The main arguments for the
 model are:</p><ul>
@@ -185,17 +185,17 @@ distance. This corresponds to the Manhattan distance with <code>dist_power = 1</
 and the Euclidean distance with <code>dist_power = 2</code>.</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and argument can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
+set using <code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nearest_neighbor</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
-  <span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>weight_func</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dist_power</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/nearest_neighbor.html'>nearest_neighbor</a></span>(
+  mode = <span class='st'>"unknown"</span>,
+  neighbors = <span class='kw'>NULL</span>,
+  weight_func = <span class='kw'>NULL</span>,
+  dist_power = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -238,19 +238,19 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>kknn</h3>
-<p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (regression)</span>
+<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/nearest_neighbor.html'>nearest_neighbor</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: kknn </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
 <span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = 5)</span></pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (classification)</span>
+<span class='co'>##     ks = 5)</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/nearest_neighbor.html'>nearest_neighbor</a></span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"kknn"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: kknn </span>
 <span class='co'>## </span>
@@ -259,7 +259,7 @@ call. For this type of model, the template of the fit calls are below:</p><h3>kk
 <span class='co'>##     ks = 5)</span></pre>
 
 <p>For <code>kknn</code>, the underlying modeling function used is a restricted
-version of <code>train.kknn()</code> and not <code>kknn()</code>. It is set up in this way so
+version of <code><a href='https://rdrr.io/pkg/kknn/man/train.kknn.html'>train.kknn()</a></code> and not <code><a href='https://rdrr.io/pkg/kknn/man/kknn.html'>kknn()</a></code>. It is set up in this way so
 that <code>parsnip</code> can utilize the underlying <code>predict.train.kknn</code> method to
 predict on new data. This also means that a single value of that
 function’s <code>kernel</code> argument (a.k.a <code>weight_func</code> here) can be supplied</p>
@@ -285,12 +285,11 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>nearest_neighbor</span>(<span class='kw'>neighbors</span> <span class='kw'>=</span> <span class='fl'>11</span>)</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://parsnip.tidymodels.org/reference/nearest_neighbor.html'>nearest_neighbor</a></span>(neighbors = <span class='fl'>11</span>)</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   neighbors = 11
-#&gt; </div><div class='input'>
-</div></pre>
+#&gt; </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

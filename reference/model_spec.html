@@ -96,7 +96,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
         </div>
       </div>
     </div>
@@ -173,13 +173,13 @@ counterparts n the underlying model function. For example, for a
 is called "penalty" instead of "lambda" to make it more general
 and usable across different types of models (and to not be
 specific to a particular model function). The elements of <code>args</code>
-can <code><a href='varying.html'>varying()</a></code>. If left to their defaults (<code>NULL</code>), the
+can <code><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying()</a></code>. If left to their defaults (<code>NULL</code>), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in <code>args</code> are captured as
 quosures and are not immediately executed.</p><ul>
 <li><p><code>...</code>: Optional model-function-specific
 parameters. As with <code>args</code>, these will be quosures and can be
-<code><a href='varying.html'>varying()</a></code>.</p></li>
+<code><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying()</a></code>.</p></li>
 <li><p><code>mode</code>: The type of model, such as "regression" or
 "classification". Other modes will be added once the package
 adds more functionality.</p></li>
@@ -211,16 +211,16 @@ arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>iris</span>) - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='https://parsnip.tidymodels.org/reference/rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>mtcars</span>) <span class='op'>-</span> <span class='fl'>1</span>)</pre>
 
-<p><strong>does not</strong> execute <code>ncol(iris) - 1</code> when creating the specification.
+<p><strong>does not</strong> execute <code>ncol(mtcars) - 1</code> when creating the specification.
 This can be seen in the output:</p>
 <pre>
- &gt; rand_forest(mtry = ncol(iris) - 1)
+ &gt; rand_forest(mtry = ncol(mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
-   mtry = ncol(iris) - 1
+   mtry = ncol(mtcars) - 1
 </pre>
 
 <p>The model functions save the argument <em>expressions</em> and their
@@ -239,10 +239,10 @@ session where those same data objects do not exist.</p></li>
 
 <p>The best way to avoid these issues is to not reference any data
 objects in the global environment but to use data descriptors
-such as <code><a href='descriptors.html'>.cols()</a></code>. Another way of writing the previous
+such as <code><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.cols()</a></code>. Another way of writing the previous
 specification is</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='descriptors.html'>.cols</a></span>() - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='https://parsnip.tidymodels.org/reference/rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='https://parsnip.tidymodels.org/reference/descriptors.html'>.cols</a></span>() <span class='op'>-</span> <span class='fl'>1</span>)</pre>
 
 <p>This is not dependent on any specific data object and
 is evaluated immediately before the model fitting process begins.</p>
@@ -251,12 +251,12 @@ quasiquotation. This would insert the actual R object into the
 model specification and might be the best idea when the data
 object is small. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(!!<span class='no'>iris</span>) - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='https://parsnip.tidymodels.org/reference/rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>mtcars</span>) <span class='op'>-</span> <span class='fl'>1</span>)</pre>
 
 <p>would work (and be reproducible between sessions) but embeds
-the entire iris data set into the <code>mtry</code> expression:</p>
+the entire mtcars data set into the <code>mtry</code> expression:</p>
 <pre>
- &gt; rand_forest(mtry = ncol(!!iris) - 1)
+ &gt; rand_forest(mtry = ncol(!!mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
@@ -266,14 +266,14 @@ the entire iris data set into the <code>mtry</code> expression:</p>
 <p>However, if there were an object with the number of columns in
 it, this wouldn't be too bad:</p>
 <pre>
- &gt; mtry_val &lt;- ncol(iris) - 1
+ &gt; mtry_val &lt;- ncol(mtcars) - 1
  &gt; mtry_val
- [1] 4
+ [1] 10
  &gt; rand_forest(mtry = !!mtry_val)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
-   mtry = 4
+   mtry = 10
 </pre>
 
 <p>More information on quosures and quasiquotation can be found at

@@ -96,7 +96,7 @@ to fit the model, along with any arguments specific to that software." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
         </div>
       </div>
     </div>
@@ -157,11 +157,11 @@ to fit the model, along with any arguments specific to that software." />
     </div>
 
     <div class="ref-description">
-    <p><code>set_engine()</code> is used to specify which package or system will be used
+    <p><code><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine()</a></code> is used to specify which package or system will be used
 to fit the model, along with any arguments specific to that software.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_engine</span>(<span class='no'>object</span>, <span class='no'>engine</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='kw'>object</span>, <span class='kw'>engine</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +179,7 @@ of model (e.g. linear regression, random forest, etc.).</p></td>
     <tr>
       <th>...</th>
       <td><p>Any optional arguments associated with the chosen computational
-engine. These are captured as quosures and can be <code><a href='varying.html'>varying()</a></code>.</p></td>
+engine. These are captured as quosures and can be <code><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -189,11 +189,11 @@ engine. These are captured as quosures and can be <code><a href='varying.html'>v
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># First, set general arguments using the standardized names</span>
-<span class='no'>mod</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>(<span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
+<span class='kw'>mod</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/logistic_reg.html'>logistic_reg</a></span>(mixture = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>) <span class='op'>%&gt;%</span>
   <span class='co'># now say how you want to fit the model and another other options</span>
-  <span class='fu'>set_engine</span>(<span class='st'>"glmnet"</span>, <span class='kw'>nlambda</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='fu'><a href='translate.html'>translate</a></span>(<span class='no'>mod</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glmnet"</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>, nlambda = <span class='fl'>10</span>)
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>(<span class='kw'>mod</span>, engine = <span class='st'>"glmnet"</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mixture = 1/3

@@ -98,7 +98,7 @@ data portion of the call will not correspond to the original data." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@ other functions. For example, some arguments may still be quosures and the
 <code>data</code> portion of the call will not correspond to the original data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>repair_call</span>(<span class='no'>x</span>, <span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/repair_call.html'>repair_call</a></span>(<span class='kw'>x</span>, <span class='kw'>data</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,21 +188,21 @@ training set data). The name of this data object is inserted into the call.</p><
     <p>A modified <code>parsnip</code> fitted model.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>repair_call()</code> call can adjust the model objects call to be usable by other
+    <p><code><a href='https://parsnip.tidymodels.org/reference/repair_call.html'>repair_call()</a></code> call can adjust the model objects call to be usable by other
 functions and methods.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>fitted_model</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='kw'>fitted_model</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/linear_reg.html'>linear_reg</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>, model = <span class='fl'>TRUE</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>mtcars</span>)
 
 <span class='co'># In this call, note that `data` is not `mtcars` and the `model = ~TRUE`</span>
 <span class='co'># indicates that the `model` argument is an `rlang` quosure.</span>
-<span class='no'>fitted_model</span>$<span class='no'>fit</span>$<span class='no'>call</span></div><div class='output co'>#&gt; stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)</div><div class='input'>
+<span class='kw'>fitted_model</span><span class='op'>$</span><span class='kw'>fit</span><span class='op'>$</span><span class='kw'>call</span></div><div class='output co'>#&gt; stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)</div><div class='input'>
 <span class='co'># All better:</span>
-<span class='fu'>repair_call</span>(<span class='no'>fitted_model</span>, <span class='no'>mtcars</span>)$<span class='no'>fit</span>$<span class='no'>call</span></div><div class='output co'>#&gt; stats::lm(formula = mpg ~ ., data = mtcars, model = TRUE)</div></pre>
+<span class='fu'><a href='https://parsnip.tidymodels.org/reference/repair_call.html'>repair_call</a></span>(<span class='kw'>fitted_model</span>, <span class='kw'>mtcars</span>)<span class='op'>$</span><span class='kw'>fit</span><span class='op'>$</span><span class='kw'>call</span></div><div class='output co'>#&gt; stats::lm(formula = mpg ~ ., data = mtcars, model = TRUE)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
