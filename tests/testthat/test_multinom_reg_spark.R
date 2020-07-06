@@ -66,7 +66,7 @@ test_that('spark execution', {
 
   expect_equal(
     colnames(spark_class_prob),
-    c("pred_versicolor", "pred_virginica", "pred_setosa")
+    c("pred_VF", "pred_F", "pred_L", "pred_M")
   )
 
   expect_equivalent(
