@@ -31,7 +31,7 @@ test_that('spark execution', {
         rand_forest(trees = 5, mode = "regression") %>%
           set_engine("spark", seed = 12),
         control = ctrl,
-        Sepal_Length ~ .,
+        compounds ~ .,
         data = hpc_rf_tr
       ),
     regexp = NA
@@ -44,7 +44,7 @@ test_that('spark execution', {
         rand_forest(trees = 5, mode = "regression") %>%
           set_engine("spark", seed = 12),
         control = ctrl,
-        Sepal_Length ~ .,
+        compounds ~ .,
         data = hpc_rf_tr
       ),
     regexp = NA
