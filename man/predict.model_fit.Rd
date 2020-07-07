@@ -103,12 +103,12 @@ library(dplyr)
 lm_model <-
   linear_reg() \%>\%
   set_engine("lm") \%>\%
-  fit(mpg ~ ., data = mtcars \%>\% slice(11:32))
+  fit(mpg ~ ., data = mtcars \%>\% dplyr::slice(11:32))
 
 pred_cars <-
   mtcars \%>\%
-  slice(1:10) \%>\%
-  select(-mpg)
+  dplyr::slice(1:10) \%>\%
+  dplyr::select(-mpg)
 
 predict(lm_model, pred_cars)
 
