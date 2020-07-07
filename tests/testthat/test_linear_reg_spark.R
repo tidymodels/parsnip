@@ -28,7 +28,7 @@ test_that('spark execution', {
       fit(
         linear_reg() %>% set_engine("spark"),
         control = ctrl,
-        Sepal_Length ~ .,
+        compounds ~ .,
         data = hpc_linreg_tr
       ),
     regexp = NA

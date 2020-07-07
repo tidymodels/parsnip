@@ -198,29 +198,30 @@ test_that("spark descriptor", {
   npk_descr  <- copy_to(sc,  npk[, 1:4],  "npk_descr", overwrite = TRUE)
   hpc_descr <- copy_to(sc,        hpc, "hpc_descr", overwrite = TRUE)
 
-  # spark does not allow .x, .y, .dat
+  # spark does not allow .x, .y, .dat; spark handles factors differently
   template2 <- purrr::partial(template, x = NULL, y = NULL, dat = NULL)
   eval_descrs2 <- purrr::partial(eval_descrs, not = c(".x", ".y", ".dat"))
+  class_tab2 <- table(as.character(hpc$class), dnn = NULL)
 
   expect_equal(
-    template2(5, 4, 150, NA, 1),
-    eval_descrs2(get_descr_form(Sepal_Width ~ ., data = hpc_descr))
+    template2(6, 4, 150, NA, 1),
+    eval_descrs2(get_descr_form(compounds ~ ., data = hpc_descr))
   )
   expect_equal(
-    template2(2, 1, 150, NA, 1),
-    eval_descrs2(get_descr_form(Sepal_Width ~ class, data = hpc_descr))
+    template2(3, 1, 150, NA, 1),
+    eval_descrs2(get_descr_form(compounds ~ class, data = hpc_descr))
   )
   expect_equal(
     template2(1, 1, 150, NA, 0),
-    eval_descrs2(get_descr_form(Sepal_Width ~ Sepal_Length, data = hpc_descr))
+    eval_descrs2(get_descr_form(compounds ~ input_fields, data = hpc_descr))
   )
   expect_equivalent(
-    template2(4, 4, 150, class_tab, 0),
+    template2(4, 4, 150, class_tab2, 0),
     eval_descrs2(get_descr_form(class ~ ., data = hpc_descr))
   )
   expect_equal(
-    template2(1, 1, 150, class_tab, 0),
-    eval_descrs2(get_descr_form(class ~ Sepal_Length, data = hpc_descr))
+    template2(1, 1, 150, class_tab2, 0),
+    eval_descrs2(get_descr_form(class ~ input_fields, data = hpc_descr))
   )
   expect_equivalent(
     template2(7, 3, 24, rev(table(npk$K, dnn = NULL)), 3),

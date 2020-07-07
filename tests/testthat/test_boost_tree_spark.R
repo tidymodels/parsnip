@@ -30,7 +30,7 @@ test_that('spark execution', {
         boost_tree(trees = 5, mode = "regression") %>%
           set_engine("spark", seed = 12),
         control = ctrl,
-        class ~ .,
+        compounds ~ .,
         data = hpc_bt_tr
       ),
     regexp = NA
