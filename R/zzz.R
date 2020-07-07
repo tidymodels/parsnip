@@ -3,6 +3,10 @@
 .onLoad <- function(libname, pkgname) {
   s3_register("broom::tidy", "model_fit")
   s3_register("broom::tidy", "nullmodel")
+  s3_register("broom::tidy", "_elnet")
+  s3_register("broom::tidy", "_lognet")
+  s3_register("broom::tidy", "_multnet")
+  s3_register("broom::tidy", "_fishnet")
 }
 
 
