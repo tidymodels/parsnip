@@ -262,12 +262,12 @@ extra column of standard error values (if available).</p>
 <span class='kw'>lm_model</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://parsnip.tidymodels.org/reference/linear_reg.html'>linear_reg</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span>))
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>mtcars</span> <span class='op'>%&gt;%</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span>))
 
 <span class='kw'>pred_cars</span> <span class='op'>&lt;-</span>
   <span class='kw'>mtcars</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='op'>-</span><span class='kw'>mpg</span>)
+  <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>) <span class='op'>%&gt;%</span>
+  <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='op'>-</span><span class='kw'>mpg</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>lm_model</span>, <span class='kw'>pred_cars</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 1</span><span>
 #&gt;    .pred
