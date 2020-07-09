@@ -182,56 +182,6 @@ test_that("numeric y and dummy vars", {
 
 # ------------------------------------------------------------------------------
 
-context("spark descriptors")
-
-test_that("spark descriptor", {
-
-  skip_if_not_installed("sparklyr")
-
-  library(sparklyr)
-  library(dplyr)
-
-  sc <- try(spark_connect(master = "local"), silent = TRUE)
-
-  skip_if(inherits(sc, "try-error"))
-
-  npk_descr  <- copy_to(sc,  npk[, 1:4],  "npk_descr", overwrite = TRUE)
-  hpc_descr <- copy_to(sc,        hpc, "hpc_descr", overwrite = TRUE)
-
-  # spark does not allow .x, .y, .dat; spark handles factors differently
-  template2 <- purrr::partial(template, x = NULL, y = NULL, dat = NULL)
-  eval_descrs2 <- purrr::partial(eval_descrs, not = c(".x", ".y", ".dat"))
-  class_tab2 <- table(as.character(hpc$class), dnn = NULL)
-
-  expect_equal(
-    template2(6, 4, 150, NA, 1),
-    eval_descrs2(get_descr_form(compounds ~ ., data = hpc_descr))
-  )
-  expect_equal(
-    template2(3, 1, 150, NA, 1),
-    eval_descrs2(get_descr_form(compounds ~ class, data = hpc_descr))
-  )
-  expect_equal(
-    template2(1, 1, 150, NA, 0),
-    eval_descrs2(get_descr_form(compounds ~ input_fields, data = hpc_descr))
-  )
-  expect_equivalent(
-    template2(4, 4, 150, class_tab2, 0),
-    eval_descrs2(get_descr_form(class ~ ., data = hpc_descr))
-  )
-  expect_equal(
-    template2(1, 1, 150, class_tab2, 0),
-    eval_descrs2(get_descr_form(class ~ input_fields, data = hpc_descr))
-  )
-  expect_equivalent(
-    template2(7, 3, 24, rev(table(npk$K, dnn = NULL)), 3),
-    eval_descrs2(get_descr_form(K ~ ., data = npk_descr))
-  )
-
-})
-
-# ------------------------------------------------------------------------------
-
 context("Descriptor helpers")
 
 test_that("can be temporarily overriden at evaluation time", {
