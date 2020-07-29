@@ -178,7 +178,7 @@ set_pred(
       if (is.vector(x)) {
         x <- tibble(v1 = 1 - x, v2 = x)
       } else {
-        x <- as_tibble(x)
+        x <- as_tibble(x, .name_repair = "minimal")
       }
       colnames(x) <- object$lvl
       x
