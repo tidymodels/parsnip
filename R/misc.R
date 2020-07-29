@@ -171,8 +171,7 @@ names0 <- function (num, prefix = "x") {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_dot_check <- function(...) {
-  dots <- enquos(...)
+update_dot_check <- function(dots) {
   if (length(dots) > 0)
     rlang::abort(
       glue::glue(
