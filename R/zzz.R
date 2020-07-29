@@ -7,6 +7,7 @@
   s3_register("broom::tidy", "_lognet")
   s3_register("broom::tidy", "_multnet")
   s3_register("broom::tidy", "_fishnet")
+  s3_register("broom::glance", "model_fit")
 }
 
 

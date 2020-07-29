@@ -13,6 +13,8 @@ status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)]
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![R build
+status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
 <!-- badges: end -->
 
 ## Introduction
@@ -134,13 +136,14 @@ rand_forest(mtry = 10, trees = 2000) %>%
 Either one of these model specifications can be fit in the same way:
 
 ``` r
+set.seed(192)
 rand_forest(mtry = 10, trees = 2000) %>%
   set_engine("ranger", importance = "impurity") %>%
   set_mode("regression") %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  71ms 
+#> Fit time:  69ms 
 #> Ranger result
 #> 
 #> Call:
@@ -154,8 +157,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.699772 
-#> R squared (OOB):                  0.8430857
+#> OOB prediction error (MSE):       5.976917 
+#> R squared (OOB):                  0.8354559
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
