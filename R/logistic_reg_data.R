@@ -56,6 +56,7 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
+      check_two_class(object)
       x <- tibble(v1 = 1 - x, v2 = x)
       colnames(x) <- object$lvl
       x

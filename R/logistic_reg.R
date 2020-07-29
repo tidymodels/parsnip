@@ -165,7 +165,15 @@ check_args.logistic_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
+check_two_class <- function(object) {
+  if (length(object$lvl) != 2) {
+    rlang::abort("Modeling for `logistic_reg()` can only be done with 2 levels.")
+  }
+  invisible(NULL)
+}
+
 prob_to_class_2 <- function(x, object) {
+  check_two_class(object)
   x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
   unname(x)
 }
@@ -173,6 +181,7 @@ prob_to_class_2 <- function(x, object) {
 
 organize_glmnet_class <- function(x, object) {
   if (ncol(x) == 1) {
+    check_two_class(object)
     res <- prob_to_class_2(x[, 1], object)
   } else {
     n <- nrow(x)
@@ -188,6 +197,7 @@ organize_glmnet_class <- function(x, object) {
 
 organize_glmnet_prob <- function(x, object) {
   if (ncol(x) == 1) {
+    check_two_class(object)
     res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
     colnames(res) <- object$lvl
   } else {
@@ -231,8 +241,9 @@ organize_glmnet_prob <- function(x, object) {
 
 #' @export
 predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
-  if (any(names(enquos(...)) == "newdata"))
+  if (any(names(enquos(...)) == "newdata")) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
 
   # See discussion in https://github.com/tidymodels/parsnip/issues/195
   if (is.null(penalty) & !is.null(object$spec$args$penalty)) {

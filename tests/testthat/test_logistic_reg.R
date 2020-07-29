@@ -356,3 +356,22 @@ test_that('default engine', {
   )
   expect_true(inherits(fit$fit, "glm"))
 })
+
+
+test_that('test 3+ levels', {
+  data(hpc_data, package = "modeldata")
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(class ~ hour + compounds, data = hpc_data) %>%
+      predict(hpc_data),
+    "can only be done with 2 levels"
+  )
+  expect_error(
+    logistic_reg() %>%
+      set_engine("glm") %>%
+      fit(class ~ hour + compounds, data = hpc_data) %>%
+      predict(hpc_data, type = "prob"),
+    "can only be done with 2 levels"
+  )
+})

@@ -3,10 +3,12 @@
  * A `glance()` method for `model_fit` objects was added (#325)
 
  * Specific `tidy()` methods for `glmnet` models fit via `parsnip` were created so that the coefficients for the specific fitted `parsnip` model are returned.
+ 
+ * Logistic regression prediction functions can check to see if the outcome had two levels (#265)
 
 ## Fixes
 
- * `glmnet` models were fitting two intercepts (#349)
+ * `glmnet` models were fitting two intercepts when used with a workflow (#349)
  
 # parsnip 0.1.2
 
