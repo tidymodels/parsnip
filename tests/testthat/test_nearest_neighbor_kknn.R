@@ -134,7 +134,7 @@ test_that('kknn multi-predict', {
   )
 
   pred_multi <- multi_predict(res_xy, hpc[hpc_te, num_pred], neighbors = k_vals)
-  expect_equal(pred_multi %>% unnest(cols = c(.pred)) %>% nrow(),
+  expect_equal(pred_multi %>% tidyr::unnest(cols = c(.pred)) %>% nrow(),
                length(hpc_te) * length(k_vals))
   expect_equal(pred_multi %>% nrow(), length(hpc_te))
 
@@ -142,7 +142,7 @@ test_that('kknn multi-predict', {
   pred_uni_obs <-
     pred_multi %>%
     mutate(.rows = row_number()) %>%
-    unnest(cols = c(.pred)) %>%
+    tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     arrange(.rows) %>%
     dplyr::select(.pred_class)
@@ -151,7 +151,7 @@ test_that('kknn multi-predict', {
 
   prob_multi <- multi_predict(res_xy, hpc[hpc_te, num_pred],
                               neighbors = k_vals, type = "prob")
-  expect_equal(prob_multi %>% unnest(cols = c(.pred)) %>% nrow(),
+  expect_equal(prob_multi %>% tidyr::unnest(cols = c(.pred)) %>% nrow(),
                length(hpc_te) * length(k_vals))
   expect_equal(prob_multi %>% nrow(), length(hpc_te))
 
@@ -159,7 +159,7 @@ test_that('kknn multi-predict', {
   prob_uni_obs <-
     prob_multi %>%
     mutate(.rows = row_number()) %>%
-    unnest(cols = c(.pred)) %>%
+    tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     arrange(.rows) %>%
     dplyr::select(!!names(prob_uni))
@@ -179,7 +179,7 @@ test_that('kknn multi-predict', {
   )
 
   pred_multi <- multi_predict(res_xy, mtcars[cars_te, -1], neighbors = k_vals)
-  expect_equal(pred_multi %>% unnest(cols = c(.pred)) %>% nrow(),
+  expect_equal(pred_multi %>% tidyr::unnest(cols = c(.pred)) %>% nrow(),
                length(cars_te) * length(k_vals))
   expect_equal(pred_multi %>% nrow(), length(cars_te))
 
@@ -187,7 +187,7 @@ test_that('kknn multi-predict', {
   pred_uni_obs <-
     pred_multi %>%
     mutate(.rows = row_number()) %>%
-    unnest(cols = c(.pred)) %>%
+    tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     arrange(.rows) %>%
     dplyr::select(.pred)
