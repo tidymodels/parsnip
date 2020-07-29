@@ -1,9 +1,13 @@
-# parsnip (development version)
+# parsnip 0.1.3
 
  * A `glance()` method for `model_fit` objects was added (#325)
 
  * Specific `tidy()` methods for `glmnet` models fit via `parsnip` were created so that the coefficients for the specific fitted `parsnip` model are returned.
 
+## Fixes
+
+ * `glmnet` models were fitting two intercepts (#349)
+ 
 # parsnip 0.1.2
 
 ## Breaking Changes
