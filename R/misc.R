@@ -287,7 +287,13 @@ update_main_parameters <- function(args, param) {
 update_engine_parameters <- function(eng_args, ...) {
 
   dots <- enquos(...)
-  ret <- utils::modifyList(eng_args, dots)
+
+  if (is_null(eng_args)) {
+    ret <- NULL
+  } else {
+    ret <- utils::modifyList(eng_args, dots)
+  }
+
   has_extra_dots <- !(names(dots) %in% names(eng_args))
   dots <- dots[has_extra_dots]
   update_dot_check(dots)
