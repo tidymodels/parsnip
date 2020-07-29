@@ -281,5 +281,18 @@ update_main_parameters <- function(args, param) {
   args <- utils::modifyList(args, param)
 }
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+update_engine_parameters <- function(eng_args, ...) {
+
+  dots <- enquos(...)
+  ret <- utils::modifyList(eng_args, dots)
+  has_extra_dots <- !(names(dots) %in% names(eng_args))
+  dots <- dots[has_extra_dots]
+  update_dot_check(dots)
+
+  ret
+}
 
 
