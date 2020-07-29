@@ -63,6 +63,15 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       rlang::abort("For classification models, the outcome should be a factor.")
   }
 
+  encoding_info <-
+    get_encoding(class(object)[1]) %>%
+    dplyr::filter(mode == object$mode, engine == object$engine)
+
+  remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  if (remove_intercept) {
+    env$x <- env$x[, colnames(env$x) != "(Intercept)", drop = FALSE]
+  }
+
   # if descriptors are needed, update descr_env with the calculated values
   if (requires_descrs(object)) {
     data_stats <- get_descr_xy(env$x, env$y)
