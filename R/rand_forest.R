@@ -110,7 +110,12 @@ update.rand_forest <-
            parameters = NULL,
            mtry = NULL, trees = NULL, min_n = NULL,
            fresh = FALSE, ...) {
-    update_dot_check(...)
+
+    dots <- enquos(...)
+    eng_args <- utils::modifyList(object$eng_args, dots)
+    has_extra_dots <- !(names(dots) %in% names(object$eng_args))
+    dots <- dots[has_extra_dots]
+    update_dot_check(dots)
 
     if (!is.null(parameters)) {
       parameters <- check_final_param(parameters)
@@ -126,12 +131,15 @@ update.rand_forest <-
     # TODO make these blocks into a function and document well
     if (fresh) {
       object$args <- args
+      object$eng_args <- eng_args
     } else {
       null_args <- map_lgl(args, null_value)
       if (any(null_args))
         args <- args[!null_args]
       if (length(args) > 0)
         object$args[names(args)] <- args
+      if (length(eng_args) > 0)
+        object$eng_args[names(eng_args)] <- eng_args
     }
 
     new_model_spec(
