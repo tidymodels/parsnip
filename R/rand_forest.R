@@ -111,11 +111,7 @@ update.rand_forest <-
            mtry = NULL, trees = NULL, min_n = NULL,
            fresh = FALSE, ...) {
 
-    dots <- enquos(...)
-    eng_args <- utils::modifyList(object$eng_args, dots)
-    has_extra_dots <- !(names(dots) %in% names(object$eng_args))
-    dots <- dots[has_extra_dots]
-    update_dot_check(dots)
+    eng_args <- update_engine_parameters(object$eng_args, ...)
 
     if (!is.null(parameters)) {
       parameters <- check_final_param(parameters)
