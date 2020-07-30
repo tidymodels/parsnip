@@ -288,6 +288,7 @@ update_engine_parameters <- function(eng_args, ...) {
 
   dots <- enquos(...)
 
+  ## only update from dots when there are eng args in original model spec
   if (is_null(eng_args)) {
     ret <- NULL
   } else {
