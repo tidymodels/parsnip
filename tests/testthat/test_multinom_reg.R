@@ -80,7 +80,7 @@ test_that('updating', {
   expr1     <- multinom_reg() %>% set_engine("glmnet", intercept = TRUE)
   expr1_exp <- multinom_reg(mixture = 0) %>% set_engine("glmnet", intercept = TRUE)
 
-  expr2     <- multinom_reg(mixture = varying()) %>% set_engine("glmnet")
+  expr2     <- multinom_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = varying())
   expr2_exp <- multinom_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = 10)
 
   expr3     <- multinom_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet")
@@ -92,8 +92,8 @@ test_that('updating', {
   expr5     <- multinom_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
   expr5_exp <- multinom_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
-  # expect_equal(update(expr1 %>% set_engine("glmnet"), mixture = 0), expr1_exp)
-  expect_equal(update(expr2) %>% set_engine("glmnet", nlambda = 10), expr2_exp)
+  expect_equal(update(expr1, mixture = 0), expr1_exp)
+  expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE) %>% set_engine("glmnet"), expr3_exp)
   # expect_equal(update(expr4 %>% set_engine("glmnet", pmax = 2)), expr4_exp)
   expect_equal(update(expr5) %>% set_engine("glmnet", nlambda = 10, pmax = 2), expr5_exp)
