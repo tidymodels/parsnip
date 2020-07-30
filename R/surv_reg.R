@@ -96,7 +96,8 @@ print.surv_reg <- function(x, ...) {
 #' @rdname surv_reg
 #' @export
 update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
-  update_dot_check(...)
+
+  eng_args <- update_engine_parameters(object$eng_args, ...)
 
   if (!is.null(parameters)) {
     parameters <- check_final_param(parameters)
@@ -110,12 +111,15 @@ update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALS
 
   if (fresh) {
     object$args <- args
+    object$eng_args <- eng_args
   } else {
     null_args <- map_lgl(args, null_value)
     if (any(null_args))
       args <- args[!null_args]
     if (length(args) > 0)
       object$args[names(args)] <- args
+    if (length(eng_args) > 0)
+      object$eng_args[names(eng_args)] <- eng_args
   }
 
   new_model_spec(
