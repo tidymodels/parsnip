@@ -245,7 +245,7 @@ prepare_data <- function(object, new_data) {
     dplyr::filter(mode == object$spec$mode, engine == object$spec$engine) %>%
     dplyr::pull(remove_intercept)
   if (remove_intercept) {
-    new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
+    new_data <- new_data %>% dplyr::select(-dplyr::one_of("(Intercept)"))
   }
 
   switch(
