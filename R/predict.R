@@ -239,6 +239,15 @@ prepare_data <- function(object, new_data) {
       new_data <- convert_form_to_xy_new(object$preproc, new_data)$x
     }
   }
+
+  remove_intercept <-
+    get_encoding(class(object$spec)[1]) %>%
+    dplyr::filter(mode == object$spec$mode, engine == object$spec$engine) %>%
+    dplyr::pull(remove_intercept)
+  if (remove_intercept) {
+    new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
+  }
+
   switch(
     fit_interface,
     none = new_data,
