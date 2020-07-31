@@ -84,15 +84,15 @@ test_that('updating', {
   expr1     <- nearest_neighbor()  %>% set_engine("kknn", scale = FALSE)
   expr1_exp <- nearest_neighbor(neighbors = 5) %>% set_engine("kknn", scale = FALSE)
 
-  expr2     <- nearest_neighbor(neighbors = varying()) %>% set_engine("kknn")
-  expr2_exp <- nearest_neighbor(neighbors = varying(), weight_func = "triangular") %>% set_engine("kknn")
+  expr2     <- nearest_neighbor(neighbors = varying()) %>% set_engine("kknn", scale = varying())
+  expr2_exp <- nearest_neighbor(neighbors = varying(), weight_func = "triangular") %>% set_engine("kknn", scale = FALSE)
 
-  expr3     <- nearest_neighbor(neighbors = 2, weight_func = varying()) %>% set_engine("kknn")
-  expr3_exp <- nearest_neighbor(neighbors = 3) %>% set_engine("kknn")
+  expr3     <- nearest_neighbor(neighbors = 2, weight_func = varying()) %>% set_engine("kknn", scale = varying())
+  expr3_exp <- nearest_neighbor(neighbors = 3) %>% set_engine("kknn", scale = FALSE)
 
-  expect_equal(update(expr1, neighbors = 5), expr1_exp)
-  expect_equal(update(expr2, weight_func = "triangular"), expr2_exp)
-  expect_equal(update(expr3, neighbors = 3, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr1, neighbors = 5, scale = FALSE), expr1_exp)
+  expect_equal(update(expr2, weight_func = "triangular", scale = FALSE), expr2_exp)
+  expect_equal(update(expr3, neighbors = 3, fresh = TRUE, scale = FALSE), expr3_exp)
 
   param_tibb <- tibble::tibble(neighbors = 7, dist_power = 1)
   param_list <- as.list(param_tibb)

@@ -60,9 +60,9 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = .99)
+  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = varying())
   expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
-  expect_equal(update(expr1, dist = "lnorm"), expr1_exp)
+  expect_equal(update(expr1, dist = "lnorm", cl = 0.99), expr1_exp)
 
   param_tibb <- tibble::tibble(dist = "weibull")
   param_list <- as.list(param_tibb)

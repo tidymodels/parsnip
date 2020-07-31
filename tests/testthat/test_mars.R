@@ -78,11 +78,12 @@ test_that('updating', {
   expr1     <- mars() %>% set_engine("earth", model = FALSE)
   expr1_exp <- mars(num_terms = 1) %>% set_engine("earth", model = FALSE)
 
-  expr2     <- mars(num_terms = varying()) %>% set_engine("earth")
+  expr2     <- mars(num_terms = varying()) %>% set_engine("earth", nk = varying())
   expr2_exp <- mars(num_terms = varying()) %>% set_engine("earth", nk = 10)
 
-  expr3     <- mars(num_terms = 1, prod_degree = varying()) %>% set_engine("earth")
-  expr3_exp <- mars(num_terms = 1) %>% set_engine("earth")
+  expr3     <- mars(num_terms = 1, prod_degree = varying()) %>% set_engine("earth", nk = varying())
+  expr3_fre <- mars(num_terms = 1) %>% set_engine("earth", nk = varying())
+  expr3_exp <- mars(num_terms = 1) %>% set_engine("earth", nk = 10)
 
   expr4     <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
   expr4_exp <- mars(num_terms = 0) %>% set_engine("earth", nk = 10, trace = 2)
@@ -91,7 +92,9 @@ test_that('updating', {
   expr5_exp <- mars(num_terms = 1) %>% set_engine("earth", nk = 10, trace = 2)
 
   expect_equal(update(expr1, num_terms = 1), expr1_exp)
-  expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr2, nk = 10), expr2_exp)
+  expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_fre)
+  expect_equal(update(expr3, num_terms = 1, fresh = TRUE, nk = 10), expr3_exp)
 
   param_tibb <- tibble::tibble(num_terms = 3, prod_degree = 1)
   param_list <- as.list(param_tibb)

@@ -307,15 +307,17 @@ test_that('updating', {
   expr4     <- rand_forest(mode = "regression", mtry = 2) %>%
     set_engine("randomForest", norm.votes = FALSE, sampsize = varying())
   expr4_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = TRUE, sampsize = varying())
+    set_engine("randomForest", norm.votes = TRUE, sampsize = 10)
 
-  expr5     <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = FALSE)
-  expr5_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = TRUE, sampsize = varying())
+  expr5     <- rand_forest(mode = "regression") %>%
+    set_engine("randomForest", norm.votes = varying())
+  expr5_exp <- rand_forest(mode = "regression") %>%
+    set_engine("randomForest", norm.votes = TRUE)
 
   expect_equal(update(expr1, mtry = 2), expr1_exp)
   expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr4, sampsize = 10, norm.votes = TRUE), expr4_exp)
+  expect_equal(update(expr5, norm.votes = TRUE), expr5_exp)
 
   param_tibb <- tibble::tibble(mtry = 3, trees = 10)
   param_list <- as.list(param_tibb)

@@ -62,11 +62,13 @@ test_that('updating', {
 
   expr1     <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
   expr1_exp <- svm_rbf(mode = "regression", rbf_sigma = .1) %>% set_engine("kernlab", cross = 10)
-
+  expr2     <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = varying())
+  expr2_exp <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
   expr3     <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
   expr3_exp <- svm_rbf(mode = "regression", rbf_sigma = .3) %>% set_engine("kernlab")
 
   expect_equal(update(expr1, rbf_sigma = .1), expr1_exp)
+  expect_equal(update(expr2, cross = 10), expr2_exp)
   expect_equal(update(expr3, rbf_sigma = .3, fresh = TRUE), expr3_exp)
 
   param_tibb <- tibble::tibble(rbf_sigma = 3, cost = 10)

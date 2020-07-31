@@ -131,21 +131,23 @@ test_that('updating', {
   expr1_exp <- mlp(mode = "regression", hidden_units = 2) %>%
     set_engine("nnet", Hess = FALSE, abstol = varying())
 
-  expr2     <- mlp(mode = "regression", hidden_units = 7) %>% set_engine("nnet")
-  expr2_exp <- mlp(mode = "regression", hidden_units = 7) %>% set_engine("nnet", Hess = FALSE)
+  expr2     <- mlp(mode = "regression") %>% set_engine("nnet", Hess = varying())
+  expr2_exp <- mlp(mode = "regression") %>% set_engine("nnet", Hess = FALSE)
 
   expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = varying()) %>% set_engine("keras")
 
   expr3_exp <- mlp(mode = "regression", hidden_units = 2) %>% set_engine("keras")
 
   expr4     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
-  expr4_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
+  expr4_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = 1e-3)
 
   expr5     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE)
   expr5_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
 
   expect_equal(update(expr1, hidden_units = 2), expr1_exp)
+  expect_equal(update(expr2, Hess = FALSE), expr2_exp)
   expect_equal(update(expr3, hidden_units = 2, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr4, abstol = 1e-3), expr4_exp)
 
   param_tibb <- tibble::tibble(hidden_units = 3, dropout = .1)
   param_list <- as.list(param_tibb)

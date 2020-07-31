@@ -80,14 +80,14 @@ test_that('updating', {
   expr1     <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
   expr1_exp <- svm_poly(mode = "regression", degree = 1) %>% set_engine("kernlab", cross = 10)
 
-  expr2     <- svm_poly(mode = "regression", degree = varying()) %>% set_engine("kernlab")
-  expr2_exp <- svm_poly(mode = "regression", degree = varying(), scale_factor = 1) %>% set_engine("kernlab")
+  expr2     <- svm_poly(mode = "regression", degree = varying()) %>% set_engine("kernlab", cross = varying())
+  expr2_exp <- svm_poly(mode = "regression", degree = varying(), scale_factor = 1) %>% set_engine("kernlab", cross = 10)
 
   expr3     <- svm_poly(mode = "regression", degree = 2, scale_factor = varying()) %>% set_engine("kernlab")
   expr3_exp <- svm_poly(mode = "regression", degree = 3) %>% set_engine("kernlab")
 
   expect_equal(update(expr1, degree = 1), expr1_exp)
-  expect_equal(update(expr2,  scale_factor = 1), expr2_exp)
+  expect_equal(update(expr2,  scale_factor = 1, cross = 10), expr2_exp)
   expect_equal(update(expr3, degree = 3, fresh = TRUE), expr3_exp)
 
   param_tibb <- tibble::tibble(degree = 3, cost = 10)

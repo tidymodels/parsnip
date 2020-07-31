@@ -166,11 +166,12 @@ test_that('updating', {
   expr1     <- linear_reg() %>% set_engine("lm", model = FALSE)
   expr1_exp <- linear_reg(mixture = 0) %>% set_engine("lm", model = FALSE)
 
-  expr2     <- linear_reg(mixture = varying()) %>% set_engine("glmnet")
-  expr2_exp <- linear_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = 10)
+  expr2     <- linear_reg() %>% set_engine("glmnet", nlambda = varying())
+  expr2_exp <- linear_reg() %>% set_engine("glmnet", nlambda = 10)
 
-  expr3     <- linear_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet")
-  expr3_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet")
+  expr3     <- linear_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet", nlambda = varying())
+  expr3_exp <- linear_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet", nlambda = 10)
+  expr3_fre <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
 
   expr4     <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
   expr4_exp <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
@@ -179,7 +180,9 @@ test_that('updating', {
   expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
   expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr2, nlambda = 10), expr2_exp)
+  expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_fre)
+  expect_equal(update(expr3, nlambda = 10), expr3_exp)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)

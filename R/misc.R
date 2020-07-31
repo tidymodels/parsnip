@@ -171,8 +171,7 @@ names0 <- function (num, prefix = "x") {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_dot_check <- function(...) {
-  dots <- enquos(...)
+update_dot_check <- function(dots) {
   if (length(dots) > 0)
     rlang::abort(
       glue::glue(
@@ -282,5 +281,25 @@ update_main_parameters <- function(args, param) {
   args <- utils::modifyList(args, param)
 }
 
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+update_engine_parameters <- function(eng_args, ...) {
+
+  dots <- enquos(...)
+
+  ## only update from dots when there are eng args in original model spec
+  if (is_null(eng_args)) {
+    ret <- NULL
+  } else {
+    ret <- utils::modifyList(eng_args, dots)
+  }
+
+  has_extra_dots <- !(names(dots) %in% names(eng_args))
+  dots <- dots[has_extra_dots]
+  update_dot_check(dots)
+
+  ret
+}
 
 
