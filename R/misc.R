@@ -171,7 +171,10 @@ names0 <- function (num, prefix = "x") {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_dot_check <- function(dots) {
+update_dot_check <- function(...) {
+
+  dots <- enquos(...)
+
   if (length(dots) > 0)
     rlang::abort(
       glue::glue(
@@ -194,8 +197,8 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
       glue::glue(
         "`mode` should be one of: ",
         glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-        )
       )
+    )
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
@@ -297,7 +300,7 @@ update_engine_parameters <- function(eng_args, ...) {
 
   has_extra_dots <- !(names(dots) %in% names(eng_args))
   dots <- dots[has_extra_dots]
-  update_dot_check(dots)
+  update_dot_check(!!!dots)
 
   ret
 }
