@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fit a simple, non-informative model — nullmodel • parsnip</title>
+<title>Construct a single row summary "glance" of a model, fit, or other object — glance.model_fit • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,8 @@
 
 
 
-<meta property="og:title" content="Fit a simple, non-informative model — nullmodel" />
-<meta property="og:description" content="Fit a single mean or largest class model. nullmodel() is the underlying
-computational function for the null_model() specification." />
+<meta property="og:title" content="Construct a single row summary "glance" of a model, fit, or other object — glance.model_fit" />
+<meta property="og:description" content="This method glances the model in a parsnip model object, if it exists." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,94 +150,35 @@ computational function for the null_model() specification." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fit a simple, non-informative model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/nullmodel.R'><code>R/nullmodel.R</code></a></small>
-    <div class="hidden name"><code>nullmodel.Rd</code></div>
+    <h1>Construct a single row summary "glance" of a model, fit, or other object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/tidy.R'><code>R/tidy.R</code></a></small>
+    <div class="hidden name"><code>glance.model_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Fit a single mean or largest class model. <code>nullmodel()</code> is the underlying
-computational function for the <code><a href='null_model.html'>null_model()</a></code> specification.</p>
+    <p>This method glances the model in a parsnip model object, if it exists.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nullmodel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>nullmodel</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>y</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for model_fit</span>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/glance.html'>glance</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An optional matrix or data frame of predictors. These values are
-not used in the model fit</p></td>
+      <td><p>model or other R object to convert to single-row data frame</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional arguments (not yet used)</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>A numeric vector (for regression) or factor (for classification) of
-outcomes</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>An object of class <code>nullmodel</code></p></td>
-    </tr>
-    <tr>
-      <th>new_data</th>
-      <td><p>A matrix or data frame of predictors (only used to determine
-the number of predictions to return)</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Either "raw" (for regression), "class" or "prob" (for
-classification)</p></td>
+      <td><p>other arguments passed to methods</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The output of <code>nullmodel()</code> is a list of class <code>nullmodel</code>
-with elements</p>
-<dt>call </dt><dd><p>the function call</p></dd> <dt>value </dt><dd><p>the mean of
-<code>y</code> or the most prevalent class</p></dd> <dt>levels </dt><dd><p>when <code>y</code> is a
-factor, a vector of levels. <code>NULL</code> otherwise</p></dd> <dt>pct </dt><dd><p>when <code>y</code>
-is a factor, a data frame with a column for each class (<code>NULL</code>
-otherwise). The column for the most prevalent class has the proportion of
-the training samples with that class (the other columns are zero).</p></dd> <dt>n
-</dt><dd><p>the number of elements in <code>y</code></p></dd>
+    <p>a tibble</p>
 
-predict.nullmodel() returns a either a factor or numeric vector
-depending on the class of y. All predictions are always the same.
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>nullmodel()</code> emulates other model building functions, but returns the
-simplest model possible given a training set: a single mean for numeric
-outcomes and the most prevalent class for factor outcomes. When class
-probabilities are requested, the percentage of the training set samples with
-the most prevalent class is returned.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>outcome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>],
-                         <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-                         <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>.9</span>),
-                         <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='no'>useless</span> <span class='kw'>&lt;-</span> <span class='fu'>nullmodel</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>outcome</span>)
-<span class='no'>useless</span></div><div class='output co'>#&gt; Null Regression Model
-#&gt; Predicted Value: b </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>useless</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] b b b b b
-#&gt; Levels: a b</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

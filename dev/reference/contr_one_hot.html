@@ -113,13 +113,13 @@ each level of each factor." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -161,7 +161,7 @@ each level of each factor." />
 each level of each factor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/contr_one_hot.html'>contr_one_hot</a></span>(<span class='kw'>n</span>, contrasts = <span class='fl'>TRUE</span>, sparse = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>contr_one_hot</span>(<span class='no'>n</span>, <span class='kw'>contrasts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sparse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,30 +192,35 @@ factor predictors. When the formula does not remove an intercept, an
 incomplete set of indicators are created; no indicator is made for the
 first level of the factor.</p>
 <p>For example, <code>species</code> and <code>island</code> both have three levels but
-<code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> creates two indicator variables for each:<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>penguins</span>)
+<code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> creates two indicator variables for each:<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>penguins</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>penguins</span><span class='op'>$</span><span class='kw'>species</span>)</pre><p></div></p><pre><span class='co'>## [1] "Adelie"    "Chinstrap" "Gentoo"</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>penguins</span><span class='op'>$</span><span class='kw'>island</span>)</pre><p></div></p><pre><span class='co'>## [1] "Biscoe"    "Dream"     "Torgersen"</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(<span class='op'>~</span> <span class='kw'>species</span> <span class='op'>+</span> <span class='kw'>island</span>, data = <span class='kw'>penguins</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre><span class='co'>## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
-<span class='co'>## [5] "islandTorgersen"</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>penguins</span>$<span class='no'>species</span>)</pre><p></div></p><pre>## [1] "Adelie"    "Chinstrap" "Gentoo"
+</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>penguins</span>$<span class='no'>island</span>)</pre><p></div></p><pre>## [1] "Biscoe"    "Dream"     "Torgersen"
+</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(~ <span class='no'>species</span> + <span class='no'>island</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>penguins</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre>## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
+</pre>
 
 <p>For a formula with no intercept, the first factor is expanded to
 indicators for <em>all</em> factor levels but all other factors are expanded to
-all but one (as above):<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(<span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='kw'>species</span> <span class='op'>+</span> <span class='kw'>island</span>, data = <span class='kw'>penguins</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre><span class='co'>## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
-<span class='co'>## [5] "islandTorgersen"</span></pre>
+all but one (as above):<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(~ <span class='fl'>0</span> + <span class='no'>species</span> + <span class='no'>island</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>penguins</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre>## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
+</pre>
 
 <p>For inference, this hybrid encoding can be problematic.</p>
 <p>To generate all indicators, use this contrast:<div class="r"></p><pre><span class='co'># Switch out the contrast method</span>
-<span class='kw'>old_contr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='st'>"contrasts"</span>)<span class='op'>$</span><span class='kw'>contrasts</span>
-<span class='kw'>new_contr</span> <span class='op'>&lt;-</span> <span class='kw'>old_contr</span>
-<span class='kw'>new_contr</span>[<span class='st'>"unordered"</span>] <span class='op'>&lt;-</span> <span class='st'>"contr_one_hot"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(contrasts = <span class='kw'>new_contr</span>)
+<span class='no'>old_contr</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='st'>"contrasts"</span>)$<span class='no'>contrasts</span>
+<span class='no'>new_contr</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>old_contr</span>
+<span class='no'>new_contr</span>[<span class='st'>"unordered"</span>] <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='st'>"contr_one_hot"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>contrasts</span> <span class='kw'>=</span> <span class='no'>new_contr</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(<span class='op'>~</span> <span class='kw'>species</span> <span class='op'>+</span> <span class='kw'>island</span>, data = <span class='kw'>penguins</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre><span class='co'>## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   </span>
-<span class='co'>## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(contrasts = <span class='kw'>old_contr</span>)</pre><p></div></p>
+<span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span>(~ <span class='no'>species</span> + <span class='no'>island</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>penguins</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>()</pre><p></div></p><pre>## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   
+## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"
+</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>contrasts</span> <span class='kw'>=</span> <span class='no'>old_contr</span>)</pre><p></div></p>
 <p>Removing the intercept here does not affect the factor encodings.</p>
 
   </div>

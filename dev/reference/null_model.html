@@ -114,13 +114,13 @@ main arguments." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -158,12 +158,12 @@ main arguments." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model()</a></code> is a way to generate a <em>specification</em> of a model before
+    <p><code>null_model()</code> is a way to generate a <em>specification</em> of a model before
 fitting and allows the model to be created using R. It doesn't have any
 main arguments.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model</a></span>(mode = <span class='st'>"classification"</span>)</pre>
+    <pre class="usage"><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,23 +187,25 @@ following <em>engines</em>:</p><ul>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3>parsnip</h3>
-<p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model</a></span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"parsnip"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: parsnip </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## nullmodel(x = missing_arg(), y = missing_arg())</span></pre><p><div class="r"></p><pre><span class='fu'><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model</a></span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span>(<span class='st'>"parsnip"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/translate.html'>translate</a></span>()</pre><p></div></p><pre><span class='co'>## Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: parsnip </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## nullmodel(x = missing_arg(), y = missing_arg())</span></pre>
+<p><div class="r"></p><pre><span class='fu'>null_model</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"parsnip"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Model Specification (regression)
+## 
+## Computational engine: parsnip 
+## 
+## Model fit template:
+## nullmodel(x = missing_arg(), y = missing_arg())
+</pre><p><div class="r"></p><pre><span class='fu'>null_model</span>() <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"parsnip"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Model Specification (classification)
+## 
+## Computational engine: parsnip 
+## 
+## Model fit template:
+## nullmodel(x = missing_arg(), y = missing_arg())
+</pre>
 
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -211,7 +213,7 @@ call. For this type of model, the template of the fit calls are below:</p><h3>pa
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model</a></span>(mode = <span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Model Specification (regression)
+    <pre class="examples"><div class='input'><span class='fu'>null_model</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>)</div><div class='output co'>#&gt; Model Specification (regression)
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

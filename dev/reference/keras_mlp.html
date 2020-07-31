@@ -114,13 +114,13 @@ via either weight decay or dropout." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -163,16 +163,16 @@ create a feedforward network with a single hidden layer. Regularization is
 via either weight decay or dropout.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/keras_mlp.html'>keras_mlp</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>y</span>,
-  hidden_units = <span class='fl'>5</span>,
-  penalty = <span class='fl'>0</span>,
-  dropout = <span class='fl'>0</span>,
-  epochs = <span class='fl'>20</span>,
-  activation = <span class='st'>"softmax"</span>,
-  seeds = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span><span class='op'>^</span><span class='fl'>5</span>, size = <span class='fl'>3</span>),
-  <span class='kw'>...</span>
+    <pre class="usage"><span class='fu'>keras_mlp</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>hidden_units</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>dropout</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"softmax"</span>,
+  <span class='kw'>seeds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>10</span>^<span class='fl'>5</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
