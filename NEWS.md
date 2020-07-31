@@ -8,6 +8,8 @@
 
  * `glmnet` models were fitting two intercepts (#349)
  
+ * The various `update()` methods now work with engine-specific parameters. 
+ 
 # parsnip 0.1.2
 
 ## Breaking Changes
