@@ -144,6 +144,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     conf_int = predict_confint(object = object, new_data = new_data, ...),
     pred_int = predict_predint(object = object, new_data = new_data, ...),
     quantile = predict_quantile(object = object, new_data = new_data, ...),
+    time     = predict_time(object = object, new_data = new_data, ...),
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
