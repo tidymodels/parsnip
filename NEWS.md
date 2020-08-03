@@ -198,7 +198,7 @@ First CRAN release
 # parsnip 0.0.0.9003
 
 * `regularization` was changed to `penalty` in a few models to be consistent with [this change](https://tidymodels.github.io/model-implementation-principles/standardized-argument-names.html#tuning-parameters). 
-* If a mode is not chosen in the model specification, it is assigned at the time of fit. [51](https://github.com/topepo/parsnip/issues/51)
+* If a mode is not chosen in the model specification, it is assigned at the time of fit. [51](https://github.com/tidyverse/parsnip/issues/51)
 * The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some `predict` methods, the `earth` package will need to be attached to be fully operational.
 
 # parsnip 0.0.0.9002
@@ -212,7 +212,7 @@ First CRAN release
 
 # parsnip 0.0.0.9000
 
-* The `fit` interface was previously used to cover both the x/y interface as well as the formula interface. Now, `fit()` is the formula interface and [`fit_xy()` is for the x/y interface](https://github.com/topepo/parsnip/issues/33). 
+* The `fit` interface was previously used to cover both the x/y interface as well as the formula interface. Now, `fit()` is the formula interface and [`fit_xy()` is for the x/y interface](https://github.com/tidyverse/parsnip/issues/33). 
 * Added a `NEWS.md` file to track changes to the package.
-* `predict` methods were [overhauled](https://github.com/topepo/parsnip/issues/34) to be [consistent](https://github.com/topepo/parsnip/issues/41).
+* `predict` methods were [overhauled](https://github.com/tidyverse/parsnip/issues/34) to be [consistent](https://github.com/tidyverse/parsnip/issues/41).
 * MARS was added. 
