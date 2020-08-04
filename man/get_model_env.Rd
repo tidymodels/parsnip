@@ -35,7 +35,7 @@ ls(envir = current_code)
 
 }
 \references{
-"Making a parsnip model from scratch"
-\url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+"How to build a parsnip model"
+\url{https://www.tidymodels.org/learn/develop/models/}
 }
 \keyword{internal}

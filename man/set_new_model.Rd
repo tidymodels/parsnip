@@ -94,8 +94,7 @@ See Details below.}
 \code{func} and \code{defaults}. See the package vignette "Making a
 \code{parsnip} model from scratch".}
 
-\item{pred_obj}{A list with elements \code{pre}, \code{post}, \code{func}, and \code{args}.
-See the package vignette "Making a \code{parsnip} model from scratch".}
+\item{pred_obj}{A list with elements \code{pre}, \code{post}, \code{func}, and \code{args}.}
 }
 \description{
 These functions are similar to constructors and can be used to validate
@@ -156,7 +155,7 @@ function (e.g. \code{lm()}) automatically generates an intercept.
 show_model_info("rand_forest")
 }
 \references{
-"Making a parsnip model from scratch"
-\url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+"How to build a parsnip model"
+\url{https://www.tidymodels.org/learn/develop/models/}
 }
 \keyword{internal}
