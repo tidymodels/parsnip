@@ -120,7 +120,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   check_installs(object$spec)
   load_libs(object$spec, quiet = TRUE)
 
-  other_args <- c("level", "std_error", "quantile") # "time" for survival probs later
+  other_args <- c("level", "std_error", "quantile", ".time")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -145,16 +145,18 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     pred_int = predict_predint(object = object, new_data = new_data, ...),
     quantile = predict_quantile(object = object, new_data = new_data, ...),
     time     = predict_time(object = object, new_data = new_data, ...),
+    survival = predict_survival(object = object, new_data = new_data, ...),
     raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
       type,
-      numeric = format_num(res),
-      class   = format_class(res),
-      prob    = format_classprobs(res),
-      time    = format_time(res),
+      numeric  = format_num(res),
+      class    = format_class(res),
+      prob     = format_classprobs(res),
+      time     = format_time(res),
+      survival = format_survival(res),
       res
     )
   }
@@ -168,6 +170,7 @@ check_pred_type <- function(object, type) {
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
+             "risk prediction" = "time",
              rlang::abort("`type` should be 'regression' or 'classification'."))
   }
   if (!(type %in% pred_types))
@@ -228,7 +231,23 @@ format_time <- function(x) {
       names(x) <- paste0(".time_", names(x))
     }
   } else {
-    x <- tibble(.time = unname(x))
+    x <- tibble(.pred_time = unname(x))
+  }
+
+  x
+}
+
+format_survival <- function(x) {
+  if (inherits(x, "tbl_spark"))
+    return(x)
+
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
+    x <- as_tibble(x, .name_repair = "minimal")
+    if (!any(grepl("^\\.time", names(x)))) {
+      names(x) <- paste0(".time_", names(x))
+    }
+  } else {
+    x <- tibble(.pred_survival = unname(x))
   }
 
   x
