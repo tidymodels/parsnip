@@ -154,6 +154,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
       numeric = format_num(res),
       class   = format_class(res),
       prob    = format_classprobs(res),
+      time    = format_time(res),
       res
     )
   }
@@ -214,6 +215,22 @@ format_classprobs <- function(x) {
   }
   x <- as_tibble(x)
   x <- purrr::map_dfr(x, rlang::set_names, NULL)
+  x
+}
+
+format_time <- function(x) {
+  if (inherits(x, "tbl_spark"))
+    return(x)
+
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
+    x <- as_tibble(x, .name_repair = "minimal")
+    if (!any(grepl("^\\.time", names(x)))) {
+      names(x) <- paste0(".time_", names(x))
+    }
+  } else {
+    x <- tibble(.time = unname(x))
+  }
+
   x
 }
 
