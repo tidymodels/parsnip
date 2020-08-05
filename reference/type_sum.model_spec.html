@@ -96,7 +96,7 @@ columns." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
         </div>
       </div>
     </div>
@@ -113,13 +113,13 @@ columns." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -162,10 +162,10 @@ columns.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pillar/man/type_sum.html'>type_sum</a></span>(<span class='kw'>x</span>)
+<span class='fu'>type_sum</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pillar/man/type_sum.html'>type_sum</a></span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>type_sum</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,7 +184,7 @@ columns.</p>
     <p>For <code>model_spec</code> objects, the summary is "<code>spec[?]</code>"
 or "<code>spec[+]</code>". The former indicates that either the model
 mode has not been declared or that the specification has
-<code><a href='https://parsnip.tidymodels.org/reference/varying.html'>varying()</a></code> parameters. Otherwise, the latter is shown.</p>
+<code><a href='varying.html'>varying()</a></code> parameters. Otherwise, the latter is shown.</p>
 <p>For fitted models, either "<code>fit[x]</code>" or "<code>fit[+]</code>" are used
 where the "x" implies that the model fit failed in some way.</p>
 

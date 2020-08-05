@@ -96,7 +96,7 @@ information about model specifications." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
         </div>
       </div>
     </div>
@@ -113,13 +113,13 @@ information about model specifications." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -161,13 +161,13 @@ information about model specifications." />
 information about model specifications.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/get_model_env.html'>get_model_env</a></span>()
+    <pre class="usage"><span class='fu'>get_model_env</span>()
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/get_model_env.html'>get_from_env</a></span>(<span class='kw'>items</span>)
+<span class='fu'>get_from_env</span>(<span class='no'>items</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/get_model_env.html'>set_in_env</a></span>(<span class='kw'>...</span>)
+<span class='fu'>set_in_env</span>(<span class='no'>...</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/get_model_env.html'>set_env_val</a></span>(<span class='kw'>name</span>, <span class='kw'>value</span>)</pre>
+<span class='fu'>set_env_val</span>(<span class='no'>name</span>, <span class='no'>value</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,13 +192,13 @@ information about model specifications.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>"Making a parsnip model from scratch"
-<a href='https://tidymodels.github.io/parsnip/articles/articles/Scratch.html'>https://tidymodels.github.io/parsnip/articles/articles/Scratch.html</a></p>
+    <p>"How to build a parsnip model"
+<a href='https://www.tidymodels.org/learn/develop/models/'>https://www.tidymodels.org/learn/develop/models/</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Access the model data:</span>
-<span class='kw'>current_code</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/get_model_env.html'>get_model_env</a></span>()
-<span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span>(envir = <span class='kw'>current_code</span>)</div><div class='output co'>#&gt;  [1] "boost_tree"                "boost_tree_args"          
+<span class='no'>current_code</span> <span class='kw'>&lt;-</span> <span class='fu'>get_model_env</span>()
+<span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span>(<span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>current_code</span>)</div><div class='output co'>#&gt;  [1] "boost_tree"                "boost_tree_args"          
 #&gt;  [3] "boost_tree_encoding"       "boost_tree_fit"           
 #&gt;  [5] "boost_tree_modes"          "boost_tree_pkgs"          
 #&gt;  [7] "boost_tree_predict"        "decision_tree"            
@@ -244,7 +244,8 @@ information about model specifications.</p>
 #&gt; [87] "svm_rbf"                   "svm_rbf_args"             
 #&gt; [89] "svm_rbf_encoding"          "svm_rbf_fit"              
 #&gt; [91] "svm_rbf_modes"             "svm_rbf_pkgs"             
-#&gt; [93] "svm_rbf_predict"          </div><div class='input'></div></pre>
+#&gt; [93] "svm_rbf_predict"          </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

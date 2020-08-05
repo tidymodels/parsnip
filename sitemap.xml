@@ -43,6 +43,9 @@
     <loc>https://parsnip.tidymodels.org/reference/get_model_env.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/glance.model_fit.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/has_multi_predict.html</loc>
   </url>
   <url>
@@ -128,6 +131,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/svm_rbf.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/tidy._elnet.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/tidy.model_fit.html</loc>

@@ -96,7 +96,7 @@ computational function for the null_model() specification." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
         </div>
       </div>
     </div>
@@ -113,13 +113,13 @@ computational function for the null_model() specification." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -157,20 +157,20 @@ computational function for the null_model() specification." />
     </div>
 
     <div class="ref-description">
-    <p>Fit a single mean or largest class model. <code><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel()</a></code> is the underlying
-computational function for the <code><a href='https://parsnip.tidymodels.org/reference/null_model.html'>null_model()</a></code> specification.</p>
+    <p>Fit a single mean or largest class model. <code>nullmodel()</code> is the underlying
+computational function for the <code><a href='null_model.html'>null_model()</a></code> specification.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>nullmodel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel</a></span>(x = <span class='kw'>NULL</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
+<span class='fu'>nullmodel</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>object</span>, new_data = <span class='kw'>NULL</span>, type = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,7 +207,7 @@ classification)</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The output of <code><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel()</a></code> is a list of class <code>nullmodel</code>
+    <p>The output of <code>nullmodel()</code> is a list of class <code>nullmodel</code>
 with elements</p>
 <dt>call </dt><dd><p>the function call</p></dd> <dt>value </dt><dd><p>the mean of
 <code>y</code> or the most prevalent class</p></dd> <dt>levels </dt><dd><p>when <code>y</code> is a
@@ -222,7 +222,7 @@ depending on the class of y. All predictions are always the same.
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel()</a></code> emulates other model building functions, but returns the
+    <p><code>nullmodel()</code> emulates other model building functions, but returns the
 simplest model possible given a training set: a single mean for numeric
 outcomes and the most prevalent class for factor outcomes. When class
 probabilities are requested, the percentage of the training set samples with
@@ -230,14 +230,15 @@ the most prevalent class is returned.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>outcome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>],
-                         size = <span class='fl'>100</span>,
-                         prob = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>.9</span>),
-                         replace = <span class='fl'>TRUE</span>))
-<span class='kw'>useless</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/nullmodel.html'>nullmodel</a></span>(y = <span class='kw'>outcome</span>)
-<span class='kw'>useless</span></div><div class='output co'>#&gt; Null Regression Model
-#&gt; Predicted Value: b </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>useless</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, nrow = <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] b b b b b
-#&gt; Levels: a b</div><div class='input'></div></pre>
+<span class='no'>outcome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>],
+                         <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+                         <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>.9</span>),
+                         <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='no'>useless</span> <span class='kw'>&lt;-</span> <span class='fu'>nullmodel</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>outcome</span>)
+<span class='no'>useless</span></div><div class='output co'>#&gt; Null Regression Model
+#&gt; Predicted Value: b </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>useless</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] b b b b b
+#&gt; Levels: a b</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

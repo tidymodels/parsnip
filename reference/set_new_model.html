@@ -97,7 +97,7 @@ package." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
         </div>
       </div>
     </div>
@@ -114,13 +114,13 @@ package." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/Regression.html">Regression modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Classification.html">Classification modeling</a>
+      <a href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     </li>
     <li>
-      <a href="../articles/articles/Scratch.html">Making a parsnip model from scratch</a>
+      <a href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
@@ -163,33 +163,33 @@ that there are no conflicts with the underlying model structures used by the
 package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_new_model</a></span>(<span class='kw'>model</span>)
+    <pre class="usage"><span class='fu'>set_new_model</span>(<span class='no'>model</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_model_mode</a></span>(<span class='kw'>model</span>, <span class='kw'>mode</span>)
+<span class='fu'>set_model_mode</span>(<span class='no'>model</span>, <span class='no'>mode</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_model_engine</a></span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>)
+<span class='fu'>set_model_engine</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_model_arg</a></span>(<span class='kw'>model</span>, <span class='kw'>eng</span>, <span class='kw'>parsnip</span>, <span class='kw'>original</span>, <span class='kw'>func</span>, <span class='kw'>has_submodel</span>)
+<span class='fu'>set_model_arg</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>parsnip</span>, <span class='no'>original</span>, <span class='no'>func</span>, <span class='no'>has_submodel</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_dependency</a></span>(<span class='kw'>model</span>, <span class='kw'>eng</span>, <span class='kw'>pkg</span>)
+<span class='fu'>set_dependency</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>pkg</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>get_dependency</a></span>(<span class='kw'>model</span>)
+<span class='fu'>get_dependency</span>(<span class='no'>model</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_fit</a></span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>value</span>)
+<span class='fu'>set_fit</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>value</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>get_fit</a></span>(<span class='kw'>model</span>)
+<span class='fu'>get_fit</span>(<span class='no'>model</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_pred</a></span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>type</span>, <span class='kw'>value</span>)
+<span class='fu'>set_pred</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>type</span>, <span class='no'>value</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>get_pred_type</a></span>(<span class='kw'>model</span>, <span class='kw'>type</span>)
+<span class='fu'>get_pred_type</span>(<span class='no'>model</span>, <span class='no'>type</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>show_model_info</a></span>(<span class='kw'>model</span>)
+<span class='fu'>show_model_info</span>(<span class='no'>model</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>pred_value_template</a></span>(pre = <span class='kw'>NULL</span>, post = <span class='kw'>NULL</span>, <span class='kw'>func</span>, <span class='kw'>...</span>)
+<span class='fu'>pred_value_template</span>(<span class='kw'>pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>post</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>func</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>set_encoding</a></span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>options</span>)
+<span class='fu'>set_encoding</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>options</span>)
 
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>get_encoding</a></span>(<span class='kw'>model</span>)</pre>
+<span class='fu'>get_encoding</span>(<span class='no'>model</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,8 +274,7 @@ See Details below.</p></td>
     </tr>
     <tr>
       <th>pred_obj</th>
-      <td><p>A list with elements <code>pre</code>, <code>post</code>, <code>func</code>, and <code>args</code>.
-See the package vignette "Making a <code>parsnip</code> model from scratch".</p></td>
+      <td><p>A list with elements <code>pre</code>, <code>post</code>, <code>func</code>, and <code>args</code>.</p></td>
     </tr>
     </table>
 
@@ -307,7 +306,7 @@ variables from factor predictors. There are three options: <code>"none"</code> (
 expand factor predictors), <code>"traditional"</code> (apply the standard
 <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> encodings), and <code>"one_hot"</code> (create the complete set
 including the baseline level for all factors). This encoding only affects
-cases when <code><a href='https://parsnip.tidymodels.org/reference/fit.html'>fit.model_spec()</a></code> is used and the underlying model has an x/y
+cases when <code><a href='fit.html'>fit.model_spec()</a></code> is used and the underlying model has an x/y
 interface.</p>
 <p>Another option is <code>compute_intercept</code>; this controls whether <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code>
 should include the intercept in its formula. This affects more than the
@@ -320,14 +319,14 @@ intercept, <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matri
 function (e.g. <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>) automatically generates an intercept.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>"Making a parsnip model from scratch"
-<a href='https://tidymodels.github.io/parsnip/articles/articles/Scratch.html'>https://tidymodels.github.io/parsnip/articles/articles/Scratch.html</a></p>
+    <p>"How to build a parsnip model"
+<a href='https://www.tidymodels.org/learn/develop/models/'>https://www.tidymodels.org/learn/develop/models/</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set_new_model("shallow_learning_model")</span>
 
 <span class='co'># Show the information about a model:</span>
-<span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_new_model.html'>show_model_info</a></span>(<span class='st'>"rand_forest"</span>)</div><div class='output co'>#&gt; Information for `rand_forest`
+<span class='fu'>show_model_info</span>(<span class='st'>"rand_forest"</span>)</div><div class='output co'>#&gt; Information for `rand_forest`
 #&gt;  modes: unknown, classification, regression 
 #&gt; 
 #&gt;  engines: 
