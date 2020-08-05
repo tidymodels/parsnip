@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.3.9000</span>
         </div>
       </div>
     </div>
@@ -153,9 +153,14 @@
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="parsnip-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
+</h1>
+</div>
     <div id="parsnip-013" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.3">
-<a href="#parsnip-013" class="anchor"></a>parsnip 0.1.3<small> Unreleased </small>
+<a href="#parsnip-013" class="anchor"></a>parsnip 0.1.3<small> 2020-08-04 </small>
 </h1>
 <ul>
 <li><p>A <code><a href="https://rdrr.io/pkg/generics/man/glance.html">glance()</a></code> method for <code>model_fit</code> objects was added (<a href='https://github.com/tidymodels/parsnip/issues/325'>#325</a>)</p></li>
@@ -165,8 +170,8 @@
 <h2 class="hasAnchor">
 <a href="#fixes" class="anchor"></a>Fixes</h2>
 <ul>
-<li>
-<code>glmnet</code> models were fitting two intercepts (<a href='https://github.com/tidymodels/parsnip/issues/349'>#349</a>)</li>
+<li><p><code>glmnet</code> models were fitting two intercepts (<a href='https://github.com/tidymodels/parsnip/issues/349'>#349</a>)</p></li>
+<li><p>The various <code><a href="https://rdrr.io/r/stats/update.html">update()</a></code> methods now work with engine-specific parameters.</p></li>
 </ul>
 </div>
 </div>
@@ -396,7 +401,7 @@
 <ul>
 <li>
 <code>regularization</code> was changed to <code>penalty</code> in a few models to be consistent with <a href="https://tidymodels.github.io/model-implementation-principles/standardized-argument-names.html#tuning-parameters">this change</a>.</li>
-<li>If a mode is not chosen in the model specification, it is assigned at the time of fit. <a href="https://github.com/topepo/parsnip/issues/51">51</a>
+<li>If a mode is not chosen in the model specification, it is assigned at the time of fit. <a href="https://github.com/tidymodels/parsnip/issues/51">51</a>
 </li>
 <li>The underlying modeling packages now are loaded by namespace. There will be some exceptions noted in the documentation for each model. For example, in some <code>predict</code> methods, the <code>earth</code> package will need to be attached to be fully operational.</li>
 </ul>
@@ -423,10 +428,10 @@
 <a href="#parsnip-0009000" class="anchor"></a>parsnip 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/topepo/parsnip/issues/33"><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> is for the x/y interface</a>.</li>
+<li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> is the formula interface and <a href="https://github.com/tidymodels/parsnip/issues/33"><code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> is for the x/y interface</a>.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>
-<code>predict</code> methods were <a href="https://github.com/topepo/parsnip/issues/34">overhauled</a> to be <a href="https://github.com/topepo/parsnip/issues/41">consistent</a>.</li>
+<code>predict</code> methods were <a href="https://github.com/tidymodels/parsnip/issues/34">overhauled</a> to be <a href="https://github.com/tidymodels/parsnip/issues/41">consistent</a>.</li>
 <li>MARS was added.</li>
 </ul>
 </div>
