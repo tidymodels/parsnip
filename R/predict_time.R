@@ -5,7 +5,7 @@
 #' @export predict_time.model_fit
 #' @export
 predict_time.model_fit <- function(object, new_data, ...) {
-  if (object$spec$mode != "risk prediction")
+  if (object$spec$mode != "censored regression")
     rlang::abort(glue::glue("`predict_time()` is for predicting time outcomes. ",
                             "Use `predict_class()` or `predict_classprob()` for ",
                             "classification models."))

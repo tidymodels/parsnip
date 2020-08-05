@@ -170,7 +170,7 @@ check_pred_type <- function(object, type) {
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
-             "risk prediction" = "time",
+             "censored regression" = "time",
              rlang::abort("`type` should be 'regression' or 'classification'."))
   }
   if (!(type %in% pred_types))

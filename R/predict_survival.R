@@ -6,6 +6,12 @@
 #' @export
 predict_survival.model_fit <-
   function(object, new_data, .time, ...) {
+    if (object$spec$mode != "censored regression")
+      rlang::abort(glue::glue(
+        "`predict_survival()` is for predicting survival probabilities. ",
+        "Use `predict_class()` or `predict_classprob()` for ",
+        "classification models."
+        ))
 
     if (is.null(object$spec$method$pred$survival))
       rlang::abort("No survival prediction method defined for this engine.")
