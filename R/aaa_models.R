@@ -45,8 +45,8 @@ pred_types <-
 #' @param name A single character value for a new symbol in the model environment.
 #' @param value A single value for a new value in the model environment.
 #' @keywords internal
-#' @references "Making a parsnip model from scratch"
-#'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+#' @references "How to build a parsnip model"
+#'  \url{https://www.tidymodels.org/learn/develop/models/}
 #' @examples
 #' # Access the model data:
 #' current_code <- get_model_env()
@@ -310,7 +310,6 @@ check_interface_val <- function(x) {
 #'  `func` and `defaults`. See the package vignette "Making a
 #'  `parsnip` model from scratch".
 #' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
-#'  See the package vignette "Making a `parsnip` model from scratch".
 #' @param type A single character value for the type of prediction. Possible
 #'  values are: `class`, `conf_int`, `numeric`, `pred_int`, `prob`, `quantile`,
 #'   and `raw`.
@@ -374,8 +373,8 @@ check_interface_val <- function(x) {
 #'  _after_ `model.matrix()` is finished. This can be useful if the model
 #'  function (e.g. `lm()`) automatically generates an intercept.
 #'
-#' @references "Making a parsnip model from scratch"
-#'  \url{https://tidymodels.github.io/parsnip/articles/articles/Scratch.html}
+#' @references "How to build a parsnip model"
+#'  \url{https://www.tidymodels.org/learn/develop/models/}
 #' @examples
 #' # set_new_model("shallow_learning_model")
 #'
