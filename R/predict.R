@@ -138,25 +138,27 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
   res <- switch(
     type,
-    numeric  = predict_numeric(object = object, new_data = new_data, ...),
-    class    = predict_class(object = object, new_data = new_data, ...),
-    prob     = predict_classprob(object = object, new_data = new_data, ...),
-    conf_int = predict_confint(object = object, new_data = new_data, ...),
-    pred_int = predict_predint(object = object, new_data = new_data, ...),
-    quantile = predict_quantile(object = object, new_data = new_data, ...),
-    time     = predict_time(object = object, new_data = new_data, ...),
-    survival = predict_survival(object = object, new_data = new_data, ...),
-    raw      = predict_raw(object = object, new_data = new_data, opts = opts, ...),
+    numeric     = predict_numeric(object = object, new_data = new_data, ...),
+    class       = predict_class(object = object, new_data = new_data, ...),
+    prob        = predict_classprob(object = object, new_data = new_data, ...),
+    conf_int    = predict_confint(object = object, new_data = new_data, ...),
+    pred_int    = predict_predint(object = object, new_data = new_data, ...),
+    quantile    = predict_quantile(object = object, new_data = new_data, ...),
+    time        = predict_time(object = object, new_data = new_data, ...),
+    survival    = predict_survival(object = object, new_data = new_data, ...),
+    linear_pred = predict_linear_pred(object = object, new_data = new_data, ...),
+    raw         = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
       type,
-      numeric  = format_num(res),
-      class    = format_class(res),
-      prob     = format_classprobs(res),
-      time     = format_time(res),
-      survival = format_survival(res),
+      numeric     = format_num(res),
+      class       = format_class(res),
+      prob        = format_classprobs(res),
+      time        = format_time(res),
+      survival    = format_survival(res),
+      linear_pred = format_linear_pred(res),
       res
     )
   }
@@ -248,6 +250,22 @@ format_survival <- function(x) {
     }
   } else {
     x <- tibble(.pred_survival = unname(x))
+  }
+
+  x
+}
+
+format_linear_pred <- function(x) {
+  if (inherits(x, "tbl_spark"))
+    return(x)
+
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
+    x <- as_tibble(x, .name_repair = "minimal")
+    if (!any(grepl("^\\.time", names(x)))) {
+      names(x) <- paste0(".time_", names(x))
+    }
+  } else {
+    x <- tibble(.pred_linear_pred = unname(x))
   }
 
   x
