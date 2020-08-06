@@ -21,10 +21,6 @@ predict_survival.model_fit <-
       return(NULL)
     }
 
-    if (length(.time) != 1) {
-      rlang::abort("`.time` should be a single numeric value.")
-    }
-
     new_data <- prepare_data(object, new_data)
 
     # preprocess data
