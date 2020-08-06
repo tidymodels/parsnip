@@ -6,15 +6,13 @@
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip)
+status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](http://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![R build
-status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
 <!-- badges: end -->
 
 ## Introduction
@@ -143,7 +141,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  69ms 
+#> Fit time:  98ms 
 #> Ranger result
 #> 
 #> Call:
