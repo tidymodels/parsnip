@@ -268,7 +268,7 @@ check_pred_info <- function(pred_obj, type) {
 
 check_pkg_val <- function(pkg) {
   if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
-    rlang::abort("Please supply a single character vale for the package name.")
+    rlang::abort("Please supply a single character value for the package name.")
   invisible(NULL)
 }
 
