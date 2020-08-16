@@ -601,7 +601,7 @@ set_fit <- function(model, mode, eng, value) {
     nrow()
 
   if (has_fit > 0) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}'",
+    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' ",
                             "already has a fit component for model '{model}'."))
   }
 
