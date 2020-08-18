@@ -591,7 +591,7 @@ set_fit <- function(model, mode, eng, value) {
     dplyr::filter(engine == eng & mode == !!mode) %>%
     nrow()
   if (has_engine != 1) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' has not",
+    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' has not ",
                             "been registered for model '{model}'."))
   }
 
