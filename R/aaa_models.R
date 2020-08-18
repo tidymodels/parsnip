@@ -268,7 +268,7 @@ check_pred_info <- function(pred_obj, type) {
 
 check_pkg_val <- function(pkg) {
   if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
-    rlang::abort("Please supply a single character vale for the package name.")
+    rlang::abort("Please supply a single character value for the package name.")
   invisible(NULL)
 }
 
@@ -591,7 +591,7 @@ set_fit <- function(model, mode, eng, value) {
     dplyr::filter(engine == eng & mode == !!mode) %>%
     nrow()
   if (has_engine != 1) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' has not",
+    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' has not ",
                             "been registered for model '{model}'."))
   }
 
@@ -601,7 +601,7 @@ set_fit <- function(model, mode, eng, value) {
     nrow()
 
   if (has_fit > 0) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}'",
+    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' ",
                             "already has a fit component for model '{model}'."))
   }
 
