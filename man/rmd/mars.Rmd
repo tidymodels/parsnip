@@ -26,6 +26,8 @@ Note that, when the model is fit, the `earth` package only has its  namespace lo
 
 Also, `fit()` passes the data directly to `earth::earth()` so that its formula method can create dummy variables as-needed. 
 
+For this engine, tuning over `num_terms` is very efficient since the same model 
+object can be used to make predictions over multiple values of `num_terms`.  
 
 ## Parameter translations
 

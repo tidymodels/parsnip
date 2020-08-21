@@ -38,6 +38,9 @@ mod_param <-
   update(sample_size = sample_prop(c(0.4, 0.9)))
 ```
 
+For this engine, tuning over `trees` is very efficient since the same model 
+object can be used to make predictions over multiple values of `trees`.  
+
 Finally, note that `xgboost` models require that non-numeric predictors (e.g., factors) must be converted to dummy variables or some other numeric representation. By default, when using `fit()` with `xgboost`, a one-hot encoding is used to convert factor predictors to indicator variables. 
 
 
@@ -51,6 +54,9 @@ boost_tree() %>%
 ```
 
 Note that [C50::C5.0()] does not require factor predictors to be converted  to indicator variables. `fit()` does not affect the encoding of the predictor values (i.e. factors stay factors) for this model.
+
+For this engine, tuning over `trees` is very efficient since the same model 
+object can be used to make predictions over multiple values of `trees`.  
 
 ## spark
 

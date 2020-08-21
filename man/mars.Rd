@@ -110,6 +110,10 @@ attached.
 
 Also, \code{fit()} passes the data directly to \code{earth::earth()} so that its
 formula method can create dummy variables as-needed.
+
+For this engine, tuning over \code{num_terms} is very efficient since the
+same model object can be used to make predictions over multiple values
+of \code{num_terms}.
 }
 
 \subsection{Parameter translations}{

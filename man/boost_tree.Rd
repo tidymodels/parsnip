@@ -181,6 +181,10 @@ mod_param <-
   update(sample_size = sample_prop(c(0.4, 0.9)))
 }\if{html}{\out{</div>}}
 
+For this engine, tuning over \code{trees} is very efficient since the same
+model object can be used to make predictions over multiple values of
+\code{trees}.
+
 Finally, note that \code{xgboost} models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
 numeric representation. By default, when using \code{fit()} with \code{xgboost}, a
@@ -204,6 +208,10 @@ Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
 predictors to be converted to indicator variables. \code{fit()} does not
 affect the encoding of the predictor values (i.e. factors stay factors)
 for this model.
+
+For this engine, tuning over \code{trees} is very efficient since the same
+model object can be used to make predictions over multiple values of
+\code{trees}.
 }
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 

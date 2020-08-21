@@ -88,6 +88,10 @@ version of \code{train.kknn()} and not \code{kknn()}. It is set up in this way s
 that \code{parsnip} can utilize the underlying \code{predict.train.kknn} method to
 predict on new data. This also means that a single value of that
 function’s \code{kernel} argument (a.k.a \code{weight_func} here) can be supplied
+
+For this engine, tuning over \code{neighbors} is very efficient since the
+same model object can be used to make predictions over multiple values
+of \code{neighbors}.
 }
 
 \subsection{Parameter translations}{

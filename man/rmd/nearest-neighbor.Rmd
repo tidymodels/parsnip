@@ -27,6 +27,9 @@ utilize the underlying `predict.train.kknn` method to predict on new data. This
 also means that a single value of that function's `kernel` argument (a.k.a
 `weight_func` here) can be supplied
 
+For this engine, tuning over `neighbors` is very efficient since the same model 
+object can be used to make predictions over multiple values of `neighbors`. 
+
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
