@@ -62,6 +62,8 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
+#' For this model, other packages may add additional engines. Use
+#' [show_engines()] to see the current set of engines.
 #'
 #' @includeRmd man/rmd/boost-tree.Rmd details
 #'
