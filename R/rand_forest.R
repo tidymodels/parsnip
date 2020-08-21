@@ -56,6 +56,8 @@
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
 #' @examples
+#' show_engines("rand_forest")
+#'
 #' rand_forest(mode = "classification", trees = 2000)
 #' # Parameters can be represented by a placeholder:
 #' rand_forest(mode = "regression", mtry = varying())

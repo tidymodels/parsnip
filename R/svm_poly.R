@@ -41,6 +41,8 @@
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
 #' @examples
+#' show_engines("svm_poly")
+#'
 #' svm_poly(mode = "classification", degree = 1.2)
 #' # Parameters can be represented by a placeholder:
 #' svm_poly(mode = "regression", cost = varying())

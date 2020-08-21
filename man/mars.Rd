@@ -132,6 +132,8 @@ parameter.\tabular{ll}{
 }
 
 \examples{
+show_engines("mars")
+
 mars(mode = "regression", num_terms = 5)
 model <- mars(num_terms = 10, prune_method = "none")
 model

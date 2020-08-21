@@ -110,6 +110,8 @@ parameter.\tabular{ll}{
 }
 
 \examples{
+show_engines("nearest_neighbor")
+
 nearest_neighbor(neighbors = 11)
 
 }

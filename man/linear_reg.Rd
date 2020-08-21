@@ -198,6 +198,8 @@ parameter.\tabular{llll}{
 }
 
 \examples{
+show_engines("linear_reg")
+
 linear_reg()
 # Parameters can be represented by a placeholder:
 linear_reg(penalty = varying())

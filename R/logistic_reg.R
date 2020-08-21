@@ -60,6 +60,8 @@
 #'
 #' @seealso [fit()]
 #' @examples
+#' show_engines("logistic_reg")
+#'
 #' logistic_reg()
 #' # Parameters can be represented by a placeholder:
 #' logistic_reg(penalty = varying())

@@ -62,6 +62,8 @@
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
 #' @examples
+#' show_engines("decision_tree")
+#'
 #' decision_tree(mode = "classification", tree_depth = 5)
 #' # Parameters can be represented by a placeholder:
 #' decision_tree(mode = "regression", cost_complexity = varying())
