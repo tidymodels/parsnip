@@ -45,6 +45,8 @@
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples
+#' show_engines("surv_reg")
+#'
 #' surv_reg()
 #' # Parameters can be represented by a placeholder:
 #' surv_reg(dist = varying())

@@ -41,6 +41,8 @@
 #' @importFrom purrr map_lgl
 #' @seealso [fit()]
 #' @examples
+#' show_engines("mars")
+#'
 #' mars(mode = "regression", num_terms = 5)
 #' @export
 mars <-

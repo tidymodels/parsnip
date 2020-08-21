@@ -176,6 +176,8 @@ parameter.\tabular{lll}{
 }
 
 \examples{
+show_engines("mlp")
+
 mlp(mode = "classification", penalty = 0.01)
 # Parameters can be represented by a placeholder:
 mlp(mode = "regression", hidden_units = varying())

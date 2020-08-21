@@ -371,3 +371,10 @@ test_that('default engine', {
   expect_true(inherits(fit$fit, "lm"))
 })
 
+test_that('show engine', {
+  res <- show_engines("linear_reg")
+  expt <- get_from_env("linear_reg")
+  expect_equal(res, expt)
+  expect_error(show_engines("linear_re"), "No results found for model function")
+})
+

@@ -40,6 +40,9 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
+#' For this model, other packages may add additional engines. Use
+#' [show_engines()] to see the current set of engines.
+#'
 #' @includeRmd man/rmd/logistic-reg.Rmd details
 #'
 #' @note For models created using the spark engine, there are
@@ -57,6 +60,8 @@
 #'
 #' @seealso [fit()]
 #' @examples
+#' show_engines("logistic_reg")
+#'
 #' logistic_reg()
 #' # Parameters can be represented by a placeholder:
 #' logistic_reg(penalty = varying())

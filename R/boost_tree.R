@@ -62,6 +62,8 @@
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
+#' For this model, other packages may add additional engines. Use
+#' [show_engines()] to see the current set of engines.
 #'
 #' @includeRmd man/rmd/boost-tree.Rmd details
 #'
@@ -81,6 +83,8 @@
 #' @importFrom purrr map_lgl
 #' @seealso [fit()], [set_engine()]
 #' @examples
+#' show_engines("boost_tree")
+#'
 #' boost_tree(mode = "classification", trees = 20)
 #' # Parameters can be represented by a placeholder:
 #' boost_tree(mode = "regression", mtry = varying())

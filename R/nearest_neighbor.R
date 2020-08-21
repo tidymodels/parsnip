@@ -51,6 +51,8 @@
 #' @seealso [fit()]
 #'
 #' @examples
+#' show_engines("nearest_neighbor")
+#'
 #' nearest_neighbor(neighbors = 11)
 #'
 #' @export

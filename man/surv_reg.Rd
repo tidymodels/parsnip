@@ -117,6 +117,8 @@ parameter.\tabular{lll}{
 }
 
 \examples{
+show_engines("surv_reg")
+
 surv_reg()
 # Parameters can be represented by a placeholder:
 surv_reg(dist = varying())

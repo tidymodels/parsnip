@@ -74,6 +74,9 @@ following \emph{engines}:
 \item \pkg{Spark}: \code{"spark"}
 \item \pkg{keras}: \code{"keras"}
 }
+
+For this model, other packages may add additional engines. Use
+\code{\link[=show_engines]{show_engines()}} to see the current set of engines.
 }
 \note{
 For models created using the spark engine, there are
@@ -195,6 +198,8 @@ parameter.\tabular{llll}{
 }
 
 \examples{
+show_engines("linear_reg")
+
 linear_reg()
 # Parameters can be represented by a placeholder:
 linear_reg(penalty = varying())

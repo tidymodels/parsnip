@@ -42,6 +42,9 @@
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
+#' For this model, other packages may add additional engines. Use
+#' [show_engines()] to see the current set of engines.
+#'
 #' @includeRmd man/rmd/linear-reg.Rmd details
 #'
 #' @note For models created using the spark engine, there are
@@ -59,6 +62,8 @@
 #'
 #' @seealso [fit()], [set_engine()]
 #' @examples
+#' show_engines("linear_reg")
+#'
 #' linear_reg()
 #' # Parameters can be represented by a placeholder:
 #' linear_reg(penalty = varying())

@@ -117,6 +117,9 @@ following \emph{engines}:
 \item \pkg{R}:  \code{"xgboost"} (the default), \code{"C5.0"}
 \item \pkg{Spark}: \code{"spark"}
 }
+
+For this model, other packages may add additional engines. Use
+\code{\link[=show_engines]{show_engines()}} to see the current set of engines.
 }
 \note{
 For models created using the spark engine, there are
@@ -178,6 +181,10 @@ mod_param <-
   update(sample_size = sample_prop(c(0.4, 0.9)))
 }\if{html}{\out{</div>}}
 
+For this engine, tuning over \code{trees} is very efficient since the same
+model object can be used to make predictions over multiple values of
+\code{trees}.
+
 Finally, note that \code{xgboost} models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
 numeric representation. By default, when using \code{fit()} with \code{xgboost}, a
@@ -201,6 +208,10 @@ Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
 predictors to be converted to indicator variables. \code{fit()} does not
 affect the encoding of the predictor values (i.e. factors stay factors)
 for this model.
+
+For this engine, tuning over \code{trees} is very efficient since the same
+model object can be used to make predictions over multiple values of
+\code{trees}.
 }
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
@@ -256,6 +267,8 @@ regression.
 }
 
 \examples{
+show_engines("boost_tree")
+
 boost_tree(mode = "classification", trees = 20)
 # Parameters can be represented by a placeholder:
 boost_tree(mode = "regression", mtry = varying())
