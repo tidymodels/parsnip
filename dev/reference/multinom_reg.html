@@ -354,7 +354,14 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>multinom_reg</span>()</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"multinom_reg"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   engine mode          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #555555;'>1</span><span> glmnet classification
+#&gt; </span><span style='color: #555555;'>2</span><span> spark  classification
+#&gt; </span><span style='color: #555555;'>3</span><span> keras  classification
+#&gt; </span><span style='color: #555555;'>4</span><span> nnet   classification</div><div class='input'>
+<span class='fu'>multinom_reg</span>()</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>multinom_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
@@ -375,7 +382,7 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

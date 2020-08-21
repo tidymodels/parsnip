@@ -255,6 +255,8 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
 
+<p>For this model, other packages may add additional engines. Use
+<code><a href='show_engines.html'>show_engines()</a></code> to see the current set of engines.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For models created using the spark engine, there are
@@ -377,7 +379,15 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>linear_reg</span>()</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"linear_reg"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   engine mode      
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> lm     regression
+#&gt; </span><span style='color: #555555;'>2</span><span> glmnet regression
+#&gt; </span><span style='color: #555555;'>3</span><span> stan   regression
+#&gt; </span><span style='color: #555555;'>4</span><span> spark  regression
+#&gt; </span><span style='color: #555555;'>5</span><span> keras  regression</div><div class='input'>
+<span class='fu'>linear_reg</span>()</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>linear_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
@@ -398,7 +408,7 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
