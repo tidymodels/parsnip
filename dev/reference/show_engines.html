@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Display available engines for a model — show_engines • parsnip</title>
+<title>Display currently available engines for a model — show_engines • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,11 @@
 
 
 
-<meta property="og:title" content="Display available engines for a model — show_engines" />
-<meta property="og:description" content="The possible engines for a model may depend on what packages are loaded. There
-are some parsnip-adjacent packages that only add engines to existing models." />
+<meta property="og:title" content="Display currently available engines for a model — show_engines" />
+<meta property="og:description" content="The possible engines for a model can depend on what packages are loaded.
+Some parsnip-adjacent packages add engines to existing models. For example,
+the multilevelmod package adds additional engines for the linear_reg()
+model and these are not available unless multilevelmod is loaded." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,14 +153,16 @@ are some parsnip-adjacent packages that only add engines to existing models." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Display available engines for a model</h1>
+    <h1>Display currently available engines for a model</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/engines.R'><code>R/engines.R</code></a></small>
     <div class="hidden name"><code>show_engines.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The possible engines for a model may depend on what packages are loaded. There
-are some <code>parsnip</code>-adjacent packages that only add engines to existing models.</p>
+    <p>The possible engines for a model can depend on what packages are loaded.
+Some <code>parsnip</code>-adjacent packages add engines to existing models. For example,
+the <code>multilevelmod</code> package adds additional engines for the <code><a href='linear_reg.html'>linear_reg()</a></code>
+model and these are not available unless <code>multilevelmod</code> is loaded.</p>
     </div>
 
     <pre class="usage"><span class='fu'>show_engines</span>(<span class='no'>x</span>)</pre>
@@ -174,9 +178,17 @@ are some <code>parsnip</code>-adjacent packages that only add engines to existin
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble.
-show_engines("linear_reg")</p>
+    <p>A tibble.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>show_engines</span>(<span class='st'>"linear_reg"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   engine mode      
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> lm     regression
+#&gt; </span><span style='color: #555555;'>2</span><span> glmnet regression
+#&gt; </span><span style='color: #555555;'>3</span><span> stan   regression
+#&gt; </span><span style='color: #555555;'>4</span><span> spark  regression
+#&gt; </span><span style='color: #555555;'>5</span><span> keras  regression</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
