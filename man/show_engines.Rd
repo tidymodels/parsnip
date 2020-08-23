@@ -2,7 +2,7 @@
 % Please edit documentation in R/engines.R
 \name{show_engines}
 \alias{show_engines}
-\title{Display available engines for a model}
+\title{Display currently available engines for a model}
 \usage{
 show_engines(x)
 }
@@ -11,9 +11,13 @@ show_engines(x)
 }
 \value{
 A tibble.
-show_engines("linear_reg")
 }
 \description{
-The possible engines for a model may depend on what packages are loaded. There
-are some \code{parsnip}-adjacent packages that only add engines to existing models.
+The possible engines for a model can depend on what packages are loaded.
+Some \code{parsnip}-adjacent packages add engines to existing models. For example,
+the \code{multilevelmod} package adds additional engines for the \code{\link[=linear_reg]{linear_reg()}}
+model and these are not available unless \code{multilevelmod} is loaded.
+}
+\examples{
+show_engines("linear_reg")
 }
