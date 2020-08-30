@@ -329,7 +329,7 @@ check_interface_val <- function(x) {
 #' @keywords internal
 #' @details These functions are available for users to add their
 #'  own models or engines (in package or otherwise) so that they can
-#'  be accessed using `parsnip`. This are more thoroughly documented
+#'  be accessed using `parsnip`. This is more thoroughly documented
 #'  on the package web site (see references below).
 #'
 #' In short, `parsnip` stores an environment object that contains

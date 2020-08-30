@@ -13,7 +13,7 @@
 #'    (regression only)
 #' }
 #' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and argument can be
+#'  time that the model is fit. Other options and arguments can be
 #'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used
@@ -28,7 +28,7 @@
 #' @param degree A positive number for polynomial degree.
 #' @param scale_factor A positive number for the polynomial scaling factor.
 #' @param margin A positive number for the epsilon in the SVM insensitive
-#'   loss function (regression only)
+#'  loss function (regression only)
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:

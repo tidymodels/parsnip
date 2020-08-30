@@ -8,7 +8,7 @@
 #'   \item \code{dist}: The probability distribution of the outcome.
 #' }
 #' This argument is converted to its specific names at the
-#'  time that the model is fit. Other options and argument can be
+#'  time that the model is fit. Other options and arguments can be
 #'  set using `set_engine()`. If left to its default
 #'  here (`NULL`), the value is taken from the underlying model
 #'  functions.

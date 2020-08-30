@@ -45,7 +45,7 @@ only).}
 the ensemble.}
 
 \item{min_n}{An integer for the minimum number of data points
-in a node that are required for the node to be split further.}
+in a node that is required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
 of splits) (\code{xgboost} only).}
@@ -54,14 +54,14 @@ of splits) (\code{xgboost} only).}
 from iteration-to-iteration (\code{xgboost} only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further  (\code{xgboost} only).}
+to split further (\code{xgboost} only).}
 
 \item{sample_size}{A number for the number (or proportion) of data that is
-exposed to the fitting routine. For \code{xgboost}, the sampling is done at at
+exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
-stopping  (\code{xgboost} only).}
+stopping (\code{xgboost} only).}
 
 \item{object}{A boosted tree model specification.}
 
@@ -88,7 +88,7 @@ model are:
 randomly sampled at each split when creating the tree models.
 \item \code{trees}: The number of trees contained in the ensemble.
 \item \code{min_n}: The minimum number of data points in a node
-that are required for the node to be split further.
+that is required for the node to be split further.
 \item \code{tree_depth}: The maximum depth of the tree (i.e. number of
 splits).
 \item \code{learn_rate}: The rate at which the boosting algorithm adapts
@@ -100,10 +100,10 @@ to split further.
 stopping.
 }
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the  \code{set_engine()} function. If left to their defaults
+time that the model is fit. Other options and arguments can be
+set using the \code{set_engine()} function. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
-functions.  If parameters need to be modified, \code{update()} can be used
+functions. If parameters need to be modified, \code{update()} can be used
 in lieu of recreating the object from scratch.
 }
 \details{
@@ -114,7 +114,7 @@ possible modes are "regression" and "classification".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"xgboost"} (the default), \code{"C5.0"}
+\item \pkg{R}: \code{"xgboost"} (the default), \code{"C5.0"}
 \item \pkg{Spark}: \code{"spark"}
 }
 

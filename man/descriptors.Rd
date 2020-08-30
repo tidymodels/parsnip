@@ -39,11 +39,11 @@ function can be used. See Details below.
 Existing functions:
 \itemize{
 \item \code{.obs()}: The current number of rows in the data set.
-\item \code{.preds()}: The number of columns in the data set that are
+\item \code{.preds()}: The number of columns in the data set that is
 associated with the predictors prior to dummy variable creation.
 \item \code{.cols()}: The number of predictor columns available after dummy
 variables are created (if any).
-\item \code{.facts()}: The number of factor predictors in the dat set.
+\item \code{.facts()}: The number of factor predictors in the data set.
 \item \code{.lvls()}: If the outcome is a factor, this is a table
 with the counts for each level (and \code{NA} otherwise).
 \item \code{.x()}: The predictors returned in the format given. Either a

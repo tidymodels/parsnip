@@ -47,7 +47,7 @@ of training set samples use for these purposes.}
 
 \item{early_stop}{An integer or \code{NULL}. If not \code{NULL}, it is the number of
 training iterations without improvement before stopping. If \code{validation} is
-used, performance is base on the validation set; otherwise the training set
+used, performance is base on the validation set; otherwise, the training set
 is used.}
 
 \item{...}{Other options to pass to \code{xgb.train}.}

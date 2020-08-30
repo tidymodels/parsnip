@@ -61,7 +61,7 @@ used by CART models (\code{rpart} only).
 that are required for the node to be split further.
 }
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
+time that the model is fit. Other options and arguments can be
 set using \code{set_engine()}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update()} can be used
@@ -71,7 +71,7 @@ in lieu of recreating the object from scratch.
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"rpart"} (the default) or \code{"C5.0"} (classification only)
+\item \pkg{R}: \code{"rpart"} (the default) or \code{"C5.0"} (classification only)
 \item \pkg{Spark}: \code{"spark"}
 }
 
