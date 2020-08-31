@@ -11,7 +11,7 @@ information about a model that will be fit.
 The main elements of the object are:
 \itemize{
 \item \code{args}: A vector of the main arguments for the model. The
-names of these arguments may be different form their
+names of these arguments may be different from their
 counterparts n the underlying model function. For example, for a
 \code{glmnet} model, the argument name for the amount of the penalty
 is called "penalty" instead of "lambda" to make it more general

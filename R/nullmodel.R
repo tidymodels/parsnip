@@ -29,7 +29,7 @@
 #' the training samples with that class (the other columns are zero). } \item{n
 #' }{the number of elements in \code{y}}
 #'
-#' `predict.nullmodel()` returns a either a factor or numeric vector
+#' `predict.nullmodel()` returns either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
 #' @keywords models
 #' @examples

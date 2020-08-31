@@ -65,7 +65,7 @@ wrong side of the margin.
 (regression only)
 }
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
+time that the model is fit. Other options and arguments can be
 set using \code{set_engine()}. If left to their defaults
 here (\code{NULL}), the values are taken from the underlying model
 functions. If parameters need to be modified, \code{update()} can be used

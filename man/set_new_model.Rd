@@ -104,7 +104,7 @@ package.
 \details{
 These functions are available for users to add their
 own models or engines (in package or otherwise) so that they can
-be accessed using \code{parsnip}. This are more thoroughly documented
+be accessed using \code{parsnip}. This is more thoroughly documented
 on the package web site (see references below).
 
 In short, \code{parsnip} stores an environment object that contains

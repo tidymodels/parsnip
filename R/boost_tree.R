@@ -11,7 +11,7 @@
 #'   randomly sampled at each split when creating the tree models.
 #'   \item \code{trees}: The number of trees contained in the ensemble.
 #'   \item \code{min_n}: The minimum number of data points in a node
-#'   that are required for the node to be split further.
+#'   that is required for the node to be split further.
 #'   \item \code{tree_depth}: The maximum depth of the tree (i.e. number of
 #'  splits).
 #'   \item \code{learn_rate}: The rate at which the boosting algorithm adapts
@@ -23,10 +23,10 @@
 #'   stopping.
 #' }
 #' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and argument can be
-#'  set using the  `set_engine()` function. If left to their defaults
+#'  time that the model is fit. Other options and arguments can be
+#'  set using the `set_engine()` function. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
-#'  functions.  If parameters need to be modified, `update()` can be used
+#'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
 #' @param mode A single character string for the type of model.
@@ -38,18 +38,18 @@
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
-#'  in a node that are required for the node to be split further.
+#'  in a node that is required for the node to be split further.
 #' @param tree_depth An integer for the maximum depth of the tree (i.e. number
 #'  of splits) (`xgboost` only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
 #'   from iteration-to-iteration (`xgboost` only).
 #' @param loss_reduction A number for the reduction in the loss function required
-#'   to split further  (`xgboost` only).
+#'   to split further (`xgboost` only).
 #' @param sample_size A number for the number (or proportion) of data that is
-#'  exposed to the fitting routine. For `xgboost`, the sampling is done at at
+#'  exposed to the fitting routine. For `xgboost`, the sampling is done at
 #'  each iteration while `C5.0` samples once during training.
 #' @param stop_iter The number of iterations without improvement before
-#'   stopping  (`xgboost` only).
+#'   stopping (`xgboost` only).
 #' @details
 #' The data given to the function are not saved and are only used
 #'  to determine the _mode_ of the model. For `boost_tree()`, the
@@ -58,7 +58,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"xgboost"` (the default), `"C5.0"`
+#' \item \pkg{R}: `"xgboost"` (the default), `"C5.0"`
 #' \item \pkg{Spark}: `"spark"`
 #' }
 #'
@@ -278,7 +278,7 @@ check_args.boost_tree <- function(object) {
 #' of training set samples use for these purposes.
 #' @param early_stop An integer or `NULL`. If not `NULL`, it is the number of
 #' training iterations without improvement before stopping. If `validation` is
-#' used, performance is base on the validation set; otherwise the training set
+#' used, performance is base on the validation set; otherwise, the training set
 #' is used.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.

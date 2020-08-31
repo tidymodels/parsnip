@@ -27,7 +27,7 @@ that does not decrease the overall lack of fit by a factor of
 this means that the overall R-squared must increase by \code{cp} at
 each step. The main role of this parameter is to save computing
 time by pruning off splits that are obviously not worthwhile.
-Essentially,the user informs the program that any split which
+Essentially, the user informs the program that any split which
 does not improve the fit by \code{cp} will likely be pruned off by
 cross-validation, and that hence the program need not pursue it.}
 

@@ -57,11 +57,11 @@ routine.
 }
 \details{
 \code{fit()} and \code{fit_xy()} substitute the current arguments in the model
-specification into the computational engine's code, checks them
-for validity, then fits the model using the data and the
+specification into the computational engine's code, check them
+for validity, then fit the model using the data and the
 engine-specific code. Different model functions have different
 interfaces (e.g. formula or \code{x}/\code{y}) and these functions translate
-between the interface used when \code{fit()} or \code{fit_xy()} were invoked and the one
+between the interface used when \code{fit()} or \code{fit_xy()} was invoked and the one
 required by the underlying model.
 
 When possible, these functions attempt to avoid making copies of the

@@ -10,13 +10,13 @@
 #'   \item \code{num_terms}: The number of features that will be retained in the
 #'    final model.
 #'   \item \code{prod_degree}: The highest possible degree of interaction between
-#'    features. A value of 1 indicates and additive model while a value of 2
+#'    features. A value of 1 indicates an additive model while a value of 2
 #'    allows, but does not guarantee, two-way interactions between features.
 #'   \item \code{prune_method}: The type of pruning. Possible values are listed
 #'    in `?earth`.
 #' }
 #' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and argument can be
+#'  time that the model is fit. Other options and arguments can be
 #'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used

@@ -13,7 +13,7 @@
 #'    (regression only)
 #' }
 #' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and argument can be
+#'  time that the model is fit. Other options and arguments can be
 #'  set using `set_engine()`. If left to their defaults
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used
@@ -27,7 +27,7 @@
 #'  or on the wrong side of the margin
 #' @param rbf_sigma A positive number for radial basis function.
 #' @param margin A positive number for the epsilon in the SVM insensitive
-#'   loss function (regression only)
+#'  loss function (regression only)
 #' @details
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:

@@ -7,7 +7,7 @@
 #' The main elements of the object are:
 #'
 #' * `args`: A vector of the main arguments for the model. The
-#'  names of these arguments may be different form their
+#'  names of these arguments may be different from their
 #'  counterparts n the underlying model function. For example, for a
 #'  `glmnet` model, the argument name for the amount of the penalty
 #'  is called "penalty" instead of "lambda" to make it more general
@@ -146,7 +146,7 @@ NULL
 #' The main elements of the object are:
 #'
 #'   * `lvl`: A vector of factor levels when the outcome is
-#'  is a factor. This is `NULL` when the outcome is not a factor
+#'  a factor. This is `NULL` when the outcome is not a factor
 #'  vector.
 #'
 #'   * `spec`: A `model_spec` object.
@@ -169,7 +169,7 @@ NULL
 #'  specification.
 #'
 #' This class and structure is the basis for how \pkg{parsnip}
-#'  stores model objects after to seeing the data and applying a model.
+#'  stores model objects after seeing the data and applying a model.
 #' @rdname model_fit
 #' @name model_fit
 #' @examples

@@ -11,7 +11,7 @@ information about a model that has been fit to the data.
 The main elements of the object are:
 \itemize{
 \item \code{lvl}: A vector of factor levels when the outcome is
-is a factor. This is \code{NULL} when the outcome is not a factor
+a factor. This is \code{NULL} when the outcome is not a factor
 vector.
 \item \code{spec}: A \code{model_spec} object.
 \item \code{fit}: The object produced by the fitting function.
@@ -32,7 +32,7 @@ example below). This is a result of the use of quosures in the
 specification.
 
 This class and structure is the basis for how \pkg{parsnip}
-stores model objects after to seeing the data and applying a model.
+stores model objects after seeing the data and applying a model.
 }
 \examples{
 

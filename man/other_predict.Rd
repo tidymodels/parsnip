@@ -48,7 +48,7 @@ and "pred_int". Default value is \code{FALSE}.
 \item{level}{A single numeric value between zero and one for the
 interval estimates.}
 
-\item{std_error}{A single logical for wether the standard error should be
+\item{std_error}{A single logical for whether the standard error should be
 returned (assuming that the model can compute it).}
 
 \item{quant}{A vector of numbers between 0 and 1 for the quantile being
