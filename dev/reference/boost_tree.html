@@ -58,7 +58,7 @@ mtry: The number of predictors that will be
 randomly sampled at each split when creating the tree models.
 trees: The number of trees contained in the ensemble.
 min_n: The minimum number of data points in a node
-that are required for the node to be split further.
+that is required for the node to be split further.
 tree_depth: The maximum depth of the tree (i.e. number of
 splits).
 learn_rate: The rate at which the boosting algorithm adapts
@@ -69,10 +69,10 @@ sample_size: The amount of data exposed to the fitting routine.
 stop_iter: The number of iterations without improvement before
 stopping.
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the  set_engine() function. If left to their defaults
+time that the model is fit. Other options and arguments can be
+set using the set_engine() function. If left to their defaults
 here (NULL), the values are taken from the underlying model
-functions.  If parameters need to be modified, update() can be used
+functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -187,7 +187,7 @@ model are:</p><ul>
 randomly sampled at each split when creating the tree models.</p></li>
 <li><p><code>trees</code>: The number of trees contained in the ensemble.</p></li>
 <li><p><code>min_n</code>: The minimum number of data points in a node
-that are required for the node to be split further.</p></li>
+that is required for the node to be split further.</p></li>
 <li><p><code>tree_depth</code>: The maximum depth of the tree (i.e. number of
 splits).</p></li>
 <li><p><code>learn_rate</code>: The rate at which the boosting algorithm adapts
@@ -198,10 +198,10 @@ to split further.</p></li>
 <li><p><code>stop_iter</code>: The number of iterations without improvement before
 stopping.</p></li>
 </ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the  <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
+time that the model is fit. Other options and arguments can be
+set using the <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions.  If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
@@ -256,7 +256,7 @@ the ensemble.</p></td>
     <tr>
       <th>min_n</th>
       <td><p>An integer for the minimum number of data points
-in a node that are required for the node to be split further.</p></td>
+in a node that is required for the node to be split further.</p></td>
     </tr>
     <tr>
       <th>tree_depth</th>
@@ -271,18 +271,18 @@ from iteration-to-iteration (<code>xgboost</code> only).</p></td>
     <tr>
       <th>loss_reduction</th>
       <td><p>A number for the reduction in the loss function required
-to split further  (<code>xgboost</code> only).</p></td>
+to split further (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>sample_size</th>
       <td><p>A number for the number (or proportion) of data that is
-exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at at
+exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at
 each iteration while <code>C5.0</code> samples once during training.</p></td>
     </tr>
     <tr>
       <th>stop_iter</th>
       <td><p>The number of iterations without improvement before
-stopping  (<code>xgboost</code> only).</p></td>
+stopping (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -316,7 +316,7 @@ to determine the <em>mode</em> of the model. For <code>boost_tree()</code>, the
 possible modes are "regression" and "classification".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"xgboost"</code> (the default), <code>"C5.0"</code></p></li>
+<li><p><span class="pkg">R</span>: <code>"xgboost"</code> (the default), <code>"C5.0"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
 
