@@ -18,7 +18,7 @@ training set data). The name of this data object is inserted into the call.}
 A modified \code{parsnip} fitted model.
 }
 \description{
-When the user passes a formula to \code{fit()} \emph{and} the underyling model function
+When the user passes a formula to \code{fit()} \emph{and} the underlying model function
 uses a formula, the call object produced by \code{fit()} may not be usable by
 other functions. For example, some arguments may still be quosures and the
 \code{data} portion of the call will not correspond to the original data.
