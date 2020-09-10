@@ -1,6 +1,6 @@
 #' Repair a model call object
 #'
-#' When the user passes a formula to `fit()` _and_ the underyling model function
+#' When the user passes a formula to `fit()` _and_ the underlying model function
 #' uses a formula, the call object produced by `fit()` may not be usable by
 #' other functions. For example, some arguments may still be quosures and the
 #' `data` portion of the call will not correspond to the original data.
