@@ -211,9 +211,9 @@ built-in <code>Orange</code> data, the values would be</p><pre>
  .obs()   = 35
  .lvls()  =  NA          (no factor outcome)
  .facts() =   1          (the Tree predictor)
- .y()     = &amp;lt;vector&amp;gt;     (circumference as a vector)
- .x()     = &amp;lt;data.frame&amp;gt; (The other 2 columns as a data frame)
- .dat()   = &amp;lt;data.frame&amp;gt; (The full data set)
+ .y()     = &lt;vector&gt;     (circumference as a vector)
+ .x()     = &lt;data.frame&gt; (The other 2 columns as a data frame)
+ .dat()   = &lt;data.frame&gt; (The full data set)
 </pre>
 
 <p>If the formula <code>Tree ~ .</code> were used:</p><pre>
@@ -222,9 +222,9 @@ built-in <code>Orange</code> data, the values would be</p><pre>
  .obs()   = 35
  .lvls()  =  c("1" = 7, "2" = 7, "3" = 7, "4" = 7, "5" = 7)
  .facts() =   0
- .y()     = &amp;lt;vector&amp;gt;     (Tree as a vector)
- .x()     = &amp;lt;data.frame&amp;gt; (The other 2 columns as a data frame)
- .dat()   = &amp;lt;data.frame&amp;gt; (The full data set)
+ .y()     = &lt;vector&gt;     (Tree as a vector)
+ .x()     = &lt;data.frame&gt; (The other 2 columns as a data frame)
+ .dat()   = &lt;data.frame&gt; (The full data set)
 </pre>
 
 <p>To use these in a model fit, pass them to a model specification.
@@ -233,10 +233,11 @@ model is run via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()
 For example:</p>
 <pre>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"lending_club"</span>)
 
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'>.cols</span>() - <span class='fl'>2</span>)</pre>
+<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(mode = <span class='st'>"classification"</span>, mtry = <span class='fu'>.cols</span>() <span class='op'>-</span> <span class='fl'>2</span>)
+</pre>
 
 <p>When no descriptors are found, the computation of the descriptor values
 is not executed.</p>

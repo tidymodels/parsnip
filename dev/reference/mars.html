@@ -192,21 +192,21 @@ in lieu of recreating the object from scratch.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mars</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
-  <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  mode = <span class='st'>"unknown"</span>,
+  num_terms = <span class='kw'>NULL</span>,
+  prod_degree = <span class='kw'>NULL</span>,
+  prune_method = <span class='kw'>NULL</span>
 )
 
 <span class='co'># S3 method for mars</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prod_degree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>object</span>,
+  parameters = <span class='kw'>NULL</span>,
+  num_terms = <span class='kw'>NULL</span>,
+  prod_degree = <span class='kw'>NULL</span>,
+  prune_method = <span class='kw'>NULL</span>,
+  fresh = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -263,30 +263,32 @@ following <em>engines</em>:</p><ul>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.</p><h3>earth</h3>
-<p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## MARS Model Specification (regression)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     keepxy = TRUE)
-</pre><p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## MARS Model Specification (classification)
-## 
-## Engine-Specific Arguments:
-##   glm = list(family = stats::binomial)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     glm = list(family = stats::binomial), keepxy = TRUE)
+call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>earth</h3>
+<p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## MARS Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: earth </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     keepxy = TRUE)</span>
+</pre><p><div class="r"></p><pre><span class='fu'>mars</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"earth"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## MARS Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Engine-Specific Arguments:</span>
+<span class='co'>##   glm = list(family = stats::binomial)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: earth </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     glm = list(family = stats::binomial), keepxy = TRUE)</span>
 </pre>
 
 <p>Note that, when the model is fit, the <code>earth</code> package only has its
@@ -298,7 +300,7 @@ formula method can create dummy variables as-needed.</p>
 same model object can be used to make predictions over multiple values
 of <code>num_terms</code>.</p>
 
-<h3>Parameter translations</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
 
 <p>The standardized parameter names in parsnip can be mapped to their
@@ -319,27 +321,32 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"mars"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"mars"</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   engine mode          
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
 #&gt; </span><span style='color: #555555;'>1</span><span> earth  classification
 #&gt; </span><span style='color: #555555;'>2</span><span> earth  regression    </div><div class='input'>
-<span class='fu'>mars</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; MARS Model Specification (regression)
+<span class='fu'>mars</span>(mode = <span class='st'>"regression"</span>, num_terms = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; MARS Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 5
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>mars</span>(<span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prune_method</span> <span class='kw'>=</span> <span class='st'>"none"</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; MARS Model Specification (unknown)
+#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'>mars</span>(num_terms = <span class='fl'>10</span>, prune_method = <span class='st'>"none"</span>)
+<span class='kw'>model</span>
+</div><div class='output co'>#&gt; MARS Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 10
 #&gt;   prune_method = none
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, num_terms = <span class='fl'>1</span>)
+</div><div class='output co'>#&gt; MARS Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 1
 #&gt;   prune_method = none
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; MARS Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, num_terms = <span class='fl'>1</span>, fresh = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; MARS Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 1

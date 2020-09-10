@@ -164,10 +164,10 @@ routine.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>object</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span>(), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>object</span>, <span class='kw'>formula</span>, <span class='kw'>data</span>, control = <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span>(), <span class='kw'>...</span>)
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='no'>object</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span>(), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='kw'>object</span>, <span class='kw'>x</span>, <span class='kw'>y</span>, control = <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span>(), <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,28 +254,30 @@ objects used to fit the model.</p>
     <pre class="examples"><div class='input'><span class='co'># Although `glm()` only has a formula interface, different</span>
 <span class='co'># methods for specifying the model can be used</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"lending_club"</span>)
 
-<span class='no'>lr_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
+<span class='kw'>lr_mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span>()
 
-<span class='no'>using_formula</span> <span class='kw'>&lt;-</span>
-  <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='no'>Class</span> ~ <span class='no'>funded_amnt</span> + <span class='no'>int_rate</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>lending_club</span>)
+<span class='kw'>using_formula</span> <span class='op'>&lt;-</span>
+  <span class='kw'>lr_mod</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span>(<span class='kw'>Class</span> <span class='op'>~</span> <span class='kw'>funded_amnt</span> <span class='op'>+</span> <span class='kw'>int_rate</span>, data = <span class='kw'>lending_club</span>)
 
-<span class='no'>using_xy</span> <span class='kw'>&lt;-</span>
-  <span class='no'>lr_mod</span> <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lending_club</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
-         <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lending_club</span>$<span class='no'>Class</span>)
+<span class='kw'>using_xy</span> <span class='op'>&lt;-</span>
+  <span class='kw'>lr_mod</span> <span class='op'>%&gt;%</span>
+   <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span>(x = <span class='kw'>lending_club</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span>)],
+         y = <span class='kw'>lending_club</span><span class='op'>$</span><span class='kw'>Class</span>)
 
-<span class='no'>using_formula</span></div><div class='output co'>#&gt; parsnip model object
+<span class='kw'>using_formula</span>
+</div><div class='output co'>#&gt; parsnip model object
 #&gt; 
 #&gt; Fit time:  40ms 
 #&gt; 
@@ -288,9 +290,10 @@ objects used to fit the model.</p>
 #&gt; 
 #&gt; Degrees of Freedom: 9856 Total (i.e. Null);  9854 Residual
 #&gt; Null Deviance:	    4055 
-#&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='no'>using_xy</span></div><div class='output co'>#&gt; parsnip model object
+#&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='kw'>using_xy</span>
+</div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  33ms 
+#&gt; Fit time:  35ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::binomial, data = data)
 #&gt; 

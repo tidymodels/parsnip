@@ -119,7 +119,8 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># The easiest way to get parsnip is to install all of tidymodels:</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># The easiest way to get parsnip is to install all of tidymodels:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidymodels"</span>)
 
 <span class="co"># Alternatively, install just parsnip:</span>
@@ -127,39 +128,42 @@
 
 <span class="co"># Or the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"tidymodels/parsnip"</span>)</pre></div>
+<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"tidymodels/parsnip"</span>)
+</pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
 <p>One challenge with different modeling functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest <em>regression</em> model, we might have:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># From randomForest</span>
-<span class="no">rf_1</span> <span class="kw">&lt;-</span> <span class="fu">randomForest</span>(
-  <span class="no">y</span> ~ <span class="no">.</span>,
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">.</span>,
-  <span class="kw">mtry</span> <span class="kw">=</span> <span class="fl">10</span>,
-  <span class="kw">ntree</span> <span class="kw">=</span> <span class="fl">2000</span>,
-  <span class="kw">importance</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># From randomForest</span>
+<span class="kw">rf_1</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span>(
+  <span class="kw">y</span> <span class="op">~</span> <span class="kw">.</span>, 
+  data = <span class="kw">.</span>, 
+  mtry = <span class="fl">10</span>, 
+  ntree = <span class="fl">2000</span>, 
+  importance = <span class="fl">TRUE</span>
 )
 
 <span class="co"># From ranger</span>
-<span class="no">rf_2</span> <span class="kw">&lt;-</span> <span class="fu">ranger</span>(
-  <span class="no">y</span> ~ <span class="no">.</span>,
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>,
-  <span class="kw">mtry</span> <span class="kw">=</span> <span class="fl">10</span>,
-  <span class="kw">num.trees</span> <span class="kw">=</span> <span class="fl">2000</span>,
-  <span class="kw">importance</span> <span class="kw">=</span> <span class="st">"impurity"</span>
+<span class="kw">rf_2</span> <span class="op">&lt;-</span> <span class="fu">ranger</span>(
+  <span class="kw">y</span> <span class="op">~</span> <span class="kw">.</span>, 
+  data = <span class="kw">dat</span>, 
+  mtry = <span class="fl">10</span>, 
+  num.trees = <span class="fl">2000</span>, 
+  importance = <span class="st">"impurity"</span>
 )
 
 <span class="co"># From sparklyr</span>
-<span class="no">rf_3</span> <span class="kw">&lt;-</span> <span class="fu">ml_random_forest</span>(
-  <span class="no">dat</span>,
-  <span class="kw">intercept</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
-  <span class="kw">response</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">features</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">dat</span>)[<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">dat</span>) <span class="kw">!=</span> <span class="st">"y"</span>],
-  <span class="kw">col.sample.rate</span> <span class="kw">=</span> <span class="fl">10</span>,
-  <span class="kw">num.trees</span> <span class="kw">=</span> <span class="fl">2000</span>
-)</pre></div>
+<span class="kw">rf_3</span> <span class="op">&lt;-</span> <span class="fu">ml_random_forest</span>(
+  <span class="kw">dat</span>, 
+  intercept = <span class="fl">FALSE</span>, 
+  response = <span class="st">"y"</span>, 
+  features = <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">dat</span>)[<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">dat</span>) != <span class="st">"y"</span>], 
+  col.sample.rate = <span class="fl">10</span>,
+  num.trees = <span class="fl">2000</span>
+)
+</pre></div>
 <p>Note that the model syntax can be very different and that the argument names (and formats) are also different. This is a pain if you switch between implementations.</p>
 <p>In this example:</p>
 <ul>
@@ -174,10 +178,11 @@
 <li>Harmonize argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users only need to remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging.</li>
 </ul>
 <p>Using the example above, the <code>parsnip</code> approach would be:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parsnip</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://parsnip.tidymodels.org">parsnip</a></span>)
 
-<span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="kw">mtry</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">trees</span> <span class="kw">=</span> <span class="fl">2000</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="kw">importance</span> <span class="kw">=</span> <span class="st">"impurity"</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(mtry = <span class="fl">10</span>, trees = <span class="fl">2000</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, importance = <span class="st">"impurity"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>)
 <span class="co">#&gt; Random Forest Model Specification (regression)</span>
 <span class="co">#&gt; </span>
@@ -188,10 +193,12 @@
 <span class="co">#&gt; Engine-Specific Arguments:</span>
 <span class="co">#&gt;   importance = impurity</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Computational engine: ranger</span></pre></div>
+<span class="co">#&gt; Computational engine: ranger</span>
+</pre></div>
 <p>The engine can be easily changed. To use Spark, the change is straightforward:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="kw">mtry</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">trees</span> <span class="kw">=</span> <span class="fl">2000</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"spark"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(mtry = <span class="fl">10</span>, trees = <span class="fl">2000</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"spark"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>)
 <span class="co">#&gt; Random Forest Model Specification (regression)</span>
 <span class="co">#&gt; </span>
@@ -199,13 +206,15 @@
 <span class="co">#&gt;   mtry = 10</span>
 <span class="co">#&gt;   trees = 2000</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Computational engine: spark</span></pre></div>
+<span class="co">#&gt; Computational engine: spark</span>
+</pre></div>
 <p>Either one of these model specifications can be fit in the same way:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">192</span>)
-<span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(<span class="kw">mtry</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">trees</span> <span class="kw">=</span> <span class="fl">2000</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, <span class="kw">importance</span> <span class="kw">=</span> <span class="st">"impurity"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(<span class="no">mpg</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">mtcars</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">192</span>)
+<span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span>(mtry = <span class="fl">10</span>, trees = <span class="fl">2000</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span>(<span class="st">"ranger"</span>, importance = <span class="st">"impurity"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/set_args.html">set_mode</a></span>(<span class="st">"regression"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span>(<span class="kw">mpg</span> <span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">mtcars</span>)
 <span class="co">#&gt; parsnip model object</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Fit time:  98ms </span>
@@ -223,7 +232,8 @@
 <span class="co">#&gt; Variable importance mode:         impurity </span>
 <span class="co">#&gt; Splitrule:                        variance </span>
 <span class="co">#&gt; OOB prediction error (MSE):       5.976917 </span>
-<span class="co">#&gt; R squared (OOB):                  0.8354559</span></pre></div>
+<span class="co">#&gt; R squared (OOB):                  0.8354559</span>
+</pre></div>
 <p>A list of all <code>parsnip</code> models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/"><code>tidymodels.org</code></a>.</p>
 <p>Data sets previously found in <code>parsnip</code> are now find in the <code>modeldata</code> package.</p>
 </div>

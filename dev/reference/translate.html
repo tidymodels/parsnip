@@ -163,10 +163,10 @@ object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>translate</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>translate</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>translate</span>(<span class='no'>x</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>engine</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>translate</span>(<span class='kw'>x</span>, engine = <span class='kw'>x</span><span class='op'>$</span><span class='kw'>engine</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,10 +202,11 @@ to understand what the underlying syntax would be. It should not be used
 to modify the model specification.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>lm_spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
+    <pre class="examples"><div class='input'><span class='kw'>lm_spec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(penalty = <span class='fl'>0.01</span>)
 
 <span class='co'># `penalty` is tranlsated to `lambda`</span>
-<span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glmnet"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>translate</span>(<span class='kw'>lm_spec</span>, engine = <span class='st'>"glmnet"</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 0.01
@@ -216,7 +217,8 @@ to modify the model specification.</p>
 #&gt; glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 #&gt;     family = "gaussian")</div><div class='input'>
 <span class='co'># `penalty` not applicable for this model.</span>
-<span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>translate</span>(<span class='kw'>lm_spec</span>, engine = <span class='st'>"lm"</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 0.01
@@ -226,7 +228,8 @@ to modify the model specification.</p>
 #&gt; Model fit template:
 #&gt; stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</div><div class='input'>
 <span class='co'># `penalty` is tranlsated to `reg_param`</span>
-<span class='fu'>translate</span>(<span class='no'>lm_spec</span>, <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"spark"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>translate</span>(<span class='kw'>lm_spec</span>, engine = <span class='st'>"spark"</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 0.01
@@ -237,7 +240,8 @@ to modify the model specification.</p>
 #&gt; sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
 #&gt;     weight_col = missing_arg(), reg_param = 0.01)</div><div class='input'>
 <span class='co'># with a placeholder for an unknown argument value:</span>
-<span class='fu'>translate</span>(<span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(<span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>()), <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"glmnet"</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>translate</span>(<span class='fu'><a href='linear_reg.html'>linear_reg</a></span>(mixture = <span class='fu'><a href='varying.html'>varying</a></span>()), engine = <span class='st'>"glmnet"</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mixture = varying()

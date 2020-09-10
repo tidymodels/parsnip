@@ -185,16 +185,16 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>linear_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>linear_reg</span>(mode = <span class='st'>"regression"</span>, penalty = <span class='kw'>NULL</span>, mixture = <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for linear_reg</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>object</span>,
+  parameters = <span class='kw'>NULL</span>,
+  penalty = <span class='kw'>NULL</span>,
+  mixture = <span class='kw'>NULL</span>,
+  fresh = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -274,30 +274,32 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.</p><h3>lm</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
-## 
-## Computational engine: lm 
-## 
-## Model fit template:
-## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>lm</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"lm"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: lm </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span>
 </pre>
 
 
-<h3>glmnet</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
-## 
-## Computational engine: glmnet 
-## 
-## Model fit template:
-## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     family = "gaussian")
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glmnet</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: glmnet </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     family = "gaussian")</span>
 </pre>
 
 <p>For <code>glmnet</code> models, the full regularization path is always fit
@@ -310,17 +312,18 @@ the penalty can be used. When predicting on multiple penalties, the
 column called <code>.pred</code> that contains a tibble with all of the penalty
 results.</p>
 
-<h3>stan</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
-## 
-## Computational engine: stan 
-## 
-## Model fit template:
-## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), family = stats::gaussian, refresh = 0)
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>stan</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: stan </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), </span>
+<span class='co'>##     weights = missing_arg(), family = stats::gaussian, refresh = 0)</span>
 </pre>
 
 <p>Note that the <code>refresh</code> default prevents logging of the estimation
@@ -331,35 +334,37 @@ the units are the original outcome and when <code>std_error = TRUE</code>, the
 standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.</p>
 
-<h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
-##     weight_col = missing_arg())
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: spark </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), </span>
+<span class='co'>##     weight_col = missing_arg())</span>
 </pre>
 
 
-<h3>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Linear Regression Model Specification (regression)
-## 
-## Computational engine: keras 
-## 
-## Model fit template:
-## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-##     act = "linear")
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>keras</h3>
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span>() <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: keras </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, </span>
+<span class='co'>##     act = "linear")</span>
 </pre>
 
 
-<h3>Parameter translations</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
 
 <p>The standardized parameter names in parsnip can be mapped to their
@@ -379,7 +384,8 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"linear_reg"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"linear_reg"</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   engine mode      
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
 #&gt; </span><span style='color: #555555;'>1</span><span> lm     regression
@@ -387,24 +393,29 @@ parameter.</p><table class='table'>
 #&gt; </span><span style='color: #555555;'>3</span><span> stan   regression
 #&gt; </span><span style='color: #555555;'>4</span><span> spark  regression
 #&gt; </span><span style='color: #555555;'>5</span><span> keras  regression</div><div class='input'>
-<span class='fu'>linear_reg</span>()</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>linear_reg</span>()
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>linear_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+<span class='fu'>linear_reg</span>(penalty = <span class='fu'><a href='varying.html'>varying</a></span>())
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>linear_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'>linear_reg</span>(penalty = <span class='fl'>10</span>, mixture = <span class='fl'>0.1</span>)
+<span class='kw'>model</span>
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, penalty = <span class='fl'>1</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, penalty = <span class='fl'>1</span>, fresh = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1

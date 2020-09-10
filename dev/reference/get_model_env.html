@@ -163,11 +163,11 @@ information about model specifications.</p>
 
     <pre class="usage"><span class='fu'>get_model_env</span>()
 
-<span class='fu'>get_from_env</span>(<span class='no'>items</span>)
+<span class='fu'>get_from_env</span>(<span class='kw'>items</span>)
 
-<span class='fu'>set_in_env</span>(<span class='no'>...</span>)
+<span class='fu'>set_in_env</span>(<span class='kw'>...</span>)
 
-<span class='fu'>set_env_val</span>(<span class='no'>name</span>, <span class='no'>value</span>)</pre>
+<span class='fu'>set_env_val</span>(<span class='kw'>name</span>, <span class='kw'>value</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,8 +197,9 @@ information about model specifications.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Access the model data:</span>
-<span class='no'>current_code</span> <span class='kw'>&lt;-</span> <span class='fu'>get_model_env</span>()
-<span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span>(<span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>current_code</span>)</div><div class='output co'>#&gt;  [1] "boost_tree"                "boost_tree_args"          
+<span class='kw'>current_code</span> <span class='op'>&lt;-</span> <span class='fu'>get_model_env</span>()
+<span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span>(envir = <span class='kw'>current_code</span>)
+</div><div class='output co'>#&gt;  [1] "boost_tree"                "boost_tree_args"          
 #&gt;  [3] "boost_tree_encoding"       "boost_tree_fit"           
 #&gt;  [5] "boost_tree_modes"          "boost_tree_pkgs"          
 #&gt;  [7] "boost_tree_predict"        "decision_tree"            

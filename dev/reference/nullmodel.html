@@ -161,16 +161,16 @@ computational function for the null_model() specification." />
 computational function for the <code><a href='null_model.html'>null_model()</a></code> specification.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nullmodel</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>nullmodel</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>nullmodel</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>nullmodel</span>(x = <span class='kw'>NULL</span>, <span class='kw'>y</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for nullmodel</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>object</span>, new_data = <span class='kw'>NULL</span>, type = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,13 +230,15 @@ the most prevalent class is returned.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>outcome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>],
-                         <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-                         <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>.9</span>),
-                         <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='no'>useless</span> <span class='kw'>&lt;-</span> <span class='fu'>nullmodel</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>outcome</span>)
-<span class='no'>useless</span></div><div class='output co'>#&gt; Null Regression Model
-#&gt; Predicted Value: b </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>useless</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] b b b b b
+<span class='kw'>outcome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>],
+                         size = <span class='fl'>100</span>,
+                         prob = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>.9</span>),
+                         replace = <span class='fl'>TRUE</span>))
+<span class='kw'>useless</span> <span class='op'>&lt;-</span> <span class='fu'>nullmodel</span>(y = <span class='kw'>outcome</span>)
+<span class='kw'>useless</span>
+</div><div class='output co'>#&gt; Null Regression Model
+#&gt; Predicted Value: b </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>useless</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, nrow = <span class='fl'>5</span>))
+</div><div class='output co'>#&gt; [1] b b b b b
 #&gt; Levels: a b</div><div class='input'>
 </div></pre>
   </div>
