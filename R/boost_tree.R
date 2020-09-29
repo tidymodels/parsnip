@@ -375,7 +375,7 @@ xgb_train <- function(
 #' @importFrom stats binomial
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
-    newdata <- as_matrix(newdata)
+    newdata <- maybe_matrix(newdata)
     newdata <- xgboost::xgb.DMatrix(data = newdata, missing = NA)
   }
 

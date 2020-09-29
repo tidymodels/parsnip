@@ -120,8 +120,8 @@ set_fit(
   eng = "ranger",
   mode = "classification",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "case.weights"),
+    interface = "data.frame",
+    protect = c("x", "y", "case.weights"),
     func = c(pkg = "ranger", fun = "ranger"),
     defaults =
       list(
@@ -148,8 +148,8 @@ set_fit(
   eng = "ranger",
   mode = "regression",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "case.weights"),
+    interface = "data.frame",
+    protect = c("x", "y", "case.weights"),
     func = c(pkg = "ranger", fun = "ranger"),
     defaults =
       list(
