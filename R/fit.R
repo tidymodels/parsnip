@@ -342,6 +342,8 @@ check_interface <- function(formula, data, cl, model) {
 }
 
 check_xy_interface <- function(x, y, cl, model) {
+  # TODO Do we need a model spec attribute that is something like
+  #      'allow_sparse' to make this conditional on that?
   inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
@@ -358,6 +360,7 @@ check_xy_interface <- function(x, y, cl, model) {
       )
 
   # Determine the `fit()` interface
+  # TODO conditional here too?
   matrix_interface <- !is.null(x) & !is.null(y) && (is.matrix(x) | inherits(x, "dgCMatrix"))
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
 
