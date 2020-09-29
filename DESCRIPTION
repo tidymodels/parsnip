@@ -51,4 +51,5 @@ Suggests:
     MASS,
     nlme,
     modeldata,
-    liquidSVM
+    liquidSVM,
+    Matrix

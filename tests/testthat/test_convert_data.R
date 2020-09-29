@@ -626,4 +626,8 @@ test_that("convert to matrix", {
   expect_true(inherits(parsnip::as_matrix(mtcars), "matrix"))
   expect_true(inherits(parsnip::as_matrix(tibble::as_tibble(mtcars)), "matrix"))
   expect_true(inherits(parsnip::as_matrix(as.matrix(mtcars)), "matrix"))
+  expect_true(
+    inherits(parsnip::as_matrix(Matrix::Matrix(as.matrix(mtcars), sparse = TRUE)),
+             "dgCMatrix")
+  )
 })
