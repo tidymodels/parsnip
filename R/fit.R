@@ -342,7 +342,7 @@ check_interface <- function(formula, data, cl, model) {
 }
 
 check_xy_interface <- function(x, y, cl, model) {
-  inher(x, c("data.frame", "matrix"), cl)
+  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if (!is.null(y) && !is.vector(y))
@@ -358,7 +358,7 @@ check_xy_interface <- function(x, y, cl, model) {
       )
 
   # Determine the `fit()` interface
-  matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+  matrix_interface <- !is.null(x) & !is.null(y) && (is.matrix(x) | inherits(x, "dgCMatrix"))
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
 
   if (inherits(model, "surv_reg") &&

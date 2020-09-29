@@ -323,3 +323,21 @@ check_dup_names <- function(x, y) {
     )
   invisible(NULL)
 }
+
+## -----------------------------------------------------------------------------
+
+#' Convert data frame to matrix
+#'
+#' This is a substitute for `as.matrix()` that will convert a data frame to a
+#' ordinary matrix but leave other formats (such as a sparse matrix) alone.
+#' @param x A data frame, matrix, or sparse matrix.
+#' @return A matrix or sparse matrix.
+#' @export
+as_matrix <- function(x) {
+  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
+  if (is.data.frame(x)) {
+    x <- as.matrix(x)
+  }
+  # leave alone if matrix or sparse matrix
+  x
+}

@@ -192,7 +192,7 @@ make_xy_call <- function(object, target) {
       target,
       none = rlang::expr(x),
       data.frame = rlang::expr(as.data.frame(x)),
-      matrix = rlang::expr(as.matrix(x)),
+      matrix = rlang::expr(as_matrix(x)),
       rlang::abort(glue::glue("Invalid data type target: {target}."))
     )
 
