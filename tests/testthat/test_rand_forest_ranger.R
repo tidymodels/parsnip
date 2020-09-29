@@ -463,5 +463,14 @@ test_that('ranger and sparse matrices', {
   expect_equal(from_df$fit, from_mat$fit)
   expect_equal(from_df$fit, from_sparse$fit)
 
+  rf_spec <-
+    rand_forest(trees = 10) %>%
+    set_engine("randomForest", seed = 2) %>%
+    set_mode("regression")
+  expect_error(
+    rf_spec %>% fit_xy(mtcar_smat, mtcars$mpg),
+    "Sparse matrices not supported"
+  )
+
 })
 

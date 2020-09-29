@@ -819,7 +819,8 @@ check_encodings <- function(x) {
   }
   req_args <- list(predictor_indicators = rlang::na_chr,
                    compute_intercept = rlang::na_lgl,
-                   remove_intercept = rlang::na_lgl)
+                   remove_intercept = rlang::na_lgl,
+                   allow_sparse_x = rlang::na_lgl)
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -896,7 +897,8 @@ get_encoding <- function(model) {
         model = model,
         predictor_indicators = "traditional",
         compute_intercept = TRUE,
-        remove_intercept = TRUE
+        remove_intercept = TRUE,
+        allow_sparse_x = FALSE
       ) %>%
       dplyr::select(model, engine, mode, predictor_indicators,
                     compute_intercept, remove_intercept)

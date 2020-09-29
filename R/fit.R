@@ -342,9 +342,18 @@ check_interface <- function(formula, data, cl, model) {
 }
 
 check_xy_interface <- function(x, y, cl, model) {
-  # TODO Do we need a model spec attribute that is something like
-  #      'allow_sparse' to make this conditional on that?
-  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
+
+  sparse_ok <- allow_sparse(model)
+  sparse_x <- inherits(x, "dgCMatrix")
+  if (!sparse_ok & sparse_x) {
+    rlang::abort("Sparse matrices not supported by this model/engine combination.")
+  }
+
+  if (sparse_ok) {
+    inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
+  } else {
+    inher(x, c("data.frame", "matrix"), cl)
+  }
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if (!is.null(y) && !is.vector(y))
@@ -359,20 +368,31 @@ check_xy_interface <- function(x, y, cl, model) {
         )
       )
 
-  # Determine the `fit()` interface
-  # TODO conditional here too?
-  matrix_interface <- !is.null(x) & !is.null(y) && (is.matrix(x) | inherits(x, "dgCMatrix"))
+
+  if (sparse_ok) {
+    matrix_interface <- !is.null(x) & !is.null(y) && (is.matrix(x) | sparse_x)
+  } else {
+    matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+  }
+
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
 
-  if (inherits(model, "surv_reg") &&
-      (matrix_interface | df_interface))
+  if (inherits(model, "surv_reg") && (matrix_interface | df_interface)) {
     rlang::abort("Survival models must use the formula interface.")
+  }
 
-  if (matrix_interface)
+  if (matrix_interface) {
     return("data.frame")
-  if (df_interface)
+  }
+  if (df_interface) {
     return("data.frame")
+  }
   rlang::abort("Error when checking the interface")
+}
+
+allow_sparse <- function(x) {
+  res <- get_from_env(paste0(class(x)[1], "_encoding"))
+  all(res$allow_sparse_x[res$engine == x$engine])
 }
 
 #' @method print model_fit
