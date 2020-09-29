@@ -326,14 +326,14 @@ check_dup_names <- function(x, y) {
 
 ## -----------------------------------------------------------------------------
 
-#' Convert data frame to matrix
+#' Fuzzy conversions
 #'
-#' This is a substitute for `as.matrix()` that will convert a data frame to a
-#' ordinary matrix but leave other formats (such as a sparse matrix) alone.
+#' These are substitutes for `as.matrix()` and `as.data.frame()` that leave
+#'  a sparse matrix as-is.
 #' @param x A data frame, matrix, or sparse matrix.
-#' @return A matrix or sparse matrix.
+#' @return A data frame, matrix, or sparse matrix.
 #' @export
-as_matrix <- function(x) {
+maybe_matrix <- function(x) {
   inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
   if (is.data.frame(x)) {
     x <- as.matrix(x)
@@ -341,3 +341,13 @@ as_matrix <- function(x) {
   # leave alone if matrix or sparse matrix
   x
 }
+
+#' @rdname maybe_matrix
+#' @export
+maybe_data_frame <- function(x) {
+  if (!inherits(x, "dgCMatrix")) {
+    x <- as.data.frame(x)
+  }
+  x
+}
+
