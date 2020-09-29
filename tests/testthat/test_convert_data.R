@@ -620,3 +620,10 @@ test_that("bad args", {
   )
 })
 
+## -----------------------------------------------------------------------------
+
+test_that("convert to matrix", {
+  expect_true(inherits(parsnip::as_matrix(mtcars), "matrix"))
+  expect_true(inherits(parsnip::as_matrix(tibble::as_tibble(mtcars)), "matrix"))
+  expect_true(inherits(parsnip::as_matrix(as.matrix(mtcars)), "matrix"))
+})
