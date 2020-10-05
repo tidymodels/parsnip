@@ -370,9 +370,9 @@ check_xy_interface <- function(x, y, cl, model) {
 
 
   if (sparse_ok) {
-    matrix_interface <- !is.null(x) & !is.null(y) && (is.matrix(x) | sparse_x)
+    matrix_interface <- !is.null(x) && !is.null(y) && (is.matrix(x) | sparse_x)
   } else {
-    matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+    matrix_interface <- !is.null(x) && !is.null(y) && is.matrix(x)
   }
 
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
@@ -408,4 +408,3 @@ print.model_fit <- function(x, ...) {
   }
   invisible(x)
 }
-
