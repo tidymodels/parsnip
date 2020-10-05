@@ -187,18 +187,18 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span>(mode = <span class='st'>"unknown"</span>, mtry = <span class='kw'>NULL</span>, trees = <span class='kw'>NULL</span>, min_n = <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"unknown"</span>, mtry <span class='op'>=</span> <span class='cn'>NULL</span>, trees <span class='op'>=</span> <span class='cn'>NULL</span>, min_n <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for rand_forest</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='kw'>object</span>,
-  parameters = <span class='kw'>NULL</span>,
-  mtry = <span class='kw'>NULL</span>,
-  trees = <span class='kw'>NULL</span>,
-  min_n = <span class='kw'>NULL</span>,
-  fresh = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -272,30 +272,30 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 
     <p>Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>ranger</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"ranger"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: ranger </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## ranger::ranger(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, </span>
-<span class='co'>##     seed = sample.int(10^5, 1))</span>
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"ranger"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+<span class='co'>## ranger::ranger(x = missing_arg(), y = missing_arg(), case.weights = missing_arg(), </span>
+<span class='co'>##     num.threads = 1, verbose = FALSE, seed = sample.int(10^5, </span>
+<span class='co'>##         1))</span>
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"ranger"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: ranger </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## ranger::ranger(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     case.weights = missing_arg(), num.threads = 1, verbose = FALSE, </span>
-<span class='co'>##     seed = sample.int(10^5, 1), probability = TRUE)</span>
+<span class='co'>## ranger::ranger(x = missing_arg(), y = missing_arg(), case.weights = missing_arg(), </span>
+<span class='co'>##     num.threads = 1, verbose = FALSE, seed = sample.int(10^5, </span>
+<span class='co'>##         1), probability = TRUE)</span>
 </pre>
 
 <p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
@@ -308,20 +308,20 @@ these values can fall outside of <code>[0, 1]</code> and will be coerced to be i
 this range.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>randomForest</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"randomForest"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: randomForest </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
 <span class='co'>## randomForest::randomForest(x = missing_arg(), y = missing_arg())</span>
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"randomForest"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"randomForest"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: randomForest </span>
@@ -337,10 +337,10 @@ not require factor predictors to be converted to indicator variables.
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+<p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: spark </span>
@@ -348,10 +348,10 @@ not require factor predictors to be converted to indicator variables.
 <span class='co'>## Model fit template:</span>
 <span class='co'>## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), </span>
 <span class='co'>##     type = "regression", seed = sample.int(10^5, 1))</span>
-</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span>() <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span>()
+</pre><p><div class="r"></p><pre><span class='fu'>rand_forest</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Random Forest Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: spark </span>
@@ -394,7 +394,7 @@ classification and 5 for regression.</p></li>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span>(<span class='st'>"rand_forest"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
 #&gt;   engine       mode          
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
@@ -404,31 +404,31 @@ classification and 5 for regression.</p></li>
 #&gt; </span><span style='color: #555555;'>4</span><span> randomForest regression    
 #&gt; </span><span style='color: #555555;'>5</span><span> spark        classification
 #&gt; </span><span style='color: #555555;'>6</span><span> spark        regression    </div><div class='input'>
-<span class='fu'>rand_forest</span>(mode = <span class='st'>"classification"</span>, trees = <span class='fl'>2000</span>)
+<span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, trees <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   trees = 2000
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>rand_forest</span>(mode = <span class='st'>"regression"</span>, mtry = <span class='fu'><a href='varying.html'>varying</a></span>())
+<span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, mtry <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'>rand_forest</span>(mtry = <span class='fl'>10</span>, min_n = <span class='fl'>3</span>)
-<span class='kw'>model</span>
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>rand_forest</span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>model</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, mtry = <span class='fl'>1</span>)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>model</span>, mtry = <span class='fl'>1</span>, fresh = <span class='fl'>TRUE</span>)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:

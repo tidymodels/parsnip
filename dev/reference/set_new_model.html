@@ -163,33 +163,33 @@ that there are no conflicts with the underlying model structures used by the
 package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_new_model</span>(<span class='kw'>model</span>)
+    <pre class="usage"><span class='fu'>set_new_model</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_model_mode</span>(<span class='kw'>model</span>, <span class='kw'>mode</span>)
+<span class='fu'>set_model_mode</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span><span class='op'>)</span>
 
-<span class='fu'>set_model_engine</span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>)
+<span class='fu'>set_model_engine</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span><span class='op'>)</span>
 
-<span class='fu'>set_model_arg</span>(<span class='kw'>model</span>, <span class='kw'>eng</span>, <span class='kw'>parsnip</span>, <span class='kw'>original</span>, <span class='kw'>func</span>, <span class='kw'>has_submodel</span>)
+<span class='fu'>set_model_arg</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>eng</span>, <span class='va'>parsnip</span>, <span class='va'>original</span>, <span class='va'>func</span>, <span class='va'>has_submodel</span><span class='op'>)</span>
 
-<span class='fu'>set_dependency</span>(<span class='kw'>model</span>, <span class='kw'>eng</span>, <span class='kw'>pkg</span>)
+<span class='fu'>set_dependency</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>eng</span>, <span class='va'>pkg</span><span class='op'>)</span>
 
-<span class='fu'>get_dependency</span>(<span class='kw'>model</span>)
+<span class='fu'>get_dependency</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_fit</span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>value</span>)
+<span class='fu'>set_fit</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>get_fit</span>(<span class='kw'>model</span>)
+<span class='fu'>get_fit</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_pred</span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>type</span>, <span class='kw'>value</span>)
+<span class='fu'>set_pred</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>type</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>get_pred_type</span>(<span class='kw'>model</span>, <span class='kw'>type</span>)
+<span class='fu'>get_pred_type</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>type</span><span class='op'>)</span>
 
-<span class='fu'>show_model_info</span>(<span class='kw'>model</span>)
+<span class='fu'>show_model_info</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>pred_value_template</span>(pre = <span class='kw'>NULL</span>, post = <span class='kw'>NULL</span>, <span class='kw'>func</span>, <span class='kw'>...</span>)
+<span class='fu'>pred_value_template</span><span class='op'>(</span>pre <span class='op'>=</span> <span class='cn'>NULL</span>, post <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>func</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>set_encoding</span>(<span class='kw'>model</span>, <span class='kw'>mode</span>, <span class='kw'>eng</span>, <span class='kw'>options</span>)
+<span class='fu'>set_encoding</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>options</span><span class='op'>)</span>
 
-<span class='fu'>get_encoding</span>(<span class='kw'>model</span>)</pre>
+<span class='fu'>get_encoding</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -326,7 +326,7 @@ function (e.g. <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>) 
     <pre class="examples"><div class='input'><span class='co'># set_new_model("shallow_learning_model")</span>
 
 <span class='co'># Show the information about a model:</span>
-<span class='fu'>show_model_info</span>(<span class='st'>"rand_forest"</span>)
+<span class='fu'>show_model_info</span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Information for `rand_forest`
 #&gt;  modes: unknown, classification, regression 
 #&gt; 

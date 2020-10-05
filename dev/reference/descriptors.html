@@ -167,21 +167,21 @@ based on the current number of rows in a data set, the <code>.obs()</code>
 function can be used. See Details below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.cols</span>()
+    <pre class="usage"><span class='fu'>.cols</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.preds</span>()
+<span class='fu'>.preds</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.obs</span>()
+<span class='fu'>.obs</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.lvls</span>()
+<span class='fu'>.lvls</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.facts</span>()
+<span class='fu'>.facts</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.x</span>()
+<span class='fu'>.x</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.y</span>()
+<span class='fu'>.y</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>.dat</span>()</pre>
+<span class='fu'>.dat</span><span class='op'>(</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -233,10 +233,10 @@ model is run via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()
 For example:</p>
 <pre>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"lending_club"</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"lending_club"</span><span class='op'>)</span>
 
-<span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(mode = <span class='st'>"classification"</span>, mtry = <span class='fu'>.cols</span>() <span class='op'>-</span> <span class='fl'>2</span>)
+<span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, mtry <span class='op'>=</span> <span class='fu'>.cols</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>2</span><span class='op'>)</span>
 </pre>
 
 <p>When no descriptors are found, the computation of the descriptor values

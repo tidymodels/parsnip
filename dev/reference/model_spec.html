@@ -211,7 +211,7 @@ arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>mtcars</span>) <span class='op'>-</span> <span class='fl'>1</span>)
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
 </pre>
 
 <p><strong>does not</strong> execute <code>ncol(mtcars) - 1</code> when creating the specification.
@@ -243,7 +243,7 @@ objects in the global environment but to use data descriptors
 such as <code><a href='descriptors.html'>.cols()</a></code>. Another way of writing the previous
 specification is</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='descriptors.html'>.cols</a></span>() <span class='op'>-</span> <span class='fl'>1</span>)
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='descriptors.html'>.cols</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
 </pre>
 
 <p>This is not dependent on any specific data object and
@@ -253,7 +253,7 @@ quasiquotation. This would insert the actual R object into the
 model specification and might be the best idea when the data
 object is small. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(mtry = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='op'>!</span><span class='op'>!</span><span class='kw'>mtcars</span>) <span class='op'>-</span> <span class='fl'>1</span>)
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='op'>!</span><span class='op'>!</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
 </pre>
 
 <p>would work (and be reproducible between sessions) but embeds
