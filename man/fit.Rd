@@ -29,7 +29,9 @@ outcome(s), predictors, case weights, etc). Note: when needed, a
 ignored. Other options required to fit the model should be
 passed using \code{set_engine()}.}
 
-\item{x}{A matrix or data frame of predictors.}
+\item{x}{A matrix, sparse matrix, or data frame of predictors. Only some
+models have support for sparse matrix input. See \code{parsnip::get_encoding()}
+for details.}
 
 \item{y}{A vector, matrix or data frame of outcome data.}
 }

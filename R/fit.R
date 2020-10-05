@@ -83,7 +83,9 @@
 #'  `"_glm"`) before the base class of `"model_fit"`.
 #'
 #' @seealso [set_engine()], [control_parsnip()], `model_spec`, `model_fit`
-#' @param x A matrix or data frame of predictors.
+#' @param x A matrix, sparse matrix, or data frame of predictors. Only some
+#' models have support for sparse matrix input. See `parsnip::get_encoding()`
+#' for details.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
 #' @export
@@ -342,7 +344,18 @@ check_interface <- function(formula, data, cl, model) {
 }
 
 check_xy_interface <- function(x, y, cl, model) {
-  inher(x, c("data.frame", "matrix"), cl)
+
+  sparse_ok <- allow_sparse(model)
+  sparse_x <- inherits(x, "dgCMatrix")
+  if (!sparse_ok & sparse_x) {
+    rlang::abort("Sparse matrices not supported by this model/engine combination.")
+  }
+
+  if (sparse_ok) {
+    inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
+  } else {
+    inher(x, c("data.frame", "matrix"), cl)
+  }
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
   if (!is.null(y) && !is.vector(y))
@@ -357,19 +370,31 @@ check_xy_interface <- function(x, y, cl, model) {
         )
       )
 
-  # Determine the `fit()` interface
-  matrix_interface <- !is.null(x) & !is.null(y) && is.matrix(x)
+
+  if (sparse_ok) {
+    matrix_interface <- !is.null(x) && !is.null(y) && (is.matrix(x) | sparse_x)
+  } else {
+    matrix_interface <- !is.null(x) && !is.null(y) && is.matrix(x)
+  }
+
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
 
-  if (inherits(model, "surv_reg") &&
-      (matrix_interface | df_interface))
+  if (inherits(model, "surv_reg") && (matrix_interface | df_interface)) {
     rlang::abort("Survival models must use the formula interface.")
+  }
 
-  if (matrix_interface)
+  if (matrix_interface) {
+    return("matrix")
+  }
+  if (df_interface) {
     return("data.frame")
-  if (df_interface)
-    return("data.frame")
+  }
   rlang::abort("Error when checking the interface")
+}
+
+allow_sparse <- function(x) {
+  res <- get_from_env(paste0(class(x)[1], "_encoding"))
+  all(res$allow_sparse_x[res$engine == x$engine])
 }
 
 #' @method print model_fit
@@ -385,4 +410,3 @@ print.model_fit <- function(x, ...) {
   }
   invisible(x)
 }
-

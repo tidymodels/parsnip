@@ -290,11 +290,8 @@ xgb_train <- function(
   min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
   early_stop = NULL, ...) {
 
-  if (length(levels(y)) > 2) {
-    num_class <- length(levels(y))
-  }  else {
-    num_class <- NULL
-  }
+  num_class <- length(levels(y))
+
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
     rlang::abort("`validation` should be on [0, 1).")
   }
@@ -311,36 +308,17 @@ xgb_train <- function(
   if (is.numeric(y)) {
     loss <- "reg:squarederror"
   } else {
-    lvl <- levels(y)
-    y <- as.numeric(y) - 1
-    if (length(lvl) == 2) {
+    if (num_class == 2) {
       loss <- "binary:logistic"
     } else {
       loss <- "multi:softprob"
     }
   }
 
-  if (is.data.frame(x)) {
-    x <- as.matrix(x) # maybe use model.matrix here?
-  }
-
   n <- nrow(x)
   p <- ncol(x)
 
-  if (!inherits(x, "xgb.DMatrix")) {
-    if (validation > 0) {
-      trn_index <- sample(1:n, size = floor(n * validation) + 1)
-      wlist <-
-        list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
-      x <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
-
-    } else {
-      x <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
-      wlist <- list(training = x)
-    }
-  } else {
-    xgboost::setinfo(x, "label", y)
-  }
+  x <- as_xgb_data(x, y, validation)
 
   # translate `subsample` and `colsample_bytree` to be on (0, 1] if not
   if (subsample > 1) {
@@ -366,17 +344,15 @@ xgb_train <- function(
     subsample = subsample
   )
 
-  # eval if contains expressions?
-
   main_args <- list(
-    data = quote(x),
-    watchlist = quote(wlist),
+    data = quote(x$data),
+    watchlist = quote(x$watchlist),
     params = arg_list,
     nrounds = nrounds,
     objective = loss,
     early_stopping_rounds = early_stop
   )
-  if (!is.null(num_class)) {
+  if (!is.null(num_class) && num_class > 2) {
     main_args$num_class <- num_class
   }
 
@@ -399,7 +375,7 @@ xgb_train <- function(
 #' @importFrom stats binomial
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
-    newdata <- as.matrix(newdata)
+    newdata <- maybe_matrix(newdata)
     newdata <- xgboost::xgb.DMatrix(data = newdata, missing = NA)
   }
 
@@ -415,6 +391,37 @@ xgb_pred <- function(object, newdata, ...) {
   x
 }
 
+
+as_xgb_data <- function(x, y, validation = 0, ...) {
+  lvls <- levels(y)
+  n <- nrow(x)
+
+  if (is.data.frame(x)) {
+    x <- as.matrix(x)
+  }
+
+  if (is.factor(y)) {
+    y <- as.numeric(y) - 1
+  }
+
+  if (!inherits(x, "xgb.DMatrix")) {
+    if (validation > 0) {
+      trn_index <- sample(1:n, size = floor(n * (1 - validation)) + 1)
+      wlist <-
+        list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
+      dat <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
+
+    } else {
+      dat <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
+      wlist <- list(training = dat)
+    }
+  } else {
+    dat <- xgboost::setinfo(x, "label", y)
+    wlist <- list(training = dat)
+  }
+
+  list(data = dat, watchlist = wlist)
+}
 #' @importFrom purrr map_df
 #' @export
 #' @rdname multi_predict

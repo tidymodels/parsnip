@@ -120,8 +120,8 @@ set_fit(
   eng = "ranger",
   mode = "classification",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "case.weights"),
+    interface = "data.frame",
+    protect = c("x", "y", "case.weights"),
     func = c(pkg = "ranger", fun = "ranger"),
     defaults =
       list(
@@ -139,7 +139,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = TRUE
   )
 )
 
@@ -148,8 +149,8 @@ set_fit(
   eng = "ranger",
   mode = "regression",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "case.weights"),
+    interface = "data.frame",
+    protect = c("x", "y", "case.weights"),
     func = c(pkg = "ranger", fun = "ranger"),
     defaults =
       list(
@@ -167,7 +168,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = TRUE
   )
 )
 
@@ -367,7 +369,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -391,7 +394,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -526,7 +530,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -550,7 +555,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 

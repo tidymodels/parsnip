@@ -323,3 +323,31 @@ check_dup_names <- function(x, y) {
     )
   invisible(NULL)
 }
+
+## -----------------------------------------------------------------------------
+
+#' Fuzzy conversions
+#'
+#' These are substitutes for `as.matrix()` and `as.data.frame()` that leave
+#'  a sparse matrix as-is.
+#' @param x A data frame, matrix, or sparse matrix.
+#' @return A data frame, matrix, or sparse matrix.
+#' @export
+maybe_matrix <- function(x) {
+  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
+  if (is.data.frame(x)) {
+    x <- as.matrix(x)
+  }
+  # leave alone if matrix or sparse matrix
+  x
+}
+
+#' @rdname maybe_matrix
+#' @export
+maybe_data_frame <- function(x) {
+  if (!inherits(x, "dgCMatrix")) {
+    x <- as.data.frame(x)
+  }
+  x
+}
+

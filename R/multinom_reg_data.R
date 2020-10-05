@@ -44,7 +44,8 @@ set_encoding(
   options = list(
     predictor_indicators = "traditional",
     compute_intercept = TRUE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
   )
 )
 
@@ -146,7 +147,8 @@ set_encoding(
   options = list(
     predictor_indicators = "traditional",
     compute_intercept = TRUE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -220,7 +222,8 @@ set_encoding(
   options = list(
     predictor_indicators = "traditional",
     compute_intercept = TRUE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -294,7 +297,8 @@ set_encoding(
   options = list(
     predictor_indicators = "traditional",
     compute_intercept = TRUE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
   )
 )
 

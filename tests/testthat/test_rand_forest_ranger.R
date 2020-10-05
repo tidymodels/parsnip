@@ -439,3 +439,38 @@ test_that('ranger classification intervals', {
 
 })
 
+
+
+test_that('ranger and sparse matrices', {
+  skip_if_not_installed("ranger")
+
+  mtcar_x <- mtcars[, -1]
+  mtcar_mat <- as.matrix(mtcar_x)
+  mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
+
+  rf_spec <-
+    rand_forest(trees = 10) %>%
+    set_engine("ranger", seed = 2) %>%
+    set_mode("regression")
+
+  set.seed(1)
+  from_df <- rf_spec %>% fit_xy(mtcar_x, mtcars$mpg)
+  set.seed(1)
+  from_mat <- rf_spec %>% fit_xy(mtcar_mat, mtcars$mpg)
+  set.seed(1)
+  from_sparse <- rf_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
+
+  expect_equal(from_df$fit, from_mat$fit)
+  expect_equal(from_df$fit, from_sparse$fit)
+
+  rf_spec <-
+    rand_forest(trees = 10) %>%
+    set_engine("randomForest", seed = 2) %>%
+    set_mode("regression")
+  expect_error(
+    rf_spec %>% fit_xy(mtcar_smat, mtcars$mpg),
+    "Sparse matrices not supported"
+  )
+
+})
+

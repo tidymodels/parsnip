@@ -16,8 +16,8 @@ test_that('primary arguments', {
   mtry_spark <- translate(mtry %>% set_engine("spark"))
   expect_equal(mtry_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  mtry = new_empty_quosure(4),
                  num.threads = 1,
@@ -47,8 +47,8 @@ test_that('primary arguments', {
   trees_spark <- translate(trees %>% set_engine("spark"))
   expect_equal(trees_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  num.trees = new_empty_quosure(1000),
                  num.threads = 1,
@@ -80,8 +80,8 @@ test_that('primary arguments', {
   min_n_spark <- translate(min_n %>% set_engine("spark"))
   expect_equal(min_n_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  min.node.size = new_empty_quosure(5),
                  num.threads = 1,
@@ -112,8 +112,8 @@ test_that('primary arguments', {
   mtry_v_spark <- translate(mtry_v %>% set_engine("spark"))
   expect_equal(mtry_v_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  mtry = new_empty_quosure(varying()),
                  num.threads = 1,
@@ -145,8 +145,8 @@ test_that('primary arguments', {
   trees_v_spark <- translate(trees_v %>% set_engine("spark"))
   expect_equal(trees_v_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  num.trees = new_empty_quosure(varying()),
                  num.threads = 1,
@@ -177,8 +177,8 @@ test_that('primary arguments', {
   min_n_v_spark <- translate(min_n_v %>% set_engine("spark"))
   expect_equal(min_n_v_ranger$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  min.node.size = new_empty_quosure(varying()),
                  num.threads = 1,
@@ -210,8 +210,8 @@ test_that('engine arguments', {
   ranger_imp <- rand_forest(mode = "classification")
   expect_equal(translate(ranger_imp %>% set_engine("ranger", importance = "impurity"))$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
                  importance = new_empty_quosure("impurity"),
                  num.threads = 1,
@@ -246,8 +246,8 @@ test_that('engine arguments', {
     translate(ranger_samp_frac %>%
                 set_engine("ranger", sample.fraction = varying()))$method$fit$args,
     list(
-      formula = expr(missing_arg()),
-      data = expr(missing_arg()),
+      x = expr(missing_arg()),
+      y = expr(missing_arg()),
       case.weights = expr(missing_arg()),
       sample.fraction = new_empty_quosure(varying()),
       num.threads = 1,

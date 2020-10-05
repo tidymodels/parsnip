@@ -286,3 +286,70 @@ test_that('early stopping', {
    regex = "`early_stop` should be on"
  )
 })
+
+
+## -----------------------------------------------------------------------------
+
+test_that('xgboost data conversion', {
+  skip_if_not_installed("xgboost")
+
+  mtcar_x <- mtcars[, -1]
+  mtcar_mat <- as.matrix(mtcar_x)
+  mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
+
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg), regexp = NA)
+  expect_true(inherits(from_df$data, "xgb.DMatrix"))
+  expect_true(inherits(from_df$watchlist$training, "xgb.DMatrix"))
+
+  expect_error(from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg), regexp = NA)
+  expect_true(inherits(from_mat$data, "xgb.DMatrix"))
+  expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
+
+  expect_error(from_sparse <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg), regexp = NA)
+  expect_true(inherits(from_mat$data, "xgb.DMatrix"))
+  expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
+
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, validation = .1), regexp = NA)
+  expect_true(inherits(from_df$data, "xgb.DMatrix"))
+  expect_true(inherits(from_df$watchlist$validation, "xgb.DMatrix"))
+  expect_true(nrow(from_df$data) > nrow(from_df$watchlist$validation))
+
+  expect_error(from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg, validation = .1), regexp = NA)
+  expect_true(inherits(from_mat$data, "xgb.DMatrix"))
+  expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
+  expect_true(nrow(from_mat$data) > nrow(from_mat$watchlist$validation))
+
+  expect_error(from_sparse <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, validation = .1), regexp = NA)
+  expect_true(inherits(from_mat$data, "xgb.DMatrix"))
+  expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
+  expect_true(nrow(from_sparse$data) > nrow(from_sparse$watchlist$validation))
+
+})
+
+
+test_that('xgboost data and sparse matrices', {
+  skip_if_not_installed("xgboost")
+
+  mtcar_x <- mtcars[, -1]
+  mtcar_mat <- as.matrix(mtcar_x)
+  mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
+
+  xgb_spec <-
+    boost_tree(trees = 10) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression")
+
+  set.seed(1)
+  from_df <- xgb_spec %>% fit_xy(mtcar_x, mtcars$mpg)
+  set.seed(1)
+  from_mat <- xgb_spec %>% fit_xy(mtcar_mat, mtcars$mpg)
+  set.seed(1)
+  from_sparse <- xgb_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
+
+  expect_equal(from_df$fit, from_mat$fit)
+  expect_equal(from_df$fit, from_sparse$fit)
+
+})
+
+
+

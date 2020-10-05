@@ -31,7 +31,7 @@ Imports:
     prettyunits,
     vctrs (>= 0.2.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9000
 Suggests: 
     testthat,
     knitr,
@@ -46,9 +46,10 @@ Suggests:
     kernlab,
     kknn,
     randomForest,
-    ranger,
+    ranger (>= 0.12.0),
     rpart,
     MASS,
     nlme,
     modeldata,
-    liquidSVM
+    liquidSVM,
+    Matrix

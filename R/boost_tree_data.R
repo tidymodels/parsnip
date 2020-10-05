@@ -94,7 +94,8 @@ set_encoding(
   options = list(
     predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
   )
 )
 
@@ -143,7 +144,8 @@ set_encoding(
   options = list(
     predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = TRUE
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
   )
 )
 
@@ -250,7 +252,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -384,7 +387,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
@@ -408,7 +412,8 @@ set_encoding(
   options = list(
     predictor_indicators = "none",
     compute_intercept = FALSE,
-    remove_intercept = FALSE
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
   )
 )
 
