@@ -382,7 +382,7 @@ check_xy_interface <- function(x, y, cl, model) {
   }
 
   if (matrix_interface) {
-    return("data.frame")
+    return("matrix")
   }
   if (df_interface) {
     return("data.frame")
