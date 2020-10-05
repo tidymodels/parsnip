@@ -2,7 +2,7 @@
 
 * `show_engines()` will provide information on the current set for a model. 
 
-* For three models, enable sparse matrix use via `fit_xy()` (#373).
+* For three models (`glmnet`, `xgboost`, and `ranger`), enable sparse matrix use via `fit_xy()` (#373).
 
 # parsnip 0.1.3
 
