@@ -83,7 +83,9 @@
 #'  `"_glm"`) before the base class of `"model_fit"`.
 #'
 #' @seealso [set_engine()], [control_parsnip()], `model_spec`, `model_fit`
-#' @param x A matrix or data frame of predictors.
+#' @param x A matrix, sparse matrix, or data frame of predictors. Only some
+#' models have support for sparse matrix input. See `parsnip::get_encoding()`
+#' for details.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
 #' @export
