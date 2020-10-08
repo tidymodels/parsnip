@@ -193,7 +193,7 @@ set_fit(
   eng = "liquidSVM",
   mode = "regression",
   value = list(
-    interface = "matrix",
+    interface = "data.frame",
     protect = c("x", "y"),
     func = c(pkg = "liquidSVM", fun = "svm"),
     defaults = list(
@@ -220,7 +220,7 @@ set_fit(
   eng = "liquidSVM",
   mode = "classification",
   value = list(
-    interface = "matrix",
+    interface = "data.frame",
     protect = c("x", "y"),
     func = c(pkg = "liquidSVM", fun = "svm"),
     defaults = list(
