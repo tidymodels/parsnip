@@ -231,6 +231,7 @@ make_pred_call <- function(x) {
 #' @param new_data A data frame
 #' @return A data frame or matrix
 #' @keywords internal
+#' @export
 prepare_data <- function(object, new_data) {
   fit_interface <- object$spec$method$fit$interface
 
