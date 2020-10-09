@@ -161,6 +161,8 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
+  ## -----------------------------------------------------------------------------
+
   # slightly cleaner code using
   arg_vals <- x$method$fit$args
 
@@ -185,14 +187,40 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   # add checks to error trap or change things for this method
   if (engine == "ranger") {
-    if (any(names(arg_vals) == "importance"))
-      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance))))
-        rlang::abort("`importance` should be a character value. See ?ranger::ranger.")
-    # unless otherwise specified, classification models are probability forests
-    if (x$mode == "classification" && !any(names(arg_vals) == "probability"))
-      arg_vals$probability <- TRUE
 
+    if (any(names(arg_vals) == "importance")) {
+      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance)))) {
+        rlang::abort("`importance` should be a character value. See ?ranger::ranger.")
+      }
+    }
+    # unless otherwise specified, classification models are probability forests
+    if (x$mode == "classification" && !any(names(arg_vals) == "probability")) {
+      arg_vals$probability <- TRUE
+    }
   }
+
+  ## -----------------------------------------------------------------------------
+  # Protect some arguments based on data dimensions
+
+  if (any(names(arg_vals) == "mtry")) {
+    arg_vals$mtry <- rlang::call2("min", arg_vals$mtry, expr(ncol(x)))
+  }
+
+  if (any(names(arg_vals) == "min.node.size")) {
+    arg_vals$min.node.size <-
+      rlang::call2("min", arg_vals$min.node.size, expr(nrow(x)))
+  }
+  if (any(names(arg_vals) == "nodesize")) {
+    arg_vals$nodesize <-
+      rlang::call2("min", arg_vals$nodesize, expr(nrow(x)))
+  }
+  if (any(names(arg_vals) == "min_instances_per_node")) {
+    arg_vals$min_instances_per_node <-
+      rlang::call2("min", arg_vals$min_instances_per_node, expr(nrow(x)))
+  }
+
+  ## -----------------------------------------------------------------------------
+
   x$method$fit$args <- arg_vals
 
   x
