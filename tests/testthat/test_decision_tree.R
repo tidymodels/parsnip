@@ -59,7 +59,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 minsplit = new_empty_quosure(15)
+                 minsplit = expr(min(15, nrow(data)))
                )
   )
 
@@ -147,4 +147,34 @@ test_that('default engine', {
     "Engine set to"
   )
   expect_true(inherits(fit$fit, "rpart"))
+})
+
+
+
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins)
+
+  spec <-
+    decision_tree(min_n = 1000) %>%
+    set_engine("rpart") %>%
+    set_mode("regression")
+
+  f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
+  xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+
+  expect_equal(f_fit$fit$control$minsplit,  nrow(penguins))
+  expect_equal(xy_fit$fit$control$minsplit, nrow(penguins))
+
+  spec <-
+    decision_tree(min_n = 1000) %>%
+    set_engine("spark") %>%
+    set_mode("regression")
+
+  args <- translate(spec)$method$fit$args
+  expect_equal(args$min_instances_per_node,  rlang::expr(min(1000, nrow(x))))
+
 })

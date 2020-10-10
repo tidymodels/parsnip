@@ -193,3 +193,25 @@ test_that('kknn multi-predict', {
     dplyr::select(.pred)
   expect_equal(pred_uni, pred_uni_obs)
 })
+
+
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins)
+
+  spec <-
+    nearest_neighbor(neighbors = 1000) %>%
+    set_engine("kknn") %>%
+    set_mode("regression")
+
+  f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
+  xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+
+  expect_equal(f_fit$fit$best.parameters$k,  nrow(penguins) - 5)
+  expect_equal(xy_fit$fit$best.parameters$k, nrow(penguins) - 5)
+
+})
+

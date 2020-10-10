@@ -244,10 +244,12 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
   # min_n parameters
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min", arg_vals$min_instances_per_node, expr(nrow(x)))
+      rlang::call2("min", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(nrow(x)))
   }
 
   ## -----------------------------------------------------------------------------
+
+  x$method$fit$args <- arg_vals
 
   x
 }
