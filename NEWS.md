@@ -4,7 +4,9 @@
 
 * For three models (`glmnet`, `xgboost`, and `ranger`), enable sparse matrix use via `fit_xy()` (#373).
 
-* Some added protections were added for function arguments that are dependent on the data dimensions (e.g., `mtry`, `neighbors`, `min_n`, etc). 
+* Some added protections were added for function arguments that are dependent on the data dimensions (e.g., `mtry`, `neighbors`, `min_n`, etc). (#184)
+
+* Infrastructure was improved for running `parsnip` models in parallel using PSOCK clusters on Windows. 
 
 # parsnip 0.1.3
 

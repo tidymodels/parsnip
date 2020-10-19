@@ -19,7 +19,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
-                 mtry = expr(min(~4, ncol(x))),
+                 mtry = expr(min_cols(~4, x)),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = expr(sample.int(10^5, 1))
@@ -29,7 +29,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 mtry = expr(min(~4, ncol(x)))
+                 mtry = expr(min_cols(~4, x))
                )
   )
   expect_equal(mtry_spark$method$fit$args,
@@ -83,7 +83,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
-                 min.node.size = expr(min(~5, nrow(x))),
+                 min.node.size = expr(min_rows(~5, x)),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = expr(sample.int(10^5, 1))
@@ -93,7 +93,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 nodesize = expr(min(~5, nrow(x)))
+                 nodesize = expr(min_rows(~5, x))
                )
   )
   expect_equal(min_n_spark$method$fit$args,
@@ -101,7 +101,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  type = "regression",
-                 min_instances_per_node = expr(min(~5, nrow(x))),
+                 min_instances_per_node = expr(min_rows(~5, x)),
                  seed = expr(sample.int(10^5, 1))
                )
   )

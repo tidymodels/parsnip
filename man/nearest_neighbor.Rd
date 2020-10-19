@@ -69,7 +69,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
-##     ks = min(5, nrow(data) - 5))
+##     ks = min_rows(5, data, 5))
 }\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor() \%>\% 
   set_engine("kknn") \%>\% 
   set_mode("classification") \%>\% 
@@ -80,7 +80,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
-##     ks = min(5, nrow(data) - 5))
+##     ks = min_rows(5, data, 5))
 }
 
 For \code{kknn}, the underlying modeling function used is a restricted

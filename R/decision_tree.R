@@ -185,11 +185,11 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
   if (any(names(arg_vals) == "minsplit")) {
     arg_vals$minsplit <-
-      rlang::call2("min", rlang::eval_tidy(arg_vals$minsplit), expr(nrow(data)))
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$minsplit), expr(data))
   }
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(nrow(x)))
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
   }
 
   ## -----------------------------------------------------------------------------

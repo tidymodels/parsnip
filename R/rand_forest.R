@@ -203,20 +203,20 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
   # Protect some arguments based on data dimensions
 
   if (any(names(arg_vals) == "mtry")) {
-    arg_vals$mtry <- rlang::call2("min", arg_vals$mtry, expr(ncol(x)))
+    arg_vals$mtry <- rlang::call2("min_cols", arg_vals$mtry, expr(x))
   }
 
   if (any(names(arg_vals) == "min.node.size")) {
     arg_vals$min.node.size <-
-      rlang::call2("min", arg_vals$min.node.size, expr(nrow(x)))
+      rlang::call2("min_rows", arg_vals$min.node.size, expr(x))
   }
   if (any(names(arg_vals) == "nodesize")) {
     arg_vals$nodesize <-
-      rlang::call2("min", arg_vals$nodesize, expr(nrow(x)))
+      rlang::call2("min_rows", arg_vals$nodesize, expr(x))
   }
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min", arg_vals$min_instances_per_node, expr(nrow(x)))
+      rlang::call2("min_rows", arg_vals$min_instances_per_node, expr(x))
   }
 
   ## -----------------------------------------------------------------------------

@@ -59,7 +59,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 minsplit = expr(min(15, nrow(data)))
+                 minsplit = expr(min_rows(15, data))
                )
   )
 
@@ -163,8 +163,14 @@ test_that('argument checks for data dimensions', {
     set_engine("rpart") %>%
     set_mode("regression")
 
-  f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
-  xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+  expect_warning(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
+    "1000 samples were requested but there were 333 rows in the data. 333 will be used."
+  )
+  expect_warning(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
+    "1000 samples were requested but there were 333 rows in the data. 333 will be used."
+  )
 
   expect_equal(f_fit$fit$control$minsplit,  nrow(penguins))
   expect_equal(xy_fit$fit$control$minsplit, nrow(penguins))
@@ -175,6 +181,6 @@ test_that('argument checks for data dimensions', {
     set_mode("regression")
 
   args <- translate(spec)$method$fit$args
-  expect_equal(args$min_instances_per_node,  rlang::expr(min(1000, nrow(x))))
+  expect_equal(args$min_instances_per_node,  rlang::expr(min_rows(1000, x)))
 
 })

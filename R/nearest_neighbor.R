@@ -181,7 +181,7 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 
     if (any(names(arg_vals) == "ks")) {
       arg_vals$ks <-
-        rlang::call2("min", rlang::eval_tidy(arg_vals$ks), expr(nrow(data) - 5))
+        rlang::call2("min_rows", rlang::eval_tidy(arg_vals$ks), expr(data), 5)
     }
   }
 

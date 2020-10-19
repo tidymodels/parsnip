@@ -224,7 +224,7 @@ model object can be used to make predictions over multiple values of
 ## 
 ## Model fit template:
 ## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = missing_arg(), seed = sample.int(10^5, 1))
+##     type = "regression", seed = sample.int(10^5, 1))
 }\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
   set_engine("spark") \%>\% 
   set_mode("classification") \%>\% 
@@ -235,7 +235,7 @@ model object can be used to make predictions over multiple values of
 ## 
 ## Model fit template:
 ## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = missing_arg(), seed = sample.int(10^5, 1))
+##     type = "classification", seed = sample.int(10^5, 1))
 }
 
 \code{fit()} does not affect the encoding of the predictor values

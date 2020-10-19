@@ -489,8 +489,15 @@ test_that('argument checks for data dimensions', {
     set_engine("ranger") %>%
     set_mode("regression")
 
-  f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
-  xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+  expect_warning(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
+    "(1000 samples)|(1000 columns)"
+  )
+  expect_warning(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
+    "(1000 samples)|(1000 columns)"
+  )
+
 
   expect_equal(f_fit$fit$mtry, 6)
   expect_equal(f_fit$fit$min.node.size, nrow(penguins))

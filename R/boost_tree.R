@@ -244,7 +244,7 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
   # min_n parameters
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(nrow(x)))
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
   }
 
   ## -----------------------------------------------------------------------------
@@ -355,6 +355,13 @@ xgb_train <- function(
   }
   if (colsample_bytree > 1) {
     colsample_bytree <- 1
+  }
+
+  if (min_child_weight > n) {
+    msg <- paste0(min_child_weight, " samples were requested but there were ",
+                  n, " rows in the data. ", n, " will be used.")
+    rlang::warn(msg)
+    min_child_weight <- min(min_child_weight, n)
   }
 
   arg_list <- list(
@@ -537,8 +544,21 @@ C5.0_train <-
     ctrl_args <- other_args[names(other_args) %in% c_names]
     fit_args <- other_args[names(other_args) %in% f_names]
 
+    n <- nrow(x)
+    if (n == 0) {
+      rlang::abort("There are zero rows in the predictor set.")
+    }
+
+
     ctrl <- call2("C5.0Control", .ns = "C50")
-    ctrl$minCases <- min(minCases, nrow(x))
+    if (minCases > n) {
+      msg <- paste0(minCases, " samples were requested but there were ",
+                    n, " rows in the data. ", n, " will be used.")
+      rlang::warn(msg)
+      minCases <- n
+    }
+    ctrl$minCases <- minCases
+
     ctrl$sample <- sample
     ctrl <- rlang::call_modify(ctrl, !!!ctrl_args)
 

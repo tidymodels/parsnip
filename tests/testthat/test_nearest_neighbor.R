@@ -18,7 +18,7 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = expr(min(5, nrow(data) - 5))
+      ks = expr(min_rows(5, data, 5))
     )
   )
 
@@ -30,7 +30,7 @@ test_that('primary arguments', {
     expected = list(
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
-      ks = expr(min(2, nrow(data) - 5))
+      ks = expr(min_rows(2, data, 5))
     )
   )
 
@@ -43,7 +43,7 @@ test_that('primary arguments', {
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
       kernel = new_empty_quosure("triangular"),
-      ks = expr(min(5, nrow(data) - 5))
+      ks = expr(min_rows(5, data, 5))
     )
   )
 
@@ -56,7 +56,7 @@ test_that('primary arguments', {
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
       distance = new_empty_quosure(2),
-      ks = expr(min(5, nrow(data) - 5))
+      ks = expr(min_rows(5, data, 5))
     )
   )
 
@@ -72,7 +72,7 @@ test_that('engine arguments', {
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
       scale = new_empty_quosure(FALSE),
-      ks = expr(min(5, nrow(data) - 5))
+      ks = expr(min_rows(5, data, 5))
     )
   )
 

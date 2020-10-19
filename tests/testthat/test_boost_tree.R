@@ -162,6 +162,6 @@ test_that('argument checks for data dimensions', {
     set_mode("classification")
 
   args <- translate(spec)$method$fit$args
-  expect_equal(args$min_instances_per_node, expr(min(1000, nrow(x))))
+  expect_equal(args$min_instances_per_node, expr(min_rows(1000, x)))
 })
 
