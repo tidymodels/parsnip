@@ -38,6 +38,16 @@ test_that('ranger classification execution', {
   expect_output(print(res), "parsnip model object")
 
   expect_error(
+    res <- fit(
+      lc_ranger,
+      funded_amnt ~ Class + term,
+      data = lending_club,
+      control = ctrl
+    ),
+    regexp = "For a classification model"
+  )
+
+  expect_error(
     res <- fit_xy(
       lc_ranger,
       x = lending_club[, num_pred],

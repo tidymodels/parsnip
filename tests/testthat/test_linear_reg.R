@@ -242,6 +242,16 @@ test_that('lm execution', {
   )
 
   expect_error(
+    res <- fit_xy(
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = hpc$class,
+      control = ctrl
+    ),
+    regexp = "For a regression model"
+  )
+
+  expect_error(
     res <- fit(
       hpc_basic,
       hpc_bad_form,
@@ -250,13 +260,15 @@ test_that('lm execution', {
     )
   )
 
-  lm_form_catch <- fit(
-    hpc_basic,
-    hpc_bad_form,
-    data = hpc,
-    control = caught_ctrl
+  expect_error(
+    lm_form_catch <- fit(
+      hpc_basic,
+      hpc_bad_form,
+      data = hpc,
+      control = caught_ctrl
+    ),
+    regexp = "For a regression model"
   )
-  expect_true(inherits(lm_form_catch$fit, "try-error"))
 
   ## multivariate y
 
