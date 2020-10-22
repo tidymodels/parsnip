@@ -151,4 +151,17 @@ test_that('bad input', {
   expect_error(translate(boost_tree(formula = y ~ x)))
 })
 
-# ------------------------------------------------------------------------------
+
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  spec <-
+    boost_tree(mtry = 1000, min_n = 1000, trees = 5) %>%
+    set_engine("spark") %>%
+    set_mode("classification")
+
+  args <- translate(spec)$method$fit$args
+  expect_equal(args$min_instances_per_node, expr(min_rows(1000, x)))
+})
+

@@ -362,4 +362,31 @@ test_that('xgboost data and sparse matrices', {
 })
 
 
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  skip_if_not_installed("C50")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins)
+
+  spec <-
+    boost_tree(mtry = 1000, min_n = 1000, trees = 5) %>%
+    set_engine("xgboost") %>%
+    set_mode("classification")
+
+  penguins_dummy <- model.matrix(species ~ ., data = penguins)
+  penguins_dummy <- as.data.frame(penguins_dummy[, -1])
+
+  f_fit  <- spec %>% fit(species ~ ., data = penguins)
+  xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species)
+
+  expect_equal(f_fit$fit$params$colsample_bytree, 1)
+  expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))
+  expect_equal(xy_fit$fit$params$colsample_bytree, 1)
+  expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
+
+})
+
 

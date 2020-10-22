@@ -221,6 +221,10 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
   }
   x <- translate.default(x, engine, ...)
 
+  ## -----------------------------------------------------------------------------
+
+  arg_vals <- x$method$fit$args
+
   if (engine == "spark") {
     if (x$mode == "unknown") {
       rlang::abort(
@@ -230,9 +234,23 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
         )
       )
     } else {
-      x$method$fit$args$type <- x$mode
+      arg_vals$type <- x$mode
     }
   }
+
+  ## -----------------------------------------------------------------------------
+  # Protect some arguments based on data dimensions
+
+  # min_n parameters
+  if (any(names(arg_vals) == "min_instances_per_node")) {
+    arg_vals$min_instances_per_node <-
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
+  }
+
+  ## -----------------------------------------------------------------------------
+
+  x$method$fit$args <- arg_vals
+
   x
 }
 
@@ -242,14 +260,18 @@ check_args.boost_tree <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (is.numeric(args$trees) && args$trees < 0)
+  if (is.numeric(args$trees) && args$trees < 0) {
     rlang::abort("`trees` should be >= 1.")
-  if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1))
+  }
+  if (is.numeric(args$sample_size) && (args$sample_size < 0 | args$sample_size > 1)) {
     rlang::abort("`sample_size` should be within [0,1].")
-  if (is.numeric(args$tree_depth) && args$tree_depth < 0)
+  }
+  if (is.numeric(args$tree_depth) && args$tree_depth < 0) {
     rlang::abort("`tree_depth` should be >= 1.")
-  if (is.numeric(args$min_n) && args$min_n < 0)
+  }
+  if (is.numeric(args$min_n) && args$min_n < 0) {
     rlang::abort("`min_n` should be >= 1.")
+  }
 
   invisible(object)
 }
@@ -335,12 +357,19 @@ xgb_train <- function(
     colsample_bytree <- 1
   }
 
+  if (min_child_weight > n) {
+    msg <- paste0(min_child_weight, " samples were requested but there were ",
+                  n, " rows in the data. ", n, " will be used.")
+    rlang::warn(msg)
+    min_child_weight <- min(min_child_weight, n)
+  }
+
   arg_list <- list(
     eta = eta,
     max_depth = max_depth,
     gamma = gamma,
     colsample_bytree = colsample_bytree,
-    min_child_weight = min_child_weight,
+    min_child_weight = min(min_child_weight, n),
     subsample = subsample
   )
 
@@ -515,8 +544,21 @@ C5.0_train <-
     ctrl_args <- other_args[names(other_args) %in% c_names]
     fit_args <- other_args[names(other_args) %in% f_names]
 
+    n <- nrow(x)
+    if (n == 0) {
+      rlang::abort("There are zero rows in the predictor set.")
+    }
+
+
     ctrl <- call2("C5.0Control", .ns = "C50")
+    if (minCases > n) {
+      msg <- paste0(minCases, " samples were requested but there were ",
+                    n, " rows in the data. ", n, " will be used.")
+      rlang::warn(msg)
+      minCases <- n
+    }
     ctrl$minCases <- minCases
+
     ctrl$sample <- sample
     ctrl <- rlang::call_modify(ctrl, !!!ctrl_args)
 

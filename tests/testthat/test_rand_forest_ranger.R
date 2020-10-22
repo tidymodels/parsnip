@@ -484,3 +484,34 @@ test_that('ranger and sparse matrices', {
 
 })
 
+
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  skip_if_not_installed("ranger")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins)
+
+  spec <-
+    rand_forest(mtry = 1000, min_n = 1000, trees = 5) %>%
+    set_engine("ranger") %>%
+    set_mode("regression")
+
+  expect_warning(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
+    "(1000 samples)|(1000 columns)"
+  )
+  expect_warning(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
+    "(1000 samples)|(1000 columns)"
+  )
+
+
+  expect_equal(f_fit$fit$mtry, 6)
+  expect_equal(f_fit$fit$min.node.size, nrow(penguins))
+  expect_equal(xy_fit$fit$mtry, 6)
+  expect_equal(xy_fit$fit$min.node.size, nrow(penguins))
+
+})

@@ -180,6 +180,22 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
     }
   }
 
+  ## -----------------------------------------------------------------------------
+  # Protect some arguments based on data dimensions
+
+  if (any(names(arg_vals) == "minsplit")) {
+    arg_vals$minsplit <-
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$minsplit), expr(data))
+  }
+  if (any(names(arg_vals) == "min_instances_per_node")) {
+    arg_vals$min_instances_per_node <-
+      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
+  }
+
+  ## -----------------------------------------------------------------------------
+
+  x$method$fit$args <- arg_vals
+
   x
 }
 

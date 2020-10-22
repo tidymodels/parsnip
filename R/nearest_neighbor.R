@@ -168,12 +168,25 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
   }
   x <- translate.default(x, engine, ...)
 
+  arg_vals <- x$method$fit$args
+
   if (engine == "kknn") {
-    if (!any(names(x$method$fit$args) == "ks") ||
-        is_missing_arg(x$method$fit$args$ks)) {
-      x$method$fit$args$ks <- 5
+
+    if (!any(names(arg_vals) == "ks") || is_missing_arg(arg_vals$ks)) {
+      arg_vals$ks <- 5
+    }
+
+    ## -----------------------------------------------------------------------------
+    # Protect some arguments based on data dimensions
+
+    if (any(names(arg_vals) == "ks")) {
+      arg_vals$ks <-
+        rlang::call2("min_rows", rlang::eval_tidy(arg_vals$ks), expr(data), 5)
     }
   }
+
+  x$method$fit$args <- arg_vals
+
   x
 }
 

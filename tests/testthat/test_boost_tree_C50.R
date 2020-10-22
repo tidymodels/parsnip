@@ -138,3 +138,25 @@ test_that('submodel prediction', {
   )
 })
 
+
+## -----------------------------------------------------------------------------
+
+test_that('argument checks for data dimensions', {
+
+  skip_if_not_installed("C50")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins)
+
+  spec <-
+    boost_tree(min_n = 1000, trees = 5) %>%
+    set_engine("C5.0") %>%
+    set_mode("classification")
+
+  f_fit  <- spec %>% fit(species ~ ., data = penguins)
+  xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species)
+
+  expect_equal(f_fit$fit$control$minCases,  nrow(penguins))
+  expect_equal(xy_fit$fit$control$minCases, nrow(penguins))
+
+})
