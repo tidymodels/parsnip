@@ -117,7 +117,7 @@ Unplanned release based on CRAN requirements for Solaris.
 
 ## Breaking Changes
 
- * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env` and the [package vignette for adding models](https://tidymodels.github.io/parsnip/articles/articles/Scratch.html).
+ * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env` and the [package vignette for adding models](https://parsnip.tidymodels.org/articles/articles/Scratch.html).
 
  * The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation. 
 

@@ -7,6 +7,4 @@ tests/testthat/logs/
 *.history
 derby.log
 logs/*
-revdep/library.noindex/
-revdep/checks.noindex/
-
+revdep/*
