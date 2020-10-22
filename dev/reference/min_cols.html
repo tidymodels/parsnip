@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model Fit Object Information — model_fit • parsnip</title>
+<title>Execution-time data dimension checks — min_cols • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,13 @@
 
 
 
-<meta property="og:title" content="Model Fit Object Information — model_fit" />
-<meta property="og:description" content="An object with class &quot;model_fit&quot; is a container for
-information about a model that has been fit to the data." />
+<meta property="og:title" content="Execution-time data dimension checks — min_cols" />
+<meta property="og:description" content="For some tuning parameters, the range of values depend on the data
+dimensions (e.g. mtry). Some packages will fail if the parameter values are
+outside of these ranges. Since the model might receive resampled versions of
+the data, these ranges can't be set prior to the point where the model is
+fit.  These functions check the possible range of the data and adjust them
+if needed (with a warning)." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,76 +155,86 @@ information about a model that has been fit to the data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model Fit Object Information</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/model_object_docs.R'><code>R/model_object_docs.R</code></a></small>
-    <div class="hidden name"><code>model_fit.Rd</code></div>
+    <h1>Execution-time data dimension checks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/arguments.R'><code>R/arguments.R</code></a></small>
+    <div class="hidden name"><code>min_cols.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An object with class "model_fit" is a container for
-information about a model that has been fit to the data.</p>
+    <p>For some tuning parameters, the range of values depend on the data
+dimensions (e.g. <code>mtry</code>). Some packages will fail if the parameter values are
+outside of these ranges. Since the model might receive resampled versions of
+the data, these ranges can't be set prior to the point where the model is
+fit.  These functions check the possible range of the data and adjust them
+if needed (with a warning).</p>
     </div>
 
+    <pre class="usage"><span class='fu'>min_cols</span><span class='op'>(</span><span class='va'>num_cols</span>, <span class='va'>source</span><span class='op'>)</span>
 
+<span class='fu'>min_rows</span><span class='op'>(</span><span class='va'>num_rows</span>, <span class='va'>source</span>, offset <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>num_cols, num_rows</th>
+      <td><p>The parameter value requested by the user.</p></td>
+    </tr>
+    <tr>
+      <th>source</th>
+      <td><p>A data frame for the data to be used in the fit. If the source
+is named "data", it is assumed that one column of the data corresponds to
+an outcome (and is subtracted off).</p></td>
+    </tr>
+    <tr>
+      <th>offset</th>
+      <td><p>A number subtracted off of the number of rows available in the
+data.</p></td>
+    </tr>
+    </table>
 
-    <p>The main elements of the object are:</p><ul>
-<li><p><code>lvl</code>: A vector of factor levels when the outcome is
-a factor. This is <code>NULL</code> when the outcome is not a factor
-vector.</p></li>
-<li><p><code>spec</code>: A <code>model_spec</code> object.</p></li>
-<li><p><code>fit</code>: The object produced by the fitting function.</p></li>
-<li><p><code>preproc</code>: This contains any data-specific information
-required to process new a sample point for prediction. For
-example, if the underlying model function requires arguments <code>x</code>
-and <code>y</code> and the user passed a formula to <code>fit</code>, the <code>preproc</code>
-object would contain items such as the terms object and so on.
-When no information is required, this is <code>NA</code>.</p></li>
-</ul>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-<p>As discussed in the documentation for <code><a href='model_spec.html'>model_spec</a></code>, the
-original arguments to the specification are saved as quosures.
-These are evaluated for the <code>model_fit</code> object prior to fitting.
-If the resulting model object prints its call, any user-defined
-options are shown in the call preceded by a tilde (see the
-example below). This is a result of the use of quosures in the
-specification.</p>
-<p>This class and structure is the basis for how <span class="pkg">parsnip</span>
-stores model objects after seeing the data and applying a model.</p>
+    <p>An integer (and perhaps a warning).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Keep the `x` matrix if the data are not too big.</span>
-<span class='va'>spec_obj</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"lm"</span>, x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='descriptors.html'>.obs</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>500</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>spec_obj</span>
-</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
+    <pre class="examples"><div class='input'><span class='fu'><a href='nearest_neighbor.html'>nearest_neighbor</a></span><span class='op'>(</span>neighbors<span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kknn"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (regression)
 #&gt; 
-#&gt; Engine-Specific Arguments:
-#&gt;   x = ifelse(.obs() &lt; 500, TRUE, FALSE)
+#&gt; Main Arguments:
+#&gt;   neighbors = 100
 #&gt; 
-#&gt; Computational engine: lm 
-#&gt; </div><div class='input'>
-<span class='va'>fit_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>spec_obj</span>, <span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>fit_obj</span>
-</div><div class='output co'>#&gt; parsnip model object
+#&gt; Computational engine: kknn 
 #&gt; 
-#&gt; Fit time:  2ms 
+#&gt; Model fit template:
+#&gt; kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
+#&gt;     ks = min_rows(100, data, 5))</div><div class='input'>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/imbs-hl/ranger'>ranger</a></span><span class='op'>)</span>
+<span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>2</span>, min_n <span class='op'>=</span> <span class='fl'>100</span>, trees <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"ranger"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 100 samples were requested but there were 32 rows in the data. 32 will be used.</span></div><div class='output co'>#&gt; parsnip model object
+#&gt; 
+#&gt; Fit time:  8ms 
+#&gt; Ranger result
 #&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = mpg ~ ., data = data, x = ~ifelse(.obs() &lt; 
-#&gt;     500, TRUE, FALSE))
+#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~2,      x), num.trees = ~3, min.node.size = min_rows(~100, x), num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
 #&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)          cyl         disp           hp         drat           wt  
-#&gt;    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  
-#&gt;        qsec           vs           am         gear         carb  
-#&gt;     0.82104      0.31776      2.52023      0.65541     -0.19942  
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>fit_obj</span><span class='op'>$</span><span class='va'>fit</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 32</div></pre>
+#&gt; Type:                             Regression 
+#&gt; Number of trees:                  3 
+#&gt; Sample size:                      32 
+#&gt; Number of independent variables:  10 
+#&gt; Mtry:                             2 
+#&gt; Target node size:                 32 
+#&gt; Variable importance mode:         none 
+#&gt; Splitrule:                        variance 
+#&gt; OOB prediction error (MSE):       23.6938 
+#&gt; R squared (OOB):                  0.3477114 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

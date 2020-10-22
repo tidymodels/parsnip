@@ -160,6 +160,8 @@
 <ul>
 <li><p><code><a href="../reference/show_engines.html">show_engines()</a></code> will provide information on the current set for a model.</p></li>
 <li><p>For three models (<code>glmnet</code>, <code>xgboost</code>, and <code>ranger</code>), enable sparse matrix use via <code><a href="https://rdrr.io/pkg/generics/man/fit_xy.html">fit_xy()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/373'>#373</a>).</p></li>
+<li><p>Some added protections were added for function arguments that are dependent on the data dimensions (e.g., <code>mtry</code>, <code>neighbors</code>, <code>min_n</code>, etc). (<a href='https://github.com/tidymodels/parsnip/issues/184'>#184</a>)</p></li>
+<li><p>Infrastructure was improved for running <code>parsnip</code> models in parallel using PSOCK clusters on Windows.</p></li>
 </ul>
 </div>
     <div id="parsnip-013" class="section level1">
