@@ -212,11 +212,11 @@ check_outcome <- function(y, spec) {
   if (spec$mode == "unknown") {
     return(invisible(NULL))
   } else if (spec$mode == "regression") {
-    if (!is.numeric(y))
-      rlang::abort("The model outcome should be numeric for regression models.")
+    if (!all(map_lgl(y, is.numeric)))
+      rlang::abort("For a regression model, the outcome should be numeric.")
   } else if (spec$mode == "classification") {
-    if (!is.factor(y)) {
-      rlang::abort("The model outcome should be a factor for regression models.")
+    if (!all(map_lgl(y, is.factor))) {
+      rlang::abort("For a classification model, the outcome should be a factor.")
     }
   }
   invisible(NULL)

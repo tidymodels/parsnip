@@ -7,13 +7,15 @@
 form_form <-
   function(object, control, env, ...) {
 
+    # prob rewrite this as simple subset/levels
+    y_levels <- levels_from_formula(env$formula, env$data)
+
     if (object$mode == "classification") {
-      # prob rewrite this as simple subset/levels
-      y_levels <- levels_from_formula(env$formula, env$data)
       if (!inherits(env$data, "tbl_spark") && is.null(y_levels))
-        rlang::abort("For classification models, the outcome should be a factor.")
-    } else {
-      y_levels <- NULL
+        rlang::abort("For a classification model, the outcome should be a factor.")
+    } else if (object$mode == "regression") {
+      if (!inherits(env$data, "tbl_spark") && !is.null(y_levels))
+        rlang::abort("For a regression model, the outcome should be numeric.")
     }
 
     object <- check_mode(object, y_levels)
@@ -57,11 +59,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     rlang::abort("spark objects can only be used with the formula interface to `fit()`")
 
   object <- check_mode(object, levels(env$y))
-
-  if (object$mode == "classification") {
-    if (is.null(levels(env$y)))
-      rlang::abort("For classification models, the outcome should be a factor.")
-  }
+  check_outcome(env$y, object)
 
   encoding_info <-
     get_encoding(class(object)[1]) %>%
@@ -133,7 +131,10 @@ form_xy <- function(object, control, env,
   res <- list(lvl = levels_from_formula(env$formula, env$data), spec = object)
   if (object$mode == "classification") {
     if (is.null(res$lvl))
-      rlang::abort("For classification models, the outcome should be a factor.")
+      rlang::abort("For a classification model, the outcome should be a factor.")
+  } else if (object$mode == "regression") {
+    if (!is.null(res$lvl))
+      rlang::abort("For a regression model, the outcome should be numeric.")
   }
 
   res <- xy_xy(
@@ -153,10 +154,7 @@ form_xy <- function(object, control, env,
 
 xy_form <- function(object, env, control, ...) {
 
-  if (object$mode == "classification") {
-    if (is.null(levels(env$y)))
-      rlang::abort("For classification models, the outcome should be a factor.")
-  }
+  check_outcome(env$y, object)
 
   encoding_info <-
     get_encoding(class(object)[1]) %>%

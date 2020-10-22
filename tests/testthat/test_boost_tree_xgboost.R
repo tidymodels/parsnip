@@ -122,6 +122,16 @@ test_that('xgboost execution, regression', {
     ),
     regexp = NA
   )
+
+  expect_error(
+    res <- parsnip::fit_xy(
+      car_basic,
+      x = mtcars[, num_pred],
+      y = factor(mtcars$vs),
+      control = ctrl
+    ),
+    regexp = "For a regression model"
+  )
 })
 
 

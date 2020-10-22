@@ -151,16 +151,14 @@ test_that('mars execution', {
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "num_terms")
 
-  expect_message(
-    expect_error(
-      res <- fit(
-        hpc_basic,
-        hpc_bad_form,
-        data = hpc,
-        control = ctrl
-      )
+  expect_error(
+    res <- fit(
+      hpc_basic,
+      hpc_bad_form,
+      data = hpc,
+      control = ctrl
     ),
-    "Timing stopped"
+    regexp = "For a regression model"
   )
 
   ## multivariate y
@@ -203,7 +201,7 @@ test_that('mars prediction', {
            input_fields =
              c(430.476046435458, 158.833790342308, 218.07635084308,
                158.833790342308, 158.833790342308)
-           ),
+      ),
       class = "data.frame", row.names = c(NA, -5L)
     )
 
