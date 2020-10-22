@@ -317,7 +317,7 @@
 <h2 class="hasAnchor">
 <a href="#breaking-changes-2" class="anchor"></a>Breaking Changes</h2>
 <ul>
-<li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://tidymodels.github.io/parsnip/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
+<li><p>The method that <code>parsnip</code> stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in <code><a href="../reference/get_model_env.html">?get_model_env</a></code> and the <a href="https://parsnip.tidymodels.org/articles/articles/Scratch.html">package vignette for adding models</a>.</p></li>
 <li><p>The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation.</p></li>
 <li><p>For <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, the engine that uses the <code>survival</code> package is now called <code>survival</code> instead of <code>survreg</code>.</p></li>
 <li><p>For <code>glmnet</code> models, the full regularization path is always fit regardless of the value given to <code>penalty</code>. Previously, the model was fit with passing <code>penalty</code> to <code>glmnet</code>’s <code>lambda</code> argument and the model could only make predictions at those specific values. <a href="https://github.com/tidymodels/parsnip/issues/195">(<a href='https://github.com/tidymodels/parsnip/issues/195'>#195</a>)</a></p></li>
