@@ -131,6 +131,16 @@ eval_args <- function(spec, ...) {
 #     defaults = list()
 #   )
 
+#' Make a parsnip call expression
+#'
+#' @param fun A character string of a function name.
+#' @param ns A character string of a package name.
+#' @param args A named list of argument values.
+#' @details The arguments are spliced into the `ns::fun()` call. If they are
+#' missing, null, or a single logical, then are not spliced.
+#' @return A call.
+#' @keywords internal
+#' @export
 make_call <- function(fun, ns, args, ...) {
   # remove any null or placeholders (`missing_args`) that remain
   discard <-
