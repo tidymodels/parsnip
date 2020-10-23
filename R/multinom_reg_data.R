@@ -61,7 +61,7 @@ set_pred(
     args =
       list(
         object = quote(object$fit),
-        newx = quote(as.matrix(new_data)),
+        newx = quote(as.matrix(new_data[, rownames(object$fit$beta[[1]])])),
         type = "class",
         s = quote(object$spec$args$penalty)
       )
@@ -80,7 +80,7 @@ set_pred(
     args =
       list(
         object = quote(object$fit),
-        newx = quote(as.matrix(new_data)),
+        newx = quote(as.matrix(new_data[, rownames(object$fit$beta[[1]])])),
         type = "response",
         s = quote(object$spec$args$penalty)
       )
