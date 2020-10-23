@@ -79,10 +79,10 @@ set_pred(
     func = c(fun = "predict"),
     args =
       list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data[, rownames(object$fit$beta[[1]])])),
+        object = expr(object$fit),
+        newx = expr(as.matrix(new_data[, rownames(object$fit$beta[[1]])])),
         type = "response",
-        s = quote(object$spec$args$penalty)
+        s = expr(object$spec$args$penalty)
       )
   )
 )
