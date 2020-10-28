@@ -110,8 +110,8 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
   if (engine == "glmnet") {
     # See discussion in https://github.com/tidymodels/parsnip/issues/195
     x$method$fit$args$lambda <- NULL
-    # Since the `fit` infomration is gone for the penalty, we need to have an
-    # evaludated value for the parameter.
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
   }
 
