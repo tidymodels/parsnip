@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 0.1.4
 
 * `show_engines()` will provide information on the current set for a model. 
 
