@@ -51,7 +51,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -212,7 +212,7 @@
 #&gt; Ranger result
 #&gt; 
 #&gt; Call:
-#&gt;  ranger::ranger(formula = formula, data = data, mtry = ~4, num.trees = ~2000,      seed = sample.int(10^5, 1), num.threads = 1, verbose = FALSE) 
+#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~4, x), num.trees = ~2000, num.threads = 1, verbose = FALSE, seed = sample.int(10^5, 1)) 
 #&gt; 
 #&gt; Type:                             Regression 
 #&gt; Number of trees:                  2000 
@@ -235,7 +235,7 @@
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt;  randomForest(x = as.data.frame(x), y = y, ntree = ~2000, mtry = ~4) 
+#&gt;  randomForest(x = maybe_data_frame(x), y = y, ntree = ~2000, mtry = min_cols(~4, x)) 
 #&gt;                Type of random forest: regression
 #&gt;                      Number of trees: 2000
 #&gt; No. of variables tried at each split: 4
@@ -243,7 +243,7 @@
 #&gt;           Mean of squared residuals: 5.52
 #&gt;                     % Var explained: 84.3</code></pre>
 <p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures">quosures</a> to process the model specification’s arguments.</p>
-<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/articles/2019/04/parsnip-internals/">expression is captured</a> along with the environment where it should be evaluated. That is what a quosure does.</p>
+<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/blog/2019/04/parsnip-internals/">expression is captured</a> along with the environment where it should be evaluated. That is what a quosure does.</p>
 <p><code>parsnip</code> uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure.</p>
 </div>
   </div>

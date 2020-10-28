@@ -51,7 +51,7 @@
         <a class="navbar-brand" href="index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.3.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -213,11 +213,11 @@
   <span class="fu"><a href="https://rdrr.io/pkg/generics/man/fit.html">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">#&gt; parsnip model object</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Fit time:  98ms </span>
+<span class="co">#&gt; Fit time:  71ms </span>
 <span class="co">#&gt; Ranger result</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
-<span class="co">#&gt;  ranger::ranger(formula = mpg ~ ., data = data, mtry = ~10, num.trees = ~2000,      importance = ~"impurity", num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) </span>
+<span class="co">#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = ~2000, importance = ~"impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Type:                             Regression </span>
 <span class="co">#&gt; Number of trees:                  2000 </span>
