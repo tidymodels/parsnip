@@ -59,7 +59,7 @@ in the model. Note that this must be zero for some engines.
 mixture: The mixture amounts of different types of
 regularization (see below). Note that this will be ignored for some engines.
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
+time that the model is fit. Other options and arguments can be
 set using set_engine(). If left to their defaults
 here (NULL), the values are taken from the underlying model
 functions. If parameters need to be modified, update() can be used
@@ -108,7 +108,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -178,24 +178,24 @@ in the model. Note that this must be zero for some engines.</p></li>
 <li><p><code>mixture</code>: The mixture amounts of different types of
 regularization (see below). Note that this will be ignored for some engines.</p></li>
 </ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
+time that the model is fit. Other options and arguments can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
 functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>logistic_reg</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>logistic_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for logistic_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mixture <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -253,6 +253,8 @@ following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
 
+<p>For this model, other packages may add additional engines. Use
+<code><a href='show_engines.html'>show_engines()</a></code> to see the current set of engines.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For models created using the spark engine, there are
@@ -270,31 +272,33 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.</p><h3>glm</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glm"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: glm 
-## 
-## Model fit template:
-## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     family = stats::binomial)
+call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glm</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: glm </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     family = stats::binomial)</span>
 </pre>
 
 
-<h3>glmnet</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"glmnet"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: glmnet 
-## 
-## Model fit template:
-## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     family = "binomial")
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glmnet</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glmnet"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: glmnet </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     family = "binomial")</span>
 </pre>
 
 <p>For <code>glmnet</code> models, the full regularization path is always fit
@@ -307,17 +311,18 @@ the penalty can be used. When predicting on multiple penalties, the
 column called <code>.pred</code> that contains a tibble with all of the penalty
 results.</p>
 
-<h3>stan</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"stan"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: stan 
-## 
-## Model fit template:
-## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), family = stats::binomial, refresh = 0)
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>stan</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"stan"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: stan </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), </span>
+<span class='co'>##     weights = missing_arg(), family = stats::binomial, refresh = 0)</span>
 </pre>
 
 <p>Note that the <code>refresh</code> default prevents logging of the estimation
@@ -328,35 +333,37 @@ the units are the original outcome and when <code>std_error = TRUE</code>, the
 standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.</p>
 
-<h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-##     weight_col = missing_arg(), family = "binomial")
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: spark </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), </span>
+<span class='co'>##     weight_col = missing_arg(), family = "binomial")</span>
 </pre>
 
 
-<h3>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"keras"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: keras 
-## 
-## Model fit template:
-## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-##     act = "linear")
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>keras</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"keras"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: keras </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, </span>
+<span class='co'>##     act = "linear")</span>
 </pre>
 
 
-<h3>Parameter translations</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
 
 <p>The standardized parameter names in parsnip can be mapped to their
@@ -376,28 +383,42 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>logistic_reg</span>()</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"logistic_reg"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   engine mode          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #555555;'>1</span><span> glm    classification
+#&gt; </span><span style='color: #555555;'>2</span><span> glmnet classification
+#&gt; </span><span style='color: #555555;'>3</span><span> spark  classification
+#&gt; </span><span style='color: #555555;'>4</span><span> keras  classification
+#&gt; </span><span style='color: #555555;'>5</span><span> stan   classification</div><div class='input'>
+<span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>logistic_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+<span class='fu'>logistic_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>logistic_reg</span>(<span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mixture</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>logistic_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>10</span>, mixture <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 10
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
 #&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 1
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

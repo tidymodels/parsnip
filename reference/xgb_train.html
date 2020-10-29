@@ -96,7 +96,7 @@ model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -161,20 +161,20 @@ model arguments are in the main function." />
 model arguments are in the main function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xgb_train</span>(
-  <span class='no'>x</span>,
-  <span class='no'>y</span>,
-  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>colsample_bytree</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>min_child_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>subsample</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>validation</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>early_stop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>xgb_train</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  max_depth <span class='op'>=</span> <span class='fl'>6</span>,
+  nrounds <span class='op'>=</span> <span class='fl'>15</span>,
+  eta <span class='op'>=</span> <span class='fl'>0.3</span>,
+  colsample_bytree <span class='op'>=</span> <span class='fl'>1</span>,
+  min_child_weight <span class='op'>=</span> <span class='fl'>1</span>,
+  gamma <span class='op'>=</span> <span class='fl'>0</span>,
+  subsample <span class='op'>=</span> <span class='fl'>1</span>,
+  validation <span class='op'>=</span> <span class='fl'>0</span>,
+  early_stop <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -228,7 +228,7 @@ of training set samples use for these purposes.</p></td>
       <th>early_stop</th>
       <td><p>An integer or <code>NULL</code>. If not <code>NULL</code>, it is the number of
 training iterations without improvement before stopping. If <code>validation</code> is
-used, performance is base on the validation set; otherwise the training set
+used, performance is base on the validation set; otherwise, the training set
 is used.</p></td>
     </tr>
     <tr>

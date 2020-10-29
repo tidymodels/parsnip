@@ -58,10 +58,19 @@
     <loc>https://parsnip.tidymodels.org/reference/logistic_reg.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/make_call.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/make_classes.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/mars.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/maybe_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/min_cols.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/mlp.html</loc>
@@ -97,6 +106,9 @@
     <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/prepare_data.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/rand_forest.html</loc>
   </url>
   <url>
@@ -122,6 +134,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/show_call.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/show_engines.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/surv_reg.html</loc>

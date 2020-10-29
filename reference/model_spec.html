@@ -96,7 +96,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -167,7 +167,7 @@ information about a model that will be fit.</p>
 
     <p>The main elements of the object are:</p><ul>
 <li><p><code>args</code>: A vector of the main arguments for the model. The
-names of these arguments may be different form their
+names of these arguments may be different from their
 counterparts n the underlying model function. For example, for a
 <code>glmnet</code> model, the argument name for the amount of the penalty
 is called "penalty" instead of "lambda" to make it more general
@@ -211,12 +211,13 @@ arguments. For example, when calling <code><a href='https://rdrr.io/r/base/mean.
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
 <p><code>parsnip</code> model functions do not do this. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>mtcars</span>) - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
+</pre>
 
 <p><strong>does not</strong> execute <code>ncol(mtcars) - 1</code> when creating the specification.
 This can be seen in the output:</p>
 <pre>
- &amp;gt; rand_forest(mtry = ncol(mtcars) - 1)
+ &gt; rand_forest(mtry = ncol(mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
@@ -242,7 +243,8 @@ objects in the global environment but to use data descriptors
 such as <code><a href='descriptors.html'>.cols()</a></code>. Another way of writing the previous
 specification is</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='descriptors.html'>.cols</a></span>() - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='descriptors.html'>.cols</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
+</pre>
 
 <p>This is not dependent on any specific data object and
 is evaluated immediately before the model fitting process begins.</p>
@@ -251,25 +253,26 @@ quasiquotation. This would insert the actual R object into the
 model specification and might be the best idea when the data
 object is small. For example, using</p>
 <pre>
- <span class='fu'><a href='rand_forest.html'>rand_forest</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(!!<span class='no'>mtcars</span>) - <span class='fl'>1</span>)</pre>
+ <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='op'>!</span><span class='op'>!</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
+</pre>
 
 <p>would work (and be reproducible between sessions) but embeds
 the entire mtcars data set into the <code>mtry</code> expression:</p>
 <pre>
- &amp;gt; rand_forest(mtry = ncol(!!mtcars) - 1)
+ &gt; rand_forest(mtry = ncol(!!mtcars) - 1)
  Random Forest Model Specification (unknown)
 
  Main Arguments:
-   mtry = ncol(structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, &amp;lt;snip&amp;gt;
+   mtry = ncol(structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, &lt;snip&gt;
 </pre>
 
 <p>However, if there were an object with the number of columns in
 it, this wouldn't be too bad:</p>
 <pre>
- &amp;gt; mtry_val &amp;lt;- ncol(mtcars) - 1
- &amp;gt; mtry_val
+ &gt; mtry_val &lt;- ncol(mtcars) - 1
+ &gt; mtry_val
  [1] 10
- &amp;gt; rand_forest(mtry = !!mtry_val)
+ &gt; rand_forest(mtry = !!mtry_val)
  Random Forest Model Specification (unknown)
 
  Main Arguments:

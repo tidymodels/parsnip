@@ -97,7 +97,7 @@ package." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -163,33 +163,33 @@ that there are no conflicts with the underlying model structures used by the
 package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_new_model</span>(<span class='no'>model</span>)
+    <pre class="usage"><span class='fu'>set_new_model</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_model_mode</span>(<span class='no'>model</span>, <span class='no'>mode</span>)
+<span class='fu'>set_model_mode</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span><span class='op'>)</span>
 
-<span class='fu'>set_model_engine</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>)
+<span class='fu'>set_model_engine</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span><span class='op'>)</span>
 
-<span class='fu'>set_model_arg</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>parsnip</span>, <span class='no'>original</span>, <span class='no'>func</span>, <span class='no'>has_submodel</span>)
+<span class='fu'>set_model_arg</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>eng</span>, <span class='va'>parsnip</span>, <span class='va'>original</span>, <span class='va'>func</span>, <span class='va'>has_submodel</span><span class='op'>)</span>
 
-<span class='fu'>set_dependency</span>(<span class='no'>model</span>, <span class='no'>eng</span>, <span class='no'>pkg</span>)
+<span class='fu'>set_dependency</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>eng</span>, <span class='va'>pkg</span><span class='op'>)</span>
 
-<span class='fu'>get_dependency</span>(<span class='no'>model</span>)
+<span class='fu'>get_dependency</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_fit</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>value</span>)
+<span class='fu'>set_fit</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>get_fit</span>(<span class='no'>model</span>)
+<span class='fu'>get_fit</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>set_pred</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>type</span>, <span class='no'>value</span>)
+<span class='fu'>set_pred</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>type</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>get_pred_type</span>(<span class='no'>model</span>, <span class='no'>type</span>)
+<span class='fu'>get_pred_type</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>type</span><span class='op'>)</span>
 
-<span class='fu'>show_model_info</span>(<span class='no'>model</span>)
+<span class='fu'>show_model_info</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>pred_value_template</span>(<span class='kw'>pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>post</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>func</span>, <span class='no'>...</span>)
+<span class='fu'>pred_value_template</span><span class='op'>(</span>pre <span class='op'>=</span> <span class='cn'>NULL</span>, post <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>func</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>set_encoding</span>(<span class='no'>model</span>, <span class='no'>mode</span>, <span class='no'>eng</span>, <span class='no'>options</span>)
+<span class='fu'>set_encoding</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>mode</span>, <span class='va'>eng</span>, <span class='va'>options</span><span class='op'>)</span>
 
-<span class='fu'>get_encoding</span>(<span class='no'>model</span>)</pre>
+<span class='fu'>get_encoding</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -282,7 +282,7 @@ See Details below.</p></td>
 
     <p>These functions are available for users to add their
 own models or engines (in package or otherwise) so that they can
-be accessed using <code>parsnip</code>. This are more thoroughly documented
+be accessed using <code>parsnip</code>. This is more thoroughly documented
 on the package web site (see references below).</p>
 <p>In short, <code>parsnip</code> stores an environment object that contains
 all of the information and code about how models are used (e.g.
@@ -306,7 +306,7 @@ variables from factor predictors. There are three options: <code>"none"</code> (
 expand factor predictors), <code>"traditional"</code> (apply the standard
 <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> encodings), and <code>"one_hot"</code> (create the complete set
 including the baseline level for all factors). This encoding only affects
-cases when <code><a href='fit.html'>fit.model_spec()</a></code> is used and the underlying model has an x/y
+cases when <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> is used and the underlying model has an x/y
 interface.</p>
 <p>Another option is <code>compute_intercept</code>; this controls whether <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code>
 should include the intercept in its formula. This affects more than the
@@ -326,7 +326,8 @@ function (e.g. <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>) 
     <pre class="examples"><div class='input'><span class='co'># set_new_model("shallow_learning_model")</span>
 
 <span class='co'># Show the information about a model:</span>
-<span class='fu'>show_model_info</span>(<span class='st'>"rand_forest"</span>)</div><div class='output co'>#&gt; Information for `rand_forest`
+<span class='fu'>show_model_info</span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Information for `rand_forest`
 #&gt;  modes: unknown, classification, regression 
 #&gt; 
 #&gt;  engines: 

@@ -96,7 +96,7 @@ where all of the model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -161,15 +161,15 @@ where all of the model arguments are in the main function." />
 where all of the model arguments are in the main function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rpart_train</span>(
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cp</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-  <span class='kw'>minsplit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>maxdepth</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>rpart_train</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cp <span class='op'>=</span> <span class='fl'>0.01</span>,
+  minsplit <span class='op'>=</span> <span class='fl'>20</span>,
+  maxdepth <span class='op'>=</span> <span class='fl'>30</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,7 +194,7 @@ that does not decrease the overall lack of fit by a factor of
 this means that the overall R-squared must increase by <code>cp</code> at
 each step. The main role of this parameter is to save computing
 time by pruning off splits that are obviously not worthwhile.
-Essentially,the user informs the program that any split which
+Essentially, the user informs the program that any split which
 does not improve the fit by <code>cp</code> will likely be pruned off by
 cross-validation, and that hence the program need not pursue it.</p></td>
     </tr>

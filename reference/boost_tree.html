@@ -58,7 +58,7 @@ mtry: The number of predictors that will be
 randomly sampled at each split when creating the tree models.
 trees: The number of trees contained in the ensemble.
 min_n: The minimum number of data points in a node
-that are required for the node to be split further.
+that is required for the node to be split further.
 tree_depth: The maximum depth of the tree (i.e. number of
 splits).
 learn_rate: The rate at which the boosting algorithm adapts
@@ -69,10 +69,10 @@ sample_size: The amount of data exposed to the fitting routine.
 stop_iter: The number of iterations without improvement before
 stopping.
 These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the  set_engine() function. If left to their defaults
+time that the model is fit. Other options and arguments can be
+set using the set_engine() function. If left to their defaults
 here (NULL), the values are taken from the underlying model
-functions.  If parameters need to be modified, update() can be used
+functions. If parameters need to be modified, update() can be used
 in lieu of recreating the object from scratch." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -118,7 +118,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@ model are:</p><ul>
 randomly sampled at each split when creating the tree models.</p></li>
 <li><p><code>trees</code>: The number of trees contained in the ensemble.</p></li>
 <li><p><code>min_n</code>: The minimum number of data points in a node
-that are required for the node to be split further.</p></li>
+that is required for the node to be split further.</p></li>
 <li><p><code>tree_depth</code>: The maximum depth of the tree (i.e. number of
 splits).</p></li>
 <li><p><code>learn_rate</code>: The rate at which the boosting algorithm adapts
@@ -198,40 +198,40 @@ to split further.</p></li>
 <li><p><code>stop_iter</code>: The number of iterations without improvement before
 stopping.</p></li>
 </ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and argument can be
-set using the  <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
+time that the model is fit. Other options and arguments can be
+set using the <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
 here (<code>NULL</code>), the values are taken from the underlying model
-functions.  If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boost_tree</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>,
-  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+    <pre class="usage"><span class='fu'>boost_tree</span><span class='op'>(</span>
+  mode <span class='op'>=</span> <span class='st'>"unknown"</span>,
+  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  learn_rate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  loss_reduction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sample_size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stop_iter <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for boost_tree</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>learn_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>loss_reduction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stop_iter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  learn_rate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  loss_reduction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sample_size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stop_iter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,7 +256,7 @@ the ensemble.</p></td>
     <tr>
       <th>min_n</th>
       <td><p>An integer for the minimum number of data points
-in a node that are required for the node to be split further.</p></td>
+in a node that is required for the node to be split further.</p></td>
     </tr>
     <tr>
       <th>tree_depth</th>
@@ -271,18 +271,18 @@ from iteration-to-iteration (<code>xgboost</code> only).</p></td>
     <tr>
       <th>loss_reduction</th>
       <td><p>A number for the reduction in the loss function required
-to split further  (<code>xgboost</code> only).</p></td>
+to split further (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>sample_size</th>
       <td><p>A number for the number (or proportion) of data that is
-exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at at
+exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at
 each iteration while <code>C5.0</code> samples once during training.</p></td>
     </tr>
     <tr>
       <th>stop_iter</th>
       <td><p>The number of iterations without improvement before
-stopping  (<code>xgboost</code> only).</p></td>
+stopping (<code>xgboost</code> only).</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -316,10 +316,12 @@ to determine the <em>mode</em> of the model. For <code>boost_tree()</code>, the
 possible modes are "regression" and "classification".</p>
 <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"xgboost"</code> (the default), <code>"C5.0"</code></p></li>
+<li><p><span class="pkg">R</span>: <code>"xgboost"</code> (the default), <code>"C5.0"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 </ul>
 
+<p>For this model, other packages may add additional engines. Use
+<code><a href='show_engines.html'>show_engines()</a></code> to see the current set of engines.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For models created using the spark engine, there are
@@ -337,27 +339,29 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:</p><h3>xgboost</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Boosted Tree Model Specification (regression)
-## 
-## Computational engine: xgboost 
-## 
-## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0)
-</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: xgboost 
-## 
-## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0)
+call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>xgboost</h3>
+<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: xgboost </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
+<span class='co'>##     verbose = 0)</span>
+</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: xgboost </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
+<span class='co'>##     verbose = 0)</span>
 </pre>
 
 <p>Note that, for most engines to <code>boost_tree()</code>, the <code>sample_size</code>
@@ -366,66 +370,76 @@ argument is in terms of the <em>number</em> of training set points. The
 samples instead. When using the <code>tune</code>, this <strong>occurs automatically</strong>.</p>
 <p>If you would like to use a custom range when tuning <code>sample_size</code>, the
 <code><a href='https://dials.tidymodels.org/reference/trees.html'>dials::sample_prop()</a></code> function can be used in that case. For example,
-using a parameter set:<div class="r"></p><pre><span class='no'>mod</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;-
-  <span class='fu'>boost_tree</span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'>tune</span>()) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"xgboost"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>)
+using a parameter set:<div class="r"></p><pre><span class='va'>mod</span> <span class='op'>&lt;-</span> 
+  <span class='fu'>boost_tree</span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span>
 
 <span class='co'># update the parameters using the `dials` function</span>
-<span class='no'>mod_param</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;-
-  <span class='no'>mod</span> <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'>parameters</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'>sample_prop</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0.9</span>)))</pre><p></div></p>
+<span class='va'>mod_param</span> <span class='op'>&lt;-</span> 
+  <span class='va'>mod</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>parameters</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fu'>sample_prop</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</pre><p></div></p>
+<p>For this engine, tuning over <code>trees</code> is very efficient since the same
+model object can be used to make predictions over multiple values of
+<code>trees</code>.</p>
 <p>Finally, note that <code>xgboost</code> models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
 numeric representation. By default, when using <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> with <code>xgboost</code>, a
 one-hot encoding is used to convert factor predictors to indicator
 variables.</p>
 
-<h3>C5.0</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"C5.0"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: C5.0 
-## 
-## Model fit template:
-## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>C5.0</h3>
+<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"C5.0"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: C5.0 </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/C50/man/C5.0.html'>C50::C5.0()</a></code> does not require factor
+<p>Note that <code><a href='https://topepo.github.io/C5.0/reference/C5.0.html'>C50::C5.0()</a></code> does not require factor
 predictors to be converted to indicator variables. <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not
 affect the encoding of the predictor values (i.e. factors stay factors)
 for this model.</p>
+<p>For this engine, tuning over <code>trees</code> is very efficient since the same
+model object can be used to make predictions over multiple values of
+<code>trees</code>.</p>
 
-<h3>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"regression"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Boosted Tree Model Specification (regression)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = "regression", seed = sample.int(10^5, 1))
-</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span>() <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span>(<span class='st'>"spark"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='set_args.html'>set_mode</a></span>(<span class='st'>"classification"</span>) <span class='kw'>%&amp;gt;%</span>
-  <span class='fu'><a href='translate.html'>translate</a></span>()</pre><p></div></p><pre>## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = "classification", seed = sample.int(10^5, 1))
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
+<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: spark </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
+<span class='co'>##     type = "regression", seed = sample.int(10^5, 1))</span>
+</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: spark </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
+<span class='co'>##     type = "classification", seed = sample.int(10^5, 1))</span>
 </pre>
 
 <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
-<h3>Parameter translations</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
 
 <p>The standardized parameter names in parsnip can be mapped to their
@@ -454,49 +468,66 @@ regression.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"classification"</span>, <span class='kw'>trees</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (classification)
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"boost_tree"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   engine  mode          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #555555;'>1</span><span> xgboost classification
+#&gt; </span><span style='color: #555555;'>2</span><span> xgboost regression    
+#&gt; </span><span style='color: #555555;'>3</span><span> C5.0    classification
+#&gt; </span><span style='color: #555555;'>4</span><span> spark   classification
+#&gt; </span><span style='color: #555555;'>5</span><span> spark   regression    </div><div class='input'>
+<span class='fu'>boost_tree</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, trees <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   trees = 20
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>boost_tree</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"regression"</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fu'><a href='varying.html'>varying</a></span>())</div><div class='output co'>#&gt; Boosted Tree Model Specification (regression)
+<span class='fu'>boost_tree</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, mtry <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>boost_tree</span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>model</span></div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>boost_tree</span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>model</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fresh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 1
 #&gt; </div><div class='input'>
-<span class='no'>param_values</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='va'>param_values</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, tree_depth <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 
-<span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>param_values</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+<span class='va'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>param_values</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
 #&gt;   tree_depth = 5
-#&gt; </div><div class='input'><span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>param_values</span>, <span class='kw'>mtry</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>param_values</span>, mtry <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = 10
 #&gt;   min_n = 3
 #&gt;   tree_depth = 5
 #&gt; </div><div class='input'>
-<span class='no'>param_values</span>$<span class='no'>verbose</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>param_values</span><span class='op'>$</span><span class='va'>verbose</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 <span class='co'># Fails due to engine argument</span>
-<span class='co'># model %&gt;% update(param_values)</span></div></pre>
+<span class='co'># model %&gt;% update(param_values)</span>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
         </div>
       </div>
     </div>
@@ -160,21 +160,21 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_class</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+<span class='fu'>predict_class</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_classprob</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+<span class='fu'>predict_classprob</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_confint</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>std_error</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>predict_confint</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, level <span class='op'>=</span> <span class='fl'>0.95</span>, std_error <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_numeric</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='no'>...</span>)
+<span class='fu'>predict_numeric</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>predict_numeric</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>predict_numeric</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_quantile</span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>quantile</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>predict_quantile</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, quantile <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,7 +213,7 @@ interval estimates.</p></td>
     </tr>
     <tr>
       <th>std_error</th>
-      <td><p>A single logical for wether the standard error should be
+      <td><p>A single logical for whether the standard error should be
 returned (assuming that the model can compute it).</p></td>
     </tr>
     <tr>
