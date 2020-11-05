@@ -361,3 +361,166 @@ set_pred(
       )
   )
 )
+
+## -----------------------------------------------------------------------------
+
+
+set_model_engine("mlp", "classification", "lantern")
+set_model_engine("mlp", "regression", "lantern")
+set_dependency("mlp", "lantern", "lantern")
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "hidden_units",
+  original = "hidden_units",
+  func = list(pkg = "dials", fun = "hidden_units"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "penalty",
+  original = "decay",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "dropout",
+  original = "dropout",
+  func = list(pkg = "dials", fun = "dropout"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "learning_rate",
+  original = "learning_rate",
+  func = list(pkg = "dials", fun = "learning_rate"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "batch_size",
+  original = "batch_size",
+  func = list(pkg = "dials", fun = "batch_size"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "mlp",
+  eng = "lantern",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "lantern", fun = "torch_mlp"),
+    defaults = list(trace = FALSE)
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "lantern",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_fit(
+  model = "mlp",
+  eng = "lantern",
+  mode = "classification",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "lantern", fun = "lantern"),
+    defaults = list(trace = FALSE)
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "lantern",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "lantern",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = maybe_multivariate,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "numeric"
+      )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "lantern",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "class"
+      )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "lantern",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        type = "prob"
+      )
+  )
+)
+
