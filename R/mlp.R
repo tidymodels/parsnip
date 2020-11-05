@@ -414,4 +414,57 @@ mlp_num_weights <- function(p, hidden_units, classes) {
   ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
 }
 
+## -----------------------------------------------------------------------------
+
+#' @importFrom purrr map_df map
+#' @importFrom dplyr arrange select
+#' @rdname multi_predict
+#' @param epochs An integer vector for the number of training epochs.
+#' @export
+multi_predict._torch_mlp <-
+  function(object, new_data, type = NULL, epochs = NULL, ...) {
+    if (any(names(enquos(...)) == "newdata"))
+      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+
+    load_libs(object, quiet = TRUE, attach = TRUE)
+
+    if (is.null(epochs))
+      epochs <- length(object$fit$models)
+
+    epochs <- sort(epochs)
+
+    if (is.null(type)) {
+      if (object$spec$mode == "classification")
+        type <- "class"
+      else
+        type <- "numeric"
+    }
+
+    res <-
+      purrr::map(epochs,
+                 ~ predict(object, new_data, type, epochs = .x) %>%
+                   dplyr::mutate(epochs = .x)) %>%
+      purrr::map_dfr(~ .x %>% dplyr::mutate(.row = 1:nrow(new_data))) %>%
+      dplyr::arrange(.row, epochs)
+    res <- split(dplyr::select(res, -.row), res$.row)
+    names(res) <- NULL
+    tibble(.pred = res)
+  }
+
+
+reformat_torch_num <- function(results, object) {
+
+  if (isTRUE(ncol(results) > 1)) {
+    nms <- colnames(results)
+    results <- as_tibble(results, .name_repair = "minimal")
+    if (length(nms) == 0 && length(object$preproc$y_var) == ncol(results)) {
+      names(results) <- object$preproc$y_var
+    }
+  }  else {
+    results <- unname(results[[1]])
+  }
+  results
+}
+
+
 

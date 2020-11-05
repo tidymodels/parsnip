@@ -364,7 +364,6 @@ set_pred(
 
 ## -----------------------------------------------------------------------------
 
-
 set_model_engine("mlp", "classification", "lantern")
 set_model_engine("mlp", "regression", "lantern")
 set_dependency("mlp", "lantern", "lantern")
@@ -410,15 +409,6 @@ set_model_arg(
   parsnip = "learning_rate",
   original = "learning_rate",
   func = list(pkg = "dials", fun = "learning_rate"),
-  has_submodel = FALSE
-)
-
-set_model_arg(
-  model = "mlp",
-  eng = "lantern",
-  parsnip = "batch_size",
-  original = "batch_size",
-  func = list(pkg = "dials", fun = "batch_size"),
   has_submodel = FALSE
 )
 
@@ -477,12 +467,12 @@ set_pred(
   type = "numeric",
   value = list(
     pre = NULL,
-    post = maybe_multivariate,
+    post = reformat_torch_num,
     func = c(fun = "predict"),
     args =
       list(
         object = quote(object$fit),
-        newdata = quote(new_data),
+        new_data = quote(new_data),
         type = "numeric"
       )
   )
@@ -500,7 +490,7 @@ set_pred(
     args =
       list(
         object = quote(object$fit),
-        newdata = quote(new_data),
+        new_data = quote(new_data),
         type = "class"
       )
   )
@@ -518,7 +508,7 @@ set_pred(
     args =
       list(
         object = quote(object$fit),
-        newdata = quote(new_data),
+        new_data = quote(new_data),
         type = "prob"
       )
   )

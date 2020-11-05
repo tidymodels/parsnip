@@ -163,13 +163,14 @@ An error is thrown if both \code{penalty} and \code{dropout} are specified for
 The standardized parameter names in parsnip can be mapped to their
 original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
-parameter.\tabular{lll}{
-   \strong{parsnip} \tab \strong{keras} \tab \strong{nnet} \cr
-   hidden_units \tab hidden_units (5) \tab size \cr
-   penalty \tab penalty (0) \tab decay (0) \cr
-   dropout \tab dropout (0) \tab NA \cr
-   epochs \tab epochs (20) \tab maxit (100) \cr
-   activation \tab activation (softmax) \tab NA \cr
+parameter.\tabular{llll}{
+   \strong{parsnip} \tab \strong{keras} \tab \strong{nnet} \tab \strong{lantern} \cr
+   hidden_units \tab hidden_units (5) \tab size \tab hidden_units \cr
+   penalty \tab penalty (0) \tab decay (0) \tab decay \cr
+   dropout \tab dropout (0) \tab NA \tab dropout \cr
+   epochs \tab epochs (20) \tab maxit (100) \tab epochs \cr
+   activation \tab activation (softmax) \tab NA \tab NA \cr
+   learning_rate \tab NA \tab NA \tab learning_rate \cr
 }
 
 }
