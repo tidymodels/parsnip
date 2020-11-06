@@ -108,10 +108,11 @@ set_pred(
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
       res_1$hi <- 1 - res_2$lo
-      res <- bind_cols(res_1, res_2)
       lo_nms <- paste0(".pred_lower_", object$lvl)
       hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+      colnames(res_1) <- c(lo_nms[1], hi_nms[1])
+      colnames(res_2) <- c(lo_nms[2], hi_nms[2])
+      res <- bind_cols(res_1, res_2)
 
       if (object$spec$method$pred$conf_int$extras$std_error)
         res$.std_error <- results$se.fit
@@ -554,10 +555,11 @@ set_pred(
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
       res_1$hi <- 1 - res_2$lo
-      res <- bind_cols(res_1, res_2)
       lo_nms <- paste0(".pred_lower_", object$lvl)
       hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+      colnames(res_1) <- c(lo_nms[1], hi_nms[1])
+      colnames(res_2) <- c(lo_nms[2], hi_nms[2])
+      res <- bind_cols(res_1, res_2)
 
       if (object$spec$method$pred$pred_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
