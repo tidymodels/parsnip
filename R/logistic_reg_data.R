@@ -518,13 +518,11 @@ set_pred(
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },
-    func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+    func = c(pkg = "parsnip", fun = "stan_conf_int"),
     args =
       list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        transform = TRUE,
-        seed = expr(sample.int(10^5, 1))
+        object = expr(object$fit),
+        newdata = expr(new_data)
       )
   )
 )
