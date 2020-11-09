@@ -158,16 +158,16 @@ routine." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> take a model specification, translate the required
+    <p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> and <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> take a model specification, translate the required
 code by substituting arguments, and execute the model fit
 routine.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>formula</span>, <span class='va'>data</span>, control <span class='op'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>formula</span>, <span class='va'>data</span>, control <span class='op'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_spec</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>x</span>, <span class='va'>y</span>, control <span class='op'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>x</span>, <span class='va'>y</span>, control <span class='op'>=</span> <span class='fu'><a href='control_parsnip.html'>control_parsnip</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,16 +230,16 @@ object)</p></li>
 <code>"_glm"</code>) before the base class of <code>"model_fit"</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> and <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> substitute the current arguments in the model
+    <p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> and <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> substitute the current arguments in the model
 specification into the computational engine's code, check them
 for validity, then fit the model using the data and the
 engine-specific code. Different model functions have different
 interfaces (e.g. formula or <code>x</code>/<code>y</code>) and these functions translate
-between the interface used when <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> or <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> was invoked and the one
+between the interface used when <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> or <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> was invoked and the one
 required by the underlying model.</p>
 <p>When possible, these functions attempt to avoid making copies of the
 data. For example, if the underlying model uses a formula and
-<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is invoked, the original data are references
+<code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is invoked, the original data are references
 when the model is fit. However, if the underlying model uses
 something else, such as <code>x</code>/<code>y</code>, the formula is evaluated and
 the data are converted to the required format. In this case, any
@@ -270,12 +270,12 @@ objects used to fit the model.</p>
 <span class='va'>using_formula</span> <span class='op'>&lt;-</span>
   <span class='va'>lr_mod</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>Class</span> <span class='op'>~</span> <span class='va'>funded_amnt</span> <span class='op'>+</span> <span class='va'>int_rate</span>, data <span class='op'>=</span> <span class='va'>lending_club</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>Class</span> <span class='op'>~</span> <span class='va'>funded_amnt</span> <span class='op'>+</span> <span class='va'>int_rate</span>, data <span class='op'>=</span> <span class='va'>lending_club</span><span class='op'>)</span>
 
 <span class='va'>using_xy</span> <span class='op'>&lt;-</span>
   <span class='va'>lr_mod</span> <span class='op'>%&gt;%</span>
    <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lending_club</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span><span class='op'>)</span><span class='op'>]</span>,
+  <span class='fu'><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lending_club</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"funded_amnt"</span>, <span class='st'>"int_rate"</span><span class='op'>)</span><span class='op'>]</span>,
          y <span class='op'>=</span> <span class='va'>lending_club</span><span class='op'>$</span><span class='va'>Class</span><span class='op'>)</span>
 
 <span class='va'>using_formula</span>
@@ -295,7 +295,7 @@ objects used to fit the model.</p>
 #&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='va'>using_xy</span>
 </div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  33ms 
+#&gt; Fit time:  31ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::binomial, data = data)
 #&gt; 

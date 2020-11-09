@@ -159,8 +159,8 @@ data portion of the call will not correspond to the original data." />
     </div>
 
     <div class="ref-description">
-    <p>When the user passes a formula to <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> <em>and</em> the underlying model function
-uses a formula, the call object produced by <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> may not be usable by
+    <p>When the user passes a formula to <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> <em>and</em> the underlying model function
+uses a formula, the call object produced by <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> may not be usable by
 other functions. For example, some arguments may still be quosures and the
 <code>data</code> portion of the call will not correspond to the original data.</p>
     </div>
@@ -196,7 +196,7 @@ functions and methods.</p>
 <span class='va'>fitted_model</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"lm"</span>, model <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 
 <span class='co'># In this call, note that `data` is not `mtcars` and the `model = ~TRUE`</span>
 <span class='co'># indicates that the `model` argument is an `rlang` quosure.</span>

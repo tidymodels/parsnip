@@ -262,7 +262,7 @@ extra column of standard error values (if available).</p>
 <span class='va'>lm_model</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>pred_cars</span> <span class='op'>&lt;-</span>
   <span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
