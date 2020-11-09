@@ -9,4 +9,4 @@ output:
 ---
 
 
-This list can now be found at [`tidymodels.org`](https://www.tidymodels.org/find/).
+This list can now be found at [`tidymodels.org`](https://www.tidymodels.org/find/parsnip/).
