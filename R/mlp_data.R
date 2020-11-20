@@ -412,6 +412,15 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum"),
+  has_submodel = FALSE
+)
+
 set_fit(
   model = "mlp",
   eng = "lantern",
@@ -443,7 +452,7 @@ set_fit(
   value = list(
     interface = "formula",
     protect = c("formula", "data", "weights"),
-    func = c(pkg = "lantern", fun = "lantern"),
+    func = c(pkg = "lantern", fun = "torch_mlp"),
     defaults = list(trace = FALSE)
   )
 )
