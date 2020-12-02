@@ -23,7 +23,7 @@ check_empty_ellipse <- function (...)  {
   terms
 }
 
-all_modes <- c("classification", "regression")
+all_modes <- c("classification", "regression", "censored regression")
 
 
 deparserizer <- function(x, limit = options()$width - 10) {
