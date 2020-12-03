@@ -32,7 +32,7 @@ parsnip$modes <- c("regression", "classification", "unknown")
 
 pred_types <-
   c("raw", "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-    "time", "survival", "linear_pred")
+    "time", "survival", "linear_pred", "hazard")
 
 # ------------------------------------------------------------------------------
 

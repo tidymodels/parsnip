@@ -147,6 +147,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     time        = predict_time(object = object, new_data = new_data, ...),
     survival    = predict_survival(object = object, new_data = new_data, ...),
     linear_pred = predict_linear_pred(object = object, new_data = new_data, ...),
+    hazard      = predict_hazard(object = object, new_data = new_data, ...),
     raw         = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     rlang::abort(glue::glue("I don't know about type = '{type}'"))
   )
@@ -158,6 +159,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
       prob        = format_classprobs(res),
       time        = format_time(res),
       survival    = format_survival(res),
+      hazard      = format_hazard(res),
       linear_pred = format_linear_pred(res),
       res
     )
@@ -260,6 +262,19 @@ format_linear_pred <- function(x) {
     }
   } else {
     x <- tibble(.pred_linear_pred = unname(x))
+  }
+
+  x
+}
+
+format_hazard <- function(x) {
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
+    x <- as_tibble(x, .name_repair = "minimal")
+    if (!any(grepl("^\\.time", names(x)))) {
+      names(x) <- paste0(".time_", names(x))
+    }
+  } else {
+    x <- tibble(.pred_hazard = unname(x))
   }
 
   x
