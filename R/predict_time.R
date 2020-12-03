@@ -36,10 +36,8 @@ predict_time.model_fit <- function(object, new_data, ...) {
 
   if (is.vector(res)) {
     res <- unname(res)
-  } else {
-    if (!inherits(res, "tbl_spark"))
-      res <- as.data.frame(res)
   }
+
   res
 }
 
