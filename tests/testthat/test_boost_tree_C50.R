@@ -149,7 +149,7 @@ test_that('argument checks for data dimensions', {
   penguins <- na.omit(penguins)
 
   spec <-
-    boost_tree(min_n = 1000, trees = 5) %>%
+    boost_tree(min_n = 200, trees = 5) %>%
     set_engine("C5.0") %>%
     set_mode("classification")
 
