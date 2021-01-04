@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `attach_parsnip_models()` can write a collectiopn of model specification template objects to the user's environment. 
+
 # parsnip 0.1.4
 
 * `show_engines()` will provide information on the current set for a model. 
