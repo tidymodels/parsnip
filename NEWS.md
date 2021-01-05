@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+ * An RStudio add-in is availble that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE from the `Tools > Addins > Browse Addins` menu or by calling `write_parsnip_specs()`.
+ 
 # parsnip 0.1.4
 
 * `show_engines()` will provide information on the current set for a model. 
