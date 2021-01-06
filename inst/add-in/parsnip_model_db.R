@@ -52,6 +52,9 @@ get_tunable_param <- function(mode, package, model, engine) {
   if (model %in% c("bag_tree", "bag_mars")) {
     res <- res[0,]
   }
+  if (engine %in% c("rpart")) {
+    res <- res[res$parameter != "tree-depth",]
+  }
   res
 
 }
