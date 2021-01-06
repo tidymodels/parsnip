@@ -3,7 +3,7 @@ parsnip_spec_add_in <- function() {
   # check installs
 
   libs <- c("shiny", "miniUI", "rstudioapi")
-  is_inst <- purrr::map_lgl(libs, parsnip:::is_installed)
+  is_inst <- rlang::is_installed(libs)
   if (any(!is_inst)) {
     missing_pkg <- libs[!is_inst]
     missing_pkg <- paste0(missing_pkg, collapse = ", ")
