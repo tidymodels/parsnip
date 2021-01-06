@@ -47,7 +47,6 @@ parsnip_spec_add_in <- function() {
     obj_nm <- paste0(x$model,"_", x$engine, "_spec")
     chr_1 <- rlang::expr_text(cl_1, width = 500)
     chr_1 <- paste0(chr_1, collapse = " ")
-    # chr_1 <- gsub("(...)", "()", chr_1, fixed = TRUE)
     chr_1 <- paste(obj_nm, "<-\n ", chr_1)
     chr_2 <- paste0("set_engine('", x$engine, "')")
 
