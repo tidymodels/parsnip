@@ -2,7 +2,7 @@
 #'
 #' `write_parsnip_specs()` starts a process in the RStudio IDE Viewer window
 #' that allows users to write code for `parsnip` model specifications from
-#' various R packages. The new code are written to the current document at the
+#' various R packages. The new code is written to the current document at the
 #' location of the cursor.
 #'
 #' @export
@@ -13,4 +13,3 @@ write_parsnip_specs <- function() {
     keep.source = FALSE
   )
 }
-
