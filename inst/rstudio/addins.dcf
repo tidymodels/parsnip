@@ -1,5 +1,5 @@
 
-Name: Write parsnip model specifications
-Description: Create many parsnip model specifications automatically.
+Name: Generate parsnip model specifications
+Description: Automatically generate code for multiple parsnip model specifications.
 Binding: write_parsnip_specs
 Interactive: true
