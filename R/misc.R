@@ -305,4 +305,28 @@ update_engine_parameters <- function(eng_args, ...) {
   ret
 }
 
+# ------------------------------------------------------------------------------
+# Since stan changed the function interface
+#' Wrapper for stan confidence intervals
+#' @param object A stan model fit
+#' @param newdata A data set.
+#' @export
+#' @keywords internal
+stan_conf_int <- function(object, newdata) {
+  check_installs(list(method = list(libs = "rstanarm")))
+  if (utils::packageVersion("rstanarm") >= "2.21.1") {
+    fn <- rlang::call2("posterior_epred", .ns = "rstanarm",
+                       object = expr(object),
+                       newdata = expr(newdata),
+                       seed = expr(sample.int(10^5, 1)))
+  } else {
+    fn <- rlang::call2("posterior_linpred", .ns = "rstanarm",
+                       object = expr(object),
+                       newdata = expr(newdata),
+                       transform = TRUE,
+                       seed = expr(sample.int(10^5, 1)))
+  }
+  rlang::eval_tidy(fn)
+}
+
 
