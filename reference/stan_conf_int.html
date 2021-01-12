@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tidy methods for glmnet models — tidy._elnet • parsnip</title>
+<title>Wrapper for stan confidence intervals — stan_conf_int • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,8 @@
 
 
 
-<meta property="og:title" content="tidy methods for glmnet models — tidy._elnet" />
-<meta property="og:description" content="tidy() methods for the various glmnet models that return the coefficients
-for the specific penalty value used by the parsnip model fit." />
+<meta property="og:title" content="Wrapper for stan confidence intervals — stan_conf_int" />
+<meta property="og:description" content="Wrapper for stan confidence intervals" />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,50 +150,30 @@ for the specific penalty value used by the parsnip model fit." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tidy methods for glmnet models</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/tidy_glmnet.R'><code>R/tidy_glmnet.R</code></a></small>
-    <div class="hidden name"><code>tidy._elnet.Rd</code></div>
+    <h1>Wrapper for stan confidence intervals</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/misc.R'><code>R/misc.R</code></a></small>
+    <div class="hidden name"><code>stan_conf_int.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://generics.r-lib.org/reference/tidy.html'>tidy()</a></code> methods for the various <code>glmnet</code> models that return the coefficients
-for the specific penalty value used by the <code>parsnip</code> model fit.</p>
+    <p>Wrapper for stan confidence intervals</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for `_elnet`</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for `_lognet`</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for `_multnet`</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for `_fishnet`</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>stan_conf_int</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>newdata</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A fitted <code>parsnip</code> model that used the <code>glmnet</code> engine.</p></td>
+      <th>object</th>
+      <td><p>A stan model fit</p></td>
     </tr>
     <tr>
-      <th>penalty</th>
-      <td><p>A <em>single</em> numeric value. If none is given, the value specified
-in the model specification is used.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used</p></td>
+      <th>newdata</th>
+      <td><p>A data set.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A tibble with columns <code>term</code>, <code>estimate</code>, and <code>penalty</code>. When a
-multinomial mode is used, an additional <code>class</code> column is included.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

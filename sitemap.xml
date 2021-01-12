@@ -139,6 +139,9 @@
     <loc>https://parsnip.tidymodels.org/reference/show_engines.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/stan_conf_int.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/surv_reg.html</loc>
   </url>
   <url>
