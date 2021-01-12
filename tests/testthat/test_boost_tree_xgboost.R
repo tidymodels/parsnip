@@ -366,7 +366,7 @@ test_that('xgboost data and sparse matrices', {
 
 test_that('argument checks for data dimensions', {
 
-  skip_if_not_installed("C50")
+  skip_if_not_installed("xgboost")
 
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins)
