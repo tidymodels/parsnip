@@ -51,8 +51,11 @@ test_that('model fitting', {
       ),
     regexp = NA
   )
-  fit1$elapsed <- fit2$elapsed
-  expect_equal(fit1, fit2, check.environments = FALSE)
+  expect_equal(
+    unlist(keras::get_weights(fit1$fit)),
+    unlist(keras::get_weights(fit2$fit)),
+    tolerance = .1
+  )
 
   expect_error(
     fit(
