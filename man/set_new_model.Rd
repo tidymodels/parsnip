@@ -127,7 +127,7 @@ For example, if \code{fit()} is used to fit a model that does not have
 a formula interface, typically some predictor preprocessing must
 be conducted. \code{glmnet} is a good example of this.
 
-There are three options that can be used for the encodings:
+There are four options that can be used for the encodings:
 
 \code{predictor_indicators} describes whether and how to create indicator/dummy
 variables from factor predictors. There are three options: \code{"none"} (do not
@@ -144,9 +144,13 @@ computes dummy variables for all but one factor levels. Without an
 intercept, \code{model.matrix()} computes a full set of indicators for the
 \emph{first} factor variable, but an incomplete set for the remainder.
 
-Finally, the option \code{remove_intercept} will remove the intercept column
+Next, the option \code{remove_intercept} will remove the intercept column
 \emph{after} \code{model.matrix()} is finished. This can be useful if the model
 function (e.g. \code{lm()}) automatically generates an intercept.
+
+Finally, \code{allow_sparse_x} specifies whether the model function can natively
+accommodate a sparse matrix representation for predictors during fitting
+and tuning.
 }
 \examples{
 # set_new_model("shallow_learning_model")

@@ -352,7 +352,7 @@ check_interface_val <- function(x) {
 #'  a formula interface, typically some predictor preprocessing must
 #'  be conducted. `glmnet` is a good example of this.
 #'
-#'   There are three options that can be used for the encodings:
+#'   There are four options that can be used for the encodings:
 #'
 #'  `predictor_indicators` describes whether and how to create indicator/dummy
 #'  variables from factor predictors. There are three options: `"none"` (do not
@@ -369,9 +369,14 @@ check_interface_val <- function(x) {
 #'  intercept, `model.matrix()` computes a full set of indicators for the
 #'  _first_ factor variable, but an incomplete set for the remainder.
 #'
-#'  Finally, the option `remove_intercept` will remove the intercept column
+#'  Next, the option `remove_intercept` will remove the intercept column
 #'  _after_ `model.matrix()` is finished. This can be useful if the model
 #'  function (e.g. `lm()`) automatically generates an intercept.
+#'
+#' Finally, `allow_sparse_x` specifies whether the model function can natively
+#'  accommodate a sparse matrix representation for predictors during fitting
+#'  and tuning.
+#'
 #'
 #' @references "How to build a parsnip model"
 #'  \url{https://www.tidymodels.org/learn/develop/models/}
