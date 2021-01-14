@@ -312,6 +312,8 @@ xgb_train <- function(
   min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
   early_stop = NULL, ...) {
 
+  others <- list(...)
+
   num_class <- length(levels(y))
 
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
@@ -327,13 +329,15 @@ xgb_train <- function(
   }
 
 
-  if (is.numeric(y)) {
-    loss <- "reg:squarederror"
-  } else {
-    if (num_class == 2) {
-      loss <- "binary:logistic"
+  if (!any(names(others) == "objective")) {
+    if (is.numeric(y)) {
+      others$objective <- "reg:squarederror"
     } else {
-      loss <- "multi:softprob"
+      if (num_class == 2) {
+        others$objective <- "binary:logistic"
+      } else {
+        others$objective <- "multi:softprob"
+      }
     }
   }
 
@@ -378,7 +382,6 @@ xgb_train <- function(
     watchlist = quote(x$watchlist),
     params = arg_list,
     nrounds = nrounds,
-    objective = loss,
     early_stopping_rounds = early_stop
   )
   if (!is.null(num_class) && num_class > 2) {
@@ -388,7 +391,7 @@ xgb_train <- function(
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
 
   # override or add some other args
-  others <- list(...)
+
   others <-
     others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
   if (!(any(names(others) == "verbose"))) {

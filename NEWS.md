@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+ * For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. 
+
 # parsnip 0.1.4
 
 * `show_engines()` will provide information on the current set for a model. 
