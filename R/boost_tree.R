@@ -302,6 +302,9 @@ check_args.boost_tree <- function(object) {
 #' training iterations without improvement before stopping. If `validation` is
 #' used, performance is base on the validation set; otherwise, the training set
 #' is used.
+#' @param objective A single string (or NULL) that defines the loss function that
+#' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
+#' NULL, an appropriate loss function is chosen.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
@@ -310,7 +313,7 @@ xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
   min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
-  early_stop = NULL, ...) {
+  early_stop = NULL, objective = NULL, ...) {
 
   others <- list(...)
 
@@ -329,14 +332,14 @@ xgb_train <- function(
   }
 
 
-  if (!any(names(others) == "objective")) {
+  if (is.null(objective)) {
     if (is.numeric(y)) {
-      others$objective <- "reg:squarederror"
+      objective <- "reg:squarederror"
     } else {
       if (num_class == 2) {
-        others$objective <- "binary:logistic"
+        objective <- "binary:logistic"
       } else {
-        others$objective <- "multi:softprob"
+        objective <- "multi:softprob"
       }
     }
   }
@@ -374,7 +377,8 @@ xgb_train <- function(
     gamma = gamma,
     colsample_bytree = colsample_bytree,
     min_child_weight = min(min_child_weight, n),
-    subsample = subsample
+    subsample = subsample,
+    objective = objective
   )
 
   main_args <- list(
@@ -413,13 +417,12 @@ xgb_pred <- function(object, newdata, ...) {
 
   res <- predict(object, newdata, ...)
 
-  x = switch(
+  x <- switch(
     object$params$objective,
-    "reg:squarederror" = , "reg:logistic" = , "binary:logistic" = res,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
-    res
-  )
+    res)
+
   x
 }
 
