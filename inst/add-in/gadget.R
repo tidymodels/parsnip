@@ -64,22 +64,28 @@ parsnip_spec_add_in <- function() {
     miniPage(
       gadgetTitleBar("Write out model specifications"),
       miniContentPanel(
-        radioButtons(
-          "model_mode",
-          label = h3("Type of Model"),
-          choices = c("Classification", "Regression")
-        ),
-        checkboxInput(
-          "tune_args",
-          label = "Tag parameters for tuning (if any)?",
-          value = TRUE
-        ),
-        textInput(
-          "pattern",
-          label = "Match on (regex)"
-        ),
-        tags$br(),
-        uiOutput("model_choices")
+        fillRow(
+          fillCol(
+            radioButtons(
+              "model_mode",
+              label = h3("Type of Model"),
+              choices = c("Classification", "Regression")
+            ),
+            checkboxInput(
+              "tune_args",
+              label = "Tag parameters for tuning (if any)?",
+              value = TRUE
+            ),
+            textInput(
+              "pattern",
+              label = "Match on (regex)"
+            )
+          ),
+          fillRow(
+            miniContentPanel(uiOutput("model_choices_left")),
+            miniContentPanel(uiOutput("model_choices_right"))
+          )
+        )
       ),
       miniButtonBlock(
         actionButton("write", "Write specification code", class = "btn-success")
@@ -101,19 +107,37 @@ parsnip_spec_add_in <- function() {
         models
       }) # get_models
 
-      output$model_choices <- renderUI({
+      output$model_choices_left <- renderUI({
 
         model_list <- get_models()
 
         choices <- paste0(model_list$model, " (", model_list$engine, ")")
+        choices <- unique(choices)
+        # ind <- ceiling(length(choices)/2)
+        # choices <- choices[1:ind]
 
         checkboxGroupInput(
-          inputId = "model_name",
-          label = "Model",
-          choices = c(unique(choices))
+          inputId = "model_name_left",
+          label = "",
+          choices = choices
         )
-      }) # model_choices
+      }) # model_choices_right
 
+      output$model_choices_right <- renderUI({
+
+        model_list <- get_models()
+
+        choices <- paste0(model_list$model, " (", model_list$engine, ")")
+        choices <- unique(choices)
+        ind <- ceiling(length(choices)/2) + 1
+        choices <- choices[ind:length(choices)]
+
+        checkboxGroupInput(
+          inputId = "model_name_right",
+          label = "",
+          choices = choices
+        )
+      }) # model_choices_right
 
       create_code <- reactive({
 
@@ -124,7 +148,8 @@ parsnip_spec_add_in <- function() {
         selected <- model_db[model_db$label %in% input$model_name,]
         selected <- selected[selected$mode %in% model_mode,]
 
-        res <- purrr::map_chr(1:nrow(selected), ~ make_spec(selected[.x,], tune_args = input$tune_args))
+        res <- purrr::map_chr(1:nrow(selected),
+                              ~ make_spec(selected[.x,], tune_args = input$tune_args))
 
         paste0(res, sep = "\n\n")
 
