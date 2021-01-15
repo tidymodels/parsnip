@@ -1,6 +1,8 @@
 # parsnip (development version)
 
- * For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. 
+* An RStudio add-in is availble that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
+
+* For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. 
 
 # parsnip 0.1.4
 
