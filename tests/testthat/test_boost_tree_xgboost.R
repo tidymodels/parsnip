@@ -159,8 +159,24 @@ test_that('xgboost regression prediction', {
 
   form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
   expect_equal(form_pred, predict(form_fit, new_data = mtcars[1:8, -1])$.pred)
+
+  expect_equal(form_fit$fit$params$objective, "reg:squarederror")
+
 })
 
+
+
+test_that('xgboost alternate objective', {
+  skip_if_not_installed("xgboost")
+
+  spec <-
+    boost_tree() %>%
+    set_engine("xgboost", objective = "reg:pseudohubererror") %>%
+    set_mode("regression")
+
+  xgb_fit <- spec %>% fit(mpg ~ ., data = mtcars)
+  expect_equal(xgb_fit$fit$params$objective, "reg:pseudohubererror")
+})
 
 
 test_that('submodel prediction', {

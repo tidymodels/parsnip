@@ -16,6 +16,7 @@ xgb_train(
   subsample = 1,
   validation = 0,
   early_stop = NULL,
+  objective = NULL,
   ...
 )
 }
@@ -49,6 +50,10 @@ of training set samples use for these purposes.}
 training iterations without improvement before stopping. If \code{validation} is
 used, performance is base on the validation set; otherwise, the training set
 is used.}
+
+\item{objective}{A single string (or NULL) that defines the loss function that
+\code{xgboost} uses to create trees. See \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} for options. If left
+NULL, an appropriate loss function is chosen.}
 
 \item{...}{Other options to pass to \code{xgb.train}.}
 }
