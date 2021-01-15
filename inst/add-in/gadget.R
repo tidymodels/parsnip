@@ -82,8 +82,7 @@ parsnip_spec_add_in <- function() {
             )
           ),
           fillRow(
-            miniContentPanel(uiOutput("model_choices_left")),
-            miniContentPanel(uiOutput("model_choices_right"))
+            miniContentPanel(uiOutput("model_choices"))
           )
         )
       ),
@@ -107,37 +106,23 @@ parsnip_spec_add_in <- function() {
         models
       }) # get_models
 
-      output$model_choices_left <- renderUI({
+      output$model_choices <- renderUI({
 
         model_list <- get_models()
+        if (nrow(model_list) > 0) {
 
         choices <- paste0(model_list$model, " (", model_list$engine, ")")
         choices <- unique(choices)
-        # ind <- ceiling(length(choices)/2)
-        # choices <- choices[1:ind]
+        } else {
+          choices <- NULL
+        }
 
         checkboxGroupInput(
-          inputId = "model_name_left",
+          inputId = "model_name",
           label = "",
           choices = choices
         )
-      }) # model_choices_right
-
-      output$model_choices_right <- renderUI({
-
-        model_list <- get_models()
-
-        choices <- paste0(model_list$model, " (", model_list$engine, ")")
-        choices <- unique(choices)
-        ind <- ceiling(length(choices)/2) + 1
-        choices <- choices[ind:length(choices)]
-
-        checkboxGroupInput(
-          inputId = "model_name_right",
-          label = "",
-          choices = choices
-        )
-      }) # model_choices_right
+      }) # model_choices
 
       create_code <- reactive({
 
