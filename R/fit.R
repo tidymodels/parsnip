@@ -100,6 +100,9 @@ fit.model_spec <-
     if (object$mode == "unknown") {
       rlang::abort("Please set the mode in the model specification.")
     }
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
+    }
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
@@ -189,6 +192,9 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
+    }
     object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {

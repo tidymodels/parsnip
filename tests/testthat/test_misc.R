@@ -85,8 +85,22 @@ test_that('S3 method dispatch/registration', {
   )
   expect_true(tibble::is_tibble(res))
 
+})
 
+# ------------------------------------------------------------------------------
 
+test_that('control class', {
+  x <- linear_reg() %>% set_engine("lm")
+  ctrl <- control_parsnip()
+  class(ctrl) <- c("potato", "chair")
+  expect_error(
+    fit(x, mpg ~ ., data = mtcars, control = ctrl),
+    "The 'control' argument should have class 'control_parsnip'"
+  )
+  expect_error(
+    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl),
+    "The 'control' argument should have class 'control_parsnip'"
+  )
 })
 
 
