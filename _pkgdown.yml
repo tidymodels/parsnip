@@ -49,8 +49,7 @@ reference:
       - set_mode
       - tidy.model_fit
       - translate
-      - varying
-      - varying_args
+      - augment.model.fit
 
   - title: Developer Tools
     contents:
