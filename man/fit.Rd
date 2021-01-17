@@ -31,7 +31,7 @@ passed using \code{set_engine()}.}
 
 \item{x}{A matrix, sparse matrix, or data frame of predictors. Only some
 models have support for sparse matrix input. See \code{parsnip::get_encoding()}
-for details.}
+for details. \code{x} should have column names.}
 
 \item{y}{A vector, matrix or data frame of outcome data.}
 }
