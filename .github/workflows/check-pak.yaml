@@ -75,7 +75,7 @@ jobs:
 
       - name: Install Miniconda
         run: |
-          Rscript -e "remotes::install_github('rstudio/reticulate')"
+          Rscript -e "pak::pkg_install('rstudio/reticulate')"
           Rscript -e "reticulate::install_miniconda()"
 
       - name: Find Miniconda on macOS
