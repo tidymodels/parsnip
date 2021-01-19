@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
         </div>
       </div>
     </div>
@@ -153,13 +153,16 @@
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="parsnip-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
+    <div id="parsnip-015" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.5">
+<a href="#parsnip-015" class="anchor"></a>parsnip 0.1.5<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>An RStudio add-in is availble that makes writing multiple <code>parsnip</code> model specifications to the source window. It can be accessed via the IDE addin menus or by calling <code><a href="../reference/parsnip_addin.html">parsnip_addin()</a></code>.</p></li>
-<li><p>For <code>xgboost</code> models, users can now pass <code>objective</code> to <code><a href="../reference/set_engine.html">set_engine("xgboost")</a></code>.</p></li>
+<li><p>For <code>xgboost</code> models, users can now pass <code>objective</code> to <code><a href="../reference/set_engine.html">set_engine("xgboost")</a></code>. (<a href='https://github.com/tidymodels/parsnip/issues/403'>#403</a>)</p></li>
+<li><p>Changes to test for cases when CRAN cannot get <code>xgboost</code> to work on their Solaris configuration.</p></li>
+<li><p>There is now an <code>augument()</code> method for fitted models. See <code>augment.model_fit</code>. (<a href='https://github.com/tidymodels/parsnip/issues/401'>#401</a>)</p></li>
+<li><p>Column names for <code>x</code> are now required when <code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> is used. (<a href='https://github.com/tidymodels/parsnip/issues/398'>#398</a>)</p></li>
 </ul>
 </div>
     <div id="parsnip-014" class="section level1">

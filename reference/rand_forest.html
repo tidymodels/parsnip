@@ -109,7 +109,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
         </div>
       </div>
     </div>
@@ -298,10 +298,10 @@ call. For this type of model, the template of the fit calls are below:</p><h3 cl
 <span class='co'>##         1), probability = TRUE)</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
-factor predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does
-not affect the encoding of the predictor values (i.e. factors stay
-factors) for this model.</p>
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require factor
+predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model.</p>
 <p>For <code>ranger</code> confidence intervals, the intervals are constructed using
 the form <code>estimate +/- z * std_error</code>. For classification probabilities,
 these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
@@ -330,10 +330,9 @@ this range.</p>
 <span class='co'>## randomForest::randomForest(x = missing_arg(), y = missing_arg())</span>
 </pre>
 
-<p>Note that
-<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
-not require factor predictors to be converted to indicator variables.
-<code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+<p>Note that <code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code>
+does not require factor predictors to be converted to indicator
+variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
