@@ -35,6 +35,10 @@ test_that('regression models', {
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars[, -1]))), 6)
 
+  reg_form$spec$mode <- "depeche"
+
+  expect_error(augment(reg_form, head(mtcars[, -1])), "Unknown mode: depeche")
+
 })
 
 

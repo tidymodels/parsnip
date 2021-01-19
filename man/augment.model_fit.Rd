@@ -25,39 +25,44 @@ For classification models, the results include a column called \code{.pred_class
 as well as class probability columns named \verb{.pred_\{level\}}.
 }
 \examples{
+car_trn <- mtcars[11:32,]
+car_tst <- mtcars[ 1:10,]
+
 reg_form <-
   linear_reg() \%>\%
   set_engine("lm") \%>\%
-  fit(mpg ~ ., data = mtcars)
+  fit(mpg ~ ., data = car_trn)
 reg_xy <-
   linear_reg() \%>\%
   set_engine("lm") \%>\%
-  fit_xy(mtcars[, -1], mtcars$mpg)
+  fit_xy(car_trn[, -1], car_trn$mpg)
 
-augment(reg_form, head(mtcars))
-augment(reg_form, head(mtcars[, -1]))
+augment(reg_form, car_tst)
+augment(reg_form, car_tst[, -1])
 
-augment(reg_xy, head(mtcars))
-augment(reg_xy, head(mtcars[, -1]))
+augment(reg_xy, car_tst)
+augment(reg_xy, car_tst[, -1])
 
 # ------------------------------------------------------------------------------
 
 data(two_class_dat, package = "modeldata")
+cls_trn <- two_class_dat[-(1:10), ]
+cls_tst <- two_class_dat[  1:10 , ]
 
 cls_form <-
   logistic_reg() \%>\%
   set_engine("glm") \%>\%
-  fit(Class ~ ., data = two_class_dat)
+  fit(Class ~ ., data = cls_trn)
 cls_xy <-
   logistic_reg() \%>\%
   set_engine("glm") \%>\%
-  fit_xy(two_class_dat[, -3],
-  two_class_dat$Class)
+  fit_xy(cls_trn[, -3],
+  cls_trn$Class)
 
-augment(cls_form, head(two_class_dat))
-augment(cls_form, head(two_class_dat[, -3]))
+augment(cls_form, cls_tst)
+augment(cls_form, cls_tst[, -3])
 
-augment(cls_xy, head(two_class_dat))
-augment(cls_xy, head(two_class_dat[, -3]))
+augment(cls_xy, cls_tst)
+augment(cls_xy, cls_tst[, -3])
 
 }
