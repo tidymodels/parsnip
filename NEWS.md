@@ -1,8 +1,15 @@
-# parsnip (development version)
+# parsnip 0.1.5
 
 * An RStudio add-in is availble that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
 
-* For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. 
+* For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. (#403)
+
+* Changes to test for cases when CRAN cannot get `xgboost` to work on their Solaris configuration.
+
+* There is now an `augument()` method for fitted models. See `augment.model_fit`. (#401)
+
+* Column names for `x` are now required when `fit_xy()` is used. (#398)
+
 
 # parsnip 0.1.4
 
