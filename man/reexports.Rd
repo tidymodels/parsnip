@@ -8,6 +8,7 @@
 \alias{fit_xy}
 \alias{tidy}
 \alias{glance}
+\alias{augment}
 \alias{varying_args}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -16,7 +17,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{generics}{\code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
+  \item{generics}{\code{\link[generics]{augment}}, \code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 }}
