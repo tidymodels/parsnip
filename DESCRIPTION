@@ -24,6 +24,7 @@ Imports:
     tibble (>= 2.1.1),
     generics (>= 0.1.0),
     glue,
+    lifecycle,
     magrittr,
     stats,
     tidyr (>= 1.0.0),
@@ -51,5 +52,4 @@ Suggests:
     MASS,
     nlme,
     modeldata,
-    liquidSVM,
     Matrix

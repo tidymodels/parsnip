@@ -93,6 +93,12 @@ set_engine <- function(object, engine, ...) {
   }
   if (!is.character(engine) | length(engine) != 1)
     rlang::abort("`engine` should be a single character value.")
+  if (engine == "liquidSVM") {
+    lifecycle::deprecate_soft(
+      "0.1.6",
+      "set_engine(engine = 'cannot be liquidSVM')",
+      details = "The liquidSVM package is no longer available on CRAN.")
+  }
 
   object$engine <- engine
   object <- check_engine(object)

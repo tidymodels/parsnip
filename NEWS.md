@@ -1,6 +1,10 @@
+# parsnip (development version)
+
+* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN.
+
 # parsnip 0.1.5
 
-* An RStudio add-in is availble that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
+* An RStudio add-in is available that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
 
 * For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. (#403)
 
