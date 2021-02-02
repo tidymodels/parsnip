@@ -51,5 +51,6 @@ Suggests:
     MASS,
     nlme,
     modeldata,
+    LiblineaR,
     liquidSVM,
     Matrix
