@@ -90,6 +90,17 @@ call. For this type of model, the template of the fit calls are below:
 ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
 ##     type = 1)
 }
+
+Note that the \code{LiblineaR} engine cannot produce class probabilities.
+When optimizing the model using the \code{tune} package, the default metrics
+require class probabilities. To be able to use the \verb{tune_*()} functions,
+a metric set must be passed as an argument and it can only contain
+metrics associated with hard class predictions (e.g., accuracy and so
+on).
+
+This engine fits models that are L2-regularized for L2-loss. In the
+\code{LiblineaR} documentation, these are types 1 (classification) and 11
+(regression).
 }
 
 \subsection{Parameter translations}{
