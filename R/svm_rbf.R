@@ -33,7 +33,6 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:  `"kernlab"` (the default)
-#' \item \pkg{R}:  `"liquidSVM"`
 #' }
 #'
 #'
