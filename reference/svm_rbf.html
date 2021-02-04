@@ -252,7 +252,6 @@ modified in-place of or replaced wholesale.</p></td>
     <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"kernlab"</code> (the default)</p></li>
-<li><p><span class="pkg">R</span>:  <code>"liquidSVM"</code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
@@ -285,44 +284,6 @@ call. For this type of model, the template of the fit calls are below:</p><h3 cl
 <p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/kernlab/man/ksvm.html'>kernlab::ksvm()</a></code> so that its
 formula method can create dummy variables as-needed.</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>liquidSVM</h3>
-<p><div class="r"></p><pre><span class='fu'>svm_rbf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"liquidSVM"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: liquidSVM </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, </span>
-<span class='co'>##     threads = 0)</span>
-</pre><p><div class="r"></p><pre><span class='fu'>svm_rbf</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"liquidSVM"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: liquidSVM </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## liquidSVM::svm(x = missing_arg(), y = missing_arg(), folds = 1, </span>
-<span class='co'>##     threads = 0)</span>
-</pre>
-
-<p>Note that models created using the <code>liquidSVM</code> engine cannot be saved
-like conventional R objects. The <code>fit</code> slot of the <code>model_fit</code> object
-has to be saved separately using the <code><a href='https://rdrr.io/pkg/liquidSVM/man/read.liquidSVM.html'>liquidSVM::write.liquidSVM()</a></code>
-function. Likewise to restore a model, the <code>fit</code> slot has to be replaced
-with the model that is read using the <code><a href='https://rdrr.io/pkg/liquidSVM/man/read.liquidSVM.html'>liquidSVM::read.liquidSVM()</a></code>
-function.</p>
-<p><code>liquidSVM</code> parameterizes the kernel parameter differently than
-<code>kernlab</code>. To translate between engines, <code>sigma = 1/gammas^2</code>. Users
-will be specifying <code>sigma</code> and the function translates the value to
-<code>gamma</code>.</p>
-<p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/liquidSVM/man/svm.html'>liquidSVM::svm()</a></code> so that its
-formula method can create dummy variables as-needed.</p>
-
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
 
@@ -331,8 +292,8 @@ original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
 parameter.</p><table class='table'>
 <tr><td><strong>parsnip</strong></td><td><strong>kernlab</strong></td><td><strong>liquidSVM</strong></td></tr>
-<tr><td>cost</td><td>C (1)</td><td>lambdas (varies)</td></tr>
-<tr><td>rbf_sigma</td><td>sigma (varies)</td><td>gammas (varies)</td></tr>
+<tr><td>cost</td><td>C (1)</td><td>lambdas</td></tr>
+<tr><td>rbf_sigma</td><td>sigma (varies)</td><td>gammas</td></tr>
 <tr><td>margin</td><td>epsilon (0.1)</td><td>NA</td></tr>
 </table>
 
