@@ -21,7 +21,11 @@ svm_linear() %>%
   set_mode("classification") %>% 
   translate()
 ```
-
+Note that the `LiblineaR` engine cannot produce class probabilities. When 
+optimizing the model using the `tune` package, the default metrics require class 
+probabilities. To be able to use the `tune_*()` functions, a metric set must be 
+passed as an argument and it can only contain metrics associated with hard class 
+predictions (e.g., accuracy and so on). 
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
