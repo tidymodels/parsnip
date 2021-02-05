@@ -76,6 +76,8 @@ test_that('updating', {
 test_that('bad input', {
   expect_error(svm_linear(mode = "reallyunknown"))
   expect_error(translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
+  expect_error(translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
+  expect_error(translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
 })
 
 # ------------------------------------------------------------------------------
