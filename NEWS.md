@@ -1,6 +1,8 @@
 # parsnip (development version)
 
-* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN.
+* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
+
+* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine. (#424)
 
 # parsnip 0.1.5
 

@@ -52,4 +52,5 @@ Suggests:
     MASS,
     nlme,
     modeldata,
+    LiblineaR,
     Matrix
