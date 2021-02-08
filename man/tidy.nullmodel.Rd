@@ -21,3 +21,4 @@ Return the results of \code{nullmodel} as a tibble
 
 nullmodel(mtcars[,-1], mtcars$mpg) \%>\% tidy()
 }
+\keyword{internal}

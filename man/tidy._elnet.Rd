@@ -31,3 +31,4 @@ multinomial mode is used, an additional \code{class} column is included.
 \code{tidy()} methods for the various \code{glmnet} models that return the coefficients
 for the specific penalty value used by the \code{parsnip} model fit.
 }
+\keyword{internal}
