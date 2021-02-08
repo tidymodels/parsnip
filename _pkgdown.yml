@@ -37,23 +37,29 @@ reference:
   - title: Infrastructure
     contents:
       - add_rowindex
+      - augment.model_fit
       - descriptors
       - fit.model_spec
       - fit_xy
       - fit_control
+      - glance.model_fit
       - model_fit
       - model_spec
-      - predict.model_fit
       - multi_predict
+      - parsnip_addin
+      - predict.model_fit
+      - repair_call
       - set_args
       - set_engine
       - set_mode
+      - show_engines
       - tidy.model_fit
       - translate
-      - augment.model.fit
+      - starts_with("varying")
 
   - title: Developer Tools
     contents:
+      - contr_one_hot
       - set_new_model
       - starts_with("set_model_")
       - set_dependency
@@ -61,6 +67,9 @@ reference:
       - set_pred
       - show_model_info
       - starts_with("get_")
+      - maybe_matrix
+      - min_cols
+      - req_pkgs
 
 
 
