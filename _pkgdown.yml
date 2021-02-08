@@ -31,6 +31,7 @@ reference:
       - null_model
       - rand_forest
       - surv_reg
+      - svm_linear
       - svm_poly
       - svm_rbf
   - title: Infrastructure
