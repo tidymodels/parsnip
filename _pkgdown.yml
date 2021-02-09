@@ -48,6 +48,7 @@ reference:
       - multi_predict
       - parsnip_addin
       - predict.model_fit
+      - reexports
       - repair_call
       - set_args
       - set_engine
@@ -55,7 +56,7 @@ reference:
       - show_engines
       - tidy.model_fit
       - translate
-      - starts_with("varying")
+      - varying_args.model_spec
 
   - title: Developer Tools
     contents:
