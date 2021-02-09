@@ -11,6 +11,7 @@
 #' @param x A `model_fit` object produced by [fit()] or [fit_xy()].
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
+#' @rdname augment
 #' @export
 #' @examples
 #' car_trn <- mtcars[11:32,]

@@ -7,7 +7,7 @@
 #' @aliases model_db
 #' @docType data
 #' @return \item{model_db}{a data frame}
-#' @keywords datasets
+#' @keywords datasets internal
 #' @examples
 #' data(model_db)
 NULL

@@ -67,4 +67,5 @@ useless
 predict(useless, matrix(NA, nrow = 5))
 
 }
+\keyword{internal}
 \keyword{models}
