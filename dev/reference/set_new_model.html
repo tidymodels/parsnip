@@ -97,7 +97,7 @@ package." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@ package." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/parsnip/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -297,10 +297,10 @@ and also checks to see if it is novel in the environment.</p>
 handled. These options ensure that the data
 that <code>parsnip</code> gives to the underlying model allows for a model fit that is
 as similar as possible to what it would have produced directly.</p>
-<p>For example, if <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is used to fit a model that does not have
+<p>For example, if <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is used to fit a model that does not have
 a formula interface, typically some predictor preprocessing must
 be conducted. <code>glmnet</code> is a good example of this.</p>
-<p>There are three options that can be used for the encodings:</p>
+<p>There are four options that can be used for the encodings:</p>
 <p><code>predictor_indicators</code> describes whether and how to create indicator/dummy
 variables from factor predictors. There are three options: <code>"none"</code> (do not
 expand factor predictors), <code>"traditional"</code> (apply the standard
@@ -314,9 +314,12 @@ inclusion of an intercept column. With an intercept, <code><a href='https://rdrr
 computes dummy variables for all but one factor levels. Without an
 intercept, <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> computes a full set of indicators for the
 <em>first</em> factor variable, but an incomplete set for the remainder.</p>
-<p>Finally, the option <code>remove_intercept</code> will remove the intercept column
+<p>Next, the option <code>remove_intercept</code> will remove the intercept column
 <em>after</em> <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> is finished. This can be useful if the model
 function (e.g. <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>) automatically generates an intercept.</p>
+<p>Finally, <code>allow_sparse_x</code> specifies whether the model function can natively
+accommodate a sparse matrix representation for predictors during fitting
+and tuning.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>"How to build a parsnip model"

@@ -96,7 +96,7 @@ model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ model arguments are in the main function." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/parsnip/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -173,6 +173,7 @@ model arguments are in the main function.</p>
   subsample <span class='op'>=</span> <span class='fl'>1</span>,
   validation <span class='op'>=</span> <span class='fl'>0</span>,
   early_stop <span class='op'>=</span> <span class='cn'>NULL</span>,
+  objective <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -230,6 +231,12 @@ of training set samples use for these purposes.</p></td>
 training iterations without improvement before stopping. If <code>validation</code> is
 used, performance is base on the validation set; otherwise, the training set
 is used.</p></td>
+    </tr>
+    <tr>
+      <th>objective</th>
+      <td><p>A single string (or NULL) that defines the loss function that
+<code>xgboost</code> uses to create trees. See <code><a href='https://rdrr.io/pkg/xgboost/man/xgb.train.html'>xgboost::xgb.train()</a></code> for options. If left
+NULL, an appropriate loss function is chosen.</p></td>
     </tr>
     <tr>
       <th>...</th>

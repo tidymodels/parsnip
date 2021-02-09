@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for K-Nearest Neighbor Models — nearest_neighbor • parsnip</title>
+<title>General interface for linear support vector machines — svm_linear • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,18 +49,15 @@
 
 
 
-<meta property="og:title" content="General Interface for K-Nearest Neighbor Models — nearest_neighbor" />
-<meta property="og:description" content="nearest_neighbor() is a way to generate a specification of a model
+<meta property="og:title" content="General interface for linear support vector machines — svm_linear" />
+<meta property="og:description" content="svm_linear() is a way to generate a specification of a model
 before fitting and allows the model to be created using
-different packages in R. The main arguments for the
+different packages in R or via Spark. The main arguments for the
 model are:
-neighbors: The number of neighbors considered at
-each prediction.
-weight_func: The type of kernel function that weights the
-distances between samples.
-dist_power: The parameter used when calculating the Minkowski
-distance. This corresponds to the Manhattan distance with dist_power = 1
-and the Euclidean distance with dist_power = 2.
+cost: The cost of predicting a sample within or on the
+wrong side of the margin.
+margin: The epsilon in the SVM insensitive loss function
+(regression only)
 These arguments are converted to their specific names at the
 time that the model is fit. Other options and arguments can be
 set using set_engine(). If left to their defaults
@@ -166,23 +163,20 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for K-Nearest Neighbor Models</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/nearest_neighbor.R'><code>R/nearest_neighbor.R</code></a></small>
-    <div class="hidden name"><code>nearest_neighbor.Rd</code></div>
+    <h1>General interface for linear support vector machines</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/svm_linear.R'><code>R/svm_linear.R</code></a></small>
+    <div class="hidden name"><code>svm_linear.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>nearest_neighbor()</code> is a way to generate a <em>specification</em> of a model
+    <p><code>svm_linear()</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
-different packages in R. The main arguments for the
+different packages in R or via Spark. The main arguments for the
 model are:</p><ul>
-<li><p><code>neighbors</code>: The number of neighbors considered at
-each prediction.</p></li>
-<li><p><code>weight_func</code>: The type of kernel function that weights the
-distances between samples.</p></li>
-<li><p><code>dist_power</code>: The parameter used when calculating the Minkowski
-distance. This corresponds to the Manhattan distance with <code>dist_power = 1</code>
-and the Euclidean distance with <code>dist_power = 2</code>.</p></li>
+<li><p><code>cost</code>: The cost of predicting a sample within or on the
+wrong side of the margin.</p></li>
+<li><p><code>margin</code>: The epsilon in the SVM insensitive loss function
+(regression only)</p></li>
 </ul><p>These arguments are converted to their specific names at the
 time that the model is fit. Other options and arguments can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
@@ -191,11 +185,16 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nearest_neighbor</span><span class='op'>(</span>
-  mode <span class='op'>=</span> <span class='st'>"unknown"</span>,
-  neighbors <span class='op'>=</span> <span class='cn'>NULL</span>,
-  weight_func <span class='op'>=</span> <span class='cn'>NULL</span>,
-  dist_power <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>svm_linear</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"unknown"</span>, cost <span class='op'>=</span> <span class='cn'>NULL</span>, margin <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='co'># S3 method for svm_linear</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cost <span class='op'>=</span> <span class='cn'>NULL</span>,
+  margin <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -204,26 +203,38 @@ in lieu of recreating the object from scratch.</p>
     <tr>
       <th>mode</th>
       <td><p>A single character string for the type of model.
-Possible values for this model are <code>"unknown"</code>, <code>"regression"</code>, or
-<code>"classification"</code>.</p></td>
+Possible values for this model are "unknown", "regression", or
+"classification".</p></td>
     </tr>
     <tr>
-      <th>neighbors</th>
-      <td><p>A single integer for the number of neighbors
-to consider (often called <code>k</code>). For <span class="pkg">kknn</span>, a value of 5
-is used if <code>neighbors</code> is not specified.</p></td>
+      <th>cost</th>
+      <td><p>A positive number for the cost of predicting a sample within
+or on the wrong side of the margin</p></td>
     </tr>
     <tr>
-      <th>weight_func</th>
-      <td><p>A <em>single</em> character for the type of kernel function used
-to weight distances between samples. Valid choices are: <code>"rectangular"</code>,
-<code>"triangular"</code>, <code>"epanechnikov"</code>, <code>"biweight"</code>, <code>"triweight"</code>,
-<code>"cos"</code>, <code>"inv"</code>, <code>"gaussian"</code>, <code>"rank"</code>, or <code>"optimal"</code>.</p></td>
+      <th>margin</th>
+      <td><p>A positive number for the epsilon in the SVM insensitive
+loss function (regression only)</p></td>
     </tr>
     <tr>
-      <th>dist_power</th>
-      <td><p>A single number for the parameter used in
-calculating Minkowski distance.</p></td>
+      <th>object</th>
+      <td><p>A linear SVM model specification.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>A 1-row tibble or named list with <em>main</em>
+parameters to update. If the individual arguments are used,
+these will supersede the values in <code>parameters</code>. Also, using
+engine arguments in this object will result in an error.</p></td>
+    </tr>
+    <tr>
+      <th>fresh</th>
+      <td><p>A logical for whether the arguments should be
+modified in-place of or replaced wholesale.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -231,45 +242,46 @@ calculating Minkowski distance.</p></td>
 
     <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"kknn"</code>  (the default)</p></li>
+<li><p><span class="pkg">R</span>:  <code>"LiblineaR"</code> (the default)</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
 
     <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>kknn</h3>
-<p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kknn"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>LiblineaR</h3>
+<p><div class="r"></p><pre><span class='fu'>svm_linear</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"LiblineaR"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (regression)</span>
+</pre><p></div></p><pre><span class='co'>## Linear Support Vector Machine Specification (regression)</span>
 <span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
+<span class='co'>## Computational engine: LiblineaR </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = min_rows(5, data, 5))</span>
-</pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kknn"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='co'>## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), </span>
+<span class='co'>##     type = 11, svr_eps = 0.1)</span>
+</pre><p><div class="r"></p><pre><span class='fu'>svm_linear</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"LiblineaR"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (classification)</span>
+</pre><p></div></p><pre><span class='co'>## Linear Support Vector Machine Specification (classification)</span>
 <span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
+<span class='co'>## Computational engine: LiblineaR </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = min_rows(5, data, 5))</span>
+<span class='co'>## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), </span>
+<span class='co'>##     type = 1)</span>
 </pre>
 
-<p>For <code>kknn</code>, the underlying modeling function used is a restricted
-version of <code><a href='https://rdrr.io/pkg/kknn/man/train.kknn.html'>train.kknn()</a></code> and not <code><a href='https://rdrr.io/pkg/kknn/man/kknn.html'>kknn()</a></code>. It is set up in this way so
-that <code>parsnip</code> can utilize the underlying <code>predict.train.kknn</code> method to
-predict on new data. This also means that a single value of that
-function’s <code>kernel</code> argument (a.k.a <code>weight_func</code> here) can be supplied</p>
-<p>For this engine, tuning over <code>neighbors</code> is very efficient since the
-same model object can be used to make predictions over multiple values
-of <code>neighbors</code>.</p>
+<p>Note that the <code>LiblineaR</code> engine cannot produce class probabilities.
+When optimizing the model using the <code>tune</code> package, the default metrics
+require class probabilities. To be able to use the <code>tune_*()</code> functions,
+a metric set must be passed as an argument and it can only contain
+metrics associated with hard class predictions (e.g., accuracy and so
+on).</p>
+<p>This engine fits models that are L2-regularized for L2-loss. In the
+<code>LiblineaR</code> documentation, these are types 1 (classification) and 11
+(regression).</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
 
@@ -278,10 +290,9 @@ of <code>neighbors</code>.</p>
 original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
 parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>kknn</strong></td></tr>
-<tr><td>neighbors</td><td>ks</td></tr>
-<tr><td>weight_func</td><td>kernel (optimal)</td></tr>
-<tr><td>dist_power</td><td>distance (2)</td></tr>
+<tr><td><strong>parsnip</strong></td><td><strong>LiblineaR</strong></td></tr>
+<tr><td>cost</td><td>C (1)</td></tr>
+<tr><td>margin</td><td>svr_eps (0.1)</td></tr>
 </table>
 
 
@@ -292,19 +303,37 @@ parameter.</p><table class='table'>
     <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"nearest_neighbor"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"svm_linear"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
-#&gt;   engine mode          
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> kknn   classification
-#&gt; </span><span style='color: #555555;'>2</span><span> kknn   regression    </div><div class='input'>
-<span class='fu'>nearest_neighbor</span><span class='op'>(</span>neighbors <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; K-Nearest Neighbor Model Specification (unknown)
+#&gt;   engine    mode          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #555555;'>1</span><span> LiblineaR classification
+#&gt; </span><span style='color: #555555;'>2</span><span> LiblineaR regression    </div><div class='input'>
+<span class='fu'>svm_linear</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Linear Support Vector Machine Specification (classification)
+#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
+<span class='fu'>svm_linear</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, cost <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Linear Support Vector Machine Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   neighbors = 11
-#&gt; </div><div class='input'>
-</div></span></pre>
+#&gt;   cost = varying()
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>svm_linear</span><span class='op'>(</span>cost <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; Linear Support Vector Machine Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   cost = 3
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, cost <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Linear Support Vector Machine Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   cost = 1
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, cost <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Linear Support Vector Machine Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   cost = 1
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

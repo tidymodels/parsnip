@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simple interface to MLP models via keras — keras_mlp • parsnip</title>
+<title>Wrapper for stan confidence intervals — stan_conf_int • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +49,8 @@
 
 
 
-<meta property="og:title" content="Simple interface to MLP models via keras — keras_mlp" />
-<meta property="og:description" content="Instead of building a keras model sequentially, keras_mlp can be used to
-create a feedforward network with a single hidden layer. Regularization is
-via either weight decay or dropout." />
+<meta property="og:title" content="Wrapper for stan confidence intervals — stan_conf_int" />
+<meta property="og:description" content="Wrapper for stan confidence intervals" />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -152,76 +150,30 @@ via either weight decay or dropout." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simple interface to MLP models via keras</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/mlp.R'><code>R/mlp.R</code></a></small>
-    <div class="hidden name"><code>keras_mlp.Rd</code></div>
+    <h1>Wrapper for stan confidence intervals</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/misc.R'><code>R/misc.R</code></a></small>
+    <div class="hidden name"><code>stan_conf_int.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Instead of building a <code>keras</code> model sequentially, <code>keras_mlp</code> can be used to
-create a feedforward network with a single hidden layer. Regularization is
-via either weight decay or dropout.</p>
+    <p>Wrapper for stan confidence intervals</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keras_mlp</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>y</span>,
-  hidden_units <span class='op'>=</span> <span class='fl'>5</span>,
-  penalty <span class='op'>=</span> <span class='fl'>0</span>,
-  dropout <span class='op'>=</span> <span class='fl'>0</span>,
-  epochs <span class='op'>=</span> <span class='fl'>20</span>,
-  activation <span class='op'>=</span> <span class='st'>"softmax"</span>,
-  seeds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>5</span>, size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>stan_conf_int</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>newdata</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A data frame or matrix of predictors</p></td>
+      <th>object</th>
+      <td><p>A stan model fit</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>A vector (factor or numeric) or matrix (numeric) of outcome data.</p></td>
-    </tr>
-    <tr>
-      <th>hidden_units</th>
-      <td><p>An integer for the number of hidden units.</p></td>
-    </tr>
-    <tr>
-      <th>penalty</th>
-      <td><p>A non-negative real number for the amount of weight decay. Either
-this parameter <em>or</em> <code>dropout</code> can specified.</p></td>
-    </tr>
-    <tr>
-      <th>dropout</th>
-      <td><p>The proportion of parameters to set to zero. Either
-this parameter <em>or</em> <code>penalty</code> can specified.</p></td>
-    </tr>
-    <tr>
-      <th>epochs</th>
-      <td><p>An integer for the number of passes through the data.</p></td>
-    </tr>
-    <tr>
-      <th>activation</th>
-      <td><p>A character string for the type of activation function between layers.</p></td>
-    </tr>
-    <tr>
-      <th>seeds</th>
-      <td><p>A vector of three positive integers to control randomness of the
-calculations.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Currently ignored.</p></td>
+      <th>newdata</th>
+      <td><p>A data set.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>keras</code> model object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

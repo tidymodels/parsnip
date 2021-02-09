@@ -99,7 +99,7 @@ function can be used. See Details below." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
         </div>
       </div>
     </div>
@@ -137,7 +137,7 @@ function can be used. See Details below." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/parsnip/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -160,7 +160,7 @@ function can be used. See Details below." />
     </div>
 
     <div class="ref-description">
-    <p>When using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> functions there are some
+    <p>When using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> functions there are some
 variables that will be available for use in arguments. For
 example, if the user would like to choose an argument value
 based on the current number of rows in a data set, the <code>.obs()</code>
@@ -200,7 +200,7 @@ data frame or a matrix.</p></li>
 <li><p><code>.y()</code>: The known outcomes returned in the format given. Either
 a vector, matrix, or data frame.</p></li>
 <li><p><code>.dat()</code>: A data frame containing all of the predictors and the
-outcomes. If <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> was used, the outcomes are attached as the
+outcomes. If <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> was used, the outcomes are attached as the
 column, <code>..y</code>.</p></li>
 </ul>
 
@@ -229,7 +229,7 @@ built-in <code>Orange</code> data, the values would be</p><pre>
 
 <p>To use these in a model fit, pass them to a model specification.
 The evaluation is delayed until the time when the
-model is run via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> (and the variables listed above are available).
+model is run via <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> (and the variables listed above are available).
 For example:</p>
 <pre>
 

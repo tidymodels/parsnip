@@ -13,6 +13,9 @@
     <loc>https://parsnip.tidymodels.org/reference/add_rowindex.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/augment.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/boost_tree.html</loc>
   </url>
   <url>
@@ -76,6 +79,9 @@
     <loc>https://parsnip.tidymodels.org/reference/mlp.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/model_db.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/model_fit.html</loc>
   </url>
   <url>
@@ -101,6 +107,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/other_predict.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/parsnip_addin.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
@@ -139,7 +148,13 @@
     <loc>https://parsnip.tidymodels.org/reference/show_engines.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/stan_conf_int.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/surv_reg.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/svm_linear.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/svm_poly.html</loc>
@@ -166,7 +181,7 @@
     <loc>https://parsnip.tidymodels.org/reference/varying.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/varying_args.model_spec.html</loc>
+    <loc>https://parsnip.tidymodels.org/reference/varying_args.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/xgb_train.html</loc>

@@ -108,7 +108,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@ in lieu of recreating the object from scratch." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/parsnip/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -247,7 +247,7 @@ modified in-place of or replaced wholesale.</p></td>
     <p>The data given to the function are not saved and are only used
 to determine the <em>mode</em> of the model. For <code>linear_reg()</code>, the
 mode will always be "regression".</p>
-<p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
+<p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"lm"</code>  (the default) or <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
@@ -261,7 +261,7 @@ following <em>engines</em>:</p><ul>
 
     <p>For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is available; using <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> will
+interface to via <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is available; using <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
@@ -381,7 +381,7 @@ parameter.</p><table class='table'>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"linear_reg"</span><span class='op'>)</span>

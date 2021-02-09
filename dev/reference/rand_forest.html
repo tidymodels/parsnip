@@ -109,7 +109,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@ in lieu of recreating the object from scratch." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/parsnip/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -248,7 +248,7 @@ modified in-place of or replaced wholesale.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model can be created using the <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> function using the
+    <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"ranger"</code> (the default) or <code>"randomForest"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
@@ -258,7 +258,7 @@ following <em>engines</em>:</p><ul>
 
     <p>For models created using the spark engine, there are
 several differences to consider. First, only the formula
-interface to via <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> is available; using <code><a href='https://rdrr.io/pkg/generics/man/fit_xy.html'>fit_xy()</a></code> will
+interface to via <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is available; using <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> will
 generate an error. Second, the predictions will always be in a
 spark table format. The names will be the same as documented but
 without the dots. Third, there is no equivalent to factor
@@ -298,10 +298,10 @@ call. For this type of model, the template of the fit calls are below:</p><h3 cl
 <span class='co'>##         1), probability = TRUE)</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
-factor predictors to be converted to indicator variables. <code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does
-not affect the encoding of the predictor values (i.e. factors stay
-factors) for this model.</p>
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require factor
+predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model.</p>
 <p>For <code>ranger</code> confidence intervals, the intervals are constructed using
 the form <code>estimate +/- z * std_error</code>. For classification probabilities,
 these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
@@ -330,10 +330,9 @@ this range.</p>
 <span class='co'>## randomForest::randomForest(x = missing_arg(), y = missing_arg())</span>
 </pre>
 
-<p>Note that
-<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
-not require factor predictors to be converted to indicator variables.
-<code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+<p>Note that <code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code>
+does not require factor predictors to be converted to indicator
+variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
@@ -361,7 +360,7 @@ not require factor predictors to be converted to indicator variables.
 <span class='co'>##     type = "classification", seed = sample.int(10^5, 1))</span>
 </pre>
 
-<p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+<p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
@@ -391,7 +390,7 @@ classification and 5 for regression.</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/generics/man/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
