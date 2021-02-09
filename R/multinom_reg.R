@@ -180,11 +180,10 @@ organize_multnet_class <- function(x, object) {
 
 #' @importFrom vctrs vec_size
 organize_multnet_prob <- function(x, object) {
-  x <- x[,,1]
   if (vec_size(x) > 1) {
-    x <- as_tibble(x)
+    x <- as_tibble(x[,,1])
   } else {
-    x <- tibble::as_tibble_row(x)
+    x <- tibble::as_tibble_row(x[,,1])
   }
   x
 }
