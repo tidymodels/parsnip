@@ -21,15 +21,16 @@ logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 The only possible value for this model is "classification".}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
+amount of regularization (\code{glmnet}, \code{LiblineaR}, \code{keras}, and \code{spark} only).
 For \code{keras} models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
+(aka weight decay) while the other models can be either or a combination
 of L1 and L2 (depending on the value of \code{mixture}).}
 
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used. (\code{glmnet}, \code{LiblineaR}, and \code{spark} only).
+For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 
 \item{object}{A logistic regression model specification.}
 
@@ -67,7 +68,7 @@ For \code{logistic_reg()}, the mode will always be "classification".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"glm"}  (the default) or \code{"glmnet"}
+\item \pkg{R}:  \code{"glm"}  (the default), \code{"glmnet"}, or \code{"LiblineaR"}
 \item \pkg{Stan}:  \code{"stan"}
 \item \pkg{Spark}: \code{"spark"}
 \item \pkg{keras}: \code{"keras"}
@@ -131,6 +132,23 @@ column called \code{.pred} that contains a tibble with all of the penalty
 results.
 }
 
+\subsection{LiblineaR}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("LiblineaR") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Computational engine: LiblineaR 
+## 
+## Model fit template:
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
+##     verbose = FALSE)
+}
+
+For \code{LiblineaR} models, the value for \code{mixture} can either be 0 (for
+ridge) or 1 (for lasso) but not other intermediate values.
+}
+
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("stan") \%>\% 
   set_mode("classification") \%>\% 
@@ -187,10 +205,10 @@ predictive distribution as appropriate) is returned.
 The standardized parameter names in parsnip can be mapped to their
 original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
-parameter.\tabular{llll}{
-   \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \cr
-   penalty \tab lambda \tab reg_param (0) \tab penalty (0) \cr
-   mixture \tab alpha (1) \tab elastic_net_param (0) \tab NA \cr
+parameter.\tabular{lllll}{
+   \strong{parsnip} \tab \strong{glmnet} \tab \strong{LiblineaR} \tab \strong{spark} \tab \strong{keras} \cr
+   penalty \tab lambda \tab cost \tab reg_param (0) \tab penalty (0) \cr
+   mixture \tab alpha (1) \tab type (0) \tab elastic_net_param (0) \tab NA \cr
 }
 
 }

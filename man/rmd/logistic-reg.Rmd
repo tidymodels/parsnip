@@ -33,6 +33,18 @@ multiple  penalties, the `multi_predict()` function can be used. It  returns a
 tibble with a list column called `.pred` that contains  a tibble with all of the
 penalty results.
 
+## LiblineaR
+
+```{r liblinear-reg}
+logistic_reg() %>% 
+  set_engine("LiblineaR") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+For `LiblineaR` models, the value for `mixture` can either be 0 (for ridge) or 1 
+(for lasso) but not other intermediate values.
+
 ## stan
 
 ```{r stan-reg}
@@ -81,6 +93,7 @@ get_defaults_logistic_reg <- function() {
   tibble::tribble(
     ~model,          ~engine,     ~parsnip,            ~original,  ~default,
     "logistic_reg",  "glmnet",    "mixture",              "alpha",  get_arg("glmnet", "glmnet", "alpha"),
+    "logistic_reg",  "LiblineaR", "mixture",              "type",   "0",
     "logistic_reg",  "spark",     "penalty",          "reg_param",  get_arg("sparklyr", "ml_logistic_regression", "reg_param"),
     "logistic_reg",  "spark",     "mixture",  "elastic_net_param",  get_arg("sparklyr", "ml_logistic_regression", "elastic_net_param"),
     "logistic_reg",  "keras",     "penalty",            "penalty",  get_arg("parsnip", "keras_mlp", "penalty"),
