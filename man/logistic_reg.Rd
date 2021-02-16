@@ -146,7 +146,11 @@ results.
 }
 
 For \code{LiblineaR} models, the value for \code{mixture} can either be 0 (for
-ridge) or 1 (for lasso) but not other intermediate values.
+ridge) or 1 (for lasso) but not other intermediate values. In the
+\code{LiblineaR} documentation, these correspond to types 0 (L2-regularized)
+and 6 (L1-regularized).
+
+Be aware that the \code{LiblineaR} engine regularizes the intercept.
 }
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
