@@ -175,14 +175,15 @@ test_that('engine arguments', {
     )
   )
 
-  liblinear_verb <- logistic_reg()
+  liblinear_bias <- logistic_reg()
   expect_equal(
-    translate(liblinear_verb %>% set_engine("LiblineaR", verbose = TRUE))$method$fit$args,
+    translate(liblinear_bias %>% set_engine("LiblineaR", bias = 0))$method$fit$args,
     list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       wi = expr(missing_arg()),
-      verbose = new_empty_quosure(TRUE)
+      bias = new_empty_quosure(0),
+      verbose = FALSE
     )
   )
 
