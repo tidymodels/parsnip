@@ -150,7 +150,9 @@ ridge) or 1 (for lasso) but not other intermediate values. In the
 \code{LiblineaR} documentation, these correspond to types 0 (L2-regularized)
 and 6 (L1-regularized).
 
-Be aware that the \code{LiblineaR} engine regularizes the intercept.
+Be aware that the \code{LiblineaR} engine regularizes the intercept. Other
+regularized regression models do not, which will result in different
+parameter estimates.
 }
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 

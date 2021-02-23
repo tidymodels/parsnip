@@ -32,7 +32,7 @@ Imports:
     prettyunits,
     vctrs (>= 0.2.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9000
+RoxygenNote: 7.1.1.9001
 Suggests: 
     testthat,
     knitr,
