@@ -46,7 +46,7 @@ For `LiblineaR` models, the value for `mixture` can either be 0 (for ridge) or 1
 (for lasso) but not other intermediate values. In the `LiblineaR` documentation, 
 these correspond to types 0 (L2-regularized) and 6 (L1-regularized).
 
-Be aware that the `LiblineaR` engine regularizes the intercept.
+Be aware that the `LiblineaR` engine regularizes the intercept. Other regularized regression models do not and will result in different parameter estimates.
 
 ## stan
 
@@ -104,4 +104,3 @@ get_defaults_logistic_reg <- function() {
 }
 convert_args("logistic_reg")
 ```
-
