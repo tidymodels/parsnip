@@ -68,7 +68,7 @@ The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
 \item \pkg{R}:   \code{"glmnet"}  (the default), \code{"nnet"}
-\item \pkg{Stan}:  \code{"stan"}
+\item \pkg{Spark}: \code{"spark"}
 \item \pkg{keras}: \code{"keras"}
 }
 }
