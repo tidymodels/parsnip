@@ -145,7 +145,7 @@ results.
 }
 
 Note that the \code{refresh} default prevents logging of the estimation
-process. Change this value in \code{set_engine()} will show the logs.
+process. Change this value in \code{set_engine()} to show the logs.
 
 For prediction, the \code{stan} engine can compute posterior intervals
 analogous to confidence and prediction intervals. In these instances,
