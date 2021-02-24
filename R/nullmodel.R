@@ -31,7 +31,7 @@
 #'
 #' `predict.nullmodel()` returns either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
-#' @keywords models
+#' @keywords models internal
 #' @examples
 #'
 #' outcome <- factor(sample(letters[1:2],
@@ -181,6 +181,7 @@ null_model <-
 #' @param ... Not used.
 #' @return A tibble with column `value`.
 #' @export
+#' @keywords internal
 #' @examples
 #'
 #' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()

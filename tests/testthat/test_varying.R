@@ -5,8 +5,6 @@ library(dplyr)
 
 context("varying parameters")
 
-load(test_path("recipes_examples.RData"))
-
 test_that('main parsnip arguments', {
 
   mod_1 <- rand_forest() %>%
@@ -94,49 +92,6 @@ test_that('other parsnip arguments', {
   expect_equal(other_4, exp_4)
 })
 
-
-test_that('recipe parameters', {
-
-  # un-randomify the id names
-  rec_1_id <- rec_1
-  rec_1_id$steps[[1]]$id <- "center_1"
-  rec_1_id$steps[[2]]$id <- "knnimpute_1"
-  rec_1_id$steps[[3]]$id <- "pca_1"
-
-  rec_res_1 <- varying_args(rec_1_id)
-
-  exp_1 <- tibble(
-    name = c("K", "num", "threshold", "options"),
-    varying = c(TRUE, TRUE, FALSE, FALSE),
-    id = c("knnimpute_1", rep("pca_1", 3)),
-    type = rep("step", 4)
-  )
-
-  expect_equal(rec_res_1, exp_1)
-
-  # un-randomify the id names
-  rec_3_id <- rec_3
-  rec_3_id$steps[[1]]$id <- "center_1"
-  rec_3_id$steps[[2]]$id <- "knnimpute_1"
-  rec_3_id$steps[[3]]$id <- "pca_1"
-
-  rec_res_3 <- varying_args(rec_3_id)
-  exp_3 <- exp_1
-  exp_3$varying <- FALSE
-  expect_equal(rec_res_3, exp_3)
-
-  rec_res_4 <- varying_args(rec_4)
-
-  exp_4 <- tibble(
-    name = character(),
-    varying = logical(),
-    id = character(),
-    type = character()
-  )
-
-  expect_equal(rec_res_4, exp_4)
-})
-
 test_that("empty lists return FALSE - #131", {
   expect_equal(
     parsnip:::find_varying(list()),
@@ -163,34 +118,4 @@ test_that("varying() deeply nested in calls can be located - #134", {
     parsnip:::find_varying(deep_varying),
     TRUE
   )
-})
-
-test_that("recipe steps with non-varying args error if specified as varying()", {
-
-  rec_bad_varying <- rec_1
-  rec_bad_varying$steps[[1]]$skip <- varying()
-
-  expect_error(
-    varying_args(rec_bad_varying),
-    "The following argument for a recipe step of type 'step_center' is not allowed to vary: 'skip'."
-  )
-})
-
-test_that("`full = FALSE` returns only varying arguments", {
-
-  x_spec <- rand_forest(min_n = varying())  %>%
-    set_engine("ranger", sample.fraction = varying())
-
-  x_rec <- rec_1
-
-  expect_equal(
-    varying_args(x_spec, full = FALSE)$name,
-    c("min_n", "sample.fraction")
-  )
-
-  expect_equal(
-    varying_args(x_rec, full = FALSE)$name,
-    c("K", "num")
-  )
-
 })

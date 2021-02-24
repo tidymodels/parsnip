@@ -35,7 +35,7 @@
 #'  following _engines_:
 #' \itemize{
 #' \item \pkg{R}:   `"glmnet"`  (the default), `"nnet"`
-#' \item \pkg{Stan}:  `"stan"`
+#' \item \pkg{Spark}: `"spark"`
 #' \item \pkg{keras}: `"keras"`
 #' }
 #'
@@ -168,13 +168,24 @@ check_args.multinom_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
+#' @importFrom vctrs vec_size
 organize_multnet_class <- function(x, object) {
-  x[,1]
+  if (vec_size(x) > 1) {
+    x <- x[,1]
+  } else {
+    x <- as.character(x)
+  }
+  x
 }
 
+#' @importFrom vctrs vec_size
 organize_multnet_prob <- function(x, object) {
-  x <- x[,,1]
-  as_tibble(x)
+  if (vec_size(x) > 1) {
+    x <- as_tibble(x[,,1])
+  } else {
+    x <- tibble::as_tibble_row(x[,,1])
+  }
+  x
 }
 
 organize_nnet_prob <- function(x, object) {

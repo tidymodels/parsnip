@@ -2,6 +2,7 @@
 #'
 #' [varying()] is used when a parameter will be specified at a later date.
 #' @export
+#' @keywords internal
 varying <- function() {
   quote(varying())
 }
@@ -58,6 +59,7 @@ generics::varying_args
 #'   varying_args()
 #'
 #' @importFrom purrr map map_lgl
+#' @rdname varying_args
 #' @export
 varying_args.model_spec <- function(object, full = TRUE, ...) {
 
@@ -94,7 +96,7 @@ varying_args.model_spec <- function(object, full = TRUE, ...) {
 
 #' @importFrom purrr map2_dfr map_chr
 #' @export
-#' @rdname varying_args.model_spec
+#' @rdname varying_args
 varying_args.recipe <- function(object, full = TRUE, ...) {
 
   steps <- object$steps
@@ -108,7 +110,7 @@ varying_args.recipe <- function(object, full = TRUE, ...) {
 
 #' @importFrom purrr map map_lgl
 #' @export
-#' @rdname varying_args.model_spec
+#' @rdname varying_args
 varying_args.step <- function(object, full = TRUE, ...) {
 
   # Unique step id

@@ -85,7 +85,7 @@
 #' @seealso [set_engine()], [control_parsnip()], `model_spec`, `model_fit`
 #' @param x A matrix, sparse matrix, or data frame of predictors. Only some
 #' models have support for sparse matrix input. See `parsnip::get_encoding()`
-#' for details.
+#' for details. `x` should have column names.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
 #' @export
@@ -99,6 +99,9 @@ fit.model_spec <-
   ) {
     if (object$mode == "unknown") {
       rlang::abort("Please set the mode in the model specification.")
+    }
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
     dots <- quos(...)
     if (is.null(object$engine)) {
@@ -189,6 +192,12 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
+    }
+    if (is.null(colnames(x))) {
+      rlang::abort("'x' should have column names.")
+    }
     object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {

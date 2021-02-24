@@ -168,7 +168,7 @@ set_pred(
     args =
       list(
         object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta)])),
+        newx = expr(as.matrix(new_data[, rownames(object$fit$beta), drop = FALSE])),
         type = "response",
         s = expr(object$spec$args$penalty)
       )
@@ -258,13 +258,11 @@ set_pred(
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
       res
     },
-    func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+    func = c(pkg = "parsnip", fun = "stan_conf_int"),
     args =
       list(
         object = expr(object$fit),
-        newdata = expr(new_data),
-        transform = TRUE,
-        seed = expr(sample.int(10^5, 1))
+        newdata = expr(new_data)
       )
   )
 )

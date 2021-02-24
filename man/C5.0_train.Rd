@@ -14,7 +14,7 @@ C5.0_train(x, y, weights = NULL, trials = 15, minCases = 2, sample = 0, ...)
 \item{weights}{An optional numeric vector of case weights. Note
 that the data used for the case weights will not be used as a
 splitting variable in the model (see
-\url{http://www.rulequest.com/see5-win.html} for
+\url{https://www.rulequest.com/see5-info.html} for
 Quinlan's notes on case weights).}
 
 \item{trials}{An integer specifying the number of boosting

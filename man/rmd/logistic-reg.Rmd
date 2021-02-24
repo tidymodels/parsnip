@@ -43,7 +43,7 @@ logistic_reg() %>%
 ```
 
 Note that the `refresh` default prevents logging of the estimation process.
-Change this value in `set_engine()` will show the logs.
+Change this value in `set_engine()` to show the logs.
 
 For prediction, the `stan` engine can compute posterior  intervals analogous to
 confidence and prediction intervals. In  these instances, the units are the

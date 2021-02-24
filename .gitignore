@@ -8,3 +8,4 @@ tests/testthat/logs/
 derby.log
 logs/*
 revdep/*
+docs*

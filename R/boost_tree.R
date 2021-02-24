@@ -302,6 +302,9 @@ check_args.boost_tree <- function(object) {
 #' training iterations without improvement before stopping. If `validation` is
 #' used, performance is base on the validation set; otherwise, the training set
 #' is used.
+#' @param objective A single string (or NULL) that defines the loss function that
+#' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
+#' NULL, an appropriate loss function is chosen.
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
@@ -310,7 +313,9 @@ xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
   min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
-  early_stop = NULL, ...) {
+  early_stop = NULL, objective = NULL, ...) {
+
+  others <- list(...)
 
   num_class <- length(levels(y))
 
@@ -327,13 +332,15 @@ xgb_train <- function(
   }
 
 
-  if (is.numeric(y)) {
-    loss <- "reg:squarederror"
-  } else {
-    if (num_class == 2) {
-      loss <- "binary:logistic"
+  if (is.null(objective)) {
+    if (is.numeric(y)) {
+      objective <- "reg:squarederror"
     } else {
-      loss <- "multi:softprob"
+      if (num_class == 2) {
+        objective <- "binary:logistic"
+      } else {
+        objective <- "multi:softprob"
+      }
     }
   }
 
@@ -370,7 +377,8 @@ xgb_train <- function(
     gamma = gamma,
     colsample_bytree = colsample_bytree,
     min_child_weight = min(min_child_weight, n),
-    subsample = subsample
+    subsample = subsample,
+    objective = objective
   )
 
   main_args <- list(
@@ -378,7 +386,6 @@ xgb_train <- function(
     watchlist = quote(x$watchlist),
     params = arg_list,
     nrounds = nrounds,
-    objective = loss,
     early_stopping_rounds = early_stop
   )
   if (!is.null(num_class) && num_class > 2) {
@@ -388,7 +395,7 @@ xgb_train <- function(
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
 
   # override or add some other args
-  others <- list(...)
+
   others <-
     others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
   if (!(any(names(others) == "verbose"))) {
@@ -410,13 +417,12 @@ xgb_pred <- function(object, newdata, ...) {
 
   res <- predict(object, newdata, ...)
 
-  x = switch(
+  x <- switch(
     object$params$objective,
-    "reg:squarederror" = , "reg:logistic" = , "binary:logistic" = res,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
-    res
-  )
+    res)
+
   x
 }
 
@@ -520,7 +526,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #' @param weights An optional numeric vector of case weights. Note
 #'  that the data used for the case weights will not be used as a
 #'  splitting variable in the model (see
-#'  \url{http://www.rulequest.com/see5-win.html} for
+#'  \url{https://www.rulequest.com/see5-info.html} for
 #'  Quinlan's notes on case weights).
 #' @param minCases An integer for the smallest number of samples
 #'  that must be put in at least two of the splits.
