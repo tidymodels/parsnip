@@ -17,6 +17,7 @@ xgb_train(
   validation = 0,
   early_stop = NULL,
   objective = NULL,
+  event_level = c("first", "second"),
   ...
 )
 }
@@ -54,6 +55,10 @@ is used.}
 \item{objective}{A single string (or NULL) that defines the loss function that
 \code{xgboost} uses to create trees. See \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} for options. If left
 NULL, an appropriate loss function is chosen.}
+
+\item{event_level}{For binary classification, this is a single string of either
+\code{"first"} or \code{"second"} to pass along describing which level of the outcome
+should be considered the "event".}
 
 \item{...}{Other options to pass to \code{xgb.train}.}
 }

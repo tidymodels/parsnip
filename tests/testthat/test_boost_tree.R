@@ -20,7 +20,8 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  nthread = 1,
-                 verbose = 0
+                 verbose = 0,
+                 event_level = "first"
                )
   )
   expect_equal(basic_C5.0$method$fit$args,
@@ -48,7 +49,8 @@ test_that('primary arguments', {
                  y = expr(missing_arg()),
                  nrounds = new_empty_quosure(15),
                  nthread = 1,
-                 verbose = 0
+                 verbose = 0,
+                 event_level = "first"
                )
   )
 
@@ -69,7 +71,8 @@ test_that('primary arguments', {
                  y = expr(missing_arg()),
                  min_child_weight = new_empty_quosure(15),
                  nthread = 1,
-                 verbose = 0
+                 verbose = 0,
+                 event_level = "first"
                )
   )
 

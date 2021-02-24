@@ -159,7 +159,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0)
+##     verbose = 0, event_level = "first")
 }
 
 Note that, for most engines to \code{boost_tree()}, the \code{sample_size}

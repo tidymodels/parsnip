@@ -133,7 +133,7 @@ set_fit(
     interface = "matrix",
     protect = c("x", "y"),
     func = c(pkg = "parsnip", fun = "xgb_train"),
-    defaults = list(nthread = 1, verbose = 0)
+    defaults = list(nthread = 1, verbose = 0, event_level = "first")
   )
 )
 
