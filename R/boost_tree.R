@@ -436,7 +436,11 @@ as_xgb_data <- function(x, y, validation = 0, ...) {
   }
 
   if (is.factor(y)) {
-    y <- as.numeric(y) - 1
+   if (length(lvls) < 3) {
+     y <- -as.numeric(y) + 2
+   } else {
+     y <- as.numeric(y) - 1
+   }
   }
 
   if (!inherits(x, "xgb.DMatrix")) {
