@@ -147,6 +147,37 @@ test_that('primary arguments', {
                )
   )
 
+  penalty_v <- logistic_reg(penalty = varying())
+  penalty_v_glmnet <- translate(penalty_v %>% set_engine("glmnet"))
+  penalty_v_liblinear <- translate(penalty_v %>% set_engine("LiblineaR"))
+  penalty_v_spark <- translate(penalty_v %>% set_engine("spark"))
+  expect_equal(penalty_v_glmnet$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
+                 family = "binomial"
+               )
+  )
+  expect_equal(penalty_v_liblinear$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 wi = expr(missing_arg()),
+                 cost = new_empty_quosure(varying()),
+                 verbose = FALSE
+               )
+  )
+  expect_equal(penalty_v_spark$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
+                 reg_param = new_empty_quosure(varying()),
+                 family = "binomial"
+               )
+  )
+
 })
 
 test_that('engine arguments', {
