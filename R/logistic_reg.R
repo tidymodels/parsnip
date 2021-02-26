@@ -20,21 +20,22 @@
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param penalty A non-negative number representing the total
-#'  amount of regularization (`glmnet`, `keras`, and `spark` only).
+#'  amount of regularization (`glmnet`, `LiblineaR`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
-#'  (aka weight decay) while the other models can be a combination
+#'  (aka weight decay) while the other models can be either or a combination
 #'  of L1 and L2 (depending on the value of `mixture`).
 #' @param mixture A number between zero and one (inclusive) that is the
 #'  proportion of L1 regularization (i.e. lasso) in the model. When
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
-#'  ridge regression is being used. (`glmnet` and `spark` only).
+#'  ridge regression is being used. (`glmnet`, `LiblineaR`, and `spark` only).
+#'  For `LiblineaR` models, `mixture` must be exactly 0 or 1 only.
 #' @details
 #' For `logistic_reg()`, the mode will always be "classification".
 #'
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"glm"`  (the default) or `"glmnet"`
+#' \item \pkg{R}:  `"glm"`  (the default), `"glmnet"`, or `"LiblineaR"`
 #' \item \pkg{Stan}:  `"stan"`
 #' \item \pkg{Spark}: `"spark"`
 #' \item \pkg{keras}: `"keras"`
@@ -101,7 +102,45 @@ print.logistic_reg <- function(x, ...) {
 }
 
 #' @export
-translate.logistic_reg <- translate.linear_reg
+translate.logistic_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  # slightly cleaner code using
+  arg_vals <- x$method$fit$args
+  arg_names <- names(arg_vals)
+
+
+  if (engine == "glmnet") {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    arg_vals$lambda <- NULL
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  if (engine == "LiblineaR") {
+    # convert parameter arguments
+    new_penalty <- rlang::eval_tidy(x$args$penalty)
+    if (is.numeric(new_penalty))
+      arg_vals$cost <- rlang::new_quosure(1 / new_penalty, env = rlang::empty_env())
+
+    if (any(arg_names == "type")) {
+      if (is.numeric(quo_get_expr(arg_vals$type)))
+        if (quo_get_expr(x$args$mixture) == 0) {
+          arg_vals$type <- 0      ## ridge
+        } else if (quo_get_expr(x$args$mixture) == 1) {
+          arg_vals$type <- 6      ## lasso
+        } else {
+          rlang::abort("For the LiblineaR engine, mixture must be 0 or 1.")
+        }
+    }
+
+  }
+
+  x$method$fit$args <- arg_vals
+
+  x
+}
 
 # ------------------------------------------------------------------------------
 
@@ -168,6 +207,16 @@ check_args.logistic_reg <- function(object) {
     rlang::abort("The mixture proportion should be within [0,1].")
   if (is.numeric(args$mixture) && length(args$mixture) > 1)
     rlang::abort("Only one value of `mixture` is allowed.")
+
+  if (object$engine == "LiblineaR") {
+    if(is.numeric(args$mixture) && !args$mixture %in% 0:1)
+      rlang::abort(c("For the LiblineaR engine, mixture must be 0 or 1.",
+                     "Choose a pure ridge model with `mixture = 0`.",
+                     "Choose a pure lasso model with `mixture = 1`.",
+                     "The Liblinear engine does not support other values."))
+    if(all(is.numeric(args$penalty)) && !all(args$penalty > 0))
+      rlang::abort("For the LiblineaR engine, penalty must be > 0.")
+  }
 
   invisible(object)
 }
@@ -346,3 +395,12 @@ predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
+# ------------------------------------------------------------------------------
+
+liblinear_preds <- function(results, object) {
+  results$predictions
+}
+
+liblinear_probs <- function(results, object) {
+  as_tibble(results$probabilities)
+}
