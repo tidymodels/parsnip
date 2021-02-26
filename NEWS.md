@@ -16,6 +16,8 @@
 
 * Column names for `x` are now required when `fit_xy()` is used. (#398)
 
+* There is now an `event_level` argument for the `xgboost` engine. (#420)
+
 
 # parsnip 0.1.4
 
