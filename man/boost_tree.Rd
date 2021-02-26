@@ -159,7 +159,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0, event_level = "first")
+##     verbose = 0)
 }
 
 Note that, for most engines to \code{boost_tree()}, the \code{sample_size}
@@ -189,7 +189,10 @@ Finally, note that \code{xgboost} models require that non-numeric predictors
 (e.g., factors) must be converted to dummy variables or some other
 numeric representation. By default, when using \code{fit()} with \code{xgboost}, a
 one-hot encoding is used to convert factor predictors to indicator
-variables.
+variables. In the classification mode, non-numeric outcomes (i.e.,
+factors) are converted to numeric. For binary classification, the
+\code{event_level} argument of \code{set_engine()} can be set to either \code{"first"}
+or \code{"second"} to specify which level should be used as the event.
 }
 
 \subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
