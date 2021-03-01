@@ -7,9 +7,9 @@
 #' @param object An object of class `model_fit`
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-#'  or "raw". When `NULL`, `predict()` will choose an appropriate value
-#'  based on the model's mode.
+#'   are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
+#'  "hazard", "survival", or "raw". When `NULL`, `predict()` will choose an
+#'  appropriate value based on the model's mode.
 #' @param opts A list of optional arguments to the underlying
 #'  predict function that will be used when `type = "raw"`. The
 #'  list should not include options for the model object or the
@@ -28,19 +28,31 @@
 #'            and "pred_int". Default value is `FALSE`.
 #'     \item `quantile`: the quantile(s) for quantile regression
 #'            (not implemented yet)
-#'     \item `time`: the time(s) for hazard probability estimates
-#'            (not implemented yet)
+#'     \item `.time`: the time(s) for hazard and survival probability estimates.
 #'  }
 #' @details If "type" is not supplied to `predict()`, then a choice
-#'  is made (`type = "numeric"` for regression models and
-#'  `type = "class"` for classification).
+#'  is made:
+#'
+#'   * `type = "numeric"` for regression models,
+#'   * `type = "class"` for classification, and
+#'   * `type = "time"` for censored regression.
 #'
 #' `predict()` is designed to provide a tidy result (see "Value"
 #'  section below) in a tibble output format.
 #'
+#'  ## Interval predictions
+#'
 #'  When using `type = "conf_int"` and `type = "pred_int"`, the options
 #'   `level` and `std_error` can be used. The latter is a logical for an
 #'   extra column of standard error values (if available).
+#'
+#'  ## Censored regression predictions
+#'
+#' For censored regression, a numeric vector for `.time` is required when
+#' survival or hazard probabilities are requested. Also, when
+#' `type = "linear_pred"`, censored regression models will be formatted such
+#' that the linear predictor _increases_ with time. This may have the opposite
+#' sign as what the underlying model's `predict()` method produces.
 #'
 #' @return With the exception of `type = "raw"`, the results of
 #'  `predict.model_fit()` will be a tibble as many rows in the output
@@ -65,6 +77,15 @@
 #'
 #' Using `type = "raw"` with `predict.model_fit()` will return
 #'  the unadulterated results of the prediction function.
+#'
+#' For censored regression:
+#'
+#'  * `type = "time"` produces a column `.pred_time`.
+#'  * `type = "hazard"` results in a column `.pred_hazard`.
+#'  * `type = "survival"` results in a column `.pred_survival`.
+#'
+#'  For the last two types, the results are a nested tibble with an overall
+#'  column called `.pred` with sub-tibbles with the above format.
 #'
 #' In the case of Spark-based models, since table columns cannot
 #'  contain dots, the same convention is used except 1) no dots
@@ -108,10 +129,6 @@
 #' @export predict.model_fit
 #' @export
 predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...) {
-  the_dots <- enquos(...)
-  if (any(names(the_dots) == "newdata"))
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
@@ -120,22 +137,12 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   check_installs(object$spec)
   load_libs(object$spec, quiet = TRUE)
 
-  other_args <- c("level", "std_error", "quantile", ".time")
-  is_pred_arg <- names(the_dots) %in% other_args
-  if (any(!is_pred_arg)) {
-    bad_args <- names(the_dots)[!is_pred_arg]
-    bad_args <- paste0("`", bad_args, "`", collapse = ", ")
-    rlang::abort(
-      glue::glue(
-        "The ellipses are not used to pass args to the model function's ",
-        "predict function. These arguments cannot be used: {bad_args}",
-      )
-    )
-  }
-
   type <- check_pred_type(object, type)
-  if (type != "raw" && length(opts) > 0)
+  if (type != "raw" && length(opts) > 0) {
     rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
+  }
+  check_pred_type_dots(type, ...)
+
   res <- switch(
     type,
     numeric     = predict_numeric(object = object, new_data = new_data, ...),
@@ -167,15 +174,17 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   res
 }
 
+surv_types <- c("time", "survival", "hazard")
+
 #' @importFrom glue glue_collapse
-check_pred_type <- function(object, type) {
+check_pred_type <- function(object, type, ...) {
   if (is.null(type)) {
     type <-
       switch(object$spec$mode,
              regression = "numeric",
              classification = "class",
              "censored regression" = "time",
-             rlang::abort("`type` should be 'regression' or 'classification'."))
+             rlang::abort("`type` should be 'regression', 'censored regression', or 'classification'."))
   }
   if (!(type %in% pred_types))
     rlang::abort(
@@ -190,6 +199,10 @@ check_pred_type <- function(object, type) {
     rlang::abort("For class predictions, the object should be a classification model.")
   if (type == "prob" & object$spec$mode != "classification")
     rlang::abort("For probability predictions, the object should be a classification model.")
+  if (type %in% surv_types & object$spec$mode != "censored regression")
+    rlang::abort("For event time predictions, the object should be a censored regression.")
+
+  # TODO check for ... options when not the correct type
   type
 }
 
@@ -289,6 +302,54 @@ make_pred_call <- function(x) {
 
   cl
 }
+
+check_pred_type_dots <- function(type, ...) {
+  the_dots <- list(...)
+  nms <- names(the_dots)
+
+  # ----------------------------------------------------------------------------
+
+  if (any(names(the_dots) == "newdata")) {
+    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
+
+  # ----------------------------------------------------------------------------
+
+  other_args <- c("level", "std_error", "quantile", ".time")
+  is_pred_arg <- names(the_dots) %in% other_args
+  if (any(!is_pred_arg)) {
+    bad_args <- names(the_dots)[!is_pred_arg]
+    bad_args <- paste0("`", bad_args, "`", collapse = ", ")
+    rlang::abort(
+      glue::glue(
+        "The ellipses are not used to pass args to the model function's ",
+        "predict function. These arguments cannot be used: {bad_args}",
+      )
+    )
+  }
+
+  # ----------------------------------------------------------------------------
+  # places where .time should not be given
+  if (any(nms == ".time") & !type %in% c("survival", "hazard")) {
+    rlang::abort(
+      paste(
+        ".time should only be passed to `predict()` when 'type' is one of:",
+        paste0("'", c("survival", "hazard"), "'", collapse = ", ")
+      )
+    )
+  }
+  # when .time should be passed
+  if (!any(nms == ".time") & type %in% c("survival", "hazard")) {
+    rlang::abort(
+      paste(
+        "When using 'type' values of 'survival'' or 'hazard' are given,",
+        "a numeric vector '.time' should also be given."
+      )
+    )
+  }
+  invisible(TRUE)
+}
+
 
 #' Prepare data based on parsnip encoding information
 #' @param object A parsnip model object

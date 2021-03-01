@@ -61,8 +61,7 @@ the scale of the linear predictors) for \code{type}s of "conf_int"
 and "pred_int". Default value is \code{FALSE}.
 \item \code{quantile}: the quantile(s) for quantile regression
 (not implemented yet)
-\item \code{time}: the time(s) for hazard probability estimates
-(not implemented yet)
+\item \code{.time}: the time(s) for hazard and survival probability estimates.
 }}
 
 \item{level}{A single numeric value between zero and one for the
