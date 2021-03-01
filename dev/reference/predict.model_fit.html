@@ -97,7 +97,7 @@ predict() can be used for all types of models and used the
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9001</span>
         </div>
       </div>
     </div>
@@ -185,9 +185,9 @@ predict() can be used for all types of models and used the
     <tr>
       <th>type</th>
       <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-or "raw". When <code>NULL</code>, <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> will choose an appropriate value
-based on the model's mode.</p></td>
+are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
+"hazard", "survival", or "raw". When <code>NULL</code>, <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> will choose an
+appropriate value based on the model's mode.</p></td>
     </tr>
     <tr>
       <th>opts</th>
@@ -211,8 +211,7 @@ the scale of the linear predictors) for <code>type</code>s of "conf_int"
 and "pred_int". Default value is <code>FALSE</code>.</p></li>
 <li><p><code>quantile</code>: the quantile(s) for quantile regression
 (not implemented yet)</p></li>
-<li><p><code>time</code>: the time(s) for hazard probability estimates
-(not implemented yet)</p></li>
+<li><p><code>.time</code>: the time(s) for hazard and survival probability estimates.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -237,6 +236,14 @@ a list-column. Each list element contains a tibble with columns
 <code>.pred</code> and <code>.quantile</code> (and perhaps other columns).</p>
 <p>Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
 the unadulterated results of the prediction function.</p>
+<p>For censored regression:</p><ul>
+<li><p><code>type = "time"</code> produces a column <code>.pred_time</code>.</p></li>
+<li><p><code>type = "hazard"</code> results in a column <code>.pred_hazard</code>.</p></li>
+<li><p><code>type = "survival"</code> results in a column <code>.pred_survival</code>.</p></li>
+</ul>
+
+<p>For the last two types, the results are a nested tibble with an overall
+column called <code>.pred</code> with sub-tibbles with the above format.</p>
 <p>In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
@@ -248,13 +255,29 @@ multivariate models.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If "type" is not supplied to <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, then a choice
-is made (<code>type = "numeric"</code> for regression models and
-<code>type = "class"</code> for classification).</p>
+is made:</p><ul>
+<li><p><code>type = "numeric"</code> for regression models,</p></li>
+<li><p><code>type = "class"</code> for classification, and</p></li>
+<li><p><code>type = "time"</code> for censored regression.</p></li>
+</ul>
+
 <p><code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> is designed to provide a tidy result (see "Value"
-section below) in a tibble output format.</p>
+section below) in a tibble output format.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Interval predictions</h3>
+
+
 <p>When using <code>type = "conf_int"</code> and <code>type = "pred_int"</code>, the options
 <code>level</code> and <code>std_error</code> can be used. The latter is a logical for an
 extra column of standard error values (if available).</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Censored regression predictions</h3>
+
+
+<p>For censored regression, a numeric vector for <code>.time</code> is required when
+survival or hazard probabilities are requested. Also, when
+<code>type = "linear_pred"</code>, censored regression models will be formatted such
+that the linear predictor <em>increases</em> with time. This may have the opposite
+sign as what the underlying model's <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method produces.</p>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
