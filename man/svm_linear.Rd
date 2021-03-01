@@ -61,7 +61,7 @@ in lieu of recreating the object from scratch.
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:  \code{"LiblineaR"} (the default)
+\item \pkg{R}:  \code{"LiblineaR"} (the default) or \code{"kernlab"}
 }
 }
 \section{Engine Details}{
@@ -103,15 +103,42 @@ This engine fits models that are L2-regularized for L2-loss. In the
 (regression).
 }
 
+\subsection{kernlab}{\if{html}{\out{<div class="r">}}\preformatted{svm_linear() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (regression)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "vanilladot")
+}\if{html}{\out{<div class="r">}}\preformatted{svm_linear() \%>\% 
+  set_engine("kernlab") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (classification)
+## 
+## Computational engine: kernlab 
+## 
+## Model fit template:
+## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "vanilladot", 
+##     prob.model = TRUE)
+}
+
+\code{fit()} passes the data directly to \code{kernlab::ksvm()} so that its
+formula method can create dummy variables as-needed.
+}
+
 \subsection{Parameter translations}{
 
 The standardized parameter names in parsnip can be mapped to their
 original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
-parameter.\tabular{ll}{
-   \strong{parsnip} \tab \strong{LiblineaR} \cr
-   cost \tab C (1) \cr
-   margin \tab svr_eps (0.1) \cr
+parameter.\tabular{lll}{
+   \strong{parsnip} \tab \strong{LiblineaR} \tab \strong{kernlab} \cr
+   cost \tab C (1) \tab C (1) \cr
+   margin \tab svr_eps (0.1) \tab epsilon (0.1) \cr
 }
 
 }
