@@ -113,10 +113,10 @@ call. For this type of model, the template of the fit calls are below:
 ##         1), probability = TRUE)
 }
 
-Note that \code{\link[ranger:ranger]{ranger::ranger()}} does not require factor
-predictors to be converted to indicator variables. \code{fit()} does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model.
+Note that \code{\link[ranger:ranger]{ranger::ranger()}} does not require
+factor predictors to be converted to indicator variables. \code{fit()} does
+not affect the encoding of the predictor values (i.e. factors stay
+factors) for this model.
 
 For \code{ranger} confidence intervals, the intervals are constructed using
 the form \verb{estimate +/- z * std_error}. For classification probabilities,
@@ -146,9 +146,10 @@ this range.
 ## randomForest::randomForest(x = missing_arg(), y = missing_arg())
 }
 
-Note that \code{\link[randomForest:randomForest]{randomForest::randomForest()}}
-does not require factor predictors to be converted to indicator
-variables. \code{fit()} does not affect the encoding of the predictor values
+Note that
+\code{\link[randomForest:randomForest]{randomForest::randomForest()}} does
+not require factor predictors to be converted to indicator variables.
+\code{fit()} does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.
 }
 

@@ -18,9 +18,9 @@ predict_raw(object, ...)
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-or "raw". When \code{NULL}, \code{predict()} will choose an appropriate value
-based on the model's mode.}
+are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
+"hazard", "survival", or "raw". When \code{NULL}, \code{predict()} will choose an
+appropriate value based on the model's mode.}
 
 \item{opts}{A list of optional arguments to the underlying
 predict function that will be used when \code{type = "raw"}. The
@@ -41,8 +41,7 @@ the scale of the linear predictors) for \code{type}s of "conf_int"
 and "pred_int". Default value is \code{FALSE}.
 \item \code{quantile}: the quantile(s) for quantile regression
 (not implemented yet)
-\item \code{time}: the time(s) for hazard probability estimates
-(not implemented yet)
+\item \code{.time}: the time(s) for hazard and survival probability estimates.
 }}
 }
 \value{
@@ -70,6 +69,16 @@ a list-column. Each list element contains a tibble with columns
 Using \code{type = "raw"} with \code{predict.model_fit()} will return
 the unadulterated results of the prediction function.
 
+For censored regression:
+\itemize{
+\item \code{type = "time"} produces a column \code{.pred_time}.
+\item \code{type = "hazard"} results in a column \code{.pred_hazard}.
+\item \code{type = "survival"} results in a column \code{.pred_survival}.
+}
+
+For the last two types, the results are a nested tibble with an overall
+column called \code{.pred} with sub-tibbles with the above format.
+
 In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
@@ -87,15 +96,30 @@ Apply a model to create different types of predictions.
 }
 \details{
 If "type" is not supplied to \code{predict()}, then a choice
-is made (\code{type = "numeric"} for regression models and
-\code{type = "class"} for classification).
+is made:
+\itemize{
+\item \code{type = "numeric"} for regression models,
+\item \code{type = "class"} for classification, and
+\item \code{type = "time"} for censored regression.
+}
 
 \code{predict()} is designed to provide a tidy result (see "Value"
 section below) in a tibble output format.
+\subsection{Interval predictions}{
 
 When using \code{type = "conf_int"} and \code{type = "pred_int"}, the options
 \code{level} and \code{std_error} can be used. The latter is a logical for an
 extra column of standard error values (if available).
+}
+
+\subsection{Censored regression predictions}{
+
+For censored regression, a numeric vector for \code{.time} is required when
+survival or hazard probabilities are requested. Also, when
+\code{type = "linear_pred"}, censored regression models will be formatted such
+that the linear predictor \emph{increases} with time. This may have the opposite
+sign as what the underlying model's \code{predict()} method produces.
+}
 }
 \examples{
 library(dplyr)
