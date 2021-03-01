@@ -342,7 +342,7 @@ check_pred_type_dots <- function(type, ...) {
   if (!any(nms == ".time") & type %in% c("survival", "hazard")) {
     rlang::abort(
       paste(
-        "When using 'type' values of 'survival'' or 'hazard' are given,",
+        "When using 'type' values of 'survival' or 'hazard' are given,",
         "a numeric vector '.time' should also be given."
       )
     )
