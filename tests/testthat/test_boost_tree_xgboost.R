@@ -350,6 +350,18 @@ test_that('xgboost data conversion', {
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_sparse$data) > nrow(from_sparse$watchlist$validation))
 
+  # set event_level for factors
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE), labels = c("low", "high"))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(0, 5))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(1, 5))
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE, "na"), labels = c("low", "high", "missing"))
+  expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
+                 regexp = "`event_level` can only be set for binary variables.")
+
 })
 
 
@@ -409,5 +421,3 @@ test_that('argument checks for data dimensions', {
   expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
 
 })
-
-
