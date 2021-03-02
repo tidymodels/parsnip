@@ -421,3 +421,44 @@ test_that('argument checks for data dimensions', {
   expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
 
 })
+
+test_that("set `event_level` as engine-specific argument", {
+
+  skip_if_not_installed("xgboost")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins[, -c(1:2)])
+
+  spec <-
+    boost_tree(trees = 10, tree_depth = 3) %>%
+    set_engine(
+      "xgboost",
+      eval_metric = "aucpr",
+      event_level = "second",
+      verbose = 1
+    ) %>%
+    set_mode("classification")
+
+  set.seed(24)
+  fit_p <- spec %>% fit(sex ~ ., data = penguins)
+
+  penguins_x <- as.matrix(penguins[, -5])
+  penguins_y <- as.numeric(penguins$sex) - 1
+  xgbmat <- xgb.DMatrix(data = penguins_x, label = penguins_y)
+
+  set.seed(24)
+  fit_xgb <- xgboost::xgb.train(data = xgbmat,
+                                params = list(eta = 0.3, max_depth = 3,
+                                              gamma = 0, colsample_bytree = 1,
+                                              min_child_weight = 1,
+                                              subsample = 1),
+                                nrounds = 10,
+                                watchlist = list("training" = xgbmat),
+                                objective = "binary:logistic",
+                                verbose = 1,
+                                eval_metric = "aucpr",
+                                nthread = 1)
+
+  expect_equal(fit_p$fit$evaluation_log, fit_xgb$evaluation_log)
+
+})
