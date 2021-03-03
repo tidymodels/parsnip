@@ -254,9 +254,7 @@ format_time <- function(x) {
 format_survival <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    if (!any(grepl("^\\.time", names(x)))) {
-      names(x) <- paste0(".time_", names(x))
-    }
+    names(x) <- ".pred"
   } else {
     x <- tibble(.pred_survival = unname(x))
   }
@@ -270,9 +268,7 @@ format_linear_pred <- function(x) {
 
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    if (!any(grepl("^\\.time", names(x)))) {
-      names(x) <- paste0(".time_", names(x))
-    }
+    names(x) <- ".pred_linear_pred"
   } else {
     x <- tibble(.pred_linear_pred = unname(x))
   }
@@ -283,9 +279,7 @@ format_linear_pred <- function(x) {
 format_hazard <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    if (!any(grepl("^\\.time", names(x)))) {
-      names(x) <- paste0(".time_", names(x))
-    }
+    names(x) <- ".pred"
   } else {
     x <- tibble(.pred_hazard = unname(x))
   }
