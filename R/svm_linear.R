@@ -29,7 +29,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:  `"LiblineaR"` (the default)
+#' \item \pkg{R}:  `"LiblineaR"` (the default) or `"kernlab"`
 #' }
 #'
 #'
@@ -173,6 +173,16 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
     }
   }
 
+  if (x$engine == "kernlab") {
+
+    # unless otherwise specified, classification models predict probabilities
+    if (x$mode == "classification" && !any(arg_names == "prob.model"))
+      arg_vals$prob.model <- TRUE
+    if (x$mode == "classification" && any(arg_names == "epsilon"))
+      arg_vals$epsilon <- NULL
+
+  }
+
   x$method$fit$args <- arg_vals
 
   # worried about people using this to modify the specification
@@ -189,5 +199,9 @@ check_args.svm_linear <- function(object) {
 
 svm_linear_post <- function(results, object) {
   results$predictions
+}
+
+svm_reg_linear_post <- function(results, object) {
+  results[,1]
 }
 
