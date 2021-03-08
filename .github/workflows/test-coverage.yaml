@@ -49,7 +49,7 @@ jobs:
           pak::pkg_install("covr")
         shell: Rscript {0}
 
-     - name: Install Miniconda
+      - name: Install Miniconda
         run: |
           Rscript -e "pak::pkg_install('rstudio/reticulate')"
           Rscript -e "reticulate::install_miniconda()"
