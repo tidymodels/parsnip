@@ -21,6 +21,9 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      - name: System dependencies
+        run: brew install harfbuzz fribidi
+
       - name: Install pak and query dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
@@ -45,6 +48,10 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
+          pak::pkg_install(dependencies = TRUE)
+          pak::pkg_install("tidyverse/tidytemplate")
+          pak::pkg_install("tidymodels")
+          pak::pkg_install("C50")
         shell: Rscript {0}
 
       - name: Install package
