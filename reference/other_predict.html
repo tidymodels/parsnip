@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
         </div>
       </div>
     </div>
@@ -151,7 +151,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Other predict methods.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_class.R'><code>R/predict_class.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_classprob.R'><code>R/predict_classprob.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_interval.R'><code>R/predict_interval.R</code></a>, and 2 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_class.R'><code>R/predict_class.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_classprob.R'><code>R/predict_classprob.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/predict_hazard.R'><code>R/predict_hazard.R</code></a>, and 6 more</small>
     <div class="hidden name"><code>other_predict.Rd</code></div>
     </div>
 
@@ -166,7 +166,15 @@
 <span class='fu'>predict_classprob</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_hazard</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>.time</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for model_fit</span>
 <span class='fu'>predict_confint</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, level <span class='op'>=</span> <span class='fl'>0.95</span>, std_error <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_linear_pred</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>predict_linear_pred</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
 <span class='fu'>predict_numeric</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -174,7 +182,15 @@
 <span class='fu'>predict_numeric</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for model_fit</span>
-<span class='fu'>predict_quantile</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, quantile <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>predict_quantile</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, quantile <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_survival</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>.time</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for model_fit</span>
+<span class='fu'>predict_time</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>predict_time</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,8 +218,7 @@ the scale of the linear predictors) for <code>type</code>s of "conf_int"
 and "pred_int". Default value is <code>FALSE</code>.</p></li>
 <li><p><code>quantile</code>: the quantile(s) for quantile regression
 (not implemented yet)</p></li>
-<li><p><code>time</code>: the time(s) for hazard probability estimates
-(not implemented yet)</p></li>
+<li><p><code>.time</code>: the time(s) for hazard and survival probability estimates.</p></li>
 </ul></td>
     </tr>
     <tr>

@@ -108,7 +108,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
         </div>
       </div>
     </div>
@@ -208,9 +208,9 @@ The only possible value for this model is "classification".</p></td>
     <tr>
       <th>penalty</th>
       <td><p>A non-negative number representing the total
-amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
+amount of regularization (<code>glmnet</code>, <code>LiblineaR</code>, <code>keras</code>, and <code>spark</code> only).
 For <code>keras</code> models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
+(aka weight decay) while the other models can be either or a combination
 of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
     </tr>
     <tr>
@@ -218,7 +218,8 @@ of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
       <td><p>A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only).</p></td>
+ridge regression is being used. (<code>glmnet</code>, <code>LiblineaR</code>, and <code>spark</code> only).
+For <code>LiblineaR</code> models, <code>mixture</code> must be exactly 0 or 1 only.</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -247,7 +248,7 @@ modified in-place of or replaced wholesale.</p></td>
     <p>For <code>logistic_reg()</code>, the mode will always be "classification".</p>
 <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"glm"</code>  (the default) or <code>"glmnet"</code></p></li>
+<li><p><span class="pkg">R</span>:  <code>"glm"</code>  (the default), <code>"glmnet"</code>, or <code>"LiblineaR"</code></p></li>
 <li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
@@ -311,6 +312,28 @@ the penalty can be used. When predicting on multiple penalties, the
 column called <code>.pred</code> that contains a tibble with all of the penalty
 results.</p>
 
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>LiblineaR</h3>
+<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"LiblineaR"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: LiblineaR </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), </span>
+<span class='co'>##     verbose = FALSE)</span>
+</pre>
+
+<p>For <code>LiblineaR</code> models, the value for <code>mixture</code> can either be 0 (for
+ridge) or 1 (for lasso) but not other intermediate values. In the
+<code>LiblineaR</code> documentation, these correspond to types 0 (L2-regularized)
+and 6 (L1-regularized).</p>
+<p>Be aware that the <code>LiblineaR</code> engine regularizes the intercept. Other
+regularized regression models do not, which will result in different
+parameter estimates.</p>
+
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>stan</h3>
 <p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"stan"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -326,7 +349,7 @@ results.</p>
 </pre>
 
 <p>Note that the <code>refresh</code> default prevents logging of the estimation
-process. Change this value in <code><a href='set_engine.html'>set_engine()</a></code> will show the logs.</p>
+process. Change this value in <code><a href='set_engine.html'>set_engine()</a></code> to show the logs.</p>
 <p>For prediction, the <code>stan</code> engine can compute posterior intervals
 analogous to confidence and prediction intervals. In these instances,
 the units are the original outcome and when <code>std_error = TRUE</code>, the
@@ -370,9 +393,9 @@ predictive distribution as appropriate) is returned.</p>
 original names in each engine that has main parameters. Each engine
 typically has a different default value (shown in parentheses) for each
 parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td></tr>
-<tr><td>penalty</td><td>lambda</td><td>reg_param (0)</td><td>penalty (0)</td></tr>
-<tr><td>mixture</td><td>alpha (1)</td><td>elastic_net_param (0)</td><td>NA</td></tr>
+<tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>LiblineaR</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td></tr>
+<tr><td>penalty</td><td>lambda</td><td>cost</td><td>reg_param (0)</td><td>penalty (0)</td></tr>
+<tr><td>mixture</td><td>alpha (1)</td><td>type (0)</td><td>elastic_net_param (0)</td><td>NA</td></tr>
 </table>
 
 
@@ -384,14 +407,15 @@ parameter.</p><table class='table'>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"logistic_reg"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;   engine mode          
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> glm    classification
-#&gt; </span><span style='color: #555555;'>2</span><span> glmnet classification
-#&gt; </span><span style='color: #555555;'>3</span><span> spark  classification
-#&gt; </span><span style='color: #555555;'>4</span><span> keras  classification
-#&gt; </span><span style='color: #555555;'>5</span><span> stan   classification</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span><span>
+#&gt;   engine    mode          
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> glm       classification
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> glmnet    classification
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> LiblineaR classification
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> spark     classification
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> keras     classification
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> stan      classification</div><div class='input'>
 <span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>

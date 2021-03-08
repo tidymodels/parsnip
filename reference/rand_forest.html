@@ -109,7 +109,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
         </div>
       </div>
     </div>
@@ -298,10 +298,10 @@ call. For this type of model, the template of the fit calls are below:</p><h3 cl
 <span class='co'>##         1), probability = TRUE)</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require factor
-predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model.</p>
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
+factor predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does
+not affect the encoding of the predictor values (i.e. factors stay
+factors) for this model.</p>
 <p>For <code>ranger</code> confidence intervals, the intervals are constructed using
 the form <code>estimate +/- z * std_error</code>. For classification probabilities,
 these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
@@ -330,9 +330,10 @@ this range.</p>
 <span class='co'>## randomForest::randomForest(x = missing_arg(), y = missing_arg())</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code>
-does not require factor predictors to be converted to indicator
-variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+<p>Note that
+<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
+not require factor predictors to be converted to indicator variables.
+<code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
@@ -394,15 +395,15 @@ classification and 5 for regression.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span><span>
 #&gt;   engine       mode          
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> ranger       classification
-#&gt; </span><span style='color: #555555;'>2</span><span> ranger       regression    
-#&gt; </span><span style='color: #555555;'>3</span><span> randomForest classification
-#&gt; </span><span style='color: #555555;'>4</span><span> randomForest regression    
-#&gt; </span><span style='color: #555555;'>5</span><span> spark        classification
-#&gt; </span><span style='color: #555555;'>6</span><span> spark        regression    </div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ranger       classification
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> ranger       regression    
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> randomForest classification
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> randomForest regression    
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> spark        classification
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> spark        regression    </div><div class='input'>
 <span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, trees <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (classification)
 #&gt; 
