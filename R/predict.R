@@ -1,7 +1,7 @@
 #' Model predictions
 #'
 #' Apply a model to create different types of predictions.
-#'  `predict()` can be used for all types of models and used the
+#'  `predict()` can be used for all types of models and uses the
 #'  "type" argument for more specificity.
 #'
 #' @param object An object of class `model_fit`
