@@ -91,7 +91,7 @@ multivariate models.
 }
 \description{
 Apply a model to create different types of predictions.
-\code{predict()} can be used for all types of models and used the
+\code{predict()} can be used for all types of models and uses the
 "type" argument for more specificity.
 }
 \details{
