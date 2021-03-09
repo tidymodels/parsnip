@@ -48,7 +48,6 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
-          pak::pkg_install(dependencies = TRUE)
           pak::pkg_install("tidyverse/tidytemplate")
           pak::pkg_install("tidymodels")
           pak::pkg_install("C50")
