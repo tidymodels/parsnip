@@ -9,6 +9,8 @@
   s3_register("generics::tidy", "_fishnet")
   s3_register("generics::glance", "model_fit")
   s3_register("generics::augment", "model_fit")
+  s3_register("generics::required_pkgs", "model_fit")
+  s3_register("generics::required_pkgs", "model_spec")
 }
 
 

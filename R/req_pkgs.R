@@ -4,9 +4,9 @@
 #' @param ... Not used.
 #' @return A character string of package names (if any).
 #' @details
-#' For a model specification, the engine must be set.
-#'
-#' The list does not include the `parsnip` package.
+#' For a model specification, the engine must be set. The list produced by
+#' `req_pkgs()`does not include the `parsnip` package while `required_pkgs()`
+#' does.
 #' @examples
 #' should_fail <- try(req_pkgs(linear_reg()), silent = TRUE)
 #' should_fail
@@ -51,3 +51,16 @@ get_pkgs <- function(x) {
   res
 }
 
+#' @export
+#' @rdname req_pkgs
+required_pkgs.model_spec <- function(x, ...) {
+  res <- req_pkgs.model_spec(x, ...)
+  sort(unique(c("parsnip", res)))
+}
+
+#' @export
+#' @rdname req_pkgs
+required_pkgs.model_fit <- function(x, ...) {
+  res <- req_pkgs.model_fit(x, ...)
+  sort(unique(c("parsnip", res)))
+}
