@@ -4,6 +4,8 @@
 \alias{req_pkgs}
 \alias{req_pkgs.model_spec}
 \alias{req_pkgs.model_fit}
+\alias{required_pkgs.model_spec}
+\alias{required_pkgs.model_fit}
 \title{Determine required packages for a model}
 \usage{
 req_pkgs(x, ...)
@@ -11,6 +13,10 @@ req_pkgs(x, ...)
 \method{req_pkgs}{model_spec}(x, ...)
 
 \method{req_pkgs}{model_fit}(x, ...)
+
+\method{required_pkgs}{model_spec}(x, ...)
+
+\method{required_pkgs}{model_fit}(x, ...)
 }
 \arguments{
 \item{x}{A model specification or fit.}
@@ -24,9 +30,9 @@ A character string of package names (if any).
 Determine required packages for a model
 }
 \details{
-For a model specification, the engine must be set.
-
-The list does not include the \code{parsnip} package.
+For a model specification, the engine must be set. The list produced by
+\code{req_pkgs()}does not include the \code{parsnip} package while \code{required_pkgs()}
+does.
 }
 \examples{
 should_fail <- try(req_pkgs(linear_reg()), silent = TRUE)
