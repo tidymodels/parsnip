@@ -16,6 +16,8 @@
 
 * Column names for `x` are now required when `fit_xy()` is used. (#398)
 
+* New mode "censored regression" and new prediction types "linear_pred", "time", "survival", "hazard". (#396)
+
 
 # parsnip 0.1.4
 
