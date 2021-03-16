@@ -16,6 +16,8 @@
 
 * Column names for `x` are now required when `fit_xy()` is used. (#398)
 
+* Censored regression models cannot use `fit_xy()` (use `fit()`). (#442)
+
 
 # parsnip 0.1.4
 
