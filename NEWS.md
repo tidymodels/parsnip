@@ -20,6 +20,7 @@
 
 * New mode "censored regression" and new prediction types "linear_pred", "time", "survival", "hazard". (#396)
 
+* Censored regression models cannot use `fit_xy()` (use `fit()`). (#442)
 
 # parsnip 0.1.4
 
