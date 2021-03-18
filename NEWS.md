@@ -4,7 +4,7 @@
 
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices use via `fit_xy()`.
+* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices use via `fit_xy()` (#447).
 
 # parsnip 0.1.5
 
