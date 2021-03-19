@@ -27,19 +27,7 @@
 #' [survival::Surv()] objects), the [fit()] function will require that the
 #' survival model be specified via the formula interface.
 #'
-#' Also, for the `flexsurv::flexsurvfit` engine, the typical
-#'  `strata` function cannot be used. To achieve the same effect,
-#'  the extra parameter roles can be used (as described above).
-#'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"flexsurv"`, `"survival"` (the default)
-#' }
-#'
 #' @seealso [fit()], [survival::Surv()]
-#' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
-#'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples
 #' survival_reg()
 #' # Parameters can be represented by a placeholder:
