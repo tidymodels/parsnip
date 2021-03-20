@@ -1,0 +1,60 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("linear_reg", "keras")`
+
+## Tuning Parameters
+
+```{r keras-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty"),
+                 default = c("0.0"))
+
+param <-
+  get_from_env("linear_reg_args") %>% 
+  dplyr::filter(engine == "keras") %>% 
+  dplyr::mutate(
+    dials = purrr::map(func, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  dplyr::mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has one tuning parameter:
+
+```{r keras-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or weight decay). 
+
+## Translation from parsnip to the original package
+
+```{r keras-csl}
+linear_reg(penalty = double(1)) %>% 
+  set_engine("keras") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+[keras_mlp()] is a `parsnip` wrapper around keras code for neural networks. This model fits a linear regression as a network with a single hidden unit. 
+
+## Preprocessing requirements
+
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicators variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data (if required).
+
+Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
+
+## Other details
+
+The model _does not_ accept case weights. 
+
+## References
+
+ - Hoerl, A., & Kennard, R. (2000). _Ridge Regression: Biased Estimation for Nonorthogonal Problems_. Technometrics, 42(1), 80-86. 
+

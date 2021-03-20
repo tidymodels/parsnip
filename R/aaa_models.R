@@ -911,3 +911,47 @@ get_encoding <- function(model) {
   }
   res
 }
+
+#' Tools for documenting packages
+#' @param mod A character string for the model file
+#' @param pkg The package that contains the model file
+#' @return `find_engine_files()` returns a character string.
+#' @name doc-tools
+#' @keywords internal
+#' @export
+#' @examples
+#' cat(find_engine_files("linear_reg"))
+find_engine_files <- function(mod, pkg = "parsnip") {
+
+  # Get available topics
+  topic_names <- find_details_topics(pkg, mod)
+  if (length(topic_names) == 0) {
+    return(character(0))
+  }
+
+  # Subset for our model function
+  eng <- strsplit(topic_names, "-")
+  eng <- purrr::map_chr(eng, ~ .x[length(.x)])
+  eng <- tibble::tibble(engine = eng, topic = topic_names)
+
+  # Combine them to keep the order in which they were registered
+  all_eng <- get_from_env(mod)
+  all_eng$.order <- 1:nrow(all_eng)
+  eng <- dplyr::left_join(eng, all_eng, by = "engine")
+  eng <- eng[order(eng$.order),]
+
+  res <-
+    glue::glue("  \\item \\code{\\link[=|eng$topic|]{|eng$engine|}} ",
+               .open = "|", .close = "|")
+
+  res <- paste0("\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
+  res
+}
+
+find_details_topics <- function(pkg, mod) {
+  mod <- gsub("_", "-", mod)
+  meta_loc <- system.file("Meta/Rd.rds", package = pkg)
+  topic_names <- readRDS(meta_loc)$Name
+  grep(paste0("details-", mod), topic_names, value = TRUE)
+}
+

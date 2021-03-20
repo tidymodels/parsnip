@@ -1,0 +1,73 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("linear_reg", "glmnet")`
+
+## Tuning Parameters
+
+```{r glmnet-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty", "mixture"),
+                 default = c("see below", "1.0"))
+
+param <-
+  get_from_env("linear_reg_args") %>% 
+  dplyr::filter(engine == "glmnet") %>% 
+  dplyr::mutate(
+    dials = purrr::map(func, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r glmnet-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). `glmnet()` does not regularize the intercept parameter.
+
+When mixture = 1, it is a pure lasso model while mixture = 0 indicates that ridge regression is being used. 
+
+For _pure ridge regression models_, it is advisable to pass `lambda.min.ratio = 0` as an engine argument so that the correct parameter estimates are obtained (see [issue #431](https://github.com/tidymodels/parsnip/issues/431)).
+
+For `glmnet` models, the full regularization path is always fit regardless of the
+value given to `penalty`. Also, there is the option to pass  multiple values (or
+no values) to the `penalty` argument. When using the  `predict()` method in these
+cases, the return value depends on  the value of `penalty`. When using
+`predict()`, only a single  value of the penalty can be used. When predicting on
+multiple  penalties, the `multi_predict()` function can be used. It  returns a
+tibble with a list column called `.pred` that contains  a tibble with all of the
+penalty results.
+
+## Translation from parsnip to the original package
+
+```{r glmnet-csl}
+linear_reg(penalty = double(1), mixture = double(1)) %>% 
+  set_engine("glmnet") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicators variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data (if required).
+
+Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
+
+## Other details
+
+The model can accept case weights. 
+
+## References
+
+ - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

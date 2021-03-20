@@ -21,15 +21,12 @@ linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 The only possible value for this model is "regression".}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
-For \code{keras} models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of \code{mixture}; see below).}
+amount of regularization (specific engines only).}
 
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used  (specific engines only).}
 
 \item{object}{A linear regression model specification.}
 
@@ -44,165 +41,25 @@ modified in-place of or replaced wholesale.}
 \item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{linear_reg()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R, Stan, keras, or via Spark. The main
-arguments for the model are:
-\itemize{
-\item \code{penalty}: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-\item \code{mixture}: The mixture amounts of different types of
-regularization (see below). Note that this will be ignored for some engines.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{linear_reg()} defines a model that can predict numeric values from
+predictors using a linear function.
+
+There are different ways to fit this model. Information about the available
+\emph{engines} that that can be used for fitting:
+
+\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{linear_reg()}, the
-mode will always be "regression".
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"lm"}  (the default) or \code{"glmnet"}
-\item \pkg{Stan}:  \code{"stan"}
-\item \pkg{Spark}: \code{"spark"}
-\item \pkg{keras}: \code{"keras"}
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-For this model, other packages may add additional engines. Use
-\code{\link[=show_engines]{show_engines()}} to see the current set of engines.
-}
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit()} is available; using \code{fit_xy()} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.
-\subsection{lm}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("lm") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
-## 
-## Computational engine: lm 
-## 
-## Model fit template:
-## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-}
-}
-
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("glmnet") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
-## 
-## Computational engine: glmnet 
-## 
-## Model fit template:
-## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     family = "gaussian")
-}
-
-For \code{glmnet} models, the full regularization path is always fit
-regardless of the value given to \code{penalty}. Also, there is the option to
-pass multiple values (or no values) to the \code{penalty} argument. When
-using the \code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single value of
-the penalty can be used. When predicting on multiple penalties, the
-\code{multi_predict()} function can be used. It returns a tibble with a list
-column called \code{.pred} that contains a tibble with all of the penalty
-results.
-}
-
-\subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("stan") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
-## 
-## Computational engine: stan 
-## 
-## Model fit template:
-## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), family = stats::gaussian, refresh = 0)
-}
-
-Note that the \code{refresh} default prevents logging of the estimation
-process. Change this value in \code{set_engine()} to show the logs.
-
-For prediction, the \code{stan} engine can compute posterior intervals
-analogous to confidence and prediction intervals. In these instances,
-the units are the original outcome and when \code{std_error = TRUE}, the
-standard deviation of the posterior distribution (or posterior
-predictive distribution as appropriate) is returned.
-}
-
-\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
-##     weight_col = missing_arg())
-}
-}
-
-\subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("keras") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
-## 
-## Computational engine: keras 
-## 
-## Model fit template:
-## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-##     act = "linear")
-}
-}
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{llll}{
-   \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \cr
-   penalty \tab lambda \tab reg_param (0) \tab penalty (0) \cr
-   mixture \tab alpha (1) \tab elastic_net_param (0) \tab NA \cr
-}
-
-}
-}
-
 \examples{
 show_engines("linear_reg")
 
 linear_reg()
-# Parameters can be represented by a placeholder:
-linear_reg(penalty = varying())
 model <- linear_reg(penalty = 10, mixture = 0.1)
 model
 update(model, penalty = 1)

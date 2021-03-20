@@ -53,4 +53,5 @@ Suggests:
     nlme,
     modeldata,
     LiblineaR,
-    Matrix
+    Matrix,
+    dials

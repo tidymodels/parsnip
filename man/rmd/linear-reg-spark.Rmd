@@ -1,0 +1,64 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("linear_reg", "spark")`
+
+## Tuning Parameters
+
+```{r spark-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty", "mixture"),
+                 default = c("0.0", "0.0"))
+
+param <-
+  get_from_env("linear_reg_args") %>% 
+  dplyr::filter(engine == "spark") %>% 
+  dplyr::mutate(
+    dials = purrr::map(func, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  dplyr::mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r spark-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). 
+
+When mixture = 1, it is a pure lasso model while mixture = 0 indicates that ridge regression is being used.
+
+## Translation from parsnip to the original package
+
+```{r spark-csl}
+linear_reg(penalty = double(1), mixture = double(1)) %>% 
+  set_engine("spark") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicators variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data (if required).
+
+Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
+
+## Other details
+
+The model can accept case weights. 
+
+For models created using the spark engine, there are several differences to consider. First, only the formula interface to via `fit()` is available; using `fit_xy()` will generate an error. Second, the predictions will always be in a spark table format. The names will be the same as documented but without the dots. Third, there is no equivalent to factor columns in spark tables so class predictions are returned as character columns. Fourth, to retain the model object for a new R session (via `save()`), the `model$fit` element of the `parsnip` object should be serialized via `ml_save(object$fit)` and separately saved to disk. In a new session, the object can be reloaded and reattached to the `parsnip` object.
+
+## References
+
+ - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+
