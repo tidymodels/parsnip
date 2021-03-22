@@ -5,7 +5,7 @@
 \alias{find_engine_files}
 \title{Tools for documenting packages}
 \usage{
-find_engine_files(mod, pkg = "parsnip")
+find_engine_files(mod)
 }
 \arguments{
 \item{mod}{A character string for the model file}
