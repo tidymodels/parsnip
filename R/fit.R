@@ -192,6 +192,14 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (object$mode == "censored regression") {
+      rlang::abort("Models for censored regression must use the formula interface.")
+    }
+
+    if (inherits(object, "surv_reg")) {
+      rlang::abort("Survival models must use the formula interface.")
+    }
+
     if (!identical(class(control), class(control_parsnip()))) {
       rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
@@ -387,10 +395,6 @@ check_xy_interface <- function(x, y, cl, model) {
   }
 
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
-
-  if (inherits(model, "surv_reg") && (matrix_interface | df_interface)) {
-    rlang::abort("Survival models must use the formula interface.")
-  }
 
   if (matrix_interface) {
     return("matrix")

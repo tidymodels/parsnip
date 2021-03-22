@@ -1,8 +1,10 @@
 # parsnip (development version)
 
+* `generics::required_pkgs()` was extended for `parsnip` objects. 
+
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine. (#424)
+* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429).
 
 # parsnip 0.1.5
 
@@ -18,6 +20,9 @@
 
 * There is now an `event_level` argument for the `xgboost` engine. (#420)
 
+* New mode "censored regression" and new prediction types "linear_pred", "time", "survival", "hazard". (#396)
+
+* Censored regression models cannot use `fit_xy()` (use `fit()`). (#442)
 
 # parsnip 0.1.4
 

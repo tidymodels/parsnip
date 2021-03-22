@@ -31,6 +31,25 @@ predictions (e.g., accuracy and so on).
 This engine fits models that are L2-regularized for L2-loss. In the `LiblineaR` 
 documentation, these are types 1 (classification) and 11 (regression).
 
+## kernlab
+
+```{r kernlab-reg}
+svm_linear() %>% 
+  set_engine("kernlab") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r kernlab-cls}
+svm_linear() %>% 
+  set_engine("kernlab") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+`fit()` passes the data directly to `kernlab::ksvm()` so that its formula method can create dummy variables as-needed. 
+
+
 ## Parameter translations
 
 The standardized parameter names in parsnip can be mapped to their original 
@@ -44,6 +63,8 @@ get_defaults_svm_linear <- function() {
     ~model,    ~engine,       ~parsnip,        ~original,  ~default,
     "svm_linear", "LiblineaR",   "cost",          "C",        "1",
     "svm_linear", "LiblineaR",   "margin",        "svr_eps",  "0.1",
+    "svm_linear", "kernlab",     "cost",          "C",        "1",
+    "svm_linear", "kernlab",     "margin",        "epsilon",  "0.1",
   )
 }
 convert_args("svm_linear")

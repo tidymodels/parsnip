@@ -233,6 +233,104 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
+set_model_engine("logistic_reg", "classification", "LiblineaR")
+set_dependency("logistic_reg", "LiblineaR", "LiblineaR")
+
+set_fit(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "wi"),
+    data = c(x = "data", y = "target"),
+    func = c(pkg = "LiblineaR", fun = "LiblineaR"),
+    defaults = list(verbose = FALSE)
+  )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  parsnip = "penalty",
+  original = "cost",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = TRUE
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  parsnip = "mixture",
+  original = "type",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = liblinear_preds,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newx = expr(as.matrix(new_data))
+      )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = liblinear_probs,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newx = expr(as.matrix(new_data)),
+        proba = TRUE
+      )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newx = quote(new_data))
+  )
+)
+
+# ------------------------------------------------------------------------------
+
 set_model_engine("logistic_reg", "classification", "spark")
 set_dependency("logistic_reg", "spark", "sparklyr")
 
