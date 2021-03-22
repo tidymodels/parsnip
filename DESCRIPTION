@@ -3,8 +3,9 @@ Version: 0.1.5.9002
 Title: A Common API to Modeling and Analysis Functions
 Description: A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. 'R', 'Spark', 'Stan', etc). 
 Authors@R: c(
-    person(given = "Max",   family = "Kuhn",    email = "max@rstudio.com",   role = c("aut", "cre")),
-    person(given = "Davis", family = "Vaughan", email = "davis@rstudio.com", role = c("aut")),
+    person(given = "Max",   family = "Kuhn",      email = "max@rstudio.com",          role = c("aut", "cre")),
+    person(given = "Davis", family = "Vaughan",   email = "davis@rstudio.com",        role = c("aut")),
+    person(given = "Emil",  family = "Hvitfeldt", email = "emilhhvitfeldt@gmail.com", role = c("ctb")),
     person("RStudio", role = "cph"))
 Maintainer: Max Kuhn <max@rstudio.com>
 URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
