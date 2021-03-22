@@ -921,10 +921,10 @@ get_encoding <- function(model) {
 #' @export
 #' @examples
 #' cat(find_engine_files("linear_reg"))
-find_engine_files <- function(mod, pkg = "parsnip") {
+find_engine_files <- function(mod) {
 
   # Get available topics
-  topic_names <- find_details_topics(pkg, mod)
+  topic_names <- search_for_engine_docs(mod)
   if (length(topic_names) == 0) {
     return(character(0))
   }
@@ -948,10 +948,27 @@ find_engine_files <- function(mod, pkg = "parsnip") {
   res
 }
 
+search_for_engine_docs <- function(mod) {
+  all_deps <- get_from_env(paste0(mod, "_pkgs"))
+  all_deps <- unlist(all_deps$pkg)
+  all_deps <- unique(c("parsnip", all_deps))
+  excl <- c("stats", "magrittr")
+  all_deps <- all_deps[!(all_deps %in% excl)]
+  res <- purrr::map(all_deps, parsnip:::find_details_topics, mod = mod)
+  res <- unique(unlist(res))
+  res
+}
+
 find_details_topics <- function(pkg, mod) {
   mod <- gsub("_", "-", mod)
   meta_loc <- system.file("Meta/Rd.rds", package = pkg)
-  topic_names <- readRDS(meta_loc)$Name
-  grep(paste0("details-", mod), topic_names, value = TRUE)
+  meta_loc <- meta_loc[meta_loc != ""]
+  if (length(meta_loc) > 0) {
+    topic_names <- readRDS(meta_loc)$Name
+    res <- grep(paste0("details-", mod), topic_names, value = TRUE)
+  } else {
+    res <- character(0)
+  }
+  res
 }
 
