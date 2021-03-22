@@ -257,7 +257,7 @@ set_encoding(
     predictor_indicators = "none",
     compute_intercept = FALSE,
     remove_intercept = FALSE,
-    allow_sparse_x = FALSE
+    allow_sparse_x = TRUE
   )
 )
 
