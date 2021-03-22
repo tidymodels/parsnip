@@ -6,6 +6,8 @@
 
 * A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices via `fit_xy()` (#447).
 
+* New model specification `survival_reg()` for the new mode `"censored regression"`. (#444)
+
 # parsnip 0.1.5
 
 * An RStudio add-in is available that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
