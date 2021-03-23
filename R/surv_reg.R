@@ -68,6 +68,8 @@
 #' @export
 surv_reg <- function(mode = "regression", dist = NULL) {
 
+  lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
+
     args <- list(
       dist = enquo(dist)
     )
