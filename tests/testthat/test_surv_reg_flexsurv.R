@@ -8,16 +8,16 @@ library(tibble)
 
 source(test_path("helper-objects.R"))
 
-
 basic_form <- Surv(time, status) ~ age
 complete_form <- Surv(time) ~ age
-
-surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
 # ------------------------------------------------------------------------------
 
 test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+  surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
   expect_error(
     res <- fit(
@@ -52,6 +52,9 @@ test_that('flexsurv execution', {
 
 test_that('flexsurv prediction', {
   skip_if_not_installed("flexsurv")
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+  surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
   res <- fit(
     surv_basic,

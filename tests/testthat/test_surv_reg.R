@@ -11,6 +11,8 @@ source("helpers.R")
 # ------------------------------------------------------------------------------
 
 test_that('primary arguments', {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   basic <- surv_reg()
   basic_flexsurv <- translate(basic %>% set_engine("flexsurv"))
 
@@ -46,6 +48,8 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   fs_cl <- surv_reg()
   expect_equal(translate(fs_cl %>% set_engine("flexsurv", cl = .99))$method$fit$args,
                list(
@@ -60,6 +64,8 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expr1     <- surv_reg() %>% set_engine("flexsurv", cl = varying())
   expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
   expect_equal(update(expr1, dist = "lnorm", cl = 0.99), expr1_exp)
@@ -75,7 +81,14 @@ test_that('updating', {
 })
 
 test_that('bad input', {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expect_error(surv_reg(mode = ", classification"))
   expect_error(translate(surv_reg() %>% set_engine("wat")))
   expect_error(translate(surv_reg() %>% set_engine(NULL)))
+})
+
+test_that("deprecation warning", {
+  withr::local_options(lifecycle_verbosity = "warning")
+  expect_warning(surv_reg())
 })
