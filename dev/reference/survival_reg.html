@@ -59,7 +59,8 @@ This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
 set using set_engine(). If left to its default
 here (NULL), the value is taken from the underlying model
-functions.
+functions. If parameters need to be modified, update() can be used
+in lieu of recreating the object from scratch.
 If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
@@ -176,7 +177,8 @@ model is:</p><ul>
 time that the model is fit. Other options and argument can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to its default
 here (<code>NULL</code>), the value is taken from the underlying model
-functions.</p>
+functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
+in lieu of recreating the object from scratch.</p>
 <p>If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch.</p>
     </div>
