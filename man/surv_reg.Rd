@@ -78,7 +78,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: flexsurv 
 ## 
@@ -92,7 +95,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("survival") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: survival 
 ## 
