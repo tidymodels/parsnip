@@ -40,7 +40,8 @@ This argument is converted to its specific names at the
 time that the model is fit. Other options and argument can be
 set using \code{set_engine()}. If left to its default
 here (\code{NULL}), the value is taken from the underlying model
-functions.
+functions. If parameters need to be modified, \code{update()} can be used
+in lieu of recreating the object from scratch.
 
 If parameters need to be modified, this function can be used
 in lieu of recreating the object from scratch.

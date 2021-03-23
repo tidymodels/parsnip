@@ -11,7 +11,8 @@
 #'  time that the model is fit. Other options and argument can be
 #'  set using `set_engine()`. If left to its default
 #'  here (`NULL`), the value is taken from the underlying model
-#'  functions.
+#'  functions. If parameters need to be modified, `update()` can be used
+#'  in lieu of recreating the object from scratch.
 #'
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
