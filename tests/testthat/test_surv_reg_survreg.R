@@ -15,7 +15,7 @@ complete_form <- Surv(time) ~ group
 test_that('survival execution', {
   skip_on_travis()
 
-  withr::local_options(lifecycle_verbosity = "quiet")
+  rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("survival")
   surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survival")
 
@@ -51,7 +51,7 @@ test_that('survival execution', {
 test_that('survival prediction', {
   skip_on_travis()
 
-  withr::local_options(lifecycle_verbosity = "quiet")
+  rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("survival")
   surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survival")
 

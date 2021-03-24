@@ -16,7 +16,7 @@ complete_form <- Surv(time) ~ age
 test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
 
-  withr::local_options(lifecycle_verbosity = "quiet")
+  rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
   expect_error(
@@ -53,7 +53,7 @@ test_that('flexsurv execution', {
 test_that('flexsurv prediction', {
   skip_if_not_installed("flexsurv")
 
-  withr::local_options(lifecycle_verbosity = "quiet")
+  rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
   res <- fit(
