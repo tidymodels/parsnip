@@ -8,6 +8,8 @@
 
 * New model specification `survival_reg()` for the new mode `"censored regression"`. (#444)
 
+* New model specification `proportional_hazards()` for the `"censored regression"` mode (#451).
+
 # parsnip 0.1.5
 
 * An RStudio add-in is available that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
