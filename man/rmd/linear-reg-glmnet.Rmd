@@ -33,7 +33,8 @@ param$item
 
 For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). `glmnet()` does not regularize the intercept parameter.
 
-When mixture = 1, it is a pure lasso model while mixture = 0 indicates that ridge regression is being used. 
+When mixture = 1, it is a pure lasso model while mixture = 0 indicates that ridge regression is being used.
+
 ## Translation from parsnip to the original package
 
 ```{r glmnet-csl}
