@@ -29,6 +29,11 @@ modified in-place of or replaced wholesale.}
 \item{...}{Not used for \code{update()}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function is soft-deprecated in favor of \code{survival_reg()} which uses the
+\code{"censored regression"} mode.
+
 \code{surv_reg()} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
 R. The main argument for the
@@ -42,10 +47,6 @@ set using \code{set_engine()}. If left to its default
 here (\code{NULL}), the value is taken from the underlying model
 functions.
 
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch.
-}
-\details{
 The data given to the function are not saved and are only used
 to determine the \emph{mode} of the model. For \code{surv_reg()},the
 mode will always be "regression".
@@ -58,6 +59,10 @@ Also, for the \code{flexsurv::flexsurvfit} engine, the typical
 \code{strata} function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).
 
+If parameters need to be modified, this function can be used
+in lieu of recreating the object from scratch.
+}
+\details{
 For \code{surv_reg()}, the mode will always be "regression".
 
 The model can be created using the \code{fit()} function using the
@@ -73,7 +78,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: flexsurv 
 ## 
@@ -87,7 +95,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("survival") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: survival 
 ## 
@@ -123,6 +134,13 @@ surv_reg()
 # Parameters can be represented by a placeholder:
 surv_reg(dist = varying())
 
+# ->
+show_engines("survival_reg")
+
+survival_reg()
+# Parameters can be represented by a placeholder:
+survival_reg(dist = varying())
+
 model <- surv_reg(dist = "weibull")
 model
 update(model, dist = "lnorm")
@@ -134,3 +152,4 @@ Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 \seealso{
 \code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
 }
+\keyword{internal}

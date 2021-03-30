@@ -6,7 +6,7 @@
 
 * A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices via `fit_xy()` (#447).
 
-* New model specification `survival_reg()` for the new mode `"censored regression"`. (#444)
+* New model specification `survival_reg()` for the new mode `"censored regression"` (#444). `surv_reg()` is now soft-deprecated (#448).
 
 * New model specification `proportional_hazards()` for the `"censored regression"` mode (#451).
 

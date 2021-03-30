@@ -1,5 +1,11 @@
 #' General Interface for Parametric Survival Models
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function is soft-deprecated in favor of `survival_reg()` which uses the
+#' `"censored regression"` mode.
+#'
 #' `surv_reg()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
 #'  R. The main argument for the
@@ -51,8 +57,18 @@
 #' # Parameters can be represented by a placeholder:
 #' surv_reg(dist = varying())
 #'
+#' # ->
+#' show_engines("survival_reg")
+#'
+#' survival_reg()
+#' # Parameters can be represented by a placeholder:
+#' survival_reg(dist = varying())
+#'
+#' @keywords internal
 #' @export
 surv_reg <- function(mode = "regression", dist = NULL) {
+
+  lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
 
     args <- list(
       dist = enquo(dist)
