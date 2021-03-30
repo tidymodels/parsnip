@@ -6,7 +6,7 @@
 #' predictors using a linear function.
 #'
 #' There are different ways to fit this model. Information about the available
-#' _engines_ that that can be used for fitting:
+#' _engines_ that can be used for fitting:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
 #'

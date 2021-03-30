@@ -45,7 +45,7 @@ modified in-place of or replaced wholesale.}
 predictors using a linear function.
 
 There are different ways to fit this model. Information about the available
-\emph{engines} that that can be used for fitting:
+\emph{engines} that can be used for fitting:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
 }
