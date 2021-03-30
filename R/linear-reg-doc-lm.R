@@ -1,6 +1,6 @@
 #' Linear regression via lm
 #'
-#' `lm()` uses ordinary least squares to fit models with numeric outcomes.
+#' [stats::lm()] uses ordinary least squares to fit models with numeric outcomes.
 #'
 #' @includeRmd man/rmd/linear-reg-lm.Rmd details
 #'

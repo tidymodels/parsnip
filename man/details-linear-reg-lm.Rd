@@ -4,7 +4,7 @@
 \alias{details-linear-reg-lm}
 \title{Linear regression via lm}
 \description{
-\code{lm()} uses ordinary least squares to fit models with numeric outcomes.
+\code{\link[stats:lm]{stats::lm()}} uses ordinary least squares to fit models with numeric outcomes.
 }
 \details{
 For this engine, there is a single mode: regression
@@ -32,7 +32,7 @@ The only preprocessing required for this model is that
 factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicators variables). When using the formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data (if required).
+data when required.
 }
 
 \subsection{Other details}{
