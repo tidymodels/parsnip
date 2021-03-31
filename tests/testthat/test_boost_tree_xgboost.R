@@ -350,6 +350,18 @@ test_that('xgboost data conversion', {
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_sparse$data) > nrow(from_sparse$watchlist$validation))
 
+  # set event_level for factors
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE), labels = c("low", "high"))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(0, 5))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(1, 5))
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE, "na"), labels = c("low", "high", "missing"))
+  expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
+                 regexp = "`event_level` can only be set for binary variables.")
+
 })
 
 
@@ -410,4 +422,43 @@ test_that('argument checks for data dimensions', {
 
 })
 
+test_that("set `event_level` as engine-specific argument", {
 
+  skip_if_not_installed("xgboost")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins[, -c(1:2)])
+
+  spec <-
+    boost_tree(trees = 10, tree_depth = 3) %>%
+    set_engine(
+      "xgboost",
+      eval_metric = "aucpr",
+      event_level = "second",
+      verbose = 1
+    ) %>%
+    set_mode("classification")
+
+  set.seed(24)
+  fit_p <- spec %>% fit(sex ~ ., data = penguins)
+
+  penguins_x <- as.matrix(penguins[, -5])
+  penguins_y <- as.numeric(penguins$sex) - 1
+  xgbmat <- xgb.DMatrix(data = penguins_x, label = penguins_y)
+
+  set.seed(24)
+  fit_xgb <- xgboost::xgb.train(data = xgbmat,
+                                params = list(eta = 0.3, max_depth = 3,
+                                              gamma = 0, colsample_bytree = 1,
+                                              min_child_weight = 1,
+                                              subsample = 1),
+                                nrounds = 10,
+                                watchlist = list("training" = xgbmat),
+                                objective = "binary:logistic",
+                                verbose = 1,
+                                eval_metric = "aucpr",
+                                nthread = 1)
+
+  expect_equal(fit_p$fit$evaluation_log, fit_xgb$evaluation_log)
+
+})

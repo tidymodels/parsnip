@@ -22,6 +22,8 @@
 
 * Column names for `x` are now required when `fit_xy()` is used. (#398)
 
+* There is now an `event_level` argument for the `xgboost` engine. (#420)
+
 * New mode "censored regression" and new prediction types "linear_pred", "time", "survival", "hazard". (#396)
 
 * Censored regression models cannot use `fit_xy()` (use `fit()`). (#442)

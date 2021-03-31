@@ -305,6 +305,9 @@ check_args.boost_tree <- function(object) {
 #' @param objective A single string (or NULL) that defines the loss function that
 #' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
 #' NULL, an appropriate loss function is chosen.
+#' @param event_level For binary classification, this is a single string of either
+#' `"first"` or `"second"` to pass along describing which level of the outcome
+#' should be considered the "event".
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
@@ -313,8 +316,11 @@ xgb_train <- function(
   x, y,
   max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
   min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
-  early_stop = NULL, objective = NULL, ...) {
+  early_stop = NULL, objective = NULL,
+  event_level = c("first", "second"),
+  ...) {
 
+  event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
 
   num_class <- length(levels(y))
@@ -347,7 +353,7 @@ xgb_train <- function(
   n <- nrow(x)
   p <- ncol(x)
 
-  x <- as_xgb_data(x, y, validation)
+  x <- as_xgb_data(x, y, validation, event_level)
 
   # translate `subsample` and `colsample_bytree` to be on (0, 1] if not
   if (subsample > 1) {
@@ -427,7 +433,7 @@ xgb_pred <- function(object, newdata, ...) {
 }
 
 
-as_xgb_data <- function(x, y, validation = 0, ...) {
+as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
   lvls <- levels(y)
   n <- nrow(x)
 
@@ -436,7 +442,16 @@ as_xgb_data <- function(x, y, validation = 0, ...) {
   }
 
   if (is.factor(y)) {
-    y <- as.numeric(y) - 1
+    if (length(lvls) < 3) {
+      if (event_level == "first") {
+        y <- -as.numeric(y) + 2
+      } else {
+        y <- as.numeric(y) - 1
+      }
+    } else {
+      if (event_level == "second") rlang::warn("`event_level` can only be set for binary variables.")
+      y <- as.numeric(y) - 1
+    }
   }
 
   if (!inherits(x, "xgb.DMatrix")) {
