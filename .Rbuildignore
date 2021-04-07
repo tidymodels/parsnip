@@ -18,3 +18,4 @@ derby.log
 ^CODE_OF_CONDUCT\.md$
 ^README\.html$
 ^codecov\.yml$
+^LICENSE\.md$
