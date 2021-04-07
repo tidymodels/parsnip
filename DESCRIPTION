@@ -10,7 +10,7 @@ Authors@R: c(
 Maintainer: Max Kuhn <max@rstudio.com>
 URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
 BugReports: https://github.com/tidymodels/parsnip/issues
-License: GPL-2
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true

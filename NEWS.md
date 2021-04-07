@@ -10,6 +10,8 @@
 
 * New model specification `proportional_hazards()` for the `"censored regression"` mode (#451).
 
+* Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
+
 # parsnip 0.1.5
 
 * An RStudio add-in is available that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
