@@ -218,6 +218,37 @@ test_that('submodel prediction', {
   )
 })
 
+test_that('prediction with event_level', {
+
+  skip_if_not_installed("xgboost")
+  library(xgboost)
+
+  vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
+
+  # event_level = "first"
+  fit_1 <-
+    boost_tree(trees = 20, mode = "classification") %>%
+    set_engine("xgboost") %>%
+    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
+
+  x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
+
+  pred_xgb_1 <- predict(fit_1$fit, x)
+  pred_res_1 <- predict(fit_1, new_data = wa_churn[1:4, vars], type = "prob")
+  expect_equal(pred_res_1[[".pred_Yes"]], pred_xgb_1)
+
+  # event_level = "second"
+  fit_2 <-
+    boost_tree(trees = 20, mode = "classification") %>%
+    set_engine("xgboost", event_level = "second") %>%
+    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
+
+  x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
+
+  pred_xgb_2 <- predict(fit_2$fit, x)
+  pred_res_2 <- predict(fit_2, new_data = wa_churn[1:4, vars], type = "prob")
+  expect_equal(pred_res_2[[".pred_No"]], pred_xgb_2)
+})
 
 test_that('default engine', {
   skip_if_not_installed("xgboost")
