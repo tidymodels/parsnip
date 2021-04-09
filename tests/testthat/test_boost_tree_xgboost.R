@@ -218,38 +218,6 @@ test_that('submodel prediction', {
   )
 })
 
-test_that('prediction with event_level', {
-
-  skip_if_not_installed("xgboost")
-  library(xgboost)
-
-  vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
-
-  # event_level = "first"
-  fit_1 <-
-    boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("xgboost") %>%
-    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
-
-  x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
-
-  pred_xgb_1 <- predict(fit_1$fit, x)
-  pred_res_1 <- predict(fit_1, new_data = wa_churn[1:4, vars], type = "prob")
-  expect_equal(pred_res_1[[".pred_Yes"]], pred_xgb_1)
-
-  # event_level = "second"
-  fit_2 <-
-    boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("xgboost", event_level = "second") %>%
-    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
-
-  x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
-
-  pred_xgb_2 <- predict(fit_2$fit, x)
-  pred_res_2 <- predict(fit_2, new_data = wa_churn[1:4, vars], type = "prob")
-  expect_equal(pred_res_2[[".pred_No"]], pred_xgb_2)
-})
-
 test_that('default engine', {
   skip_if_not_installed("xgboost")
   expect_warning(
@@ -453,43 +421,64 @@ test_that('argument checks for data dimensions', {
 
 })
 
-test_that("set `event_level` as engine-specific argument", {
+test_that("fit and prediction with `event_level`", {
 
   skip_if_not_installed("xgboost")
 
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins[, -c(1:2)])
 
-  spec <-
-    boost_tree(trees = 10, tree_depth = 3) %>%
-    set_engine(
-      "xgboost",
-      eval_metric = "aucpr",
-      event_level = "second",
-      verbose = 1
-    ) %>%
-    set_mode("classification")
+  train_x <- as.matrix(penguins[-(1:4), -5])
+  train_y_1 <- -as.numeric(penguins$sex[-(1:4)]) + 2
+  train_y_2 <- as.numeric(penguins$sex[-(1:4)]) - 1
+
+  x_pred <-  xgboost::xgb.DMatrix(as.matrix(penguins[1:4, -5]))
+
+  # event_level = "first"
+  set.seed(24)
+  fit_p_1 <- boost_tree(trees = 10) %>%
+    set_engine("xgboost", eval_metric = "auc"
+               # event_level = "first" is the default
+               ) %>%
+    set_mode("classification") %>%
+    fit(sex ~ ., data = penguins[-(1:4), ])
+
+  xgbmat_train_1 <- xgb.DMatrix(data = train_x, label = train_y_1)
 
   set.seed(24)
-  fit_p <- spec %>% fit(sex ~ ., data = penguins)
-
-  penguins_x <- as.matrix(penguins[, -5])
-  penguins_y <- as.numeric(penguins$sex) - 1
-  xgbmat <- xgb.DMatrix(data = penguins_x, label = penguins_y)
-
-  set.seed(24)
-  fit_xgb <- xgboost::xgb.train(data = xgbmat,
-                                params = list(eta = 0.3, max_depth = 3,
-                                              gamma = 0, colsample_bytree = 1,
-                                              min_child_weight = 1,
-                                              subsample = 1),
+  fit_xgb_1 <- xgboost::xgb.train(data = xgbmat_train_1,
                                 nrounds = 10,
-                                watchlist = list("training" = xgbmat),
+                                watchlist = list("training" = xgbmat_train_1),
                                 objective = "binary:logistic",
-                                verbose = 1,
-                                eval_metric = "aucpr",
-                                nthread = 1)
+                                eval_metric = "auc")
 
-  expect_equal(fit_p$fit$evaluation_log, fit_xgb$evaluation_log)
+  expect_equal(fit_p_1$fit$evaluation_log, fit_xgb_1$evaluation_log)
+
+  pred_xgb_1 <- predict(fit_xgb_1, x_pred)
+  pred_p_1 <- predict(fit_p_1, new_data = penguins[1:4, ], type = "prob")
+  expect_equal(pred_p_1[[".pred_female"]], pred_xgb_1)
+
+  # event_level = "second"
+  set.seed(24)
+  fit_p_2 <- boost_tree(trees = 10) %>%
+    set_engine("xgboost", eval_metric = "auc",
+               event_level = "second") %>%
+    set_mode("classification") %>%
+    fit(sex ~ ., data = penguins[-(1:4), ])
+
+  xgbmat_train_2 <- xgb.DMatrix(data = train_x, label = train_y_2)
+
+  set.seed(24)
+  fit_xgb_2 <- xgboost::xgb.train(data = xgbmat_train_2,
+                                  nrounds = 10,
+                                  watchlist = list("training" = xgbmat_train_2),
+                                  objective = "binary:logistic",
+                                  eval_metric = "auc")
+
+  expect_equal(fit_p_2$fit$evaluation_log, fit_xgb_2$evaluation_log)
+
+  pred_xgb_2 <- predict(fit_xgb_2, x_pred)
+  pred_p_2 <- predict(fit_p_2, new_data = penguins[1:4, ], type = "prob")
+  expect_equal(pred_p_2[[".pred_male"]], pred_xgb_2)
 
 })
