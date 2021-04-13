@@ -472,6 +472,17 @@ as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
 
   list(data = dat, watchlist = wlist)
 }
+
+get_event_level <- function(model_spec){
+  if ("event_level" %in% names(model_spec$eng_args)) {
+    event_level <- get_expr(model_spec$eng_args$event_level)
+  } else {
+    # "first" is the default for as_xgb_data() and xgb_train()
+    event_level <- "first"
+  }
+  event_level
+}
+
 #' @importFrom purrr map_df
 #' @export
 #' @rdname multi_predict
