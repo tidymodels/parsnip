@@ -384,14 +384,16 @@ using a parameter set:<div class="r"></p><pre><span class='va'>mod</span> <span 
 <p>For this engine, tuning over <code>trees</code> is very efficient since the same
 model object can be used to make predictions over multiple values of
 <code>trees</code>.</p>
-<p>Finally, note that <code>xgboost</code> models require that non-numeric predictors
-(e.g., factors) must be converted to dummy variables or some other
-numeric representation. By default, when using <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> with <code>xgboost</code>, a
-one-hot encoding is used to convert factor predictors to indicator
-variables. In the classification mode, non-numeric outcomes (i.e.,
+<p>Note that <code>xgboost</code> models require that non-numeric predictors (e.g.,
+factors) must be converted to dummy variables or some other numeric
+representation. By default, when using <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> with <code>xgboost</code>, a one-hot
+encoding is used to convert factor predictors to indicator variables.</p>
+<p>Finally, in the classification mode, non-numeric outcomes (i.e.,
 factors) are converted to numeric. For binary classification, the
 <code>event_level</code> argument of <code><a href='set_engine.html'>set_engine()</a></code> can be set to either <code>"first"</code>
-or <code>"second"</code> to specify which level should be used as the event.</p>
+or <code>"second"</code> to specify which level should be used as the event. This
+can be helpful when a watchlist is used to monitor performance from with
+the xgboost training process.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>C5.0</h3>
 <p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
