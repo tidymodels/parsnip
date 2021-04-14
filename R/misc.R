@@ -191,14 +191,8 @@ update_dot_check <- function(...) {
 #' @keywords internal
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-  if (!(mode %in% spec_modes))
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of: ",
-        glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-      )
-    )
+
+  check_spec_mode_val(cls, mode)
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
