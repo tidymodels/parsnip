@@ -104,10 +104,7 @@ test_that("correct modes of null_model",{
   basic <- null_model()
   basic_expect <- basic
   #default
-  expect_equal(basic$mode, "unknown")
-  #set classification
-  basic_expect$mode <- "classification"
-  expect_equal(basic %>% set_mode("classification"), basic_expect)
+  expect_equal(basic$mode, "classification")
   #set regression
   basic_expect$mode <- "regression"
   expect_equal(basic %>% set_mode("regression"), basic_expect)
@@ -133,7 +130,7 @@ test_that("correct modes of rand_forest",{
 test_that("correct modes of survival_reg", {
   basic <- survival_reg()
   expect_equal(basic$mode, "censored regression")
-  expect_error(surv_reg("classification"))
+  expect_error(survival_reg("classification"))
   expect_error(basic %>% set_mode("classification"))
 })
 
