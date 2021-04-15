@@ -31,9 +31,9 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). `glmnet()` does not regularize the intercept parameter.
-
 A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` indicates ridge regression.
+
+For more details about the `glmnet` model, see [glmnet-details]
 
 ## Translation from parsnip to the original package
 
@@ -48,19 +48,7 @@ linear_reg(penalty = double(1), mixture = double(1)) %>%
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicators variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data if required.
 
-Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
-
-## Other details
-
-For _pure ridge regression models_, we advise passing `lambda.min.ratio = 0` as an engine argument so the correct parameter estimates are obtained (see [issue #431](https://github.com/tidymodels/parsnip/issues/431)).
-
-For `glmnet` models, the full regularization path is always fit regardless of the
-value given to `penalty`. Also, there is the option to pass  multiple values (or
-no values) to the `penalty` argument. When using the  `predict()` method in these
-cases, the return value depends on  the value of `penalty`. When using
-`predict()`, only a single  value of the penalty can be used. When predicting on
-multiple  penalties, use the `multi_predict()` function. It returns a tibble 
-with a list column called `.pred` containing a tibble of all the penalty results.
+Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one. By default, `glmnet()` uses the argument `standardize = TRUE` to center and scale the data. 
 
 ## References
 
