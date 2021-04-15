@@ -51,9 +51,9 @@ centering all predictors).
 
 The only preprocessing required for this model is that
 factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicators variables). When using the formula method via
+(e.g., dummy or indicator variables). When using the formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data (if required).
+data if required.
 }
 
 \subsection{Other details}{

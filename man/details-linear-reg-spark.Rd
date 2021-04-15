@@ -20,8 +20,8 @@ This model has 2 tuning parameters:
 For \code{penalty}, the amount of regularization includes both the L1 penalty
 (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay).
 
-When mixture = 1, it is a pure lasso model while mixture = 0 indicates
-that ridge regression is being used.
+A value of \code{mixture = 1} corresponds to a pure lasso model, while
+\code{mixture = 0} indicates ridge regression.
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
@@ -45,9 +45,9 @@ that ridge regression is being used.
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicators variables). When using the formula method via
+(e.g., dummy or indicator variables). When using the formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data (if required).
+data if required.
 
 Also, predictors should have the same scale. One way to achieve this is
 to center and scale each so that each predictors have mean zero and a

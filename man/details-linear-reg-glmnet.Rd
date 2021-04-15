@@ -17,13 +17,14 @@ below)
 \item \code{mixture}: Proportion of lasso Penalty (type: double, default: 1.0)
 }
 
-For \code{penalty}, the amount of regularization includes both the L1 penalty
-(i.e., lasso) and the L2 penalty (i.e., ridge or weight decay).
-\code{glmnet()} does not regularize the intercept parameter.
+A value of \code{mixture = 1} corresponds to a pure lasso model, while
+\code{mixture = 0} indicates ridge regression.
 
-When mixture = 1, it is a pure lasso model while mixture = 0 indicates
-that ridge regression is being used. ## Translation from parsnip to
-the original package\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
+For more details about the \code{glmnet} model, see
+\link{glmnet-details}
+}
+
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("glmnet") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -46,27 +47,12 @@ the original package\if{html}{\out{<div class="r">}}\preformatted{linear_reg(pen
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicators variables). When using the formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data when required.
+data if required.
 
 Also, predictors should have the same scale. One way to achieve this is
 to center and scale each so that each predictors have mean zero and a
-variance of one.
-}
-
-\subsection{Other details}{
-
-For \emph{pure ridge regression models}, we advise passing
-\code{lambda.min.ratio = 0} as an engine argument so the correct parameter
-estimates are obtained (see \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431}).
-
-For \code{glmnet} models, the full regularization path is always fit
-regardless of the value given to \code{penalty}. Also, there is the option to
-pass multiple values (or no values) to the \code{penalty} argument. When
-using the \code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single value of
-the penalty can be used. When predicting on multiple penalties, use the
-\code{multi_predict()} function. It returns a tibble with a list column
-called \code{.pred} containing a tibble of all the penalty results.
+variance of one. By default, \code{glmnet()} uses the argument
+\code{standardize = TRUE} to center and scale the data.
 }
 
 \subsection{References}{

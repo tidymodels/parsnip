@@ -11,7 +11,7 @@ This model has no tuning parameters.
 
 Some relevant arguments that can be passed to `set_engine()`: 
 
-  * `chains`: A positive integer specifying the number of Markov chains. The default is 4.
+ * `chains`: A positive integer specifying the number of Markov chains. The default is 4.
  * `iter`: A positive integer specifying the number of iterations for each chain (including warmup). The default is 2000.
  * `seed`: The seed for random number generation. 
  * `cores`: Number of cores to use when executing the chains in parallel.
