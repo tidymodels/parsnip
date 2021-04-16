@@ -954,7 +954,7 @@ search_for_engine_docs <- function(mod) {
   all_deps <- unique(c("parsnip", all_deps))
   excl <- c("stats", "magrittr")
   all_deps <- all_deps[!(all_deps %in% excl)]
-  res <- purrr::map(all_deps, parsnip:::find_details_topics, mod = mod)
+  res <- purrr::map(all_deps, find_details_topics, mod = mod)
   res <- unique(unlist(res))
   res
 }
@@ -971,4 +971,3 @@ find_details_topics <- function(pkg, mod) {
   }
   res
 }
-
