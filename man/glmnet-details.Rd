@@ -20,13 +20,13 @@ in the overall penalty.
 When \code{glmnet} fits the model, the intercept coefficient is not
 penalized.
 
-One aspect of the model is that there is a \emph{coefficient path} for each
-data set and a given value of \code{alpha}. When the \code{glmnet} model is
-trained, it estimates a continuum of possible penalty values. The user
-doesn’t need to declare the exact value of the penalty that should be
-used until sample prediction (i.e., it is not needed when the model is
-trained). If you specify a single value of \code{lamda} when calling
-\code{glmnet()}, the estimated coefficient path only has that value.
+When the \code{glmnet} model is trained, it estimates a continuum of possible
+penalty values. This gives a \emph{coefficient path} for each data set and a
+given value of \code{alpha}. The user doesn’t need to declare the exact value
+of the penalty that should be used until sample prediction (i.e., it is
+not needed when the model is trained). If you specify a single value of
+\code{lamda} when calling \code{glmnet()}, the estimated coefficient path only has
+that value.
 }
 
 \section{Using glmnet with parsnip}{

@@ -26,7 +26,7 @@ amount of regularization (specific engines only).}
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used  (specific engines only).}
+ridge regression is being used (specific engines only).}
 
 \item{object}{A linear regression model specification.}
 

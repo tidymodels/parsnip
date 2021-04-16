@@ -2,8 +2,8 @@
 #'
 #' `glmnet()` uses regularized least squares to fit models with numeric outcomes.
 #'
-#' @includeRmd man/rmd/linear-reg-glmnet.Rmd details
+#' @includeRmd man/rmd/linear_reg_glmnet.Rmd details
 #'
-#' @name details-linear-reg-glmnet
+#' @name details_linear_reg_glmnet
 #' @keywords internal
 NULL

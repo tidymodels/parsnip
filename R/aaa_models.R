@@ -937,7 +937,7 @@ find_engine_files <- function(mod) {
   }
 
   # Subset for our model function
-  eng <- strsplit(topic_names, "-")
+  eng <- strsplit(topic_names, "_")
   eng <- purrr::map_chr(eng, ~ .x[length(.x)])
   eng <- tibble::tibble(engine = eng, topic = topic_names)
 
@@ -967,12 +967,11 @@ search_for_engine_docs <- function(mod) {
 }
 
 find_details_topics <- function(pkg, mod) {
-  mod <- gsub("_", "-", mod)
   meta_loc <- system.file("Meta/Rd.rds", package = pkg)
   meta_loc <- meta_loc[meta_loc != ""]
   if (length(meta_loc) > 0) {
     topic_names <- readRDS(meta_loc)$Name
-    res <- grep(paste0("details-", mod), topic_names, value = TRUE)
+    res <- grep(paste0("details_", mod), topic_names, value = TRUE)
   } else {
     res <- character(0)
   }
