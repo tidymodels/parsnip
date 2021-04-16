@@ -51,7 +51,8 @@ data if required.
 
 Also, predictors should have the same scale. One way to achieve this is
 to center and scale each so that each predictors have mean zero and a
-variance of one.
+variance of one. By default, \code{ml_linear_regression()} uses the argument
+\code{standardization = TRUE} to center and scale the data.
 }
 
 \subsection{Other details}{

@@ -48,7 +48,7 @@ linear_reg(penalty = double(1), mixture = double(1)) %>%
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data if required.
 
-Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
+Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one. By default, `ml_linear_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
 
 ## Other details
 
