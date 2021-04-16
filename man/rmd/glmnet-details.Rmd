@@ -7,7 +7,7 @@ First, `glmnet` fits two types of penalties: the lasso (or L1) penalty and the r
 
 When `glmnet` fits the model, the intercept coefficient is not penalized. 
 
-One aspect of the model is that there is a _coefficient path_ for each data set and a given value of `alpha`. When the `glmnet` model is trained, it estimates a continuum of possible penalty values. The user doesn't need to declare the exact value of the penalty that should be used until sample prediction (i.e., it is not needed when the model is trained). If you specify a single value of `lamda` when calling `glmnet()`, the estimated coefficient path only has that value. 
+When the `glmnet` model is trained, it estimates a continuum of possible penalty values. This gives a _coefficient path_ for each data set and a given value of `alpha`. The user doesn't need to declare the exact value of the penalty that should be used until sample prediction (i.e., it is not needed when the model is trained). If you specify a single value of `lamda` when calling `glmnet()`, the estimated coefficient path only has that value. 
 
 # Using glmnet with parsnip
 
