@@ -45,9 +45,16 @@ modified in-place of or replaced wholesale.}
 predictors using a linear function.
 
 There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting:
+\emph{engines} that can be used for fitting at:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
+
+Loading model \code{parsnip}-adjacent packages will show additional engines for
+this model. The \code{multilevelmod} package contains additional engines for
+\code{linear_reg()}.
+
+More information on how \code{parsnip} is used for model is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine
