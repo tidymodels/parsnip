@@ -65,7 +65,7 @@ get_model_env <- function() {
 #' @export
 get_from_env <- function(items) {
   mod_env <- get_model_env()
-  rlang::env_get(mod_env, items)
+  rlang::env_get(mod_env, items, default = NULL)
 }
 
 #' @rdname get_model_env
@@ -955,12 +955,20 @@ find_engine_files <- function(mod) {
   res
 }
 
+# These will never have documentation and we can avoid searhcing them.
+excl_pkgs <-
+  c("C50", "Cubist", "earth", "flexsurv", "forecast", "glmnet",
+    "keras", "kernlab", "kknn", "klaR", "LiblineaR", "liquidSVM",
+    "magrittr", "MASS", "mda", "mixOmics", "naivebayes", "nnet",
+    "prophet", "pscl", "randomForest", "ranger", "rpart", "rstanarm",
+    "sparklyr", "stats", "survival", "xgboost", "xrf")
+
 search_for_engine_docs <- function(mod) {
   all_deps <- get_from_env(paste0(mod, "_pkgs"))
   all_deps <- unlist(all_deps$pkg)
   all_deps <- unique(c("parsnip", all_deps))
-  excl <- c("stats", "magrittr")
-  all_deps <- all_deps[!(all_deps %in% excl)]
+
+  all_deps <- all_deps[!(all_deps %in% excl_pkgs)]
   res <- purrr::map(all_deps, find_details_topics, mod = mod)
   res <- unique(unlist(res))
   res
