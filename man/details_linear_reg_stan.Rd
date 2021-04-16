@@ -58,8 +58,6 @@ data if required.
 
 \subsection{Other details}{
 
-The model can accept case weights.
-
 For prediction, the \code{stan} engine can compute posterior intervals
 analogous to confidence and prediction intervals. In these instances,
 the units are the original outcome and when \code{std_error = TRUE}, the

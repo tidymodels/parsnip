@@ -4,7 +4,7 @@
 \alias{details_linear_reg_glmnet}
 \title{Linear regression via glmnet}
 \description{
-\code{glmnet()} uses regularized least squares to fit models with numeric outcomes.
+\code{\link[glmnet:glmnet]{glmnet::glmnet()}} uses regularized least squares to fit models with numeric outcomes.
 }
 \details{
 For this engine, there is a single mode: regression

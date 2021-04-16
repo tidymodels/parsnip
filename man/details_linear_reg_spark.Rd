@@ -4,7 +4,7 @@
 \alias{details_linear_reg_spark}
 \title{Linear regression via spark}
 \description{
-\code{sparklyr::ml_linear_regression()} uses regularized least squares to fit
+\code{\link[sparklyr:ml_linear_regression]{sparklyr::ml_linear_regression()}} uses regularized least squares to fit
 models with numeric outcomes.
 }
 \details{
@@ -56,8 +56,6 @@ variance of one. By default, \code{ml_linear_regression()} uses the argument
 }
 
 \subsection{Other details}{
-
-The model can accept case weights.
 
 For models created using the spark engine, there are several differences
 to consider. First, only the formula interface to via \code{fit()} is

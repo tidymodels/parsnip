@@ -52,11 +52,6 @@ to center and scale each so that each predictors have mean zero and a
 variance of one.
 }
 
-\subsection{Other details}{
-
-The model \emph{does not} accept case weights.
-}
-
 \subsection{References}{
 \itemize{
 \item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased

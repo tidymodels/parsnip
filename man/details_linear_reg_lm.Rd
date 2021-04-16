@@ -35,11 +35,6 @@ factor/categorical predictors need to be converted to numeric values
 data if required.
 }
 
-\subsection{Other details}{
-
-The model can accept case weights.
-}
-
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

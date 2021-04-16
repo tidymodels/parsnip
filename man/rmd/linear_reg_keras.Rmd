@@ -50,10 +50,6 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one.
 
-## Other details
-
-The model _does not_ accept case weights. 
-
 ## References
 
  - Hoerl, A., & Kennard, R. (2000). _Ridge Regression: Biased Estimation for Nonorthogonal Problems_. Technometrics, 42(1), 80-86. 

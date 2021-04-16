@@ -25,8 +25,8 @@ penalty values. This gives a \emph{coefficient path} for each data set and a
 given value of \code{alpha}. The user doesn’t need to declare the exact value
 of the penalty that should be used until sample prediction (i.e., it is
 not needed when the model is trained). If you specify a single value of
-\code{lamda} when calling \code{glmnet()}, the estimated coefficient path only has
-that value.
+\code{lamda} when calling \code{\link[glmnet:glmnet]{glmnet::glmnet()}}, the
+estimated coefficient path only has that value.
 }
 
 \section{Using glmnet with parsnip}{
@@ -135,9 +135,9 @@ penalty values:\if{html}{\out{<div class="r">}}\preformatted{multi_predict(glmne
 }
 
 You can modify the penalties contained in the path by using the
-\code{glmnet()} arguments \code{nlambda} and \code{lambda.min.ratio}. The latter is
-discussed more below. These arguments would be passed when
-\code{set_engine()} is called.
+\code{\link[glmnet:glmnet]{glmnet::glmnet()}} arguments \code{nlambda} and
+\code{lambda.min.ratio}. The latter is discussed more below. These arguments
+would be passed when \code{set_engine()} is called.
 
 Note that the value supplied by the user in the model specification
 (\verb{penalty = 0.1)} may not be on the coefficient path. In that case,
@@ -182,8 +182,9 @@ arguments contain their default values.
 
 However, we have noticed that using the argument value
 \code{lambda.min.ratio = 0} in these fits might help achieve the correct
-results. However, consult the \code{glmnet()} function documentation to read
-about the potential effects of using this value.
+results. However, consult the \code{\link[glmnet:glmnet]{glmnet::glmnet()}}
+function documentation to read about the potential effects of using this
+value.
 
 Here’s an example of how the coefficient path is changed by this option:\if{html}{\out{<div class="r">}}\preformatted{default_value <- 
   linear_reg(penalty = 0.01, mixture = 0) \%>\% 
