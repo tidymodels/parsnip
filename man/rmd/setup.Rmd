@@ -1,5 +1,8 @@
 ```{r, include = FALSE}
 library(dials)
+library(parsnip)
+library(tune)
+
 convert_args <- function(model_name) {
   envir <- get_model_env()
 
@@ -41,7 +44,11 @@ get_arg <- function(ns, f, arg) {
 }
 
 get_dials <- function(x) {
-  cl <- rlang::call2(x$fun, .ns = x$pgk)
+  if (any(names(x) == "range")) {
+    cl <- rlang::call2(x$fun, .ns = x$pgk, range = x$range)
+  } else {
+    cl <- rlang::call2(x$fun, .ns = x$pgk)
+  }
   rlang::eval_tidy(cl)
 }
 

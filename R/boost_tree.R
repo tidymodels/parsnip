@@ -2,32 +2,21 @@
 
 #' General Interface for Boosted Trees
 #'
-#' `boost_tree()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{mtry}: The number of predictors that will be
-#'   randomly sampled at each split when creating the tree models.
-#'   \item \code{trees}: The number of trees contained in the ensemble.
-#'   \item \code{min_n}: The minimum number of data points in a node
-#'   that is required for the node to be split further.
-#'   \item \code{tree_depth}: The maximum depth of the tree (i.e. number of
-#'  splits).
-#'   \item \code{learn_rate}: The rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration.
-#'   \item \code{loss_reduction}: The reduction in the loss function required
-#'   to split further.
-#'   \item \code{sample_size}: The amount of data exposed to the fitting routine.
-#'   \item \code{stop_iter}: The number of iterations without improvement before
-#'   stopping.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using the `set_engine()` function. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#'
+#' `boost_tree()` defines a model that creates a series of decision trees that form an
+#' ensemble. Each tree depends on the results of previous trees. All trees in
+#' the ensemble are combined into a final prediction.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("boost_tree")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @details
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
@@ -51,37 +40,14 @@
 #' @param stop_iter The number of iterations without improvement before
 #'   stopping (`xgboost` only).
 #' @details
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `boost_tree()`, the
-#'  possible modes are "regression" and "classification".
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}: `"xgboost"` (the default), `"C5.0"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
-#'
-#' For this model, other packages may add additional engines. Use
-#' [show_engines()] to see the current set of engines.
-#'
-#' @includeRmd man/rmd/boost-tree.Rmd details
-#'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()], [xgb_train()], [C5.0_train()]
 #' @examples
 #' show_engines("boost_tree")
 #'
@@ -534,7 +500,8 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #'  random proportion of the data should be used to train the model.
 #'  By default, all the samples are used for model training. Samples
 #'  not used for training are used to evaluate the accuracy of the
-#'  model in the printed output.
+#'  model in the printed output. A value of zero means that all the training
+#'  data are used.
 #' @param ... Other arguments to pass.
 #' @return A fitted C5.0 model.
 #' @keywords internal

@@ -457,6 +457,7 @@ set_model_mode <- function(model, mode) {
 
 #' @rdname set_new_model
 #' @keywords internal
+#' @importFrom dplyr %>%
 #' @export
 set_model_engine <- function(model, mode, eng) {
   check_model_exists(model)
@@ -942,7 +943,7 @@ find_engine_files <- function(mod) {
   eng <- tibble::tibble(engine = eng, topic = topic_names)
 
   # Combine them to keep the order in which they were registered
-  all_eng <- get_from_env(mod)
+  all_eng <- get_from_env(mod) %>% dplyr::distinct(engine)
   all_eng$.order <- 1:nrow(all_eng)
   eng <- dplyr::left_join(eng, all_eng, by = "engine")
   eng <- eng[order(eng$.order),]
