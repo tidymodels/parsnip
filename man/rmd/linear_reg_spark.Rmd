@@ -11,10 +11,12 @@ defaults <-
                  default = c("0.0", "0.0"))
 
 param <-
-  get_from_env("linear_reg_args") %>% 
-  dplyr::filter(engine == "spark") %>% 
+  linear_reg() %>% 
+  set_engine("spark") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
   dplyr::mutate(
-    dials = purrr::map(func, get_dials),
+    dials = purrr::map(call_info, get_dials),
     label = purrr::map_chr(dials, ~ .x$label),
     type = purrr::map_chr(dials, ~ .x$type)
   ) %>% 

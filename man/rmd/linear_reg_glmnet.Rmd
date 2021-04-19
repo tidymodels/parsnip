@@ -11,10 +11,12 @@ defaults <-
                  default = c("see below", "1.0"))
 
 param <-
-  get_from_env("linear_reg_args") %>% 
-  dplyr::filter(engine == "glmnet") %>% 
+linear_reg() %>% 
+  set_engine("glmnet") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
   dplyr::mutate(
-    dials = purrr::map(func, get_dials),
+    dials = purrr::map(call_info, get_dials),
     label = purrr::map_chr(dials, ~ .x$label),
     type = purrr::map_chr(dials, ~ .x$type)
   ) %>% 
@@ -33,7 +35,7 @@ param$item
 
 A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` indicates ridge regression.
 
-For more details about the `glmnet` model, see [glmnet-details]
+The `penalty` parameter has no default. For more details about this, and the `glmnet` model in general, see [glmnet-details].
 
 ## Translation from parsnip to the original package
 

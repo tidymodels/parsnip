@@ -20,8 +20,8 @@ below)
 A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \code{mixture = 0} indicates ridge regression.
 
-For more details about the \code{glmnet} model, see
-\link{glmnet-details}
+The \code{penalty} parameter has no default. For more details about this, and
+the \code{glmnet} model in general, see \link{glmnet-details}.
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
