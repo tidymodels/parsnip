@@ -35,9 +35,9 @@ predict_survival.model_fit <-
     res
   }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict_survival.model_fit
 predict_survival <- function (object, ...)
   UseMethod("predict_survival")
