@@ -144,6 +144,13 @@ test_that('linear svm regression: LiblineaR', {
   expect_output(print(res), "parsnip model object")
 
   expect_error(
+    tidy_res <- tidy(res),
+    NA
+  )
+  expect_s3_class(tidy_res, "tbl_df")
+  expect_equal(colnames(tidy_res), c("term", "estimate"))
+
+  expect_error(
     fit(
       reg_mod,
       input_fields ~ .,
