@@ -14,6 +14,7 @@
 \alias{predict_numeric}
 \alias{predict_quantile.model_fit}
 \alias{predict_survival.model_fit}
+\alias{predict_survival}
 \alias{predict_time.model_fit}
 \alias{predict_time}
 \title{Other predict methods.}
@@ -37,6 +38,8 @@ predict_numeric(object, ...)
 \method{predict_quantile}{model_fit}(object, new_data, quantile = (1:9)/10, ...)
 
 \method{predict_survival}{model_fit}(object, new_data, .time, ...)
+
+predict_survival(object, ...)
 
 \method{predict_time}{model_fit}(object, new_data, ...)
 
