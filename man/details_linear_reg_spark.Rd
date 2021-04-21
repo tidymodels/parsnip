@@ -14,7 +14,7 @@ For this engine, there is a single mode: regression
 This model has 2 tuning parameters:
 \itemize{
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.0)
-\item \code{mixture}: Proportion of lasso Penalty (type: double, default: 0.0)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 }
 
 For \code{penalty}, the amount of regularization includes both the L1 penalty

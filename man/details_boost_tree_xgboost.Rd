@@ -12,7 +12,7 @@ the ensemble are combined into a final prediction.
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 7 tuning parameters:
+This model has 8 tuning parameters:
 \itemize{
 \item \code{tree_depth}: Tree Depth (type: integer, default: 6L)
 \item \code{trees}: # Trees (type: integer, default: 15L)
@@ -24,6 +24,8 @@ below)
 0.0)
 \item \code{sample_size}: Proportion Observations Sampled (type: double,
 default: 1.0)
+\item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
+Inf)
 }
 
 The \code{mtry} parameter is related to the number of predictors. The default
@@ -127,7 +129,8 @@ with external parallel processing when using the \code{tune} package.
 \subsection{Early stopping}{
 
 The \code{stop_iter()} argument allows the model to prematurely stop training
-if the objective function does not improve.
+if the objective function does not improve within \code{early_stop}
+iterations.
 
 The best way to use this feature is in conjunction with an \emph{internal
 validation set}. To do this, pass the \code{validation} parameter of
