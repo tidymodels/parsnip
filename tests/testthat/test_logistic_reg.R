@@ -448,6 +448,13 @@ test_that('liblinear execution', {
     )
   )
 
+  expect_error(
+    tidy_res <- tidy(res),
+    NA
+  )
+  expect_s3_class(tidy_res, "tbl_df")
+  expect_equal(colnames(tidy_res), c("term", "estimate"))
+
   # wrong outcome type
   expect_error(
     glm_form_catch <- fit(
