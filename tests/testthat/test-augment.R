@@ -35,6 +35,8 @@ test_that('regression models', {
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars[, -1]))), 6)
 
+  expect_s3_class(augment(reg_form, head(mtcars)), "tbl_df")
+
   reg_form$spec$mode <- "depeche"
 
   expect_error(augment(reg_form, head(mtcars[, -1])), "Unknown mode: depeche")

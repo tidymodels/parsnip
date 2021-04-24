@@ -77,5 +77,5 @@ augment.model_fit <- function(x, new_data, ...) {
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
-  new_data
+  as_tibble(new_data)
 }
