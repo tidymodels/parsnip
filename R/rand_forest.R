@@ -20,7 +20,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -54,7 +53,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("rand_forest")
 #'
@@ -96,16 +95,8 @@ print.rand_forest <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A random forest model specification.
-#' @examples
-#' model <- rand_forest(mtry = 10, min_n = 3)
-#' model
-#' update(model, mtry = 1)
-#' update(model, mtry = 1, fresh = TRUE)
 #' @method update rand_forest
-#' @rdname rand_forest
+#' @rdname parsnip_update
 #' @export
 update.rand_forest <-
   function(object,

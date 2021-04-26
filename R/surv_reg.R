@@ -31,7 +31,6 @@
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param dist A character string for the outcome distribution. "weibull" is
@@ -47,7 +46,7 @@
 #'
 #' @includeRmd man/rmd/surv-reg.Rmd details
 #'
-#' @seealso [fit()], [survival::Surv()]
+#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples
@@ -99,19 +98,8 @@ print.surv_reg <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' Update a Parametric Survival Regression Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
-#' @inheritParams update.boost_tree
-#' @param object A survival regression model specification.
-#' @examples
-#' model <- surv_reg(dist = "weibull")
-#' model
-#' update(model, dist = "lnorm")
 #' @method update surv_reg
-#' @rdname surv_reg
+#' @rdname parsnip_update
 #' @export
 update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
 

@@ -21,7 +21,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -60,7 +59,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("decision_tree")
 #'
@@ -102,16 +101,8 @@ print.decision_tree <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A decision tree model specification.
-#' @examples
-#' model <- decision_tree(cost_complexity = 10, min_n = 3)
-#' model
-#' update(model, cost_complexity = 1)
-#' update(model, cost_complexity = 1, fresh = TRUE)
 #' @method update decision_tree
-#' @rdname decision_tree
+#' @rdname parsnip_update
 #' @export
 update.decision_tree <-
   function(object,

@@ -81,7 +81,7 @@
 #'  reloaded and reattached to the `parsnip` object.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("boost_tree")
 #'
@@ -132,32 +132,8 @@ print.boost_tree <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @param object A boosted tree model specification.
-#' @param parameters A 1-row tibble or named list with _main_
-#'  parameters to update. If the individual arguments are used,
-#'  these will supersede the values in `parameters`. Also, using
-#'  engine arguments in this object will result in an error.
-#' @param ... Not used for `update()`.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
-#' @examples
-#' model <- boost_tree(mtry = 10, min_n = 3)
-#' model
-#' update(model, mtry = 1)
-#' update(model, mtry = 1, fresh = TRUE)
-#'
-#' param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
-#'
-#' model %>% update(param_values)
-#' model %>% update(param_values, mtry = 3)
-#'
-#' param_values$verbose <- 0
-#' # Fails due to engine argument
-#' # model %>% update(param_values)
 #' @method update boost_tree
-#' @rdname boost_tree
+#' @rdname parsnip_update
 #' @export
 update.boost_tree <-
   function(object,

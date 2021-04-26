@@ -17,7 +17,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -36,7 +35,7 @@
 #' @includeRmd man/rmd/svm-linear.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("svm_linear")
 #'
@@ -78,16 +77,8 @@ print.svm_linear <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A linear SVM model specification.
-#' @examples
-#' model <- svm_linear(cost = 3)
-#' model
-#' update(model, cost = 1)
-#' update(model, cost = 1, fresh = TRUE)
 #' @method update svm_linear
-#' @rdname svm_linear
+#' @rdname parsnip_update
 #' @export
 update.svm_linear <-
   function(object,

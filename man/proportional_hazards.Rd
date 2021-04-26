@@ -37,11 +37,6 @@ ridge regression is being used. (\code{glmnet} and \code{spark} only).}
 
 \item{object}{A proportional hazards model specification.}
 
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
 \item{fresh}{A logical for whether the arguments should be
 modified in-place of or replaced wholesale.}
 

@@ -27,7 +27,6 @@
 #'  If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -54,7 +53,7 @@
 #' @includeRmd man/rmd/mlp.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("mlp")
 #'
@@ -100,21 +99,8 @@ print.mlp <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' Update a Single Layer Neural Network Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A multilayer perceptron model specification.
-#' @examples
-#' model <- mlp(hidden_units = 10, dropout = 0.30)
-#' model
-#' update(model, hidden_units = 2)
-#' update(model, hidden_units = 2, fresh = TRUE)
 #' @method update mlp
-#' @rdname mlp
+#' @rdname parsnip_update
 #' @export
 update.mlp <-
   function(object,
