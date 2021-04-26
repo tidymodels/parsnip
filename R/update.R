@@ -4,6 +4,20 @@
 #' If parameters of a model specification need to be modified, `update()` can
 #' be used in lieu of recreating the object from scratch.
 #'
+#' @inheritParams boost_tree
+#' @inheritParams decision_tree
+#' @inheritParams linear_reg
+#' @inheritParams logistic_reg
+#' @inheritParams mars
+#' @inheritParams mlp
+#' @inheritParams multinom_reg
+#' @inheritParams nearest_neighbor
+#' @inheritParams proportional_hazards
+#' @inheritParams rand_forest
+#' @inheritParams surv_reg
+#' @inheritParams svm_linear
+#' @inheritParams svm_poly
+#' @inheritParams svm_rbf
 #' @param object A model specification.
 #' @param parameters A 1-row tibble or named list with _main_
 #'  parameters to update. If the individual arguments are used,
