@@ -2,22 +2,12 @@
 % Please edit documentation in R/proportional_hazards.R
 \name{proportional_hazards}
 \alias{proportional_hazards}
-\alias{update.proportional_hazards}
 \title{General Interface for Proportional Hazards Models}
 \usage{
 proportional_hazards(
   mode = "censored regression",
   penalty = NULL,
   mixture = NULL
-)
-
-\method{update}{proportional_hazards}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -34,13 +24,6 @@ of L1 and L2 (depending on the value of \code{mixture}; see below).}
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
 ridge regression is being used. (\code{glmnet} and \code{spark} only).}
-
-\item{object}{A proportional hazards model specification.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{proportional_hazards()} is a way to generate a \emph{specification} of a model
@@ -66,8 +49,7 @@ For \code{proportional_hazards()}, the mode will always be "censored regression"
 \examples{
 show_engines("proportional_hazards")
 
-model <- proportional_hazards(penalty = 10, mixture = 0.1)
-model
-update(model, penalty = 1)
-update(model, penalty = 1, fresh = TRUE)
+}
+\seealso{
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
