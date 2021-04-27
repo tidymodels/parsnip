@@ -20,7 +20,8 @@
 #' @inheritParams svm_rbf
 #' @param object A model specification.
 #' @param parameters A 1-row tibble or named list with _main_
-#'  parameters to update. If the individual arguments are used,
+#'  parameters to update. Use **either** `parameters` **or** the main arguments
+#'  directly when updating. If the main arguments are used,
 #'  these will supersede the values in `parameters`. Also, using
 #'  engine arguments in this object will result in an error.
 #' @param ... Not used for `update()`.
