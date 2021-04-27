@@ -25,7 +25,7 @@
 #'  engine arguments in this object will result in an error.
 #' @param ... Not used for `update()`.
 #' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
+#'  modified in-place or replaced wholesale.
 #' @return An updated model specification.
 #' @name parsnip_update
 #' @examples
