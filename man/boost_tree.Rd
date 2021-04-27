@@ -2,7 +2,6 @@
 % Please edit documentation in R/boost_tree.R
 \name{boost_tree}
 \alias{boost_tree}
-\alias{update.boost_tree}
 \title{General Interface for Boosted Trees}
 \usage{
 boost_tree(
@@ -15,21 +14,6 @@ boost_tree(
   loss_reduction = NULL,
   sample_size = NULL,
   stop_iter = NULL
-)
-
-\method{update}{boost_tree}(
-  object,
-  parameters = NULL,
-  mtry = NULL,
-  trees = NULL,
-  min_n = NULL,
-  tree_depth = NULL,
-  learn_rate = NULL,
-  loss_reduction = NULL,
-  sample_size = NULL,
-  stop_iter = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -62,21 +46,6 @@ each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
 stopping (\code{xgboost} only).}
-
-\item{object}{A boosted tree model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
-}
-\value{
-An updated model specification.
 }
 \description{
 \code{boost_tree()} is a way to generate a \emph{specification} of a model
@@ -278,20 +247,7 @@ show_engines("boost_tree")
 boost_tree(mode = "classification", trees = 20)
 # Parameters can be represented by a placeholder:
 boost_tree(mode = "regression", mtry = varying())
-model <- boost_tree(mtry = 10, min_n = 3)
-model
-update(model, mtry = 1)
-update(model, mtry = 1, fresh = TRUE)
-
-param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
-
-model \%>\% update(param_values)
-model \%>\% update(param_values, mtry = 3)
-
-param_values$verbose <- 0
-# Fails due to engine argument
-# model \%>\% update(param_values)
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

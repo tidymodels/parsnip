@@ -2,7 +2,6 @@
 % Please edit documentation in R/mars.R
 \name{mars}
 \alias{mars}
-\alias{update.mars}
 \title{General Interface for MARS}
 \usage{
 mars(
@@ -10,16 +9,6 @@ mars(
   num_terms = NULL,
   prod_degree = NULL,
   prune_method = NULL
-)
-
-\method{update}{mars}(
-  object,
-  parameters = NULL,
-  num_terms = NULL,
-  prod_degree = NULL,
-  prune_method = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -33,18 +22,6 @@ final model, including the intercept.}
 \item{prod_degree}{The highest possible interaction degree.}
 
 \item{prune_method}{The pruning method.}
-
-\item{object}{A MARS model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{mars()} is a way to generate a \emph{specification} of a model before
@@ -135,11 +112,7 @@ parameter.\tabular{ll}{
 show_engines("mars")
 
 mars(mode = "regression", num_terms = 5)
-model <- mars(num_terms = 10, prune_method = "none")
-model
-update(model, num_terms = 1)
-update(model, num_terms = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

@@ -22,7 +22,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -39,7 +38,7 @@
 #' @includeRmd man/rmd/mars.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("mars")
 #'
@@ -79,16 +78,8 @@ print.mars <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A MARS model specification.
-#' @examples
-#' model <- mars(num_terms = 10, prune_method = "none")
-#' model
-#' update(model, num_terms = 1)
-#' update(model, num_terms = 1, fresh = TRUE)
 #' @method update mars
-#' @rdname mars
+#' @rdname parsnip_update
 #' @export
 update.mars <-
   function(object,

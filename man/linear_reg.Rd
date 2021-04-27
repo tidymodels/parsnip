@@ -2,19 +2,9 @@
 % Please edit documentation in R/linear_reg.R
 \name{linear_reg}
 \alias{linear_reg}
-\alias{update.linear_reg}
 \title{General Interface for Linear Regression Models}
 \usage{
 linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
-
-\method{update}{linear_reg}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -30,18 +20,6 @@ of L1 and L2 (depending on the value of \code{mixture}; see below).}
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
 ridge regression is being used. (\code{glmnet} and \code{spark} only).}
-
-\item{object}{A linear regression model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{linear_reg()} is a way to generate a \emph{specification} of a model
@@ -203,11 +181,7 @@ show_engines("linear_reg")
 linear_reg()
 # Parameters can be represented by a placeholder:
 linear_reg(penalty = varying())
-model <- linear_reg(penalty = 10, mixture = 0.1)
-model
-update(model, penalty = 1)
-update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

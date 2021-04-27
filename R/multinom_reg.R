@@ -16,7 +16,6 @@
 #'  here (`NULL`), the values are taken from the underlying model
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param penalty A non-negative number representing the total
@@ -54,7 +53,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("multinom_reg")
 #'
@@ -101,15 +100,8 @@ translate.multinom_reg <- translate.linear_reg
 
 # ------------------------------------------------------------------------------
 
-#' @inheritParams update.boost_tree
-#' @param object A multinomial regression model specification.
-#' @examples
-#' model <- multinom_reg(penalty = 10, mixture = 0.1)
-#' model
-#' update(model, penalty = 1)
-#' update(model, penalty = 1, fresh = TRUE)
 #' @method update multinom_reg
-#' @rdname multinom_reg
+#' @rdname parsnip_update
 #' @export
 update.multinom_reg <-
   function(object,
