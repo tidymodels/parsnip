@@ -71,9 +71,7 @@ survival::Surv() objects), the fit() function will require that the
 survival model be specified via the formula interface.
 Also, for the flexsurv::flexsurvfit engine, the typical
 strata function cannot be used. To achieve the same effect,
-the extra parameter roles can be used (as described above).
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch." />
+the extra parameter roles can be used (as described above)." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -201,14 +199,9 @@ survival model be specified via the formula interface.</p>
 <p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
 <code>strata</code> function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).</p>
-<p>If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for surv_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, parameters <span class='op'>=</span> <span class='cn'>NULL</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span>, fresh <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,26 +215,6 @@ The only possible value for this model is "regression".</p></td>
       <th>dist</th>
       <td><p>A character string for the outcome distribution. "weibull" is
 the default.</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A survival regression model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -316,7 +289,7 @@ parameter.</p><table class='table'>
 Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"surv_reg"</span><span class='op'>)</span>
@@ -349,19 +322,7 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; Main Arguments:
 #&gt;   dist = varying()
 #&gt; </div><div class='input'>
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>surv_reg</span><span class='op'>(</span>dist <span class='op'>=</span> <span class='st'>"weibull"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
-#&gt; <span class='warning'>Please use `survival_reg()` instead.</span></div><div class='input'><span class='va'>model</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, dist <span class='op'>=</span> <span class='st'>"lnorm"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   dist = lnorm
-#&gt; </div></span></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

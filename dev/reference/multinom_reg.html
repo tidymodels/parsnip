@@ -185,17 +185,7 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>multinom_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for multinom_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
-  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
-  mixture <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>multinom_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,26 +209,6 @@ of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
 ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only).</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A multinomial regression model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -355,7 +325,7 @@ parameter.</p><table class='table'>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"multinom_reg"</span><span class='op'>)</span>
@@ -374,24 +344,6 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = varying()
-#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>multinom_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>10</span>, mixture <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>model</span>
-</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 10
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 1
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 1
 #&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

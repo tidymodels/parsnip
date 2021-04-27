@@ -215,22 +215,6 @@ in lieu of recreating the object from scratch.</p>
   loss_reduction <span class='op'>=</span> <span class='cn'>NULL</span>,
   sample_size <span class='op'>=</span> <span class='cn'>NULL</span>,
   stop_iter <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for boost_tree</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
-  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
-  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
-  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
-  tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
-  learn_rate <span class='op'>=</span> <span class='cn'>NULL</span>,
-  loss_reduction <span class='op'>=</span> <span class='cn'>NULL</span>,
-  sample_size <span class='op'>=</span> <span class='cn'>NULL</span>,
-  stop_iter <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -284,31 +268,8 @@ each iteration while <code>C5.0</code> samples once during training.</p></td>
       <td><p>The number of iterations without improvement before
 stopping (<code>xgboost</code> only).</p></td>
     </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A boosted tree model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An updated model specification.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data given to the function are not saved and are only used
@@ -470,7 +431,7 @@ regression.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"boost_tree"</span><span class='op'>)</span>
@@ -493,46 +454,7 @@ regression.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>boost_tree</span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>model</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 10
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 1
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 1
-#&gt; </div><div class='input'>
-<span class='va'>param_values</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, tree_depth <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='va'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>param_values</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 10
-#&gt;   min_n = 3
-#&gt;   tree_depth = 5
-#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>param_values</span>, mtry <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 10
-#&gt;   min_n = 3
-#&gt;   tree_depth = 5
-#&gt; </div><div class='input'>
-<span class='va'>param_values</span><span class='op'>$</span><span class='va'>verbose</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-<span class='co'># Fails due to engine argument</span>
-<span class='co'># model %&gt;% update(param_values)</span>
-</div></span></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

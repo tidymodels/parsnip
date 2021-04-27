@@ -112,6 +112,9 @@
     <loc>https://parsnip.tidymodels.org/reference/parsnip_addin.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/parsnip_update.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
   </url>
   <url>
