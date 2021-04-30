@@ -1,0 +1,52 @@
+#' Update a model specification
+#'
+#' @description
+#' If parameters of a model specification need to be modified, `update()` can
+#' be used in lieu of recreating the object from scratch.
+#'
+#' @inheritParams boost_tree
+#' @inheritParams decision_tree
+#' @inheritParams linear_reg
+#' @inheritParams logistic_reg
+#' @inheritParams mars
+#' @inheritParams mlp
+#' @inheritParams multinom_reg
+#' @inheritParams nearest_neighbor
+#' @inheritParams proportional_hazards
+#' @inheritParams rand_forest
+#' @inheritParams surv_reg
+#' @inheritParams svm_linear
+#' @inheritParams svm_poly
+#' @inheritParams svm_rbf
+#' @param object A model specification.
+#' @param parameters A 1-row tibble or named list with _main_
+#'  parameters to update. Use **either** `parameters` **or** the main arguments
+#'  directly when updating. If the main arguments are used,
+#'  these will supersede the values in `parameters`. Also, using
+#'  engine arguments in this object will result in an error.
+#' @param ... Not used for `update()`.
+#' @param fresh A logical for whether the arguments should be
+#'  modified in-place or replaced wholesale.
+#' @return An updated model specification.
+#' @name parsnip_update
+#' @examples
+#' model <- boost_tree(mtry = 10, min_n = 3)
+#' model
+#' update(model, mtry = 1)
+#' update(model, mtry = 1, fresh = TRUE)
+#'
+#' param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
+#'
+#' model %>% update(param_values)
+#' model %>% update(param_values, mtry = 3)
+#'
+#' param_values$verbose <- 0
+#' # Fails due to engine argument
+#' # model %>% update(param_values)
+#'
+#' model <- linear_reg(penalty = 10, mixture = 0.1)
+#' model
+#' update(model, penalty = 1)
+#' update(model, penalty = 1, fresh = TRUE)
+#'
+NULL

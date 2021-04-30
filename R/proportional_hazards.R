@@ -24,6 +24,7 @@
 #' Proportional hazards models include the Cox model.
 #' For `proportional_hazards()`, the mode will always be "censored regression".
 #'
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("proportional_hazards")
 #'
@@ -62,17 +63,8 @@ print.proportional_hazards <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @param object A proportional hazards model specification.
-#' @param ... Not used for `update()`.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @examples
-#' model <- proportional_hazards(penalty = 10, mixture = 0.1)
-#' model
-#' update(model, penalty = 1)
-#' update(model, penalty = 1, fresh = TRUE)
 #' @method update proportional_hazards
-#' @rdname proportional_hazards
+#' @rdname parsnip_update
 #' @export
 update.proportional_hazards <- function(object,
                                         parameters = NULL,

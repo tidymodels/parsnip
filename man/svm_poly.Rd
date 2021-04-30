@@ -2,7 +2,6 @@
 % Please edit documentation in R/svm_poly.R
 \name{svm_poly}
 \alias{svm_poly}
-\alias{update.svm_poly}
 \title{General interface for polynomial support vector machines}
 \usage{
 svm_poly(
@@ -11,17 +10,6 @@ svm_poly(
   degree = NULL,
   scale_factor = NULL,
   margin = NULL
-)
-
-\method{update}{svm_poly}(
-  object,
-  parameters = NULL,
-  cost = NULL,
-  degree = NULL,
-  scale_factor = NULL,
-  margin = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -38,18 +26,6 @@ or on the wrong side of the margin}
 
 \item{margin}{A positive number for the epsilon in the SVM insensitive
 loss function (regression only)}
-
-\item{object}{A polynomial SVM model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{svm_poly()} is a way to generate a \emph{specification} of a model
@@ -130,11 +106,7 @@ show_engines("svm_poly")
 svm_poly(mode = "classification", degree = 1.2)
 # Parameters can be represented by a placeholder:
 svm_poly(mode = "regression", cost = varying())
-model <- svm_poly(cost = 10, scale_factor = 0.1)
-model
-update(model, cost = 1)
-update(model, cost = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

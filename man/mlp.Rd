@@ -2,7 +2,6 @@
 % Please edit documentation in R/mlp.R
 \name{mlp}
 \alias{mlp}
-\alias{update.mlp}
 \title{General Interface for Single Layer Neural Network}
 \usage{
 mlp(
@@ -12,18 +11,6 @@ mlp(
   dropout = NULL,
   epochs = NULL,
   activation = NULL
-)
-
-\method{update}{mlp}(
-  object,
-  parameters = NULL,
-  hidden_units = NULL,
-  penalty = NULL,
-  dropout = NULL,
-  epochs = NULL,
-  activation = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -46,18 +33,6 @@ between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
 "linear" or "softmax" depending on the type of outcome. Possible values are:
 "linear", "softmax", "relu", and "elu"}
-
-\item{object}{A multilayer perceptron model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{mlp()}, for multilayer perceptron, is a way to generate a \emph{specification} of
@@ -75,9 +50,6 @@ the model (\code{keras} only, default is zero).
 \item \code{activation}: The type of function that connects the hidden
 layer and the input variables  (\code{keras} only, default is softmax).
 }
-
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch.
 }
 \details{
 These arguments are converted to their specific names at the
@@ -181,11 +153,7 @@ show_engines("mlp")
 mlp(mode = "classification", penalty = 0.01)
 # Parameters can be represented by a placeholder:
 mlp(mode = "regression", hidden_units = varying())
-model <- mlp(hidden_units = 10, dropout = 0.30)
-model
-update(model, hidden_units = 2)
-update(model, hidden_units = 2, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

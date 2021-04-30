@@ -14,7 +14,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "censored regression".
 #' @param dist A character string for the outcome distribution. "weibull" is
@@ -28,7 +27,7 @@
 #' [survival::Surv()] objects), the [fit()] function will require that the
 #' survival model be specified via the formula interface.
 #'
-#' @seealso [fit()], [survival::Surv()]
+#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
 #' @examples
 #' survival_reg()
 #' # Parameters can be represented by a placeholder:
@@ -66,19 +65,8 @@ print.survival_reg <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' Update a Parametric Survival Regression Specification
-#'
-#' If parameters need to be modified, this function can be used
-#'  in lieu of recreating the object from scratch.
-#'
-#' @inheritParams update.boost_tree
-#' @param object A survival regression model specification.
-#' @examples
-#' model <- survival_reg(dist = "weibull")
-#' model
-#' update(model, dist = "lnorm")
 #' @method update survival_reg
-#' @rdname survival_reg
+#' @rdname parsnip_update
 #' @export
 update.survival_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
 

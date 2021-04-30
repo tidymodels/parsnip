@@ -2,19 +2,9 @@
 % Please edit documentation in R/logistic_reg.R
 \name{logistic_reg}
 \alias{logistic_reg}
-\alias{update.logistic_reg}
 \title{General Interface for Logistic Regression Models}
 \usage{
 logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
-
-\method{update}{logistic_reg}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -31,18 +21,6 @@ proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
 ridge regression is being used. (\code{glmnet}, \code{LiblineaR}, and \code{spark} only).
 For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
-
-\item{object}{A logistic regression model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{logistic_reg()} is a way to generate a \emph{specification} of a model
@@ -226,11 +204,7 @@ show_engines("logistic_reg")
 logistic_reg()
 # Parameters can be represented by a placeholder:
 logistic_reg(penalty = varying())
-model <- logistic_reg(penalty = 10, mixture = 0.1)
-model
-update(model, penalty = 1)
-update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

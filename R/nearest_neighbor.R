@@ -48,7 +48,7 @@
 #'
 #' @includeRmd man/rmd/nearest-neighbor.Rmd details
 #'
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #'
 #' @examples
 #' show_engines("nearest_neighbor")
@@ -90,8 +90,9 @@ print.nearest_neighbor <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @method update nearest_neighbor
 #' @export
-#' @inheritParams update.boost_tree
+#' @rdname parsnip_update
 update.nearest_neighbor <- function(object,
                                     parameters = NULL,
                                     neighbors = NULL,
