@@ -45,3 +45,10 @@ test_that('pipe engine', {
   expect_error(rand_forest() %>% set_mode(2))
   expect_error(rand_forest() %>% set_mode("haberdashery"))
 })
+
+test_that("can't set a mode that isn't allowed by the model spec", {
+  expect_error(
+    set_mode(linear_reg(), "classification"),
+    "`mode` should be one of"
+  )
+})

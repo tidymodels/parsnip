@@ -87,10 +87,7 @@ set_mode <- function(object, mode) {
       )
     )
   }
-  #only check if object is a model_spec
-  if(inherits(object, "model_spec")) {
-    check_spec_mode_val(class(object)[1], mode)
-  }
+  check_spec_mode_val(class(object)[1], mode)
   object$mode <- mode
   object
 }

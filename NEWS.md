@@ -12,7 +12,7 @@
 
 * Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
 
-* `set_mode` now checks if mode is compatible with model class, similar to `new_model_spec` (jtlandis #467)
+* `set_mode()` now checks if `mode` is compatible with the model class, similar to `new_model_spec()` (@jtlandis, #467).
 
 # parsnip 0.1.5
 
