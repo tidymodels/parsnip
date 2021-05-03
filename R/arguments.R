@@ -87,6 +87,7 @@ set_mode <- function(object, mode) {
       )
     )
   }
+  check_spec_mode_val(class(object)[1], mode)
   object$mode <- mode
   object
 }
