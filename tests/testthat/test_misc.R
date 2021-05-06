@@ -14,6 +14,10 @@ test_that('parsnip objects', {
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))
   expect_false(has_multi_predict(lm_fit$fit))
+  expect_error(
+    multi_predict(lm_fit, mtcars),
+    "No `multi_predict` method exists"
+  )
 
   mars_fit <-
     mars(mode = "regression") %>%
@@ -21,6 +25,11 @@ test_that('parsnip objects', {
     fit(mpg ~ ., data = mtcars)
   expect_true(has_multi_predict(mars_fit))
   expect_false(has_multi_predict(mars_fit$fit))
+  expect_error(
+    multi_predict(mars_fit$fit, mtcars),
+    "No `multi_predict` method exists"
+  )
+
 })
 
 test_that('other objects', {
