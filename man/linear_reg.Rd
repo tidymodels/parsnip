@@ -86,11 +86,14 @@ call. For this type of model, the template of the fit calls are below.
 }
 }
 
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
+\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = varying()) \%>\% 
   set_engine("glmnet") \%>\% 
   set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+## 
+## Main Arguments:
+##   penalty = varying()
 ## 
 ## Computational engine: glmnet 
 ## 

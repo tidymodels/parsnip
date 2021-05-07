@@ -9,7 +9,7 @@ For this type of model, the template of the fit calls are below.
 ## glmnet
 
 ```{r glmnet-cls}
-multinom_reg() %>% 
+multinom_reg(penalty = varying()) %>% 
   set_engine("glmnet") %>% 
   set_mode("classification") %>% 
   translate()

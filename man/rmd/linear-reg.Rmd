@@ -17,7 +17,7 @@ linear_reg() %>%
 ## glmnet
 
 ```{r glmnet-csl}
-linear_reg() %>% 
+linear_reg(penalty = varying()) %>% 
   set_engine("glmnet") %>% 
   set_mode("regression") %>% 
   translate()
