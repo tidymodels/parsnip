@@ -18,7 +18,7 @@ logistic_reg() %>%
 ## glmnet
 
 ```{r glmnet-csl}
-logistic_reg(penalty = varying()) %>% 
+logistic_reg(penalty = 0.1) %>% 
   set_engine("glmnet") %>% 
   set_mode("classification") %>% 
   translate()
