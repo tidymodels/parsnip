@@ -240,10 +240,11 @@ to modify the model specification.</p>
 #&gt; sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
 #&gt;     weight_col = missing_arg(), reg_param = 0.01)</div><div class='input'>
 <span class='co'># with a placeholder for an unknown argument value:</span>
-<span class='fu'>translate</span><span class='op'>(</span><span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span>mixture <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>, engine <span class='op'>=</span> <span class='st'>"glmnet"</span><span class='op'>)</span>
+<span class='fu'>translate</span><span class='op'>(</span><span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span>, mixture <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>, engine <span class='op'>=</span> <span class='st'>"glmnet"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
+#&gt;   penalty = varying()
 #&gt;   mixture = varying()
 #&gt; 
 #&gt; Computational engine: glmnet 
