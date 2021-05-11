@@ -67,10 +67,13 @@ reloaded and reattached to the \code{parsnip} object.
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
+\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = 0.1) \%>\% 
   set_engine("glmnet") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.1
 ## 
 ## Computational engine: glmnet 
 ## 
@@ -115,7 +118,6 @@ contains a tibble with all of the penalty results.
 
 \subsection{nnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("nnet") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
@@ -129,7 +131,6 @@ contains a tibble with all of the penalty results.
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
@@ -143,7 +144,6 @@ contains a tibble with all of the penalty results.
 
 \subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("keras") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 

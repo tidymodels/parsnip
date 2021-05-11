@@ -74,7 +74,6 @@ Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.
 \subsection{glm}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("glm") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
@@ -86,10 +85,13 @@ call. For this type of model, the template of the fit calls are below.
 }
 }
 
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg(penalty = 0.1) \%>\% 
   set_engine("glmnet") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.1
 ## 
 ## Computational engine: glmnet 
 ## 
@@ -134,7 +136,6 @@ contains a tibble with all of the penalty results.
 
 \subsection{LiblineaR}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("LiblineaR") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
@@ -157,7 +158,6 @@ parameter estimates.
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("stan") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
@@ -180,7 +180,6 @@ predictive distribution as appropriate) is returned.
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
@@ -194,7 +193,6 @@ predictive distribution as appropriate) is returned.
 
 \subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("keras") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 

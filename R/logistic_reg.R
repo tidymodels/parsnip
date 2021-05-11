@@ -124,6 +124,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+    check_glmnet_penalty(x)
   }
 
   if (engine == "LiblineaR") {

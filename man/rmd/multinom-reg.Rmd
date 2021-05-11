@@ -9,7 +9,7 @@ For this type of model, the template of the fit calls are below.
 ## glmnet
 
 ```{r glmnet-cls}
-multinom_reg() %>% 
+multinom_reg(penalty = 0.1) %>% 
   set_engine("glmnet") %>% 
   translate()
 ```
@@ -43,7 +43,6 @@ with all of the penalty results.
 ```{r nnet-cls}
 multinom_reg() %>% 
   set_engine("nnet") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -52,7 +51,6 @@ multinom_reg() %>%
 ```{r spark-cls}
 multinom_reg() %>% 
   set_engine("spark") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -61,7 +59,6 @@ multinom_reg() %>%
 ```{r keras-cls}
 multinom_reg() %>% 
   set_engine("keras") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 

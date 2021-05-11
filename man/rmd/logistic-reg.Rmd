@@ -11,14 +11,13 @@ For this type of model, the template of the fit calls are below.
 ```{r glm-reg}
 logistic_reg() %>% 
   set_engine("glm") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
 ## glmnet
 
 ```{r glmnet-csl}
-logistic_reg() %>% 
+logistic_reg(penalty = 0.1) %>% 
   set_engine("glmnet") %>% 
   translate()
 ```
@@ -52,7 +51,6 @@ with all of the penalty results.
 ```{r liblinear-reg}
 logistic_reg() %>% 
   set_engine("LiblineaR") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -68,7 +66,6 @@ regularized regression models do not, which will result in different parameter e
 ```{r stan-reg}
 logistic_reg() %>% 
   set_engine("stan") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -86,7 +83,6 @@ returned.
 ```{r spark-reg}
 logistic_reg() %>% 
   set_engine("spark") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -95,7 +91,6 @@ logistic_reg() %>%
 ```{r keras-reg}
 logistic_reg() %>% 
   set_engine("keras") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
