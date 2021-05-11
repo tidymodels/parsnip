@@ -20,18 +20,32 @@ logistic_reg() %>%
 ```{r glmnet-csl}
 logistic_reg() %>% 
   set_engine("glmnet") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
-For `glmnet` models, the full regularization path is always fit regardless of the
-value given to `penalty`. Also, there is the option to pass  multiple values (or
-no values) to the `penalty` argument. When using the  `predict()` method in these
-cases, the return value depends on  the value of `penalty`. When using
-`predict()`, only a single  value of the penalty can be used. When predicting on
-multiple  penalties, the `multi_predict()` function can be used. It  returns a
-tibble with a list column called `.pred` that contains  a tibble with all of the
-penalty results.
+`logistic_reg()` requires a single value for the `penalty` argument (a number
+or `tune()`). Despite this, the full regularization path is always fit
+regardless of the value given to `penalty`. To pass in a custom sequence of
+values for `lambda`, use the argument `path_values` in `set_engine()`. This
+will assign the value of the glmnet `lambda` parameter without disturbing
+the value given in `logistic_reg(penalty)`. For example: 
+
+```{r glmnet-path}
+logistic_reg(penalty = .1) %>% 
+  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) %>% 
+  translate()
+```
+
+When fitting a pure ridge regression model (i.e., `penalty = 0`), we _strongly
+suggest_ that you pass in a vector for `path_values` that includes zero. See 
+[issue #431](https://github.com/tidymodels/parsnip/issues/431) for a discussion. 
+
+When using `predict()`, the single penalty value used for prediction is the one 
+given to `logistic_reg()`. 
+
+To predict on multiple  penalties, the `multi_predict()` function can be used. 
+It  returns a tibble with a list column called `.pred` that contains  a tibble 
+with all of the penalty results.
 
 ## LiblineaR
 

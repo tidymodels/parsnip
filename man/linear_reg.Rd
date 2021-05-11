@@ -107,7 +107,6 @@ in \code{set_engine()}. This will assign the value of the glmnet \code{lambda}
 parameter without disturbing the value given in \code{linear_reg(penalty)}.
 For example:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = .1) \%>\% 
   set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
@@ -121,6 +120,11 @@ For example:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = .
 ##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "gaussian")
 }
 
+When fitting a pure ridge regression model (i.e., \code{penalty = 0}), we
+\emph{strongly suggest} that you pass in a vector for \code{path_values} that
+includes zero. See \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431} for a
+discussion.
+
 When using \code{predict()}, the single penalty value used for prediction is
 the one given to \code{linear_reg()}.
 
@@ -131,7 +135,6 @@ contains a tibble with all of the penalty results.
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("stan") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 

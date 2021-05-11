@@ -108,10 +108,19 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   arg_vals <- x$method$fit$args
   arg_names <- names(arg_vals)
 
-
   if (engine == "glmnet") {
-    # See discussion in https://github.com/tidymodels/parsnip/issues/195
-    arg_vals$lambda <- NULL
+    if (any(names(x$eng_args) == "path_values")) {
+      # Since we decouple the parsnip `penalty` argument from being the same
+      # as the glmnet `lambda` value, this allows users to set the path
+      # differently from the default that glmnet uses. See
+      # https://github.com/tidymodels/parsnip/issues/431
+      x$method$fit$args$lambda <- x$eng_args$path_values
+      x$eng_args$path_values <- NULL
+      x$method$fit$args$path_values <- NULL
+    } else {
+      # See discussion in https://github.com/tidymodels/parsnip/issues/195
+      x$method$fit$args$lambda <- NULL
+    }
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
@@ -133,11 +142,8 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
           rlang::abort("For the LiblineaR engine, mixture must be 0 or 1.")
         }
     }
-
+    x$method$fit$args <- arg_vals
   }
-
-  x$method$fit$args <- arg_vals
-
   x
 }
 
