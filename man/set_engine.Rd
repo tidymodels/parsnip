@@ -26,7 +26,7 @@ to fit the model, along with any arguments specific to that software.
 \examples{
 # First, set general arguments using the standardized names
 mod <-
-  logistic_reg(mixture = 1/3) \%>\%
+  logistic_reg(penalty = 0.01, mixture = 1/3) \%>\%
   # now say how you want to fit the model and another other options
   set_engine("glmnet", nlambda = 10)
 translate(mod, engine = "glmnet")

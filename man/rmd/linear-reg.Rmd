@@ -10,16 +10,14 @@ Engines may have pre-set default arguments when executing the model fit call. Fo
 ```{r lm-reg}
 linear_reg() %>% 
   set_engine("lm") %>% 
-  set_mode("regression") %>% 
   translate()
 ```
 
 ## glmnet
 
 ```{r glmnet-csl}
-linear_reg() %>% 
+linear_reg(penalty = 0.1) %>% 
   set_engine("glmnet") %>% 
-  set_mode("regression") %>% 
   translate()
 ```
 
@@ -37,7 +35,6 @@ penalty results.
 ```{r stan-reg}
 linear_reg() %>% 
   set_engine("stan") %>% 
-  set_mode("regression") %>% 
   translate()
 ```
 
@@ -55,7 +52,6 @@ returned.
 ```{r spark-reg}
 linear_reg() %>% 
   set_engine("spark") %>% 
-  set_mode("regression") %>% 
   translate()
 ```
 
@@ -64,7 +60,6 @@ linear_reg() %>%
 ```{r keras-reg}
 linear_reg() %>% 
   set_engine("keras") %>% 
-  set_mode("regression") %>% 
   translate()
 ```
 
