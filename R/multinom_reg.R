@@ -100,6 +100,7 @@ translate.multinom_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "glmnet") {
+    check_glmnet_penalty(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
       # as the glmnet `lambda` value, this allows users to set the path
