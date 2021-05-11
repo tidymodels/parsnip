@@ -76,10 +76,9 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
-  if (is.null(mode))
-    return(object)
+  if (rlang::is_missing(mode)) mode <- NULL
   mode <- mode[1]
-  if (!(any(all_modes == mode))) {
+  if (is.null(mode) | !(any(all_modes == mode))) {
     rlang::abort(
       glue::glue(
         "`mode` should be one of ",
