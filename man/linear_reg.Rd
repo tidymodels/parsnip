@@ -99,15 +99,34 @@ call. For this type of model, the template of the fit calls are below.
 ##     family = "gaussian")
 }
 
-For \code{glmnet} models, the full regularization path is always fit
-regardless of the value given to \code{penalty}. Also, there is the option to
-pass multiple values (or no values) to the \code{penalty} argument. When
-using the \code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single value of
-the penalty can be used. When predicting on multiple penalties, the
-\code{multi_predict()} function can be used. It returns a tibble with a list
-column called \code{.pred} that contains a tibble with all of the penalty
-results.
+\code{linear_reg()} requires a single value for the \code{penalty} argument (a
+number or \code{tune()}). Despite this, the full regularization path is
+always fit regardless of the value given to \code{penalty}. To pass in a
+custom sequence of values for \code{lambda}, use the argument \code{path_values}
+in \code{set_engine()}. This will assign the value of the glmnet \code{lambda}
+parameter without disturbing the value given in \code{linear_reg(penalty)}.
+For example:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = .1) \%>\% 
+  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
+  set_mode("regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+## 
+## Main Arguments:
+##   penalty = 0.1
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "gaussian")
+}
+
+When using \code{predict()}, the single penalty value used for prediction is
+the one given to \code{linear_reg()}.
+
+To predict on multiple penalties, the \code{multi_predict()} function can be
+used. It returns a tibble with a list column called \code{.pred} that
+contains a tibble with all of the penalty results.
 }
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
