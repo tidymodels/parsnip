@@ -103,8 +103,8 @@ translate.multinom_reg <- function(x, engine = x$engine, ...) {
     check_glmnet_penalty(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
-      # as the glmnet `lambda` value, this allows users to set the path
-      # differently from the default that glmnet uses. See
+      # as the glmnet `lambda` value, `path_values` allows users to set the
+      # path differently from the default that glmnet uses. See
       # https://github.com/tidymodels/parsnip/issues/431
       x$method$fit$args$lambda <- x$eng_args$path_values
       x$eng_args$path_values <- NULL
