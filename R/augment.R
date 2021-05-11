@@ -68,12 +68,17 @@ augment.model_fit <- function(x, new_data, ...) {
       }
     }
   } else if (x$spec$mode == "classification") {
-    new_data <-
-      new_data %>%
-      dplyr::bind_cols(
-        predict(x, new_data = new_data, type = "class"),
+    new_data <- dplyr::bind_cols(
+      new_data,
+      predict(x, new_data = new_data, type = "class")
+    )
+    tryCatch(
+      new_data <- dplyr::bind_cols(
+        new_data,
         predict(x, new_data = new_data, type = "prob")
-      )
+      ),
+      error = function(cnd) cnd
+    )
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
