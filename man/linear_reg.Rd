@@ -75,7 +75,6 @@ Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.
 \subsection{lm}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("lm") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
@@ -88,7 +87,6 @@ call. For this type of model, the template of the fit calls are below.
 
 \subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = 0.1) \%>\% 
   set_engine("glmnet") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
@@ -115,7 +113,6 @@ results.
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("stan") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
@@ -138,7 +135,6 @@ predictive distribution as appropriate) is returned.
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("spark") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
@@ -152,7 +148,6 @@ predictive distribution as appropriate) is returned.
 
 \subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("keras") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
