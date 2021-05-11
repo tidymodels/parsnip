@@ -100,12 +100,12 @@ call. For this type of model, the template of the fit calls are below.
 ##     family = "gaussian")
 }
 
-\code{linear_reg()} requires a single value for the \code{penalty} argument (a
-number or \code{tune()}). Despite this, the full regularization path is
-always fit regardless of the value given to \code{penalty}. To pass in a
-custom sequence of values for \code{lambda}, use the argument \code{path_values}
-in \code{set_engine()}. This will assign the value of the glmnet \code{lambda}
-parameter without disturbing the value given in \code{linear_reg(penalty)}.
+The glmnet engine requires a single value for the \code{penalty} argument (a
+number or \code{tune()}), but the full regularization path is always fit
+regardless of the value given to \code{penalty}. To pass in a custom sequence
+of values for glmnet’s \code{lambda}, use the argument \code{path_values} in
+\code{set_engine()}. This will assign the value of the glmnet \code{lambda}
+parameter without disturbing the value given of \code{linear_reg(penalty)}.
 For example:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = .1) \%>\% 
   set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
   translate()
@@ -126,12 +126,12 @@ When fitting a pure ridge regression model (i.e., \code{penalty = 0}), we
 includes zero. See \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431} for a
 discussion.
 
-When using \code{predict()}, the single penalty value used for prediction is
-the one given to \code{linear_reg()}.
+When using \code{predict()}, the single \code{penalty} value used for prediction
+is the one specified in \code{linear_reg()}.
 
-To predict on multiple penalties, the \code{multi_predict()} function can be
-used. It returns a tibble with a list column called \code{.pred} that
-contains a tibble with all of the penalty results.
+To predict on multiple penalties, use the \code{multi_predict()} function.
+This function returns a tibble with a list column called \code{.pred}
+containing all of the penalty results.
 }
 
 \subsection{stan}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
