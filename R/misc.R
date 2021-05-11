@@ -323,4 +323,13 @@ stan_conf_int <- function(object, newdata) {
   rlang::eval_tidy(fn)
 }
 
-
+check_glmnet_penalty <- function(x) {
+  if (length(x$args$penalty) != 1) {
+    rlang::abort(c(
+      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
+      glue::glue("There are {length(x$args$penalty)} values for `penalty`."),
+      "To try multiple values for total regularization, use the tune package.",
+      "To predict multiple penalties, use `multi_predict()`"
+    ))
+  }
+}

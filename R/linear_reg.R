@@ -112,13 +112,7 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-    if (length(x$args$penalty) != 1) {
-      rlang::abort(c(
-        "For the glmnet engine, `penalty` must be a single number.",
-        glue::glue("There are {length(x$args$penalty)} values for `penalty`."),
-        "To try multiple values for total regularization, use the tune package."
-      ))
-    }
+    check_glmnet_penalty(x)
   }
 
   x
