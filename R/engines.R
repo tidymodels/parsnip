@@ -15,6 +15,9 @@ check_engine <- function(object) {
   if (is.null(object$engine)) {
     object$engine <- avail_eng[1]
     rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
+  } else {
+    if (!is.character(object$engine) | length(object$engine) != 1)
+      rlang::abort("`engine` should be a single character value.")
   }
   if (!(object$engine %in% avail_eng)) {
     rlang::abort(
@@ -91,17 +94,17 @@ set_engine <- function(object, engine, ...) {
   if (!inherits(object, "model_spec")) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
-  if (!is.character(engine) | length(engine) != 1)
-    rlang::abort("`engine` should be a single character value.")
-  if (engine == "liquidSVM") {
+
+  if (rlang::is_missing(engine)) engine <- NULL
+  object$engine <- engine
+  object <- check_engine(object)
+
+  if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",
       details = "The liquidSVM package is no longer available on CRAN.")
   }
-
-  object$engine <- engine
-  object <- check_engine(object)
 
   new_model_spec(
     cls = class(object)[1],
