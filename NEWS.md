@@ -7,7 +7,7 @@
 * For models with `glmnet` engines: 
 
   - A single value is required for `penalty` (either a single numeric value or a value of `tune()`) (#481)
-  - A special argument called `path_values` can be used to set the `lambda` path is a specific set of numbers (independent of the value of `penalty`). A pure ridge regression models (i.e., `mixture = 1`) will generate incorrect values if the path does not include zero. See issue #431.
+  - A special argument called `path_values` can be used to set the `lambda` path as a specific set of numbers (independent of the value of `penalty`). A pure ridge regression models (i.e., `mixture = 1`) will generate incorrect values if the path does not include zero. See issue #431.
   
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
