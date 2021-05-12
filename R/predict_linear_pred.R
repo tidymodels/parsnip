@@ -6,8 +6,7 @@
 #' @export
 predict_linear_pred.model_fit <- function(object, new_data, ...) {
 
-  if (!any(names(object$spec$method$pred) == "linear_pred"))
-    rlang::abort("No prediction module defined for this model.")
+  check_spec_pred_type(object, "linear_pred")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")

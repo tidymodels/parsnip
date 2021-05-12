@@ -10,8 +10,7 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
                             "Use `predict_class()` or `predict_classprob()` for ",
                             "classification models."))
 
-  if (!any(names(object$spec$method$pred) == "numeric"))
-    rlang::abort("No prediction module defined for this model.")
+  check_spec_pred_type(object, "numeric")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")

@@ -7,8 +7,7 @@
 predict_survival.model_fit <-
   function(object, new_data, .time, ...) {
 
-    if (is.null(object$spec$method$pred$survival))
-      rlang::abort("No survival prediction method defined for this engine.")
+    check_spec_pred_type(object, "survival")
 
     if (inherits(object$fit, "try-error")) {
       rlang::warn("Model fit failed; cannot make predictions.")
