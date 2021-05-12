@@ -78,14 +78,6 @@ set_args <- function(object, ...) {
 set_mode <- function(object, mode) {
   if (rlang::is_missing(mode)) mode <- NULL
   mode <- mode[1]
-  if (is.null(mode) | !(any(all_modes == mode))) {
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of ",
-        glue::glue_collapse(glue::glue("'{all_modes}'"), sep = ", ")
-      )
-    )
-  }
   check_spec_mode_val(class(object)[1], mode)
   object$mode <- mode
   object
