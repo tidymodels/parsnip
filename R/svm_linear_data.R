@@ -127,27 +127,6 @@ set_pred(
   model = "svm_linear",
   eng = "LiblineaR",
   mode = "classification",
-  type = "prob",
-  value = list(
-    pre = function(x, object) {
-      rlang::abort(
-        paste0("The LiblineaR engine does not support class probabilities ",
-               "for any `svm` models.")
-      )
-    },
-    post = NULL,
-    func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = expr(as.matrix(new_data))
-      )
-  )
-)
-set_pred(
-  model = "svm_linear",
-  eng = "LiblineaR",
-  mode = "classification",
   type = "raw",
   value = list(
     pre = NULL,
