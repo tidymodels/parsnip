@@ -82,15 +82,38 @@ call. For this type of model, the template of the fit calls are below.
 ##     family = "multinomial")
 }
 
-For \code{glmnet} models, the full regularization path is always fit
-regardless of the value given to \code{penalty}. Also, there is the option to
-pass multiple values (or no values) to the \code{penalty} argument. When
-using the \code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single value of
-the penalty can be used. When predicting on multiple penalties, the
-\code{multi_predict()} function can be used. It returns a tibble with a list
-column called \code{.pred} that contains a tibble with all of the penalty
-results.
+The glmnet engine requires a single value for the \code{penalty} argument (a
+number or \code{tune()}), but the full regularization path is always fit
+regardless of the value given to \code{penalty}. To pass in a custom sequence
+of values for glmnet’s \code{lambda}, use the argument \code{path_values} in
+\code{set_engine()}. This will assign the value of the glmnet \code{lambda}
+parameter without disturbing the value given of \code{multinom_reg(penalty)}.
+For example:\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = .1) \%>\% 
+  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.1
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "multinomial")
+}
+
+When fitting a pure ridge regression model (i.e., \code{penalty = 0}), we
+\emph{strongly suggest} that you pass in a vector for \code{path_values} that
+includes zero. See \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431} for a
+discussion.
+
+When using \code{predict()}, the single \code{penalty} value used for prediction
+is the one specified in \code{multinom_reg()}.
+
+To predict on multiple penalties, use the \code{multi_predict()} function.
+This function returns a tibble with a list column called \code{.pred}
+containing all of the penalty results.
 }
 
 \subsection{nnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 

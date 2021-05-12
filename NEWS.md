@@ -1,20 +1,32 @@
 # parsnip (development version)
 
-* `generics::required_pkgs()` was extended for `parsnip` objects. 
-
-* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
+## Model Specification Changes
 
 * A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices via `fit_xy()` (#447) and have a `tidy` method (#474).
+
+* For models with `glmnet` engines: 
+
+  - A single value is required for `penalty` (either a single numeric value or a value of `tune()`) (#481).
+  - A special argument called `path_values` can be used to set the `lambda` path as a specific set of numbers (independent of the value of `penalty`). A pure ridge regression models (i.e., `mixture = 1`) will generate incorrect values if the path does not include zero. See issue #431 for discussion (#486).
+  
+* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
 * New model specification `survival_reg()` for the new mode `"censored regression"` (#444). `surv_reg()` is now soft-deprecated (#448).
 
 * New model specification `proportional_hazards()` for the `"censored regression"` mode (#451).
+
+## Other Changes
 
 * Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
 
 * `set_mode()` now checks if `mode` is compatible with the model class, similar to `new_model_spec()` (@jtlandis, #467).
 
 * Re-organized model documentation for `update` methods (#479).
+
+ 
+  
+* `generics::required_pkgs()` was extended for `parsnip` objects. 
+
 
 
 # parsnip 0.1.5
