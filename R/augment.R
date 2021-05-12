@@ -68,19 +68,28 @@ augment.model_fit <- function(x, new_data, ...) {
       }
     }
   } else if (x$spec$mode == "classification") {
-    new_data <- dplyr::bind_cols(
-      new_data,
-      predict(x, new_data = new_data, type = "class")
-    )
-    tryCatch(
+    if (has_class_preds(x)) {
+      new_data <- dplyr::bind_cols(
+        new_data,
+        predict(x, new_data = new_data, type = "class")
+      )
+    }
+    if (has_class_probs(x)) {
       new_data <- dplyr::bind_cols(
         new_data,
         predict(x, new_data = new_data, type = "prob")
-      ),
-      error = function(cnd) cnd
-    )
+      )
+    }
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
   as_tibble(new_data)
+}
+
+has_class_preds <- function(x) {
+  any(names(x$spec$method$pred) == "class")
+}
+
+has_class_probs <- function(x) {
+  any(names(x$spec$method$pred) == "prob")
 }
