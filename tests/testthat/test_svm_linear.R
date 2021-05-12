@@ -280,12 +280,12 @@ test_that('linear svm classification prediction: LiblineaR', {
 
   expect_error(
     predict(cls_form, hpc_no_m[ind, -5], type = "prob"),
-    "The LiblineaR engine does not support class probabilities"
+    "No prob prediction method available for this model"
   )
 
   expect_error(
     predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob"),
-    "The LiblineaR engine does not support class probabilities"
+    "No prob prediction method available for this model"
   )
 
 })
