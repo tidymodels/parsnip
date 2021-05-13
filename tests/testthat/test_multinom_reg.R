@@ -67,6 +67,19 @@ test_that('engine arguments', {
     )
   )
 
+  # For issue #431
+  with_path <-
+    multinom_reg(penalty = 1) %>%
+    set_engine("glmnet", path_values = 4:2) %>%
+    translate()
+  expect_equal(
+    names(with_path$method$fit$args),
+    c("x", "y", "weights", "lambda", "family")
+  )
+  expect_equal(
+    rlang::eval_tidy(with_path$method$fit$args$lambda),
+    4:2
+  )
 })
 
 
@@ -109,7 +122,7 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(multinom_reg(mode = "regression"))
-  expect_error(translate(multinom_reg() %>% set_engine("wat?")))
-  expect_error(translate(multinom_reg() %>% set_engine()))
-  expect_warning(translate(multinom_reg(penalty = 0.01) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
+  expect_error(translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
+  expect_warning(multinom_reg(penalty = 0.1) %>% set_engine())
+  expect_warning(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
 })

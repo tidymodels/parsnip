@@ -104,8 +104,8 @@ test_that('updating', {
 })
 
 test_that('bad input', {
+  expect_warning(translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
   expect_error(svm_linear(mode = "reallyunknown"))
-  expect_error(translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
   expect_error(translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
   expect_error(translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
 })
@@ -280,12 +280,12 @@ test_that('linear svm classification prediction: LiblineaR', {
 
   expect_error(
     predict(cls_form, hpc_no_m[ind, -5], type = "prob"),
-    "The LiblineaR engine does not support class probabilities"
+    "No prob prediction method available for this model"
   )
 
   expect_error(
     predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob"),
-    "The LiblineaR engine does not support class probabilities"
+    "No prob prediction method available for this model"
   )
 
 })
