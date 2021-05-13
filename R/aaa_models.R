@@ -282,19 +282,21 @@ check_pred_info <- function(pred_obj, type) {
 
 check_spec_pred_type <- function(object, type) {
   possible_preds <- names(object$spec$method$pred)
-  if (!any(possible_preds == type))
+  if (!any(possible_preds == type)) {
     rlang::abort(c(
       glue::glue("No {type} prediction method available for this model."),
       glue::glue("Value for `type` should be one of: ",
                  glue::glue_collapse(glue::glue("'{possible_preds}'"), sep = ", "))
     ))
+  }
   invisible(NULL)
 }
 
 
 check_pkg_val <- function(pkg) {
-  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
+  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg)) {
     rlang::abort("Please supply a single character value for the package name.")
+  }
   invisible(NULL)
 }
 
