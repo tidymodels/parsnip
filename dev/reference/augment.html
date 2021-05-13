@@ -184,8 +184,9 @@
     <p>For regression models, a <code>.pred</code> column is added. If <code>x</code> was created using
 <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> and <code>new_data</code> contains the outcome column, a <code>.resid</code> column is
 also added.</p>
-<p>For classification models, the results include a column called <code>.pred_class</code>
-as well as class probability columns named <code>.pred_{level}</code>.</p>
+<p>For classification models, the results can include a column called
+<code>.pred_class</code> as well as class probability columns named <code>.pred_{level}</code>.
+This depends on what type of prediction types are available for the model.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>car_trn</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span>,<span class='op'>]</span>
