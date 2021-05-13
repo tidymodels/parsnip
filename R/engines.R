@@ -16,8 +16,9 @@ check_engine <- function(object) {
     object$engine <- avail_eng[1]
     rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
   } else {
-    if (!is.character(object$engine) | length(object$engine) != 1)
+    if (!is.character(object$engine) | length(object$engine) != 1) {
       rlang::abort("`engine` should be a single character value.")
+    }
   }
   if (!(object$engine %in% avail_eng)) {
     rlang::abort(
@@ -95,7 +96,9 @@ set_engine <- function(object, engine, ...) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
 
-  if (rlang::is_missing(engine)) engine <- NULL
+  if (rlang::is_missing(engine)) {
+    engine <- NULL
+  }
   object$engine <- engine
   object <- check_engine(object)
 

@@ -76,7 +76,9 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
-  if (rlang::is_missing(mode)) mode <- NULL
+  if (rlang::is_missing(mode)) {
+    mode <- NULL
+  }
   mode <- mode[1]
   check_spec_mode_val(class(object)[1], mode)
   object$mode <- mode
