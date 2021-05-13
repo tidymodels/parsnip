@@ -127,21 +127,27 @@ check_model_doesnt_exist <- function(model) {
 }
 
 check_mode_val <- function(mode) {
-  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode))
+  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode)) {
     rlang::abort("Please supply a character string for a mode (e.g. `'regression'`).")
+  }
   invisible(NULL)
 }
 
 # check if class and mode are compatible
 check_spec_mode_val <- function(cls, mode) {
   spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-  if (!(mode %in% spec_modes))
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of: ",
-        glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-      )
+  compatible_modes <-
+    glue::glue(
+      "`mode` should be one of: ",
+      glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
     )
+
+  if (is.null(mode)) {
+    rlang::abort(compatible_modes)
+  } else if (!(mode %in% spec_modes)) {
+    rlang::abort(compatible_modes)
+  }
+
   invisible(NULL)
 }
 
