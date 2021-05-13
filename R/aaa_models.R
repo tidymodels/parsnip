@@ -286,9 +286,13 @@ check_pred_info <- function(pred_obj, type) {
   invisible(NULL)
 }
 
-check_spec_pred_type <- function(object, type) {
+spec_has_pred_type <- function(object, type) {
   possible_preds <- names(object$spec$method$pred)
-  if (!any(possible_preds == type)) {
+  any(possible_preds == type)
+}
+check_spec_pred_type <- function(object, type) {
+  if (!spec_has_pred_type(object, type)) {
+    possible_preds <- names(object$spec$method$pred)
     rlang::abort(c(
       glue::glue("No {type} prediction method available for this model."),
       glue::glue("Value for `type` should be one of: ",

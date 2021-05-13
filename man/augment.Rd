@@ -21,8 +21,9 @@ For regression models, a \code{.pred} column is added. If \code{x} was created u
 \code{\link[=fit]{fit()}} and \code{new_data} contains the outcome column, a \code{.resid} column is
 also added.
 
-For classification models, the results include a column called \code{.pred_class}
-as well as class probability columns named \verb{.pred_\{level\}}.
+For classification models, the results can include a column called
+\code{.pred_class} as well as class probability columns named \verb{.pred_\{level\}}.
+This depends on what type of prediction types are available for the model.
 }
 \examples{
 car_trn <- mtcars[11:32,]
