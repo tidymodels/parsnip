@@ -5,7 +5,7 @@
 #' @export predict_survival.model_fit
 #' @export
 predict_survival.model_fit <-
-  function(object, new_data, .time, ...) {
+  function(object, new_data, time, ...) {
 
     check_spec_pred_type(object, "survival")
 
@@ -21,7 +21,7 @@ predict_survival.model_fit <-
       new_data <- object$spec$method$pred$survival$pre(new_data, object)
 
     # Pass some extra arguments to be used in post-processor
-    object$spec$method$pred$survival$args$.time <- .time
+    object$spec$method$pred$survival$args$time <- time
     pred_call <- make_pred_call(object$spec$method$pred$survival)
 
     res <- eval_tidy(pred_call)
