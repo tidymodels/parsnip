@@ -11,9 +11,6 @@
   
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* New model specification `survival_reg()` for the new mode `"censored regression"` (#444). `surv_reg()` is now soft-deprecated (#448). This function is currently listed as internal until the engines are sorted out. 
-
-* New model specification `proportional_hazards()` for the `"censored regression"` mode (#451). This function is currently listed as internal until the engines are sorted out. 
 ## Other Changes
 
 * Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
