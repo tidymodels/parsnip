@@ -41,8 +41,8 @@ survival model be specified via the formula interface.
 survival_reg()
 # Parameters can be represented by a placeholder:
 survival_reg(dist = varying())
-
 }
 \seealso{
 \code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
+\keyword{internal}

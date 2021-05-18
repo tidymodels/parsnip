@@ -32,7 +32,7 @@
 #' survival_reg()
 #' # Parameters can be represented by a placeholder:
 #' survival_reg(dist = varying())
-#'
+#' @keywords internal
 #' @export
 survival_reg <- function(mode = "censored regression", dist = NULL) {
 

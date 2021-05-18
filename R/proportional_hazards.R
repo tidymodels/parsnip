@@ -27,7 +27,7 @@
 #' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("proportional_hazards")
-#'
+#' @keywords internal
 #' @export
 proportional_hazards <- function(mode = "censored regression",
                     penalty = NULL,
