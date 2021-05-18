@@ -41,7 +41,7 @@ the scale of the linear predictors) for \code{type}s of "conf_int"
 and "pred_int". Default value is \code{FALSE}.
 \item \code{quantile}: the quantile(s) for quantile regression
 (not implemented yet)
-\item \code{.time}: the time(s) for hazard and survival probability estimates.
+\item \code{time}: the time(s) for hazard and survival probability estimates.
 }}
 }
 \value{
@@ -114,7 +114,7 @@ extra column of standard error values (if available).
 
 \subsection{Censored regression predictions}{
 
-For censored regression, a numeric vector for \code{.time} is required when
+For censored regression, a numeric vector for \code{time} is required when
 survival or hazard probabilities are requested. Also, when
 \code{type = "linear_pred"}, censored regression models will be formatted such
 that the linear predictor \emph{increases} with time. This may have the opposite
