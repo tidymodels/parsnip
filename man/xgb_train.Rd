@@ -10,6 +10,7 @@ xgb_train(
   max_depth = 6,
   nrounds = 15,
   eta = 0.3,
+  colsample_bynode = 1,
   colsample_bytree = 1,
   min_child_weight = 1,
   gamma = 0,
@@ -32,7 +33,10 @@ xgb_train(
 
 \item{eta}{A numeric value between zero and one to control the learning rate.}
 
-\item{colsample_bytree}{Subsampling proportion of columns.}
+\item{colsample_bynode}{Subsampling proportion of columns for each node
+within each tree.}
+
+\item{colsample_bytree}{Subsampling proportion of columns for each tree.}
 
 \item{min_child_weight}{A numeric value for the minimum sum of instance
 weights needed in a child to continue to split.}

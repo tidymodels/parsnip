@@ -11,9 +11,7 @@
   
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* New model specification `survival_reg()` for the new mode `"censored regression"` (#444). `surv_reg()` is now soft-deprecated (#448).
-
-* New model specification `proportional_hazards()` for the `"censored regression"` mode (#451).
+* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. (#495)
 
 ## Other Changes
 

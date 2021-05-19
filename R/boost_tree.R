@@ -264,7 +264,9 @@ check_args.boost_tree <- function(object) {
 #' @param max_depth An integer for the maximum depth of the tree.
 #' @param nrounds An integer for the number of boosting iterations.
 #' @param eta A numeric value between zero and one to control the learning rate.
-#' @param colsample_bytree Subsampling proportion of columns.
+#' @param colsample_bytree Subsampling proportion of columns for each tree.
+#' @param colsample_bynode Subsampling proportion of columns for each node
+#' within each tree.
 #' @param min_child_weight A numeric value for the minimum sum of instance
 #'  weights needed in a child to continue to split.
 #' @param gamma A number for the minimum loss reduction required to make a
@@ -290,8 +292,8 @@ check_args.boost_tree <- function(object) {
 #' @export
 xgb_train <- function(
   x, y,
-  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
-  min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
+  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = 1,
+  colsample_bytree = 1, min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
   early_stop = NULL, objective = NULL,
   event_level = c("first", "second"),
   ...) {
@@ -346,6 +348,13 @@ xgb_train <- function(
     colsample_bytree <- 1
   }
 
+  if (colsample_bynode > 1) {
+    colsample_bynode <- colsample_bynode/p
+  }
+  if (colsample_bynode > 1) {
+    colsample_bynode <- 1
+  }
+
   if (min_child_weight > n) {
     msg <- paste0(min_child_weight, " samples were requested but there were ",
                   n, " rows in the data. ", n, " will be used.")
@@ -358,6 +367,7 @@ xgb_train <- function(
     max_depth = max_depth,
     gamma = gamma,
     colsample_bytree = colsample_bytree,
+    colsample_bynode = colsample_bynode,
     min_child_weight = min(min_child_weight, n),
     subsample = subsample,
     objective = objective

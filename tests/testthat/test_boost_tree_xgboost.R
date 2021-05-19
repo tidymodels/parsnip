@@ -414,9 +414,9 @@ test_that('argument checks for data dimensions', {
     xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
     "1000 samples were requested"
   )
-  expect_equal(f_fit$fit$params$colsample_bytree, 1)
+  expect_equal(f_fit$fit$params$colsample_bynode, 1)
   expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))
-  expect_equal(xy_fit$fit$params$colsample_bytree, 1)
+  expect_equal(xy_fit$fit$params$colsample_bynode, 1)
   expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
 
 })
@@ -482,3 +482,16 @@ test_that("fit and prediction with `event_level`", {
   expect_equal(pred_p_2[[".pred_male"]], pred_xgb_2)
 
 })
+
+test_that("mtry parameters", {
+  skip_if_not_installed("xgboost")
+  fit <-
+    boost_tree(mtry = .7, trees = 4) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit$fit$params$colsample_bytree, 1)
+  expect_equal(fit$fit$params$colsample_bynode, 0.7)
+})
+
+

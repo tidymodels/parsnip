@@ -38,8 +38,7 @@ mod_param <-
   update(sample_size = sample_prop(c(0.4, 0.9)))
 ```
 
-For this engine, tuning over `trees` is very efficient since the same model 
-object can be used to make predictions over multiple values of `trees`.  
+For this engine, tuning over `trees` is very efficient since the same model  object can be used to make predictions over multiple values of `trees`.  
 
 Note that `xgboost` models require that non-numeric predictors (e.g., factors) must be converted to dummy variables or some other numeric representation. By default, when using `fit()` with `xgboost`, a one-hot encoding is used to convert factor predictors to indicator variables. 
 
@@ -89,7 +88,7 @@ get_defaults_boost_tree <- function() {
     "boost_tree", "xgboost",      "tree_depth",                "max_depth", get_arg("parsnip", "xgb_train", "max_depth"),
     "boost_tree", "xgboost",           "trees",                 "nrounds",  get_arg("parsnip", "xgb_train", "nrounds"),
     "boost_tree", "xgboost",      "learn_rate",                     "eta",  get_arg("parsnip", "xgb_train", "eta"),
-    "boost_tree", "xgboost",            "mtry",        "colsample_bytree",  get_arg("parsnip", "xgb_train", "colsample_bytree"),
+    "boost_tree", "xgboost",            "mtry",        "colsample_bynode",  get_arg("parsnip", "xgb_train", "colsample_bynode"),
     "boost_tree", "xgboost",           "min_n",        "min_child_weight",  get_arg("parsnip", "xgb_train", "min_child_weight"),
     "boost_tree", "xgboost",  "loss_reduction",                   "gamma",  get_arg("parsnip", "xgb_train", "gamma"),
     "boost_tree", "xgboost",     "sample_size",               "subsample",  get_arg("parsnip", "xgb_train", "subsample"),

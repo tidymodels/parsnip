@@ -227,7 +227,7 @@ parameter.\tabular{llll}{
    tree_depth \tab max_depth (6) \tab NA \tab max_depth (5) \cr
    trees \tab nrounds (15) \tab trials (15) \tab max_iter (20) \cr
    learn_rate \tab eta (0.3) \tab NA \tab step_size (0.1) \cr
-   mtry \tab colsample_bytree (1) \tab NA \tab feature_subset_strategy (see below) \cr
+   mtry \tab colsample_bynode (1) \tab NA \tab feature_subset_strategy (see below) \cr
    min_n \tab min_child_weight (1) \tab minCases (2) \tab min_instances_per_node (1) \cr
    loss_reduction \tab gamma (0) \tab NA \tab min_info_gain (0) \cr
    sample_size \tab subsample (1) \tab sample (0) \tab subsampling_rate (1) \cr
