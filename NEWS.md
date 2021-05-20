@@ -11,7 +11,9 @@
   
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. (#495)
+* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. `colsample_bynode` was added to xgboost after the `parsnip` package code was written. (#495)
+
+* For xgboost boosting, `mtry` and `colsample_bytree` can be passed as integer counts or proportions while `subsample` and `validation` should be proportions. `xgb_train()` now has a new option `counts` for state what scale `mtry` and `colsample_bytree` are being used. (#461)  
 
 ## Other Changes
 
@@ -21,11 +23,7 @@
 
 * Re-organized model documentation for `update` methods (#479).
 
- 
-  
 * `generics::required_pkgs()` was extended for `parsnip` objects. 
-
-
 
 # parsnip 0.1.5
 
