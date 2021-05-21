@@ -87,7 +87,7 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(svm_rbf(mode = "reallyunknown"))
-  expect_warning(translate(svm_rbf(mode = "regression") %>% set_engine( NULL)))
+  expect_error(translate(svm_rbf(mode = "regression") %>% set_engine( NULL)))
 })
 
 # ------------------------------------------------------------------------------
