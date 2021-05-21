@@ -97,7 +97,7 @@ predict() can be used for all types of models and uses the
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9002</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9003</span>
         </div>
       </div>
     </div>
@@ -211,7 +211,7 @@ the scale of the linear predictors) for <code>type</code>s of "conf_int"
 and "pred_int". Default value is <code>FALSE</code>.</p></li>
 <li><p><code>quantile</code>: the quantile(s) for quantile regression
 (not implemented yet)</p></li>
-<li><p><code>.time</code>: the time(s) for hazard and survival probability estimates.</p></li>
+<li><p><code>time</code>: the time(s) for hazard and survival probability estimates.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -272,7 +272,7 @@ extra column of standard error values (if available).</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Censored regression predictions</h3>
 
 
-<p>For censored regression, a numeric vector for <code>.time</code> is required when
+<p>For censored regression, a numeric vector for <code>time</code> is required when
 survival or hazard probabilities are requested. Also, when
 <code>type = "linear_pred"</code>, censored regression models will be formatted such
 that the linear predictor <em>increases</em> with time. This may have the opposite

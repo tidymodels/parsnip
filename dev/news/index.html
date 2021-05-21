@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9002</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9003</span>
         </div>
       </div>
     </div>
@@ -170,8 +170,8 @@
 </ul>
 </li>
 <li><p>The <code>liquidSVM</code> engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> was deprecated due to that package’s removal from CRAN. (<a href='https://github.com/tidymodels/parsnip/issues/425'>#425</a>)</p></li>
-<li><p>New model specification <code><a href="../reference/survival_reg.html">survival_reg()</a></code> for the new mode <code>"censored regression"</code> (<a href='https://github.com/tidymodels/parsnip/issues/444'>#444</a>). <code><a href="../reference/surv_reg.html">surv_reg()</a></code> is now soft-deprecated (<a href='https://github.com/tidymodels/parsnip/issues/448'>#448</a>).</p></li>
-<li><p>New model specification <code><a href="../reference/proportional_hazards.html">proportional_hazards()</a></code> for the <code>"censored regression"</code> mode (<a href='https://github.com/tidymodels/parsnip/issues/451'>#451</a>).</p></li>
+<li><p>The xgboost engine for boosted trees was translating <code>mtry</code> to xgboost’s <code>colsample_bytree</code>. We now map <code>mtry</code> to <code>colsample_bynode</code> since that is more consistent with how random forest works. <code>colsample_bytree</code> can still be optimized by passing it in as an engine argument. <code>colsample_bynode</code> was added to xgboost after the <code>parsnip</code> package code was written. (<a href='https://github.com/tidymodels/parsnip/issues/495'>#495</a>)</p></li>
+<li><p>For xgboost boosting, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions while <code>subsample</code> and <code>validation</code> should be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> for state what scale <code>mtry</code> and <code>colsample_bytree</code> are being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
