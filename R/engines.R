@@ -10,23 +10,20 @@ possible_engines <- function(object, ...) {
   unique(engs$engine)
 }
 
+glue_compatible_engines <- function(engine, avail_eng) {
+  glue::glue(
+    "Available engines are: ",
+    glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
+  )
+}
+
 check_engine <- function(object) {
   avail_eng <- possible_engines(object)
-  if (is.null(object$engine)) {
-    object$engine <- avail_eng[1]
-    rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
-  } else {
-    if (!is.character(object$engine) | length(object$engine) != 1) {
-      rlang::abort("`engine` should be a single character value.")
-    }
-  }
-  if (!(object$engine %in% avail_eng)) {
-    rlang::abort(
-      glue::glue(
-        "Engine '{object$engine}' is not available. Please use one of: ",
-        glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
-      )
-    )
+  eng <- object$engine
+  if (is.null(eng) | length(eng) > 1) {
+    rlang::abort(glue_compatible_engines(eng, avail_eng))
+  } else if (!(eng %in% avail_eng)) {
+    rlang::abort(glue_compatible_engines(eng, avail_eng))
   }
   object
 }
@@ -97,7 +94,8 @@ set_engine <- function(object, engine, ...) {
   }
 
   if (rlang::is_missing(engine)) {
-    engine <- NULL
+    avail_eng <- possible_engines(object)
+    rlang::abort(glue_compatible_engines(object$engine, avail_eng))
   }
   object$engine <- engine
   object <- check_engine(object)

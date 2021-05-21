@@ -76,11 +76,12 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
+  cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
-    mode <- NULL
+    spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
+    rlang::abort(glue_compatible_modes(cls, spec_modes))
   }
-  mode <- mode[1]
-  check_spec_mode_val(class(object)[1], mode)
+  check_spec_mode_val(cls, mode)
   object$mode <- mode
   object
 }

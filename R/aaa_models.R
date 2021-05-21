@@ -133,21 +133,22 @@ check_mode_val <- function(mode) {
   invisible(NULL)
 }
 
+
+glue_compatible_modes <- function(cls, spec_modes) {
+  glue::glue(
+    "Available modes are: ",
+    glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
+  )
+}
+
 # check if class and mode are compatible
 check_spec_mode_val <- function(cls, mode) {
   spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-  compatible_modes <-
-    glue::glue(
-      "`mode` should be one of: ",
-      glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-    )
-
-  if (is.null(mode)) {
-    rlang::abort(compatible_modes)
+  if (is.null(mode) | length(mode) > 1) {
+    rlang::abort(glue_compatible_modes(cls, spec_modes))
   } else if (!(mode %in% spec_modes)) {
-    rlang::abort(compatible_modes)
+    rlang::abort(glue_compatible_modes(cls, spec_modes))
   }
-
   invisible(NULL)
 }
 
