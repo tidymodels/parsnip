@@ -20,7 +20,7 @@ glue_compatible_engines <- function(engine, avail_eng) {
 check_engine <- function(object) {
   avail_eng <- possible_engines(object)
   eng <- object$engine
-  if (is.null(eng) | length(eng) > 1) {
+  if (is.null(eng) || length(eng) > 1) {
     rlang::abort(glue_compatible_engines(eng, avail_eng))
   } else if (!(eng %in% avail_eng)) {
     rlang::abort(glue_compatible_engines(eng, avail_eng))
