@@ -79,7 +79,7 @@ set_mode <- function(object, mode) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-    rlang::abort(glue_compatible_modes(cls, spec_modes))
+    stop_incompatible_mode(spec_modes)
   }
   check_spec_mode_val(cls, mode)
   object$mode <- mode
