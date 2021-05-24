@@ -264,20 +264,26 @@ check_args.boost_tree <- function(object) {
 #' @param max_depth An integer for the maximum depth of the tree.
 #' @param nrounds An integer for the number of boosting iterations.
 #' @param eta A numeric value between zero and one to control the learning rate.
-#' @param colsample_bytree Subsampling proportion of columns.
+#' @param colsample_bytree Subsampling proportion of columns for each tree.
+#' See the `counts` argument below. The default uses all columns.
+#' @param colsample_bynode Subsampling proportion of columns for each node
+#' within each tree. See the `counts` argument below. The default uses all
+#' columns.
 #' @param min_child_weight A numeric value for the minimum sum of instance
 #'  weights needed in a child to continue to split.
 #' @param gamma A number for the minimum loss reduction required to make a
 #'  further partition on a leaf node of the tree
-#' @param subsample Subsampling proportion of rows.
-#' @param validation A positive number. If on `[0, 1)` the value, `validation`
-#' is a random proportion of data in `x` and `y` that are used for performance
-#' assessment and potential early stopping. If 1 or greater, it is the _number_
-#' of training set samples use for these purposes.
+#' @param subsample Subsampling proportion of rows. By default, all of the
+#' training data are used.
+#' @param validation The _proportion_ of the data that are used for performance
+#' assessment and potential early stopping.
 #' @param early_stop An integer or `NULL`. If not `NULL`, it is the number of
 #' training iterations without improvement before stopping. If `validation` is
 #' used, performance is base on the validation set; otherwise, the training set
 #' is used.
+#' @param counts A logical. If `FALSE`, `colsample_bynode` and
+#' `colsample_bytree` are both assumed to be _proportions_ of the proportion of
+#' columns affects (instead of counts).
 #' @param objective A single string (or NULL) that defines the loss function that
 #' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
 #' NULL, an appropriate loss function is chosen.
@@ -290,11 +296,10 @@ check_args.boost_tree <- function(object) {
 #' @export
 xgb_train <- function(
   x, y,
-  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
-  min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
-  early_stop = NULL, objective = NULL,
-  event_level = c("first", "second"),
-  ...) {
+  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
+  colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
+  validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
+  event_level = c("first", "second"), ...) {
 
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
@@ -304,6 +309,7 @@ xgb_train <- function(
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
     rlang::abort("`validation` should be on [0, 1).")
   }
+
   if (!is.null(early_stop)) {
     if (early_stop <= 1) {
       rlang::abort(paste0("`early_stop` should be on [2, ",  nrounds, ")."))
@@ -312,7 +318,6 @@ xgb_train <- function(
       rlang::warn(paste0("`early_stop` was reduced to ", early_stop, "."))
     }
   }
-
 
   if (is.null(objective)) {
     if (is.numeric(y)) {
@@ -331,19 +336,21 @@ xgb_train <- function(
 
   x <- as_xgb_data(x, y, validation, event_level)
 
-  # translate `subsample` and `colsample_bytree` to be on (0, 1] if not
-  if (subsample > 1) {
-    subsample <- subsample/n
-  }
-  if (subsample > 1) {
-    subsample <- 1
+
+  if (!is.numeric(subsample) || subsample < 0 || subsample > 1) {
+    rlang::abort("`subsample` should be on [0, 1].")
   }
 
-  if (colsample_bytree > 1) {
-    colsample_bytree <- colsample_bytree/p
-  }
-  if (colsample_bytree > 1) {
+  # initialize
+  if (is.null(colsample_bytree)) {
     colsample_bytree <- 1
+  } else {
+    colsample_bytree <- recalc_param(colsample_bytree, counts, p)
+  }
+  if (is.null(colsample_bynode)) {
+    colsample_bynode <- 1
+  } else {
+    colsample_bynode <- recalc_param(colsample_bynode, counts, p)
   }
 
   if (min_child_weight > n) {
@@ -358,6 +365,7 @@ xgb_train <- function(
     max_depth = max_depth,
     gamma = gamma,
     colsample_bytree = colsample_bytree,
+    colsample_bynode = colsample_bynode,
     min_child_weight = min(min_child_weight, n),
     subsample = subsample,
     objective = objective
@@ -388,6 +396,30 @@ xgb_train <- function(
   }
 
   eval_tidy(call, env = current_env())
+}
+
+recalc_param <- function(x, counts, denom) {
+  nm <- as.character(match.call()$x)
+  if (is.null(x)) {
+    x <- 1
+  } else {
+    if (counts) {
+      maybe_proportion(x, nm)
+      x <- min(denom, x)/denom
+    }
+  }
+  x
+}
+
+maybe_proportion <- function(x, nm) {
+  if (x < 1) {
+    msg <- paste0(
+      "The option `counts = TRUE` was used but parameter `", nm,
+      "` was given as ", signif(x, 3), ". Please use a value >= 1 or use ",
+      "`counts = FALSE`."
+    )
+    rlang::abort(msg)
+  }
 }
 
 #' @importFrom stats binomial
@@ -432,7 +464,8 @@ as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
 
   if (!inherits(x, "xgb.DMatrix")) {
     if (validation > 0) {
-      trn_index <- sample(1:n, size = floor(n * (1 - validation)) + 1)
+      m <- floor(n * (1 - validation)) + 1
+      trn_index <- sample(1:n, size = max(m, 2))
       wlist <-
         list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
       dat <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)

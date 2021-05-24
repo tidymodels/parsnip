@@ -414,9 +414,9 @@ test_that('argument checks for data dimensions', {
     xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
     "1000 samples were requested"
   )
-  expect_equal(f_fit$fit$params$colsample_bytree, 1)
+  expect_equal(f_fit$fit$params$colsample_bynode, 1)
   expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))
-  expect_equal(xy_fit$fit$params$colsample_bytree, 1)
+  expect_equal(xy_fit$fit$params$colsample_bynode, 1)
   expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
 
 })
@@ -482,3 +482,49 @@ test_that("fit and prediction with `event_level`", {
   expect_equal(pred_p_2[[".pred_male"]], pred_xgb_2)
 
 })
+
+test_that("count/proportion parameters", {
+  skip_if_not_installed("xgboost")
+  fit1 <-
+    boost_tree(mtry = 7, trees = 4) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit1$fit$params$colsample_bytree, 1)
+  expect_equal(fit1$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+
+  fit2 <-
+    boost_tree(mtry = 7, trees = 4) %>%
+    set_engine("xgboost", colsample_bytree = 4) %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit2$fit$params$colsample_bytree, 4/(ncol(mtcars) - 1))
+  expect_equal(fit2$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+
+  fit3 <-
+    boost_tree(trees = 4) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit3$fit$params$colsample_bytree, 1)
+  expect_equal(fit3$fit$params$colsample_bynode, 1)
+
+  fit4 <-
+    boost_tree(mtry = .9, trees = 4) %>%
+    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit4$fit$params$colsample_bytree, .1)
+  expect_equal(fit4$fit$params$colsample_bynode, .9)
+
+  expect_error(
+    boost_tree(mtry = .9, trees = 4) %>%
+      set_engine("xgboost") %>%
+      set_mode("regression") %>%
+      fit(mpg ~ ., data = mtcars),
+   "was given as 0.9"
+  )
+
+})
+
+

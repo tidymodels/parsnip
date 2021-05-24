@@ -49,6 +49,6 @@ test_that('pipe engine', {
 test_that("can't set a mode that isn't allowed by the model spec", {
   expect_error(
     set_mode(linear_reg(), "classification"),
-    "`mode` should be one of"
+    "Available modes are:"
   )
 })

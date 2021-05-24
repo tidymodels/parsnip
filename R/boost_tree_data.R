@@ -37,7 +37,7 @@ set_model_arg(
   model = "boost_tree",
   eng = "xgboost",
   parsnip = "mtry",
-  original = "colsample_bytree",
+  original = "colsample_bynode",
   func = list(pkg = "dials", fun = "mtry"),
   has_submodel = FALSE
 )
