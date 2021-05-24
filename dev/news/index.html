@@ -171,7 +171,7 @@
 </li>
 <li><p>The <code>liquidSVM</code> engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> was deprecated due to that package’s removal from CRAN. (<a href='https://github.com/tidymodels/parsnip/issues/425'>#425</a>)</p></li>
 <li><p>The xgboost engine for boosted trees was translating <code>mtry</code> to xgboost’s <code>colsample_bytree</code>. We now map <code>mtry</code> to <code>colsample_bynode</code> since that is more consistent with how random forest works. <code>colsample_bytree</code> can still be optimized by passing it in as an engine argument. <code>colsample_bynode</code> was added to xgboost after the <code>parsnip</code> package code was written. (<a href='https://github.com/tidymodels/parsnip/issues/495'>#495</a>)</p></li>
-<li><p>For xgboost boosting, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions while <code>subsample</code> and <code>validation</code> should be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> for state what scale <code>mtry</code> and <code>colsample_bytree</code> are being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
+<li><p>For xgboost, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions, while <code>subsample</code> and <code>validation</code> should always be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> (<code>TRUE</code> or <code>FALSE</code>) that states which scale for <code>mtry</code> and <code>colsample_bytree</code> is being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
@@ -179,7 +179,7 @@
 <a href="#other-changes" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p>Re-licensed package from GPL-2 to MIT. See <a href="https://github.com/tidymodels/parsnip/issues/462">consent from copyright holders here</a>.</p></li>
-<li><p><code><a href="../reference/set_args.html">set_mode()</a></code> now checks if <code>mode</code> is compatible with the model class, similar to <code><a href="../reference/null_value.html">new_model_spec()</a></code> (<a href='https://github.com/jtlandis'>@jtlandis</a>, <a href='https://github.com/tidymodels/parsnip/issues/467'>#467</a>).</p></li>
+<li><p><code><a href="../reference/set_args.html">set_mode()</a></code> now checks if <code>mode</code> is compatible with the model class, similar to <code><a href="../reference/null_value.html">new_model_spec()</a></code> (<a href='https://github.com/jtlandis'>@jtlandis</a>, <a href='https://github.com/tidymodels/parsnip/issues/467'>#467</a>). Both <code><a href="../reference/set_args.html">set_mode()</a></code> and <code><a href="../reference/set_engine.html">set_engine()</a></code> now error for <code>NULL</code> or missing arguments (<a href='https://github.com/tidymodels/parsnip/issues/503'>#503</a>).</p></li>
 <li><p>Re-organized model documentation for <code>update</code> methods (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</p></li>
 <li><p><code><a href="https://generics.r-lib.org/reference/required_pkgs.html">generics::required_pkgs()</a></code> was extended for <code>parsnip</code> objects.</p></li>
 </ul>
