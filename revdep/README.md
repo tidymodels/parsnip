@@ -3,67 +3,48 @@
 |field    |value                        |
 |:--------|:----------------------------|
 |version  |R version 4.0.3 (2020-10-10) |
-|os       |Ubuntu 18.04.5 LTS           |
-|system   |x86_64, linux-gnu            |
-|ui       |X11                          |
-|language |en                           |
-|collate  |en_GB.UTF-8                  |
-|ctype    |en_GB.UTF-8                  |
-|tz       |Europe/London                |
-|date     |2021-02-23                   |
+|os       |macOS Catalina 10.15.7       |
+|system   |x86_64, darwin17.0           |
+|ui       |RStudio                      |
+|language |(EN)                         |
+|collate  |en_US.UTF-8                  |
+|ctype    |en_US.UTF-8                  |
+|tz       |America/New_York             |
+|date     |2021-05-18                   |
 
 # Dependencies
 
 |package     |old    |new        |Δ  |
 |:-----------|:------|:----------|:--|
-|parsnip     |0.1.5  |0.1.5.9000 |*  |
-|assertthat  |0.2.1  |0.2.1      |   |
-|cli         |2.3.1  |2.3.1      |   |
-|cpp11       |0.2.6  |0.2.6      |   |
+|parsnip     |0.1.5  |0.1.5.9003 |*  |
+|cli         |2.5.0  |2.5.0      |   |
+|cpp11       |0.2.7  |0.2.7      |   |
 |crayon      |1.4.1  |1.4.1      |   |
-|digest      |0.6.27 |0.6.27     |   |
-|dplyr       |1.0.4  |1.0.4      |   |
-|ellipsis    |0.3.1  |0.3.1      |   |
+|dplyr       |1.0.6  |1.0.6      |   |
+|ellipsis    |0.3.2  |0.3.2      |   |
 |fansi       |0.4.2  |0.4.2      |   |
 |generics    |0.1.0  |0.1.0      |   |
 |globals     |0.14.0 |0.14.0     |   |
 |glue        |1.4.2  |1.4.2      |   |
 |lifecycle   |1.0.0  |1.0.0      |   |
 |magrittr    |2.0.1  |2.0.1      |   |
-|pillar      |1.5.0  |1.5.0      |   |
+|pillar      |1.6.1  |1.6.1      |   |
 |pkgconfig   |2.0.3  |2.0.3      |   |
 |prettyunits |1.1.1  |1.1.1      |   |
 |purrr       |0.3.4  |0.3.4      |   |
 |R6          |2.5.0  |2.5.0      |   |
-|rlang       |0.4.10 |0.4.10     |   |
-|tibble      |3.0.6  |3.0.6      |   |
-|tidyr       |1.1.2  |1.1.2      |   |
-|tidyselect  |1.1.0  |1.1.0      |   |
-|utf8        |1.1.4  |1.1.4      |   |
-|vctrs       |0.3.6  |0.3.6      |   |
+|rlang       |0.4.11 |0.4.11     |   |
+|tibble      |3.1.2  |3.1.2      |   |
+|tidyr       |1.1.3  |1.1.3      |   |
+|tidyselect  |1.1.1  |1.1.1      |   |
+|utf8        |1.2.1  |1.2.1      |   |
+|vctrs       |0.3.8  |0.3.8      |   |
 
 # Revdeps
 
-## Failed to check (18)
+## Failed to check (1)
 
-|package            |version |error |warning |note |
-|:------------------|:-------|:-----|:-------|:----|
-|baguette           |?       |      |        |     |
-|bayesian           |?       |      |        |     |
-|butcher            |?       |      |        |     |
-|coefplot           |?       |      |        |     |
-|condvis2           |?       |      |        |     |
-|discrim            |?       |      |        |     |
-|easyalluvial       |?       |      |        |     |
-|finetune           |?       |      |        |     |
-|insight            |?       |      |        |     |
-|modeltime          |?       |      |        |     |
-|modeltime.ensemble |?       |      |        |     |
-|modeltime.gluonts  |?       |      |        |     |
-|modeltime.resample |?       |      |        |     |
-|plsmod             |?       |      |        |     |
-|SSLR               |?       |      |        |     |
-|tabnet             |?       |      |        |     |
-|timetk             |?       |      |        |     |
-|vip                |?       |      |        |     |
+|package |version |error |warning |note |
+|:-------|:-------|:-----|:-------|:----|
+|insight |?       |      |        |     |
 

@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 0.1.6
 
 ## Model Specification Changes
 
@@ -15,6 +15,7 @@
 
 * For xgboost, `mtry` and `colsample_bytree` can be passed as integer counts or proportions, while `subsample` and `validation` should always be proportions. `xgb_train()` now has a new option `counts` (`TRUE` or `FALSE`) that states which scale for `mtry` and `colsample_bytree` is being used. (#461)  
 
+r
 ## Other Changes
 
 * Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
@@ -24,6 +25,13 @@
 * Re-organized model documentation for `update` methods (#479).
 
 * `generics::required_pkgs()` was extended for `parsnip` objects. 
+
+* Prediction functions now give a consistent error when a user uses an unavailable value of `type` (#489)
+
+* The `augment()` method was changed to avoid failing if the model does not enable class probabilities. The method now returns tibbles despite the input data class (#487) (#478)
+
+* xgboost engines now respect the `event_level` option for predictions (#460).  
+
 
 # parsnip 0.1.5
 
