@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -128,20 +128,24 @@
 <p>We’ll use the attrition data in <code>rsample</code> to illustrate:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.2 ──</code></pre>
-<pre><code>## ✔ broom     0.7.5      ✔ rsample   0.0.9 
-## ✔ dials     0.0.9      ✔ tibble    3.1.0 
-## ✔ dplyr     1.0.5      ✔ tidyr     1.1.3 
-## ✔ infer     0.5.4      ✔ tune      0.1.2 
-## ✔ modeldata 0.1.0      ✔ workflows 0.2.1 
-## ✔ purrr     0.3.4      ✔ yardstick 0.0.7 
-## ✔ recipes   0.1.15</code></pre>
+<pre><code>## Registered S3 method overwritten by 'tune':
+##   method                   from   
+##   required_pkgs.model_spec parsnip</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.3 ──</code></pre>
+<pre><code>## ✔ broom        0.7.6      ✔ rsample      0.1.0 
+## ✔ dials        0.0.9      ✔ tibble       3.1.2 
+## ✔ dplyr        1.0.6      ✔ tidyr        1.1.3 
+## ✔ infer        0.5.4      ✔ tune         0.1.5 
+## ✔ modeldata    0.1.0      ✔ workflows    0.2.2 
+## ✔ purrr        0.3.4      ✔ workflowsets 0.0.2 
+## ✔ recipes      0.1.16     ✔ yardstick    0.0.8</code></pre>
 <pre><code>## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
 ## ✖ purrr::discard() masks scales::discard()
 ## ✖ dplyr::filter()  masks stats::filter()
 ## ✖ dplyr::lag()     masks stats::lag()
-## ✖ recipes::step()  masks stats::step()</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+## ✖ recipes::step()  masks stats::step()
+## • Use tidymodels_prefer() to resolve common conflicts.</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">attrition</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4595</span><span class="op">)</span>
@@ -149,17 +153,17 @@
 <span class="va">attrition_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span>
 <span class="va">attrition_test</span>  <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span></code></pre></div>
 <p>A boosted classification tree is one of the most low-maintenance approaches that we could take to these data:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># requires the xgboost package</span>
 <span class="va">attrition_boost</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/boost_tree.html">boost_tree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, trees <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"C5.0"</span><span class="op">)</span></code></pre></div>
 <p>Suppose that 10-fold cross-validation was being used to tune the model over the number of trees:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">616</span><span class="op">)</span>
 <span class="va">folds</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">attrition_train</span><span class="op">)</span></code></pre></div>
 <p>The process would fit a model on 90% of the data and predict on the remaining 10%. Using <code>rsample</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">model_data</span> <span class="op">&lt;-</span> <span class="fu">analysis</span><span class="op">(</span><span class="va">folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
 <span class="va">pred_data</span>  <span class="op">&lt;-</span> <span class="fu">assessment</span><span class="op">(</span><span class="va">folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
 
@@ -167,7 +171,7 @@
   <span class="va">attrition_boost</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model_data</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Attrition</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">model_data</span><span class="op">$</span><span class="va">Attrition</span><span class="op">)</span></code></pre></div>
 <p>For <code><a href="../../reference/multi_predict.html">multi_predict()</a></code>, the same semantics of <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> are used but, for this model, there is an extra argument called <code>trees</code>. Candidate submodel values can be passed in with <code>trees</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_pred</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/multi_predict.html">multi_predict</a></span><span class="op">(</span>
     <span class="va">fold_1_model</span>, 
@@ -191,24 +195,24 @@
 ## 10 &lt;tibble [100 × 3]&gt;
 ## # … with 101 more rows</code></pre>
 <p>The results is a tibble that has as many rows as the data being predicted (<em>n</em> = 111). The <code>.pred</code> column contains a list of tibbles and each has the predictions across the different number of trees:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_pred</span><span class="op">$</span><span class="va">.pred</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## # A tibble: 100 x 3
 ##    trees .pred_No .pred_Yes
 ##    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-##  1     1    0.691     0.309
-##  2     2    1         0    
-##  3     3    1         0    
-##  4     4    1         0    
-##  5     5    1         0    
-##  6     6    0.862     0.138
-##  7     7    0.882     0.118
-##  8     8    0.770     0.230
-##  9     9    0.689     0.311
-## 10    10    0.724     0.276
+##  1     1    0.916    0.0840
+##  2     2    0.558    0.442 
+##  3     3    0.706    0.294 
+##  4     4    0.542    0.458 
+##  5     5    0.630    0.370 
+##  6     6    0.693    0.307 
+##  7     7    0.741    0.259 
+##  8     8    0.662    0.338 
+##  9     9    0.596    0.404 
+## 10    10    0.638    0.362 
 ## # … with 90 more rows</code></pre>
 <p>To get this into a format that is more usable, we can use <code><a href="https://tidyr.tidyverse.org/reference/nest.html">tidyr::unnest()</a></code> but we first add row numbers so that we can track the predictions by test sample as well as the actual classes:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_df</span> <span class="op">&lt;-</span> 
   <span class="va">fold_1_pred</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">pred_data</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Attrition</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -218,19 +222,19 @@
 <pre><code>## # A tibble: 11,100 x 5
 ##    trees .pred_No .pred_Yes Attrition  .row
 ##    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;
-##  1     1    0.691     0.309 Yes           1
-##  2     2    1         0     Yes           1
-##  3     3    1         0     Yes           1
-##  4     4    1         0     Yes           1
-##  5     5    1         0     Yes           1
-##  6     6    0.862     0.138 Yes           1
-##  7     7    0.882     0.118 Yes           1
-##  8     8    0.770     0.230 Yes           1
-##  9     9    0.689     0.311 Yes           1
-## 10    10    0.724     0.276 Yes           1
+##  1     1    0.916    0.0840 No            1
+##  2     2    0.558    0.442  No            1
+##  3     3    0.706    0.294  No            1
+##  4     4    0.542    0.458  No            1
+##  5     5    0.630    0.370  No            1
+##  6     6    0.693    0.307  No            1
+##  7     7    0.741    0.259  No            1
+##  8     8    0.662    0.338  No            1
+##  9     9    0.596    0.404  No            1
+## 10    10    0.638    0.362  No            1
 ## # … with 11,090 more rows</code></pre>
 <p>For two samples, what do these look like over trees?</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.row</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">88</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">trees</span>, y <span class="op">=</span> <span class="va">.pred_No</span>, col <span class="op">=</span> <span class="va">Attrition</span>, group <span class="op">=</span> <span class="va">.row</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
@@ -239,7 +243,7 @@
   <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></code></pre></div>
 <p><img src="Submodels_files/figure-html/prob-plot-1.png" width="768"></p>
 <p>What does performance look like over trees (using the area under the ROC curve)?</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_df</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">roc_auc</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Attrition</span>, <span class="va">.pred_No</span><span class="op">)</span> <span class="op">%&gt;%</span> 

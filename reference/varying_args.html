@@ -97,7 +97,7 @@ are actually varying." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -206,39 +206,39 @@ a <code>recipe</code>, the unique step <code>id</code> is used.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># List all possible varying args for the random forest spec</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/varying_args.html'>varying_args</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
 #&gt;   name  varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry  FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> mtry  FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>2</span> trees FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>3</span> min_n FALSE   rand_forest model_spec</div><div class='input'>
 <span class='co'># mtry is now recognized as varying</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/varying_args.html'>varying_args</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
 #&gt;   name  varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry  TRUE    rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n FALSE   rand_forest model_spec</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> mtry  TRUE    rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>2</span> trees FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>3</span> min_n FALSE   rand_forest model_spec</div><div class='input'>
 <span class='co'># Even engine specific arguments can vary</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"ranger"</span>, sample.fraction <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://generics.r-lib.org/reference/varying_args.html'>varying_args</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 4</span>
 #&gt;   name            varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry            FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees           FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n           FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> mtry            FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>2</span> trees           FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>3</span> min_n           FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>4</span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
 <span class='co'># List only the arguments that actually vary</span>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"ranger"</span>, sample.fraction <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://generics.r-lib.org/reference/varying_args.html'>varying_args</a></span><span class='op'>(</span>full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span>
 #&gt;   name            varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> sample.fraction TRUE    rand_forest model_spec</div><div class='input'>
 <span class='fu'><a href='rand_forest.html'>rand_forest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span>
     <span class='st'>"randomForest"</span>,
@@ -246,15 +246,15 @@ a <code>recipe</code>, the unique step <code>id</code> is used.</p>
     sampsize <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span>
   <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://generics.r-lib.org/reference/varying_args.html'>varying_args</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 4</span>
 #&gt;   name     varying id          type      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mtry     FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> trees    FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> min_n    FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> strata   FALSE   rand_forest model_spec
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> sampsize TRUE    rand_forest model_spec</div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> mtry     FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>2</span> trees    FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>3</span> min_n    FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>4</span> strata   FALSE   rand_forest model_spec
+#&gt; <span style='color: #BCBCBC;'>5</span> sampsize TRUE    rand_forest model_spec</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

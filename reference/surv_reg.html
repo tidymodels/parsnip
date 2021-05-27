@@ -50,7 +50,10 @@
 
 
 <meta property="og:title" content="General Interface for Parametric Survival Models — surv_reg" />
-<meta property="og:description" content="surv_reg() is a way to generate a specification of a model
+<meta property="og:description" content="
+This function is soft-deprecated in favor of survival_reg() which uses the
+&quot;censored regression&quot; mode.
+surv_reg() is a way to generate a specification of a model
 before fitting and allows the model to be created using
 R. The main argument for the
 model is:
@@ -60,8 +63,15 @@ time that the model is fit. Other options and arguments can be
 set using set_engine(). If left to its default
 here (NULL), the value is taken from the underlying model
 functions.
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch." />
+The data given to the function are not saved and are only used
+to determine the mode of the model. For surv_reg(),the
+mode will always be &quot;regression&quot;.
+Since survival models typically involve censoring (and require the use of
+survival::Surv() objects), the fit() function will require that the
+survival model be specified via the formula interface.
+Also, for the flexsurv::flexsurvfit engine, the typical
+strata function cannot be used. To achieve the same effect,
+the extra parameter roles can be used (as described above)." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -106,7 +116,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -167,7 +177,10 @@ in lieu of recreating the object from scratch." />
     </div>
 
     <div class="ref-description">
-    <p><code>surv_reg()</code> is a way to generate a <em>specification</em> of a model
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p>
+<p>This function is soft-deprecated in favor of <code><a href='survival_reg.html'>survival_reg()</a></code> which uses the
+<code>"censored regression"</code> mode.</p>
+<p><code>surv_reg()</code> is a way to generate a <em>specification</em> of a model
 before fitting and allows the model to be created using
 R. The main argument for the
 model is:</p><ul>
@@ -177,14 +190,18 @@ time that the model is fit. Other options and arguments can be
 set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to its default
 here (<code>NULL</code>), the value is taken from the underlying model
 functions.</p>
-<p>If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch.</p>
+<p>The data given to the function are not saved and are only used
+to determine the <em>mode</em> of the model. For <code>surv_reg()</code>,the
+mode will always be "regression".</p>
+<p>Since survival models typically involve censoring (and require the use of
+<code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function will require that the
+survival model be specified via the formula interface.</p>
+<p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
+<code>strata</code> function cannot be used. To achieve the same effect,
+the extra parameter roles can be used (as described above).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for surv_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, parameters <span class='op'>=</span> <span class='cn'>NULL</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span>, fresh <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,40 +216,11 @@ The only possible value for this model is "regression".</p></td>
       <td><p>A character string for the outcome distribution. "weibull" is
 the default.</p></td>
     </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A survival regression model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>surv_reg()</code>,the
-mode will always be "regression".</p>
-<p>Since survival models typically involve censoring (and require the use of
-<code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function will require that the
-survival model be specified via the formula interface.</p>
-<p>Also, for the <code>flexsurv::flexsurvfit</code> engine, the typical
-<code>strata</code> function cannot be used. To achieve the same effect,
-the extra parameter roles can be used (as described above).</p>
-<p>For <code>surv_reg()</code>, the mode will always be "regression".</p>
+    <p>For <code>surv_reg()</code>, the mode will always be "regression".</p>
 <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
 <li><p><span class="pkg">R</span>:  <code>"flexsurv"</code>, <code>"survival"</code> (the default)</p></li>
@@ -246,7 +234,10 @@ call. For this type of model, the template of the fit calls are below.</p><h3 cl
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"flexsurv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+</pre><p></div></p><pre><span class='co'>## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
+<span class='co'>## Please use `survival_reg()` instead.</span>
+
+<span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: flexsurv </span>
 <span class='co'>## </span>
@@ -261,7 +252,10 @@ call. For this type of model, the template of the fit calls are below.</p><h3 cl
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"survival"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
+</pre><p></div></p><pre><span class='co'>## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
+<span class='co'>## Please use `survival_reg()` instead.</span>
+
+<span class='co'>## Parametric Survival Regression Model Specification (regression)</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: survival </span>
 <span class='co'>## </span>
@@ -295,36 +289,40 @@ parameter.</p><table class='table'>
 Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"surv_reg"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;   engine   mode      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> flexsurv regression
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> survival regression</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> flexsurv regression
+#&gt; <span style='color: #BCBCBC;'>2</span> survival regression</div><div class='input'>
 <span class='fu'>surv_reg</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
+#&gt; <span class='warning'>Please use `survival_reg()` instead.</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>surv_reg</span><span class='op'>(</span>dist <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
+#&gt; <span class='warning'>Please use `survival_reg()` instead.</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = varying()
 #&gt; </div><div class='input'>
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>surv_reg</span><span class='op'>(</span>dist <span class='op'>=</span> <span class='st'>"weibull"</span><span class='op'>)</span>
-<span class='va'>model</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+<span class='co'># -&gt;</span>
+<span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"survival_reg"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 0 x 2</span>
+#&gt; <span style='color: #949494;'># … with 2 variables: engine &lt;chr&gt;, mode &lt;chr&gt;</span></div><div class='input'>
+<span class='fu'><a href='survival_reg.html'>survival_reg</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
+#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
+<span class='fu'><a href='survival_reg.html'>survival_reg</a></span><span class='op'>(</span>dist <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
 #&gt; 
 #&gt; Main Arguments:
-#&gt;   dist = weibull
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, dist <span class='op'>=</span> <span class='st'>"lnorm"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   dist = lnorm
-#&gt; </div></span></pre>
+#&gt;   dist = varying()
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -112,10 +112,16 @@
     <loc>https://parsnip.tidymodels.org/reference/parsnip_addin.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/parsnip_update.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/prepare_data.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/proportional_hazards.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/rand_forest.html</loc>
@@ -154,6 +160,9 @@
     <loc>https://parsnip.tidymodels.org/reference/surv_reg.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/survival_reg.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/svm_linear.html</loc>
   </url>
   <url>
@@ -161,6 +170,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/svm_rbf.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/tidy._LiblineaR.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/tidy._elnet.html</loc>

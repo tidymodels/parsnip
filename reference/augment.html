@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -184,8 +184,9 @@
     <p>For regression models, a <code>.pred</code> column is added. If <code>x</code> was created using
 <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> and <code>new_data</code> contains the outcome column, a <code>.resid</code> column is
 also added.</p>
-<p>For classification models, the results include a column called <code>.pred_class</code>
-as well as class probability columns named <code>.pred_{level}</code>.</p>
+<p>For classification models, the results can include a column called
+<code>.pred_class</code> as well as class probability columns named <code>.pred_{level}</code>.
+This depends on what type of prediction types are available for the model.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>car_trn</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>32</span>,<span class='op'>]</span>
@@ -201,62 +202,60 @@ as well as class probability columns named <code>.pred_{level}</code>.</p>
   <span class='fu'><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy</a></span><span class='op'>(</span><span class='va'>car_trn</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>car_trn</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_form</span>, <span class='va'>car_tst</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    .pred
-#&gt; Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 23.43006
-#&gt; Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 23.29639
-#&gt; Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 27.62870
-#&gt; Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 21.54678
-#&gt; Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 17.57028
-#&gt; Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 21.58316
-#&gt; Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 13.90725
-#&gt; Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 21.70176
-#&gt; Merc 230          22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 25.61122
-#&gt; Merc 280          19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 17.11206
-#&gt;                       .resid
-#&gt; Mazda RX4         -2.4300560
-#&gt; Mazda RX4 Wag     -2.2963881
-#&gt; Datsun 710        -4.8287021
-#&gt; Hornet 4 Drive    -0.1467751
-#&gt; Hornet Sportabout  1.1297224
-#&gt; Valiant           -3.4831608
-#&gt; Duster 360         0.3927513
-#&gt; Merc 240D          2.6982354
-#&gt; Merc 230          -2.8112207
-#&gt; Merc 280           2.0879402</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_form</span>, <span class='va'>car_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                   cyl  disp  hp drat    wt  qsec vs am gear carb    .pred
-#&gt; Mazda RX4           6 160.0 110 3.90 2.620 16.46  0  1    4    4 23.43006
-#&gt; Mazda RX4 Wag       6 160.0 110 3.90 2.875 17.02  0  1    4    4 23.29639
-#&gt; Datsun 710          4 108.0  93 3.85 2.320 18.61  1  1    4    1 27.62870
-#&gt; Hornet 4 Drive      6 258.0 110 3.08 3.215 19.44  1  0    3    1 21.54678
-#&gt; Hornet Sportabout   8 360.0 175 3.15 3.440 17.02  0  0    3    2 17.57028
-#&gt; Valiant             6 225.0 105 2.76 3.460 20.22  1  0    3    1 21.58316
-#&gt; Duster 360          8 360.0 245 3.21 3.570 15.84  0  0    3    4 13.90725
-#&gt; Merc 240D           4 146.7  62 3.69 3.190 20.00  1  0    4    2 21.70176
-#&gt; Merc 230            4 140.8  95 3.92 3.150 22.90  1  0    4    2 25.61122
-#&gt; Merc 280            6 167.6 123 3.92 3.440 18.30  1  0    4    4 17.11206</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 13</span>
+#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb .pred
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4  23.4
+#&gt; <span style='color: #BCBCBC;'> 2</span>  21       6  160    110  3.9   2.88  17.0     0     1     4     4  23.3
+#&gt; <span style='color: #BCBCBC;'> 3</span>  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1  27.6
+#&gt; <span style='color: #BCBCBC;'> 4</span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1  21.5
+#&gt; <span style='color: #BCBCBC;'> 5</span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2  17.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1  21.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4  13.9
+#&gt; <span style='color: #BCBCBC;'> 8</span>  24.4     4  147.    62  3.69  3.19  20       1     0     4     2  21.7
+#&gt; <span style='color: #BCBCBC;'> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2  25.6
+#&gt; <span style='color: #BCBCBC;'>10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4  17.1
+#&gt; <span style='color: #949494;'># … with 1 more variable: .resid &lt;dbl&gt;</span></div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_form</span>, <span class='va'>car_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 11</span>
+#&gt;      cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb .pred
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>     6  160    110  3.9   2.62  16.5     0     1     4     4  23.4
+#&gt; <span style='color: #BCBCBC;'> 2</span>     6  160    110  3.9   2.88  17.0     0     1     4     4  23.3
+#&gt; <span style='color: #BCBCBC;'> 3</span>     4  108     93  3.85  2.32  18.6     1     1     4     1  27.6
+#&gt; <span style='color: #BCBCBC;'> 4</span>     6  258    110  3.08  3.22  19.4     1     0     3     1  21.5
+#&gt; <span style='color: #BCBCBC;'> 5</span>     8  360    175  3.15  3.44  17.0     0     0     3     2  17.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>     6  225    105  2.76  3.46  20.2     1     0     3     1  21.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>     8  360    245  3.21  3.57  15.8     0     0     3     4  13.9
+#&gt; <span style='color: #BCBCBC;'> 8</span>     4  147.    62  3.69  3.19  20       1     0     4     2  21.7
+#&gt; <span style='color: #BCBCBC;'> 9</span>     4  141.    95  3.92  3.15  22.9     1     0     4     2  25.6
+#&gt; <span style='color: #BCBCBC;'>10</span>     6  168.   123  3.92  3.44  18.3     1     0     4     4  17.1</div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_xy</span>, <span class='va'>car_tst</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    .pred
-#&gt; Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 23.43006
-#&gt; Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 23.29639
-#&gt; Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 27.62870
-#&gt; Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 21.54678
-#&gt; Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 17.57028
-#&gt; Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 21.58316
-#&gt; Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 13.90725
-#&gt; Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 21.70176
-#&gt; Merc 230          22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 25.61122
-#&gt; Merc 280          19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 17.11206</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_xy</span>, <span class='va'>car_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                   cyl  disp  hp drat    wt  qsec vs am gear carb    .pred
-#&gt; Mazda RX4           6 160.0 110 3.90 2.620 16.46  0  1    4    4 23.43006
-#&gt; Mazda RX4 Wag       6 160.0 110 3.90 2.875 17.02  0  1    4    4 23.29639
-#&gt; Datsun 710          4 108.0  93 3.85 2.320 18.61  1  1    4    1 27.62870
-#&gt; Hornet 4 Drive      6 258.0 110 3.08 3.215 19.44  1  0    3    1 21.54678
-#&gt; Hornet Sportabout   8 360.0 175 3.15 3.440 17.02  0  0    3    2 17.57028
-#&gt; Valiant             6 225.0 105 2.76 3.460 20.22  1  0    3    1 21.58316
-#&gt; Duster 360          8 360.0 245 3.21 3.570 15.84  0  0    3    4 13.90725
-#&gt; Merc 240D           4 146.7  62 3.69 3.190 20.00  1  0    4    2 21.70176
-#&gt; Merc 230            4 140.8  95 3.92 3.150 22.90  1  0    4    2 25.61122
-#&gt; Merc 280            6 167.6 123 3.92 3.440 18.30  1  0    4    4 17.11206</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 12</span>
+#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb .pred
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4  23.4
+#&gt; <span style='color: #BCBCBC;'> 2</span>  21       6  160    110  3.9   2.88  17.0     0     1     4     4  23.3
+#&gt; <span style='color: #BCBCBC;'> 3</span>  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1  27.6
+#&gt; <span style='color: #BCBCBC;'> 4</span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1  21.5
+#&gt; <span style='color: #BCBCBC;'> 5</span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2  17.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1  21.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4  13.9
+#&gt; <span style='color: #BCBCBC;'> 8</span>  24.4     4  147.    62  3.69  3.19  20       1     0     4     2  21.7
+#&gt; <span style='color: #BCBCBC;'> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2  25.6
+#&gt; <span style='color: #BCBCBC;'>10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4  17.1</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>reg_xy</span>, <span class='va'>car_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 11</span>
+#&gt;      cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb .pred
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>     6  160    110  3.9   2.62  16.5     0     1     4     4  23.4
+#&gt; <span style='color: #BCBCBC;'> 2</span>     6  160    110  3.9   2.88  17.0     0     1     4     4  23.3
+#&gt; <span style='color: #BCBCBC;'> 3</span>     4  108     93  3.85  2.32  18.6     1     1     4     1  27.6
+#&gt; <span style='color: #BCBCBC;'> 4</span>     6  258    110  3.08  3.22  19.4     1     0     3     1  21.5
+#&gt; <span style='color: #BCBCBC;'> 5</span>     8  360    175  3.15  3.44  17.0     0     0     3     2  17.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>     6  225    105  2.76  3.46  20.2     1     0     3     1  21.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>     8  360    245  3.21  3.57  15.8     0     0     3     4  13.9
+#&gt; <span style='color: #BCBCBC;'> 8</span>     4  147.    62  3.69  3.19  20       1     0     4     2  21.7
+#&gt; <span style='color: #BCBCBC;'> 9</span>     4  141.    95  3.92  3.15  22.9     1     0     4     2  25.6
+#&gt; <span style='color: #BCBCBC;'>10</span>     6  168.   123  3.92  3.44  18.3     1     0     4     4  17.1</div><div class='input'>
 <span class='co'># ------------------------------------------------------------------------------</span>
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>two_class_dat</span>, package <span class='op'>=</span> <span class='st'>"modeldata"</span><span class='op'>)</span>
@@ -274,60 +273,60 @@ as well as class probability columns named <code>.pred_{level}</code>.</p>
   <span class='va'>cls_trn</span><span class='op'>$</span><span class='va'>Class</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_form</span>, <span class='va'>cls_tst</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 6</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 6</span>
 #&gt;        A     B Class  .pred_class .pred_Class1 .pred_Class2
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  2.07 1.63  Class1 Class1             0.518      0.482  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  2.02 1.04  Class1 Class1             0.909      0.091</span><span style='text-decoration: underline;'>3</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  1.69 1.37  Class2 Class1             0.648      0.352  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  3.43 1.98  Class2 Class1             0.610      0.390  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  2.88 1.98  Class1 Class2             0.443      0.557  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  3.31 2.41  Class2 Class2             0.206      0.794  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  2.50 1.56  Class2 Class1             0.708      0.292  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  1.98 1.55  Class2 Class1             0.567      0.433  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  2.88 0.580 Class1 Class1             0.994      0.005</span><span style='text-decoration: underline;'>82</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  3.74 2.74  Class2 Class2             0.108      0.892  </div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_form</span>, <span class='va'>cls_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 5</span><span>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  2.07 1.63  Class1 Class1             0.518      0.482  
+#&gt; <span style='color: #BCBCBC;'> 2</span>  2.02 1.04  Class1 Class1             0.909      0.091<span style='text-decoration: underline;'>3</span> 
+#&gt; <span style='color: #BCBCBC;'> 3</span>  1.69 1.37  Class2 Class1             0.648      0.352  
+#&gt; <span style='color: #BCBCBC;'> 4</span>  3.43 1.98  Class2 Class1             0.610      0.390  
+#&gt; <span style='color: #BCBCBC;'> 5</span>  2.88 1.98  Class1 Class2             0.443      0.557  
+#&gt; <span style='color: #BCBCBC;'> 6</span>  3.31 2.41  Class2 Class2             0.206      0.794  
+#&gt; <span style='color: #BCBCBC;'> 7</span>  2.50 1.56  Class2 Class1             0.708      0.292  
+#&gt; <span style='color: #BCBCBC;'> 8</span>  1.98 1.55  Class2 Class1             0.567      0.433  
+#&gt; <span style='color: #BCBCBC;'> 9</span>  2.88 0.580 Class1 Class1             0.994      0.005<span style='text-decoration: underline;'>82</span>
+#&gt; <span style='color: #BCBCBC;'>10</span>  3.74 2.74  Class2 Class2             0.108      0.892  </div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_form</span>, <span class='va'>cls_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 5</span>
 #&gt;        A     B .pred_class .pred_Class1 .pred_Class2
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  2.07 1.63  Class1             0.518      0.482  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  2.02 1.04  Class1             0.909      0.091</span><span style='text-decoration: underline;'>3</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  1.69 1.37  Class1             0.648      0.352  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  3.43 1.98  Class1             0.610      0.390  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  2.88 1.98  Class2             0.443      0.557  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  3.31 2.41  Class2             0.206      0.794  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  2.50 1.56  Class1             0.708      0.292  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  1.98 1.55  Class1             0.567      0.433  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  2.88 0.580 Class1             0.994      0.005</span><span style='text-decoration: underline;'>82</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  3.74 2.74  Class2             0.108      0.892  </div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  2.07 1.63  Class1             0.518      0.482  
+#&gt; <span style='color: #BCBCBC;'> 2</span>  2.02 1.04  Class1             0.909      0.091<span style='text-decoration: underline;'>3</span> 
+#&gt; <span style='color: #BCBCBC;'> 3</span>  1.69 1.37  Class1             0.648      0.352  
+#&gt; <span style='color: #BCBCBC;'> 4</span>  3.43 1.98  Class1             0.610      0.390  
+#&gt; <span style='color: #BCBCBC;'> 5</span>  2.88 1.98  Class2             0.443      0.557  
+#&gt; <span style='color: #BCBCBC;'> 6</span>  3.31 2.41  Class2             0.206      0.794  
+#&gt; <span style='color: #BCBCBC;'> 7</span>  2.50 1.56  Class1             0.708      0.292  
+#&gt; <span style='color: #BCBCBC;'> 8</span>  1.98 1.55  Class1             0.567      0.433  
+#&gt; <span style='color: #BCBCBC;'> 9</span>  2.88 0.580 Class1             0.994      0.005<span style='text-decoration: underline;'>82</span>
+#&gt; <span style='color: #BCBCBC;'>10</span>  3.74 2.74  Class2             0.108      0.892  </div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_xy</span>, <span class='va'>cls_tst</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 6</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 6</span>
 #&gt;        A     B Class  .pred_class .pred_Class1 .pred_Class2
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  2.07 1.63  Class1 Class1             0.518      0.482  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  2.02 1.04  Class1 Class1             0.909      0.091</span><span style='text-decoration: underline;'>3</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  1.69 1.37  Class2 Class1             0.648      0.352  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  3.43 1.98  Class2 Class1             0.610      0.390  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  2.88 1.98  Class1 Class2             0.443      0.557  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  3.31 2.41  Class2 Class2             0.206      0.794  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  2.50 1.56  Class2 Class1             0.708      0.292  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  1.98 1.55  Class2 Class1             0.567      0.433  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  2.88 0.580 Class1 Class1             0.994      0.005</span><span style='text-decoration: underline;'>82</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  3.74 2.74  Class2 Class2             0.108      0.892  </div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_xy</span>, <span class='va'>cls_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 5</span><span>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  2.07 1.63  Class1 Class1             0.518      0.482  
+#&gt; <span style='color: #BCBCBC;'> 2</span>  2.02 1.04  Class1 Class1             0.909      0.091<span style='text-decoration: underline;'>3</span> 
+#&gt; <span style='color: #BCBCBC;'> 3</span>  1.69 1.37  Class2 Class1             0.648      0.352  
+#&gt; <span style='color: #BCBCBC;'> 4</span>  3.43 1.98  Class2 Class1             0.610      0.390  
+#&gt; <span style='color: #BCBCBC;'> 5</span>  2.88 1.98  Class1 Class2             0.443      0.557  
+#&gt; <span style='color: #BCBCBC;'> 6</span>  3.31 2.41  Class2 Class2             0.206      0.794  
+#&gt; <span style='color: #BCBCBC;'> 7</span>  2.50 1.56  Class2 Class1             0.708      0.292  
+#&gt; <span style='color: #BCBCBC;'> 8</span>  1.98 1.55  Class2 Class1             0.567      0.433  
+#&gt; <span style='color: #BCBCBC;'> 9</span>  2.88 0.580 Class1 Class1             0.994      0.005<span style='text-decoration: underline;'>82</span>
+#&gt; <span style='color: #BCBCBC;'>10</span>  3.74 2.74  Class2 Class2             0.108      0.892  </div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>cls_xy</span>, <span class='va'>cls_tst</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 5</span>
 #&gt;        A     B .pred_class .pred_Class1 .pred_Class2
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  2.07 1.63  Class1             0.518      0.482  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  2.02 1.04  Class1             0.909      0.091</span><span style='text-decoration: underline;'>3</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  1.69 1.37  Class1             0.648      0.352  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  3.43 1.98  Class1             0.610      0.390  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  2.88 1.98  Class2             0.443      0.557  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  3.31 2.41  Class2             0.206      0.794  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  2.50 1.56  Class1             0.708      0.292  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  1.98 1.55  Class1             0.567      0.433  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  2.88 0.580 Class1             0.994      0.005</span><span style='text-decoration: underline;'>82</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  3.74 2.74  Class2             0.108      0.892  </div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  2.07 1.63  Class1             0.518      0.482  
+#&gt; <span style='color: #BCBCBC;'> 2</span>  2.02 1.04  Class1             0.909      0.091<span style='text-decoration: underline;'>3</span> 
+#&gt; <span style='color: #BCBCBC;'> 3</span>  1.69 1.37  Class1             0.648      0.352  
+#&gt; <span style='color: #BCBCBC;'> 4</span>  3.43 1.98  Class1             0.610      0.390  
+#&gt; <span style='color: #BCBCBC;'> 5</span>  2.88 1.98  Class2             0.443      0.557  
+#&gt; <span style='color: #BCBCBC;'> 6</span>  3.31 2.41  Class2             0.206      0.794  
+#&gt; <span style='color: #BCBCBC;'> 7</span>  2.50 1.56  Class1             0.708      0.292  
+#&gt; <span style='color: #BCBCBC;'> 8</span>  1.98 1.55  Class1             0.567      0.433  
+#&gt; <span style='color: #BCBCBC;'> 9</span>  2.88 0.580 Class1             0.994      0.005<span style='text-decoration: underline;'>82</span>
+#&gt; <span style='color: #BCBCBC;'>10</span>  3.74 2.74  Class2             0.108      0.892  </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -51,7 +51,7 @@
 
 <meta property="og:title" content="Model predictions — predict.model_fit" />
 <meta property="og:description" content="Apply a model to create different types of predictions.
-predict() can be used for all types of models and used the
+predict() can be used for all types of models and uses the
 &quot;type&quot; argument for more specificity." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -97,7 +97,7 @@ predict() can be used for all types of models and used the
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@ predict() can be used for all types of models and used the
 
     <div class="ref-description">
     <p>Apply a model to create different types of predictions.
-<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> can be used for all types of models and used the
+<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> can be used for all types of models and uses the
 "type" argument for more specificity.</p>
     </div>
 
@@ -211,7 +211,7 @@ the scale of the linear predictors) for <code>type</code>s of "conf_int"
 and "pred_int". Default value is <code>FALSE</code>.</p></li>
 <li><p><code>quantile</code>: the quantile(s) for quantile regression
 (not implemented yet)</p></li>
-<li><p><code>.time</code>: the time(s) for hazard and survival probability estimates.</p></li>
+<li><p><code>time</code>: the time(s) for hazard and survival probability estimates.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -272,7 +272,7 @@ extra column of standard error values (if available).</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Censored regression predictions</h3>
 
 
-<p>For censored regression, a numeric vector for <code>.time</code> is required when
+<p>For censored regression, a numeric vector for <code>time</code> is required when
 survival or hazard probabilities are requested. Also, when
 <code>type = "linear_pred"</code>, censored regression models will be formatted such
 that the linear predictor <em>increases</em> with time. This may have the opposite
@@ -293,38 +293,38 @@ sign as what the underlying model's <code><a href='https://rdrr.io/r/stats/predi
   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mpg</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>lm_model</span>, <span class='va'>pred_cars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 1</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 1</span>
 #&gt;    .pred
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  23.4
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  23.3
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  27.6
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  21.5
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  17.6
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  21.6
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  13.9
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  21.7
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  25.6
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  17.1</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  23.4
+#&gt; <span style='color: #BCBCBC;'> 2</span>  23.3
+#&gt; <span style='color: #BCBCBC;'> 3</span>  27.6
+#&gt; <span style='color: #BCBCBC;'> 4</span>  21.5
+#&gt; <span style='color: #BCBCBC;'> 5</span>  17.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>  21.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>  13.9
+#&gt; <span style='color: #BCBCBC;'> 8</span>  21.7
+#&gt; <span style='color: #BCBCBC;'> 9</span>  25.6
+#&gt; <span style='color: #BCBCBC;'>10</span>  17.1</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
   <span class='va'>lm_model</span>,
   <span class='va'>pred_cars</span>,
   type <span class='op'>=</span> <span class='st'>"conf_int"</span>,
   level <span class='op'>=</span> <span class='fl'>0.90</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 2</span>
 #&gt;    .pred_lower .pred_upper
-#&gt;          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>       17.9         29.0
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>       18.1         28.5
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>       24.0         31.3
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>       17.5         25.6
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>       14.3         20.8
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>       17.0         26.2
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>        9.65        18.2
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>       16.2         27.2
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>       14.2         37.0
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>       11.5         22.7</div><div class='input'>
+#&gt;          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>       17.9         29.0
+#&gt; <span style='color: #BCBCBC;'> 2</span>       18.1         28.5
+#&gt; <span style='color: #BCBCBC;'> 3</span>       24.0         31.3
+#&gt; <span style='color: #BCBCBC;'> 4</span>       17.5         25.6
+#&gt; <span style='color: #BCBCBC;'> 5</span>       14.3         20.8
+#&gt; <span style='color: #BCBCBC;'> 6</span>       17.0         26.2
+#&gt; <span style='color: #BCBCBC;'> 7</span>        9.65        18.2
+#&gt; <span style='color: #BCBCBC;'> 8</span>       16.2         27.2
+#&gt; <span style='color: #BCBCBC;'> 9</span>       14.2         37.0
+#&gt; <span style='color: #BCBCBC;'>10</span>       11.5         22.7</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
   <span class='va'>lm_model</span>,
   <span class='va'>pred_cars</span>,
@@ -354,7 +354,7 @@ sign as what the underlying model's <code><a href='https://rdrr.io/r/stats/predi
 #&gt; Merc 230           7.993866 -0.3511210 -2.40645  0.02512680  0.2280089
 #&gt; Merc 280           1.164155 -0.3511210 -2.40645  0.02512680 -0.2497240
 #&gt; attr(,"constant")
-#&gt; [1] 19.96364</div></span></pre>
+#&gt; [1] 19.96364</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

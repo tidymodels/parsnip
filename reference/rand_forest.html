@@ -109,7 +109,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -187,18 +187,7 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"unknown"</span>, mtry <span class='op'>=</span> <span class='cn'>NULL</span>, trees <span class='op'>=</span> <span class='cn'>NULL</span>, min_n <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for rand_forest</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
-  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
-  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
-  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"unknown"</span>, mtry <span class='op'>=</span> <span class='cn'>NULL</span>, trees <span class='op'>=</span> <span class='cn'>NULL</span>, min_n <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -223,26 +212,6 @@ the ensemble.</p></td>
       <th>min_n</th>
       <td><p>An integer for the minimum number of data points
 in a node that are required for the node to be split further.</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A random forest model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -298,10 +267,10 @@ call. For this type of model, the template of the fit calls are below:</p><h3 cl
 <span class='co'>##         1), probability = TRUE)</span>
 </pre>
 
-<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require
-factor predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does
-not affect the encoding of the predictor values (i.e. factors stay
-factors) for this model.</p>
+<p>Note that <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger::ranger()</a></code> does not require factor
+predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not
+affect the encoding of the predictor values (i.e. factors stay factors)
+for this model.</p>
 <p>For <code>ranger</code> confidence intervals, the intervals are constructed using
 the form <code>estimate +/- z * std_error</code>. For classification probabilities,
 these values can fall outside of <code>[0, 1]</code> and will be coerced to be in
@@ -330,10 +299,9 @@ this range.</p>
 <span class='co'>## randomForest::randomForest(x = missing_arg(), y = missing_arg())</span>
 </pre>
 
-<p>Note that
-<code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code> does
-not require factor predictors to be converted to indicator variables.
-<code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
+<p>Note that <code><a href='https://rdrr.io/pkg/randomForest/man/randomForest.html'>randomForest::randomForest()</a></code>
+does not require factor predictors to be converted to indicator
+variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
 (i.e. factors stay factors) for this model.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
@@ -391,19 +359,19 @@ classification and 5 for regression.</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"rand_forest"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span>
 #&gt;   engine       mode          
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ranger       classification
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> ranger       regression    
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> randomForest classification
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> randomForest regression    
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> spark        classification
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> spark        regression    </div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> ranger       classification
+#&gt; <span style='color: #BCBCBC;'>2</span> ranger       regression    
+#&gt; <span style='color: #BCBCBC;'>3</span> randomForest classification
+#&gt; <span style='color: #BCBCBC;'>4</span> randomForest regression    
+#&gt; <span style='color: #BCBCBC;'>5</span> spark        classification
+#&gt; <span style='color: #BCBCBC;'>6</span> spark        regression    </div><div class='input'>
 <span class='fu'>rand_forest</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, trees <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Random Forest Model Specification (classification)
 #&gt; 
@@ -415,25 +383,7 @@ classification and 5 for regression.</p></li>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   mtry = varying()
-#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>rand_forest</span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>model</span>
-</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 10
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 1
-#&gt;   min_n = 3
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, mtry <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Random Forest Model Specification (unknown)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = 1
-#&gt; </div></span></pre>
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

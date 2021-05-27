@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -153,14 +153,41 @@
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="parsnip-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
+    <div id="parsnip-016" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.6">
+<a href="#parsnip-016" class="anchor"></a>parsnip 0.1.6<small> 2021-05-27 </small>
 </h1>
+<div id="model-specification-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#model-specification-changes" class="anchor"></a>Model Specification Changes</h2>
 <ul>
-<li><p>The <code>liquidSVM</code> engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> was deprecated due to that package’s removal from CRAN. (<a href='https://github.com/tidymodels/parsnip/issues/425'>#425</a>)</p></li>
-<li><p>A new linear SVM model <code><a href="../reference/svm_linear.html">svm_linear()</a></code> is now available with the <code>LiblineaR</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/424'>#424</a>) and the <code>kernlab</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/438'>#438</a>), and the <code>LiblineaR</code> engine is available for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> as well (<a href='https://github.com/tidymodels/parsnip/issues/429'>#429</a>).</p></li>
+<li><p>A new linear SVM model <code><a href="../reference/svm_linear.html">svm_linear()</a></code> is now available with the <code>LiblineaR</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/424'>#424</a>) and the <code>kernlab</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/438'>#438</a>), and the <code>LiblineaR</code> engine is available for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> as well (<a href='https://github.com/tidymodels/parsnip/issues/429'>#429</a>). These models can use sparse matrices via <code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/447'>#447</a>) and have a <code>tidy</code> method (<a href='https://github.com/tidymodels/parsnip/issues/474'>#474</a>).</p></li>
+<li>
+<p>For models with <code>glmnet</code> engines:</p>
+<ul>
+<li>A single value is required for <code>penalty</code> (either a single numeric value or a value of <code>tune()</code>) (<a href='https://github.com/tidymodels/parsnip/issues/481'>#481</a>).</li>
+<li>A special argument called <code>path_values</code> can be used to set the <code>lambda</code> path as a specific set of numbers (independent of the value of <code>penalty</code>). A pure ridge regression models (i.e., <code>mixture = 1</code>) will generate incorrect values if the path does not include zero. See issue <a href='https://github.com/tidymodels/parsnip/issues/431'>#431</a> for discussion (<a href='https://github.com/tidymodels/parsnip/issues/486'>#486</a>).</li>
 </ul>
+</li>
+<li><p>The <code>liquidSVM</code> engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> was deprecated due to that package’s removal from CRAN. (<a href='https://github.com/tidymodels/parsnip/issues/425'>#425</a>)</p></li>
+<li><p>The xgboost engine for boosted trees was translating <code>mtry</code> to xgboost’s <code>colsample_bytree</code>. We now map <code>mtry</code> to <code>colsample_bynode</code> since that is more consistent with how random forest works. <code>colsample_bytree</code> can still be optimized by passing it in as an engine argument. <code>colsample_bynode</code> was added to xgboost after the <code>parsnip</code> package code was written. (<a href='https://github.com/tidymodels/parsnip/issues/495'>#495</a>)</p></li>
+<li><p>For xgboost, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions, while <code>subsample</code> and <code>validation</code> should always be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> (<code>TRUE</code> or <code>FALSE</code>) that states which scale for <code>mtry</code> and <code>colsample_bytree</code> is being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
+</ul>
+<p>r</p>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<ul>
+<li><p>Re-licensed package from GPL-2 to MIT. See <a href="https://github.com/tidymodels/parsnip/issues/462">consent from copyright holders here</a>.</p></li>
+<li><p><code><a href="../reference/set_args.html">set_mode()</a></code> now checks if <code>mode</code> is compatible with the model class, similar to <code><a href="../reference/null_value.html">new_model_spec()</a></code> (<a href='https://github.com/jtlandis'>@jtlandis</a>, <a href='https://github.com/tidymodels/parsnip/issues/467'>#467</a>). Both <code><a href="../reference/set_args.html">set_mode()</a></code> and <code><a href="../reference/set_engine.html">set_engine()</a></code> now error for <code>NULL</code> or missing arguments (<a href='https://github.com/tidymodels/parsnip/issues/503'>#503</a>).</p></li>
+<li><p>Re-organized model documentation for <code>update</code> methods (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</p></li>
+<li><p><code><a href="https://generics.r-lib.org/reference/required_pkgs.html">generics::required_pkgs()</a></code> was extended for <code>parsnip</code> objects.</p></li>
+<li><p>Prediction functions now give a consistent error when a user uses an unavailable value of <code>type</code> (<a href='https://github.com/tidymodels/parsnip/issues/489'>#489</a>)</p></li>
+<li><p>The <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> method was changed to avoid failing if the model does not enable class probabilities. The method now returns tibbles despite the input data class (<a href='https://github.com/tidymodels/parsnip/issues/487'>#487</a>) (<a href='https://github.com/tidymodels/parsnip/issues/478'>#478</a>)</p></li>
+<li><p>xgboost engines now respect the <code>event_level</code> option for predictions (<a href='https://github.com/tidymodels/parsnip/issues/460'>#460</a>).</p></li>
+</ul>
+</div>
 </div>
     <div id="parsnip-015" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.5">
@@ -172,6 +199,9 @@
 <li><p>Changes to test for cases when CRAN cannot get <code>xgboost</code> to work on their Solaris configuration.</p></li>
 <li><p>There is now an <code>augument()</code> method for fitted models. See <code>augment.model_fit</code>. (<a href='https://github.com/tidymodels/parsnip/issues/401'>#401</a>)</p></li>
 <li><p>Column names for <code>x</code> are now required when <code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> is used. (<a href='https://github.com/tidymodels/parsnip/issues/398'>#398</a>)</p></li>
+<li><p>There is now an <code>event_level</code> argument for the <code>xgboost</code> engine. (<a href='https://github.com/tidymodels/parsnip/issues/420'>#420</a>)</p></li>
+<li><p>New mode “censored regression” and new prediction types “linear_pred”, “time”, “survival”, “hazard”. (<a href='https://github.com/tidymodels/parsnip/issues/396'>#396</a>)</p></li>
+<li><p>Censored regression models cannot use <code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> (use <code><a href="https://generics.r-lib.org/reference/fit.html">fit()</a></code>). (<a href='https://github.com/tidymodels/parsnip/issues/442'>#442</a>)</p></li>
 </ul>
 </div>
     <div id="parsnip-014" class="section level1">
@@ -214,9 +244,9 @@
 <code>parsnip</code> now has options to set specific types of predictor encodings for different models. For example, <code>ranger</code> models run using <code>parsnip</code> and <code>workflows</code> do the same thing by <em>not</em> creating indicator variables. These encodings can be overridden using the <code>blueprint</code> options in <code>workflows</code>. As a consequence, it is possible to get a different model fit that previous versions of <code>parsnip</code>. More details about specific encoding changes are below. (<a href='https://github.com/tidymodels/parsnip/issues/326'>#326</a>)</li>
 </ul>
 </div>
-<div id="other-changes" class="section level2">
+<div id="other-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code>tidyr</code> &gt;= 1.0.0 is now required.</p></li>
 <li><p>SVM models produced by <code>kernlab</code> now use the formula method (see breaking change notice above). This change was due to how <code>ksvm()</code> made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to <code>ksvm()</code> so that the results are closer to what one would get if <code>ksmv()</code> were called directly.</p></li>
@@ -256,9 +286,9 @@
 <li>The error message for missing packages was fixed (<a href='https://github.com/tidymodels/parsnip/issues/289'>#289</a> and <a href='https://github.com/tidymodels/parsnip/issues/292'>#292</a>)</li>
 </ul>
 </div>
-<div id="other-changes-1" class="section level2">
+<div id="other-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-1" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-2" class="anchor"></a>Other Changes</h2>
 <ul>
 <li>S3 dispatch for <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> was broken on R 4.0.</li>
 </ul>
@@ -275,9 +305,9 @@
 <li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206"><a href='https://github.com/tidymodels/parsnip/issues/206'>#206</a></a> and <a href="https://github.com/tidymodels/parsnip/issues/234"><a href='https://github.com/tidymodels/parsnip/issues/234'>#234</a></a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li>
 </ul>
 </div>
-<div id="other-changes-2" class="section level2">
+<div id="other-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-2" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-3" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code>glmnet</code> was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain <code>parsnip</code> to that same requirement. All <code>glmnet</code> tests are run locally.</p></li>
 <li><p>A set of internal functions are now exported. These are helpful when creating a new package that registers new model specifications.</p></li>
@@ -371,9 +401,9 @@
 <li><p><code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> can take a single column data frame or matrix for <code>y</code> without error</p></li>
 </ul>
 </div>
-<div id="other-changes-3" class="section level2">
+<div id="other-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-3" class="anchor"></a>Other Changes</h2>
+<a href="#other-changes-4" class="anchor"></a>Other Changes</h2>
 <ul>
 <li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
 <li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>

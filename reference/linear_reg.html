@@ -108,7 +108,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -185,17 +185,7 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>linear_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for linear_reg</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
-  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
-  mixture <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>linear_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,26 +209,6 @@ of L1 and L2 (depending on the value of <code>mixture</code>; see below).</p></t
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
 ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only).</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>A linear regression model specification.</p></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A 1-row tibble or named list with <em>main</em>
-parameters to update. If the individual arguments are used,
-these will supersede the values in <code>parameters</code>. Also, using
-engine arguments in this object will result in an error.</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place of or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -277,7 +247,6 @@ reloaded and reattached to the <code>parsnip</code> object.</p>
 call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>lm</h3>
 <p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
 <span class='co'>## </span>
@@ -289,11 +258,13 @@ call. For this type of model, the template of the fit calls are below.</p><h3 cl
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glmnet</h3>
-<p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glmnet"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Main Arguments:</span>
+<span class='co'>##   penalty = 0.1</span>
 <span class='co'>## </span>
 <span class='co'>## Computational engine: glmnet </span>
 <span class='co'>## </span>
@@ -302,20 +273,40 @@ call. For this type of model, the template of the fit calls are below.</p><h3 cl
 <span class='co'>##     family = "gaussian")</span>
 </pre>
 
-<p>For <code>glmnet</code> models, the full regularization path is always fit
-regardless of the value given to <code>penalty</code>. Also, there is the option to
-pass multiple values (or no values) to the <code>penalty</code> argument. When
-using the <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method in these cases, the return value depends on
-the value of <code>penalty</code>. When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, only a single value of
-the penalty can be used. When predicting on multiple penalties, the
-<code><a href='multi_predict.html'>multi_predict()</a></code> function can be used. It returns a tibble with a list
-column called <code>.pred</code> that contains a tibble with all of the penalty
-results.</p>
+<p>The glmnet engine requires a single value for the <code>penalty</code> argument (a
+number or <code>tune()</code>), but the full regularization path is always fit
+regardless of the value given to <code>penalty</code>. To pass in a custom sequence
+of values for glmnet’s <code>lambda</code>, use the argument <code>path_values</code> in
+<code><a href='set_engine.html'>set_engine()</a></code>. This will assign the value of the glmnet <code>lambda</code>
+parameter without disturbing the value given of <code>linear_reg(penalty)</code>.
+For example:<div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glmnet"</span>, path_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Main Arguments:</span>
+<span class='co'>##   penalty = 0.1</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: glmnet </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
+<span class='co'>##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "gaussian")</span>
+</pre>
+
+<p>When fitting a pure ridge regression model (i.e., <code>penalty = 0</code>), we
+<em>strongly suggest</em> that you pass in a vector for <code>path_values</code> that
+includes zero. See <a href='https://github.com/tidymodels/parsnip/issues/431'>issue #431</a> for a
+discussion.</p>
+<p>When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, the single <code>penalty</code> value used for prediction
+is the one specified in <code>linear_reg()</code>.</p>
+<p>To predict on multiple penalties, use the <code><a href='multi_predict.html'>multi_predict()</a></code> function.
+This function returns a tibble with a list column called <code>.pred</code>
+containing all of the penalty results.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>stan</h3>
 <p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"stan"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
 <span class='co'>## </span>
@@ -337,7 +328,6 @@ predictive distribution as appropriate) is returned.</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
 <p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
 <span class='co'>## </span>
@@ -352,7 +342,6 @@ predictive distribution as appropriate) is returned.</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>keras</h3>
 <p><div class="r"></p><pre><span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"keras"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Linear Regression Model Specification (regression)</span>
 <span class='co'>## </span>
@@ -381,18 +370,18 @@ parameter.</p><table class='table'>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"linear_reg"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   engine mode      
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> lm     regression
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> glmnet regression
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> stan   regression
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> spark  regression
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> keras  regression</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> lm     regression
+#&gt; <span style='color: #BCBCBC;'>2</span> glmnet regression
+#&gt; <span style='color: #BCBCBC;'>3</span> stan   regression
+#&gt; <span style='color: #BCBCBC;'>4</span> spark  regression
+#&gt; <span style='color: #BCBCBC;'>5</span> keras  regression</div><div class='input'>
 <span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
@@ -401,25 +390,7 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = varying()
-#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>linear_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>10</span>, mixture <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>model</span>
-</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 10
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 1
-#&gt;   mixture = 0.1
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, penalty <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = 1
-#&gt; </div></span></pre>
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

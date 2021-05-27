@@ -96,7 +96,7 @@ model arguments are in the main function." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
         </div>
       </div>
     </div>
@@ -167,13 +167,16 @@ model arguments are in the main function.</p>
   max_depth <span class='op'>=</span> <span class='fl'>6</span>,
   nrounds <span class='op'>=</span> <span class='fl'>15</span>,
   eta <span class='op'>=</span> <span class='fl'>0.3</span>,
-  colsample_bytree <span class='op'>=</span> <span class='fl'>1</span>,
+  colsample_bynode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colsample_bytree <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_child_weight <span class='op'>=</span> <span class='fl'>1</span>,
   gamma <span class='op'>=</span> <span class='fl'>0</span>,
   subsample <span class='op'>=</span> <span class='fl'>1</span>,
   validation <span class='op'>=</span> <span class='fl'>0</span>,
   early_stop <span class='op'>=</span> <span class='cn'>NULL</span>,
   objective <span class='op'>=</span> <span class='cn'>NULL</span>,
+  counts <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  event_level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"second"</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -201,8 +204,15 @@ model arguments are in the main function.</p>
       <td><p>A numeric value between zero and one to control the learning rate.</p></td>
     </tr>
     <tr>
+      <th>colsample_bynode</th>
+      <td><p>Subsampling proportion of columns for each node
+within each tree. See the <code>counts</code> argument below. The default uses all
+columns.</p></td>
+    </tr>
+    <tr>
       <th>colsample_bytree</th>
-      <td><p>Subsampling proportion of columns.</p></td>
+      <td><p>Subsampling proportion of columns for each tree.
+See the <code>counts</code> argument below. The default uses all columns.</p></td>
     </tr>
     <tr>
       <th>min_child_weight</th>
@@ -216,14 +226,13 @@ further partition on a leaf node of the tree</p></td>
     </tr>
     <tr>
       <th>subsample</th>
-      <td><p>Subsampling proportion of rows.</p></td>
+      <td><p>Subsampling proportion of rows. By default, all of the
+training data are used.</p></td>
     </tr>
     <tr>
       <th>validation</th>
-      <td><p>A positive number. If on <code>[0, 1)</code> the value, <code>validation</code>
-is a random proportion of data in <code>x</code> and <code>y</code> that are used for performance
-assessment and potential early stopping. If 1 or greater, it is the <em>number</em>
-of training set samples use for these purposes.</p></td>
+      <td><p>The <em>proportion</em> of the data that are used for performance
+assessment and potential early stopping.</p></td>
     </tr>
     <tr>
       <th>early_stop</th>
@@ -237,6 +246,18 @@ is used.</p></td>
       <td><p>A single string (or NULL) that defines the loss function that
 <code>xgboost</code> uses to create trees. See <code><a href='https://rdrr.io/pkg/xgboost/man/xgb.train.html'>xgboost::xgb.train()</a></code> for options. If left
 NULL, an appropriate loss function is chosen.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>A logical. If <code>FALSE</code>, <code>colsample_bynode</code> and
+<code>colsample_bytree</code> are both assumed to be <em>proportions</em> of the proportion of
+columns affects (instead of counts).</p></td>
+    </tr>
+    <tr>
+      <th>event_level</th>
+      <td><p>For binary classification, this is a single string of either
+<code>"first"</code> or <code>"second"</code> to pass along describing which level of the outcome
+should be considered the "event".</p></td>
     </tr>
     <tr>
       <th>...</th>
