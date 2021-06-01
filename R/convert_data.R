@@ -8,12 +8,12 @@
 #' of `lm` (and also see the notes at
 #' https://developer.r-project.org/model-fitting-functions.html).
 #'
-#' `convert_form_to_xy_fit()` and `convert_xy_to_form_fit()` are for when the
+#' `.convert_form_to_xy_fit()` and `.convert_xy_to_form_fit()` are for when the
 #' data are created for modeling.
-#' `convert_form_to_xy_fit()` saves both the data objects as well as the objects
+#' `.convert_form_to_xy_fit()` saves both the data objects as well as the objects
 #' needed when new data are predicted (e.g. `terms`, etc.).
 #'
-#' `convert_form_to_xy_new()` and `convert_xy_to_form_new()` are used when new
+#' `.convert_form_to_xy_new()` and `.convert_xy_to_form_new()` are used when new
 #' samples are being predicted and only require the predictors to be available.
 #'
 #' @param data A data frame containing all relevant variables (e.g. outcome(s),
@@ -35,7 +35,7 @@
 #'
 #' @importFrom stats .checkMFClasses .getXlevels delete.response
 #' @importFrom stats model.offset model.weights na.omit na.pass
-convert_form_to_xy_fit <- function(formula,
+.convert_form_to_xy_fit <- function(formula,
                                    data,
                                    ...,
                                    na.action = na.omit,
@@ -161,7 +161,7 @@ convert_form_to_xy_fit <- function(formula,
 #' @rdname convert_helpers
 #' @keywords internal
 #' @export
-convert_form_to_xy_new <- function(object,
+.convert_form_to_xy_new <- function(object,
                                    new_data,
                                    na.action = na.pass,
                                    composition = "data.frame") {
@@ -237,14 +237,14 @@ convert_form_to_xy_new <- function(object,
 #' @param weights A numeric vector containing the weights.
 #' @param y_name A string specifying the name of the outcome.
 #' @inheritParams fit.model_spec
-#' @inheritParams convert_form_to_xy_fit
+#' @inheritParams .convert_form_to_xy_fit
 #'
 #' @rdname convert_helpers
 #' @keywords internal
 #' @export
 #'
 #' @importFrom dplyr bind_cols
-convert_xy_to_form_fit <- function(x,
+.convert_xy_to_form_fit <- function(x,
                                    y,
                                    weights = NULL,
                                    y_name = "..y",
@@ -297,7 +297,7 @@ convert_xy_to_form_fit <- function(x,
 #' @rdname convert_helpers
 #' @keywords internal
 #' @export
-convert_xy_to_form_new <- function(object, new_data) {
+.convert_xy_to_form_new <- function(object, new_data) {
   new_data <- new_data[, object$x_var, drop = FALSE]
   if (!is.data.frame(new_data))
     new_data <- as.data.frame(new_data)

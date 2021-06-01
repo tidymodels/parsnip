@@ -115,7 +115,7 @@ get_descr_form <- function(formula, data) {
 get_descr_df <- function(formula, data) {
 
   tmp_dat <-
-    convert_form_to_xy_fit(formula,
+    .convert_form_to_xy_fit(formula,
                            data,
                            indicators = "none",
                            remove_intercept = TRUE)
@@ -132,7 +132,7 @@ get_descr_df <- function(formula, data) {
 
   .cols <- function() {
     ncol(
-      convert_form_to_xy_fit(
+      .convert_form_to_xy_fit(
         formula,
         data,
         indicators = "traditional",
@@ -296,7 +296,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
+    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
   }
 
   .x <- function() {
