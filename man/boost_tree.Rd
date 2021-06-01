@@ -77,8 +77,8 @@ boost_tree(mode = "classification", trees = 20)
 boost_tree(mode = "regression", mtry = varying())
 }
 \references{
-\url{https://www.tidymodels.org}, \emph{Tidy Models with R}
-\url{https://tmwr.org}
+\url{https://www.tidymodels.org},
+\href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=xgb_train]{xgb_train()}}, \code{\link[=C5.0_train]{C5.0_train()}},

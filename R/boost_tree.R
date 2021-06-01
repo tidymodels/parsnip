@@ -47,8 +47,8 @@
 #' with the data.
 #'
 #' @importFrom purrr map_lgl
-#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
-#' \url{https://tmwr.org}
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
 #' @seealso [fit.model_spec()], [set_engine()], [xgb_train()], [C5.0_train()],
 #' [update()],
 #' \code{\link[=details_boost_tree_xgboost]{xgboost engine details}},

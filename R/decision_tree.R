@@ -29,8 +29,8 @@
 #' The model is not trained or fit until the [fit.model_spec()] function is used
 #' with the data.
 #'
-#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
-#' \url{https://tmwr.org}
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
 #' @seealso [fit.model_spec()], [set_engine()], [update()],
 #' \code{\link[=details_decision_tree_rpart]{rpart engine details}},
 #' \code{\link[=details_decision_tree_C5.0]{C5.0 engine details}},

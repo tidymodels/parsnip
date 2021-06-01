@@ -1,26 +1,18 @@
-# Prototype parsnip code for multivariate adaptive regression splines (MARS)
+#' General Interface for Multivariate adaptive regression splines (MARS)
 #'
-#' General Interface for MARS
+#' @description
 #'
-#' `mars()` is a way to generate a _specification_ of a model before
-#'  fitting and allows the model to be created using R. The main
-#'  arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{num_terms}: The number of features that will be retained in the
-#'    final model.
-#'   \item \code{prod_degree}: The highest possible degree of interaction between
-#'    features. A value of 1 indicates an additive model while a value of 2
-#'    allows, but does not guarantee, two-way interactions between features.
-#'   \item \code{prune_method}: The type of pruning. Possible values are listed
-#'    in `?earth`.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' `mars()` defines a generalized linear model that uses artificial features for
+#' some predictors. These features resemble hinge functions and the result is
+#' a model that is a segmented regression in small dimensions.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mars")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org}.
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
@@ -29,16 +21,17 @@
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
-#' @details The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"earth"`  (the default)
-#' }
+#' @details
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' @includeRmd man/rmd/mars.Rmd details
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_mars_earth]{earth engine details}}
 #' @examples
 #' show_engines("mars")
 #'
