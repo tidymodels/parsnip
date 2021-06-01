@@ -48,7 +48,7 @@ and 100.
 
 \subsection{Preprocessing requirements}{
 
-\code{C5.0} does not require any special encoding of the predictors.
+This engine does not require any special encoding of the predictors.
 Categorical predictors can be split into groups without creating dummy
 variables for each category.
 }

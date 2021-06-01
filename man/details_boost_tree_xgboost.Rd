@@ -102,11 +102,11 @@ that makes it easier to run this model.
 \subsection{Preprocessing requirements}{
 
 \code{xgboost} does not have a means to translate factor predictors to
-grouped splits; it requires that non-numeric predictors (e.g., factors)
-must be converted to dummy variables or some other numeric
-representation. By default, when using \code{\link[=fit]{fit()}} with \code{xgboost},
-a one-hot encoding is used to convert factor predictors to indicator
-variables.
+grouped splits. Factor/categorical predictors need to be converted to
+numeric values (e.g., dummy or indicator variables) for this engine.
+When using the formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert factor
+columns to indicators using a one-hot encoding.
 }
 
 \subsection{Other details}{

@@ -25,7 +25,7 @@ penalty values. This gives a \emph{coefficient path} for each data set and a
 given value of \code{alpha}. The user doesn’t need to declare the exact value
 of the penalty that should be used until sample prediction (i.e., it is
 not needed when the model is trained). If you specify a single value of
-\code{lamda} when calling \code{\link[glmnet:glmnet]{glmnet::glmnet()}}, the
+\code{lambda} when calling \code{\link[glmnet:glmnet]{glmnet::glmnet()}}, the
 estimated coefficient path only has that value.
 }
 
@@ -33,8 +33,8 @@ estimated coefficient path only has that value.
 In tidymodels, we want:
 \enumerate{
 \item The user to declare exactly what penalty value to use.
-\item The ability to make predictions at multiple penalty with a single
-model object.
+\item The ability to make predictions at multiple penalty values with a
+single model object.
 }
 
 Point 1 is relevant for a single \code{parsnip} model while Point 2 is more

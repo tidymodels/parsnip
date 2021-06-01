@@ -67,7 +67,7 @@ boost_tree(
 
 ## Preprocessing requirements
 
-`xgboost` does not have a means to translate factor predictors to grouped splits; it requires that non-numeric predictors (e.g., factors) must be converted to dummy variables or some other numeric representation. By default, when using [fit()] with `xgboost`, a one-hot encoding is used to convert factor predictors to indicator variables.
+`xgboost` does not have a means to translate factor predictors to grouped splits. Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via [fit.model_spec()], `parsnip` will convert factor columns to indicators using a one-hot encoding.
 
 ## Other details
 

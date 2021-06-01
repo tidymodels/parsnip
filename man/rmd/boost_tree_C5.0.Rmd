@@ -49,7 +49,8 @@ boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) %>%
 
 ## Preprocessing requirements
 
-`C5.0` does not require any special encoding of the predictors. Categorical predictors can be split into groups without creating dummy variables for each category.
+```{r child = "template-split-factors.Rmd"}
+```
 
 ## Other details
 

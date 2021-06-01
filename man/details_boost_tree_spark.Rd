@@ -92,15 +92,15 @@ predictors are sampled.
 
 \subsection{Preprocessing requirements}{
 
-\code{spark} does not require any special encoding of the predictors.
+This engine does not require any special encoding of the predictors.
 Categorical predictors can be split into groups without creating dummy
 variables for each category.
 }
 
 \subsection{Other details}{
 
-For models created using the \code{spark} engine, there are several
-differences to consider.
+For models created using the \code{spark} engine, there are several things to
+consider.
 \itemize{
 \item Only the formula interface to via \code{fit()} is available; using
 \code{fit_xy()} will generate an error.
@@ -118,6 +118,8 @@ object.
 
 \subsection{References}{
 \itemize{
+\item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering Spark with R}.
+O’Reilly Media
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
 Springer.
 }
