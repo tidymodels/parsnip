@@ -3,13 +3,14 @@
 #' `augment()` will add column(s) for predictions to the given data.
 #'
 #' For regression models, a `.pred` column is added. If `x` was created using
-#' [fit()] and `new_data` contains the outcome column, a `.resid` column is
+#' [fit.model_spec()] and `new_data` contains the outcome column, a `.resid` column is
 #' also added.
 #'
 #' For classification models, the results can include a column called
 #'  `.pred_class` as well as class probability columns named `.pred_{level}`.
 #'  This depends on what type of prediction types are available for the model.
-#' @param x A `model_fit` object produced by [fit()] or [fit_xy()].
+#' @param x A `model_fit` object produced by [fit.model_spec()] or
+#' [fit_xy.model_spec()] .
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
 #' @rdname augment

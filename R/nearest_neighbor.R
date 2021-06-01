@@ -48,7 +48,7 @@
 #'
 #' @includeRmd man/rmd/nearest-neighbor.Rmd details
 #'
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [set_engine()], [update()]
 #'
 #' @examples
 #' show_engines("nearest_neighbor")

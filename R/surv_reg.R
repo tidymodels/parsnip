@@ -24,7 +24,7 @@
 #'  mode will always be "regression".
 #'
 #'  Since survival models typically involve censoring (and require the use of
-#'  [survival::Surv()] objects), the [fit()] function will require that the
+#'  [survival::Surv()] objects), the [fit.model_spec()] function will require that the
 #'  survival model be specified via the formula interface.
 #'
 #' Also, for the `flexsurv::flexsurvfit` engine, the typical
@@ -46,7 +46,7 @@
 #'
 #' @includeRmd man/rmd/surv-reg.Rmd details
 #'
-#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [survival::Surv()], [set_engine()], [update()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples

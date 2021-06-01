@@ -76,6 +76,14 @@ boost_tree(mode = "classification", trees = 20)
 # Parameters can be represented by a placeholder:
 boost_tree(mode = "regression", mtry = varying())
 }
+\references{
+\url{https://www.tidymodels.org/}, \emph{Tidy Models with R}
+\url{https://tmwr.org/}
+}
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=xgb_train]{xgb_train()}}, \code{\link[=C5.0_train]{C5.0_train()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=xgb_train]{xgb_train()}}, \code{\link[=C5.0_train]{C5.0_train()}},
+\code{\link[=update]{update()}},
+\code{\link[=details_boost_tree_xgboost]{xgboost engine details}},
+\code{\link[=details_boost_tree_C5.0]{C5.0 engine details}},
+\code{\link[=details_boost_tree_spark]{spark engine details}}
 }

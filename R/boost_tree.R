@@ -47,7 +47,13 @@
 #' with the data.
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [xgb_train()], [C5.0_train()], [update()]
+#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
+#' \url{https://tmwr.org}
+#' @seealso [fit.model_spec()], [set_engine()], [xgb_train()], [C5.0_train()],
+#' [update()],
+#' \code{\link[=details_boost_tree_xgboost]{xgboost engine details}},
+#' \code{\link[=details_boost_tree_C5.0]{C5.0 engine details}},
+#' \code{\link[=details_boost_tree_spark]{spark engine details}}
 #' @examples
 #' show_engines("boost_tree")
 #'

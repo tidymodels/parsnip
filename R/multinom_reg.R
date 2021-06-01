@@ -53,7 +53,7 @@
 #'  separately saved to disk. In a new session, the object can be
 #'  reloaded and reattached to the `parsnip` object.
 #'
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [set_engine()], [update()]
 #' @examples
 #' show_engines("multinom_reg")
 #'

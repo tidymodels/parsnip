@@ -53,7 +53,7 @@
 #' @includeRmd man/rmd/mlp.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [set_engine()], [update()]
 #' @examples
 #' show_engines("mlp")
 #'

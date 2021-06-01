@@ -33,7 +33,14 @@
 #' The model is not trained or fit until the [fit.model_spec()] function is used
 #' with the data.
 #'
-#' @seealso [fit()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
+#' \url{https://tmwr.org}
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_linear_reg_lm]{lm engine details}},
+#' \code{\link[=details_linear_reg_glmnet]{glmnet engine details}},
+#' \code{\link[=details_linear_reg_stan]{stan engine details}},
+#' \code{\link[=details_linear_reg_keras]{keras engine details}},
+#' \code{\link[=details_linear_reg_spark]{spark engine details}}
 #' @examples
 #' show_engines("linear_reg")
 #'

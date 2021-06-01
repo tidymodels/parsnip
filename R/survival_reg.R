@@ -24,10 +24,10 @@
 #' mode will always be "censored regression".
 #'
 #' Since survival models typically involve censoring (and require the use of
-#' [survival::Surv()] objects), the [fit()] function will require that the
+#' [survival::Surv()] objects), the [fit.model_spec()] function will require that the
 #' survival model be specified via the formula interface.
 #'
-#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [survival::Surv()], [set_engine()], [update()]
 #' @examples
 #' survival_reg()
 #' # Parameters can be represented by a placeholder:

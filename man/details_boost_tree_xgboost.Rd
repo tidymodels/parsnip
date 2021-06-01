@@ -113,9 +113,9 @@ columns to indicators using a one-hot encoding.
 \subsection{Sparse matrices}{
 
 \code{xgboost} requires the data to be in a spares format. If your predictor
-data are already in this format, then use \code{\link[=fit_xy]{fit_xy()}} to
-pass it to the model function. Otherwise, \code{parsnip} converts the data to
-this format.
+data are already in this format, then use
+\code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}} to pass it to the model
+function. Otherwise, \code{parsnip} converts the data to this format.
 }
 
 \subsection{Parallel processing}{

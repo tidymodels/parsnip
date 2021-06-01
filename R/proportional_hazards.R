@@ -24,7 +24,7 @@
 #' Proportional hazards models include the Cox model.
 #' For `proportional_hazards()`, the mode will always be "censored regression".
 #'
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [set_engine()], [update()]
 #' @examples
 #' show_engines("proportional_hazards")
 #' @keywords internal

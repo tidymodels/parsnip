@@ -73,8 +73,8 @@ This can be seen in the output:
 
 The model functions save the argument \emph{expressions} and their
 associated environments (a.k.a. a quosure) to be evaluated later
-when either \code{\link[=fit]{fit()}} or \code{\link[=fit_xy]{fit_xy()}} are called with the actual
-data.
+when either \code{\link[=fit.model_spec]{fit.model_spec()}} or \code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}}  are
+called with the actual data.
 
 The consequence of this strategy is that any data required to
 get the parameter values must be available when the model is

@@ -73,7 +73,7 @@ boost_tree(
 
 ### Sparse matrices
 
-`xgboost` requires the data to be in a spares format. If your predictor data are already in this format, then use [fit_xy()] to pass it to the model function. Otherwise, `parsnip` converts the data to this format. 
+`xgboost` requires the data to be in a spares format. If your predictor data are already in this format, then use [fit_xy.model_spec()] to pass it to the model function. Otherwise, `parsnip` converts the data to this format. 
 
 ### Parallel processing
 

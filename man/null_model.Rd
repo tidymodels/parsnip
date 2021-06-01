@@ -54,5 +54,5 @@ call. For this type of model, the template of the fit calls are below:
 null_model(mode = "regression")
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}
 }

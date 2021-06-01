@@ -173,5 +173,5 @@ decision_tree(mode = "classification", tree_depth = 5)
 decision_tree(mode = "regression", cost_complexity = varying())
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

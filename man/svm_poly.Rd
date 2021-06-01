@@ -108,5 +108,5 @@ svm_poly(mode = "classification", degree = 1.2)
 svm_poly(mode = "regression", cost = varying())
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

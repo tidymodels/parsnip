@@ -47,6 +47,6 @@ For \code{proportional_hazards()}, the mode will always be "censored regression"
 show_engines("proportional_hazards")
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
 \keyword{internal}

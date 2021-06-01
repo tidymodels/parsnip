@@ -34,7 +34,7 @@ to determine the \emph{mode} of the model. For \code{survival_reg()},the
 mode will always be "censored regression".
 
 Since survival models typically involve censoring (and require the use of
-\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit]{fit()}} function will require that the
+\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
 }
 \examples{
@@ -43,6 +43,6 @@ survival_reg()
 survival_reg(dist = varying())
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
 \keyword{internal}
