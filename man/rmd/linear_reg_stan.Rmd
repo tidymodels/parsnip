@@ -5,7 +5,7 @@
 
 ## Tuning Parameters
 
-This model has no tuning parameters.
+This engine has no tuning parameters.
 
 ## Important engine-specific options
 
@@ -18,6 +18,7 @@ Some relevant arguments that can be passed to `set_engine()`:
  * `prior`: The prior distribution for the (non-hierarchical) regression coefficients. The `stan` engine does not fit any hierarchical terms. See the `stan_glmer` engine from the `multilevelmod` package for that type of model. 
  * `prior_intercept`: The prior distribution for the intercept (after centering all predictors). 
  
+See [rstan::sampling()] and [rstanarm::priors()] for more information on these and other options.  
 
 ## Translation from parsnip to the original package
 
@@ -28,13 +29,16 @@ linear_reg() %>%
   translate()
 ```
 
+Note that the `refresh` default prevents logging of the estimation process. Change this value in `set_engine()` to show the MCMC logs.
+
 ## Preprocessing requirements
 
-The only preprocessing required for this model is that factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data if required.
+```{r child = "template-makes-dummies.Rmd"}
+```
 
 ## Other details
 
-For prediction, the `stan` engine can compute posterior  intervals analogous to confidence and prediction intervals. In  these instances, the units are the original outcome and when  `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as  appropriate) is returned.
+For prediction, the `stan` engine can compute posterior  intervals analogous to confidence and prediction intervals. In  these instances, the units are the original outcome and when `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as  appropriate) is returned.
 
 ## References
 

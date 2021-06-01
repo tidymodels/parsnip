@@ -20,8 +20,9 @@ below)
 A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \code{mixture = 0} indicates ridge regression.
 
-The \code{penalty} parameter has no default. For more details about this, and
-the \code{glmnet} model in general, see \link{glmnet-details}.
+The \code{penalty} parameter has no default and requires a single numeric
+value. For more details about this, and the \code{glmnet} model in general,
+see \link{glmnet-details}.
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
@@ -45,14 +46,15 @@ the \code{glmnet} model in general, see \link{glmnet-details}.
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicators variables). When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data if required.
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+convert factor columns to indicators if required.
 
-Also, predictors should have the same scale. One way to achieve this is
-to center and scale each so that each predictors have mean zero and a
-variance of one. By default, \code{glmnet()} uses the argument
-\code{standardize = TRUE} to center and scale the data.
+Predictors should have the same scale. One way to achieve this is to
+center and scale each so that each predictor has mean zero and a
+variance of one. By default, \code{\link[glmnet:glmnet]{glmnet::glmnet()}} uses
+the argument \code{standardize = TRUE} to center and scale the data.
 }
 
 \subsection{References}{

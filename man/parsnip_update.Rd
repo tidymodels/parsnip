@@ -204,15 +204,12 @@ modified in-place or replaced wholesale.}
 parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
-For \code{keras} models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of \code{mixture}; see below).}
+amount of regularization (specific engines only).}
 
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used (specific engines only).}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}

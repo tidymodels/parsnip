@@ -48,9 +48,12 @@ linear_reg(penalty = double(1), mixture = double(1)) %>%
 
 ## Preprocessing requirements
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables). When using the formula method via [fit.model_spec()], `parsnip` will convert these data if required.
+```{r child = "template-makes-dummies.Rmd"}
+```
 
-Also, predictors should have the same scale. One way to achieve this is to center and scale each so that each predictors have mean zero and a variance of one. By default, `ml_linear_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
+```{r child = "template-same-scale.Rmd"}
+```
+By default, `ml_linear_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
 
 ## Other details
 
@@ -58,6 +61,8 @@ For models created using the spark engine, there are several differences to cons
 
 ## References
 
+ - Luraschi, J, K Kuo, and E Ruiz. 2019. _Mastering Spark with R_. O'Reilly Media
+ 
  - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
  
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

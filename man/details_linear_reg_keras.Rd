@@ -43,12 +43,13 @@ with a single hidden unit.
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicators variables). When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data if required.
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+convert factor columns to indicators if required.
 
-Also, predictors should have the same scale. One way to achieve this is
-to center and scale each so that each predictors have mean zero and a
+Predictors should have the same scale. One way to achieve this is to
+center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 

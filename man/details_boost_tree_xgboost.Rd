@@ -58,7 +58,7 @@ argument to \code{boost_tree()} an integer (not a real number).
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bytree = integer(), 
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
 ##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
 ##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
 ##     early_stop = integer(), nthread = 1, verbose = 0)
@@ -88,7 +88,7 @@ argument to \code{boost_tree()} an integer (not a real number).
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bytree = integer(), 
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
 ##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
 ##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
 ##     early_stop = integer(), nthread = 1, verbose = 0)

@@ -10,7 +10,7 @@
 For this engine, there is a single mode: regression
 \subsection{Tuning Parameters}{
 
-This model has no tuning parameters.
+This engine has no tuning parameters.
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
@@ -28,11 +28,11 @@ This model has no tuning parameters.
 
 \subsection{Preprocessing requirements}{
 
-The only preprocessing required for this model is that
-factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicator variables). When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data if required.
+Factor/categorical predictors need to be converted to numeric values
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+convert factor columns to indicators if required.
 }
 
 \subsection{References}{

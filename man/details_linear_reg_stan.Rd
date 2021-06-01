@@ -10,7 +10,7 @@ The \code{stan} engine estimates regression parameters using Bayesian estimation
 For this engine, there is a single mode: regression
 \subsection{Tuning Parameters}{
 
-This model has no tuning parameters.
+This engine has no tuning parameters.
 }
 
 \subsection{Important engine-specific options}{
@@ -31,6 +31,10 @@ hierarchical terms. See the \code{stan_glmer} engine from the
 \item \code{prior_intercept}: The prior distribution for the intercept (after
 centering all predictors).
 }
+
+See \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}} and
+\code{\link[rstanarm:priors]{rstanarm::priors()}} for more information on these
+and other options.
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
@@ -45,15 +49,18 @@ centering all predictors).
 ## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), family = stats::gaussian, refresh = 0)
 }
+
+Note that the \code{refresh} default prevents logging of the estimation
+process. Change this value in \code{set_engine()} to show the MCMC logs.
 }
 
 \subsection{Preprocessing requirements}{
 
-The only preprocessing required for this model is that
-factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicator variables). When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data if required.
+Factor/categorical predictors need to be converted to numeric values
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+convert factor columns to indicators if required.
 }
 
 \subsection{Other details}{

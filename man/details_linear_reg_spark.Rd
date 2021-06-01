@@ -45,12 +45,13 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
-(e.g., dummy or indicator variables). When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert these
-data if required.
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+convert factor columns to indicators if required.
 
-Also, predictors should have the same scale. One way to achieve this is
-to center and scale each so that each predictors have mean zero and a
+Predictors should have the same scale. One way to achieve this is to
+center and scale each so that each predictor has mean zero and a
 variance of one. By default, \code{ml_linear_regression()} uses the argument
 \code{standardization = TRUE} to center and scale the data.
 }
@@ -72,6 +73,8 @@ reattached to the \code{parsnip} object.
 
 \subsection{References}{
 \itemize{
+\item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering Spark with R}.
+O’Reilly Media
 \item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
 Learning with Sparsity}. CRC Press.
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
