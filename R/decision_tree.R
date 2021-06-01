@@ -2,24 +2,17 @@
 
 #' General Interface for Decision Tree Models
 #'
-#' `decision_tree()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{cost_complexity}: The cost/complexity parameter (a.k.a. `Cp`)
-#'    used by CART models (`rpart` only).
-#'   \item \code{tree_depth}: The _maximum_ depth of a tree (`rpart` and
-#'   `spark` only).
-#'   \item \code{min_n}: The minimum number of data points in a node
-#'   that are required for the node to be split further.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' `decision_tree()` creates a model that is defined as a set of `if/then`
+#' statements that creates a tree-based structure.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("decision_tree")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
@@ -30,42 +23,22 @@
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
 #' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}: `"rpart"` (the default) or `"C5.0"` (classification only)
-#' \item \pkg{Spark}: `"spark"`
-#' }
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' Note that, for `rpart` models, but `cost_complexity` and
-#'  `tree_depth` can be both be specified but the package will give
-#'  precedence to `cost_complexity`. Also, `tree_depth` values
-#'  greater than 30 `rpart` will give nonsense results on 32-bit
-#'  machines.
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @includeRmd man/rmd/decision-tree.Rmd details
-#'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
-#'
-#' @importFrom purrr map_lgl
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
+#' \url{https://tmwr.org}
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_decision_tree_rpart]{rpart engine details}},
+#' \code{\link[=details_decision_tree_C5.0]{C5.0 engine details}},
+#' \code{\link[=details_decision_tree_spark]{spark engine details}}
 #' @examples
 #' show_engines("decision_tree")
 #'
 #' decision_tree(mode = "classification", tree_depth = 5)
-#' # Parameters can be represented by a placeholder:
-#' decision_tree(mode = "regression", cost_complexity = varying())
 #' @export
 
 decision_tree <-

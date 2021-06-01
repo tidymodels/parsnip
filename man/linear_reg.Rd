@@ -47,8 +47,8 @@ show_engines("linear_reg")
 linear_reg()
 }
 \references{
-\url{https://www.tidymodels.org/}, \emph{Tidy Models with R}
-\url{https://tmwr.org/}
+\url{https://www.tidymodels.org}, \emph{Tidy Models with R}
+\url{https://tmwr.org}
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
