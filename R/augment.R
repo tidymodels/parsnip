@@ -6,8 +6,9 @@
 #' [fit()] and `new_data` contains the outcome column, a `.resid` column is
 #' also added.
 #'
-#' For classification models, the results include a column called `.pred_class`
-#' as well as class probability columns named `.pred_{level}`.
+#' For classification models, the results can include a column called
+#'  `.pred_class` as well as class probability columns named `.pred_{level}`.
+#'  This depends on what type of prediction types are available for the model.
 #' @param x A `model_fit` object produced by [fit()] or [fit_xy()].
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
@@ -56,6 +57,7 @@
 #'
 augment.model_fit <- function(x, new_data, ...) {
   if (x$spec$mode == "regression") {
+    check_spec_pred_type(x, "numeric")
     new_data <-
       new_data %>%
       dplyr::bind_cols(
@@ -68,14 +70,20 @@ augment.model_fit <- function(x, new_data, ...) {
       }
     }
   } else if (x$spec$mode == "classification") {
-    new_data <-
-      new_data %>%
-      dplyr::bind_cols(
-        predict(x, new_data = new_data, type = "class"),
+    if (spec_has_pred_type(x, "class")) {
+      new_data <- dplyr::bind_cols(
+        new_data,
+        predict(x, new_data = new_data, type = "class")
+      )
+    }
+    if (spec_has_pred_type(x, "prob")) {
+      new_data <- dplyr::bind_cols(
+        new_data,
         predict(x, new_data = new_data, type = "prob")
       )
+    }
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
-  new_data
+  as_tibble(new_data)
 }

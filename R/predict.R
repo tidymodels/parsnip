@@ -28,7 +28,7 @@
 #'            and "pred_int". Default value is `FALSE`.
 #'     \item `quantile`: the quantile(s) for quantile regression
 #'            (not implemented yet)
-#'     \item `.time`: the time(s) for hazard and survival probability estimates.
+#'     \item `time`: the time(s) for hazard and survival probability estimates.
 #'  }
 #' @details If "type" is not supplied to `predict()`, then a choice
 #'  is made:
@@ -48,7 +48,7 @@
 #'
 #'  ## Censored regression predictions
 #'
-#' For censored regression, a numeric vector for `.time` is required when
+#' For censored regression, a numeric vector for `time` is required when
 #' survival or hazard probabilities are requested. Also, when
 #' `type = "linear_pred"`, censored regression models will be formatted such
 #' that the linear predictor _increases_ with time. This may have the opposite
@@ -309,7 +309,7 @@ check_pred_type_dots <- function(type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("level", "std_error", "quantile", ".time")
+  other_args <- c("level", "std_error", "quantile", "time")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -323,21 +323,21 @@ check_pred_type_dots <- function(type, ...) {
   }
 
   # ----------------------------------------------------------------------------
-  # places where .time should not be given
-  if (any(nms == ".time") & !type %in% c("survival", "hazard")) {
+  # places where time should not be given
+  if (any(nms == "time") & !type %in% c("survival", "hazard")) {
     rlang::abort(
       paste(
-        ".time should only be passed to `predict()` when 'type' is one of:",
+        "'time' should only be passed to `predict()` when 'type' is one of:",
         paste0("'", c("survival", "hazard"), "'", collapse = ", ")
       )
     )
   }
-  # when .time should be passed
-  if (!any(nms == ".time") & type %in% c("survival", "hazard")) {
+  # when time should be passed
+  if (!any(nms == "time") & type %in% c("survival", "hazard")) {
     rlang::abort(
       paste(
         "When using 'type' values of 'survival' or 'hazard' are given,",
-        "a numeric vector '.time' should also be given."
+        "a numeric vector 'time' should also be given."
       )
     )
   }

@@ -191,14 +191,8 @@ update_dot_check <- function(...) {
 #' @keywords internal
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-  if (!(mode %in% spec_modes))
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of: ",
-        glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-      )
-    )
+
+  check_spec_mode_val(cls, mode)
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
@@ -329,4 +323,15 @@ stan_conf_int <- function(object, newdata) {
   rlang::eval_tidy(fn)
 }
 
+check_glmnet_penalty <- function(x) {
+  pen <- rlang::eval_tidy(x$args$penalty)
 
+  if (length(pen) != 1) {
+    rlang::abort(c(
+      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
+      glue::glue("There are {length(pen)} values for `penalty`."),
+      "To try multiple values for total regularization, use the tune package.",
+      "To predict multiple penalties, use `multi_predict()`"
+    ))
+  }
+}

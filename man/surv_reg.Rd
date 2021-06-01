@@ -2,12 +2,9 @@
 % Please edit documentation in R/surv_reg.R
 \name{surv_reg}
 \alias{surv_reg}
-\alias{update.surv_reg}
 \title{General Interface for Parametric Survival Models}
 \usage{
 surv_reg(mode = "regression", dist = NULL)
-
-\method{update}{surv_reg}(object, parameters = NULL, dist = NULL, fresh = FALSE, ...)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -15,20 +12,13 @@ The only possible value for this model is "regression".}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
-
-\item{object}{A survival regression model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function is soft-deprecated in favor of \code{survival_reg()} which uses the
+\code{"censored regression"} mode.
+
 \code{surv_reg()} is a way to generate a \emph{specification} of a model
 before fitting and allows the model to be created using
 R. The main argument for the
@@ -42,10 +32,6 @@ set using \code{set_engine()}. If left to its default
 here (\code{NULL}), the value is taken from the underlying model
 functions.
 
-If parameters need to be modified, this function can be used
-in lieu of recreating the object from scratch.
-}
-\details{
 The data given to the function are not saved and are only used
 to determine the \emph{mode} of the model. For \code{surv_reg()},the
 mode will always be "regression".
@@ -57,7 +43,8 @@ survival model be specified via the formula interface.
 Also, for the \code{flexsurv::flexsurvfit} engine, the typical
 \code{strata} function cannot be used. To achieve the same effect,
 the extra parameter roles can be used (as described above).
-
+}
+\details{
 For \code{surv_reg()}, the mode will always be "regression".
 
 The model can be created using the \code{fit()} function using the
@@ -73,7 +60,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: flexsurv 
 ## 
@@ -87,7 +77,10 @@ call. For this type of model, the template of the fit calls are below.
   set_engine("survival") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Computational engine: survival 
 ## 
@@ -123,14 +116,19 @@ surv_reg()
 # Parameters can be represented by a placeholder:
 surv_reg(dist = varying())
 
-model <- surv_reg(dist = "weibull")
-model
-update(model, dist = "lnorm")
+# ->
+show_engines("survival_reg")
+
+survival_reg()
+# Parameters can be represented by a placeholder:
+survival_reg(dist = varying())
+
 }
 \references{
 Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
 Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}
+\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
+\keyword{internal}

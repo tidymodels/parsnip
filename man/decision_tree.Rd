@@ -2,7 +2,6 @@
 % Please edit documentation in R/decision_tree.R
 \name{decision_tree}
 \alias{decision_tree}
-\alias{update.decision_tree}
 \title{General Interface for Decision Tree Models}
 \usage{
 decision_tree(
@@ -10,16 +9,6 @@ decision_tree(
   cost_complexity = NULL,
   tree_depth = NULL,
   min_n = NULL
-)
-
-\method{update}{decision_tree}(
-  object,
-  parameters = NULL,
-  cost_complexity = NULL,
-  tree_depth = NULL,
-  min_n = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -34,18 +23,6 @@ parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
-
-\item{object}{A decision tree model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{decision_tree()} is a way to generate a \emph{specification} of a model
@@ -194,11 +171,7 @@ show_engines("decision_tree")
 decision_tree(mode = "classification", tree_depth = 5)
 # Parameters can be represented by a placeholder:
 decision_tree(mode = "regression", cost_complexity = varying())
-model <- decision_tree(cost_complexity = 10, min_n = 3)
-model
-update(model, cost_complexity = 1)
-update(model, cost_complexity = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

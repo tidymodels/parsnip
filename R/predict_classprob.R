@@ -9,8 +9,8 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")
     rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
 
-  if (!any(names(object$spec$method$pred) == "prob"))
-    rlang::abort("No class probability module defined for this model.")
+  check_spec_pred_type(object, "prob")
+
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")

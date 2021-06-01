@@ -2,20 +2,9 @@
 % Please edit documentation in R/rand_forest.R
 \name{rand_forest}
 \alias{rand_forest}
-\alias{update.rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
 rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL)
-
-\method{update}{rand_forest}(
-  object,
-  parameters = NULL,
-  mtry = NULL,
-  trees = NULL,
-  min_n = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -30,18 +19,6 @@ the ensemble.}
 
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
-
-\item{object}{A random forest model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{rand_forest()} is a way to generate a \emph{specification} of a model
@@ -210,11 +187,7 @@ show_engines("rand_forest")
 rand_forest(mode = "classification", trees = 2000)
 # Parameters can be represented by a placeholder:
 rand_forest(mode = "regression", mtry = varying())
-model <- rand_forest(mtry = 10, min_n = 3)
-model
-update(model, mtry = 1)
-update(model, mtry = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

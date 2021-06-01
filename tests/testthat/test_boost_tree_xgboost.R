@@ -210,14 +210,13 @@ test_that('submodel prediction', {
 
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
-  expect_equal(mp_res[[".pred_No"]], pred_class)
+  expect_equal(mp_res[[".pred_Yes"]], pred_class)
 
   expect_error(
     multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 5, type = "prob"),
     "Did you mean"
   )
 })
-
 
 test_that('default engine', {
   skip_if_not_installed("xgboost")
@@ -350,6 +349,18 @@ test_that('xgboost data conversion', {
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_sparse$data) > nrow(from_sparse$watchlist$validation))
 
+  # set event_level for factors
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE), labels = c("low", "high"))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(0, 5))
+  expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"), regexp = NA)
+  expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(1, 5))
+
+  mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE, "na"), labels = c("low", "high", "missing"))
+  expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
+                 regexp = "`event_level` can only be set for binary variables.")
+
 })
 
 
@@ -403,10 +414,116 @@ test_that('argument checks for data dimensions', {
     xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
     "1000 samples were requested"
   )
-  expect_equal(f_fit$fit$params$colsample_bytree, 1)
+  expect_equal(f_fit$fit$params$colsample_bynode, 1)
   expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))
-  expect_equal(xy_fit$fit$params$colsample_bytree, 1)
+  expect_equal(xy_fit$fit$params$colsample_bynode, 1)
   expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
+
+})
+
+test_that("fit and prediction with `event_level`", {
+
+  skip_if_not_installed("xgboost")
+
+  data(penguins, package = "modeldata")
+  penguins <- na.omit(penguins[, -c(1:2)])
+
+  train_x <- as.matrix(penguins[-(1:4), -5])
+  train_y_1 <- -as.numeric(penguins$sex[-(1:4)]) + 2
+  train_y_2 <- as.numeric(penguins$sex[-(1:4)]) - 1
+
+  x_pred <-  xgboost::xgb.DMatrix(as.matrix(penguins[1:4, -5]))
+
+  # event_level = "first"
+  set.seed(24)
+  fit_p_1 <- boost_tree(trees = 10) %>%
+    set_engine("xgboost", eval_metric = "auc"
+               # event_level = "first" is the default
+               ) %>%
+    set_mode("classification") %>%
+    fit(sex ~ ., data = penguins[-(1:4), ])
+
+  xgbmat_train_1 <- xgb.DMatrix(data = train_x, label = train_y_1)
+
+  set.seed(24)
+  fit_xgb_1 <- xgboost::xgb.train(data = xgbmat_train_1,
+                                nrounds = 10,
+                                watchlist = list("training" = xgbmat_train_1),
+                                objective = "binary:logistic",
+                                eval_metric = "auc")
+
+  expect_equal(fit_p_1$fit$evaluation_log, fit_xgb_1$evaluation_log)
+
+  pred_xgb_1 <- predict(fit_xgb_1, x_pred)
+  pred_p_1 <- predict(fit_p_1, new_data = penguins[1:4, ], type = "prob")
+  expect_equal(pred_p_1[[".pred_female"]], pred_xgb_1)
+
+  # event_level = "second"
+  set.seed(24)
+  fit_p_2 <- boost_tree(trees = 10) %>%
+    set_engine("xgboost", eval_metric = "auc",
+               event_level = "second") %>%
+    set_mode("classification") %>%
+    fit(sex ~ ., data = penguins[-(1:4), ])
+
+  xgbmat_train_2 <- xgb.DMatrix(data = train_x, label = train_y_2)
+
+  set.seed(24)
+  fit_xgb_2 <- xgboost::xgb.train(data = xgbmat_train_2,
+                                  nrounds = 10,
+                                  watchlist = list("training" = xgbmat_train_2),
+                                  objective = "binary:logistic",
+                                  eval_metric = "auc")
+
+  expect_equal(fit_p_2$fit$evaluation_log, fit_xgb_2$evaluation_log)
+
+  pred_xgb_2 <- predict(fit_xgb_2, x_pred)
+  pred_p_2 <- predict(fit_p_2, new_data = penguins[1:4, ], type = "prob")
+  expect_equal(pred_p_2[[".pred_male"]], pred_xgb_2)
+
+})
+
+test_that("count/proportion parameters", {
+  skip_if_not_installed("xgboost")
+  fit1 <-
+    boost_tree(mtry = 7, trees = 4) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit1$fit$params$colsample_bytree, 1)
+  expect_equal(fit1$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+
+  fit2 <-
+    boost_tree(mtry = 7, trees = 4) %>%
+    set_engine("xgboost", colsample_bytree = 4) %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit2$fit$params$colsample_bytree, 4/(ncol(mtcars) - 1))
+  expect_equal(fit2$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+
+  fit3 <-
+    boost_tree(trees = 4) %>%
+    set_engine("xgboost") %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit3$fit$params$colsample_bytree, 1)
+  expect_equal(fit3$fit$params$colsample_bynode, 1)
+
+  fit4 <-
+    boost_tree(mtry = .9, trees = 4) %>%
+    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) %>%
+    set_mode("regression") %>%
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(fit4$fit$params$colsample_bytree, .1)
+  expect_equal(fit4$fit$params$colsample_bynode, .9)
+
+  expect_error(
+    boost_tree(mtry = .9, trees = 4) %>%
+      set_engine("xgboost") %>%
+      set_mode("regression") %>%
+      fit(mpg ~ ., data = mtcars),
+   "was given as 0.9"
+  )
 
 })
 

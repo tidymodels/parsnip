@@ -10,8 +10,7 @@
 #' @export
 predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
-  if (is.null(object$spec$method$pred$conf_int))
-    rlang::abort("No confidence interval method defined for this engine.")
+  check_spec_pred_type(object, "conf_int")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")
@@ -58,8 +57,7 @@ predict_confint <- function(object, ...)
 # @export
 predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
-  if (is.null(object$spec$method$pred$pred_int))
-    rlang::abort("No prediction interval method defined for this engine.")
+  check_spec_pred_type(object, "pred_int")
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")

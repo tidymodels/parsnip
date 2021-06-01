@@ -19,7 +19,6 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -39,7 +38,7 @@
 #' @includeRmd man/rmd/svm-rbf.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("svm_rbf")
 #'
@@ -82,16 +81,8 @@ print.svm_rbf <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @inheritParams update.boost_tree
-#' @param object A radial basis function SVM model specification.
-#' @examples
-#' model <- svm_rbf(cost = 10, rbf_sigma = 0.1)
-#' model
-#' update(model, cost = 1)
-#' update(model, cost = 1, fresh = TRUE)
 #' @method update svm_rbf
-#' @rdname svm_rbf
+#' @rdname parsnip_update
 #' @export
 update.svm_rbf <-
   function(object,

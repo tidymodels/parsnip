@@ -38,7 +38,7 @@
 #' translate(lm_spec, engine = "spark")
 #'
 #' # with a placeholder for an unknown argument value:
-#' translate(linear_reg(mixture = varying()), engine = "glmnet")
+#' translate(linear_reg(penalty = varying(), mixture = varying()), engine = "glmnet")
 #'
 #' @export
 

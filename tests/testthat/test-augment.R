@@ -35,6 +35,8 @@ test_that('regression models', {
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars[, -1]))), 6)
 
+  expect_s3_class(augment(reg_form, head(mtcars)), "tbl_df")
+
   reg_form$spec$mode <- "depeche"
 
   expect_error(augment(reg_form, head(mtcars[, -1])), "Unknown mode: depeche")
@@ -74,3 +76,18 @@ test_that('classification models', {
 
 })
 
+
+test_that('augment for model without class probabilities', {
+  skip_if_not_installed("LiblineaR")
+
+  data(two_class_dat, package = "modeldata")
+  x <- svm_linear(mode = "classification") %>% set_engine("LiblineaR")
+  cls_form <- x %>% fit(Class ~ ., data = two_class_dat)
+
+  expect_equal(
+    colnames(augment(cls_form, head(two_class_dat))),
+    c("A", "B", "Class", ".pred_class")
+  )
+  expect_equal(nrow(augment(cls_form, head(two_class_dat))), 6)
+
+})

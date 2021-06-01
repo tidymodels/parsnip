@@ -5,10 +5,9 @@
 #' @export predict_hazard.model_fit
 #' @export
 predict_hazard.model_fit <-
-  function(object, new_data, .time, ...) {
+  function(object, new_data, time, ...) {
 
-    if (is.null(object$spec$method$pred$hazard))
-      rlang::abort("No hazard prediction method defined for this engine.")
+    check_spec_pred_type(object, "hazard")
 
     if (inherits(object$fit, "try-error")) {
       rlang::warn("Model fit failed; cannot make predictions.")
@@ -22,7 +21,7 @@ predict_hazard.model_fit <-
       new_data <- object$spec$method$pred$hazard$pre(new_data, object)
 
     # Pass some extra arguments to be used in post-processor
-    object$spec$method$pred$hazard$args$.time <- .time
+    object$spec$method$pred$hazard$args$time <- time
     pred_call <- make_pred_call(object$spec$method$pred$hazard)
 
     res <- eval_tidy(pred_call)

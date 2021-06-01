@@ -106,7 +106,7 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(svm_poly(mode = "reallyunknown"))
-  expect_error(translate(svm_poly() %>% set_engine( NULL)))
+  expect_error(svm_poly() %>% set_engine(NULL))
 })
 
 # ------------------------------------------------------------------------------

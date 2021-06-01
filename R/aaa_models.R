@@ -127,8 +127,29 @@ check_model_doesnt_exist <- function(model) {
 }
 
 check_mode_val <- function(mode) {
-  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode))
+  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode)) {
     rlang::abort("Please supply a character string for a mode (e.g. `'regression'`).")
+  }
+  invisible(NULL)
+}
+
+
+stop_incompatible_mode <- function(spec_modes) {
+  msg <- glue::glue(
+    "Available modes are: ",
+    glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
+  )
+  rlang::abort(msg)
+}
+
+# check if class and mode are compatible
+check_spec_mode_val <- function(cls, mode) {
+  spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
+  if (is.null(mode) || length(mode) > 1) {
+    stop_incompatible_mode(spec_modes)
+  } else if (!(mode %in% spec_modes)) {
+    stop_incompatible_mode(spec_modes)
+  }
   invisible(NULL)
 }
 
@@ -267,11 +288,30 @@ check_pred_info <- function(pred_obj, type) {
   invisible(NULL)
 }
 
-check_pkg_val <- function(pkg) {
-  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
-    rlang::abort("Please supply a single character value for the package name.")
+spec_has_pred_type <- function(object, type) {
+  possible_preds <- names(object$spec$method$pred)
+  any(possible_preds == type)
+}
+check_spec_pred_type <- function(object, type) {
+  if (!spec_has_pred_type(object, type)) {
+    possible_preds <- names(object$spec$method$pred)
+    rlang::abort(c(
+      glue::glue("No {type} prediction method available for this model."),
+      glue::glue("Value for `type` should be one of: ",
+                 glue::glue_collapse(glue::glue("'{possible_preds}'"), sep = ", "))
+    ))
+  }
   invisible(NULL)
 }
+
+
+check_pkg_val <- function(pkg) {
+  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg)) {
+    rlang::abort("Please supply a single character value for the package name.")
+  }
+  invisible(NULL)
+}
+
 
 check_interface_val <- function(x) {
   exp_interf <- c("data.frame", "formula", "matrix")

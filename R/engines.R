@@ -10,19 +10,21 @@ possible_engines <- function(object, ...) {
   unique(engs$engine)
 }
 
+stop_incompatible_engine <- function(avail_eng) {
+  msg <- glue::glue(
+    "Available engines are: ",
+    glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
+  )
+  rlang::abort(msg)
+}
+
 check_engine <- function(object) {
   avail_eng <- possible_engines(object)
-  if (is.null(object$engine)) {
-    object$engine <- avail_eng[1]
-    rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
-  }
-  if (!(object$engine %in% avail_eng)) {
-    rlang::abort(
-      glue::glue(
-        "Engine '{object$engine}' is not available. Please use one of: ",
-        glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
-      )
-    )
+  eng <- object$engine
+  if (is.null(eng) || length(eng) > 1) {
+    stop_incompatible_engine(avail_eng)
+  } else if (!(eng %in% avail_eng)) {
+    stop_incompatible_engine(avail_eng)
   }
   object
 }
@@ -82,7 +84,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' @examples
 #' # First, set general arguments using the standardized names
 #' mod <-
-#'   logistic_reg(mixture = 1/3) %>%
+#'   logistic_reg(penalty = 0.01, mixture = 1/3) %>%
 #'   # now say how you want to fit the model and another other options
 #'   set_engine("glmnet", nlambda = 10)
 #' translate(mod, engine = "glmnet")
@@ -91,17 +93,20 @@ set_engine <- function(object, engine, ...) {
   if (!inherits(object, "model_spec")) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
-  if (!is.character(engine) | length(engine) != 1)
-    rlang::abort("`engine` should be a single character value.")
-  if (engine == "liquidSVM") {
+
+  if (rlang::is_missing(engine)) {
+    avail_eng <- possible_engines(object)
+    stop_incompatible_engine(avail_eng)
+  }
+  object$engine <- engine
+  object <- check_engine(object)
+
+  if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",
       details = "The liquidSVM package is no longer available on CRAN.")
   }
-
-  object$engine <- engine
-  object <- check_engine(object)
 
   new_model_spec(
     cls = class(object)[1],

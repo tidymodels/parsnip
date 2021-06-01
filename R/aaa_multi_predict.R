@@ -31,7 +31,7 @@ multi_predict.default <- function(object, ...)
   rlang::abort(
     glue::glue(
       "No `multi_predict` method exists for objects with classes ",
-      glue::glue_collapse(glue::glue("'{class()}'"), sep = ", ")
+      glue::glue_collapse(glue::glue("'{class(object)}'"), sep = ", ")
       )
     )
 

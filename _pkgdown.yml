@@ -29,8 +29,9 @@ reference:
       - multinom_reg
       - nearest_neighbor
       - null_model
+      - proportional_hazards
       - rand_forest
-      - surv_reg
+      - survival_reg
       - svm_linear
       - svm_poly
       - svm_rbf
@@ -56,6 +57,7 @@ reference:
       - show_engines
       - tidy.model_fit
       - translate
+      - starts_with("update")
       - varying_args.model_spec
 
   - title: Developer Tools

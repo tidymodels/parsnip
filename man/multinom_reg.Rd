@@ -2,19 +2,9 @@
 % Please edit documentation in R/multinom_reg.R
 \name{multinom_reg}
 \alias{multinom_reg}
-\alias{update.multinom_reg}
 \title{General Interface for Multinomial Regression Models}
 \usage{
 multinom_reg(mode = "classification", penalty = NULL, mixture = NULL)
-
-\method{update}{multinom_reg}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -30,18 +20,6 @@ of L1 and L2 (depending on the value of \code{mixture}).}
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
 ridge regression is being used. (\code{glmnet} and \code{spark} only).}
-
-\item{object}{A multinomial regression model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{multinom_reg()} is a way to generate a \emph{specification} of a model
@@ -89,11 +67,13 @@ reloaded and reattached to the \code{parsnip} object.
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below.
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
+\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = 0.1) \%>\% 
   set_engine("glmnet") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.1
 ## 
 ## Computational engine: glmnet 
 ## 
@@ -102,20 +82,42 @@ call. For this type of model, the template of the fit calls are below.
 ##     family = "multinomial")
 }
 
-For \code{glmnet} models, the full regularization path is always fit
-regardless of the value given to \code{penalty}. Also, there is the option to
-pass multiple values (or no values) to the \code{penalty} argument. When
-using the \code{predict()} method in these cases, the return value depends on
-the value of \code{penalty}. When using \code{predict()}, only a single value of
-the penalty can be used. When predicting on multiple penalties, the
-\code{multi_predict()} function can be used. It returns a tibble with a list
-column called \code{.pred} that contains a tibble with all of the penalty
-results.
+The glmnet engine requires a single value for the \code{penalty} argument (a
+number or \code{tune()}), but the full regularization path is always fit
+regardless of the value given to \code{penalty}. To pass in a custom sequence
+of values for glmnet’s \code{lambda}, use the argument \code{path_values} in
+\code{set_engine()}. This will assign the value of the glmnet \code{lambda}
+parameter without disturbing the value given of \code{multinom_reg(penalty)}.
+For example:\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = .1) \%>\% 
+  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.1
+## 
+## Computational engine: glmnet 
+## 
+## Model fit template:
+## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "multinomial")
+}
+
+When fitting a pure ridge regression model (i.e., \code{penalty = 0}), we
+\emph{strongly suggest} that you pass in a vector for \code{path_values} that
+includes zero. See \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431} for a
+discussion.
+
+When using \code{predict()}, the single \code{penalty} value used for prediction
+is the one specified in \code{multinom_reg()}.
+
+To predict on multiple penalties, use the \code{multi_predict()} function.
+This function returns a tibble with a list column called \code{.pred}
+containing all of the penalty results.
 }
 
 \subsection{nnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("nnet") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
@@ -129,7 +131,6 @@ results.
 
 \subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
@@ -143,7 +144,6 @@ results.
 
 \subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
   set_engine("keras") \%>\% 
-  set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
@@ -175,11 +175,7 @@ show_engines("multinom_reg")
 multinom_reg()
 # Parameters can be represented by a placeholder:
 multinom_reg(penalty = varying())
-model <- multinom_reg(penalty = 10, mixture = 0.1)
-model
-update(model, penalty = 1)
-update(model, penalty = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

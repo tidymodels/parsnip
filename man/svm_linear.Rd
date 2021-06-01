@@ -2,19 +2,9 @@
 % Please edit documentation in R/svm_linear.R
 \name{svm_linear}
 \alias{svm_linear}
-\alias{update.svm_linear}
 \title{General interface for linear support vector machines}
 \usage{
 svm_linear(mode = "unknown", cost = NULL, margin = NULL)
-
-\method{update}{svm_linear}(
-  object,
-  parameters = NULL,
-  cost = NULL,
-  margin = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
@@ -26,18 +16,6 @@ or on the wrong side of the margin}
 
 \item{margin}{A positive number for the epsilon in the SVM insensitive
 loss function (regression only)}
-
-\item{object}{A linear SVM model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{svm_linear()} is a way to generate a \emph{specification} of a model
@@ -150,11 +128,7 @@ show_engines("svm_linear")
 svm_linear(mode = "classification")
 # Parameters can be represented by a placeholder:
 svm_linear(mode = "regression", cost = varying())
-model <- svm_linear(cost = 3)
-model
-update(model, cost = 1)
-update(model, cost = 1, fresh = TRUE)
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }

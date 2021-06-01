@@ -14,6 +14,7 @@
 \alias{predict_numeric}
 \alias{predict_quantile.model_fit}
 \alias{predict_survival.model_fit}
+\alias{predict_survival}
 \alias{predict_time.model_fit}
 \alias{predict_time}
 \title{Other predict methods.}
@@ -22,7 +23,7 @@
 
 \method{predict_classprob}{model_fit}(object, new_data, ...)
 
-\method{predict_hazard}{model_fit}(object, new_data, .time, ...)
+\method{predict_hazard}{model_fit}(object, new_data, time, ...)
 
 \method{predict_confint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
 
@@ -36,7 +37,9 @@ predict_numeric(object, ...)
 
 \method{predict_quantile}{model_fit}(object, new_data, quantile = (1:9)/10, ...)
 
-\method{predict_survival}{model_fit}(object, new_data, .time, ...)
+\method{predict_survival}{model_fit}(object, new_data, time, ...)
+
+predict_survival(object, ...)
 
 \method{predict_time}{model_fit}(object, new_data, ...)
 
@@ -61,7 +64,7 @@ the scale of the linear predictors) for \code{type}s of "conf_int"
 and "pred_int". Default value is \code{FALSE}.
 \item \code{quantile}: the quantile(s) for quantile regression
 (not implemented yet)
-\item \code{.time}: the time(s) for hazard and survival probability estimates.
+\item \code{time}: the time(s) for hazard and survival probability estimates.
 }}
 
 \item{level}{A single numeric value between zero and one for the
