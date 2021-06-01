@@ -1,18 +1,20 @@
 # ------------------------------------------------------------------------------
 
-#' Helper functions to convert from formula to matrix interface
+#' Helper functions to convert between formula and matrix interface
 #'
 #' Functions to take a formula interface and get the resulting
-#' objects (y, x, weights, etc) back. For the most part, this
-#' emulates the internals of `lm` (and also see the notes at
+#' objects (y, x, weights, etc) back or the other way around. The functions are
+#' intended for developer use. For the most part, this emulates the internals
+#' of `lm` (and also see the notes at
 #' https://developer.r-project.org/model-fitting-functions.html).
 #'
-#' `convert_form_to_xy_fit` is for when the data are created for modeling.
-#' It saves both the data objects as well as the objects needed when new data
-#' are predicted (e.g. `terms`, etc.).
+#' `convert_form_to_xy_fit()` and `convert_xy_to_form_fit()` are for when the
+#' data are created for modeling.
+#' `convert_form_to_xy_fit()` saves both the data objects as well as the objects
+#' needed when new data are predicted (e.g. `terms`, etc.).
 #'
-#' `convert_form_to_xy_new` is used when new samples are being predicted and
-#' only requires the predictors to be available.
+#' `convert_form_to_xy_new()` and `convert_xy_to_form_new()` are used when new
+#' samples are being predicted and only require the predictors to be available.
 #'
 #' @param data A data frame containing all relevant variables (e.g. outcome(s),
 #'   predictors, case weights, etc).
@@ -155,6 +157,7 @@ convert_form_to_xy_fit <- function(formula,
 
 
 #' @param object An object of class `model_fit`.
+#' @inheritParams predict.model_fit
 #' @rdname convert_helpers
 #' @keywords internal
 #' @export
@@ -230,9 +233,21 @@ convert_form_to_xy_new <- function(object,
 # The other direction where we make a formula from the data
 # objects
 
-#' @importFrom dplyr bind_cols
 # TODO slots for other roles
-convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
+#' @param weights A numeric vector containing the weights.
+#' @param y_name A string specifying the name of the outcome.
+#' @inheritParams fit.model_spec
+#' @inheritParams convert_form_to_xy_fit
+#'
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+#'
+#' @importFrom dplyr bind_cols
+convert_xy_to_form_fit <- function(x,
+                                   y,
+                                   weights = NULL,
+                                   y_name = "..y",
                                    remove_intercept = TRUE) {
   if (is.vector(x))
     rlang::abort("`x` cannot be a vector.")
@@ -279,6 +294,9 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
   res
 }
 
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
 convert_xy_to_form_new <- function(object, new_data) {
   new_data <- new_data[, object$x_var, drop = FALSE]
   if (!is.data.frame(new_data))

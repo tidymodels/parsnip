@@ -3,7 +3,9 @@
 \name{convert_form_to_xy_fit}
 \alias{convert_form_to_xy_fit}
 \alias{convert_form_to_xy_new}
-\title{Helper functions to convert from formula to matrix interface}
+\alias{convert_xy_to_form_fit}
+\alias{convert_xy_to_form_new}
+\title{Helper functions to convert between formula and matrix interface}
 \usage{
 convert_form_to_xy_fit(
   formula,
@@ -21,6 +23,16 @@ convert_form_to_xy_new(
   na.action = na.pass,
   composition = "data.frame"
 )
+
+convert_xy_to_form_fit(
+  x,
+  y,
+  weights = NULL,
+  y_name = "..y",
+  remove_intercept = TRUE
+)
+
+convert_xy_to_form_new(object, new_data)
 }
 \arguments{
 \item{formula}{An object of class \code{formula} (or one that can
@@ -46,19 +58,33 @@ should be returned as a \code{"matrix"} or a \code{"data.frame"}.}
 column after \code{model.matrix()} is finished.}
 
 \item{object}{An object of class \code{model_fit}.}
+
+\item{new_data}{A rectangular data object, such as a data frame.}
+
+\item{x}{A matrix, sparse matrix, or data frame of predictors. Only some
+models have support for sparse matrix input. See \code{parsnip::get_encoding()}
+for details. \code{x} should have column names.}
+
+\item{y}{A vector, matrix or data frame of outcome data.}
+
+\item{weights}{A numeric vector containing the weights.}
+
+\item{y_name}{A string specifying the name of the outcome.}
 }
 \description{
 Functions to take a formula interface and get the resulting
-objects (y, x, weights, etc) back. For the most part, this
-emulates the internals of \code{lm} (and also see the notes at
+objects (y, x, weights, etc) back or the other way around. The functions are
+intended for developer use. For the most part, this emulates the internals
+of \code{lm} (and also see the notes at
 https://developer.r-project.org/model-fitting-functions.html).
 }
 \details{
-\code{convert_form_to_xy_fit} is for when the data are created for modeling.
-It saves both the data objects as well as the objects needed when new data
-are predicted (e.g. \code{terms}, etc.).
+\code{convert_form_to_xy_fit()} and \code{convert_xy_to_form_fit()} are for when the
+data are created for modeling.
+\code{convert_form_to_xy_fit()} saves both the data objects as well as the objects
+needed when new data are predicted (e.g. \code{terms}, etc.).
 
-\code{convert_form_to_xy_new} is used when new samples are being predicted and
-only requires the predictors to be available.
+\code{convert_form_to_xy_new()} and \code{convert_xy_to_form_new()} are used when new
+samples are being predicted and only require the predictors to be available.
 }
 \keyword{internal}
