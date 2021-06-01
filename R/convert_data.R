@@ -1,29 +1,46 @@
 # ------------------------------------------------------------------------------
 
-# Functions to take a formula interface and get the resulting
-# objects (y, x, weights, etc) back. For the most part, this
-# emulates the internals of `lm` (and also see the notes at
-# https://developer.r-project.org/model-fitting-functions.html).
-
-# `convert_form_to_xy_fit` is for when the data are created for modeling.
-# It saves both the data objects as well as the objects needed
-# when new data are predicted (e.g. `terms`, etc.).
-
-# `convert_form_to_xy_new` is used when new samples are being predicted
-# and only requires the predictors to be available.
-
+#' Helper functions to convert between formula and matrix interface
+#'
+#' Functions to take a formula interface and get the resulting
+#' objects (y, x, weights, etc) back. For the most part, this
+#' emulates the internals of `lm` (and also see the notes at
+#' https://developer.r-project.org/model-fitting-functions.html).
+#'
+#' `convert_form_to_xy_fit` is for when the data are created for modeling.
+#' It saves both the data objects as well as the objects needed when new data
+#' are predicted (e.g. `terms`, etc.).
+#'
+#' `convert_form_to_xy_new` is used when new samples are being predicted and
+#' only requires the predictors to be available.
+#'
+#' @param data A data frame containing all relevant variables (e.g. outcome(s),
+#'   predictors, case weights, etc).
+#' @param ... Additional arguments passed to [stats::model.frame()] and
+#'   specification of `offset` and `contrasts`.
+#' @param na.action A function which indicates what should happen when the data
+#'   contain NAs.
+#' @param indicators A string describing whether and how to create
+#'   indicator/dummy variables from factor predictors.
+#' @param composition A string describing whether the resulting `x` and `y`
+#'   should be returned as a `"matrix"` or a `"data.frame"`.
+#' @param remove_intercept A logical indicating whether to remove the intercept
+#'   column after model.matrix() is finished.
+#' @inheritParams fit.model_spec
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+#'
 #' @importFrom stats .checkMFClasses .getXlevels delete.response
 #' @importFrom stats model.offset model.weights na.omit na.pass
+convert_form_to_xy_fit <- function(formula,
+                                   data,
+                                   ...,
+                                   na.action = na.omit,
+                                   indicators = "traditional",
+                                   composition = "data.frame",
+                                   remove_intercept = TRUE) {
 
-convert_form_to_xy_fit <- function(
-  formula,
-  data,
-  ...,
-  na.action = na.omit,
-  indicators = "traditional",
-  composition = "data.frame",
-  remove_intercept = TRUE
-) {
   if (!(composition %in% c("data.frame", "matrix")))
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
 
@@ -136,8 +153,16 @@ convert_form_to_xy_fit <- function(
   res
 }
 
-convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
-                           composition = "data.frame") {
+
+#' @param object An object of class `model_fit`.
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+convert_form_to_xy_new <- function(object,
+                                   new_data,
+                                   na.action = na.pass,
+                                   composition = "data.frame") {
+
   if (!(composition %in% c("data.frame", "matrix")))
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
 
