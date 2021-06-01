@@ -8,7 +8,7 @@
 ```{r earth-param-info, echo = FALSE}
 defaults <- 
   tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
-                 default = c("see below", "1L", "backward"))
+                 default = c("see below", "1L", "'backward'"))
 
 param <-
   mars() %>% 

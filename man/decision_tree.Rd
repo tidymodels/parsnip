@@ -34,7 +34,7 @@ There are different ways to fit this model. Information about the available
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("decision_tree")}
 
 More information on how \code{parsnip} is used for model is at
-\url{https://www.tidymodels.org/}.
+\url{https://www.tidymodels.org}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

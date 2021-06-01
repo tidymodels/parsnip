@@ -1,31 +1,16 @@
 #' General Interface for Single Layer Neural Network
 #'
-#' `mlp()`, for multilayer perceptron, is a way to generate a _specification_ of
-#'  a model before fitting and allows the model to be created using
-#'  different packages in R or via keras The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{hidden_units}: The number of units in the hidden layer
-#'    (default: 5).
-#'   \item \code{penalty}: The amount of L2 regularization (aka weight
-#'     decay, default is zero).
-#'   \item \code{dropout}: The proportion of parameters randomly dropped out of
-#'     the model (`keras` only, default is zero).
-#'   \item \code{epochs}: The number of training iterations (default: 20).
-#'   \item \code{activation}: The type of function that connects the hidden
-#'     layer and the input variables  (`keras` only, default is softmax).
-#' }
+#' @description
+#' `mlp()` creates a multilayer perceptron model (a.k.a. a single layer,
+#' feed-forward neural network).
 #'
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (see above), the values are taken from the underlying model
-#'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
-#'  function's `size` argument has no default so a value of 5 units will be
-#'  used. Also, unless otherwise specified, the `linout` argument to
-#'  `nnet::nnet()` will be set to `TRUE` when a regression model is created.
-#'  If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mlp")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org}.
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
@@ -42,18 +27,17 @@
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
 #'  "linear", "softmax", "relu", and "elu"
 #' @details
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"nnet"` (the default)
-#' \item \pkg{keras}: `"keras"`
-#' }
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @includeRmd man/rmd/mlp.Rmd details
-#'
-#' @importFrom purrr map_lgl
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_mlp_keras]{keras engine details}},
+#' \code{\link[=details_mlp_nnet]{nnet engine details}}
 #' @examples
 #' show_engines("mlp")
 #'
