@@ -134,7 +134,7 @@ show_engines <- function(x) {
     rlang::abort("`show_engines()` takes a single character string as input.")
   }
   res <- try(get_from_env(x), silent = TRUE)
-  if (inherits(res, "try-error")) {
+  if (inherits(res, "try-error") | is.null(res)) {
     rlang::abort(
       paste0("No results found for model function '", x, "'.")
     )
