@@ -47,8 +47,6 @@ with the data.
 show_engines("decision_tree")
 
 decision_tree(mode = "classification", tree_depth = 5)
-# Parameters can be represented by a placeholder:
-decision_tree(mode = "regression", cost_complexity = varying())
 }
 \references{
 \url{https://www.tidymodels.org}, \emph{Tidy Models with R}

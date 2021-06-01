@@ -17,7 +17,6 @@
 #' More information on how `parsnip` is used for model is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param penalty A non-negative number representing the total

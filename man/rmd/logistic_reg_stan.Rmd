@@ -1,7 +1,7 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "stan")`
+`r descr_models("logistic_reg", "stan")`
 
 ## Tuning Parameters
 
@@ -23,7 +23,7 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 ## Translation from parsnip to the original package
 
 ```{r stan-csl}
-linear_reg() %>% 
+logistic_reg() %>% 
   set_engine("stan") %>% 
   translate()
 ```

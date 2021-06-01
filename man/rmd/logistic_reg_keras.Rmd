@@ -1,7 +1,7 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "keras")`
+`r descr_models("logistic_reg", "keras")`
 
 ## Tuning Parameters
 
@@ -11,7 +11,7 @@ defaults <-
                  default = c("0.0"))
 
 param <-
-  linear_reg() %>% 
+  logistic_reg() %>% 
   set_engine("keras") %>% 
   tunable() %>% 
   dplyr::select(-source, -component, -component_id, parsnip = name) %>%  
@@ -38,7 +38,7 @@ For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or
 ## Translation from parsnip to the original package
 
 ```{r keras-csl}
-linear_reg(penalty = double(1)) %>% 
+logistic_reg(penalty = double(1)) %>% 
   set_engine("keras") %>% 
   translate()
 ```

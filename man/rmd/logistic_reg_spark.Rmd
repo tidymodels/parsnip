@@ -1,7 +1,7 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "spark")`
+`r descr_models("logistic_reg", "spark")`
 
 ## Tuning Parameters
 
@@ -11,7 +11,7 @@ defaults <-
                  default = c("0.0", "0.0"))
 
 param <-
-  linear_reg() %>% 
+  logistic_reg() %>% 
   set_engine("spark") %>% 
   tunable() %>% 
   dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
@@ -40,7 +40,7 @@ A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` 
 ## Translation from parsnip to the original package
 
 ```{r spark-csl}
-linear_reg(penalty = double(1), mixture = double(1)) %>% 
+logistic_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("spark") %>% 
   translate()
 ```
@@ -52,7 +52,7 @@ linear_reg(penalty = double(1), mixture = double(1)) %>%
 
 ```{r child = "template-same-scale.Rmd"}
 ```
-By default, `ml_linear_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
+By default, `ml_logistic_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
 
 ## Other details
 

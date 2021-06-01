@@ -1,21 +1,18 @@
 #' General Interface for Logistic Regression Models
 #'
-#' `logistic_reg()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R, Stan, keras, or via Spark. The main
-#'  arguments for the model are:
-#' \itemize{
-#'   \item \code{penalty}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The mixture amounts of different types of
-#'   regularization (see below). Note that this will be ignored for some engines.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' [logistic_reg()] fits a generalized linear model for binary outcomes. A
+#' linear combination of the predictors is used to model the log-odds of an
+#' event.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("logistic_reg")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org/}.
+#'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param penalty A non-negative number representing the total
@@ -29,42 +26,25 @@
 #'  ridge regression is being used. (`glmnet`, `LiblineaR`, and `spark` only).
 #'  For `LiblineaR` models, `mixture` must be exactly 0 or 1 only.
 #' @details
-#' For `logistic_reg()`, the mode will always be "classification".
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"glm"`  (the default), `"glmnet"`, or `"LiblineaR"`
-#' \item \pkg{Stan}:  `"stan"`
-#' \item \pkg{Spark}: `"spark"`
-#' \item \pkg{keras}: `"keras"`
-#' }
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' For this model, other packages may add additional engines. Use
-#' [show_engines()] to see the current set of engines.
-#'
-#' @includeRmd man/rmd/logistic-reg.Rmd details
-#'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
-#'
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org}, _Tidy Models with R_
+#' \url{https://tmwr.org}
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_logistic_reg_lm]{lm engine details}},
+#' \code{\link[=details_logistic_reg_glmnet]{glmnet engine details}},
+#' \code{\link[=details_logistic_reg_LiblineaR]{LiblineaR engine details}},
+#' \code{\link[=details_logistic_reg_stan]{stan engine details}},
+#' \code{\link[=details_logistic_reg_keras]{keras engine details}},
+#' \code{\link[=details_logistic_reg_spark]{spark engine details}}
 #' @examples
 #' show_engines("logistic_reg")
 #'
 #' logistic_reg()
-#' # Parameters can be represented by a placeholder:
-#' logistic_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 logistic_reg <-

@@ -1,18 +1,18 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "spark")`
+`r descr_models("logistic_reg", "glmnet")`
 
 ## Tuning Parameters
 
-```{r spark-param-info, echo = FALSE}
+```{r glmnet-param-info, echo = FALSE}
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
-                 default = c("0.0", "0.0"))
+                 default = c("see below", "1.0"))
 
 param <-
-  linear_reg() %>% 
-  set_engine("spark") %>% 
+logistic_reg() %>% 
+  set_engine("glmnet") %>% 
   tunable() %>% 
   dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
   dplyr::mutate(
@@ -21,7 +21,7 @@ param <-
     type = purrr::map_chr(dials, ~ .x$type)
   ) %>% 
   dplyr::full_join(defaults, by = "parsnip") %>% 
-  dplyr::mutate(
+  mutate(
     item = 
       glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
   )
@@ -29,19 +29,19 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r spark-param-list, echo = FALSE, results = "asis"}
+```{r glmnet-param-list, echo = FALSE, results = "asis"}
 param$item
 ```
 
-For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). 
-
 A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` indicates ridge regression.
+
+The `penalty` parameter has no default and requires a single numeric value. For more details about this, and the `glmnet` model in general, see [glmnet-details].
 
 ## Translation from parsnip to the original package
 
-```{r spark-csl}
-linear_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("spark") %>% 
+```{r glmnet-cls}
+logistic_reg(penalty = double(1), mixture = double(1)) %>% 
+  set_engine("glmnet") %>% 
   translate()
 ```
 
@@ -52,17 +52,10 @@ linear_reg(penalty = double(1), mixture = double(1)) %>%
 
 ```{r child = "template-same-scale.Rmd"}
 ```
-By default, `ml_linear_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
-
-## Other details
-
-```{r child = "template-spark-notes.Rmd"}
-```
+By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
 ## References
 
- - Luraschi, J, K Kuo, and E Ruiz. 2019. _Mastering Spark with R_. O'Reilly Media
- 
  - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
  
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

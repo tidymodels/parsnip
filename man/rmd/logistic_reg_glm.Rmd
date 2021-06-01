@@ -1,7 +1,7 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "lm")`
+`r descr_models("logistic_reg", "glm")`
 
 ## Tuning Parameters
 
@@ -9,9 +9,9 @@ This engine has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
-```{r lm-reg}
-linear_reg() %>% 
-  set_engine("lm") %>% 
+```{r glm-reg}
+logistic_reg() %>% 
+  set_engine("glm") %>% 
   translate()
 ```
 

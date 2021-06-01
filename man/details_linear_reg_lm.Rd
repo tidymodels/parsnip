@@ -15,7 +15,6 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
   set_engine("lm") \%>\% 
-  set_mode("regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
