@@ -15,7 +15,7 @@ In tidymodels, we want:
 
 1. The user to declare exactly what penalty value to use.
 
-1. The ability to make predictions at multiple penalty with a single model object. 
+1. The ability to make predictions at multiple penalty values with a single model object. 
 
 Point 1 is relevant for a single `parsnip` model while Point 2 is more related to using the `tune` package. The second point greatly increases the computation efficiency of model tuning since you only need to fit a `glmnet` model for each value of alpha (see the [tidymodels book](https://www.tmwr.org/grid-search.html#submodel-trick) for a discussion).
 
