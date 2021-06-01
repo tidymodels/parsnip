@@ -3,7 +3,7 @@
 \name{convert_form_to_xy_fit}
 \alias{convert_form_to_xy_fit}
 \alias{convert_form_to_xy_new}
-\title{Helper functions to convert between formula and matrix interface}
+\title{Helper functions to convert from formula to matrix interface}
 \usage{
 convert_form_to_xy_fit(
   formula,
@@ -43,7 +43,7 @@ indicator/dummy variables from factor predictors.}
 should be returned as a \code{"matrix"} or a \code{"data.frame"}.}
 
 \item{remove_intercept}{A logical indicating whether to remove the intercept
-column after model.matrix() is finished.}
+column after \code{model.matrix()} is finished.}
 
 \item{object}{An object of class \code{model_fit}.}
 }

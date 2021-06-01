@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 
-#' Helper functions to convert between formula and matrix interface
+#' Helper functions to convert from formula to matrix interface
 #'
 #' Functions to take a formula interface and get the resulting
 #' objects (y, x, weights, etc) back. For the most part, this
@@ -25,7 +25,7 @@
 #' @param composition A string describing whether the resulting `x` and `y`
 #'   should be returned as a `"matrix"` or a `"data.frame"`.
 #' @param remove_intercept A logical indicating whether to remove the intercept
-#'   column after model.matrix() is finished.
+#'   column after `model.matrix()` is finished.
 #' @inheritParams fit.model_spec
 #' @rdname convert_helpers
 #' @keywords internal
