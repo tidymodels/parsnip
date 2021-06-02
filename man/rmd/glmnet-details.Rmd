@@ -25,7 +25,7 @@ To achieve both of these goals, `parsnip` does the following:
 
 * `parsnip` fits the `glmnet` model without passing the penalty value to the `lambda` argument. This makes the whole coefficient path available for prediction. 
 
-* When `predict()` is used on the `parsnip` model fit, the saved value of the penalty is used. 
+* When `predict()` is used on the `parsnip` model fit without specifying the `penalty` value, the saved value of the penalty is used. 
 
 * To make predictions at other values along the path, use the `multi_predict()` function. Multiple predictions can be made simultaneously at different penalty values. 
 
