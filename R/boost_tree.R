@@ -16,7 +16,6 @@
 #' More information on how `parsnip` is used for model is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @details
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or

@@ -61,8 +61,6 @@ More information on how \code{parsnip} is used for model is at
 \url{https://www.tidymodels.org/}.
 }
 \details{
-
-
 This function only defines what \emph{type} of model is being fit. Once an engine
 is specified, the \emph{method} to fit the model is also defined.
 

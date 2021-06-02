@@ -1,21 +1,18 @@
 #' General Interface for Multinomial Regression Models
 #'
-#' `multinom_reg()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R, keras, or Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{penalty}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The mixture amounts of different types of
-#'   regularization (see below). Note that this will be ignored for some engines.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#'
+#' `multinom_reg()` fits a model that uses linear predictors to predict multi-class
+#' data using the multinomial distribution.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("multinom_reg")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org}.
+#'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param penalty A non-negative number representing the total
@@ -28,30 +25,7 @@
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
 #'  ridge regression is being used. (`glmnet` and `spark` only).
 #' @details
-#' For `multinom_reg()`, the mode will always be "classification".
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:   `"glmnet"`  (the default), `"nnet"`
-#' \item \pkg{Spark}: `"spark"`
-#' \item \pkg{keras}: `"keras"`
-#' }
-#'
-#' @includeRmd man/rmd/multinom-reg.Rmd details
-#'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
 #'
 #' @seealso [fit.model_spec()], [set_engine()], [update()]
 #' @examples
