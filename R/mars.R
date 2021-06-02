@@ -1,4 +1,4 @@
-#' General Interface for Multivariate adaptive regression splines (MARS)
+#' Multivariate adaptive regression splines (MARS)
 #'
 #' @description
 #'

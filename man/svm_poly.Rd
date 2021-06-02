@@ -2,7 +2,7 @@
 % Please edit documentation in R/svm_poly.R
 \name{svm_poly}
 \alias{svm_poly}
-\title{General interface for polynomial support vector machines}
+\title{Polynomial support vector machines}
 \usage{
 svm_poly(
   mode = "unknown",

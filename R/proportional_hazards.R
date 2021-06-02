@@ -1,4 +1,4 @@
-#' General Interface for Proportional Hazards Models
+#' Proportional hazards regression
 #'
 #' `proportional_hazards()` is a way to generate a _specification_ of a model
 #' before fitting and allows the model to be created using different packages

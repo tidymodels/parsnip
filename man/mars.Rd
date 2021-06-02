@@ -2,7 +2,7 @@
 % Please edit documentation in R/mars.R
 \name{mars}
 \alias{mars}
-\title{General Interface for Multivariate adaptive regression splines (MARS)}
+\title{Multivariate adaptive regression splines (MARS)}
 \usage{
 mars(
   mode = "unknown",

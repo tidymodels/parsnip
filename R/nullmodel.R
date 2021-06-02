@@ -125,7 +125,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
   out
 }
 
-#' General Interface for null models
+#' Null models
 #'
 #' `null_model()` is a way to generate a _specification_ of a model before
 #'  fitting and allows the model to be created using R. It doesn't have any

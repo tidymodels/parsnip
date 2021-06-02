@@ -1,4 +1,4 @@
-#' General Interface for Random Forest Models
+#' Random forest
 #'
 #' @description
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/rand_forest.R
 \name{rand_forest}
 \alias{rand_forest}
-\title{General Interface for Random Forest Models}
+\title{Random forest}
 \usage{
 rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL)
 }

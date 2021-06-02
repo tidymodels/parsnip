@@ -1,4 +1,4 @@
-#' General interface for radial basis function support vector machines
+#' Radial basis function support vector machines
 #'
 #' @description
 #'

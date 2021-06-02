@@ -1,4 +1,4 @@
-#' General Interface for Multinomial Regression Models
+#' Multinomial regression
 #'
 #' @description
 #'

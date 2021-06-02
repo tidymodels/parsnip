@@ -2,7 +2,7 @@
 % Please edit documentation in R/nullmodel.R
 \name{null_model}
 \alias{null_model}
-\title{General Interface for null models}
+\title{Null models}
 \usage{
 null_model(mode = "classification")
 }

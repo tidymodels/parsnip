@@ -2,7 +2,7 @@
 % Please edit documentation in R/decision_tree.R
 \name{decision_tree}
 \alias{decision_tree}
-\title{General Interface for Decision Tree Models}
+\title{Decision trees}
 \usage{
 decision_tree(
   mode = "unknown",

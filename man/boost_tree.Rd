@@ -2,7 +2,7 @@
 % Please edit documentation in R/boost_tree.R
 \name{boost_tree}
 \alias{boost_tree}
-\title{General Interface for Boosted Trees}
+\title{Boosted trees}
 \usage{
 boost_tree(
   mode = "unknown",

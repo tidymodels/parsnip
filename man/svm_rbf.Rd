@@ -2,7 +2,7 @@
 % Please edit documentation in R/svm_rbf.R
 \name{svm_rbf}
 \alias{svm_rbf}
-\title{General interface for radial basis function support vector machines}
+\title{Radial basis function support vector machines}
 \usage{
 svm_rbf(mode = "unknown", cost = NULL, rbf_sigma = NULL, margin = NULL)
 }

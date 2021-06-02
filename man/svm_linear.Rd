@@ -2,7 +2,7 @@
 % Please edit documentation in R/svm_linear.R
 \name{svm_linear}
 \alias{svm_linear}
-\title{General interface for linear support vector machines}
+\title{Linear support vector machines}
 \usage{
 svm_linear(mode = "unknown", cost = NULL, margin = NULL)
 }

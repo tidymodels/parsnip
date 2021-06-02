@@ -1,4 +1,4 @@
-#' General interface for polynomial support vector machines
+#' Polynomial support vector machines
 #'
 #' @description
 #'

@@ -1,4 +1,4 @@
-#' General Interface for Parametric Survival Models
+#' Parametric survival regression
 #'
 #' `survival_reg()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using

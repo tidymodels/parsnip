@@ -1,4 +1,4 @@
-#' General Interface for Logistic Regression Models
+#' Logistic regression
 #'
 #' @description
 #' [logistic_reg()] fits a generalized linear model for binary outcomes. A

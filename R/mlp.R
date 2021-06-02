@@ -1,4 +1,4 @@
-#' General Interface for Single Layer Neural Network
+#' Single layer neural network
 #'
 #' @description
 #' `mlp()` creates a multilayer perceptron model (a.k.a. a single layer,

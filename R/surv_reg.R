@@ -1,4 +1,4 @@
-#' General Interface for Parametric Survival Models
+#' Parametric survival regression
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`

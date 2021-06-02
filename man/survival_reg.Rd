@@ -2,7 +2,7 @@
 % Please edit documentation in R/survival_reg.R
 \name{survival_reg}
 \alias{survival_reg}
-\title{General Interface for Parametric Survival Models}
+\title{Parametric survival regression}
 \usage{
 survival_reg(mode = "censored regression", dist = NULL)
 }

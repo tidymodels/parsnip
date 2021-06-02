@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_reg.R
 \name{surv_reg}
 \alias{surv_reg}
-\title{General Interface for Parametric Survival Models}
+\title{Parametric survival regression}
 \usage{
 surv_reg(mode = "regression", dist = NULL)
 }

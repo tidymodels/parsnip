@@ -2,7 +2,7 @@
 % Please edit documentation in R/nearest_neighbor.R
 \name{nearest_neighbor}
 \alias{nearest_neighbor}
-\title{General Interface for K-Nearest Neighbor Models}
+\title{K-nearest neighbor}
 \usage{
 nearest_neighbor(
   mode = "unknown",

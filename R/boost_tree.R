@@ -1,6 +1,6 @@
 # Prototype parsnip code for boosted trees
 
-#' General Interface for Boosted Trees
+#' Boosted trees
 #'
 #' @description
 #'

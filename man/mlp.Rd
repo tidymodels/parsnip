@@ -2,7 +2,7 @@
 % Please edit documentation in R/mlp.R
 \name{mlp}
 \alias{mlp}
-\title{General Interface for Single Layer Neural Network}
+\title{Single layer neural network}
 \usage{
 mlp(
   mode = "unknown",

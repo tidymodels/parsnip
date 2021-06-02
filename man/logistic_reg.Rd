@@ -2,7 +2,7 @@
 % Please edit documentation in R/logistic_reg.R
 \name{logistic_reg}
 \alias{logistic_reg}
-\title{General Interface for Logistic Regression Models}
+\title{Logistic regression}
 \usage{
 logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 }

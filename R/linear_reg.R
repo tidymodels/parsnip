@@ -1,4 +1,4 @@
-#' General Interface for Linear Regression Models
+#' Linear regression
 #'
 #' @description
 #'

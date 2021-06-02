@@ -1,4 +1,4 @@
-#' General Interface for K-Nearest Neighbor Models
+#' K-nearest neighbor
 #'
 #' @description
 #'

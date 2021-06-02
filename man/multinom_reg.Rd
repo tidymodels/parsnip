@@ -2,7 +2,7 @@
 % Please edit documentation in R/multinom_reg.R
 \name{multinom_reg}
 \alias{multinom_reg}
-\title{General Interface for Multinomial Regression Models}
+\title{Multinomial regression}
 \usage{
 multinom_reg(mode = "classification", penalty = NULL, mixture = NULL)
 }

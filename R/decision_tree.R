@@ -1,6 +1,6 @@
 # Prototype parsnip code for decision trees
 
-#' General Interface for Decision Tree Models
+#' Decision trees
 #'
 #' @description
 #' `decision_tree()` creates a model that is defined as a set of `if/then`

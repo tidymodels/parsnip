@@ -1,4 +1,4 @@
-#' General interface for linear support vector machines
+#' Linear support vector machines
 #'
 #' @description
 #'

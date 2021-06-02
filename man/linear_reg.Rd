@@ -2,7 +2,7 @@
 % Please edit documentation in R/linear_reg.R
 \name{linear_reg}
 \alias{linear_reg}
-\title{General Interface for Linear Regression Models}
+\title{Linear regression}
 \usage{
 linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
 }

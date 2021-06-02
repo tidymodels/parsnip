@@ -2,7 +2,7 @@
 % Please edit documentation in R/proportional_hazards.R
 \name{proportional_hazards}
 \alias{proportional_hazards}
-\title{General Interface for Proportional Hazards Models}
+\title{Proportional hazards regression}
 \usage{
 proportional_hazards(
   mode = "censored regression",
