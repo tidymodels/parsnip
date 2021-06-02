@@ -17,7 +17,7 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
-parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
+parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{tree_depth}{An integer for maximum depth of the tree.}
 

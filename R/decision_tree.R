@@ -18,7 +18,7 @@
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
 #' @param cost_complexity A positive number for the the cost/complexity
-#'   parameter (a.k.a. `Cp`) used by CART models (`rpart` only).
+#'   parameter (a.k.a. `Cp`) used by CART models (specific engines only).
 #' @param tree_depth An integer for maximum depth of the tree.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.

@@ -11,7 +11,7 @@ logistic_reg(mode = "classification", penalty = NULL, mixture = NULL)
 The only possible value for this model is "classification".}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{LiblineaR}, \code{keras}, and \code{spark} only).
+amount of regularization (specific engines only).
 For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be either or a combination
 of L1 and L2 (depending on the value of \code{mixture}).}
@@ -19,7 +19,7 @@ of L1 and L2 (depending on the value of \code{mixture}).}
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet}, \code{LiblineaR}, and \code{spark} only).
+ridge regression is being used. (specific engines only).
 For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 }
 \description{

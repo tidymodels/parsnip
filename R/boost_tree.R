@@ -21,23 +21,23 @@
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
 #' @param mtry A number for the number (or proportion) of predictors that will
-#'  be randomly sampled at each split when creating the tree models (`xgboost`
-#'  only).
+#'  be randomly sampled at each split when creating the tree models
+#' (specific engines only)
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that is required for the node to be split further.
 #' @param tree_depth An integer for the maximum depth of the tree (i.e. number
-#'  of splits) (`xgboost` only).
+#'  of splits) (specific engines only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration (`xgboost` only).
+#'   from iteration-to-iteration (specific engines only).
 #' @param loss_reduction A number for the reduction in the loss function required
-#'   to split further (`xgboost` only).
+#'   to split further (specific engines only).
 #' @param sample_size A number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at
 #'  each iteration while `C5.0` samples once during training.
 #' @param stop_iter The number of iterations without improvement before
-#'   stopping (`xgboost` only).
+#'   stopping (specific engines only).
 #' @details
 #' This function only defines what _type_ of model is being fit. Once an engine
 #'  is specified, the _method_ to fit the model is also defined.

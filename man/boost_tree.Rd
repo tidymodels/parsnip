@@ -22,8 +22,8 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models (\code{xgboost}
-only).}
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -32,20 +32,20 @@ the ensemble.}
 in a node that is required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
-of splits) (\code{xgboost} only).}
+of splits) (specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (\code{xgboost} only).}
+from iteration-to-iteration (specific engines only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further (\code{xgboost} only).}
+to split further (specific engines only).}
 
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
-stopping (\code{xgboost} only).}
+stopping (specific engines only).}
 }
 \description{
 \code{boost_tree()} defines a model that creates a series of decision trees that form an
