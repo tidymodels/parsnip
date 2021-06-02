@@ -29,92 +29,35 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 calculating Minkowski distance.}
 }
 \description{
-\code{nearest_neighbor()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R. The main arguments for the
-model are:
-\itemize{
-\item \code{neighbors}: The number of neighbors considered at
-each prediction.
-\item \code{weight_func}: The type of kernel function that weights the
-distances between samples.
-\item \code{dist_power}: The parameter used when calculating the Minkowski
-distance. This corresponds to the Manhattan distance with \code{dist_power = 1}
-and the Euclidean distance with \code{dist_power = 2}.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{nearest_neighbor()} defines a model that uses the K most similar data points
+from the training set to predict new samples.
+
+There are different ways to fit this model. Information about the available
+\emph{engines} that can be used for fitting at:
+
+\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("nearest_neighbor")}
+
+More information on how \code{parsnip} is used for model is at
+\url{https://www.tidymodels.org}.
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"kknn"}  (the default)
-}
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:
-\subsection{kknn}{\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor() \%>\% 
-  set_engine("kknn") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (regression)
-## 
-## Computational engine: kknn 
-## 
-## Model fit template:
-## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
-##     ks = min_rows(5, data, 5))
-}\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor() \%>\% 
-  set_engine("kknn") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (classification)
-## 
-## Computational engine: kknn 
-## 
-## Model fit template:
-## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
-##     ks = min_rows(5, data, 5))
-}
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-For \code{kknn}, the underlying modeling function used is a restricted
-version of \code{train.kknn()} and not \code{kknn()}. It is set up in this way so
-that \code{parsnip} can utilize the underlying \code{predict.train.kknn} method to
-predict on new data. This also means that a single value of that
-function’s \code{kernel} argument (a.k.a \code{weight_func} here) can be supplied
-
-For this engine, tuning over \code{neighbors} is very efficient since the
-same model object can be used to make predictions over multiple values
-of \code{neighbors}.
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{ll}{
-   \strong{parsnip} \tab \strong{kknn} \cr
-   neighbors \tab ks \cr
-   weight_func \tab kernel (optimal) \cr
-   dist_power \tab distance (2) \cr
-}
-
-}
-}
-
 \examples{
 show_engines("nearest_neighbor")
 
 nearest_neighbor(neighbors = 11)
 
 }
+\references{
+\url{https://www.tidymodels.org},
+\href{https://tmwr.org}{\emph{Tidy Models with R}}
+}
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
+\code{\link[=details_nearest_neighbor_kknn]{kknn engine details}}
 }

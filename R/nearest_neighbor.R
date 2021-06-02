@@ -1,28 +1,18 @@
-# TODO) If implementing `class::knn()`, mention that it does not have
-# the distance param because it uses Euclidean distance. And no `weight_func`
-# param.
-
 #' General Interface for K-Nearest Neighbor Models
 #'
-#' `nearest_neighbor()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{neighbors}: The number of neighbors considered at
-#'   each prediction.
-#'   \item \code{weight_func}: The type of kernel function that weights the
-#'   distances between samples.
-#'   \item \code{dist_power}: The parameter used when calculating the Minkowski
-#'   distance. This corresponds to the Manhattan distance with `dist_power = 1`
-#'   and the Euclidean distance with `dist_power = 2`.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#'
+#' `nearest_neighbor()` defines a model that uses the K most similar data points
+#' from the training set to predict new samples.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("nearest_neighbor")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org}.
+#'
 #' @param mode A single character string for the type of model.
 #' Possible values for this model are `"unknown"`, `"regression"`, or
 #' `"classification"`.
@@ -40,16 +30,16 @@
 #' calculating Minkowski distance.
 #'
 #' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"kknn"`  (the default)
-#' }
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' @includeRmd man/rmd/nearest-neighbor.Rmd details
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
-#'
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_nearest_neighbor_kknn]{kknn engine details}}
 #' @examples
 #' show_engines("nearest_neighbor")
 #'
