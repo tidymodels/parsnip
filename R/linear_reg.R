@@ -209,40 +209,6 @@ organize_glmnet_pred <- function(x, object) {
 
 
 # ------------------------------------------------------------------------------
-
-# For `predict` methods that use `glmnet`, we have specific methods.
-# Only one value of the penalty should be allowed when called by `predict()`:
-
-check_penalty <- function(penalty = NULL, object, multi = FALSE) {
-
-  if (is.null(penalty)) {
-    penalty <- object$fit$lambda
-  }
-
-  # when using `predict()`, allow for a single lambda
-  if (!multi) {
-    if (length(penalty) != 1)
-      rlang::abort(
-        glue::glue(
-          "`penalty` should be a single numeric value. `multi_predict()` ",
-          "can be used to get multiple predictions per row of data.",
-        )
-      )
-  }
-
-  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
-    rlang::abort(
-      glue::glue(
-        "The glmnet model was fit with a single penalty value of ",
-        "{object$fit$lambda}. Predicting with a value of {penalty} ",
-        "will give incorrect results from `glmnet()`."
-      )
-    )
-
-  penalty
-}
-
-# ------------------------------------------------------------------------------
 # glmnet call stack for linear regression using `predict` when object has
 # classes "_elnet" and "model_fit":
 #
