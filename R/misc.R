@@ -325,9 +325,41 @@ stan_conf_int <- function(object, newdata) {
 
 # ------------------------------------------------------------------------------
 
-# For `predict` methods that use `glmnet`, we have specific methods.
-# Only one value of the penalty should be allowed when called by `predict()`:
 
+#' Helper functions for checking the penalty of glmnet models
+#'
+#' @description
+#' `check_glmnet_penalty()` checks that the model specification for fitting a
+#' glmnet model contains a single value.
+#'
+#' `check_penalty()` checks that the penalty value used for prediction is valid.
+#' If called by `predict()`, it needs to be a single value. Multiple values are
+#' allowed for `multi_predict()`.
+#'
+#' @param x An object of class `model_spec`.
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
+check_glmnet_penalty <- function(x) {
+  pen <- rlang::eval_tidy(x$args$penalty)
+
+  if (length(pen) != 1) {
+    rlang::abort(c(
+      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
+      glue::glue("There are {length(pen)} values for `penalty`."),
+      "To try multiple values for total regularization, use the tune package.",
+      "To predict multiple penalties, use `multi_predict()`"
+    ))
+  }
+}
+
+#' @param penalty A penalty value to check.
+#' @param object An object of class `model_fit`.
+#' @param multi A logical indicating if multiple values are allowed.
+#'
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
 check_penalty <- function(penalty = NULL, object, multi = FALSE) {
 
   if (is.null(penalty)) {
@@ -355,17 +387,4 @@ check_penalty <- function(penalty = NULL, object, multi = FALSE) {
     )
 
   penalty
-}
-
-check_glmnet_penalty <- function(x) {
-  pen <- rlang::eval_tidy(x$args$penalty)
-
-  if (length(pen) != 1) {
-    rlang::abort(c(
-      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
-      glue::glue("There are {length(pen)} values for `penalty`."),
-      "To try multiple values for total regularization, use the tune package.",
-      "To predict multiple penalties, use `multi_predict()`"
-    ))
-  }
 }

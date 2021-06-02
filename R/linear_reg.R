@@ -207,7 +207,6 @@ organize_glmnet_pred <- function(x, object) {
   res
 }
 
-
 # ------------------------------------------------------------------------------
 # glmnet call stack for linear regression using `predict` when object has
 # classes "_elnet" and "model_fit":
