@@ -192,7 +192,18 @@ check_args.linear_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-organize_glmnet_pred <- function(x, object) {
+#' Organize glmnet predictions
+#'
+#' This function is for developer use and organizes predictions from glmnet
+#' models.
+#'
+#' @param x Predictions as returned by the `predict()` method for glmnet models.
+#' @param object An object of class `model_fit`.
+#'
+#' @rdname glmnet_helpers_prediction
+#' @keywords internal
+#' @export
+.organize_glmnet_pred <- function(x, object) {
   if (ncol(x) == 1) {
     res <- x[, 1]
     res <- unname(res)
