@@ -2,7 +2,7 @@
 #'
 #' @description
 #'
-#' `rand_forest()` a model that creates large number of decision trees, each
+#' `rand_forest()` defines a model that creates large number of decision trees, each
 #' independent of one another. The final prediction uses all predictions from
 #' the individual trees and combines them.
 #'
@@ -35,7 +35,7 @@
 #' @seealso [fit.model_spec()], [set_engine()], [update()],
 #' \code{\link[=details_rand_forest_ranger]{ranger engine details}},
 #' \code{\link[=details_rand_forest_randomForest]{randomForest engine details}},
-#' \code{\link[=details_rand_forest_spark]{spark engine details}},
+#' \code{\link[=details_rand_forest_spark]{spark engine details}}
 #'
 #' @examples
 #' show_engines("rand_forest")

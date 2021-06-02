@@ -1,21 +1,22 @@
 #' General interface for linear support vector machines
 #'
-#' `svm_linear()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{cost}: The cost of predicting a sample within or on the
-#'    wrong side of the margin.
-#'   \item \code{margin}: The epsilon in the SVM insensitive loss function
-#'    (regression only)
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#'
+#' `svm_linear()` defines a support vector machine model. For classification,
+#' these models try to maximize the width of the margin between classes.
+#' For regression, the model optimizes a robust loss function that is only
+#' affected by very large model residuals.
+#'
+#' This SVM model uses a linear function to create the decision boundary or
+#' regression line.
+#'
+#' There are different ways to fit this model. Information about the available
+#' _engines_ that can be used for fitting at:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("svm_linear")}
+#'
+#' More information on how `parsnip` is used for model is at
+#' \url{https://www.tidymodels.org}.
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
@@ -25,23 +26,21 @@
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
 #' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"LiblineaR"` (the default) or `"kernlab"`
-#' }
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @includeRmd man/rmd/svm-linear.Rmd details
-#'
-#' @importFrom purrr map_lgl
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_svm_linear_LiblineaR]{LiblineaR engine details}},
+#' \code{\link[=details_svm_linear_kernlab]{kernlab engine details}}
 #' @examples
 #' show_engines("svm_linear")
 #'
 #' svm_linear(mode = "classification")
-#' # Parameters can be represented by a placeholder:
-#' svm_linear(mode = "regression", cost = varying())
 #' @export
 
 svm_linear <-

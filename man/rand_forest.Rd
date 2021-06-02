@@ -21,7 +21,7 @@ the ensemble.}
 in a node that are required for the node to be split further.}
 }
 \description{
-\code{rand_forest()} a model that creates large number of decision trees, each
+\code{rand_forest()} defines a model that creates large number of decision trees, each
 independent of one another. The final prediction uses all predictions from
 the individual trees and combines them.
 
@@ -53,5 +53,5 @@ rand_forest(mode = "classification", trees = 2000)
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
 \code{\link[=details_rand_forest_ranger]{ranger engine details}},
 \code{\link[=details_rand_forest_randomForest]{randomForest engine details}},
-\code{\link[=details_rand_forest_spark]{spark engine details}},
+\code{\link[=details_rand_forest_spark]{spark engine details}}
 }
