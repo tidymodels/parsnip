@@ -329,10 +329,10 @@ stan_conf_int <- function(object, newdata) {
 #' Helper functions for checking the penalty of glmnet models
 #'
 #' @description
-#' `check_glmnet_penalty()` checks that the model specification for fitting a
+#' `check_glmnet_penalty_fit()` checks that the model specification for fitting a
 #' glmnet model contains a single value.
 #'
-#' `check_penalty()` checks that the penalty value used for prediction is valid.
+#' `check_glmnet_penalty_predict()` checks that the penalty value used for prediction is valid.
 #' If called by `predict()`, it needs to be a single value. Multiple values are
 #' allowed for `multi_predict()`.
 #'
@@ -340,7 +340,7 @@ stan_conf_int <- function(object, newdata) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-check_glmnet_penalty <- function(x) {
+check_glmnet_penalty_fit <- function(x) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
   if (length(pen) != 1) {
@@ -360,7 +360,7 @@ check_glmnet_penalty <- function(x) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-check_penalty <- function(penalty = NULL, object, multi = FALSE) {
+check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
 
   if (is.null(penalty)) {
     penalty <- object$fit$lambda
