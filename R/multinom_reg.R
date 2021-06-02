@@ -5,12 +5,12 @@
 #' `multinom_reg()` fits a model that uses linear predictors to predict multi-class
 #' data using the multinomial distribution.
 #'
-#' There are different ways to fit this model. Information about the available
-#' _engines_ that can be used for fitting at:
+#' There are different ways to fit this model. See the engine-specific pages 
+#' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("multinom_reg")}
 #'
-#' More information on how `parsnip` is used for model is at
+#' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
 #' @param mode A single character string for the type of model.

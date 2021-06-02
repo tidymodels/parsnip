@@ -69,6 +69,8 @@ boost_tree(
 
 `xgboost` does not have a means to translate factor predictors to grouped splits. Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via [fit.model_spec()], `parsnip` will convert factor columns to indicators using a one-hot encoding.
 
+Finally, in the classification mode, non-numeric outcomes (i.e., factors) are internally converted to numeric. For binary classification, the `event_level` argument of `set_engine()` can be set to either `"first"` or `"second"` to specify which level should be used as the event. This can be helpful when a watchlist is used to monitor performance from with the xgboost training process.  
+
 ## Other details
 
 ### Sparse matrices

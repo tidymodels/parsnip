@@ -10,12 +10,12 @@
 #' This SVM model uses a nonlinear function, defined by the radial basis function,
 #' to create the decision boundary or regression line.
 #'
-#' There are different ways to fit this model. Information about the available
-#' _engines_ that can be used for fitting at:
+#' There are different ways to fit this model. See the engine-specific pages 
+#' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("svm_rbf")}
 #'
-#' More information on how `parsnip` is used for model is at
+#' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
 #' @param mode A single character string for the type of model.
