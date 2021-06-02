@@ -5,7 +5,7 @@
 #' `multinom_reg()` fits a model that uses linear predictors to predict multi-class
 #' data using the multinomial distribution.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("multinom_reg")}
@@ -25,9 +25,19 @@
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
 #'  ridge regression is being used. (specific engines only).
 #' @details
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
+#' @seealso [fit.model_spec()], [set_engine()], [update()],
+#' \code{\link[=details_multinom_reg_glmnet]{glmnet engine details}},
+#' \code{\link[=details_multinom_reg_nnet]{nnet engine details}},
+#' \code{\link[=details_multinom_reg_keras]{keras engine details}},
+#' \code{\link[=details_multinom_reg_spark]{spark engine details}}
 #' @examples
 #' show_engines("multinom_reg")
 #'

@@ -32,12 +32,12 @@ calculating Minkowski distance.}
 \code{nearest_neighbor()} defines a model that uses the K most similar data points
 from the training set to predict new samples.
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("nearest_neighbor")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
 }
 \details{

@@ -25,22 +25,34 @@ ridge regression is being used. (specific engines only).}
 \code{multinom_reg()} fits a model that uses linear predictors to predict multi-class
 data using the multinomial distribution.
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("multinom_reg")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
 }
 \details{
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
 \examples{
 show_engines("multinom_reg")
 
 multinom_reg()
 }
+\references{
+\url{https://www.tidymodels.org},
+\href{https://tmwr.org}{\emph{Tidy Models with R}}
+}
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
+\code{\link[=details_multinom_reg_glmnet]{glmnet engine details}},
+\code{\link[=details_multinom_reg_nnet]{nnet engine details}},
+\code{\link[=details_multinom_reg_keras]{keras engine details}},
+\code{\link[=details_multinom_reg_spark]{spark engine details}}
 }

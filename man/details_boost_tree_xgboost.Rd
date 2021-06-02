@@ -107,6 +107,13 @@ numeric values (e.g., dummy or indicator variables) for this engine.
 When using the formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert factor
 columns to indicators using a one-hot encoding.
+
+Finally, in the classification mode, non-numeric outcomes (i.e.,
+factors) are internally converted to numeric. For binary classification,
+the \code{event_level} argument of \code{set_engine()} can be set to either
+\code{"first"} or \code{"second"} to specify which level should be used as the
+event. This can be helpful when a watchlist is used to monitor
+performance from with the xgboost training process.
 }
 
 \subsection{Other details}{

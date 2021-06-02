@@ -27,12 +27,12 @@ For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 linear combination of the predictors is used to model the log-odds of an
 event.
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("logistic_reg")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
 \details{
@@ -53,7 +53,7 @@ logistic_reg()
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_logistic_reg_lm]{lm engine details}},
+\code{\link[=details_logistic_reg_glm]{glm engine details}},
 \code{\link[=details_logistic_reg_glmnet]{glmnet engine details}},
 \code{\link[=details_logistic_reg_LiblineaR]{LiblineaR engine details}},
 \code{\link[=details_logistic_reg_stan]{stan engine details}},

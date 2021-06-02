@@ -38,12 +38,12 @@ function between the hidden and output layers is automatically set to either
 \code{mlp()} creates a multilayer perceptron model (a.k.a. a single layer,
 feed-forward neural network).
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mlp")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
 }
 \details{

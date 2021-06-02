@@ -36,9 +36,9 @@ ridge or weight decay).
 ##     hidden_units = 1, act = "linear")
 }
 
-\code{\link[=keras_mlp]{keras_mlp()}} is a \code{parsnip} wrapper around keras code
-for neural networks. This model fits a linear regression as a network
-with a single hidden unit.
+\code{\link[=keras_mlp]{keras_mlp()}} is a \code{parsnip} wrapper
+around keras code for neural networks. This model fits a linear
+regression as a network with a single hidden unit.
 }
 
 \subsection{Preprocessing requirements}{

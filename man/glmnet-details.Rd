@@ -50,9 +50,10 @@ penalty that the user specifies.
 \item \code{parsnip} fits the \code{glmnet} model without passing the penalty value
 to the \code{lambda} argument. This makes the whole coefficient path
 available for prediction.
-\item When \code{predict()} is used on the \code{parsnip} model fit, the saved value
-of the penalty is used.
-\item To make predictions at other values along the path, use the
+\item When \code{predict()} is used on the \code{parsnip} model fit without
+specifying the \code{penalty} value, the saved value of the penalty is
+used.
+\item To make predictions at multiple values along the path, use the
 \code{multi_predict()} function. Multiple predictions can be made
 simultaneously at different penalty values.
 }

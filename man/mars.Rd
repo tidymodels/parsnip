@@ -28,12 +28,12 @@ final model, including the intercept.}
 some predictors. These features resemble hinge functions and the result is
 a model that is a segmented regression in small dimensions.
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mars")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
 }
 \details{

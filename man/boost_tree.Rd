@@ -52,12 +52,12 @@ stopping (specific engines only).}
 ensemble. Each tree depends on the results of previous trees. All trees in
 the ensemble are combined into a final prediction.
 
-There are different ways to fit this model. Information about the available
-\emph{engines} that can be used for fitting at:
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("boost_tree")}
 
-More information on how \code{parsnip} is used for model is at
+More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
 \details{
