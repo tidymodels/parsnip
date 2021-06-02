@@ -317,20 +317,3 @@ predict_raw._multnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
-
-
-
-# ------------------------------------------------------------------------------
-
-# This checks as a pre-processor in the model data object
-check_glmnet_lambda <- function(dat, object) {
-  if (length(object$fit$lambda) > 1)
-    rlang::abort(
-      glue::glue(
-      "`predict()` doesn't work with multiple penalties (i.e. lambdas). ",
-      "Please specify a single value using `penalty = some_value` or use ",
-      "`multi_predict()` to get multiple predictions per row of data."
-      )
-    )
-  dat
-}
