@@ -32,7 +32,7 @@ this model. The \code{multilevelmod} package contains additional engines for
 \code{linear_reg()}.
 
 More information on how \code{parsnip} is used for model is at
-\url{https://www.tidymodels.org/}.
+\url{https://www.tidymodels.org}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

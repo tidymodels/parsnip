@@ -1,0 +1,76 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("rand_forest", "randomForest")`
+
+## Tuning Parameters
+
+```{r randomForest-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
+                 default = c("see below", "500L", "see below"))
+
+param <-
+  rand_forest() %>% 
+  set_engine("randomForest") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r randomForest-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+`mtry` depends on the number of columns and the model mode. The default in [randomForest::randomForest()] is `floor(sqrt(ncol(x)))` for classification and `floor(ncol(x)/3)` for regression.
+
+`min_n` depends on the mode. For regression, a value of 5 is the default. For classification, a value of 10 is used. 
+
+## Translation from parsnip to the original package (regression)
+
+```{r randomForest-reg}
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) %>%  
+  set_engine("randomForest") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+`min_rows()` and `min_cols()` will adjust the number of neighbors if the chosen value if it is not consistent with the actual data dimensions.
+
+## Translation from parsnip to the original package (classification)
+
+```{r randomForest-cls}
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) %>% 
+  set_engine("randomForest") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-split-factors.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+
