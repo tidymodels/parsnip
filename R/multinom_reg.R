@@ -222,7 +222,7 @@ predict._multnet <-
       penalty <- object$spec$args$penalty
     }
 
-    object$spec$args$penalty <- check_glmnet_penalty_predict(penalty, object, multi)
+    object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
 
     object$spec <- eval_args(object$spec)
     res <- predict.model_fit(
