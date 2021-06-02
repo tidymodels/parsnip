@@ -71,8 +71,6 @@ with the data.
 show_engines("boost_tree")
 
 boost_tree(mode = "classification", trees = 20)
-# Parameters can be represented by a placeholder:
-boost_tree(mode = "regression", mtry = varying())
 }
 \references{
 \url{https://www.tidymodels.org},

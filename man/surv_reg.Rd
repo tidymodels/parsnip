@@ -113,15 +113,6 @@ parameter.\tabular{lll}{
 show_engines("surv_reg")
 
 surv_reg()
-# Parameters can be represented by a placeholder:
-surv_reg(dist = varying())
-
-# ->
-show_engines("survival_reg")
-
-survival_reg()
-# Parameters can be represented by a placeholder:
-survival_reg(dist = varying())
 
 }
 \references{

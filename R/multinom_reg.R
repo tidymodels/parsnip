@@ -32,8 +32,6 @@
 #' show_engines("multinom_reg")
 #'
 #' multinom_reg()
-#' # Parameters can be represented by a placeholder:
-#' multinom_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 multinom_reg <-

@@ -57,8 +57,6 @@ with the data.
 show_engines("mlp")
 
 mlp(mode = "classification", penalty = 0.01)
-# Parameters can be represented by a placeholder:
-mlp(mode = "regression", hidden_units = varying())
 }
 \references{
 \url{https://www.tidymodels.org},

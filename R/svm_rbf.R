@@ -41,8 +41,6 @@
 #' show_engines("svm_rbf")
 #'
 #' svm_rbf(mode = "classification", rbf_sigma = 0.2)
-#' # Parameters can be represented by a placeholder:
-#' svm_rbf(mode = "regression", cost = varying())
 #' @export
 
 svm_rbf <-

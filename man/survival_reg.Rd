@@ -39,8 +39,6 @@ survival model be specified via the formula interface.
 }
 \examples{
 survival_reg()
-# Parameters can be represented by a placeholder:
-survival_reg(dist = varying())
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}

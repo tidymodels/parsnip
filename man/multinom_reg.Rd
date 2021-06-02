@@ -40,8 +40,6 @@ More information on how \code{parsnip} is used for model is at
 show_engines("multinom_reg")
 
 multinom_reg()
-# Parameters can be represented by a placeholder:
-multinom_reg(penalty = varying())
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
