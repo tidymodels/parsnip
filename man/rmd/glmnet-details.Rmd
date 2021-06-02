@@ -27,7 +27,7 @@ To achieve both of these goals, `parsnip` does the following:
 
 * When `predict()` is used on the `parsnip` model fit without specifying the `penalty` value, the saved value of the penalty is used. 
 
-* To make predictions at other values along the path, use the `multi_predict()` function. Multiple predictions can be made simultaneously at different penalty values. 
+* To make predictions at multiple values along the path, use the `multi_predict()` function. Multiple predictions can be made simultaneously at different penalty values. 
 
 For example, let's fit a small model to the Chicago train ridership data with a 50/50 combination of L1 and L2 penalties. The model specification will use a total penalty of 0.01.
 
