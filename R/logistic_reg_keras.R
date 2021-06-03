@@ -1,6 +1,6 @@
 #' Logistic regression via keras
 #'
-#' [keras_mlp(()] fits a generalized linear model for binary outcomes. A
+#' [keras_mlp()] fits a generalized linear model for binary outcomes. A
 #' linear combination of the predictors is used to model the log-odds of an
 #' event.
 #'

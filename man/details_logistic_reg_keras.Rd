@@ -4,7 +4,7 @@
 \alias{details_logistic_reg_keras}
 \title{Logistic regression via keras}
 \description{
-\code{\link[=keras_mlp(]{keras_mlp(()}} fits a generalized linear model for binary outcomes. A
+\code{\link[=keras_mlp]{keras_mlp()}} fits a generalized linear model for binary outcomes. A
 linear combination of the predictors is used to model the log-odds of an
 event.
 }
@@ -36,9 +36,9 @@ ridge or weight decay).
 ##     hidden_units = 1, act = "linear")
 }
 
-\code{\link[=keras_mlp]{keras_mlp()}} is a \code{parsnip} wrapper
-around keras code for neural networks. This model fits a linear
-regression as a network with a single hidden unit.
+\code{\link[=keras_mlp]{keras_mlp()}} is a \code{parsnip} wrapper around keras code
+for neural networks. This model fits a linear regression as a network
+with a single hidden unit.
 }
 
 \subsection{Preprocessing requirements}{
