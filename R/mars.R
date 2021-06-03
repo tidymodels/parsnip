@@ -9,7 +9,7 @@
 #' There are different ways to fit this model. See the engine-specific pages 
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mars")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
 #'
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
@@ -30,8 +30,7 @@
 #'
 #' @references \url{https://www.tidymodels.org},
 #' [_Tidy Models with R_](https://tmwr.org)
-#' @seealso [fit.model_spec()], [set_engine()], [update()],
-#' \code{\link[=details_mars_earth]{earth engine details}}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
 #' @examples
 #' show_engines("mars")
 #'

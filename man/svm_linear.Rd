@@ -29,7 +29,7 @@ regression line.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("svm_linear")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_linear")}
 
 More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
@@ -51,7 +51,5 @@ svm_linear(mode = "classification")
 \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_svm_linear_LiblineaR]{LiblineaR engine details}},
-\code{\link[=details_svm_linear_kernlab]{kernlab engine details}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_linear")}
 }

@@ -25,7 +25,7 @@ predictors using a linear function.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 
 More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
@@ -47,10 +47,5 @@ linear_reg()
 \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_linear_reg_lm]{lm engine details}},
-\code{\link[=details_linear_reg_glmnet]{glmnet engine details}},
-\code{\link[=details_linear_reg_stan]{stan engine details}},
-\code{\link[=details_linear_reg_keras]{keras engine details}},
-\code{\link[=details_linear_reg_spark]{spark engine details}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("linear_reg")}
 }

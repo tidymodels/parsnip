@@ -8,7 +8,7 @@
 #' There are different ways to fit this model. See the engine-specific pages 
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("linear_reg")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 #'
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
@@ -30,12 +30,7 @@
 #'
 #' @references \url{https://www.tidymodels.org},
 #' [_Tidy Models with R_](https://tmwr.org)
-#' @seealso [fit.model_spec()], [set_engine()], [update()],
-#' \code{\link[=details_linear_reg_lm]{lm engine details}},
-#' \code{\link[=details_linear_reg_glmnet]{glmnet engine details}},
-#' \code{\link[=details_linear_reg_stan]{stan engine details}},
-#' \code{\link[=details_linear_reg_keras]{keras engine details}},
-#' \code{\link[=details_linear_reg_spark]{spark engine details}}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("linear_reg")}
 #' @examples
 #' show_engines("linear_reg")
 #'

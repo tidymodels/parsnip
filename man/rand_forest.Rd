@@ -28,7 +28,7 @@ the individual trees and combines them.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("rand_forest")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 
 More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
@@ -50,8 +50,5 @@ rand_forest(mode = "classification", trees = 2000)
 \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_rand_forest_ranger]{ranger engine details}},
-\code{\link[=details_rand_forest_randomForest]{randomForest engine details}},
-\code{\link[=details_rand_forest_spark]{spark engine details}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
 }

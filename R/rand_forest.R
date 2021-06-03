@@ -9,7 +9,7 @@
 #' There are different ways to fit this model. See the engine-specific pages 
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("rand_forest")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 #'
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
@@ -32,10 +32,7 @@
 #'
 #' @references \url{https://www.tidymodels.org},
 #' [_Tidy Models with R_](https://tmwr.org)
-#' @seealso [fit.model_spec()], [set_engine()], [update()],
-#' \code{\link[=details_rand_forest_ranger]{ranger engine details}},
-#' \code{\link[=details_rand_forest_randomForest]{randomForest engine details}},
-#' \code{\link[=details_rand_forest_spark]{spark engine details}}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
 #'
 #' @examples
 #' show_engines("rand_forest")

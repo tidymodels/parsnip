@@ -8,10 +8,10 @@
 #' ensemble. Each tree depends on the results of previous trees. All trees in
 #' the ensemble are combined into a final prediction.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("boost_tree")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
 #'
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -48,11 +48,8 @@
 #' @importFrom purrr map_lgl
 #' @references \url{https://www.tidymodels.org},
 #' [_Tidy Models with R_](https://tmwr.org)
-#' @seealso [fit.model_spec()], [set_engine()], [xgb_train()], [C5.0_train()],
-#' [update()],
-#' \code{\link[=details_boost_tree_xgboost]{xgboost engine details}},
-#' \code{\link[=details_boost_tree_C5.0]{C5.0 engine details}},
-#' \code{\link[=details_boost_tree_spark]{spark engine details}}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
+#' [xgb_train()], [C5.0_train()]
 #' @examples
 #' show_engines("boost_tree")
 #'

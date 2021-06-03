@@ -35,7 +35,7 @@ from the training set to predict new samples.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("nearest_neighbor")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 
 More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
@@ -58,6 +58,5 @@ nearest_neighbor(neighbors = 11)
 \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_nearest_neighbor_kknn]{kknn engine details}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
 }

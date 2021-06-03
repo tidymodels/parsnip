@@ -9,7 +9,7 @@
 #' There are different ways to fit this model. See the engine-specific pages 
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("decision_tree")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
 #'
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
@@ -31,10 +31,7 @@
 #'
 #' @references \url{https://www.tidymodels.org},
 #' [_Tidy Models with R_](https://tmwr.org)
-#' @seealso [fit.model_spec()], [set_engine()], [update()],
-#' \code{\link[=details_decision_tree_rpart]{rpart engine details}},
-#' \code{\link[=details_decision_tree_C5.0]{C5.0 engine details}},
-#' \code{\link[=details_decision_tree_spark]{spark engine details}}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 #' @examples
 #' show_engines("decision_tree")
 #'

@@ -954,9 +954,14 @@ get_encoding <- function(model) {
 }
 
 #' Tools for documenting packages
+#'
+#' These are internal functions used to create dynamic documentation in Rd files
+#' based on which parsnip-related packages are loaded at any given time.
+#'
 #' @param mod A character string for the model file
-#' @return `find_engine_files()` returns a character string that creates a
-#' bulletted list of links to more specific help files.
+#' @return `make_engine_list()` returns a character string that creates a
+#' bulletted list of links to more specific help files. `find_engine_files()`
+#' returns a tibble.
 #' @details
 #' This function can be used to make dynamic lists of documentation help
 #'  files. \pkg{parsnip} uses this along with files contained in `man/rmd` that
@@ -968,7 +973,8 @@ get_encoding <- function(model) {
 #' @keywords internal
 #' @export
 #' @examples
-#' cat(find_engine_files("linear_reg"))
+#' find_engine_files("linear_reg")
+#' cat(make_engine_list("linear_reg"))
 find_engine_files <- function(mod) {
 
   # Get available topics
@@ -987,6 +993,13 @@ find_engine_files <- function(mod) {
   all_eng$.order <- 1:nrow(all_eng)
   eng <- dplyr::left_join(eng, all_eng, by = "engine")
   eng <- eng[order(eng$.order),]
+  eng
+}
+
+#' @export
+#' @rdname find_engine_files
+make_engine_list <- function(mod) {
+  eng <- find_engine_files(mod)
 
   res <-
     glue::glue("  \\item \\code{\\link[=|eng$topic|]{|eng$engine|}} ",
@@ -996,7 +1009,23 @@ find_engine_files <- function(mod) {
   res
 }
 
-# These will never have documentation and we can avoid searhcing them.
+#' @export
+#' @rdname find_engine_files
+make_seealso_list <- function(mod) {
+  eng <- find_engine_files(mod)
+
+  res <-
+    glue::glue("\\code{\\link[=|eng$topic|]{|eng$engine| engine details}}",
+               .open = "|", .close = "|")
+
+  main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
+            "\\code{\\link[=set_engine]{set_engine()}}",
+            "\\code{\\link[=update]{update()}}"
+            )
+  paste0(c(main, res), collapse = ", ")
+}
+
+# These will never have documentation and we can avoid searching them.
 excl_pkgs <-
   c("C50", "Cubist", "earth", "flexsurv", "forecast", "glmnet",
     "keras", "kernlab", "kknn", "klaR", "LiblineaR", "liquidSVM",

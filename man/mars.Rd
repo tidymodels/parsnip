@@ -31,7 +31,7 @@ a model that is a segmented regression in small dimensions.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::find_engine_files("mars")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
 
 More information on how \code{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org}.
@@ -53,6 +53,5 @@ mars(mode = "regression", num_terms = 5)
 \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}},
-\code{\link[=details_mars_earth]{earth engine details}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
 }

@@ -11,11 +11,13 @@ find_engine_files(mod)
 \item{mod}{A character string for the model file}
 }
 \value{
-\code{find_engine_files()} returns a character string that creates a
-bulletted list of links to more specific help files.
+\code{make_engine_list()} returns a character string that creates a
+bulletted list of links to more specific help files. \code{find_engine_files()}
+returns a tibble.
 }
 \description{
-Tools for documenting packages
+These are internal functions used to create dynamic documentation in Rd files
+based on which parsnip-related packages are loaded at any given time.
 }
 \details{
 This function can be used to make dynamic lists of documentation help
@@ -26,6 +28,7 @@ have expanded documentation for specific model/engine combinations.
 named \verb{man/rmd/details_\{model\}_\{engine\}.Rmd}.
 }
 \examples{
-cat(find_engine_files("linear_reg"))
+find_engine_files("linear_reg")
+cat(make_engine_list("linear_reg"))
 }
 \keyword{internal}
