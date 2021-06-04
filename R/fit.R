@@ -11,7 +11,7 @@
 #'
 #' @param object An object of class `model_spec` that has a chosen engine
 #'  (via [set_engine()]).
-#' @param formula An object of class "formula" (or one that can
+#' @param formula An object of class `formula` (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
 #' @param data Optional, depending on the interface (see Details

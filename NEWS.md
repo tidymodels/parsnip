@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* The helper functions `.convert_form_to_xy_fit()`, `.convert_form_to_xy_new()`, `.convert_xy_to_form_fit()`, and  `.convert_xy_to_form_new()` for converting between formula and matrix interface are now exported for developer use (#508).
+
 # parsnip 0.1.6
 
 ## Model Specification Changes
