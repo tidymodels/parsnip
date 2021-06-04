@@ -2,6 +2,7 @@
 
 #' Helper functions to convert between formula and matrix interface
 #'
+#' @description
 #' Functions to take a formula interface and get the resulting
 #' objects (y, x, weights, etc) back or the other way around. The functions are
 #' intended for developer use. For the most part, this emulates the internals

@@ -77,8 +77,7 @@ objects (y, x, weights, etc) back or the other way around. The functions are
 intended for developer use. For the most part, this emulates the internals
 of \code{lm} (and also see the notes at
 https://developer.r-project.org/model-fitting-functions.html).
-}
-\details{
+
 \code{.convert_form_to_xy_fit()} and \code{.convert_xy_to_form_fit()} are for when the
 data are created for modeling.
 \code{.convert_form_to_xy_fit()} saves both the data objects as well as the objects
