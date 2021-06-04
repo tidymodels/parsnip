@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model Fit Object Information — model_fit • parsnip</title>
+<title>Helper functions to convert between formula and matrix interface — .convert_form_to_xy_fit • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,18 @@
 
 
 
-<meta property="og:title" content="Model Fit Object Information — model_fit" />
-<meta property="og:description" content="An object with class &quot;model_fit&quot; is a container for
-information about a model that has been fit to the data." />
+<meta property="og:title" content="Helper functions to convert between formula and matrix interface — .convert_form_to_xy_fit" />
+<meta property="og:description" content="Functions to take a formula interface and get the resulting
+objects (y, x, weights, etc) back or the other way around. The functions are
+intended for developer use. For the most part, this emulates the internals
+of lm() (and also see the notes at
+https://developer.r-project.org/model-fitting-functions.html).
+.convert_form_to_xy_fit() and .convert_xy_to_form_fit() are for when the
+data are created for modeling.
+.convert_form_to_xy_fit() saves both the data objects as well as the objects
+needed when new data are predicted (e.g. terms, etc.).
+.convert_form_to_xy_new() and .convert_xy_to_form_new() are used when new
+samples are being predicted and only require the predictors to be available." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,76 +160,121 @@ information about a model that has been fit to the data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model Fit Object Information</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/model_object_docs.R'><code>R/model_object_docs.R</code></a></small>
-    <div class="hidden name"><code>model_fit.Rd</code></div>
+    <h1>Helper functions to convert between formula and matrix interface</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/convert_data.R'><code>R/convert_data.R</code></a></small>
+    <div class="hidden name"><code>convert_helpers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An object with class "model_fit" is a container for
-information about a model that has been fit to the data.</p>
+    <p>Functions to take a formula interface and get the resulting
+objects (y, x, weights, etc) back or the other way around. The functions are
+intended for developer use. For the most part, this emulates the internals
+of <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code> (and also see the notes at
+https://developer.r-project.org/model-fitting-functions.html).</p>
+<p><code>.convert_form_to_xy_fit()</code> and <code>.convert_xy_to_form_fit()</code> are for when the
+data are created for modeling.
+<code>.convert_form_to_xy_fit()</code> saves both the data objects as well as the objects
+needed when new data are predicted (e.g. <code>terms</code>, etc.).</p>
+<p><code>.convert_form_to_xy_new()</code> and <code>.convert_xy_to_form_new()</code> are used when new
+samples are being predicted and only require the predictors to be available.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>.convert_form_to_xy_fit</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  <span class='va'>...</span>,
+  na.action <span class='op'>=</span> <span class='va'>na.omit</span>,
+  indicators <span class='op'>=</span> <span class='st'>"traditional"</span>,
+  composition <span class='op'>=</span> <span class='st'>"data.frame"</span>,
+  remove_intercept <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+
+<span class='fu'>.convert_form_to_xy_new</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>new_data</span>,
+  na.action <span class='op'>=</span> <span class='va'>na.pass</span>,
+  composition <span class='op'>=</span> <span class='st'>"data.frame"</span>
+<span class='op'>)</span>
+
+<span class='fu'>.convert_xy_to_form_fit</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  y_name <span class='op'>=</span> <span class='st'>"..y"</span>,
+  remove_intercept <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+
+<span class='fu'>.convert_xy_to_form_new</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>formula</th>
+      <td><p>An object of class <code>formula</code> (or one that can
+be coerced to that class): a symbolic description of the model
+to be fitted.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame containing all relevant variables (e.g. outcome(s),
+predictors, case weights, etc).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='https://rdrr.io/r/stats/model.frame.html'>stats::model.frame()</a></code> and
+specification of <code>offset</code> and <code>contrasts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>na.action</th>
+      <td><p>A function which indicates what should happen when the data
+contain NAs.</p></td>
+    </tr>
+    <tr>
+      <th>indicators</th>
+      <td><p>A string describing whether and how to create
+indicator/dummy variables from factor predictors. Possible options are
+<code>"none"</code>, <code>"traditional"</code>, and <code>"one_hot"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>composition</th>
+      <td><p>A string describing whether the resulting <code>x</code> and <code>y</code>
+should be returned as a <code>"matrix"</code> or a <code>"data.frame"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>remove_intercept</th>
+      <td><p>A logical indicating whether to remove the intercept
+column after <code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> is finished.</p></td>
+    </tr>
+    <tr>
+      <th>object</th>
+      <td><p>An object of class <code>model_fit</code>.</p></td>
+    </tr>
+    <tr>
+      <th>new_data</th>
+      <td><p>A rectangular data object, such as a data frame.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A matrix, sparse matrix, or data frame of predictors. Only some
+models have support for sparse matrix input. See <code><a href='set_new_model.html'>parsnip::get_encoding()</a></code>
+for details. <code>x</code> should have column names.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>A vector, matrix or data frame of outcome data.</p></td>
+    </tr>
+    <tr>
+      <th>weights</th>
+      <td><p>A numeric vector containing the weights.</p></td>
+    </tr>
+    <tr>
+      <th>y_name</th>
+      <td><p>A string specifying the name of the outcome.</p></td>
+    </tr>
+    </table>
 
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The main elements of the object are:</p><ul>
-<li><p><code>lvl</code>: A vector of factor levels when the outcome is
-a factor. This is <code>NULL</code> when the outcome is not a factor
-vector.</p></li>
-<li><p><code>spec</code>: A <code>model_spec</code> object.</p></li>
-<li><p><code>fit</code>: The object produced by the fitting function.</p></li>
-<li><p><code>preproc</code>: This contains any data-specific information
-required to process new a sample point for prediction. For
-example, if the underlying model function requires arguments <code>x</code>
-and <code>y</code> and the user passed a formula to <code>fit</code>, the <code>preproc</code>
-object would contain items such as the terms object and so on.
-When no information is required, this is <code>NA</code>.</p></li>
-</ul>
-
-<p>As discussed in the documentation for <code><a href='model_spec.html'>model_spec</a></code>, the
-original arguments to the specification are saved as quosures.
-These are evaluated for the <code>model_fit</code> object prior to fitting.
-If the resulting model object prints its call, any user-defined
-options are shown in the call preceded by a tilde (see the
-example below). This is a result of the use of quosures in the
-specification.</p>
-<p>This class and structure is the basis for how <span class="pkg">parsnip</span>
-stores model objects after seeing the data and applying a model.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Keep the `x` matrix if the data are not too big.</span>
-<span class='va'>spec_obj</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='linear_reg.html'>linear_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"lm"</span>, x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='descriptors.html'>.obs</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>500</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>spec_obj</span>
-</div><div class='output co'>#&gt; Linear Regression Model Specification (regression)
-#&gt; 
-#&gt; Engine-Specific Arguments:
-#&gt;   x = ifelse(.obs() &lt; 500, TRUE, FALSE)
-#&gt; 
-#&gt; Computational engine: lm 
-#&gt; </div><div class='input'>
-<span class='va'>fit_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>spec_obj</span>, <span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>fit_obj</span>
-</div><div class='output co'>#&gt; parsnip model object
-#&gt; 
-#&gt; Fit time:  4ms 
-#&gt; 
-#&gt; Call:
-#&gt; stats::lm(formula = mpg ~ ., data = data, x = ~ifelse(.obs() &lt; 
-#&gt;     500, TRUE, FALSE))
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)          cyl         disp           hp         drat           wt  
-#&gt;    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  
-#&gt;        qsec           vs           am         gear         carb  
-#&gt;     0.82104      0.31776      2.52023      0.65541     -0.19942  
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>fit_obj</span><span class='op'>$</span><span class='va'>fit</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 32</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
