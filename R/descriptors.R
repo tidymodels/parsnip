@@ -116,9 +116,9 @@ get_descr_df <- function(formula, data) {
 
   tmp_dat <-
     .convert_form_to_xy_fit(formula,
-                           data,
-                           indicators = "none",
-                           remove_intercept = TRUE)
+                            data,
+                            indicators = "none",
+                            remove_intercept = TRUE)
 
   if(is.factor(tmp_dat$y)) {
     .lvls <- function() {
