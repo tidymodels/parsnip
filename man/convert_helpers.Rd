@@ -76,7 +76,7 @@ for details. \code{x} should have column names.}
 Functions to take a formula interface and get the resulting
 objects (y, x, weights, etc) back or the other way around. The functions are
 intended for developer use. For the most part, this emulates the internals
-of \code{lm} (and also see the notes at
+of \code{lm()} (and also see the notes at
 https://developer.r-project.org/model-fitting-functions.html).
 
 \code{.convert_form_to_xy_fit()} and \code{.convert_xy_to_form_fit()} are for when the
