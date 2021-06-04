@@ -6,7 +6,7 @@
 #' Functions to take a formula interface and get the resulting
 #' objects (y, x, weights, etc) back or the other way around. The functions are
 #' intended for developer use. For the most part, this emulates the internals
-#' of `lm` (and also see the notes at
+#' of `lm()` (and also see the notes at
 #' https://developer.r-project.org/model-fitting-functions.html).
 #'
 #' `.convert_form_to_xy_fit()` and `.convert_xy_to_form_fit()` are for when the
@@ -418,4 +418,3 @@ maybe_data_frame <- function(x) {
   }
   x
 }
-
