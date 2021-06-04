@@ -24,7 +24,8 @@
 #' @param na.action A function which indicates what should happen when the data
 #'   contain NAs.
 #' @param indicators A string describing whether and how to create
-#'   indicator/dummy variables from factor predictors.
+#'   indicator/dummy variables from factor predictors. Possible options are
+#'   `"none"`, `"traditional"`, and `"one_hot"`.
 #' @param composition A string describing whether the resulting `x` and `y`
 #'   should be returned as a `"matrix"` or a `"data.frame"`.
 #' @param remove_intercept A logical indicating whether to remove the intercept

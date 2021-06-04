@@ -49,7 +49,8 @@ specification of \code{offset} and \code{contrasts}.}
 contain NAs.}
 
 \item{indicators}{A string describing whether and how to create
-indicator/dummy variables from factor predictors.}
+indicator/dummy variables from factor predictors. Possible options are
+\code{"none"}, \code{"traditional"}, and \code{"one_hot"}.}
 
 \item{composition}{A string describing whether the resulting \code{x} and \code{y}
 should be returned as a \code{"matrix"} or a \code{"data.frame"}.}
