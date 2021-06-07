@@ -56,34 +56,35 @@
 #' augment(cls_xy, cls_tst[, -3])
 #'
 augment.model_fit <- function(x, new_data, ...) {
+  ret <- new_data
   if (x$spec$mode == "regression") {
     check_spec_pred_type(x, "numeric")
-    new_data <-
-      new_data %>%
+    ret <-
+      ret %>%
       dplyr::bind_cols(
         predict(x, new_data = new_data)
       )
     if (length(x$preproc$y_var) > 0) {
       y_nm <- x$preproc$y_var
       if (any(names(new_data) == y_nm)) {
-        new_data <- dplyr::mutate(new_data, .resid = !!rlang::sym(y_nm) - .pred)
+        ret <- dplyr::mutate(ret, .resid = !!rlang::sym(y_nm) - .pred)
       }
     }
   } else if (x$spec$mode == "classification") {
     if (spec_has_pred_type(x, "class")) {
-      new_data <- dplyr::bind_cols(
-        new_data,
+      ret <- dplyr::bind_cols(
+        ret,
         predict(x, new_data = new_data, type = "class")
       )
     }
     if (spec_has_pred_type(x, "prob")) {
-      new_data <- dplyr::bind_cols(
-        new_data,
+      ret <- dplyr::bind_cols(
+        ret,
         predict(x, new_data = new_data, type = "prob")
       )
     }
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
-  as_tibble(new_data)
+  as_tibble(ret)
 }
