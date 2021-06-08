@@ -158,7 +158,8 @@
 <a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li>The helper functions <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_fit()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_new()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_fit()</a></code>, and <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_new()</a></code> for converting between formula and matrix interface are now exported for developer use (<a href='https://github.com/tidymodels/parsnip/issues/508'>#508</a>).</li>
+<li><p>The helper functions <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_fit()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_new()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_fit()</a></code>, and <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_new()</a></code> for converting between formula and matrix interface are now exported for developer use (<a href='https://github.com/tidymodels/parsnip/issues/508'>#508</a>).</p></li>
+<li><p>Fix bug in <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> when non-predictor, non-outcome variables are included in data (<a href='https://github.com/tidymodels/parsnip/issues/510'>#510</a>).</p></li>
 </ul>
 </div>
     <div id="parsnip-016" class="section level1">
@@ -181,7 +182,6 @@
 <li><p>The xgboost engine for boosted trees was translating <code>mtry</code> to xgboost’s <code>colsample_bytree</code>. We now map <code>mtry</code> to <code>colsample_bynode</code> since that is more consistent with how random forest works. <code>colsample_bytree</code> can still be optimized by passing it in as an engine argument. <code>colsample_bynode</code> was added to xgboost after the <code>parsnip</code> package code was written. (<a href='https://github.com/tidymodels/parsnip/issues/495'>#495</a>)</p></li>
 <li><p>For xgboost, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions, while <code>subsample</code> and <code>validation</code> should always be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> (<code>TRUE</code> or <code>FALSE</code>) that states which scale for <code>mtry</code> and <code>colsample_bytree</code> is being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
 </ul>
-<p>r</p>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
