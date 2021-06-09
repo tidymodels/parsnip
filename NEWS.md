@@ -24,7 +24,11 @@ r
 
 * `set_mode()` now checks if `mode` is compatible with the model class, similar to `new_model_spec()` (@jtlandis, #467). Both `set_mode()` and `set_engine()` now error for `NULL` or missing arguments (#503).
 
-* Re-organized model documentation for `update` methods (#479).
+* Re-organized model documentation:
+
+   * `update` methods were moved out of the model help files (#479).
+   * Each model/engine combination has it's own help page. 
+   * The model help page has a dynamic bulleted list of the engines with links to the individual help pages. 
 
 * `generics::required_pkgs()` was extended for `parsnip` objects. 
 

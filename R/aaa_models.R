@@ -1002,6 +1002,8 @@ get_encoding <- function(model) {
 #'   1. Run [devtools::document()] so that the Rmd content is included in the
 #'  Rd file.
 #'
+#' The examples in `parsnip` can provide non-technical guidance for how to
+#' better organize technical information about the models.
 #' @name doc-tools
 #' @keywords internal
 #' @export

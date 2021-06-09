@@ -38,26 +38,7 @@ is defined. For example, for linear regression:\if{html}{\out{<div class="r">}}\
 
 When the \code{predict()} method is called, it automatically uses the penalty
 that was given when the model was defined. For example:\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
-}\if{html}{\out{</div>}}\preformatted{## ── Attaching packages ───────────────────────────────── tidymodels 0.1.3.9000 ──
-
-## ✓ broom        0.7.6      ✓ tibble       3.1.2 
-## ✓ ggplot2      3.3.3      ✓ tidyr        1.1.3 
-## ✓ infer        0.5.4      ✓ workflows    0.2.2 
-## ✓ purrr        0.3.4      ✓ workflowsets 0.0.2 
-## ✓ recipes      0.1.16     ✓ yardstick    0.0.8 
-## ✓ rsample      0.1.0
-
-## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-## x purrr::discard()                masks scales::discard()
-## x dplyr::filter()                 masks stats::filter()
-## x dplyr::lag()                    masks stats::lag()
-## x parsnip::library.dynam.unload() masks base::library.dynam.unload()
-## x recipes::names0()               masks parsnip::names0()
-## x recipes::step()                 masks stats::step()
-## x devtools_shims::system.file()   masks parsnip::system.file(), base::system.file()
-## • Use tidymodels_prefer() to resolve common conflicts.
-## • Find functions using utils::browseURL("http://bit.ly/tm-funcs")
-}\if{html}{\out{<div class="r">}}\preformatted{fit <- 
+fit <- 
   linear_reg(penalty = 1) \%>\% 
   set_engine("glmnet") \%>\% 
   fit(mpg ~ ., data = mtcars)

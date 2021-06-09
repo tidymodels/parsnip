@@ -60,6 +60,9 @@ required when the documentation file is created locally (probably using
 \item Run \code{\link[devtools:document]{devtools::document()}} so that the Rmd content is included in the
 Rd file.
 }
+
+The examples in \code{parsnip} can provide non-technical guidance for how to
+better organize technical information about the models.
 }
 \examples{
 find_engine_files("linear_reg")
