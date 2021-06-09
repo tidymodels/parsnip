@@ -4,205 +4,211 @@
 \alias{glmnet-details}
 \title{Technical aspects of the glmnet model}
 \description{
-\code{glmnet} is a package for penalized regression models that encompasses
-linear, logistic, Poisson, and multinomial regression models (as well as the
-Cox proportional hazards model for censored data). It is a very popular model
-and there are some nuances related to how it works that are important to
-discuss. This discussion will focus on linear regression but the points
-generalize to the other model types.
+glmnet is a popular statistical model for regularized generalized linear
+models. These notes reflect common questions about this particular model.
 }
-\section{About the glmnet model}{
-First, \code{glmnet} fits two types of penalties: the lasso (or L1) penalty
-and the ridge penalty (a.k.a L2 penalty a.k.a. weight decay). The
-\code{glmnet} argument \code{alpha} describes the proportion of the lasso penalty
-in the overall penalty.
+\section{tidymodels and glmnet}{
+The implementation of the glmnet package has some nice features. For
+example, one of the main tuning parameters, the regularization penalty,
+does not need to be specified when fitting the model. The package fits a
+compendium of values, called the regularization path. These values
+depend on the data set and the value of \code{alpha} (the mixture parameter
+between a pure ridge model (\code{alpha = 0} and a pure lasso model
+(\code{alpha = 1}). When predicting, any penalty values can be simultaneously
+predicted, even those that are not exactly on the regularization path.
+For those, the model approximates between the closest path values to
+produce a prediction. There is an argument called \code{lambda} to the
+\code{glmnet()} function that is used to specify the path.
 
-When \code{glmnet} fits the model, the intercept coefficient is not
-penalized.
+In the discussion below, \code{linear_reg()} is used. The information is true
+for all \code{parsnip} models that have a \code{glmnet} engine.
+\subsection{Fitting and predicting using \code{parsnip}}{
 
-When the \code{glmnet} model is trained, it estimates a continuum of possible
-penalty values. This gives a \emph{coefficient path} for each data set and a
-given value of \code{alpha}. The user doesn’t need to declare the exact value
-of the penalty that should be used until sample prediction (i.e., it is
-not needed when the model is trained). If you specify a single value of
-\code{lambda} when calling \code{\link[glmnet:glmnet]{glmnet::glmnet()}}, the
-estimated coefficient path only has that value.
-}
+Recall that tidymodels uses standardized and jargon-free parameter names
+across models. The argument \code{penalty} is the equivalent of what glmnet
+calls the \code{lambda} value and \code{mixture} is the same as their \code{alpha}
+value.
 
-\section{Using glmnet with parsnip}{
-In tidymodels, we want:
-\enumerate{
-\item The user to declare exactly what penalty value to use.
-\item The ability to make predictions at multiple penalty values with a
-single model object.
-}
-
-Point 1 is relevant for a single \code{parsnip} model while Point 2 is more
-related to using the \code{tune} package. The second point greatly increases
-the computation efficiency of model tuning since you only need to fit a
-\code{glmnet} model for each value of alpha (see the \href{https://www.tmwr.org/grid-search.html#submodel-trick}{tidymodels book} for a
-discussion).
-
-To achieve both of these goals, \code{parsnip} does the following:
-\itemize{
-\item The model specification (e.g. \code{linear_reg()}) saves the value of the
-penalty that the user specifies.
-\item \code{parsnip} fits the \code{glmnet} model without passing the penalty value
-to the \code{lambda} argument. This makes the whole coefficient path
-available for prediction.
-\item When \code{predict()} is used on the \code{parsnip} model fit without
-specifying the \code{penalty} value, the saved value of the penalty is
-used.
-\item To make predictions at multiple values along the path, use the
-\code{multi_predict()} function. Multiple predictions can be made
-simultaneously at different penalty values.
-}
-
-For example, let’s fit a small model to the Chicago train ridership data
-with a 50/50 combination of L1 and L2 penalties. The model specification
-will use a total penalty of 0.01.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
-data(Chicago, package = "modeldata")
-
-glmnet_spec <- 
-  linear_reg(penalty = 0.01, mixture = 1/2) \%>\% 
-  set_engine("glmnet")
+In tidymodels, our \code{predict()} methods are defined to make one
+prediction at a time. For this model, that means predictions are for
+single penalty value. For this reason, models that have glmnet engines
+require the user to always specify a single penalty value when the model
+is defined. For example, for linear regression:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = 1) \%>\% set_engine("glmnet")
 }\if{html}{\out{</div>}}
 
-To see the function call:\if{html}{\out{<div class="r">}}\preformatted{translate(glmnet_spec)
+When the \code{predict()} method is called, it automatically uses the penalty
+that was given when the model was defined. For example:\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+}\if{html}{\out{</div>}}\preformatted{## ── Attaching packages ───────────────────────────────── tidymodels 0.1.3.9000 ──
+
+## ✓ broom        0.7.6      ✓ tibble       3.1.2 
+## ✓ ggplot2      3.3.3      ✓ tidyr        1.1.3 
+## ✓ infer        0.5.4      ✓ workflows    0.2.2 
+## ✓ purrr        0.3.4      ✓ workflowsets 0.0.2 
+## ✓ recipes      0.1.16     ✓ yardstick    0.0.8 
+## ✓ rsample      0.1.0
+
+## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+## x purrr::discard()                masks scales::discard()
+## x dplyr::filter()                 masks stats::filter()
+## x dplyr::lag()                    masks stats::lag()
+## x parsnip::library.dynam.unload() masks base::library.dynam.unload()
+## x recipes::names0()               masks parsnip::names0()
+## x recipes::step()                 masks stats::step()
+## x devtools_shims::system.file()   masks parsnip::system.file(), base::system.file()
+## • Use tidymodels_prefer() to resolve common conflicts.
+## • Find functions using utils::browseURL("http://bit.ly/tm-funcs")
+}\if{html}{\out{<div class="r">}}\preformatted{fit <- 
+  linear_reg(penalty = 1) \%>\% 
+  set_engine("glmnet") \%>\% 
+  fit(mpg ~ ., data = mtcars)
+
+# predict at penalty = 1
+predict(fit, mtcars[1:3,])
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 x 1
+##   .pred
+##   <dbl>
+## 1  22.2
+## 2  21.5
+## 3  24.9
+}
+
+However, any penalty valuers can be predicted simultaneously using the
+\code{multi_predict()} method:\if{html}{\out{<div class="r">}}\preformatted{# predict at c(0.00, 0.01)
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 x 1
+##   .pred           
+##   <list>          
+## 1 <tibble [2 × 2]>
+## 2 <tibble [2 × 2]>
+## 3 <tibble [2 × 2]>
+}\if{html}{\out{<div class="r">}}\preformatted{# unnested:
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\% 
+  add_rowindex() \%>\% 
+  unnest(cols = ".pred")
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 6 x 3
+##   penalty .pred  .row
+##     <dbl> <dbl> <int>
+## 1    0     22.6     1
+## 2    0.01  22.5     1
+## 3    0     22.1     2
+## 4    0.01  22.1     2
+## 5    0     26.3     3
+## 6    0.01  26.3     3
+}
+\subsection{Where did \code{lambda} go?}{
+
+It may appear odd that the \code{lambda} value does not get used in the fit:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = 1) \%>\% 
+  set_engine("glmnet") \%>\% 
+  translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
-##   penalty = 0.01
-##   mixture = 1/2
+##   penalty = 1
 ## 
 ## Computational engine: glmnet 
 ## 
 ## Model fit template:
 ## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     alpha = 1/2, family = "gaussian")
+##     family = "gaussian")
 }
 
-Note that the \code{lambda} argument is not used.
-
-After training, multiple \code{lambda} penalty values are contained in the
-model object:\if{html}{\out{<div class="r">}}\preformatted{glmnet_fit <- 
-  glmnet_spec \%>\% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-length(glmnet_fit$fit$lambda)
-}\if{html}{\out{</div>}}\preformatted{## [1] 60
-}\if{html}{\out{<div class="r">}}\preformatted{summary(glmnet_fit$fit$lambda)
-}\if{html}{\out{</div>}}\preformatted{##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  0.0468  0.1848  0.7289  2.1171  2.8742 11.3272
+Internally, the value of \code{penalty = 1} is saved in the \code{parsnip} object
+and no value is set for \code{lambda}. This enables the full path to be fit
+by \code{glmnet()}. See the section below about setting the path.
 }
 
-When predictions are created with this object, the original value
-requested by the user is used (i.e. 0.01):\if{html}{\out{<div class="r">}}\preformatted{predict(glmnet_fit, head(Chicago))
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 6 x 1
+}
+
+\subsection{How do I set the regularization path?}{
+
+Irregardless of what value you use for \code{penalty}, the full coefficient
+path is used when \code{\link[glmnet:glmnet]{glmnet::glmnet()}} is called.
+
+What if you want to manually set this path? Normally, you would pass a
+vector to \code{lambda} in \code{\link[glmnet:glmnet]{glmnet::glmnet()}}.
+
+\code{parsnip} models that use a \code{glmnet} engine can use a special optional
+argument called \code{path_values}. This is \emph{not} an argument to
+\code{\link[glmnet:glmnet]{glmnet::glmnet()}}; it is used by \code{parsnip} to
+independently set the path.
+
+For example, we have found that if you want a fully ridge regression
+model (i.e., \code{mixture = 0}), you can get the \emph{wrong coefficients} if the
+path does not contain zero (see \href{https://github.com/tidymodels/parsnip/issues/431#issuecomment-782883848}{issue #431}).
+
+If we want to use our own path, the argument is passed as an
+engine-specific option:\if{html}{\out{<div class="r">}}\preformatted{coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
+
+fit_ridge <- 
+  linear_reg(penalty = 1, mixture = 0) \%>\% 
+  set_engine("glmnet", path_values = coef_path_values) \%>\% 
+  fit(mpg ~ ., data = mtcars)
+
+all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
+}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
+}\if{html}{\out{<div class="r">}}\preformatted{# predict at penalty = 1
+predict(fit_ridge, mtcars[1:3,])
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 x 1
 ##   .pred
 ##   <dbl>
-## 1 16.6 
-## 2 16.8 
-## 3 16.8 
-## 4 16.3 
-## 5 16.0 
-## 6  4.71
+## 1  22.1
+## 2  21.8
+## 3  26.6
+}
 }
 
-That value is contained in\if{html}{\out{<div class="r">}}\preformatted{glmnet_fit$spec$args$penalty
-}\if{html}{\out{</div>}}\preformatted{## [1] 0.01
-}
+\subsection{Tidying the model object}{
 
-If tune is being used to find optimal values of the penalty, it uses the
-\code{parsnip::multi_predict()} function to get predictions over multiple
-penalty values:\if{html}{\out{<div class="r">}}\preformatted{multi_predict(glmnet_fit, head(Chicago), penalty = c(0, 0.1)) \%>\% 
-  mutate(row = row_number()) \%>\% 
-  unnest(cols = c(.pred))
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 12 x 3
-##    penalty .pred   row
-##      <dbl> <dbl> <int>
-##  1     0   16.6      1
-##  2     0.1 16.5      1
-##  3     0   16.8      2
-##  4     0.1 16.8      2
-##  5     0   16.8      3
-##  6     0.1 16.8      3
-##  7     0   16.3      4
-##  8     0.1 16.3      4
-##  9     0   16.0      5
-## 10     0.1 16.0      5
-## 11     0    4.71     6
-## 12     0.1  4.77     6
-}
+\code{\link[broom:reexports]{broom::tidy()}} is a function that gives a summary of
+the object as a tibble.
 
-You can modify the penalties contained in the path by using the
-\code{\link[glmnet:glmnet]{glmnet::glmnet()}} arguments \code{nlambda} and
-\code{lambda.min.ratio}. The latter is discussed more below. These arguments
-would be passed when \code{set_engine()} is called.
+\strong{tl;dr} \code{tidy()} on a \code{glmnet} model produced by \code{parsnip} gives the
+coefficients for the value given by \code{penalty}.
 
-Note that the value supplied by the user in the model specification
-(\verb{penalty = 0.1)} may not be on the coefficient path. In that case,
-\code{glmnet} interpolates coefficients values between the two values on the
-path that bracket the value. Use the \code{tidy()} method in the \code{parsnip}
-package to get those values:\if{html}{\out{<div class="r">}}\preformatted{tidy(glmnet_fit)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 4 x 3
-##   term         estimate penalty
-##   <chr>           <dbl>   <dbl>
-## 1 (Intercept)    -0.318    0.01
-## 2 Austin          3.46     0.01
-## 3 Quincy_Wells    0.997    0.01
-## 4 Belmont         0.756    0.01
+When \code{parsnip} makes a model, it gives it an extra class. Use the
+\code{tidy()} method on the object, it produces coefficients for the penalty
+that was originally requested:\if{html}{\out{<div class="r">}}\preformatted{tidy(fit)
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 11 x 3
+##    term        estimate penalty
+##    <chr>          <dbl>   <dbl>
+##  1 (Intercept)  35.3          1
+##  2 cyl          -0.872        1
+##  3 disp          0            1
+##  4 hp           -0.0101       1
+##  5 drat          0            1
+##  6 wt           -2.59         1
+##  7 qsec          0            1
+##  8 vs            0            1
+##  9 am            0            1
+## 10 gear          0            1
+## 11 carb          0            1
 }
 
 Note that there is a \code{tidy()} method for \code{glmnet} objects in the \code{broom}
 package. If this is used directly on the underlying \code{glmnet} object, it
-returns all of coefficients on the path:\if{html}{\out{<div class="r">}}\preformatted{broom:::tidy.glmnet(glmnet_fit$fit)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 237 x 5
+returns \emph{all of coefficients on the path}:\if{html}{\out{<div class="r">}}\preformatted{# Use the basic tidy() method for glmnet
+all_tidy_coefs <- broom:::tidy.glmnet(fit$fit)
+all_tidy_coefs
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 640 x 5
 ##    term         step estimate lambda dev.ratio
 ##    <chr>       <dbl>    <dbl>  <dbl>     <dbl>
-##  1 (Intercept)     1    13.6   11.3     0     
-##  2 (Intercept)     2    12.7   10.3     0.0961
-##  3 (Intercept)     3    11.7    9.40    0.188 
-##  4 (Intercept)     4    10.7    8.57    0.268 
-##  5 (Intercept)     5     9.84   7.81    0.338 
-##  6 (Intercept)     6     9.00   7.11    0.400 
-##  7 (Intercept)     7     8.21   6.48    0.453 
-##  8 (Intercept)     8     7.47   5.91    0.499 
-##  9 (Intercept)     9     6.79   5.38    0.538 
-## 10 (Intercept)    10     6.15   4.90    0.572 
-## # … with 227 more rows
+##  1 (Intercept)     1     20.1   5.15     0    
+##  2 (Intercept)     2     21.6   4.69     0.129
+##  3 (Intercept)     3     23.2   4.27     0.248
+##  4 (Intercept)     4     24.7   3.89     0.347
+##  5 (Intercept)     5     26.0   3.55     0.429
+##  6 (Intercept)     6     27.2   3.23     0.497
+##  7 (Intercept)     7     28.4   2.95     0.554
+##  8 (Intercept)     8     29.4   2.68     0.601
+##  9 (Intercept)     9     30.3   2.45     0.640
+## 10 (Intercept)    10     31.1   2.23     0.673
+## # … with 630 more rows
+}\if{html}{\out{<div class="r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
+}\if{html}{\out{</div>}}\preformatted{## [1] 79
 }
-}
 
-\section{Fitting a pure ridge regression model}{
-One oddity is related to models with \code{alpha = 0} (i.e., a pure L2
-penalty). As shown in issue
-\href{https://github.com/tidymodels/parsnip/issues/431}{#431}, the parameter
-values obtained may not be close to the true values when the other
-arguments contain their default values.
-
-However, we have noticed that using the argument value
-\code{lambda.min.ratio = 0} in these fits might help achieve the correct
-results. However, consult the \code{\link[glmnet:glmnet]{glmnet::glmnet()}}
-function documentation to read about the potential effects of using this
-value.
-
-Here’s an example of how the coefficient path is changed by this option:\if{html}{\out{<div class="r">}}\preformatted{default_value <- 
-  linear_reg(penalty = 0.01, mixture = 0) \%>\% 
-  set_engine("glmnet") \%>\% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-zero_value <- 
-  linear_reg(penalty = 0.01, mixture = 0) \%>\% 
-  set_engine("glmnet", lambda.min.ratio = 0) \%>\% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-summary(default_value$fit$lambda)
-}\if{html}{\out{</div>}}\preformatted{##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-##    0.566    5.668   56.697  637.468  566.827 5663.606
-}\if{html}{\out{<div class="r">}}\preformatted{summary(zero_value$fit$lambda)
-}\if{html}{\out{</div>}}\preformatted{##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-##    0.035    0.700   14.029  499.793  282.565 5663.606
+This can be nice for plots but it might not contain the penalty value
+that you are interested in.
 }
 }
 

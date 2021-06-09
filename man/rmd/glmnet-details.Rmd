@@ -1,117 +1,105 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-# About the glmnet model
+# tidymodels and glmnet
 
-First, `glmnet` fits two types of penalties: the lasso (or L1) penalty and the ridge penalty (a.k.a L2 penalty a.k.a. weight decay). The `glmnet` argument `alpha` describes the proportion of the lasso penalty in the overall penalty. 
+The implementation of the glmnet package has some nice features. For example, one of the main tuning parameters, the regularization penalty,  does not need to be specified when fitting the model. The package fits a compendium of values, called the regularization path. These values depend on the data set and the value of `alpha` (the mixture parameter between a pure ridge model (`alpha = 0` and a pure lasso model (`alpha = 1`). When predicting, any penalty values can be simultaneously predicted, even those that are not exactly on the regularization path. For those, the model approximates between the closest path values to produce a prediction. There is an argument called `lambda` to the `glmnet()` function that is used to specify the path. 
 
-When `glmnet` fits the model, the intercept coefficient is not penalized. 
+In the discussion below, `linear_reg()` is used. The information is true for all `parsnip` models that have a `glmnet` engine. 
 
-When the `glmnet` model is trained, it estimates a continuum of possible penalty values. This gives a _coefficient path_ for each data set and a given value of `alpha`. The user doesn't need to declare the exact value of the penalty that should be used until sample prediction (i.e., it is not needed when the model is trained). If you specify a single value of `lambda` when calling [glmnet::glmnet()], the estimated coefficient path only has that value. 
+## Fitting and predicting using `parsnip`
 
-# Using glmnet with parsnip
+Recall that tidymodels uses standardized and jargon-free parameter names across models. The argument `penalty` is the equivalent of what glmnet calls the `lambda` value and `mixture` is the same as their `alpha` value. 
 
-In tidymodels, we want: 
+In tidymodels, our `predict()` methods are defined to make one prediction at a time. For this model, that means predictions are for single penalty value. For this reason, models that have glmnet engines require the user to always specify a single penalty value when the model is defined. For example, for linear regression: 
 
-1. The user to declare exactly what penalty value to use.
-
-1. The ability to make predictions at multiple penalty values with a single model object. 
-
-Point 1 is relevant for a single `parsnip` model while Point 2 is more related to using the `tune` package. The second point greatly increases the computation efficiency of model tuning since you only need to fit a `glmnet` model for each value of alpha (see the [tidymodels book](https://www.tmwr.org/grid-search.html#submodel-trick) for a discussion).
-
-To achieve both of these goals, `parsnip` does the following: 
-
-* The model specification (e.g. `linear_reg()`) saves the value of the penalty that the user specifies.
-
-* `parsnip` fits the `glmnet` model without passing the penalty value to the `lambda` argument. This makes the whole coefficient path available for prediction. 
-
-* When `predict()` is used on the `parsnip` model fit without specifying the `penalty` value, the saved value of the penalty is used. 
-
-* To make predictions at multiple values along the path, use the `multi_predict()` function. Multiple predictions can be made simultaneously at different penalty values. 
-
-For example, let's fit a small model to the Chicago train ridership data with a 50/50 combination of L1 and L2 penalties. The model specification will use a total penalty of 0.01.
-
-```{r model-spec, message = FALSE}
-library(tidymodels)
-data(Chicago, package = "modeldata")
-
-glmnet_spec <- 
-  linear_reg(penalty = 0.01, mixture = 1/2) %>% 
-  set_engine("glmnet")
+```r
+linear_reg(penalty = 1) %>% set_engine("glmnet")
 ```
 
-To see the function call: 
-
-```{r translate}
-translate(glmnet_spec)
-```
-
-Note that the `lambda` argument is not used. 
-
-After training, multiple `lambda` penalty values are contained in the model object: 
-
-```{r fit}
-glmnet_fit <- 
-  glmnet_spec %>% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-length(glmnet_fit$fit$lambda)
-summary(glmnet_fit$fit$lambda)
-```
-
-When predictions are created with this object, the original value requested by the user is used (i.e. 0.01): 
-
-```{r pred}
-predict(glmnet_fit, head(Chicago))
-```
-
-That value is contained in
-
-```{r spec-value}
-glmnet_fit$spec$args$penalty
-```
-
-If tune is being used to find optimal values of the penalty, it uses the `parsnip::multi_predict()` function to get predictions over multiple penalty values: 
+When the `predict()` method is called, it automatically uses the penalty that was given when the model was defined. For example: 
 
 ```{r}
-multi_predict(glmnet_fit, head(Chicago), penalty = c(0, 0.1)) %>% 
-  mutate(row = row_number()) %>% 
-  unnest(cols = c(.pred))
+library(tidymodels)
+fit <- 
+  linear_reg(penalty = 1) %>% 
+  set_engine("glmnet") %>% 
+  fit(mpg ~ ., data = mtcars)
+
+# predict at penalty = 1
+predict(fit, mtcars[1:3,])
 ```
 
-You can modify the penalties contained in the path by using the [glmnet::glmnet()] arguments `nlambda` and `lambda.min.ratio`. The latter is discussed more below. These arguments would be passed when `set_engine()` is called. 
+However, any penalty valuers can be predicted simultaneously using the `multi_predict()` method: 
 
-Note that the value supplied by the user in the model specification (`penalty = 0.1)` may not be on the coefficient path. In that case, `glmnet` interpolates coefficients values between the two values on the path that bracket the value. Use the `tidy()` method in the `parsnip` package to get those values: 
+```{r}
+# predict at c(0.00, 0.01)
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
+
+# unnested:
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) %>% 
+  add_rowindex() %>% 
+  unnest(cols = ".pred")
+```
+
+### Where did `lambda` go? 
+
+It may appear odd that the `lambda` value does not get used in the fit: 
+
+```{r}
+linear_reg(penalty = 1) %>% 
+  set_engine("glmnet") %>% 
+  translate()
+```
+
+Internally, the value of `penalty = 1` is saved in the `parsnip` object and no value is set for `lambda`. This enables the full path to be fit by `glmnet()`. See the section below about setting the path. 
+
+## How do I set the regularization path? 
+
+Irregardless of what value you use for `penalty`, the full coefficient path is used when [glmnet::glmnet()] is called. 
+
+What if you want to manually set this path? Normally, you would pass a vector to `lambda` in [glmnet::glmnet()]. 
+
+`parsnip` models that use a `glmnet` engine can use a special optional argument called `path_values`. This is _not_ an argument to [glmnet::glmnet()]; it is used by `parsnip` to independently set the path. 
+
+For example, we have found that if you want a fully ridge regression model (i.e., `mixture = 0`), you can get the _wrong coefficients_ if the path does not contain zero (see [issue #431](https://github.com/tidymodels/parsnip/issues/431#issuecomment-782883848)). 
+
+If we want to use our own path, the argument is passed as an engine-specific option:
+
+```{r}
+coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
+
+fit_ridge <- 
+  linear_reg(penalty = 1, mixture = 0) %>% 
+  set_engine("glmnet", path_values = coef_path_values) %>% 
+  fit(mpg ~ ., data = mtcars)
+
+all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
+
+# predict at penalty = 1
+predict(fit_ridge, mtcars[1:3,])
+```
+
+## Tidying the model object
+
+[broom::tidy()] is a function that gives a summary of the object as a tibble. 
+
+**tl;dr** `tidy()` on a `glmnet` model produced by `parsnip` gives the coefficients for the value given by `penalty`. 
+
+When `parsnip` makes a model, it gives it an extra class. Use the `tidy()` method on the object, it produces coefficients for the penalty that was originally requested: 
 
 ```{r tidy-parsnip, message = FALSE}
-tidy(glmnet_fit)
+tidy(fit)
 ```
 
-Note that there is a `tidy()` method for `glmnet` objects in the `broom` package. If this is used directly on the underlying `glmnet` object, it returns all of coefficients on the path:
+Note that there is a `tidy()` method for `glmnet` objects in the `broom` package. If this is used directly on the underlying `glmnet` object, it returns _all of coefficients on the path_:
 
 ```{r tidy-broom}
-broom:::tidy.glmnet(glmnet_fit$fit)
+# Use the basic tidy() method for glmnet
+all_tidy_coefs <- broom:::tidy.glmnet(fit$fit)
+all_tidy_coefs
+
+length(unique(all_tidy_coefs$lambda))
 ```
 
-# Fitting a pure ridge regression model
-
-One oddity is related to models with `alpha = 0` (i.e., a pure L2 penalty). As shown in issue [#431](https://github.com/tidymodels/parsnip/issues/431), the parameter values obtained may not be close to the true values when the other arguments contain their default values. 
-
-However, we have noticed that using the argument value `lambda.min.ratio = 0` in these fits might help achieve the correct results. However, consult the [glmnet::glmnet()] function documentation to read about the potential effects of using this value. 
-
-Here's an example of how the coefficient path is changed by this option: 
-
-```{r ratio}
-default_value <- 
-  linear_reg(penalty = 0.01, mixture = 0) %>% 
-  set_engine("glmnet") %>% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-zero_value <- 
-  linear_reg(penalty = 0.01, mixture = 0) %>% 
-  set_engine("glmnet", lambda.min.ratio = 0) %>% 
-  fit(ridership ~ Austin + Quincy_Wells + Belmont, data = Chicago)
-
-summary(default_value$fit$lambda)
-summary(zero_value$fit$lambda)
-```
+This can be nice for plots but it might not contain the penalty value that you are interested in. 
