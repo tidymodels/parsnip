@@ -82,8 +82,139 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Working examples}{
+\subsection{Regression Example}{
+
+We’ll model the ridership on the Chicago elevated trains as a function
+of the 14 day lagged ridership at two stations. The two predictors are
+in the same units (rides per day/1000) and do not need to be normalized.
+
+All but the last week of data are used for training. The last week will
+be predicted after the model is fit.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(Chicago)
+
+n <- nrow(Chicago)
+Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
+
+Chicago_train <- Chicago[1:(n - 6), ]
+Chicago_test <- Chicago[(n - 6):n, ]
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{knn_reg_spec <- 
+  nearest_neighbor(neighbors = 5, weight_func = "triangular") \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") \%>\% 
+  set_engine("kknn")
+knn_reg_spec
+}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (regression)
+## 
+## Main Arguments:
+##   neighbors = 5
+##   weight_func = triangular
+## 
+## Computational engine: kknn
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{knn_reg_fit <- knn_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+knn_reg_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  165ms 
+## 
+## Call:
+## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
+## 
+## Type of response variable: continuous
+## minimal mean absolute error: 1.791724
+## Minimal mean squared error: 11.21579
+## Best kernel: triangular
+## Best k: 5
+}
+
+The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(knn_reg_fit, Chicago_test)
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
+##   .pred
+##   <dbl>
+## 1 20.8 
+## 2 21.1 
+## 3 21.4 
+## 4 21.8 
+## 5 19.5 
+## 6  7.83
+## 7  5.54
+}
+}
+
+\subsection{Classification Example}{
+
+The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(two_class_dat)
+
+data_train <- two_class_dat[-(1:10), ]
+data_test  <- two_class_dat[  1:10 , ]
+}\if{html}{\out{</div>}}
+
+Since there are two classes, we’ll use an odd number of neighbors to
+avoid ties:\if{html}{\out{<div class="r">}}\preformatted{knn_cls_spec <- 
+  nearest_neighbor(neighbors = 11, weight_func = "triangular") \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") \%>\% 
+  set_engine("kknn")
+knn_cls_spec
+}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (classification)
+## 
+## Main Arguments:
+##   neighbors = 11
+##   weight_func = triangular
+## 
+## Computational engine: kknn
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{knn_cls_fit <- knn_cls_spec \%>\% fit(Class ~ ., data = data_train)
+knn_cls_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  31ms 
+## 
+## Call:
+## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")
+## 
+## Type of response variable: nominal
+## Minimal misclassification: 0.1869398
+## Best kernel: triangular
+## Best k: 11
+}
+
+The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(knn_cls_fit, data_test, type = "prob") \%>\% 
+  bind_cols(
+    predict(knn_cls_fit, data_test)
+  )
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
+##    .pred_Class1 .pred_Class2 .pred_class
+##           <dbl>        <dbl> <fct>      
+##  1       0.177       0.823   Class2     
+##  2       0.995       0.00515 Class1     
+##  3       0.590       0.410   Class1     
+##  4       0.770       0.230   Class1     
+##  5       0.333       0.667   Class2     
+##  6       0.182       0.818   Class2     
+##  7       0.692       0.308   Class1     
+##  8       0.400       0.600   Class2     
+##  9       0.814       0.186   Class1     
+## 10       0.0273      0.973   Class2
+}
+}
+
+}
+
 \subsection{References}{
 \itemize{
+\item Hechenbichler K. and Schliep K.P. (2004) \href{https://epub.ub.uni-muenchen.de/1769/}{Weighted k-Nearest-Neighbor Techniques and Ordinal Classification}, Discussion
+Paper 399, SFB 386, Ludwig-Maximilians University Munich
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
 Springer.
 }
