@@ -5,10 +5,10 @@
 #' For some models, predictions can be made on sub-models in the model object.
 #' @param object A `model_fit` object.
 #' @param new_data A rectangular data object, such as a data frame.
-#' @param type A single character value or `NULL`. Possible values
-#'  are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-#'  or "raw". When `NULL`, `predict()` will choose an appropriate value
-#'  based on the model's mode.
+#' @param type A single character value or `NULL`. Possible values are
+#' `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`,
+#' or `"raw"`. When `NULL`, `predict()` will choose an appropriate value
+#' based on the model's mode.
 #' @param ... Optional arguments to pass to `predict.model_fit(type = "raw")`
 #'  such as `type`.
 #' @return A tibble with the same number of rows as the data being predicted.
@@ -49,7 +49,7 @@ predict.model_spec <- function(object, ...) {
 #' @param object An object to test.
 #' @param ... Not currently used.
 #' @return `has_multi_predict()` returns single logical value while
-#'  `multi_predict()` returns a character vector of argument names (or `NA`
+#'  `multi_predict_args()` returns a character vector of argument names (or `NA`
 #'  if none exist).
 #' @keywords internal
 #' @examples
@@ -135,5 +135,4 @@ multi_predict_args.model_fit <- function(object, ...) {
 #' @rdname has_multi_predict
 multi_predict_args.workflow <- function(object, ...) {
   object <- object$fit$model$model
-
 }
