@@ -27,7 +27,7 @@ r
 * Re-organized model documentation:
 
    * `update` methods were moved out of the model help files (#479).
-   * Each model/engine combination has it's own help page. 
+   * Each model/engine combination has its own help page. 
    * The model help page has a dynamic bulleted list of the engines with links to the individual help pages. 
 
 * `generics::required_pkgs()` was extended for `parsnip` objects. 
