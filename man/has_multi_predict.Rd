@@ -34,7 +34,7 @@ multi_predict_args(object, ...)
 }
 \value{
 \code{has_multi_predict()} returns single logical value while
-\code{multi_predict()} returns a character vector of argument names (or \code{NA}
+\code{multi_predict_args()} returns a character vector of argument names (or \code{NA}
 if none exist).
 }
 \description{
