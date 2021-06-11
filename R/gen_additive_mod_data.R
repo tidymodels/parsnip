@@ -77,8 +77,8 @@ set_pred(
     pre  = NULL,
     post = function(results, object) {
       # TODO fix this; see the logistic regression code
-      res <-tibble::tibble(.pre_lower = results$fit - 2*results$se.fit,
-                           .pre_upper = results$fit + 2*results$se.fit)
+      res <-tibble::tibble(.pred_lower = results$fit - 2*results$se.fit,
+                           .pred_upper = results$fit + 2*results$se.fit)
     },
     func = c(fun = "predict"),
     args = list(

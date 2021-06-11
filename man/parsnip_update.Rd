@@ -213,6 +213,16 @@ modified in-place or replaced wholesale.}
 \item{cost_complexity}{A positive number for the the cost/complexity
 parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 
+\item{select_features}{TRUE or FALSE. If this is TRUE then can add an
+extra penalty to each term so that it can be penalized to zero.
+This means that the smoothing parameter estimation that is part of
+fitting can completely remove terms from the model. If the corresponding
+smoothing parameter is estimated as zero then the extra penalty has no effect.
+Use \code{adjust_deg_free} to increase level of penalization.}
+
+\item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier for smoothness.
+Increase this beyond 1 to produce smoother models.}
+
 \item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
 For \code{keras} models, this corresponds to purely L2 regularization

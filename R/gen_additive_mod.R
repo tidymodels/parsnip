@@ -107,6 +107,7 @@ print.gen_additive_mod <- function(x, ...) {
 #' @export
 #' @rdname parsnip_update
 #' @importFrom stats update
+#' @inheritParams gen_additive_mod
 update.gen_additive_mod <- function(object,
                                     select_features = NULL,
                                     adjust_deg_free = NULL,
