@@ -5,7 +5,7 @@
 \title{Generalized additive models (GAMs)}
 \usage{
 gen_additive_mod(
-  mode = "regression",
+  mode = "unknown",
   select_features = NULL,
   adjust_deg_free = NULL
 )
@@ -73,9 +73,9 @@ These are applied in the \code{fit()} function:\if{html}{\out{<div class="r">}}\
 
 \examples{
 
-show_engines("gen_additive_mod")
+#show_engines("gen_additive_mod")
 
-gen_additive_mod()
+#gen_additive_mod()
 
 
 }

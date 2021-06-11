@@ -1,39 +1,36 @@
 
 set_new_model("gen_additive_mod")
 
+# ------------------------------------------------------------------------------
 #### REGRESION ----
-model  = "gen_additive_mod"
-mode   = "regression"
-engine = "gam"
-
-set_model_engine(model = model, mode = mode, eng = engine)
-set_dependency(model = model, eng = engine, pkg = "mgcv")
-set_dependency(model = model, eng = engine, pkg = "parnsip")
+set_model_engine(model = "gen_additive_mod", mode = "regression", eng = "mgcv")
+set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv")
 
 #Args
 
+# TODO make dials PR
 set_model_arg(
   model        = "gen_additive_mod",
-  eng          = "gam",
+  eng          = "mgcv",
   parsnip      = "select_features",
   original     = "select",
-  func         = list(pkg = "parnsip", fun = "select_features"),
+  func         = list(pkg = "dials", fun = "select_features"),
   has_submodel = FALSE
 )
 
 set_model_arg(
   model        = "gen_additive_mod",
-  eng          = "gam",
+  eng          = "mgcv",
   parsnip      = "adjust_deg_free",
   original     = "gamma",
-  func         = list(pkg = "parnsip", fun = "adjust_deg_free"),
+  func         = list(pkg = "dials", fun = "adjust_deg_free"),
   has_submodel = FALSE
 )
 
 set_encoding(
-  model = model,
-  eng   = engine,
-  mode  = mode,
+  model = "gen_additive_mod",
+  eng   = "mgcv",
+  mode  = "regression",
   options = list(
     predictor_indicators = "none",
     compute_intercept    = FALSE,
@@ -43,24 +40,21 @@ set_encoding(
 )
 
 set_fit(
-  model = model,
-  eng = engine,
-  mode = mode,
+  model = "gen_additive_mod",
+  eng = "mgcv",
+  mode = "regression",
   value = list(
     interface = "formula",
     protect = c("formula", "data"),
     func = c(pkg = "mgcv", fun = "gam"),
-    defaults = list(
-      select = FALSE,
-      gamma  = 1
-    )
+    defaults = list()
   )
 )
 
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "regression",
   type   = "numeric",
   value  = list(
     pre  = NULL,
@@ -75,13 +69,14 @@ set_pred(
 )
 
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "regression",
   type   = "conf_int",
   value  = list(
     pre  = NULL,
     post = function(results, object) {
+      # TODO fix this; see the logistic regression code
       res <-tibble::tibble(.pre_lower = results$fit - 2*results$se.fit,
                            .pre_upper = results$fit + 2*results$se.fit)
     },
@@ -96,9 +91,9 @@ set_pred(
 )
 
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "regression",
   type   = "raw",
   value  = list(
     pre  = NULL,
@@ -111,20 +106,16 @@ set_pred(
   )
 )
 
+# ------------------------------------------------------------------------------
 #### CLASSIFICATION
+set_model_engine(model = "gen_additive_mod", mode = "classification", eng = "mgcv")
+set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv")
 
-model  = "gen_additive_mod"
-mode   = "classification"
-engine = "gam"
-
-set_model_engine(model = model, mode = mode, eng = engine)
-set_dependency(model = model, eng = engine, pkg = "mgcv")
-set_dependency(model = model, eng = engine, pkg = "parnsip")
 
 set_encoding(
-  model = model,
-  eng   = engine,
-  mode  = mode,
+  model = "gen_additive_mod",
+  eng   = "mgcv",
+  mode  = "classification",
   options = list(
     predictor_indicators = "none",
     compute_intercept    = FALSE,
@@ -134,31 +125,23 @@ set_encoding(
 )
 
 set_fit(
-  model = model,
-  eng = engine,
-  mode = mode,
+  model = "gen_additive_mod",
+  eng = "mgcv",
+  mode = "classification",
   value = list(
     interface = "formula",
     protect = c("formula", "data"),
     func = c(pkg = "mgcv", fun = "gam"),
     defaults = list(
-      select = FALSE,
-      gamma  = 1,
       family = stats::binomial(link = "logit")
     )
   )
 )
 
-prob_to_class_2 <- function(x, object){
-
-  x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
-  unname(x)
-}
-
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "classification",
   type   = "class",
   value  = list(
     pre  = NULL,
@@ -166,14 +149,15 @@ set_pred(
 
       tbl <-tibble::as_tibble(results)
 
-      if (ncol(tbl)==1){
-        res<-prob_to_class_2(tbl, object) %>%
+      if (ncol(tbl) == 1) {
+        res <- prob_to_class_2(tbl, object) %>%
           tibble::as_tibble() %>%
           stats::setNames("values") %>%
           dplyr::mutate(values = as.factor(values))
       } else{
         res <- tbl %>%
-          apply(.,1,function(x) which(max(x)==x)[1])-1 %>% #modify in the future for something more elegant when gets the formula ok
+          apply(., 1, function(x)
+            which(max(x) == x)[1]) - 1 %>% #modify in the future for something more elegant when gets the formula ok
           tibble::as_tibble()
       }
 
@@ -188,14 +172,14 @@ set_pred(
 )
 
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "classification",
   type   = "prob",
   value  = list(
     pre  = NULL,
     post = function(results, object) {
-      res <-tibble::as_tibble(results)
+      res <- tibble::as_tibble(results)
     },
     func = c(fun = "predict"),
     args = list(
@@ -207,9 +191,9 @@ set_pred(
 )
 
 set_pred(
-  model  = model,
-  eng    = engine,
-  mode   = mode,
+  model  = "gen_additive_mod",
+  eng    = "mgcv",
+  mode   = "classification",
   type   = "raw",
   value  = list(
     pre  = NULL,

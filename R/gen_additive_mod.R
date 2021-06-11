@@ -65,13 +65,13 @@
 #' [_Tidy Models with R_](https://tmwr.org)
 #' @examples
 #'
-#' show_engines("gen_additive_mod")
+#' #show_engines("gen_additive_mod")
 #'
-#' gen_additive_mod()
+#' #gen_additive_mod()
 #'
 #'
 #' @export
-gen_additive_mod <- function(mode = "regression",
+gen_additive_mod <- function(mode = "unknown",
                              select_features = NULL,
                              adjust_deg_free = NULL) {
 
@@ -148,10 +148,9 @@ update.gen_additive_mod <- function(object,
 
 
 #' @export
-#' @importFrom parsnip translate
 translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
   if (is.null(engine)) {
-    message("Used `engine = 'gam'` for translation.")
+    message("Used `engine = 'mgcv'` for translation.")
     engine <- "gam"
   }
   x <- translate.default(x, engine, ...)
