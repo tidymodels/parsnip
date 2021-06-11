@@ -4,9 +4,18 @@
 #   - mode = "regression" (default) uses
 #   - mode = "classification"
 
-#' Interface for Generalized Additive Models (GAM)
+#' Generalized additive models (GAMs)
 #'
-#' @param mode A single character string for the type of model.
+#' `gen_additive_mod()` defines a model that can use smoothed functions of
+#' numeric predictors in a generalized linear model.
+#'
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details
+#'
+#' More information on how `parsnip` is used for modeling is at
+#' \url{https://www.tidymodels.org}.
+#'
+#' @inheritParams boost_tree
 #' @param select_features TRUE or FALSE. If this is TRUE then can add an
 #'  extra penalty to each term so that it can be penalized to zero.
 #'  This means that the smoothing parameter estimation that is part of
@@ -22,20 +31,11 @@
 #'
 #' @details
 #'
-#' __Available Engines:__
-#' - __gam__: Connects to `mgcv::gam()`
+#' This function only defines what _type_ of model is being fit. Once an engine
+#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' __Parameter Mapping:__
-#'
-#' ```{r echo = FALSE}
-#' tibble::tribble(
-#'     ~ "modelgam", ~ "mgcv::gam",
-#'     "select_features", "select (FALSE)",
-#'     "adjust_deg_free", "gamma (1)"
-#' ) %>% knitr::kable()
-#' ```
-#'
-#' @section Engine Details:
+#' The model is not trained or fit until the [fit.model_spec()] function is used
+#' with the data.
 #'
 #' __gam__
 #'
@@ -61,7 +61,8 @@
 #' fit(value ~ s(date_mon, k = 12) + s(date_num), data = df)
 #' ```
 #'
-#'
+#' @references \url{https://www.tidymodels.org},
+#' [_Tidy Models with R_](https://tmwr.org)
 #' @examples
 #'
 #' show_engines("gen_additive_mod")
@@ -92,7 +93,7 @@ gen_additive_mod <- function(mode = "regression",
 
 #' @export
 print.gen_additive_mod <- function(x, ...) {
-  cat("GAM Model Specification (", x$mode, ")\n\n", sep = "")
+  cat("GAM Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
   if(!is.null(x$method$fit$args)) {
@@ -104,6 +105,7 @@ print.gen_additive_mod <- function(x, ...) {
 }
 
 #' @export
+#' @rdname parsnip_update
 #' @importFrom stats update
 update.gen_additive_mod <- function(object,
                                     select_features = NULL,

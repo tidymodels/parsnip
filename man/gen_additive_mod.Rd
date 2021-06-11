@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_additive_mod.R
 \name{gen_additive_mod}
 \alias{gen_additive_mod}
-\title{Interface for Generalized Additive Models (GAM)}
+\title{Generalized additive models (GAMs)}
 \usage{
 gen_additive_mod(
   mode = "regression",
@@ -11,7 +11,9 @@ gen_additive_mod(
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.}
+\item{mode}{A single character string for the type of model.
+Possible values for this model are "unknown", "regression", or
+"classification".}
 
 \item{select_features}{TRUE or FALSE. If this is TRUE then can add an
 extra penalty to each term so that it can be penalized to zero.
@@ -27,22 +29,21 @@ Increase this beyond 1 to produce smoother models.}
 A \code{parsnip} model specification
 }
 \description{
-Interface for Generalized Additive Models (GAM)
+\code{gen_additive_mod()} defines a model that can use smoothed functions of
+numeric predictors in a generalized linear model.
 }
 \details{
-\strong{Available Engines:}
-\itemize{
-\item \strong{gam}: Connects to \code{mgcv::gam()}
-}
+There are different ways to fit this model. See the engine-specific pages
+for more details
 
-\strong{Parameter Mapping:}\tabular{ll}{
-   modelgam \tab mgcv::gam \cr
-   select_features \tab select (FALSE) \cr
-   adjust_deg_free \tab gamma (1) \cr
-}
-}
-\section{Engine Details}{
+More information on how \code{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org}.
 
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
+
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 
 \strong{gam}
 
@@ -55,7 +56,6 @@ which can be modified through the \code{\link[=set_engine]{set_engine()}} functi
 ##     discrete = FALSE, ...)
 }
 }
-
 \section{Fit Details}{
 
 
@@ -78,4 +78,8 @@ show_engines("gen_additive_mod")
 gen_additive_mod()
 
 
+}
+\references{
+\url{https://www.tidymodels.org},
+\href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
