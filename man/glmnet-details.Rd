@@ -38,6 +38,7 @@ is defined. For example, for linear regression:\if{html}{\out{<div class="r">}}\
 
 When the \code{predict()} method is called, it automatically uses the penalty
 that was given when the model was defined. For example:\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+
 fit <- 
   linear_reg(penalty = 1) \%>\% 
   set_engine("glmnet") \%>\% 

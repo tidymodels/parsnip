@@ -97,7 +97,7 @@ data(Chicago)
 n <- nrow(Chicago)
 Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
 
-Chicago_train <- Chicago[1:(n - 6), ]
+Chicago_train <- Chicago[1:(n - 7), ]
 Chicago_test <- Chicago[(n - 6):n, ]
 }\if{html}{\out{</div>}}
 
@@ -120,14 +120,14 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  165ms 
+## Fit time:  145ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
 ## 
 ## Type of response variable: continuous
-## minimal mean absolute error: 1.791724
-## Minimal mean squared error: 11.21579
+## minimal mean absolute error: 1.79223
+## Minimal mean squared error: 11.21809
 ## Best kernel: triangular
 ## Best k: 5
 }
@@ -136,7 +136,7 @@ The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
 ##   .pred
 ##   <dbl>
-## 1 20.8 
+## 1 20.5 
 ## 2 21.1 
 ## 3 21.4 
 ## 4 21.8 
@@ -177,7 +177,7 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  31ms 
+## Fit time:  18ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")
