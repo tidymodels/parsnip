@@ -158,3 +158,9 @@ translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
 
   x
 }
+
+#' @export
+#' @keywords internal
+fit_xy.gen_additive_mod <- function(object, ...) {
+  rlang::abort("`fit()` must be used with GAM models (due to its use of formulas).")
+}

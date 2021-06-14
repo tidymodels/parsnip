@@ -2,6 +2,7 @@
 
 S3method(augment,model_fit)
 S3method(fit,model_spec)
+S3method(fit_xy,gen_additive_mod)
 S3method(fit_xy,model_spec)
 S3method(glance,model_fit)
 S3method(has_multi_predict,default)
