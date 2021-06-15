@@ -24,6 +24,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"rpart"`.
 #' @param cost_complexity A positive number for the the cost/complexity
 #'   parameter (a.k.a. `Cp`) used by CART models (`rpart` only).
 #' @param tree_depth An integer for maximum depth of the tree.
@@ -69,7 +71,8 @@
 #' @export
 
 decision_tree <-
-  function(mode = "unknown", cost_complexity = NULL, tree_depth = NULL, min_n = NULL) {
+  function(mode = "unknown", engine = "rpart", cost_complexity = NULL,
+           tree_depth = NULL, min_n = NULL) {
 
     args <- list(
       cost_complexity   = enquo(cost_complexity),
@@ -83,7 +86,7 @@ decision_tree <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

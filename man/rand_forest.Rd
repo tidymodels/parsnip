@@ -4,12 +4,21 @@
 \alias{rand_forest}
 \title{General Interface for Random Forest Models}
 \usage{
-rand_forest(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL)
+rand_forest(
+  mode = "unknown",
+  engine = "ranger",
+  mtry = NULL,
+  trees = NULL,
+  min_n = NULL
+)
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A character string for the method of fitting. Possible engines
+are listed above. The default for this model is \code{"ranger"}.}
 
 \item{mtry}{An integer for the number of predictors that will
 be randomly sampled at each split when creating the tree models.}

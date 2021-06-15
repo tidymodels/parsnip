@@ -18,6 +18,8 @@
 #'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", or "censored regression".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"survival"`.
 #' @inheritParams linear_reg
 #'
 #' @details
@@ -29,9 +31,11 @@
 #' show_engines("proportional_hazards")
 #' @keywords internal
 #' @export
-proportional_hazards <- function(mode = "censored regression",
-                    penalty = NULL,
-                    mixture = NULL) {
+proportional_hazards <- function(
+  mode = "censored regression",
+  engine = "survival",
+  penalty = NULL,
+  mixture = NULL) {
 
     args <- list(
       penalty = enquo(penalty),
@@ -44,7 +48,7 @@ proportional_hazards <- function(mode = "censored regression",
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

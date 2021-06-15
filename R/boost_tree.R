@@ -32,6 +32,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"xgboost"`.
 #' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models (`xgboost`
 #'  only).
@@ -92,6 +94,7 @@
 
 boost_tree <-
   function(mode = "unknown",
+           engine = "xgboost",
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
@@ -114,7 +117,7 @@ boost_tree <-
       eng_args = NULL,
       mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

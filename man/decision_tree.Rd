@@ -6,6 +6,7 @@
 \usage{
 decision_tree(
   mode = "unknown",
+  engine = "rpart",
   cost_complexity = NULL,
   tree_depth = NULL,
   min_n = NULL
@@ -15,6 +16,9 @@ decision_tree(
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A character string for the method of fitting. Possible engines
+are listed above. The default for this model is \code{"rpart"}.}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
 parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}

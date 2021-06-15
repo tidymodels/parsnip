@@ -6,6 +6,7 @@
 \usage{
 mlp(
   mode = "unknown",
+  engine = "nnet",
   hidden_units = NULL,
   penalty = NULL,
   dropout = NULL,
@@ -17,6 +18,9 @@ mlp(
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A character string for the method of fitting. Possible engines
+are listed above. The default for this model is \code{"nnet"}.}
 
 \item{hidden_units}{An integer for the number of units in the hidden model.}
 

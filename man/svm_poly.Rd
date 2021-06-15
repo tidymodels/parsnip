@@ -6,6 +6,7 @@
 \usage{
 svm_poly(
   mode = "unknown",
+  engine = "kernlab",
   cost = NULL,
   degree = NULL,
   scale_factor = NULL,
@@ -16,6 +17,9 @@ svm_poly(
 \item{mode}{A single character string for the type of model.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A character string for the method of fitting. Possible engines
+are listed above. The default for this model is \code{"kernlab"}.}
 
 \item{cost}{A positive number for the cost of predicting a sample within
 or on the wrong side of the margin}

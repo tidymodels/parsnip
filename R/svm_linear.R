@@ -20,6 +20,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"LiblineaR"`.
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param margin A positive number for the epsilon in the SVM insensitive
@@ -45,7 +47,7 @@
 #' @export
 
 svm_linear <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "LiblineaR",
            cost = NULL, margin = NULL) {
 
     args <- list(
@@ -59,7 +61,7 @@ svm_linear <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

@@ -18,6 +18,8 @@
 #'  in lieu of recreating the object from scratch.
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"lm"`.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
@@ -70,6 +72,7 @@
 #' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
+           engine = "lm",
            penalty = NULL,
            mixture = NULL) {
 
@@ -84,7 +87,7 @@ linear_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

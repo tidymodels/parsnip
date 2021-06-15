@@ -25,6 +25,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"earth"`.
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
@@ -45,7 +47,7 @@
 #' mars(mode = "regression", num_terms = 5)
 #' @export
 mars <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "earth",
            num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
 
     args <- list(
@@ -60,7 +62,7 @@ mars <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

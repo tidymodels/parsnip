@@ -30,6 +30,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"nnet"`.
 #' @param hidden_units An integer for the number of units in the hidden model.
 #' @param penalty A non-negative numeric value for the amount of weight
 #'  decay.
@@ -63,7 +65,7 @@
 #' @export
 
 mlp <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "nnet",
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL) {
 
@@ -81,7 +83,7 @@ mlp <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

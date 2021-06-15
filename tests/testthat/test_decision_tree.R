@@ -139,20 +139,6 @@ test_that('bad input', {
 
 # ------------------------------------------------------------------------------
 
-
-test_that('default engine', {
-  skip_if_not_installed("rpart")
-  expect_warning(
-    fit <- decision_tree(mode = "regression") %>% fit(mpg ~ ., data = mtcars),
-    "Engine set to"
-  )
-  expect_true(inherits(fit$fit, "rpart"))
-})
-
-
-
-## -----------------------------------------------------------------------------
-
 test_that('argument checks for data dimensions', {
 
   data(penguins, package = "modeldata")

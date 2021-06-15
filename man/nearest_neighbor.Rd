@@ -6,6 +6,7 @@
 \usage{
 nearest_neighbor(
   mode = "unknown",
+  engine = "kknn",
   neighbors = NULL,
   weight_func = NULL,
   dist_power = NULL
@@ -15,6 +16,9 @@ nearest_neighbor(
 \item{mode}{A single character string for the type of model.
 Possible values for this model are \code{"unknown"}, \code{"regression"}, or
 \code{"classification"}.}
+
+\item{engine}{A character string for the method of fitting. Possible engines
+are listed above. The default for this model is \code{"kknn"}.}
 
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}). For \pkg{kknn}, a value of 5

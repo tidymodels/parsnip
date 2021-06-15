@@ -23,6 +23,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"ranger"`.
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in
@@ -63,7 +65,7 @@
 #' @export
 
 rand_forest <-
-  function(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) {
+  function(mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, min_n = NULL) {
 
     args <- list(
       mtry   = enquo(mtry),
@@ -77,7 +79,7 @@ rand_forest <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

@@ -22,6 +22,8 @@
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"kernlab"`.
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param degree A positive number for polynomial degree.
@@ -48,7 +50,7 @@
 #' @export
 
 svm_poly <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "kernlab",
            cost = NULL, degree = NULL, scale_factor = NULL, margin = NULL) {
 
     args <- list(
@@ -64,7 +66,7 @@ svm_poly <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

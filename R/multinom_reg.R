@@ -18,6 +18,8 @@
 #'  in lieu of recreating the object from scratch.
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"nnet"`.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet`, `keras`, and `spark` only).
 #'  For `keras` models, this corresponds to purely L2 regularization
@@ -33,7 +35,7 @@
 #' The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
-#' \item \pkg{R}:   `"glmnet"`  (the default), `"nnet"`
+#' \item \pkg{R}:   `"glmnet"`, `"nnet"` (the default)
 #' \item \pkg{Spark}: `"spark"`
 #' \item \pkg{keras}: `"keras"`
 #' }
@@ -64,6 +66,7 @@
 #' @importFrom purrr map_lgl
 multinom_reg <-
   function(mode = "classification",
+           engine = "nnet",
            penalty = NULL,
            mixture = NULL) {
 
@@ -78,7 +81,7 @@ multinom_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

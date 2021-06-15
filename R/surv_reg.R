@@ -33,6 +33,8 @@
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
+#'  @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"survival"`.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
@@ -65,7 +67,7 @@
 #'
 #' @keywords internal
 #' @export
-surv_reg <- function(mode = "regression", dist = NULL) {
+surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
 
   lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
 
@@ -79,7 +81,7 @@ surv_reg <- function(mode = "regression", dist = NULL) {
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

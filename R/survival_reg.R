@@ -16,6 +16,8 @@
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "censored regression".
+#' @param engine A character string for the method of fitting. Possible engines
+#' are listed above. The default for this model is `"survival"`.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
@@ -34,7 +36,7 @@
 #' survival_reg(dist = varying())
 #' @keywords internal
 #' @export
-survival_reg <- function(mode = "censored regression", dist = NULL) {
+survival_reg <- function(mode = "censored regression", engine = "survival", dist = NULL) {
 
   args <- list(
     dist = enquo(dist)
@@ -46,7 +48,7 @@ survival_reg <- function(mode = "censored regression", dist = NULL) {
     eng_args = NULL,
     mode = mode,
     method = NULL,
-    engine = NULL
+    engine = engine
   )
 }
 

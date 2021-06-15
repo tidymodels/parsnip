@@ -514,11 +514,3 @@ test_that('liblinear probabilities', {
 
 })
 
-
-test_that('default engine', {
-  expect_warning(
-    fit <- logistic_reg() %>% fit(Class ~ log(funded_amnt) + int_rate, data = lending_club),
-    "Engine set to"
-  )
-  expect_true(inherits(fit$fit, "glm"))
-})
