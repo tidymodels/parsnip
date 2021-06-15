@@ -131,7 +131,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #'  fitting and allows the model to be created using R. It doesn't have any
 #'  main arguments.
 #'
-
+#' @inheritParams boost_tree
 #' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{

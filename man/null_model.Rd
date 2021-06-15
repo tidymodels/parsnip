@@ -6,6 +6,11 @@
 \usage{
 null_model(mode = "classification")
 }
+\arguments{
+\item{mode}{A single character string for the type of model.
+Possible values for this model are "unknown", "regression", or
+"classification".}
+}
 \description{
 \code{null_model()} is a way to generate a \emph{specification} of a model before
 fitting and allows the model to be created using R. It doesn't have any
