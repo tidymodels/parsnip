@@ -13,8 +13,8 @@ nearest_neighbor(
 }
 \arguments{
 \item{mode}{A single character string for the type of model.
-Possible values for this model are \code{"unknown"}, \code{"regression"}, or
-\code{"classification"}.}
+Possible values for this model are "unknown", "regression", or
+"classification".}
 
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}). For \pkg{kknn}, a value of 5
@@ -54,8 +54,7 @@ nearest_neighbor(neighbors = 11)
 
 }
 \references{
-\url{https://www.tidymodels.org},
-\href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}

@@ -16,7 +16,6 @@
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#'
 #' @param mode A single character string for the type of model.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
@@ -38,24 +37,20 @@
 #'  each iteration while `C5.0` samples once during training.
 #' @param stop_iter The number of iterations without improvement before
 #'   stopping (specific engines only).
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
+#' @template spec-details
 #'
-#' @importFrom purrr map_lgl
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
 #' [xgb_train()], [C5.0_train()]
+#'
 #' @examples
 #' show_engines("boost_tree")
 #'
 #' boost_tree(mode = "classification", trees = 20)
 #' @export
-
+#' @importFrom purrr map_lgl
 boost_tree <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,

@@ -14,24 +14,19 @@
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
-#' @param mode A single character string for the type of model.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#' @inheritParams boost_tree
 #' @param cost_complexity A positive number for the the cost/complexity
 #'   parameter (a.k.a. `Cp`) used by CART models (specific engines only).
 #' @param tree_depth An integer for maximum depth of the tree.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
+#' @template spec-details
 #'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#' 
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
+#'
 #' @examples
 #' show_engines("decision_tree")
 #'

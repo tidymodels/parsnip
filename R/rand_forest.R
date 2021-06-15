@@ -6,7 +6,7 @@
 #' independent of one another. The final prediction uses all predictions from
 #' the individual trees and combines them.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
@@ -14,24 +14,18 @@
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
-#' @param mode A single character string for the type of model.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#' @inheritParams boost_tree
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
+#' @template spec-details
 #'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#' 
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
 #'
 #' @examples

@@ -24,16 +24,13 @@
 #'  proportion of L1 regularization (i.e. lasso) in the model. When
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
 #'  ridge regression is being used. (specific engines only).
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
+#' @template spec-details
 #'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#' 
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
+#'
 #' @examples
 #' show_engines("multinom_reg")
 #'

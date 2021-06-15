@@ -13,32 +13,23 @@
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
-#' @param mode A single character string for the type of model.
-#' Possible values for this model are `"unknown"`, `"regression"`, or
-#' `"classification"`.
-#'
+#' @inheritParams boost_tree
 #' @param neighbors A single integer for the number of neighbors
 #' to consider (often called `k`). For \pkg{kknn}, a value of 5
 #' is used if `neighbors` is not specified.
-#'
 #' @param weight_func A *single* character for the type of kernel function used
 #' to weight distances between samples. Valid choices are: `"rectangular"`,
 #' `"triangular"`, `"epanechnikov"`, `"biweight"`, `"triweight"`,
 #' `"cos"`, `"inv"`, `"gaussian"`, `"rank"`, or `"optimal"`.
-#'
 #' @param dist_power A single number for the parameter used in
 #' calculating Minkowski distance.
 #'
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
+#' @template spec-details
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
-#'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#' 
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
+#'
 #' @examples
 #' show_engines("nearest_neighbor")
 #'

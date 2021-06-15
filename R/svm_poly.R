@@ -18,25 +18,20 @@
 #' More information on how `parsnip` is used for modeling is at
 #' \url{https://www.tidymodels.org}.
 #'
-#' @param mode A single character string for the type of model.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#' @inheritParams boost_tree
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param degree A positive number for polynomial degree.
 #' @param scale_factor A positive number for the polynomial scaling factor.
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
-#' @details
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
 #'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
+#' @template spec-details
 #'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
+#' @template spec-references
+#' 
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_poly")}
+#'
 #' @examples
 #' show_engines("svm_poly")
 #'

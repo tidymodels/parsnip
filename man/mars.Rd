@@ -49,8 +49,7 @@ show_engines("mars")
 mars(mode = "regression", num_terms = 5)
 }
 \references{
-\url{https://www.tidymodels.org},
-\href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}

@@ -47,8 +47,7 @@ show_engines("svm_linear")
 svm_linear(mode = "classification")
 }
 \references{
-\url{https://www.tidymodels.org},
-\href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_linear")}
