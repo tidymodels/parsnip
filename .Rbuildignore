@@ -19,3 +19,4 @@ derby.log
 ^README\.html$
 ^codecov\.yml$
 ^LICENSE\.md$
+^man-roxygen$
