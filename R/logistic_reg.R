@@ -109,7 +109,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   arg_names <- names(arg_vals)
 
   if (engine == "glmnet") {
-    check_glmnet_penalty(x)
+    .check_glmnet_penalty_fit(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
       # as the glmnet `lambda` value, `path_values` allows users to set the
@@ -296,7 +296,7 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
     penalty <- object$spec$args$penalty
   }
 
-  object$spec$args$penalty <- check_penalty(penalty, object, multi)
+  object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
 
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
