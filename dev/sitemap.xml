@@ -52,6 +52,12 @@
     <loc>https://parsnip.tidymodels.org/reference/glance.model_fit.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/glmnet_helpers.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/glmnet_helpers_prediction.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/has_multi_predict.html</loc>
   </url>
   <url>

@@ -8,7 +8,7 @@ articles:
   articles/Scratch: Scratch.html
   articles/Submodels: Submodels.html
   parsnip_Intro: parsnip_Intro.html
-last_built: 2021-06-10T16:42Z
+last_built: 2021-06-15T15:27Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles
