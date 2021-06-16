@@ -1,5 +1,7 @@
 
 set_new_model("gen_additive_mod")
+set_model_mode("gen_additive_mod", "classification")
+set_model_mode("gen_additive_mod", "regression")
 
 # ------------------------------------------------------------------------------
 #### REGRESION ----
