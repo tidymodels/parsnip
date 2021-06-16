@@ -75,28 +75,7 @@ set_pred(
   type   = "conf_int",
   value  = list(
     pre  = NULL,
-    post = function(results, object) {
-      hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
-      const <-
-        qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
-      trans <- object$fit$family$linkinv
-      res <-
-        tibble(
-          .pred_lower = trans(results$fit - const * results$se.fit),
-          .pred_upper = trans(results$fit + const * results$se.fit)
-        )
-      # In case of inverse or other links
-      if (any(res$.pred_upper < res$.pred_lower)) {
-        nms <- names(res)
-        res <- res[, 2:1]
-        names(res) <- nms
-      }
-
-      if (object$spec$method$pred$conf_int$extras$std_error) {
-        res$.std_error <- results$se.fit
-      }
-      res
-    },
+    post = linear_lp_to_conf_int,
     func = c(fun = "predict"),
     args = list(
       object = rlang::expr(object$fit),
@@ -220,30 +199,7 @@ set_pred(
   type = "conf_int",
   value = list(
     pre = NULL,
-    post = function(results, object) {
-      hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
-      const <-
-        qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
-      trans <- object$fit$family$linkinv
-      res_2 <-
-        tibble(
-          lo = trans(results$fit - const * results$se.fit),
-          hi = trans(results$fit + const * results$se.fit)
-        )
-      res_1 <- res_2
-      res_1$lo <- 1 - res_2$hi
-      res_1$hi <- 1 - res_2$lo
-      lo_nms <- paste0(".pred_lower_", object$lvl)
-      hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res_1) <- c(lo_nms[1], hi_nms[1])
-      colnames(res_2) <- c(lo_nms[2], hi_nms[2])
-      res <- bind_cols(res_1, res_2)
-
-      if (object$spec$method$pred$conf_int$extras$std_error) {
-        res$.std_error <- results$se.fit
-      }
-      res
-    },
+    post = logistic_lp_to_conf_int,
     func = c(fun = "predict"),
     args =
       list(
