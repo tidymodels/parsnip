@@ -12,10 +12,14 @@ context("generalized additive models")
 
 # ------------------------------------------------------------------------------
 
-reg_mod <- gen_additive_mod(select_features = TRUE) %>% set_engine("mgcv") %>% set_mode("regression")
 
 test_that('regression', {
   skip_if_not_installed("mgcv")
+
+  reg_mod <-
+    gen_additive_mod(select_features = TRUE) %>%
+    set_engine("mgcv") %>%
+    set_mode("regression")
 
   expect_error(
     f_res <- fit(
@@ -51,14 +55,16 @@ test_that('regression', {
 
 })
 
-
-
 # ------------------------------------------------------------------------------
-
-cls_mod <- gen_additive_mod(adjust_deg_free = 1.5) %>% set_engine("mgcv") %>% set_mode("classification")
 
 test_that('classification', {
   skip_if_not_installed("mgcv")
+
+  cls_mod <-
+    gen_additive_mod(adjust_deg_free = 1.5) %>%
+    set_engine("mgcv") %>%
+    set_mode("classification")
+
   expect_error(
     f_res <- fit(
       cls_mod,
