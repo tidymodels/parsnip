@@ -152,7 +152,7 @@ be used in lieu of recreating the object from scratch." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update a model specification</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/decision_tree.R'><code>R/decision_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/linear_reg.R'><code>R/linear_reg.R</code></a>, and 13 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/decision_tree.R'><code>R/decision_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/gen_additive_mod.R'><code>R/gen_additive_mod.R</code></a>, and 14 more</small>
     <div class="hidden name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -184,6 +184,16 @@ be used in lieu of recreating the object from scratch.</p>
   cost_complexity <span class='op'>=</span> <span class='cn'>NULL</span>,
   tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for gen_additive_mod</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  select_features <span class='op'>=</span> <span class='cn'>NULL</span>,
+  adjust_deg_free <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
   fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -383,6 +393,20 @@ modified in-place or replaced wholesale.</p></td>
       <th>cost_complexity</th>
       <td><p>A positive number for the the cost/complexity
 parameter (a.k.a. <code>Cp</code>) used by CART models (<code>rpart</code> only).</p></td>
+    </tr>
+    <tr>
+      <th>select_features</th>
+      <td><p>TRUE or FALSE. If this is TRUE then can add an
+extra penalty to each term so that it can be penalized to zero.
+This means that the smoothing parameter estimation that is part of
+fitting can completely remove terms from the model. If the corresponding
+smoothing parameter is estimated as zero then the extra penalty has no effect.
+Use <code>adjust_deg_free</code> to increase level of penalization.</p></td>
+    </tr>
+    <tr>
+      <th>adjust_deg_free</th>
+      <td><p>If <code>select_features = TRUE</code>, then acts as a multiplier for smoothness.
+Increase this beyond 1 to produce smoother models.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
