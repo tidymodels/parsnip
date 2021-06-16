@@ -4,6 +4,8 @@
 
 * Fix bug in `augment()` when non-predictor, non-outcome variables are included in data (#510).
 
+* A model function (`gen_additive_mod()`) was added for generalized additive models. 
+
 # parsnip 0.1.6
 
 ## Model Specification Changes
