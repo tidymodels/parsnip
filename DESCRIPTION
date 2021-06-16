@@ -54,6 +54,7 @@ Suggests:
     nlme,
     modeldata,
     LiblineaR,
-    Matrix
+    Matrix,
+    mgcv
 Remotes:
     topepo/C5.0
