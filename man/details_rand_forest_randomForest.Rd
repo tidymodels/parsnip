@@ -87,6 +87,139 @@ Categorical predictors can be split into groups without creating dummy
 variables for each category.
 }
 
+\subsection{Working examples}{
+\subsection{Regression Example}{
+
+We’ll model the ridership on the Chicago elevated trains as a function
+of the 14 day lagged ridership at two stations. The two predictors are
+in the same units (rides per day/1000) and do not need to be normalized.
+
+All but the last week of data are used for training. The last week will
+be predicted after the model is fit.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(Chicago)
+
+n <- nrow(Chicago)
+Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
+
+Chicago_train <- Chicago[1:(n - 7), ]
+Chicago_test <- Chicago[(n - 6):n, ]
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_spec <- 
+  rand_forest(trees = 200, min_n = 5) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") \%>\% 
+  set_engine("randomForest")
+rf_reg_spec
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   trees = 200
+##   min_n = 5
+## 
+## Computational engine: randomForest
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+rf_reg_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  8.2s 
+## 
+## Call:
+##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
+##                Type of random forest: regression
+##                      Number of trees: 200
+## No. of variables tried at each split: 1
+## 
+##           Mean of squared residuals: 9.724811
+##                     \% Var explained: 77.41
+}
+
+The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
+##   .pred
+##   <dbl>
+## 1 20.4 
+## 2 21.4 
+## 3 20.5 
+## 4 21.6 
+## 5 19.3 
+## 6  7.46
+## 7  5.96
+}
+}
+
+\subsection{Classification Example}{
+
+The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(two_class_dat)
+
+data_train <- two_class_dat[-(1:10), ]
+data_test  <- two_class_dat[  1:10 , ]
+}\if{html}{\out{</div>}}
+
+Since there are two classes, we’ll use an odd number of neighbors to
+avoid ties:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
+  rand_forest(trees = 200, min_n = 5) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") \%>\% 
+  set_engine("randomForest")
+rf_cls_spec
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Main Arguments:
+##   trees = 200
+##   min_n = 5
+## 
+## Computational engine: randomForest
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
+rf_cls_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  108ms 
+## 
+## Call:
+##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
+##                Type of random forest: classification
+##                      Number of trees: 200
+## No. of variables tried at each split: 1
+## 
+##         OOB estimate of  error rate: 19.97\%
+## Confusion matrix:
+##        Class1 Class2 class.error
+## Class1    362     71   0.1639723
+## Class2     85    263   0.2442529
+}
+
+The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_cls_fit, data_test, type = "prob") \%>\% 
+  bind_cols(
+    predict(rf_cls_fit, data_test)
+  )
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
+##    .pred_Class1 .pred_Class2 .pred_class
+##           <dbl>        <dbl> <fct>      
+##  1        0.21         0.79  Class2     
+##  2        0.97         0.03  Class1     
+##  3        0.635        0.365 Class1     
+##  4        0.75         0.25  Class1     
+##  5        0.355        0.645 Class2     
+##  6        0.105        0.895 Class2     
+##  7        0.67         0.33  Class1     
+##  8        0.605        0.395 Class1     
+##  9        0.835        0.165 Class1     
+## 10        0            1     Class2
+}
+}
+
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

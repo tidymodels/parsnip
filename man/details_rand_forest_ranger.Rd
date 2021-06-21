@@ -104,6 +104,147 @@ these values can fall outside of \verb{[0, 1]} and will be coerced to be in
 this range.
 }
 
+\subsection{Working examples}{
+\subsection{Regression Example}{
+
+We’ll model the ridership on the Chicago elevated trains as a function
+of the 14 day lagged ridership at two stations. The two predictors are
+in the same units (rides per day/1000) and do not need to be normalized.
+
+All but the last week of data are used for training. The last week will
+be predicted after the model is fit.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(Chicago)
+
+n <- nrow(Chicago)
+Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
+
+Chicago_train <- Chicago[1:(n - 7), ]
+Chicago_test <- Chicago[(n - 6):n, ]
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_spec <- 
+  rand_forest(trees = 200, min_n = 5) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") \%>\% 
+  set_engine("ranger")
+rf_reg_spec
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   trees = 200
+##   min_n = 5
+## 
+## Computational engine: ranger
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+rf_reg_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  2.3s 
+## Ranger result
+## 
+## Call:
+##  ranger::ranger(x = maybe_data_frame(x), y = y, num.trees = ~200,      min.node.size = min_rows(~5, x), num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
+## 
+## Type:                             Regression 
+## Number of trees:                  200 
+## Sample size:                      5691 
+## Number of independent variables:  2 
+## Mtry:                             1 
+## Target node size:                 5 
+## Variable importance mode:         none 
+## Splitrule:                        variance 
+## OOB prediction error (MSE):       9.753647 
+## R squared (OOB):                  0.7734384
+}
+
+The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
+##   .pred
+##   <dbl>
+## 1 20.5 
+## 2 21.5 
+## 3 20.8 
+## 4 21.6 
+## 5 19.3 
+## 6  7.30
+## 7  6.36
+}
+}
+
+\subsection{Classification Example}{
+
+The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(two_class_dat)
+
+data_train <- two_class_dat[-(1:10), ]
+data_test  <- two_class_dat[  1:10 , ]
+}\if{html}{\out{</div>}}
+
+Since there are two classes, we’ll use an odd number of neighbors to
+avoid ties:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
+  rand_forest(trees = 200, min_n = 5) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") \%>\% 
+  set_engine("ranger")
+rf_cls_spec
+}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Main Arguments:
+##   trees = 200
+##   min_n = 5
+## 
+## Computational engine: ranger
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
+rf_cls_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  137ms 
+## Ranger result
+## 
+## Call:
+##  ranger::ranger(x = maybe_data_frame(x), y = y, num.trees = ~200,      min.node.size = min_rows(~5, x), num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1), probability = TRUE) 
+## 
+## Type:                             Probability estimation 
+## Number of trees:                  200 
+## Sample size:                      781 
+## Number of independent variables:  2 
+## Mtry:                             1 
+## Target node size:                 5 
+## Variable importance mode:         none 
+## Splitrule:                        gini 
+## OOB prediction error (Brier s.):  0.1517977
+}
+
+The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_cls_fit, data_test, type = "prob") \%>\% 
+  bind_cols(
+    predict(rf_cls_fit, data_test)
+  )
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
+##    .pred_Class1 .pred_Class2 .pred_class
+##           <dbl>        <dbl> <fct>      
+##  1      0.268         0.732  Class2     
+##  2      0.932         0.0677 Class1     
+##  3      0.518         0.482  Class1     
+##  4      0.641         0.359  Class1     
+##  5      0.311         0.690  Class2     
+##  6      0.156         0.844  Class2     
+##  7      0.748         0.252  Class1     
+##  8      0.632         0.368  Class1     
+##  9      0.743         0.257  Class1     
+## 10      0.00325       0.997  Class2
+}
+}
+
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

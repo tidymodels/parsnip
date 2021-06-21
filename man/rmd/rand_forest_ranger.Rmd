@@ -78,7 +78,66 @@ By default, parallel processing is turned off. To run each model in parallel, ch
 
 For `ranger` confidence intervals, the intervals are  constructed using the form `estimate +/- z * std_error`. For  classification probabilities, these values can fall outside of  `[0, 1]` and will be coerced to be in this range.
 
+## Working examples
+
+```{r child = "template-reg-chicago.Rmd"}
+```
+
+We can define the model with specific parameters:
+
+```{r}
+rf_reg_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("ranger")
+rf_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+rf_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(rf_reg_fit, Chicago_test)
+```
+
+
+```{r child = "template-cls-two-class.Rmd"}
+```
+
+Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
+
+```{r}
+rf_cls_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("ranger")
+rf_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
+rf_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+predict(rf_cls_fit, data_test, type = "prob") %>% 
+  bind_cols(
+    predict(rf_cls_fit, data_test)
+  )
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
-
