@@ -171,7 +171,9 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
   svm_rbf(cost = 1) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 

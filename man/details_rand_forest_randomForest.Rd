@@ -161,7 +161,9 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
   rand_forest(trees = 200, min_n = 5) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 

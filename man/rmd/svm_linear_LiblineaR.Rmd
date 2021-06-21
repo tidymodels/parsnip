@@ -104,6 +104,8 @@ predict(svm_reg_fit, Chicago_test)
 ```{r child = "template-cls-two-class.Rmd"}
 ```
 
+We can define the model with specific parameters:
+
 ```{r}
 svm_cls_spec <- 
   svm_linear(cost = 1) %>% 
