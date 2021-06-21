@@ -102,8 +102,6 @@ predict(svm_reg_fit, Chicago_test)
 ```{r child = "template-cls-two-class.Rmd"}
 ```
 
-Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
-
 ```{r}
 svm_cls_spec <- 
   svm_linear(cost = 1) %>% 

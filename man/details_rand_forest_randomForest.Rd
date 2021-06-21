@@ -126,7 +126,7 @@ rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  7.5s 
+## Fit time:  6.8s 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -161,10 +161,7 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}
-
-Since there are two classes, we’ll use an odd number of neighbors to
-avoid ties:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
   rand_forest(trees = 200, min_n = 5) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 
@@ -184,7 +181,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  107ms 
+## Fit time:  94ms 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 

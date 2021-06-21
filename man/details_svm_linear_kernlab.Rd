@@ -122,7 +122,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  959ms 
+## Fit time:  991ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -159,10 +159,7 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}
-
-Since there are two classes, we’ll use an odd number of neighbors to
-avoid ties:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
   svm_linear(cost = 1) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 
@@ -182,7 +179,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  1.2s 
+## Fit time:  763ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 

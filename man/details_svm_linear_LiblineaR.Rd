@@ -169,10 +169,7 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}
-
-Since there are two classes, we’ll use an odd number of neighbors to
-avoid ties:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
   svm_linear(cost = 1) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 
@@ -191,7 +188,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  716ms 
+## Fit time:  524ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
 ## 
@@ -216,8 +213,7 @@ svm_cls_fit
 ## [1] "LiblineaR"
 }
 
-The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_cls_fit, data_test)
+The holdout data can be predicted for hard class predictions.\if{html}{\out{<div class="r">}}\preformatted{predict(svm_cls_fit, data_test)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 1
 ##    .pred_class
 ##    <fct>      

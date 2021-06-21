@@ -112,8 +112,6 @@ predict(rf_reg_fit, Chicago_test)
 ```{r child = "template-cls-two-class.Rmd"}
 ```
 
-Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
-
 ```{r}
 rf_cls_spec <- 
   rand_forest(trees = 200, min_n = 5) %>% 

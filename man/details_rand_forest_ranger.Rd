@@ -184,10 +184,7 @@ data(two_class_dat)
 
 data_train <- two_class_dat[-(1:10), ]
 data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}
-
-Since there are two classes, we’ll use an odd number of neighbors to
-avoid ties:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
   rand_forest(trees = 200, min_n = 5) \%>\% 
   # This model can be used for classification or regression, so set mode
   set_mode("classification") \%>\% 
@@ -207,7 +204,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  289ms 
+## Fit time:  178ms 
 ## Ranger result
 ## 
 ## Call:

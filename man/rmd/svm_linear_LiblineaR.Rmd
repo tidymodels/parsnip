@@ -104,8 +104,6 @@ predict(svm_reg_fit, Chicago_test)
 ```{r child = "template-cls-two-class.Rmd"}
 ```
 
-Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
-
 ```{r}
 svm_cls_spec <- 
   svm_linear(cost = 1) %>% 
@@ -123,7 +121,7 @@ svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
 svm_cls_fit
 ```
 
-The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+The holdout data can be predicted for hard class predictions.
 
 ```{r}
 predict(svm_cls_fit, data_test)
