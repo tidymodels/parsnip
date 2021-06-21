@@ -70,6 +70,63 @@ Note that the `LiblineaR` engine cannot produce class probabilities. When optimi
 ```{r child = "template-same-scale.Rmd"}
 ```
 
+## Working examples
+
+```{r child = "template-reg-chicago.Rmd"}
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_reg_spec <- 
+  svm_linear(cost = 1, margin = 0.1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("LiblineaR")
+svm_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+svm_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(svm_reg_fit, Chicago_test)
+```
+
+
+```{r child = "template-cls-two-class.Rmd"}
+```
+
+Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
+
+```{r}
+svm_cls_spec <- 
+  svm_linear(cost = 1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("LiblineaR")
+svm_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+svm_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+predict(svm_cls_fit, data_test)
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

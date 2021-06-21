@@ -82,6 +82,142 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Working examples}{
+\subsection{Regression Example}{
+
+We’ll model the ridership on the Chicago elevated trains as a function
+of the 14 day lagged ridership at two stations. The two predictors are
+in the same units (rides per day/1000) and do not need to be normalized.
+
+All but the last week of data are used for training. The last week will
+be predicted after the model is fit.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(Chicago)
+
+n <- nrow(Chicago)
+Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
+
+Chicago_train <- Chicago[1:(n - 7), ]
+Chicago_test <- Chicago[(n - 6):n, ]
+}\if{html}{\out{</div>}}
+
+We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{svm_reg_spec <- 
+  svm_linear(cost = 1, margin = 0.1) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") \%>\% 
+  set_engine("kernlab")
+svm_reg_spec
+}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (regression)
+## 
+## Main Arguments:
+##   cost = 1
+##   margin = 0.1
+## 
+## Computational engine: kernlab
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+}\if{html}{\out{</div>}}\preformatted{##  Setting default kernel parameters
+}\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  1s 
+## Support Vector Machine object of class "ksvm" 
+## 
+## SV type: eps-svr  (regression) 
+##  parameter : epsilon = 0.1  cost C = 1 
+## 
+## Linear (vanilla) kernel function. 
+## 
+## Number of Support Vectors : 2283 
+## 
+## Objective Function Value : -825.1632 
+## Training error : 0.226456
+}
+
+The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_reg_fit, Chicago_test)
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
+##   .pred
+##   <dbl>
+## 1 21.0 
+## 2 21.2 
+## 3 21.5 
+## 4 21.2 
+## 5 19.4 
+## 6  6.87
+## 7  6.41
+}
+}
+
+\subsection{Classification Example}{
+
+The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
+tidymodels_prefer()
+data(two_class_dat)
+
+data_train <- two_class_dat[-(1:10), ]
+data_test  <- two_class_dat[  1:10 , ]
+}\if{html}{\out{</div>}}
+
+Since there are two classes, we’ll use an odd number of neighbors to
+avoid ties:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_spec <- 
+  svm_linear(cost = 1) \%>\% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") \%>\% 
+  set_engine("kernlab")
+svm_cls_spec
+}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (classification)
+## 
+## Main Arguments:
+##   cost = 1
+## 
+## Computational engine: kernlab
+}
+
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
+}\if{html}{\out{</div>}}\preformatted{##  Setting default kernel parameters
+}\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit
+}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+## 
+## Fit time:  1s 
+## Support Vector Machine object of class "ksvm" 
+## 
+## SV type: C-svc  (classification) 
+##  parameter : cost C = 1 
+## 
+## Linear (vanilla) kernel function. 
+## 
+## Number of Support Vectors : 353 
+## 
+## Objective Function Value : -349.425 
+## Training error : 0.174136 
+## Probability model included.
+}
+
+The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_cls_fit, data_test, type = "prob") \%>\% 
+  bind_cols(
+    predict(svm_cls_fit, data_test)
+  )
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
+##    .pred_Class1 .pred_Class2 .pred_class
+##           <dbl>        <dbl> <fct>      
+##  1        0.523      0.477   Class1     
+##  2        0.903      0.0967  Class1     
+##  3        0.648      0.352   Class1     
+##  4        0.614      0.386   Class1     
+##  5        0.452      0.548   Class2     
+##  6        0.220      0.780   Class2     
+##  7        0.706      0.294   Class1     
+##  8        0.570      0.430   Class1     
+##  9        0.993      0.00685 Class1     
+## 10        0.120      0.880   Class2
+}
+}
+
+}
+
 \subsection{References}{
 \itemize{
 \item Lin, HT, and R Weng. \href{https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf}{“A Note on Platt’s Probabilistic Outputs for Support Vector Machines”}
