@@ -138,7 +138,8 @@ rf_reg_spec
 ## Computational engine: ranger
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
@@ -156,21 +157,21 @@ rf_reg_fit
 ## Target node size:                 5 
 ## Variable importance mode:         none 
 ## Splitrule:                        variance 
-## OOB prediction error (MSE):       9.753647 
-## R squared (OOB):                  0.7734384
+## OOB prediction error (MSE):       9.72953 
+## R squared (OOB):                  0.7739986
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
 ##   .pred
 ##   <dbl>
-## 1 20.5 
+## 1 20.4 
 ## 2 21.5 
 ## 3 20.8 
 ## 4 21.6 
-## 5 19.3 
-## 6  7.30
-## 7  6.36
+## 5 19.4 
+## 6  7.32
+## 7  6.03
 }
 }
 
@@ -201,11 +202,12 @@ rf_cls_spec
 ## Computational engine: ranger
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  137ms 
+## Fit time:  289ms 
 ## Ranger result
 ## 
 ## Call:
@@ -219,7 +221,7 @@ rf_cls_fit
 ## Target node size:                 5 
 ## Variable importance mode:         none 
 ## Splitrule:                        gini 
-## OOB prediction error (Brier s.):  0.1517977
+## OOB prediction error (Brier s.):  0.1534794
 }
 
 The holdout data can be predicted for both hard class predictions and
@@ -230,16 +232,16 @@ probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div c
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
 ##    .pred_Class1 .pred_Class2 .pred_class
 ##           <dbl>        <dbl> <fct>      
-##  1      0.268         0.732  Class2     
-##  2      0.932         0.0677 Class1     
-##  3      0.518         0.482  Class1     
-##  4      0.641         0.359  Class1     
-##  5      0.311         0.690  Class2     
-##  6      0.156         0.844  Class2     
-##  7      0.748         0.252  Class1     
-##  8      0.632         0.368  Class1     
-##  9      0.743         0.257  Class1     
-## 10      0.00325       0.997  Class2
+##  1      0.274         0.725  Class2     
+##  2      0.928         0.0716 Class1     
+##  3      0.497         0.503  Class2     
+##  4      0.703         0.297  Class1     
+##  5      0.302         0.698  Class2     
+##  6      0.151         0.849  Class2     
+##  7      0.701         0.299  Class1     
+##  8      0.592         0.409  Class1     
+##  9      0.752         0.248  Class1     
+## 10      0.00225       0.998  Class2
 }
 }
 

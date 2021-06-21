@@ -89,6 +89,7 @@ rf_reg_spec
 Now we create the model fit object:
 
 ```{r}
+set.seed(1)
 rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 ```
@@ -117,6 +118,7 @@ rf_cls_spec
 Now we create the model fit object:
 
 ```{r}
+set.seed(1)
 rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
 rf_cls_fit
 ```

@@ -120,7 +120,8 @@ svm_reg_spec
 ## Computational engine: LiblineaR
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
@@ -185,11 +186,12 @@ svm_cls_spec
 ## Computational engine: LiblineaR
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  824ms 
+## Fit time:  716ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
 ## 
@@ -198,7 +200,7 @@ svm_cls_fit
 ## 
 ## $W
 ##              A         B     Bias
-## [1,] 0.4067452 -1.314868 1.321972
+## [1,] 0.4067922 -1.314783 1.321851
 ## 
 ## $Bias
 ## [1] 1

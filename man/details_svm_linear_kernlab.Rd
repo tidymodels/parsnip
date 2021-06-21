@@ -116,12 +116,13 @@ svm_reg_spec
 ## Computational engine: kernlab
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 }\if{html}{\out{</div>}}\preformatted{##  Setting default kernel parameters
 }\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  1s 
+## Fit time:  959ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -175,12 +176,13 @@ svm_cls_spec
 ## Computational engine: kernlab
 }
 
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
+Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
+svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 }\if{html}{\out{</div>}}\preformatted{##  Setting default kernel parameters
 }\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  1s 
+## Fit time:  1.2s 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 
@@ -203,16 +205,16 @@ probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div c
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
 ##    .pred_Class1 .pred_Class2 .pred_class
 ##           <dbl>        <dbl> <fct>      
-##  1        0.523      0.477   Class1     
-##  2        0.903      0.0967  Class1     
-##  3        0.648      0.352   Class1     
-##  4        0.614      0.386   Class1     
-##  5        0.452      0.548   Class2     
-##  6        0.220      0.780   Class2     
-##  7        0.706      0.294   Class1     
-##  8        0.570      0.430   Class1     
-##  9        0.993      0.00685 Class1     
-## 10        0.120      0.880   Class2
+##  1        0.517      0.483   Class1     
+##  2        0.904      0.0956  Class1     
+##  3        0.645      0.355   Class1     
+##  4        0.610      0.390   Class1     
+##  5        0.445      0.555   Class2     
+##  6        0.212      0.788   Class2     
+##  7        0.704      0.296   Class1     
+##  8        0.565      0.435   Class1     
+##  9        0.994      0.00646 Class1     
+## 10        0.114      0.886   Class2
 }
 }
 
