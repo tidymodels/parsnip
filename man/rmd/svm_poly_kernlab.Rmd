@@ -62,7 +62,7 @@ svm_poly(
 
 The `margin` parameter does not apply to classification models. 
 
-Note that the `kernlab` engine does not naturally estimate class probabilities. To get them, the decision values of the model are converted to probabilities using Platt scaling. This method fits an additional model on top of the SVM model. When fitting the Platt scaling model, random numbers are used that are not reproducible or controlled by R's random number stream.   
+Note that the `"kernlab"` engine does not naturally estimate class probabilities. To produce them, the decision values of the model are converted to probabilities using Platt scaling. This method fits an additional model on top of the SVM model. When fitting the Platt scaling model, random numbers are used that are not reproducible or controlled by R's random number stream.   
 
 ## Preprocessing requirements
 

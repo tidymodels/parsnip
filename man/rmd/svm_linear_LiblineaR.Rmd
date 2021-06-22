@@ -60,7 +60,7 @@ svm_linear(
 
 The `margin` parameter does not apply to classification models. 
 
-Note that the `LiblineaR` engine cannot produce class probabilities. When optimizing the model using the tune package, the default metrics require class probabilities. To be able to use the  `tune_*()` functions, a metric set must be passed as an argument and it can only contain metrics associated with hard class predictions (e.g., accuracy and so on).
+Note that the `LiblineaR` engine does not produce class probabilities. When optimizing the model using the tune package, the default metrics require class probabilities. To use the  `tune_*()` functions, a metric set must be passed as an argument that only contains metrics for hard class predictions (e.g., accuracy).
 
 ## Preprocessing requirements
 

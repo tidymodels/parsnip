@@ -36,7 +36,7 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-The `mtry` parameter is related to the number of predictors. The default depends on the model mode. For classification, the square root of the number of predictors is used and for regression one third of the predictors are sampled. 
+The `mtry` parameter is related to the number of predictors. The default depends on the model mode. For classification, the square root of the number of predictors is used and for regression, one third of the predictors are sampled. 
 
 ## Translation from parsnip to the original package (regression)
 
