@@ -3,16 +3,16 @@
 #' Decision trees
 #'
 #' @description
-#' `decision_tree()` creates a model that is defined as a set of `if/then`
-#' statements that creates a tree-based structure.
+#' `decision_tree()` defines a model as a set of `if/then` statements that
+#' creates a tree-based structure.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param cost_complexity A positive number for the the cost/complexity
@@ -24,7 +24,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 #'
 #' @examples

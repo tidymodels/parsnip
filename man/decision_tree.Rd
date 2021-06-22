@@ -25,16 +25,16 @@ parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 in a node that are required for the node to be split further.}
 }
 \description{
-\code{decision_tree()} creates a model that is defined as a set of \verb{if/then}
-statements that creates a tree-based structure.
+\code{decision_tree()} defines a model as a set of \verb{if/then} statements that
+creates a tree-based structure.
 
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

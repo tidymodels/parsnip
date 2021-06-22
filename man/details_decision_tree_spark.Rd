@@ -4,8 +4,8 @@
 \alias{details_decision_tree_spark}
 \title{Decision trees via Spark}
 \description{
-\code{\link[sparklyr:ml_decision_tree]{sparklyr::ml_decision_tree()}} creates a model that is defined as a set of
-\verb{if/then} statements that creates a tree-based structure.
+\code{\link[sparklyr:ml_decision_tree]{sparklyr::ml_decision_tree()}} defines a model as a set of \verb{if/then}
+statements that creates a tree-based structure.
 }
 \details{
 For this engine, there are multiple modes: classification and regression
