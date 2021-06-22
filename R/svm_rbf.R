@@ -3,20 +3,21 @@
 #' @description
 #'
 #' `svm_rbf()` defines a support vector machine model. For classification,
-#' these models try to maximize the width of the margin between classes.
+#' the model tries to maximize the width of the margin between classes.
 #' For regression, the model optimizes a robust loss function that is only
 #' affected by very large model residuals.
 #'
-#' This SVM model uses a nonlinear function, defined by the radial basis function,
+#' This SVM model uses a nonlinear function, specifically the radial basis function,
 #' to create the decision boundary or regression line.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_rbf")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
 #' @inheritParams boost_tree
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
@@ -27,7 +28,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}
 #'
 #' @examples

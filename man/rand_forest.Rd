@@ -21,17 +21,17 @@ the ensemble.}
 in a node that are required for the node to be split further.}
 }
 \description{
-\code{rand_forest()} defines a model that creates large number of decision trees, each
-independent of one another. The final prediction uses all predictions from
-the individual trees and combines them.
+\code{rand_forest()} defines a model that creates a large number of decision
+trees, each independent of the others. The final prediction uses all
+predictions from the individual trees and combines them.
 
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

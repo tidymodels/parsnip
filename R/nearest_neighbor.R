@@ -1,17 +1,17 @@
-#' K-nearest neighbor
+#' K-nearest neighbors
 #'
 #' @description
 #'
-#' `nearest_neighbor()` defines a model that uses the K most similar data points
-#' from the training set to predict new samples.
+#' `nearest_neighbor()` defines a model that uses the `K` most similar data
+#' points from the training set to predict new samples.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param neighbors A single integer for the number of neighbors
@@ -27,7 +27,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
 #'
 #' @examples

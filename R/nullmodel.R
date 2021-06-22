@@ -125,10 +125,9 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
   out
 }
 
-#' Null models
+#' Null model
 #'
-#' `null_model()` is a way to generate a _specification_ of a model before
-#'  fitting and allows the model to be created using R. It doesn't have any
+#' `null_model()` defines a simple, non-informative model. It doesn't have any
 #'  main arguments.
 #'
 #' @inheritParams boost_tree

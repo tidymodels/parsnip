@@ -2,7 +2,7 @@
 % Please edit documentation in R/nullmodel.R
 \name{null_model}
 \alias{null_model}
-\title{Null models}
+\title{Null model}
 \usage{
 null_model(mode = "classification")
 }
@@ -12,8 +12,7 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 }
 \description{
-\code{null_model()} is a way to generate a \emph{specification} of a model before
-fitting and allows the model to be created using R. It doesn't have any
+\code{null_model()} defines a simple, non-informative model. It doesn't have any
 main arguments.
 }
 \details{

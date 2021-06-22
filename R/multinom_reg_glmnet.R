@@ -1,6 +1,6 @@
 #' Multinomial regression via glmnet
 #'
-#' [glmnet::glmnet()] defines a model that uses linear predictors to predict
+#' [glmnet::glmnet()] fits a model that uses linear predictors to predict
 #' multiclass data using the multinomial distribution.
 #'
 #' @includeRmd man/rmd/multinom_reg_glmnet.Rmd details

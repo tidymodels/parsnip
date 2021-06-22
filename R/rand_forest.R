@@ -2,17 +2,17 @@
 #'
 #' @description
 #'
-#' `rand_forest()` defines a model that creates large number of decision trees, each
-#' independent of one another. The final prediction uses all predictions from
-#' the individual trees and combines them.
+#' `rand_forest()` defines a model that creates a large number of decision
+#' trees, each independent of the others. The final prediction uses all
+#' predictions from the individual trees and combines them.
 #'
 #' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param mtry An integer for the number of predictors that will
@@ -25,7 +25,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
 #'
 #' @examples

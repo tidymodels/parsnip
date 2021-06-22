@@ -1,6 +1,6 @@
 #' Decision trees via CART
 #'
-#' [rpart::rpart()] defines a model as a set of `if/then` statements that
+#' [rpart::rpart()] fits a model as a set of `if/then` statements that
 #' creates a tree-based structure.
 #'
 #' @includeRmd man/rmd/decision_tree_rpart.Rmd details

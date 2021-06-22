@@ -2,7 +2,7 @@
 % Please edit documentation in R/nearest_neighbor.R
 \name{nearest_neighbor}
 \alias{nearest_neighbor}
-\title{K-nearest neighbor}
+\title{K-nearest neighbors}
 \usage{
 nearest_neighbor(
   mode = "unknown",
@@ -29,16 +29,16 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 calculating Minkowski distance.}
 }
 \description{
-\code{nearest_neighbor()} defines a model that uses the K most similar data points
-from the training set to predict new samples.
+\code{nearest_neighbor()} defines a model that uses the \code{K} most similar data
+points from the training set to predict new samples.
 
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine
