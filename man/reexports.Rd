@@ -10,6 +10,8 @@
 \alias{glance}
 \alias{augment}
 \alias{required_pkgs}
+\alias{extract_parsnip_spec}
+\alias{extract_fit_engine}
 \alias{varying_args}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -19,6 +21,8 @@ below to see their documentation.
 
 \describe{
   \item{generics}{\code{\link[generics]{augment}}, \code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{required_pkgs}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
+
+  \item{hardhat}{\code{\link[hardhat:hardhat-extract]{extract_fit_engine}}, \code{\link[hardhat:hardhat-extract]{extract_parsnip_spec}}}
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 }}

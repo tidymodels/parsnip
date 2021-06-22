@@ -31,7 +31,8 @@ Imports:
     tidyr (>= 1.0.0),
     globals,
     prettyunits,
-    vctrs (>= 0.2.0)
+    vctrs (>= 0.2.0),
+    hardhat (>= 0.1.5.9000)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001
 Suggests: 
