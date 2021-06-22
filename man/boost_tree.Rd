@@ -48,16 +48,16 @@ each iteration while \code{C5.0} samples once during training.}
 stopping (specific engines only).}
 }
 \description{
-\code{boost_tree()} defines a model that creates a series of decision trees that form an
-ensemble. Each tree depends on the results of previous trees. All trees in
-the ensemble are combined into a final prediction.
+\code{boost_tree()} defines a model that creates a series of decision trees
+forming an ensemble. Each tree depends on the results of previous trees.
+All trees in the ensemble are combined to produce a final prediction.
 
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
 
-More information on how \code{parsnip} is used for modeling is at
+More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
 \details{

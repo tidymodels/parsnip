@@ -4,9 +4,9 @@
 \alias{details_boost_tree_C5.0}
 \title{Boosted trees via C5.0}
 \description{
-\code{\link[C50:C5.0]{C50::C5.0()}} creates a series of classification trees that form an
+\code{\link[C50:C5.0]{C50::C5.0()}} creates a series of classification trees forming an
 ensemble. Each tree depends on the results of previous trees. All trees in
-the ensemble are combined into a final prediction.
+the ensemble are combined to produce a final prediction.
 }
 \details{
 For this engine, there is a single mode: classification

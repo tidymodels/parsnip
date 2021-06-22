@@ -4,9 +4,9 @@
 \alias{details_boost_tree_xgboost}
 \title{Boosted trees via xgboost}
 \description{
-\code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} creates a series of decision trees that form an
+\code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} creates a series of decision trees forming an
 ensemble. Each tree depends on the results of previous trees. All trees in
-the ensemble are combined into a final prediction.
+the ensemble are combined to produce a final prediction.
 }
 \details{
 For this engine, there are multiple modes: classification and regression

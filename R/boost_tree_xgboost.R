@@ -1,8 +1,8 @@
 #' Boosted trees via xgboost
 #'
-#' [xgboost::xgb.train()] creates a series of decision trees that form an
+#' [xgboost::xgb.train()] creates a series of decision trees forming an
 #' ensemble. Each tree depends on the results of previous trees. All trees in
-#' the ensemble are combined into a final prediction.
+#' the ensemble are combined to produce a final prediction.
 #'
 #' @includeRmd man/rmd/boost_tree_xgboost.Rmd details
 #'

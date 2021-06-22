@@ -5,8 +5,8 @@
 \title{Boosted trees via Spark}
 \description{
 \code{\link[sparklyr:ml_gradient_boosted_trees]{sparklyr::ml_gradient_boosted_trees()}} creates a series of decision trees
-that form an ensemble. Each tree depends on the results of previous trees.
-All trees in the ensemble are combined into a final prediction.
+forming an ensemble. Each tree depends on the results of previous trees.
+All trees in the ensemble are combined to produce a final prediction.
 }
 \details{
 For this engine, there are multiple modes: classification and

@@ -4,16 +4,16 @@
 #'
 #' @description
 #'
-#' `boost_tree()` defines a model that creates a series of decision trees that form an
-#' ensemble. Each tree depends on the results of previous trees. All trees in
-#' the ensemble are combined into a final prediction.
+#' `boost_tree()` defines a model that creates a series of decision trees
+#' forming an ensemble. Each tree depends on the results of previous trees.
+#' All trees in the ensemble are combined to produce a final prediction.
 #'
 #' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
 #'
-#' More information on how `parsnip` is used for modeling is at
+#' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the type of model.
