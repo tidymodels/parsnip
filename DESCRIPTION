@@ -58,4 +58,5 @@ Suggests:
     Matrix,
     mgcv
 Remotes:
-    topepo/C5.0
+    topepo/C5.0,
+    tidymodels/hardhat@feature/extract-generics
