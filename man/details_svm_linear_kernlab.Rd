@@ -5,7 +5,7 @@
 \title{Linear support vector machines (SVMs) via kernlab}
 \description{
 \code{\link[kernlab:ksvm]{kernlab::ksvm()}} fits a support vector machine model. For classification,
-these models try to maximize the width of the margin between classes.
+the model tries to maximize the width of the margin between classes.
 For regression, the model optimizes a robust loss function that is only
 affected by very large model residuals.
 }
@@ -61,8 +61,8 @@ This model has 2 tuning parameters:
 
 The \code{margin} parameter does not apply to classification models.
 
-Note that the \code{kernlab} engine does not naturally estimate class
-probabilities. To get them, the decision values of the model are
+Note that the \code{"kernlab"} engine does not naturally estimate class
+probabilities. To produce them, the decision values of the model are
 converted to probabilities using Platt scaling. This method fits an
 additional model on top of the SVM model. When fitting the Platt scaling
 model, random numbers are used that are not reproducible or controlled
@@ -74,7 +74,7 @@ by R’s random number stream.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -122,7 +122,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  991ms 
+## Fit time:  308ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -132,8 +132,8 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 ## 
 ## Number of Support Vectors : 2283 
 ## 
-## Objective Function Value : -825.1632 
-## Training error : 0.226456
+## Objective Function Value : -825.1631 
+## Training error : 0.226492
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_reg_fit, Chicago_test)
@@ -181,7 +181,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  763ms 
+## Fit time:  12ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 

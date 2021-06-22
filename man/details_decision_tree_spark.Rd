@@ -4,7 +4,7 @@
 \alias{details_decision_tree_spark}
 \title{Decision trees via Spark}
 \description{
-\code{\link[sparklyr:ml_decision_tree]{sparklyr::ml_decision_tree()}} defines a model as a set of \verb{if/then}
+\code{\link[sparklyr:ml_decision_tree]{sparklyr::ml_decision_tree()}} fits a model as a set of \verb{if/then}
 statements that creates a tree-based structure.
 }
 \details{
@@ -65,14 +65,14 @@ variables for each category.
 
 \subsection{Other details}{
 
-For models created using the \code{spark} engine, there are several things to
-consider.
+For models created using the \code{"spark"} engine, there are several things
+to consider.
 \itemize{
 \item Only the formula interface to via \code{fit()} is available; using
 \code{fit_xy()} will generate an error.
-\item The predictions will always be in a spark table format. The names
+\item The predictions will always be in a Spark table format. The names
 will be the same as documented but without the dots.
-\item There is no equivalent to factor columns in spark tables so class
+\item There is no equivalent to factor columns in Spark tables so class
 predictions are returned as character columns.
 \item To retain the model object for a new R session (via \code{save()}), the
 \code{model$fit} element of the parsnip object should be serialized via

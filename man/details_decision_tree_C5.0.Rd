@@ -4,7 +4,7 @@
 \alias{details_decision_tree_C5.0}
 \title{Decision trees via C5.0}
 \description{
-\code{\link[C50:C5.0]{C50::C5.0()}} defines a model as a set of \verb{if/then} statements that
+\code{\link[C50:C5.0]{C50::C5.0()}} fits a model as a set of \verb{if/then} statements that
 creates a tree-based structure.
 }
 \details{

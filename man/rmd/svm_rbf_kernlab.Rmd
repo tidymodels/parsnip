@@ -33,7 +33,7 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-There is no default for the radial basis function kernel parameter. `kernlab` estimates it from the data using a heuristic method. See [kernlab::sigest()]. This method uses random numbers so, without setting the seed before fitting, the model will not be reproducible. 
+There is no default for the radial basis function kernel parameter. kernlab estimates it from the data using a heuristic method. See [kernlab::sigest()]. This method uses random numbers so, without setting the seed before fitting, the model will not be reproducible. 
 
 ## Translation from parsnip to the original package (regression)
 

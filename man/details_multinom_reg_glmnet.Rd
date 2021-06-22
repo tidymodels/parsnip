@@ -5,7 +5,7 @@
 \title{Multinomial regression via glmnet}
 \description{
 \code{\link[glmnet:glmnet]{glmnet::glmnet()}} fits a model that uses linear predictors to predict
-multi-class data using the multinomial distribution.
+multiclass data using the multinomial distribution.
 }
 \details{
 For this engine, there is a single mode: classification
@@ -48,7 +48,7 @@ see \link{glmnet-details}.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -87,7 +87,7 @@ mr_cls_fit <- mr_cls_spec \%>\% fit(island ~ ., data = penguins_train)
 mr_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  35ms 
+## Fit time:  6ms 
 ## 
 ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "multinomial") 
 ## 

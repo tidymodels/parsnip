@@ -30,9 +30,9 @@ Inf)
 
 The \code{mtry} parameter is related to the number of predictors. The default
 is to use all predictors. \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}}
-encodes this as a real number between zero and one. \code{parsnip} translates
+encodes this as a real number between zero and one. parsnip translates
 the number of columns to this type of value. The user should give the
-argument to \code{boost_tree()} an integer (not a real number).
+argument to \code{boost_tree()} as an integer (not a real number).
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree(
@@ -101,28 +101,27 @@ that makes it easier to run this model.
 
 \subsection{Preprocessing requirements}{
 
-\code{xgboost} does not have a means to translate factor predictors to
-grouped splits. Factor/categorical predictors need to be converted to
-numeric values (e.g., dummy or indicator variables) for this engine.
-When using the formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will convert factor
-columns to indicators using a one-hot encoding.
+xgboost does not have a means to translate factor predictors to grouped
+splits. Factor/categorical predictors need to be converted to numeric
+values (e.g., dummy or indicator variables) for this engine. When using
+the formula method via \code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip
+will convert factor columns to indicators using a one-hot encoding.
 
-Finally, in the classification mode, non-numeric outcomes (i.e.,
-factors) are internally converted to numeric. For binary classification,
-the \code{event_level} argument of \code{set_engine()} can be set to either
-\code{"first"} or \code{"second"} to specify which level should be used as the
-event. This can be helpful when a watchlist is used to monitor
-performance from with the xgboost training process.
+For classification, non-numeric outcomes (i.e., factors) are internally
+converted to numeric. For binary classification, the \code{event_level}
+argument of \code{set_engine()} can be set to either \code{"first"} or \code{"second"}
+to specify which level should be used as the event. This can be helpful
+when a watchlist is used to monitor performance from with the xgboost
+training process.
 }
 
 \subsection{Other details}{
 \subsection{Sparse matrices}{
 
-\code{xgboost} requires the data to be in a spares format. If your predictor
+xgboost requires the data to be in a sparse format. If your predictor
 data are already in this format, then use
 \code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}} to pass it to the model
-function. Otherwise, \code{parsnip} converts the data to this format.
+function. Otherwise, parsnip converts the data to this format.
 }
 
 \subsection{Parallel processing}{
@@ -130,7 +129,7 @@ function. Otherwise, \code{parsnip} converts the data to this format.
 By default, the model is trained without parallel processing. This can
 be change by passing the \code{nthread} parameter to
 \code{\link[=set_engine]{set_engine()}}. However, it is unwise to combine this
-with external parallel processing when using the \code{tune} package.
+with external parallel processing when using the package.
 }
 
 \subsection{Early stopping}{
@@ -141,7 +140,7 @@ iterations.
 
 The best way to use this feature is in conjunction with an \emph{internal
 validation set}. To do this, pass the \code{validation} parameter of
-\code{\link[=xgb_train]{xgb_train()}} via the \code{parsnip}
+\code{\link[=xgb_train]{xgb_train()}} via the parsnip
 \code{\link[=set_engine]{set_engine()}} function. This is the proportion of the
 training set that should be reserved for measuring performance (and stop
 early).
@@ -152,7 +151,7 @@ converted to \code{trees - 1} and a warning is issued.
 
 \subsection{Objective function}{
 
-\code{parsnip} chooses the objective function based on the characteristics of
+parsnip chooses the objective function based on the characteristics of
 the outcome. To use a different loss, pass the \code{objective} argument to
 \code{\link[=set_engine]{set_engine()}}.
 }

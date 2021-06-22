@@ -12,8 +12,8 @@ The implementation of the glmnet package has some nice features. For
 example, one of the main tuning parameters, the regularization penalty,
 does not need to be specified when fitting the model. The package fits a
 compendium of values, called the regularization path. These values
-depend on the data set and the value of \code{alpha} (the mixture parameter
-between a pure ridge model (\code{alpha = 0} and a pure lasso model
+depend on the data set and the value of \code{alpha}, the mixture parameter
+between a pure ridge model (\code{alpha = 0}) and a pure lasso model
 (\code{alpha = 1}). When predicting, any penalty values can be simultaneously
 predicted, even those that are not exactly on the regularization path.
 For those, the model approximates between the closest path values to
@@ -21,16 +21,16 @@ produce a prediction. There is an argument called \code{lambda} to the
 \code{glmnet()} function that is used to specify the path.
 
 In the discussion below, \code{linear_reg()} is used. The information is true
-for all \code{parsnip} models that have a \code{glmnet} engine.
-\subsection{Fitting and predicting using \code{parsnip}}{
+for all parsnip models that have a \code{"glmnet"} engine.
+\subsection{Fitting and predicting using parsnip}{
 
-Recall that tidymodels uses standardized and jargon-free parameter names
-across models. The argument \code{penalty} is the equivalent of what glmnet
-calls the \code{lambda} value and \code{mixture} is the same as their \code{alpha}
-value.
+Recall that tidymodels uses standardized parameter names across models
+chosen to be low on jargon. The argument \code{penalty} is the equivalent of
+what glmnet calls the \code{lambda} value and \code{mixture} is the same as their
+\code{alpha} value.
 
 In tidymodels, our \code{predict()} methods are defined to make one
-prediction at a time. For this model, that means predictions are for
+prediction at a time. For this model, that means predictions are for a
 single penalty value. For this reason, models that have glmnet engines
 require the user to always specify a single penalty value when the model
 is defined. For example, for linear regression:\if{html}{\out{<div class="r">}}\preformatted{linear_reg(penalty = 1) \%>\% set_engine("glmnet")
@@ -54,7 +54,7 @@ predict(fit, mtcars[1:3,])
 ## 3  24.9
 }
 
-However, any penalty valuers can be predicted simultaneously using the
+However, any penalty values can be predicted simultaneously using the
 \code{multi_predict()} method:\if{html}{\out{<div class="r">}}\preformatted{# predict at c(0.00, 0.01)
 multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 x 1
@@ -94,7 +94,7 @@ It may appear odd that the \code{lambda} value does not get used in the fit:\if{
 ##     family = "gaussian")
 }
 
-Internally, the value of \code{penalty = 1} is saved in the \code{parsnip} object
+Internally, the value of \code{penalty = 1} is saved in the parsnip object
 and no value is set for \code{lambda}. This enables the full path to be fit
 by \code{glmnet()}. See the section below about setting the path.
 }
@@ -103,15 +103,15 @@ by \code{glmnet()}. See the section below about setting the path.
 
 \subsection{How do I set the regularization path?}{
 
-Irregardless of what value you use for \code{penalty}, the full coefficient
+Regardless of what value you use for \code{penalty}, the full coefficient
 path is used when \code{\link[glmnet:glmnet]{glmnet::glmnet()}} is called.
 
 What if you want to manually set this path? Normally, you would pass a
 vector to \code{lambda} in \code{\link[glmnet:glmnet]{glmnet::glmnet()}}.
 
-\code{parsnip} models that use a \code{glmnet} engine can use a special optional
+parsnip models that use a \code{glmnet} engine can use a special optional
 argument called \code{path_values}. This is \emph{not} an argument to
-\code{\link[glmnet:glmnet]{glmnet::glmnet()}}; it is used by \code{parsnip} to
+\code{\link[glmnet:glmnet]{glmnet::glmnet()}}; it is used by parsnip to
 independently set the path.
 
 For example, we have found that if you want a fully ridge regression
@@ -144,12 +144,12 @@ predict(fit_ridge, mtcars[1:3,])
 \code{\link[broom:reexports]{broom::tidy()}} is a function that gives a summary of
 the object as a tibble.
 
-\strong{tl;dr} \code{tidy()} on a \code{glmnet} model produced by \code{parsnip} gives the
+\strong{tl;dr} \code{tidy()} on a \code{glmnet} model produced by parsnip gives the
 coefficients for the value given by \code{penalty}.
 
-When \code{parsnip} makes a model, it gives it an extra class. Use the
-\code{tidy()} method on the object, it produces coefficients for the penalty
-that was originally requested:\if{html}{\out{<div class="r">}}\preformatted{tidy(fit)
+When parsnip makes a model, it gives it an extra class. Use the \code{tidy()}
+method on the object, it produces coefficients for the penalty that was
+originally requested:\if{html}{\out{<div class="r">}}\preformatted{tidy(fit)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 11 x 3
 ##    term        estimate penalty
 ##    <chr>          <dbl>   <dbl>

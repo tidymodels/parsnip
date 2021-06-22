@@ -4,7 +4,7 @@
 \alias{details_decision_tree_rpart}
 \title{Decision trees via CART}
 \description{
-\code{\link[rpart:rpart]{rpart::rpart()}} defines a model as a set of \verb{if/then} statements that
+\code{\link[rpart:rpart]{rpart::rpart()}} fits a model as a set of \verb{if/then} statements that
 creates a tree-based structure.
 }
 \details{

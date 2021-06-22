@@ -77,7 +77,7 @@ in \code{\link[discrim:discrim_flexible]{discrim::discrim_flexible()}}.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 }
 

@@ -25,9 +25,9 @@ each chain (including warmup). The default is 2000.
 \item \code{cores}: Number of cores to use when executing the chains in
 parallel.
 \item \code{prior}: The prior distribution for the (non-hierarchical)
-regression coefficients. The \code{stan} engine does not fit any
-hierarchical terms. See the \code{stan_glmer} engine from the
-\code{multilevelmod} package for that type of model.
+regression coefficients. The \code{"stan"} engine does not fit any
+hierarchical terms. See the \code{"stan_glmer"} engine from the
+multilevelmod package for that type of model.
 \item \code{prior_intercept}: The prior distribution for the intercept (after
 centering all predictors).
 }
@@ -58,13 +58,13 @@ process. Change this value in \code{set_engine()} to show the MCMC logs.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 }
 
 \subsection{Other details}{
 
-For prediction, the \code{stan} engine can compute posterior intervals
+For prediction, the \code{"stan"} engine can compute posterior intervals
 analogous to confidence and prediction intervals. In these instances,
 the units are the original outcome and when \code{std_error = TRUE}, the
 standard deviation of the posterior distribution (or posterior

@@ -5,9 +5,9 @@
 \title{Radial basis function support vector machines (SVMs) via kernlab}
 \description{
 \code{\link[kernlab:ksvm]{kernlab::ksvm()}} fits a support vector machine model. For classification,
-these models try to maximize the width of the margin between classes.
+the model tries to maximize the width of the margin between classes.
 For regression, the model optimizes a robust loss function that is only
-affected by the largest model residuals.
+affected by very large model residuals.
 }
 \details{
 For this engine, there are multiple modes: classification and regression
@@ -22,7 +22,7 @@ below)
 }
 
 There is no default for the radial basis function kernel parameter.
-\code{kernlab} estimates it from the data using a heuristic method. See
+kernlab estimates it from the data using a heuristic method. See
 \code{\link[kernlab:sigest]{kernlab::sigest()}}. This method uses random
 numbers so, without setting the seed before fitting, the model will not
 be reproducible.
@@ -73,8 +73,8 @@ be reproducible.
 
 The \code{margin} parameter does not apply to classification models.
 
-Note that the \code{kernlab} engine does not naturally estimate class
-probabilities. To get them, the decision values of the model are
+Note that the \code{"kernlab"} engine does not naturally estimate class
+probabilities. To produce them, the decision values of the model are
 converted to probabilities using Platt scaling. This method fits an
 additional model on top of the SVM model. When fitting the Platt scaling
 model, random numbers are used that are not reproducible or controlled
@@ -86,7 +86,7 @@ by R’s random number stream.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -133,7 +133,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  2.2s 
+## Fit time:  340ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -142,10 +142,10 @@ svm_reg_fit
 ## Gaussian Radial Basis kernel function. 
 ##  Hyperparameter : sigma =  10.8262370251485 
 ## 
-## Number of Support Vectors : 2233 
+## Number of Support Vectors : 2234 
 ## 
-## Objective Function Value : -746.584 
-## Training error : 0.205567
+## Objective Function Value : -746.5841 
+## Training error : 0.205552
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_reg_fit, Chicago_test)
@@ -192,7 +192,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  97ms 
+## Fit time:  18ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 

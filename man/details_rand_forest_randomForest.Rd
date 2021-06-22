@@ -4,9 +4,9 @@
 \alias{details_rand_forest_randomForest}
 \title{Random forests via randomForest}
 \description{
-\code{\link[randomForest:randomForest]{randomForest::randomForest()}} fits a model that creates large number of
-decision trees, each independent of one another. The final prediction uses
-all predictions from the individual trees and combines them.
+\code{\link[randomForest:randomForest]{randomForest::randomForest()}} fits a model that creates a large number of
+decision trees, each independent of the others. The final prediction uses all
+predictions from the individual trees and combines them.
 }
 \details{
 For this engine, there are multiple modes: classification and regression
@@ -126,7 +126,7 @@ rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  6.8s 
+## Fit time:  2.5s 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -134,8 +134,8 @@ rf_reg_fit
 ##                      Number of trees: 200
 ## No. of variables tried at each split: 1
 ## 
-##           Mean of squared residuals: 9.696736
-##                     \% Var explained: 77.47
+##           Mean of squared residuals: 9.754255
+##                     \% Var explained: 77.34
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
@@ -144,11 +144,11 @@ The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{
 ##   <dbl>
 ## 1 20.4 
 ## 2 21.6 
-## 3 20.9 
-## 4 21.6 
-## 5 19.3 
-## 6  7.33
-## 7  6.16
+## 3 20.5 
+## 4 21.5 
+## 5 19.4 
+## 6  7.25
+## 7  6.00
 }
 }
 
@@ -183,7 +183,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  94ms 
+## Fit time:  49ms 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -191,11 +191,11 @@ rf_cls_fit
 ##                      Number of trees: 200
 ## No. of variables tried at each split: 1
 ## 
-##         OOB estimate of  error rate: 19.72\%
+##         OOB estimate of  error rate: 20.49\%
 ## Confusion matrix:
 ##        Class1 Class2 class.error
-## Class1    363     70   0.1616628
-## Class2     84    264   0.2413793
+## Class1    360     73   0.1685912
+## Class2     87    261   0.2500000
 }
 
 The holdout data can be predicted for both hard class predictions and
@@ -206,16 +206,16 @@ probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div c
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
 ##    .pred_Class1 .pred_Class2 .pred_class
 ##           <dbl>        <dbl> <fct>      
-##  1        0.23         0.77  Class2     
-##  2        0.95         0.05  Class1     
-##  3        0.59         0.41  Class1     
-##  4        0.75         0.25  Class1     
-##  5        0.305        0.695 Class2     
-##  6        0.105        0.895 Class2     
-##  7        0.685        0.315 Class1     
-##  8        0.63         0.37  Class1     
-##  9        0.79         0.21  Class1     
-## 10        0.02         0.98  Class2
+##  1        0.175        0.825 Class2     
+##  2        0.925        0.075 Class1     
+##  3        0.595        0.405 Class1     
+##  4        0.745        0.255 Class1     
+##  5        0.39         0.61  Class2     
+##  6        0.095        0.905 Class2     
+##  7        0.695        0.305 Class1     
+##  8        0.565        0.435 Class1     
+##  9        0.815        0.185 Class1     
+## 10        0            1     Class2
 }
 }
 

@@ -4,8 +4,8 @@
 \alias{details_multinom_reg_keras}
 \title{Multinomial regression via keras}
 \description{
-\code{\link[=keras_mlp]{keras_mlp()}} fits a model that uses linear predictors to predict multi-class
-data using the multinomial distribution.
+\code{\link[=keras_mlp]{keras_mlp()}} fits a model that uses linear predictors to predict
+multiclass data using the multinomial distribution.
 }
 \details{
 For this engine, there is a single mode: classification
@@ -35,9 +35,9 @@ ridge or weight decay).
 ##     hidden_units = 1, act = "linear")
 }
 
-\code{\link[=keras_mlp]{keras_mlp()}} is a \code{parsnip} wrapper around keras code
-for neural networks. This model fits a linear regression as a network
-with a single hidden unit.
+\code{\link[=keras_mlp]{keras_mlp()}} is a parsnip wrapper around keras code for
+neural networks. This model fits a linear regression as a network with a
+single hidden unit.
 }
 
 \subsection{Preprocessing requirements}{
@@ -45,7 +45,7 @@ with a single hidden unit.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to

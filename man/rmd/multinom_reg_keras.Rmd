@@ -43,7 +43,7 @@ multinom_reg(penalty = double(1)) %>%
   translate()
 ```
 
-[keras_mlp()] is a \pkg{parsnip} wrapper around keras code for neural networks. This model fits a linear regression as a network with a single hidden unit. 
+[keras_mlp()] is a parsnip wrapper around keras code for neural networks. This model fits a linear regression as a network with a single hidden unit. 
 
 ## Preprocessing requirements
 

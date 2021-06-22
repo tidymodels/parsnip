@@ -46,7 +46,7 @@ some models, you may need to pass this value in via
 ##     trace = FALSE, linout = TRUE)
 }
 
-Note that \code{parsnip} automatically sets linear activation in the last
+Note that parsnip automatically sets linear activation in the last
 layer.
 }
 
@@ -79,7 +79,7 @@ layer.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to

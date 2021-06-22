@@ -4,7 +4,7 @@
 \alias{details_nearest_neighbor_kknn}
 \title{K-nearest neighbors via kknn}
 \description{
-\code{\link[kknn:train.kknn]{kknn::train.kknn()}} fits a model that uses the K most similar data points
+\code{\link[kknn:train.kknn]{kknn::train.kknn()}} fits a model that uses the \code{K} most similar data points
 from the training set to predict new samples.
 }
 \details{
@@ -74,7 +74,7 @@ it is not consistent with the actual data dimensions.
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -120,7 +120,7 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  154ms 
+## Fit time:  107ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
@@ -177,7 +177,7 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  19ms 
+## Fit time:  14ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")

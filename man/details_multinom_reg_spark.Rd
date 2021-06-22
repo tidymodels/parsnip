@@ -4,8 +4,8 @@
 \alias{details_multinom_reg_spark}
 \title{Multinomial regression via spark}
 \description{
-\code{\link[sparklyr:ml_logistic_regression]{sparklyr::ml_logistic_regression()}} fits a model that uses linear predictors
-to predict multi-class data using the multinomial distribution.
+\code{\link[sparklyr:ml_logistic_regression]{sparklyr::ml_logistic_regression()}} fits a model that uses linear
+predictors to predict multiclass data using the multinomial distribution.
 }
 \details{
 For this engine, there is a single mode: classification
@@ -47,7 +47,7 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -58,14 +58,14 @@ argument \code{standardization = TRUE} to center and scale the data.
 
 \subsection{Other details}{
 
-For models created using the \code{spark} engine, there are several things to
-consider.
+For models created using the \code{"spark"} engine, there are several things
+to consider.
 \itemize{
 \item Only the formula interface to via \code{fit()} is available; using
 \code{fit_xy()} will generate an error.
-\item The predictions will always be in a spark table format. The names
+\item The predictions will always be in a Spark table format. The names
 will be the same as documented but without the dots.
-\item There is no equivalent to factor columns in spark tables so class
+\item There is no equivalent to factor columns in Spark tables so class
 predictions are returned as character columns.
 \item To retain the model object for a new R session (via \code{save()}), the
 \code{model$fit} element of the parsnip object should be serialized via

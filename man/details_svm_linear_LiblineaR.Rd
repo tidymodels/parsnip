@@ -5,7 +5,7 @@
 \title{Linear support vector machines (SVMs) via LiblineaR}
 \description{
 \code{\link[LiblineaR:LiblineaR]{LiblineaR::LiblineaR()}} fits a support vector machine model. For classification,
-these models try to maximize the width of the margin between classes.
+the model tries to maximize the width of the margin between classes.
 For regression, the model optimizes a robust loss function that is only
 affected by very large model residuals.
 }
@@ -65,12 +65,11 @@ are types 1 (classification) and 11 (regression).
 
 The \code{margin} parameter does not apply to classification models.
 
-Note that the \code{LiblineaR} engine cannot produce class probabilities.
+Note that the \code{LiblineaR} engine does not produce class probabilities.
 When optimizing the model using the tune package, the default metrics
-require class probabilities. To be able to use the \verb{tune_*()} functions,
-a metric set must be passed as an argument and it can only contain
-metrics associated with hard class predictions (e.g., accuracy and so
-on).
+require class probabilities. To use the \verb{tune_*()} functions, a metric
+set must be passed as an argument that only contains metrics for hard
+class predictions (e.g., accuracy).
 }
 
 \subsection{Preprocessing requirements}{
@@ -78,7 +77,7 @@ on).
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{parsnip} will
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
@@ -125,7 +124,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  4ms 
+## Fit time:  0ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector regression primal (L2R_L2LOSS_SVR)"
 ## 
@@ -190,7 +189,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  524ms 
+## Fit time:  236ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
 ## 
