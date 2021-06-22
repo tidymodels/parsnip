@@ -7,11 +7,12 @@
 linear_reg(mode = "regression", engine = "lm", penalty = NULL, mixture = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 The only possible value for this model is "regression".}
 
-\item{engine}{A character string for the method of fitting. Possible engines
-are listed above. The default for this model is \code{"lm"}.}
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"lm"}.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).

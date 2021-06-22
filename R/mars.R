@@ -22,11 +22,12 @@
 #'  functions. If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @param mode A single character string for the type of model.
+#' @param mode A single character string for the prediction outcome mode.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
-#' @param engine A character string for the method of fitting. Possible engines
-#' are listed above. The default for this model is `"earth"`.
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"earth"`.
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.

@@ -13,12 +13,13 @@ mars(
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
-\item{engine}{A character string for the method of fitting. Possible engines
-are listed above. The default for this model is \code{"earth"}.}
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"earth"}.}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}

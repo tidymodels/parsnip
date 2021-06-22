@@ -31,10 +31,11 @@
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
-#' @param mode A single character string for the type of model.
+#' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "regression".
-#'  @param engine A character string for the method of fitting. Possible engines
-#' are listed above. The default for this model is `"survival"`.
+#'  @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"survival"`.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
