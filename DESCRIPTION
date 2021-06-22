@@ -55,5 +55,6 @@ Suggests:
     modeldata,
     LiblineaR,
     Matrix,
-    dials
-
+    dials (>= 0.0.9.9000)
+Remotes:  
+    tidymodels/dials
