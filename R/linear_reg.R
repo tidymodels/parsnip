@@ -10,8 +10,8 @@
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".

@@ -4,7 +4,7 @@
 \alias{details_linear_reg_stan}
 \title{Linear regression via Bayesian Methods}
 \description{
-The \code{stan} engine estimates regression parameters using Bayesian estimation.
+The \code{"stan"} engine estimates regression parameters using Bayesian estimation.
 }
 \details{
 For this engine, there is a single mode: regression

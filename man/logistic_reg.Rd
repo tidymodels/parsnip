@@ -24,7 +24,7 @@ For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 }
 \description{
 \code{\link[=logistic_reg]{logistic_reg()}} fits a generalized linear model for binary outcomes. A
-linear combination of the predictors is used to model the log-odds of an
+linear combination of the predictors is used to model the log odds of an
 event.
 
 There are different ways to fit this model. See the engine-specific pages
@@ -32,7 +32,7 @@ for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
 
-More information on how \code{parsnip} is used for modeling is at
+More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
 \details{

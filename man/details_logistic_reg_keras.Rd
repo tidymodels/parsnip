@@ -5,7 +5,7 @@
 \title{Logistic regression via keras}
 \description{
 \code{\link[=keras_mlp]{keras_mlp()}} fits a generalized linear model for binary outcomes. A
-linear combination of the predictors is used to model the log-odds of an
+linear combination of the predictors is used to model the log odds of an
 event.
 }
 \details{

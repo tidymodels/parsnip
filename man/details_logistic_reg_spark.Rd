@@ -4,9 +4,9 @@
 \alias{details_logistic_reg_spark}
 \title{Logistic regression via spark}
 \description{
-\code{\link[sparklyr:ml_logistic_regression]{sparklyr::ml_logistic_regression()}} fits a generalized linear model for binary outcomes. A
-linear combination of the predictors is used to model the log-odds of an
-event.
+\code{\link[sparklyr:ml_logistic_regression]{sparklyr::ml_logistic_regression()}} fits a generalized linear model for
+binary outcomes. A linear combination of the predictors is used to model the
+log odds of an event.
 }
 \details{
 For this engine, there is a single mode: classification

@@ -27,8 +27,8 @@ for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

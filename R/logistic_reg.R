@@ -2,7 +2,7 @@
 #'
 #' @description
 #' [logistic_reg()] fits a generalized linear model for binary outcomes. A
-#' linear combination of the predictors is used to model the log-odds of an
+#' linear combination of the predictors is used to model the log odds of an
 #' event.
 #'
 #' There are different ways to fit this model. See the engine-specific pages
@@ -10,7 +10,7 @@
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
 #'
-#' More information on how `parsnip` is used for modeling is at
+#' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the type of model.
@@ -29,7 +29,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}
 #'
 #' @examples
