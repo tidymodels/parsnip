@@ -22,16 +22,16 @@ proportion of L1 regularization (i.e. lasso) in the model. When
 ridge regression is being used. (specific engines only).}
 }
 \description{
-\code{multinom_reg()} fits a model that uses linear predictors to predict multi-class
-data using the multinomial distribution.
+\code{multinom_reg()} defines a model that uses linear predictors to predict
+multiclass data using the multinomial distribution.
 
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("multinom_reg")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

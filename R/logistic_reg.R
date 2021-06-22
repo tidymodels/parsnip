@@ -1,7 +1,7 @@
 #' Logistic regression
 #'
 #' @description
-#' [logistic_reg()] fits a generalized linear model for binary outcomes. A
+#' [logistic_reg()] defines a generalized linear model for binary outcomes. A
 #' linear combination of the predictors is used to model the log odds of an
 #' event.
 #'

@@ -35,7 +35,7 @@ function between the hidden and output layers is automatically set to either
 "linear", "softmax", "relu", and "elu"}
 }
 \description{
-\code{mlp()} creates a multilayer perceptron model (a.k.a. a single layer,
+\code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,
 feed-forward neural network).
 
 There are different ways to fit this model. See the engine-specific pages
@@ -43,8 +43,8 @@ for more details:
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
 This function only defines what \emph{type} of model is being fit. Once an engine

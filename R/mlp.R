@@ -1,16 +1,16 @@
 #' Single layer neural network
 #'
 #' @description
-#' `mlp()` creates a multilayer perceptron model (a.k.a. a single layer,
+#' `mlp()` defines a multilayer perceptron model (a.k.a. a single layer,
 #' feed-forward neural network).
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param hidden_units An integer for the number of units in the hidden model.
@@ -28,7 +28,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}
 #'
 #' @examples

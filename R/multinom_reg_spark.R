@@ -1,7 +1,7 @@
 #' Multinomial regression via spark
 #'
-#' [sparklyr::ml_logistic_regression()] fits a model that uses linear predictors
-#' to predict multi-class data using the multinomial distribution.
+#' [sparklyr::ml_logistic_regression()] defines a model that uses linear
+#' predictors to predict multiclass data using the multinomial distribution.
 #'
 #' @includeRmd man/rmd/multinom_reg_spark.Rmd details
 #'

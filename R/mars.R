@@ -6,13 +6,13 @@
 #' some predictors. These features resemble hinge functions and the result is
 #' a model that is a segmented regression in small dimensions.
 #'
-#' There are different ways to fit this model. See the engine-specific pages 
+#' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param num_terms The number of features that will be retained in the
@@ -23,7 +23,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
 #'
 #' @examples

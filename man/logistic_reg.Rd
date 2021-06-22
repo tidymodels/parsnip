@@ -23,7 +23,7 @@ ridge regression is being used. (specific engines only).
 For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 }
 \description{
-\code{\link[=logistic_reg]{logistic_reg()}} fits a generalized linear model for binary outcomes. A
+\code{\link[=logistic_reg]{logistic_reg()}} defines a generalized linear model for binary outcomes. A
 linear combination of the predictors is used to model the log odds of an
 event.
 

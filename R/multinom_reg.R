@@ -2,16 +2,16 @@
 #'
 #' @description
 #'
-#' `multinom_reg()` fits a model that uses linear predictors to predict multi-class
-#' data using the multinomial distribution.
+#' `multinom_reg()` defines a model that uses linear predictors to predict
+#' multiclass data using the multinomial distribution.
 #'
 #' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("multinom_reg")}
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
@@ -28,7 +28,7 @@
 #' @template spec-details
 #'
 #' @template spec-references
-#' 
+#'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
 #'
 #' @examples

@@ -1,7 +1,7 @@
 #' Multinomial regression via nnet
 #'
-#' [nnet::multinom()] fits a model that uses linear predictors to predict multi-class
-#' data using the multinomial distribution.
+#' [nnet::multinom()] defines a model that uses linear predictors to predict
+#' multiclass data using the multinomial distribution.
 #'
 #' @includeRmd man/rmd/multinom_reg_nnet.Rmd details
 #'
