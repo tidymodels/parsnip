@@ -57,7 +57,7 @@ variance of one. By default, \code{\link[glmnet:glmnet]{glmnet::glmnet()}} uses
 the argument \code{standardize = TRUE} to center and scale the data.
 }
 
-\subsection{Working example}{
+\subsection{Example}{
 \subsection{Classification Example}{
 
 We’ll model the island of the penguins with two predictors in the same
@@ -155,18 +155,18 @@ mr_cls_fit
 }
 
 The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(mr_cls_fit, penguins_test, type = "prob") \%>\% 
-  bind_cols(
-    predict(mr_cls_fit, penguins_test)
-  )
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
+  predict(mr_cls_fit, penguins_test),
+  predict(mr_cls_fit, penguins_test, type = "prob")
+)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 5 x 4
-##   .pred_Biscoe .pred_Dream .pred_Torgersen .pred_class
-##          <dbl>       <dbl>           <dbl> <fct>      
-## 1        0.339      0.448           0.214  Dream      
-## 2        0.879      0.0882          0.0331 Biscoe     
-## 3        0.539      0.317           0.144  Biscoe     
-## 4        0.403      0.435           0.162  Dream      
-## 5        0.297      0.481           0.221  Dream
+##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen
+##   <fct>              <dbl>       <dbl>           <dbl>
+## 1 Dream              0.339      0.448           0.214 
+## 2 Biscoe             0.879      0.0882          0.0331
+## 3 Biscoe             0.539      0.317           0.144 
+## 4 Dream              0.403      0.435           0.162 
+## 5 Dream              0.297      0.481           0.221
 }
 }
 

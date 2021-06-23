@@ -87,7 +87,7 @@ Categorical predictors can be split into groups without creating dummy
 variables for each category.
 }
 
-\subsection{Working examples}{
+\subsection{Examples}{
 \subsection{Regression Example}{
 
 We’ll model the ridership on the Chicago elevated trains as a function
@@ -126,7 +126,7 @@ rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  2.5s 
+## Fit time:  7.5s 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -134,8 +134,8 @@ rf_reg_fit
 ##                      Number of trees: 200
 ## No. of variables tried at each split: 1
 ## 
-##           Mean of squared residuals: 9.754255
-##                     \% Var explained: 77.34
+##           Mean of squared residuals: 9.696736
+##                     \% Var explained: 77.47
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
@@ -144,11 +144,11 @@ The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{
 ##   <dbl>
 ## 1 20.4 
 ## 2 21.6 
-## 3 20.5 
-## 4 21.5 
-## 5 19.4 
-## 6  7.25
-## 7  6.00
+## 3 20.9 
+## 4 21.6 
+## 5 19.3 
+## 6  7.33
+## 7  6.16
 }
 }
 
@@ -183,7 +183,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  49ms 
+## Fit time:  92ms 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -191,31 +191,31 @@ rf_cls_fit
 ##                      Number of trees: 200
 ## No. of variables tried at each split: 1
 ## 
-##         OOB estimate of  error rate: 20.49\%
+##         OOB estimate of  error rate: 19.72\%
 ## Confusion matrix:
 ##        Class1 Class2 class.error
-## Class1    360     73   0.1685912
-## Class2     87    261   0.2500000
+## Class1    363     70   0.1616628
+## Class2     84    264   0.2413793
 }
 
 The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_cls_fit, data_test, type = "prob") \%>\% 
-  bind_cols(
-    predict(rf_cls_fit, data_test)
-  )
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
-##    .pred_Class1 .pred_Class2 .pred_class
-##           <dbl>        <dbl> <fct>      
-##  1        0.175        0.825 Class2     
-##  2        0.925        0.075 Class1     
-##  3        0.595        0.405 Class1     
-##  4        0.745        0.255 Class1     
-##  5        0.39         0.61  Class2     
-##  6        0.095        0.905 Class2     
-##  7        0.695        0.305 Class1     
-##  8        0.565        0.435 Class1     
-##  9        0.815        0.185 Class1     
-## 10        0            1     Class2
+##    .pred_class .pred_Class1 .pred_Class2
+##    <fct>              <dbl>        <dbl>
+##  1 Class2             0.23         0.77 
+##  2 Class1             0.95         0.05 
+##  3 Class1             0.59         0.41 
+##  4 Class1             0.75         0.25 
+##  5 Class2             0.305        0.695
+##  6 Class2             0.105        0.895
+##  7 Class1             0.685        0.315
+##  8 Class1             0.63         0.37 
+##  9 Class1             0.79         0.21 
+## 10 Class2             0.02         0.98
 }
 }
 

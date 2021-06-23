@@ -78,7 +78,7 @@ By default, parallel processing is turned off. To run each model in parallel, ch
 
 For `ranger` confidence intervals, the intervals are  constructed using the form `estimate +/- z * std_error`. For  classification probabilities, these values can fall outside of  `[0, 1]` and will be coerced to be in this range.
 
-## Working examples
+## Examples
 
 ```{r child = "template-reg-chicago.Rmd"}
 ```
@@ -134,10 +134,10 @@ rf_cls_fit
 The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
 ```{r}
-predict(rf_cls_fit, data_test, type = "prob") %>% 
-  bind_cols(
-    predict(rf_cls_fit, data_test)
-  )
+bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
 ```
 
 ## References

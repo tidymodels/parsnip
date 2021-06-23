@@ -94,7 +94,7 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
-\subsection{Working examples}{
+\subsection{Examples}{
 \subsection{Regression Example}{
 
 We’ll model the ridership on the Chicago elevated trains as a function
@@ -133,7 +133,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  340ms 
+## Fit time:  2.1s 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -142,10 +142,10 @@ svm_reg_fit
 ## Gaussian Radial Basis kernel function. 
 ##  Hyperparameter : sigma =  10.8262370251485 
 ## 
-## Number of Support Vectors : 2234 
+## Number of Support Vectors : 2233 
 ## 
-## Objective Function Value : -746.5841 
-## Training error : 0.205552
+## Objective Function Value : -746.584 
+## Training error : 0.205567
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_reg_fit, Chicago_test)
@@ -192,7 +192,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  18ms 
+## Fit time:  133ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 
@@ -209,23 +209,23 @@ svm_cls_fit
 }
 
 The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(svm_cls_fit, data_test, type = "prob") \%>\% 
-  bind_cols(
-    predict(svm_cls_fit, data_test)
-  )
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
+  predict(svm_cls_fit, data_test),
+  predict(svm_cls_fit, data_test, type = "prob")
+)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
-##    .pred_Class1 .pred_Class2 .pred_class
-##           <dbl>        <dbl> <fct>      
-##  1        0.238       0.762  Class2     
-##  2        0.905       0.0950 Class1     
-##  3        0.619       0.381  Class1     
-##  4        0.879       0.121  Class1     
-##  5        0.641       0.359  Class1     
-##  6        0.153       0.847  Class2     
-##  7        0.745       0.255  Class1     
-##  8        0.313       0.687  Class2     
-##  9        0.878       0.122  Class1     
-## 10        0.137       0.863  Class2
+##    .pred_class .pred_Class1 .pred_Class2
+##    <fct>              <dbl>        <dbl>
+##  1 Class2             0.238       0.762 
+##  2 Class1             0.905       0.0950
+##  3 Class1             0.619       0.381 
+##  4 Class1             0.879       0.121 
+##  5 Class1             0.641       0.359 
+##  6 Class2             0.153       0.847 
+##  7 Class1             0.745       0.255 
+##  8 Class2             0.313       0.687 
+##  9 Class1             0.878       0.122 
+## 10 Class2             0.137       0.863
 }
 }
 

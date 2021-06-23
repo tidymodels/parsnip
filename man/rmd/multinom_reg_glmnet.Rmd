@@ -54,7 +54,7 @@ multinom_reg(penalty = double(1), mixture = double(1)) %>%
 ```
 By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
-## Working example
+## Example
 
 ```{r child = "template-cls-multi-class.Rmd"}
 ```
@@ -79,10 +79,10 @@ mr_cls_fit
 The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
 ```{r}
-predict(mr_cls_fit, penguins_test, type = "prob") %>% 
-  bind_cols(
-    predict(mr_cls_fit, penguins_test)
-  )
+bind_cols(
+  predict(mr_cls_fit, penguins_test),
+  predict(mr_cls_fit, penguins_test, type = "prob")
+)
 ```
 
 ## References

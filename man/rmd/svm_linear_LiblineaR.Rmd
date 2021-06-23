@@ -70,7 +70,7 @@ Note that the `LiblineaR` engine does not produce class probabilities. When opti
 ```{r child = "template-same-scale.Rmd"}
 ```
 
-## Working examples
+## Examples
 
 ```{r child = "template-reg-chicago.Rmd"}
 ```

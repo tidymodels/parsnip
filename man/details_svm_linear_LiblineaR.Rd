@@ -85,7 +85,7 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
-\subsection{Working examples}{
+\subsection{Examples}{
 \subsection{Regression Example}{
 
 We’ll model the ridership on the Chicago elevated trains as a function

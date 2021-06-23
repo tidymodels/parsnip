@@ -70,7 +70,7 @@ rand_forest(
 ```{r child = "template-split-factors.Rmd"}
 ```
 
-## Working examples
+## Examples
 
 ```{r child = "template-reg-chicago.Rmd"}
 ```
@@ -126,10 +126,10 @@ rf_cls_fit
 The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
 ```{r}
-predict(rf_cls_fit, data_test, type = "prob") %>% 
-  bind_cols(
-    predict(rf_cls_fit, data_test)
-  )
+bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
 ```
 
 ## References

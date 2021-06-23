@@ -104,7 +104,7 @@ these values can fall outside of \verb{[0, 1]} and will be coerced to be in
 this range.
 }
 
-\subsection{Working examples}{
+\subsection{Examples}{
 \subsection{Regression Example}{
 
 We’ll model the ridership on the Chicago elevated trains as a function
@@ -143,7 +143,7 @@ rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  743ms 
+## Fit time:  1.9s 
 ## Ranger result
 ## 
 ## Call:
@@ -157,8 +157,8 @@ rf_reg_fit
 ## Target node size:                 5 
 ## Variable importance mode:         none 
 ## Splitrule:                        variance 
-## OOB prediction error (MSE):       9.695881 
-## R squared (OOB):                  0.7747802
+## OOB prediction error (MSE):       9.72953 
+## R squared (OOB):                  0.7739986
 }
 
 The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
@@ -167,11 +167,11 @@ The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{
 ##   <dbl>
 ## 1 20.4 
 ## 2 21.5 
-## 3 20.9 
-## 4 21.7 
+## 3 20.8 
+## 4 21.6 
 ## 5 19.4 
-## 6  7.54
-## 7  5.95
+## 6  7.32
+## 7  6.03
 }
 }
 
@@ -206,7 +206,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  60ms 
+## Fit time:  125ms 
 ## Ranger result
 ## 
 ## Call:
@@ -220,27 +220,27 @@ rf_cls_fit
 ## Target node size:                 5 
 ## Variable importance mode:         none 
 ## Splitrule:                        gini 
-## OOB prediction error (Brier s.):  0.1523359
+## OOB prediction error (Brier s.):  0.1534794
 }
 
 The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_cls_fit, data_test, type = "prob") \%>\% 
-  bind_cols(
-    predict(rf_cls_fit, data_test)
-  )
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
-##    .pred_Class1 .pred_Class2 .pred_class
-##           <dbl>        <dbl> <fct>      
-##  1        0.24        0.76   Class2     
-##  2        0.930       0.0697 Class1     
-##  3        0.589       0.411  Class1     
-##  4        0.658       0.342  Class1     
-##  5        0.303       0.697  Class2     
-##  6        0.141       0.859  Class2     
-##  7        0.739       0.261  Class1     
-##  8        0.577       0.423  Class1     
-##  9        0.799       0.201  Class1     
-## 10        0.001       0.999  Class2
+##    .pred_class .pred_Class1 .pred_Class2
+##    <fct>              <dbl>        <dbl>
+##  1 Class2           0.274         0.725 
+##  2 Class1           0.928         0.0716
+##  3 Class2           0.497         0.503 
+##  4 Class1           0.703         0.297 
+##  5 Class2           0.302         0.698 
+##  6 Class2           0.151         0.849 
+##  7 Class1           0.701         0.299 
+##  8 Class1           0.592         0.409 
+##  9 Class1           0.752         0.248 
+## 10 Class2           0.00225       0.998
 }
 }
 

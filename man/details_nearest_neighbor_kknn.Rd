@@ -82,7 +82,7 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
-\subsection{Working examples}{
+\subsection{Examples}{
 \subsection{Regression Example}{
 
 We’ll model the ridership on the Chicago elevated trains as a function
@@ -189,23 +189,23 @@ knn_cls_fit
 }
 
 The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{predict(knn_cls_fit, data_test, type = "prob") \%>\% 
-  bind_cols(
-    predict(knn_cls_fit, data_test)
-  )
+probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
+  predict(knn_cls_fit, data_test),
+  predict(knn_cls_fit, data_test, type = "prob")
+)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
-##    .pred_Class1 .pred_Class2 .pred_class
-##           <dbl>        <dbl> <fct>      
-##  1       0.177       0.823   Class2     
-##  2       0.995       0.00515 Class1     
-##  3       0.590       0.410   Class1     
-##  4       0.770       0.230   Class1     
-##  5       0.333       0.667   Class2     
-##  6       0.182       0.818   Class2     
-##  7       0.692       0.308   Class1     
-##  8       0.400       0.600   Class2     
-##  9       0.814       0.186   Class1     
-## 10       0.0273      0.973   Class2
+##    .pred_class .pred_Class1 .pred_Class2
+##    <fct>              <dbl>        <dbl>
+##  1 Class2            0.177       0.823  
+##  2 Class1            0.995       0.00515
+##  3 Class1            0.590       0.410  
+##  4 Class1            0.770       0.230  
+##  5 Class2            0.333       0.667  
+##  6 Class2            0.182       0.818  
+##  7 Class1            0.692       0.308  
+##  8 Class2            0.400       0.600  
+##  9 Class1            0.814       0.186  
+## 10 Class2            0.0273      0.973
 }
 }
 
