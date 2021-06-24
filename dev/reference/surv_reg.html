@@ -201,15 +201,18 @@ survival model be specified via the formula interface.</p>
 the extra parameter roles can be used (as described above).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>surv_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, engine <span class='op'>=</span> <span class='st'>"survival"</span>, dist <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
-The only possible value for this model is "regression".</p></td>
+      <td><p>A single character string for the prediction outcome mode.
+The only possible value for this model is "regression".
+@param engine A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"survival"</code>.</p></td>
     </tr>
     <tr>
       <th>dist</th>
@@ -301,6 +304,8 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 <span class='fu'>surv_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
 #&gt; <span class='warning'>Please use `survival_reg()` instead.</span></div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (regression)
+#&gt; 
+#&gt; Computational engine: survival 
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>surv_reg</span><span class='op'>(</span>dist <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
@@ -308,6 +313,8 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = varying()
+#&gt; 
+#&gt; Computational engine: survival 
 #&gt; </div><div class='input'>
 <span class='co'># -&gt;</span>
 <span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"survival_reg"</span><span class='op'>)</span>
@@ -315,12 +322,16 @@ Modeling in R. <em>Journal of Statistical Software</em>, 70(8), 1 - 33.</p>
 #&gt; <span style='color: #949494;'># … with 2 variables: engine &lt;chr&gt;, mode &lt;chr&gt;</span></div><div class='input'>
 <span class='fu'><a href='survival_reg.html'>survival_reg</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
+#&gt; 
+#&gt; Computational engine: survival 
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'><a href='survival_reg.html'>survival_reg</a></span><span class='op'>(</span>dist <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   dist = varying()
+#&gt; 
+#&gt; Computational engine: survival 
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

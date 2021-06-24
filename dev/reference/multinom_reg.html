@@ -185,15 +185,26 @@ functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/s
 in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>multinom_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>multinom_reg</span><span class='op'>(</span>
+  mode <span class='op'>=</span> <span class='st'>"classification"</span>,
+  engine <span class='op'>=</span> <span class='st'>"nnet"</span>,
+  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mixture <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 The only possible value for this model is "classification".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"nnet"</code>.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
@@ -217,7 +228,7 @@ ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only
     <p>For <code>multinom_reg()</code>, the mode will always be "classification".</p>
 <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
 following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:   <code>"glmnet"</code>  (the default), <code>"nnet"</code></p></li>
+<li><p><span class="pkg">R</span>:   <code>"nnet"</code> (the default), <code>"glmnet"</code></p></li>
 <li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
 <li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
 </ul>
@@ -358,12 +369,16 @@ parameter.</p><table class='table'>
 #&gt; <span style='color: #BCBCBC;'>4</span> nnet   classification</div><div class='input'>
 <span class='fu'>multinom_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
+#&gt; 
+#&gt; Computational engine: nnet 
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>multinom_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Multinomial Regression Model Specification (classification)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = varying()
+#&gt; 
+#&gt; Computational engine: nnet 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

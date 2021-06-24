@@ -191,6 +191,7 @@ in lieu of recreating the object from scratch.</p>
 
     <pre class="usage"><span class='fu'>decision_tree</span><span class='op'>(</span>
   mode <span class='op'>=</span> <span class='st'>"unknown"</span>,
+  engine <span class='op'>=</span> <span class='st'>"rpart"</span>,
   cost_complexity <span class='op'>=</span> <span class='cn'>NULL</span>,
   tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_n <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -201,9 +202,15 @@ in lieu of recreating the object from scratch.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"rpart"</code>.</p></td>
     </tr>
     <tr>
       <th>cost_complexity</th>
@@ -361,12 +368,16 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   tree_depth = 5
+#&gt; 
+#&gt; Computational engine: rpart 
 #&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
 <span class='fu'>decision_tree</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, cost_complexity <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Decision Tree Model Specification (regression)
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   cost_complexity = varying()
+#&gt; 
+#&gt; Computational engine: rpart 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

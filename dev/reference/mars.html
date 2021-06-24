@@ -193,6 +193,7 @@ in lieu of recreating the object from scratch.</p>
 
     <pre class="usage"><span class='fu'>mars</span><span class='op'>(</span>
   mode <span class='op'>=</span> <span class='st'>"unknown"</span>,
+  engine <span class='op'>=</span> <span class='st'>"earth"</span>,
   num_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
   prod_degree <span class='op'>=</span> <span class='cn'>NULL</span>,
   prune_method <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -203,9 +204,15 @@ in lieu of recreating the object from scratch.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"earth"</code>.</p></td>
     </tr>
     <tr>
       <th>num_terms</th>
@@ -301,6 +308,8 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 5
+#&gt; 
+#&gt; Computational engine: earth 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

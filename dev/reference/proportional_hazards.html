@@ -185,6 +185,7 @@ in lieu of recreating the object from scratch.</p>
 
     <pre class="usage"><span class='fu'>proportional_hazards</span><span class='op'>(</span>
   mode <span class='op'>=</span> <span class='st'>"censored regression"</span>,
+  engine <span class='op'>=</span> <span class='st'>"survival"</span>,
   penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
   mixture <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -194,8 +195,14 @@ in lieu of recreating the object from scratch.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", or "censored regression".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"survival"</code>.</p></td>
     </tr>
     <tr>
       <th>penalty</th>

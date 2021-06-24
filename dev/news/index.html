@@ -158,6 +158,8 @@
 <a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. <code><a href="../reference/set_engine.html">set_engine()</a></code> is still required if engine-specific arguments need to be added. (<a href='https://github.com/tidymodels/parsnip/issues/513'>#513</a>)</p></li>
+<li><p>The default engine for <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> was changed to <code>nnet</code>.</p></li>
 <li><p>The helper functions <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_fit()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_new()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_fit()</a></code>, and <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_new()</a></code> for converting between formula and matrix interface are now exported for developer use (<a href='https://github.com/tidymodels/parsnip/issues/508'>#508</a>).</p></li>
 <li><p>Fix bug in <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> when non-predictor, non-outcome variables are included in data (<a href='https://github.com/tidymodels/parsnip/issues/510'>#510</a>).</p></li>
 <li><p>A model function (<code><a href="../reference/gen_additive_mod.html">gen_additive_mod()</a></code>) was added for generalized additive models.</p></li>

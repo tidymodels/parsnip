@@ -154,7 +154,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Main Arguments:</span>
 <span class="co">#&gt;   mtry = varying()</span>
-<span class="co">#&gt;   trees = 2000</span></code></pre></div>
+<span class="co">#&gt;   trees = 2000</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Computational engine: ranger</span></code></pre></div>
 <p>This will come in handy later when we fit the model over different values of <code>mtry</code>.</p>
 </div>
 <div id="specifying-arguments" class="section level3">
@@ -172,7 +174,8 @@
 <p>The arguments to the default function are:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/args.html">args</a></span><span class="op">(</span><span class="va">rand_forest</span><span class="op">)</span>
-<span class="co">#&gt; function (mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) </span>
+<span class="co">#&gt; function (mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, </span>
+<span class="co">#&gt;     min_n = NULL) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 <p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using <code>set_engine</code>. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
