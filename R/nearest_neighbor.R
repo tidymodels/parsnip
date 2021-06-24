@@ -37,6 +37,7 @@
 #'
 #' @export
 nearest_neighbor <- function(mode = "unknown",
+                             engine = "kknn",
                              neighbors = NULL,
                              weight_func = NULL,
                              dist_power = NULL) {
@@ -52,7 +53,7 @@ nearest_neighbor <- function(mode = "unknown",
     eng_args = NULL,
     mode = mode,
     method = NULL,
-    engine = NULL
+    engine = engine
   )
 }
 

@@ -32,7 +32,7 @@
 #' mars(mode = "regression", num_terms = 5)
 #' @export
 mars <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "earth",
            num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
 
     args <- list(
@@ -47,7 +47,7 @@ mars <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

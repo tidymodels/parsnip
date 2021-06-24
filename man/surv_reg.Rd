@@ -4,11 +4,14 @@
 \alias{surv_reg}
 \title{Parametric survival regression}
 \usage{
-surv_reg(mode = "regression", dist = NULL)
+surv_reg(mode = "regression", engine = "survival", dist = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
-The only possible value for this model is "regression".}
+\item{mode}{A single character string for the prediction outcome mode.
+The only possible value for this model is "regression".
+@param engine A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}

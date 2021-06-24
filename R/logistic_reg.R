@@ -15,6 +15,9 @@
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"glm"`.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
 #'  For `keras` models, this corresponds to purely L2 regularization
@@ -40,6 +43,7 @@
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
+           engine = "glm",
            penalty = NULL,
            mixture = NULL) {
 
@@ -54,7 +58,7 @@ logistic_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 
@@ -80,7 +84,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   arg_names <- names(arg_vals)
 
   if (engine == "glmnet") {
-    check_glmnet_penalty(x)
+    .check_glmnet_penalty_fit(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
       # as the glmnet `lambda` value, `path_values` allows users to set the
@@ -267,7 +271,7 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
     penalty <- object$spec$args$penalty
   }
 
-  object$spec$args$penalty <- check_penalty(penalty, object, multi)
+  object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
 
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)

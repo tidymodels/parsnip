@@ -1,51 +1,75 @@
 # ------------------------------------------------------------------------------
 
-# Functions to take a formula interface and get the resulting
-# objects (y, x, weights, etc) back. For the most part, this
-# emulates the internals of `lm` (and also see the notes at
-# https://developer.r-project.org/model-fitting-functions.html).
-
-# `convert_form_to_xy_fit` is for when the data are created for modeling.
-# It saves both the data objects as well as the objects needed
-# when new data are predicted (e.g. `terms`, etc.).
-
-# `convert_form_to_xy_new` is used when new samples are being predicted
-# and only requires the predictors to be available.
-
+#' Helper functions to convert between formula and matrix interface
+#'
+#' @description
+#' Functions to take a formula interface and get the resulting
+#' objects (y, x, weights, etc) back or the other way around. The functions are
+#' intended for developer use. For the most part, this emulates the internals
+#' of `lm()` (and also see the notes at
+#' https://developer.r-project.org/model-fitting-functions.html).
+#'
+#' `.convert_form_to_xy_fit()` and `.convert_xy_to_form_fit()` are for when the
+#' data are created for modeling.
+#' `.convert_form_to_xy_fit()` saves both the data objects as well as the objects
+#' needed when new data are predicted (e.g. `terms`, etc.).
+#'
+#' `.convert_form_to_xy_new()` and `.convert_xy_to_form_new()` are used when new
+#' samples are being predicted and only require the predictors to be available.
+#'
+#' @param data A data frame containing all relevant variables (e.g. outcome(s),
+#'   predictors, case weights, etc).
+#' @param ... Additional arguments passed to [stats::model.frame()] and
+#'   specification of `offset` and `contrasts`.
+#' @param na.action A function which indicates what should happen when the data
+#'   contain NAs.
+#' @param indicators A string describing whether and how to create
+#'   indicator/dummy variables from factor predictors. Possible options are
+#'   `"none"`, `"traditional"`, and `"one_hot"`.
+#' @param composition A string describing whether the resulting `x` and `y`
+#'   should be returned as a `"matrix"` or a `"data.frame"`.
+#' @param remove_intercept A logical indicating whether to remove the intercept
+#'   column after `model.matrix()` is finished.
+#' @inheritParams fit.model_spec
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+#'
 #' @importFrom stats .checkMFClasses .getXlevels delete.response
 #' @importFrom stats model.offset model.weights na.omit na.pass
-
-convert_form_to_xy_fit <- function(
-  formula,
-  data,
-  ...,
-  na.action = na.omit,
-  indicators = "traditional",
-  composition = "data.frame",
-  remove_intercept = TRUE
-) {
-  if (!(composition %in% c("data.frame", "matrix")))
+.convert_form_to_xy_fit <- function(formula,
+                                    data,
+                                    ...,
+                                    na.action = na.omit,
+                                    indicators = "traditional",
+                                    composition = "data.frame",
+                                    remove_intercept = TRUE) {
+  if (!(composition %in% c("data.frame", "matrix"))) {
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
+  }
 
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
   mf_call$na.action <- match.call()$na.action # TODO this should work better
   dots <- quos(...)
   check_form_dots(dots)
-  for(i in seq_along(dots))
-    mf_call[[ names(dots)[i] ]] <- get_expr(dots[[i]])
+  for (i in seq_along(dots)) {
+    mf_call[[names(dots)[i]]] <- get_expr(dots[[i]])
+  }
 
   # setup contrasts
-  if (any(names(dots) == "contrasts"))
+  if (any(names(dots) == "contrasts")) {
     contrasts <- eval_tidy(dots[["contrasts"]])
-  else
+  } else {
     contrasts <- NULL
+  }
 
   # For new data, save the expression to create offsets (if any)
-  if (any(names(dots) == "offset"))
+  if (any(names(dots) == "offset")) {
     offset_expr <- get_expr(dots[["offset"]])
-  else
+  } else {
     offset_expr <- NULL
+  }
 
   mod_frame <- eval_tidy(mf_call)
   mod_terms <- attr(mod_frame, "terms")
@@ -57,20 +81,22 @@ convert_form_to_xy_fit <- function(
   y <- model.response(mod_frame, type = "any")
 
   # if y is a numeric vector, model.response() added names
-  if(is.atomic(y)) {
+  if (is.atomic(y)) {
     names(y) <- NULL
   }
 
   w <- as.vector(model.weights(mod_frame))
-  if (!is.null(w) && !is.numeric(w))
+  if (!is.null(w) && !is.numeric(w)) {
     rlang::abort("`weights` must be a numeric vector")
+  }
 
   offset <- as.vector(model.offset(mod_frame))
   if (!is.null(offset)) {
-    if (length(offset) != nrow(mod_frame))
+    if (length(offset) != nrow(mod_frame)) {
       rlang::abort(
         glue::glue("The offset data should have {nrow(mod_frame)} elements.")
-        )
+      )
+    }
   }
 
   if (indicators != "none") {
@@ -82,13 +108,13 @@ convert_form_to_xy_fit <- function(
       options(contrasts = new_contr)
     }
     x <- model.matrix(mod_terms, mod_frame, contrasts)
-
   } else {
     # this still ignores -vars in formula
     x <- model.frame(mod_terms, data)
     y_cols <- attr(mod_terms, "response")
-    if (length(y_cols) > 0)
-      x <- x[,-y_cols, drop = FALSE]
+    if (length(y_cols) > 0) {
+      x <- x[, -y_cols, drop = FALSE]
+    }
   }
 
   if (remove_intercept) {
@@ -103,8 +129,9 @@ convert_form_to_xy_fit <- function(
     )
 
   if (composition == "data.frame") {
-    if (is.matrix(y))
+    if (is.matrix(y)) {
       y <- as.data.frame(y)
+    }
     res <-
       list(
         x = as.data.frame(x),
@@ -119,8 +146,9 @@ convert_form_to_xy_fit <- function(
   } else {
     # Since a matrix is requested, try to convert y but check
     # to see if it is possible
-    if (will_make_matrix(y))
+    if (will_make_matrix(y)) {
       y <- as.matrix(y)
+    }
     res <-
       list(
         x = x,
@@ -136,10 +164,19 @@ convert_form_to_xy_fit <- function(
   res
 }
 
-convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
-                           composition = "data.frame") {
-  if (!(composition %in% c("data.frame", "matrix")))
+
+#' @param object An object of class `model_fit`.
+#' @inheritParams predict.model_fit
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+.convert_form_to_xy_new <- function(object,
+                                    new_data,
+                                    na.action = na.pass,
+                                    composition = "data.frame") {
+  if (!(composition %in% c("data.frame", "matrix"))) {
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
+  }
 
   mod_terms <- object$terms
   mod_terms <- delete.response(mod_terms)
@@ -153,29 +190,38 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
   # If offset was done at least once in-line
   if (!is.null(offset_cols)) {
     offset <- rep(0, nrow(new_data))
-    for (i in offset_cols)
+    for (i in offset_cols) {
       offset <- offset +
-        eval_tidy(attr(mod_terms, "variables")[[i + 1]],
-                  new_data) # use na.action here and below?
-  } else offset <- NULL
+        eval_tidy(
+          attr(mod_terms, "variables")[[i + 1]],
+          new_data
+        ) # use na.action here and below?
+    }
+  } else {
+    offset <- NULL
+  }
 
   if (!is.null(object$offset_expr)) {
-    if (is.null(offset))
+    if (is.null(offset)) {
       offset <- rep(0, nrow(new_data))
+    }
     offset <- offset + eval_tidy(object$offset_expr, new_data)
   }
 
   new_data <-
-    model.frame(mod_terms,
-                new_data,
-                na.action = na.action,
-                xlev = object$xlevels)
+    model.frame(
+      mod_terms,
+      new_data,
+      na.action = na.action,
+      xlev = object$xlevels
+    )
 
   cl <- attr(mod_terms, "dataClasses")
-  if (!is.null(cl))
+  if (!is.null(cl)) {
     .checkMFClasses(cl, new_data)
+  }
 
-  if(object$options$indicators != "none") {
+  if (object$options$indicators != "none") {
     if (object$options$indicators == "one_hot") {
       old_contr <- options("contrasts")$contrasts
       on.exit(options(contrasts = old_contr))
@@ -187,15 +233,16 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
       model.matrix(mod_terms, new_data, contrasts.arg = object$contrasts)
   }
 
-  if(object$options$remove_intercept) {
+  if (object$options$remove_intercept) {
     new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
   }
 
-  if (composition == "data.frame")
+  if (composition == "data.frame") {
     new_data <- as.data.frame(new_data)
-  else {
-    if (will_make_matrix(new_data))
+  } else {
+    if (will_make_matrix(new_data)) {
       new_data <- as.matrix(new_data)
+    }
   }
   list(x = new_data, offset = offset)
 }
@@ -205,21 +252,35 @@ convert_form_to_xy_new <- function(object, new_data, na.action = na.pass,
 # The other direction where we make a formula from the data
 # objects
 
-#' @importFrom dplyr bind_cols
 # TODO slots for other roles
-convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
-                                   remove_intercept = TRUE) {
-  if (is.vector(x))
+#' @param weights A numeric vector containing the weights.
+#' @param y_name A string specifying the name of the outcome.
+#' @inheritParams fit.model_spec
+#' @inheritParams .convert_form_to_xy_fit
+#'
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+#'
+#' @importFrom dplyr bind_cols
+.convert_xy_to_form_fit <- function(x,
+                                    y,
+                                    weights = NULL,
+                                    y_name = "..y",
+                                    remove_intercept = TRUE) {
+  if (is.vector(x)) {
     rlang::abort("`x` cannot be a vector.")
+  }
 
-  if(remove_intercept) {
+  if (remove_intercept) {
     x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
   }
 
   rn <- rownames(x)
 
-  if (!is.data.frame(x))
+  if (!is.data.frame(x)) {
     x <- as.data.frame(x)
+  }
 
   if (is.matrix(y)) {
     y <- as.data.frame(y)
@@ -235,14 +296,17 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
   form <- make_formula(names(x), names(y))
 
   x <- bind_cols(x, y)
-  if(!is.null(rn) & !inherits(x, "tbl_df"))
+  if (!is.null(rn) & !inherits(x, "tbl_df")) {
     rownames(x) <- rn
+  }
 
   if (!is.null(weights)) {
-    if (!is.numeric(weights))
+    if (!is.numeric(weights)) {
       rlang::abort("`weights` must be a numeric vector")
-    if (length(weights) != nrow(x))
+    }
+    if (length(weights) != nrow(x)) {
       rlang::abort(glue::glue("`weights` should have {nrow(x)} elements"))
+    }
   }
 
   res <- list(
@@ -254,10 +318,14 @@ convert_xy_to_form_fit <- function(x, y, weights = NULL, y_name = "..y",
   res
 }
 
-convert_xy_to_form_new <- function(object, new_data) {
+#' @rdname convert_helpers
+#' @keywords internal
+#' @export
+.convert_xy_to_form_new <- function(object, new_data) {
   new_data <- new_data[, object$x_var, drop = FALSE]
-  if (!is.data.frame(new_data))
+  if (!is.data.frame(new_data)) {
     new_data <- as.data.frame(new_data)
+  }
   new_data
 }
 
@@ -350,4 +418,3 @@ maybe_data_frame <- function(x) {
   }
   x
 }
-

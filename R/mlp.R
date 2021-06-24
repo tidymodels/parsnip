@@ -38,7 +38,7 @@
 #' @export
 
 mlp <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "nnet",
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL) {
 
@@ -56,7 +56,7 @@ mlp <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

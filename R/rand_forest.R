@@ -35,7 +35,7 @@
 #' @export
 
 rand_forest <-
-  function(mode = "unknown", mtry = NULL, trees = NULL, min_n = NULL) {
+  function(mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, min_n = NULL) {
 
     args <- list(
       mtry   = enquo(mtry),
@@ -49,7 +49,7 @@ rand_forest <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

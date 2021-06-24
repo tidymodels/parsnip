@@ -6,13 +6,18 @@
 \usage{
 proportional_hazards(
   mode = "censored regression",
+  engine = "survival",
   penalty = NULL,
   mixture = NULL
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", or "censored regression".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}

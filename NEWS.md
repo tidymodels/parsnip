@@ -1,5 +1,15 @@
 # parsnip (development version)
 
+* Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. `set_engine()` is still required if engine-specific arguments need to be added. (#513)
+
+* The default engine for `multinom_reg()` was changed to `nnet`. 
+
+* The helper functions `.convert_form_to_xy_fit()`, `.convert_form_to_xy_new()`, `.convert_xy_to_form_fit()`, and  `.convert_xy_to_form_new()` for converting between formula and matrix interface are now exported for developer use (#508).
+
+* Fix bug in `augment()` when non-predictor, non-outcome variables are included in data (#510).
+
+* A model function (`gen_additive_mod()`) was added for generalized additive models. 
+
 # parsnip 0.1.6
 
 ## Model Specification Changes
@@ -17,7 +27,6 @@
 
 * For xgboost, `mtry` and `colsample_bytree` can be passed as integer counts or proportions, while `subsample` and `validation` should always be proportions. `xgb_train()` now has a new option `counts` (`TRUE` or `FALSE`) that states which scale for `mtry` and `colsample_bytree` is being used. (#461)  
 
-r
 ## Other Changes
 
 * Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).

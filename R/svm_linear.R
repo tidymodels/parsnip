@@ -37,7 +37,7 @@
 #' @export
 
 svm_linear <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "LiblineaR",
            cost = NULL, margin = NULL) {
 
     args <- list(
@@ -51,7 +51,7 @@ svm_linear <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

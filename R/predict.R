@@ -358,9 +358,9 @@ prepare_data <- function(object, new_data) {
   if (any(pp_names == "terms") | any(pp_names == "x_var")) {
     # Translation code
     if (fit_interface == "formula") {
-      new_data <- convert_xy_to_form_new(object$preproc, new_data)
+      new_data <- .convert_xy_to_form_new(object$preproc, new_data)
     } else {
-      new_data <- convert_form_to_xy_new(object$preproc, new_data)$x
+      new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x
     }
   }
 

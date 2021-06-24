@@ -15,6 +15,9 @@
 #'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"lm"`.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
 #' @param mixture A number between zero and one (inclusive) that is the
@@ -36,6 +39,7 @@
 #' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
+           engine = "lm",
            penalty = NULL,
            mixture = NULL) {
 
@@ -50,7 +54,7 @@ linear_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 
@@ -73,7 +77,7 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "glmnet") {
-    check_glmnet_penalty(x)
+    .check_glmnet_penalty_fit(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
       # as the glmnet `lambda` value, `path_values` allows users to set the
@@ -158,7 +162,18 @@ check_args.linear_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-organize_glmnet_pred <- function(x, object) {
+#' Organize glmnet predictions
+#'
+#' This function is for developer use and organizes predictions from glmnet
+#' models.
+#'
+#' @param x Predictions as returned by the `predict()` method for glmnet models.
+#' @param object An object of class `model_fit`.
+#'
+#' @rdname glmnet_helpers_prediction
+#' @keywords internal
+#' @export
+.organize_glmnet_pred <- function(x, object) {
   if (ncol(x) == 1) {
     res <- x[, 1]
     res <- unname(res)
@@ -171,41 +186,6 @@ organize_glmnet_pred <- function(x, object) {
     res <- res[, colnames(res) %in% c("values", "lambda")]
   }
   res
-}
-
-
-# ------------------------------------------------------------------------------
-
-# For `predict` methods that use `glmnet`, we have specific methods.
-# Only one value of the penalty should be allowed when called by `predict()`:
-
-check_penalty <- function(penalty = NULL, object, multi = FALSE) {
-
-  if (is.null(penalty)) {
-    penalty <- object$fit$lambda
-  }
-
-  # when using `predict()`, allow for a single lambda
-  if (!multi) {
-    if (length(penalty) != 1)
-      rlang::abort(
-        glue::glue(
-          "`penalty` should be a single numeric value. `multi_predict()` ",
-          "can be used to get multiple predictions per row of data.",
-        )
-      )
-  }
-
-  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
-    rlang::abort(
-      glue::glue(
-        "The glmnet model was fit with a single penalty value of ",
-        "{object$fit$lambda}. Predicting with a value of {penalty} ",
-        "will give incorrect results from `glmnet()`."
-      )
-    )
-
-  penalty
 }
 
 # ------------------------------------------------------------------------------
@@ -245,7 +225,7 @@ predict._elnet <-
       penalty <- object$spec$args$penalty
     }
 
-    object$spec$args$penalty <- check_penalty(penalty, object, multi)
+    object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
 
     object$spec <- eval_args(object$spec)
     predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)

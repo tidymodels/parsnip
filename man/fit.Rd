@@ -13,7 +13,7 @@
 \item{object}{An object of class \code{model_spec} that has a chosen engine
 (via \code{\link[=set_engine]{set_engine()}}).}
 
-\item{formula}{An object of class "formula" (or one that can
+\item{formula}{An object of class \code{formula} (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.}
 

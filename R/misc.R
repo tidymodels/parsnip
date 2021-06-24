@@ -323,7 +323,26 @@ stan_conf_int <- function(object, newdata) {
   rlang::eval_tidy(fn)
 }
 
-check_glmnet_penalty <- function(x) {
+# ------------------------------------------------------------------------------
+
+
+#' Helper functions for checking the penalty of glmnet models
+#'
+#' @description
+#' These functions are for developer use.
+#'
+#' `.check_glmnet_penalty_fit()` checks that the model specification for fitting a
+#' glmnet model contains a single value.
+#'
+#' `.check_glmnet_penalty_predict()` checks that the penalty value used for prediction is valid.
+#' If called by `predict()`, it needs to be a single value. Multiple values are
+#' allowed for `multi_predict()`.
+#'
+#' @param x An object of class `model_spec`.
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
+.check_glmnet_penalty_fit <- function(x) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
   if (length(pen) != 1) {
@@ -334,4 +353,40 @@ check_glmnet_penalty <- function(x) {
       "To predict multiple penalties, use `multi_predict()`"
     ))
   }
+}
+
+#' @param penalty A penalty value to check.
+#' @param object An object of class `model_fit`.
+#' @param multi A logical indicating if multiple values are allowed.
+#'
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
+.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
+
+  if (is.null(penalty)) {
+    penalty <- object$fit$lambda
+  }
+
+  # when using `predict()`, allow for a single lambda
+  if (!multi) {
+    if (length(penalty) != 1)
+      rlang::abort(
+        glue::glue(
+          "`penalty` should be a single numeric value. `multi_predict()` ",
+          "can be used to get multiple predictions per row of data.",
+        )
+      )
+  }
+
+  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
+    rlang::abort(
+      glue::glue(
+        "The glmnet model was fit with a single penalty value of ",
+        "{object$fit$lambda}. Predicting with a value of {penalty} ",
+        "will give incorrect results from `glmnet()`."
+      )
+    )
+
+  penalty
 }

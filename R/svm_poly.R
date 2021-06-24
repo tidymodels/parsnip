@@ -39,7 +39,7 @@
 #' @export
 
 svm_poly <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "kernlab",
            cost = NULL, degree = NULL, scale_factor = NULL, margin = NULL) {
 
     args <- list(
@@ -55,7 +55,7 @@ svm_poly <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

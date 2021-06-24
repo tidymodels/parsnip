@@ -163,7 +163,7 @@ set_pred(
   type = "numeric",
   value = list(
     pre = NULL,
-    post = organize_glmnet_pred,
+    post = .organize_glmnet_pred,
     func = c(fun = "predict"),
     args =
       list(

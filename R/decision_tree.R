@@ -34,7 +34,8 @@
 #' @export
 
 decision_tree <-
-  function(mode = "unknown", cost_complexity = NULL, tree_depth = NULL, min_n = NULL) {
+  function(mode = "unknown", engine = "rpart", cost_complexity = NULL,
+           tree_depth = NULL, min_n = NULL) {
 
     args <- list(
       cost_complexity   = enquo(cost_complexity),
@@ -48,7 +49,7 @@ decision_tree <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 
