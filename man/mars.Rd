@@ -19,7 +19,7 @@ Possible values for this model are "unknown", "regression", or
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this
-model is \code{"earth"}.}
+model is \code{"xgboost"}.}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}

@@ -124,7 +124,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  0ms 
+## Fit time:  2ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector regression primal (L2R_L2LOSS_SVR)"
 ## 
@@ -189,7 +189,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  236ms 
+## Fit time:  343ms 
 ## $TypeDetail
 ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
 ## 

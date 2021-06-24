@@ -39,14 +39,16 @@ levels(penguins$species)
 }\if{html}{\out{</div>}}\preformatted{## [1] "Biscoe"    "Dream"     "Torgersen"
 }\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ species + island, data = penguins) \%>\% 
   colnames()
-}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"      "islandTorgersen"
+}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
 }
 
 For a formula with no intercept, the first factor is expanded to
 indicators for \emph{all} factor levels but all other factors are expanded to
 all but one (as above):\if{html}{\out{<div class="r">}}\preformatted{model.matrix(~ 0 + species + island, data = penguins) \%>\% 
   colnames()
-}\if{html}{\out{</div>}}\preformatted{## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"      "islandTorgersen"
+}\if{html}{\out{</div>}}\preformatted{## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     
+## [5] "islandTorgersen"
 }
 
 For inference, this hybrid encoding can be problematic.
@@ -59,8 +61,8 @@ options(contrasts = new_contr)
 
 model.matrix(~ species + island, data = penguins) \%>\% 
   colnames()
-}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandBiscoe"    
-## [6] "islandDream"      "islandTorgersen"
+}\if{html}{\out{</div>}}\preformatted{## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   
+## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"
 }\if{html}{\out{<div class="r">}}\preformatted{options(contrasts = old_contr)
 }\if{html}{\out{</div>}}
 

@@ -11,7 +11,7 @@ gen_additive_mod(
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
 

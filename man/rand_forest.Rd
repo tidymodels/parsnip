@@ -19,7 +19,7 @@ Possible values for this model are "unknown", "regression", or
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this
-model is \code{"ranger"}.}
+model is \code{"xgboost"}.}
 
 \item{mtry}{An integer for the number of predictors that will
 be randomly sampled at each split when creating the tree models.}

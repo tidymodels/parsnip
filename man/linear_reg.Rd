@@ -7,7 +7,7 @@
 linear_reg(mode = "regression", engine = "lm", penalty = NULL, mixture = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the prediction outcome mode.
+\item{mode}{A single character string for the type of model.
 The only possible value for this model is "regression".}
 
 \item{engine}{A single character string specifying what computational engine

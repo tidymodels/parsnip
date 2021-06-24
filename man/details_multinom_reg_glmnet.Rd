@@ -87,7 +87,7 @@ mr_cls_fit <- mr_cls_spec \%>\% fit(island ~ ., data = penguins_train)
 mr_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  6ms 
+## Fit time:  10ms 
 ## 
 ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "multinomial") 
 ## 

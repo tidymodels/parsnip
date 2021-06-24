@@ -120,7 +120,7 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  107ms 
+## Fit time:  147ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
@@ -177,7 +177,7 @@ Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted
 knn_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  14ms 
+## Fit time:  20ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")

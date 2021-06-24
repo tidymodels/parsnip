@@ -126,7 +126,7 @@ rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 rf_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  7.5s 
+## Fit time:  4.1s 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -183,7 +183,7 @@ rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
 rf_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  92ms 
+## Fit time:  49ms 
 ## 
 ## Call:
 ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 

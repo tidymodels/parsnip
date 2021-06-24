@@ -6,15 +6,20 @@
 \usage{
 nearest_neighbor(
   mode = "unknown",
+  engine = "kknn",
   neighbors = NULL,
   weight_func = NULL,
   dist_power = NULL
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"xgboost"}.}
 
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}). For \pkg{kknn}, a value of 5

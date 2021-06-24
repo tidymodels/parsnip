@@ -134,7 +134,7 @@ svm_reg_fit <- svm_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_reg_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  1.1s 
+## Fit time:  598ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -194,7 +194,7 @@ svm_cls_fit <- svm_cls_spec \%>\% fit(Class ~ ., data = data_train)
 }\if{html}{\out{<div class="r">}}\preformatted{svm_cls_fit
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  62ms 
+## Fit time:  38ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 

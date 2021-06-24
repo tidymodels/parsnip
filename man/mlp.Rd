@@ -21,7 +21,7 @@ Possible values for this model are "unknown", "regression", or
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this
-model is \code{"nnet"}.}
+model is \code{"xgboost"}.}
 
 \item{hidden_units}{An integer for the number of units in the hidden model.}
 
