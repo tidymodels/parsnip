@@ -27,9 +27,12 @@
 #'  If parameters need to be modified, `update()` can be used
 #'  in lieu of recreating the object from scratch.
 #'
-#' @param mode A single character string for the type of model.
+#' @param mode A single character string for the prediction outcome mode.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"nnet"`.
 #' @param hidden_units An integer for the number of units in the hidden model.
 #' @param penalty A non-negative numeric value for the amount of weight
 #'  decay.
@@ -63,7 +66,7 @@
 #' @export
 
 mlp <-
-  function(mode = "unknown",
+  function(mode = "unknown", engine = "nnet",
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
            activation = NULL) {
 
@@ -81,7 +84,7 @@ mlp <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

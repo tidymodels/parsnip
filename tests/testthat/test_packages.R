@@ -6,9 +6,6 @@ load(test_path("mars_model.RData"))
 
 test_that('required packages', {
 
-  expect_error(req_pkgs(linear_reg()), "Please set an engine")
-  expect_error(required_pkgs(linear_reg()), "Please set an engine")
-
   glmn <-
     linear_reg() %>%
     set_engine("glmnet")

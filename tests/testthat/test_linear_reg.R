@@ -371,14 +371,6 @@ test_that('newdata error trapping', {
   expect_error(predict(res_xy, newdata = hpc[1:3, num_pred]), "Did you mean")
 })
 
-test_that('default engine', {
-  expect_warning(
-    fit <- linear_reg() %>% fit(mpg ~ ., data = mtcars),
-    "Engine set to"
-  )
-  expect_true(inherits(fit$fit, "lm"))
-})
-
 test_that('show engine', {
   res <- show_engines("linear_reg")
   expt <- get_from_env("linear_reg")

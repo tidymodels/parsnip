@@ -6,15 +6,20 @@
 \usage{
 decision_tree(
   mode = "unknown",
+  engine = "rpart",
   cost_complexity = NULL,
   tree_depth = NULL,
   min_n = NULL
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"rpart"}.}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
 parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}

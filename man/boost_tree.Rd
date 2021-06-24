@@ -6,6 +6,7 @@
 \usage{
 boost_tree(
   mode = "unknown",
+  engine = "xgboost",
   mtry = NULL,
   trees = NULL,
   min_n = NULL,
@@ -17,9 +18,13 @@ boost_tree(
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"xgboost"}.}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models (\code{xgboost}

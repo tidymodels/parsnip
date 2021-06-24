@@ -4,11 +4,20 @@
 \alias{multinom_reg}
 \title{General Interface for Multinomial Regression Models}
 \usage{
-multinom_reg(mode = "classification", penalty = NULL, mixture = NULL)
+multinom_reg(
+  mode = "classification",
+  engine = "nnet",
+  penalty = NULL,
+  mixture = NULL
+)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 The only possible value for this model is "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"nnet"}.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
@@ -45,7 +54,7 @@ For \code{multinom_reg()}, the mode will always be "classification".
 The model can be created using the \code{fit()} function using the
 following \emph{engines}:
 \itemize{
-\item \pkg{R}:   \code{"glmnet"}  (the default), \code{"nnet"}
+\item \pkg{R}:   \code{"nnet"} (the default), \code{"glmnet"}
 \item \pkg{Spark}: \code{"spark"}
 \item \pkg{keras}: \code{"keras"}
 }

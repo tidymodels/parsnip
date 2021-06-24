@@ -218,15 +218,6 @@ test_that('submodel prediction', {
   )
 })
 
-test_that('default engine', {
-  skip_if_not_installed("xgboost")
-  expect_warning(
-    fit <- boost_tree(mode = "regression") %>% fit(mpg ~ ., data = mtcars),
-    "Engine set to"
-  )
-  expect_true(inherits(fit$fit, "xgb.Booster"))
-})
-
 # ------------------------------------------------------------------------------
 
 test_that('validation sets', {

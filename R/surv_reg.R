@@ -31,8 +31,11 @@
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
-#' @param mode A single character string for the type of model.
+#' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "regression".
+#'  @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"survival"`.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
@@ -65,7 +68,7 @@
 #'
 #' @keywords internal
 #' @export
-surv_reg <- function(mode = "regression", dist = NULL) {
+surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
 
   lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
 
@@ -79,7 +82,7 @@ surv_reg <- function(mode = "regression", dist = NULL) {
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

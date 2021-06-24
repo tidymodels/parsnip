@@ -4,11 +4,15 @@
 \alias{survival_reg}
 \title{General Interface for Parametric Survival Models}
 \usage{
-survival_reg(mode = "censored regression", dist = NULL)
+survival_reg(mode = "censored regression", engine = "survival", dist = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 The only possible value for this model is "censored regression".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
