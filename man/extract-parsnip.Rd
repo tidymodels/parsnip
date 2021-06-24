@@ -2,11 +2,11 @@
 % Please edit documentation in R/extract.R
 \name{extract-parsnip}
 \alias{extract-parsnip}
-\alias{extract_parsnip_spec.model_fit}
+\alias{extract_spec_parsnip.model_fit}
 \alias{extract_fit_engine.model_fit}
 \title{Extract elements of a parsnip model object}
 \usage{
-\method{extract_parsnip_spec}{model_fit}(x, ...)
+\method{extract_spec_parsnip}{model_fit}(x, ...)
 
 \method{extract_fit_engine}{model_fit}(x, ...)
 }
@@ -23,7 +23,7 @@ section.
 These functions extract various elements from a parsnip object. If they do
 not exist yet, an error is thrown.
 \itemize{
-\item \code{extract_parsnip_spec()} returns the parsnip model specification.
+\item \code{extract_spec_parsnip()} returns the parsnip model specification.
 \item \code{extract_fit_engine()} returns the engine specific fit embedded within
 a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg()}}
 with the \code{"lm"} engine, this would return the underlying \code{lm} object.
@@ -34,7 +34,7 @@ lm_spec <- linear_reg() \%>\% set_engine("lm")
 lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 
 lm_spec
-extract_parsnip_spec(lm_fit)
+extract_spec_parsnip(lm_fit)
 
 extract_fit_engine(lm_fit)
 lm(mpg ~ ., data = mtcars)
