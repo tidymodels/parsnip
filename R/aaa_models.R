@@ -1028,6 +1028,11 @@ find_engine_files <- function(mod) {
   all_eng$.order <- 1:nrow(all_eng)
   eng <- dplyr::left_join(eng, all_eng, by = "engine")
   eng <- eng[order(eng$.order),]
+
+  # Determine and label default engine
+  default <- get_default_engine(mod)
+  eng$default <- ifelse(eng$engine == default, " (default)", "")
+
   eng
 }
 
@@ -1037,11 +1042,16 @@ make_engine_list <- function(mod) {
   eng <- find_engine_files(mod)
 
   res <-
-    glue::glue("  \\item \\code{\\link[=|eng$topic|]{|eng$engine|}} ",
+    glue::glue("  \\item \\code{\\link[=|eng$topic|]{|eng$engine|} |eng$default| }",
                .open = "|", .close = "|")
 
   res <- paste0("\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
   res
+}
+
+get_default_engine <- function(mod) {
+  cl <- rlang::call2(mod, .ns = "parsnip")
+  rlang::eval_tidy(cl)$engine
 }
 
 #' @export
