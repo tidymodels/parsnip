@@ -47,7 +47,7 @@ decision_tree(min_n = integer()) %>%
 
 ## Preprocessing requirements
 
-```{r child = "template-split-factors.Rmd"}
+```{r child = "template-tree-split-factors.Rmd"}
 ```
 
 ## References

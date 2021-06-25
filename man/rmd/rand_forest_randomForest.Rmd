@@ -67,7 +67,7 @@ rand_forest(
 
 ## Preprocessing requirements
 
-```{r child = "template-split-factors.Rmd"}
+```{r child = "template-tree-split-factors.Rmd"}
 ```
 
 ## References

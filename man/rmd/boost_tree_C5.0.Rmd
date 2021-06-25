@@ -49,7 +49,7 @@ boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) %>%
 
 ## Preprocessing requirements
 
-```{r child = "template-split-factors.Rmd"}
+```{r child = "template-tree-split-factors.Rmd"}
 ```
 
 ## Other details

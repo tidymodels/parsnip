@@ -69,12 +69,12 @@ Note that a `ranger` probability forest is always fit (unless the `probability` 
 
 ## Preprocessing requirements
 
-```{r child = "template-split-factors.Rmd"}
+```{r child = "template-tree-split-factors.Rmd"}
 ```
 
 ## Other notes
 
-By default, parallel processing is turned off. To run each model in parallel, change the `num.threads` argument via [set_engine()]. When tuning, it is more efficient to parallelize over the resamples and tuning parameters.
+By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the `ranger` model, change the `num.threads` argument via [set_engine()]. 
 
 For `ranger` confidence intervals, the intervals are  constructed using the form `estimate +/- z * std_error`. For  classification probabilities, these values can fall outside of  `[0, 1]` and will be coerced to be in this range.
 
