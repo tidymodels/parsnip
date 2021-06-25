@@ -61,7 +61,6 @@ nearest_neighbor(
   translate()
 ```
 
-
 ## Preprocessing requirements
 
 ```{r child = "template-makes-dummies.Rmd"}
@@ -69,68 +68,6 @@ nearest_neighbor(
 
 ```{r child = "template-same-scale.Rmd"}
 ```
-
-## Examples
-
-```{r child = "template-reg-chicago.Rmd"}
-```
-
-We can define the model with specific parameters:
-
-```{r}
-knn_reg_spec <- 
-  nearest_neighbor(neighbors = 5, weight_func = "triangular") %>% 
-  # This model can be used for classification or regression, so set mode
-  set_mode("regression") %>% 
-  set_engine("kknn")
-knn_reg_spec
-```
-
-Now we create the model fit object:
-
-```{r}
-knn_reg_fit <- knn_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
-knn_reg_fit
-```
-
-The holdout data can be predicted:
-
-```{r}
-predict(knn_reg_fit, Chicago_test)
-```
-
-
-```{r child = "template-cls-two-class.Rmd"}
-```
-
-Since there are two classes, we'll use an odd number of neighbors to avoid ties: 
-
-```{r}
-knn_cls_spec <- 
-  nearest_neighbor(neighbors = 11, weight_func = "triangular") %>% 
-  # This model can be used for classification or regression, so set mode
-  set_mode("classification") %>% 
-  set_engine("kknn")
-knn_cls_spec
-```
-
-Now we create the model fit object:
-
-```{r}
-knn_cls_fit <- knn_cls_spec %>% fit(Class ~ ., data = data_train)
-knn_cls_fit
-```
-
-The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
-
-```{r}
-bind_cols(
-  predict(knn_cls_fit, data_test),
-  predict(knn_cls_fit, data_test, type = "prob")
-)
-```
-
-
 
 ## References
 
