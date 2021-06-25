@@ -29,6 +29,21 @@ a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg
 with the \code{"lm"} engine, this would return the underlying \code{lm} object.
 }
 }
+\details{
+Extracting the underlying engine fit can be helpful for describing the
+model via \code{print()}, \code{summarize()}, and so on.
+
+However, users should not invoke the \code{predict()} method on an extracted
+model. There may be preprocessing operations that \code{parsnip} has executed on
+the data prior to giving it to the model. Bypassing these can lead to errors
+or silently generating incorrect predictions.
+
+\strong{Good}:\if{html}{\out{<div class="r">}}\preformatted{ parsnip_fit \%>\% predict(new_data)
+}\if{html}{\out{</div>}}
+
+\strong{Bad}:\if{html}{\out{<div class="r">}}\preformatted{ parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
+}\if{html}{\out{</div>}}
+}
 \examples{
 lm_spec <- linear_reg() \%>\% set_engine("lm")
 lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
