@@ -15,7 +15,7 @@ Some relevant arguments that can be passed to `set_engine()`:
  * `iter`: A positive integer specifying the number of iterations for each chain (including warmup). The default is 2000.
  * `seed`: The seed for random number generation. 
  * `cores`: Number of cores to use when executing the chains in parallel.
- * `prior`: The prior distribution for the (non-hierarchical) regression coefficients. The `"stan"` engine does not fit any hierarchical terms. See the `"stan_glmer"` engine from the multilevelmod package for that type of model. 
+ * `prior`: The prior distribution for the (non-hierarchical) regression coefficients. This `"stan"` engine does not fit any hierarchical terms. 
  * `prior_intercept`: The prior distribution for the intercept (after centering all predictors). 
  
 See [rstan::sampling()] and [rstanarm::priors()] for more information on these and other options.  
