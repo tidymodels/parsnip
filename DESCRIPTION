@@ -58,5 +58,5 @@ Suggests:
     mgcv,
     dials (>= 0.0.9.9000)
 Remotes:  
-    tidymodels/dials
+    tidymodels/dials,
     topepo/C5.0
