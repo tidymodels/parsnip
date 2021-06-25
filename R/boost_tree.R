@@ -20,8 +20,7 @@
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
 #' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"xgboost"`.
+#'  to use for fitting.
 #' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models
 #' (specific engines only)
