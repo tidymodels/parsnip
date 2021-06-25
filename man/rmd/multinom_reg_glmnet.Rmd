@@ -54,37 +54,6 @@ multinom_reg(penalty = double(1), mixture = double(1)) %>%
 ```
 By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
-## Example
-
-```{r child = "template-cls-multi-class.Rmd"}
-```
-
-We can define the model with specific parameters:
-
-```{r}
-mr_cls_spec <- 
-  multinom_reg(penalty = 0.1) %>% 
-  set_engine("glmnet")
-mr_cls_spec
-```
-
-Now we create the model fit object:
-
-```{r}
-set.seed(1)
-mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
-mr_cls_fit
-```
-
-The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
-
-```{r}
-bind_cols(
-  predict(mr_cls_fit, penguins_test),
-  predict(mr_cls_fit, penguins_test, type = "prob")
-)
-```
-
 ## References
 
  - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
