@@ -1,0 +1,519 @@
+---
+title: "Minimal Examples for Fitting and Predicting"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Minimal Examples for Fitting and Predicting}
+output:
+  knitr:::html_vignette
+---
+
+```{r startup, include = FALSE}
+library(utils)
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+This is a collection of minimal examples for fitting and predicting with various models and engines. 
+
+<details> 
+
+<summary>`nearest_neighbor()` with the `"kknn"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+  ```{r}
+knn_reg_spec <-
+  nearest_neighbor(neighbors = 5, weight_func = "triangular") %>%
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>%
+  set_engine("kknn")
+knn_reg_spec
+```
+
+Now we create the model fit object:
+
+  ```{r}
+knn_reg_fit <- knn_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+knn_reg_fit
+```
+
+The holdout data can be predicted:
+
+  ```{r}
+predict(knn_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+Since there are two classes, we'll use an odd number of neighbors to avoid ties:
+
+```{r}
+knn_cls_spec <-
+  nearest_neighbor(neighbors = 11, weight_func = "triangular") %>%
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>%
+  set_engine("kknn")
+knn_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+knn_cls_fit <- knn_cls_spec %>% fit(Class ~ ., data = data_train)
+knn_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+bind_cols(
+  predict(knn_cls_fit, data_test),
+  predict(knn_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
+
+<details> 
+
+<summary>`multinom_reg()` with the `"glmnet"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-multi-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+mr_cls_spec <- 
+  multinom_reg(penalty = 0.1) %>% 
+  set_engine("glmnet")
+mr_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+mr_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(mr_cls_fit, penguins_test),
+  predict(mr_cls_fit, penguins_test, type = "prob")
+)
+```
+
+</details>
+
+
+<details> <summary>`rand_forest()` with the `"ranger"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+rf_reg_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("ranger")
+rf_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+rf_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(rf_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+rf_cls_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("ranger")
+rf_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
+rf_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
+
+<details> <summary>`rand_forest()` with the `"randomForest"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+rf_reg_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("randomForest")
+rf_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+rf_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(rf_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+rf_cls_spec <- 
+  rand_forest(trees = 200, min_n = 5) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("randomForest")
+rf_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
+rf_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(rf_cls_fit, data_test),
+  predict(rf_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
+
+<details> <summary>`svm_linear()` with the `"LiblineaR"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_reg_spec <- 
+  svm_linear(cost = 1, margin = 0.1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("LiblineaR")
+svm_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+svm_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(svm_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_cls_spec <- 
+  svm_linear(cost = 1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("LiblineaR")
+svm_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+svm_cls_fit
+```
+
+The holdout data can be predicted for hard class predictions.
+
+```{r}
+predict(svm_cls_fit, data_test)
+```
+
+</details>
+
+
+<details> <summary>`svm_linear()` with the `"kernlab"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_reg_spec <- 
+  svm_linear(cost = 1, margin = 0.1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("kernlab")
+svm_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+svm_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(svm_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_cls_spec <- 
+  svm_linear(cost = 1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("kernlab")
+svm_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+svm_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(svm_cls_fit, data_test),
+  predict(svm_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
+
+<details> <summary>`svm_poly()` with the `"kernlab"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_reg_spec <- 
+  svm_poly(cost = 1, margin = 0.1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("kernlab")
+svm_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+svm_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(svm_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_cls_spec <- 
+  svm_poly(cost = 1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("kernlab")
+svm_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+svm_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(svm_cls_fit, data_test),
+  predict(svm_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
+
+<details> <summary>`svm_rbf()` with the `"kernlab"` engine</summary>
+
+```{r echo=FALSE}
+knitr::spin_child("template-reg-chicago.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_reg_spec <- 
+  svm_rbf(cost = 1, margin = 0.1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("regression") %>% 
+  set_engine("kernlab")
+svm_reg_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+svm_reg_fit
+```
+
+The holdout data can be predicted:
+
+```{r}
+predict(svm_reg_fit, Chicago_test)
+```
+
+
+```{r echo=FALSE}
+knitr::spin_child("template-cls-two-class.R")
+```
+
+We can define the model with specific parameters:
+
+```{r}
+svm_cls_spec <- 
+  svm_rbf(cost = 1) %>% 
+  # This model can be used for classification or regression, so set mode
+  set_mode("classification") %>% 
+  set_engine("kernlab")
+svm_cls_spec
+```
+
+Now we create the model fit object:
+
+```{r}
+set.seed(1)
+svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+svm_cls_fit
+```
+
+The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+```{r}
+bind_cols(
+  predict(svm_cls_fit, data_test),
+  predict(svm_cls_fit, data_test, type = "prob")
+)
+```
+  
+</details>
+
