@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for K-Nearest Neighbor Models — nearest_neighbor • parsnip</title>
+<title>K-nearest neighbors — nearest_neighbor • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,24 +49,16 @@
 
 
 
-<meta property="og:title" content="General Interface for K-Nearest Neighbor Models — nearest_neighbor" />
-<meta property="og:description" content="nearest_neighbor() is a way to generate a specification of a model
-before fitting and allows the model to be created using
-different packages in R. The main arguments for the
-model are:
-neighbors: The number of neighbors considered at
-each prediction.
-weight_func: The type of kernel function that weights the
-distances between samples.
-dist_power: The parameter used when calculating the Minkowski
-distance. This corresponds to the Manhattan distance with dist_power = 1
-and the Euclidean distance with dist_power = 2.
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using set_engine(). If left to their defaults
-here (NULL), the values are taken from the underlying model
-functions. If parameters need to be modified, update() can be used
-in lieu of recreating the object from scratch." />
+<meta property="og:title" content="K-nearest neighbors — nearest_neighbor" />
+<meta property="og:description" content="nearest_neighbor() defines a model that uses the K most similar data
+points from the training set to predict new samples.
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+kknn  (default) 
+
+More information on how parsnip is used for modeling is at
+https://www.tidymodels.org/." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -166,29 +158,21 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for K-Nearest Neighbor Models</h1>
+    <h1>K-nearest neighbors</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/nearest_neighbor.R'><code>R/nearest_neighbor.R</code></a></small>
     <div class="hidden name"><code>nearest_neighbor.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>nearest_neighbor()</code> is a way to generate a <em>specification</em> of a model
-before fitting and allows the model to be created using
-different packages in R. The main arguments for the
-model are:</p><ul>
-<li><p><code>neighbors</code>: The number of neighbors considered at
-each prediction.</p></li>
-<li><p><code>weight_func</code>: The type of kernel function that weights the
-distances between samples.</p></li>
-<li><p><code>dist_power</code>: The parameter used when calculating the Minkowski
-distance. This corresponds to the Manhattan distance with <code>dist_power = 1</code>
-and the Euclidean distance with <code>dist_power = 2</code>.</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
-in lieu of recreating the object from scratch.</p>
+    <p><code>nearest_neighbor()</code> defines a model that uses the <code>K</code> most similar data
+points from the training set to predict new samples.</p>
+<p>There are different ways to fit this model. See the engine-specific pages
+for more details:</p>
+<p><ul>
+<li><p><code><a href='details_nearest_neighbor_kknn.html'>kknn</a>  (default) </code></p></li>
+</ul></p>
+<p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
+<a href='https://www.tidymodels.org/'>https://www.tidymodels.org/</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>nearest_neighbor</span><span class='op'>(</span>
@@ -205,14 +189,13 @@ in lieu of recreating the object from scratch.</p>
     <tr>
       <th>mode</th>
       <td><p>A single character string for the prediction outcome mode.
-Possible values for this model are <code>"unknown"</code>, <code>"regression"</code>, or
-<code>"classification"</code>.</p></td>
+Possible values for this model are "unknown", "regression", or
+"classification".</p></td>
     </tr>
     <tr>
       <th>engine</th>
       <td><p>A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is <code>"kknn"</code>.</p></td>
+to use for fitting.</p></td>
     </tr>
     <tr>
       <th>neighbors</th>
@@ -236,67 +219,16 @@ calculating Minkowski distance.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"kknn"</code>  (the default)</p></li>
-</ul>
+    <p>This function only defines what <em>type</em> of model is being fit. Once an engine
+is specified, the <em>method</em> to fit the model is also defined.</p>
+<p>The model is not trained or fit until the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function is used
+with the data.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>kknn</h3>
-<p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kknn"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = min_rows(5, data, 5))</span>
-</pre><p><div class="r"></p><pre><span class='fu'>nearest_neighbor</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kknn"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## K-Nearest Neighbor Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: kknn </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     ks = min_rows(5, data, 5))</span>
-</pre>
-
-<p>For <code>kknn</code>, the underlying modeling function used is a restricted
-version of <code><a href='https://rdrr.io/pkg/kknn/man/train.kknn.html'>train.kknn()</a></code> and not <code><a href='https://rdrr.io/pkg/kknn/man/kknn.html'>kknn()</a></code>. It is set up in this way so
-that <code>parsnip</code> can utilize the underlying <code>predict.train.kknn</code> method to
-predict on new data. This also means that a single value of that
-function’s <code>kernel</code> argument (a.k.a <code>weight_func</code> here) can be supplied</p>
-<p>For this engine, tuning over <code>neighbors</code> is very efficient since the
-same model object can be used to make predictions over multiple values
-of <code>neighbors</code>.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
-
-
-<p>The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>kknn</strong></td></tr>
-<tr><td>neighbors</td><td>ks</td></tr>
-<tr><td>weight_func</td><td>kernel (optimal)</td></tr>
-<tr><td>dist_power</td><td>distance (2)</td></tr>
-</table>
-
-
-
-
+    <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://tmwr.org'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_nearest_neighbor_kknn.html'>kknn engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"nearest_neighbor"</span><span class='op'>)</span>

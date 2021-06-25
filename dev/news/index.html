@@ -192,7 +192,15 @@
 <ul>
 <li><p>Re-licensed package from GPL-2 to MIT. See <a href="https://github.com/tidymodels/parsnip/issues/462">consent from copyright holders here</a>.</p></li>
 <li><p><code><a href="../reference/set_args.html">set_mode()</a></code> now checks if <code>mode</code> is compatible with the model class, similar to <code><a href="../reference/null_value.html">new_model_spec()</a></code> (<a href='https://github.com/jtlandis'>@jtlandis</a>, <a href='https://github.com/tidymodels/parsnip/issues/467'>#467</a>). Both <code><a href="../reference/set_args.html">set_mode()</a></code> and <code><a href="../reference/set_engine.html">set_engine()</a></code> now error for <code>NULL</code> or missing arguments (<a href='https://github.com/tidymodels/parsnip/issues/503'>#503</a>).</p></li>
-<li><p>Re-organized model documentation for <code>update</code> methods (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</p></li>
+<li>
+<p>Re-organized model documentation:</p>
+<ul>
+<li>
+<code>update</code> methods were moved out of the model help files (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</li>
+<li>Each model/engine combination has its own help page.</li>
+<li>The model help page has a dynamic bulleted list of the engines with links to the individual help pages.</li>
+</ul>
+</li>
 <li><p><code><a href="https://generics.r-lib.org/reference/required_pkgs.html">generics::required_pkgs()</a></code> was extended for <code>parsnip</code> objects.</p></li>
 <li><p>Prediction functions now give a consistent error when a user uses an unavailable value of <code>type</code> (<a href='https://github.com/tidymodels/parsnip/issues/489'>#489</a>)</p></li>
 <li><p>The <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> method was changed to avoid failing if the model does not enable class probabilities. The method now returns tibbles despite the input data class (<a href='https://github.com/tidymodels/parsnip/issues/487'>#487</a>) (<a href='https://github.com/tidymodels/parsnip/issues/478'>#478</a>)</p></li>

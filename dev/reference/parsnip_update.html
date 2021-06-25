@@ -341,8 +341,8 @@ engine arguments in this object will result in an error.</p></td>
     <tr>
       <th>mtry</th>
       <td><p>A number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models (<code>xgboost</code>
-only).</p></td>
+be randomly sampled at each split when creating the tree models
+(specific engines only)</p></td>
     </tr>
     <tr>
       <th>trees</th>
@@ -357,17 +357,17 @@ in a node that is required for the node to be split further.</p></td>
     <tr>
       <th>tree_depth</th>
       <td><p>An integer for the maximum depth of the tree (i.e. number
-of splits) (<code>xgboost</code> only).</p></td>
+of splits) (specific engines only).</p></td>
     </tr>
     <tr>
       <th>learn_rate</th>
       <td><p>A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (<code>xgboost</code> only).</p></td>
+from iteration-to-iteration (specific engines only).</p></td>
     </tr>
     <tr>
       <th>loss_reduction</th>
       <td><p>A number for the reduction in the loss function required
-to split further (<code>xgboost</code> only).</p></td>
+to split further (specific engines only).</p></td>
     </tr>
     <tr>
       <th>sample_size</th>
@@ -378,7 +378,7 @@ each iteration while <code>C5.0</code> samples once during training.</p></td>
     <tr>
       <th>stop_iter</th>
       <td><p>The number of iterations without improvement before
-stopping (<code>xgboost</code> only).</p></td>
+stopping (specific engines only).</p></td>
     </tr>
     <tr>
       <th>fresh</th>
@@ -392,7 +392,7 @@ modified in-place or replaced wholesale.</p></td>
     <tr>
       <th>cost_complexity</th>
       <td><p>A positive number for the the cost/complexity
-parameter (a.k.a. <code>Cp</code>) used by CART models (<code>rpart</code> only).</p></td>
+parameter (a.k.a. <code>Cp</code>) used by CART models (specific engines only).</p></td>
     </tr>
     <tr>
       <th>select_features</th>
@@ -411,17 +411,14 @@ Increase this beyond 1 to produce smoother models.</p></td>
     <tr>
       <th>penalty</th>
       <td><p>A non-negative number representing the total
-amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
-For <code>keras</code> models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of <code>mixture</code>; see below).</p></td>
+amount of regularization (specific engines only).</p></td>
     </tr>
     <tr>
       <th>mixture</th>
       <td><p>A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only).</p></td>
+ridge regression is being used (specific engines only).</p></td>
     </tr>
     <tr>
       <th>num_terms</th>

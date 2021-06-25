@@ -167,7 +167,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A <code>model_fit</code> object produced by <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> or <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code>.</p></td>
+      <td><p>A <code>model_fit</code> object produced by <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> or
+<code><a href='fit.model_spec.html'>fit_xy.model_spec()</a></code> .</p></td>
     </tr>
     <tr>
       <th>new_data</th>
@@ -182,7 +183,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For regression models, a <code>.pred</code> column is added. If <code>x</code> was created using
-<code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> and <code>new_data</code> contains the outcome column, a <code>.resid</code> column is
+<code><a href='fit.model_spec.html'>fit.model_spec()</a></code> and <code>new_data</code> contains the outcome column, a <code>.resid</code> column is
 also added.</p>
 <p>For classification models, the results can include a column called
 <code>.pred_class</code> as well as class probability columns named <code>.pred_{level}</code>.

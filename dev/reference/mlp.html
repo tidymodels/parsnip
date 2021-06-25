@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Single Layer Neural Network — mlp • parsnip</title>
+<title>Single layer neural network — mlp • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,22 +49,17 @@
 
 
 
-<meta property="og:title" content="General Interface for Single Layer Neural Network — mlp" />
-<meta property="og:description" content="mlp(), for multilayer perceptron, is a way to generate a specification of
-a model before fitting and allows the model to be created using
-different packages in R or via keras The main arguments for the
-model are:
-hidden_units: The number of units in the hidden layer
-(default: 5).
-penalty: The amount of L2 regularization (aka weight
-decay, default is zero).
-dropout: The proportion of parameters randomly dropped out of
-the model (keras only, default is zero).
-epochs: The number of training iterations (default: 20).
-activation: The type of function that connects the hidden
-layer and the input variables  (keras only, default is softmax).
+<meta property="og:title" content="Single layer neural network — mlp" />
+<meta property="og:description" content="mlp() defines a multilayer perceptron model (a.k.a. a single layer,
+feed-forward neural network).
+There are different ways to fit this model. See the engine-specific pages
+for more details:
 
-" />
+keras  
+nnet  (default) 
+
+More information on how parsnip is used for modeling is at
+https://www.tidymodels.org/." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -164,27 +159,22 @@ layer and the input variables  (keras only, default is softmax).
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Single Layer Neural Network</h1>
+    <h1>Single layer neural network</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/mlp.R'><code>R/mlp.R</code></a></small>
     <div class="hidden name"><code>mlp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>mlp()</code>, for multilayer perceptron, is a way to generate a <em>specification</em> of
-a model before fitting and allows the model to be created using
-different packages in R or via keras The main arguments for the
-model are:</p><ul>
-<li><p><code>hidden_units</code>: The number of units in the hidden layer
-(default: 5).</p></li>
-<li><p><code>penalty</code>: The amount of L2 regularization (aka weight
-decay, default is zero).</p></li>
-<li><p><code>dropout</code>: The proportion of parameters randomly dropped out of
-the model (<code>keras</code> only, default is zero).</p></li>
-<li><p><code>epochs</code>: The number of training iterations (default: 20).</p></li>
-<li><p><code>activation</code>: The type of function that connects the hidden
-layer and the input variables  (<code>keras</code> only, default is softmax).</p></li>
-</ul>
-
+    <p><code>mlp()</code> defines a multilayer perceptron model (a.k.a. a single layer,
+feed-forward neural network).</p>
+<p>There are different ways to fit this model. See the engine-specific pages
+for more details:</p>
+<p><ul>
+<li><p><code><a href='details_mlp_keras.html'>keras</a>  </code></p></li>
+<li><p><code><a href='details_mlp_nnet.html'>nnet</a>  (default) </code></p></li>
+</ul></p>
+<p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
+<a href='https://www.tidymodels.org/'>https://www.tidymodels.org/</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mlp</span><span class='op'>(</span>
@@ -209,8 +199,7 @@ Possible values for this model are "unknown", "regression", or
     <tr>
       <th>engine</th>
       <td><p>A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is <code>"nnet"</code>.</p></td>
+to use for fitting.</p></td>
     </tr>
     <tr>
       <th>hidden_units</th>
@@ -242,104 +231,16 @@ function between the hidden and output layers is automatically set to either
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
-here (see above), the values are taken from the underlying model
-functions. One exception is <code>hidden_units</code> when <code><a href='https://rdrr.io/pkg/nnet/man/nnet.html'>nnet::nnet</a></code> is used; that
-function's <code>size</code> argument has no default so a value of 5 units will be
-used. Also, unless otherwise specified, the <code>linout</code> argument to
-<code><a href='https://rdrr.io/pkg/nnet/man/nnet.html'>nnet::nnet()</a></code> will be set to <code>TRUE</code> when a regression model is created.
-If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
-in lieu of recreating the object from scratch.</p>
-<p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"nnet"</code> (the default)</p></li>
-<li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
-</ul>
+    <p>This function only defines what <em>type</em> of model is being fit. Once an engine
+is specified, the <em>method</em> to fit the model is also defined.</p>
+<p>The model is not trained or fit until the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function is used
+with the data.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>mlp</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"keras"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Single Layer Neural Network Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: keras </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg())</span>
-</pre><p><div class="r"></p><pre><span class='fu'>mlp</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"keras"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Single Layer Neural Network Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: keras </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg())</span>
-</pre>
-
-<p>An error is thrown if both <code>penalty</code> and <code>dropout</code> are specified for
-<code>keras</code> models.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>nnet</h3>
-<p><div class="r"></p><pre><span class='fu'>mlp</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"nnet"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Single Layer Neural Network Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Main Arguments:</span>
-<span class='co'>##   hidden_units = 5</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: nnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     size = 5, trace = FALSE, linout = TRUE)</span>
-</pre><p><div class="r"></p><pre><span class='fu'>mlp</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"nnet"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Single Layer Neural Network Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Main Arguments:</span>
-<span class='co'>##   hidden_units = 5</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: nnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     size = 5, trace = FALSE, linout = FALSE)</span>
-</pre>
-
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
-
-
-<p>The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>keras</strong></td><td><strong>nnet</strong></td></tr>
-<tr><td>hidden_units</td><td>hidden_units (5)</td><td>size</td></tr>
-<tr><td>penalty</td><td>penalty (0)</td><td>decay (0)</td></tr>
-<tr><td>dropout</td><td>dropout (0)</td><td>NA</td></tr>
-<tr><td>epochs</td><td>epochs (20)</td><td>maxit (100)</td></tr>
-<tr><td>activation</td><td>activation (softmax)</td><td>NA</td></tr>
-</table>
-
-
-
-
+    <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://tmwr.org'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_mlp_keras.html'>keras engine details</a></code>, <code><a href='details_mlp_nnet.html'>nnet engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"mlp"</span><span class='op'>)</span>
@@ -355,14 +256,6 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   penalty = 0.01
-#&gt; 
-#&gt; Computational engine: nnet 
-#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>mlp</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, hidden_units <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Single Layer Neural Network Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   hidden_units = varying()
 #&gt; 
 #&gt; Computational engine: nnet 
 #&gt; </div></pre>

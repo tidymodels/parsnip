@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Parametric Survival Models — survival_reg • parsnip</title>
+<title>Parametric survival regression — survival_reg • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="General Interface for Parametric Survival Models — survival_reg" />
+<meta property="og:title" content="Parametric survival regression — survival_reg" />
 <meta property="og:description" content="survival_reg() is a way to generate a specification of a model
 before fitting and allows the model to be created using
 R. The main argument for the
@@ -160,7 +160,7 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Parametric Survival Models</h1>
+    <h1>Parametric survival regression</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/survival_reg.R'><code>R/survival_reg.R</code></a></small>
     <div class="hidden name"><code>survival_reg.Rd</code></div>
     </div>
@@ -208,23 +208,15 @@ the default.</p></td>
 to determine the <em>mode</em> of the model. For <code>survival_reg()</code>,the
 mode will always be "censored regression".</p>
 <p>Since survival models typically involve censoring (and require the use of
-<code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function will require that the
+<code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects), the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function will require that the
 survival model be specified via the formula interface.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>survival_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
-#&gt; 
-#&gt; Computational engine: survival 
-#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>survival_reg</span><span class='op'>(</span>dist <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parametric Survival Regression Model Specification (censored regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   dist = varying()
 #&gt; 
 #&gt; Computational engine: survival 
 #&gt; </div></pre>

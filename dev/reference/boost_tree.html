@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Boosted Trees — boost_tree • parsnip</title>
+<title>Boosted trees — boost_tree • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,31 +49,19 @@
 
 
 
-<meta property="og:title" content="General Interface for Boosted Trees — boost_tree" />
-<meta property="og:description" content="boost_tree() is a way to generate a specification of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:
-mtry: The number of predictors that will be
-randomly sampled at each split when creating the tree models.
-trees: The number of trees contained in the ensemble.
-min_n: The minimum number of data points in a node
-that is required for the node to be split further.
-tree_depth: The maximum depth of the tree (i.e. number of
-splits).
-learn_rate: The rate at which the boosting algorithm adapts
-from iteration-to-iteration.
-loss_reduction: The reduction in the loss function required
-to split further.
-sample_size: The amount of data exposed to the fitting routine.
-stop_iter: The number of iterations without improvement before
-stopping.
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using the set_engine() function. If left to their defaults
-here (NULL), the values are taken from the underlying model
-functions. If parameters need to be modified, update() can be used
-in lieu of recreating the object from scratch." />
+<meta property="og:title" content="Boosted trees — boost_tree" />
+<meta property="og:description" content="boost_tree() defines a model that creates a series of decision trees
+forming an ensemble. Each tree depends on the results of previous trees.
+All trees in the ensemble are combined to produce a final prediction.
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+xgboost  (default) 
+C5.0  
+spark  
+
+More information on how parsnip is used for modeling is at
+https://www.tidymodels.org/." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -173,36 +161,24 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Boosted Trees</h1>
+    <h1>Boosted trees</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a></small>
     <div class="hidden name"><code>boost_tree.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>boost_tree()</code> is a way to generate a <em>specification</em> of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:</p><ul>
-<li><p><code>mtry</code>: The number of predictors that will be
-randomly sampled at each split when creating the tree models.</p></li>
-<li><p><code>trees</code>: The number of trees contained in the ensemble.</p></li>
-<li><p><code>min_n</code>: The minimum number of data points in a node
-that is required for the node to be split further.</p></li>
-<li><p><code>tree_depth</code>: The maximum depth of the tree (i.e. number of
-splits).</p></li>
-<li><p><code>learn_rate</code>: The rate at which the boosting algorithm adapts
-from iteration-to-iteration.</p></li>
-<li><p><code>loss_reduction</code>: The reduction in the loss function required
-to split further.</p></li>
-<li><p><code>sample_size</code>: The amount of data exposed to the fitting routine.</p></li>
-<li><p><code>stop_iter</code>: The number of iterations without improvement before
-stopping.</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using the <code><a href='set_engine.html'>set_engine()</a></code> function. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
-in lieu of recreating the object from scratch.</p>
+    <p><code>boost_tree()</code> defines a model that creates a series of decision trees
+forming an ensemble. Each tree depends on the results of previous trees.
+All trees in the ensemble are combined to produce a final prediction.</p>
+<p>There are different ways to fit this model. See the engine-specific pages
+for more details:</p>
+<p><ul>
+<li><p><code><a href='details_boost_tree_xgboost.html'>xgboost</a>  (default) </code></p></li>
+<li><p><code><a href='details_boost_tree_C5.0.html'>C5.0</a>  </code></p></li>
+<li><p><code><a href='details_boost_tree_spark.html'>spark</a>  </code></p></li>
+</ul></p>
+<p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
+<a href='https://www.tidymodels.org/'>https://www.tidymodels.org/</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>boost_tree</span><span class='op'>(</span>
@@ -230,14 +206,13 @@ Possible values for this model are "unknown", "regression", or
     <tr>
       <th>engine</th>
       <td><p>A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is <code>"xgboost"</code>.</p></td>
+to use for fitting.</p></td>
     </tr>
     <tr>
       <th>mtry</th>
       <td><p>A number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models (<code>xgboost</code>
-only).</p></td>
+be randomly sampled at each split when creating the tree models
+(specific engines only)</p></td>
     </tr>
     <tr>
       <th>trees</th>
@@ -252,17 +227,17 @@ in a node that is required for the node to be split further.</p></td>
     <tr>
       <th>tree_depth</th>
       <td><p>An integer for the maximum depth of the tree (i.e. number
-of splits) (<code>xgboost</code> only).</p></td>
+of splits) (specific engines only).</p></td>
     </tr>
     <tr>
       <th>learn_rate</th>
       <td><p>A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (<code>xgboost</code> only).</p></td>
+from iteration-to-iteration (specific engines only).</p></td>
     </tr>
     <tr>
       <th>loss_reduction</th>
       <td><p>A number for the reduction in the loss function required
-to split further (<code>xgboost</code> only).</p></td>
+to split further (specific engines only).</p></td>
     </tr>
     <tr>
       <th>sample_size</th>
@@ -273,172 +248,24 @@ each iteration while <code>C5.0</code> samples once during training.</p></td>
     <tr>
       <th>stop_iter</th>
       <td><p>The number of iterations without improvement before
-stopping (<code>xgboost</code> only).</p></td>
+stopping (specific engines only).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data given to the function are not saved and are only used
-to determine the <em>mode</em> of the model. For <code>boost_tree()</code>, the
-possible modes are "regression" and "classification".</p>
-<p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>: <code>"xgboost"</code> (the default), <code>"C5.0"</code></p></li>
-<li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
-</ul>
+    <p>This function only defines what <em>type</em> of model is being fit. Once an engine
+is specified, the <em>method</em> to fit the model is also defined.</p>
+<p>The model is not trained or fit until the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function is used
+with the data.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-<p>For this model, other packages may add additional engines. Use
-<code><a href='show_engines.html'>show_engines()</a></code> to see the current set of engines.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is available; using <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via <code><a href='https://rdrr.io/r/base/save.html'>save()</a></code>), the <code>model$fit</code> element of the <code>parsnip</code>
-object should be serialized via <code>ml_save(object$fit)</code> and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the <code>parsnip</code> object.</p>
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>xgboost</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: xgboost </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
-<span class='co'>##     verbose = 0)</span>
-</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: xgboost </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, </span>
-<span class='co'>##     verbose = 0)</span>
-</pre>
-
-<p>Note that, for most engines to <code>boost_tree()</code>, the <code>sample_size</code>
-argument is in terms of the <em>number</em> of training set points. The
-<code>xgboost</code> package parameterizes this as the <em>proportion</em> of training set
-samples instead. When using the <code>tune</code>, this <strong>occurs automatically</strong>.</p>
-<p>If you would like to use a custom range when tuning <code>sample_size</code>, the
-<code><a href='https://dials.tidymodels.org/reference/trees.html'>dials::sample_prop()</a></code> function can be used in that case. For example,
-using a parameter set:<div class="r"></p><pre><span class='va'>mod</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>boost_tree</span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"xgboost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span>
-
-<span class='co'># update the parameters using the `dials` function</span>
-<span class='va'>mod_param</span> <span class='op'>&lt;-</span> 
-  <span class='va'>mod</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>parameters</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fu'>sample_prop</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</pre><p></div></p>
-<p>For this engine, tuning over <code>trees</code> is very efficient since the same
-model object can be used to make predictions over multiple values of
-<code>trees</code>.</p>
-<p>Note that <code>xgboost</code> models require that non-numeric predictors (e.g.,
-factors) must be converted to dummy variables or some other numeric
-representation. By default, when using <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> with <code>xgboost</code>, a one-hot
-encoding is used to convert factor predictors to indicator variables.</p>
-<p>Finally, in the classification mode, non-numeric outcomes (i.e.,
-factors) are converted to numeric. For binary classification, the
-<code>event_level</code> argument of <code><a href='set_engine.html'>set_engine()</a></code> can be set to either <code>"first"</code>
-or <code>"second"</code> to specify which level should be used as the event. This
-can be helpful when a watchlist is used to monitor performance from with
-the xgboost training process.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>C5.0</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"C5.0"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: C5.0 </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())</span>
-</pre>
-
-<p>Note that <code><a href='https://topepo.github.io/C5.0/reference/C5.0.html'>C50::C5.0()</a></code> does not require factor
-predictors to be converted to indicator variables. <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model.</p>
-<p>For this engine, tuning over <code>trees</code> is very efficient since the same
-model object can be used to make predictions over multiple values of
-<code>trees</code>.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: spark </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
-<span class='co'>##     type = "regression", seed = sample.int(10^5, 1))</span>
-</pre><p><div class="r"></p><pre><span class='fu'>boost_tree</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Boosted Tree Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: spark </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), </span>
-<span class='co'>##     type = "classification", seed = sample.int(10^5, 1))</span>
-</pre>
-
-<p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> does not affect the encoding of the predictor values
-(i.e. factors stay factors) for this model.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
-
-
-<p>The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>xgboost</strong></td><td><strong>C5.0</strong></td><td><strong>spark</strong></td></tr>
-<tr><td>tree_depth</td><td>max_depth (6)</td><td>NA</td><td>max_depth (5)</td></tr>
-<tr><td>trees</td><td>nrounds (15)</td><td>trials (15)</td><td>max_iter (20)</td></tr>
-<tr><td>learn_rate</td><td>eta (0.3)</td><td>NA</td><td>step_size (0.1)</td></tr>
-<tr><td>mtry</td><td>colsample_bynode (character(0))</td><td>NA</td><td>feature_subset_strategy (see below)</td></tr>
-<tr><td>min_n</td><td>min_child_weight (1)</td><td>minCases (2)</td><td>min_instances_per_node (1)</td></tr>
-<tr><td>loss_reduction</td><td>gamma (0)</td><td>NA</td><td>min_info_gain (0)</td></tr>
-<tr><td>sample_size</td><td>subsample (1)</td><td>sample (0)</td><td>subsampling_rate (1)</td></tr>
-<tr><td>stop_iter</td><td>early_stop (NULL)</td><td>NA</td><td>NA</td></tr>
-</table>
-
-
-
-<p>For spark, the default <code>mtry</code> is the square root of the number of
-predictors for classification, and one-third of the predictors for
-regression.</p>
-
+    <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://tmwr.org'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_boost_tree_xgboost.html'>xgboost engine details</a></code>, <code><a href='details_boost_tree_C5.0.html'>C5.0 engine details</a></code>, <code><a href='details_boost_tree_spark.html'>spark engine details</a></code>
+,
+<code><a href='xgb_train.html'>xgb_train()</a></code>, <code><a href='C5.0_train.html'>C5.0_train()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"boost_tree"</span><span class='op'>)</span>
@@ -455,14 +282,6 @@ regression.</p>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   trees = 20
-#&gt; 
-#&gt; Computational engine: xgboost 
-#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>boost_tree</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"regression"</span>, mtry <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Boosted Tree Model Specification (regression)
-#&gt; 
-#&gt; Main Arguments:
-#&gt;   mtry = varying()
 #&gt; 
 #&gt; Computational engine: xgboost 
 #&gt; </div></pre>
