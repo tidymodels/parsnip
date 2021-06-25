@@ -18,8 +18,7 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"xgboost"}.}
+to use for fitting.}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
 parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}

@@ -82,8 +82,9 @@ chosen value if it is not consistent with the actual data dimensions.
 \subsection{Preprocessing requirements}{
 
 This engine does not require any special encoding of the predictors.
-Categorical predictors can be split into groups without creating dummy
-variables for each category.
+Categorical predictors can be partitioned into groups of factor levels
+(e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
+are not required for this model.
 }
 
 \subsection{Other details}{

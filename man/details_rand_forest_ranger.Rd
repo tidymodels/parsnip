@@ -87,163 +87,22 @@ Note that a \code{ranger} probability forest is always fit (unless the
 \subsection{Preprocessing requirements}{
 
 This engine does not require any special encoding of the predictors.
-Categorical predictors can be split into groups without creating dummy
-variables for each category.
+Categorical predictors can be partitioned into groups of factor levels
+(e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
+are not required for this model.
 }
 
 \subsection{Other notes}{
 
-By default, parallel processing is turned off. To run each model in
-parallel, change the \code{num.threads} argument via
-\code{\link[=set_engine]{set_engine()}}. When tuning, it is more efficient to
-parallelize over the resamples and tuning parameters.
+By default, parallel processing is turned off. When tuning, it is more
+efficient to parallelize over the resamples and tuning parameters. To
+parallelize the construction of the trees within the \code{ranger} model,
+change the \code{num.threads} argument via \code{\link[=set_engine]{set_engine()}}.
 
 For \code{ranger} confidence intervals, the intervals are constructed using
 the form \verb{estimate +/- z * std_error}. For classification probabilities,
 these values can fall outside of \verb{[0, 1]} and will be coerced to be in
 this range.
-}
-
-\subsection{Examples}{
-\subsection{Regression Example}{
-
-We’ll model the ridership on the Chicago elevated trains as a function
-of the 14 day lagged ridership at two stations. The two predictors are
-in the same units (rides per day/1000) and do not need to be normalized.
-
-All but the last week of data are used for training. The last week will
-be predicted after the model is fit.\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
-tidymodels_prefer()
-data(Chicago)
-
-n <- nrow(Chicago)
-Chicago <- Chicago \%>\% select(ridership, Clark_Lake, Quincy_Wells)
-
-Chicago_train <- Chicago[1:(n - 7), ]
-Chicago_test <- Chicago[(n - 6):n, ]
-}\if{html}{\out{</div>}}
-
-We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{rf_reg_spec <- 
-  rand_forest(trees = 200, min_n = 5) \%>\% 
-  # This model can be used for classification or regression, so set mode
-  set_mode("regression") \%>\% 
-  set_engine("ranger")
-rf_reg_spec
-}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
-## 
-## Main Arguments:
-##   trees = 200
-##   min_n = 5
-## 
-## Computational engine: ranger
-}
-
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
-rf_reg_fit <- rf_reg_spec \%>\% fit(ridership ~ ., data = Chicago_train)
-rf_reg_fit
-}\if{html}{\out{</div>}}\preformatted{## parsnip model object
-## 
-## Fit time:  938ms 
-## Ranger result
-## 
-## Call:
-##  ranger::ranger(x = maybe_data_frame(x), y = y, num.trees = ~200,      min.node.size = min_rows(~5, x), num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1)) 
-## 
-## Type:                             Regression 
-## Number of trees:                  200 
-## Sample size:                      5691 
-## Number of independent variables:  2 
-## Mtry:                             1 
-## Target node size:                 5 
-## Variable importance mode:         none 
-## Splitrule:                        variance 
-## OOB prediction error (MSE):       9.695881 
-## R squared (OOB):                  0.7747802
-}
-
-The holdout data can be predicted:\if{html}{\out{<div class="r">}}\preformatted{predict(rf_reg_fit, Chicago_test)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 7 x 1
-##   .pred
-##   <dbl>
-## 1 20.4 
-## 2 21.5 
-## 3 20.9 
-## 4 21.7 
-## 5 19.4 
-## 6  7.54
-## 7  5.95
-}
-}
-
-\subsection{Classification Example}{
-
-The example data has two predictors and an outcome with two classes.
-Both predictors are in the same units\if{html}{\out{<div class="r">}}\preformatted{library(tidymodels)
-tidymodels_prefer()
-data(two_class_dat)
-
-data_train <- two_class_dat[-(1:10), ]
-data_test  <- two_class_dat[  1:10 , ]
-}\if{html}{\out{</div>}}
-
-We can define the model with specific parameters:\if{html}{\out{<div class="r">}}\preformatted{rf_cls_spec <- 
-  rand_forest(trees = 200, min_n = 5) \%>\% 
-  # This model can be used for classification or regression, so set mode
-  set_mode("classification") \%>\% 
-  set_engine("ranger")
-rf_cls_spec
-}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
-## 
-## Main Arguments:
-##   trees = 200
-##   min_n = 5
-## 
-## Computational engine: ranger
-}
-
-Now we create the model fit object:\if{html}{\out{<div class="r">}}\preformatted{set.seed(1)
-rf_cls_fit <- rf_cls_spec \%>\% fit(Class ~ ., data = data_train)
-rf_cls_fit
-}\if{html}{\out{</div>}}\preformatted{## parsnip model object
-## 
-## Fit time:  72ms 
-## Ranger result
-## 
-## Call:
-##  ranger::ranger(x = maybe_data_frame(x), y = y, num.trees = ~200,      min.node.size = min_rows(~5, x), num.threads = 1, verbose = FALSE,      seed = sample.int(10^5, 1), probability = TRUE) 
-## 
-## Type:                             Probability estimation 
-## Number of trees:                  200 
-## Sample size:                      781 
-## Number of independent variables:  2 
-## Mtry:                             1 
-## Target node size:                 5 
-## Variable importance mode:         none 
-## Splitrule:                        gini 
-## OOB prediction error (Brier s.):  0.1523359
-}
-
-The holdout data can be predicted for both hard class predictions and
-probabilities. We’ll bind these together into one tibble:\if{html}{\out{<div class="r">}}\preformatted{bind_cols(
-  predict(rf_cls_fit, data_test),
-  predict(rf_cls_fit, data_test, type = "prob")
-)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 10 x 3
-##    .pred_class .pred_Class1 .pred_Class2
-##    <fct>              <dbl>        <dbl>
-##  1 Class2             0.24        0.76  
-##  2 Class1             0.930       0.0697
-##  3 Class1             0.589       0.411 
-##  4 Class1             0.658       0.342 
-##  5 Class2             0.303       0.697 
-##  6 Class2             0.141       0.859 
-##  7 Class1             0.739       0.261 
-##  8 Class1             0.577       0.423 
-##  9 Class1             0.799       0.201 
-## 10 Class2             0.001       0.999
-}
-}
-
 }
 
 \subsection{References}{

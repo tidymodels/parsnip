@@ -18,8 +18,7 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"xgboost"}.}
+to use for fitting.}
 
 \item{neighbors}{A single integer for the number of neighbors
 to consider (often called \code{k}). For \pkg{kknn}, a value of 5
