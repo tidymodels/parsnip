@@ -1,53 +1,41 @@
-#' General interface for polynomial support vector machines
+#' Polynomial support vector machines
 #'
-#' `svm_poly()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{cost}: The cost of predicting a sample within or on the
-#'    wrong side of the margin.
-#'   \item \code{degree}: The polynomial degree.
-#'   \item \code{scale_factor}: A scaling factor for the kernel.
-#'   \item \code{margin}: The epsilon in the SVM insensitive loss function
-#'    (regression only)
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"kernlab"`.
+#' `svm_poly()` defines a support vector machine model. For classification,
+#' the model tries to maximize the width of the margin between classes.
+#' For regression, the model optimizes a robust loss function that is only
+#' affected by very large model residuals.
+#'
+#' This SVM model uses a nonlinear function, specifically a polynomial function,
+#' to create the decision boundary or regression line.
+#'
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_poly")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param degree A positive number for polynomial degree.
 #' @param scale_factor A positive number for the polynomial scaling factor.
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
-#' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"kernlab"`  (the default)
-#' }
 #'
-#' @includeRmd man/rmd/svm-poly.Rmd details
+#' @template spec-details
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @template spec-references
+#'
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_poly")}
+#'
 #' @examples
 #' show_engines("svm_poly")
 #'
 #' svm_poly(mode = "classification", degree = 1.2)
-#' # Parameters can be represented by a placeholder:
-#' svm_poly(mode = "regression", cost = varying())
 #' @export
 
 svm_poly <-

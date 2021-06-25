@@ -2,7 +2,7 @@
 % Please edit documentation in R/boost_tree.R
 \name{boost_tree}
 \alias{boost_tree}
-\title{General Interface for Boosted Trees}
+\title{Boosted trees}
 \usage{
 boost_tree(
   mode = "unknown",
@@ -23,12 +23,11 @@ Possible values for this model are "unknown", "regression", or
 "classification".}
 
 \item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"xgboost"}.}
+to use for fitting.}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models (\code{xgboost}
-only).}
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -37,222 +36,50 @@ the ensemble.}
 in a node that is required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
-of splits) (\code{xgboost} only).}
+of splits) (specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (\code{xgboost} only).}
+from iteration-to-iteration (specific engines only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further (\code{xgboost} only).}
+to split further (specific engines only).}
 
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
-stopping (\code{xgboost} only).}
+stopping (specific engines only).}
 }
 \description{
-\code{boost_tree()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:
-\itemize{
-\item \code{mtry}: The number of predictors that will be
-randomly sampled at each split when creating the tree models.
-\item \code{trees}: The number of trees contained in the ensemble.
-\item \code{min_n}: The minimum number of data points in a node
-that is required for the node to be split further.
-\item \code{tree_depth}: The maximum depth of the tree (i.e. number of
-splits).
-\item \code{learn_rate}: The rate at which the boosting algorithm adapts
-from iteration-to-iteration.
-\item \code{loss_reduction}: The reduction in the loss function required
-to split further.
-\item \code{sample_size}: The amount of data exposed to the fitting routine.
-\item \code{stop_iter}: The number of iterations without improvement before
-stopping.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using the \code{set_engine()} function. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{boost_tree()} defines a model that creates a series of decision trees
+forming an ensemble. Each tree depends on the results of previous trees.
+All trees in the ensemble are combined to produce a final prediction.
+
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{boost_tree()}, the
-possible modes are "regression" and "classification".
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}: \code{"xgboost"} (the default), \code{"C5.0"}
-\item \pkg{Spark}: \code{"spark"}
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-For this model, other packages may add additional engines. Use
-\code{\link[=show_engines]{show_engines()}} to see the current set of engines.
-}
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit()} is available; using \code{fit_xy()} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:
-\subsection{xgboost}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
-  set_engine("xgboost") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
-## 
-## Computational engine: xgboost 
-## 
-## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0)
-}\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
-  set_engine("xgboost") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: xgboost 
-## 
-## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), nthread = 1, 
-##     verbose = 0)
-}
-
-Note that, for most engines to \code{boost_tree()}, the \code{sample_size}
-argument is in terms of the \emph{number} of training set points. The
-\code{xgboost} package parameterizes this as the \emph{proportion} of training set
-samples instead. When using the \code{tune}, this \strong{occurs automatically}.
-
-If you would like to use a custom range when tuning \code{sample_size}, the
-\code{dials::sample_prop()} function can be used in that case. For example,
-using a parameter set:\if{html}{\out{<div class="r">}}\preformatted{mod <- 
-  boost_tree(sample_size = tune()) \%>\% 
-  set_engine("xgboost") \%>\% 
-  set_mode("classification")
-
-# update the parameters using the `dials` function
-mod_param <- 
-  mod \%>\% 
-  parameters() \%>\% 
-  update(sample_size = sample_prop(c(0.4, 0.9)))
-}\if{html}{\out{</div>}}
-
-For this engine, tuning over \code{trees} is very efficient since the same
-model object can be used to make predictions over multiple values of
-\code{trees}.
-
-Note that \code{xgboost} models require that non-numeric predictors (e.g.,
-factors) must be converted to dummy variables or some other numeric
-representation. By default, when using \code{fit()} with \code{xgboost}, a one-hot
-encoding is used to convert factor predictors to indicator variables.
-
-Finally, in the classification mode, non-numeric outcomes (i.e.,
-factors) are converted to numeric. For binary classification, the
-\code{event_level} argument of \code{set_engine()} can be set to either \code{"first"}
-or \code{"second"} to specify which level should be used as the event. This
-can be helpful when a watchlist is used to monitor performance from with
-the xgboost training process.
-}
-
-\subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
-  set_engine("C5.0") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: C5.0 
-## 
-## Model fit template:
-## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg())
-}
-
-Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
-predictors to be converted to indicator variables. \code{fit()} does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model.
-
-For this engine, tuning over \code{trees} is very efficient since the same
-model object can be used to make predictions over multiple values of
-\code{trees}.
-}
-
-\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = "regression", seed = sample.int(10^5, 1))
-}\if{html}{\out{<div class="r">}}\preformatted{boost_tree() \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_gradient_boosted_trees(x = missing_arg(), formula = missing_arg(), 
-##     type = "classification", seed = sample.int(10^5, 1))
-}
-
-\code{fit()} does not affect the encoding of the predictor values
-(i.e. factors stay factors) for this model.
-}
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{llll}{
-   \strong{parsnip} \tab \strong{xgboost} \tab \strong{C5.0} \tab \strong{spark} \cr
-   tree_depth \tab max_depth (6) \tab NA \tab max_depth (5) \cr
-   trees \tab nrounds (15) \tab trials (15) \tab max_iter (20) \cr
-   learn_rate \tab eta (0.3) \tab NA \tab step_size (0.1) \cr
-   mtry \tab colsample_bynode (character(0)) \tab NA \tab feature_subset_strategy (see below) \cr
-   min_n \tab min_child_weight (1) \tab minCases (2) \tab min_instances_per_node (1) \cr
-   loss_reduction \tab gamma (0) \tab NA \tab min_info_gain (0) \cr
-   sample_size \tab subsample (1) \tab sample (0) \tab subsampling_rate (1) \cr
-   stop_iter \tab early_stop (NULL) \tab NA \tab NA \cr
-}
-
-
-For spark, the default \code{mtry} is the square root of the number of
-predictors for classification, and one-third of the predictors for
-regression.
-}
-}
-
 \examples{
 show_engines("boost_tree")
 
 boost_tree(mode = "classification", trees = 20)
-# Parameters can be represented by a placeholder:
-boost_tree(mode = "regression", mtry = varying())
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
+\code{\link[=xgb_train]{xgb_train()}}, \code{\link[=C5.0_train]{C5.0_train()}}
 }

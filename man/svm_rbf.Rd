@@ -2,7 +2,7 @@
 % Please edit documentation in R/svm_rbf.R
 \name{svm_rbf}
 \alias{svm_rbf}
-\title{General interface for radial basis function support vector machines}
+\title{Radial basis function support vector machines}
 \usage{
 svm_rbf(
   mode = "unknown",
@@ -30,84 +30,37 @@ or on the wrong side of the margin}
 loss function (regression only)}
 }
 \description{
-\code{svm_rbf()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:
-\itemize{
-\item \code{cost}: The cost of predicting a sample within or on the
-wrong side of the margin.
-\item \code{rbf_sigma}: The precision parameter for the radial basis
-function.
-\item \code{margin}: The epsilon in the SVM insensitive loss function
-(regression only)
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{svm_rbf()} defines a support vector machine model. For classification,
+the model tries to maximize the width of the margin between classes.
+For regression, the model optimizes a robust loss function that is only
+affected by very large model residuals.
+
+This SVM model uses a nonlinear function, specifically the radial basis function,
+to create the decision boundary or regression line.
+
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_rbf")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"kernlab"} (the default)
-}
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:
-\subsection{kernlab}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot")
-}\if{html}{\out{<div class="r">}}\preformatted{svm_rbf() \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "rbfdot", 
-##     prob.model = TRUE)
-}
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-\code{fit()} passes the data directly to \code{kernlab::ksvm()} so that its
-formula method can create dummy variables as-needed.
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{lll}{
-   \strong{parsnip} \tab \strong{kernlab} \tab \strong{liquidSVM} \cr
-   cost \tab C (1) \tab lambdas \cr
-   rbf_sigma \tab sigma (varies) \tab gammas \cr
-   margin \tab epsilon (0.1) \tab NA \cr
-}
-
-}
-}
-
 \examples{
 show_engines("svm_rbf")
 
 svm_rbf(mode = "classification", rbf_sigma = 0.2)
-# Parameters can be represented by a placeholder:
-svm_rbf(mode = "regression", cost = varying())
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}
 }

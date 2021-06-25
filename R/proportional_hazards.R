@@ -1,4 +1,4 @@
-#' General Interface for Proportional Hazards Models
+#' Proportional hazards regression
 #'
 #' `proportional_hazards()` is a way to generate a _specification_ of a model
 #' before fitting and allows the model to be created using different packages
@@ -27,7 +27,7 @@
 #' Proportional hazards models include the Cox model.
 #' For `proportional_hazards()`, the mode will always be "censored regression".
 #'
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [set_engine()], [update()]
 #' @examples
 #' show_engines("proportional_hazards")
 #' @keywords internal

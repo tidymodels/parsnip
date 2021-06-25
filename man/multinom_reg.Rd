@@ -2,7 +2,7 @@
 % Please edit documentation in R/multinom_reg.R
 \name{multinom_reg}
 \alias{multinom_reg}
-\title{General Interface for Multinomial Regression Models}
+\title{Multinomial regression}
 \usage{
 multinom_reg(
   mode = "classification",
@@ -12,7 +12,7 @@ multinom_reg(
 )
 }
 \arguments{
-\item{mode}{A single character string for the prediction outcome mode.
+\item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
 \item{engine}{A single character string specifying what computational engine
@@ -20,7 +20,7 @@ to use for fitting. Possible engines are listed below. The default for this
 model is \code{"nnet"}.}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
+amount of regularization (specific engines only).
 For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
 of L1 and L2 (depending on the value of \code{mixture}).}
@@ -28,163 +28,35 @@ of L1 and L2 (depending on the value of \code{mixture}).}
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used. (specific engines only).}
 }
 \description{
-\code{multinom_reg()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R, keras, or Spark. The main arguments for the
-model are:
-\itemize{
-\item \code{penalty}: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-\item \code{mixture}: The mixture amounts of different types of
-regularization (see below). Note that this will be ignored for some engines.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{multinom_reg()} defines a model that uses linear predictors to predict
+multiclass data using the multinomial distribution.
+
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("multinom_reg")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-For \code{multinom_reg()}, the mode will always be "classification".
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:   \code{"nnet"} (the default), \code{"glmnet"}
-\item \pkg{Spark}: \code{"spark"}
-\item \pkg{keras}: \code{"keras"}
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-}
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit()} is available; using \code{fit_xy()} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.
-\subsection{glmnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = 0.1) \%>\% 
-  set_engine("glmnet") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
-## Main Arguments:
-##   penalty = 0.1
-## 
-## Computational engine: glmnet 
-## 
-## Model fit template:
-## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     family = "multinomial")
-}
-
-The glmnet engine requires a single value for the \code{penalty} argument (a
-number or \code{tune()}), but the full regularization path is always fit
-regardless of the value given to \code{penalty}. To pass in a custom sequence
-of values for glmnet’s \code{lambda}, use the argument \code{path_values} in
-\code{set_engine()}. This will assign the value of the glmnet \code{lambda}
-parameter without disturbing the value given of \code{multinom_reg(penalty)}.
-For example:\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = .1) \%>\% 
-  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
-## Main Arguments:
-##   penalty = 0.1
-## 
-## Computational engine: glmnet 
-## 
-## Model fit template:
-## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "multinomial")
-}
-
-When fitting a pure ridge regression model (i.e., \code{penalty = 0}), we
-\emph{strongly suggest} that you pass in a vector for \code{path_values} that
-includes zero. See \href{https://github.com/tidymodels/parsnip/issues/431}{issue #431} for a
-discussion.
-
-When using \code{predict()}, the single \code{penalty} value used for prediction
-is the one specified in \code{multinom_reg()}.
-
-To predict on multiple penalties, use the \code{multi_predict()} function.
-This function returns a tibble with a list column called \code{.pred}
-containing all of the penalty results.
-}
-
-\subsection{nnet}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
-  set_engine("nnet") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
-## Computational engine: nnet 
-## 
-## Model fit template:
-## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), trace = FALSE)
-}
-}
-
-\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
-  set_engine("spark") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-##     weight_col = missing_arg(), family = "multinomial")
-}
-}
-
-\subsection{keras}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg() \%>\% 
-  set_engine("keras") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
-## Computational engine: keras 
-## 
-## Model fit template:
-## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, 
-##     act = "linear")
-}
-}
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{lllll}{
-   \strong{parsnip} \tab \strong{glmnet} \tab \strong{spark} \tab \strong{keras} \tab \strong{nnet} \cr
-   penalty \tab lambda \tab reg_param (0) \tab penalty (0) \tab decay (0) \cr
-   mixture \tab alpha (1) \tab elastic_net_param (0) \tab NA \tab NA \cr
-}
-
-}
-}
-
 \examples{
 show_engines("multinom_reg")
 
 multinom_reg()
-# Parameters can be represented by a placeholder:
-multinom_reg(penalty = varying())
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
 }

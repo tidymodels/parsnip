@@ -1,0 +1,25 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("logistic_reg", "glm")`
+
+## Tuning Parameters
+
+This engine has no tuning parameters. 
+
+## Translation from parsnip to the original package
+
+```{r glm-reg}
+logistic_reg() %>% 
+  set_engine("glm") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

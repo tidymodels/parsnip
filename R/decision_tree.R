@@ -1,74 +1,36 @@
 # Prototype parsnip code for decision trees
 
-#' General Interface for Decision Tree Models
+#' Decision trees
 #'
-#' `decision_tree()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{cost_complexity}: The cost/complexity parameter (a.k.a. `Cp`)
-#'    used by CART models (`rpart` only).
-#'   \item \code{tree_depth}: The _maximum_ depth of a tree (`rpart` and
-#'   `spark` only).
-#'   \item \code{min_n}: The minimum number of data points in a node
-#'   that are required for the node to be split further.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' `decision_tree()` defines a model as a set of `if/then` statements that
+#' creates a tree-based structure.
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"rpart"`.
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param cost_complexity A positive number for the the cost/complexity
-#'   parameter (a.k.a. `Cp`) used by CART models (`rpart` only).
+#'   parameter (a.k.a. `Cp`) used by CART models (specific engines only).
 #' @param tree_depth An integer for maximum depth of the tree.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}: `"rpart"` (the default) or `"C5.0"` (classification only)
-#' \item \pkg{Spark}: `"spark"`
-#' }
 #'
-#' Note that, for `rpart` models, but `cost_complexity` and
-#'  `tree_depth` can be both be specified but the package will give
-#'  precedence to `cost_complexity`. Also, `tree_depth` values
-#'  greater than 30 `rpart` will give nonsense results on 32-bit
-#'  machines.
+#' @template spec-details
 #'
-#' @includeRmd man/rmd/decision-tree.Rmd details
+#' @template spec-references
 #'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("decision_tree")
 #'
 #' decision_tree(mode = "classification", tree_depth = 5)
-#' # Parameters can be represented by a placeholder:
-#' decision_tree(mode = "regression", cost_complexity = varying())
 #' @export
 
 decision_tree <-

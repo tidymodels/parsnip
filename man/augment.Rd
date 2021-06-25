@@ -7,7 +7,8 @@
 \method{augment}{model_fit}(x, new_data, ...)
 }
 \arguments{
-\item{x}{A \code{model_fit} object produced by \code{\link[=fit]{fit()}} or \code{\link[=fit_xy]{fit_xy()}}.}
+\item{x}{A \code{model_fit} object produced by \code{\link[=fit.model_spec]{fit.model_spec()}} or
+\code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}} .}
 
 \item{new_data}{A data frame or matrix.}
 
@@ -18,7 +19,7 @@
 }
 \details{
 For regression models, a \code{.pred} column is added. If \code{x} was created using
-\code{\link[=fit]{fit()}} and \code{new_data} contains the outcome column, a \code{.resid} column is
+\code{\link[=fit.model_spec]{fit.model_spec()}} and \code{new_data} contains the outcome column, a \code{.resid} column is
 also added.
 
 For classification models, the results can include a column called

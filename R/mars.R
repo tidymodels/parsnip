@@ -1,47 +1,31 @@
-# Prototype parsnip code for multivariate adaptive regression splines (MARS)
+#' Multivariate adaptive regression splines (MARS)
 #'
-#' General Interface for MARS
+#' @description
 #'
-#' `mars()` is a way to generate a _specification_ of a model before
-#'  fitting and allows the model to be created using R. The main
-#'  arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{num_terms}: The number of features that will be retained in the
-#'    final model.
-#'   \item \code{prod_degree}: The highest possible degree of interaction between
-#'    features. A value of 1 indicates an additive model while a value of 2
-#'    allows, but does not guarantee, two-way interactions between features.
-#'   \item \code{prune_method}: The type of pruning. Possible values are listed
-#'    in `?earth`.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' `mars()` defines a generalized linear model that uses artificial features for
+#' some predictors. These features resemble hinge functions and the result is
+#' a model that is a segmented regression in small dimensions.
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"earth"`.
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
-#' @details The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"earth"`  (the default)
-#' }
 #'
-#' @includeRmd man/rmd/mars.Rmd details
+#' @template spec-details
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @template spec-references
+#'
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
+#'
 #' @examples
 #' show_engines("mars")
 #'

@@ -1,38 +1,18 @@
-#' General Interface for Single Layer Neural Network
+#' Single layer neural network
 #'
-#' `mlp()`, for multilayer perceptron, is a way to generate a _specification_ of
-#'  a model before fitting and allows the model to be created using
-#'  different packages in R or via keras The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{hidden_units}: The number of units in the hidden layer
-#'    (default: 5).
-#'   \item \code{penalty}: The amount of L2 regularization (aka weight
-#'     decay, default is zero).
-#'   \item \code{dropout}: The proportion of parameters randomly dropped out of
-#'     the model (`keras` only, default is zero).
-#'   \item \code{epochs}: The number of training iterations (default: 20).
-#'   \item \code{activation}: The type of function that connects the hidden
-#'     layer and the input variables  (`keras` only, default is softmax).
-#' }
+#' @description
+#' `mlp()` defines a multilayer perceptron model (a.k.a. a single layer,
+#' feed-forward neural network).
 #'
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (see above), the values are taken from the underlying model
-#'  functions. One exception is `hidden_units` when `nnet::nnet` is used; that
-#'  function's `size` argument has no default so a value of 5 units will be
-#'  used. Also, unless otherwise specified, the `linout` argument to
-#'  `nnet::nnet()` will be set to `TRUE` when a regression model is created.
-#'  If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"nnet"`.
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param hidden_units An integer for the number of units in the hidden model.
 #' @param penalty A non-negative numeric value for the amount of weight
 #'  decay.
@@ -44,25 +24,17 @@
 #'  function between the hidden and output layers is automatically set to either
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
 #'  "linear", "softmax", "relu", and "elu"
-#' @details
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"nnet"` (the default)
-#' \item \pkg{keras}: `"keras"`
-#' }
+#' @template spec-details
 #'
-#' @includeRmd man/rmd/mlp.Rmd details
+#' @template spec-references
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}
+#'
 #' @examples
 #' show_engines("mlp")
 #'
 #' mlp(mode = "classification", penalty = 0.01)
-#' # Parameters can be represented by a placeholder:
-#' mlp(mode = "regression", hidden_units = varying())
 #' @export
 
 mlp <-

@@ -1,50 +1,39 @@
-#' General interface for linear support vector machines
+#' Linear support vector machines
 #'
-#' `svm_linear()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{cost}: The cost of predicting a sample within or on the
-#'    wrong side of the margin.
-#'   \item \code{margin}: The epsilon in the SVM insensitive loss function
-#'    (regression only)
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"LiblineaR"`.
+#' `svm_linear()` defines a support vector machine model. For classification,
+#' the model tries to maximize the width of the margin between classes.
+#' For regression, the model optimizes a robust loss function that is only
+#' affected by very large model residuals.
+#'
+#' This SVM model uses a linear function to create the decision boundary or
+#' regression line.
+#'
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_linear")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
-#' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"LiblineaR"` (the default) or `"kernlab"`
-#' }
 #'
+#' @template spec-details
 #'
-#' @includeRmd man/rmd/svm-linear.Rmd details
+#' @template spec-references
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_linear")}
+#'
 #' @examples
 #' show_engines("svm_linear")
 #'
 #' svm_linear(mode = "classification")
-#' # Parameters can be represented by a placeholder:
-#' svm_linear(mode = "regression", cost = varying())
 #' @export
 
 svm_linear <-

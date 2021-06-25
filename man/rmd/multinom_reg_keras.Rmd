@@ -1,0 +1,60 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("multinom_reg", "keras")`
+
+## Tuning Parameters
+
+```{r keras-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty"),
+                 default = c("0.0"))
+
+param <-
+  multinom_reg() %>% 
+  set_engine("keras") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>%  
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  dplyr::mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has one tuning parameter:
+
+```{r keras-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or weight decay). 
+
+## Translation from parsnip to the original package
+
+```{r keras-csl}
+multinom_reg(penalty = double(1)) %>% 
+  set_engine("keras") %>% 
+  translate()
+```
+
+[keras_mlp()] is a parsnip wrapper around keras code for neural networks. This model fits a linear regression as a network with a single hidden unit. 
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+
+## References
+
+ - Hoerl, A., & Kennard, R. (2000). _Ridge Regression: Biased Estimation for Nonorthogonal Problems_. Technometrics, 42(1), 80-86. 
+

@@ -1,4 +1,4 @@
-#' General Interface for Parametric Survival Models
+#' Parametric survival regression
 #'
 #' `survival_reg()` is a way to generate a _specification_ of a model
 #'  before fitting and allows the model to be created using
@@ -27,14 +27,12 @@
 #' mode will always be "censored regression".
 #'
 #' Since survival models typically involve censoring (and require the use of
-#' [survival::Surv()] objects), the [fit()] function will require that the
+#' [survival::Surv()] objects), the [fit.model_spec()] function will require that the
 #' survival model be specified via the formula interface.
 #'
-#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [survival::Surv()], [set_engine()], [update()]
 #' @examples
 #' survival_reg()
-#' # Parameters can be represented by a placeholder:
-#' survival_reg(dist = varying())
 #' @keywords internal
 #' @export
 survival_reg <- function(mode = "censored regression", engine = "survival", dist = NULL) {

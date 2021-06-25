@@ -1,68 +1,37 @@
-# Prototype parsnip code for random forests
-
-#' General Interface for Random Forest Models
+#' Random forest
 #'
-#' `rand_forest()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{mtry}: The number of predictors that will be
-#'   randomly sampled at each split when creating the tree models.
-#'   \item \code{trees}: The number of trees contained in the ensemble.
-#'   \item \code{min_n}: The minimum number of data points in a node
-#'   that are required for the node to be split further.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"ranger"`.
+#' `rand_forest()` defines a model that creates a large number of decision
+#' trees, each independent of the others. The final prediction uses all
+#' predictions from the individual trees and combines them.
+#'
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"ranger"` (the default) or `"randomForest"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
 #'
-#' @includeRmd man/rmd/rand-forest.Rmd details
+#' @template spec-details
 #'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
+#' @template spec-references
 #'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()], [update()]
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
+#'
 #' @examples
 #' show_engines("rand_forest")
 #'
 #' rand_forest(mode = "classification", trees = 2000)
-#' # Parameters can be represented by a placeholder:
-#' rand_forest(mode = "regression", mtry = varying())
 #' @export
 
 rand_forest <-

@@ -28,7 +28,7 @@ An S3 object with class "fit_control" that is a named list with the
 results of the function call
 }
 \description{
-Options can be passed to the \code{\link[=fit]{fit()}} function that control the output and
+Options can be passed to the \code{\link[=fit.model_spec]{fit.model_spec()}} function that control the output and
 computations
 }
 \details{
