@@ -2,13 +2,16 @@
 % Please edit documentation in R/surv_reg.R
 \name{surv_reg}
 \alias{surv_reg}
-\title{General Interface for Parametric Survival Models}
+\title{Parametric survival regression}
 \usage{
-surv_reg(mode = "regression", dist = NULL)
+surv_reg(mode = "regression", engine = "survival", dist = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
-The only possible value for this model is "regression".}
+\item{mode}{A single character string for the prediction outcome mode.
+The only possible value for this model is "regression".
+@param engine A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
@@ -37,7 +40,7 @@ to determine the \emph{mode} of the model. For \code{surv_reg()},the
 mode will always be "regression".
 
 Since survival models typically involve censoring (and require the use of
-\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit]{fit()}} function will require that the
+\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
 
 Also, for the \code{flexsurv::flexsurvfit} engine, the typical
@@ -113,15 +116,6 @@ parameter.\tabular{lll}{
 show_engines("surv_reg")
 
 surv_reg()
-# Parameters can be represented by a placeholder:
-surv_reg(dist = varying())
-
-# ->
-show_engines("survival_reg")
-
-survival_reg()
-# Parameters can be represented by a placeholder:
-survival_reg(dist = varying())
 
 }
 \references{
@@ -129,6 +123,6 @@ Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
 Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
 \keyword{internal}

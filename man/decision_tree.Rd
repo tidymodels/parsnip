@@ -2,22 +2,26 @@
 % Please edit documentation in R/decision_tree.R
 \name{decision_tree}
 \alias{decision_tree}
-\title{General Interface for Decision Tree Models}
+\title{Decision trees}
 \usage{
 decision_tree(
   mode = "unknown",
+  engine = "rpart",
   cost_complexity = NULL,
   tree_depth = NULL,
   min_n = NULL
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
+
 \item{cost_complexity}{A positive number for the the cost/complexity
-parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
+parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{tree_depth}{An integer for maximum depth of the tree.}
 
@@ -25,153 +29,32 @@ parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
 in a node that are required for the node to be split further.}
 }
 \description{
-\code{decision_tree()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:
-\itemize{
-\item \code{cost_complexity}: The cost/complexity parameter (a.k.a. \code{Cp})
-used by CART models (\code{rpart} only).
-\item \code{tree_depth}: The \emph{maximum} depth of a tree (\code{rpart} and
-\code{spark} only).
-\item \code{min_n}: The minimum number of data points in a node
-that are required for the node to be split further.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{decision_tree()} defines a model as a set of \verb{if/then} statements that
+creates a tree-based structure.
+
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}: \code{"rpart"} (the default) or \code{"C5.0"} (classification only)
-\item \pkg{Spark}: \code{"spark"}
-}
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-Note that, for \code{rpart} models, but \code{cost_complexity} and
-\code{tree_depth} can be both be specified but the package will give
-precedence to \code{cost_complexity}. Also, \code{tree_depth} values
-greater than 30 \code{rpart} will give nonsense results on 32-bit
-machines.
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-\note{
-For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via \code{fit()} is available; using \code{fit_xy()} will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via \code{save()}), the \code{model$fit} element of the \code{parsnip}
-object should be serialized via \code{ml_save(object$fit)} and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the \code{parsnip} object.
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:
-\subsection{rpart}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
-  set_engine("rpart") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
-## 
-## Computational engine: rpart 
-## 
-## Model fit template:
-## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-}\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
-  set_engine("rpart") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
-## 
-## Computational engine: rpart 
-## 
-## Model fit template:
-## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-}
-
-Note that \code{\link[rpart:rpart]{rpart::rpart()}} does not require factor
-predictors to be converted to indicator variables. \code{fit()} does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model
-}
-
-\subsection{C5.0}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
-  set_engine("C5.0") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
-## 
-## Computational engine: C5.0 
-## 
-## Model fit template:
-## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     trials = 1)
-}
-
-Note that \code{\link[C50:C5.0]{C50::C5.0()}} does not require factor
-predictors to be converted to indicator variables. \code{fit()} does not
-affect the encoding of the predictor values (i.e. factors stay factors)
-for this model
-}
-
-\subsection{spark}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_decision_tree_regressor(x = missing_arg(), formula = missing_arg(), 
-##     seed = sample.int(10^5, 1))
-}\if{html}{\out{<div class="r">}}\preformatted{decision_tree() \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
-## 
-## Computational engine: spark 
-## 
-## Model fit template:
-## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
-##     seed = sample.int(10^5, 1))
-}
-
-\code{fit()} does not affect the encoding of the predictor values
-(i.e. factors stay factors) for this model
-}
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{llll}{
-   \strong{parsnip} \tab \strong{rpart} \tab \strong{C5.0} \tab \strong{spark} \cr
-   tree_depth \tab maxdepth (30) \tab NA \tab max_depth (5) \cr
-   min_n \tab minsplit (20) \tab minCases (2) \tab min_instances_per_node (1) \cr
-   cost_complexity \tab cp (0.01) \tab NA \tab NA \cr
-}
-
-}
-}
-
 \examples{
 show_engines("decision_tree")
 
 decision_tree(mode = "classification", tree_depth = 5)
-# Parameters can be represented by a placeholder:
-decision_tree(mode = "regression", cost_complexity = varying())
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 }

@@ -1,4 +1,4 @@
-#' General Interface for Parametric Survival Models
+#' Parametric survival regression
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
@@ -24,15 +24,18 @@
 #'  mode will always be "regression".
 #'
 #'  Since survival models typically involve censoring (and require the use of
-#'  [survival::Surv()] objects), the [fit()] function will require that the
+#'  [survival::Surv()] objects), the [fit.model_spec()] function will require that the
 #'  survival model be specified via the formula interface.
 #'
 #' Also, for the `flexsurv::flexsurvfit` engine, the typical
 #'  `strata` function cannot be used. To achieve the same effect,
 #'  the extra parameter roles can be used (as described above).
 #'
-#' @param mode A single character string for the type of model.
+#' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "regression".
+#'  @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"survival"`.
 #' @param dist A character string for the outcome distribution. "weibull" is
 #'  the default.
 #' @details
@@ -46,26 +49,17 @@
 #'
 #' @includeRmd man/rmd/surv-reg.Rmd details
 #'
-#' @seealso [fit()], [survival::Surv()], [set_engine()], [update()]
+#' @seealso [fit.model_spec()], [survival::Surv()], [set_engine()], [update()]
 #' @references Jackson, C. (2016). `flexsurv`: A Platform for Parametric Survival
 #'  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
 #' @examples
 #' show_engines("surv_reg")
 #'
 #' surv_reg()
-#' # Parameters can be represented by a placeholder:
-#' surv_reg(dist = varying())
-#'
-#' # ->
-#' show_engines("survival_reg")
-#'
-#' survival_reg()
-#' # Parameters can be represented by a placeholder:
-#' survival_reg(dist = varying())
 #'
 #' @keywords internal
 #' @export
-surv_reg <- function(mode = "regression", dist = NULL) {
+surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
 
   lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
 
@@ -79,7 +73,7 @@ surv_reg <- function(mode = "regression", dist = NULL) {
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

@@ -1,0 +1,62 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("logistic_reg", "glmnet")`
+
+## Tuning Parameters
+
+```{r glmnet-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty", "mixture"),
+                 default = c("see below", "1.0"))
+
+param <-
+logistic_reg() %>% 
+  set_engine("glmnet") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r glmnet-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` indicates ridge regression.
+
+The `penalty` parameter has no default and requires a single numeric value. For more details about this, and the `glmnet` model in general, see [glmnet-details].
+
+## Translation from parsnip to the original package
+
+```{r glmnet-cls}
+logistic_reg(penalty = double(1), mixture = double(1)) %>% 
+  set_engine("glmnet") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
+
+## References
+
+ - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

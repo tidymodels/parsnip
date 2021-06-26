@@ -1,74 +1,49 @@
-#' General Interface for Logistic Regression Models
+#' Logistic regression
 #'
-#' `logistic_reg()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R, Stan, keras, or via Spark. The main
-#'  arguments for the model are:
-#' \itemize{
-#'   \item \code{penalty}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The mixture amounts of different types of
-#'   regularization (see below). Note that this will be ignored for some engines.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' [logistic_reg()] defines a generalized linear model for binary outcomes. A
+#' linear combination of the predictors is used to model the log odds of an
+#' event.
+#'
+#' There are different ways to fit this model. See the engine-specific pages
+#' for more details:
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"glm"`.
 #' @param penalty A non-negative number representing the total
-#'  amount of regularization (`glmnet`, `LiblineaR`, `keras`, and `spark` only).
+#'  amount of regularization (specific engines only).
 #'  For `keras` models, this corresponds to purely L2 regularization
 #'  (aka weight decay) while the other models can be either or a combination
 #'  of L1 and L2 (depending on the value of `mixture`).
 #' @param mixture A number between zero and one (inclusive) that is the
 #'  proportion of L1 regularization (i.e. lasso) in the model. When
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
-#'  ridge regression is being used. (`glmnet`, `LiblineaR`, and `spark` only).
+#'  ridge regression is being used. (specific engines only).
 #'  For `LiblineaR` models, `mixture` must be exactly 0 or 1 only.
-#' @details
-#' For `logistic_reg()`, the mode will always be "classification".
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"glm"`  (the default), `"glmnet"`, or `"LiblineaR"`
-#' \item \pkg{Stan}:  `"stan"`
-#' \item \pkg{Spark}: `"spark"`
-#' \item \pkg{keras}: `"keras"`
-#' }
+#' @template spec-details
 #'
-#' For this model, other packages may add additional engines. Use
-#' [show_engines()] to see the current set of engines.
+#' @template spec-references
 #'
-#' @includeRmd man/rmd/logistic-reg.Rmd details
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}
 #'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
-#'
-#' @seealso [fit()], [set_engine()], [update()]
 #' @examples
 #' show_engines("logistic_reg")
 #'
 #' logistic_reg()
-#' # Parameters can be represented by a placeholder:
-#' logistic_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
+           engine = "glm",
            penalty = NULL,
            mixture = NULL) {
 
@@ -83,7 +58,7 @@ logistic_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

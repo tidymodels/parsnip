@@ -1,6 +1,6 @@
 #' Control the fit function
 #'
-#' Options can be passed to the [fit()] function that control the output and
+#' Options can be passed to the [fit.model_spec()] function that control the output and
 #'  computations
 #'
 #' @param verbosity An integer where a value of zero indicates

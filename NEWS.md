@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+* Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. `set_engine()` is still required if engine-specific arguments need to be added. (#513)
+
+* The default engine for `multinom_reg()` was changed to `nnet`. 
+
 * The helper functions `.convert_form_to_xy_fit()`, `.convert_form_to_xy_new()`, `.convert_xy_to_form_fit()`, and  `.convert_xy_to_form_new()` for converting between formula and matrix interface are now exported for developer use (#508).
 
 * Fix bug in `augment()` when non-predictor, non-outcome variables are included in data (#510).
@@ -29,7 +33,11 @@
 
 * `set_mode()` now checks if `mode` is compatible with the model class, similar to `new_model_spec()` (@jtlandis, #467). Both `set_mode()` and `set_engine()` now error for `NULL` or missing arguments (#503).
 
-* Re-organized model documentation for `update` methods (#479).
+* Re-organized model documentation:
+
+   * `update` methods were moved out of the model help files (#479).
+   * Each model/engine combination has its own help page. 
+   * The model help page has a dynamic bulleted list of the engines with links to the individual help pages. 
 
 * `generics::required_pkgs()` was extended for `parsnip` objects. 
 

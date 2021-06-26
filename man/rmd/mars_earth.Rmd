@@ -1,0 +1,71 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("mars", "earth")`
+
+## Tuning Parameters
+
+```{r earth-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
+                 default = c("see below", "1L", "'backward'"))
+
+param <-
+  mars() %>% 
+  set_engine("earth") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r earth-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The default value of `num_terms` depends on the number of predictor columns. For a data frame `x`, the default is `min(200, max(20, 2 * ncol(x))) + 1` (see [earth::earth()] and the reference below). 
+
+## Translation from parsnip to the original package (regression)
+
+```{r earth-reg}
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
+  set_engine("earth") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r earth-cls}
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
+  set_engine("earth") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+An alternate method for using MARs for categorical outcomes can be found in [discrim::discrim_flexible()].
+
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## References
+
+ - Friedman, J. 1991. "Multivariate Adaptive Regression Splines." _The Annals of Statistics_, vol. 19, no. 1, pp. 1-67.
+ 
+ - Milborrow, S. ["Notes on the earth package."](http://www.milbo.org/doc/earth-notes.pdf) 
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

@@ -28,7 +28,8 @@ that must be put in at least two of the splits.}
 random proportion of the data should be used to train the model.
 By default, all the samples are used for model training. Samples
 not used for training are used to evaluate the accuracy of the
-model in the printed output.}
+model in the printed output. A value of zero means that all the training
+data are used.}
 
 \item{...}{Other arguments to pass.}
 }

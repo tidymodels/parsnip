@@ -69,8 +69,8 @@
 #'
 #' The model functions save the argument _expressions_ and their
 #'  associated environments (a.k.a. a quosure) to be evaluated later
-#'  when either [fit()] or [fit_xy()] are called with the actual
-#'  data.
+#'  when either [fit.model_spec()] or [fit_xy.model_spec()]  are
+#'  called with the actual data.
 #'
 #' The consequence of this strategy is that any data required to
 #'  get the parameter values must be available when the model is

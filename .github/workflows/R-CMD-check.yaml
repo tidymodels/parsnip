@@ -65,6 +65,8 @@ jobs:
         run: |
           pak::local_system_requirements(execute = TRUE)
           pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
+          pak::pkg_system_requirements("textshaping", execute = TRUE)
+          pak::pkg_system_requirements("gert", execute = TRUE)
         shell: Rscript {0}
 
       - name: Install dependencies

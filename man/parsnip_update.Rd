@@ -180,8 +180,8 @@ these will supersede the values in \code{parameters}. Also, using
 engine arguments in this object will result in an error.}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models (\code{xgboost}
-only).}
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -190,20 +190,20 @@ the ensemble.}
 in a node that is required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
-of splits) (\code{xgboost} only).}
+of splits) (specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (\code{xgboost} only).}
+from iteration-to-iteration (specific engines only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further (\code{xgboost} only).}
+to split further (specific engines only).}
 
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
-stopping (\code{xgboost} only).}
+stopping (specific engines only).}
 
 \item{fresh}{A logical for whether the arguments should be
 modified in-place or replaced wholesale.}
@@ -211,7 +211,7 @@ modified in-place or replaced wholesale.}
 \item{...}{Not used for \code{update()}.}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
-parameter (a.k.a. \code{Cp}) used by CART models (\code{rpart} only).}
+parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{select_features}{TRUE or FALSE. If this is TRUE then can add an
 extra penalty to each term so that it can be penalized to zero.
@@ -224,15 +224,12 @@ Use \code{adjust_deg_free} to increase level of penalization.}
 Increase this beyond 1 to produce smoother models.}
 
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
-For \code{keras} models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of \code{mixture}; see below).}
+amount of regularization (specific engines only).}
 
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used (specific engines only).}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}

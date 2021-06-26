@@ -2,13 +2,17 @@
 % Please edit documentation in R/survival_reg.R
 \name{survival_reg}
 \alias{survival_reg}
-\title{General Interface for Parametric Survival Models}
+\title{Parametric survival regression}
 \usage{
-survival_reg(mode = "censored regression", dist = NULL)
+survival_reg(mode = "censored regression", engine = "survival", dist = NULL)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 The only possible value for this model is "censored regression".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
 
 \item{dist}{A character string for the outcome distribution. "weibull" is
 the default.}
@@ -34,15 +38,13 @@ to determine the \emph{mode} of the model. For \code{survival_reg()},the
 mode will always be "censored regression".
 
 Since survival models typically involve censoring (and require the use of
-\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit]{fit()}} function will require that the
+\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
 }
 \examples{
 survival_reg()
-# Parameters can be represented by a placeholder:
-survival_reg(dist = varying())
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
 \keyword{internal}

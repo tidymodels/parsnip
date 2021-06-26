@@ -2,28 +2,30 @@
 % Please edit documentation in R/proportional_hazards.R
 \name{proportional_hazards}
 \alias{proportional_hazards}
-\title{General Interface for Proportional Hazards Models}
+\title{Proportional hazards regression}
 \usage{
 proportional_hazards(
   mode = "censored regression",
+  engine = "survival",
   penalty = NULL,
   mixture = NULL
 )
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", or "censored regression".}
 
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"survival"}.}
+
 \item{penalty}{A non-negative number representing the total
-amount of regularization (\code{glmnet}, \code{keras}, and \code{spark} only).
-For \code{keras} models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of \code{mixture}; see below).}
+amount of regularization (specific engines only).}
 
 \item{mixture}{A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 \code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (\code{glmnet} and \code{spark} only).}
+ridge regression is being used (specific engines only).}
 }
 \description{
 \code{proportional_hazards()} is a way to generate a \emph{specification} of a model
@@ -50,6 +52,6 @@ For \code{proportional_hazards()}, the mode will always be "censored regression"
 show_engines("proportional_hazards")
 }
 \seealso{
-\code{\link[=fit]{fit()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
 }
 \keyword{internal}
