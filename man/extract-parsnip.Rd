@@ -11,7 +11,7 @@
 \method{extract_fit_engine}{model_fit}(x, ...)
 }
 \arguments{
-\item{x}{A parsnip \code{fit.model_spec()} object.}
+\item{x}{A parsnip \code{model_fit} object.}
 
 \item{...}{Not currently used.}
 }
@@ -31,17 +31,18 @@ with the \code{"lm"} engine, this would return the underlying \code{lm} object.
 }
 \details{
 Extracting the underlying engine fit can be helpful for describing the
-model via \code{print()}, \code{summarize()}, and so on.
+model (via \code{print()}, \code{summary()}, \code{plot()}, etc.) or for variable
+importance/explainers.
 
 However, users should not invoke the \code{predict()} method on an extracted
 model. There may be preprocessing operations that \code{parsnip} has executed on
 the data prior to giving it to the model. Bypassing these can lead to errors
 or silently generating incorrect predictions.
 
-\strong{Good}:\if{html}{\out{<div class="r">}}\preformatted{ parsnip_fit \%>\% predict(new_data)
+\strong{Good}:\if{html}{\out{<div class="r">}}\preformatted{   parsnip_fit \%>\% predict(new_data)
 }\if{html}{\out{</div>}}
 
-\strong{Bad}:\if{html}{\out{<div class="r">}}\preformatted{ parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
+\strong{Bad}:\if{html}{\out{<div class="r">}}\preformatted{   parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
 }\if{html}{\out{</div>}}
 }
 \examples{

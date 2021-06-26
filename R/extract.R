@@ -10,11 +10,12 @@
 #'   a parsnip model fit. For example, when using [parsnip::linear_reg()]
 #'   with the `"lm"` engine, this would return the underlying `lm` object.
 #'
-#' @param x A parsnip `fit.model_spec()` object.
+#' @param x A parsnip `model_fit` object.
 #' @param ... Not currently used.
 #' @details
 #' Extracting the underlying engine fit can be helpful for describing the
-#'  model via `print()`, `summarize()`, `plot()`, and so on.
+#'  model (via `print()`, `summary()`, `plot()`, etc.) or for variable
+#'  importance/explainers.
 #'
 #' However, users should not invoke the `predict()` method on an extracted
 #'  model. There may be preprocessing operations that `parsnip` has executed on
