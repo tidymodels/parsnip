@@ -22,6 +22,7 @@ reference:
     contents:
       - boost_tree
       - decision_tree
+      - gen_additive_mod
       - linear_reg
       - logistic_reg
       - mars
@@ -58,7 +59,6 @@ reference:
       - tidy.model_fit
       - translate
       - starts_with("update")
-      - varying_args.model_spec
 
   - title: Developer Tools
     contents:
