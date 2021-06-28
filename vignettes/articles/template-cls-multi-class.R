@@ -1,4 +1,4 @@
-#' ### Classification Example
+#' <h3>Classification Example</h3>
 
 #' We'll model the island of the penguins with two predictors in the same unit (mm): bill length and bill depth.
 

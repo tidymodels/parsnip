@@ -1,4 +1,4 @@
-#' ### Classification Example
+#' <h3>Classification Example</h3>
 
 #' The example data has two predictors and an outcome with two classes. Both predictors are in the same units
 
