@@ -25,7 +25,7 @@ knitr::spin_child("template-reg-chicago.R")
 
 We can define the model with specific parameters:
 
-  ```{r}
+```{r}
 knn_reg_spec <-
   nearest_neighbor(neighbors = 5, weight_func = "triangular") %>%
   # This model can be used for classification or regression, so set mode
@@ -36,14 +36,14 @@ knn_reg_spec
 
 Now we create the model fit object:
 
-  ```{r}
+```{r}
 knn_reg_fit <- knn_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
 knn_reg_fit
 ```
 
 The holdout data can be predicted:
 
-  ```{r}
+```{r}
 predict(knn_reg_fit, Chicago_test)
 ```
 
@@ -72,7 +72,7 @@ knn_cls_fit
 
 The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
-  ```{r}
+```{r}
 bind_cols(
   predict(knn_cls_fit, data_test),
   predict(knn_cls_fit, data_test, type = "prob")
