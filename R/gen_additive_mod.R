@@ -1,79 +1,43 @@
-# gen_additive_mod() - General Interface to Linear GAM Models
-# - backend: gam
-# - prediction:
-#   - mode = "regression" (default) uses
-#   - mode = "classification"
-
 #' Generalized additive models (GAMs)
 #'
+#' @description
 #' `gen_additive_mod()` defines a model that can use smoothed functions of
 #' numeric predictors in a generalized linear model.
 #'
 #' There are different ways to fit this model. See the engine-specific pages
 #' for more details
 #'
-#' More information on how `parsnip` is used for modeling is at
-#' \url{https://www.tidymodels.org}.
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
 #' @param select_features TRUE or FALSE. If this is TRUE then can add an
 #'  extra penalty to each term so that it can be penalized to zero.
 #'  This means that the smoothing parameter estimation that is part of
 #'  fitting can completely remove terms from the model. If the corresponding
-#'  smoothing parameter is estimated as zero then the extra penalty has no effect.
-#'  Use `adjust_deg_free` to increase level of penalization.
-#' @param adjust_deg_free If `select_features = TRUE`, then acts as a multiplier for smoothness.
-#'  Increase this beyond 1 to produce smoother models.
+#'  smoothing parameter is estimated as zero then the extra penalty has no
+#'  effect. Use `adjust_deg_free` to increase level of penalization.
+#' @param adjust_deg_free If `select_features = TRUE`, then acts as a multiplier
+#'  for smoothness. Increase this beyond 1 to produce smoother models.
 #'
+#' @template spec-details
 #'
-#' @return
-#' A `parsnip` model specification
+#' @template spec-references
 #'
-#' @details
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
 #'
-#' This function only defines what _type_ of model is being fit. Once an engine
-#'  is specified, the _method_ to fit the model is also defined.
-#'
-#' The model is not trained or fit until the [fit.model_spec()] function is used
-#' with the data.
-#'
-#' __gam__
-#'
-#' This engine uses [mgcv::gam()] and has the following parameters,
-#' which can be modified through the [set_engine()] function.
-#'
-#' ``` {r echo=F}
-#' str(mgcv::gam)
-#' ```
-#'
-#' @section Fit Details:
-#'
-#' __MGCV Formula Interface__
-#'
-#' Fitting GAMs is accomplished using parameters including:
-#'
-#' - [mgcv::s()]: GAM spline smooths
-#' - [mgcv::te()]: GAM tensor product smooths
-#'
-#' These are applied in the `fit()` function:
-#'
-#' ``` r
-#' fit(value ~ s(date_mon, k = 12) + s(date_num), data = df)
-#' ```
-#'
-#' @references \url{https://www.tidymodels.org},
-#' [_Tidy Models with R_](https://tmwr.org)
 #' @examples
+#' show_engines("gen_additive_mod")
 #'
-#' #show_engines("gen_additive_mod")
-#'
-#' #gen_additive_mod()
-#'
+#' gen_additive_mod()
 #'
 #' @export
 gen_additive_mod <- function(mode = "unknown",
                              select_features = NULL,
-                             adjust_deg_free = NULL) {
+                             adjust_deg_free = NULL,
+                             engine = "mgcv") {
 
   args <- list(
     select_features = rlang::enquo(select_features),
@@ -86,7 +50,7 @@ gen_additive_mod <- function(mode = "unknown",
     eng_args = NULL,
     mode     = mode,
     method   = NULL,
-    engine   = NULL
+    engine   = engine
   )
 
 }

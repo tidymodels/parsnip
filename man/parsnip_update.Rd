@@ -217,11 +217,11 @@ parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 extra penalty to each term so that it can be penalized to zero.
 This means that the smoothing parameter estimation that is part of
 fitting can completely remove terms from the model. If the corresponding
-smoothing parameter is estimated as zero then the extra penalty has no effect.
-Use \code{adjust_deg_free} to increase level of penalization.}
+smoothing parameter is estimated as zero then the extra penalty has no
+effect. Use \code{adjust_deg_free} to increase level of penalization.}
 
-\item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier for smoothness.
-Increase this beyond 1 to produce smoother models.}
+\item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier
+for smoothness. Increase this beyond 1 to produce smoother models.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}

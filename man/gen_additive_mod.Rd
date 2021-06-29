@@ -7,7 +7,8 @@
 gen_additive_mod(
   mode = "unknown",
   select_features = NULL,
-  adjust_deg_free = NULL
+  adjust_deg_free = NULL,
+  engine = "mgcv"
 )
 }
 \arguments{
@@ -19,67 +20,43 @@ Possible values for this model are "unknown", "regression", or
 extra penalty to each term so that it can be penalized to zero.
 This means that the smoothing parameter estimation that is part of
 fitting can completely remove terms from the model. If the corresponding
-smoothing parameter is estimated as zero then the extra penalty has no effect.
-Use \code{adjust_deg_free} to increase level of penalization.}
+smoothing parameter is estimated as zero then the extra penalty has no
+effect. Use \code{adjust_deg_free} to increase level of penalization.}
 
-\item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier for smoothness.
-Increase this beyond 1 to produce smoother models.}
-}
-\value{
-A \code{parsnip} model specification
+\item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier
+for smoothness. Increase this beyond 1 to produce smoother models.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{gen_additive_mod()} defines a model that can use smoothed functions of
 numeric predictors in a generalized linear model.
-}
-\details{
+
 There are different ways to fit this model. See the engine-specific pages
 for more details
 
-More information on how \code{parsnip} is used for modeling is at
-\url{https://www.tidymodels.org}.
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}
 
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
+}
+\details{
 This function only defines what \emph{type} of model is being fit. Once an engine
 is specified, the \emph{method} to fit the model is also defined.
 
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
 with the data.
-
-\strong{gam}
-
-This engine uses \code{\link[mgcv:gam]{mgcv::gam()}} and has the following parameters,
-which can be modified through the \code{\link[=set_engine]{set_engine()}} function.\preformatted{## function (formula, family = gaussian(), data = list(), weights = NULL, 
-##     subset = NULL, na.action, offset = NULL, method = "GCV.Cp", optimizer = c("outer", 
-##         "newton"), control = list(), scale = 0, select = FALSE, knots = NULL, 
-##     sp = NULL, min.sp = NULL, H = NULL, gamma = 1, fit = TRUE, paraPen = NULL, 
-##     G = NULL, in.out = NULL, drop.unused.levels = TRUE, drop.intercept = NULL, 
-##     discrete = FALSE, ...)
 }
-}
-\section{Fit Details}{
-
-
-\strong{MGCV Formula Interface}
-
-Fitting GAMs is accomplished using parameters including:
-\itemize{
-\item \code{\link[mgcv:s]{mgcv::s()}}: GAM spline smooths
-\item \code{\link[mgcv:te]{mgcv::te()}}: GAM tensor product smooths
-}
-
-These are applied in the \code{fit()} function:\if{html}{\out{<div class="r">}}\preformatted{fit(value ~ s(date_mon, k = 12) + s(date_num), data = df)
-}\if{html}{\out{</div>}}
-}
-
 \examples{
+show_engines("gen_additive_mod")
 
-#show_engines("gen_additive_mod")
-
-#gen_additive_mod()
-
+gen_additive_mod()
 
 }
 \references{
-\url{https://www.tidymodels.org},
-\href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
+}
+\seealso{
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
 }

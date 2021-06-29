@@ -1,0 +1,83 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("gen_additive_mod", "mgcv")`
+
+## Tuning Parameters
+
+
+```{r earth-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("select_features", "adjust_deg_free"),
+                 default = c("FALSE", "1.0"))
+
+param <-
+  gen_additive_mod() %>% 
+  set_engine("mgcv") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r earth-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+
+## Translation from parsnip to the original package  (regression)
+
+```{r glm-reg}
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
+  set_engine("mgcv") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package  (classification)
+
+```{r glm-cls}
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
+  set_engine("mgcv") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Model fitting
+
+This model should use used with a model formula so that smooth terms can be specified. For example:
+
+```{r include = FALSE}
+library(mgcv)
+```
+```{r}
+library(mgcv)
+gen_additive_mod() %>% 
+  set_engine("mgcv") %>% 
+  set_mode("regression") %>% 
+  fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
+```
+
+The smoothness of the terms will need to be manually specified (e.g., using `s(x, df = 10)`) in the formula. Tuning can be accomplished using the `adjust_deg_free` parameter. 
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## References
+
+ - Ross, W. 2021. [_Generalized Additive Models in R: A Free, Interactive Course using mgcv_](https://noamross.github.io/gams-in-r-course/)
+ 
+ - Wood, S. 2017. _Generalized Additive Models: An Introduction with R_. Chapman and Hall/CRC.
+
