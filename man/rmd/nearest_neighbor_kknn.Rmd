@@ -69,6 +69,10 @@ nearest_neighbor(
 ```{r child = "template-same-scale.Rmd"}
 ```
 
+## Minimal examples 
+
+The Minimal Examples for Fitting and Predicting article contains examples for [nearest_neighbor() with the "kknn" engine](#nearest-neighbor-kknn).
+
 ## References
 
  - Hechenbichler K. and Schliep K.P. (2004) [Weighted k-Nearest-Neighbor Techniques and Ordinal Classification](https://epub.ub.uni-muenchen.de/1769/), Discussion Paper 399, SFB 386, Ludwig-Maximilians University Munich
