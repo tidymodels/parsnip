@@ -15,7 +15,7 @@ theme_set(theme_bw())
 
 This is a collection of minimal examples for fitting and predicting with various models and engines. 
 
-  <details> 
+  <details id="nearest-neighbor-kknn"> 
 
   <summary>`nearest_neighbor()` with the `"kknn"` engine</summary>
 
@@ -82,7 +82,7 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> 
+  <details id="multinom-reg-glmnet"> 
 
   <summary>`multinom_reg()` with the `"glmnet"` engine</summary>
 
@@ -119,7 +119,9 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> <summary>`rand_forest()` with the `"ranger"` engine</summary>
+  <details id="rand-forest-ranger"> 
+  
+  <summary>`rand_forest()` with the `"ranger"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -186,7 +188,9 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> <summary>`rand_forest()` with the `"randomForest"` engine</summary>
+  <details id="rand-forest-randomForest"> 
+  
+  <summary>`rand_forest()` with the `"randomForest"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -253,7 +257,9 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> <summary>`svm_linear()` with the `"LiblineaR"` engine</summary>
+  <details id="svm-linear-LiblineaR">
+  
+  <summary>`svm_linear()` with the `"LiblineaR"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -317,7 +323,9 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> <summary>`svm_linear()` with the `"kernlab"` engine</summary>
+  <details id="svm-linear-kernlab"> 
+  
+  <summary>`svm_linear()` with the `"kernlab"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -384,7 +392,9 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> <summary>`svm_poly()` with the `"kernlab"` engine</summary>
+  <details id="svm-poly-kernlab">
+  
+  <summary>`svm_poly()` with the `"kernlab"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -451,7 +461,7 @@ This is a collection of minimal examples for fitting and predicting with various
   </details>
 
 
-  <details> 
+  <details id="svm-rbf-kernlab"> 
 
   <summary>`svm_rbf()` with the `"kernlab"` engine</summary>
 
