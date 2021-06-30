@@ -53,7 +53,7 @@ extract_spec_parsnip.model_fit <- function(x, ...) {
   if (any(names(x) == "spec")) {
     return(x$spec)
   }
-  rlang::abort("The model fit does not have a model spec.")
+  rlang::abort("Internal error: The model fit does not have a model spec.")
 }
 
 
@@ -63,5 +63,5 @@ extract_fit_engine.model_fit <- function(x, ...) {
   if (any(names(x) == "fit")) {
     return(x$fit)
   }
-  rlang::abort("The model fit does not have an engine fit.")
+  rlang::abort("Internal error: The model fit does not have an engine fit.")
 }
