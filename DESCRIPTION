@@ -61,5 +61,5 @@ Suggests:
 Remotes:  
     tidymodels/dials,
     topepo/C5.0,
-    tidymodels/hardhat@feature/extract-generics
+    tidymodels/hardhat
 
