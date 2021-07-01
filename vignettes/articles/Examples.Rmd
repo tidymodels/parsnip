@@ -15,6 +15,44 @@ theme_set(theme_bw())
 
 This is a collection of minimal examples for fitting and predicting with various models and engines. 
 
+
+  <details id="multinom-reg-glmnet"> 
+
+  <summary>`multinom_reg()` with the `"glmnet"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-multi-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mr_cls_spec <- 
+    multinom_reg(penalty = 0.1) %>% 
+    set_engine("glmnet")
+  mr_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(mr_cls_fit, penguins_test),
+    predict(mr_cls_fit, penguins_test, type = "prob")
+  )
+  ```
+
+  </details>
+
+
   <details id="nearest-neighbor-kknn"> 
 
   <summary>`nearest_neighbor()` with the `"kknn"` engine</summary>
@@ -79,43 +117,6 @@ This is a collection of minimal examples for fitting and predicting with various
   )
   ```
   
-  </details>
-
-
-  <details id="multinom-reg-glmnet"> 
-
-  <summary>`multinom_reg()` with the `"glmnet"` engine</summary>
-
-  ```{r echo=FALSE}
-  knitr::spin_child("template-cls-multi-class.R")
-  ```
-
-  We can define the model with specific parameters:
-
-  ```{r}
-  mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) %>% 
-    set_engine("glmnet")
-  mr_cls_spec
-  ```
-
-  Now we create the model fit object:
-
-  ```{r}
-  set.seed(1)
-  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
-  mr_cls_fit
-  ```
-
-  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
-
-  ```{r}
-  bind_cols(
-    predict(mr_cls_fit, penguins_test),
-    predict(mr_cls_fit, penguins_test, type = "prob")
-  )
-  ```
-
   </details>
 
 
