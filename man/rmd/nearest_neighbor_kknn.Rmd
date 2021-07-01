@@ -71,7 +71,7 @@ nearest_neighbor(
 
 ## Minimal examples 
 
-The Minimal Examples for Fitting and Predicting article contains examples for [nearest_neighbor() with the "kknn" engine](#nearest-neighbor-kknn).
+The Minimal Examples for Fitting and Predicting article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
 
 ## References
 
