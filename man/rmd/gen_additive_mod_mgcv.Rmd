@@ -55,7 +55,7 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 
 ## Model fitting
 
-This model should use used with a model formula so that smooth terms can be specified. For example:
+This model should be used with a model formula so that smooth terms can be specified. For example:
 
 ```{r include = FALSE}
 library(mgcv)
@@ -80,4 +80,3 @@ The smoothness of the terms will need to be manually specified (e.g., using `s(x
  - Ross, W. 2021. [_Generalized Additive Models in R: A Free, Interactive Course using mgcv_](https://noamross.github.io/gams-in-r-course/)
  
  - Wood, S. 2017. _Generalized Additive Models: An Introduction with R_. Chapman and Hall/CRC.
-
