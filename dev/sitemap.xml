@@ -58,6 +58,9 @@
     <loc>https://parsnip.tidymodels.org/reference/details_decision_tree_spark.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_gen_additive_mod_mgcv.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_glmnet.html</loc>
   </url>
   <url>

@@ -396,17 +396,14 @@ parameter (a.k.a. <code>Cp</code>) used by CART models (specific engines only).<
     </tr>
     <tr>
       <th>select_features</th>
-      <td><p>TRUE or FALSE. If this is TRUE then can add an
-extra penalty to each term so that it can be penalized to zero.
-This means that the smoothing parameter estimation that is part of
-fitting can completely remove terms from the model. If the corresponding
-smoothing parameter is estimated as zero then the extra penalty has no effect.
-Use <code>adjust_deg_free</code> to increase level of penalization.</p></td>
+      <td><p><code>TRUE</code> or <code>FALSE.</code> If <code>TRUE</code>, the model has the
+ability to eliminate a predictor (via penalization). Increasing
+<code>adjust_deg_free</code> will increase the likelihood of removing predictors.</p></td>
     </tr>
     <tr>
       <th>adjust_deg_free</th>
-      <td><p>If <code>select_features = TRUE</code>, then acts as a multiplier for smoothness.
-Increase this beyond 1 to produce smoother models.</p></td>
+      <td><p>If <code>select_features = TRUE</code>, then acts as a multiplier
+for smoothness. Increase this beyond 1 to produce smoother models.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
