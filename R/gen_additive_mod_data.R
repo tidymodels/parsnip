@@ -131,7 +131,7 @@ set_fit(
     protect = c("formula", "data"),
     func = c(pkg = "mgcv", fun = "gam"),
     defaults = list(
-      family = stats::binomial(link = "logit")
+      family = quote(stats::binomial(link = "logit"))
     )
   )
 )
