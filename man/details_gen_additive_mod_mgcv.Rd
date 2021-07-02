@@ -57,7 +57,7 @@ This model has 2 tuning parameters:
 
 \subsection{Model fitting}{
 
-This model should use used with a model formula so that smooth terms can
+This model should be used with a model formula so that smooth terms can
 be specified. For example:\if{html}{\out{<div class="r">}}\preformatted{library(mgcv)
 gen_additive_mod() \%>\% 
   set_engine("mgcv") \%>\% 
@@ -65,7 +65,7 @@ gen_additive_mod() \%>\%
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  20ms 
+## Fit time:  21ms 
 ## 
 ## Family: gaussian 
 ## Link function: identity 

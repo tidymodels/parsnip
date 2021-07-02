@@ -13,9 +13,9 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
-#' @param select_features TRUE or FALSE. If TRUE, the model has the ability to
-#' eliminate a predictor (via penalization). Increasing `adjust_deg_free` will
-#' increase the likelihood of removing predictors.
+#' @param select_features `TRUE` or `FALSE.` If `TRUE`, the model has the
+#'  ability to eliminate a predictor (via penalization). Increasing
+#'  `adjust_deg_free` will increase the likelihood of removing predictors.
 #' @param adjust_deg_free If `select_features = TRUE`, then acts as a multiplier
 #'  for smoothness. Increase this beyond 1 to produce smoother models.
 #'

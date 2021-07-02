@@ -16,12 +16,9 @@ gen_additive_mod(
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
-\item{select_features}{TRUE or FALSE. If this is TRUE then can add an
-extra penalty to each term so that it can be penalized to zero.
-This means that the smoothing parameter estimation that is part of
-fitting can completely remove terms from the model. If the corresponding
-smoothing parameter is estimated as zero then the extra penalty has no
-effect. Use \code{adjust_deg_free} to increase level of penalization.}
+\item{select_features}{\code{TRUE} or \code{FALSE.} If \code{TRUE}, the model has the
+ability to eliminate a predictor (via penalization). Increasing
+\code{adjust_deg_free} will increase the likelihood of removing predictors.}
 
 \item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier
 for smoothness. Increase this beyond 1 to produce smoother models.}
