@@ -82,9 +82,9 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
-\subsection{Minimal examples}{
+\subsection{Examples}{
 
-The Minimal Examples for Fitting and Predicting article contains
+The “Fitting and Predicting with parsnip” article contains
 \href{https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab}{examples}
 for \code{svm_linear()} with the \code{"kernlab"} engine.
 }

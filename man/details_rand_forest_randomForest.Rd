@@ -88,9 +88,9 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
-\subsection{Minimal examples}{
+\subsection{Examples}{
 
-The Minimal Examples for Fitting and Predicting article contains
+The “Fitting and Predicting with parsnip” article contains
 \href{https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest}{examples}
 for \code{rand_forest()} with the \code{"randomForest"} engine.
 }

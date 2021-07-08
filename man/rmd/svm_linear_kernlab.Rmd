@@ -68,9 +68,9 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 ```{r child = "template-same-scale.Rmd"}
 ```
 
-## Minimal examples 
+## Examples 
 
-The Minimal Examples for Fitting and Predicting article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab) for `svm_linear()` with the `"kernlab"` engine.
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab) for `svm_linear()` with the `"kernlab"` engine.
 
 ## References
 

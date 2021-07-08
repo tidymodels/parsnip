@@ -69,9 +69,9 @@ nearest_neighbor(
 ```{r child = "template-same-scale.Rmd"}
 ```
 
-## Minimal examples 
+## Examples 
 
-The Minimal Examples for Fitting and Predicting article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
 
 ## References
 

@@ -1,8 +1,8 @@
 ---
-title: "Minimal Examples for Fitting and Predicting"
+title: "Fitting and Predicting with parsnip"
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Minimal Examples for Fitting and Predicting}
+  %\VignetteIndexEntry{Fitting and Predicting with parsnip}
 output:
   knitr:::html_vignette
 ---
@@ -13,7 +13,7 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
-This is a collection of minimal examples for fitting and predicting with various models and engines. 
+This is a collection of examples for fitting and predicting with various models and engines. 
 
 
   <details id="multinom-reg-glmnet"> 
