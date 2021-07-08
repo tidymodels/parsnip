@@ -15,6 +15,7 @@ theme_set(theme_bw())
 
 This is a collection of examples for fitting and predicting with various models and engines. 
 
+Model/engine combinations which can be used for different modes have an example each. For regression, we use the Chicago ridership data. For classification, we use an artificial dataset for a binary example and the Palmer penguins data for a multi-class example.
 
   <details id="multinom-reg-glmnet"> 
 
