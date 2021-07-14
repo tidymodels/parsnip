@@ -245,7 +245,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   linreg_reg_spec <- 
     linear_reg() %>% 
-    set_mode("regression") %>% 
     set_engine("lm")
   linreg_reg_spec
   ```
@@ -280,7 +279,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   linreg_reg_spec <- 
     linear_reg(penalty = 0.1) %>% 
-    set_mode("regression") %>% 
     set_engine("glmnet")
   linreg_reg_spec
   ```
@@ -315,7 +313,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   linreg_reg_spec <- 
     linear_reg(penalty = 0.1) %>% 
-    set_mode("regression") %>% 
     set_engine("keras")
   linreg_reg_spec
   ```
@@ -350,7 +347,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   linreg_reg_spec <- 
     linear_reg() %>% 
-    set_mode("regression") %>% 
     set_engine("stan")
   linreg_reg_spec
   ```
@@ -385,7 +381,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   logreg_cls_spec <- 
     logistic_reg() %>% 
-    set_mode("classification") %>% 
     set_engine("glm")
   logreg_cls_spec
   ```
@@ -423,7 +418,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   logreg_cls_spec <- 
     logistic_reg(penalty = 0.1) %>% 
-    set_mode("classification") %>% 
     set_engine("glmnet")
   logreg_cls_spec
   ```
@@ -461,7 +455,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   logreg_cls_spec <- 
     logistic_reg(penalty = 0.1) %>% 
-    set_mode("classification") %>% 
     set_engine("keras")
   logreg_cls_spec
   ```
@@ -499,7 +492,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   logreg_cls_spec <- 
     logistic_reg(penalty = 0.1) %>% 
-    set_mode("classification") %>% 
     set_engine("LiblineaR")
   logreg_cls_spec
   ```
@@ -537,7 +529,6 @@ Model/engine combinations which can be used for different modes have an example 
   ```{r}
   logreg_cls_spec <- 
     logistic_reg() %>% 
-    set_mode("classification") %>% 
     set_engine("stan")
   logreg_cls_spec
   ```
