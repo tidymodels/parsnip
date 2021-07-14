@@ -17,9 +17,11 @@ This is a collection of examples for fitting and predicting with various models 
 
 Model/engine combinations which can be used for different modes have an example each. For regression, we use the Chicago ridership data. For classification, we use an artificial dataset for a binary example and the Palmer penguins data for a multi-class example.
 
+<!-- The headings (<summary>) of the collapsible sections below include <foo></foo> so that the function name does not get auto-linked to the function's help page. This means clicking on the function name will open the collapsed section rather than take you to the help page. -->
+
   <details id="mars-earth"> 
   
-  <summary>`mars()` with the `"earth"` engine</summary>
+  <summary><code>mars<foo></foo>()</code> with the `"earth"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -88,7 +90,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="mlp-nnet"> 
   
-  <summary>`mlp()` with the `"nnet"` engine</summary>
+  <summary><code>mlp<foo></foo>()</code> with the `"nnet"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -156,7 +158,7 @@ Model/engine combinations which can be used for different modes have an example 
   
   <details id="mlp-keras"> 
   
-  <summary>`mlp()` with the `"keras"` engine</summary>
+  <summary><code>mlp<foo></foo>()</code> with the `"keras"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -225,7 +227,7 @@ Model/engine combinations which can be used for different modes have an example 
   
   <details id="multinom-reg-glmnet"> 
 
-  <summary>`multinom_reg()` with the `"glmnet"` engine</summary>
+  <summary><code>multinom_reg<foo></foo>()</code> with the `"glmnet"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
@@ -262,7 +264,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="multinom-reg-keras"> 
 
-  <summary>`multinom_reg()` with the `"keras"` engine</summary>
+  <summary><code>multinom_reg<foo></foo>()</code> with the `"keras"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
@@ -299,7 +301,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="multinom-reg-nnet"> 
 
-  <summary>`multinom_reg()` with the `"nnet"` engine</summary>
+  <summary><code>multinom_reg<foo></foo>()</code> with the `"nnet"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
@@ -336,7 +338,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="nearest-neighbor-kknn"> 
 
-  <summary>`nearest_neighbor()` with the `"kknn"` engine</summary>
+  <summary><code>nearest_neighbor<foo></foo>()</code> with the `"kknn"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -403,7 +405,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="rand-forest-ranger"> 
   
-  <summary>`rand_forest()` with the `"ranger"` engine</summary>
+  <summary><code>rand_forest<foo></foo>()</code> with the `"ranger"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -472,7 +474,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="rand-forest-randomForest"> 
   
-  <summary>`rand_forest()` with the `"randomForest"` engine</summary>
+  <summary><code>rand_forest<foo></foo>()</code> with the `"randomForest"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -541,7 +543,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="svm-linear-LiblineaR">
   
-  <summary>`svm_linear()` with the `"LiblineaR"` engine</summary>
+  <summary><code>svm_linear<foo></foo>()</code> with the `"LiblineaR"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -607,7 +609,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="svm-linear-kernlab"> 
   
-  <summary>`svm_linear()` with the `"kernlab"` engine</summary>
+  <summary><code>svm_linear<foo></foo>()</code> with the `"kernlab"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -676,7 +678,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="svm-poly-kernlab">
   
-  <summary>`svm_poly()` with the `"kernlab"` engine</summary>
+  <summary><code>svm_poly<foo></foo>()</code> with the `"kernlab"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -745,7 +747,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   <details id="svm-rbf-kernlab"> 
 
-  <summary>`svm_rbf()` with the `"kernlab"` engine</summary>
+  <summary><code>svm_rbf<foo></foo>()</code> with the `"kernlab"` engine</summary>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
