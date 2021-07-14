@@ -19,6 +19,548 @@ Model/engine combinations which can be used for different modes have an example 
 
 <!-- The headings (<summary>) of the collapsible sections below include <foo></foo> so that the function name does not get auto-linked to the function's help page. This means clicking on the function name will open the collapsed section rather than take you to the help page. -->
 
+  <details id="boost-tree-xgboost"> 
+  
+  <summary><code>boost_tree<foo></foo>()</code> with the `"xgboost"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  bt_reg_spec <- 
+    boost_tree(trees = 15) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("xgboost")
+  bt_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  bt_reg_fit <- bt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  bt_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(bt_reg_fit, Chicago_test)
+  ```
+
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  bt_cls_spec <- 
+    boost_tree(trees = 15) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("xgboost")
+  bt_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(bt_cls_fit, data_test),
+    predict(bt_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
+
+  <details id="boost-tree-C5.0"> 
+  
+  <summary><code>boost_tree<foo></foo>()</code> with the `"C5.0"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  bt_cls_spec <- 
+    boost_tree(trees = 15) %>% 
+    set_mode("classification") %>% 
+    set_engine("C5.0")
+  bt_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(bt_cls_fit, data_test),
+    predict(bt_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>  
+  
+  
+  <details id="decision-tree-rpart"> 
+  
+  <summary><code>decision_tree<foo></foo>()</code> with the `"rpart"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  dt_reg_spec <- 
+    decision_tree(tree_depth = 30) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("rpart")
+  dt_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  dt_reg_fit <- dt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  dt_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(dt_reg_fit, Chicago_test)
+  ```
+
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  dt_cls_spec <- 
+    decision_tree(tree_depth = 30) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("rpart")
+  dt_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  dt_cls_fit <- dt_cls_spec %>% fit(Class ~ ., data = data_train)
+  dt_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(dt_cls_fit, data_test),
+    predict(dt_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
+  
+  <details id="decision-tree-C5.0"> 
+  
+  <summary><code>decision_tree<foo></foo>()</code> with the `"C5.0"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  dt_cls_spec <- 
+    decision_tree(min_n = 2) %>% 
+    set_mode("classification") %>% 
+    set_engine("C5.0")
+  dt_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  dt_cls_fit <- dt_cls_spec %>% fit(Class ~ ., data = data_train)
+  dt_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(dt_cls_fit, data_test),
+    predict(dt_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
+  <details id="linear-reg-lm"> 
+  
+  <summary><code>linear_reg<foo></foo>()</code> with the `"lm"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg() %>% 
+    set_mode("regression") %>% 
+    set_engine("lm")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
+
+
+  <details id="linear-reg-glmnet"> 
+  
+  <summary><code>linear_reg<foo></foo>()</code> with the `"glmnet"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg(penalty = 0.1) %>% 
+    set_mode("regression") %>% 
+    set_engine("glmnet")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
+
+
+  <details id="linear-reg-keras"> 
+  
+  <summary><code>linear_reg<foo></foo>()</code> with the `"keras"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg(penalty = 0.1) %>% 
+    set_mode("regression") %>% 
+    set_engine("keras")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
+
+
+  <details id="linear-reg-stan"> 
+  
+  <summary><code>linear_reg<foo></foo>()</code> with the `"stan"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg() %>% 
+    set_mode("regression") %>% 
+    set_engine("stan")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
+
+
+  <details id="logistic-reg-glm"> 
+  
+  <summary><code>logistic_reg<foo></foo>()</code> with the `"glm"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg() %>% 
+    set_mode("classification") %>% 
+    set_engine("glm")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
+  
+  <details id="logistic-reg-glmnet"> 
+  
+  <summary><code>logistic_reg<foo></foo>()</code> with the `"glmnet"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg(penalty = 0.1) %>% 
+    set_mode("classification") %>% 
+    set_engine("glmnet")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
+  
+  <details id="logistic-reg-keras"> 
+  
+  <summary><code>logistic_reg<foo></foo>()</code> with the `"keras"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg(penalty = 0.1) %>% 
+    set_mode("classification") %>% 
+    set_engine("keras")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
+
+  <details id="logistic-reg-LiblineaR"> 
+  
+  <summary><code>logistic_reg<foo></foo>()</code> with the `"LiblineaR"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg(penalty = 0.1) %>% 
+    set_mode("classification") %>% 
+    set_engine("LiblineaR")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
+
+  <details id="logistic-reg-stan"> 
+  
+  <summary><code>logistic_reg<foo></foo>()</code> with the `"stan"` engine</summary>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg() %>% 
+    set_mode("classification") %>% 
+    set_engine("stan")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
   <details id="mars-earth"> 
   
   <summary><code>mars<foo></foo>()</code> with the `"earth"` engine</summary>
@@ -31,10 +573,10 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mars_reg_spec <- 
-    mlp() %>% 
+    mars(prod_degree = 1, prune_method = "backward") %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("regression") %>% 
-    set_engine("nnet")
+    set_engine("earth")
   mars_reg_spec
   ```
 
@@ -61,10 +603,10 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mars_cls_spec <- 
-    mlp() %>% 
+    mars(prod_degree = 1, prune_method = "backward") %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("classification") %>% 
-    set_engine("nnet")
+    set_engine("earth")
   mars_cls_spec
   ```
 
@@ -100,7 +642,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mlp_reg_spec <- 
-    mlp() %>% 
+    mlp(penalty = 0, epochs = 100) %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("regression") %>% 
     set_engine("nnet")
@@ -130,7 +672,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mlp_cls_spec <- 
-    mlp() %>% 
+    mlp(penalty = 0, epochs = 100) %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("classification") %>% 
     set_engine("nnet")
@@ -168,7 +710,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mlp_reg_spec <- 
-    mlp() %>% 
+    mlp(penalty = 0, epochs = 20) %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("regression") %>% 
     set_engine("keras")
@@ -198,7 +740,7 @@ Model/engine combinations which can be used for different modes have an example 
 
   ```{r}
   mlp_cls_spec <- 
-    mlp() %>% 
+    mlp(penalty = 0, epochs = 20) %>% 
     # This model can be used for classification or regression, so set mode
     set_mode("classification") %>% 
     set_engine("keras")
