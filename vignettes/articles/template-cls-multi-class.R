@@ -1,6 +1,6 @@
 #' <h3>Classification Example</h3>
 
-#' We'll model the island of the penguins with two predictors in the same unit (mm): bill length and bill depth.
+#' We'll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.
 
 #+ results = "hide", messages = FALSE
 library(tidymodels)
