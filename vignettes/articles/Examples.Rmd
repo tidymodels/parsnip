@@ -13,9 +13,15 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
-This is a collection of examples for fitting and predicting with various models and engines. 
+These examples show how to *fit* and *predict* with different combinations of model, mode, and engine. As a reminder, in parsnip, 
 
-Model/engine combinations which can be used for different modes have an example each. For regression, we use the Chicago ridership data. For classification, we use an artificial dataset for a binary example and the Palmer penguins data for a multi-class example.
+- the **model type** differentiates basic modeling approaches, such as random forests, logistic regression, linear support vector machines, etc.,
+
+- the **mode** denotes in what kind of modeling context it will be used (most commonly, classification or regression), and
+
+- the computational **engine** indicates how the model is fit, such as with a specific R package implementation or even methods outside of R like Keras or Stan.
+
+The following examples use consistent data sets throughout. For regression, we use the Chicago ridership data. For classification, we use an artificial data set for a binary example and the Palmer penguins data for a multiclass example.
 
 
 ## `boost_tree()` models
@@ -1368,4 +1374,3 @@ Model/engine combinations which can be used for different modes have an example 
   ```
     
   </details>
-
