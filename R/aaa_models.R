@@ -1013,6 +1013,7 @@ get_encoding <- function(model) {
 #' cat(make_engine_list("linear_reg"))
 find_engine_files <- function(mod, pkg = "parsnip") {
 
+  requireNamespace(pkg, quietly = TRUE)
   # Get available topics
   topic_names <- search_for_engine_docs(mod)
   if (length(topic_names) == 0) {
@@ -1058,6 +1059,7 @@ get_default_engine <- function(mod, pkg= "parsnip") {
 #' @export
 #' @rdname  doc-tools
 make_seealso_list <- function(mod, pkg= "parsnip") {
+  requireNamespace(pkg, quietly = TRUE)
   eng <- find_engine_files(mod, pkg)
 
   res <-
