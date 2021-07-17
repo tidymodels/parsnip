@@ -563,7 +563,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
-set_dependency <- function(model, eng, pkg) {
+set_dependency <- function(model, eng, pkg= "parsnip") {
   check_model_exists(model)
   check_eng_val(eng)
   check_pkg_val(pkg)
@@ -969,6 +969,7 @@ get_encoding <- function(model) {
 #'  populates the list seen in "See Also" below. See the details section.
 #'
 #' @param mod A character string for the model file (e.g. "linear_reg")
+#' @param pkg A character string for the pacakge where the funciton is invoked.
 #' @return
 #' `make_engine_list()` returns a character string that creates a
 #' bulleted list of links to more specific help files.
@@ -1010,7 +1011,7 @@ get_encoding <- function(model) {
 #' @examples
 #' find_engine_files("linear_reg")
 #' cat(make_engine_list("linear_reg"))
-find_engine_files <- function(mod) {
+find_engine_files <- function(mod, pkg = "parsnip") {
 
   # Get available topics
   topic_names <- search_for_engine_docs(mod)
@@ -1030,7 +1031,7 @@ find_engine_files <- function(mod) {
   eng <- eng[order(eng$.order),]
 
   # Determine and label default engine
-  default <- get_default_engine(mod)
+  default <- get_default_engine(mod, pkg)
   eng$default <- ifelse(eng$engine == default, " (default)", "")
 
   eng
@@ -1038,8 +1039,8 @@ find_engine_files <- function(mod) {
 
 #' @export
 #' @rdname doc-tools
-make_engine_list <- function(mod) {
-  eng <- find_engine_files(mod)
+make_engine_list <- function(mod, pkg = "parsnip") {
+  eng <- find_engine_files(mod, pkg)
 
   res <-
     glue::glue("  \\item \\code{\\link[=|eng$topic|]{|eng$engine|} |eng$default| }",
@@ -1049,24 +1050,28 @@ make_engine_list <- function(mod) {
   res
 }
 
-get_default_engine <- function(mod) {
-  cl <- rlang::call2(mod, .ns = "parsnip")
+get_default_engine <- function(mod, pkg= "parsnip") {
+  cl <- rlang::call2(mod, .ns = pkg)
   rlang::eval_tidy(cl)$engine
 }
 
 #' @export
 #' @rdname  doc-tools
-make_seealso_list <- function(mod) {
-  eng <- find_engine_files(mod)
+make_seealso_list <- function(mod, pkg= "parsnip") {
+  eng <- find_engine_files(mod, pkg)
 
   res <-
     glue::glue("\\code{\\link[=|eng$topic|]{|eng$engine| engine details}}",
                .open = "|", .close = "|")
 
-  main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
-            "\\code{\\link[=set_engine]{set_engine()}}",
-            "\\code{\\link[=update]{update()}}"
-            )
+  if (pkg == "parsnip") {
+    main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
+              "\\code{\\link[=set_engine]{set_engine()}}",
+              "\\code{\\link[=update]{update()}}"
+    )
+  } else {
+    main <- NULL
+  }
   paste0(c(main, res), collapse = ", ")
 }
 
