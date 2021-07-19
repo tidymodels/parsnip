@@ -23,6 +23,9 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         id: install-r
 
+      - name: System dependencies
+        run: brew install harfbuzz fribidi
+
       - name: Install pak and query dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
@@ -32,7 +35,9 @@ jobs:
       - name: Restore R package cache
         uses: actions/cache@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
           key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
           restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-
 
