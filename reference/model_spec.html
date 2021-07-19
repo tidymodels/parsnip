@@ -96,7 +96,7 @@ information about a model that will be fit." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -123,6 +123,9 @@ information about a model that will be fit." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -226,8 +229,8 @@ This can be seen in the output:</p>
 
 <p>The model functions save the argument <em>expressions</em> and their
 associated environments (a.k.a. a quosure) to be evaluated later
-when either <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> or <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> are called with the actual
-data.</p>
+when either <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> or <code><a href='fit.model_spec.html'>fit_xy.model_spec()</a></code>  are
+called with the actual data.</p>
 <p>The consequence of this strategy is that any data required to
 get the parameter values must be available when the model is
 fit. The two main ways that this can fail is if:</p>

@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -122,6 +122,9 @@
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -203,9 +206,9 @@ such as <code>type</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A single character value or <code>NULL</code>. Possible values
-are "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-or "raw". When <code>NULL</code>, <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> will choose an appropriate value
+      <td><p>A single character value or <code>NULL</code>. Possible values are
+<code>"numeric"</code>, <code>"class"</code>, <code>"prob"</code>, <code>"conf_int"</code>, <code>"pred_int"</code>, <code>"quantile"</code>,
+or <code>"raw"</code>. When <code>NULL</code>, <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> will choose an appropriate value
 based on the model's mode.</p></td>
     </tr>
     <tr>

@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -121,6 +121,9 @@
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -153,6 +156,18 @@
       <small>Source: <a href='https://github.com/tidymodels/parsnip/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="parsnip-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. <code><a href="../reference/set_engine.html">set_engine()</a></code> is still required if engine-specific arguments need to be added. (<a href='https://github.com/tidymodels/parsnip/issues/513'>#513</a>)</p></li>
+<li><p>The default engine for <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> was changed to <code>nnet</code>.</p></li>
+<li><p>The helper functions <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_fit()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_form_to_xy_new()</a></code>, <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_fit()</a></code>, and <code><a href="../reference/.convert_form_to_xy_fit.html">.convert_xy_to_form_new()</a></code> for converting between formula and matrix interface are now exported for developer use (<a href='https://github.com/tidymodels/parsnip/issues/508'>#508</a>).</p></li>
+<li><p>Fix bug in <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> when non-predictor, non-outcome variables are included in data (<a href='https://github.com/tidymodels/parsnip/issues/510'>#510</a>).</p></li>
+<li><p>A model function (<code><a href="../reference/gen_additive_mod.html">gen_additive_mod()</a></code>) was added for generalized additive models.</p></li>
+</ul>
+</div>
     <div id="parsnip-016" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.6">
 <a href="#parsnip-016" class="anchor"></a>parsnip 0.1.6<small> 2021-05-27 </small>
@@ -173,7 +188,6 @@
 <li><p>The xgboost engine for boosted trees was translating <code>mtry</code> to xgboost’s <code>colsample_bytree</code>. We now map <code>mtry</code> to <code>colsample_bynode</code> since that is more consistent with how random forest works. <code>colsample_bytree</code> can still be optimized by passing it in as an engine argument. <code>colsample_bynode</code> was added to xgboost after the <code>parsnip</code> package code was written. (<a href='https://github.com/tidymodels/parsnip/issues/495'>#495</a>)</p></li>
 <li><p>For xgboost, <code>mtry</code> and <code>colsample_bytree</code> can be passed as integer counts or proportions, while <code>subsample</code> and <code>validation</code> should always be proportions. <code><a href="../reference/xgb_train.html">xgb_train()</a></code> now has a new option <code>counts</code> (<code>TRUE</code> or <code>FALSE</code>) that states which scale for <code>mtry</code> and <code>colsample_bytree</code> is being used. (<a href='https://github.com/tidymodels/parsnip/issues/461'>#461</a>)</p></li>
 </ul>
-<p>r</p>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -181,7 +195,15 @@
 <ul>
 <li><p>Re-licensed package from GPL-2 to MIT. See <a href="https://github.com/tidymodels/parsnip/issues/462">consent from copyright holders here</a>.</p></li>
 <li><p><code><a href="../reference/set_args.html">set_mode()</a></code> now checks if <code>mode</code> is compatible with the model class, similar to <code><a href="../reference/null_value.html">new_model_spec()</a></code> (<a href='https://github.com/jtlandis'>@jtlandis</a>, <a href='https://github.com/tidymodels/parsnip/issues/467'>#467</a>). Both <code><a href="../reference/set_args.html">set_mode()</a></code> and <code><a href="../reference/set_engine.html">set_engine()</a></code> now error for <code>NULL</code> or missing arguments (<a href='https://github.com/tidymodels/parsnip/issues/503'>#503</a>).</p></li>
-<li><p>Re-organized model documentation for <code>update</code> methods (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</p></li>
+<li>
+<p>Re-organized model documentation:</p>
+<ul>
+<li>
+<code>update</code> methods were moved out of the model help files (<a href='https://github.com/tidymodels/parsnip/issues/479'>#479</a>).</li>
+<li>Each model/engine combination has its own help page.</li>
+<li>The model help page has a dynamic bulleted list of the engines with links to the individual help pages.</li>
+</ul>
+</li>
 <li><p><code><a href="https://generics.r-lib.org/reference/required_pkgs.html">generics::required_pkgs()</a></code> was extended for <code>parsnip</code> objects.</p></li>
 <li><p>Prediction functions now give a consistent error when a user uses an unavailable value of <code>type</code> (<a href='https://github.com/tidymodels/parsnip/issues/489'>#489</a>)</p></li>
 <li><p>The <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code> method was changed to avoid failing if the model does not enable class probabilities. The method now returns tibbles despite the input data class (<a href='https://github.com/tidymodels/parsnip/issues/487'>#487</a>) (<a href='https://github.com/tidymodels/parsnip/issues/478'>#478</a>)</p></li>

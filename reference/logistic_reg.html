@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Logistic Regression Models — logistic_reg • parsnip</title>
+<title>Logistic regression — logistic_reg • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,21 +49,22 @@
 
 
 
-<meta property="og:title" content="General Interface for Logistic Regression Models — logistic_reg" />
-<meta property="og:description" content="logistic_reg() is a way to generate a specification of a model
-before fitting and allows the model to be created using
-different packages in R, Stan, keras, or via Spark. The main
-arguments for the model are:
-penalty: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-mixture: The mixture amounts of different types of
-regularization (see below). Note that this will be ignored for some engines.
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using set_engine(). If left to their defaults
-here (NULL), the values are taken from the underlying model
-functions. If parameters need to be modified, update() can be used
-in lieu of recreating the object from scratch." />
+<meta property="og:title" content="Logistic regression — logistic_reg" />
+<meta property="og:description" content="logistic_reg() defines a generalized linear model for binary outcomes. A
+linear combination of the predictors is used to model the log odds of an
+event.
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+glm  (default) 
+glmnet  
+LiblineaR  
+spark  
+keras  
+stan  
+
+More information on how parsnip is used for modeling is at
+https://www.tidymodels.org/." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -108,7 +109,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -135,6 +136,9 @@ in lieu of recreating the object from scratch." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -163,29 +167,35 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Logistic Regression Models</h1>
+    <h1>Logistic regression</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/logistic_reg.R'><code>R/logistic_reg.R</code></a></small>
     <div class="hidden name"><code>logistic_reg.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>logistic_reg()</code> is a way to generate a <em>specification</em> of a model
-before fitting and allows the model to be created using
-different packages in R, Stan, keras, or via Spark. The main
-arguments for the model are:</p><ul>
-<li><p><code>penalty</code>: The total amount of regularization
-in the model. Note that this must be zero for some engines.</p></li>
-<li><p><code>mixture</code>: The mixture amounts of different types of
-regularization (see below). Note that this will be ignored for some engines.</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
-in lieu of recreating the object from scratch.</p>
+    <p><code>logistic_reg()</code> defines a generalized linear model for binary outcomes. A
+linear combination of the predictors is used to model the log odds of an
+event.</p>
+<p>There are different ways to fit this model. See the engine-specific pages
+for more details:</p>
+<p><ul>
+<li><p><code><a href='details_logistic_reg_glm.html'>glm</a>  (default) </code></p></li>
+<li><p><code><a href='details_logistic_reg_glmnet.html'>glmnet</a>  </code></p></li>
+<li><p><code><a href='details_logistic_reg_LiblineaR.html'>LiblineaR</a>  </code></p></li>
+<li><p><code><a href='details_logistic_reg_spark.html'>spark</a>  </code></p></li>
+<li><p><code><a href='details_logistic_reg_keras.html'>keras</a>  </code></p></li>
+<li><p><code><a href='details_logistic_reg_stan.html'>stan</a>  </code></p></li>
+</ul></p>
+<p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
+<a href='https://www.tidymodels.org/'>https://www.tidymodels.org/</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>logistic_reg</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='st'>"classification"</span>, penalty <span class='op'>=</span> <span class='cn'>NULL</span>, mixture <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>logistic_reg</span><span class='op'>(</span>
+  mode <span class='op'>=</span> <span class='st'>"classification"</span>,
+  engine <span class='op'>=</span> <span class='st'>"glm"</span>,
+  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mixture <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,9 +206,15 @@ in lieu of recreating the object from scratch.</p>
 The only possible value for this model is "classification".</p></td>
     </tr>
     <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"glm"</code>.</p></td>
+    </tr>
+    <tr>
       <th>penalty</th>
       <td><p>A non-negative number representing the total
-amount of regularization (<code>glmnet</code>, <code>LiblineaR</code>, <code>keras</code>, and <code>spark</code> only).
+amount of regularization (specific engines only).
 For <code>keras</code> models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be either or a combination
 of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
@@ -208,190 +224,23 @@ of L1 and L2 (depending on the value of <code>mixture</code>).</p></td>
       <td><p>A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used. (<code>glmnet</code>, <code>LiblineaR</code>, and <code>spark</code> only).
+ridge regression is being used. (specific engines only).
 For <code>LiblineaR</code> models, <code>mixture</code> must be exactly 0 or 1 only.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For <code>logistic_reg()</code>, the mode will always be "classification".</p>
-<p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"glm"</code>  (the default), <code>"glmnet"</code>, or <code>"LiblineaR"</code></p></li>
-<li><p><span class="pkg">Stan</span>:  <code>"stan"</code></p></li>
-<li><p><span class="pkg">Spark</span>: <code>"spark"</code></p></li>
-<li><p><span class="pkg">keras</span>: <code>"keras"</code></p></li>
-</ul>
+    <p>This function only defines what <em>type</em> of model is being fit. Once an engine
+is specified, the <em>method</em> to fit the model is also defined.</p>
+<p>The model is not trained or fit until the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function is used
+with the data.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-<p>For this model, other packages may add additional engines. Use
-<code><a href='show_engines.html'>show_engines()</a></code> to see the current set of engines.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>For models created using the spark engine, there are
-several differences to consider. First, only the formula
-interface to via <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> is available; using <code><a href='https://generics.r-lib.org/reference/fit_xy.html'>fit_xy()</a></code> will
-generate an error. Second, the predictions will always be in a
-spark table format. The names will be the same as documented but
-without the dots. Third, there is no equivalent to factor
-columns in spark tables so class predictions are returned as
-character columns. Fourth, to retain the model object for a new
-R session (via <code><a href='https://rdrr.io/r/base/save.html'>save()</a></code>), the <code>model$fit</code> element of the <code>parsnip</code>
-object should be serialized via <code>ml_save(object$fit)</code> and
-separately saved to disk. In a new session, the object can be
-reloaded and reattached to the <code>parsnip</code> object.</p>
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glm</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glm"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: glm </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     family = stats::binomial)</span>
-</pre>
-
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>glmnet</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glmnet"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Main Arguments:</span>
-<span class='co'>##   penalty = 0.1</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: glmnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     family = "binomial")</span>
-</pre>
-
-<p>The glmnet engine requires a single value for the <code>penalty</code> argument (a
-number or <code>tune()</code>), but the full regularization path is always fit
-regardless of the value given to <code>penalty</code>. To pass in a custom sequence
-of values for glmnet’s <code>lambda</code>, use the argument <code>path_values</code> in
-<code><a href='set_engine.html'>set_engine()</a></code>. This will assign the value of the glmnet <code>lambda</code>
-parameter without disturbing the value given of <code>logistic_reg(penalty)</code>.
-For example:<div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"glmnet"</span>, path_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Main Arguments:</span>
-<span class='co'>##   penalty = 0.1</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: glmnet </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     lambda = c(0, 10^seq(-10, 1, length.out = 20)), family = "binomial")</span>
-</pre>
-
-<p>When fitting a pure ridge regression model (i.e., <code>penalty = 0</code>), we
-<em>strongly suggest</em> that you pass in a vector for <code>path_values</code> that
-includes zero. See <a href='https://github.com/tidymodels/parsnip/issues/431'>issue #431</a> for a
-discussion.</p>
-<p>When using <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>, the single <code>penalty</code> value used for prediction
-is the one specified in <code>logistic_reg()</code>.</p>
-<p>To predict on multiple penalties, use the <code><a href='multi_predict.html'>multi_predict()</a></code> function.
-This function returns a tibble with a list column called <code>.pred</code>
-containing all of the penalty results.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>LiblineaR</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"LiblineaR"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: LiblineaR </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), </span>
-<span class='co'>##     verbose = FALSE)</span>
-</pre>
-
-<p>For <code>LiblineaR</code> models, the value for <code>mixture</code> can either be 0 (for
-ridge) or 1 (for lasso) but not other intermediate values. In the
-<code>LiblineaR</code> documentation, these correspond to types 0 (L2-regularized)
-and 6 (L1-regularized).</p>
-<p>Be aware that the <code>LiblineaR</code> engine regularizes the intercept. Other
-regularized regression models do not, which will result in different
-parameter estimates.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>stan</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"stan"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: stan </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), </span>
-<span class='co'>##     weights = missing_arg(), family = stats::binomial, refresh = 0)</span>
-</pre>
-
-<p>Note that the <code>refresh</code> default prevents logging of the estimation
-process. Change this value in <code><a href='set_engine.html'>set_engine()</a></code> to show the logs.</p>
-<p>For prediction, the <code>stan</code> engine can compute posterior intervals
-analogous to confidence and prediction intervals. In these instances,
-the units are the original outcome and when <code>std_error = TRUE</code>, the
-standard deviation of the posterior distribution (or posterior
-predictive distribution as appropriate) is returned.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>spark</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"spark"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: spark </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), </span>
-<span class='co'>##     weight_col = missing_arg(), family = "binomial")</span>
-</pre>
-
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>keras</h3>
-<p><div class="r"></p><pre><span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"keras"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Logistic Regression Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: keras </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = 1, </span>
-<span class='co'>##     act = "linear")</span>
-</pre>
-
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
-
-
-<p>The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>glmnet</strong></td><td><strong>LiblineaR</strong></td><td><strong>spark</strong></td><td><strong>keras</strong></td></tr>
-<tr><td>penalty</td><td>lambda</td><td>cost</td><td>reg_param (0)</td><td>penalty (0)</td></tr>
-<tr><td>mixture</td><td>alpha (1)</td><td>type (0)</td><td>elastic_net_param (0)</td><td>NA</td></tr>
-</table>
-
-
-
-
+    <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://tmwr.org'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_logistic_reg_glm.html'>glm engine details</a></code>, <code><a href='details_logistic_reg_glmnet.html'>glmnet engine details</a></code>, <code><a href='details_logistic_reg_LiblineaR.html'>LiblineaR engine details</a></code>, <code><a href='details_logistic_reg_spark.html'>spark engine details</a></code>, <code><a href='details_logistic_reg_keras.html'>keras engine details</a></code>, <code><a href='details_logistic_reg_stan.html'>stan engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"logistic_reg"</span><span class='op'>)</span>
@@ -406,12 +255,8 @@ parameter.</p><table class='table'>
 #&gt; <span style='color: #BCBCBC;'>6</span> stan      classification</div><div class='input'>
 <span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
-#&gt; </div><div class='input'><span class='co'># Parameters can be represented by a placeholder:</span>
-<span class='fu'>logistic_reg</span><span class='op'>(</span>penalty <span class='op'>=</span> <span class='fu'><a href='varying.html'>varying</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Logistic Regression Model Specification (classification)
 #&gt; 
-#&gt; Main Arguments:
-#&gt;   penalty = varying()
+#&gt; Computational engine: glm 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

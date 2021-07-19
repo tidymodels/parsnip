@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for MARS — mars • parsnip</title>
+<title>Multivariate adaptive regression splines (MARS) — mars • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,24 +49,17 @@
 
 
 
-<meta property="og:title" content="General Interface for MARS — mars" />
-<meta property="og:description" content="mars() is a way to generate a specification of a model before
-fitting and allows the model to be created using R. The main
-arguments for the
-model are:
-num_terms: The number of features that will be retained in the
-final model.
-prod_degree: The highest possible degree of interaction between
-features. A value of 1 indicates an additive model while a value of 2
-allows, but does not guarantee, two-way interactions between features.
-prune_method: The type of pruning. Possible values are listed
-in ?earth.
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using set_engine(). If left to their defaults
-here (NULL), the values are taken from the underlying model
-functions. If parameters need to be modified, update() can be used
-in lieu of recreating the object from scratch." />
+<meta property="og:title" content="Multivariate adaptive regression splines (MARS) — mars" />
+<meta property="og:description" content="mars() defines a generalized linear model that uses artificial features for
+some predictors. These features resemble hinge functions and the result is
+a model that is a segmented regression in small dimensions.
+There are different ways to fit this model. See the engine-specific pages
+for more details:
+
+earth  (default) 
+
+More information on how parsnip is used for modeling is at
+https://www.tidymodels.org/." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -111,7 +104,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -138,6 +131,9 @@ in lieu of recreating the object from scratch." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -166,33 +162,27 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for MARS</h1>
+    <h1>Multivariate adaptive regression splines (MARS)</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/mars.R'><code>R/mars.R</code></a></small>
     <div class="hidden name"><code>mars.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>mars()</code> is a way to generate a <em>specification</em> of a model before
-fitting and allows the model to be created using R. The main
-arguments for the
-model are:</p><ul>
-<li><p><code>num_terms</code>: The number of features that will be retained in the
-final model.</p></li>
-<li><p><code>prod_degree</code>: The highest possible degree of interaction between
-features. A value of 1 indicates an additive model while a value of 2
-allows, but does not guarantee, two-way interactions between features.</p></li>
-<li><p><code>prune_method</code>: The type of pruning. Possible values are listed
-in <code>?earth</code>.</p></li>
-</ul><p>These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using <code><a href='set_engine.html'>set_engine()</a></code>. If left to their defaults
-here (<code>NULL</code>), the values are taken from the underlying model
-functions. If parameters need to be modified, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code> can be used
-in lieu of recreating the object from scratch.</p>
+    <p><code>mars()</code> defines a generalized linear model that uses artificial features for
+some predictors. These features resemble hinge functions and the result is
+a model that is a segmented regression in small dimensions.</p>
+<p>There are different ways to fit this model. See the engine-specific pages
+for more details:</p>
+<p><ul>
+<li><p><code><a href='details_mars_earth.html'>earth</a>  (default) </code></p></li>
+</ul></p>
+<p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
+<a href='https://www.tidymodels.org/'>https://www.tidymodels.org/</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mars</span><span class='op'>(</span>
   mode <span class='op'>=</span> <span class='st'>"unknown"</span>,
+  engine <span class='op'>=</span> <span class='st'>"earth"</span>,
   num_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
   prod_degree <span class='op'>=</span> <span class='cn'>NULL</span>,
   prune_method <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -203,9 +193,14 @@ in lieu of recreating the object from scratch.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting.</p></td>
     </tr>
     <tr>
       <th>num_terms</th>
@@ -224,70 +219,16 @@ final model, including the intercept.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model can be created using the <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> function using the
-following <em>engines</em>:</p><ul>
-<li><p><span class="pkg">R</span>:  <code>"earth"</code>  (the default)</p></li>
-</ul>
+    <p>This function only defines what <em>type</em> of model is being fit. Once an engine
+is specified, the <em>method</em> to fit the model is also defined.</p>
+<p>The model is not trained or fit until the <code><a href='fit.model_spec.html'>fit.model_spec()</a></code> function is used
+with the data.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <h2 class="hasAnchor" id="engine-details"><a class="anchor" href="#engine-details"></a>Engine Details</h2>
-
-    <p>Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>earth</h3>
-<p><div class="r"></p><pre><span class='fu'>mars</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"earth"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## MARS Model Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: earth </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     keepxy = TRUE)</span>
-</pre><p><div class="r"></p><pre><span class='fu'>mars</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"earth"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## MARS Model Specification (classification)</span>
-<span class='co'>## </span>
-<span class='co'>## Engine-Specific Arguments:</span>
-<span class='co'>##   glm = list(family = stats::binomial)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: earth </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
-<span class='co'>##     glm = list(family = stats::binomial), keepxy = TRUE)</span>
-</pre>
-
-<p>Note that, when the model is fit, the <code>earth</code> package only has its
-namespace loaded. However, if <code>multi_predict</code> is used, the package is
-attached.</p>
-<p>Also, <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code> passes the data directly to <code><a href='https://rdrr.io/pkg/earth/man/earth.html'>earth::earth()</a></code> so that its
-formula method can create dummy variables as-needed.</p>
-<p>For this engine, tuning over <code>num_terms</code> is very efficient since the
-same model object can be used to make predictions over multiple values
-of <code>num_terms</code>.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Parameter translations</h3>
-
-
-<p>The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.</p><table class='table'>
-<tr><td><strong>parsnip</strong></td><td><strong>earth</strong></td></tr>
-<tr><td>num_terms</td><td>nprune</td></tr>
-<tr><td>prod_degree</td><td>degree (1)</td></tr>
-<tr><td>prune_method</td><td>pmethod (backward)</td></tr>
-</table>
-
-
-
-
+    <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://tmwr.org'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_mars_earth.html'>earth engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"mars"</span><span class='op'>)</span>
@@ -301,6 +242,8 @@ parameter.</p><table class='table'>
 #&gt; 
 #&gt; Main Arguments:
 #&gt;   num_terms = 5
+#&gt; 
+#&gt; Computational engine: earth 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

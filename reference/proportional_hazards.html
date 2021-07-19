@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Interface for Proportional Hazards Models — proportional_hazards • parsnip</title>
+<title>Proportional hazards regression — proportional_hazards • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="General Interface for Proportional Hazards Models — proportional_hazards" />
+<meta property="og:title" content="Proportional hazards regression — proportional_hazards" />
 <meta property="og:description" content="proportional_hazards() is a way to generate a specification of a model
 before fitting and allows the model to be created using different packages
 in R. The main arguments for the model are:
@@ -107,7 +107,7 @@ in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6.9000</span>
         </div>
       </div>
     </div>
@@ -134,6 +134,9 @@ in lieu of recreating the object from scratch." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -162,7 +165,7 @@ in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Interface for Proportional Hazards Models</h1>
+    <h1>Proportional hazards regression</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/proportional_hazards.R'><code>R/proportional_hazards.R</code></a></small>
     <div class="hidden name"><code>proportional_hazards.Rd</code></div>
     </div>
@@ -185,6 +188,7 @@ in lieu of recreating the object from scratch.</p>
 
     <pre class="usage"><span class='fu'>proportional_hazards</span><span class='op'>(</span>
   mode <span class='op'>=</span> <span class='st'>"censored regression"</span>,
+  engine <span class='op'>=</span> <span class='st'>"survival"</span>,
   penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
   mixture <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -194,23 +198,26 @@ in lieu of recreating the object from scratch.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mode</th>
-      <td><p>A single character string for the type of model.
+      <td><p>A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", or "censored regression".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"survival"</code>.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
       <td><p>A non-negative number representing the total
-amount of regularization (<code>glmnet</code>, <code>keras</code>, and <code>spark</code> only).
-For <code>keras</code> models, this corresponds to purely L2 regularization
-(aka weight decay) while the other models can be a combination
-of L1 and L2 (depending on the value of <code>mixture</code>; see below).</p></td>
+amount of regularization (specific engines only).</p></td>
     </tr>
     <tr>
       <th>mixture</th>
       <td><p>A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only).</p></td>
+ridge regression is being used (specific engines only).</p></td>
     </tr>
     </table>
 
@@ -220,7 +227,7 @@ ridge regression is being used. (<code>glmnet</code> and <code>spark</code> only
 For <code>proportional_hazards()</code>, the mode will always be "censored regression".</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"proportional_hazards"</span><span class='op'>)</span>
