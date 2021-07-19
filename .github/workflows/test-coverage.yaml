@@ -32,7 +32,9 @@ jobs:
       - name: Restore R package cache
         uses: actions/cache@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
           key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
           restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-
 
@@ -41,6 +43,8 @@ jobs:
         run: |
           pak::local_system_requirements(execute = TRUE)
           pak::pkg_system_requirements("covr", execute = TRUE)
+          pak::pkg_system_requirements("textshaping", execute = TRUE)
+          pak::pkg_system_requirements("gert", execute = TRUE)
         shell: Rscript {0}
 
       - name: Install dependencies
