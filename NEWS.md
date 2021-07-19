@@ -6,7 +6,7 @@
 
 * Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. `set_engine()` is still required if engine-specific arguments need to be added. (#513)
 
-* parsnip now checks for a valid engine for a given mode (#529)
+* parsnip now checks for a valid combination of engine and mode (#529)
 
 * The default engine for `multinom_reg()` was changed to `nnet`. 
 
