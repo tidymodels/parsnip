@@ -176,7 +176,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   }
 
   # ------------------------------------------------------------------------------
-  # First check engine against any mode
+  # First check engine against any mode for the given model class
 
   spec_engs <- model_info$engine
   # engine is allowed to be NULL
