@@ -23,9 +23,6 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         id: install-r
 
-      - name: System dependencies
-        run: brew install harfbuzz fribidi
-
       - name: Install pak and query dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
@@ -46,6 +43,8 @@ jobs:
         run: |
           pak::local_system_requirements(execute = TRUE)
           pak::pkg_system_requirements("covr", execute = TRUE)
+          pak::pkg_system_requirements("textshaping", execute = TRUE)
+          pak::pkg_system_requirements("gert", execute = TRUE)
         shell: Rscript {0}
 
       - name: Install dependencies
