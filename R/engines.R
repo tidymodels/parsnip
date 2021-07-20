@@ -10,25 +10,6 @@ possible_engines <- function(object, ...) {
   unique(engs$engine)
 }
 
-stop_incompatible_engine <- function(avail_eng) {
-  msg <- glue::glue(
-    "Available engines are: ",
-    glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
-  )
-  rlang::abort(msg)
-}
-
-check_engine <- function(object) {
-  avail_eng <- possible_engines(object)
-  eng <- object$engine
-  if (is.null(eng) || length(eng) > 1) {
-    stop_incompatible_engine(avail_eng)
-  } else if (!(eng %in% avail_eng)) {
-    stop_incompatible_engine(avail_eng)
-  }
-  object
-}
-
 # ------------------------------------------------------------------------------
 
 shhhh <- function(x)
@@ -90,16 +71,16 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' translate(mod, engine = "glmnet")
 #' @export
 set_engine <- function(object, engine, ...) {
+  mod_type <- class(object)[1]
   if (!inherits(object, "model_spec")) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
 
   if (rlang::is_missing(engine)) {
-    avail_eng <- possible_engines(object)
-    stop_incompatible_engine(avail_eng)
+    stop_missing_engine(mod_type)
   }
   object$engine <- engine
-  object <- check_engine(object)
+  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
 
   if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
@@ -109,7 +90,7 @@ set_engine <- function(object, engine, ...) {
   }
 
   new_model_spec(
-    cls = class(object)[1],
+    cls = mod_type,
     args = object$args,
     eng_args = enquos(...),
     mode = object$mode,

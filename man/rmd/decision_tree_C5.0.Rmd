@@ -13,7 +13,7 @@ defaults <-
 param <-
  decision_tree() %>% 
   set_engine("C5.0") %>% 
-  set_mode("regression") %>% 
+  set_mode("classification") %>% 
   tunable() %>% 
   dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
   dplyr::mutate(
