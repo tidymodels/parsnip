@@ -969,7 +969,7 @@ get_encoding <- function(model) {
 #'  populates the list seen in "See Also" below. See the details section.
 #'
 #' @param mod A character string for the model file (e.g. "linear_reg")
-#' @param pkg A character string for the pacakge where the funciton is invoked.
+#' @param pkg A character string for the package where the function is invoked.
 #' @return
 #' `make_engine_list()` returns a character string that creates a
 #' bulleted list of links to more specific help files.
