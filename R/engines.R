@@ -71,16 +71,16 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' translate(mod, engine = "glmnet")
 #' @export
 set_engine <- function(object, engine, ...) {
+  mod_type <- class(object)[1]
   if (!inherits(object, "model_spec")) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
 
   if (rlang::is_missing(engine)) {
-    avail_eng <- possible_engines(object)
-    stop_incompatible_engine(avail_eng)
+    stop_missing_engine(mod_type)
   }
   object$engine <- engine
-  check_spec_mode_engine_val(class(object)[1], object$engine, object$mode)
+  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
 
   if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
@@ -90,7 +90,7 @@ set_engine <- function(object, engine, ...) {
   }
 
   new_model_spec(
-    cls = class(object)[1],
+    cls = mod_type,
     args = object$args,
     eng_args = enquos(...),
     mode = object$mode,

@@ -83,6 +83,25 @@ test_that("unavailable modes for an engine and vice-versa", {
     "Available modes for engine C5"
   )
 
+  expect_error(
+    proportional_hazards() %>% set_mode("regression"),
+    "Available modes for engine proportional_hazards"
+  )
+
+  expect_error(
+    linear_reg() %>% set_mode(),
+    "Available modes for engine linear_reg"
+  )
+
+  expect_error(
+    linear_reg() %>% set_engine(),
+    "Missing engine"
+  )
+
+  expect_error(
+    proportional_hazards() %>% set_engine(),
+    "No known engines for"
+  )
 })
 
 

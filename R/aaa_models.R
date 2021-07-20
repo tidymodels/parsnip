@@ -25,10 +25,9 @@ all_modes <- c("classification", "regression", "censored regression")
 
 # ------------------------------------------------------------------------------
 
-
 parsnip <- rlang::new_environment()
 parsnip$models <- NULL
-parsnip$modes <- c("regression", "classification", "unknown")
+parsnip$modes <- c(all_modes, "unknown")
 
 # ------------------------------------------------------------------------------
 
@@ -160,6 +159,23 @@ stop_incompatible_engine <- function(spec_engs, mode) {
   rlang::abort(msg)
 }
 
+stop_missing_engine <- function(cls) {
+  info <-
+    get_from_env(cls) %>%
+    dplyr::group_by(mode) %>%
+    dplyr::summarize(msg = paste0(unique(mode), " {",
+                                  paste0(unique(engine), collapse = ", "),
+                                  "}"),
+                     .groups = "drop")
+  if (nrow(info) == 0) {
+    rlang::abort(paste0("No known engines for `", cls, "()`."))
+  }
+  msg <- paste0(info$msg, collapse = ", ")
+  msg <- paste("Missing engine. Possible mode/engine combinations are:", msg)
+  rlang::abort(msg)
+}
+
+
 # check if class and mode and engine are compatible
 check_spec_mode_engine_val <- function(cls, eng, mode) {
   all_modes <- c("unknown", all_modes)
@@ -172,6 +188,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   # Cases where the model definition is in parsnip but all of the engines
   # are contained in a different package
   if (nrow(model_info) == 0) {
+    check_mode_with_no_engine(cls, mode)
     return(invisible(NULL))
   }
 
@@ -219,6 +236,12 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   invisible(NULL)
 }
 
+check_mode_with_no_engine <- function(cls, mode) {
+  spec_modes <- get_from_env(paste0(cls, "_modes"))
+  if (!(mode %in% spec_modes)) {
+    stop_incompatible_mode(spec_modes, cls)
+  }
+}
 
 check_engine_val <- function(eng) {
   if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng))

@@ -26,7 +26,7 @@ not exist yet, an error is thrown.
 \item \code{extract_spec_parsnip()} returns the parsnip model specification.
 \item \code{extract_fit_engine()} returns the engine specific fit embedded within
 a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg()}}
-with the \code{"lm"} engine, this would return the underlying \code{lm} object.
+with the \code{"lm"} engine, this returns the underlying \code{lm} object.
 }
 }
 \details{
