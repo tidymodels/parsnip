@@ -7,14 +7,16 @@
 \alias{make_seealso_list}
 \title{Tools for dynamically documenting packages}
 \usage{
-find_engine_files(mod)
+find_engine_files(mod, pkg = "parsnip")
 
-make_engine_list(mod)
+make_engine_list(mod, pkg = "parsnip")
 
-make_seealso_list(mod)
+make_seealso_list(mod, pkg = "parsnip")
 }
 \arguments{
 \item{mod}{A character string for the model file (e.g. "linear_reg")}
+
+\item{pkg}{A character string for the pacakge where the funciton is invoked.}
 }
 \value{
 \code{make_engine_list()} returns a character string that creates a
