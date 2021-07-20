@@ -135,19 +135,24 @@ check_mode_val <- function(mode) {
 }
 
 
-stop_incompatible_mode <- function(spec_modes, eng) {
-  if (is.null(eng)) {
-    msg <- glue::glue(
-      "Available modes are: ",
-      glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-    )
-  } else {
-    msg <- glue::glue(
-      "Available modes for engine {eng} are: ",
-      glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-    )
+stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL) {
+  if (is.null(eng) & is.null(cls)) {
+    msg <- "Available modes are: "
+  }
+  if (!is.null(eng) & is.null(cls)) {
+    msg <- glue::glue("Available modes for engine {eng} are: ")
+  }
+  if (is.null(eng) & !is.null(cls)) {
+    msg <- glue::glue("Available modes for model type {cls} are: ")
+  }
+  if (!is.null(eng) & !is.null(cls)) {
+    msg <- glue::glue("Available modes for model type {cls} with engine {eng} are: ")
   }
 
+  msg <- glue::glue(
+    msg,
+    glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
+  )
   rlang::abort(msg)
 }
 
