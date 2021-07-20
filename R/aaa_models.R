@@ -244,7 +244,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
 check_mode_with_no_engine <- function(cls, mode) {
   spec_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% spec_modes)) {
-    stop_incompatible_mode(spec_modes, cls)
+    stop_incompatible_mode(spec_modes, cls = cls)
   }
 }
 
