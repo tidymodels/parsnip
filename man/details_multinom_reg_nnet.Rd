@@ -49,6 +49,13 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet}{examples}
+for \code{multinom_reg()} with the \code{"nnet"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering nnet with R}.

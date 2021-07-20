@@ -52,6 +52,13 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-keras}{examples}
+for \code{linear_reg()} with the \code{"keras"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased

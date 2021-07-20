@@ -71,6 +71,13 @@ standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-stan}{examples}
+for \code{linear_reg()} with the \code{"stan"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item McElreath, R. 2020 \emph{Statistical Rethinking}. CRC Press.

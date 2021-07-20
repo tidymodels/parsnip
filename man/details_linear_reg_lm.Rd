@@ -34,6 +34,13 @@ formula method via
 convert factor columns to indicators.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-lm}{examples}
+for \code{linear_reg()} with the \code{"lm"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

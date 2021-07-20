@@ -87,6 +87,13 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet}{examples}
+for \code{mlp()} with the \code{"nnet"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

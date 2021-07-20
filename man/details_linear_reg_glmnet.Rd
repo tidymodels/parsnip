@@ -56,6 +56,13 @@ variance of one. By default, \code{\link[glmnet:glmnet]{glmnet::glmnet()}} uses
 the argument \code{standardize = TRUE} to center and scale the data.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glmnet}{examples}
+for \code{linear_reg()} with the \code{"glmnet"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
