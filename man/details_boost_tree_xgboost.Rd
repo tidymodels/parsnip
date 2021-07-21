@@ -158,6 +158,13 @@ the outcome. To use a different loss, pass the \code{objective} argument to
 
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-xgboost}{examples}
+for \code{boost_tree()} with the \code{"xgboost"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item \href{https://arxiv.org/abs/1603.02754}{XGBoost: A Scalable Tree Boosting System}

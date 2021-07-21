@@ -63,7 +63,7 @@ show_engines("mlp")
 mlp(mode = "classification", penalty = 0.01)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}

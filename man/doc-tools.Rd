@@ -16,7 +16,7 @@ make_seealso_list(mod, pkg = "parsnip")
 \arguments{
 \item{mod}{A character string for the model file (e.g. "linear_reg")}
 
-\item{pkg}{A character string for the pacakge where the funciton is invoked.}
+\item{pkg}{A character string for the package where the function is invoked.}
 }
 \value{
 \code{make_engine_list()} returns a character string that creates a

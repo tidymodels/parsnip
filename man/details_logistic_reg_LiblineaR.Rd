@@ -59,6 +59,13 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR}{examples}
+for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical

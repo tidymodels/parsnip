@@ -65,6 +65,13 @@ stopping will occur if \code{sample_size = 1}.
 
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-C5.0}{examples}
+for \code{boost_tree()} with the \code{"C5.0"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

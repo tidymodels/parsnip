@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 0.1.6.9000
+Version: 0.1.7
 Authors@R: 
     c(person(given = "Max",
              family = "Kuhn",
@@ -45,7 +45,7 @@ Imports:
 Suggests: 
     C50,
     covr,
-    dials (>= 0.0.9.9000),
+    dials,
     earth,
     keras,
     kernlab,
@@ -67,8 +67,6 @@ Suggests:
     xgboost
 VignetteBuilder: 
     knitr
-Remotes: 
-    tidymodels/dials
 ByteCompile: true
 Config/Needs/website:C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
     mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm, tidymodels,

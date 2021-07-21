@@ -59,7 +59,7 @@ show_engines("svm_rbf")
 svm_rbf(mode = "classification", rbf_sigma = 0.2)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://tmwr.org}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}

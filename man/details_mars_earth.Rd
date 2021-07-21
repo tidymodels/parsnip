@@ -81,6 +81,13 @@ formula method via
 convert factor columns to indicators.
 }
 
+\subsection{Examples}{
+
+The “Fitting and Predicting with parsnip” article contains
+\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#mars-earth}{examples}
+for \code{mars()} with the \code{"earth"} engine.
+}
+
 \subsection{References}{
 \itemize{
 \item Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” \emph{The
