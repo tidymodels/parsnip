@@ -18,6 +18,7 @@
 
 * Fix bug in `augment()` when non-predictor, non-outcome variables are included in data (#510).
 
+* New article "Fitting and Predicting with parsnip" which contains examples for various combinations of model type and engine. ( #527)
 
 # parsnip 0.1.6
 
