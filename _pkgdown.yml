@@ -10,8 +10,7 @@ template:
 # https://github.com/tidyverse/tidytemplate for css
 
 development:
-  mode: release
-
+  mode: auto
 
 figures:
   fig.width: 8
