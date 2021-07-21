@@ -97,7 +97,7 @@ event." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.6.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -124,6 +124,9 @@ event." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -158,7 +161,7 @@ event." />
     </div>
 
     <div class="ref-description">
-    <p><code>rstanarm::stan_glm()</code> fits a generalized linear model for binary outcomes.
+    <p><code><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>rstanarm::stan_glm()</a></code> fits a generalized linear model for binary outcomes.
 A linear combination of the predictors is used to model the log odds of an
 event.</p>
     </div>
@@ -190,8 +193,8 @@ hierarchical terms.</p></li>
 centering all predictors).</p></li>
 </ul>
 
-<p>See <code>rstan::sampling()</code> and
-<code>rstanarm::priors()</code> for more information on these
+<p>See <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling()</a></code> and
+<code><a href='https://mc-stan.org/rstanarm/reference/priors.html'>rstanarm::priors()</a></code> for more information on these
 and other options.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Translation from parsnip to the original package</h3>
@@ -227,6 +230,13 @@ analogous to confidence and prediction intervals. In these instances,
 the units are the original outcome and when <code>std_error = TRUE</code>, the
 standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Examples</h3>
+
+
+<p>The “Fitting and Predicting with parsnip” article contains
+<a href='https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-stan'>examples</a>
+for <code><a href='logistic_reg.html'>logistic_reg()</a></code> with the <code>"stan"</code> engine.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>References</h3>
 

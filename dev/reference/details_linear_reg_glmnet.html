@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.6.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -122,6 +122,9 @@
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -156,7 +159,7 @@
     </div>
 
     <div class="ref-description">
-    <p><code>glmnet::glmnet()</code> uses regularized least squares to fit models with numeric outcomes.</p>
+    <p><code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet::glmnet()</a></code> uses regularized least squares to fit models with numeric outcomes.</p>
     </div>
 
 
@@ -206,8 +209,15 @@ formula method via
 convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default, <code>glmnet::glmnet()</code> uses
+variance of one. By default, <code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet::glmnet()</a></code> uses
 the argument <code>standardize = TRUE</code> to center and scale the data.</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Examples</h3>
+
+
+<p>The “Fitting and Predicting with parsnip” article contains
+<a href='https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glmnet'>examples</a>
+for <code><a href='linear_reg.html'>linear_reg()</a></code> with the <code>"glmnet"</code> engine.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>References</h3>
 

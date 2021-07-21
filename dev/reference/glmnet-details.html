@@ -96,7 +96,7 @@ models. These notes reflect common questions about this particular model." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.6.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -123,6 +123,9 @@ models. These notes reflect common questions about this particular model." />
     </li>
     <li>
       <a href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
+    </li>
+    <li>
+      <a href="../articles/articles/Examples.html">Fitting and Predicting with parsnip</a>
     </li>
   </ul>
 </li>
@@ -259,12 +262,12 @@ by <code>glmnet()</code>. See the section below about setting the path.</p>
 
 
 <p>Regardless of what value you use for <code>penalty</code>, the full coefficient
-path is used when <code>glmnet::glmnet()</code> is called.</p>
+path is used when <code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet::glmnet()</a></code> is called.</p>
 <p>What if you want to manually set this path? Normally, you would pass a
-vector to <code>lambda</code> in <code>glmnet::glmnet()</code>.</p>
+vector to <code>lambda</code> in <code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet::glmnet()</a></code>.</p>
 <p>parsnip models that use a <code>glmnet</code> engine can use a special optional
 argument called <code>path_values</code>. This is <em>not</em> an argument to
-<code>glmnet::glmnet()</code>; it is used by parsnip to
+<code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet::glmnet()</a></code>; it is used by parsnip to
 independently set the path.</p>
 <p>For example, we have found that if you want a fully ridge regression
 model (i.e., <code>mixture = 0</code>), you can get the <em>wrong coefficients</em> if the
