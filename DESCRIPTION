@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 0.1.7
+Version: 0.1.7.9000
 Authors@R: 
     c(person(given = "Max",
              family = "Kuhn",
@@ -68,7 +68,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website:C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
+Config/Needs/website: C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
     mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm, tidymodels,
     tidyverse/tidytemplate, xgboost
 Encoding: UTF-8
