@@ -44,7 +44,7 @@ devtools::install_github("tidymodels/parsnip")
 
 ## Getting started
 
-One challenge with different modeling functions available in R _that do the same thing_ is that they can have different interfaces and arguments. For example, to fit a random forest _regression_ model, we might have:
+One challenge with different modeling functions available in R _that do the same thing_ is that they can have different interfaces and arguments. For example, to fit a random forest regression model, we might have:
 
 ```{r eval = FALSE}
 # From randomForest
@@ -121,8 +121,6 @@ rand_forest(mtry = 10, trees = 2000) %>%
 
 A list of all `parsnip` models across different CRAN packages can be found at
 [`tidymodels.org`](https://www.tidymodels.org/find/).
-
-Data sets previously found in `parsnip` are now find in the `modeldata` package. 
 
 
 ## Contributing
