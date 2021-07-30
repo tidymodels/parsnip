@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 0.1.7.9000
+Version: 0.1.7
 Authors@R: 
     c(person(given = "Max",
              family = "Kuhn",
