@@ -144,6 +144,9 @@ set_pred(
   value  = list(
     pre  = NULL,
     post = function(x, object) {
+      if (is.array(x)) {
+        x <- as.vector(x)
+      }
       x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
       unname(x)
     },
