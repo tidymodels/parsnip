@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.7.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.7</span>
         </div>
       </div>
     </div>
@@ -135,19 +135,18 @@
 ##   method                   from   
 ##   required_pkgs.model_spec parsnip</code></pre>
 <pre><code>## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.3 ──</code></pre>
-<pre><code>## ✔ broom        0.7.8          ✔ rsample      0.1.0     
-## ✔ dials        0.0.9.9000     ✔ tibble       3.1.2     
-## ✔ dplyr        1.0.7          ✔ tidyr        1.1.3     
-## ✔ infer        0.5.4          ✔ tune         0.1.5     
-## ✔ modeldata    0.1.1          ✔ workflows    0.2.3     
-## ✔ purrr        0.3.4          ✔ workflowsets 0.0.2     
-## ✔ recipes      0.1.16         ✔ yardstick    0.0.8</code></pre>
+<pre><code>## ✔ broom        0.7.9      ✔ rsample      0.1.0 
+## ✔ dials        0.0.9      ✔ tibble       3.1.3 
+## ✔ dplyr        1.0.7      ✔ tidyr        1.1.3 
+## ✔ infer        0.5.4      ✔ tune         0.1.6 
+## ✔ modeldata    0.1.1      ✔ workflows    0.2.3 
+## ✔ purrr        0.3.4      ✔ workflowsets 0.1.0 
+## ✔ recipes      0.1.16     ✔ yardstick    0.0.8</code></pre>
 <pre><code>## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-## ✖ purrr::discard()            masks scales::discard()
-## ✖ workflows::extract_recipe() masks tune::extract_recipe()
-## ✖ dplyr::filter()             masks stats::filter()
-## ✖ dplyr::lag()                masks stats::lag()
-## ✖ recipes::step()             masks stats::step()
+## ✖ purrr::discard() masks scales::discard()
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ dplyr::lag()     masks stats::lag()
+## ✖ recipes::step()  masks stats::step()
 ## • Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">attrition</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
@@ -184,7 +183,7 @@
     type <span class="op">=</span> <span class="st">"prob"</span>
   <span class="op">)</span>
 <span class="va">fold_1_pred</span></code></pre></div>
-<pre><code>## # A tibble: 111 x 1
+<pre><code>## # A tibble: 111 × 1
 ##    .pred             
 ##    &lt;list&gt;            
 ##  1 &lt;tibble [100 × 3]&gt;
@@ -201,7 +200,7 @@
 <p>The results is a tibble that has as many rows as the data being predicted (<em>n</em> = 111). The <code>.pred</code> column contains a list of tibbles and each has the predictions across the different number of trees:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fold_1_pred</span><span class="op">$</span><span class="va">.pred</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## # A tibble: 100 x 3
+<pre><code>## # A tibble: 100 × 3
 ##    trees .pred_No .pred_Yes
 ##    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ##  1     1    0.916    0.0840
@@ -223,7 +222,7 @@
   <span class="fu"><a href="../../reference/add_rowindex.html">add_rowindex</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">.pred</span><span class="op">)</span>
 <span class="va">fold_1_df</span></code></pre></div>
-<pre><code>## # A tibble: 11,100 x 5
+<pre><code>## # A tibble: 11,100 × 5
 ##    trees .pred_No .pred_Yes Attrition  .row
 ##    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;
 ##  1     1    0.916    0.0840 No            1
