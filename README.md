@@ -38,7 +38,7 @@ devtools::install_github("tidymodels/parsnip")
 
 One challenge with different modeling functions available in R *that do
 the same thing* is that they can have different interfaces and
-arguments. For example, to fit a random forest *regression* model, we
+arguments. For example, to fit a random forest regression model, we
 might have:
 
 ``` r
@@ -140,7 +140,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  73ms 
+#> Fit time:  43ms 
 #> Ranger result
 #> 
 #> Call:
@@ -160,9 +160,6 @@ rand_forest(mtry = 10, trees = 2000) %>%
 
 A list of all `parsnip` models across different CRAN packages can be
 found at [`tidymodels.org`](https://www.tidymodels.org/find/).
-
-Data sets previously found in `parsnip` are now find in the `modeldata`
-package.
 
 ## Contributing
 
