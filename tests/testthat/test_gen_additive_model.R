@@ -94,6 +94,9 @@ test_that('classification', {
   expect_equal(names(f_pred), c(".pred_Class1", ".pred_Class2"))
   expect_equivalent(f_pred[[".pred_Class2"]], unname(mgcv_pred))
 
+  f_cls <- predict(f_res, head(two_class_dat), type = "class")
+  expect_true(all(f_cls$.pred_class[mgcv_pred < 0.5] == "Class1"))
+
   f_ci <- predict(f_res, head(two_class_dat), type = "conf_int", std_error = TRUE)
   mgcv_ci <- predict(mgcv_mod, head(two_class_dat), type = "link", se.fit = TRUE)
   expect_equivalent(f_ci[[".std_error"]], unname(mgcv_ci$se.fit))

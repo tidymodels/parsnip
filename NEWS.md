@@ -1,5 +1,10 @@
 # parsnip (development version)
 
+## Bug fixes
+
+* A bug for class predictions of two-class GAM models was fixed (#541)
+
+
 # parsnip 0.1.7
 
 ## Model Specification Changes
