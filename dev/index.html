@@ -54,7 +54,7 @@
         <a class="navbar-brand" href="index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
         </div>
       </div>
     </div>
@@ -139,7 +139,7 @@
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<p>One challenge with different modeling functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest <em>regression</em> model, we might have:</p>
+<p>One challenge with different modeling functions available in R <em>that do the same thing</em> is that they can have different interfaces and arguments. For example, to fit a random forest regression model, we might have:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># From randomForest</span>
 <span class="va">rf_1</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span><span class="op">(</span>
@@ -219,7 +219,7 @@
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">#&gt; parsnip model object</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Fit time:  73ms </span>
+<span class="co">#&gt; Fit time:  43ms </span>
 <span class="co">#&gt; Ranger result</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
@@ -236,7 +236,6 @@
 <span class="co">#&gt; OOB prediction error (MSE):       5.976917 </span>
 <span class="co">#&gt; R squared (OOB):                  0.8354559</span></code></pre></div>
 <p>A list of all <code>parsnip</code> models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/"><code>tidymodels.org</code></a>.</p>
-<p>Data sets previously found in <code>parsnip</code> are now find in the <code>modeldata</code> package.</p>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
