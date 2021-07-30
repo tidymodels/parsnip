@@ -160,6 +160,13 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>A bug for class predictions of two-class GAM models was fixed (<a href='https://github.com/tidymodels/parsnip/issues/541'>#541</a>)</li>
+</ul>
+</div>
 </div>
     <div id="parsnip-017" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.7">
@@ -451,9 +458,9 @@
 <li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h2>
 <ul>
 <li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html">varying_args()</a></code> now uses the version from the <code>generics</code> package. This means that the first argument, <code>x</code>, has been renamed to <code>object</code> to align with generics.</p></li>
 <li><p>For the recipes step method of <code><a href="https://generics.r-lib.org/reference/varying_args.html">varying_args()</a></code>, there is now error checking to catch if a user tries to specify an argument that <em>cannot</em> be varying as varying (for example, the <code>id</code>) (<a href='https://github.com/tidymodels/parsnip/issues/132'>#132</a>).</p></li>
