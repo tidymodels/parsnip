@@ -141,9 +141,9 @@ Regression Example
   ##   required_pkgs.model_spec parsnip</code></pre>
 <pre><code>  ## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.3 ──</code></pre>
 <pre><code>  ## ✔ broom        0.7.9         ✔ rsample      0.1.0    
-  ## ✔ dials        0.0.9         ✔ tibble       3.1.3    
+  ## ✔ dials        0.0.9         ✔ tibble       3.1.4    
   ## ✔ dplyr        1.0.7         ✔ tidyr        1.1.3    
-  ## ✔ infer        0.5.4         ✔ tune         0.1.6    
+  ## ✔ infer        1.0.0         ✔ tune         0.1.6    
   ## ✔ modeldata    0.1.1         ✔ workflows    0.2.3    
   ## ✔ parsnip      0.1.7.900     ✔ workflowsets 0.1.0    
   ## ✔ purrr        0.3.4         ✔ yardstick    0.0.8    
@@ -184,7 +184,7 @@ Regression Example
   <span class="va">bt_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  61ms 
+  ## Fit time:  94ms 
   ## ##### xgb.Booster
   ## raw: 69.2 Kb 
   ## call:
@@ -250,12 +250,12 @@ Classification Example
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">bt_cls_fit</span> <span class="op">&lt;-</span> <span class="va">bt_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
-<pre><code>  ## [18:16:17] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</code></pre>
+<pre><code>  ## [14:24:56] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  17ms 
+  ## Fit time:  20ms 
   ## ##### xgb.Booster
   ## raw: 58.1 Kb 
   ## call:
@@ -330,7 +330,7 @@ Classification Example
   <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  20ms 
+  ## Fit time:  22ms 
   ## 
   ## Call:
   ## C5.0.default(x = x, y = y, trials = 15, control = C50::C5.0Control(minCases
@@ -404,7 +404,7 @@ Regression Example
   <span class="va">dt_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  20ms 
+  ## Fit time:  33ms 
   ## n= 5691 
   ## 
   ## node), split, n, deviance, yval
@@ -462,7 +462,7 @@ Classification Example
   <span class="va">dt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  7ms 
+  ## Fit time:  10ms 
   ## n= 781 
   ## 
   ## node), split, n, loss, yval, (yprob)
@@ -526,7 +526,7 @@ Classification Example
   <span class="va">dt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  14ms 
+  ## Fit time:  16ms 
   ## 
   ## Call:
   ## C5.0.default(x = x, y = y, trials = 1, control = C50::C5.0Control(minCases =
@@ -594,7 +594,7 @@ Regression Example
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  3ms 
+  ## Fit time:  4ms 
   ## 
   ## Call:
   ## stats::lm(formula = ridership ~ ., data = data)
@@ -649,7 +649,7 @@ Regression Example
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  11ms 
+  ## Fit time:  16ms 
   ## 
   ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "gaussian") 
   ## 
@@ -756,7 +756,7 @@ Regression Example
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  16.2s 
+  ## Fit time:  18.7s 
   ## Model
   ## Model: "sequential"
   ## ________________________________________________________________________________
@@ -776,13 +776,13 @@ Regression Example
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
   ##   &lt;dbl&gt;
-  ## 1 20.4 
-  ## 2 20.6 
-  ## 3 20.9 
-  ## 4 20.6 
-  ## 5 18.9 
-  ## 6  7.44
-  ## 7  7.08</code></pre>
+  ## 1 20.5 
+  ## 2 20.7 
+  ## 3 21.0 
+  ## 4 20.7 
+  ## 5 19.0 
+  ## 6  7.47
+  ## 7  7.11</code></pre>
 </details><details id="linear-reg-stan"><p><summary>With the <code>"stan"</code> engine</summary></p>
 <h3>
 Regression Example
@@ -814,7 +814,7 @@ Regression Example
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  3.2s 
+  ## Fit time:  3.4s 
   ## stan_glm
   ##  family:       gaussian [identity]
   ##  formula:      ridership ~ .
@@ -1060,7 +1060,7 @@ Classification Example
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  977ms 
+  ## Fit time:  1.1s 
   ## Model
   ## Model: "sequential_1"
   ## ________________________________________________________________________________
@@ -1080,25 +1080,39 @@ Classification Example
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
+<pre><code>  ## Warning in keras::predict_classes(object = object$fit, x = as.matrix(new_data)): `predict_classes()` is deprecated and and was removed from tensorflow in version 2.6.
+  ## Please update your code:
+  ##   * If your model does multi-class classification:
+  ##     (e.g. if it uses a `softmax` last-layer activation).
+  ## 
+  ##       model %&gt;% predict(x) %&gt;% k_argmax()
+  ## 
+  ##   * if your model does binary classification
+  ##     (e.g. if it uses a `sigmoid` last-layer activation).
+  ## 
+  ##       model %&gt;% predict(x) %&gt;% `&gt;`(0.5) %&gt;% k_cast("int32")</code></pre>
+<pre><code>  ## Warning in keras::predict_proba(object = object$fit, x = as.matrix(new_data)):
+  ## `predict_proba()` is deprecated and was removed from tensorflow in version 2.6,
+  ## please use `predict()` instead</code></pre>
 <pre><code>  ## # A tibble: 10 × 3
   ##    .pred_class .pred_Class1 .pred_Class2
   ##    &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-  ##  1 Class1             0.550        0.450
-  ##  2 Class1             0.598        0.402
-  ##  3 Class2             0.497        0.503
-  ##  4 Class1             0.769        0.231
-  ##  5 Class1             0.678        0.322
-  ##  6 Class1             0.717        0.283
-  ##  7 Class1             0.643        0.357
-  ##  8 Class1             0.540        0.460
-  ##  9 Class1             0.786        0.214
-  ## 10 Class1             0.760        0.240</code></pre>
+  ##  1 Class1             0.552        0.448
+  ##  2 Class1             0.600        0.400
+  ##  3 Class2             0.499        0.501
+  ##  4 Class1             0.771        0.229
+  ##  5 Class1             0.680        0.320
+  ##  6 Class1             0.719        0.281
+  ##  7 Class1             0.645        0.355
+  ##  8 Class1             0.541        0.459
+  ##  9 Class1             0.788        0.212
+  ## 10 Class1             0.762        0.238</code></pre>
 </details><details id="logistic-reg-LiblineaR"><p><summary>With the <code>"LiblineaR"</code> engine</summary></p>
 <h3>
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1106,7 +1120,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">logreg_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"LiblineaR"</span><span class="op">)</span>
@@ -1118,7 +1132,7 @@ Classification Example
   ## 
   ## Computational engine: LiblineaR</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">logreg_cls_fit</span> <span class="op">&lt;-</span> <span class="va">logreg_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">logreg_cls_fit</span></code></pre></div>
@@ -1148,7 +1162,7 @@ Classification Example
   ## attr(,"class")
   ## [1] "LiblineaR"</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1171,7 +1185,7 @@ Classification Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1179,7 +1193,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">logreg_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan"</span><span class="op">)</span>
@@ -1188,13 +1202,13 @@ Classification Example
   ## 
   ## Computational engine: stan</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">logreg_cls_fit</span> <span class="op">&lt;-</span> <span class="va">logreg_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  2.8s 
+  ## Fit time:  3.1s 
   ## stan_glm
   ##  family:       binomial [logit]
   ##  formula:      Class ~ .
@@ -1210,7 +1224,7 @@ Classification Example
   ## * For help interpreting the printed output see ?print.stanreg
   ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1238,7 +1252,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -1249,7 +1263,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mars_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mars.html">mars</a></span><span class="op">(</span>prod_degree <span class="op">=</span> <span class="fl">1</span>, prune_method <span class="op">=</span> <span class="st">"backward"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1264,7 +1278,7 @@ Regression Example
   ## 
   ## Computational engine: earth</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mars_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mars_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">mars_reg_fit</span></code></pre></div>
@@ -1277,7 +1291,7 @@ Regression Example
   ## Number of terms at each degree of interaction: 1 4 (additive model)
   ## GCV 9.085818    RSS 51543.98    GRSq 0.7889881    RSq 0.789581</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mars_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -1293,7 +1307,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1301,7 +1315,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mars_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mars.html">mars</a></span><span class="op">(</span>prod_degree <span class="op">=</span> <span class="fl">1</span>, prune_method <span class="op">=</span> <span class="st">"backward"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1316,7 +1330,7 @@ Classification Example
   ## 
   ## Computational engine: earth</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mars_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mars_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">mars_cls_fit</span></code></pre></div>
@@ -1333,7 +1347,7 @@ Classification Example
   ## Number of terms at each degree of interaction: 1 5 (additive model)
   ## Earth GCV 0.1334948    RSS 101.3432    GRSq 0.461003    RSq 0.4747349</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mars_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mars_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1361,7 +1375,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -1372,7 +1386,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mlp_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1387,19 +1401,19 @@ Regression Example
   ## 
   ## Computational engine: nnet</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  171ms 
+  ## Fit time:  180ms 
   ## a 2-5-1 network with 21 weights
   ## inputs: Clark_Lake Quincy_Wells 
   ## output(s): ridership 
   ## options were - linear output units</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -1415,7 +1429,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1423,7 +1437,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mlp_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1438,19 +1452,19 @@ Classification Example
   ## 
   ## Computational engine: nnet</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  34ms 
+  ## Fit time:  35ms 
   ## a 2-5-1 network with 21 weights
   ## inputs: A B 
   ## output(s): Class 
   ## options were - entropy fitting</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1473,7 +1487,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -1484,7 +1498,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mlp_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1499,13 +1513,13 @@ Regression Example
   ## 
   ## Computational engine: keras</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  3.9s 
+  ## Fit time:  4.3s 
   ## Model
   ## Model: "sequential_2"
   ## ________________________________________________________________________________
@@ -1520,7 +1534,7 @@ Regression Example
   ## Non-trainable params: 0
   ## ________________________________________________________________________________</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -1530,13 +1544,13 @@ Regression Example
   ## 3  7.05
   ## 4  7.05
   ## 5  7.05
-  ## 6  6.52
-  ## 7  6.29</code></pre>
+  ## 6  6.46
+  ## 7  6.22</code></pre>
 <h3>
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1544,7 +1558,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">mlp_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1559,13 +1573,13 @@ Classification Example
   ## 
   ## Computational engine: keras</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  1s 
+  ## Fit time:  1.1s 
   ## Model
   ## Model: "sequential_3"
   ## ________________________________________________________________________________
@@ -1580,24 +1594,38 @@ Classification Example
   ## Non-trainable params: 0
   ## ________________________________________________________________________________</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
+<pre><code>  ## Warning in keras::predict_classes(object = object$fit, x = as.matrix(new_data)): `predict_classes()` is deprecated and and was removed from tensorflow in version 2.6.
+  ## Please update your code:
+  ##   * If your model does multi-class classification:
+  ##     (e.g. if it uses a `softmax` last-layer activation).
+  ## 
+  ##       model %&gt;% predict(x) %&gt;% k_argmax()
+  ## 
+  ##   * if your model does binary classification
+  ##     (e.g. if it uses a `sigmoid` last-layer activation).
+  ## 
+  ##       model %&gt;% predict(x) %&gt;% `&gt;`(0.5) %&gt;% k_cast("int32")</code></pre>
+<pre><code>  ## Warning in keras::predict_proba(object = object$fit, x = as.matrix(new_data)):
+  ## `predict_proba()` is deprecated and was removed from tensorflow in version 2.6,
+  ## please use `predict()` instead</code></pre>
 <pre><code>  ## # A tibble: 10 × 3
   ##    .pred_class .pred_Class1 .pred_Class2
   ##    &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-  ##  1 Class1             0.526        0.474
-  ##  2 Class1             0.611        0.389
-  ##  3 Class1             0.573        0.427
-  ##  4 Class2             0.449        0.551
-  ##  5 Class2             0.462        0.538
-  ##  6 Class2             0.411        0.589
-  ##  7 Class1             0.524        0.476
-  ##  8 Class1             0.539        0.461
-  ##  9 Class1             0.661        0.339
-  ## 10 Class2             0.380        0.620</code></pre>
+  ##  1 Class1             0.528        0.472
+  ##  2 Class1             0.614        0.386
+  ##  3 Class1             0.575        0.425
+  ##  4 Class2             0.452        0.548
+  ##  5 Class2             0.464        0.536
+  ##  6 Class2             0.413        0.587
+  ##  7 Class1             0.527        0.473
+  ##  8 Class1             0.542        0.458
+  ##  9 Class1             0.664        0.336
+  ## 10 Class2             0.382        0.618</code></pre>
 </details>
 </div>
 <div id="multinom_reg-models" class="section level2">
@@ -1608,7 +1636,7 @@ Classification Example
 Classification Example
 </h3>
 <p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
@@ -1617,7 +1645,7 @@ Classification Example
 <span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span>
@@ -1629,13 +1657,13 @@ Classification Example
 ## 
 ## Computational engine: glmnet</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  12ms 
+## Fit time:  11ms 
 ## 
 ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "multinomial") 
 ## 
@@ -1701,7 +1729,7 @@ Classification Example
 ## 59  2 29.75 0.00144
 ## 60  2 29.75 0.00131</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1719,7 +1747,7 @@ Classification Example
 Classification Example
 </h3>
 <p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
@@ -1728,7 +1756,7 @@ Classification Example
 <span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"keras"</span><span class="op">)</span>
@@ -1740,13 +1768,13 @@ Classification Example
 ## 
 ## Computational engine: keras</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  788ms 
+## Fit time:  826ms 
 ## Model
 ## Model: "sequential_4"
 ## ________________________________________________________________________________
@@ -1761,25 +1789,39 @@ Classification Example
 ## Non-trainable params: 0
 ## ________________________________________________________________________________</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+<pre><code>## Warning in keras::predict_classes(object = object$fit, x = as.matrix(new_data)): `predict_classes()` is deprecated and and was removed from tensorflow in version 2.6.
+## Please update your code:
+##   * If your model does multi-class classification:
+##     (e.g. if it uses a `softmax` last-layer activation).
+## 
+##       model %&gt;% predict(x) %&gt;% k_argmax()
+## 
+##   * if your model does binary classification
+##     (e.g. if it uses a `sigmoid` last-layer activation).
+## 
+##       model %&gt;% predict(x) %&gt;% `&gt;`(0.5) %&gt;% k_cast("int32")</code></pre>
+<pre><code>## Warning in keras::predict_proba(object = object$fit, x = as.matrix(new_data)):
+## `predict_proba()` is deprecated and was removed from tensorflow in version 2.6,
+## please use `predict()` instead</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen
 ##   &lt;fct&gt;              &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
-## 1 Biscoe             0.654    5.61e-23           0.346
-## 2 Biscoe             0.684    5.78e-28           0.316
-## 3 Biscoe             0.660    5.23e-24           0.340
-## 4 Biscoe             0.685    4.04e-28           0.315
-## 5 Biscoe             0.658    9.74e-24           0.342</code></pre>
+## 1 Biscoe             0.661    5.72e-23           0.339
+## 2 Biscoe             0.693    5.90e-28           0.307
+## 3 Biscoe             0.668    5.33e-24           0.332
+## 4 Biscoe             0.694    4.13e-28           0.306
+## 5 Biscoe             0.666    9.94e-24           0.334</code></pre>
 </details><details id="multinom-reg-nnet"><p><summary>With the <code>"nnet"</code> engine</summary></p>
 <h3>
 Classification Example
 </h3>
 <p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
@@ -1788,7 +1830,7 @@ Classification Example
 <span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnet"</span><span class="op">)</span>
@@ -1800,7 +1842,7 @@ Classification Example
 ## 
 ## Computational engine: nnet</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span>
 <span class="va">mr_cls_fit</span></code></pre></div>
@@ -1819,7 +1861,7 @@ Classification Example
 ## Residual Deviance: 502.5009 
 ## AIC: 514.5009</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1842,7 +1884,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -1853,7 +1895,7 @@ Regression Example
 <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">knn_reg_spec</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="../../reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">5</span>, weight_func <span class="op">=</span> <span class="st">"triangular"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1868,12 +1910,12 @@ Regression Example
 ## 
 ## Computational engine: kknn</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">knn_reg_fit</span> <span class="op">&lt;-</span> <span class="va">knn_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
 <span class="va">knn_reg_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  175ms 
+## Fit time:  201ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
@@ -1884,7 +1926,7 @@ Regression Example
 ## Best kernel: triangular
 ## Best k: 5</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">knn_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 1
 ##   .pred
@@ -1900,7 +1942,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -1908,7 +1950,7 @@ Classification Example
 <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>Since there are two classes, we’ll use an odd number of neighbors to avoid ties:</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">knn_cls_spec</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="../../reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">11</span>, weight_func <span class="op">=</span> <span class="st">"triangular"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1923,12 +1965,12 @@ Classification Example
 ## 
 ## Computational engine: kknn</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">knn_cls_fit</span> <span class="op">&lt;-</span> <span class="va">knn_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
 <span class="va">knn_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  35ms 
+## Fit time:  44ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")
@@ -1938,7 +1980,7 @@ Classification Example
 ## Best kernel: triangular
 ## Best k: 11</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">knn_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">knn_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -1966,7 +2008,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -1977,7 +2019,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">rf_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -1992,13 +2034,13 @@ Regression Example
   ## 
   ## Computational engine: ranger</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">rf_reg_fit</span> <span class="op">&lt;-</span> <span class="va">rf_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">rf_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  1.4s 
+  ## Fit time:  1.2s 
   ## Ranger result
   ## 
   ## Call:
@@ -2015,7 +2057,7 @@ Regression Example
   ## OOB prediction error (MSE):       9.695881 
   ## R squared (OOB):                  0.7747802</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -2031,7 +2073,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2039,7 +2081,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">rf_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2054,7 +2096,7 @@ Classification Example
   ## 
   ## Computational engine: ranger</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">rf_cls_fit</span> <span class="op">&lt;-</span> <span class="va">rf_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">rf_cls_fit</span></code></pre></div>
@@ -2076,7 +2118,7 @@ Classification Example
   ## Splitrule:                        gini 
   ## OOB prediction error (Brier s.):  0.1523359</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -2099,7 +2141,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -2110,7 +2152,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">rf_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2125,13 +2167,13 @@ Regression Example
   ## 
   ## Computational engine: randomForest</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">rf_reg_fit</span> <span class="op">&lt;-</span> <span class="va">rf_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">rf_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  4.8s 
+  ## Fit time:  5.1s 
   ## 
   ## Call:
   ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -2142,7 +2184,7 @@ Regression Example
   ##           Mean of squared residuals: 9.696736
   ##                     % Var explained: 77.47</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -2158,7 +2200,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2166,7 +2208,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">rf_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2181,13 +2223,13 @@ Classification Example
   ## 
   ## Computational engine: randomForest</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">rf_cls_fit</span> <span class="op">&lt;-</span> <span class="va">rf_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">rf_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  64ms 
+  ## Fit time:  65ms 
   ## 
   ## Call:
   ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -2201,7 +2243,7 @@ Classification Example
   ## Class1    363     70   0.1616628
   ## Class2     84    264   0.2413793</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -2229,7 +2271,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -2240,7 +2282,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2255,13 +2297,13 @@ Regression Example
   ## 
   ## Computational engine: LiblineaR</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
   <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  2ms 
+  ## Fit time:  1ms 
   ## $TypeDetail
   ## [1] "L2-regularized L2-loss support vector regression primal (L2R_L2LOSS_SVR)"
   ## 
@@ -2281,7 +2323,7 @@ Regression Example
   ## attr(,"class")
   ## [1] "LiblineaR"</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -2297,7 +2339,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2305,7 +2347,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2319,13 +2361,13 @@ Classification Example
   ## 
   ## Computational engine: LiblineaR</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
   <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  558ms 
+  ## Fit time:  553ms 
   ## $TypeDetail
   ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
   ## 
@@ -2349,7 +2391,7 @@ Classification Example
   ## attr(,"class")
   ## [1] "LiblineaR"</code></pre>
 <p>The holdout data can be predicted for hard class predictions.</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 10 × 1
   ##    .pred_class
@@ -2369,7 +2411,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -2380,7 +2422,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2395,15 +2437,15 @@ Regression Example
   ## 
   ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></code></pre></div>
 <pre><code>  ##  Setting default kernel parameters</code></pre>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  612ms 
+  ## Fit time:  622ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: eps-svr  (regression) 
@@ -2416,7 +2458,7 @@ Regression Example
   ## Objective Function Value : -825.1632 
   ## Training error : 0.226456</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -2432,7 +2474,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2440,7 +2482,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2454,15 +2496,15 @@ Classification Example
   ## 
   ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
 <pre><code>  ##  Setting default kernel parameters</code></pre>
-<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  769ms 
+  ## Fit time:  827ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: C-svc  (classification) 
@@ -2476,7 +2518,7 @@ Classification Example
   ## Training error : 0.174136 
   ## Probability model included.</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -2504,7 +2546,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -2515,7 +2557,7 @@ Regression Example
   <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_poly.html">svm_poly</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2530,15 +2572,15 @@ Regression Example
   ## 
   ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></code></pre></div>
 <pre><code>  ##  Setting default kernel parameters</code></pre>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  904ms 
+  ## Fit time:  943ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: eps-svr  (regression) 
@@ -2552,7 +2594,7 @@ Regression Example
   ## Objective Function Value : -825.1628 
   ## Training error : 0.226471</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
@@ -2568,7 +2610,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
   <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2576,7 +2618,7 @@ Classification Example
   <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
   <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> 
     <span class="fu"><a href="../../reference/svm_poly.html">svm_poly</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2590,15 +2632,15 @@ Classification Example
   ## 
   ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
 <pre><code>  ##  Setting default kernel parameters</code></pre>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  52ms 
+  ## Fit time:  51ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: C-svc  (classification) 
@@ -2613,7 +2655,7 @@ Classification Example
   ## Training error : 0.174136 
   ## Probability model included.</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
@@ -2641,7 +2683,7 @@ Classification Example
 Regression Example
 </h3>
 <p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -2652,7 +2694,7 @@ Regression Example
 <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/svm_rbf.html">svm_rbf</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2667,13 +2709,13 @@ Regression Example
 ## 
 ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span>
 <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  1.3s 
+## Fit time:  1.4s 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -2687,7 +2729,7 @@ Regression Example
 ## Objective Function Value : -746.584 
 ## Training error : 0.205567</code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 1
 ##   .pred
@@ -2703,7 +2745,7 @@ Regression Example
 Classification Example
 </h3>
 <p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span>
@@ -2711,7 +2753,7 @@ Classification Example
 <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../../reference/svm_rbf.html">svm_rbf</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="co"># This model can be used for classification or regression, so set mode</span>
@@ -2725,13 +2767,13 @@ Classification Example
 ## 
 ## Computational engine: kernlab</code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span>
 <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  68ms 
+## Fit time:  72ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 
@@ -2746,7 +2788,7 @@ Classification Example
 ## Training error : 0.169014 
 ## Probability model included.</code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span>
