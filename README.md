@@ -11,7 +11,7 @@ status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)]
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 ## Introduction
@@ -140,7 +140,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  43ms 
+#> Fit time:  316ms 
 #> Ranger result
 #> 
 #> Call:
@@ -154,8 +154,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.976917 
-#> R squared (OOB):                  0.8354559
+#> OOB prediction error (MSE):       5.725636 
+#> R squared (OOB):                  0.8423737
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
