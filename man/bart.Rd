@@ -6,7 +6,7 @@
 \usage{
 bart(
   mode = "unknown",
-  engine = "bartMachine",
+  engine = "dbarts",
   trees = NULL,
   prior_terminal_node_coef = NULL,
   prior_terminal_node_expo = NULL,
@@ -66,25 +66,24 @@ with the data.
 \examples{
 show_engines("bart")
 
-bart(mode = "regression", num_terms = 5)
+bart(mode = "regression", trees = 5)
 
 # ------------------------------------------------------------------------------
 # Examples for terminal node prior
 
-prior_test <- function(a = 0.95, b = 2, depths = 0:10) {
-  tidyr::crossing(a = a, b = b, depth = depths)  \%>\%
+prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
+  tidyr::crossing(coef = coef, expo = expo, depth = depths)  \%>\%
     mutate(
-      `terminial node prior` =  a * (1 + depth)^(-b),
-      a = format(a),
-      b = format(b))
+      `terminial node prior` =  coef * (1 + depth)^(-expo),
+      coef= format(coef),
+      expo = format(expo))
 }
 
-prior_test(a = c(0.05, 0.5, .95), b = 1:2) \%>\%
-  ggplot(aes(depth, `terminial node prior`, col = a)) +
+prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) \%>\%
+  ggplot(aes(depth, `terminial node prior`, col = coef)) +
   geom_line() +
   geom_point() +
-  facet_wrap(~ b) +
-  scale_y_continuous(trans = "log")
+  facet_wrap(~ expo)
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}

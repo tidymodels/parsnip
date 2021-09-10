@@ -41,25 +41,24 @@
 #' @examples
 #' show_engines("bart")
 #'
-#' bart(mode = "regression", num_terms = 5)
+#' bart(mode = "regression", trees = 5)
 #'
 #' # ------------------------------------------------------------------------------
 #' # Examples for terminal node prior
 #'
-#' prior_test <- function(a = 0.95, b = 2, depths = 0:10) {
-#'   tidyr::crossing(a = a, b = b, depth = depths)  %>%
+#' prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
+#'   tidyr::crossing(coef = coef, expo = expo, depth = depths)  %>%
 #'     mutate(
-#'       `terminial node prior` =  a * (1 + depth)^(-b),
-#'       a = format(a),
-#'       b = format(b))
+#'       `terminial node prior` =  coef * (1 + depth)^(-expo),
+#'       coef= format(coef),
+#'       expo = format(expo))
 #' }
 #'
-#' prior_test(a = c(0.05, 0.5, .95), b = 1:2) %>%
-#'   ggplot(aes(depth, `terminial node prior`, col = a)) +
+#' prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) %>%
+#'   ggplot(aes(depth, `terminial node prior`, col = coef)) +
 #'   geom_line() +
 #'   geom_point() +
-#'   facet_wrap(~ b) +
-#'   scale_y_continuous(trans = "log")
+#'   facet_wrap(~ expo)
 
 #' @export
 bart <-
@@ -247,4 +246,72 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
   }
   res
 }
+
+# ------------------------------------------------------------------------------
+
+#' Temporary dials parameters for bart models
+#
+#' These parameters are used for constructing Bayesian adaptive regression tree
+#' (BART) models.
+#'
+#' @param range A two-element vector holding the _defaults_ for the smallest and
+#' largest possible values, respectively.
+#'
+#' @param trans A `trans` object from the `scales` package, such as
+#' `scales::log10_trans()` or `scales::reciprocal_trans()`. If not provided,
+#' the default is used which matches the units used in `range`. If no
+#' transformation, `NULL`.
+#'
+#' @details
+#' These parameters is often used with Bayesian adaptive regression trees (BART)
+#' @return A function with classes "quant_param" and "param"
+#' @details
+#' Used in `parsnip::bart()`.
+#' @examples
+#' adjust_deg_free()
+#' @name bart-param
+#' @export
+prior_terminal_node_coef <- function(range = c(0, 1), trans = NULL) {
+  dials::new_quant_param(
+    type = "double",
+    range = range,
+    inclusive = c(FALSE, TRUE),
+    trans = trans,
+    default = 0.95,
+    label = c(prior_terminal_node_coef = "Terminal Node Prior Coefficient"),
+    finalize = NULL
+  )
+}
+
+#' @rdname bart-param
+#' @export
+prior_terminal_node_expo <- function(range = c(0, 5), trans = NULL) {
+  dials::new_quant_param(
+    type = "double",
+    range = range,
+    inclusive = c(TRUE, TRUE),
+    trans = trans,
+    default = 2.0,
+    label = c(prior_terminal_node_expo = "Terminal Node Prior Exponent"),
+    finalize = NULL
+  )
+}
+
+#' @rdname bart-param
+#' @export
+prior_outcome_range <- function(range = c(0, 5), trans = NULL) {
+  dials::new_quant_param(
+    type = "double",
+    range = range,
+    inclusive = c(FALSE, TRUE),
+    trans = trans,
+    default = 2.0,
+    label = c(prior_outcome_range = "Prior for Outcome Range"),
+    finalize = NULL
+  )
+}
+
+
+
+
 

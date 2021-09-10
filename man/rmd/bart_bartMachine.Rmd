@@ -1,0 +1,90 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("bart", "bartMachine")`
+
+## Tuning Parameters
+
+```{r bart-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("trees", "prior_terminal_node_coef",
+                             "prior_terminal_node_expo", "prior_outcome_range"),
+                 default = c("50L", "0.95", "2.00", "2.00")
+  )
+
+param <-
+ bart() %>% 
+  set_engine("bartMachine") %>% 
+  set_mode("regression") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r bart-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Important engine-specific options
+
+Some relevant arguments that can be passed to `set_engine()`: 
+
+
+## Translation from parsnip to the original package (classification)
+
+```{r bart-cls}
+bart(
+  trees = integer(1),
+  prior_terminal_node_coef = double(1),
+  prior_terminal_node_expo = double(1),
+  prior_outcome_range = double(1)
+) %>% 
+  set_engine("bartMachine") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Translation from parsnip to the original package (regression)
+
+```{r bart-reg}
+bart(
+  trees = integer(1),
+  prior_terminal_node_coef = double(1),
+  prior_terminal_node_expo = double(1),
+  prior_outcome_range = double(1)
+) %>% 
+  set_engine("bartMachine") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## Other details
+
+For prediction, the `"bartMachine"` engine can compute posterior intervals analogous to confidence and prediction intervals. In these instances, the units are the original outcome and when `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as appropriate) is returned.
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#bart-bartMachine) for `bart()` with the `"bartMachine"` engine.
+
+## References
+
+ - Chipman, George, McCulloch. "BART: Bayesian additive regression trees." _Ann. Appl. Stat._ 4 (1) 266 - 298, March 2010.
+
+ - Bleich (2016). "bartMachine: Machine Learning with Bayesian Additive Regression Trees." _Journal of Statistical Software_, 70(4), 1-40. doi: 10.18637/jss.v070.i04.
