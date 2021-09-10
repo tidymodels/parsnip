@@ -63,7 +63,7 @@
 
 #' @export
 bart <-
-  function(mode = "unknown", engine = "bartMachine",
+  function(mode = "unknown", engine = "dbarts",
            trees = NULL, prior_terminal_node_coef = NULL,
            prior_terminal_node_expo = NULL,
            prior_outcome_range = NULL) {
@@ -152,10 +152,11 @@ update.bart <-
 
 #' @export
 #' @keywords internal
-bart_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
+bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
   if (obj$spec$mode == "classification") {
     rlang::abort("In bartMachine: Prediction intervals are not possible for classification")
   }
+  get_std_err <- obj$spec$method$pred$pred_int$extras$std_error
 
   if (ci) {
     cl <-
@@ -179,9 +180,71 @@ bart_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
   }
   res <- rlang::eval_tidy(cl)
   if (!ci) {
+    if (get_std_err) {
+      .std_error <- apply(res$all_prediction_samples, 1, sd, na.rm = TRUE)
+    }
     res <- res$interval
   }
   res <- tibble::as_tibble(res)
   names(res) <- c(".pred_lower", ".pred_upper")
+  if (!ci & get_std_err) {
+    res$.std_err <- .std_error
+  }
   res
 }
+
+#' @export
+#' @keywords internal
+dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALSE) {
+  types <- c("numeric", "class", "prob", "conf_int", "pred_int")
+  mod_mode <- obj$spec$mode
+  lo <- (1 - level)/2
+  hi <-  1 - lo
+
+  if (type == "conf_int") {
+    post_dist <- predict(obj$fit, new_data, type = "ev")
+  } else {
+    post_dist <- predict(obj$fit, new_data, type = "ppd")
+  }
+
+  if (type == "numeric") {
+    res <- tibble::tibble(.pred = apply(post_dist, 2, mean, na.rm = TRUE))
+  } else if (type == "class") {
+    mn <- apply(post_dist, 2, mean, na.rm = TRUE)
+    lvl <- ifelse(mn > 0.5, obj$lvl[1], obj$lvl[2])
+    lvl <- factor(lvl, levels = obj$lvl)
+    res <- tibble::tibble(.pred_class = lvl)
+  } else if (type == "prob") {
+    mn <- apply(post_dist, 2, mean, na.rm = TRUE)
+    res <-
+      tibble::tibble(a = 1 - mn, b = mn) %>%
+      setNames(paste0(".pred_", obj$lv))
+  } else if (type %in% c("conf_int", "pred_int")) {
+    if (mod_mode == "regression") {
+      res <-
+        tibble::tibble(
+          .pred_lower = apply(post_dist, 2, quantile, probs = lo, na.rm = TRUE),
+          .pred_upper = apply(post_dist, 2, quantile, probs = hi, na.rm = TRUE)
+        )
+    } else {
+      bnds <- apply(post_dist, 2, quantile, probs = c(lo, hi), na.rm = TRUE)
+      bnds <- apply(bnds, 1, function(x) sort(x))
+
+      res <-
+        tibble::tibble(
+          .pred_lower_a = 1 - bnds[,2],
+          .pred_lower_b =     bnds[,1],
+          .pred_upper_a = 1 - bnds[,1],
+          .pred_upper_b =     bnds[,2]
+        ) %>%
+        set_names(
+          c(
+            paste0(".pred_lower_", obj$lvl),
+            paste0(".pred_upper_", obj$lvl)
+          )
+        )
+    }
+  }
+  res
+}
+
