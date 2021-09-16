@@ -11,7 +11,7 @@
   formula,
   data,
   ...,
-  na.action = na.omit,
+  na.action = na.pass,
   indicators = "traditional",
   composition = "data.frame",
   remove_intercept = TRUE
