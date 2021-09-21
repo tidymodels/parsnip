@@ -27,7 +27,7 @@ below)
 default. For classification, a value of 10 is used.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
@@ -55,7 +55,7 @@ default. For classification, a value of 10 is used.
 chosen value if it is not consistent with the actual data dimensions.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)

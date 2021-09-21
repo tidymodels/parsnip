@@ -24,7 +24,7 @@ This engine fits models that are L2-regularized for L2-loss. In the
 are types 1 (classification) and 11 (regression).
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
 ) \%>\%  
@@ -45,7 +45,7 @@ are types 1 (classification) and 11 (regression).
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
 ) \%>\% 
   set_engine("LiblineaR") \%>\% 

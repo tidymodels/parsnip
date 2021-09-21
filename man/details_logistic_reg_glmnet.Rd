@@ -27,7 +27,7 @@ value. For more details about this, and the \code{glmnet} model in general,
 see \link{glmnet-details}.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("glmnet") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)

@@ -19,7 +19,7 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -37,7 +37,7 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -58,14 +58,14 @@ This model has 2 tuning parameters:
 \subsection{Model fitting}{
 
 This model should be used with a model formula so that smooth terms can
-be specified. For example:\if{html}{\out{<div class="r">}}\preformatted{library(mgcv)
+be specified. For example:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(mgcv)
 gen_additive_mod() \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("regression") \%>\% 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  20ms 
+## Fit time:  19ms 
 ## 
 ## Family: gaussian 
 ## Link function: identity 

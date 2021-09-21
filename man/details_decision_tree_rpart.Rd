@@ -20,7 +20,7 @@ This model has 3 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -40,7 +40,7 @@ This model has 3 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("regression") \%>\% 
   translate()

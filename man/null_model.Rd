@@ -25,7 +25,7 @@ following \emph{engines}:
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:
-\subsection{parsnip}{\if{html}{\out{<div class="r">}}\preformatted{null_model() \%>\% 
+\subsection{parsnip}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
   set_engine("parsnip") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -35,7 +35,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## nullmodel(x = missing_arg(), y = missing_arg())
-}\if{html}{\out{<div class="r">}}\preformatted{null_model() \%>\% 
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
   set_engine("parsnip") \%>\% 
   set_mode("classification") \%>\% 
   translate()

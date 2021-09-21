@@ -32,7 +32,7 @@ number of predictors is used and for regression, one third of the
 predictors are sampled.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
 ) \%>\%
@@ -61,7 +61,7 @@ predictors are sampled.
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
 ) \%>\% 
