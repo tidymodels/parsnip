@@ -285,7 +285,7 @@ prior_terminal_node_coef <- function(range = c(0, 1), trans = NULL) {
 
 #' @rdname bart-param
 #' @export
-prior_terminal_node_expo <- function(range = c(0, 5), trans = NULL) {
+prior_terminal_node_expo <- function(range = c(0, 3), trans = NULL) {
   dials::new_quant_param(
     type = "double",
     range = range,
