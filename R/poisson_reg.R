@@ -8,7 +8,10 @@
 #' There are different ways to fit this model. See the engine-specific pages
 #' for more details:
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg", "poissonreg")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
+#'
+#' The \pkg{poissonreg} package contains most engines for this model. To see
+#' these engines, install and load \pkg{poissonreg}, then run `?poisson_reg`.
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -27,7 +30,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg", "poissonreg")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
 #' @export
 #' @importFrom purrr map_lgl
 poisson_reg <-

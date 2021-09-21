@@ -57,7 +57,10 @@ a Poisson distribution.
 There are different ways to fit this model. See the engine-specific pages
 for more details:
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg", "poissonreg")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
+
+The \pkg{poissonreg} package contains most engines for this model. To see
+these engines, install and load \pkg{poissonreg}, then run \code{?poisson_reg}.
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -79,5 +82,5 @@ update(model, penalty = 1, fresh = TRUE)
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg", "poissonreg")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
 }
