@@ -29,6 +29,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="boost-tree-xgboost"> 
   
   <summary>With the `"xgboost"` engine</summary>
+  
+  <h3>Regression Example (`xgboost`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -59,6 +61,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(bt_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`xgboost`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -99,6 +103,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"C5.0"` engine</summary>
 
+  <h3>Classification Example (`C5.0`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
   ```
@@ -138,6 +144,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="decision-tree-rpart"> 
   
   <summary>With the `"rpart"` engine</summary>
+  
+  <h3>Regression Example (`rpart`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -168,6 +176,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(dt_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`rpart`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -207,6 +217,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="decision-tree-C5.0"> 
   
   <summary>With the `"C5.0"` engine</summary>
+  
+  <h3>Classification Example (`C5.0`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -246,6 +258,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="linear-reg-lm"> 
   
   <summary>With the `"lm"` engine</summary>
+  
+  <h3>Regression Example (`lm`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -281,6 +295,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"glmnet"` engine</summary>
 
+  <h3>Regression Example (`glmnet`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -314,6 +330,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="linear-reg-keras"> 
   
   <summary>With the `"keras"` engine</summary>
+  
+  <h3>Regression Example (`keras`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -348,6 +366,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="linear-reg-stan"> 
   
   <summary>With the `"stan"` engine</summary>
+  
+  <h3>Regression Example (`stan`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
@@ -384,6 +404,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="logistic-reg-glm"> 
   
   <summary>With the `"glm"` engine</summary>
+  
+  <h3>Classification Example (`glm`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -422,6 +444,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"glmnet"` engine</summary>
 
+  <h3>Classification Example (`glmnet`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
   ```
@@ -458,6 +482,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="logistic-reg-keras"> 
   
   <summary>With the `"keras"` engine</summary>
+
+  <h3>Classification Example (`keras`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -496,6 +522,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"LiblineaR"` engine</summary>
 
+  <h3>Classification Example (`LiblineaR`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
   ```
@@ -532,6 +560,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="logistic-reg-stan"> 
   
   <summary>With the `"stan"` engine</summary>
+  
+  <h3>Classification Example (`stan`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -571,6 +601,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"earth"` engine</summary>
 
+  <h3>Regression Example (`earth`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -600,6 +632,7 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(mars_reg_fit, Chicago_test)
   ```
 
+  <h3>Classification Example (`earth`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -642,6 +675,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"nnet"` engine</summary>
 
+  <h3>Regression Example (`nnet`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -671,6 +706,7 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(mlp_reg_fit, Chicago_test)
   ```
 
+  <h3>Classification Example (`nnet`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -710,6 +746,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"keras"` engine</summary>
 
+  <h3>Regression Example (`keras`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -739,6 +777,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(mlp_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`keras`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -781,6 +821,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   <summary>With the `"glmnet"` engine</summary>
 
+  <h3>Classification Example (`glmnet`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
   ```
@@ -818,6 +860,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   <summary>With the `"keras"` engine</summary>
 
+  <h3>Classification Example (`keras`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
   ```
@@ -854,6 +898,8 @@ The following examples use consistent data sets throughout. For regression, we u
   <details id="multinom-reg-nnet"> 
 
   <summary>With the `"nnet"` engine</summary>
+
+  <h3>Classification Example (`nnet`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-multi-class.R")
@@ -894,6 +940,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   <summary>With the `"kknn"` engine</summary>
 
+  <h3>Regression Example (`kknn`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -922,6 +970,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(knn_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`kknn`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -963,6 +1013,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"ranger"` engine</summary>
 
+  <h3>Regression Example (`ranger`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -992,6 +1044,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(rf_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`ranger`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -1032,6 +1086,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"randomForest"` engine</summary>
 
+  <h3>Regression Example (`randomForest`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -1061,6 +1117,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(rf_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`randomForest`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -1103,6 +1161,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"LiblineaR"` engine</summary>
 
+  <h3>Regression Example (`LiblineaR`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -1132,6 +1192,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(svm_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`LiblineaR`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -1169,6 +1231,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"kernlab"` engine</summary>
 
+  <h3>Regression Example (`kernlab`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -1198,6 +1262,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(svm_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`kernlab`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -1240,6 +1306,8 @@ The following examples use consistent data sets throughout. For regression, we u
   
   <summary>With the `"kernlab"` engine</summary>
 
+  <h3>Regression Example (`kernlab`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -1269,6 +1337,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(svm_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`kernlab`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
@@ -1311,6 +1381,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   <summary>With the `"kernlab"` engine</summary>
 
+  <h3>Regression Example (`kernlab`)</h3>
+
   ```{r echo=FALSE}
   knitr::spin_child("template-reg-chicago.R")
   ```
@@ -1340,6 +1412,8 @@ The following examples use consistent data sets throughout. For regression, we u
   predict(svm_reg_fit, Chicago_test)
   ```
 
+
+  <h3>Classification Example (`kernlab`)</h3>
 
   ```{r echo=FALSE}
   knitr::spin_child("template-cls-two-class.R")
