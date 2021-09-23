@@ -23,6 +23,14 @@ An updated model specification.
 \code{set_engine()} is used to specify which package or system will be used
 to fit the model, along with any arguments specific to that software.
 }
+\section{Engines}{
+
+The following lists the set of engines available to each model
+specification.
+
+\Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
+}
+
 \examples{
 # First, set general arguments using the standardized names
 mod <-
