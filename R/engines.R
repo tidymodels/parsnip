@@ -56,8 +56,8 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #'  to fit the model, along with any arguments specific to that software.
 #'
 #' @section Engines:
-#' The following lists the set of engines available to each model
-#' specification.
+#' Based on the currently loaded packages, the following lists the set of
+#' engines available to each model specification.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
 #'
