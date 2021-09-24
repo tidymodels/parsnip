@@ -31,8 +31,8 @@ low-frequency counts.}
 \code{naive_Bayes()} defines a model uses Bayes' theorem to compute the
 probability of each class, given the predictor values.
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes", "discrim")}
 

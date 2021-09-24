@@ -27,8 +27,8 @@ distribution for the predictors separately for the data in each class
 (usually Gaussian with separate covariance matrices). Bayes' theorem is used
 to compute the probability of each class, given the predictor values.
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_quad", "discrim")}
 

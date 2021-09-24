@@ -42,8 +42,8 @@ function between the hidden and output layers is automatically set to either
 \code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,
 feed-forward neural network).
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 

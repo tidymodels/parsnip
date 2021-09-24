@@ -1136,11 +1136,18 @@ find_engine_files <- function(mod, pkg = "parsnip") {
 make_engine_list <- function(mod, pkg = "parsnip") {
   eng <- find_engine_files(mod, pkg)
 
+  if (length(eng) == 0) {
+    return("No engines were found within the currently loaded packages.\n\n")
+  } else {
+    main <- paste("The engine-specific pages for for this model are listed ",
+                  "below and contain the details:\n\n")
+  }
+
   res <-
     glue::glue("  \\item \\code{\\link[|eng$topic|]{|eng$engine|} |eng$default| }",
                .open = "|", .close = "|")
 
-  res <- paste0("\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
+  res <- paste0(main, "\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
   res
 }
 
@@ -1155,16 +1162,19 @@ make_seealso_list <- function(mod, pkg= "parsnip") {
   requireNamespace(pkg, quietly = TRUE)
   eng <- find_engine_files(mod, pkg)
 
+  main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
+            "\\code{\\link[=set_engine]{set_engine()}}",
+            "\\code{\\link[=update]{update()}}")
+
+  if (length(eng) == 0) {
+    return(paste0(main, collapse = ", "))
+  }
+
   res <-
     glue::glue("\\code{\\link[|eng$topic|]{|eng$engine| engine details}}",
                .open = "|", .close = "|")
 
-  if (pkg == "parsnip") {
-    main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
-              "\\code{\\link[=set_engine]{set_engine()}}",
-              "\\code{\\link[=update]{update()}}"
-    )
-  } else {
+  if (pkg != "parsnip") {
     main <- NULL
   }
   paste0(c(main, res), collapse = ", ")

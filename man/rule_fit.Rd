@@ -52,7 +52,8 @@ to use for fitting.}
 \code{rule_fit()} defines a model that derives simple feature rules from a tree
 ensemble and uses them as features to a regularized model.
 
-The engine for this model is:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit", pkg = "rules")}
 

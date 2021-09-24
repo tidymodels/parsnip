@@ -28,8 +28,8 @@ structure of the model can be LDA, QDA, or some amalgam of the two. Bayes'
 theorem is used to compute the probability of each class, given the
 predictor values.
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized", "discrim")}
 

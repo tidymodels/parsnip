@@ -38,8 +38,8 @@ affected by very large model residuals.
 This SVM model uses a nonlinear function, specifically the radial basis function,
 to create the decision boundary or regression line.
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_rbf")}
 

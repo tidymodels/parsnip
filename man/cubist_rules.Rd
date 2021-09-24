@@ -31,7 +31,8 @@ to use for fitting.}
 \code{cubist_rules()} defines a model that derives simple feature rules from a tree
 ensemble and uses creates regression models within each rule.
 
-The engine for this model is:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules", pkg = "rules")}
 

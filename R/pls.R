@@ -4,7 +4,8 @@
 #' `pls()` defines a model that uses a supervised version of principal component
 #' analysis that uses latent variables to model the data.
 #'
-#' The engine for this model is:
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls", pkg = "plsmod")}
 #'

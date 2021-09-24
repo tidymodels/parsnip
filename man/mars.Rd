@@ -32,8 +32,8 @@ final model, including the intercept.}
 some predictors. These features resemble hinge functions and the result is
 a model that is a segmented regression in small dimensions.
 
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
 
