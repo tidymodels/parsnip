@@ -1240,11 +1240,10 @@ get_sorted_unique_engines <- function(x) {
 }
 combine_prefix_with_engines <- function(prefix, engines) {
   if (length(engines) == 0L) {
-    # Retain model spec bullet even with empty engine list
-    return(prefix)
+    engines <- "No engines currently available"
+  } else {
+    engines <- glue::glue_collapse(engines, sep = ", ")
   }
-
-  engines <- glue::glue_collapse(engines, sep = ", ")
 
   glue::glue("{prefix} {engines}")
 }
