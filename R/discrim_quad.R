@@ -7,10 +7,10 @@
 #'  (usually Gaussian with separate covariance matrices). Bayes' theorem is used
 #'  to compute the probability of each class, given the predictor values.
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_quad", "discrim")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_quad")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -26,7 +26,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_quad", "discrim")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_quad")}
 #' @export
 discrim_quad <-
   function(mode = "classification", engine = "MASS", regularization_method = NULL) {
@@ -59,7 +59,7 @@ print.discrim_quad <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @method update discrim_quad
-#' @rdname discrim_update
+#' @rdname parsnip_update
 #' @inheritParams discrim_quad
 #' @export
 update.discrim_quad <-

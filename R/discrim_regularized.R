@@ -8,10 +8,10 @@
 #'  theorem is used to compute the probability of each class, given the
 #'  predictor values.
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized", "discrim")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -44,7 +44,7 @@
 #' Friedman, J (1989). Regularized Discriminant Analysis. _Journal of the
 #' American Statistical Association_, 84, 165-175.
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized", "discrim")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized")}
 #' @export
 discrim_regularized <-
   function(mode = "classification", engine = "klaR",
@@ -81,7 +81,7 @@ print.discrim_regularized <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @method update discrim_regularized
-#' @rdname discrim_update
+#' @rdname parsnip_update
 #' @inheritParams discrim_regularized
 #' @export
 update.discrim_regularized <-

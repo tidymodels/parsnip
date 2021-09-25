@@ -7,7 +7,7 @@
 #' There are different ways to fit this model. The method of estimation is
 #' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls", pkg = "plsmod")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -22,7 +22,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls", "plsmod")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}
 #' @export
 pls <-
   function(mode = "unknown", predictor_prop = NULL, num_comp = NULL) {
@@ -71,7 +71,8 @@ print.pls <- function(x, ...) {
 #' update(model, predictor_prop = 1)
 #' update(model, predictor_prop = 1, fresh = TRUE)
 #' @method update pls
-#' @rdname pls
+#' @inheritParams pls
+#' @rdname parsnip_update
 #' @export
 update.pls <-
   function(object,

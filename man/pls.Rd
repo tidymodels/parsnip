@@ -2,19 +2,9 @@
 % Please edit documentation in R/pls.R
 \name{pls}
 \alias{pls}
-\alias{update.pls}
 \title{Partial least squares (PLS)}
 \usage{
 pls(mode = "unknown", predictor_prop = NULL, num_comp = NULL)
-
-\method{update}{pls}(
-  object,
-  parameters = NULL,
-  predictor_prop = NULL,
-  num_comp = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
@@ -26,18 +16,6 @@ have \emph{non-zero} coefficients for each PLS component (via regularization).
 This value is used for all PLS components for X.}
 
 \item{num_comp}{The number of PLS components to retain.}
-
-\item{object}{A PLS model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
 \code{pls()} defines a model that uses a supervised version of principal component
@@ -46,7 +24,7 @@ analysis that uses latent variables to model the data.
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls", pkg = "plsmod")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -58,15 +36,9 @@ is specified, the \emph{method} to fit the model is also defined.
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
 with the data.
 }
-\examples{
-model <- pls(predictor_prop =  0.1)
-model
-update(model, predictor_prop = 1)
-update(model, predictor_prop = 1, fresh = TRUE)
-}
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls", "plsmod")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}
 }

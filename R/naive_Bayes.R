@@ -5,10 +5,10 @@
 #' `naive_Bayes()` defines a model uses Bayes' theorem to compute the
 #' probability of each class, given the predictor values.
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes", "discrim")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -26,7 +26,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("naive_Bayes", "discrim")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("naive_Bayes")}
 #' @export
 naive_Bayes <-
   function(mode = "classification", engine = "klaR", smoothness = NULL, Laplace = NULL) {
@@ -62,7 +62,7 @@ print.naive_Bayes <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @method update naive_Bayes
-#' @rdname discrim_update
+#' @rdname parsnip_update
 #' @inheritParams naive_Bayes
 #' @export
 update.naive_Bayes <-

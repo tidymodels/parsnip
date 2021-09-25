@@ -7,10 +7,10 @@
 #'  (usually Gaussian with a common covariance matrix). Bayes' theorem is used
 #'  to compute the probability of each class, given the predictor values.
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_linear", "discrim")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_linear")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -28,7 +28,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_linear", "discrim")}
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_linear")}
 #' @export
 discrim_linear <-
   function(mode = "classification", engine = "MASS",
@@ -65,7 +65,7 @@ print.discrim_linear <- function(x, ...) {
 # ------------------------------------------------------------------------------
 
 #' @method update discrim_linear
-#' @rdname discrim_update
+#' @rdname parsnip_update
 #' @inheritParams discrim_linear
 #' @export
 update.discrim_linear <-

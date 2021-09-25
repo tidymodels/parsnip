@@ -53,7 +53,7 @@ mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(
   translate()
 ```
 
-An alternate method for using MARs for categorical outcomes can be found in [discrim::discrim_flexible()].
+An alternate method for using MARs for categorical outcomes can be found in [discrim_flexible()].
 
 
 ## Preprocessing requirements

@@ -7,7 +7,7 @@
 #' There are different ways to fit this model. The method of estimation is
 #' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit", pkg = "rules")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -42,7 +42,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso [xrf::xrf.formula()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit", "rules")}
+#' @seealso [xrf::xrf.formula()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}
 #'
 #' @examples
 #' show_engines("rule_fit")
@@ -107,8 +107,8 @@ print.rule_fit <- function(x, ...) {
 #' update(model, trees = 1)
 #' update(model, trees = 1, fresh = TRUE)
 #' @method update rule_fit
-#' @rdname rules_update
-#' @inheritParams rules_update
+#' @rdname parsnip_update
+#' @inheritParams parsnip_update
 #' @inheritParams rule_fit
 #' @export
 update.rule_fit <-
@@ -157,62 +157,6 @@ update.rule_fit <-
       engine = object$engine
     )
   }
-
-
-#' @rdname multi_predict
-#' @export
-#' @param penalty Non-negative penalty values.
-#' @param ... Not currently used.
-multi_predict._xrf <-
-  function(object, new_data, type = NULL, penalty = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata")) {
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-    }
-    if (is.null(penalty)) {
-      penalty <- object$fit$lambda
-    }
-
-    if (is.null(type)) {
-      fam <- object$fit$family
-      if (fam %in% c("binomial", "multinomial")) {
-        type <- "class"
-      } else {
-        type <- "numeric"
-      }
-    }
-
-    new_data <- prepare_data(object, new_data)
-    # preprocess data
-    if (!is.null(object$spec$method$pred$numeric$pre)) {
-      new_data <- object$spec$method$pred$numeric$pre(new_data, object)
-    }
-
-    res <- xrf_pred(object, new_data, lambda = penalty, type = type, ...)
-    res
-  }
-
-#' @export
-#' @keywords internal
-#' @rdname tunable-parsnip
-tunable.rule_fit <- function(x, ...) {
-  tibble::tibble(
-    name = c('mtry', 'trees', 'min_n', 'tree_depth', 'learn_rate',
-             'loss_reduction', 'sample_size', 'penalty'),
-    call_info = list(
-      list(pkg = "rules", fun = "mtry_prop"),
-      list(pkg = "dials", fun = "trees", range = c(5L, 100L)),
-      list(pkg = "dials", fun = "min_n"),
-      list(pkg = "dials", fun = "tree_depth", range = c(1L, 10L)),
-      list(pkg = "dials", fun = "learn_rate", range = c(-10, 0)),
-      list(pkg = "dials", fun = "loss_reduction"),
-      list(pkg = "dials", fun = "sample_prop", range = c(0.50, 0.95)),
-      list(pkg = "dials", fun = "penalty")
-    ),
-    source = "model_spec",
-    component = class(x)[class(x) != "model_spec"][1],
-    component_id =  "main"
-  )
-}
 
 # ------------------------------------------------------------------------------
 

@@ -69,7 +69,7 @@ columns. For a data frame \code{x}, the default is
 }
 
 An alternate method for using MARs for categorical outcomes can be found
-in \code{\link[discrim:discrim_flexible]{discrim::discrim_flexible()}}.
+in \code{\link[=discrim_flexible]{discrim_flexible()}}.
 }
 
 \subsection{Preprocessing requirements}{

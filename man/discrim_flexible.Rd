@@ -35,7 +35,7 @@ regression splines (MARS).
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible", "discrim")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -51,5 +51,5 @@ with the data.
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_flexible", "discrim")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_flexible")}
 }

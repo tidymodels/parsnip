@@ -55,7 +55,7 @@ ensemble and uses them as features to a regularized model.
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit", pkg = "rules")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -86,5 +86,5 @@ via rule ensembles." \emph{The Annals of Applied Statistics}, 2(3), 916-954.
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
 }
 \seealso{
-\code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit", "rules")}
+\code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}
 }

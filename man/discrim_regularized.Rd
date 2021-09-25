@@ -31,7 +31,7 @@ predictor values.
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized", "discrim")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -65,5 +65,5 @@ Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the
 American Statistical Association}, 84, 165-175.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized", "discrim")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized")}
 }

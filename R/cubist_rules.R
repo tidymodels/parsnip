@@ -117,8 +117,8 @@ print.cubist_rules <- function(x, ...) {
 #' update(model, committees = 1)
 #' update(model, committees = 1, fresh = TRUE)
 #' @method update cubist_rules
-#' @rdname rules_update
-#' @inheritParams rules_update
+#' @rdname parsnip_update
+#' @inheritParams parsnip_update
 #' @inheritParams cubist_rules
 #' @export
 update.cubist_rules <-
@@ -203,59 +203,6 @@ check_args.cubist_rules <- function(object) {
   }
   invisible(object)
 }
-
-#' Tunable methods
-#' @export
-#' @keywords internal
-#' @name tunable-parsnip
-tunable.cubist_rules <- function(x, ...) {
-  tibble::tibble(
-    name = c('committees', 'neighbors', 'max_rules'),
-    call_info = list(
-      list(pkg = "rules", fun = "committees", range = c(1L, 100L)),
-      list(pkg = "dials", fun = "neighbors",  range = c(0L,   9L)),
-      list(pkg = "rules", fun = "max_rules")
-    ),
-    source = "model_spec",
-    component = class(x)[class(x) != "model_spec"][1],
-    component_id =  "main"
-  )
-}
-
-#' `multi_predict()` methods for rule-based models
-#' @rdname multi_predict
-#' @export
-#' @param neighbors An numeric vector of neighbors values between zero and nine.
-multi_predict._cubist <-
-  function(object, new_data, type = NULL, neighbors = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata")) {
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-    }
-    if (is.null(neighbors)) {
-      n <- 1
-    } else {
-      n <- length(neighbors)
-    }
-
-    new_data <- prepare_data(object, new_data)
-    # preprocess data
-    if (!is.null(object$spec$method$pred$numeric$pre)) {
-      new_data <- object$spec$method$pred$numeric$pre(new_data, object)
-    }
-
-    res <- cubist_pred(object, new_data, neighbors = neighbors, ...)
-    if (n > 1) {
-      res$.row_number <- rep(1:nrow(new_data), n)
-      res <-
-        res %>%
-        dplyr::group_by(.row_number) %>%
-        tidyr::nest() %>%
-        dplyr::ungroup() %>%
-        dplyr::select(-.row_number) %>%
-        setNames(".pred")
-    }
-    res
-  }
 
 # ------------------------------------------------------------------------------
 
