@@ -6,9 +6,9 @@
 \usage{
 discrim_regularized(
   mode = "classification",
-  engine = "klaR",
   frac_common_cov = NULL,
-  frac_identity = NULL
+  frac_identity = NULL,
+  engine = "klaR"
 )
 }
 \arguments{
@@ -16,10 +16,10 @@ discrim_regularized(
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
+\item{frac_common_cov, frac_identity}{Numeric values between zero and one.}
+
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}
-
-\item{frac_common_cov, frac_identity}{Numeric values between zero and one.}
 }
 \description{
 \code{discrim_regularized()} defines a model that estimates a multivariate

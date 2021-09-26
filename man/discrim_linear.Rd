@@ -6,17 +6,14 @@
 \usage{
 discrim_linear(
   mode = "classification",
-  engine = "MASS",
   penalty = NULL,
-  regularization_method = NULL
+  regularization_method = NULL,
+  engine = "MASS"
 )
 }
 \arguments{
 \item{mode}{A single character string for the type of model. The only
 possible value for this model is "classification".}
-
-\item{engine}{A single character string specifying what computational engine
-to use for fitting.}
 
 \item{penalty}{An non-negative number representing the amount of
 regularization used by some of the engines.}
@@ -24,6 +21,9 @@ regularization used by some of the engines.}
 \item{regularization_method}{A character string for the type of regularized
 estimation. Possible values are: "\code{diagonal}", "\code{min_distance}",
 "\code{shrink_cov}", and "\code{shrink_mean}" (\code{sparsediscrim} engine only).}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{discrim_linear()} defines a model that estimates a multivariate

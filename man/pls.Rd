@@ -4,7 +4,12 @@
 \alias{pls}
 \title{Partial least squares (PLS)}
 \usage{
-pls(mode = "unknown", predictor_prop = NULL, num_comp = NULL)
+pls(
+  mode = "unknown",
+  predictor_prop = NULL,
+  num_comp = NULL,
+  engine = "mixOmics"
+)
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
@@ -16,6 +21,9 @@ have \emph{non-zero} coefficients for each PLS component (via regularization).
 This value is used for all PLS components for X.}
 
 \item{num_comp}{The number of PLS components to retain.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{pls()} defines a model that uses a supervised version of principal component

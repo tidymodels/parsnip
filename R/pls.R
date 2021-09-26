@@ -25,7 +25,7 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}
 #' @export
 pls <-
-  function(mode = "unknown", predictor_prop = NULL, num_comp = NULL) {
+  function(mode = "unknown", predictor_prop = NULL, num_comp = NULL, engine = "mixOmics") {
 
     args <- list(
       predictor_prop = enquo(predictor_prop),
@@ -38,7 +38,7 @@ pls <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 

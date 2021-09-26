@@ -6,18 +6,15 @@
 \usage{
 naive_Bayes(
   mode = "classification",
-  engine = "klaR",
   smoothness = NULL,
-  Laplace = NULL
+  Laplace = NULL,
+  engine = "klaR"
 )
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
-
-\item{engine}{A single character string specifying what computational engine
-to use for fitting.}
 
 \item{smoothness}{An non-negative number representing the the relative
 smoothness of the class boundary. Smaller examples result in model flexible
@@ -26,6 +23,9 @@ adaptable}
 
 \item{Laplace}{A non-negative value for the Laplace correction to smoothing
 low-frequency counts.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{naive_Bayes()} defines a model uses Bayes' theorem to compute the

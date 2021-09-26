@@ -29,8 +29,8 @@
 #'
 #' @export
 discrim_flexible <-
-  function(mode = "classification", engine = "earth", num_terms = NULL, prod_degree = NULL,
-           prune_method = NULL) {
+  function(mode = "classification", num_terms = NULL, prod_degree = NULL,
+           prune_method = NULL, engine = "earth") {
 
     args <- list(
       num_terms    = enquo(num_terms),

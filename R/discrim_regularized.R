@@ -47,8 +47,8 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized")}
 #' @export
 discrim_regularized <-
-  function(mode = "classification", engine = "klaR",
-           frac_common_cov = NULL, frac_identity = NULL) {
+  function(mode = "classification", frac_common_cov = NULL, frac_identity = NULL,
+           engine = "klaR") {
 
     args <- list(
       frac_common_cov = rlang::enquo(frac_common_cov),

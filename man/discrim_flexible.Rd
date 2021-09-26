@@ -6,10 +6,10 @@
 \usage{
 discrim_flexible(
   mode = "classification",
-  engine = "earth",
   num_terms = NULL,
   prod_degree = NULL,
-  prune_method = NULL
+  prune_method = NULL,
+  engine = "earth"
 )
 }
 \arguments{
@@ -17,15 +17,15 @@ discrim_flexible(
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
-\item{engine}{A single character string specifying what computational engine
-to use for fitting.}
-
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}
 
 \item{prod_degree}{The highest possible interaction degree.}
 
 \item{prune_method}{The pruning method.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{discrim_flexible()} defines a model that fits a discriminant analysis model

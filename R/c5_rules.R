@@ -174,6 +174,8 @@ check_args.C5_rules <- function(object) {
   invisible(object)
 }
 
+# ------------------------------------------------------------------------------
+
 set_new_model("C5_rules")
 set_model_mode("C5_rules", "classification")
 

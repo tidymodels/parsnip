@@ -6,20 +6,20 @@
 \usage{
 discrim_quad(
   mode = "classification",
-  engine = "MASS",
-  regularization_method = NULL
+  regularization_method = NULL,
+  engine = "MASS"
 )
 }
 \arguments{
 \item{mode}{A single character string for the type of model. The only
 possible value for this model is "classification".}
 
-\item{engine}{A single character string specifying what computational engine
-to use for fitting.}
-
 \item{regularization_method}{A character string for the type of regularized
 estimation. Possible values are: "\code{diagonal}", "\code{shrink_cov}", and
 "\code{shrink_mean}" (\code{sparsediscrim} engine only).}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 }
 \description{
 \code{discrim_quad()} defines a model that estimates a multivariate

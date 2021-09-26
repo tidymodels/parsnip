@@ -29,7 +29,7 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("naive_Bayes")}
 #' @export
 naive_Bayes <-
-  function(mode = "classification", engine = "klaR", smoothness = NULL, Laplace = NULL) {
+  function(mode = "classification", smoothness = NULL, Laplace = NULL, engine = "klaR") {
     args <-
       list(
         smoothness = rlang::enquo(smoothness),

@@ -29,7 +29,7 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_quad")}
 #' @export
 discrim_quad <-
-  function(mode = "classification", engine = "MASS", regularization_method = NULL) {
+  function(mode = "classification", regularization_method = NULL, engine = "MASS") {
 
     args <- list(regularization_method = rlang::enquo(regularization_method))
 

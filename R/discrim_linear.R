@@ -31,8 +31,8 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_linear")}
 #' @export
 discrim_linear <-
-  function(mode = "classification", engine = "MASS",
-           penalty = NULL, regularization_method = NULL) {
+  function(mode = "classification", penalty = NULL, regularization_method = NULL,
+           engine = "MASS") {
 
     args <- list(
       penalty = rlang::enquo(penalty),
