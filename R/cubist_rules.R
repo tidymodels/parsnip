@@ -7,7 +7,7 @@
 #' There are different ways to fit this model. The method of estimation is
 #' chosen by setting the model _engine_.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules", pkg = "rules")}
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -56,7 +56,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso [Cubist::cubist()], [Cubist::cubistControl()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules", "rules")}
+#' @seealso [Cubist::cubist()], [Cubist::cubistControl()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
 #'
 #' @references Quinlan R (1992). "Learning with Continuous Classes." Proceedings
 #' of the 5th Australian Joint Conference On Artificial Intelligence, pp.

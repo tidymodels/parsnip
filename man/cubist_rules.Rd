@@ -34,7 +34,7 @@ ensemble and uses creates regression models within each rule.
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules", pkg = "rules")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -91,5 +91,5 @@ Proceedings of the Tenth International Conference on Machine Learning, pp.
 Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}. Springer.
 }
 \seealso{
-\code{\link[Cubist:cubist.default]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules", "rules")}
+\code{\link[Cubist:cubist.default]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
 }
