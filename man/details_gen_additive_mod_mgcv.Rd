@@ -65,7 +65,7 @@ gen_additive_mod() \%>\%
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 }\if{html}{\out{</div>}}\preformatted{## parsnip model object
 ## 
-## Fit time:  20ms 
+## Fit time:  22ms 
 ## 
 ## Family: gaussian 
 ## Link function: identity 
