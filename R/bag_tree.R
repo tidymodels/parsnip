@@ -13,6 +13,10 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams decision_tree
+#' @param class_cost A non-negative scalar for a class cost (where a cost of 1
+#' means no extra cost). This is useful for when the first level of the outcome
+#' factor is the minority class. If this is not the case, values between zero
+#' and one can be used to bias to the second level of the factor.
 #'
 #' @template spec-details
 #'
