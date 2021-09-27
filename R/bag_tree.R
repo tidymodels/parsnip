@@ -47,11 +47,11 @@ bag_tree <-
 #' @export
 print.bag_tree <- function(x, ...) {
   cat("Bagged Decision Tree Model Specification (", x$mode, ")\n\n", sep = "")
-  parsnip::model_printer(x, ...)
+  model_printer(x, ...)
 
   if (!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
-    print(parsnip::show_call(x))
+    print(show_call(x))
   }
   invisible(x)
 }
@@ -71,7 +71,7 @@ update.bag_tree <-
     update_dot_check(...)
 
     if (!is.null(parameters)) {
-      parameters <- parsnip::check_final_param(parameters)
+      parameters <- check_final_param(parameters)
     }
     args <- list(
       cost_complexity   = enquo(cost_complexity),
@@ -110,3 +110,10 @@ check_args.bag_tree <- function(object) {
     stop("C5.0 is classification only.", call. = FALSE)
   invisible(object)
 }
+
+
+# ------------------------------------------------------------------------------
+
+set_new_model("bag_tree")
+set_model_mode("bag_tree", "classification")
+set_model_mode("bag_tree", "regression")

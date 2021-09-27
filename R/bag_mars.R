@@ -48,11 +48,11 @@ bag_mars <-
 #' @export
 print.bag_mars <- function(x, ...) {
   cat("Bagged MARS Model Specification (", x$mode, ")\n\n", sep = "")
-  parsnip::model_printer(x, ...)
+  model_printer(x, ...)
 
   if (!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
-    print(parsnip::show_call(x))
+    print(show_call(x))
   }
   invisible(x)
 }
@@ -71,7 +71,7 @@ update.bag_mars <-
     update_dot_check(...)
 
     if (!is.null(parameters)) {
-      parameters <- parsnip::check_final_param(parameters)
+      parameters <- check_final_param(parameters)
     }
     args <- list(
       num_terms   = enquo(num_terms),
@@ -100,3 +100,9 @@ update.bag_mars <-
       engine = object$engine
     )
   }
+
+# ------------------------------------------------------------------------------
+
+set_new_model("bag_mars")
+set_model_mode("bag_mars", "classification")
+set_model_mode("bag_mars", "regression")
