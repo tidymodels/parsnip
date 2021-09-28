@@ -189,6 +189,31 @@ engine. These are captured as quosures and can be <code><a href='varying.html'>v
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An updated model specification.</p>
+    <h2 class="hasAnchor" id="engines"><a class="anchor" href="#engines"></a>Engines</h2>
+
+    
+
+<p>Based on the currently loaded packages, the following lists the set of
+engines available to each model specification.</p>
+<p><ul>
+<li><p><code><a href='boost_tree.html'>boost_tree()</a></code>: C5.0, spark, xgboost</p></li>
+<li><p><code><a href='decision_tree.html'>decision_tree()</a></code>: C5.0, rpart, spark</p></li>
+<li><p><code><a href='gen_additive_mod.html'>gen_additive_mod()</a></code>: mgcv</p></li>
+<li><p><code><a href='linear_reg.html'>linear_reg()</a></code>: glmnet, keras, lm, spark, stan</p></li>
+<li><p><code><a href='logistic_reg.html'>logistic_reg()</a></code>: LiblineaR, glm, glmnet, keras, spark, stan</p></li>
+<li><p><code><a href='mars.html'>mars()</a></code>: earth</p></li>
+<li><p><code><a href='mlp.html'>mlp()</a></code>: keras, nnet</p></li>
+<li><p><code><a href='multinom_reg.html'>multinom_reg()</a></code>: glmnet, keras, nnet, spark</p></li>
+<li><p><code><a href='nearest_neighbor.html'>nearest_neighbor()</a></code>: kknn</p></li>
+<li><p><code><a href='null_model.html'>null_model()</a></code>: parsnip</p></li>
+<li><p><code><a href='proportional_hazards.html'>proportional_hazards()</a></code>: No engines currently available</p></li>
+<li><p><code><a href='rand_forest.html'>rand_forest()</a></code>: randomForest, ranger, spark</p></li>
+<li><p><code><a href='surv_reg.html'>surv_reg()</a></code>: flexsurv, survival</p></li>
+<li><p><code><a href='survival_reg.html'>survival_reg()</a></code>: No engines currently available</p></li>
+<li><p><code><a href='svm_linear.html'>svm_linear()</a></code>: LiblineaR, kernlab</p></li>
+<li><p><code><a href='svm_poly.html'>svm_poly()</a></code>: kernlab</p></li>
+<li><p><code><a href='svm_rbf.html'>svm_rbf()</a></code>: kernlab, liquidSVM</p></li>
+</ul></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># First, set general arguments using the standardized names</span>
