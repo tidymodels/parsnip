@@ -72,16 +72,11 @@ bart(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r child = "template-makes-dummies.Rmd"} 
 ```
 
-## Other details
+[dbarts::bart()] will also convert the factors to indicators of the user does not create them first. 
 
-For prediction, the `"dbarts"` engine can compute posterior intervals analogous to confidence and prediction intervals. In these instances, the units are the original outcome and when `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as appropriate) is returned.
-
-## Examples 
-
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#bart-dbarts) for `bart()` with the `"dbarts"` engine.
 
 ## References
 
