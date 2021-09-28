@@ -1200,3 +1200,50 @@ find_details_topics <- function(pkg, mod) {
   }
   res
 }
+
+
+# For use in `set_engine()` docs
+generate_set_engine_bullets <- function() {
+  env <- get_model_env()
+  models <- env$models
+  info <- rlang::env_get_list(env, models)
+
+  model_engines <- purrr::map(info, get_sorted_unique_engines)
+
+  model_prefixes <- glue::glue(
+    "\\code{\\link[=.{models}.]{.{models}.()}}:",
+    .open = ".{",
+    .close = "}."
+  )
+
+  bullets <- purrr::map2(
+    .x = model_prefixes,
+    .y = model_engines,
+    .f = combine_prefix_with_engines
+  )
+
+  bullets <- glue::glue("\\item {bullets}")
+  bullets <- glue::glue_collapse(bullets, sep = "\n")
+  bullets <- paste("\\itemize{", bullets, "}", sep = "\n")
+
+  bullets
+}
+
+sort_c <- function(x) {
+  withr::with_collate("C", sort(x))
+}
+get_sorted_unique_engines <- function(x) {
+  engines <- x$engine
+  engines <- unique(engines)
+  engines <- sort_c(engines)
+  engines
+}
+combine_prefix_with_engines <- function(prefix, engines) {
+  if (length(engines) == 0L) {
+    engines <- "No engines currently available"
+  } else {
+    engines <- glue::glue_collapse(engines, sep = ", ")
+  }
+
+  glue::glue("{prefix} {engines}")
+}

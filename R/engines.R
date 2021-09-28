@@ -55,6 +55,12 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' `set_engine()` is used to specify which package or system will be used
 #'  to fit the model, along with any arguments specific to that software.
 #'
+#' @section Engines:
+#' Based on the currently loaded packages, the following lists the set of
+#' engines available to each model specification.
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
+#'
 #' @param object A model specification.
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
