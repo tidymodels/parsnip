@@ -46,6 +46,9 @@
 #' # ------------------------------------------------------------------------------
 #' # Examples for terminal node prior
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
 #' prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
 #'   tidyr::crossing(coef = coef, expo = expo, depth = depths)  %>%
 #'     mutate(
@@ -100,6 +103,7 @@ print.bart <- function(x, ...) {
 
 #' @method update bart
 #' @rdname parsnip_update
+#' @inheritParams bart
 #' @export
 update.bart <-
   function(object,
@@ -151,6 +155,12 @@ update.bart <-
 
 #' @export
 #' @keywords internal
+#' @name bart-internal
+#' @inherit predict.model_fit
+#' @param obj A parsnip object.
+#' @param ci Confidence (TRUE) or prediction interval (FALSE)
+#' @param level Confidence level.
+#' @param std_err Attach column for standard error of prediction or not.
 bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
   if (obj$spec$mode == "classification") {
     rlang::abort("In bartMachine: Prediction intervals are not possible for classification")
@@ -193,6 +203,7 @@ bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
 }
 
 #' @export
+#' @rdname bart-internal
 #' @keywords internal
 dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALSE) {
   types <- c("numeric", "class", "prob", "conf_int", "pred_int")
@@ -267,8 +278,6 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
 #' @return A function with classes "quant_param" and "param"
 #' @details
 #' Used in `parsnip::bart()`.
-#' @examples
-#' adjust_deg_free()
 #' @name bart-param
 #' @export
 prior_terminal_node_coef <- function(range = c(0, 1), trans = NULL) {

@@ -48,6 +48,7 @@ Suggests:
     covr,
     dials,
     earth,
+    ggplot2,
     keras,
     kernlab,
     kknn,

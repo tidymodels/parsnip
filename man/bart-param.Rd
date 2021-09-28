@@ -37,6 +37,3 @@ These parameters is often used with Bayesian adaptive regression trees (BART)
 
 Used in \code{parsnip::bart()}.
 }
-\examples{
-adjust_deg_free()
-}

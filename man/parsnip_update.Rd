@@ -194,6 +194,26 @@ engine arguments in this object will result in an error.}
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
 
+\item{prior_terminal_node_coef}{A coefficient for the prior probability that
+a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
+parameter is the \code{a} coefficient. Values are usually between 0 and one with
+a default of 0.95. This effects the baseline probability; smaller numbers
+makes the probabilities larger overall.}
+
+\item{prior_terminal_node_expo}{An exponent in the prior probability that
+a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
+parameter is the \code{b} coefficient. Values are usually non-negative with
+a default of 2 This effects the rate that the prior probability decreases as
+the depth of the tree increases. Larger values make deeper trees more
+unlikely.}
+
+\item{prior_outcome_range}{A positive value that defines the width of a prior
+that the predicted outcome is within a certain range. For regression it is
+related to the observed range of the data; the prior is the number of standard
+deviations of a Gaussian distribution defined by the observed range of the
+data. For classification, it is defined as the range of +/-3 (assumed to be
+on the logit scale). The default value is 2.}
+
 \item{fresh}{A logical for whether the arguments should be
 modified in-place or replaced wholesale.}
 

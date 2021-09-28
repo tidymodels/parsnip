@@ -71,6 +71,9 @@ bart(mode = "regression", trees = 5)
 # ------------------------------------------------------------------------------
 # Examples for terminal node prior
 
+library(ggplot2)
+library(dplyr)
+
 prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
   tidyr::crossing(coef = coef, expo = expo, depth = depths)  \%>\%
     mutate(
