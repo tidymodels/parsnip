@@ -180,7 +180,7 @@ bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
   res <- rlang::eval_tidy(cl)
   if (!ci) {
     if (get_std_err) {
-      .std_error <- apply(res$all_prediction_samples, 1, sd, na.rm = TRUE)
+      .std_error <- apply(res$all_prediction_samples, 1, stats::sd, na.rm = TRUE)
     }
     res <- res$interval
   }
@@ -236,7 +236,7 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
           .pred_upper_a = 1 - bnds[,1],
           .pred_upper_b =     bnds[,2]
         ) %>%
-        set_names(
+        rlang::set_names(
           c(
             paste0(".pred_lower_", obj$lvl),
             paste0(".pred_upper_", obj$lvl)
