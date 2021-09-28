@@ -305,6 +305,11 @@ parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
+\item{class_cost}{A non-negative scalar for a class cost (where a cost of 1
+means no extra cost). This is useful for when the first level of the outcome
+factor is the minority class. If this is not the case, values between zero
+and one can be used to bias to the second level of the factor.}
+
 \item{mtry}{An number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models.}
 

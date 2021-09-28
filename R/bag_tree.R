@@ -65,6 +65,7 @@ print.bag_tree <- function(x, ...) {
 #' @method update bag_tree
 #' @rdname parsnip_update
 #' @inheritParams decision_tree
+#' @inheritParams bag_tree
 #' @export
 update.bag_tree <-
   function(object,
