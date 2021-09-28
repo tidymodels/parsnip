@@ -13,7 +13,7 @@ For this engine, there is a single mode: regression
 This engine has no tuning parameters.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{linear_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
   set_engine("lm") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)

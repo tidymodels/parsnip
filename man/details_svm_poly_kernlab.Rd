@@ -22,7 +22,7 @@ This model has 4 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{svm_poly(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1), 
@@ -48,7 +48,7 @@ This model has 4 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{svm_poly(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1)

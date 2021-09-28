@@ -26,7 +26,7 @@ in \code{\link[sparklyr:ml_random_forest]{sparklyr::ml_random_forest()}} is
 regression.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
@@ -54,7 +54,7 @@ regression.
 chosen value if it is not consistent with the actual data dimensions.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)

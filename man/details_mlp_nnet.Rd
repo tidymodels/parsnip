@@ -23,7 +23,7 @@ some models, you may need to pass this value in via
 \code{\link[=set_engine]{set_engine()}} so that the model does not fail.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
@@ -50,7 +50,7 @@ Note that parsnip automatically sets linear activation in the last
 layer.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)

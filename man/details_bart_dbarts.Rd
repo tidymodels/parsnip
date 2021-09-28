@@ -87,22 +87,9 @@ Factor/categorical predictors need to be converted to numeric values
 formula method via
 \code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
 convert factor columns to indicators.
-}
 
-\subsection{Other details}{
-
-For prediction, the \code{"dbarts"} engine can compute posterior intervals
-analogous to confidence and prediction intervals. In these instances,
-the units are the original outcome and when \code{std_error = TRUE}, the
-standard deviation of the posterior distribution (or posterior
-predictive distribution as appropriate) is returned.
-}
-
-\subsection{Examples}{
-
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#bart-dbarts}{examples}
-for \code{bart()} with the \code{"dbarts"} engine.
+\code{\link[dbarts:bart]{dbarts::bart()}} will also convert the factors to
+indicators of the user does not create them first.
 }
 
 \subsection{References}{

@@ -20,7 +20,7 @@ default: ‘optimal’)
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
@@ -46,7 +46,7 @@ default: ‘optimal’)
 it is not consistent with the actual data dimensions.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{nearest_neighbor(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)

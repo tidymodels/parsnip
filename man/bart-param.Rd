@@ -11,7 +11,7 @@ These parameters are used for constructing Bayesian adaptive regression tree
 \usage{
 prior_terminal_node_coef(range = c(0, 1), trans = NULL)
 
-prior_terminal_node_expo(range = c(0, 5), trans = NULL)
+prior_terminal_node_expo(range = c(0, 3), trans = NULL)
 
 prior_outcome_range(range = c(0, 5), trans = NULL)
 }

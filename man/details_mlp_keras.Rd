@@ -21,7 +21,7 @@ This model has 5 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -49,7 +49,7 @@ This model has 5 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
