@@ -15,13 +15,11 @@
 #'
 #' @inheritParams boost_tree
 #' @param prior_terminal_node_coef A coefficient for the prior probability that
-#' a node is a terminal node. In the expression `prior = a * (1 + d)^(-b)`, this
-#' parameter is the `a` coefficient. Values are usually between 0 and one with
+#' a node is a terminal node. Values are usually between 0 and one with
 #' a default of 0.95. This effects the baseline probability; smaller numbers
-#' makes the probabilities larger overall.
+#' makes the probabilities larger overall. See Details below.
 #' @param prior_terminal_node_expo An exponent in the prior probability that
-#' a node is a terminal node. In the expression `prior = a * (1 + d)^(-b)`, this
-#' parameter is the `b` coefficient. Values are usually non-negative with
+#' a node is a terminal node.  Values are usually non-negative with
 #' a default of 2 This effects the rate that the prior probability decreases as
 #' the depth of the tree increases. Larger values make deeper trees more
 #' unlikely.
@@ -31,6 +29,14 @@
 #' deviations of a Gaussian distribution defined by the observed range of the
 #' data. For classification, it is defined as the range of +/-3 (assumed to be
 #' on the logit scale). The default value is 2.
+#'
+#' @details
+#' The prior for the terminal node probability is expressed as
+#' `prior = a * (1 + d)^(-b)` where `d` is the depth of the node, `a` is
+#' `prior_terminal_node_coef` and `b` is `prior_terminal_node_expo`. See the
+#' Examples section below for an example graph of the probability of a
+#' terminal node for different values.
+#'
 #'
 #' @template spec-details
 #'
@@ -104,6 +110,10 @@ print.bart <- function(x, ...) {
 #' @method update bart
 #' @rdname parsnip_update
 #' @inheritParams bart
+#' @param prior_terminal_node_coef A coefficient for the prior probability that
+#' a node is a terminal node.
+#' @param prior_terminal_node_expo An exponent in the prior probability that
+#' a node is a terminal node.
 #' @export
 update.bart <-
   function(object,

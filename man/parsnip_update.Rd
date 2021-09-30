@@ -195,17 +195,10 @@ engine arguments in this object will result in an error.}
 the ensemble.}
 
 \item{prior_terminal_node_coef}{A coefficient for the prior probability that
-a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
-parameter is the \code{a} coefficient. Values are usually between 0 and one with
-a default of 0.95. This effects the baseline probability; smaller numbers
-makes the probabilities larger overall.}
+a node is a terminal node.}
 
 \item{prior_terminal_node_expo}{An exponent in the prior probability that
-a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
-parameter is the \code{b} coefficient. Values are usually non-negative with
-a default of 2 This effects the rate that the prior probability decreases as
-the depth of the tree increases. Larger values make deeper trees more
-unlikely.}
+a node is a terminal node.}
 
 \item{prior_outcome_range}{A positive value that defines the width of a prior
 that the predicted outcome is within a certain range. For regression it is

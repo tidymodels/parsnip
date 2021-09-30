@@ -25,14 +25,12 @@ to use for fitting.}
 the ensemble.}
 
 \item{prior_terminal_node_coef}{A coefficient for the prior probability that
-a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
-parameter is the \code{a} coefficient. Values are usually between 0 and one with
+a node is a terminal node. Values are usually between 0 and one with
 a default of 0.95. This effects the baseline probability; smaller numbers
-makes the probabilities larger overall.}
+makes the probabilities larger overall. See Details below.}
 
 \item{prior_terminal_node_expo}{An exponent in the prior probability that
-a node is a terminal node. In the expression \code{prior = a * (1 + d)^(-b)}, this
-parameter is the \code{b} coefficient. Values are usually non-negative with
+a node is a terminal node.  Values are usually non-negative with
 a default of 2 This effects the rate that the prior probability decreases as
 the depth of the tree increases. Larger values make deeper trees more
 unlikely.}
@@ -57,6 +55,12 @@ More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
 \details{
+The prior for the terminal node probability is expressed as
+\code{prior = a * (1 + d)^(-b)} where \code{d} is the depth of the node, \code{a} is
+\code{prior_terminal_node_coef} and \code{b} is \code{prior_terminal_node_expo}. See the
+Examples section below for an example graph of the probability of a
+terminal node for different values.
+
 This function only defines what \emph{type} of model is being fit. Once an engine
 is specified, the \emph{method} to fit the model is also defined.
 
