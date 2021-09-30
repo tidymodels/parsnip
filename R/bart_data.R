@@ -23,7 +23,7 @@ set_model_arg(
   eng = "dbarts",
   parsnip = "prior_terminal_node_coef",
   original = "base",
-  func = list(pkg = "parsnip", fun = "prior_terminal_node_coef"),
+  func = list(pkg = "dials", fun = "prior_terminal_node_coef"),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -31,7 +31,7 @@ set_model_arg(
   eng = "dbarts",
   parsnip = "prior_terminal_node_expo",
   original = "power",
-  func = list(pkg = "parsnip", fun = "prior_terminal_node_expo"),
+  func = list(pkg = "dials", fun = "prior_terminal_node_expo"),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -39,7 +39,7 @@ set_model_arg(
   eng = "dbarts",
   parsnip = "prior_outcome_range",
   original = "k",
-  func = list(pkg = "parsnip", fun = "prior_outcome_range"),
+  func = list(pkg = "dials", fun = "prior_outcome_range"),
   has_submodel = FALSE
 )
 set_fit(
