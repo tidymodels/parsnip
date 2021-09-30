@@ -40,6 +40,19 @@ param$item
 
 Some relevant arguments that can be passed to `set_engine()`: 
 
+* `keepevery`, `n.thin`:	Every `keepevery` draw is kept to be returned to the user. Useful for "thinning" samples.
+
+* `ntree`, `n.trees`: The number of trees in the sum-of-trees formulation.
+
+* `ndpost`, `n.samples`: The number of posterior draws after burn in, `ndpost` / `keepevery` will actually be returned.
+
+* `nskip`, `n.burn`: Number of MCMC iterations to be treated as burn in.
+
+* `nchain`, `n.chains`: Integer specifying how many independent tree sets and fits should be calculated.
+
+* `nthread`, `n.threads`: Integer specifying how many threads to use. Depending on the CPU architecture, using more than the number of chains can degrade performance for small/medium data sets. As such some calculations may be executed single threaded regardless.
+
+* `combinechains`, `combineChains`: Logical; if `TRUE`, samples will be returned in arrays of dimensions equal to `nchain` times `ndpost` times number of observations.
 
 ## Translation from parsnip to the original package (classification)
 
@@ -75,7 +88,7 @@ bart(
 ```{r child = "template-makes-dummies.Rmd"} 
 ```
 
-[dbarts::bart()] will also convert the factors to indicators of the user does not create them first. 
+[dbarts::bart()] will also convert the factors to indicators if the user does not create them first. 
 
 
 ## References

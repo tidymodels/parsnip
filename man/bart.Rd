@@ -26,14 +26,13 @@ the ensemble.}
 
 \item{prior_terminal_node_coef}{A coefficient for the prior probability that
 a node is a terminal node. Values are usually between 0 and one with
-a default of 0.95. This effects the baseline probability; smaller numbers
-makes the probabilities larger overall. See Details below.}
+a default of 0.95. This affects the baseline probability; smaller numbers
+make the probabilities larger overall. See Details below.}
 
 \item{prior_terminal_node_expo}{An exponent in the prior probability that
 a node is a terminal node.  Values are usually non-negative with
-a default of 2 This effects the rate that the prior probability decreases as
-the depth of the tree increases. Larger values make deeper trees more
-unlikely.}
+a default of 2 This affects the rate that the prior probability decreases as
+the depth of the tree increases. Larger values make deeper trees less likely.}
 
 \item{prior_outcome_range}{A positive value that defines the width of a prior
 that the predicted outcome is within a certain range. For regression it is
@@ -58,8 +57,8 @@ More information on how \pkg{parsnip} is used for modeling is at
 The prior for the terminal node probability is expressed as
 \code{prior = a * (1 + d)^(-b)} where \code{d} is the depth of the node, \code{a} is
 \code{prior_terminal_node_coef} and \code{b} is \code{prior_terminal_node_expo}. See the
-Examples section below for an example graph of the probability of a
-terminal node for different values.
+Examples section below for an example graph of the prior probability of a
+terminal node for different values of these parameters.
 
 This function only defines what \emph{type} of model is being fit. Once an engine
 is specified, the \emph{method} to fit the model is also defined.
@@ -79,10 +78,10 @@ library(ggplot2)
 library(dplyr)
 
 prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
-  tidyr::crossing(coef = coef, expo = expo, depth = depths)  \%>\%
+  tidyr::crossing(coef = coef, expo = expo, depth = depths) \%>\%
     mutate(
-      `terminial node prior` =  coef * (1 + depth)^(-expo),
-      coef= format(coef),
+      `terminial node prior` = coef * (1 + depth)^(-expo),
+      coef = format(coef),
       expo = format(expo))
 }
 

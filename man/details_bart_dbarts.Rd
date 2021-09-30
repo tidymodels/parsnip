@@ -26,6 +26,25 @@ default: 2.00)
 \subsection{Important engine-specific options}{
 
 Some relevant arguments that can be passed to \code{set_engine()}:
+\itemize{
+\item \code{keepevery}, \code{n.thin}: Every \code{keepevery} draw is kept to be returned
+to the user. Useful for “thinning” samples.
+\item \code{ntree}, \code{n.trees}: The number of trees in the sum-of-trees
+formulation.
+\item \code{ndpost}, \code{n.samples}: The number of posterior draws after burn in,
+\code{ndpost} / \code{keepevery} will actually be returned.
+\item \code{nskip}, \code{n.burn}: Number of MCMC iterations to be treated as burn
+in.
+\item \code{nchain}, \code{n.chains}: Integer specifying how many independent tree
+sets and fits should be calculated.
+\item \code{nthread}, \code{n.threads}: Integer specifying how many threads to use.
+Depending on the CPU architecture, using more than the number of
+chains can degrade performance for small/medium data sets. As such
+some calculations may be executed single threaded regardless.
+\item \code{combinechains}, \code{combineChains}: Logical; if \code{TRUE}, samples will
+be returned in arrays of dimensions equal to \code{nchain} times \code{ndpost}
+times number of observations.
+}
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bart(
@@ -89,7 +108,7 @@ formula method via
 convert factor columns to indicators.
 
 \code{\link[dbarts:bart]{dbarts::bart()}} will also convert the factors to
-indicators of the user does not create them first.
+indicators if the user does not create them first.
 }
 
 \subsection{References}{
