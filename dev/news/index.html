@@ -160,6 +160,13 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#parsnip-development-version" class="anchor"></a>parsnip (development version)<small> Unreleased </small>
 </h1>
+<div id="model-specification-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#model-specification-changes" class="anchor"></a>Model Specification Changes</h2>
+<ul>
+<li>Bayesian additive regression trees (BART) were added via the <code><a href="../reference/bart.html">bart()</a></code> function.</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
@@ -173,9 +180,9 @@
 <h1 class="page-header" data-toc-text="0.1.7">
 <a href="#parsnip-017" class="anchor"></a>parsnip 0.1.7<small> 2021-07-21 </small>
 </h1>
-<div id="model-specification-changes" class="section level2">
+<div id="model-specification-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#model-specification-changes" class="anchor"></a>Model Specification Changes</h2>
+<a href="#model-specification-changes-1" class="anchor"></a>Model Specification Changes</h2>
 <ul>
 <li><p>A model function (<code><a href="../reference/gen_additive_mod.html">gen_additive_mod()</a></code>) was added for generalized additive models.</p></li>
 <li><p>Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. <code><a href="../reference/set_engine.html">set_engine()</a></code> is still required if engine-specific arguments need to be added. (<a href='https://github.com/tidymodels/parsnip/issues/513'>#513</a>)</p></li>
@@ -197,9 +204,9 @@
 <h1 class="page-header" data-toc-text="0.1.6">
 <a href="#parsnip-016" class="anchor"></a>parsnip 0.1.6<small> 2021-05-27 </small>
 </h1>
-<div id="model-specification-changes-1" class="section level2">
+<div id="model-specification-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#model-specification-changes-1" class="anchor"></a>Model Specification Changes</h2>
+<a href="#model-specification-changes-2" class="anchor"></a>Model Specification Changes</h2>
 <ul>
 <li><p>A new linear SVM model <code><a href="../reference/svm_linear.html">svm_linear()</a></code> is now available with the <code>LiblineaR</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/424'>#424</a>) and the <code>kernlab</code> engine (<a href='https://github.com/tidymodels/parsnip/issues/438'>#438</a>), and the <code>LiblineaR</code> engine is available for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> as well (<a href='https://github.com/tidymodels/parsnip/issues/429'>#429</a>). These models can use sparse matrices via <code><a href="https://generics.r-lib.org/reference/fit_xy.html">fit_xy()</a></code> (<a href='https://github.com/tidymodels/parsnip/issues/447'>#447</a>) and have a <code>tidy</code> method (<a href='https://github.com/tidymodels/parsnip/issues/474'>#474</a>).</p></li>
 <li>

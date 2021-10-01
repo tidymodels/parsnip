@@ -208,9 +208,9 @@ importance/explainers.</p>
 model. There may be preprocessing operations that <code>parsnip</code> has executed on
 the data prior to giving it to the model. Bypassing these can lead to errors
 or silently generating incorrect predictions.</p>
-<p><strong>Good</strong>:<div class="r"></p><pre>   <span class='va'>parsnip_fit</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>new_data</span><span class='op'>)</span>
+<p><strong>Good</strong>:<div class="sourceCode r"></p><pre>   <span class='va'>parsnip_fit</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>new_data</span><span class='op'>)</span>
 </pre><p></div></p>
-<p><strong>Bad</strong>:<div class="r"></p><pre>   <span class='va'>parsnip_fit</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/hardhat/man/hardhat-extract.html'>extract_fit_engine</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>new_data</span><span class='op'>)</span>
+<p><strong>Bad</strong>:<div class="sourceCode r"></p><pre>   <span class='va'>parsnip_fit</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/hardhat/man/hardhat-extract.html'>extract_fit_engine</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>new_data</span><span class='op'>)</span>
 </pre><p></div></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

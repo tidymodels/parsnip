@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update a model specification — update.boost_tree • parsnip</title>
+<title>Update a model specification — update.bart • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Update a model specification — update.boost_tree" />
+<meta property="og:title" content="Update a model specification — update.bart" />
 <meta property="og:description" content="If parameters of a model specification need to be modified, update() can
 be used in lieu of recreating the object from scratch." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
@@ -155,7 +155,7 @@ be used in lieu of recreating the object from scratch." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update a model specification</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/decision_tree.R'><code>R/decision_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/gen_additive_mod.R'><code>R/gen_additive_mod.R</code></a>, and 14 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/bart.R'><code>R/bart.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/decision_tree.R'><code>R/decision_tree.R</code></a>, and 15 more</small>
     <div class="hidden name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -164,7 +164,19 @@ be used in lieu of recreating the object from scratch." />
 be used in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for boost_tree</span>
+    <pre class="usage"><span class='co'># S3 method for bart</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_terminal_node_coef <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_terminal_node_expo <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_outcome_range <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for boost_tree</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -342,15 +354,43 @@ these will supersede the values in <code>parameters</code>. Also, using
 engine arguments in this object will result in an error.</p></td>
     </tr>
     <tr>
+      <th>trees</th>
+      <td><p>An integer for the number of trees contained in
+the ensemble.</p></td>
+    </tr>
+    <tr>
+      <th>prior_terminal_node_coef</th>
+      <td><p>A coefficient for the prior probability that
+a node is a terminal node.</p></td>
+    </tr>
+    <tr>
+      <th>prior_terminal_node_expo</th>
+      <td><p>An exponent in the prior probability that
+a node is a terminal node.</p></td>
+    </tr>
+    <tr>
+      <th>prior_outcome_range</th>
+      <td><p>A positive value that defines the width of a prior
+that the predicted outcome is within a certain range. For regression it is
+related to the observed range of the data; the prior is the number of standard
+deviations of a Gaussian distribution defined by the observed range of the
+data. For classification, it is defined as the range of +/-3 (assumed to be
+on the logit scale). The default value is 2.</p></td>
+    </tr>
+    <tr>
+      <th>fresh</th>
+      <td><p>A logical for whether the arguments should be
+modified in-place or replaced wholesale.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>mtry</th>
       <td><p>A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models
 (specific engines only)</p></td>
-    </tr>
-    <tr>
-      <th>trees</th>
-      <td><p>An integer for the number of trees contained in
-the ensemble.</p></td>
     </tr>
     <tr>
       <th>min_n</th>
@@ -382,15 +422,6 @@ each iteration while <code>C5.0</code> samples once during training.</p></td>
       <th>stop_iter</th>
       <td><p>The number of iterations without improvement before
 stopping (specific engines only).</p></td>
-    </tr>
-    <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
     </tr>
     <tr>
       <th>cost_complexity</th>

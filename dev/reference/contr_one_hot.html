@@ -195,15 +195,15 @@ factor predictors. When the formula does not remove an intercept, an
 incomplete set of indicators are created; no indicator is made for the
 first level of the factor.</p>
 <p>For example, <code>species</code> and <code>island</code> both have three levels but
-<code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> creates two indicator variables for each:<div class="r"></p><pre><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<code><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix()</a></code> creates two indicator variables for each:<div class="sourceCode r"></p><pre><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>penguins</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>penguins</span><span class='op'>$</span><span class='va'>species</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [1] "Adelie"    "Chinstrap" "Gentoo"</span>
-</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>penguins</span><span class='op'>$</span><span class='va'>island</span><span class='op'>)</span>
+</pre><p><div class="sourceCode r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>penguins</span><span class='op'>$</span><span class='va'>island</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [1] "Biscoe"    "Dream"     "Torgersen"</span>
-</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>species</span> <span class='op'>+</span> <span class='va'>island</span>, data <span class='op'>=</span> <span class='va'>penguins</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+</pre><p><div class="sourceCode r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>species</span> <span class='op'>+</span> <span class='va'>island</span>, data <span class='op'>=</span> <span class='va'>penguins</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
 <span class='co'>## [5] "islandTorgersen"</span>
@@ -211,14 +211,14 @@ first level of the factor.</p>
 
 <p>For a formula with no intercept, the first factor is expanded to
 indicators for <em>all</em> factor levels but all other factors are expanded to
-all but one (as above):<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>species</span> <span class='op'>+</span> <span class='va'>island</span>, data <span class='op'>=</span> <span class='va'>penguins</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+all but one (as above):<div class="sourceCode r"></p><pre><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>species</span> <span class='op'>+</span> <span class='va'>island</span>, data <span class='op'>=</span> <span class='va'>penguins</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
 <span class='co'>## [5] "islandTorgersen"</span>
 </pre>
 
 <p>For inference, this hybrid encoding can be problematic.</p>
-<p>To generate all indicators, use this contrast:<div class="r"></p><pre><span class='co'># Switch out the contrast method</span>
+<p>To generate all indicators, use this contrast:<div class="sourceCode r"></p><pre><span class='co'># Switch out the contrast method</span>
 <span class='va'>old_contr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='st'>"contrasts"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>contrasts</span>
 <span class='va'>new_contr</span> <span class='op'>&lt;-</span> <span class='va'>old_contr</span>
 <span class='va'>new_contr</span><span class='op'>[</span><span class='st'>"unordered"</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"contr_one_hot"</span>
@@ -228,7 +228,7 @@ all but one (as above):<div class="r"></p><pre><span class='fu'><a href='https:/
   <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   </span>
 <span class='co'>## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"</span>
-</pre><p><div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>contrasts <span class='op'>=</span> <span class='va'>old_contr</span><span class='op'>)</span>
+</pre><p><div class="sourceCode r"></p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>contrasts <span class='op'>=</span> <span class='va'>old_contr</span><span class='op'>)</span>
 </pre><p></div></p>
 <p>Removing the intercept here does not affect the factor encodings.</p>
 

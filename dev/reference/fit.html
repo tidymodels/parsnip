@@ -260,12 +260,7 @@ objects used to fit the model.</p>
 <span class='co'># methods for specifying the model can be used</span>
 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"lending_club"</span><span class='op'>)</span>
 
 <span class='va'>lr_mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='logistic_reg.html'>logistic_reg</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -284,7 +279,7 @@ objects used to fit the model.</p>
 <span class='va'>using_formula</span>
 </div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  43ms 
+#&gt; Fit time:  34ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = Class ~ funded_amnt + int_rate, family = stats::binomial, 
 #&gt;     data = data)
@@ -298,7 +293,7 @@ objects used to fit the model.</p>
 #&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='va'>using_xy</span>
 </div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  34ms 
+#&gt; Fit time:  33ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::binomial, data = data)
 #&gt; 

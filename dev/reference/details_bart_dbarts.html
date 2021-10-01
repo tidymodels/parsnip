@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Radial basis function support vector machines (SVMs) via kernlab — details_svm_rbf_kernlab • parsnip</title>
+<title>Bayesian additive regression trees via dbarts — details_bart_dbarts • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,11 +49,9 @@
 
 
 
-<meta property="og:title" content="Radial basis function support vector machines (SVMs) via kernlab — details_svm_rbf_kernlab" />
-<meta property="og:description" content="kernlab::ksvm() fits a support vector machine model. For classification,
-the model tries to maximize the width of the margin between classes.
-For regression, the model optimizes a robust loss function that is only
-affected by very large model residuals." />
+<meta property="og:title" content="Bayesian additive regression trees via dbarts — details_bart_dbarts" />
+<meta property="og:description" content="dbarts::bart() creates an ensemble of tree-based model whose training
+and assembly is determined using Bayesian analysis." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -156,16 +154,14 @@ affected by very large model residuals." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Radial basis function support vector machines (SVMs) via kernlab</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/svm_rbf_kernlab.R'><code>R/svm_rbf_kernlab.R</code></a></small>
-    <div class="hidden name"><code>details_svm_rbf_kernlab.Rd</code></div>
+    <h1>Bayesian additive regression trees via dbarts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/bart_dbarts.R'><code>R/bart_dbarts.R</code></a></small>
+    <div class="hidden name"><code>details_bart_dbarts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://rdrr.io/pkg/kernlab/man/ksvm.html'>kernlab::ksvm()</a></code> fits a support vector machine model. For classification,
-the model tries to maximize the width of the margin between classes.
-For regression, the model optimizes a robust loss function that is only
-affected by very large model residuals.</p>
+    <p><code>dbarts::bart()</code> creates an ensemble of tree-based model whose training
+and assembly is determined using Bayesian analysis.</p>
     </div>
 
 
@@ -175,71 +171,94 @@ affected by very large model residuals.</p>
     <p>For this engine, there are multiple modes: classification and regression</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Tuning Parameters</h3>
 
 
-<p>This model has 3 tuning parameters:</p><ul>
-<li><p><code>cost</code>: Cost (type: double, default: 1.0)</p></li>
-<li><p><code>rbf_sigma</code>: Radial Basis Function sigma (type: double, default: see
-below)</p></li>
-<li><p><code>margin</code>: Insensitivity Margin (type: double, default: 0.1)</p></li>
+<p>This model has 4 tuning parameters:</p><ul>
+<li><p><code>trees</code>: # Trees (type: integer, default: 200L)</p></li>
+<li><p><code>prior_terminal_node_coef</code>: Terminal Node Prior Coefficient (type:
+double, default: 0.95)</p></li>
+<li><p><code>prior_terminal_node_expo</code>: Terminal Node Prior Exponent (type:
+double, default: 2.00)</p></li>
+<li><p><code>prior_outcome_range</code>: Prior for Outcome Range (type: double,
+default: 2.00)</p></li>
 </ul>
 
-<p>There is no default for the radial basis function kernel parameter.
-kernlab estimates it from the data using a heuristic method. See
-<code><a href='https://rdrr.io/pkg/kernlab/man/sigest.html'>kernlab::sigest()</a></code>. This method uses random
-numbers so, without setting the seed before fitting, the model will not
-be reproducible.</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Translation from parsnip to the original package (regression)</h3>
-<p><div class="sourceCode r"></p><pre><span class='fu'><a href='svm_rbf.html'>svm_rbf</a></span><span class='op'>(</span>
-  cost <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
-  rbf_sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, 
-  margin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='op'>)</span> <span class='op'>%&gt;%</span>  
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kernlab"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (regression)</span>
-<span class='co'>## </span>
-<span class='co'>## Main Arguments:</span>
-<span class='co'>##   cost = double(1)</span>
-<span class='co'>##   rbf_sigma = double(1)</span>
-<span class='co'>##   margin = double(1)</span>
-<span class='co'>## </span>
-<span class='co'>## Computational engine: kernlab </span>
-<span class='co'>## </span>
-<span class='co'>## Model fit template:</span>
-<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), </span>
-<span class='co'>##     epsilon = double(1), kernel = "rbfdot", kpar = list(sigma = ~double(1)))</span>
-</pre>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Important engine-specific options</h3>
+
+
+<p>Some relevant arguments that can be passed to <code><a href='set_engine.html'>set_engine()</a></code>:</p><ul>
+<li><p><code>keepevery</code>, <code>n.thin</code>: Every <code>keepevery</code> draw is kept to be returned
+to the user. Useful for “thinning” samples.</p></li>
+<li><p><code>ntree</code>, <code>n.trees</code>: The number of trees in the sum-of-trees
+formulation.</p></li>
+<li><p><code>ndpost</code>, <code>n.samples</code>: The number of posterior draws after burn in,
+<code>ndpost</code> / <code>keepevery</code> will actually be returned.</p></li>
+<li><p><code>nskip</code>, <code>n.burn</code>: Number of MCMC iterations to be treated as burn
+in.</p></li>
+<li><p><code>nchain</code>, <code>n.chains</code>: Integer specifying how many independent tree
+sets and fits should be calculated.</p></li>
+<li><p><code>nthread</code>, <code>n.threads</code>: Integer specifying how many threads to use.
+Depending on the CPU architecture, using more than the number of
+chains can degrade performance for small/medium data sets. As such
+some calculations may be executed single threaded regardless.</p></li>
+<li><p><code>combinechains</code>, <code>combineChains</code>: Logical; if <code>TRUE</code>, samples will
+be returned in arrays of dimensions equal to <code>nchain</code> times <code>ndpost</code>
+times number of observations.</p></li>
+</ul>
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Translation from parsnip to the original package (classification)</h3>
-<p><div class="sourceCode r"></p><pre><span class='fu'><a href='svm_rbf.html'>svm_rbf</a></span><span class='op'>(</span>
-  cost <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
-  rbf_sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<p><div class="sourceCode r"></p><pre><span class='fu'><a href='bart.html'>bart</a></span><span class='op'>(</span>
+  trees <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_terminal_node_coef <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_terminal_node_expo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_outcome_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"kernlab"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"dbarts"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"classification"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Radial Basis Function Support Vector Machine Specification (classification)</span>
+</pre><p></div></p><pre><span class='co'>## BART Model Specification (classification)</span>
 <span class='co'>## </span>
 <span class='co'>## Main Arguments:</span>
-<span class='co'>##   cost = double(1)</span>
-<span class='co'>##   rbf_sigma = double(1)</span>
+<span class='co'>##   trees = integer(1)</span>
+<span class='co'>##   prior_terminal_node_coef = double(1)</span>
+<span class='co'>##   prior_terminal_node_expo = double(1)</span>
+<span class='co'>##   prior_outcome_range = double(1)</span>
 <span class='co'>## </span>
-<span class='co'>## Computational engine: kernlab </span>
+<span class='co'>## Computational engine: dbarts </span>
 <span class='co'>## </span>
 <span class='co'>## Model fit template:</span>
-<span class='co'>## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), </span>
-<span class='co'>##     kernel = "rbfdot", prob.model = TRUE, kpar = list(sigma = ~double(1)))</span>
+<span class='co'>## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), </span>
+<span class='co'>##     base = double(1), power = double(1), k = double(1), verbose = FALSE, </span>
+<span class='co'>##     keeptrees = TRUE, keepcall = FALSE)</span>
 </pre>
 
-<p>The <code>margin</code> parameter does not apply to classification models.</p>
-<p>Note that the <code>"kernlab"</code> engine does not naturally estimate class
-probabilities. To produce them, the decision values of the model are
-converted to probabilities using Platt scaling. This method fits an
-additional model on top of the SVM model. When fitting the Platt scaling
-model, random numbers are used that are not reproducible or controlled
-by R’s random number stream.</p>
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Translation from parsnip to the original package (regression)</h3>
+<p><div class="sourceCode r"></p><pre><span class='fu'><a href='bart.html'>bart</a></span><span class='op'>(</span>
+  trees <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_terminal_node_coef <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_terminal_node_expo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,
+  prior_outcome_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>double</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"dbarts"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_args.html'>set_mode</a></span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='translate.html'>translate</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p><pre><span class='co'>## BART Model Specification (regression)</span>
+<span class='co'>## </span>
+<span class='co'>## Main Arguments:</span>
+<span class='co'>##   trees = integer(1)</span>
+<span class='co'>##   prior_terminal_node_coef = double(1)</span>
+<span class='co'>##   prior_terminal_node_expo = double(1)</span>
+<span class='co'>##   prior_outcome_range = double(1)</span>
+<span class='co'>## </span>
+<span class='co'>## Computational engine: dbarts </span>
+<span class='co'>## </span>
+<span class='co'>## Model fit template:</span>
+<span class='co'>## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), </span>
+<span class='co'>##     base = double(1), power = double(1), k = double(1), verbose = FALSE, </span>
+<span class='co'>##     keeptrees = TRUE, keepcall = FALSE)</span>
+</pre>
+
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Preprocessing requirements</h3>
 
@@ -249,26 +268,14 @@ by R’s random number stream.</p>
 formula method via
 <code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, parsnip will
 convert factor columns to indicators.</p>
-<p>Predictors should have the same scale. One way to achieve this is to
-center and scale each so that each predictor has mean zero and a
-variance of one.</p>
-
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Examples</h3>
-
-
-<p>The “Fitting and Predicting with parsnip” article contains
-<a href='https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-rbf-kernlab'>examples</a>
-for <code><a href='svm_rbf.html'>svm_rbf()</a></code> with the <code>"kernlab"</code> engine.</p>
+<p><code>dbarts::bart()</code> will also convert the factors to
+indicators if the user does not create them first.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>References</h3>
 
 <ul>
-<li><p>Lin, HT, and R Weng. <a href='https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf'>“A Note on Platt’s Probabilistic Outputs for Support Vector Machines”</a></p></li>
-<li><p>Karatzoglou, A, Smola, A, Hornik, K, and A Zeileis. 2004.
-<a href='https://www.jstatsoft.org/article/view/v011i09'>“kernlab - An S4 Package for Kernel Methods in R.”</a>, <em>Journal of
-Statistical Software</em>.</p></li>
-<li><p>Kuhn, M, and K Johnson. 2013. <em>Applied Predictive Modeling</em>.
-Springer.</p></li>
+<li><p>Chipman, George, McCulloch. “BART: Bayesian additive regression
+trees.” <em>Ann. Appl. Stat.</em> 4 (1) 266 - 298, March 2010.</p></li>
 </ul>
 
 
