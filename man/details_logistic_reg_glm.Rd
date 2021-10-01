@@ -15,7 +15,7 @@ For this engine, there is a single mode: classification
 This engine has no tuning parameters.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("glm") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)

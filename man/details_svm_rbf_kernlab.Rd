@@ -28,7 +28,7 @@ numbers so, without setting the seed before fitting, the model will not
 be reproducible.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
@@ -51,7 +51,7 @@ be reproducible.
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{svm_rbf(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
 ) \%>\% 

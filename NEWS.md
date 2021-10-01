@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+## Model Specification Changes
+
+* Bayesian additive regression trees (BART) were added via the `bart()` function.
+
 ## Bug fixes
 
 * A bug for class predictions of two-class GAM models was fixed (#541)

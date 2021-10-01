@@ -38,7 +38,7 @@ See \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}} and
 and other options.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{logistic_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("stan") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)

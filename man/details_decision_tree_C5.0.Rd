@@ -17,7 +17,7 @@ This model has 1 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{decision_tree(min_n = integer()) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(min_n = integer()) \%>\% 
   set_engine("C5.0") \%>\% 
   set_mode("classification") \%>\% 
   translate()

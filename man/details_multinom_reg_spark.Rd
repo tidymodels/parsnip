@@ -24,7 +24,7 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \code{mixture = 0} indicates ridge regression.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("spark") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)

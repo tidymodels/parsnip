@@ -20,7 +20,7 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
 ) \%>\%  
@@ -41,7 +41,7 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
 ) \%>\% 
   set_engine("kernlab") \%>\% 
