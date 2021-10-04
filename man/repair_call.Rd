@@ -10,7 +10,7 @@ repair_call(x, data)
 \item{x}{A fitted \code{parsnip} model. An error will occur if the underlying model
 does not have a \code{call} element.}
 
-\item{data}{A data object that is relavant to the call. In most cases, this
+\item{data}{A data object that is relevant to the call. In most cases, this
 is the data frame that was given to \code{parsnip} for the model fit (i.e., the
 training set data). The name of this data object is inserted into the call.}
 }

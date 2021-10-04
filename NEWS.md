@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+## Model Specification Changes
+
+* Bayesian additive regression trees (BART) were added via the `bart()` function.
+
 ## Bug fixes
 
 * A bug for class predictions of two-class GAM models was fixed (#541)
@@ -288,7 +292,7 @@ First CRAN release
 
 * Arguments to modeling functions are now captured as quosures. 
 * `others` has been replaced by `...`
-* Data descriptor names have beemn changed and are now functions. The descriptor definitions for "cols" and "preds" have been switched. 
+* Data descriptor names have been changed and are now functions. The descriptor definitions for "cols" and "preds" have been switched. 
 
 # parsnip 0.0.0.9003
 

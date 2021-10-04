@@ -49,6 +49,7 @@ reference:
       - add_rowindex
       - augment.model_fit
       - descriptors
+      - extract-parsnip
       - fit.model_spec
       - fit_xy
       - fit_control

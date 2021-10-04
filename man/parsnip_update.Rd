@@ -9,6 +9,8 @@
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_tree}
+\name{update.bart}
+\alias{update.bart}
 \alias{update.boost_tree}
 \alias{update.C5_rules}
 \alias{update.cubist_rules}
@@ -54,6 +56,13 @@
   tree_depth = NULL,
   min_n = NULL,
   class_cost = NULL,
+\method{update}{bart}(
+  object,
+  parameters = NULL,
+  trees = NULL,
+  prior_terminal_node_coef = NULL,
+  prior_terminal_node_expo = NULL,
+  prior_outcome_range = NULL,
   fresh = FALSE,
   ...
 )
@@ -302,6 +311,31 @@ parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{tree_depth}{An integer for maximum depth of the tree.}
 
+\item{trees}{An integer for the number of trees contained in
+the ensemble.}
+
+\item{prior_terminal_node_coef}{A coefficient for the prior probability that
+a node is a terminal node.}
+
+\item{prior_terminal_node_expo}{An exponent in the prior probability that
+a node is a terminal node.}
+
+\item{prior_outcome_range}{A positive value that defines the width of a prior
+that the predicted outcome is within a certain range. For regression it is
+related to the observed range of the data; the prior is the number of standard
+deviations of a Gaussian distribution defined by the observed range of the
+data. For classification, it is defined as the range of +/-3 (assumed to be
+on the logit scale). The default value is 2.}
+
+\item{fresh}{A logical for whether the arguments should be
+modified in-place or replaced wholesale.}
+
+\item{...}{Not used for \code{update()}.}
+
+\item{mtry}{A number for the number (or proportion) of predictors that will
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
+
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
 
@@ -346,6 +380,9 @@ estimation. Possible values are: "\code{diagonal}", "\code{min_distance}",
 \item{frac_common_cov}{Numeric values between zero and one.}
 
 \item{frac_identity}{Numeric values between zero and one.}
+
+\item{cost_complexity}{A positive number for the the cost/complexity
+parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{select_features}{\code{TRUE} or \code{FALSE.} If \code{TRUE}, the model has the
 ability to eliminate a predictor (via penalization). Increasing

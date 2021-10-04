@@ -9,7 +9,7 @@
 #' functions and methods.
 #' @param x A fitted `parsnip` model. An error will occur if the underlying model
 #'  does not have a `call` element.
-#' @param data A data object that is relavant to the call. In most cases, this
+#' @param data A data object that is relevant to the call. In most cases, this
 #'  is the data frame that was given to `parsnip` for the model fit (i.e., the
 #'  training set data). The name of this data object is inserted into the call.
 #' @return A modified `parsnip` fitted model.
