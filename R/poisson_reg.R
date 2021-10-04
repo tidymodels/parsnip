@@ -5,8 +5,8 @@
 #' `poisson_reg()` defines a generalized linear model for count data that follow
 #' a Poisson distribution.
 
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
 #'
@@ -123,6 +123,39 @@ update.poisson_reg <-
       engine = object$engine
     )
   }
+
+# ------------------------------------------------------------------------------
+
+#' @export
+translate.poisson_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "glmnet") {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    x$method$fit$args$lambda <- NULL
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  x
+}
+
+# ------------------------------------------------------------------------------
+
+check_args.poisson_reg <- function(object) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
+    rlang::abort("The amount of regularization should be >= 0.")
+  if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
+    rlang::abort("The mixture proportion should be within [0,1].")
+  if (is.numeric(args$mixture) && length(args$mixture) > 1)
+    rlang::abort("Only one value of `mixture` is allowed.")
+
+  invisible(object)
+}
 
 # ------------------------------------------------------------------------------
 
