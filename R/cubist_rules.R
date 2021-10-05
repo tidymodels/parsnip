@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `cubist_rules()` defines a model that derives simple feature rules from a tree
-#' ensemble and uses creates regression models within each rule.
+#' ensemble and creates regression models within each rule.
 #'
 #' There are different ways to fit this model. The method of estimation is
 #' chosen by setting the model _engine_.
@@ -15,7 +15,7 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
-#' @param committees A non-negative integer (no greater than 100 for the number
+#' @param committees A non-negative integer (no greater than 100) for the number
 #'  of members of the ensemble.
 #' @param max_rules The largest number of rules.
 #' @param neighbors An integer between zero and nine for the number of training
@@ -23,8 +23,8 @@
 #' @details
 #' Cubist is a rule-based ensemble regression model. A basic model tree
 #'  (Quinlan, 1992) is created that has a separate linear regression model
-#'  corresponding for each terminal node. The paths along the model tree is
-#'  flattened into rules these rules are simplified and pruned. The parameter
+#'  corresponding for each terminal node. The paths along the model tree are
+#'  flattened into rules and these rules are simplified and pruned. The parameter
 #'  `min_n` is the primary method for controlling the size of each tree while
 #'  `max_rules` controls the number of rules.
 #'
@@ -44,7 +44,7 @@
 #' After the model is created, there is also an option for a post-hoc
 #'  adjustment that uses the training set (Quinlan, 1993). When a new sample is
 #'  predicted by the model, it can be modified by its nearest neighbors in the
-#'  original training set. For _K_ neighbors, the model based predicted value is
+#'  original training set. For _K_ neighbors, the model-based predicted value is
 #'  adjusted by the neighbor using:
 #'
 #' \figure{adjust.png}

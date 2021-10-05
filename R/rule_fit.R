@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `rule_fit()` defines a model that derives simple feature rules from a tree
-#' ensemble and uses them as features to a regularized model.
+#' ensemble and uses them as features in a regularized model.
 #'
 #' There are different ways to fit this model. The method of estimation is
 #' chosen by setting the model _engine_.

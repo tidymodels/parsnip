@@ -18,9 +18,9 @@
 #' @inheritParams boost_tree
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
-#' @param trees A non-negative integer (no greater than 100 for the number
+#' @param trees A non-negative integer (no greater than 100) for the number
 #'  of members of the ensemble.
-#' @param min_n An integer greater than one zero and nine for the minimum number
+#' @param min_n An integer greater between zero and nine for the minimum number
 #'  of data points in a node that are required for the node to be split further.
 #' @details C5.0 is a classification model that is an extension of the C4.5
 #'  model of Quinlan (1993). It has tree- and rule-based versions that also
