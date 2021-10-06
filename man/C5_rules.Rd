@@ -10,10 +10,10 @@ C5_rules(mode = "classification", trees = NULL, min_n = NULL, engine = "C5.0")
 \item{mode}{A single character string for the type of model.
 The only possible value for this model is "classification".}
 
-\item{trees}{A non-negative integer (no greater than 100 for the number
+\item{trees}{A non-negative integer (no greater than 100) for the number
 of members of the ensemble.}
 
-\item{min_n}{An integer greater than one zero and nine for the minimum number
+\item{min_n}{An integer greater between zero and nine for the minimum number
 of data points in a node that are required for the node to be split further.}
 
 \item{engine}{A single character string specifying what computational engine

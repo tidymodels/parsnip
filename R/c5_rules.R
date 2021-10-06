@@ -85,13 +85,7 @@ print.C5_rules <- function(x, ...) {
 #' Updating a model specification
 #'
 #' @param object A `C5_rules` model specification.
-#' @param parameters	A 1-row tibble or named list with _main_ parameters to update.
-#' If the individual arguments are used, these will supersede the values in
-#' parameters. Also, using engine arguments in this object will result in an
-#' error.
-#' @param fresh	A logical for whether the arguments should be modified in-place
-#' or replaced wholesale.
-#' @param ...	Not used for `update()`.
+#' @inheritParams update.boost_tree
 #' @examples
 #'
 #' # ------------------------------------------------------------------------------

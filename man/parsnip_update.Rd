@@ -339,22 +339,24 @@ deviations of a Gaussian distribution defined by the observed range of the
 data. For classification, it is defined as the range of +/-3 (assumed to be
 on the logit scale). The default value is 2.}
 
-\item{mtry}{An number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models.}
+\item{mtry}{A number for the number (or proportion) of predictors that will
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration.}
+from iteration-to-iteration (specific engines only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further .}
+to split further (specific engines only).}
 
-\item{sample_size}{An number for the number (or proportion) of data that is
-exposed to the fitting routine.}
+\item{sample_size}{A number for the number (or proportion) of data that is
+exposed to the fitting routine. For \code{xgboost}, the sampling is done at
+each iteration while \code{C5.0} samples once during training.}
 
 \item{stop_iter}{The number of iterations without improvement before
 stopping (specific engines only).}
 
-\item{committees}{A non-negative integer (no greater than 100 for the number
+\item{committees}{A non-negative integer (no greater than 100) for the number
 of members of the ensemble.}
 
 \item{neighbors}{An integer between zero and nine for the number of training

@@ -13,20 +13,6 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
-#' @param mtry An number for the number (or proportion) of predictors that will
-#'  be randomly sampled at each split when creating the tree models.
-#' @param trees An integer for the number of trees contained in
-#'  the ensemble.
-#' @param min_n An integer for the minimum number of data points
-#'  in a node that are required for the node to be split further.
-#' @param tree_depth An integer for the maximum depth of the tree (i.e. number
-#'  of splits).
-#' @param learn_rate A number for the rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration.
-#' @param loss_reduction A number for the reduction in the loss function required
-#'   to split further .
-#' @param sample_size An number for the number (or proportion) of data that is
-#'  exposed to the fitting routine.
 #' @param penalty L1 regularization parameter.
 #' @details
 #' The RuleFit model creates a regression model of rules in two stages. The

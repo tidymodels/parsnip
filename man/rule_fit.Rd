@@ -22,26 +22,28 @@ rule_fit(
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
-\item{mtry}{An number for the number (or proportion) of predictors that will
-be randomly sampled at each split when creating the tree models.}
+\item{mtry}{A number for the number (or proportion) of predictors that will
+be randomly sampled at each split when creating the tree models
+(specific engines only)}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
 
 \item{min_n}{An integer for the minimum number of data points
-in a node that are required for the node to be split further.}
+in a node that is required for the node to be split further.}
 
 \item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
-of splits).}
+of splits) (specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration.}
+from iteration-to-iteration (specific engines only).}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
-to split further .}
+to split further (specific engines only).}
 
-\item{sample_size}{An number for the number (or proportion) of data that is
-exposed to the fitting routine.}
+\item{sample_size}{A number for the number (or proportion) of data that is
+exposed to the fitting routine. For \code{xgboost}, the sampling is done at
+each iteration while \code{C5.0} samples once during training.}
 
 \item{penalty}{L1 regularization parameter.}
 
@@ -50,7 +52,7 @@ to use for fitting.}
 }
 \description{
 \code{rule_fit()} defines a model that derives simple feature rules from a tree
-ensemble and uses them as features to a regularized model.
+ensemble and uses them as features in a regularized model.
 
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.

@@ -26,8 +26,8 @@ This value is used for all PLS components for X.}
 to use for fitting.}
 }
 \description{
-\code{pls()} defines a model that uses a supervised version of principal component
-analysis that uses latent variables to model the data.
+\code{pls()} defines a partial least squares model that uses latent variables to
+model the data. It is similar to a supervised version of principal component.
 
 There are different ways to fit this model. The method of estimation is
 chosen by setting the model \emph{engine}.
