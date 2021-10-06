@@ -1139,7 +1139,7 @@ make_engine_list <- function(mod, pkg = "parsnip") {
   if (length(eng) == 0) {
     return("No engines were found within the currently loaded packages.\n\n")
   } else {
-    main <- paste("The engine-specific pages for for this model are listed ",
+    main <- paste("The engine-specific pages for this model are listed ",
                   "below and contain the details:\n\n")
   }
 
