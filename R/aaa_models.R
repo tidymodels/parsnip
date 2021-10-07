@@ -1162,7 +1162,7 @@ make_seealso_list <- function(mod, pkg= "parsnip") {
   requireNamespace(pkg, quietly = TRUE)
   eng <- find_engine_files(mod, pkg)
 
-  main <- c("\\code{\\link[=fit.model_spec]{fit.model_spec()}}",
+  main <- c("\\code{\\link[=fit.model_spec]{fit()}}",
             "\\code{\\link[=set_engine]{set_engine()}}",
             "\\code{\\link[=update]{update()}}")
 
