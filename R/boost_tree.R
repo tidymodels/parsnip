@@ -8,8 +8,8 @@
 #' forming an ensemble. Each tree depends on the results of previous trees.
 #' All trees in the ensemble are combined to produce a final prediction.
 #'
-#' There are different ways to fit this model. See the engine-specific pages
-#' for more details:
+#' There are different ways to fit this model. The method of estimation is 
+#' chosen by setting the model _engine_. 
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
 #'

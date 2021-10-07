@@ -20,17 +20,26 @@ reference:
   - title: Models
     contents:
       - boost_tree
+      - cubist_rules
       - decision_tree
+      - discrim_flexible
+      - discrim_linear
+      - discrim_quad
+      - discrim_regularized
       - gen_additive_mod
       - linear_reg
       - logistic_reg
       - mars
       - mlp
       - multinom_reg
+      - naive_Bayes
       - nearest_neighbor
       - null_model
+      - pls
+      - poisson_reg
       - proportional_hazards
       - rand_forest
+      - rule_fit
       - survival_reg
       - svm_linear
       - svm_poly
