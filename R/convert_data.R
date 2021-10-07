@@ -94,12 +94,9 @@
 
   if (indicators != "none") {
     if (indicators == "one_hot") {
-      old_contr <- options("contrasts")$contrasts
-      on.exit(options(contrasts = old_contr), add = TRUE)
-      new_contr <- old_contr
-      new_contr["unordered"] <- "contr_one_hot"
-      options(contrasts = new_contr)
+      local_one_hot_contrasts()
     }
+
     x <- model.matrix(mod_terms, mod_frame)
   } else {
     # this still ignores -vars in formula
@@ -215,12 +212,9 @@
 
   if (object$options$indicators != "none") {
     if (object$options$indicators == "one_hot") {
-      old_contr <- options("contrasts")$contrasts
-      on.exit(options(contrasts = old_contr), add = TRUE)
-      new_contr <- old_contr
-      new_contr["unordered"] <- "contr_one_hot"
-      options(contrasts = new_contr)
+      local_one_hot_contrasts()
     }
+
     new_data <- model.matrix(mod_terms, new_data)
   }
 
@@ -322,6 +316,13 @@
 
 
 # ------------------------------------------------------------------------------
+
+local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
+  contrasts <- getOption("contrasts")
+  contrasts["unordered"] <- "contr_one_hot"
+
+  rlang::local_options(contrasts = contrasts, .frame = frame)
+}
 
 check_form_dots <- function(x) {
   good_args <- c("subset", "weights", "offset")
