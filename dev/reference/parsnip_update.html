@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update a model specification — update.bart • parsnip</title>
+<title>Updating a model specification — update.bag_mars • parsnip</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Update a model specification — update.bart" />
+<meta property="og:title" content="Updating a model specification — update.bag_mars" />
 <meta property="og:description" content="If parameters of a model specification need to be modified, update() can
 be used in lieu of recreating the object from scratch." />
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png" />
@@ -96,7 +96,7 @@ be used in lieu of recreating the object from scratch." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -154,8 +154,8 @@ be used in lieu of recreating the object from scratch." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update a model specification</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/bart.R'><code>R/bart.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/boost_tree.R'><code>R/boost_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/decision_tree.R'><code>R/decision_tree.R</code></a>, and 15 more</small>
+    <h1>Updating a model specification</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/parsnip/blob/master/R/bag_mars.R'><code>R/bag_mars.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/bag_tree.R'><code>R/bag_tree.R</code></a>, <a href='https://github.com/tidymodels/parsnip/blob/master/R/bart.R'><code>R/bart.R</code></a>, and 26 more</small>
     <div class="hidden name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -164,7 +164,30 @@ be used in lieu of recreating the object from scratch." />
 be used in lieu of recreating the object from scratch.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for bart</span>
+    <pre class="usage"><span class='co'># S3 method for bag_mars</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  num_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prod_degree <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prune_method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for bag_tree</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cost_complexity <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  class_cost <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for bart</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -192,6 +215,27 @@ be used in lieu of recreating the object from scratch.</p>
   <span class='va'>...</span>
 <span class='op'>)</span>
 
+<span class='co'># S3 method for C5_rules</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for cubist_rules</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  committees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  neighbors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  max_rules <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
 <span class='co'># S3 method for decision_tree</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
@@ -199,6 +243,37 @@ be used in lieu of recreating the object from scratch.</p>
   cost_complexity <span class='op'>=</span> <span class='cn'>NULL</span>,
   tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for discrim_flexible</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  num_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prod_degree <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prune_method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for discrim_linear</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
+  regularization_method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for discrim_quad</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, regularization_method <span class='op'>=</span> <span class='cn'>NULL</span>, fresh <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for discrim_regularized</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  frac_common_cov <span class='op'>=</span> <span class='cn'>NULL</span>,
+  frac_identity <span class='op'>=</span> <span class='cn'>NULL</span>,
   fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -267,6 +342,9 @@ be used in lieu of recreating the object from scratch.</p>
   <span class='va'>...</span>
 <span class='op'>)</span>
 
+<span class='co'># S3 method for naive_Bayes</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, smoothness <span class='op'>=</span> <span class='cn'>NULL</span>, Laplace <span class='op'>=</span> <span class='cn'>NULL</span>, fresh <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='co'># S3 method for nearest_neighbor</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
@@ -274,6 +352,16 @@ be used in lieu of recreating the object from scratch.</p>
   neighbors <span class='op'>=</span> <span class='cn'>NULL</span>,
   weight_func <span class='op'>=</span> <span class='cn'>NULL</span>,
   dist_power <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for pls</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  predictor_prop <span class='op'>=</span> <span class='cn'>NULL</span>,
+  num_comp <span class='op'>=</span> <span class='cn'>NULL</span>,
   fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -295,6 +383,22 @@ be used in lieu of recreating the object from scratch.</p>
   mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
   trees <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for rule_fit</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mtry <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tree_depth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  learn_rate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  loss_reduction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sample_size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  penalty <span class='op'>=</span> <span class='cn'>NULL</span>,
   fresh <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -354,6 +458,49 @@ these will supersede the values in <code>parameters</code>. Also, using
 engine arguments in this object will result in an error.</p></td>
     </tr>
     <tr>
+      <th>num_terms</th>
+      <td><p>The number of features that will be retained in the
+final model, including the intercept.</p></td>
+    </tr>
+    <tr>
+      <th>prod_degree</th>
+      <td><p>The highest possible interaction degree.</p></td>
+    </tr>
+    <tr>
+      <th>prune_method</th>
+      <td><p>The pruning method.</p></td>
+    </tr>
+    <tr>
+      <th>fresh</th>
+      <td><p>A logical for whether the arguments should be
+modified in-place or replaced wholesale.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>cost_complexity</th>
+      <td><p>A positive number for the the cost/complexity
+parameter (a.k.a. <code>Cp</code>) used by CART models (specific engines only).</p></td>
+    </tr>
+    <tr>
+      <th>tree_depth</th>
+      <td><p>An integer for maximum depth of the tree.</p></td>
+    </tr>
+    <tr>
+      <th>min_n</th>
+      <td><p>An integer for the minimum number of data points
+in a node that are required for the node to be split further.</p></td>
+    </tr>
+    <tr>
+      <th>class_cost</th>
+      <td><p>A non-negative scalar for a class cost (where a cost of 1
+means no extra cost). This is useful for when the first level of the outcome
+factor is the minority class. If this is not the case, values between zero
+and one can be used to bias to the second level of the factor.</p></td>
+    </tr>
+    <tr>
       <th>trees</th>
       <td><p>An integer for the number of trees contained in
 the ensemble.</p></td>
@@ -378,29 +525,10 @@ data. For classification, it is defined as the range of +/-3 (assumed to be
 on the logit scale). The default value is 2.</p></td>
     </tr>
     <tr>
-      <th>fresh</th>
-      <td><p>A logical for whether the arguments should be
-modified in-place or replaced wholesale.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used for <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>mtry</th>
       <td><p>A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models
 (specific engines only)</p></td>
-    </tr>
-    <tr>
-      <th>min_n</th>
-      <td><p>An integer for the minimum number of data points
-in a node that is required for the node to be split further.</p></td>
-    </tr>
-    <tr>
-      <th>tree_depth</th>
-      <td><p>An integer for the maximum depth of the tree (i.e. number
-of splits) (specific engines only).</p></td>
     </tr>
     <tr>
       <th>learn_rate</th>
@@ -424,9 +552,37 @@ each iteration while <code>C5.0</code> samples once during training.</p></td>
 stopping (specific engines only).</p></td>
     </tr>
     <tr>
-      <th>cost_complexity</th>
-      <td><p>A positive number for the the cost/complexity
-parameter (a.k.a. <code>Cp</code>) used by CART models (specific engines only).</p></td>
+      <th>committees</th>
+      <td><p>A non-negative integer (no greater than 100) for the number
+of members of the ensemble.</p></td>
+    </tr>
+    <tr>
+      <th>neighbors</th>
+      <td><p>An integer between zero and nine for the number of training
+set instances that are used to adjust the model-based prediction.</p></td>
+    </tr>
+    <tr>
+      <th>max_rules</th>
+      <td><p>The largest number of rules.</p></td>
+    </tr>
+    <tr>
+      <th>penalty</th>
+      <td><p>An non-negative number representing the amount of
+regularization used by some of the engines.</p></td>
+    </tr>
+    <tr>
+      <th>regularization_method</th>
+      <td><p>A character string for the type of regularized
+estimation. Possible values are: "<code>diagonal</code>", "<code>min_distance</code>",
+"<code>shrink_cov</code>", and "<code>shrink_mean</code>" (<code>sparsediscrim</code> engine only).</p></td>
+    </tr>
+    <tr>
+      <th>frac_common_cov</th>
+      <td><p>Numeric values between zero and one.</p></td>
+    </tr>
+    <tr>
+      <th>frac_identity</th>
+      <td><p>Numeric values between zero and one.</p></td>
     </tr>
     <tr>
       <th>select_features</th>
@@ -440,29 +596,11 @@ ability to eliminate a predictor (via penalization). Increasing
 for smoothness. Increase this beyond 1 to produce smoother models.</p></td>
     </tr>
     <tr>
-      <th>penalty</th>
-      <td><p>A non-negative number representing the total
-amount of regularization (specific engines only).</p></td>
-    </tr>
-    <tr>
       <th>mixture</th>
       <td><p>A number between zero and one (inclusive) that is the
 proportion of L1 regularization (i.e. lasso) in the model. When
 <code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
 ridge regression is being used (specific engines only).</p></td>
-    </tr>
-    <tr>
-      <th>num_terms</th>
-      <td><p>The number of features that will be retained in the
-final model, including the intercept.</p></td>
-    </tr>
-    <tr>
-      <th>prod_degree</th>
-      <td><p>The highest possible interaction degree.</p></td>
-    </tr>
-    <tr>
-      <th>prune_method</th>
-      <td><p>The pruning method.</p></td>
     </tr>
     <tr>
       <th>hidden_units</th>
@@ -486,10 +624,16 @@ function between the hidden and output layers is automatically set to either
 "linear", "softmax", "relu", and "elu"</p></td>
     </tr>
     <tr>
-      <th>neighbors</th>
-      <td><p>A single integer for the number of neighbors
-to consider (often called <code>k</code>). For <span class="pkg">kknn</span>, a value of 5
-is used if <code>neighbors</code> is not specified.</p></td>
+      <th>smoothness</th>
+      <td><p>An non-negative number representing the the relative
+smoothness of the class boundary. Smaller examples result in model flexible
+boundaries and larger values generate class boundaries that are less
+adaptable</p></td>
+    </tr>
+    <tr>
+      <th>Laplace</th>
+      <td><p>A non-negative value for the Laplace correction to smoothing
+low-frequency counts.</p></td>
     </tr>
     <tr>
       <th>weight_func</th>
@@ -502,6 +646,16 @@ to weight distances between samples. Valid choices are: <code>"rectangular"</cod
       <th>dist_power</th>
       <td><p>A single number for the parameter used in
 calculating Minkowski distance.</p></td>
+    </tr>
+    <tr>
+      <th>predictor_prop</th>
+      <td><p>The maximum proportion of original predictors that can
+have <em>non-zero</em> coefficients for each PLS component (via regularization).
+This value is used for all PLS components for X.</p></td>
+    </tr>
+    <tr>
+      <th>num_comp</th>
+      <td><p>The number of PLS components to retain.</p></td>
     </tr>
     <tr>
       <th>dist</th>
@@ -537,7 +691,109 @@ loss function (regression only)</p></td>
     <p>An updated model specification.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='boost_tree.html'>boost_tree</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># ------------------------------------------------------------------------------</span>
+
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='C5_rules.html'>C5_rules</a></span><span class='op'>(</span>trees <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; C5.0 Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 10
+#&gt;   min_n = 2
+#&gt; 
+#&gt; Computational engine: C5.0 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, trees <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; C5.0 Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 1
+#&gt;   min_n = 2
+#&gt; 
+#&gt; Computational engine: C5.0 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, trees <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; C5.0 Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 1
+#&gt; 
+#&gt; Computational engine: C5.0 
+#&gt; </div><div class='input'>
+<span class='co'># ------------------------------------------------------------------------------</span>
+
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cubist_rules.html'>cubist_rules</a></span><span class='op'>(</span>committees <span class='op'>=</span> <span class='fl'>10</span>, neighbors <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; Cubist Model Specification (regression)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   committees = 10
+#&gt;   neighbors = 2
+#&gt; 
+#&gt; Computational engine: Cubist 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, committees <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cubist Model Specification (regression)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   committees = 1
+#&gt;   neighbors = 2
+#&gt; 
+#&gt; Computational engine: Cubist 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, committees <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cubist Model Specification (regression)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   committees = 1
+#&gt; 
+#&gt; Computational engine: Cubist 
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pls.html'>pls</a></span><span class='op'>(</span>predictor_prop <span class='op'>=</span>  <span class='fl'>0.1</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; PLS Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   predictor_prop = 0.1
+#&gt; 
+#&gt; Computational engine: mixOmics 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, predictor_prop <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; PLS Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   predictor_prop = 1
+#&gt; 
+#&gt; Computational engine: mixOmics 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, predictor_prop <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; PLS Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   predictor_prop = 1
+#&gt; 
+#&gt; Computational engine: mixOmics 
+#&gt; </div><div class='input'><span class='co'># ------------------------------------------------------------------------------</span>
+
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rule_fit.html'>rule_fit</a></span><span class='op'>(</span>trees <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>model</span>
+</div><div class='output co'>#&gt; RuleFit Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 10
+#&gt;   min_n = 2
+#&gt; 
+#&gt; Computational engine: xrf 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, trees <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; RuleFit Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 1
+#&gt;   min_n = 2
+#&gt; 
+#&gt; Computational engine: xrf 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>model</span>, trees <span class='op'>=</span> <span class='fl'>1</span>, fresh <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; RuleFit Model Specification (unknown)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   trees = 1
+#&gt; 
+#&gt; Computational engine: xrf 
+#&gt; </div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='boost_tree.html'>boost_tree</a></span><span class='op'>(</span>mtry <span class='op'>=</span> <span class='fl'>10</span>, min_n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>model</span>
 </div><div class='output co'>#&gt; Boosted Tree Model Specification (unknown)
 #&gt; 

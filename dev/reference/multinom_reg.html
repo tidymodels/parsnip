@@ -52,9 +52,9 @@
 <meta property="og:title" content="Multinomial regression — multinom_reg" />
 <meta property="og:description" content="multinom_reg() defines a model that uses linear predictors to predict
 multiclass data using the multinomial distribution.
-There are different ways to fit this model. See the engine-specific pages
-for more details:
-
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model engine.
+The engine-specific pages for this model are listed  below and contain the details:
 glmnet  
 spark  
 keras  
@@ -106,7 +106,7 @@ https://www.tidymodels.org/." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -172,9 +172,9 @@ https://www.tidymodels.org/." />
     <div class="ref-description">
     <p><code>multinom_reg()</code> defines a model that uses linear predictors to predict
 multiclass data using the multinomial distribution.</p>
-<p>There are different ways to fit this model. See the engine-specific pages
-for more details:</p>
-<p><ul>
+<p>There are different ways to fit this model. The method of estimation is
+chosen by setting the model <em>engine</em>.</p>
+<p>The engine-specific pages for this model are listed  below and contain the details:<ul>
 <li><p><code><a href='details_multinom_reg_glmnet.html'>glmnet</a>  </code></p></li>
 <li><p><code><a href='details_multinom_reg_spark.html'>spark</a>  </code></p></li>
 <li><p><code><a href='details_multinom_reg_keras.html'>keras</a>  </code></p></li>
@@ -233,7 +233,7 @@ with the data.</p>
     <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://www.tmwr.org/'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_multinom_reg_glmnet.html'>glmnet engine details</a></code>, <code><a href='details_multinom_reg_spark.html'>spark engine details</a></code>, <code><a href='details_multinom_reg_keras.html'>keras engine details</a></code>, <code><a href='details_multinom_reg_nnet.html'>nnet engine details</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_multinom_reg_glmnet.html'>glmnet engine details</a></code>, <code><a href='details_multinom_reg_spark.html'>spark engine details</a></code>, <code><a href='details_multinom_reg_keras.html'>keras engine details</a></code>, <code><a href='details_multinom_reg_nnet.html'>nnet engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"multinom_reg"</span><span class='op'>)</span>

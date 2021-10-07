@@ -104,7 +104,7 @@ populates the list seen in &quot;See Also&quot; below. See the details section."
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -234,19 +234,21 @@ technical information about the models.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>find_engine_files</span><span class='op'>(</span><span class='st'>"linear_reg"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 4</span>
-#&gt;   engine topic                     .order default     
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> lm     details_linear_reg_lm          1 <span style='color: #949494;'>"</span> (default)<span style='color: #949494;'>"</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> glmnet details_linear_reg_glmnet      2 <span style='color: #949494;'>""</span>          
-#&gt; <span style='color: #BCBCBC;'>3</span> stan   details_linear_reg_stan        3 <span style='color: #949494;'>""</span>          
-#&gt; <span style='color: #BCBCBC;'>4</span> spark  details_linear_reg_spark       4 <span style='color: #949494;'>""</span>          
-#&gt; <span style='color: #BCBCBC;'>5</span> keras  details_linear_reg_keras       5 <span style='color: #949494;'>""</span>          </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>make_engine_list</span><span class='op'>(</span><span class='st'>"linear_reg"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; \itemize{
-#&gt;   \item \code{\link[=details_linear_reg_lm]{lm}  (default) }
-#&gt;   \item \code{\link[=details_linear_reg_glmnet]{glmnet}  }
-#&gt;   \item \code{\link[=details_linear_reg_stan]{stan}  }
-#&gt;   \item \code{\link[=details_linear_reg_spark]{spark}  }
-#&gt;   \item \code{\link[=details_linear_reg_keras]{keras}  }
+#&gt;   engine topic                             .order default     
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                              <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'>1</span> lm     parsnip:details_linear_reg_lm          1 <span style='color: #949494;'>"</span> (default)<span style='color: #949494;'>"</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> glmnet parsnip:details_linear_reg_glmnet      2 <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'>3</span> stan   parsnip:details_linear_reg_stan        3 <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'>4</span> spark  parsnip:details_linear_reg_spark       4 <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'>5</span> keras  parsnip:details_linear_reg_keras       5 <span style='color: #949494;'>""</span>          </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'>make_engine_list</span><span class='op'>(</span><span class='st'>"linear_reg"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; The engine-specific pages for this model are listed  below and contain the details:
+#&gt; 
+#&gt; \itemize{
+#&gt;   \item \code{\link[parsnip:details_linear_reg_lm]{lm}  (default) }
+#&gt;   \item \code{\link[parsnip:details_linear_reg_glmnet]{glmnet}  }
+#&gt;   \item \code{\link[parsnip:details_linear_reg_stan]{stan}  }
+#&gt;   \item \code{\link[parsnip:details_linear_reg_spark]{spark}  }
+#&gt;   \item \code{\link[parsnip:details_linear_reg_keras]{keras}  }
 #&gt; }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

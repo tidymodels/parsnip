@@ -53,9 +53,9 @@
 <meta property="og:description" content="boost_tree() defines a model that creates a series of decision trees
 forming an ensemble. Each tree depends on the results of previous trees.
 All trees in the ensemble are combined to produce a final prediction.
-There are different ways to fit this model. See the engine-specific pages
-for more details:
-
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model engine.
+The engine-specific pages for this model are listed  below and contain the details:
 xgboost  (default) 
 C5.0  
 spark  
@@ -106,7 +106,7 @@ https://www.tidymodels.org/." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -173,9 +173,9 @@ https://www.tidymodels.org/." />
     <p><code>boost_tree()</code> defines a model that creates a series of decision trees
 forming an ensemble. Each tree depends on the results of previous trees.
 All trees in the ensemble are combined to produce a final prediction.</p>
-<p>There are different ways to fit this model. See the engine-specific pages
-for more details:</p>
-<p><ul>
+<p>There are different ways to fit this model. The method of estimation is
+chosen by setting the model <em>engine</em>.</p>
+<p>The engine-specific pages for this model are listed  below and contain the details:<ul>
 <li><p><code><a href='details_boost_tree_xgboost.html'>xgboost</a>  (default) </code></p></li>
 <li><p><code><a href='details_boost_tree_C5.0.html'>C5.0</a>  </code></p></li>
 <li><p><code><a href='details_boost_tree_spark.html'>spark</a>  </code></p></li>
@@ -266,7 +266,7 @@ with the data.</p>
     <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://www.tmwr.org/'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_boost_tree_xgboost.html'>xgboost engine details</a></code>, <code><a href='details_boost_tree_C5.0.html'>C5.0 engine details</a></code>, <code><a href='details_boost_tree_spark.html'>spark engine details</a></code>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_boost_tree_xgboost.html'>xgboost engine details</a></code>, <code><a href='details_boost_tree_C5.0.html'>C5.0 engine details</a></code>, <code><a href='details_boost_tree_spark.html'>spark engine details</a></code>
 ,
 <code><a href='xgb_train.html'>xgb_train()</a></code>, <code><a href='C5.0_train.html'>C5.0_train()</a></code></p></div>
 

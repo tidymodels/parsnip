@@ -56,9 +56,9 @@ For regression, the model optimizes a robust loss function that is only
 affected by very large model residuals.
 This SVM model uses a nonlinear function, specifically a polynomial function,
 to create the decision boundary or regression line.
-There are different ways to fit this model. See the engine-specific pages
-for more details:
-
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model engine.
+The engine-specific pages for this model are listed  below and contain the details:
 kernlab  (default) 
 
 More information on how parsnip is used for modeling is at
@@ -107,7 +107,7 @@ https://www.tidymodels.org/." />
         <a class="navbar-brand" href="../index.html">parsnip</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.900</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
         </div>
       </div>
     </div>
@@ -177,9 +177,9 @@ For regression, the model optimizes a robust loss function that is only
 affected by very large model residuals.</p>
 <p>This SVM model uses a nonlinear function, specifically a polynomial function,
 to create the decision boundary or regression line.</p>
-<p>There are different ways to fit this model. See the engine-specific pages
-for more details:</p>
-<p><ul>
+<p>There are different ways to fit this model. The method of estimation is
+chosen by setting the model <em>engine</em>.</p>
+<p>The engine-specific pages for this model are listed  below and contain the details:<ul>
 <li><p><code><a href='details_svm_poly_kernlab.html'>kernlab</a>  (default) </code></p></li>
 </ul></p>
 <p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
@@ -240,7 +240,7 @@ with the data.</p>
     <p><a href='https://www.tidymodels.org'>https://www.tidymodels.org</a>, <a href='https://www.tmwr.org/'><em>Tidy Models with R</em></a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit.model_spec()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_svm_poly_kernlab.html'>kernlab engine details</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.model_spec.html'>fit()</a></code>, <code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>, <code><a href='details_svm_poly_kernlab.html'>kernlab engine details</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='show_engines.html'>show_engines</a></span><span class='op'>(</span><span class='st'>"svm_poly"</span><span class='op'>)</span>

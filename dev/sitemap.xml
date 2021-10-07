@@ -7,6 +7,9 @@
     <loc>https://parsnip.tidymodels.org/reference/C5.0_train.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/C5_rules.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/add_on_exports.html</loc>
   </url>
   <url>
@@ -14,6 +17,12 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/augment.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/bag_mars.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/bag_tree.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/bart-internal.html</loc>
@@ -38,6 +47,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/convert_stan_interval.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/cubist_rules.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/decision_tree.html</loc>
@@ -148,6 +160,18 @@
     <loc>https://parsnip.tidymodels.org/reference/details_svm_rbf_kernlab.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/discrim_flexible.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/discrim_linear.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/discrim_quad.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/discrim_regularized.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/doc-tools.html</loc>
   </url>
   <url>
@@ -226,6 +250,9 @@
     <loc>https://parsnip.tidymodels.org/reference/multinom_reg.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/naive_Bayes.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/nearest_neighbor.html</loc>
   </url>
   <url>
@@ -242,6 +269,12 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/parsnip_update.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/pls.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/poisson_reg.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
@@ -266,6 +299,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/rpart_train.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/rule_fit.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/set_args.html</loc>
