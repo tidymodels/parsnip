@@ -28,7 +28,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr (>= 0.8.0.1),
-    generics (>= 0.1.0),
+    generics (>= 0.1.0.9000),
     globals,
     glue,
     hardhat (>= 0.1.5.9000),
@@ -77,3 +77,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Remotes: 
+    r-lib/generics

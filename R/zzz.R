@@ -11,6 +11,21 @@
   s3_register("generics::augment", "model_fit")
   s3_register("generics::required_pkgs", "model_fit")
   s3_register("generics::required_pkgs", "model_spec")
+
+  # Can't use `rlang::is_installed()` at all, as that doesn't work when
+  # called from `.onLoad()` for some reason. Instead, rely on `packageVersion()`
+  # erroring when the package isn't installed.
+  has_at_least_version <- function(pkg, version) {
+    tryCatch(
+      expr = utils::packageVersion(pkg) >= version,
+      error = function(cnd) FALSE
+    )
+  }
+
+  if (has_at_least_version("tune", "0.1.6.9001")) {
+    # `tune_args.model_spec()` moved from tune to parsnip
+    vctrs::s3_register("generics::tune_args", "model_spec", tune_args_model_spec)
+  }
 }
 
 

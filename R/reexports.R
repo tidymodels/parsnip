@@ -27,6 +27,10 @@ generics::augment
 #' @export
 generics::required_pkgs
 
+#' @importFrom generics tune_args
+#' @export
+generics::tune_args
+
 #' @importFrom hardhat extract_spec_parsnip
 #' @export
 hardhat::extract_spec_parsnip
