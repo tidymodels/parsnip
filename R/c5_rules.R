@@ -44,7 +44,6 @@
 #'
 #' C5_rules()
 #' @export
-#' @importFrom purrr map_lgl
 C5_rules <-
   function(mode = "classification",
            trees = NULL,

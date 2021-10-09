@@ -139,7 +139,6 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #'
 #' @includeRmd man/rmd/null-model.Rmd details
 #'
-#' @importFrom purrr map_lgl
 #' @seealso [fit.model_spec()]
 #' @examples
 #' null_model(mode = "regression")

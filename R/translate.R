@@ -45,9 +45,6 @@
 translate <- function(x, ...)
   UseMethod("translate")
 
-#' @importFrom utils getFromNamespace
-#' @importFrom purrr list_modify
-#' @importFrom rlang lgl
 #' @rdname translate
 #' @export
 #' @export translate.default

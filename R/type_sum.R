@@ -11,7 +11,6 @@
 #' For fitted models, either "`fit[x]`" or "`fit[+]`" are used
 #'  where the "x" implies that the model fit failed in some way.
 #' @return A character value.
-#' @importFrom tibble type_sum
 #' @method type_sum model_spec
 #' @keywords internal
 #' @export
@@ -33,7 +32,6 @@ type_sum.model_spec <- function(x) {
 }
 
 #' @rdname type_sum.model_spec
-#' @importFrom tibble type_sum
 #' @method type_sum model_fit
 #' @keywords internal
 #' @export

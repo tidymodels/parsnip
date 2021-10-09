@@ -173,11 +173,6 @@ get_descr_df <- function(formula, data) {
   )
 }
 
-#' @importFrom dplyr collect select group_by summarise pull tally
-#' @importFrom purrr map map_lgl map_dbl imap imap_lgl as_vector
-#' @importFrom stats terms
-#' @importFrom rlang syms sym
-#' @importFrom utils head
 get_descr_spark <- function(formula, data) {
 
   all_vars <- all.vars(formula)
@@ -411,7 +406,6 @@ poke_descrs <- function(descrs) {
 # frame = evaluation frame of when the on.exit() call is made
 # we generally set it to whatever fn calls scoped_descrs()
 # which should be inside of fit()
-#' @importFrom rlang caller_env
 scoped_descrs <- function(descrs, frame = caller_env()) {
   old <- poke_descrs(descrs)
 

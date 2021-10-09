@@ -40,7 +40,6 @@
 #'
 #' logistic_reg()
 #' @export
-#' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
            engine = "glm",
@@ -278,8 +277,6 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
 }
 
 
-#' @importFrom dplyr full_join as_tibble arrange
-#' @importFrom tidyr gather
 #' @export
 #' @rdname multi_predict
 multi_predict._lognet <-

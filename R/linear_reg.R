@@ -36,7 +36,6 @@
 #'
 #' linear_reg()
 #' @export
-#' @importFrom purrr map_lgl
 linear_reg <-
   function(mode = "regression",
            engine = "lm",
@@ -250,8 +249,6 @@ predict_raw._elnet <- function(object, new_data, opts = list(), ...)  {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
-#' @importFrom dplyr full_join as_tibble arrange
-#' @importFrom tidyr gather
 #' @export
 #'@rdname multi_predict
 #' @param penalty A numeric vector of penalty values.

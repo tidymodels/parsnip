@@ -5,7 +5,6 @@
 #' @examples
 #' mtcars %>% add_rowindex()
 #' @export
-#' @importFrom dplyr mutate
 add_rowindex <- function(x) {
   if (!is.data.frame(x)) {
     rlang::abort("`x` should be a data frame.")

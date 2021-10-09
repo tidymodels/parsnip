@@ -9,7 +9,6 @@ ranger_class_pred <-
     res
   }
 
-#' @importFrom stats qnorm
 ranger_num_confint <- function(object, new_data, ...) {
   hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
   const <- qnorm(hf_lvl, lower.tail = FALSE)

@@ -29,7 +29,6 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
 #' @export
-#' @importFrom purrr map_lgl
 poisson_reg <-
   function(mode = "regression",
            penalty = NULL,

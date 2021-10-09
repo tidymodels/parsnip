@@ -4,7 +4,6 @@
 #' @method predict_classprob model_fit
 #' @export predict_classprob.model_fit
 #' @export
-#' @importFrom tibble as_tibble is_tibble tibble
 predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification")
     rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")

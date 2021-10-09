@@ -1,6 +1,5 @@
 # some spark helper functions
 
-#' @importFrom dplyr starts_with rename rename_at vars funs
 format_spark_probs <- function(results, object) {
   results <- dplyr::select(results, starts_with("probability_"))
   p <- ncol(results)
