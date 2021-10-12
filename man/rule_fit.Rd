@@ -85,7 +85,7 @@ rule_fit()
 Friedman, J. H., and Popescu, B. E. (2008). "Predictive learning
 via rule ensembles." \emph{The Annals of Applied Statistics}, 2(3), 916-954.
 
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
 \code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}

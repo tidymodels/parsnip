@@ -59,7 +59,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 
 Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the
 American Statistical Association}, 84, 165-175.
