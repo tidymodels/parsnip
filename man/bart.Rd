@@ -92,7 +92,7 @@ prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) \%>\%
   facet_wrap(~ expo)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bart")}

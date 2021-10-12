@@ -78,7 +78,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Models with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 
 Quinlan R (1992). "Learning with Continuous Classes." Proceedings
 of the 5th Australian Joint Conference On Artificial Intelligence, pp.
