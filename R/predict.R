@@ -141,7 +141,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   if (type != "raw" && length(opts) > 0) {
     rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
   }
-  check_pred_type_dots(type, ...)
+  check_pred_type_dots(object, type, ...)
 
   res <- switch(
     type,
@@ -297,7 +297,7 @@ make_pred_call <- function(x) {
   cl
 }
 
-check_pred_type_dots <- function(type, ...) {
+check_pred_type_dots <- function(object, type, ...) {
   the_dots <- list(...)
   nms <- names(the_dots)
 
@@ -309,7 +309,7 @@ check_pred_type_dots <- function(type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("level", "std_error", "quantile", "time")
+  other_args <- c("level", "std_error", "quantile", "time", "increasing")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -341,6 +341,21 @@ check_pred_type_dots <- function(type, ...) {
       )
     )
   }
+
+  # `increasing` should only be passed for specific models
+  prop_haz_model <- "proportional_hazards" %in% class(object$spec)
+  boosted_cox <- object$spec$mode == "censored regression" &
+    object$spec$engine == "mboost"
+  allowed_model <- prop_haz_model | boosted_cox
+  if (any(nms == "increasing") &
+      !(type == "linear_pred" &
+        object$spec$mode == "censored regression" &
+        allowed_model)) {
+    rlang::abort(
+      "The `increasing` argument cannot be used here."
+    )
+  }
+
   invisible(TRUE)
 }
 
