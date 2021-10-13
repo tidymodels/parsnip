@@ -50,9 +50,10 @@
 #'
 #' For censored regression, a numeric vector for `time` is required when
 #' survival or hazard probabilities are requested. Also, when
-#' `type = "linear_pred"`, censored regression models will be formatted such
-#' that the linear predictor _increases_ with time. This may have the opposite
-#' sign as what the underlying model's `predict()` method produces.
+#' `type = "linear_pred"`, censored regression models will by default be
+#' formatted such that the linear predictor _increases_ with time. This may
+#' have the opposite sign as what the underlying model's `predict()` method
+#' produces. Set `increasing = FALSE` to suppress this behavior.
 #'
 #' @return With the exception of `type = "raw"`, the results of
 #'  `predict.model_fit()` will be a tibble as many rows in the output

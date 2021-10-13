@@ -116,9 +116,10 @@ extra column of standard error values (if available).
 
 For censored regression, a numeric vector for \code{time} is required when
 survival or hazard probabilities are requested. Also, when
-\code{type = "linear_pred"}, censored regression models will be formatted such
-that the linear predictor \emph{increases} with time. This may have the opposite
-sign as what the underlying model's \code{predict()} method produces.
+\code{type = "linear_pred"}, censored regression models will by default be
+formatted such that the linear predictor \emph{increases} with time. This may
+have the opposite sign as what the underlying model's \code{predict()} method
+produces. Set \code{increasing = FALSE} to suppress this behavior.
 }
 }
 \examples{
