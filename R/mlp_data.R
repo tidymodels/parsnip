@@ -421,13 +421,33 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "lantern",
+  parsnip = "activation",
+  original = "activation",
+  func = list(pkg = "dials", fun = "activation"),
+  has_submodel = FALSE
+)
+
+
 set_fit(
   model = "mlp",
   eng = "lantern",
   mode = "regression",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
+    interface = "data.frame",
+    protect = c("x", "y"),
     func = c(pkg = "lantern", fun = "lantern_mlp"),
     defaults = list(trace = FALSE)
   )
@@ -450,8 +470,8 @@ set_fit(
   eng = "lantern",
   mode = "classification",
   value = list(
-    interface = "formula",
-    protect = c("formula", "data", "weights"),
+    interface = "data.frame",
+    protect = c("x", "y"),
     func = c(pkg = "lantern", fun = "lantern_mlp"),
     defaults = list(trace = FALSE)
   )
