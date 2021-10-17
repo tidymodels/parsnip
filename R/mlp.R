@@ -66,14 +66,15 @@
 mlp <-
   function(mode = "unknown",
            hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
-           activation = NULL) {
+           activation = NULL, learn_rate = NULL) {
 
     args <- list(
       hidden_units = enquo(hidden_units),
       penalty      = enquo(penalty),
       dropout      = enquo(dropout),
       epochs       = enquo(epochs),
-      activation   = enquo(activation)
+      activation   = enquo(activation),
+      learn_rate   = enquo(learn_rate)
     )
 
     new_model_spec(
@@ -120,7 +121,7 @@ update.mlp <-
   function(object,
            parameters = NULL,
            hidden_units = NULL, penalty = NULL, dropout = NULL,
-           epochs = NULL, activation = NULL,
+           epochs = NULL, activation = NULL, learn_rate = NULL,
            fresh = FALSE, ...) {
 
     eng_args <- update_engine_parameters(object$eng_args, ...)
@@ -134,7 +135,8 @@ update.mlp <-
       penalty      = enquo(penalty),
       dropout      = enquo(dropout),
       epochs       = enquo(epochs),
-      activation   = enquo(activation)
+      activation   = enquo(activation),
+      learn_rate   = enquo(learn_rate)
     )
 
     args <- update_main_parameters(args, parameters)

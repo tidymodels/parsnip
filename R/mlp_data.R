@@ -406,9 +406,9 @@ set_model_arg(
 set_model_arg(
   model = "mlp",
   eng = "lantern",
-  parsnip = "learning_rate",
-  original = "learning_rate",
-  func = list(pkg = "dials", fun = "learning_rate"),
+  parsnip = "learn_rate",
+  original = "learn_rate",
+  func = list(pkg = "dials", fun = "learn_rate"),
   has_submodel = FALSE
 )
 
@@ -428,7 +428,7 @@ set_fit(
   value = list(
     interface = "formula",
     protect = c("formula", "data", "weights"),
-    func = c(pkg = "lantern", fun = "torch_mlp"),
+    func = c(pkg = "lantern", fun = "lantern_mlp"),
     defaults = list(trace = FALSE)
   )
 )
@@ -452,7 +452,7 @@ set_fit(
   value = list(
     interface = "formula",
     protect = c("formula", "data", "weights"),
-    func = c(pkg = "lantern", fun = "torch_mlp"),
+    func = c(pkg = "lantern", fun = "lantern_mlp"),
     defaults = list(trace = FALSE)
   )
 )
