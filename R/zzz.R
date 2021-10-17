@@ -1,13 +1,16 @@
 # nocov start
 
 .onLoad <- function(libname, pkgname) {
-  s3_register("broom::tidy", "model_fit")
-  s3_register("broom::tidy", "nullmodel")
-  s3_register("broom::tidy", "_elnet")
-  s3_register("broom::tidy", "_lognet")
-  s3_register("broom::tidy", "_multnet")
-  s3_register("broom::tidy", "_fishnet")
-  s3_register("broom::glance", "model_fit")
+  s3_register("generics::tidy", "model_fit")
+  s3_register("generics::tidy", "nullmodel")
+  s3_register("generics::tidy", "_elnet")
+  s3_register("generics::tidy", "_lognet")
+  s3_register("generics::tidy", "_multnet")
+  s3_register("generics::tidy", "_fishnet")
+  s3_register("generics::glance", "model_fit")
+  s3_register("generics::augment", "model_fit")
+  s3_register("generics::required_pkgs", "model_fit")
+  s3_register("generics::required_pkgs", "model_spec")
 }
 
 

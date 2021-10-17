@@ -16,7 +16,11 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 test_that('primary arguments', {
   basic <- logistic_reg()
   basic_glm <- translate(basic %>% set_engine("glm"))
-  basic_glmnet <- translate(basic %>% set_engine("glmnet"))
+  expect_error(
+    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
+  )
+  basic_liblinear <- translate(basic %>% set_engine("LiblineaR"))
   basic_stan <- translate(basic %>% set_engine("stan"))
   basic_spark <- translate(basic %>% set_engine("spark"))
   expect_equal(basic_glm$method$fit$args,
@@ -27,12 +31,12 @@ test_that('primary arguments', {
                  family = expr(stats::binomial)
                )
   )
-  expect_equal(basic_glmnet$method$fit$args,
+  expect_equal(basic_liblinear$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "binomial"
+                 wi = expr(missing_arg()),
+                 verbose = FALSE
                )
   )
   expect_equal(basic_stan$method$fit$args,
@@ -54,17 +58,11 @@ test_that('primary arguments', {
   )
 
   mixture <- logistic_reg(mixture = 0.128)
-  mixture_glmnet <- translate(mixture %>% set_engine("glmnet"))
-  mixture_spark <- translate(mixture %>% set_engine("spark"))
-  expect_equal(mixture_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(0.128),
-                 family = "binomial"
-               )
+  expect_error(
+    mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
   )
+  mixture_spark <- translate(mixture %>% set_engine("spark"))
   expect_equal(mixture_spark$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -77,6 +75,7 @@ test_that('primary arguments', {
 
   penalty <- logistic_reg(penalty = 1)
   penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
+  penalty_liblinear <- translate(penalty %>% set_engine("LiblineaR"))
   penalty_spark <- translate(penalty %>% set_engine("spark"))
   expect_equal(penalty_glmnet$method$fit$args,
                list(
@@ -84,6 +83,15 @@ test_that('primary arguments', {
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  family = "binomial"
+               )
+  )
+  expect_equal(penalty_liblinear$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 wi = expr(missing_arg()),
+                 cost = new_empty_quosure(1),
+                 verbose = FALSE
                )
   )
   expect_equal(penalty_spark$method$fit$args,
@@ -97,15 +105,19 @@ test_that('primary arguments', {
   )
 
   mixture_v <- logistic_reg(mixture = varying())
-  mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
+  expect_error(
+    mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
+  )
+  mixture_v_liblinear <- translate(mixture_v %>% set_engine("LiblineaR"))
   mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
-  expect_equal(mixture_v_glmnet$method$fit$args,
+  expect_equal(mixture_v_liblinear$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(varying()),
-                 family = "binomial"
+                 wi = expr(missing_arg()),
+                 type = new_empty_quosure(varying()),
+                 verbose = FALSE
                )
   )
   expect_equal(mixture_v_spark$method$fit$args,
@@ -114,6 +126,37 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
                  elastic_net_param = new_empty_quosure(varying()),
+                 family = "binomial"
+               )
+  )
+
+  penalty_v <- logistic_reg(penalty = 1)
+  penalty_v_glmnet <- translate(penalty_v %>% set_engine("glmnet"))
+  penalty_v_liblinear <- translate(penalty_v %>% set_engine("LiblineaR"))
+  penalty_v_spark <- translate(penalty_v %>% set_engine("spark"))
+  expect_equal(penalty_v_glmnet$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 weights = expr(missing_arg()),
+                 family = "binomial"
+               )
+  )
+  expect_equal(penalty_v_liblinear$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 y = expr(missing_arg()),
+                 wi = expr(missing_arg()),
+                 cost = new_empty_quosure(1),
+                 verbose = FALSE
+               )
+  )
+  expect_equal(penalty_v_spark$method$fit$args,
+               list(
+                 x = expr(missing_arg()),
+                 formula = expr(missing_arg()),
+                 weight_col = expr(missing_arg()),
+                 reg_param = new_empty_quosure(1),
                  family = "binomial"
                )
   )
@@ -134,7 +177,7 @@ test_that('engine arguments', {
       )
     )
 
-  glmnet_nlam <- logistic_reg()
+  glmnet_nlam <- logistic_reg(penalty = 0.1)
   expect_equal(
     translate(glmnet_nlam %>% set_engine("glmnet", nlambda = 10))$method$fit$args,
     list(
@@ -145,6 +188,19 @@ test_that('engine arguments', {
       family = "binomial"
     )
   )
+
+  liblinear_bias <- logistic_reg()
+  expect_equal(
+    translate(liblinear_bias %>% set_engine("LiblineaR", bias = 0))$method$fit$args,
+    list(
+      x = expr(missing_arg()),
+      y = expr(missing_arg()),
+      wi = expr(missing_arg()),
+      bias = new_empty_quosure(0),
+      verbose = FALSE
+    )
+  )
+
 
   stan_samp <- logistic_reg()
   expect_equal(
@@ -172,6 +228,19 @@ test_that('engine arguments', {
     )
   )
 
+  # For issue #431
+  with_path <-
+    logistic_reg(penalty = 1) %>%
+    set_engine("glmnet", path_values = 4:2) %>%
+    translate()
+  expect_equal(
+    names(with_path$method$fit$args),
+    c("x", "y", "weights", "lambda", "family")
+  )
+  expect_equal(
+    rlang::eval_tidy(with_path$method$fit$args$lambda),
+    4:2
+  )
 })
 
 
@@ -216,6 +285,7 @@ test_that('bad input', {
   expect_error(translate(logistic_reg(formula = y ~ x)))
   expect_error(translate(logistic_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine(engine = "glmnet")))
   expect_error(translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm")))
+  expect_error(translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR")))
 })
 
 # ------------------------------------------------------------------------------
@@ -224,6 +294,7 @@ lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <- logistic_reg() %>% set_engine("glm")
+ll_basic <- logistic_reg() %>% set_engine("LiblineaR")
 
 test_that('glm execution', {
 
@@ -349,11 +420,97 @@ test_that('glm intervals', {
 
 })
 
+test_that('liblinear execution', {
 
-test_that('default engine', {
-  expect_warning(
-    fit <- logistic_reg() %>% fit(Class ~ log(funded_amnt) + int_rate, data = lending_club),
-    "Engine set to"
+  skip_if_not_installed("LiblineaR")
+
+  expect_error(
+    res <- fit_xy(
+      ll_basic,
+      x = lending_club[, num_pred],
+      y = lending_club$Class,
+      control = ctrl
+    ),
+    regexp = NA
   )
-  expect_true(inherits(fit$fit, "glm"))
+  expect_output(print(res), "parsnip model object")
+
+  expect_error(
+    res <- fit(
+      ll_basic,
+      funded_amnt ~ term,
+      data = lending_club,
+      control = ctrl
+    )
+  )
+
+  expect_error(
+    tidy_res <- tidy(res),
+    NA
+  )
+  expect_s3_class(tidy_res, "tbl_df")
+  expect_equal(colnames(tidy_res), c("term", "estimate"))
+
+  # wrong outcome type
+  expect_error(
+    glm_form_catch <- fit(
+      ll_basic,
+      funded_amnt ~ term,
+      data = lending_club,
+      control = caught_ctrl
+    )
+  )
+
+  expect_error(
+    glm_xy_catch <- fit_xy(
+      ll_basic,
+      control = caught_ctrl,
+      x = lending_club[, num_pred],
+      y = lending_club$total_bal_il
+    )
+  )
+
+
 })
+
+test_that('liblinear prediction', {
+
+  skip_if_not_installed("LiblineaR")
+
+  classes_xy <- fit_xy(
+    ll_basic,
+    x = lending_club[, num_pred],
+    y = lending_club$Class,
+    control = ctrl
+  )
+
+  xy_pred <- predict(classes_xy$fit, newx = lending_club[1:7, num_pred])
+  xy_pred <- xy_pred$predictions
+  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
+
+})
+
+test_that('liblinear probabilities', {
+
+  skip_if_not_installed("LiblineaR")
+
+  classes_xy <- fit_xy(
+    ll_basic,
+    x = lending_club[, num_pred],
+    y = lending_club$Class,
+    control = ctrl
+  )
+
+  xy_pred <- predict(classes_xy$fit,
+                     newx = lending_club[1:7, num_pred],
+                     proba = TRUE)
+  xy_pred <- as_tibble(xy_pred$probabilities)
+  xy_pred <- tibble(.pred_good = xy_pred$good,
+                    .pred_bad  = xy_pred$bad)
+  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
+
+  one_row <- predict(classes_xy, lending_club[1, num_pred], type = "prob")
+  expect_equal(xy_pred[1,], one_row)
+
+})
+

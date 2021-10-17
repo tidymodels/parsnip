@@ -5,14 +5,13 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
+[![R-CMD-check](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
-[![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://cran.rstudio.com/package=parsnip)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 ## Introduction
@@ -39,7 +38,7 @@ devtools::install_github("tidymodels/parsnip")
 
 One challenge with different modeling functions available in R *that do
 the same thing* is that they can have different interfaces and
-arguments. For example, to fit a random forest *regression* model, we
+arguments. For example, to fit a random forest regression model, we
 might have:
 
 ``` r
@@ -78,19 +77,19 @@ between implementations.
 
 In this example:
 
-  - the **type** of model is “random forest”,
-  - the **mode** of the model is “regression” (as opposed to
+-   the **type** of model is “random forest”,
+-   the **mode** of the model is “regression” (as opposed to
     classification, etc), and
-  - the computational **engine** is the name of the R package.
+-   the computational **engine** is the name of the R package.
 
 The goals of parsnip are to:
 
-  - Separate the definition of a model from its evaluation.
-  - Decouple the model specification from the implementation (whether
+-   Separate the definition of a model from its evaluation.
+-   Decouple the model specification from the implementation (whether
     the implementation is in R, spark, or something else). For example,
     the user would call `rand_forest` instead of `ranger::ranger` or
     other specific packages.
-  - Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
+-   Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
     users only need to remember a single name. This will help *across*
     model types too so that `trees` will be the same argument across
     random forest as well as boosting or bagging.
@@ -141,7 +140,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  71ms 
+#> Fit time:  316ms 
 #> Ranger result
 #> 
 #> Call:
@@ -155,15 +154,12 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.976917 
-#> R squared (OOB):                  0.8354559
+#> OOB prediction error (MSE):       5.725636 
+#> R squared (OOB):                  0.8423737
 ```
 
 A list of all `parsnip` models across different CRAN packages can be
 found at [`tidymodels.org`](https://www.tidymodels.org/find/).
-
-Data sets previously found in `parsnip` are now find in the `modeldata`
-package.
 
 ## Contributing
 
@@ -171,17 +167,18 @@ This project is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
-  - For questions and discussions about tidymodels packages, modeling,
+-   For questions and discussions about tidymodels packages, modeling,
     and machine learning, please [post on RStudio
-    Community](https://rstd.io/tidymodels-community).
+    Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
-  - If you think you have encountered a bug, please [submit an
+-   If you think you have encountered a bug, please [submit an
     issue](https://github.com/tidymodels/parsnip/issues).
 
-  - Either way, learn how to create and share a
-    [reprex](https://rstd.io/reprex) (a minimal, reproducible example),
-    to clearly communicate about your code.
+-   Either way, learn how to create and share a
+    [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+    (a minimal, reproducible example), to clearly communicate about your
+    code.
 
-  - Check out further details on [contributing guidelines for tidymodels
+-   Check out further details on [contributing guidelines for tidymodels
     packages](https://www.tidymodels.org/contribute/) and [how to get
     help](https://www.tidymodels.org/help/).

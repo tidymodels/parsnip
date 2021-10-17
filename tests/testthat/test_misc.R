@@ -14,6 +14,10 @@ test_that('parsnip objects', {
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))
   expect_false(has_multi_predict(lm_fit$fit))
+  expect_error(
+    multi_predict(lm_fit, mtcars),
+    "No `multi_predict` method exists"
+  )
 
   mars_fit <-
     mars(mode = "regression") %>%
@@ -21,6 +25,11 @@ test_that('parsnip objects', {
     fit(mpg ~ ., data = mtcars)
   expect_true(has_multi_predict(mars_fit))
   expect_false(has_multi_predict(mars_fit$fit))
+  expect_error(
+    multi_predict(mars_fit$fit, mtcars),
+    "No `multi_predict` method exists"
+  )
+
 })
 
 test_that('other objects', {
@@ -85,8 +94,22 @@ test_that('S3 method dispatch/registration', {
   )
   expect_true(tibble::is_tibble(res))
 
+})
 
+# ------------------------------------------------------------------------------
 
+test_that('control class', {
+  x <- linear_reg() %>% set_engine("lm")
+  ctrl <- control_parsnip()
+  class(ctrl) <- c("potato", "chair")
+  expect_error(
+    fit(x, mpg ~ ., data = mtcars, control = ctrl),
+    "The 'control' argument should have class 'control_parsnip'"
+  )
+  expect_error(
+    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl),
+    "The 'control' argument should have class 'control_parsnip'"
+  )
 })
 
 

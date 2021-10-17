@@ -18,24 +18,24 @@
 #'  As discussed below, the arguments in `args` are captured as
 #'  quosures and are not immediately executed.
 #'
-#'   * `...`: Optional model-function-specific
+#' * `...`: Optional model-function-specific
 #'  parameters. As with `args`, these will be quosures and can be
 #'  `varying()`.
 #'
-#'   * `mode`: The type of model, such as "regression" or
+#' * `mode`: The type of model, such as "regression" or
 #'  "classification". Other modes will be added once the package
 #'  adds more functionality.
 #'
-#'   * `method`: This is a slot that is filled in later by the
+#' * `method`: This is a slot that is filled in later by the
 #'  model's constructor function. It generally contains lists of
 #'  information that are used to create the fit and prediction code
 #'  as well as required packages and similar data.
 #'
-#'   * `engine`: This character string declares exactly what
+#' * `engine`: This character string declares exactly what
 #'  software will be used. It can be a package name or a technology
 #'  type.
 #'
-#'   This class and structure is the basis for how \pkg{parsnip}
+#' This class and structure is the basis for how \pkg{parsnip}
 #'  stores model objects prior to seeing the data.
 #'
 #' @section Argument Details:
@@ -69,8 +69,8 @@
 #'
 #' The model functions save the argument _expressions_ and their
 #'  associated environments (a.k.a. a quosure) to be evaluated later
-#'  when either [fit()] or [fit_xy()] are called with the actual
-#'  data.
+#'  when either [fit.model_spec()] or [fit_xy.model_spec()]  are
+#'  called with the actual data.
 #'
 #' The consequence of this strategy is that any data required to
 #'  get the parameter values must be available when the model is

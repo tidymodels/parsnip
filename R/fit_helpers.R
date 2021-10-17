@@ -117,7 +117,7 @@ form_xy <- function(object, control, env,
   indicators <- encoding_info %>% dplyr::pull(predictor_indicators)
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
 
-  data_obj <- convert_form_to_xy_fit(
+  data_obj <- .convert_form_to_xy_fit(
     formula = env$formula,
     data = env$data,
     ...,
@@ -163,7 +163,7 @@ xy_form <- function(object, env, control, ...) {
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
 
   data_obj <-
-    convert_xy_to_form_fit(
+    .convert_xy_to_form_fit(
       x = env$x,
       y = env$y,
       weights = NULL,

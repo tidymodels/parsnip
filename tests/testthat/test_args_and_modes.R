@@ -45,3 +45,63 @@ test_that('pipe engine', {
   expect_error(rand_forest() %>% set_mode(2))
   expect_error(rand_forest() %>% set_mode("haberdashery"))
 })
+
+test_that("can't set a mode that isn't allowed by the model spec", {
+  expect_error(
+    set_mode(linear_reg(), "classification"),
+    "Available modes"
+  )
+})
+
+
+
+test_that("unavailable modes for an engine and vice-versa", {
+  expect_error(
+    decision_tree() %>%
+      set_mode("regression") %>%
+      set_engine("C5.0"),
+    "Available modes for engine C5"
+  )
+  expect_error(
+    decision_tree() %>%
+      set_engine("C5.0") %>%
+      set_mode("regression"),
+    "Available modes for engine C5"
+  )
+
+  expect_error(
+    decision_tree(engine = NULL) %>%
+      set_engine("C5.0") %>%
+      set_mode("regression"),
+    "Available modes for engine C5"
+  )
+
+  expect_error(
+    decision_tree(engine = NULL)%>%
+      set_mode("regression") %>%
+      set_engine("C5.0"),
+    "Available modes for engine C5"
+  )
+
+  expect_error(
+    proportional_hazards() %>% set_mode("regression"),
+    "Available modes for model type proportional_hazards"
+  )
+
+  expect_error(
+    linear_reg() %>% set_mode(),
+    "Available modes for model type linear_reg"
+  )
+
+  expect_error(
+    linear_reg() %>% set_engine(),
+    "Missing engine"
+  )
+
+  expect_error(
+    proportional_hazards() %>% set_engine(),
+    "No known engines for"
+  )
+})
+
+

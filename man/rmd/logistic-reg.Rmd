@@ -11,39 +11,67 @@ For this type of model, the template of the fit calls are below.
 ```{r glm-reg}
 logistic_reg() %>% 
   set_engine("glm") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
 ## glmnet
 
 ```{r glmnet-csl}
-logistic_reg() %>% 
+logistic_reg(penalty = 0.1) %>% 
   set_engine("glmnet") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
-For `glmnet` models, the full regularization path is always fit regardless of the
-value given to `penalty`. Also, there is the option to pass  multiple values (or
-no values) to the `penalty` argument. When using the  `predict()` method in these
-cases, the return value depends on  the value of `penalty`. When using
-`predict()`, only a single  value of the penalty can be used. When predicting on
-multiple  penalties, the `multi_predict()` function can be used. It  returns a
-tibble with a list column called `.pred` that contains  a tibble with all of the
-penalty results.
+The glmnet engine requires a single value for the `penalty` argument (a number
+or `tune()`), but the full regularization path is always fit
+regardless of the value given to `penalty`. To pass in a custom sequence of
+values for glmnet's `lambda`, use the argument `path_values` in `set_engine()`. 
+This will assign the value of the glmnet `lambda` parameter without disturbing
+the value given of `logistic_reg(penalty)`. For example: 
+
+```{r glmnet-path}
+logistic_reg(penalty = .1) %>% 
+  set_engine("glmnet", path_values = c(0, 10^seq(-10, 1, length.out = 20))) %>% 
+  translate()
+```
+
+When fitting a pure ridge regression model (i.e., `penalty = 0`), we _strongly
+suggest_ that you pass in a vector for `path_values` that includes zero. See 
+[issue #431](https://github.com/tidymodels/parsnip/issues/431) for a discussion. 
+
+When using `predict()`, the single `penalty` value used for prediction is the 
+one specified in `logistic_reg()`. 
+
+To predict on multiple penalties, use the `multi_predict()` function. 
+This function returns a tibble with a list column called `.pred` containing 
+all of the penalty results.
+
+
+## LiblineaR
+
+```{r liblinear-reg}
+logistic_reg() %>% 
+  set_engine("LiblineaR") %>% 
+  translate()
+```
+
+For `LiblineaR` models, the value for `mixture` can either be 0 (for ridge) or 1 
+(for lasso) but not other intermediate values. In the `LiblineaR` documentation, 
+these correspond to types 0 (L2-regularized) and 6 (L1-regularized).
+
+Be aware that the `LiblineaR` engine regularizes the intercept. Other 
+regularized regression models do not, which will result in different parameter estimates.
 
 ## stan
 
 ```{r stan-reg}
 logistic_reg() %>% 
   set_engine("stan") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
 Note that the `refresh` default prevents logging of the estimation process.
-Change this value in `set_engine()` will show the logs.
+Change this value in `set_engine()` to show the logs.
 
 For prediction, the `stan` engine can compute posterior  intervals analogous to
 confidence and prediction intervals. In  these instances, the units are the
@@ -56,7 +84,6 @@ returned.
 ```{r spark-reg}
 logistic_reg() %>% 
   set_engine("spark") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -65,7 +92,6 @@ logistic_reg() %>%
 ```{r keras-reg}
 logistic_reg() %>% 
   set_engine("keras") %>% 
-  set_mode("classification") %>% 
   translate()
 ```
 
@@ -81,6 +107,7 @@ get_defaults_logistic_reg <- function() {
   tibble::tribble(
     ~model,          ~engine,     ~parsnip,            ~original,  ~default,
     "logistic_reg",  "glmnet",    "mixture",              "alpha",  get_arg("glmnet", "glmnet", "alpha"),
+    "logistic_reg",  "LiblineaR", "mixture",              "type",   "0",
     "logistic_reg",  "spark",     "penalty",          "reg_param",  get_arg("sparklyr", "ml_logistic_regression", "reg_param"),
     "logistic_reg",  "spark",     "mixture",  "elastic_net_param",  get_arg("sparklyr", "ml_logistic_regression", "elastic_net_param"),
     "logistic_reg",  "keras",     "penalty",            "penalty",  get_arg("parsnip", "keras_mlp", "penalty"),
@@ -88,4 +115,3 @@ get_defaults_logistic_reg <- function() {
 }
 convert_args("logistic_reg")
 ```
-

@@ -1,0 +1,83 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("mlp", "keras")`
+
+## Tuning Parameters
+
+```{r keras-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "activation"),
+                 default = c("5L", "0.0", "0.0", "20L", "'softmax'"))
+
+param <-
+  mlp() %>% 
+  set_engine("keras") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r keras-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package (regression)
+
+```{r keras-reg}
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  activation = character(1)
+) %>%  
+  set_engine("keras") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r keras-cls}
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  activation = character(1)
+) %>% 
+  set_engine("keras") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-keras) for `mlp()` with the `"keras"` engine.
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+
+

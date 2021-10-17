@@ -122,5 +122,5 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(nearest_neighbor(mode = "reallyunknown"))
-  expect_error(translate(nearest_neighbor() %>% set_engine( NULL)))
+  expect_error(nearest_neighbor() %>% set_engine( NULL))
 })

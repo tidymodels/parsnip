@@ -2,30 +2,23 @@
 % Please edit documentation in R/mars.R
 \name{mars}
 \alias{mars}
-\alias{update.mars}
-\title{General Interface for MARS}
+\title{Multivariate adaptive regression splines (MARS)}
 \usage{
 mars(
   mode = "unknown",
+  engine = "earth",
   num_terms = NULL,
   prod_degree = NULL,
   prune_method = NULL
 )
-
-\method{update}{mars}(
-  object,
-  parameters = NULL,
-  num_terms = NULL,
-  prod_degree = NULL,
-  prune_method = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 
 \item{num_terms}{The number of features that will be retained in the
 final model, including the intercept.}
@@ -33,113 +26,35 @@ final model, including the intercept.}
 \item{prod_degree}{The highest possible interaction degree.}
 
 \item{prune_method}{The pruning method.}
-
-\item{object}{A MARS model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{mars()} is a way to generate a \emph{specification} of a model before
-fitting and allows the model to be created using R. The main
-arguments for the
-model are:
-\itemize{
-\item \code{num_terms}: The number of features that will be retained in the
-final model.
-\item \code{prod_degree}: The highest possible degree of interaction between
-features. A value of 1 indicates an additive model while a value of 2
-allows, but does not guarantee, two-way interactions between features.
-\item \code{prune_method}: The type of pruning. Possible values are listed
-in \code{?earth}.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{mars()} defines a generalized linear model that uses artificial features for
+some predictors. These features resemble hinge functions and the result is
+a model that is a segmented regression in small dimensions.
+
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"earth"}  (the default)
-}
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.
-\subsection{earth}{\if{html}{\out{<div class="r">}}\preformatted{mars() \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (regression)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     keepxy = TRUE)
-}\if{html}{\out{<div class="r">}}\preformatted{mars() \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (classification)
-## 
-## Engine-Specific Arguments:
-##   glm = list(family = stats::binomial)
-## 
-## Computational engine: earth 
-## 
-## Model fit template:
-## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     glm = list(family = stats::binomial), keepxy = TRUE)
-}
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-Note that, when the model is fit, the \code{earth} package only has its
-namespace loaded. However, if \code{multi_predict} is used, the package is
-attached.
-
-Also, \code{fit()} passes the data directly to \code{earth::earth()} so that its
-formula method can create dummy variables as-needed.
-
-For this engine, tuning over \code{num_terms} is very efficient since the
-same model object can be used to make predictions over multiple values
-of \code{num_terms}.
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{ll}{
-   \strong{parsnip} \tab \strong{earth} \cr
-   num_terms \tab nprune \cr
-   prod_degree \tab degree (1) \cr
-   prune_method \tab pmethod (backward) \cr
-}
-
-}
-}
-
 \examples{
 show_engines("mars")
 
 mars(mode = "regression", num_terms = 5)
-model <- mars(num_terms = 10, prune_method = "none")
-model
-update(model, num_terms = 1)
-update(model, num_terms = 1, fresh = TRUE)
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
 }

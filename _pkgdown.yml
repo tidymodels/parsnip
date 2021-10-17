@@ -10,8 +10,7 @@ template:
 # https://github.com/tidyverse/tidytemplate for css
 
 development:
-  mode: release
-
+  mode: auto
 
 figures:
   fig.width: 8
@@ -21,39 +20,58 @@ reference:
   - title: Models
     contents:
       - boost_tree
+      - cubist_rules
       - decision_tree
+      - discrim_flexible
+      - discrim_linear
+      - discrim_quad
+      - discrim_regularized
+      - gen_additive_mod
       - linear_reg
       - logistic_reg
       - mars
       - mlp
       - multinom_reg
+      - naive_Bayes
       - nearest_neighbor
       - null_model
+      - pls
+      - poisson_reg
+      - proportional_hazards
       - rand_forest
-      - surv_reg
+      - rule_fit
+      - survival_reg
+      - svm_linear
       - svm_poly
       - svm_rbf
   - title: Infrastructure
     contents:
       - add_rowindex
+      - augment.model_fit
       - descriptors
+      - extract-parsnip
       - fit.model_spec
       - fit_xy
       - fit_control
+      - glance.model_fit
       - model_fit
       - model_spec
-      - predict.model_fit
       - multi_predict
+      - parsnip_addin
+      - predict.model_fit
+      - reexports
+      - repair_call
       - set_args
       - set_engine
       - set_mode
+      - show_engines
       - tidy.model_fit
       - translate
-      - varying
-      - varying_args
+      - starts_with("update")
 
   - title: Developer Tools
     contents:
+      - contr_one_hot
       - set_new_model
       - starts_with("set_model_")
       - set_dependency
@@ -61,6 +79,9 @@ reference:
       - set_pred
       - show_model_info
       - starts_with("get_")
+      - maybe_matrix
+      - min_cols
+      - req_pkgs
 
 
 
@@ -78,6 +99,8 @@ navbar:
        href: https://www.tidymodels.org/learn/develop/models/
      - text: Evaluating submodels with the same model object
        href: articles/articles/Submodels.html
+     - text: Fitting and Predicting with parsnip
+       href: articles/articles/Examples.html
   - text: News
     href: news/index.html
   - text: Reference

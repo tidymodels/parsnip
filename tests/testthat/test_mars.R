@@ -111,8 +111,8 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(mars() %>% set_engine("wat?")))
   expect_error(translate(mars(mode = "regression") %>% set_engine()))
+  expect_error(translate(mars() %>% set_engine("wat?")))
   expect_error(translate(mars(formula = y ~ x)))
 })
 

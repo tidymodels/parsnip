@@ -76,17 +76,12 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
-  if (is.null(mode))
-    return(object)
-  mode <- mode[1]
-  if (!(any(all_modes == mode))) {
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of ",
-        glue::glue_collapse(glue::glue("'{all_modes}'"), sep = ", ")
-      )
-    )
+  cls <- class(object)[1]
+  if (rlang::is_missing(mode)) {
+    spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
+    stop_incompatible_mode(spec_modes, cls = cls)
   }
+  check_spec_mode_engine_val(cls, object$engine, mode)
   object$mode <- mode
   object
 }

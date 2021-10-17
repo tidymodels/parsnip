@@ -1,0 +1,80 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("svm_linear", "LiblineaR")`
+
+## Tuning Parameters
+
+```{r LiblineaR-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("cost", "margin"),
+                 default = c("1.0", "no default"))
+
+param <-
+  svm_linear() %>% 
+  set_engine("LiblineaR") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r LiblineaR-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+This engine fits models that are L2-regularized for L2-loss. In the [LiblineaR::LiblineaR()] documentation, these are types 1 (classification) and 11 (regression).
+
+## Translation from parsnip to the original package (regression)
+
+```{r LiblineaR-reg}
+svm_linear(
+  cost = double(1),
+  margin = double(1)
+) %>%  
+  set_engine("LiblineaR") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r LiblineaR-cls}
+svm_linear(
+  cost = double(1)
+) %>% 
+  set_engine("LiblineaR") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+The `margin` parameter does not apply to classification models. 
+
+Note that the `LiblineaR` engine does not produce class probabilities. When optimizing the model using the tune package, the default metrics require class probabilities. To use the  `tune_*()` functions, a metric set must be passed as an argument that only contains metrics for hard class predictions (e.g., accuracy).
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-LiblineaR) for `svm_linear()` with the `"LiblineaR"` engine.
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

@@ -9,3 +9,4 @@ varying()
 \description{
 \code{\link[=varying]{varying()}} is used when a parameter will be specified at a later date.
 }
+\keyword{internal}

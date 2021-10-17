@@ -95,28 +95,7 @@ set_pred(
   type = "conf_int",
   value = list(
     pre = NULL,
-    post = function(results, object) {
-      hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
-      const <-
-        qt(hf_lvl, df = object$fit$df.residual, lower.tail = FALSE)
-      trans <- object$fit$family$linkinv
-      res_2 <-
-        tibble(
-          lo = trans(results$fit - const * results$se.fit),
-          hi = trans(results$fit + const * results$se.fit)
-        )
-      res_1 <- res_2
-      res_1$lo <- 1 - res_2$hi
-      res_1$hi <- 1 - res_2$lo
-      res <- bind_cols(res_1, res_2)
-      lo_nms <- paste0(".pred_lower_", object$lvl)
-      hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
-
-      if (object$spec$method$pred$conf_int$extras$std_error)
-        res$.std_error <- results$se.fit
-      res
-    },
+    post = logistic_lp_to_conf_int,
     func = c(fun = "predict"),
     args =
       list(
@@ -187,7 +166,7 @@ set_pred(
     args =
       list(
         object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta)])),
+        newx = expr(as.matrix(new_data[, rownames(object$fit$beta), drop = FALSE])),
         type = "response",
         s = expr(object$spec$args$penalty)
       )
@@ -227,6 +206,104 @@ set_pred(
         object = quote(object$fit),
         newx = quote(as.matrix(new_data))
       )
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("logistic_reg", "classification", "LiblineaR")
+set_dependency("logistic_reg", "LiblineaR", "LiblineaR")
+
+set_fit(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "wi"),
+    data = c(x = "data", y = "target"),
+    func = c(pkg = "LiblineaR", fun = "LiblineaR"),
+    defaults = list(verbose = FALSE)
+  )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  parsnip = "penalty",
+  original = "cost",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  parsnip = "mixture",
+  original = "type",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = liblinear_preds,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newx = expr(as.matrix(new_data))
+      )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = liblinear_probs,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newx = expr(as.matrix(new_data)),
+        proba = TRUE
+      )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "LiblineaR",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      newx = quote(new_data))
   )
 )
 
@@ -509,22 +586,22 @@ set_pred(
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
       res_1$hi <- 1 - res_2$lo
-      res <- bind_cols(res_1, res_2)
       lo_nms <- paste0(".pred_lower_", object$lvl)
       hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+      colnames(res_1) <- c(lo_nms[1], hi_nms[1])
+      colnames(res_2) <- c(lo_nms[2], hi_nms[2])
+      res <- bind_cols(res_1, res_2)
 
-      if (object$spec$method$pred$conf_int$extras$std_error)
+      if (object$spec$method$pred$conf_int$extras$std_error) {
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      }
       res
     },
-    func = c(pkg = "rstanarm", fun = "posterior_linpred"),
+    func = c(pkg = "parsnip", fun = "stan_conf_int"),
     args =
       list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        transform = TRUE,
-        seed = expr(sample.int(10^5, 1))
+        object = expr(object$fit),
+        newdata = expr(new_data)
       )
   )
 )
@@ -554,10 +631,11 @@ set_pred(
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
       res_1$hi <- 1 - res_2$lo
-      res <- bind_cols(res_1, res_2)
       lo_nms <- paste0(".pred_lower_", object$lvl)
       hi_nms <- paste0(".pred_upper_", object$lvl)
-      colnames(res) <- c(lo_nms[1], hi_nms[1], lo_nms[2], hi_nms[2])
+      colnames(res_1) <- c(lo_nms[1], hi_nms[1])
+      colnames(res_2) <- c(lo_nms[2], hi_nms[2])
+      res <- bind_cols(res_1, res_2)
 
       if (object$spec$method$pred$pred_int$extras$std_error)
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)

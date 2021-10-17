@@ -1,5 +1,92 @@
 # parsnip (development version)
 
+## Model Specification Changes
+
+* Bayesian additive regression trees (BART) were added via the `bart()` function.
+
+## Bug fixes
+
+* A bug for class predictions of two-class GAM models was fixed (#541)
+
+* Fixed a bug for `logistic_reg()` with the LiblineaR engine (#552).
+
+
+# parsnip 0.1.7
+
+## Model Specification Changes
+
+* A model function (`gen_additive_mod()`) was added for generalized additive models. 
+
+* Each model now has a default engine that is used when the model is defined. The default for each model is listed in the help documents. This also adds functionality to declare an engine in the model specification function. `set_engine()` is still required if engine-specific arguments need to be added. (#513)
+
+* parsnip now checks for a valid combination of engine and mode (#529)
+
+* The default engine for `multinom_reg()` was changed to `nnet`. 
+
+## Other Changes
+
+* The helper functions `.convert_form_to_xy_fit()`, `.convert_form_to_xy_new()`, `.convert_xy_to_form_fit()`, and  `.convert_xy_to_form_new()` for converting between formula and matrix interface are now exported for developer use (#508).
+
+* Fix bug in `augment()` when non-predictor, non-outcome variables are included in data (#510).
+
+* New article "Fitting and Predicting with parsnip" which contains examples for various combinations of model type and engine. ( #527)
+
+# parsnip 0.1.6
+
+## Model Specification Changes
+
+* A new linear SVM model `svm_linear()` is now available with the `LiblineaR` engine (#424) and the `kernlab` engine (#438), and the `LiblineaR` engine is available for `logistic_reg()` as well (#429). These models can use sparse matrices via `fit_xy()` (#447) and have a `tidy` method (#474).
+
+* For models with `glmnet` engines: 
+
+  - A single value is required for `penalty` (either a single numeric value or a value of `tune()`) (#481).
+  - A special argument called `path_values` can be used to set the `lambda` path as a specific set of numbers (independent of the value of `penalty`). A pure ridge regression models (i.e., `mixture = 1`) will generate incorrect values if the path does not include zero. See issue #431 for discussion (#486).
+  
+* The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
+
+* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. `colsample_bynode` was added to xgboost after the `parsnip` package code was written. (#495)
+
+* For xgboost, `mtry` and `colsample_bytree` can be passed as integer counts or proportions, while `subsample` and `validation` should always be proportions. `xgb_train()` now has a new option `counts` (`TRUE` or `FALSE`) that states which scale for `mtry` and `colsample_bytree` is being used. (#461)  
+
+## Other Changes
+
+* Re-licensed package from GPL-2 to MIT. See [consent from copyright holders here](https://github.com/tidymodels/parsnip/issues/462).
+
+* `set_mode()` now checks if `mode` is compatible with the model class, similar to `new_model_spec()` (@jtlandis, #467). Both `set_mode()` and `set_engine()` now error for `NULL` or missing arguments (#503).
+
+* Re-organized model documentation:
+
+   * `update` methods were moved out of the model help files (#479).
+   * Each model/engine combination has its own help page. 
+   * The model help page has a dynamic bulleted list of the engines with links to the individual help pages. 
+
+* `generics::required_pkgs()` was extended for `parsnip` objects. 
+
+* Prediction functions now give a consistent error when a user uses an unavailable value of `type` (#489)
+
+* The `augment()` method was changed to avoid failing if the model does not enable class probabilities. The method now returns tibbles despite the input data class (#487) (#478)
+
+* xgboost engines now respect the `event_level` option for predictions (#460).  
+
+
+# parsnip 0.1.5
+
+* An RStudio add-in is available that makes writing multiple `parsnip` model specifications to the source window. It can be accessed via the IDE addin menus or by calling `parsnip_addin()`.
+
+* For `xgboost` models, users can now pass `objective` to `set_engine("xgboost")`. (#403)
+
+* Changes to test for cases when CRAN cannot get `xgboost` to work on their Solaris configuration.
+
+* There is now an `augument()` method for fitted models. See `augment.model_fit`. (#401)
+
+* Column names for `x` are now required when `fit_xy()` is used. (#398)
+
+* There is now an `event_level` argument for the `xgboost` engine. (#420)
+
+* New mode "censored regression" and new prediction types "linear_pred", "time", "survival", "hazard". (#396)
+
+* Censored regression models cannot use `fit_xy()` (use `fit()`). (#442)
+
 # parsnip 0.1.4
 
 * `show_engines()` will provide information on the current set for a model. 
@@ -205,7 +292,7 @@ First CRAN release
 
 * Arguments to modeling functions are now captured as quosures. 
 * `others` has been replaced by `...`
-* Data descriptor names have beemn changed and are now functions. The descriptor definitions for "cols" and "preds" have been switched. 
+* Data descriptor names have been changed and are now functions. The descriptor definitions for "cols" and "preds" have been switched. 
 
 # parsnip 0.0.0.9003
 

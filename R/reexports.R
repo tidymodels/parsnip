@@ -15,7 +15,22 @@ generics::fit_xy
 #' @export
 generics::tidy
 
-
 #' @importFrom generics glance
 #' @export
 generics::glance
+
+#' @importFrom generics augment
+#' @export
+generics::augment
+
+#' @importFrom generics required_pkgs
+#' @export
+generics::required_pkgs
+
+#' @importFrom hardhat extract_spec_parsnip
+#' @export
+hardhat::extract_spec_parsnip
+
+#' @importFrom hardhat extract_fit_engine
+#' @export
+hardhat::extract_fit_engine

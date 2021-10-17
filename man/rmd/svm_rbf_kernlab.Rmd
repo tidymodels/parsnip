@@ -1,0 +1,86 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("svm_rbf", "kernlab")`
+
+## Tuning Parameters
+
+```{r kernlab-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("cost","rbf_sigma", "margin"),
+                 default = c("1.0", "see below", "0.1"))
+
+param <-
+  svm_rbf() %>% 
+  set_engine("kernlab") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r kernlab-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+There is no default for the radial basis function kernel parameter. kernlab estimates it from the data using a heuristic method. See [kernlab::sigest()]. This method uses random numbers so, without setting the seed before fitting, the model will not be reproducible. 
+
+## Translation from parsnip to the original package (regression)
+
+```{r kernlab-reg}
+svm_rbf(
+  cost = double(1),
+  rbf_sigma = double(1), 
+  margin = double(1)
+) %>%  
+  set_engine("kernlab") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r kernlab-cls}
+svm_rbf(
+  cost = double(1),
+  rbf_sigma = double(1)
+) %>% 
+  set_engine("kernlab") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+The `margin` parameter does not apply to classification models. 
+
+Note that the `"kernlab"` engine does not naturally estimate class probabilities. To produce them, the decision values of the model are converted to probabilities using Platt scaling. This method fits an additional model on top of the SVM model. When fitting the Platt scaling model, random numbers are used that are not reproducible or controlled by R's random number stream.   
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-rbf-kernlab) for `svm_rbf()` with the `"kernlab"` engine.
+
+## References
+
+ - Lin, HT, and R Weng. ["A Note on Platt’s Probabilistic Outputs for Support Vector Machines"](https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf)
+ 
+ - Karatzoglou, A,  Smola, A,  Hornik, K, and A Zeileis. 2004. ["kernlab - An S4 Package for Kernel Methods in R."](https://www.jstatsoft.org/article/view/v011i09), _Journal of Statistical Software_. 
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

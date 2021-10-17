@@ -1,0 +1,65 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("multinom_reg", "nnet")`
+
+## Tuning Parameters
+
+```{r nnet-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty"),
+                 default = c("0.0"))
+
+param <-
+  multinom_reg() %>% 
+  set_engine("nnet") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  dplyr::mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r nnet-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For `penalty`, the amount of regularization includes only the L2 penalty (i.e., ridge or weight decay). 
+
+## Translation from parsnip to the original package
+
+```{r nnet-csl}
+multinom_reg(penalty = double(1)) %>% 
+  set_engine("nnet") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet) for `multinom_reg()` with the `"nnet"` engine.
+
+## References
+
+ - Luraschi, J, K Kuo, and E Ruiz. 2019. _Mastering nnet with R_. O'Reilly Media
+ 
+ - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

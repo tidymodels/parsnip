@@ -1,55 +1,79 @@
 Package: parsnip
-Version: 0.1.4.9000
 Title: A Common API to Modeling and Analysis Functions
-Description: A common interface is provided to allow users to specify a model without having to remember the different argument names across different functions or computational engines (e.g. 'R', 'Spark', 'Stan', etc). 
-Authors@R: c(
-    person(given = "Max",   family = "Kuhn",    email = "max@rstudio.com",   role = c("aut", "cre")),
-    person(given = "Davis", family = "Vaughan", email = "davis@rstudio.com", role = c("aut")),
-    person("RStudio", role = "cph"))
+Version: 0.1.7.9000
+Authors@R: 
+    c(person(given = "Max",
+             family = "Kuhn",
+             role = c("aut", "cre"),
+             email = "max@rstudio.com"),
+      person(given = "Davis",
+             family = "Vaughan",
+             role = "aut",
+             email = "davis@rstudio.com"),
+      person(given = "Emil",
+             family = "Hvitfeldt",
+             role = "ctb",
+             email = "emilhhvitfeldt@gmail.com"),
+      person(given = "RStudio",
+             role = "cph"))
 Maintainer: Max Kuhn <max@rstudio.com>
+Description: A common interface is provided to allow users to specify a
+    model without having to remember the different argument names across
+    different functions or computational engines (e.g. 'R', 'Spark',
+    'Stan', etc).
+License: MIT + file LICENSE
 URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
 BugReports: https://github.com/tidymodels/parsnip/issues
-License: GPL-2
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
-VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 Imports: 
     dplyr (>= 0.8.0.1),
-    rlang (>= 0.3.1),
-    purrr,
-    utils,
-    tibble (>= 2.1.1),
-    generics,
-    glue,
-    magrittr,
-    stats,
-    tidyr (>= 1.0.0),
+    generics (>= 0.1.0),
     globals,
+    glue,
+    hardhat (>= 0.1.5.9000),
+    lifecycle,
+    magrittr,
     prettyunits,
-    vctrs (>= 0.2.0)
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9000
+    purrr,
+    rlang (>= 0.3.1),
+    stats,
+    tibble (>= 2.1.1),
+    tidyr (>= 1.0.0),
+    utils,
+    vctrs (>= 0.2.0),
+    withr
 Suggests: 
-    testthat,
-    knitr,
-    rmarkdown,
-    survival,
-    keras,
-    xgboost,
-    covr,
     C50,
-    sparklyr (>= 1.0.0),
+    covr,
+    dials,
     earth,
+    ggplot2,
+    keras,
     kernlab,
     kknn,
+    knitr,
+    LiblineaR,
+    MASS,
+    Matrix,
+    mgcv,
+    modeldata,
+    nlme,
     randomForest,
     ranger (>= 0.12.0),
+    rmarkdown,
     rpart,
-    MASS,
-    nlme,
-    modeldata,
-    liquidSVM,
-    Matrix
+    sparklyr (>= 1.0.0),
+    survival,
+    testthat,
+    xgboost
+VignetteBuilder: 
+    knitr
+ByteCompile: true
+Config/Needs/website: C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
+    mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm, tidymodels,
+    tidyverse/tidytemplate, xgboost
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

@@ -115,10 +115,10 @@ get_descr_form <- function(formula, data) {
 get_descr_df <- function(formula, data) {
 
   tmp_dat <-
-    convert_form_to_xy_fit(formula,
-                           data,
-                           indicators = "none",
-                           remove_intercept = TRUE)
+    .convert_form_to_xy_fit(formula,
+                            data,
+                            indicators = "none",
+                            remove_intercept = TRUE)
 
   if(is.factor(tmp_dat$y)) {
     .lvls <- function() {
@@ -132,7 +132,7 @@ get_descr_df <- function(formula, data) {
 
   .cols <- function() {
     ncol(
-      convert_form_to_xy_fit(
+      .convert_form_to_xy_fit(
         formula,
         data,
         indicators = "traditional",
@@ -250,9 +250,9 @@ get_descr_spark <- function(formula, data) {
   .obs   <- function() obs
   .lvls  <- function() y_vals
   .facts <- function() factor_pred
-  .x       <- function() abort("Descriptor `.x()` not defined for Spark.")
-  .y       <- function() abort("Descriptor `.y()` not defined for Spark.")
-  .dat     <- function() abort("Descriptor `.dat()` not defined for Spark.")
+  .x       <- function() abort("Descriptor .x() not defined for Spark.")
+  .y       <- function() abort("Descriptor .y() not defined for Spark.")
+  .dat     <- function() abort("Descriptor .dat() not defined for Spark.")
 
   # still need .x(), .y(), .dat() ?
 
@@ -296,7 +296,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
+    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
   }
 
   .x <- function() {

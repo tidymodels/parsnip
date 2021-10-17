@@ -1,0 +1,79 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("rand_forest", "spark")`
+
+## Tuning Parameters
+
+```{r spark-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
+                 default = c("see below", "20L", "1L"))
+
+param <-
+  rand_forest() %>% 
+  set_engine("spark") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r spark-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+`mtry` depends on the number of columns and the model mode. The default in [sparklyr::ml_random_forest()] is `floor(sqrt(ncol(x)))` for classification and `floor(ncol(x)/3)` for regression.
+
+## Translation from parsnip to the original package (regression)
+
+```{r spark-reg}
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) %>%  
+  set_engine("spark") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+`min_rows()` and `min_cols()` will adjust the number of neighbors if the chosen value if it is not consistent with the actual data dimensions.
+
+## Translation from parsnip to the original package (classification)
+
+```{r spark-cls}
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) %>% 
+  set_engine("spark") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## Other details
+
+```{r child = "template-spark-notes.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+

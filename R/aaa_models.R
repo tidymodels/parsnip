@@ -1,5 +1,7 @@
 # Initialize model environments
 
+all_modes <- c("classification", "regression", "censored regression")
+
 # ------------------------------------------------------------------------------
 
 ## Rules about model-related information
@@ -23,15 +25,15 @@
 
 # ------------------------------------------------------------------------------
 
-
 parsnip <- rlang::new_environment()
 parsnip$models <- NULL
-parsnip$modes <- c("regression", "classification", "unknown")
+parsnip$modes <- c(all_modes, "unknown")
 
 # ------------------------------------------------------------------------------
 
 pred_types <-
-  c("raw", "numeric", "class", "prob", "conf_int", "pred_int", "quantile")
+  c("raw", "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
+    "time", "survival", "linear_pred", "hazard")
 
 # ------------------------------------------------------------------------------
 
@@ -64,7 +66,7 @@ get_model_env <- function() {
 #' @export
 get_from_env <- function(items) {
   mod_env <- get_model_env()
-  rlang::env_get(mod_env, items)
+  rlang::env_get(mod_env, items, default = NULL)
 }
 
 #' @rdname get_model_env
@@ -126,9 +128,124 @@ check_model_doesnt_exist <- function(model) {
 }
 
 check_mode_val <- function(mode) {
-  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode))
+  if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode)) {
     rlang::abort("Please supply a character string for a mode (e.g. `'regression'`).")
+  }
   invisible(NULL)
+}
+
+
+stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL) {
+  if (is.null(eng) & is.null(cls)) {
+    msg <- "Available modes are: "
+  }
+  if (!is.null(eng) & is.null(cls)) {
+    msg <- glue::glue("Available modes for engine {eng} are: ")
+  }
+  if (is.null(eng) & !is.null(cls)) {
+    msg <- glue::glue("Available modes for model type {cls} are: ")
+  }
+  if (!is.null(eng) & !is.null(cls)) {
+    msg <- glue::glue("Available modes for model type {cls} with engine {eng} are: ")
+  }
+
+  msg <- glue::glue(
+    msg,
+    glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
+  )
+  rlang::abort(msg)
+}
+
+stop_incompatible_engine <- function(spec_engs, mode) {
+  msg <- glue::glue(
+    "Available engines for mode {mode} are: ",
+    glue::glue_collapse(glue::glue("'{spec_engs}'"), sep = ", ")
+  )
+  rlang::abort(msg)
+}
+
+stop_missing_engine <- function(cls) {
+  info <-
+    get_from_env(cls) %>%
+    dplyr::group_by(mode) %>%
+    dplyr::summarize(msg = paste0(unique(mode), " {",
+                                  paste0(unique(engine), collapse = ", "),
+                                  "}"),
+                     .groups = "drop")
+  if (nrow(info) == 0) {
+    rlang::abort(paste0("No known engines for `", cls, "()`."))
+  }
+  msg <- paste0(info$msg, collapse = ", ")
+  msg <- paste("Missing engine. Possible mode/engine combinations are:", msg)
+  rlang::abort(msg)
+}
+
+
+# check if class and mode and engine are compatible
+check_spec_mode_engine_val <- function(cls, eng, mode) {
+  all_modes <- c("unknown", all_modes)
+  if (!(mode %in% all_modes)) {
+    rlang::abort(paste0("'", mode, "' is not a known mode."))
+  }
+
+  model_info <- rlang::env_get(get_model_env(), cls)
+
+  # Cases where the model definition is in parsnip but all of the engines
+  # are contained in a different package
+  if (nrow(model_info) == 0) {
+    check_mode_with_no_engine(cls, mode)
+    return(invisible(NULL))
+  }
+
+  # ------------------------------------------------------------------------------
+  # First check engine against any mode for the given model class
+
+  spec_engs <- model_info$engine
+  # engine is allowed to be NULL
+  if (!is.null(eng) && !(eng %in% spec_engs)) {
+    rlang::abort(
+      paste0(
+        "Engine '", eng, "' is not supported for `", cls, "()`. See ",
+        "`show_engines('", cls, "')`."
+      )
+    )
+  }
+
+  # ----------------------------------------------------------------------------
+  # Check modes based on model and engine
+
+  spec_modes <- model_info$mode
+  if (!is.null(eng)) {
+    spec_modes <- spec_modes[model_info$engine == eng]
+  }
+  spec_modes <- unique(c("unknown", spec_modes))
+
+  if (is.null(mode) || length(mode) > 1) {
+    stop_incompatible_mode(spec_modes, eng)
+  } else if (!(mode %in% spec_modes)) {
+    stop_incompatible_mode(spec_modes, eng)
+  }
+
+  # ----------------------------------------------------------------------------
+  # Check engine based on model and model
+
+  # How check for compatibility with the chosen mode (if any)
+  if (!is.null(mode) && mode != "unknown") {
+    spec_engs <- spec_engs[model_info$mode == mode]
+  }
+  spec_engs <- unique(spec_engs)
+  if (!is.null(eng) && !(eng %in% spec_engs)) {
+    stop_incompatible_engine(spec_engs, mode)
+  }
+
+  invisible(NULL)
+}
+
+check_mode_with_no_engine <- function(cls, mode) {
+  spec_modes <- get_from_env(paste0(cls, "_modes"))
+  if (!(mode %in% spec_modes)) {
+    stop_incompatible_mode(spec_modes, cls = cls)
+  }
 }
 
 check_engine_val <- function(eng) {
@@ -266,11 +383,30 @@ check_pred_info <- function(pred_obj, type) {
   invisible(NULL)
 }
 
-check_pkg_val <- function(pkg) {
-  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg))
-    rlang::abort("Please supply a single character value for the package name.")
+spec_has_pred_type <- function(object, type) {
+  possible_preds <- names(object$spec$method$pred)
+  any(possible_preds == type)
+}
+check_spec_pred_type <- function(object, type) {
+  if (!spec_has_pred_type(object, type)) {
+    possible_preds <- names(object$spec$method$pred)
+    rlang::abort(c(
+      glue::glue("No {type} prediction method available for this model."),
+      glue::glue("Value for `type` should be one of: ",
+                 glue::glue_collapse(glue::glue("'{possible_preds}'"), sep = ", "))
+    ))
+  }
   invisible(NULL)
 }
+
+
+check_pkg_val <- function(pkg) {
+  if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg)) {
+    rlang::abort("Please supply a single character value for the package name.")
+  }
+  invisible(NULL)
+}
+
 
 check_interface_val <- function(x) {
   exp_interf <- c("data.frame", "formula", "matrix")
@@ -352,7 +488,7 @@ check_interface_val <- function(x) {
 #'  a formula interface, typically some predictor preprocessing must
 #'  be conducted. `glmnet` is a good example of this.
 #'
-#'   There are three options that can be used for the encodings:
+#'   There are four options that can be used for the encodings:
 #'
 #'  `predictor_indicators` describes whether and how to create indicator/dummy
 #'  variables from factor predictors. There are three options: `"none"` (do not
@@ -369,9 +505,14 @@ check_interface_val <- function(x) {
 #'  intercept, `model.matrix()` computes a full set of indicators for the
 #'  _first_ factor variable, but an incomplete set for the remainder.
 #'
-#'  Finally, the option `remove_intercept` will remove the intercept column
+#'  Next, the option `remove_intercept` will remove the intercept column
 #'  _after_ `model.matrix()` is finished. This can be useful if the model
 #'  function (e.g. `lm()`) automatically generates an intercept.
+#'
+#' Finally, `allow_sparse_x` specifies whether the model function can natively
+#'  accommodate a sparse matrix representation for predictors during fitting
+#'  and tuning.
+#'
 #'
 #' @references "How to build a parsnip model"
 #'  \url{https://www.tidymodels.org/learn/develop/models/}
@@ -451,6 +592,7 @@ set_model_mode <- function(model, mode) {
 
 #' @rdname set_new_model
 #' @keywords internal
+#' @importFrom dplyr %>%
 #' @export
 set_model_engine <- function(model, mode, eng) {
   check_model_exists(model)
@@ -516,7 +658,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
-set_dependency <- function(model, eng, pkg) {
+set_dependency <- function(model, eng, pkg= "parsnip") {
   check_model_exists(model)
   check_eng_val(eng)
   check_pkg_val(pkg)
@@ -578,8 +720,7 @@ get_dependency <- function(model) {
 set_fit <- function(model, mode, eng, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_mode_val(mode)
-  check_engine_val(eng)
+  check_spec_mode_engine_val(model, eng, mode)
   check_fit_info(value)
 
   current <- get_model_env()
@@ -645,8 +786,7 @@ get_fit <- function(model) {
 set_pred <- function(model, mode, eng, type, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_mode_val(mode)
-  check_engine_val(eng)
+  check_spec_mode_engine_val(model, eng, mode)
   check_pred_info(value, type)
 
   current <- get_model_env()
@@ -904,4 +1044,219 @@ get_encoding <- function(model) {
                     compute_intercept, remove_intercept)
   }
   res
+}
+
+#' Tools for dynamically documenting packages
+#'
+#' @description
+#' These are functions used to create dynamic documentation in Rd files
+#' based on which parsnip-related packages are loaded by the user.
+#'
+#' These functions can be used to make dynamic lists of documentation help
+#'  files. \pkg{parsnip} uses these, along with files contained in `man/rmd`
+#'  containing expanded documentation, for specific model/engine combinations.
+#'  [find_engine_files()] looks for files that have the pattern
+#'  `details_{model}_{engine}.Rd` to link to. These files are generated by files
+#'  named `man/rmd/details_{model}_{engine}.Rmd`. `make_engine_list()` creates a
+#'  list seen at the top of the model Rd files while `make_seealso_list()`
+#'  populates the list seen in "See Also" below. See the details section.
+#'
+#' @param mod A character string for the model file (e.g. "linear_reg")
+#' @param pkg A character string for the package where the function is invoked.
+#' @return
+#' `make_engine_list()` returns a character string that creates a
+#' bulleted list of links to more specific help files.
+#'
+#' `make_seealso_list()` returns a formatted character string of links.
+#'
+#' `find_engine_files()` returns a tibble.
+#' @details
+#' The \pkg{parsnip} documentation is generated _dynamically_. Part of the Rd
+#'  file populates a list of engines that depends on what packages are loaded
+#'  *at the time that the man file is loaded*. For example, if
+#'  another package has a new engine for `linear_reg()`, the
+#'  `parsnip::linear_reg()` help can show a link to a detailed help page in the
+#'  other package.
+#'
+#' To enable this, the process for a package developer is to:
+#'
+#'   1. Create an engine-specific R file in the `R` directory with the name
+#'  `{model}_{engine}.R` (e.g. `boost_tree_C5.0.R`). This has a small amount of
+#'  documentation, as well as the directive
+#'  "`@includeRmd man/rmd/{model}_{engine}.Rmd details`".
+#'
+#'   1. Copy the file in \pkg{parsnip} that is in `man/rmd/setup.Rmd` and put
+#'  it in the same place in your package.
+#'
+#'   1. Write your own `man/rmd/{model}_{engine}.Rmd` file. This can include
+#'  packages that are not listed in the DESCRIPTION file. Those are only
+#'  required when the documentation file is created locally (probably using
+#'  [devtools::document()].
+#'
+#'   1. Run [devtools::document()] so that the Rmd content is included in the
+#'  Rd file.
+#'
+#' The examples in \pkg{parsnip} can provide guidance for how to organize
+#' technical information about the models.
+#' @name doc-tools
+#' @keywords internal
+#' @export
+#' @examples
+#' find_engine_files("linear_reg")
+#' cat(make_engine_list("linear_reg"))
+find_engine_files <- function(mod, pkg = "parsnip") {
+
+  requireNamespace(pkg, quietly = TRUE)
+  # Get available topics
+  topic_names <- search_for_engine_docs(mod)
+  if (length(topic_names) == 0) {
+    return(character(0))
+  }
+
+  # Subset for our model function
+  eng <- strsplit(topic_names, "_")
+  eng <- purrr::map_chr(eng, ~ .x[length(.x)])
+  eng <- tibble::tibble(engine = eng, topic = topic_names)
+
+  # Combine them to keep the order in which they were registered
+  all_eng <- get_from_env(mod) %>% dplyr::distinct(engine)
+  all_eng$.order <- 1:nrow(all_eng)
+  eng <- dplyr::left_join(eng, all_eng, by = "engine")
+  eng <- eng[order(eng$.order),]
+
+  # Determine and label default engine
+  default <- get_default_engine(mod, pkg)
+  eng$default <- ifelse(eng$engine == default, " (default)", "")
+
+  eng
+}
+
+#' @export
+#' @rdname doc-tools
+make_engine_list <- function(mod, pkg = "parsnip") {
+  eng <- find_engine_files(mod, pkg)
+
+  if (length(eng) == 0) {
+    return("No engines were found within the currently loaded packages.\n\n")
+  } else {
+    main <- paste("The engine-specific pages for this model are listed ",
+                  "below and contain the details:\n\n")
+  }
+
+  res <-
+    glue::glue("  \\item \\code{\\link[|eng$topic|]{|eng$engine|} |eng$default| }",
+               .open = "|", .close = "|")
+
+  res <- paste0(main, "\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
+  res
+}
+
+get_default_engine <- function(mod, pkg= "parsnip") {
+  cl <- rlang::call2(mod, .ns = pkg)
+  rlang::eval_tidy(cl)$engine
+}
+
+#' @export
+#' @rdname  doc-tools
+make_seealso_list <- function(mod, pkg= "parsnip") {
+  requireNamespace(pkg, quietly = TRUE)
+  eng <- find_engine_files(mod, pkg)
+
+  main <- c("\\code{\\link[=fit.model_spec]{fit()}}",
+            "\\code{\\link[=set_engine]{set_engine()}}",
+            "\\code{\\link[=update]{update()}}")
+
+  if (length(eng) == 0) {
+    return(paste0(main, collapse = ", "))
+  }
+
+  res <-
+    glue::glue("\\code{\\link[|eng$topic|]{|eng$engine| engine details}}",
+               .open = "|", .close = "|")
+
+  if (pkg != "parsnip") {
+    main <- NULL
+  }
+  paste0(c(main, res), collapse = ", ")
+}
+
+# These will never have documentation and we can avoid searching them.
+excl_pkgs <-
+  c("C50", "Cubist", "earth", "flexsurv", "forecast", "glmnet",
+    "keras", "kernlab", "kknn", "klaR", "LiblineaR", "liquidSVM",
+    "magrittr", "MASS", "mda", "mixOmics", "naivebayes", "nnet",
+    "prophet", "pscl", "randomForest", "ranger", "rpart", "rstanarm",
+    "sparklyr", "stats", "survival", "xgboost", "xrf")
+
+search_for_engine_docs <- function(mod) {
+  all_deps <- get_from_env(paste0(mod, "_pkgs"))
+  all_deps <- unlist(all_deps$pkg)
+  all_deps <- unique(c("parsnip", all_deps))
+
+  all_deps <- all_deps[!(all_deps %in% excl_pkgs)]
+  res <- purrr::map(all_deps, find_details_topics, mod = mod)
+  res <- unique(unlist(res))
+  res
+}
+
+find_details_topics <- function(pkg, mod) {
+  meta_loc <- system.file("Meta/Rd.rds", package = pkg)
+  meta_loc <- meta_loc[meta_loc != ""]
+  if (length(meta_loc) > 0) {
+    topic_names <- readRDS(meta_loc)$Name
+    res <- grep(paste0("details_", mod), topic_names, value = TRUE)
+    if (length(res) > 0) {
+      res <- paste0(pkg, ":", res)
+    }
+  } else {
+    res <- character(0)
+  }
+  res
+}
+
+
+# For use in `set_engine()` docs
+generate_set_engine_bullets <- function() {
+  env <- get_model_env()
+  models <- env$models
+  info <- rlang::env_get_list(env, models)
+
+  model_engines <- purrr::map(info, get_sorted_unique_engines)
+
+  model_prefixes <- glue::glue(
+    "\\code{\\link[=.{models}.]{.{models}.()}}:",
+    .open = ".{",
+    .close = "}."
+  )
+
+  bullets <- purrr::map2(
+    .x = model_prefixes,
+    .y = model_engines,
+    .f = combine_prefix_with_engines
+  )
+
+  bullets <- glue::glue("\\item {bullets}")
+  bullets <- glue::glue_collapse(bullets, sep = "\n")
+  bullets <- paste("\\itemize{", bullets, "}", sep = "\n")
+
+  bullets
+}
+
+sort_c <- function(x) {
+  withr::with_collate("C", sort(x))
+}
+get_sorted_unique_engines <- function(x) {
+  engines <- x$engine
+  engines <- unique(engines)
+  engines <- sort_c(engines)
+  engines
+}
+combine_prefix_with_engines <- function(prefix, engines) {
+  if (length(engines) == 0L) {
+    engines <- "No engines currently available"
+  } else {
+    engines <- glue::glue_collapse(engines, sep = ", ")
+  }
+
+  glue::glue("{prefix} {engines}")
 }

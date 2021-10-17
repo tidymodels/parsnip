@@ -10,23 +10,6 @@ possible_engines <- function(object, ...) {
   unique(engs$engine)
 }
 
-check_engine <- function(object) {
-  avail_eng <- possible_engines(object)
-  if (is.null(object$engine)) {
-    object$engine <- avail_eng[1]
-    rlang::warn(glue::glue("`engine` was NULL and updated to be `{object$engine}`"))
-  }
-  if (!(object$engine %in% avail_eng)) {
-    rlang::abort(
-      glue::glue(
-        "Engine '{object$engine}' is not available. Please use one of: ",
-        glue::glue_collapse(glue::glue("'{avail_eng}'"), sep = ", ")
-      )
-    )
-  }
-  object
-}
-
 # ------------------------------------------------------------------------------
 
 shhhh <- function(x)
@@ -72,6 +55,12 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' `set_engine()` is used to specify which package or system will be used
 #'  to fit the model, along with any arguments specific to that software.
 #'
+#' @section Engines:
+#' Based on the currently loaded packages, the following lists the set of
+#' engines available to each model specification.
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
+#'
 #' @param object A model specification.
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
@@ -82,23 +71,32 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' @examples
 #' # First, set general arguments using the standardized names
 #' mod <-
-#'   logistic_reg(mixture = 1/3) %>%
+#'   logistic_reg(penalty = 0.01, mixture = 1/3) %>%
 #'   # now say how you want to fit the model and another other options
 #'   set_engine("glmnet", nlambda = 10)
 #' translate(mod, engine = "glmnet")
 #' @export
 set_engine <- function(object, engine, ...) {
+  mod_type <- class(object)[1]
   if (!inherits(object, "model_spec")) {
     rlang::abort("`object` should have class 'model_spec'.")
   }
-  if (!is.character(engine) | length(engine) != 1)
-    rlang::abort("`engine` should be a single character value.")
 
+  if (rlang::is_missing(engine)) {
+    stop_missing_engine(mod_type)
+  }
   object$engine <- engine
-  object <- check_engine(object)
+  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
+
+  if (object$engine == "liquidSVM") {
+    lifecycle::deprecate_soft(
+      "0.1.6",
+      "set_engine(engine = 'cannot be liquidSVM')",
+      details = "The liquidSVM package is no longer available on CRAN.")
+  }
 
   new_model_spec(
-    cls = class(object)[1],
+    cls = mod_type,
     args = object$args,
     eng_args = enquos(...),
     mode = object$mode,
@@ -123,7 +121,7 @@ show_engines <- function(x) {
     rlang::abort("`show_engines()` takes a single character string as input.")
   }
   res <- try(get_from_env(x), silent = TRUE)
-  if (inherits(res, "try-error")) {
+  if (inherits(res, "try-error") | is.null(res)) {
     rlang::abort(
       paste0("No results found for model function '", x, "'.")
     )

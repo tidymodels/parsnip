@@ -2,18 +2,17 @@
 % Please edit documentation in R/nullmodel.R
 \name{null_model}
 \alias{null_model}
-\title{General Interface for null models}
+\title{Null model}
 \usage{
 null_model(mode = "classification")
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
 }
 \description{
-\code{null_model()} is a way to generate a \emph{specification} of a model before
-fitting and allows the model to be created using R. It doesn't have any
+\code{null_model()} defines a simple, non-informative model. It doesn't have any
 main arguments.
 }
 \details{
@@ -26,7 +25,7 @@ following \emph{engines}:
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:
-\subsection{parsnip}{\if{html}{\out{<div class="r">}}\preformatted{null_model() \%>\% 
+\subsection{parsnip}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
   set_engine("parsnip") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -36,7 +35,7 @@ call. For this type of model, the template of the fit calls are below:
 ## 
 ## Model fit template:
 ## nullmodel(x = missing_arg(), y = missing_arg())
-}\if{html}{\out{<div class="r">}}\preformatted{null_model() \%>\% 
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
   set_engine("parsnip") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -54,5 +53,5 @@ call. For this type of model, the template of the fit calls are below:
 null_model(mode = "regression")
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\code{\link[=fit.model_spec]{fit.model_spec()}}
 }

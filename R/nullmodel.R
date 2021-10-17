@@ -31,7 +31,7 @@
 #'
 #' `predict.nullmodel()` returns either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
-#' @keywords models
+#' @keywords models internal
 #' @examples
 #'
 #' outcome <- factor(sample(letters[1:2],
@@ -125,15 +125,12 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
   out
 }
 
-#' General Interface for null models
+#' Null model
 #'
-#' `null_model()` is a way to generate a _specification_ of a model before
-#'  fitting and allows the model to be created using R. It doesn't have any
+#' `null_model()` defines a simple, non-informative model. It doesn't have any
 #'  main arguments.
 #'
-#' @param mode A single character string for the type of model.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#' @inheritParams boost_tree
 #' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
@@ -143,7 +140,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' @includeRmd man/rmd/null-model.Rmd details
 #'
 #' @importFrom purrr map_lgl
-#' @seealso [fit()]
+#' @seealso [fit.model_spec()]
 #' @examples
 #' null_model(mode = "regression")
 #' @export
@@ -181,6 +178,7 @@ null_model <-
 #' @param ... Not used.
 #' @return A tibble with column `value`.
 #' @export
+#' @keywords internal
 #' @examples
 #'
 #' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()

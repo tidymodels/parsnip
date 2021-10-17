@@ -1,0 +1,60 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("decision_tree", "C5.0")`
+
+## Tuning Parameters
+
+```{r C5.0-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("min_n"),
+                 default = c("2L"))
+
+param <-
+ decision_tree() %>% 
+  set_engine("C5.0") %>% 
+  set_mode("classification") %>% 
+  tunable() %>% 
+  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
+  dplyr::mutate(
+    dials = purrr::map(call_info, get_dials),
+    label = purrr::map_chr(dials, ~ .x$label),
+    type = purrr::map_chr(dials, ~ .x$type)
+  ) %>% 
+  dplyr::full_join(defaults, by = "parsnip") %>% 
+  mutate(
+    item = 
+      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+  )
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r C5.0-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r C5.0-cls}
+decision_tree(min_n = integer()) %>% 
+  set_engine("C5.0") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+[C5.0_train()] is a wrapper around [C50::C5.0()] that makes it easier to run this model.
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-C5.0) for `decision_tree()` with the `"C5.0"` engine.
+
+## References
+
+-   Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.
+

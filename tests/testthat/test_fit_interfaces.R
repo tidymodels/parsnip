@@ -8,7 +8,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 f <- y ~ x
 
-smod <- surv_reg()
 rmod <- linear_reg()
 
 sprk <- 1:10
@@ -36,7 +35,6 @@ test_that('good args', {
 #
 test_that('wrong args', {
  expect_error(tester_xy(NULL, x = sprk, y = hpc, model = rmod))
- expect_error(tester_xy(NULL, x = hpc, y = hpc$compounds, model = smod))
  expect_error(tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
 })
 

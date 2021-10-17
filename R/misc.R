@@ -23,9 +23,6 @@ check_empty_ellipse <- function (...)  {
   terms
 }
 
-all_modes <- c("classification", "regression")
-
-
 deparserizer <- function(x, limit = options()$width - 10) {
   x <- deparse(x, width.cutoff = limit)
   x <- gsub("^    ", "", x)
@@ -191,14 +188,8 @@ update_dot_check <- function(...) {
 #' @keywords internal
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-  if (!(mode %in% spec_modes))
-    rlang::abort(
-      glue::glue(
-        "`mode` should be one of: ",
-        glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
-      )
-    )
+
+  check_spec_mode_engine_val(cls, engine, mode)
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
@@ -305,4 +296,94 @@ update_engine_parameters <- function(eng_args, ...) {
   ret
 }
 
+# ------------------------------------------------------------------------------
+# Since stan changed the function interface
+#' Wrapper for stan confidence intervals
+#' @param object A stan model fit
+#' @param newdata A data set.
+#' @export
+#' @keywords internal
+stan_conf_int <- function(object, newdata) {
+  check_installs(list(method = list(libs = "rstanarm")))
+  if (utils::packageVersion("rstanarm") >= "2.21.1") {
+    fn <- rlang::call2("posterior_epred", .ns = "rstanarm",
+                       object = expr(object),
+                       newdata = expr(newdata),
+                       seed = expr(sample.int(10^5, 1)))
+  } else {
+    fn <- rlang::call2("posterior_linpred", .ns = "rstanarm",
+                       object = expr(object),
+                       newdata = expr(newdata),
+                       transform = TRUE,
+                       seed = expr(sample.int(10^5, 1)))
+  }
+  rlang::eval_tidy(fn)
+}
 
+# ------------------------------------------------------------------------------
+
+
+#' Helper functions for checking the penalty of glmnet models
+#'
+#' @description
+#' These functions are for developer use.
+#'
+#' `.check_glmnet_penalty_fit()` checks that the model specification for fitting a
+#' glmnet model contains a single value.
+#'
+#' `.check_glmnet_penalty_predict()` checks that the penalty value used for prediction is valid.
+#' If called by `predict()`, it needs to be a single value. Multiple values are
+#' allowed for `multi_predict()`.
+#'
+#' @param x An object of class `model_spec`.
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
+.check_glmnet_penalty_fit <- function(x) {
+  pen <- rlang::eval_tidy(x$args$penalty)
+
+  if (length(pen) != 1) {
+    rlang::abort(c(
+      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
+      glue::glue("There are {length(pen)} values for `penalty`."),
+      "To try multiple values for total regularization, use the tune package.",
+      "To predict multiple penalties, use `multi_predict()`"
+    ))
+  }
+}
+
+#' @param penalty A penalty value to check.
+#' @param object An object of class `model_fit`.
+#' @param multi A logical indicating if multiple values are allowed.
+#'
+#' @rdname glmnet_helpers
+#' @keywords internal
+#' @export
+.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
+
+  if (is.null(penalty)) {
+    penalty <- object$fit$lambda
+  }
+
+  # when using `predict()`, allow for a single lambda
+  if (!multi) {
+    if (length(penalty) != 1)
+      rlang::abort(
+        glue::glue(
+          "`penalty` should be a single numeric value. `multi_predict()` ",
+          "can be used to get multiple predictions per row of data.",
+        )
+      )
+  }
+
+  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
+    rlang::abort(
+      glue::glue(
+        "The glmnet model was fit with a single penalty value of ",
+        "{object$fit$lambda}. Predicting with a value of {penalty} ",
+        "will give incorrect results from `glmnet()`."
+      )
+    )
+
+  penalty
+}

@@ -15,7 +15,10 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 test_that('primary arguments', {
   basic <- linear_reg()
   basic_lm <- translate(basic %>% set_engine("lm"))
-  basic_glmnet <- translate(basic %>% set_engine("glmnet"))
+  expect_error(
+    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
+  )
   basic_stan <- translate(basic %>% set_engine("stan"))
   basic_spark <- translate(basic %>% set_engine("spark"))
   expect_equal(basic_lm$method$fit$args,
@@ -23,14 +26,6 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg())
-               )
-  )
-  expect_equal(basic_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "gaussian"
                )
   )
   expect_equal(basic_stan$method$fit$args,
@@ -51,17 +46,11 @@ test_that('primary arguments', {
   )
 
   mixture <- linear_reg(mixture = 0.128)
-  mixture_glmnet <- translate(mixture %>% set_engine("glmnet"))
-  mixture_spark <- translate(mixture %>% set_engine("spark"))
-  expect_equal(mixture_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(0.128),
-                 family = "gaussian"
-               )
+  expect_error(
+    mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
   )
+  mixture_spark <- translate(mixture %>% set_engine("spark"))
   expect_equal(mixture_spark$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -92,17 +81,11 @@ test_that('primary arguments', {
   )
 
   mixture_v <- linear_reg(mixture = varying())
-  mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
-  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
-  expect_equal(mixture_v_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(varying()),
-                 family = "gaussian"
-               )
+  expect_error(
+    mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
+    "For the glmnet engine, `penalty` must be a single"
   )
+  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
   expect_equal(mixture_v_spark$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -125,7 +108,7 @@ test_that('engine arguments', {
                )
   )
 
-  glmnet_nlam <- linear_reg() %>% set_engine("glmnet", nlambda = 10)
+  glmnet_nlam <- linear_reg(penalty = 0.1) %>% set_engine("glmnet", nlambda = 10)
   expect_equal(translate(glmnet_nlam)$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -159,6 +142,19 @@ test_that('engine arguments', {
                )
   )
 
+  # For issue #431
+  with_path <-
+    linear_reg(penalty = 1) %>%
+    set_engine("glmnet", path_values = 4:2) %>%
+    translate()
+  expect_equal(
+    names(with_path$method$fit$args),
+    c("x", "y", "weights", "lambda", "family")
+  )
+  expect_equal(
+    rlang::eval_tidy(with_path$method$fit$args$lambda),
+    4:2
+  )
 })
 
 
@@ -373,14 +369,6 @@ test_that('newdata error trapping', {
     control = ctrl
   )
   expect_error(predict(res_xy, newdata = hpc[1:3, num_pred]), "Did you mean")
-})
-
-test_that('default engine', {
-  expect_warning(
-    fit <- linear_reg() %>% fit(mpg ~ ., data = mtcars),
-    "Engine set to"
-  )
-  expect_true(inherits(fit$fit, "lm"))
 })
 
 test_that('show engine', {

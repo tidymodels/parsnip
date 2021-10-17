@@ -1,74 +1,49 @@
-#' General Interface for Logistic Regression Models
+#' Logistic regression
 #'
-#' `logistic_reg()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R, Stan, keras, or via Spark. The main
-#'  arguments for the model are:
-#' \itemize{
-#'   \item \code{penalty}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The mixture amounts of different types of
-#'   regularization (see below). Note that this will be ignored for some engines.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
-#' @inheritParams boost_tree
+#' @description
+#' [logistic_reg()] defines a generalized linear model for binary outcomes. A
+#' linear combination of the predictors is used to model the log odds of an
+#' event.
+#'
+#' There are different ways to fit this model. The method of estimation is 
+#' chosen by setting the model _engine_. 
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting. Possible engines are listed below. The default for this
+#'  model is `"glm"`.
 #' @param penalty A non-negative number representing the total
-#'  amount of regularization (`glmnet`, `keras`, and `spark` only).
+#'  amount of regularization (specific engines only).
 #'  For `keras` models, this corresponds to purely L2 regularization
-#'  (aka weight decay) while the other models can be a combination
+#'  (aka weight decay) while the other models can be either or a combination
 #'  of L1 and L2 (depending on the value of `mixture`).
 #' @param mixture A number between zero and one (inclusive) that is the
 #'  proportion of L1 regularization (i.e. lasso) in the model. When
 #'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
-#'  ridge regression is being used. (`glmnet` and `spark` only).
-#' @details
-#' For `logistic_reg()`, the mode will always be "classification".
+#'  ridge regression is being used. (specific engines only).
+#'  For `LiblineaR` models, `mixture` must be exactly 0 or 1 only.
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"glm"`  (the default) or `"glmnet"`
-#' \item \pkg{Stan}:  `"stan"`
-#' \item \pkg{Spark}: `"spark"`
-#' \item \pkg{keras}: `"keras"`
-#' }
+#' @template spec-details
 #'
-#' For this model, other packages may add additional engines. Use
-#' [show_engines()] to see the current set of engines.
+#' @template spec-references
 #'
-#' @includeRmd man/rmd/logistic-reg.Rmd details
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}
 #'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
-#'
-#' @seealso [fit()]
 #' @examples
 #' show_engines("logistic_reg")
 #'
 #' logistic_reg()
-#' # Parameters can be represented by a placeholder:
-#' logistic_reg(penalty = varying())
 #' @export
 #' @importFrom purrr map_lgl
 logistic_reg <-
   function(mode = "classification",
+           engine = "glm",
            penalty = NULL,
            mixture = NULL) {
 
@@ -83,7 +58,7 @@ logistic_reg <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 
@@ -101,19 +76,57 @@ print.logistic_reg <- function(x, ...) {
 }
 
 #' @export
-translate.logistic_reg <- translate.linear_reg
+translate.logistic_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  # slightly cleaner code using
+  arg_vals <- x$method$fit$args
+  arg_names <- names(arg_vals)
+
+  if (engine == "glmnet") {
+    .check_glmnet_penalty_fit(x)
+    if (any(names(x$eng_args) == "path_values")) {
+      # Since we decouple the parsnip `penalty` argument from being the same
+      # as the glmnet `lambda` value, `path_values` allows users to set the
+      # path differently from the default that glmnet uses. See
+      # https://github.com/tidymodels/parsnip/issues/431
+      x$method$fit$args$lambda <- x$eng_args$path_values
+      x$eng_args$path_values <- NULL
+      x$method$fit$args$path_values <- NULL
+    } else {
+      # See discussion in https://github.com/tidymodels/parsnip/issues/195
+      x$method$fit$args$lambda <- NULL
+    }
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  if (engine == "LiblineaR") {
+    # convert parameter arguments
+    new_penalty <- rlang::eval_tidy(x$args$penalty)
+    if (is.numeric(new_penalty))
+      arg_vals$cost <- rlang::new_quosure(1 / new_penalty, env = rlang::empty_env())
+
+    if (any(arg_names == "type")) {
+      if (is.numeric(quo_get_expr(arg_vals$type)))
+        if (quo_get_expr(x$args$mixture) == 0) {
+          arg_vals$type <- 0      ## ridge
+        } else if (quo_get_expr(x$args$mixture) == 1) {
+          arg_vals$type <- 6      ## lasso
+        } else {
+          rlang::abort("For the LiblineaR engine, mixture must be 0 or 1.")
+        }
+    }
+    x$method$fit$args <- arg_vals
+  }
+  x
+}
 
 # ------------------------------------------------------------------------------
 
-#' @inheritParams update.boost_tree
-#' @param object A logistic regression model specification.
-#' @examples
-#' model <- logistic_reg(penalty = 10, mixture = 0.1)
-#' model
-#' update(model, penalty = 1)
-#' update(model, penalty = 1, fresh = TRUE)
 #' @method update logistic_reg
-#' @rdname logistic_reg
+#' @rdname parsnip_update
 #' @export
 update.logistic_reg <-
   function(object,
@@ -168,6 +181,16 @@ check_args.logistic_reg <- function(object) {
     rlang::abort("The mixture proportion should be within [0,1].")
   if (is.numeric(args$mixture) && length(args$mixture) > 1)
     rlang::abort("Only one value of `mixture` is allowed.")
+
+  if (object$engine == "LiblineaR") {
+    if(is.numeric(args$mixture) && !args$mixture %in% 0:1)
+      rlang::abort(c("For the LiblineaR engine, mixture must be 0 or 1.",
+                     "Choose a pure ridge model with `mixture = 0`.",
+                     "Choose a pure lasso model with `mixture = 1`.",
+                     "The Liblinear engine does not support other values."))
+    if(all(is.numeric(args$penalty)) && !all(args$penalty > 0))
+      rlang::abort("For the LiblineaR engine, penalty must be > 0.")
+  }
 
   invisible(object)
 }
@@ -248,7 +271,7 @@ predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalt
     penalty <- object$spec$args$penalty
   }
 
-  object$spec$args$penalty <- check_penalty(penalty, object, multi)
+  object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
 
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
@@ -346,3 +369,12 @@ predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
+# ------------------------------------------------------------------------------
+
+liblinear_preds <- function(results, object) {
+  results$predictions
+}
+
+liblinear_probs <- function(results, object) {
+  as_tibble(results$probabilities)
+}

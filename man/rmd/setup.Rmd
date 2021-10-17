@@ -1,4 +1,8 @@
 ```{r, include = FALSE}
+library(dials)
+library(parsnip)
+library(tune)
+
 convert_args <- function(model_name) {
   envir <- get_model_env()
 
@@ -39,4 +43,28 @@ get_arg <- function(ns, f, arg) {
   as.character(args[[arg]])
 }
 
+get_dials <- function(x) {
+  if (any(names(x) == "range")) {
+    cl <- rlang::call2(x$fun, .ns = x$pgk, range = x$range)
+  } else {
+    cl <- rlang::call2(x$fun, .ns = x$pgk)
+  }
+  rlang::eval_tidy(cl)
+}
+
+descr_models <- function(mod, eng) {
+  res <- get_from_env(mod) %>% 
+    dplyr::filter(engine == eng) %>% 
+    dplyr::distinct() %>% 
+    purrr::pluck("mode")
+  
+  if (length(res) == 1) {
+    txt <- "is a single mode:"
+  } else {
+    txt <- "are multiple modes:"
+  }
+  paste("For this engine, there", txt, knitr::combine_words(res))
+}
+
+options(width = 80)
 ```

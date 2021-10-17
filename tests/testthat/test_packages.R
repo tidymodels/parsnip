@@ -6,20 +6,19 @@ load(test_path("mars_model.RData"))
 
 test_that('required packages', {
 
-  expect_error(req_pkgs(linear_reg()), "Please set an engine")
-
   glmn <-
     linear_reg() %>%
-    set_engine("glmnet") %>%
-    req_pkgs()
-  expect_equal(glmn, "glmnet")
+    set_engine("glmnet")
+  expect_equal(req_pkgs(glmn), "glmnet")
+  expect_equal(required_pkgs(glmn), c("glmnet", "parsnip"))
+
 
   lm_fit <-
     linear_reg() %>%
     set_engine("lm") %>%
-    fit(mpg ~ ., data = mtcars) %>%
-    req_pkgs()
-  expect_equal(lm_fit, "stats")
+    fit(mpg ~ ., data = mtcars)
+  expect_equal(req_pkgs(lm_fit), "stats")
+  expect_equal(required_pkgs(lm_fit), c("parsnip", "stats"))
 })
 
 # ------------------------------------------------------------------------------

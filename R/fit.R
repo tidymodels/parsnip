@@ -11,7 +11,7 @@
 #'
 #' @param object An object of class `model_spec` that has a chosen engine
 #'  (via [set_engine()]).
-#' @param formula An object of class "formula" (or one that can
+#' @param formula An object of class `formula` (or one that can
 #'  be coerced to that class): a symbolic description of the model
 #'  to be fitted.
 #' @param data Optional, depending on the interface (see Details
@@ -85,7 +85,7 @@
 #' @seealso [set_engine()], [control_parsnip()], `model_spec`, `model_fit`
 #' @param x A matrix, sparse matrix, or data frame of predictors. Only some
 #' models have support for sparse matrix input. See `parsnip::get_encoding()`
-#' for details.
+#' for details. `x` should have column names.
 #' @param y A vector, matrix or data frame of outcome data.
 #' @rdname fit
 #' @export
@@ -99,6 +99,9 @@ fit.model_spec <-
   ) {
     if (object$mode == "unknown") {
       rlang::abort("Please set the mode in the model specification.")
+    }
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
     dots <- quos(...)
     if (is.null(object$engine)) {
@@ -189,6 +192,20 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (object$mode == "censored regression") {
+      rlang::abort("Models for censored regression must use the formula interface.")
+    }
+
+    if (inherits(object, "surv_reg")) {
+      rlang::abort("Survival models must use the formula interface.")
+    }
+
+    if (!identical(class(control), class(control_parsnip()))) {
+      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
+    }
+    if (is.null(colnames(x))) {
+      rlang::abort("'x' should have column names.")
+    }
     object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
@@ -378,10 +395,6 @@ check_xy_interface <- function(x, y, cl, model) {
   }
 
   df_interface <- !is.null(x) & !is.null(y) && is.data.frame(x)
-
-  if (inherits(model, "surv_reg") && (matrix_interface | df_interface)) {
-    rlang::abort("Survival models must use the formula interface.")
-  }
 
   if (matrix_interface) {
     return("matrix")

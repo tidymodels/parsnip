@@ -1,97 +1,61 @@
 # Prototype parsnip code for boosted trees
 
-#' General Interface for Boosted Trees
+#' Boosted trees
 #'
-#' `boost_tree()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R or via Spark. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{mtry}: The number of predictors that will be
-#'   randomly sampled at each split when creating the tree models.
-#'   \item \code{trees}: The number of trees contained in the ensemble.
-#'   \item \code{min_n}: The minimum number of data points in a node
-#'   that is required for the node to be split further.
-#'   \item \code{tree_depth}: The maximum depth of the tree (i.e. number of
-#'  splits).
-#'   \item \code{learn_rate}: The rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration.
-#'   \item \code{loss_reduction}: The reduction in the loss function required
-#'   to split further.
-#'   \item \code{sample_size}: The amount of data exposed to the fitting routine.
-#'   \item \code{stop_iter}: The number of iterations without improvement before
-#'   stopping.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using the `set_engine()` function. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
 #'
-#' @param mode A single character string for the type of model.
+#' `boost_tree()` defines a model that creates a series of decision trees
+#' forming an ensemble. Each tree depends on the results of previous trees.
+#' All trees in the ensemble are combined to produce a final prediction.
+#'
+#' There are different ways to fit this model. The method of estimation is 
+#' chosen by setting the model _engine_. 
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @param mode A single character string for the prediction outcome mode.
 #'  Possible values for this model are "unknown", "regression", or
 #'  "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting.
 #' @param mtry A number for the number (or proportion) of predictors that will
-#'  be randomly sampled at each split when creating the tree models (`xgboost`
-#'  only).
+#'  be randomly sampled at each split when creating the tree models
+#' (specific engines only)
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that is required for the node to be split further.
 #' @param tree_depth An integer for the maximum depth of the tree (i.e. number
-#'  of splits) (`xgboost` only).
+#'  of splits) (specific engines only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration (`xgboost` only).
+#'   from iteration-to-iteration (specific engines only).
 #' @param loss_reduction A number for the reduction in the loss function required
-#'   to split further (`xgboost` only).
+#'   to split further (specific engines only).
 #' @param sample_size A number for the number (or proportion) of data that is
 #'  exposed to the fitting routine. For `xgboost`, the sampling is done at
 #'  each iteration while `C5.0` samples once during training.
 #' @param stop_iter The number of iterations without improvement before
-#'   stopping (`xgboost` only).
-#' @details
-#' The data given to the function are not saved and are only used
-#'  to determine the _mode_ of the model. For `boost_tree()`, the
-#'  possible modes are "regression" and "classification".
+#'   stopping (specific engines only).
 #'
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}: `"xgboost"` (the default), `"C5.0"`
-#' \item \pkg{Spark}: `"spark"`
-#' }
+#' @template spec-details
 #'
-#' For this model, other packages may add additional engines. Use
-#' [show_engines()] to see the current set of engines.
+#' @template spec-references
 #'
-#' @includeRmd man/rmd/boost-tree.Rmd details
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
+#' [xgb_train()], [C5.0_train()]
 #'
-#' @note For models created using the spark engine, there are
-#'  several differences to consider. First, only the formula
-#'  interface to via `fit()` is available; using `fit_xy()` will
-#'  generate an error. Second, the predictions will always be in a
-#'  spark table format. The names will be the same as documented but
-#'  without the dots. Third, there is no equivalent to factor
-#'  columns in spark tables so class predictions are returned as
-#'  character columns. Fourth, to retain the model object for a new
-#'  R session (via `save()`), the `model$fit` element of the `parsnip`
-#'  object should be serialized via `ml_save(object$fit)` and
-#'  separately saved to disk. In a new session, the object can be
-#'  reloaded and reattached to the `parsnip` object.
-#'
-#' @importFrom purrr map_lgl
-#' @seealso [fit()], [set_engine()]
 #' @examples
 #' show_engines("boost_tree")
 #'
 #' boost_tree(mode = "classification", trees = 20)
-#' # Parameters can be represented by a placeholder:
-#' boost_tree(mode = "regression", mtry = varying())
 #' @export
-
+#' @importFrom purrr map_lgl
 boost_tree <-
   function(mode = "unknown",
+           engine = "xgboost",
            mtry = NULL, trees = NULL, min_n = NULL,
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
@@ -114,7 +78,7 @@ boost_tree <-
       eng_args = NULL,
       mode,
       method = NULL,
-      engine = NULL
+      engine = engine
     )
   }
 
@@ -132,32 +96,8 @@ print.boost_tree <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-#' @param object A boosted tree model specification.
-#' @param parameters A 1-row tibble or named list with _main_
-#'  parameters to update. If the individual arguments are used,
-#'  these will supersede the values in `parameters`. Also, using
-#'  engine arguments in this object will result in an error.
-#' @param ... Not used for `update()`.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
-#' @examples
-#' model <- boost_tree(mtry = 10, min_n = 3)
-#' model
-#' update(model, mtry = 1)
-#' update(model, mtry = 1, fresh = TRUE)
-#'
-#' param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
-#'
-#' model %>% update(param_values)
-#' model %>% update(param_values, mtry = 3)
-#'
-#' param_values$verbose <- 0
-#' # Fails due to engine argument
-#' # model %>% update(param_values)
 #' @method update boost_tree
-#' @rdname boost_tree
+#' @rdname parsnip_update
 #' @export
 update.boost_tree <-
   function(object,
@@ -288,35 +228,52 @@ check_args.boost_tree <- function(object) {
 #' @param max_depth An integer for the maximum depth of the tree.
 #' @param nrounds An integer for the number of boosting iterations.
 #' @param eta A numeric value between zero and one to control the learning rate.
-#' @param colsample_bytree Subsampling proportion of columns.
+#' @param colsample_bytree Subsampling proportion of columns for each tree.
+#' See the `counts` argument below. The default uses all columns.
+#' @param colsample_bynode Subsampling proportion of columns for each node
+#' within each tree. See the `counts` argument below. The default uses all
+#' columns.
 #' @param min_child_weight A numeric value for the minimum sum of instance
 #'  weights needed in a child to continue to split.
 #' @param gamma A number for the minimum loss reduction required to make a
 #'  further partition on a leaf node of the tree
-#' @param subsample Subsampling proportion of rows.
-#' @param validation A positive number. If on `[0, 1)` the value, `validation`
-#' is a random proportion of data in `x` and `y` that are used for performance
-#' assessment and potential early stopping. If 1 or greater, it is the _number_
-#' of training set samples use for these purposes.
+#' @param subsample Subsampling proportion of rows. By default, all of the
+#' training data are used.
+#' @param validation The _proportion_ of the data that are used for performance
+#' assessment and potential early stopping.
 #' @param early_stop An integer or `NULL`. If not `NULL`, it is the number of
 #' training iterations without improvement before stopping. If `validation` is
 #' used, performance is base on the validation set; otherwise, the training set
 #' is used.
+#' @param counts A logical. If `FALSE`, `colsample_bynode` and
+#' `colsample_bytree` are both assumed to be _proportions_ of the proportion of
+#' columns affects (instead of counts).
+#' @param objective A single string (or NULL) that defines the loss function that
+#' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
+#' NULL, an appropriate loss function is chosen.
+#' @param event_level For binary classification, this is a single string of either
+#' `"first"` or `"second"` to pass along describing which level of the outcome
+#' should be considered the "event".
 #' @param ... Other options to pass to `xgb.train`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
 #' @export
 xgb_train <- function(
   x, y,
-  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bytree = 1,
-  min_child_weight = 1, gamma = 0, subsample = 1, validation = 0,
-  early_stop = NULL, ...) {
+  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
+  colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
+  validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
+  event_level = c("first", "second"), ...) {
+
+  event_level <- rlang::arg_match(event_level, c("first", "second"))
+  others <- list(...)
 
   num_class <- length(levels(y))
 
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
     rlang::abort("`validation` should be on [0, 1).")
   }
+
   if (!is.null(early_stop)) {
     if (early_stop <= 1) {
       rlang::abort(paste0("`early_stop` should be on [2, ",  nrounds, ")."))
@@ -326,35 +283,38 @@ xgb_train <- function(
     }
   }
 
-
-  if (is.numeric(y)) {
-    loss <- "reg:squarederror"
-  } else {
-    if (num_class == 2) {
-      loss <- "binary:logistic"
+  if (is.null(objective)) {
+    if (is.numeric(y)) {
+      objective <- "reg:squarederror"
     } else {
-      loss <- "multi:softprob"
+      if (num_class == 2) {
+        objective <- "binary:logistic"
+      } else {
+        objective <- "multi:softprob"
+      }
     }
   }
 
   n <- nrow(x)
   p <- ncol(x)
 
-  x <- as_xgb_data(x, y, validation)
+  x <- as_xgb_data(x, y, validation, event_level)
 
-  # translate `subsample` and `colsample_bytree` to be on (0, 1] if not
-  if (subsample > 1) {
-    subsample <- subsample/n
-  }
-  if (subsample > 1) {
-    subsample <- 1
+
+  if (!is.numeric(subsample) || subsample < 0 || subsample > 1) {
+    rlang::abort("`subsample` should be on [0, 1].")
   }
 
-  if (colsample_bytree > 1) {
-    colsample_bytree <- colsample_bytree/p
-  }
-  if (colsample_bytree > 1) {
+  # initialize
+  if (is.null(colsample_bytree)) {
     colsample_bytree <- 1
+  } else {
+    colsample_bytree <- recalc_param(colsample_bytree, counts, p)
+  }
+  if (is.null(colsample_bynode)) {
+    colsample_bynode <- 1
+  } else {
+    colsample_bynode <- recalc_param(colsample_bynode, counts, p)
   }
 
   if (min_child_weight > n) {
@@ -369,8 +329,10 @@ xgb_train <- function(
     max_depth = max_depth,
     gamma = gamma,
     colsample_bytree = colsample_bytree,
+    colsample_bynode = colsample_bynode,
     min_child_weight = min(min_child_weight, n),
-    subsample = subsample
+    subsample = subsample,
+    objective = objective
   )
 
   main_args <- list(
@@ -378,7 +340,6 @@ xgb_train <- function(
     watchlist = quote(x$watchlist),
     params = arg_list,
     nrounds = nrounds,
-    objective = loss,
     early_stopping_rounds = early_stop
   )
   if (!is.null(num_class) && num_class > 2) {
@@ -388,7 +349,7 @@ xgb_train <- function(
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
 
   # override or add some other args
-  others <- list(...)
+
   others <-
     others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
   if (!(any(names(others) == "verbose"))) {
@@ -401,6 +362,30 @@ xgb_train <- function(
   eval_tidy(call, env = current_env())
 }
 
+recalc_param <- function(x, counts, denom) {
+  nm <- as.character(match.call()$x)
+  if (is.null(x)) {
+    x <- 1
+  } else {
+    if (counts) {
+      maybe_proportion(x, nm)
+      x <- min(denom, x)/denom
+    }
+  }
+  x
+}
+
+maybe_proportion <- function(x, nm) {
+  if (x < 1) {
+    msg <- paste0(
+      "The option `counts = TRUE` was used but parameter `", nm,
+      "` was given as ", signif(x, 3), ". Please use a value >= 1 or use ",
+      "`counts = FALSE`."
+    )
+    rlang::abort(msg)
+  }
+}
+
 #' @importFrom stats binomial
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
@@ -410,18 +395,17 @@ xgb_pred <- function(object, newdata, ...) {
 
   res <- predict(object, newdata, ...)
 
-  x = switch(
+  x <- switch(
     object$params$objective,
-    "reg:squarederror" = , "reg:logistic" = , "binary:logistic" = res,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
-    res
-  )
+    res)
+
   x
 }
 
 
-as_xgb_data <- function(x, y, validation = 0, ...) {
+as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
   lvls <- levels(y)
   n <- nrow(x)
 
@@ -430,12 +414,22 @@ as_xgb_data <- function(x, y, validation = 0, ...) {
   }
 
   if (is.factor(y)) {
-    y <- as.numeric(y) - 1
+    if (length(lvls) < 3) {
+      if (event_level == "first") {
+        y <- -as.numeric(y) + 2
+      } else {
+        y <- as.numeric(y) - 1
+      }
+    } else {
+      if (event_level == "second") rlang::warn("`event_level` can only be set for binary variables.")
+      y <- as.numeric(y) - 1
+    }
   }
 
   if (!inherits(x, "xgb.DMatrix")) {
     if (validation > 0) {
-      trn_index <- sample(1:n, size = floor(n * (1 - validation)) + 1)
+      m <- floor(n * (1 - validation)) + 1
+      trn_index <- sample(1:n, size = max(m, 2))
       wlist <-
         list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
       dat <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
@@ -451,6 +445,17 @@ as_xgb_data <- function(x, y, validation = 0, ...) {
 
   list(data = dat, watchlist = wlist)
 }
+
+get_event_level <- function(model_spec){
+  if ("event_level" %in% names(model_spec$eng_args)) {
+    event_level <- get_expr(model_spec$eng_args$event_level)
+  } else {
+    # "first" is the default for as_xgb_data() and xgb_train()
+    event_level <- "first"
+  }
+  event_level
+}
+
 #' @importFrom purrr map_df
 #' @export
 #' @rdname multi_predict
@@ -520,7 +525,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #' @param weights An optional numeric vector of case weights. Note
 #'  that the data used for the case weights will not be used as a
 #'  splitting variable in the model (see
-#'  \url{http://www.rulequest.com/see5-win.html} for
+#'  \url{https://www.rulequest.com/see5-info.html} for
 #'  Quinlan's notes on case weights).
 #' @param minCases An integer for the smallest number of samples
 #'  that must be put in at least two of the splits.
@@ -528,7 +533,8 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #'  random proportion of the data should be used to train the model.
 #'  By default, all the samples are used for model training. Samples
 #'  not used for training are used to evaluate the accuracy of the
-#'  model in the printed output.
+#'  model in the printed output. A value of zero means that all the training
+#'  data are used.
 #' @param ... Other arguments to pass.
 #' @return A fitted C5.0 model.
 #' @keywords internal

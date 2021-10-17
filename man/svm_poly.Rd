@@ -2,32 +2,24 @@
 % Please edit documentation in R/svm_poly.R
 \name{svm_poly}
 \alias{svm_poly}
-\alias{update.svm_poly}
-\title{General interface for polynomial support vector machines}
+\title{Polynomial support vector machines}
 \usage{
 svm_poly(
   mode = "unknown",
+  engine = "kernlab",
   cost = NULL,
   degree = NULL,
   scale_factor = NULL,
   margin = NULL
 )
-
-\method{update}{svm_poly}(
-  object,
-  parameters = NULL,
-  cost = NULL,
-  degree = NULL,
-  scale_factor = NULL,
-  margin = NULL,
-  fresh = FALSE,
-  ...
-)
 }
 \arguments{
-\item{mode}{A single character string for the type of model.
+\item{mode}{A single character string for the prediction outcome mode.
 Possible values for this model are "unknown", "regression", or
 "classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
 
 \item{cost}{A positive number for the cost of predicting a sample within
 or on the wrong side of the margin}
@@ -38,103 +30,39 @@ or on the wrong side of the margin}
 
 \item{margin}{A positive number for the epsilon in the SVM insensitive
 loss function (regression only)}
-
-\item{object}{A polynomial SVM model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
 }
 \description{
-\code{svm_poly()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-different packages in R or via Spark. The main arguments for the
-model are:
-\itemize{
-\item \code{cost}: The cost of predicting a sample within or on the
-wrong side of the margin.
-\item \code{degree}: The polynomial degree.
-\item \code{scale_factor}: A scaling factor for the kernel.
-\item \code{margin}: The epsilon in the SVM insensitive loss function
-(regression only)
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{svm_poly()} defines a support vector machine model. For classification,
+the model tries to maximize the width of the margin between classes.
+For regression, the model optimizes a robust loss function that is only
+affected by very large model residuals.
+
+This SVM model uses a nonlinear function, specifically a polynomial function,
+to create the decision boundary or regression line.
+
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_poly")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"kernlab"}  (the default)
-}
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below:
-\subsection{kernlab}{\if{html}{\out{<div class="r">}}\preformatted{svm_poly() \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (regression)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot")
-}\if{html}{\out{<div class="r">}}\preformatted{svm_poly() \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("classification") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (classification)
-## 
-## Computational engine: kernlab 
-## 
-## Model fit template:
-## kernlab::ksvm(x = missing_arg(), data = missing_arg(), kernel = "polydot", 
-##     prob.model = TRUE)
-}
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
 
-\code{fit()} passes the data directly to \code{kernlab::ksvm()} so that its
-formula method can create dummy variables as-needed.
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 }
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{ll}{
-   \strong{parsnip} \tab \strong{kernlab} \cr
-   cost \tab C (1) \cr
-   degree \tab degree (1) \cr
-   scale_factor \tab scale (1) \cr
-   margin \tab epsilon (0.1) \cr
-}
-
-}
-}
-
 \examples{
 show_engines("svm_poly")
 
 svm_poly(mode = "classification", degree = 1.2)
-# Parameters can be represented by a placeholder:
-svm_poly(mode = "regression", cost = varying())
-model <- svm_poly(cost = 10, scale_factor = 0.1)
-model
-update(model, cost = 1)
-update(model, cost = 1, fresh = TRUE)
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
-\code{\link[=fit]{fit()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_poly")}
 }

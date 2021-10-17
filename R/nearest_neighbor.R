@@ -1,54 +1,34 @@
-# TODO) If implementing `class::knn()`, mention that it does not have
-# the distance param because it uses Euclidean distance. And no `weight_func`
-# param.
-
-#' General Interface for K-Nearest Neighbor Models
+#' K-nearest neighbors
 #'
-#' `nearest_neighbor()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  different packages in R. The main arguments for the
-#'  model are:
-#' \itemize{
-#'   \item \code{neighbors}: The number of neighbors considered at
-#'   each prediction.
-#'   \item \code{weight_func}: The type of kernel function that weights the
-#'   distances between samples.
-#'   \item \code{dist_power}: The parameter used when calculating the Minkowski
-#'   distance. This corresponds to the Manhattan distance with `dist_power = 1`
-#'   and the Euclidean distance with `dist_power = 2`.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
-#' @param mode A single character string for the type of model.
-#' Possible values for this model are `"unknown"`, `"regression"`, or
-#' `"classification"`.
+#' @description
 #'
+#' `nearest_neighbor()` defines a model that uses the `K` most similar data
+#' points from the training set to predict new samples.
+#'
+#' There are different ways to fit this model. The method of estimation is 
+#' chosen by setting the model _engine_. 
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param neighbors A single integer for the number of neighbors
 #' to consider (often called `k`). For \pkg{kknn}, a value of 5
 #' is used if `neighbors` is not specified.
-#'
 #' @param weight_func A *single* character for the type of kernel function used
 #' to weight distances between samples. Valid choices are: `"rectangular"`,
 #' `"triangular"`, `"epanechnikov"`, `"biweight"`, `"triweight"`,
 #' `"cos"`, `"inv"`, `"gaussian"`, `"rank"`, or `"optimal"`.
-#'
 #' @param dist_power A single number for the parameter used in
 #' calculating Minkowski distance.
 #'
-#' @details
-#' The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"kknn"`  (the default)
-#' }
+#' @template spec-details
 #'
-#' @includeRmd man/rmd/nearest-neighbor.Rmd details
+#' @template spec-references
 #'
-#' @seealso [fit()]
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
 #'
 #' @examples
 #' show_engines("nearest_neighbor")
@@ -57,6 +37,7 @@
 #'
 #' @export
 nearest_neighbor <- function(mode = "unknown",
+                             engine = "kknn",
                              neighbors = NULL,
                              weight_func = NULL,
                              dist_power = NULL) {
@@ -72,7 +53,7 @@ nearest_neighbor <- function(mode = "unknown",
     eng_args = NULL,
     mode = mode,
     method = NULL,
-    engine = NULL
+    engine = engine
   )
 }
 
@@ -90,8 +71,9 @@ print.nearest_neighbor <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @method update nearest_neighbor
 #' @export
-#' @inheritParams update.boost_tree
+#' @rdname parsnip_update
 update.nearest_neighbor <- function(object,
                                     parameters = NULL,
                                     neighbors = NULL,

@@ -13,7 +13,7 @@
 \item{object}{An object of class \code{model_spec} that has a chosen engine
 (via \code{\link[=set_engine]{set_engine()}}).}
 
-\item{formula}{An object of class "formula" (or one that can
+\item{formula}{An object of class \code{formula} (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.}
 
@@ -31,7 +31,7 @@ passed using \code{set_engine()}.}
 
 \item{x}{A matrix, sparse matrix, or data frame of predictors. Only some
 models have support for sparse matrix input. See \code{parsnip::get_encoding()}
-for details.}
+for details. \code{x} should have column names.}
 
 \item{y}{A vector, matrix or data frame of outcome data.}
 }
