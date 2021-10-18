@@ -251,6 +251,12 @@ objects used to fit the model.</p>
 <p>If the model engine has not been set, the model's default engine will be used
 (as discussed on each model page). If the <code>verbosity</code> option of
 <code><a href='control_parsnip.html'>control_parsnip()</a></code> is greater than zero, a warning will be produced.</p>
+<p>If you would like to use an alternative method for generating contrasts when
+supplying a formula to <code><a href='https://generics.r-lib.org/reference/fit.html'>fit()</a></code>, set the global option <code>contrasts</code> to your
+preferred method. For example, you might set it to:
+<code><a href='https://rdrr.io/r/base/options.html'>options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))</a></code>.
+See the help page for <code><a href='https://rdrr.io/r/stats/contrast.html'>stats::contr.treatment()</a></code> for more possible contrast
+types.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='set_engine.html'>set_engine()</a></code>, <code><a href='control_parsnip.html'>control_parsnip()</a></code>, <code>model_spec</code>, <code>model_fit</code></p></div>
@@ -279,7 +285,7 @@ objects used to fit the model.</p>
 <span class='va'>using_formula</span>
 </div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  34ms 
+#&gt; Fit time:  39ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = Class ~ funded_amnt + int_rate, family = stats::binomial, 
 #&gt;     data = data)
@@ -293,7 +299,7 @@ objects used to fit the model.</p>
 #&gt; Residual Deviance: 3698 	AIC: 3704</div><div class='input'><span class='va'>using_xy</span>
 </div><div class='output co'>#&gt; parsnip model object
 #&gt; 
-#&gt; Fit time:  34ms 
+#&gt; Fit time:  46ms 
 #&gt; 
 #&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::binomial, data = data)
 #&gt; 
