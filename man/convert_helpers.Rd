@@ -43,7 +43,7 @@ to be fitted.}
 predictors, case weights, etc).}
 
 \item{...}{Additional arguments passed to \code{\link[stats:model.frame]{stats::model.frame()}} and
-specification of \code{offset} and \code{contrasts}.}
+specification of \code{offset}.}
 
 \item{na.action}{A function which indicates what should happen when the data
 contain NAs.}

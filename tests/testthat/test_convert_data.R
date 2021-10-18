@@ -456,6 +456,30 @@ test_that("numeric x and multivariate y, matrix composition", {
   expect_equal(as.matrix(mtcars[1:6,-(1:2)]), new_obs$x)
 })
 
+test_that("global `contrasts` option is respected", {
+  contrasts <- getOption("contrasts")
+  contrasts["unordered"] <- "contr.helmert"
+
+  rlang::local_options(contrasts = contrasts)
+
+  # Fit time
+  fit_result <- .convert_form_to_xy_fit(
+    num_pending ~ class + compounds,
+    data = hpc
+  )
+  fit_data <- fit_result$x
+
+  expect_identical(names(fit_data), c("class1", "class2", "class3", "compounds"))
+  expect_true(all(fit_data$class1 %in% c(-1, 0, 1)))
+
+  # Predict time
+  predict_result <- .convert_form_to_xy_new(fit_result, hpc)
+  predict_data <- predict_result$x
+
+  expect_identical(names(predict_data), c("class1", "class2", "class3", "compounds"))
+  expect_true(all(predict_data$class1 %in% c(-1, 0, 1)))
+})
+
 # ------------------------------------------------------------------------------
 
 context("Testing xy -> formula conversion")
