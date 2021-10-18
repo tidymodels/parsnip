@@ -10,7 +10,6 @@
 \alias{glance}
 \alias{augment}
 \alias{required_pkgs}
-\alias{tune_args}
 \alias{extract_spec_parsnip}
 \alias{extract_fit_engine}
 \alias{varying_args}
@@ -21,7 +20,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{generics}{\code{\link[generics]{augment}}, \code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{required_pkgs}}, \code{\link[generics]{tidy}}, \code{\link[generics]{tune_args}}, \code{\link[generics]{varying_args}}}
+  \item{generics}{\code{\link[generics]{augment}}, \code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{required_pkgs}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
 
   \item{hardhat}{\code{\link[hardhat:hardhat-extract]{extract_fit_engine}}, \code{\link[hardhat:hardhat-extract]{extract_spec_parsnip}}}
 

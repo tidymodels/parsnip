@@ -1,5 +1,5 @@
 
-# @export - lazily and conditionally registered in .onLoad()
+# Lazily registered in .onLoad()
 tune_args_model_spec <- function(object, full = FALSE, ...) {
 
   # use the model_spec top level class as the id
