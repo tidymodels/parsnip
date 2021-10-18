@@ -343,17 +343,15 @@ check_pred_type_dots <- function(object, type, ...) {
     )
   }
 
-  # `increasing` should only be passed for specific models
-  prop_haz_model <- "proportional_hazards" %in% class(object$spec)
-  boosted_cox <- object$spec$mode == "censored regression" &
-    object$spec$engine == "mboost"
-  allowed_model <- prop_haz_model | boosted_cox
+  # `increasing` only applies to linear_pred for censored regression
   if (any(nms == "increasing") &
       !(type == "linear_pred" &
-        object$spec$mode == "censored regression" &
-        allowed_model)) {
+        object$spec$mode == "censored regression")) {
     rlang::abort(
-      "The `increasing` argument cannot be used here."
+      paste(
+        "The 'increasing' argument only applies to predictions of",
+        "type 'linear_pred' for the mode censored regression."
+      )
     )
   }
 
