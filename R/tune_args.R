@@ -32,7 +32,7 @@ tune_args_model_spec <- function(object, full = FALSE, ...) {
 
 
 # helpers for tune_args() methods -----------------------------------------
-# these are copied from tune
+# they also exist in recipes for the `tune_args()` methods there
 
 
 # If we map over a list or arguments and some are quosures, we get the message
