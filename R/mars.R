@@ -153,14 +153,11 @@ check_args.mars <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom purrr map_dfr
 earth_submodel_pred <- function(object, new_data, terms = 2:3, ...) {
   load_libs(object, quiet = TRUE, attach = TRUE)
   map_dfr(terms, earth_reg_updater, object = object, newdata = new_data, ...)
 }
 
-#' @importFrom tibble as_tibble tibble
-#' @importFrom stats update
 earth_reg_updater <- function(num, object, new_data, ...) {
   object <- update(object, nprune = num)
   pred <- predict(object, new_data, ...)
@@ -177,8 +174,6 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 
 # earth helpers ----------------------------------------------------------------
 
-#' @importFrom purrr map_df
-#' @importFrom dplyr arrange
 #' @rdname multi_predict
 #' @param num_terms An integer vector for the number of MARS terms to retain.
 #' @export

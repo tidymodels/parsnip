@@ -14,7 +14,6 @@ maybe_multivariate <- function(results, object) {
 }
 
 #' Convenience function for intervals
-#' @importFrom stats quantile
 #' @export
 #' @keywords internal
 #' @param x A fitted model object
@@ -32,7 +31,6 @@ convert_stan_interval <- function(x, level = 0.95, lower = TRUE) {
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom stats qt
 # used by logistic_reg() and gen_additive_mod()
 logistic_lp_to_conf_int <- function(results, object) {
   hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2
@@ -86,7 +84,6 @@ function(results, object) {
 # ------------------------------------------------------------------------------
 # nocov
 
-#' @importFrom utils globalVariables
 utils::globalVariables(
   c('.', '.label', '.pred', '.row', 'data', 'engine', 'engine2', 'group',
     'lab', 'original', 'predicted_label', 'prediction', 'value', 'type',

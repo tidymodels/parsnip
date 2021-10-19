@@ -52,7 +52,6 @@
 #'
 #' boost_tree(mode = "classification", trees = 20)
 #' @export
-#' @importFrom purrr map_lgl
 boost_tree <-
   function(mode = "unknown",
            engine = "xgboost",
@@ -386,7 +385,6 @@ maybe_proportion <- function(x, nm) {
   }
 }
 
-#' @importFrom stats binomial
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
     newdata <- maybe_matrix(newdata)
@@ -456,7 +454,6 @@ get_event_level <- function(model_spec){
   event_level
 }
 
-#' @importFrom purrr map_df
 #' @export
 #' @rdname multi_predict
 #' @param trees An integer vector for the number of trees in the ensemble.

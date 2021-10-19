@@ -36,7 +36,6 @@
 #' rule_fit()
 #'
 #' @export
-#' @importFrom purrr map_lgl
 rule_fit <-
   function(mode = "unknown",
            mtry = NULL, trees = NULL, min_n = NULL,

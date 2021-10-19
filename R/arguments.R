@@ -5,8 +5,6 @@
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-#' @importFrom rlang expr enquos enquo quos is_quosure call2 quo_get_expr ll
-#' @importFrom rlang abort current_env get_expr is_missing is_null is_symbolic  missing_arg
 null_value <- function(x) {
   if (is_quosure(x)) {
     res <- isTRUE(all.equal(rlang::get_expr(x), expr(NULL)))
@@ -88,8 +86,6 @@ set_mode <- function(object, mode) {
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom rlang eval_tidy
-#' @importFrom purrr map
 maybe_eval <- function(x) {
   # if descriptors are in `x`, eval fails
   y <- try(rlang::eval_tidy(x), silent = TRUE)

@@ -35,8 +35,6 @@
 #' @keywords internal
 #' @export
 #'
-#' @importFrom stats .checkMFClasses .getXlevels delete.response
-#' @importFrom stats model.offset model.weights na.omit na.pass
 .convert_form_to_xy_fit <- function(formula,
                                     data,
                                     ...,
@@ -247,7 +245,6 @@
 #' @keywords internal
 #' @export
 #'
-#' @importFrom dplyr bind_cols
 .convert_xy_to_form_fit <- function(x,
                                     y,
                                     weights = NULL,

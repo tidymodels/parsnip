@@ -592,7 +592,6 @@ set_model_mode <- function(model, mode) {
 
 #' @rdname set_new_model
 #' @keywords internal
-#' @importFrom dplyr %>%
 #' @export
 set_model_engine <- function(model, mode, eng) {
   check_model_exists(model)
@@ -617,7 +616,6 @@ set_model_engine <- function(model, mode, eng) {
 
 
 # ------------------------------------------------------------------------------
-#' @importFrom vctrs vec_unique
 #' @rdname set_new_model
 #' @keywords internal
 #' @export

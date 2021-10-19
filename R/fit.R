@@ -296,7 +296,6 @@ fit_xy.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom utils capture.output
 eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
   if (capture) {
     if (catch) {

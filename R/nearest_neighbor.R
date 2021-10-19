@@ -175,8 +175,6 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom purrr map_df
-#' @importFrom dplyr starts_with
 #' @rdname multi_predict
 #' @param neighbors An integer vector for the number of nearest neighbors.
 #' @export
