@@ -153,7 +153,7 @@ Regression Example (<code>xgboost</code>)
   ## ✖ dplyr::filter()  masks stats::filter()
   ## ✖ dplyr::lag()     masks stats::lag()
   ## ✖ recipes::step()  masks stats::step()
-  ## • Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
+  ## • Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -184,7 +184,7 @@ Regression Example (<code>xgboost</code>)
   <span class="va">bt_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  61ms 
+  ## Fit time:  59ms 
   ## ##### xgb.Booster
   ## raw: 69.2 Kb 
   ## call:
@@ -250,12 +250,12 @@ Classification Example (<code>xgboost</code>)
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">bt_cls_fit</span> <span class="op">&lt;-</span> <span class="va">bt_cls_spec</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
-<pre><code>  ## [15:26:01] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</code></pre>
+<pre><code>  ## [15:40:27] WARNING: amalgamation/../src/learner.cc:1095: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  29ms 
+  ## Fit time:  17ms 
   ## ##### xgb.Booster
   ## raw: 58.1 Kb 
   ## call:
@@ -404,7 +404,7 @@ Regression Example (<code>rpart</code>)
   <span class="va">dt_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  22ms 
+  ## Fit time:  21ms 
   ## n= 5691 
   ## 
   ## node), split, n, deviance, yval
@@ -526,7 +526,7 @@ Classification Example (<code>C5.0</code>)
   <span class="va">dt_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  15ms 
+  ## Fit time:  14ms 
   ## 
   ## Call:
   ## C5.0.default(x = x, y = y, trials = 1, control = C50::C5.0Control(minCases =
@@ -756,7 +756,7 @@ Regression Example (<code>keras</code>)
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  19.7s 
+  ## Fit time:  19s 
   ## Model
   ## Model: "sequential"
   ## ________________________________________________________________________________
@@ -776,13 +776,13 @@ Regression Example (<code>keras</code>)
 <pre><code>  ## # A tibble: 7 × 1
   ##   .pred
   ##   &lt;dbl&gt;
-  ## 1 20.3 
-  ## 2 20.6 
-  ## 3 20.9 
-  ## 4 20.6 
-  ## 5 18.9 
-  ## 6  7.42
-  ## 7  7.06</code></pre>
+  ## 1 20.5 
+  ## 2 20.8 
+  ## 3 21.1 
+  ## 4 20.8 
+  ## 5 19.1 
+  ## 6  7.49
+  ## 7  7.13</code></pre>
 </details><details id="linear-reg-stan"><p><summary>With the <code>"stan"</code> engine</summary></p>
 <h3>
 Regression Example (<code>stan</code>)
@@ -814,7 +814,7 @@ Regression Example (<code>stan</code>)
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  3.3s 
+  ## Fit time:  3.2s 
   ## stan_glm
   ##  family:       gaussian [identity]
   ##  formula:      ridership ~ .
@@ -940,7 +940,7 @@ Classification Example (<code>glmnet</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  13ms 
+  ## Fit time:  10ms 
   ## 
   ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "binomial") 
   ## 
@@ -1060,7 +1060,7 @@ Classification Example (<code>keras</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  1.1s 
+  ## Fit time:  988ms 
   ## Model
   ## Model: "sequential_1"
   ## ________________________________________________________________________________
@@ -1097,16 +1097,16 @@ Classification Example (<code>keras</code>)
 <pre><code>  ## # A tibble: 10 × 3
   ##    .pred_class .pred_Class1 .pred_Class2
   ##    &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-  ##  1 Class1             0.553        0.447
-  ##  2 Class1             0.600        0.400
-  ##  3 Class2             0.500        0.500
-  ##  4 Class1             0.772        0.228
-  ##  5 Class1             0.681        0.319
-  ##  6 Class1             0.720        0.280
-  ##  7 Class1             0.645        0.355
-  ##  8 Class1             0.542        0.458
-  ##  9 Class1             0.788        0.212
-  ## 10 Class1             0.763        0.237</code></pre>
+  ##  1 Class1             0.552        0.448
+  ##  2 Class1             0.599        0.401
+  ##  3 Class2             0.499        0.501
+  ##  4 Class1             0.771        0.229
+  ##  5 Class1             0.680        0.320
+  ##  6 Class1             0.719        0.281
+  ##  7 Class1             0.644        0.356
+  ##  8 Class1             0.541        0.459
+  ##  9 Class1             0.787        0.213
+  ## 10 Class1             0.762        0.238</code></pre>
 </details><details id="logistic-reg-LiblineaR"><p><summary>With the <code>"LiblineaR"</code> engine</summary></p>
 <h3>
 Classification Example (<code>LiblineaR</code>)
@@ -1208,7 +1208,7 @@ Classification Example (<code>stan</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  3s 
+  ## Fit time:  2.8s 
   ## stan_glm
   ##  family:       binomial [logit]
   ##  formula:      Class ~ .
@@ -1284,7 +1284,7 @@ Regression Example (<code>earth</code>)
   <span class="va">mars_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  34ms 
+  ## Fit time:  30ms 
   ## Selected 5 of 6 terms, and 2 of 2 predictors
   ## Termination condition: RSq changed by less than 0.001 at 6 terms
   ## Importance: Clark_Lake, Quincy_Wells
@@ -1336,7 +1336,7 @@ Classification Example (<code>earth</code>)
   <span class="va">mars_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  15ms 
+  ## Fit time:  16ms 
   ## GLM (family binomial, link logit):
   ##  nulldev  df       dev  df   devratio     AIC iters converged
   ##  1073.43 780   632.723 775      0.411   644.7     5         1
@@ -1407,7 +1407,7 @@ Regression Example (<code>nnet</code>)
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  179ms 
+  ## Fit time:  174ms 
   ## a 2-5-1 network with 21 weights
   ## inputs: Clark_Lake Quincy_Wells 
   ## output(s): ridership 
@@ -1458,7 +1458,7 @@ Classification Example (<code>nnet</code>)
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  49ms 
+  ## Fit time:  35ms 
   ## a 2-5-1 network with 21 weights
   ## inputs: A B 
   ## output(s): Class 
@@ -1519,7 +1519,7 @@ Regression Example (<code>keras</code>)
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  4.7s 
+  ## Fit time:  4s 
   ## Model
   ## Model: "sequential_2"
   ## ________________________________________________________________________________
@@ -1544,8 +1544,8 @@ Regression Example (<code>keras</code>)
   ## 3  7.05
   ## 4  7.05
   ## 5  7.05
-  ## 6  6.46
-  ## 7  6.21</code></pre>
+  ## 6  6.55
+  ## 7  6.32</code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1579,7 +1579,7 @@ Classification Example (<code>keras</code>)
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  1.1s 
+  ## Fit time:  982ms 
   ## Model
   ## Model: "sequential_3"
   ## ________________________________________________________________________________
@@ -1616,16 +1616,16 @@ Classification Example (<code>keras</code>)
 <pre><code>  ## # A tibble: 10 × 3
   ##    .pred_class .pred_Class1 .pred_Class2
   ##    &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-  ##  1 Class1             0.529        0.471
-  ##  2 Class1             0.613        0.387
-  ##  3 Class1             0.575        0.425
-  ##  4 Class2             0.454        0.546
-  ##  5 Class2             0.466        0.534
-  ##  6 Class2             0.416        0.584
-  ##  7 Class1             0.527        0.473
-  ##  8 Class1             0.542        0.458
-  ##  9 Class1             0.662        0.338
-  ## 10 Class2             0.385        0.615</code></pre>
+  ##  1 Class1             0.526        0.474
+  ##  2 Class1             0.614        0.386
+  ##  3 Class1             0.574        0.426
+  ##  4 Class2             0.449        0.551
+  ##  5 Class2             0.461        0.539
+  ##  6 Class2             0.409        0.591
+  ##  7 Class1             0.525        0.475
+  ##  8 Class1             0.540        0.460
+  ##  9 Class1             0.667        0.333
+  ## 10 Class2             0.377        0.623</code></pre>
 </details>
 </div>
 <div id="multinom_reg-models" class="section level2">
@@ -1663,7 +1663,7 @@ Classification Example (<code>glmnet</code>)
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  15ms 
+## Fit time:  12ms 
 ## 
 ## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "multinomial") 
 ## 
@@ -1774,7 +1774,7 @@ Classification Example (<code>keras</code>)
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  815ms 
+## Fit time:  776ms 
 ## Model
 ## Model: "sequential_4"
 ## ________________________________________________________________________________
@@ -1811,11 +1811,11 @@ Classification Example (<code>keras</code>)
 <pre><code>## # A tibble: 5 × 4
 ##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen
 ##   &lt;fct&gt;              &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
-## 1 Biscoe             0.657    5.26e-23           0.343
-## 2 Biscoe             0.688    5.41e-28           0.312
-## 3 Biscoe             0.664    4.90e-24           0.336
-## 4 Biscoe             0.689    3.76e-28           0.311
-## 5 Biscoe             0.662    9.12e-24           0.338</code></pre>
+## 1 Biscoe             0.661    5.45e-23           0.339
+## 2 Biscoe             0.692    5.61e-28           0.308
+## 3 Biscoe             0.668    5.08e-24           0.332
+## 4 Biscoe             0.693    3.91e-28           0.307
+## 5 Biscoe             0.666    9.45e-24           0.334</code></pre>
 </details><details id="multinom-reg-nnet"><p><summary>With the <code>"nnet"</code> engine</summary></p>
 <h3>
 Classification Example (<code>nnet</code>)
@@ -1915,7 +1915,7 @@ Regression Example (<code>kknn</code>)
 <span class="va">knn_reg_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  177ms 
+## Fit time:  170ms 
 ## 
 ## Call:
 ## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")
@@ -2102,7 +2102,7 @@ Classification Example (<code>ranger</code>)
   <span class="va">rf_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  100ms 
+  ## Fit time:  86ms 
   ## Ranger result
   ## 
   ## Call:
@@ -2229,7 +2229,7 @@ Classification Example (<code>randomForest</code>)
   <span class="va">rf_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  73ms 
+  ## Fit time:  71ms 
   ## 
   ## Call:
   ##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) 
@@ -2367,7 +2367,7 @@ Classification Example (<code>LiblineaR</code>)
   <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  638ms 
+  ## Fit time:  530ms 
   ## $TypeDetail
   ## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"
   ## 
@@ -2504,7 +2504,7 @@ Classification Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  821ms 
+  ## Fit time:  802ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: C-svc  (classification) 
@@ -2580,7 +2580,7 @@ Regression Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  936ms 
+  ## Fit time:  901ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: eps-svr  (regression) 
@@ -2640,7 +2640,7 @@ Classification Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>  ## parsnip model object
   ## 
-  ## Fit time:  52ms 
+  ## Fit time:  50ms 
   ## Support Vector Machine object of class "ksvm" 
   ## 
   ## SV type: C-svc  (classification) 
@@ -2715,7 +2715,7 @@ Regression Example (<code>kernlab</code>)
 <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  1.4s 
+## Fit time:  1.3s 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: eps-svr  (regression) 
@@ -2773,7 +2773,7 @@ Classification Example (<code>kernlab</code>)
 <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit time:  74ms 
+## Fit time:  73ms 
 ## Support Vector Machine object of class "ksvm" 
 ## 
 ## SV type: C-svc  (classification) 
