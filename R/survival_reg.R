@@ -105,3 +105,29 @@ update.survival_reg <- function(object, parameters = NULL, dist = NULL, fresh = 
     engine = object$engine
   )
 }
+
+
+#' @export
+translate.survival_reg <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'survival'` for translation.")
+    engine <- "survival"
+  }
+  x <- translate.default(x, engine, ...)
+  x
+}
+
+
+check_args.survival_reg <- function(object) {
+
+  if (object$engine == "flexsurv") {
+
+    args <- lapply(object$args, rlang::eval_tidy)
+
+    # `dist` has no default in the function
+    if (all(names(args) != "dist") || is.null(args$dist))
+      object$args$dist <- "weibull"
+  }
+
+  invisible(object)
+}
