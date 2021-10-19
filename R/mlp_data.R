@@ -364,13 +364,13 @@ set_pred(
 
 ## -----------------------------------------------------------------------------
 
-set_model_engine("mlp", "classification", "lantern")
-set_model_engine("mlp", "regression", "lantern")
-set_dependency("mlp", "lantern", "lantern")
+set_model_engine("mlp", "classification", "torch")
+set_model_engine("mlp", "regression", "torch")
+set_dependency("mlp", "torch", "lantern")
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "hidden_units",
   original = "hidden_units",
   func = list(pkg = "dials", fun = "hidden_units"),
@@ -378,7 +378,7 @@ set_model_arg(
 )
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "penalty",
   original = "decay",
   func = list(pkg = "dials", fun = "penalty"),
@@ -387,7 +387,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "epochs",
   original = "epochs",
   func = list(pkg = "dials", fun = "epochs"),
@@ -396,7 +396,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "dropout",
   original = "dropout",
   func = list(pkg = "dials", fun = "dropout"),
@@ -405,7 +405,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "learn_rate",
   original = "learn_rate",
   func = list(pkg = "dials", fun = "learn_rate"),
@@ -414,7 +414,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "momentum",
   original = "momentum",
   func = list(pkg = "dials", fun = "momentum"),
@@ -424,7 +424,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "stop_iter",
   original = "stop_iter",
   func = list(pkg = "dials", fun = "stop_iter"),
@@ -433,7 +433,7 @@ set_model_arg(
 
 set_model_arg(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   parsnip = "activation",
   original = "activation",
   func = list(pkg = "dials", fun = "activation"),
@@ -443,7 +443,7 @@ set_model_arg(
 
 set_fit(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "regression",
   value = list(
     interface = "data.frame",
@@ -455,7 +455,7 @@ set_fit(
 
 set_encoding(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "regression",
   options = list(
     predictor_indicators = "none",
@@ -467,7 +467,7 @@ set_encoding(
 
 set_fit(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "classification",
   value = list(
     interface = "data.frame",
@@ -479,7 +479,7 @@ set_fit(
 
 set_encoding(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "classification",
   options = list(
     predictor_indicators = "none",
@@ -491,7 +491,7 @@ set_encoding(
 
 set_pred(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "regression",
   type = "numeric",
   value = list(
@@ -509,7 +509,7 @@ set_pred(
 
 set_pred(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "classification",
   type = "class",
   value = list(
@@ -527,7 +527,7 @@ set_pred(
 
 set_pred(
   model = "mlp",
-  eng = "lantern",
+  eng = "torch",
   mode = "classification",
   type = "prob",
   value = list(
