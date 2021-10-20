@@ -449,7 +449,7 @@ set_fit(
     interface = "data.frame",
     protect = c("x", "y"),
     func = c(pkg = "lantern", fun = "lantern_mlp"),
-    defaults = list(trace = FALSE)
+    defaults = list()
   )
 )
 
@@ -473,7 +473,7 @@ set_fit(
     interface = "data.frame",
     protect = c("x", "y"),
     func = c(pkg = "lantern", fun = "lantern_mlp"),
-    defaults = list(trace = FALSE)
+    defaults = list()
   )
 )
 

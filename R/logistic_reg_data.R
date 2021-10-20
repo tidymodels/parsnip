@@ -650,3 +650,79 @@ set_pred(
       )
   )
 )
+
+# ------------------------------------------------------------------------------
+
+
+set_model_engine("logistic_reg", "classification", "torch")
+set_dependency("logistic_reg", "torch", "lantern")
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "torch",
+  parsnip = "penalty",
+  original = "decay",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "logistic_reg",
+  eng = "torch",
+  mode = "classification",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "lantern", fun = "lantern_logistic_reg"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "torch",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "torch",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "class"
+      )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "torch",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "prob"
+      )
+  )
+)
+

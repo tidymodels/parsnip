@@ -434,3 +434,60 @@ set_pred(
   )
 )
 
+# ------------------------------------------------------------------------------
+
+
+set_model_engine("linear_reg", "regression", "torch")
+set_dependency("linear_reg", "torch", "lantern")
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "torch",
+  parsnip = "penalty",
+  original = "decay",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "linear_reg",
+  eng = "torch",
+  mode = "regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "lantern", fun = "lantern_linear_reg"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "torch",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "torch",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "numeric"
+      )
+  )
+)
+
