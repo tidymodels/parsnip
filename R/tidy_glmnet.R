@@ -8,7 +8,6 @@
 #' @param ... Not used
 #' @return A tibble with columns `term`, `estimate`, and `penalty`. When a
 #' multinomial mode is used, an additional `class` column is included.
-#' @importFrom stats coef
 #' @keywords internal
 #' @export
 tidy._elnet <- function(x, penalty = NULL, ...) {

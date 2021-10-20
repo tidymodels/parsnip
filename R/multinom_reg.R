@@ -39,7 +39,6 @@
 #'
 #' multinom_reg()
 #' @export
-#' @importFrom purrr map_lgl
 multinom_reg <-
   function(mode = "classification",
            engine = "nnet",
@@ -139,7 +138,6 @@ check_args.multinom_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom vctrs vec_size
 organize_multnet_class <- function(x, object) {
   if (vec_size(x) > 1) {
     x <- x[,1]
@@ -149,7 +147,6 @@ organize_multnet_class <- function(x, object) {
   x
 }
 
-#' @importFrom vctrs vec_size
 organize_multnet_prob <- function(x, object) {
   if (vec_size(x) > 1) {
     x <- as_tibble(x[,,1])
@@ -213,8 +210,6 @@ predict._multnet <-
     res
   }
 
-#' @importFrom dplyr full_join as_tibble arrange
-#' @importFrom tidyr gather
 #' @export
 #' @rdname multi_predict
 multi_predict._multnet <-

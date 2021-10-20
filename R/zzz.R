@@ -82,8 +82,6 @@ s3_register <- function(generic, class, method = NULL) {
 #' data_obj <- ls(pattern = "_data$")
 #' data_obj <- data_obj[data_obj != "prepare_data"]
 #'
-#' #' @importFrom purrr map_dfr
-#' #' @importFrom tibble as_tibble
 #' data_names <-
 #'   map_dfr(
 #'     data_obj,
@@ -111,7 +109,6 @@ s3_register <- function(generic, class, method = NULL) {
 #' engine_objects <- ls(pattern = "_engines$")
 #' engine_objects <- engine_objects[engine_objects != "possible_engines"]
 #'
-#' #' @importFrom utils stack
 #' get_engine_info <- function(x) {
 #'   y <- x
 #'   y <- get(y)

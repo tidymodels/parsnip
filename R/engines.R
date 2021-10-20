@@ -20,7 +20,6 @@ is_installed <- function(pkg) {
   res
 }
 
-#' @importFrom purrr map_lgl
 check_installs <- function(x) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)

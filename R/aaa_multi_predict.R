@@ -70,7 +70,6 @@ predict.model_spec <- function(object, ...) {
 #' multi_predict_args(knn_fit)
 #'
 #' multi_predict(knn_fit, mtcars[1, -1], neighbors = 1:4)$.pred
-#' @importFrom utils methods
 #' @export
 has_multi_predict <- function(object, ...) {
   UseMethod("has_multi_predict")

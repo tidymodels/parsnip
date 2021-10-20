@@ -78,6 +78,13 @@ objects used to fit the model.
 If the model engine has not been set, the model's default engine will be used
 (as discussed on each model page). If the \code{verbosity} option of
 \code{\link[=control_parsnip]{control_parsnip()}} is greater than zero, a warning will be produced.
+
+If you would like to use an alternative method for generating contrasts when
+supplying a formula to \code{fit()}, set the global option \code{contrasts} to your
+preferred method. For example, you might set it to:
+\code{options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))}.
+See the help page for \code{\link[stats:contrast]{stats::contr.treatment()}} for more possible contrast
+types.
 }
 \examples{
 # Although `glm()` only has a formula interface, different

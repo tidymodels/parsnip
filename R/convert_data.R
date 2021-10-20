@@ -20,7 +20,7 @@
 #' @param data A data frame containing all relevant variables (e.g. outcome(s),
 #'   predictors, case weights, etc).
 #' @param ... Additional arguments passed to [stats::model.frame()] and
-#'   specification of `offset` and `contrasts`.
+#'   specification of `offset`.
 #' @param na.action A function which indicates what should happen when the data
 #'   contain NAs.
 #' @param indicators A string describing whether and how to create
@@ -35,8 +35,6 @@
 #' @keywords internal
 #' @export
 #'
-#' @importFrom stats .checkMFClasses .getXlevels delete.response
-#' @importFrom stats model.offset model.weights na.omit na.pass
 .convert_form_to_xy_fit <- function(formula,
                                     data,
                                     ...,
@@ -55,13 +53,6 @@
   check_form_dots(dots)
   for (i in seq_along(dots)) {
     mf_call[[names(dots)[i]]] <- get_expr(dots[[i]])
-  }
-
-  # setup contrasts
-  if (any(names(dots) == "contrasts")) {
-    contrasts <- eval_tidy(dots[["contrasts"]])
-  } else {
-    contrasts <- NULL
   }
 
   # For new data, save the expression to create offsets (if any)
@@ -101,13 +92,10 @@
 
   if (indicators != "none") {
     if (indicators == "one_hot") {
-      old_contr <- options("contrasts")$contrasts
-      on.exit(options(contrasts = old_contr))
-      new_contr <- old_contr
-      new_contr["unordered"] <- "contr_one_hot"
-      options(contrasts = new_contr)
+      local_one_hot_contrasts()
     }
-    x <- model.matrix(mod_terms, mod_frame, contrasts)
+
+    x <- model.matrix(mod_terms, mod_frame)
   } else {
     # this still ignores -vars in formula
     x <- model.frame(mod_terms, data)
@@ -124,7 +112,6 @@
     list(
       indicators = indicators,
       composition = composition,
-      contrasts = contrasts,
       remove_intercept = remove_intercept
     )
 
@@ -223,14 +210,10 @@
 
   if (object$options$indicators != "none") {
     if (object$options$indicators == "one_hot") {
-      old_contr <- options("contrasts")$contrasts
-      on.exit(options(contrasts = old_contr))
-      new_contr <- old_contr
-      new_contr["unordered"] <- "contr_one_hot"
-      options(contrasts = new_contr)
+      local_one_hot_contrasts()
     }
-    new_data <-
-      model.matrix(mod_terms, new_data, contrasts.arg = object$contrasts)
+
+    new_data <- model.matrix(mod_terms, new_data)
   }
 
   if (object$options$remove_intercept) {
@@ -262,7 +245,6 @@
 #' @keywords internal
 #' @export
 #'
-#' @importFrom dplyr bind_cols
 .convert_xy_to_form_fit <- function(x,
                                     y,
                                     weights = NULL,
@@ -332,8 +314,15 @@
 
 # ------------------------------------------------------------------------------
 
+local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
+  contrasts <- getOption("contrasts")
+  contrasts["unordered"] <- "contr_one_hot"
+
+  rlang::local_options(contrasts = contrasts, .frame = frame)
+}
+
 check_form_dots <- function(x) {
-  good_args <- c("subset", "weights", "contrasts", "offset")
+  good_args <- c("subset", "weights", "offset")
   good_names <- names(x) %in% good_args
   if (any(!good_names)) {
     rlang::abort(

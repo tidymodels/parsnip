@@ -7,7 +7,6 @@ varying <- function() {
   quote(varying())
 }
 
-#' @importFrom generics varying_args
 #' @export
 generics::varying_args
 
@@ -58,7 +57,6 @@ generics::varying_args
 #'   ) %>%
 #'   varying_args()
 #'
-#' @importFrom purrr map map_lgl
 #' @rdname varying_args
 #' @export
 varying_args.model_spec <- function(object, full = TRUE, ...) {
@@ -94,7 +92,6 @@ varying_args.model_spec <- function(object, full = TRUE, ...) {
 # Maybe use this data as substrate to make a new object type (param_set?) that
 #  would have its own methods for grids and random sampling.
 
-#' @importFrom purrr map2_dfr map_chr
 #' @export
 #' @rdname varying_args
 varying_args.recipe <- function(object, full = TRUE, ...) {
@@ -108,7 +105,6 @@ varying_args.recipe <- function(object, full = TRUE, ...) {
   map_dfr(object$steps, varying_args, full = full)
 }
 
-#' @importFrom purrr map map_lgl
 #' @export
 #' @rdname varying_args
 varying_args.step <- function(object, full = TRUE, ...) {

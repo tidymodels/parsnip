@@ -43,6 +43,13 @@
 #' If the model engine has not been set, the model's default engine will be used
 #'  (as discussed on each model page). If the `verbosity` option of
 #'  [control_parsnip()] is greater than zero, a warning will be produced.
+#'
+#' If you would like to use an alternative method for generating contrasts when
+#' supplying a formula to `fit()`, set the global option `contrasts` to your
+#' preferred method. For example, you might set it to:
+#' `options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))`.
+#' See the help page for [stats::contr.treatment()] for more possible contrast
+#' types.
 #' @examples
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -289,7 +296,6 @@ fit_xy.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-#' @importFrom utils capture.output
 eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
   if (capture) {
     if (catch) {

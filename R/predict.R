@@ -124,7 +124,6 @@
 #'   type = "raw",
 #'   opts = list(type = "terms")
 #' )
-#' @importFrom stats predict
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
@@ -176,7 +175,6 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
 
 surv_types <- c("time", "survival", "hazard")
 
-#' @importFrom glue glue_collapse
 check_pred_type <- function(object, type, ...) {
   if (is.null(type)) {
     type <-
