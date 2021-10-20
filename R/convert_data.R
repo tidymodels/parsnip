@@ -19,8 +19,7 @@
 #'
 #' @param data A data frame containing all relevant variables (e.g. outcome(s),
 #'   predictors, case weights, etc).
-#' @param ... Additional arguments passed to [stats::model.frame()] and
-#'   specification of `offset`.
+#' @param ... Additional arguments passed to [stats::model.frame()].
 #' @param na.action A function which indicates what should happen when the data
 #'   contain NAs.
 #' @param indicators A string describing whether and how to create
@@ -55,13 +54,6 @@
     mf_call[[names(dots)[i]]] <- get_expr(dots[[i]])
   }
 
-  # For new data, save the expression to create offsets (if any)
-  if (any(names(dots) == "offset")) {
-    offset_expr <- get_expr(dots[["offset"]])
-  } else {
-    offset_expr <- NULL
-  }
-
   mod_frame <- eval_tidy(mf_call)
   mod_terms <- attr(mod_frame, "terms")
 
@@ -81,14 +73,9 @@
     rlang::abort("`weights` must be a numeric vector")
   }
 
-  offset <- as.vector(model.offset(mod_frame))
-  if (!is.null(offset)) {
-    if (length(offset) != nrow(mod_frame)) {
-      rlang::abort(
-        glue::glue("The offset data should have {nrow(mod_frame)} elements.")
-      )
-    }
-  }
+  # TODO: Do we actually use the offset when fitting?
+  # Extract any inline offsets specified in the formula from the model frame
+  offset <- model.offset(mod_frame)
 
   if (indicators != "none") {
     if (indicators == "one_hot") {
@@ -127,7 +114,6 @@
         offset = offset,
         terms = mod_terms,
         xlevels = .getXlevels(mod_terms, mod_frame),
-        offset_expr = offset_expr,
         options = options
       )
   } else {
@@ -144,7 +130,6 @@
         offset = offset,
         terms = mod_terms,
         xlevels = .getXlevels(mod_terms, mod_frame),
-        offset_expr = offset_expr,
         options = options
       )
   }
@@ -168,33 +153,6 @@
   mod_terms <- object$terms
   mod_terms <- delete.response(mod_terms)
 
-  # Calculate offset(s). These can show up in-line in the formula
-  # (in multiple places) and might also be as its own argument. If
-  # there is more than one offset, we add them together.
-
-  offset_cols <- attr(mod_terms, "offset")
-
-  # If offset was done at least once in-line
-  if (!is.null(offset_cols)) {
-    offset <- rep(0, nrow(new_data))
-    for (i in offset_cols) {
-      offset <- offset +
-        eval_tidy(
-          attr(mod_terms, "variables")[[i + 1]],
-          new_data
-        ) # use na.action here and below?
-    }
-  } else {
-    offset <- NULL
-  }
-
-  if (!is.null(object$offset_expr)) {
-    if (is.null(offset)) {
-      offset <- rep(0, nrow(new_data))
-    }
-    offset <- offset + eval_tidy(object$offset_expr, new_data)
-  }
-
   new_data <-
     model.frame(
       mod_terms,
@@ -207,6 +165,11 @@
   if (!is.null(cl)) {
     .checkMFClasses(cl, new_data)
   }
+
+  # TODO: Do we actually use the returned offsets anywhere for prediction?
+  # Extract offset from model frame. Multiple offsets will be added together.
+  # Offsets might have been supplied through the formula.
+  offset <- model.offset(new_data)
 
   if (object$options$indicators != "none") {
     if (object$options$indicators == "one_hot") {
@@ -322,7 +285,7 @@ local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
 }
 
 check_form_dots <- function(x) {
-  good_args <- c("subset", "weights", "offset")
+  good_args <- c("subset", "weights")
   good_names <- names(x) %in% good_args
   if (any(!good_names)) {
     rlang::abort(

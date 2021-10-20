@@ -138,7 +138,7 @@ form_xy <- function(object, control, env,
 
   res <- xy_xy(
     object = object,
-    env = env, #weights! offsets!
+    env = env, #weights!
     control = control,
     target = target
   )
@@ -146,6 +146,7 @@ form_xy <- function(object, control, env,
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL
+  # TODO: Should we be using the offset that we remove here?
   data_obj$offset <- NULL
   res$preproc <- data_obj
   res
