@@ -13,11 +13,10 @@ proportional_hazards(
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", or "censored regression".}
+The only possible value for this model is "censored regression".}
 
 \item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"survival"}.}
+to use for fitting.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}
@@ -28,30 +27,38 @@ proportion of L1 regularization (i.e. lasso) in the model. When
 ridge regression is being used (specific engines only).}
 }
 \description{
-\code{proportional_hazards()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using different packages
-in R. The main arguments for the model are:
-\itemize{
-\item \code{penalty}: The total amount of regularization
-in the model. Note that this must be zero for some engines.
-\item \code{mixture}: The mixture amounts of different types of
-regularization (see below). Note that this will be ignored for some engines.
-}
-These arguments are converted to their specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to their defaults
-here (\code{NULL}), the values are taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{proportional_hazards()} defines a proportional hazards model.
+
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
+
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
+
+Since survival models typically involve censoring (and require the use of
+\code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
+survival model be specified via the formula interface.
+
 Proportional hazards models include the Cox model.
-For \code{proportional_hazards()}, the mode will always be "censored regression".
 }
 \examples{
 show_engines("proportional_hazards")
+
+proportional_hazards(mode = "censored regression")
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}
 }
 \keyword{internal}
