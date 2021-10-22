@@ -15,12 +15,12 @@ convert_args <- function(model_name) {
     dplyr::filter(grepl(model_name, model)) %>%
     tidyr::unnest(args) %>%
     dplyr::select(model:original) %>%
-    full_join(get_arg_defaults(model_name),
-              by = c("model", "engine", "parsnip", "original")) %>%
-    mutate(original = dplyr::if_else(!is.na(default),
-                                     paste0(original, " (", default, ")"),
-                                     original)) %>%
-    select(-default)
+    dplyr::full_join(get_arg_defaults(model_name),
+                     by = c("model", "engine", "parsnip", "original")) %>%
+    dplyr::mutate(original = dplyr::if_else(!is.na(default),
+                                            paste0(original, " (", default, ")"),
+                                            original)) %>%
+    dplyr::select(-default)
 
   convert_df <- args %>%
     dplyr::select(-model) %>%
@@ -53,11 +53,11 @@ get_dials <- function(x) {
 }
 
 descr_models <- function(mod, eng) {
-  res <- get_from_env(mod) %>% 
-    dplyr::filter(engine == eng) %>% 
-    dplyr::distinct() %>% 
+  res <- get_from_env(mod) %>%
+    dplyr::filter(engine == eng) %>%
+    dplyr::distinct() %>%
     purrr::pluck("mode")
-  
+
   if (length(res) == 1) {
     txt <- "is a single mode:"
   } else {
