@@ -1089,7 +1089,7 @@ get_encoding <- function(model) {
 #'   3. Write your own `man/rmd/{model}_{engine}.Rmd` file. This can include
 #'  packages that are not listed in the DESCRIPTION file. Those are only
 #'  required when the documentation file is created locally (probably using
-#'  [devtools::document()].
+#'  [devtools::document()]).
 #'
 #'   4. Run [devtools::document()] so that the Rmd content is included in the
 #'  Rd file.

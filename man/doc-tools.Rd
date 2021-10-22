@@ -58,7 +58,7 @@ it in the same place in your package.
 \item Write your own \verb{man/rmd/\{model\}_\{engine\}.Rmd} file. This can include
 packages that are not listed in the DESCRIPTION file. Those are only
 required when the documentation file is created locally (probably using
-\code{\link[devtools:document]{devtools::document()}}.
+\code{\link[devtools:document]{devtools::document()}}).
 \item Run \code{\link[devtools:document]{devtools::document()}} so that the Rmd content is included in the
 Rd file.
 }
