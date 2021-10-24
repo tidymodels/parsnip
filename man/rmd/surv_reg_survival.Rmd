@@ -1,0 +1,21 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("surv_reg", "survival")`
+
+## Tuning Parameters
+
+This model has no tuning parameters.
+
+## Translation from parsnip to the original package
+
+```{r survival-reg}
+surv_reg() %>% 
+  set_engine("survival") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## References
+
+-  Kalbfleisch, J. D. and Prentice, R. L. 2002 _The statistical analysis of failure time data_, Wiley.

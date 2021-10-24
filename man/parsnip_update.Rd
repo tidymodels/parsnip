@@ -422,8 +422,8 @@ This value is used for all PLS components for X.}
 
 \item{num_comp}{The number of PLS components to retain.}
 
-\item{dist}{A character string for the outcome distribution. "weibull" is
-the default.}
+\item{dist}{A character string for the probability distribution of the
+outcome. The default is "weibull".}
 
 \item{cost}{A positive number for the cost of predicting a sample within
 or on the wrong side of the margin}

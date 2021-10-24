@@ -8,13 +8,13 @@ surv_reg(mode = "regression", engine = "survival", dist = NULL)
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
-The only possible value for this model is "regression".
-@param engine A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"survival"}.}
+The only possible value for this model is "regression".}
 
-\item{dist}{A character string for the outcome distribution. "weibull" is
-the default.}
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
+
+\item{dist}{A character string for the probability distribution of the
+outcome. The default is "weibull".}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -22,107 +22,36 @@ the default.}
 This function is soft-deprecated in favor of \code{survival_reg()} which uses the
 \code{"censored regression"} mode.
 
-\code{surv_reg()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-R. The main argument for the
-model is:
-\itemize{
-\item \code{dist}: The probability distribution of the outcome.
-}
-This argument is converted to its specific names at the
-time that the model is fit. Other options and arguments can be
-set using \code{set_engine()}. If left to its default
-here (\code{NULL}), the value is taken from the underlying model
-functions.
+\code{surv_reg()} defines a parametric survival model.
 
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{surv_reg()},the
-mode will always be "regression".
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
+}
+\details{
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
+
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 
 Since survival models typically involve censoring (and require the use of
 \code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
-
-Also, for the \code{flexsurv::flexsurvfit} engine, the typical
-\code{strata} function cannot be used. To achieve the same effect,
-the extra parameter roles can be used (as described above).
 }
-\details{
-For \code{surv_reg()}, the mode will always be "regression".
-
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"flexsurv"}, \code{"survival"} (the default)
-}
-}
-\section{Engine Details}{
-Engines may have pre-set default arguments when executing the model fit
-call. For this type of model, the template of the fit calls are below.
-\subsection{flexsurv}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg() \%>\% 
-  set_engine("flexsurv") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
-## Please use `survival_reg()` instead.
-
-## Parametric Survival Regression Model Specification (regression)
-## 
-## Computational engine: flexsurv 
-## 
-## Model fit template:
-## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg())
-}
-}
-
-\subsection{survival}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg() \%>\% 
-  set_engine("survival") \%>\% 
-  set_mode("regression") \%>\% 
-  translate()
-}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
-## Please use `survival_reg()` instead.
-
-## Parametric Survival Regression Model Specification (regression)
-## 
-## Computational engine: survival 
-## 
-## Model fit template:
-## survival::survreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), model = TRUE)
-}
-
-Note that \code{model = TRUE} is needed to produce quantile predictions when
-there is a stratification variable and can be overridden in other cases.
-
-\code{fit()} passes the data directly to \code{survival::curvreg()} so that its
-formula method can create dummy variables as-needed.
-}
-
-\subsection{Parameter translations}{
-
-The standardized parameter names in parsnip can be mapped to their
-original names in each engine that has main parameters. Each engine
-typically has a different default value (shown in parentheses) for each
-parameter.\tabular{lll}{
-   \strong{parsnip} \tab \strong{flexsurv} \tab \strong{survival} \cr
-   dist \tab dist \tab dist \cr
-}
-
-}
-}
-
 \examples{
 show_engines("surv_reg")
 
-surv_reg()
-
+surv_reg(mode = "censored regression", dist = "weibull")
 }
 \references{
-Jackson, C. (2016). \code{flexsurv}: A Platform for Parametric Survival
-Modeling in R. \emph{Journal of Statistical Software}, 70(8), 1 - 33.
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("surv_reg")}
 }
 \keyword{internal}

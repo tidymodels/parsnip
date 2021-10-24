@@ -1,0 +1,21 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("surv_reg", "survival")`
+
+## Tuning Parameters
+
+This model has no tuning parameters.
+
+## Translation from parsnip to the original package
+
+```{r flexsurv-reg}
+surv_reg() %>% 
+  set_engine("flexsurv") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## References
+
+- Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.
