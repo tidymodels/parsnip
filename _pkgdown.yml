@@ -19,8 +19,12 @@ figures:
 reference:
   - title: Models
     contents:
+      - bag_mars
+      - bag_tree
+      - bart
       - boost_tree
       - cubist_rules
+      - C5_rules
       - decision_tree
       - discrim_flexible
       - discrim_linear
