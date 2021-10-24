@@ -46,7 +46,7 @@ survival model be specified via the formula interface.
 \examples{
 show_engines("surv_reg")
 
-surv_reg(mode = "censored regression", dist = "weibull")
+surv_reg(mode = "regression", dist = "weibull")
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}

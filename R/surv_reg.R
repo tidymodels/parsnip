@@ -33,7 +33,7 @@
 #' @examples
 #' show_engines("surv_reg")
 #'
-#' surv_reg(mode = "censored regression", dist = "weibull")
+#' surv_reg(mode = "regression", dist = "weibull")
 #' @keywords internal
 #' @export
 surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
