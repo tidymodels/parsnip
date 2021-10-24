@@ -98,6 +98,7 @@ check_eng_val <- function(eng) {
   invisible(NULL)
 }
 
+#' @rdname set_new_model
 #' @export
 check_model_exists <- function(model) {
   if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
@@ -113,6 +114,7 @@ check_model_exists <- function(model) {
   invisible(NULL)
 }
 
+#' @rdname set_new_model
 #' @export
 check_model_doesnt_exist <- function(model) {
   if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
