@@ -50,9 +50,10 @@
 #'
 #' For censored regression, a numeric vector for `time` is required when
 #' survival or hazard probabilities are requested. Also, when
-#' `type = "linear_pred"`, censored regression models will be formatted such
-#' that the linear predictor _increases_ with time. This may have the opposite
-#' sign as what the underlying model's `predict()` method produces.
+#' `type = "linear_pred"`, censored regression models will by default be
+#' formatted such that the linear predictor _increases_ with time. This may
+#' have the opposite sign as what the underlying model's `predict()` method
+#' produces. Set `increasing = FALSE` to suppress this behavior.
 #'
 #' @return With the exception of `type = "raw"`, the results of
 #'  `predict.model_fit()` will be a tibble as many rows in the output
@@ -140,7 +141,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   if (type != "raw" && length(opts) > 0) {
     rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
   }
-  check_pred_type_dots(type, ...)
+  check_pred_type_dots(object, type, ...)
 
   res <- switch(
     type,
@@ -295,7 +296,7 @@ make_pred_call <- function(x) {
   cl
 }
 
-check_pred_type_dots <- function(type, ...) {
+check_pred_type_dots <- function(object, type, ...) {
   the_dots <- list(...)
   nms <- names(the_dots)
 
@@ -307,7 +308,7 @@ check_pred_type_dots <- function(type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("level", "std_error", "quantile", "time")
+  other_args <- c("level", "std_error", "quantile", "time", "increasing")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -339,6 +340,19 @@ check_pred_type_dots <- function(type, ...) {
       )
     )
   }
+
+  # `increasing` only applies to linear_pred for censored regression
+  if (any(nms == "increasing") &
+      !(type == "linear_pred" &
+        object$spec$mode == "censored regression")) {
+    rlang::abort(
+      paste(
+        "The 'increasing' argument only applies to predictions of",
+        "type 'linear_pred' for the mode censored regression."
+      )
+    )
+  }
+
   invisible(TRUE)
 }
 
