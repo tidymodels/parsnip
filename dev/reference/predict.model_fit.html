@@ -277,9 +277,10 @@ extra column of standard error values (if available).</p>
 
 <p>For censored regression, a numeric vector for <code>time</code> is required when
 survival or hazard probabilities are requested. Also, when
-<code>type = "linear_pred"</code>, censored regression models will be formatted such
-that the linear predictor <em>increases</em> with time. This may have the opposite
-sign as what the underlying model's <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method produces.</p>
+<code>type = "linear_pred"</code>, censored regression models will by default be
+formatted such that the linear predictor <em>increases</em> with time. This may
+have the opposite sign as what the underlying model's <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code> method
+produces. Set <code>increasing = FALSE</code> to suppress this behavior.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
