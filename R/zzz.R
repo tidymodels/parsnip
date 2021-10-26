@@ -11,6 +11,18 @@
   s3_register("generics::augment", "model_fit")
   s3_register("generics::required_pkgs", "model_fit")
   s3_register("generics::required_pkgs", "model_spec")
+
+  # - If tune isn't installed, register the method (`packageVersion()` will error here)
+  # - If tune >= 0.1.6.9001 is installed, register the method
+  should_register_tune_args_method <- tryCatch(
+    expr = utils::packageVersion("tune") >= "0.1.6.9001",
+    error = function(cnd) TRUE
+  )
+
+  if (should_register_tune_args_method) {
+    # `tune_args.model_spec()` moved from tune to parsnip
+    vctrs::s3_register("generics::tune_args", "model_spec", tune_args_model_spec)
+  }
 }
 
 
