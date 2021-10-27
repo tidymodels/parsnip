@@ -46,7 +46,8 @@ model specification typically involved the use of
 
 For this engine, stratification cannot be specified via
 \code{\link[=strata]{strata()}}, please see the documentation of the
-\code{\link{flexsurv}} package for alternative specifications.
+\code{\link[flexsurv:flexsurv-package]{flexsurv::flexsurv-package}}
+package for alternative specifications.
 }
 
 \subsection{References}{
