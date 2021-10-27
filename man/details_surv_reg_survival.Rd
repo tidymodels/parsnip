@@ -8,12 +8,17 @@
 }
 \details{
 For this engine, there is a single mode: regression
-\subsection{Tuning Parameters}{
-
-This model has no tuning parameters.
+\subsection{Tuning Parameters}{\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg() \%>\% 
+This model has 1 tuning parameters:
+\itemize{
+\item \code{dist}: Distribution (type: character, default: ‘weibull’)
+}
+}
+
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg(dist = character(1)) \%>\% 
   set_engine("survival") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -22,11 +27,55 @@ This model has no tuning parameters.
 
 ## Parametric Survival Regression Model Specification (regression)
 ## 
+## Main Arguments:
+##   dist = character(1)
+## 
 ## Computational engine: survival 
 ## 
 ## Model fit template:
 ## survival::survreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), model = TRUE)
+##     weights = missing_arg(), dist = character(1), model = TRUE)
+}
+}
+
+\subsection{Other details}{
+
+Note that \code{model = TRUE} is needed to produce quantile predictions when
+there is a stratification variable and can be overridden in other cases.
+
+The main interface for this model uses the formula method since the
+model specification typically involved the use of
+\code{\link[survival:Surv]{survival::Surv()}}.
+
+The model formula can include \emph{special} terms, such as
+\code{\link[survival:strata]{survival::strata()}}. The allows the model scale
+parameter to differ between groups contained in the function. The column
+used inside \code{strata()} is treated as qualitative no matter its type.
+
+For example, in this model, the numeric column \code{rx} is used to estimate
+two different scale parameters for each value of the column:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
+
+surv_reg() \%>\% 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) \%>\% 
+  extract_fit_engine()
+}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
+
+## Call:
+## survival::survreg(formula = Surv(futime, fustat) ~ age + strata(rx), 
+##     data = data, model = TRUE)
+## 
+## Coefficients:
+## (Intercept)         age 
+##  12.8734120  -0.1033569 
+## 
+## Scale:
+##      rx=1      rx=2 
+## 0.7695509 0.4703602 
+## 
+## Loglik(model)= -89.4   Loglik(intercept only)= -97.1
+##  Chisq= 15.36 on 1 degrees of freedom, p= 8.88e-05 
+## n= 26
 }
 }
 

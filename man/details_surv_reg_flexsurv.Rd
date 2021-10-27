@@ -8,12 +8,17 @@
 }
 \details{
 For this engine, there is a single mode: regression
-\subsection{Tuning Parameters}{
-
-This model has no tuning parameters.
+\subsection{Tuning Parameters}{\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
+## Please use `survival_reg()` instead.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg() \%>\% 
+This model has 1 tuning parameters:
+\itemize{
+\item \code{dist}: Distribution (type: character, default: ‘weibull’)
+}
+}
+
+\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg(dist = character(1)) \%>\% 
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -22,12 +27,26 @@ This model has no tuning parameters.
 
 ## Parametric Survival Regression Model Specification (regression)
 ## 
+## Main Arguments:
+##   dist = character(1)
+## 
 ## Computational engine: flexsurv 
 ## 
 ## Model fit template:
 ## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg())
+##     weights = missing_arg(), dist = character(1))
 }
+}
+
+\subsection{Other details}{
+
+The main interface for this model uses the formula method since the
+model specification typically involved the use of
+\code{\link[survival:Surv]{survival::Surv()}}.
+
+For this engine, stratification cannot be specified via
+\code{\link[=strata]{strata()}}, please see the documentation of the
+\code{\link{flexsurv}} package for alternative specifications.
 }
 
 \subsection{References}{
