@@ -10,6 +10,7 @@
 
 * Fixed a bug for `logistic_reg()` with the LiblineaR engine (#552).
 
+* The list column produced when creating survival probability predictions is now always called `.pred` (with `.pred_survival` being used inside of the list column). 
 
 # parsnip 0.1.7
 

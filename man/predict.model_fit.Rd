@@ -73,7 +73,8 @@ For censored regression:
 \itemize{
 \item \code{type = "time"} produces a column \code{.pred_time}.
 \item \code{type = "hazard"} results in a column \code{.pred_hazard}.
-\item \code{type = "survival"} results in a column \code{.pred_survival}.
+\item \code{type = "survival"} results in a list column containing tibbles with a
+\code{.pred_survival} column.
 }
 
 For the last two types, the results are a nested tibble with an overall
