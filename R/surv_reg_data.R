@@ -13,7 +13,7 @@ set_model_arg(
   eng = "flexsurv",
   parsnip = "dist",
   original = "dist",
-  func = list(pkg = "dials", fun = "dist"),
+  func = list(pkg = "dials", fun = "surv_dist"),
   has_submodel = FALSE
 )
 
@@ -88,7 +88,7 @@ set_model_arg(
   eng = "survival",
   parsnip = "dist",
   original = "dist",
-  func = list(pkg = "dials", fun = "dist"),
+  func = list(pkg = "dials", fun = "surv_dist"),
   has_submodel = FALSE
 )
 
