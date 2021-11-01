@@ -83,7 +83,8 @@
 #'
 #'  * `type = "time"` produces a column `.pred_time`.
 #'  * `type = "hazard"` results in a column `.pred_hazard`.
-#'  * `type = "survival"` results in a column `.pred_survival`.
+#'  * `type = "survival"` results in a list column containing tibbles with a
+#'     `.pred_survival` column.
 #'
 #'  For the last two types, the results are a nested tibble with an overall
 #'  column called `.pred` with sub-tibbles with the above format.
@@ -255,7 +256,7 @@ format_survival <- function(x) {
     x <- as_tibble(x, .name_repair = "minimal")
     names(x) <- ".pred"
   } else {
-    x <- tibble(.pred_survival = unname(x))
+    x <- tibble(.pred = unname(x))
   }
 
   x
