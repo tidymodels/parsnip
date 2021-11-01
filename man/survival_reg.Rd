@@ -11,40 +11,42 @@ survival_reg(mode = "censored regression", engine = "survival", dist = NULL)
 The only possible value for this model is "censored regression".}
 
 \item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"survival"}.}
+to use for fitting.}
 
-\item{dist}{A character string for the outcome distribution. "weibull" is
-the default.}
+\item{dist}{A character string for the probability distribution of the
+outcome. The default is "weibull".}
 }
 \description{
-\code{survival_reg()} is a way to generate a \emph{specification} of a model
-before fitting and allows the model to be created using
-R. The main argument for the
-model is:
-\itemize{
-\item \code{dist}: The probability distribution of the outcome.
-}
-This argument is converted to its specific names at the
-time that the model is fit. Other options and argument can be
-set using \code{set_engine()}. If left to its default
-here (\code{NULL}), the value is taken from the underlying model
-functions. If parameters need to be modified, \code{update()} can be used
-in lieu of recreating the object from scratch.
+\code{survival_reg()} defines a parametric survival model.
+
+There are different ways to fit this model. The method of estimation is
+chosen by setting the model \emph{engine}.
+
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("survival_reg")}
+
+More information on how \pkg{parsnip} is used for modeling is at
+\url{https://www.tidymodels.org/}.
 }
 \details{
-The data given to the function are not saved and are only used
-to determine the \emph{mode} of the model. For \code{survival_reg()},the
-mode will always be "censored regression".
+This function only defines what \emph{type} of model is being fit. Once an engine
+is specified, the \emph{method} to fit the model is also defined.
+
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+with the data.
 
 Since survival models typically involve censoring (and require the use of
 \code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
 }
 \examples{
-survival_reg()
+show_engines("survival_reg")
+
+survival_reg(mode = "censored regression", dist = "weibull")
+}
+\references{
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
 }
 \seealso{
-\code{\link[=fit.model_spec]{fit.model_spec()}}, \code{\link[survival:Surv]{survival::Surv()}}, \code{\link[=set_engine]{set_engine()}}, \code{\link[=update]{update()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("survival_reg")}
 }
 \keyword{internal}
