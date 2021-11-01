@@ -86,35 +86,6 @@ test_that("numeric x and y, weights", {
   expect_null(observed$offset)
 })
 
-test_that("numeric x and y, offset", {
-  expected <- lm(
-    mpg ~ . - disp,
-    data = mtcars,
-    offset = disp,
-    x = TRUE,
-    y = TRUE
-  )
-  observed <-
-    .convert_form_to_xy_fit(
-      mpg ~ . - disp,
-      data = mtcars,
-      offset = log(disp),
-      indicators = "traditional",
-      remove_intercept = TRUE
-    )
-  expect_equal(format_x_for_test(expected$x), observed$x)
-  expect_equivalent(mtcars$mpg, observed$y)
-  expect_equal(expected$terms, observed$terms)
-  expect_equal(expected$xlevels, observed$xlevels)
-  expect_equal(log(mtcars$disp), observed$offset)
-  expect_null(observed$weights)
-
-  new_obs <-
-    .convert_form_to_xy_new(observed, new_data = mtcars[1:6, ])
-  expect_equal(mtcars[1:6, -c(1, 3)], new_obs$x)
-  expect_equal(log(mtcars$disp)[1:6], new_obs$offset)
-})
-
 test_that("numeric x and y, offset in-line", {
   expected <- lm(mpg ~ cyl + hp +  offset(log(disp)),
                  data = mtcars,
@@ -398,14 +369,6 @@ test_that("bad args", {
     .convert_form_to_xy_fit(
       mpg ~ ., data = mtcars,
       weights = letters[1:nrow(mtcars)],
-      indicators = "traditional",
-      remove_intercept = TRUE
-    )
-  )
-  expect_error(
-    .convert_form_to_xy_fit(
-      mpg ~ ., data = mtcars,
-      offset = 1:10,
       indicators = "traditional",
       remove_intercept = TRUE
     )
