@@ -60,6 +60,26 @@ This model has 3 tuning parameters:
 }
 }
 
+\subsection{Translation from parsnip to original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\%
+  set_engine("rpart") \%>\%
+  set_mode("censored regression") \%>\%
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (censored regression)
+## 
+## Main Arguments:
+##   cost_complexity = double(1)
+##   tree_depth = integer(1)
+##   min_n = integer(1)
+## 
+## Computational engine: rpart 
+## 
+## Model fit template:
+## pec::pecRpart(formula = missing_arg(), data = missing_arg(), 
+##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
+}
+}
+
 \subsection{Preprocessing requirements}{
 
 This engine does not require any special encoding of the predictors.

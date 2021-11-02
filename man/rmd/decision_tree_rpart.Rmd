@@ -53,6 +53,21 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
   translate()
 ```
 
+```{r include = FALSE}
+censored_installed <- rlang::is_installed("censored")
+```
+
+```{r echo = FALSE, results = "asis"}
+if (censored_installed) cat("## Translation from parsnip to original package (censored regression)\n\n")
+```
+
+```{r rpart-creg, eval = censored_installed}
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>%
+  set_engine("rpart") %>%
+  set_mode("censored regression") %>%
+  translate()
+```
+
 ## Preprocessing requirements
 
 ```{r child = "template-tree-split-factors.Rmd"}
