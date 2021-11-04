@@ -24,6 +24,81 @@ These examples show how to *fit* and *predict* with different combinations of mo
 The following examples use consistent data sets throughout. For regression, we use the Chicago ridership data. For classification, we use an artificial data set for a binary example and the Palmer penguins data for a multiclass example.
 
 
+## `bart()` models
+
+  <details id="bart-dbarts"> 
+  
+  <summary>With the `"dbarts"` engine</summary>
+  
+  <h3>Regression Example (`dbarts`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  bt_reg_spec <- 
+    bart(trees = 15) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("dbarts")
+  bt_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  bt_reg_fit <- bt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  bt_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(bt_reg_fit, Chicago_test)
+  ```
+
+
+  <h3>Classification Example (`dbarts`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  bt_cls_spec <- 
+    bart(trees = 15) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("dbarts")
+  bt_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(bt_cls_fit, data_test),
+    predict(bt_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
+
 ## `boost_tree()` models
 
   <details id="boost-tree-xgboost"> 
@@ -252,6 +327,82 @@ The following examples use consistent data sets throughout. For regression, we u
   ```
     
   </details>
+
+## `gen_additive_mod()` models
+
+  <details id="gen-additive-mod-mgcv"> 
+  
+  <summary>With the `"mgcv"` engine</summary>
+  
+  <h3>Regression Example (`mgcv`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  gam_reg_spec <- 
+    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("mgcv")
+  gam_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  gam_reg_fit <- gam_reg_spec %>% 
+    fit(ridership ~ Clark_Lake + Quincy_Wells, data = Chicago_train)
+  gam_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(gam_reg_fit, Chicago_test)
+  ```
+
+
+  <h3>Classification Example (`mgcv`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  gam_cls_spec <- 
+    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("mgcv")
+  gam_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  gam_cls_fit <- gam_cls_spec %>% fit(Class ~ A + B, data = data_train)
+  gam_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(gam_cls_fit, data_test),
+    predict(gam_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+
   
 ## `linear_reg()` models
 
