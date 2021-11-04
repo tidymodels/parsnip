@@ -70,7 +70,6 @@ reference:
       - tidy.model_fit
       - translate
       - starts_with("update")
-      - varying_args.model_spec
 
   - title: Developer Tools
     contents:

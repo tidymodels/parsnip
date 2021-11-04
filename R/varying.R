@@ -58,6 +58,7 @@ generics::varying_args
 #'   varying_args()
 #'
 #' @rdname varying_args
+#' @keywords internal
 #' @export
 varying_args.model_spec <- function(object, full = TRUE, ...) {
 

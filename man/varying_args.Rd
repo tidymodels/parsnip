@@ -63,3 +63,4 @@ rand_forest() \%>\%
   varying_args()
 
 }
+\keyword{internal}
