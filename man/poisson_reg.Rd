@@ -2,7 +2,6 @@
 % Please edit documentation in R/poisson_reg.R
 \name{poisson_reg}
 \alias{poisson_reg}
-\alias{update.poisson_reg}
 \title{Poisson regression models}
 \usage{
 poisson_reg(
@@ -10,15 +9,6 @@ poisson_reg(
   penalty = NULL,
   mixture = NULL,
   engine = "glm"
-)
-
-\method{update}{poisson_reg}(
-  object,
-  parameters = NULL,
-  penalty = NULL,
-  mixture = NULL,
-  fresh = FALSE,
-  ...
 )
 }
 \arguments{
@@ -35,21 +25,6 @@ ridge regression is being used. (\code{glmnet} and \code{spark} only).}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}
-
-\item{object}{A boosted tree model specification.}
-
-\item{parameters}{A 1-row tibble or named list with \emph{main}
-parameters to update. If the individual arguments are used,
-these will supersede the values in \code{parameters}. Also, using
-engine arguments in this object will result in an error.}
-
-\item{fresh}{A logical for whether the arguments should be
-modified in-place of or replaced wholesale.}
-
-\item{...}{Not used for \code{update()}.}
-}
-\value{
-An updated model specification.
 }
 \description{
 \code{poisson_reg()} defines a generalized linear model for count data that follow
@@ -68,12 +43,6 @@ is specified, the \emph{method} to fit the model is also defined.
 
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
 with the data.
-}
-\examples{
-model <- poisson_reg(penalty = 10, mixture = 0.1)
-model
-update(model, penalty = 1)
-update(model, penalty = 1, fresh = TRUE)
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
