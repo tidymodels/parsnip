@@ -1,375 +1,408 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://parsnip.tidymodels.org/index.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/C5.0_train.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/C5_rules.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/add_on_exports.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/add_rowindex.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/articles/articles/Examples.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/augment.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/articles/articles/Submodels.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/bag_mars.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/bag_tree.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/articles/parsnip_Intro.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/bart-internal.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/bart.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/boost_tree.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/issue_template.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/check_empty_ellipse.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/contr_one_hot.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/C5.0_train.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/control_parsnip.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/C5_rules.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/convert_helpers.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/add_on_exports.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/convert_stan_interval.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/add_rowindex.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/cubist_rules.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/augment.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/decision_tree.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/bag_mars.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/descriptors.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/bag_tree.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_bart_dbarts.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/bart-internal.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_boost_tree_C5.0.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/bart.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_boost_tree_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/boost_tree.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_boost_tree_xgboost.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/check_empty_ellipse.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_decision_tree_C5.0.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/contr_one_hot.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_decision_tree_rpart.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/control_parsnip.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_decision_tree_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/convert_helpers.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_gen_additive_mod_mgcv.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/convert_stan_interval.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_glmnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/cubist_rules.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_keras.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/decision_tree.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_lm.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/descriptors.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_stan.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_LiblineaR.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_glm.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_glmnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_keras.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpart.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_logistic_reg_stan.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_mgcv.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_mars_earth.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_mlp_keras.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_mlp_nnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_multinom_reg_glmnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_multinom_reg_keras.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_multinom_reg_nnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_LiblineaR.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_multinom_reg_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glm.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_nearest_neighbor_kknn.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmnet.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_rand_forest_randomForest.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_rand_forest_ranger.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_rand_forest_spark.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_svm_linear_LiblineaR.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_mars_earth.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_svm_linear_kernlab.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_svm_poly_kernlab.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_svm_rbf_kernlab.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/discrim_flexible.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/discrim_linear.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_nnet.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/discrim_quad.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/discrim_regularized.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_nearest_neighbor_kknn.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/doc-tools.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/eval_args.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ranger.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/extract-parsnip.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_surv_reg_flexsurv.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/gen_additive_mod.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_surv_reg_survival.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/get_model_env.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_svm_linear_LiblineaR.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/glance.model_fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_svm_linear_kernlab.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/glmnet-details.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_svm_poly_kernlab.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/glmnet_helpers.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_svm_rbf_kernlab.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/glmnet_helpers_prediction.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/discrim_flexible.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/has_multi_predict.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/discrim_linear.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/keras_mlp.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/discrim_quad.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/linear_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/discrim_regularized.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/logistic_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/doc-tools.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/make_call.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/eval_args.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/make_classes.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/extract-parsnip.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/mars.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/fit.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/maybe_matrix.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/gen_additive_mod.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/min_cols.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/get_model_env.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/mlp.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/glance.model_fit.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/model_db.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/glmnet-details.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/model_fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/glmnet_helpers.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/model_printer.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/glmnet_helpers_prediction.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/model_spec.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/has_multi_predict.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/multi_predict.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/multinom_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/keras_mlp.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/naive_Bayes.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/linear_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/nearest_neighbor.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/logistic_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/null_model.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/make_call.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/nullmodel.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/make_classes.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/other_predict.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/mars.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/parsnip_addin.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/maybe_matrix.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/parsnip_update.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/min_cols.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/pls.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/mlp.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/poisson_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/model_db.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/predict.model_fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/model_fit.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/prepare_data.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/model_printer.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/proportional_hazards.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/model_spec.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/rand_forest.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/multi_predict.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/reexports.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/multinom_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/repair_call.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/naive_Bayes.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/req_pkgs.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/nearest_neighbor.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/rpart_train.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/null_model.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/rule_fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/nullmodel.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/set_args.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/other_predict.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/set_engine.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/parsnip_addin.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/set_new_model.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/parsnip_update.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/show_call.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/pls.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/show_engines.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/poisson_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/stan_conf_int.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/predict.model_fit.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/surv_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/prepare_data.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/survival_reg.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/proportional_hazards.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/svm_linear.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/rand_forest.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/svm_poly.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/svm_rbf.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/repair_call.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/tidy._LiblineaR.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/req_pkgs.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/tidy._elnet.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/rpart_train.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/tidy.model_fit.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/rule_fit.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/tidy.nullmodel.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/set_args.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/translate.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/set_engine.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/type_sum.model_spec.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/set_new_model.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/varying.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/show_call.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/varying_args.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/show_engines.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/xgb_train.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/stan_conf_int.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/articles/articles/Examples.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/surv_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/articles/articles/Submodels.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/survival_reg.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/articles/parsnip_Intro.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/svm_linear.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/svm_poly.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/svm_rbf.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/tidy._LiblineaR.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/tidy._elnet.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/tidy.model_fit.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/tidy.nullmodel.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/translate.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/type_sum.model_spec.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/varying.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/varying_args.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/xgb_train.html</loc>
   </url>
 </urlset>
