@@ -4,9 +4,9 @@
 %   R/discrim_flexible.R, R/discrim_linear.R, R/discrim_quad.R,
 %   R/discrim_regularized.R, R/gen_additive_mod.R, R/linear_reg.R,
 %   R/logistic_reg.R, R/mars.R, R/mlp.R, R/multinom_reg.R, R/naive_Bayes.R,
-%   R/nearest_neighbor.R, R/pls.R, R/proportional_hazards.R, R/rand_forest.R,
-%   R/rule_fit.R, R/surv_reg.R, R/survival_reg.R, R/svm_linear.R, R/svm_poly.R,
-%   R/svm_rbf.R, R/update.R
+%   R/nearest_neighbor.R, R/pls.R, R/poisson_reg.R, R/proportional_hazards.R,
+%   R/rand_forest.R, R/rule_fit.R, R/surv_reg.R, R/survival_reg.R,
+%   R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_tree}
@@ -28,6 +28,7 @@
 \alias{update.naive_Bayes}
 \alias{update.nearest_neighbor}
 \alias{update.pls}
+\alias{update.poisson_reg}
 \alias{update.proportional_hazards}
 \alias{update.rand_forest}
 \alias{update.rule_fit}
@@ -217,6 +218,15 @@
   parameters = NULL,
   predictor_prop = NULL,
   num_comp = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{poisson_reg}(
+  object,
+  parameters = NULL,
+  penalty = NULL,
+  mixture = NULL,
   fresh = FALSE,
   ...
 )

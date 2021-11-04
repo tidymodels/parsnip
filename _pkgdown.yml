@@ -1,13 +1,11 @@
 url: https://parsnip.tidymodels.org
 
 template:
+  bootstrap: 5
+  bslib:
+    danger: "#CA225E"
+    primary: "#CA225E"
   package: tidytemplate
-  params:
-    theme: tidymodels
-    part_of: <a href="https://tidymodels.org">tidymodels</a>
-    footer: parsnip is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
-
-# https://github.com/tidyverse/tidytemplate for css
 
 development:
   mode: auto
@@ -90,7 +88,6 @@ reference:
 
 
 navbar:
-  left:
   - text: Basic Usage
     href: articles/parsnip_Intro.html
   - text: "Articles"
