@@ -70,9 +70,25 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website: C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
-    mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm, tidymodels,
-    tidyverse/tidytemplate, xgboost
+Config/Needs/website: 
+    C50, 
+    dbarts, 
+    earth, 
+    glmnet, 
+    keras, 
+    kernlab, 
+    kknn, 
+    LiblineaR,
+    mgcv, 
+    nnet, 
+    parsnip, 
+    randomForest, 
+    ranger, 
+    rpart, 
+    rstanarm, 
+    tidymodels,
+    tidyverse/tidytemplate,
+    xgboost
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
