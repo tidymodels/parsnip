@@ -1,69 +1,34 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 
 name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
-      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
-        id: install-r
-
-      - name: Install pak and query dependencies
-        run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
-        shell: Rscript {0}
-
-      - name: Restore R package cache
-        uses: actions/cache@v2
         with:
-          path: |
-            ${{ env.R_LIBS_USER }}/*
-            !${{ env.R_LIBS_USER }}/pak
-          key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-
+          use-public-rspm: true
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
+      - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: covr
+
+      - name: Install Miniconda + TensorFlow
         run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("covr", execute = TRUE)
-          pak::pkg_system_requirements("textshaping", execute = TRUE)
-          pak::pkg_system_requirements("gert", execute = TRUE)
-        shell: Rscript {0}
-
-      - name: Install dependencies
-        run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("covr")
-        shell: Rscript {0}
-
-      - name: Install Miniconda
-        run: |
-          Rscript -e "pak::pkg_install('rstudio/reticulate')"
-          Rscript -e "reticulate::install_miniconda()"
-
-      - name: Find Miniconda on macOS
-        if: runner.os == 'macOS'
-        run: echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
-
-      - name: Install TensorFlow
-        run: |
+          pak::pkg_install('rstudio/reticulate')
+          reticulate::install_miniconda()
           reticulate::conda_create('r-reticulate', packages = c('python==3.6.9'))
           tensorflow::install_tensorflow(version='1.14.0')
         shell: Rscript {0}
