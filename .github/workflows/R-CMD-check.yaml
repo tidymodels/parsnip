@@ -57,8 +57,9 @@ jobs:
 
       - name: Install Miniconda
         run: |
-          Rscript -e "pak::pkg_install('rstudio/reticulate')"
-          Rscript -e "reticulate::install_miniconda()"
+          pak::pkg_install('rstudio/reticulate')
+          reticulate::install_miniconda()
+        shell: Rscript {0}
 
       - name: Find Miniconda on macOS
         if: runner.os == 'macOS'
@@ -70,7 +71,7 @@ jobs:
           tensorflow::install_tensorflow(version='1.14.0')
         shell: Rscript {0}
 
-     - uses: r-lib/actions/check-r-package@v1
+      - uses: r-lib/actions/check-r-package@v1
 
       - name: Show testthat output
         if: always()
