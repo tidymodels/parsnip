@@ -158,7 +158,7 @@
 <li>Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call <code>rand_forest</code> instead of <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger::ranger</a></code> or other specific packages.</li>
 <li>Harmonize argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users only need to remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging.</li>
 </ul>
-<p>Using the example above, the <code>parsnip</code> approach would be:</p>
+<p>Using the example above, the parsnip approach would be:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parsnip.tidymodels.org">parsnip</a></span><span class="op">)</span>
 
@@ -196,7 +196,7 @@
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">#&gt; parsnip model object</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Fit time:  316ms </span>
+<span class="co">#&gt; Fit time:  45ms </span>
 <span class="co">#&gt; Ranger result</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
@@ -210,9 +210,9 @@
 <span class="co">#&gt; Target node size:                 5 </span>
 <span class="co">#&gt; Variable importance mode:         impurity </span>
 <span class="co">#&gt; Splitrule:                        variance </span>
-<span class="co">#&gt; OOB prediction error (MSE):       5.725636 </span>
-<span class="co">#&gt; R squared (OOB):                  0.8423737</span></code></pre></div>
-<p>A list of all <code>parsnip</code> models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/" class="external-link"><code>tidymodels.org</code></a>.</p>
+<span class="co">#&gt; OOB prediction error (MSE):       5.976917 </span>
+<span class="co">#&gt; R squared (OOB):                  0.8354559</span></code></pre></div>
+<p>A list of all parsnip models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/parsnip" class="external-link uri">https://www.tidymodels.org/find/parsnip</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -260,6 +260,8 @@
 <li>Max Kuhn <br><small class="roles"> Author, maintainer </small>  </li>
 <li>
 <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a> <br><small class="roles"> Author </small>  </li>
+<li>
+<a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -283,7 +285,7 @@
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Max Kuhn, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>.</p>
+<p>Developed by Max Kuhn, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
