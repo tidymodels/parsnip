@@ -1,11 +1,11 @@
 pandoc: 2.7.3
 pkgdown: 1.9000.9000.9000
-pkgdown_sha: ae9e62a2ee41edb45d732ee42bc19077da374169
+pkgdown_sha: 3912737f46bf1f9f04ce59ee333b685d7bff599f
 articles:
   Examples: articles/Examples.html
   Submodels: articles/Submodels.html
-  parsnip_Intro: parsnip_Intro.html
-last_built: 2021-11-04T21:17Z
+  parsnip: parsnip.html
+last_built: 2021-11-05T17:14Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles
