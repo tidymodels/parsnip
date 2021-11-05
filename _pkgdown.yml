@@ -75,12 +75,6 @@ reference:
     contents:
       - contr_one_hot
       - set_new_model
-      - starts_with("set_model_")
-      - set_dependency
-      - set_fit
-      - set_pred
-      - show_model_info
-      - starts_with("get_")
       - maybe_matrix
       - min_cols
       - req_pkgs
