@@ -85,25 +85,19 @@ reference:
       - min_cols
       - req_pkgs
 
-
-
 navbar:
-  - text: Basic Usage
-    href: articles/parsnip_Intro.html
-  - text: "Articles"
+ components:
+   articles:
+    text: Articles
     menu:
-     - text: Regression modeling
-       href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
-     - text: Classification modeling
-       href: https://www.tidymodels.org/learn/models/parsnip-nnet/
-     - text: Making a parsnip model from scratch
-       href: https://www.tidymodels.org/learn/develop/models/
-     - text: Evaluating submodels with the same model object
-       href: articles/articles/Submodels.html
-     - text: Fitting and Predicting with parsnip
-       href: articles/articles/Examples.html
-  - text: News
-    href: news/index.html
-  - text: Reference
-    href: reference/index.html
+    - text: Regression modeling
+      href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
+    - text: Classification modeling
+      href: https://www.tidymodels.org/learn/models/parsnip-nnet/
+    - text: Making a parsnip model from scratch
+      href: https://www.tidymodels.org/learn/develop/models/
+    - text: Evaluating submodels with the same model object
+      href: articles/articles/Submodels.html
+    - text: Fitting and predicting with parsnip
+      href: articles/articles/Examples.html
 
