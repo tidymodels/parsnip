@@ -94,7 +94,7 @@ The goals of parsnip are to:
     model types too so that `trees` will be the same argument across
     random forest as well as boosting or bagging.
 
-Using the example above, the `parsnip` approach would be:
+Using the example above, the parsnip approach would be:
 
 ``` r
 library(parsnip)
@@ -140,7 +140,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  316ms 
+#> Fit time:  45ms 
 #> Ranger result
 #> 
 #> Call:
@@ -154,12 +154,12 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.725636 
-#> R squared (OOB):                  0.8423737
+#> OOB prediction error (MSE):       5.976917 
+#> R squared (OOB):                  0.8354559
 ```
 
-A list of all `parsnip` models across different CRAN packages can be
-found at [`tidymodels.org`](https://www.tidymodels.org/find/).
+A list of all parsnip models across different CRAN packages can be found
+at <https://www.tidymodels.org/find/parsnip>.
 
 ## Contributing
 

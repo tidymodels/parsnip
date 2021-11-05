@@ -1,21 +1,12 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
 Version: 0.1.7.9001
-Authors@R: 
-    c(person(given = "Max",
-             family = "Kuhn",
-             role = c("aut", "cre"),
-             email = "max@rstudio.com"),
-      person(given = "Davis",
-             family = "Vaughan",
-             role = "aut",
-             email = "davis@rstudio.com"),
-      person(given = "Emil",
-             family = "Hvitfeldt",
-             role = "ctb",
-             email = "emilhhvitfeldt@gmail.com"),
-      person(given = "RStudio",
-             role = "cph"))
+Authors@R: c(
+    person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
+    person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = "ctb"),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Maintainer: Max Kuhn <max@rstudio.com>
 Description: A common interface is provided to allow users to specify a
     model without having to remember the different argument names across
@@ -77,17 +68,17 @@ Config/Needs/website:
     glmnet, 
     keras, 
     kernlab, 
-    kknn, 
-    LiblineaR,
+    kknn,
+    LiblineaR, 
     mgcv, 
     nnet, 
     parsnip, 
     randomForest, 
     ranger, 
     rpart, 
-    rstanarm, 
-    tidymodels,
-    tidyverse/tidytemplate,
+    rstanarm,
+    tidymodels, 
+    tidyverse/tidytemplate, 
     xgboost
 Encoding: UTF-8
 LazyData: true
