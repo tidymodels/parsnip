@@ -356,6 +356,14 @@ check_dup_names <- function(x, y) {
 maybe_matrix <- function(x) {
   inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
   if (is.data.frame(x)) {
+    cat_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
+    if (any(cat_cols)) {
+      cat_cols <- names(cat_cols)[cat_cols]
+      cat_cols <- paste0("'", cat_cols, "'", collapse = ", ")
+      msg <- glue::glue("Some columns are non-numeric. The data cannot be",
+                        "converted to numeric matrix: {cat_cols}")
+      rlang::abort(msg)
+    }
     x <- as.matrix(x)
   }
   # leave alone if matrix or sparse matrix
