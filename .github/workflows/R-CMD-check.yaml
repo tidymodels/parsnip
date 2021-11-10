@@ -56,7 +56,7 @@ jobs:
         run: |
           writeLines("CXX14=g++
           CXX14STD=-std=c++1y
-          CXX14FLAGS=-Wall -g -02", tools::makevars_user(), append = TRUE)
+          CXX14FLAGS=-Wall -g -02", tools::makevars_user())
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
