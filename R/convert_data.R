@@ -356,12 +356,12 @@ check_dup_names <- function(x, y) {
 maybe_matrix <- function(x) {
   inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
   if (is.data.frame(x)) {
-    cat_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
-    if (any(cat_cols)) {
-      cat_cols <- names(cat_cols)[cat_cols]
-      cat_cols <- glue::glue_collapse(glue::single_quote(cat_cols), sep = ", ")
+    non_num_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
+    if (any(non_num_cols)) {
+      non_num_cols <- names(non_num_cols)[non_num_cols]
+      non_num_cols <- glue::glue_collapse(glue::single_quote(non_num_cols), sep = ", ")
       msg <- glue::glue("Some columns are non-numeric. The data cannot be ",
-                        "converted to numeric matrix: {cat_cols}.")
+                        "converted to numeric matrix: {non_num_cols}.")
       rlang::abort(msg)
     }
     x <- as.matrix(x)

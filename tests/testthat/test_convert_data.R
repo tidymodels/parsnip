@@ -621,12 +621,12 @@ test_that("convert to matrix", {
   data(ames, package = "modeldata")
   expect_error(
     parsnip::maybe_matrix(ames[, c("Year_Built", "Neighborhood")]),
-    "The data cannot beconverted to numeric matrix: 'Neighborhood'"
+    "Some columns are non-numeric. The data cannot be converted to numeric matrix: 'Neighborhood'."
   )
   # Also for date columns
   data(Chicago, package = "modeldata")
   expect_error(
     parsnip::maybe_matrix(Chicago[, c("ridership", "date")]),
-    "The data cannot beconverted to numeric matrix: 'date'"
+    "Some columns are non-numeric. The data cannot be converted to numeric matrix: 'date'."
   )
 })
