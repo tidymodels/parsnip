@@ -359,9 +359,9 @@ maybe_matrix <- function(x) {
     cat_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
     if (any(cat_cols)) {
       cat_cols <- names(cat_cols)[cat_cols]
-      cat_cols <- paste0("'", cat_cols, "'", collapse = ", ")
-      msg <- glue::glue("Some columns are non-numeric. The data cannot be",
-                        "converted to numeric matrix: {cat_cols}")
+      cat_cols <- glue::glue_collapse(glue::single_quote(cat_cols), sep = ", ")
+      msg <- glue::glue("Some columns are non-numeric. The data cannot be ",
+                        "converted to numeric matrix: {cat_cols}.")
       rlang::abort(msg)
     }
     x <- as.matrix(x)
