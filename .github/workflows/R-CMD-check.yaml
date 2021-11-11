@@ -57,7 +57,7 @@ jobs:
           if (.Platform$OS.type == "windows") {
             home <- Sys.getenv("HOME")
             if (!dir.exists(home)) {
-              dir.create(home)
+              dir.create(file.path(home, ".R"))
             }
             mv <- file.path(home, ".R", "Makevars.win")
             if (!file.exists(mv)) {
