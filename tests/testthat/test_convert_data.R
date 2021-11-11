@@ -617,4 +617,16 @@ test_that("convert to matrix", {
     inherits(parsnip::maybe_matrix(Matrix::Matrix(as.matrix(mtcars), sparse = TRUE)),
              "dgCMatrix")
   )
+
+  data(ames, package = "modeldata")
+  expect_error(
+    parsnip::maybe_matrix(ames[, c("Year_Built", "Neighborhood")]),
+    "Some columns are non-numeric. The data cannot be converted to numeric matrix: 'Neighborhood'."
+  )
+  # Also for date columns
+  data(Chicago, package = "modeldata")
+  expect_error(
+    parsnip::maybe_matrix(Chicago[, c("ridership", "date")]),
+    "Some columns are non-numeric. The data cannot be converted to numeric matrix: 'date'."
+  )
 })

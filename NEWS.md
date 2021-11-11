@@ -12,6 +12,10 @@
 
 * The list column produced when creating survival probability predictions is now always called `.pred` (with `.pred_survival` being used inside of the list column). 
 
+## Other Changes
+
+ * When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates). 
+
 # parsnip 0.1.7
 
 ## Model Specification Changes

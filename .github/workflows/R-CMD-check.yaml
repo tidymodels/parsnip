@@ -37,6 +37,9 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      CXX14: g++
+      CXX14STD: -std=c++1y
+      CXX14FLAGS: -Wall -g -02
 
     steps:
       - uses: actions/checkout@v2
