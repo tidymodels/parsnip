@@ -52,28 +52,6 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Setup CXX14 for xgboost
-        run: |
-          if (.Platform$OS.type == "windows") {
-            home <- Sys.getenv("HOME")
-            if (!dir.exists(home)) {
-              dir.create(file.path(home, ".R"))
-            }
-            mv <- file.path(home, ".R", "Makevars.win")
-            if (!file.exists(mv)) {
-              file.create(mv)
-            }
-            cat(
-              "\nCXX14FLAGS=-O3",
-              "CXX14 = $(BINPREF)g++ -m$(WIN) -std=c++1y",
-              "CXX11FLAGS=-O3",
-              file = mv,
-              sep = "\n",
-              append = TRUE
-            )
-          }
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
