@@ -55,7 +55,7 @@ jobs:
       - name: Setup CXX14 for xgboost
         run: |
           if (getRversion() >= "4.0" & .Platform$OS.type == "windows") {
-            mv <- file.path(Sys.getenv("HOME"), ".R/Makevars.win")
+            mv <- file.path(Sys.getenv("HOME"), ".R", "Makevars")
             cat(
               "\nCXX14FLAGS=-O3",
               "CXX14 = $(BINPREF)g++ -m$(WIN) -std=c++1y",
