@@ -56,12 +56,16 @@ jobs:
         run: |
           if (.Platform$OS.type == "windows") {
             mv <- file.path(Sys.getenv("HOME"), ".R", "Makevars.win")
+            if (!file.exists(mv)) {
+              file.create(mv)
+            }
             cat(
               "\nCXX14FLAGS=-O3",
               "CXX14 = $(BINPREF)g++ -m$(WIN) -std=c++1y",
               "CXX11FLAGS=-O3",
               file = mv,
-              sep = "\n"
+              sep = "\n",
+              append = TRUE
             )
           }
         shell: Rscript {0}
