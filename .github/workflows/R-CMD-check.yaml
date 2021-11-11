@@ -59,7 +59,7 @@ jobs:
             if (!dir.exists(home)) {
               dir.create(home)
             }
-            mv <- file.path(, ".R", "Makevars.win")
+            mv <- file.path(home, ".R", "Makevars.win")
             if (!file.exists(mv)) {
               file.create(mv)
             }
