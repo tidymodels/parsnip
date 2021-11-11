@@ -54,9 +54,17 @@ jobs:
 
       - name: Setup CXX14 for xgboost
         run: |
-          writeLines("CXX14=g++
-          CXX14STD=-std=c++1y
-          CXX14FLAGS=-Wall -g -02", tools::makevars_user())
+          if (getRversion() >= "4.0" & .Platform$OS.type == "windows") {
+            mv <- file.path(Sys.getenv("HOME"), ".R/Makevars.win")
+            cat(
+              "\nCXX14FLAGS=-O3",
+              "CXX14 = $(BINPREF)g++ -m$(WIN) -std=c++1y",
+              "CXX11FLAGS=-O3",
+              file = mv,
+              sep = "\n",
+              append = TRUE
+            )
+          }
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
