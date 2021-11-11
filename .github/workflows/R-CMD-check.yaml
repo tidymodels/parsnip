@@ -55,7 +55,11 @@ jobs:
       - name: Setup CXX14 for xgboost
         run: |
           if (.Platform$OS.type == "windows") {
-            mv <- file.path(Sys.getenv("HOME"), ".R", "Makevars.win")
+            home <- Sys.getenv("HOME")
+            if (!dir.exists(home)) {
+              dir.create(home)
+            }
+            mv <- file.path(, ".R", "Makevars.win")
             if (!file.exists(mv)) {
               file.create(mv)
             }
