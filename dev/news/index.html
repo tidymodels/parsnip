@@ -66,6 +66,10 @@
 <li><p>Fixed a bug for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> with the LiblineaR engine (<a href="https://github.com/tidymodels/parsnip/issues/552" class="external-link">#552</a>).</p></li>
 <li><p>The list column produced when creating survival probability predictions is now always called <code>.pred</code> (with <code>.pred_survival</code> being used inside of the list column).</p></li>
 </ul></div>
+<div class="section level3">
+<h3 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<ul><li>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.7" id="parsnip-017">parsnip 0.1.7<a class="anchor" aria-label="anchor" href="#parsnip-017"></a></h2><p class="text-muted">CRAN release: 2021-07-21</p>
@@ -323,7 +327,7 @@
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by Max Kuhn, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
