@@ -95,11 +95,9 @@ extensions <- function(x) {
 #' @examples
 #' find_engine_files("linear_reg")
 #' cat(make_engine_list("linear_reg"))
-find_engine_files <- function(mod, pkg = "parsnip") {
-
-  requireNamespace(pkg, quietly = TRUE)
+find_engine_files <- function(mod) {
   # Get available topics
-  topic_names <- search_for_engine_docs(mod)
+  topic_names <- find_details_topics(mod)
   if (length(topic_names) == 0) {
     return(character(0))
   }
@@ -116,33 +114,53 @@ find_engine_files <- function(mod, pkg = "parsnip") {
   eng <- eng[order(eng$.order),]
 
   # Determine and label default engine
-  default <- get_default_engine(mod, pkg)
+  default <- get_default_engine(mod)
   eng$default <- ifelse(eng$engine == default, " (default)", "")
+
+  # reorder based on default and name
+  non_defaults <- dplyr::filter(eng, !grepl("default", default))
+  non_defaults <-
+    non_defaults %>%
+    dplyr::arrange(tolower(engine)) %>%
+    dplyr::mutate(.order = dplyr::row_number() + 1)
+  eng <-
+    dplyr::filter(eng, grepl("default", default)) %>%
+    dplyr::bind_rows(non_defaults)
 
   eng
 }
 
 #' @export
 #' @rdname doc-tools
-make_engine_list <- function(mod, pkg = "parsnip") {
-  eng <- find_engine_files(mod, pkg)
+make_engine_list <- function(mod) {
+  eng <- find_engine_files(mod)
 
   if (length(eng) == 0) {
     return("No engines were found within the currently loaded packages.\n\n")
   } else {
     main <- paste("The engine-specific pages for this model are listed ",
-                  "below and contain the details:\n\n")
+                  "below by mode. These contain further details:\n\n")
   }
 
-  res <-
-    glue::glue("  \\item \\code{\\link[|eng$topic|]{|eng$engine|} |eng$default| }",
-               .open = "|", .close = "|")
+  modes <- get_from_env(mod)
+  eng <-
+    dplyr::full_join(eng, modes, by = "engine") %>%
+    dplyr::mutate(
+      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|} |default| }",
+                        .open = "|", .close = "|")
+    ) %>%
+    dplyr::group_nest(mode) %>%
+    dplyr::arrange(desc(mode)) %>%
+    dplyr::mutate(
+      items = purrr::map_chr(data, ~ paste0(.x$item, collapse = "\n")),
+      items = paste0(mode, ":\n\n\\itemize{\n", items, "\n}")
+    )
 
-  res <- paste0(main, "\\itemize{\n", paste0(res, collapse = "\n"), "\n}")
+  res <- paste0(main, paste0(eng$items, collapse = "\n\n"))
   res
 }
 
-get_default_engine <- function(mod, pkg= "parsnip") {
+get_default_engine <- function(mod, pkg = "parsnip") {
   cl <- rlang::call2(mod, .ns = pkg)
   rlang::eval_tidy(cl)$engine
 }
@@ -151,7 +169,7 @@ get_default_engine <- function(mod, pkg= "parsnip") {
 #' @rdname  doc-tools
 make_seealso_list <- function(mod, pkg= "parsnip") {
   requireNamespace(pkg, quietly = TRUE)
-  eng <- find_engine_files(mod, pkg)
+  eng <- find_engine_files(mod)
 
   main <- c("\\code{\\link[=fit.model_spec]{fit()}}",
             "\\code{\\link[=set_engine]{set_engine()}}",
@@ -171,26 +189,7 @@ make_seealso_list <- function(mod, pkg= "parsnip") {
   paste0(c(main, res), collapse = ", ")
 }
 
-# These will never have documentation and we can avoid searching them.
-excl_pkgs <-
-  c("C50", "Cubist", "earth", "flexsurv", "forecast", "glmnet",
-    "keras", "kernlab", "kknn", "klaR", "LiblineaR", "liquidSVM",
-    "magrittr", "MASS", "mda", "mixOmics", "naivebayes", "nnet",
-    "prophet", "pscl", "randomForest", "ranger", "rpart", "rstanarm",
-    "sparklyr", "stats", "survival", "xgboost", "xrf")
-
-search_for_engine_docs <- function(mod) {
-  all_deps <- get_from_env(paste0(mod, "_pkgs"))
-  all_deps <- unlist(all_deps$pkg)
-  all_deps <- unique(c("parsnip", all_deps))
-
-  all_deps <- all_deps[!(all_deps %in% excl_pkgs)]
-  res <- purrr::map(all_deps, find_details_topics, mod = mod)
-  res <- unique(unlist(res))
-  res
-}
-
-find_details_topics <- function(pkg, mod) {
+find_details_topics <- function(mod, pkg = "parsnip") {
   meta_loc <- system.file("Meta/Rd.rds", package = pkg)
   meta_loc <- meta_loc[meta_loc != ""]
   if (length(meta_loc) > 0) {
@@ -202,7 +201,7 @@ find_details_topics <- function(pkg, mod) {
   } else {
     res <- character(0)
   }
-  res
+  unique(res)
 }
 
 # For use in `set_engine()` docs
