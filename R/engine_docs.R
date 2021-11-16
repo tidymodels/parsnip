@@ -23,9 +23,9 @@ knit_engine_docs <- function(pattern = NULL) {
 }
 
 # TODO
-# - simplify code to find model files
-# - add is_installed() to set code with all extra dependencies
-# - list models by mode
+# - In Rmd, state which packages have engine code e.g. "The parsnip package
+#   contains rpart engines for classification and regression and the censored package
+#   contains an rpart engine for censored regression".
 
 # ------------------------------------------------------------------------------
 
@@ -107,12 +107,6 @@ find_engine_files <- function(mod) {
   eng <- purrr::map_chr(eng, ~ .x[length(.x)])
   eng <- tibble::tibble(engine = eng, topic = topic_names)
 
-  # Combine them to keep the order in which they were registered
-  all_eng <- get_from_env(mod) %>% dplyr::distinct(engine)
-  all_eng$.order <- 1:nrow(all_eng)
-  eng <- dplyr::left_join(eng, all_eng, by = "engine")
-  eng <- eng[order(eng$.order),]
-
   # Determine and label default engine
   default <- get_default_engine(mod)
   eng$default <- ifelse(eng$engine == default, " (default)", "")
@@ -125,6 +119,7 @@ find_engine_files <- function(mod) {
     dplyr::mutate(.order = dplyr::row_number() + 1)
   eng <-
     dplyr::filter(eng, grepl("default", default)) %>%
+    dplyr::mutate(.order = 1) %>%
     dplyr::bind_rows(non_defaults)
 
   eng
@@ -136,27 +131,28 @@ make_engine_list <- function(mod) {
   eng <- find_engine_files(mod)
 
   if (length(eng) == 0) {
-    return("No engines were found within the currently loaded packages.\n\n")
+    return("No engines were found for this model.\n\n")
   } else {
-    main <- paste("The engine-specific pages for this model are listed ",
-                  "below by mode. These contain further details:\n\n")
+    modes <- get_from_env(paste0(mod, "_modes"))
+    modes <- modes[modes != "unknown"]
+    modes <- glue::glue_collapse(modes, sep = ", ", last = " and ")
+    modes <- glue::glue("\\code{|mod|()} can fit |modes| models.",
+                        .open = "|", .close = "|")
+    main <- glue::glue("The engine-specific pages for this model are listed ",
+                       "below. These contain further details:\n\n")
   }
 
-  modes <- get_from_env(mod)
   eng <-
-    dplyr::full_join(eng, modes, by = "engine") %>%
+    eng %>%
     dplyr::mutate(
-      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|} |default| }",
+      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default|}",
                         .open = "|", .close = "|")
     ) %>%
-    dplyr::group_nest(mode) %>%
-    dplyr::arrange(desc(mode)) %>%
-    dplyr::mutate(
-      items = purrr::map_chr(data, ~ paste0(.x$item, collapse = "\n")),
-      items = paste0(mode, ":\n\n\\itemize{\n", items, "\n}")
-    )
+    dplyr::distinct(item)
 
-  res <- paste0(main, paste0(eng$items, collapse = "\n\n"))
+  items <- glue::glue_collapse(eng$item, sep = "\n")
+  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |modes|}",
+                    .open = "|", .close = "|")
   res
 }
 
