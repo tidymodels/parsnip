@@ -1,0 +1,69 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("bag_tree", "rpart")`
+
+## Tuning Parameters
+
+```{r rpart-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity", "class_cost"),
+                 default = c("30L", "2L", "0.01", "(see below)"))
+
+param <-
+ bag_tree() %>% 
+  set_engine("rpart") %>% 
+  set_mode("regression") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r rpart-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+For the `class_cost` parameter, the value can be a non-negative scalar for a class cost (where a cost of 1 means no extra cost). This is useful for when the first level of the outcome factor is the minority class. If this is not the case, values between zero and one can be used to bias to the second level of the factor.
+
+
+## Translation from parsnip to the original package (classification)
+
+```{r rpart-cls}
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
+  set_engine("rpart") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Translation from parsnip to the original package (regression)
+
+```{r rpart-reg}
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
+  set_engine("rpart") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (censored regression)
+
+```{r rpart-creg}
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
+  set_engine("rpart") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## References
+
+ - Breiman L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140
+ 
+ - Hothorn T, Lausen B, Benner A, Radespiel-Troeger M. 2004. Bagging Survival Trees. _Statistics in Medicine_, 23(1), 77–91.
+ 
+ - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

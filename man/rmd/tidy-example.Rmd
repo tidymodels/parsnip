@@ -1,0 +1,56 @@
+## An example
+
+```{r, warnings = FALSE}
+library(dplyr)
+
+data(ames, package = "modeldata")
+
+ames <-
+  ames %>%
+  mutate(Sale_Price = log10(ames$Sale_Price),
+         Gr_Liv_Area = log10(ames$Gr_Liv_Area))
+
+# ------------------------------------------------------------------------------
+
+cb_fit <-
+  cubist_rules(committees = 10) %>%
+  set_engine("Cubist") %>%
+  fit(Sale_Price ~ Neighborhood + Longitude + Latitude + Gr_Liv_Area + Central_Air,
+      data = ames)
+
+cb_res <- tidy(cb_fit)
+cb_res
+
+cb_res$estimate[[1]]
+cb_res$statistic[[1]]
+
+# ------------------------------------------------------------------------------
+
+library(recipes)
+
+xrf_reg_mod <-
+  rule_fit(trees = 10, penalty = .001) %>%
+  set_engine("xrf") %>%
+  set_mode("regression")
+
+# Make dummy variables since xgboost will not
+ames_rec <-
+  recipe(Sale_Price ~ Neighborhood + Longitude + Latitude +
+         Gr_Liv_Area + Central_Air,
+         data = ames) %>%
+  step_dummy(Neighborhood, Central_Air) %>%
+  step_zv(all_predictors())
+
+ames_processed <- prep(ames_rec) %>% bake(new_data = NULL)
+
+set.seed(1)
+xrf_reg_fit <-
+  xrf_reg_mod %>%
+  fit(Sale_Price ~ ., data = ames_processed)
+
+xrf_rule_res <- tidy(xrf_reg_fit)
+xrf_rule_res$rule[nrow(xrf_rule_res)] %>% rlang::parse_expr()
+
+xrf_col_res <- tidy(xrf_reg_fit, unit = "columns")
+xrf_col_res
+```

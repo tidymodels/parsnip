@@ -1,0 +1,45 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_flexible", "earth")`
+
+## Tuning Parameters
+
+```{r earth-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
+                 default = c("(see below)", "1L", "'backward'"))
+
+param <-
+  discrim_flexible() %>% 
+  set_engine("earth") %>% 
+make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r earth-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The default value of `num_terms` depends on the number of columns (`p`): `min(200, max(20, 2 * p)) + 1`. Note that `num_terms = 1` is an intercept-only model. 
+
+## Translation from parsnip to the original package
+
+```{r earth-cls}
+discrim_flexible(num_terms = integer(0), prod_degree = integer(0), prune_method = character(0)) %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+
+## References
+
+ - Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by Optimal 
+   Scoring, _Journal of the American Statistical Association_, 89:428, 1255-1270
+   
+ - Friedman (1991). Multivariate Adaptive Regression Splines. _The Annals of Statistics_, 19(1), 1-67.

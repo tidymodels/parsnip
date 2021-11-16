@@ -1,0 +1,46 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("bag_tree", "C5.0")`
+
+## Tuning Parameters
+
+```{r C5.0-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("min_n"),
+                 default = c("2L"))
+
+param <-
+ bag_tree() %>% 
+  set_engine("C5.0") %>% 
+  set_mode("classification") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r C5.0-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r C5.0-cls}
+bag_tree(min_n = integer()) %>% 
+  set_engine("C5.0") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+
+## References
+
+ - Breiman, L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140
+ 
+ - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.
+

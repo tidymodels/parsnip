@@ -1,0 +1,43 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("survival_reg", "flexsurv")`
+
+## Tuning Parameters
+
+```{r flexsurv-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("dist"),
+                 default = c("'weibull'"))
+
+param <-
+  survival_reg() %>%
+  set_engine("flexsurv") %>%
+  set_mode("censored regression") %>%
+    make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r flexsurv-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+```{r flexsurv-creg}
+survival_reg(dist = character(1)) %>% 
+  set_engine("flexsurv") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+## Other details
+
+The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
+
+For this engine, stratification cannot be specified via [`strata()`], please see the documentation of the [`flexsurv`] package for alternative specifications.
+
+## References
+
+- Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.

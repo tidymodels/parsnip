@@ -1,0 +1,55 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("survival_reg", "survival")`
+
+## Tuning Parameters
+
+```{r survival-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("dist"),
+                 default = c("'weibull'"))
+
+param <-
+  survival_reg() %>%
+  set_engine("survival") %>%
+  set_mode("censored regression") %>%
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r survival-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+```{r survival-creg}
+survival_reg(dist = character(1)) %>% 
+  set_engine("survival") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+## Other details
+
+Note that `model = TRUE` is needed to produce quantile predictions when there is a stratification variable and can be overridden in other cases.
+
+The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
+
+The model formula can include _special_ terms, such as [survival::strata()]. The allows the model scale parameter to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. 
+
+For example, in this model, the numeric column `rx` is used to estimate two different scale parameters for each value of the column:
+
+```{r}
+library(survival)
+
+survival_reg() %>% 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
+  extract_fit_engine()
+```
+
+## References
+
+-  Kalbfleisch, J. D. and Prentice, R. L. 2002 _The statistical analysis of failure time data_, Wiley.

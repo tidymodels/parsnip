@@ -1,0 +1,45 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_linear", "mda")`
+
+## Tuning Parameters
+
+
+```{r mda-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty"),
+                 default = c("1.0"))
+
+param <-
+  discrim_linear() %>% 
+  set_engine("mda") %>% 
+make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r mda-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+```{r mda-cls}
+discrim_linear(penalty = numeric(0)) %>% 
+  set_engine("mda") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv.Rmd"}
+```
+
+## References
+
+ - Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by Optimal 
+   Scoring, _Journal of the American Statistical Association_, 89:428, 1255-1270

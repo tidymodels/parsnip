@@ -1,0 +1,28 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_linear", "MASS")`
+
+## Tuning Parameters
+
+This engine has no tuning parameters. 
+
+## Translation from parsnip to the original package
+
+```{r mass-cls}
+discrim_linear() %>% 
+  set_engine("MASS") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

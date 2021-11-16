@@ -14,18 +14,7 @@ param <-
  decision_tree() %>% 
   set_engine("rpart") %>% 
   set_mode("regression") %>% 
-  tunable() %>% 
-  dplyr::select(-source, -component, -component_id, parsnip = name) %>% 
-  dplyr::mutate(
-    dials = purrr::map(call_info, get_dials),
-    label = purrr::map_chr(dials, ~ .x$label),
-    type = purrr::map_chr(dials, ~ .x$type)
-  ) %>% 
-  dplyr::full_join(defaults, by = "parsnip") %>% 
-  mutate(
-    item = 
-      glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
-  )
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:

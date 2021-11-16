@@ -1,0 +1,53 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_quad", "sparsediscrim")`
+
+## Tuning Parameters
+
+```{r sparsediscrim-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("regularization_method"),
+                 default = c("'diagonal'"))
+
+param <-
+  discrim_quad() %>% 
+  set_engine("sparsediscrim") %>% 
+make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r mda-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The possible values of this parameter, and the functions that they execute, are:
+
+* `"diagonal"`: [sparsediscrim::qda_diag()]
+* `"shrink_mean"`: [sparsediscrim::qda_shrink_mean()]
+* `"shrink_cov"`: [sparsediscrim::qda_shrink_cov()]
+
+## Translation from parsnip to the original package
+
+```{r sparsediscrim-cls}
+discrim_quad(regularization_method = character(0)) %>% 
+  set_engine("sparsediscrim") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv-conditional.Rmd"}
+```
+
+## References
+
+ - `qda_diag()`: Dudoit, Fridlyand and Speed (2002) Comparison of Discrimination Methods for the Classification of Tumors Using Gene Expression Data, _Journal of the American Statistical Association_, 97:457, 77-87. 
+ 
+ - `qda_shrink_mean()`: Tong, Chen, Zhao, Improved mean estimation and its application to diagonal discriminant analysis, _Bioinformatics_, Volume 28, Issue 4, 15 February 2012, Pages 531-537.
+ 
+ - `qda_shrink_cov()`: Pang, Tong and Zhao (2009), Shrinkage-based Diagonal Discriminant Analysis and Its Applications in High-Dimensional Data. _Biometrics_, 65, 1021-1029.

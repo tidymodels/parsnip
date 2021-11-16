@@ -1,7 +1,35 @@
 ```{r, include = FALSE}
-library(dials)
-library(parsnip)
-library(tune)
+# ------------------------------------------------------------------------------
+# These are required to build md docs for parsnip and extensions
+
+check_pkg_for_docs <- function(x){
+  purrr::map(x, ~ rlang::check_installed(.x))
+  purrr::map(x, ~ require(.x, character.only = TRUE))
+}
+
+rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", "Cubist", "xrf")
+
+check_pkg_for_docs(rmd_pkgs)
+check_pkg_for_docs(parsnip:::extensions())
+
+# ------------------------------------------------------------------------------
+# Code to get information about main arguments and format the results to print
+
+make_parameter_list <- function(x, defaults) {
+  x %>%
+    tune::tunable() %>%
+    dplyr::select(-source, -component, -component_id, parsnip = name) %>%
+    dplyr::mutate(
+      dials = purrr::map(call_info, get_dials),
+      label = purrr::map_chr(dials, ~ .x$label),
+      type = purrr::map_chr(dials, ~ .x$type)
+    ) %>%
+    dplyr::inner_join(defaults, by = "parsnip") %>%
+    dplyr::mutate(
+      item =
+        glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
+    )
+}
 
 convert_args <- function(model_name) {
   envir <- get_model_env()
@@ -51,6 +79,9 @@ get_dials <- function(x) {
   }
   rlang::eval_tidy(cl)
 }
+
+# ------------------------------------------------------------------------------
+# Write text about modes
 
 descr_models <- function(mod, eng) {
   res <- get_from_env(mod) %>%

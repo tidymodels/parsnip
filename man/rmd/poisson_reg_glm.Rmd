@@ -1,0 +1,23 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("poisson_reg", "glm")`
+
+## Tuning Parameters
+
+This engine has no tuning parameters. 
+
+## Translation from parsnip to the underlying model call  (regression)
+
+```{r glm-reg}
+poisson_reg() %>%
+  set_engine("glm") %>%
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+

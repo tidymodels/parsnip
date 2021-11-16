@@ -1,0 +1,69 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("logistic_reg", "glmer")`
+
+## Tuning Parameters
+
+This model has no tuning parameters.
+
+## Translation from parsnip to the original package
+
+```{r lmer-csl}
+logistic_reg() %>% 
+  set_engine("glmer") %>% 
+  translate()
+```
+
+```{r child = "no-pooling.Rmd"}
+```
+
+## Preprocessing requirements
+
+There are no specific preprocessing needs. However, it is helpful to keep the clustering/subject identifier column as factor or character (instead of making them into dummy variables). See the examples in the next section. 
+
+## Other details
+
+The model can accept case weights. 
+
+With `parsnip`, we suggest using the formula method when fitting: 
+
+```r
+library(tidymodels)
+data("toenail", package = "HSAUR3")
+
+logistic_reg() %>% 
+  set_engine("glmer") %>% 
+  fit(outcome ~ treatment * visit + (1 | patientID), data = toenail)
+```
+
+When using the general tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
+
+```r
+library(tidymodels)
+
+glmer_spec <- 
+  logistic_reg() %>% 
+  set_engine("glmer")
+
+glmer_wflow <- 
+  workflow() %>% 
+  # The data are included as-is using:
+  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) %>% 
+  add_model(glmer_spec, formula = outcome ~ treatment * visit + (1 | patientID))
+
+fit(glmer_wflow, data = toenail)
+```
+
+## References
+
+ - 	J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY
+ 
+ - West, K, Band Welch, and A Galecki. 2014. _Linear Mixed Models: A Practical Guide Using Statistical Software_. CRC Press.
+ 
+  - Thorson, J, Minto, C. 2015, Mixed effects: a unifying framework for statistical modelling in fisheries biology. _ICES Journal of Marine Science_, Volume 72, Issue 5, Pages 1245–1256.
+  
+  - Harrison, XA, Donaldson, L, Correa-Cano, ME, Evans, J, Fisher, DN, Goodwin, CED, Robinson, BS, Hodgson, DJ, Inger, R. 2018. _A brief introduction to mixed effects modelling and multi-model inference in ecology_. PeerJ 6:e4794. 
+  
+  - DeBruine LM, Barr DJ. Understanding Mixed-Effects Models Through Data Simulation. 2021. _Advances in Methods and Practices in Psychological Science_.   
+  
