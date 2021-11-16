@@ -52,7 +52,7 @@ To enable this, the process for a package developer is to:
 \item Create an engine-specific R file in the \code{R} directory with the name
 \verb{\{model\}_\{engine\}.R} (e.g. \code{boost_tree_C5.0.R}). This has a small amount of
 documentation, as well as the directives "\verb{@name details_\{model\}_\{engine\}}"
-and "\verb{@includeRmd man/rmd/\{model\}_\{engine\}.Rmd details}".
+and "\verb{@includeRmd man/rmd/\{model\}_\{engine\}.md details}".
 \item Copy the file in \pkg{parsnip} that is in \code{man/rmd/setup.Rmd} and put
 it in the same place in your package.
 \item Write your own \verb{man/rmd/\{model\}_\{engine\}.Rmd} file. This can include

@@ -8,7 +8,8 @@
 creates a tree-based structure.
 }
 \details{
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification, regression,
+and censored regression
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:

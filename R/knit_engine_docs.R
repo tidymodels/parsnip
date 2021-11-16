@@ -1,13 +1,12 @@
 #' Knit engine-specific documentation
 #' @param pattern A regular expression to specify which files to knit. The
 #' default knits all engine documentation files.
-#' @param ... Options to pass to [knitr::knit()] such as `quiet = TRUE`.
 #' @return A tibble with column `file` for the file name and `result` (a
 #' character vector that echos the output file name or, when there is
 #' a failure, the error message).
 #' @keywords internal
 #' @export
-knit_engine_docs <- function(pattern = NULL, ...) {
+knit_engine_docs <- function(pattern = NULL) {
   rmd_files <- list.files("man/rmd", pattern = "\\.Rmd", full.names = TRUE)
 
   if (!is.null(pattern)) {
@@ -24,8 +23,6 @@ knit_engine_docs <- function(pattern = NULL, ...) {
 }
 
 # TODO
-# - add a function to list extensions included here
-# - move all details files to parsnip
 # - simplify code to find model files
 # - add is_installed() to set code with all extra dependencies
 # - list models by mode
