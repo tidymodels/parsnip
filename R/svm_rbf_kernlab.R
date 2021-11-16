@@ -5,7 +5,7 @@
 #' For regression, the model optimizes a robust loss function that is only
 #' affected by very large model residuals.
 #'
-#' @includeRmd man/rmd/svm_rbf_kernlab.Rmd details
+#' @includeRmd man/rmd/svm_rbf_kernlab.md details
 #'
 #' @name details_svm_rbf_kernlab
 #' @keywords internal

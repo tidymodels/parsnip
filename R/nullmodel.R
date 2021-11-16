@@ -137,7 +137,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' \item \pkg{R}:  `"parsnip"`
 #' }
 #'
-#' @includeRmd man/rmd/null-model.Rmd details
+#' @includeRmd man/rmd/null-model.md details
 #'
 #' @seealso [fit.model_spec()]
 #' @examples

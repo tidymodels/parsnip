@@ -1084,7 +1084,7 @@ get_encoding <- function(model) {
 #'   1. Create an engine-specific R file in the `R` directory with the name
 #'  `{model}_{engine}.R` (e.g. `boost_tree_C5.0.R`). This has a small amount of
 #'  documentation, as well as the directives "`@name details_{model}_{engine}`"
-#'  and "`@includeRmd man/rmd/{model}_{engine}.Rmd details`".
+#'  and "`@includeRmd man/rmd/{model}_{engine}.md details`".
 #'
 #'   2. Copy the file in \pkg{parsnip} that is in `man/rmd/setup.Rmd` and put
 #'  it in the same place in your package.
