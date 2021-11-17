@@ -73,10 +73,11 @@ get_arg <- function(ns, f, arg) {
 
 get_dials <- function(x) {
   if (any(names(x) == "range")) {
-    cl <- rlang::call2(x$fun, .ns = x$pgk, range = x$range)
+    cl <- rlang::call2(x$fun, .ns = x$pkg, range = x$range)
   } else {
-    cl <- rlang::call2(x$fun, .ns = x$pgk)
+    cl <- rlang::call2(x$fun, .ns = x$pkg)
   }
+
   rlang::eval_tidy(cl)
 }
 
