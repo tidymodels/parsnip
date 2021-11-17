@@ -2,6 +2,7 @@ set_new_model("boost_tree")
 
 set_model_mode("boost_tree", "classification")
 set_model_mode("boost_tree", "regression")
+set_model_mode("boost_tree", "censored regression")
 
 # ------------------------------------------------------------------------------
 

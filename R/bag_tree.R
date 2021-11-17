@@ -122,3 +122,4 @@ check_args.bag_tree <- function(object) {
 set_new_model("bag_tree")
 set_model_mode("bag_tree", "classification")
 set_model_mode("bag_tree", "regression")
+set_model_mode("bag_tree", "censored regression")
