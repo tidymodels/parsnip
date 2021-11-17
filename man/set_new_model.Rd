@@ -109,7 +109,7 @@ package.
 }
 \details{
 These functions are available for users to add their
-own models or engines (in package or otherwise) so that they can
+own models or engines (in a package or otherwise) so that they can
 be accessed using \code{parsnip}. This is more thoroughly documented
 on the package web site (see references below).
 

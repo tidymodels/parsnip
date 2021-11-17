@@ -467,7 +467,7 @@ check_interface_val <- function(x) {
 #'  prediction objects.
 #' @keywords internal
 #' @details These functions are available for users to add their
-#'  own models or engines (in package or otherwise) so that they can
+#'  own models or engines (in a package or otherwise) so that they can
 #'  be accessed using `parsnip`. This is more thoroughly documented
 #'  on the package web site (see references below).
 #'
@@ -659,7 +659,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
-set_dependency <- function(model, eng, pkg= "parsnip") {
+set_dependency <- function(model, eng, pkg = "parsnip") {
   check_model_exists(model)
   check_eng_val(eng)
   check_pkg_val(pkg)
