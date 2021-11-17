@@ -42,6 +42,16 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
   translate()
 ```
 
+
+## Translation from parsnip to the original package (censored regression)
+
+```{r rpart-cens-reg}
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
+  set_engine("rpart") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
 ## Preprocessing requirements
 
 ```{r child = "template-tree-split-factors.Rmd"}
