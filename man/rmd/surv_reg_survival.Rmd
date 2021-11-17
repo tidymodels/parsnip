@@ -25,7 +25,7 @@ param$item
 
 ## Translation from parsnip to the original package
 
-```{r survival-reg}
+```{r survival-reg, warning = FALSE}
 surv_reg(dist = character(1)) %>% 
   set_engine("survival") %>% 
   set_mode("regression") %>% 
