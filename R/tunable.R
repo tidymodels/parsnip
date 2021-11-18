@@ -197,7 +197,6 @@ tunable_rand_forest <- function(x, ...) {
   if (x$engine == "randomForest") {
     res <- add_engine_parameters(res, randomForest_engine_args)
   }
-
   res
 }
 
