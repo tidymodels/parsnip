@@ -35,7 +35,7 @@
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
     <a class="navbar-brand me-2" href="../../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -117,15 +117,15 @@ Regression Example (<code>dbarts</code>)
   <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.0.7          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.1.4     </span>
   <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 0.1.6     </span>
   <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 0.1.1          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 0.2.4     </span>
-  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 0.1.7.<span style="color: #BB0000;">9002</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 0.1.0     </span>
-  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 0.3.4          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 0.0.8     </span>
+  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 0.1.7.<span style="color: #BB0000;">9003</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 0.1.0     </span>
+  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 0.3.4          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 0.0.9     </span>
   <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 0.1.17</span></code></pre>
 <pre><code><span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ─────────────────────────────────── tidymodels_conflicts() ──</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">purrr</span>::<span style="color: #00BB00;">discard()</span> masks <span style="color: #0000BB;">scales</span>::discard()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span>
-  <span class="co">## <span style="color: #0000BB;">•</span> Use suppressPackageStartupMessages() to eliminate package startup messages</span></code></pre>
+  <span class="co">## <span style="color: #0000BB;">•</span> Dig deeper into tidy modeling with R at <span style="color: #00BB00;">https://www.tmwr.org</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -156,7 +156,7 @@ Regression Example (<code>dbarts</code>)
   <span class="va">bt_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  1.5s </span>
+  <span class="co">## Fit time:  1.6s </span>
   <span class="co">## BART Model Specification ()</span></code></pre>
 <p>The holdout data can be predicted:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -203,7 +203,7 @@ Classification Example (<code>dbarts</code>)
   <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  207ms </span>
+  <span class="co">## Fit time:  233ms </span>
   <span class="co">## BART Model Specification ()</span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -266,7 +266,7 @@ Regression Example (<code>xgboost</code>)
   <span class="va">bt_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  52ms </span>
+  <span class="co">## Fit time:  54ms </span>
   <span class="co">## ##### xgb.Booster</span>
   <span class="co">## raw: 69.1 Kb </span>
   <span class="co">## call:</span>
@@ -332,12 +332,12 @@ Classification Example (<code>xgboost</code>)
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">bt_cls_fit</span> <span class="op">&lt;-</span> <span class="va">bt_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [19:31:58] WARNING: amalgamation/../src/learner.cc:1115: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</span></code></pre>
+<pre><code><span class="co">## [17:24:10] WARNING: amalgamation/../src/learner.cc:1115: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  14ms </span>
+  <span class="co">## Fit time:  17ms </span>
   <span class="co">## ##### xgb.Booster</span>
   <span class="co">## raw: 58 Kb </span>
   <span class="co">## call:</span>
@@ -412,7 +412,7 @@ Classification Example (<code>C5.0</code>)
   <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  17ms </span>
+  <span class="co">## Fit time:  18ms </span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
   <span class="co">## C5.0.default(x = x, y = y, trials = 15, control</span>
@@ -487,7 +487,7 @@ Regression Example (<code>rpart</code>)
   <span class="va">dt_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  20ms </span>
+  <span class="co">## Fit time:  23ms </span>
   <span class="co">## n= 5691 </span>
   <span class="co">## </span>
   <span class="co">## node), split, n, deviance, yval</span>
@@ -545,7 +545,7 @@ Classification Example (<code>rpart</code>)
   <span class="va">dt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  7ms </span>
+  <span class="co">## Fit time:  10ms </span>
   <span class="co">## n= 781 </span>
   <span class="co">## </span>
   <span class="co">## node), split, n, loss, yval, (yprob)</span>
@@ -609,7 +609,7 @@ Classification Example (<code>C5.0</code>)
   <span class="va">dt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  12ms </span>
+  <span class="co">## Fit time:  13ms </span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
   <span class="co">## C5.0.default(x = x, y = y, trials = 1, control</span>
@@ -685,7 +685,7 @@ Regression Example (<code>mgcv</code>)
   <span class="va">gam_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  214ms </span>
+  <span class="co">## Fit time:  112ms </span>
   <span class="co">## </span>
   <span class="co">## Family: gaussian </span>
   <span class="co">## Link function: identity </span>
@@ -741,7 +741,7 @@ Classification Example (<code>mgcv</code>)
   <span class="va">gam_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  14ms </span>
+  <span class="co">## Fit time:  15ms </span>
   <span class="co">## </span>
   <span class="co">## Family: binomial </span>
   <span class="co">## Link function: logit </span>
@@ -971,7 +971,7 @@ Regression Example (<code>keras</code>)
 <code class="sourceCode R">  <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  6.2s </span>
+  <span class="co">## Fit time:  6.8s </span>
   <span class="co">## Model</span>
   <span class="co">## Model: "sequential"</span>
   <span class="co">## __________________________________________________________________________</span>
@@ -992,12 +992,12 @@ Regression Example (<code>keras</code>)
   <span class="co">##   .pred</span>
   <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
   <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span>
-  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.5 </span>
-  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.8 </span>
-  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.5 </span>
-  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.8 </span>
-  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.40</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.04</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span>
+  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.9 </span>
+  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span>
+  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span>
+  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.42</span>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.06</span></code></pre>
 </details><details id="linear-reg-stan"><p><summary>With the <code>"stan"</code> engine</summary></p>
 <h3>
 Regression Example (<code>stan</code>)
@@ -1029,7 +1029,7 @@ Regression Example (<code>stan</code>)
   <span class="va">linreg_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  2.4s </span>
+  <span class="co">## Fit time:  2.9s </span>
   <span class="co">## stan_glm</span>
   <span class="co">##  family:       gaussian [identity]</span>
   <span class="co">##  formula:      ridership ~ .</span>
@@ -1095,7 +1095,7 @@ Classification Example (<code>glm</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  4ms </span>
+  <span class="co">## Fit time:  6ms </span>
   <span class="co">## </span>
   <span class="co">## Call:  stats::glm(formula = Class ~ ., family = stats::binomial, data = data)</span>
   <span class="co">## </span>
@@ -1156,7 +1156,7 @@ Classification Example (<code>glmnet</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  9ms </span>
+  <span class="co">## Fit time:  10ms </span>
   <span class="co">## </span>
   <span class="co">## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "binomial") </span>
   <span class="co">## </span>
@@ -1276,7 +1276,7 @@ Classification Example (<code>keras</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  813ms </span>
+  <span class="co">## Fit time:  918ms </span>
   <span class="co">## Model</span>
   <span class="co">## Model: "sequential_1"</span>
   <span class="co">## __________________________________________________________________________</span>
@@ -1313,16 +1313,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span>
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.551        0.449</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.599        0.401</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.550        0.450</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.598        0.402</span>
   <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class2             0.498        0.502</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.770        0.230</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.679        0.321</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.718        0.282</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.644        0.356</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.540        0.460</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.787        0.213</span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.761        0.239</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.769        0.231</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.678        0.322</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.717        0.283</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.643        0.357</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.539        0.461</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.786        0.214</span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.760        0.240</span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><p><summary>With the <code>"LiblineaR"</code> engine</summary></p>
 <h3>
 Classification Example (<code>LiblineaR</code>)
@@ -1354,7 +1354,7 @@ Classification Example (<code>LiblineaR</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  4ms </span>
+  <span class="co">## Fit time:  3ms </span>
   <span class="co">## $TypeDetail</span>
   <span class="co">## [1] "L2-regularized logistic regression primal (L2R_LR)"</span>
   <span class="co">## </span>
@@ -1424,7 +1424,7 @@ Classification Example (<code>stan</code>)
   <span class="va">logreg_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  2.6s </span>
+  <span class="co">## Fit time:  2.8s </span>
   <span class="co">## stan_glm</span>
   <span class="co">##  family:       binomial [logit]</span>
   <span class="co">##  formula:      Class ~ .</span>
@@ -1501,7 +1501,7 @@ Regression Example (<code>earth</code>)
   <span class="va">mars_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  31ms </span>
+  <span class="co">## Fit time:  37ms </span>
   <span class="co">## Selected 5 of 6 terms, and 2 of 2 predictors</span>
   <span class="co">## Termination condition: RSq changed by less than 0.001 at 6 terms</span>
   <span class="co">## Importance: Clark_Lake, Quincy_Wells</span>
@@ -1625,7 +1625,7 @@ Regression Example (<code>nnet</code>)
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  152ms </span>
+  <span class="co">## Fit time:  159ms </span>
   <span class="co">## a 2-5-1 network with 21 weights</span>
   <span class="co">## inputs: Clark_Lake Quincy_Wells </span>
   <span class="co">## output(s): ridership </span>
@@ -1676,7 +1676,7 @@ Classification Example (<code>nnet</code>)
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  31ms </span>
+  <span class="co">## Fit time:  37ms </span>
   <span class="co">## a 2-5-1 network with 21 weights</span>
   <span class="co">## inputs: A B </span>
   <span class="co">## output(s): Class </span>
@@ -1737,7 +1737,7 @@ Regression Example (<code>keras</code>)
   <span class="va">mlp_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  3.3s </span>
+  <span class="co">## Fit time:  3.9s </span>
   <span class="co">## Model</span>
   <span class="co">## Model: "sequential_2"</span>
   <span class="co">## __________________________________________________________________________</span>
@@ -1762,8 +1762,8 @@ Regression Example (<code>keras</code>)
   <span class="co">## <span style="color: #BCBCBC;">3</span>  7.05</span>
   <span class="co">## <span style="color: #BCBCBC;">4</span>  7.05</span>
   <span class="co">## <span style="color: #BCBCBC;">5</span>  7.05</span>
-  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.56</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.33</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.39</span>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.14</span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1797,7 +1797,7 @@ Classification Example (<code>keras</code>)
   <span class="va">mlp_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  879ms </span>
+  <span class="co">## Fit time:  965ms </span>
   <span class="co">## Model</span>
   <span class="co">## Model: "sequential_3"</span>
   <span class="co">## __________________________________________________________________________</span>
@@ -1835,15 +1835,15 @@ Classification Example (<code>keras</code>)
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
   <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.527        0.473</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.613        0.387</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.575        0.425</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.451        0.549</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.463        0.537</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.412        0.588</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.526        0.474</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.541        0.459</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.665        0.335</span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.381        0.619</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.612        0.388</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.574        0.426</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.450        0.550</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.462        0.538</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.411        0.589</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.525        0.475</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.540        0.460</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.663        0.337</span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.380        0.620</span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -1882,7 +1882,7 @@ Classification Example (<code>glmnet</code>)
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  13ms </span>
+<span class="co">## Fit time:  34ms </span>
 <span class="co">## </span>
 <span class="co">## Call:  glmnet::glmnet(x = maybe_matrix(x), y = y, family = "multinomial") </span>
 <span class="co">## </span>
@@ -1993,7 +1993,7 @@ Classification Example (<code>keras</code>)
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  714ms </span>
+<span class="co">## Fit time:  746ms </span>
 <span class="co">## Model</span>
 <span class="co">## Model: "sequential_4"</span>
 <span class="co">## __________________________________________________________________________</span>
@@ -2030,11 +2030,11 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span>
 <span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> Biscoe             0.654    5.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-23</span>           0.346</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> Biscoe             0.685    5.10<span style="color: #949494;">e</span><span style="color: #BB0000;">-28</span>           0.315</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> Biscoe             0.661    4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span>           0.339</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> Biscoe             0.686    3.56<span style="color: #949494;">e</span><span style="color: #BB0000;">-28</span>           0.314</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> Biscoe             0.659    8.73<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span>           0.341</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> Biscoe             0.663    5.78<span style="color: #949494;">e</span><span style="color: #BB0000;">-23</span>           0.337</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> Biscoe             0.694    6.03<span style="color: #949494;">e</span><span style="color: #BB0000;">-28</span>           0.306</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> Biscoe             0.669    5.40<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span>           0.331</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> Biscoe             0.695    4.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-28</span>           0.305</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> Biscoe             0.668    1.01<span style="color: #949494;">e</span><span style="color: #BB0000;">-23</span>           0.332</span></code></pre>
 </details><details id="multinom-reg-nnet"><p><summary>With the <code>"nnet"</code> engine</summary></p>
 <h3>
 Classification Example (<code>nnet</code>)
@@ -2067,7 +2067,7 @@ Classification Example (<code>nnet</code>)
 <span class="va">mr_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  4ms </span>
+<span class="co">## Fit time:  6ms </span>
 <span class="co">## Call:</span>
 <span class="co">## nnet::multinom(formula = island ~ ., data = data, decay = ~0.1, </span>
 <span class="co">##     trace = FALSE)</span>
@@ -2135,7 +2135,7 @@ Regression Example (<code>kknn</code>)
 <span class="va">knn_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  190ms </span>
+<span class="co">## Fit time:  223ms </span>
 <span class="co">## </span>
 <span class="co">## Call:</span>
 <span class="co">## kknn::train.kknn(formula = ridership ~ ., data = data, ks = min_rows(5,     data, 5), kernel = ~"triangular")</span>
@@ -2190,7 +2190,7 @@ Classification Example (<code>kknn</code>)
 <span class="va">knn_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  25ms </span>
+<span class="co">## Fit time:  33ms </span>
 <span class="co">## </span>
 <span class="co">## Call:</span>
 <span class="co">## kknn::train.kknn(formula = Class ~ ., data = data, ks = min_rows(11,     data, 5), kernel = ~"triangular")</span>
@@ -2261,7 +2261,7 @@ Regression Example (<code>ranger</code>)
   <span class="va">rf_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  1.3s </span>
+  <span class="co">## Fit time:  1.4s </span>
   <span class="co">## Ranger result</span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
@@ -2323,7 +2323,7 @@ Classification Example (<code>ranger</code>)
   <span class="va">rf_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  94ms </span>
+  <span class="co">## Fit time:  110ms </span>
   <span class="co">## Ranger result</span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
@@ -2394,7 +2394,7 @@ Regression Example (<code>randomForest</code>)
   <span class="va">rf_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  4.9s </span>
+  <span class="co">## Fit time:  5.6s </span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
   <span class="co">##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) </span>
@@ -2450,7 +2450,7 @@ Classification Example (<code>randomForest</code>)
   <span class="va">rf_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  64ms </span>
+  <span class="co">## Fit time:  74ms </span>
   <span class="co">## </span>
   <span class="co">## Call:</span>
   <span class="co">##  randomForest(x = maybe_data_frame(x), y = y, ntree = ~200, nodesize = min_rows(~5,      x)) </span>
@@ -2589,7 +2589,7 @@ Classification Example (<code>LiblineaR</code>)
   <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  380ms </span>
+  <span class="co">## Fit time:  439ms </span>
   <span class="co">## $TypeDetail</span>
   <span class="co">## [1] "L2-regularized L2-loss support vector classification dual (L2R_L2LOSS_SVC_DUAL)"</span>
   <span class="co">## </span>
@@ -2667,7 +2667,7 @@ Regression Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  623ms </span>
+  <span class="co">## Fit time:  751ms </span>
   <span class="co">## Support Vector Machine object of class "ksvm" </span>
   <span class="co">## </span>
   <span class="co">## SV type: eps-svr  (regression) </span>
@@ -2726,7 +2726,7 @@ Classification Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  552ms </span>
+  <span class="co">## Fit time:  639ms </span>
   <span class="co">## Support Vector Machine object of class "ksvm" </span>
   <span class="co">## </span>
   <span class="co">## SV type: C-svc  (classification) </span>
@@ -2803,7 +2803,7 @@ Regression Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  872ms </span>
+  <span class="co">## Fit time:  1s </span>
   <span class="co">## Support Vector Machine object of class "ksvm" </span>
   <span class="co">## </span>
   <span class="co">## SV type: eps-svr  (regression) </span>
@@ -2863,7 +2863,7 @@ Classification Example (<code>kernlab</code>)
 <code class="sourceCode R">  <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## Fit time:  44ms </span>
+  <span class="co">## Fit time:  61ms </span>
   <span class="co">## Support Vector Machine object of class "ksvm" </span>
   <span class="co">## </span>
   <span class="co">## SV type: C-svc  (classification) </span>
@@ -2939,7 +2939,7 @@ Regression Example (<code>kernlab</code>)
 <span class="va">svm_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  1.1s </span>
+<span class="co">## Fit time:  1.3s </span>
 <span class="co">## Support Vector Machine object of class "ksvm" </span>
 <span class="co">## </span>
 <span class="co">## SV type: eps-svr  (regression) </span>
@@ -2997,7 +2997,7 @@ Classification Example (<code>kernlab</code>)
 <span class="va">svm_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
 <span class="co">## </span>
-<span class="co">## Fit time:  56ms </span>
+<span class="co">## Fit time:  64ms </span>
 <span class="co">## Support Vector Machine object of class "ksvm" </span>
 <span class="co">## </span>
 <span class="co">## SV type: C-svc  (classification) </span>
