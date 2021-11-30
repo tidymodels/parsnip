@@ -84,16 +84,27 @@ test_that("elapsed time parsnip mods", {
   lm1 <-
     linear_reg() %>%
     set_engine("lm") %>%
-    fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
+    fit_xy(x = mtcars[, 2:4], y = mtcars$mpg,
+           control = control_parsnip(verbosity = 2L))
 
   lm2 <-
     linear_reg() %>%
     set_engine("lm") %>%
-    fit(mpg ~ ., data = mtcars)
+    fit(mpg ~ ., data = mtcars,
+        control = control_parsnip(verbosity = 2))
 
   expect_output(print(lm1), "Fit time:")
   expect_output(print(lm2), "Fit time:")
   expect_true(!is.null(lm1$elapsed))
   expect_true(!is.null(lm2$elapsed))
+
+  lm3 <-
+    linear_reg() %>%
+    set_engine("lm") %>%
+    fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
+
+  output3 <- capture.output(print(lm3))
+
+  expect_equal(sum(grepl("Fit time", output3)), 0)
 })
 
