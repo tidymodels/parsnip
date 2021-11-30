@@ -9,10 +9,12 @@ to fit the model, along with any arguments specific to that software."><meta pro
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -47,11 +49,12 @@ to fit the model, along with any arguments specific to that software."><meta pro
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Declare a computational engine and specific arguments</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/engines.R" class="external-link"><code>R/engines.R</code></a></small>
       <div class="d-none name"><code>set_engine.Rd</code></div>
@@ -62,12 +65,11 @@ to fit the model, along with any arguments specific to that software."><meta pro
 to fit the model, along with any arguments specific to that software.</p>
     </div>
 
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
-    <pre class="sourceCode r"><code><span class="fu">set_engine</span><span class="op">(</span><span class="va">object</span>, <span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></code></pre>
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">set_engine</span><span class="op">(</span><span class="va">object</span>, <span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
@@ -121,11 +123,10 @@ engines available to each model specification.</p>
 <li><p><code><a href="svm_poly.html">svm_poly()</a></code>: kernlab</p></li>
 <li><p><code><a href="svm_rbf.html">svm_rbf()</a></code>: kernlab, liquidSVM</p></li>
 </ul></div>
-    </div>
 
-    <div id="examples">
-    <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, set general arguments using the standardized names</span></span>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, set general arguments using the standardized names</span></span>
 <span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span></span>
 <span class="r-in">  <span class="fu"><a href="logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="co"># now say how you want to fit the model and another other options</span></span>
@@ -147,17 +148,14 @@ engines available to each model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = 1/3, nlambda = 10, family = "binomial")</span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

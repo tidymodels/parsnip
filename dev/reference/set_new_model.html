@@ -11,10 +11,12 @@ package."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -49,11 +51,12 @@ package."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Tools to Register Models</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/aaa_models.R" class="external-link"><code>R/aaa_models.R</code></a></small>
       <div class="d-none name"><code>set_new_model.Rd</code></div>
@@ -65,9 +68,9 @@ that there are no conflicts with the underlying model structures used by the
 package.</p>
     </div>
 
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
-    <pre class="sourceCode r"><code><span class="fu">check_model_exists</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_model_exists</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 
 <span class="fu">check_model_doesnt_exist</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 
@@ -97,10 +100,9 @@ package.</p>
 
 <span class="fu">set_encoding</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">options</span><span class="op">)</span>
 
-<span class="fu">get_encoding</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre>
+<span class="fu">get_encoding</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre></div>
     </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>model</dt>
@@ -202,11 +204,10 @@ and tuning.</p>
     <p>"How to build a parsnip model"
 <a href="https://www.tidymodels.org/learn/develop/models/" class="external-link">https://www.tidymodels.org/learn/develop/models/</a></p>
     </div>
-    </div>
 
-    <div id="examples">
-    <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># set_new_model("shallow_learning_model")</span></span>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># set_new_model("shallow_learning_model")</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Show the information about a model:</span></span>
 <span class="r-in"><span class="fu">show_model_info</span><span class="op">(</span><span class="st">"rand_forest"</span><span class="op">)</span></span>
@@ -251,17 +252,14 @@ and tuning.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

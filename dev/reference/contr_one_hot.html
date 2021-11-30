@@ -9,10 +9,12 @@ each level of each factor."><meta property="og:image" content="https://parsnip.t
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -47,11 +49,12 @@ each level of each factor."><meta property="og:image" content="https://parsnip.t
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Contrast function for one-hot encodings</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/contr_one_hot.R" class="external-link"><code>R/contr_one_hot.R</code></a></small>
       <div class="d-none name"><code>contr_one_hot.Rd</code></div>
@@ -62,12 +65,11 @@ each level of each factor."><meta property="og:image" content="https://parsnip.t
 each level of each factor.</p>
     </div>
 
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
-    <pre class="sourceCode r"><code><span class="fu">contr_one_hot</span><span class="op">(</span><span class="va">n</span>, contrasts <span class="op">=</span> <span class="cn">TRUE</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre>
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">contr_one_hot</span><span class="op">(</span><span class="va">n</span>, contrasts <span class="op">=</span> <span class="cn">TRUE</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>n</dt>
@@ -94,15 +96,15 @@ first level of the factor.</p>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org" class="external-link">modeldata</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## [1] "Adelie"    "Chinstrap" "Gentoo"</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">island</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## [1] "Biscoe"    "Dream"     "Torgersen"</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">island</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
-<span class="co">## [5] "islandTorgersen"</span></code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] "Adelie"    "Chinstrap" "Gentoo"</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">island</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] "Biscoe"    "Dream"     "Torgersen"</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">island</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
+<span class="co">## [5] "islandTorgersen"</span></code></pre></div>
 
 <p>For a formula with no intercept, the first factor is expanded to
 indicators for <em>all</em> factor levels but all other factors are expanded to
 all but one (as above):</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">species</span> <span class="op">+</span> <span class="va">island</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
-<span class="co">## [5] "islandTorgersen"</span></code></pre>
+  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] "speciesAdelie"    "speciesChinstrap" "speciesGentoo"    "islandDream"     </span>
+<span class="co">## [5] "islandTorgersen"</span></code></pre></div>
 
 <p>For inference, this hybrid encoding can be problematic.</p>
 <p>To generate all indicators, use this contrast:</p><div class="sourceCode r"><pre><code><span class="co"># Switch out the contrast method</span>
@@ -112,23 +114,19 @@ all but one (as above):</p><div class="sourceCode r"><pre><code><span class="fu"
 <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="va">new_contr</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">island</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   </span>
-<span class="co">## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="va">old_contr</span><span class="op">)</span></code></pre><p></p></div>
+  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] "(Intercept)"      "speciesAdelie"    "speciesChinstrap" "speciesGentoo"   </span>
+<span class="co">## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="va">old_contr</span><span class="op">)</span></code></pre><p></p></div>
 <p>Removing the intercept here does not affect the factor encodings.</p>
     </div>
-    </div>
 
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

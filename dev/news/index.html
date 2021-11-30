@@ -7,10 +7,12 @@
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,11 +47,12 @@
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-news" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
       <small>Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
@@ -68,7 +71,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
-<ul><li>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</li>
+<ul><li><p>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</p></li>
+<li><p>The fit time is only calculated when the <code>verbosity</code> argument of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> is 2L or greater. Also, the call to <code><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time()</a></code> now uses <code>gcFirst = FALSE</code>. (<a href="https://github.com/tidymodels/parsnip/issues/611" class="external-link">#611</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -315,19 +319,14 @@
 <code>predict</code> methods were <a href="https://github.com/tidymodels/parsnip/issues/34" class="external-link">overhauled</a> to be <a href="https://github.com/tidymodels/parsnip/issues/41" class="external-link">consistent</a>.</li>
 <li>MARS was added.</li>
 </ul></div>
-  </div>
-
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

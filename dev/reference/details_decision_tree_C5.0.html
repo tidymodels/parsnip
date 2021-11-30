@@ -9,10 +9,12 @@ creates a tree-based structure."><meta property="og:image" content="https://pars
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -47,11 +49,12 @@ creates a tree-based structure."><meta property="og:image" content="https://pars
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Decision trees via C5.0</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/decision_tree_C5.0.R" class="external-link"><code>R/decision_tree_C5.0.R</code></a></small>
       <div class="d-none name"><code>details_decision_tree_C5.0.Rd</code></div>
@@ -62,8 +65,10 @@ creates a tree-based structure."><meta property="og:image" content="https://pars
 creates a tree-based structure.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For this engine, there is a single mode: classification</p><div class="section">
@@ -78,7 +83,7 @@ creates a tree-based structure.</p>
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/decision_tree.html">decision_tree</a></span><span class="op">(</span>min_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"C5.0"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## Decision Tree Model Specification (classification)</span>
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Decision Tree Model Specification (classification)</span>
 <span class="co">## </span>
 <span class="co">## Main Arguments:</span>
 <span class="co">##   min_n = integer()</span>
@@ -87,7 +92,7 @@ creates a tree-based structure.</p>
 <span class="co">## </span>
 <span class="co">## Model fit template:</span>
 <span class="co">## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class="co">##     minCases = integer(), trials = 1)</span></code></pre>
+<span class="co">##     minCases = integer(), trials = 1)</span></code></pre></div>
 
 <p><code><a href="C5.0_train.html">C5.0_train()</a></code> is a wrapper around
 <code><a href="https://topepo.github.io/C5.0/reference/C5.0.html" class="external-link">C50::C5.0()</a></code> that makes it easier to run this model.</p>
@@ -120,19 +125,15 @@ Springer.</p></li>
 </ul></div>
 
     </div>
-    </div>
 
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
