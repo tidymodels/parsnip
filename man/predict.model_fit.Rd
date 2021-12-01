@@ -32,8 +32,8 @@ function cannot be passed here (see \code{opts}). There are some
 \code{parsnip} related options that can be passed, depending on the
 value of \code{type}. Possible arguments are:
 \itemize{
-\item \code{level}: for \code{type}s of "conf_int" and "pred_int" this
-is the parameter for the tail area of the intervals
+\item \code{level}: for \code{type}s of "conf_int", "pred_int", and "survival"
+this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
 Default value is 0.95.
 \item \code{std_error}: add the standard error of fit or prediction (on
@@ -72,13 +72,11 @@ the unadulterated results of the prediction function.
 For censored regression:
 \itemize{
 \item \code{type = "time"} produces a column \code{.pred_time}.
-\item \code{type = "hazard"} results in a column \code{.pred_hazard}.
-\item \code{type = "survival"} results in a list column containing tibbles with a
-\code{.pred_survival} column.
+\item \code{type = "hazard"} results in a list column \code{.pred} containing tibbles
+with a column \code{.pred_hazard}.
+\item \code{type = "survival"} results in a list column \code{.pred} containing tibbles
+with a \code{.pred_survival} column.
 }
-
-For the last two types, the results are a nested tibble with an overall
-column called \code{.pred} with sub-tibbles with the above format.
 
 In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots

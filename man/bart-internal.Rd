@@ -54,13 +54,11 @@ the unadulterated results of the prediction function.
 For censored regression:
 \itemize{
 \item \code{type = "time"} produces a column \code{.pred_time}.
-\item \code{type = "hazard"} results in a column \code{.pred_hazard}.
-\item \code{type = "survival"} results in a list column containing tibbles with a
-\code{.pred_survival} column.
+\item \code{type = "hazard"} results in a list column \code{.pred} containing tibbles
+with a column \code{.pred_hazard}.
+\item \code{type = "survival"} results in a list column \code{.pred} containing tibbles
+with a \code{.pred_survival} column.
 }
-
-For the last two types, the results are a nested tibble with an overall
-column called \code{.pred} with sub-tibbles with the above format.
 
 In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots

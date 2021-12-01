@@ -37,7 +37,7 @@ predict_numeric(object, ...)
 
 \method{predict_quantile}{model_fit}(object, new_data, quantile = (1:9)/10, ...)
 
-\method{predict_survival}{model_fit}(object, new_data, time, ...)
+\method{predict_survival}{model_fit}(object, new_data, time, level = 0.95, ...)
 
 predict_survival(object, ...)
 
@@ -55,8 +55,8 @@ function cannot be passed here (see \code{opts}). There are some
 \code{parsnip} related options that can be passed, depending on the
 value of \code{type}. Possible arguments are:
 \itemize{
-\item \code{level}: for \code{type}s of "conf_int" and "pred_int" this
-is the parameter for the tail area of the intervals
+\item \code{level}: for \code{type}s of "conf_int", "pred_int", and "survival"
+this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
 Default value is 0.95.
 \item \code{std_error}: add the standard error of fit or prediction (on
