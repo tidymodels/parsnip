@@ -19,6 +19,9 @@
 #'  `parsnip` related options that can be passed, depending on the
 #'  value of `type`. Possible arguments are:
 #'  \itemize{
+#'     \item `interval`: for `type`s of "survival" and "quantile", should
+#'            interval estimates be added, if available? Options are `"none"`
+#'            and `"confidence"`.
 #'     \item `level`: for `type`s of "conf_int", "pred_int", and "survival"
 #'            this is the parameter for the tail area of the intervals
 #'            (e.g. confidence level for confidence intervals).
@@ -308,7 +311,7 @@ check_pred_type_dots <- function(object, type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("level", "std_error", "quantile", "time", "increasing")
+  other_args <- c("interval", "level", "std_error", "quantile", "time", "increasing")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]

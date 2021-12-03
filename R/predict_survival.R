@@ -5,7 +5,7 @@
 #' @export predict_survival.model_fit
 #' @export
 predict_survival.model_fit <-
-  function(object, new_data, time, level = 0.95, ...) {
+  function(object, new_data, time, interval = "none", level = 0.95, ...) {
 
     check_spec_pred_type(object, "survival")
 
