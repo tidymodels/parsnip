@@ -143,10 +143,11 @@ set_pred(
   type = "class",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      object$lvl[x + 1]
+    post = function(results, object) {
+      cls_index <- apply(results, 1, which.max)
+      factor(object$lvl[cls_index], levels = object$lvl)
     },
-    func = c(pkg = "keras", fun = "predict_classes"),
+    func = c(pkg = "keras", fun = "predict_proba"),
     args =
       list(
         object = quote(object$fit),

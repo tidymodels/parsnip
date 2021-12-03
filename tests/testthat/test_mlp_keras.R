@@ -7,7 +7,7 @@ library(tibble)
 context("simple neural network execution with keras")
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
-
+lvls <- levels(hpc$class)
 
 num_pred <- names(hpc)[1:4]
 
@@ -74,8 +74,9 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- keras::predict_classes(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
-  xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
+  xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  cls_index <- apply(xy_pred, 1, which.max)
+  xy_pred <- factor(lvls[cls_index], levels = lvls)
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
   keras::backend()$clear_session()
@@ -87,8 +88,9 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  form_pred <- keras::predict_classes(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
-  form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
+  form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  cls_index <- apply(form_pred, 1, which.max)
+  form_pred <- factor(lvls[cls_index], levels = lvls)
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
   keras::backend()$clear_session()
