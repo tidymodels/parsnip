@@ -32,6 +32,7 @@ control_parsnip <- function(verbosity = 1L, catch = FALSE) {
 #' @export
 #' @rdname control_parsnip
 fit_control <- function(verbosity = 1L, catch = FALSE) {
+  lifecycle::deprecate_soft("0.1.8", "fit_control()", "control_parsnip()")
   control_parsnip(verbosity = verbosity, catch = catch)
 }
 
