@@ -17,6 +17,8 @@
  * When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates). 
  
  * The fit time is only calculated when the `verbosity` argument of `control_parsnip()` is 2L or greater. Also, the call to `system.time()` now uses `gcFirst = FALSE`. (#611)
+ 
+ * `fit_control()` is soft-deprecated in favor of `control_parsnip()`. 
 
 # parsnip 0.1.7
 
