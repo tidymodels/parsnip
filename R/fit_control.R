@@ -1,5 +1,8 @@
 #' Control the fit function
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Pass options to the [fit.model_spec()] function to control its
 #' output and computations
 #'

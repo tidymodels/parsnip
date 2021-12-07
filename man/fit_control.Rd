@@ -23,6 +23,8 @@ An S3 object with class "control_parsnip" that is a named list
 with the results of the function call
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Pass options to the \code{\link[=fit.model_spec]{fit.model_spec()}} function to control its
 output and computations
 }
