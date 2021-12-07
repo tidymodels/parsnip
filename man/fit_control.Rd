@@ -35,3 +35,4 @@ output and computations
 fit_control(verbosity = 2L)
 
 }
+\keyword{internal}

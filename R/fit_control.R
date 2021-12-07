@@ -25,6 +25,7 @@
 #' `fit_control()` is deprecated in favor of `control_parsnip()`.
 #'
 #' @export
+#' @keywords internal
 fit_control <- function(verbosity = 1L, catch = FALSE) {
   lifecycle::deprecate_soft("0.1.8", "fit_control()", "control_parsnip()")
   control_parsnip(verbosity = verbosity, catch = catch)
