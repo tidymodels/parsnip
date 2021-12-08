@@ -73,6 +73,7 @@
 <h3 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
 <ul><li><p>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</p></li>
 <li><p>The fit time is only calculated when the <code>verbosity</code> argument of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> is 2L or greater. Also, the call to <code><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time()</a></code> now uses <code>gcFirst = FALSE</code>. (<a href="https://github.com/tidymodels/parsnip/issues/611" class="external-link">#611</a>)</p></li>
+<li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
 <li><p>Argument <code>interval</code> was added for prediction: For types “survival” and “quantile”, estimates for the confidence or prediction interval can be added if available (<a href="https://github.com/tidymodels/parsnip/issues/615" class="external-link">#615</a>).</p></li>
 </ul></div>
 </div>
@@ -220,7 +221,7 @@
 <ul><li><p>The time elapsed during model fitting is stored in the <code>$elapsed</code> slot of the parsnip model object, and is printed when the model object is printed.</p></li>
 <li><p>Some default parameter ranges were updated for SVM, KNN, and MARS models.</p></li>
 <li><p>The model <code>udpate()</code> methods gained a <code>parameters</code> argument for cases when the parameters are contained in a tibble or list.</p></li>
-<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
+<li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="fixes-0-0-4">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-0-4"></a></h3>
@@ -264,7 +265,7 @@
 <div class="section level3">
 <h3 id="other-changes-0-0-2">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-0-2"></a></h3>
 <ul><li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html" class="external-link">varying_args()</a></code> now has a <code>full</code> argument to control whether the full set of possible varying arguments is returned (as opposed to only the arguments that are actually varying).</p></li>
-<li><p><code><a href="../reference/control_parsnip.html">fit_control()</a></code> not returns an S3 method.</p></li>
+<li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> not returns an S3 method.</p></li>
 <li><p>For classification models, an error occurs if the outcome data are not encoded as factors (<a href="https://github.com/tidymodels/parsnip/issues/115" class="external-link">#115</a>).</p></li>
 <li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
 <li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
