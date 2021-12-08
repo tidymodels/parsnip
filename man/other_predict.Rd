@@ -35,7 +35,14 @@ predict_linear_pred(object, ...)
 
 predict_numeric(object, ...)
 
-\method{predict_quantile}{model_fit}(object, new_data, interval = "none", quantile = (1:9)/10, ...)
+\method{predict_quantile}{model_fit}(
+  object,
+  new_data,
+  quantile = (1:9)/10,
+  interval = "none",
+  level = 0.95,
+  ...
+)
 
 \method{predict_survival}{model_fit}(object, new_data, time, interval = "none", level = 0.95, ...)
 

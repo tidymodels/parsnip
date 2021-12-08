@@ -6,8 +6,12 @@
 #' @method predict_quantile model_fit
 #' @export predict_quantile.model_fit
 #' @export
-predict_quantile.model_fit <-
-  function(object, new_data, interval = "none", quantile = (1:9)/10, ...) {
+predict_quantile.model_fit <- function(object,
+                                       new_data,
+                                       quantile = (1:9)/10,
+                                       interval = "none",
+                                       level = 0.95,
+                                       ...) {
 
     check_spec_pred_type(object, "quantile")
 
