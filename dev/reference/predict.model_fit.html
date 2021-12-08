@@ -99,8 +99,11 @@ new data being predicted.</p></dd>
 <dd><p>Arguments to the underlying model's prediction
 function cannot be passed here (see <code>opts</code>). There are some
 <code>parsnip</code> related options that can be passed, depending on the
-value of <code>type</code>. Possible arguments are:</p><ul><li><p><code>level</code>: for <code>type</code>s of "conf_int" and "pred_int" this
-is the parameter for the tail area of the intervals
+value of <code>type</code>. Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code>s of "survival" and "quantile", should
+interval estimates be added, if available? Options are <code>"none"</code>
+and <code>"confidence"</code>.</p></li>
+<li><p><code>level</code>: for <code>type</code>s of "conf_int", "pred_int", and "survival"
+this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
 Default value is 0.95.</p></li>
 <li><p><code>std_error</code>: add the standard error of fit or prediction (on
@@ -131,12 +134,11 @@ a list-column. Each list element contains a tibble with columns
 Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
 the unadulterated results of the prediction function.
 For censored regression:</p><ul><li><p><code>type = "time"</code> produces a column <code>.pred_time</code>.</p></li>
-<li><p><code>type = "hazard"</code> results in a column <code>.pred_hazard</code>.</p></li>
-<li><p><code>type = "survival"</code> results in a list column containing tibbles with a
-<code>.pred_survival</code> column.</p></li>
-</ul><p>For the last two types, the results are a nested tibble with an overall
-column called <code>.pred</code> with sub-tibbles with the above format.
-In the case of Spark-based models, since table columns cannot
+<li><p><code>type = "hazard"</code> results in a list column <code>.pred</code> containing tibbles
+with a column <code>.pred_hazard</code>.</p></li>
+<li><p><code>type = "survival"</code> results in a list column <code>.pred</code> containing tibbles
+with a <code>.pred_survival</code> column.</p></li>
+</ul><p>In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
 type-specific prediction functions.
@@ -278,7 +280,7 @@ produces. Set <code>increasing = FALSE</code> to suppress this behavior.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
   </div></footer></body></html>
