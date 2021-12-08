@@ -162,10 +162,11 @@ update.bart <-
   }
 
 
+#' Developer functions for predictions via BART models
 #' @export
 #' @keywords internal
 #' @name bart-internal
-#' @inherit predict.model_fit
+#' @inheritParams predict.model_fit
 #' @param obj A parsnip object.
 #' @param ci Confidence (TRUE) or prediction interval (FALSE)
 #' @param level Confidence level.
