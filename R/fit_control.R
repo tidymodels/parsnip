@@ -1,5 +1,8 @@
 #' Control the fit function
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Pass options to the [fit.model_spec()] function to control its
 #' output and computations
 #'
@@ -16,22 +19,14 @@
 #' with the results of the function call
 #'
 #' @examples
-#' control_parsnip(verbosity = 2L)
+#' fit_control(verbosity = 2L)
+#'
+#' @details
+#' `fit_control()` is deprecated in favor of `control_parsnip()`.
 #'
 #' @export
-control_parsnip <- function(verbosity = 1L, catch = FALSE) {
-  res <- list(verbosity = verbosity, catch = catch)
-  res <- check_control(res)
-  class(res) <- "control_parsnip"
-  res
-}
-
-#' @export
-print.control_parsnip <- function(x, ...) {
-  cat("parsnip control object\n")
-  if (x$verbosity > 1)
-    cat(" - verbose level", x$verbosity, "\n")
-  if (x$catch)
-    cat(" - fit errors will be caught\n")
-  invisible(x)
+#' @keywords internal
+fit_control <- function(verbosity = 1L, catch = FALSE) {
+  lifecycle::deprecate_soft("0.1.8", "fit_control()", "control_parsnip()")
+  control_parsnip(verbosity = verbosity, catch = catch)
 }

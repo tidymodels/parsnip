@@ -54,7 +54,7 @@ reference:
       - extract-parsnip
       - fit.model_spec
       - fit_xy
-      - fit_control
+      - control_parsnip
       - glance.model_fit
       - model_fit
       - model_spec

@@ -18,7 +18,10 @@
  
 * The fit time is only calculated when the `verbosity` argument of `control_parsnip()` is 2L or greater. Also, the call to `system.time()` now uses `gcFirst = FALSE`. (#611)
  
+* `fit_control()` is soft-deprecated in favor of `control_parsnip()`. 
+
 * Argument `interval` was added for prediction: For types "survival" and "quantile", estimates for the confidence or prediction interval can be added if available (#615).
+
 
 # parsnip 0.1.7
 
