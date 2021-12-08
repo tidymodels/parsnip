@@ -35,9 +35,16 @@ predict_linear_pred(object, ...)
 
 predict_numeric(object, ...)
 
-\method{predict_quantile}{model_fit}(object, new_data, quantile = (1:9)/10, ...)
+\method{predict_quantile}{model_fit}(
+  object,
+  new_data,
+  quantile = (1:9)/10,
+  interval = "none",
+  level = 0.95,
+  ...
+)
 
-\method{predict_survival}{model_fit}(object, new_data, time, ...)
+\method{predict_survival}{model_fit}(object, new_data, time, interval = "none", level = 0.95, ...)
 
 predict_survival(object, ...)
 
@@ -55,8 +62,11 @@ function cannot be passed here (see \code{opts}). There are some
 \code{parsnip} related options that can be passed, depending on the
 value of \code{type}. Possible arguments are:
 \itemize{
-\item \code{level}: for \code{type}s of "conf_int" and "pred_int" this
-is the parameter for the tail area of the intervals
+\item \code{interval}: for \code{type}s of "survival" and "quantile", should
+interval estimates be added, if available? Options are \code{"none"}
+and \code{"confidence"}.
+\item \code{level}: for \code{type}s of "conf_int", "pred_int", and "survival"
+this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
 Default value is 0.95.
 \item \code{std_error}: add the standard error of fit or prediction (on
@@ -73,7 +83,7 @@ interval estimates.}
 \item{std_error}{A single logical for whether the standard error should be
 returned (assuming that the model can compute it).}
 
-\item{quant}{A vector of numbers between 0 and 1 for the quantile being
+\item{quantile}{A vector of numbers between 0 and 1 for the quantile being
 predicted.}
 }
 \description{
