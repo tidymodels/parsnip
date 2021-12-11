@@ -1,0 +1,38 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_linear", "sda")`
+
+## Tuning Parameters
+
+This engine has no tuning parameter arguments in [discrim_linear()]. 
+
+However, there are a few engine-specific parameters that can be set or optimized when calling [set_engine()]:
+
+* `lambda`: the shrinkage parameters for the correlation matrix. This maps to the \pkg{dials} parameter [dials::shrinkage_correlation()].
+
+* `lambda.var`: the shrinkage parameters for the predictor variances. This maps to [dials::shrinkage_variance()].
+
+* `lambda.freqs`: the shrinkage parameters for the class frequencies. This maps to [dials::shrinkage_frequencies()].
+
+* `diagonal`: a logical to make the model covariance diagonal or not. This maps to [dials::diagonal_covariance()].
+
+## Translation from parsnip to the original package
+
+```{r sda-cls}
+discrim_linear() %>% 
+  set_engine("sda") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv.Rmd"}
+```
+
+## References
+
+ - Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics prediction problems using cat scores and false non-discovery rate control. Ann. Appl. Stat. 4: 503-519. [Preprint](http://arxiv.org/abs/0903.2003).
