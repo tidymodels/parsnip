@@ -5,6 +5,7 @@
 \alias{find_engine_files}
 \alias{make_engine_list}
 \alias{make_seealso_list}
+\alias{pkg_extension_note}
 \title{Tools for dynamically documenting packages}
 \usage{
 find_engine_files(mod)
@@ -12,6 +13,8 @@ find_engine_files(mod)
 make_engine_list(mod)
 
 make_seealso_list(mod, pkg = "parsnip")
+
+pkg_extension_note(mod)
 }
 \arguments{
 \item{mod}{A character string for the model file (e.g. "linear_reg")}

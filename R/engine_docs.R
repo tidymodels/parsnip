@@ -246,4 +246,42 @@ combine_prefix_with_engines <- function(prefix, engines) {
   glue::glue("{prefix} {engines}")
 }
 
+keep_ext <- function(x, pkgs) {
+  x <- x[x %in% pkgs]
+  if (length(x) > 0) {
+    x <- paste0("\\pkg{", x, "}")
+    x <- glue::glue_collapse(x, sep = ", ", last = " and ")
+    x <- paste0(" (may require: ", x, ")")
+  } else {
+    x <- ""
+  }
+  x
+}
 
+get_extension_pkgs <- function(mod) {
+  deps <-
+    get_from_env(paste0(mod, "_pkgs")) %>%
+    dplyr::mutate(ext = purrr::map_chr(pkg, keep_ext, parsnip:::extensions()))
+  dplyr::select(deps, engine, ext)
+}
+
+#' @export
+#' @rdname doc-tools
+pkg_extension_note <- function(mod) {
+  ext_pkgs <- tibble::tibble(pkg = parsnip:::extensions())
+  deps <-
+    get_from_env(paste0(mod, "_pkgs")) %>%
+    tidyr::unnest(cols = c(pkg)) %>%
+    dplyr::inner_join(ext_pkgs, by = "pkg") %>%
+    dplyr::arrange(tolower(engine)) %>%
+    dplyr::mutate(
+      pkg = paste0("\\pkg{", pkg, "}"),
+      engine = paste0("`", engine, "`")
+      ) %>%
+    dplyr::group_nest(pkg) %>%
+    dplyr::mutate(note = purrr::map_chr(data, ~ glue::glue_collapse(.x$engine, sep = ", ", last = " and "))) %>%
+    dplyr::mutate(note = glue::glue("Note that engine(s) {note} may require extension package {pkg}.\n\n")) %>%
+    purrr::pluck("note")
+
+  paste(deps, collapse = "")
+}
