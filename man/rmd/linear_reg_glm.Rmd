@@ -1,0 +1,29 @@
+```{r, child = "setup.Rmd", include = FALSE}
+```
+
+`r descr_models("linear_reg", "glm")`
+
+## Tuning Parameters
+
+This engine has no tuning parameters but you can set the `family` and/or `link` parameters as engine arguments. 
+
+## Translation from parsnip to the original package
+
+```{r glm-reg}
+linear_reg() %>% 
+  set_engine("glm") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glm) for `linear_reg()` with the `"glm"` engine.
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

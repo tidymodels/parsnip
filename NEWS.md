@@ -4,6 +4,8 @@
 
 * Bayesian additive regression trees (BART) were added via the `bart()` function.
 
+* Added the `"glm"` engine for `linear_reg()` for numeric outcomes.
+
 ## Bug fixes
 
 * A bug for class predictions of two-class GAM models was fixed (#541)

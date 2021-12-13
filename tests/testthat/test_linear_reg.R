@@ -15,6 +15,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 test_that('primary arguments', {
   basic <- linear_reg()
   basic_lm <- translate(basic %>% set_engine("lm"))
+  basic_glm <- translate(basic %>% set_engine("glm"))
   expect_error(
     basic_glmnet <- translate(basic %>% set_engine("glmnet")),
     "For the glmnet engine, `penalty` must be a single"
@@ -26,6 +27,14 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg())
+               )
+  )
+  expect_equal(basic_glm$method$fit$args,
+               list(
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
+                 family = expr(stats::gaussian)
                )
   )
   expect_equal(basic_stan$method$fit$args,
@@ -108,6 +117,16 @@ test_that('engine arguments', {
                )
   )
 
+  glm_log <- linear_reg() %>% set_engine("glm", family = "quasipoisson")
+  expect_equal(translate(glm_log)$method$fit$args,
+               list(
+                 formula = expr(missing_arg()),
+                 data = expr(missing_arg()),
+                 weights = expr(missing_arg()),
+                 family = new_empty_quosure("quasipoisson")
+               )
+  )
+
   glmnet_nlam <- linear_reg(penalty = 0.1) %>% set_engine("glmnet", nlambda = 10)
   expect_equal(translate(glmnet_nlam)$method$fit$args,
                list(
@@ -175,10 +194,14 @@ test_that('updating', {
   expr5     <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
   expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
+  expr6     <- linear_reg() %>% set_engine("glm", link = "identity")
+  expr6_exp <- linear_reg() %>% set_engine("glm", link = "log")
+
   expect_equal(update(expr1, mixture = 0), expr1_exp)
   expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_fre)
   expect_equal(update(expr3, nlambda = 10), expr3_exp)
+  expect_equal(update(expr6, link = "log"), expr6_exp)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
@@ -289,6 +312,63 @@ test_that('lm execution', {
   )
 })
 
+test_that('glm execution', {
+
+  hpc_glm <- linear_reg() %>% set_engine("glm")
+
+  expect_error(
+    res <- fit(
+      hpc_glm,
+      input_fields ~ log(compounds) + class,
+      data = hpc,
+      control = ctrl
+    ),
+    regexp = NA
+  )
+  expect_output(print(res), "parsnip model object")
+
+  expect_error(
+    res <- fit_xy(
+      hpc_glm,
+      x = hpc[, num_pred],
+      y = hpc$input_fields,
+      control = ctrl
+    ),
+    regexp = NA
+  )
+
+  expect_error(
+    res <- fit_xy(
+      hpc_glm,
+      x = hpc[, num_pred],
+      y = hpc$class,
+      control = ctrl
+    ),
+    regexp = "For a regression model"
+  )
+
+  expect_error(
+    res <- fit(
+      hpc_glm,
+      hpc_bad_form,
+      data = hpc,
+      control = ctrl
+    )
+  )
+
+  expect_error(
+    lm_form_catch <- fit(
+      hpc_glm,
+      hpc_bad_form,
+      data = hpc,
+      control = caught_ctrl
+    ),
+    regexp = "For a regression model"
+  )
+
+})
+
+
 test_that('lm prediction', {
   uni_lm <- lm(compounds ~ input_fields + num_pending + iterations, data = hpc)
   uni_pred <- unname(predict(uni_lm, newdata = hpc[1:5, ]))
@@ -326,6 +406,35 @@ test_that('lm prediction', {
   expect_equal(mv_pred, predict(res_mv, hpc[1:5,]))
 })
 
+test_that('glm prediction', {
+
+  hpc_glm <- linear_reg() %>% set_engine("glm")
+
+  uni_lm <- glm(compounds ~ input_fields + num_pending + iterations, data = hpc)
+  uni_pred <- unname(predict(uni_lm, newdata = hpc[1:5, ]))
+  inl_lm <- glm(compounds ~ log(input_fields) + class, data = hpc)
+  inl_pred <- unname(predict(inl_lm, newdata = hpc[1:5, ]))
+
+  res_xy <- fit_xy(
+    hpc_glm,
+    x = hpc[, num_pred],
+    y = hpc$compounds,
+    control = ctrl
+  )
+
+  expect_equal(uni_pred, predict(res_xy, hpc[1:5, num_pred])$.pred)
+
+  res_form <- fit(
+    hpc_glm,
+    compounds ~ log(input_fields) + class,
+    data = hpc,
+    control = ctrl
+  )
+
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred)
+
+})
+
 test_that('lm intervals', {
   stats_lm <- lm(compounds ~ input_fields + iterations + num_pending,
                  data = hpc)
@@ -358,6 +467,35 @@ test_that('lm intervals', {
 
   expect_equivalent(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"])
   expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
+})
+
+test_that('glm intervals', {
+  stats_glm <- glm(compounds ~ input_fields + iterations + num_pending,
+                   data = hpc)
+  pred_glm <- predict(stats_glm, newdata = hpc[1:5, ], se.fit = TRUE)
+  t_val <- qt(0.035, df = stats_glm$df.residual, lower.tail = FALSE)
+  lower_glm <- pred_glm$fit - t_val * pred_glm$se.fit
+  upper_glm <- pred_glm$fit + t_val * pred_glm$se.fit
+
+  lower_glm <- stats_glm$family$linkinv(lower_glm)
+  upper_glm <- stats_glm$family$linkinv(upper_glm)
+
+  res_xy <- fit_xy(
+    linear_reg()  %>% set_engine("glm"),
+    x = hpc[, num_pred],
+    y = hpc$compounds,
+    control = ctrl
+  )
+
+  confidence_parsnip <-
+    predict(res_xy,
+            new_data = hpc[1:5,],
+            type = "conf_int",
+            level = 0.93)
+
+  expect_equivalent(confidence_parsnip$.pred_lower, lower_glm)
+  expect_equivalent(confidence_parsnip$.pred_upper, upper_glm)
+
 })
 
 

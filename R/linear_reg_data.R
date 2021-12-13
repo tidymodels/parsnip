@@ -111,6 +111,86 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
+set_model_engine("linear_reg", "regression", "glm")
+set_dependency("linear_reg", "glm", "stats")
+
+set_fit(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "stats", fun = "glm"),
+    defaults = list(family = expr(stats::gaussian))
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = linear_lp_to_conf_int,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        se.fit = TRUE,
+        type = "link"
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = expr(object$fit), newdata = expr(new_data))
+  )
+)
+
+
+# ------------------------------------------------------------------------------
+
 set_model_engine("linear_reg", "regression", "glmnet")
 set_dependency("linear_reg", "glmnet", "glmnet")
 
