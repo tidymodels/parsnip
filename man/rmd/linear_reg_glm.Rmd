@@ -5,7 +5,7 @@
 
 ## Tuning Parameters
 
-This engine has no tuning parameters but you can set the `family` and/or `link` parameters as engine arguments. 
+This engine has no tuning parameters but you can set the `family` parameter (and `link`) as an engine argument. 
 
 ## Translation from parsnip to the original package
 
