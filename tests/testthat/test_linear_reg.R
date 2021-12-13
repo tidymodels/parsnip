@@ -194,14 +194,14 @@ test_that('updating', {
   expr5     <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
   expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
-  expr6     <- linear_reg() %>% set_engine("glm", link = "identity")
-  expr6_exp <- linear_reg() %>% set_engine("glm", link = "log")
+  expr6     <- linear_reg() %>% set_engine("glm", family = "gaussian")
+  expr6_exp <- linear_reg() %>% set_engine("glm", family = "poisson")
 
   expect_equal(update(expr1, mixture = 0), expr1_exp)
   expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_fre)
   expect_equal(update(expr3, nlambda = 10), expr3_exp)
-  expect_equal(update(expr6, link = "log"), expr6_exp)
+  expect_equal(update(expr6,  family = "poisson"), expr6_exp)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
