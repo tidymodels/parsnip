@@ -12,7 +12,8 @@ event.
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
 
-This engine has no tuning parameters.
+This engine has no tuning parameters but you can set the \code{family}
+parameter (and/or \code{link}) as an engine argument (see below).
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
@@ -25,6 +26,22 @@ This engine has no tuning parameters.
 ## Model fit template:
 ## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     family = stats::binomial)
+}
+
+To use a non-default \code{family} and/or \code{link}, pass in as an argument to
+\code{set_engine()}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+  set_engine("glm", family = stats::binomial(link = "probit")) \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+## 
+## Engine-Specific Arguments:
+##   family = stats::binomial(link = "probit")
+## 
+## Computational engine: glm 
+## 
+## Model fit template:
+## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     family = stats::binomial(link = "probit"))
 }
 }
 

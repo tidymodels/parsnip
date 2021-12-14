@@ -12,8 +12,8 @@ via a link function.
 For this engine, there is a single mode: regression
 \subsection{Tuning Parameters}{
 
-This engine has no tuning parameters but you can set the \code{family} and/or
-\code{link} parameters as engine arguments.
+This engine has no tuning parameters but you can set the \code{family}
+parameter (and/or \code{link}) as an engine argument (see below).
 }
 
 \subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
@@ -26,6 +26,22 @@ This engine has no tuning parameters but you can set the \code{family} and/or
 ## Model fit template:
 ## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     family = stats::gaussian)
+}
+
+To use a non-default \code{family} and/or \code{link}, pass in as an argument to
+\code{set_engine()}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+## 
+## Engine-Specific Arguments:
+##   family = stats::poisson(link = "sqrt")
+## 
+## Computational engine: glm 
+## 
+## Model fit template:
+## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     family = stats::poisson(link = "sqrt"))
 }
 }
 

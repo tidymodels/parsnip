@@ -5,13 +5,21 @@
 
 ## Tuning Parameters
 
-This engine has no tuning parameters. 
+This engine has no tuning parameters but you can set the `family` parameter (and/or `link`) as an engine argument (see below). 
 
 ## Translation from parsnip to the original package
 
 ```{r glm-reg}
 logistic_reg() %>% 
   set_engine("glm") %>% 
+  translate()
+```
+
+To use a non-default `family` and/or `link`, pass in as an argument to `set_engine()`:
+
+```{r glm-reg-engine}
+linear_reg() %>% 
+  set_engine("glm", family = stats::binomial(link = "probit")) %>% 
   translate()
 ```
 
