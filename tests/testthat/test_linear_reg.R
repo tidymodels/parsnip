@@ -248,6 +248,16 @@ test_that('lm execution', {
   )
 
   expect_error(
+    res <- fit_xy(
+      hpc_basic,
+      x = hpc[, num_pred],
+      y = as.character(hpc$class),
+      control = ctrl
+    ),
+    regexp = "For a regression model"
+  )
+
+  expect_error(
     res <- fit(
       hpc_basic,
       hpc_bad_form,
