@@ -19,8 +19,11 @@
 #'  `parsnip` related options that can be passed, depending on the
 #'  value of `type`. Possible arguments are:
 #'  \itemize{
-#'     \item `level`: for `type`s of "conf_int" and "pred_int" this
-#'            is the parameter for the tail area of the intervals
+#'     \item `interval`: for `type`s of "survival" and "quantile", should
+#'            interval estimates be added, if available? Options are `"none"`
+#'            and `"confidence"`.
+#'     \item `level`: for `type`s of "conf_int", "pred_int", and "survival"
+#'            this is the parameter for the tail area of the intervals
 #'            (e.g. confidence level for confidence intervals).
 #'            Default value is 0.95.
 #'     \item `std_error`: add the standard error of fit or prediction (on
@@ -50,9 +53,10 @@
 #'
 #' For censored regression, a numeric vector for `time` is required when
 #' survival or hazard probabilities are requested. Also, when
-#' `type = "linear_pred"`, censored regression models will be formatted such
-#' that the linear predictor _increases_ with time. This may have the opposite
-#' sign as what the underlying model's `predict()` method produces.
+#' `type = "linear_pred"`, censored regression models will by default be
+#' formatted such that the linear predictor _increases_ with time. This may
+#' have the opposite sign as what the underlying model's `predict()` method
+#' produces. Set `increasing = FALSE` to suppress this behavior.
 #'
 #' @return With the exception of `type = "raw"`, the results of
 #'  `predict.model_fit()` will be a tibble as many rows in the output
@@ -81,11 +85,10 @@
 #' For censored regression:
 #'
 #'  * `type = "time"` produces a column `.pred_time`.
-#'  * `type = "hazard"` results in a column `.pred_hazard`.
-#'  * `type = "survival"` results in a column `.pred_survival`.
-#'
-#'  For the last two types, the results are a nested tibble with an overall
-#'  column called `.pred` with sub-tibbles with the above format.
+#'  * `type = "hazard"` results in a list column `.pred` containing tibbles
+#'     with a column `.pred_hazard`.
+#'  * `type = "survival"` results in a list column `.pred` containing tibbles
+#'     with a `.pred_survival` column.
 #'
 #' In the case of Spark-based models, since table columns cannot
 #'  contain dots, the same convention is used except 1) no dots
@@ -96,6 +99,7 @@
 #'  `predict()` function will return the same structure as above but
 #'  filled with missing values. This does not currently work for
 #'  multivariate models.
+#'
 #' @examples
 #' library(dplyr)
 #'
@@ -140,7 +144,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   if (type != "raw" && length(opts) > 0) {
     rlang::warn("`opts` is only used with `type = 'raw'` and was ignored.")
   }
-  check_pred_type_dots(type, ...)
+  check_pred_type_dots(object, type, ...)
 
   res <- switch(
     type,
@@ -254,7 +258,7 @@ format_survival <- function(x) {
     x <- as_tibble(x, .name_repair = "minimal")
     names(x) <- ".pred"
   } else {
-    x <- tibble(.pred_survival = unname(x))
+    x <- tibble(.pred = unname(x))
   }
 
   x
@@ -295,7 +299,7 @@ make_pred_call <- function(x) {
   cl
 }
 
-check_pred_type_dots <- function(type, ...) {
+check_pred_type_dots <- function(object, type, ...) {
   the_dots <- list(...)
   nms <- names(the_dots)
 
@@ -307,7 +311,7 @@ check_pred_type_dots <- function(type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("level", "std_error", "quantile", "time")
+  other_args <- c("interval", "level", "std_error", "quantile", "time", "increasing")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -339,6 +343,19 @@ check_pred_type_dots <- function(type, ...) {
       )
     )
   }
+
+  # `increasing` only applies to linear_pred for censored regression
+  if (any(nms == "increasing") &
+      !(type == "linear_pred" &
+        object$spec$mode == "censored regression")) {
+    rlang::abort(
+      paste(
+        "The 'increasing' argument only applies to predictions of",
+        "type 'linear_pred' for the mode censored regression."
+      )
+    )
+  }
+
   invisible(TRUE)
 }
 

@@ -1,38 +1,35 @@
 #' Parametric survival regression
 #'
-#' `survival_reg()` is a way to generate a _specification_ of a model
-#'  before fitting and allows the model to be created using
-#'  R. The main argument for the
-#'  model is:
-#' \itemize{
-#'   \item \code{dist}: The probability distribution of the outcome.
-#' }
-#' This argument is converted to its specific names at the
-#'  time that the model is fit. Other options and argument can be
-#'  set using `set_engine()`. If left to its default
-#'  here (`NULL`), the value is taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' `survival_reg()` defines a parametric survival model.
 #'
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("survival_reg")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "censored regression".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"survival"`.
-#' @param dist A character string for the outcome distribution. "weibull" is
-#'  the default.
-#' @details
-#' The data given to the function are not saved and are only used
-#' to determine the _mode_ of the model. For `survival_reg()`,the
-#' mode will always be "censored regression".
+#' @param dist A character string for the probability distribution of the
+#'  outcome. The default is "weibull".
 #'
-#' Since survival models typically involve censoring (and require the use of
-#' [survival::Surv()] objects), the [fit.model_spec()] function will require that the
-#' survival model be specified via the formula interface.
 #'
-#' @seealso [fit.model_spec()], [survival::Surv()], [set_engine()], [update()]
+#' @template spec-details
+#'
+#' @template spec-survival
+#'
+#' @template spec-references
+#'
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("survival_reg")}
+#'
 #' @examples
-#' survival_reg()
+#' show_engines("survival_reg")
+#'
+#' survival_reg(mode = "censored regression", dist = "weibull")
 #' @keywords internal
 #' @export
 survival_reg <- function(mode = "censored regression", engine = "survival", dist = NULL) {
@@ -104,4 +101,30 @@ update.survival_reg <- function(object, parameters = NULL, dist = NULL, fresh = 
     method = NULL,
     engine = object$engine
   )
+}
+
+
+#' @export
+translate.survival_reg <- function(x, engine = x$engine, ...) {
+  if (is.null(engine)) {
+    message("Used `engine = 'survival'` for translation.")
+    engine <- "survival"
+  }
+  x <- translate.default(x, engine, ...)
+  x
+}
+
+
+check_args.survival_reg <- function(object) {
+
+  if (object$engine == "flexsurv") {
+
+    args <- lapply(object$args, rlang::eval_tidy)
+
+    # `dist` has no default in the function
+    if (all(names(args) != "dist") || is.null(args$dist))
+      object$args$dist <- "weibull"
+  }
+
+  invisible(object)
 }

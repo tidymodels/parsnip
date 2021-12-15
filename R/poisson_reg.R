@@ -66,22 +66,8 @@ print.poisson_reg <- function(x, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' @param object A boosted tree model specification.
-#' @param parameters A 1-row tibble or named list with _main_
-#'  parameters to update. If the individual arguments are used,
-#'  these will supersede the values in `parameters`. Also, using
-#'  engine arguments in this object will result in an error.
-#' @param ... Not used for `update()`.
-#' @param fresh A logical for whether the arguments should be
-#'  modified in-place of or replaced wholesale.
-#' @return An updated model specification.
-#' @examples
-#' model <- poisson_reg(penalty = 10, mixture = 0.1)
-#' model
-#' update(model, penalty = 1)
-#' update(model, penalty = 1, fresh = TRUE)
 #' @method update poisson_reg
-#' @rdname poisson_reg
+#' @rdname parsnip_update
 #' @export
 update.poisson_reg <-
   function(object,

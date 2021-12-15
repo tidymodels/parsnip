@@ -1,21 +1,12 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 0.1.7.9000
-Authors@R: 
-    c(person(given = "Max",
-             family = "Kuhn",
-             role = c("aut", "cre"),
-             email = "max@rstudio.com"),
-      person(given = "Davis",
-             family = "Vaughan",
-             role = "aut",
-             email = "davis@rstudio.com"),
-      person(given = "Emil",
-             family = "Hvitfeldt",
-             role = "ctb",
-             email = "emilhhvitfeldt@gmail.com"),
-      person(given = "RStudio",
-             role = "cph"))
+Version: 0.1.7.9003
+Authors@R: c(
+    person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
+    person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = "ctb"),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Maintainer: Max Kuhn <max@rstudio.com>
 Description: A common interface is provided to allow users to specify a
     model without having to remember the different argument names across
@@ -28,7 +19,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr (>= 0.8.0.1),
-    generics (>= 0.1.0),
+    generics (>= 0.1.0.9000),
     globals,
     glue,
     hardhat (>= 0.1.5.9000),
@@ -70,9 +61,25 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website: C50, earth, glmnet, keras, kernlab, kknn, LiblineaR,
-    mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm, tidymodels,
-    tidyverse/tidytemplate, xgboost
+Config/Needs/website: 
+    C50, 
+    dbarts, 
+    earth, 
+    glmnet, 
+    keras, 
+    kernlab, 
+    kknn,
+    LiblineaR, 
+    mgcv, 
+    nnet, 
+    parsnip, 
+    randomForest, 
+    ranger, 
+    rpart, 
+    rstanarm,
+    tidymodels, 
+    tidyverse/tidytemplate, 
+    xgboost
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

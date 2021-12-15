@@ -42,8 +42,7 @@ to be fitted.}
 \item{data}{A data frame containing all relevant variables (e.g. outcome(s),
 predictors, case weights, etc).}
 
-\item{...}{Additional arguments passed to \code{\link[stats:model.frame]{stats::model.frame()}} and
-specification of \code{offset}.}
+\item{...}{Additional arguments passed to \code{\link[stats:model.frame]{stats::model.frame()}}.}
 
 \item{na.action}{A function which indicates what should happen when the data
 contain NAs.}

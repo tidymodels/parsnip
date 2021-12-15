@@ -1,35 +1,36 @@
 #' Proportional hazards regression
 #'
-#' `proportional_hazards()` is a way to generate a _specification_ of a model
-#' before fitting and allows the model to be created using different packages
-#' in R. The main arguments for the model are:
-#' \itemize{
-#'   \item \code{penalty}: The total amount of regularization
-#'  in the model. Note that this must be zero for some engines.
-#'   \item \code{mixture}: The mixture amounts of different types of
-#'   regularization (see below). Note that this will be ignored for some engines.
-#' }
-#' These arguments are converted to their specific names at the
-#'  time that the model is fit. Other options and arguments can be
-#'  set using `set_engine()`. If left to their defaults
-#'  here (`NULL`), the values are taken from the underlying model
-#'  functions. If parameters need to be modified, `update()` can be used
-#'  in lieu of recreating the object from scratch.
+#' @description
+#' `proportional_hazards()` defines a proportional hazards model.
 #'
-#' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", or "censored regression".
-#' @param engine A single character string specifying what computational engine
-#'  to use for fitting. Possible engines are listed below. The default for this
-#'  model is `"survival"`.
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
+#'
+#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
+#'
+#' More information on how \pkg{parsnip} is used for modeling is at
+#' \url{https://www.tidymodels.org/}.
+#'
+#' @inheritParams boost_tree
 #' @inheritParams linear_reg
+#' @param mode A single character string for the prediction outcome mode.
+#'  The only possible value for this model is "censored regression".
+#'
+#' @template spec-details
+#'
+#' @template spec-survival
 #'
 #' @details
 #' Proportional hazards models include the Cox model.
-#' For `proportional_hazards()`, the mode will always be "censored regression".
 #'
-#' @seealso [fit.model_spec()], [set_engine()], [update()]
+#' @template spec-references
+#'
+#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}
+#'
 #' @examples
 #' show_engines("proportional_hazards")
+#'
+#' proportional_hazards(mode = "censored regression")
 #' @keywords internal
 #' @export
 proportional_hazards <- function(
@@ -111,3 +112,19 @@ update.proportional_hazards <- function(object,
       engine = object$engine
     )
   }
+
+#' @export
+translate.proportional_hazards <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "glmnet") {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    x$method$fit$args$lambda <- NULL
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+    .check_glmnet_penalty_fit(x)
+  }
+
+  x
+}

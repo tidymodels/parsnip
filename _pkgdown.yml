@@ -1,13 +1,11 @@
 url: https://parsnip.tidymodels.org
 
 template:
+  bootstrap: 5
+  bslib:
+    danger: "#CA225E"
+    primary: "#CA225E"
   package: tidytemplate
-  params:
-    theme: tidymodels
-    part_of: <a href="https://tidymodels.org">tidymodels</a>
-    footer: parsnip is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
-
-# https://github.com/tidyverse/tidytemplate for css
 
 development:
   mode: auto
@@ -19,8 +17,12 @@ figures:
 reference:
   - title: Models
     contents:
+      - bag_mars
+      - bag_tree
+      - bart
       - boost_tree
       - cubist_rules
+      - C5_rules
       - decision_tree
       - discrim_flexible
       - discrim_linear
@@ -52,7 +54,7 @@ reference:
       - extract-parsnip
       - fit.model_spec
       - fit_xy
-      - fit_control
+      - control_parsnip
       - glance.model_fit
       - model_fit
       - model_spec
@@ -73,36 +75,23 @@ reference:
     contents:
       - contr_one_hot
       - set_new_model
-      - starts_with("set_model_")
-      - set_dependency
-      - set_fit
-      - set_pred
-      - show_model_info
-      - starts_with("get_")
       - maybe_matrix
       - min_cols
       - req_pkgs
 
-
-
 navbar:
-  left:
-  - text: Basic Usage
-    href: articles/parsnip_Intro.html
-  - text: "Articles"
+ components:
+   articles:
+    text: Articles
     menu:
-     - text: Regression modeling
-       href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
-     - text: Classification modeling
-       href: https://www.tidymodels.org/learn/models/parsnip-nnet/
-     - text: Making a parsnip model from scratch
-       href: https://www.tidymodels.org/learn/develop/models/
-     - text: Evaluating submodels with the same model object
-       href: articles/articles/Submodels.html
-     - text: Fitting and Predicting with parsnip
-       href: articles/articles/Examples.html
-  - text: News
-    href: news/index.html
-  - text: Reference
-    href: reference/index.html
+    - text: Regression modeling
+      href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
+    - text: Classification modeling
+      href: https://www.tidymodels.org/learn/models/parsnip-nnet/
+    - text: Making a parsnip model from scratch
+      href: https://www.tidymodels.org/learn/develop/models/
+    - text: Evaluating submodels with the same model object
+      href: articles/articles/Submodels.html
+    - text: Fitting and predicting with parsnip
+      href: articles/articles/Examples.html
 

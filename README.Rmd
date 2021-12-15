@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
-[![Coverage status](https://codecov.io/gh/tidymodels/parsnip/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=master)
+[![Coverage status](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=main)
 [![CRAN status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
@@ -91,7 +91,7 @@ The goals of parsnip are to:
 * Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call `rand_forest` instead of `ranger::ranger` or other specific packages. 
 * Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that users only need to remember a single name. This will help _across_ model types too so that `trees` will be the same argument across random forest as well as boosting or bagging. 
 
-Using the example above, the `parsnip` approach would be:
+Using the example above, the parsnip approach would be:
 
 ```{r}
 library(parsnip)
@@ -119,9 +119,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 ```
 
-A list of all `parsnip` models across different CRAN packages can be found at
-[`tidymodels.org`](https://www.tidymodels.org/find/).
-
+A list of all parsnip models across different CRAN packages can be found at https://www.tidymodels.org/find/parsnip.
 
 ## Contributing
 

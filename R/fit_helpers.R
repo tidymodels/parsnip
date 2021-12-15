@@ -38,7 +38,18 @@ form_form <-
       spec = object
     )
 
-    elapsed <- system.time(
+    if (control$verbosity > 1L) {
+      elapsed <- system.time(
+        res$fit <- eval_mod(
+          fit_call,
+          capture = control$verbosity == 0,
+          catch = control$catch,
+          env = env,
+          ...
+        ),
+        gcFirst = FALSE
+      )
+    } else {
       res$fit <- eval_mod(
         fit_call,
         capture = control$verbosity == 0,
@@ -46,7 +57,8 @@ form_form <-
         env = env,
         ...
       )
-    )
+      elapsed <- list(elapsed = NA_real_)
+    }
     res$preproc <- list(y_var = all.vars(env$formula[[2]]))
     res$elapsed <- elapsed
     res
@@ -85,8 +97,18 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   res <- list(lvl = levels(env$y), spec = object)
 
-
-  elapsed <- system.time(
+  if (control$verbosity > 1L) {
+    elapsed <- system.time(
+      res$fit <- eval_mod(
+        fit_call,
+        capture = control$verbosity == 0,
+        catch = control$catch,
+        env = env,
+        ...
+      ),
+      gcFirst = FALSE
+    )
+  } else {
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
@@ -94,7 +116,8 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       env = env,
       ...
     )
-  )
+    elapsed <- list(elapsed = NA_real_)
+  }
 
   if (is.vector(env$y)) {
     y_name <- character(0)
@@ -138,7 +161,7 @@ form_xy <- function(object, control, env,
 
   res <- xy_xy(
     object = object,
-    env = env, #weights! offsets!
+    env = env, #weights!
     control = control,
     target = target
   )
@@ -146,6 +169,7 @@ form_xy <- function(object, control, env,
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL
+  # TODO: Should we be using the offset that we remove here?
   data_obj$offset <- NULL
   res$preproc <- data_obj
   res
