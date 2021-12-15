@@ -6,17 +6,10 @@
 form_form <-
   function(object, control, env, ...) {
 
+    check_outcome(eval_tidy(env$formula[[2]], env$data), object)
+
     # prob rewrite this as simple subset/levels
     y_levels <- levels_from_formula(env$formula, env$data)
-
-    if (object$mode == "classification") {
-      if (!inherits(env$data, "tbl_spark") && is.null(y_levels))
-        rlang::abort("For a classification model, the outcome should be a factor.")
-    } else if (object$mode == "regression") {
-      if (!inherits(env$data, "tbl_spark") && !is.null(y_levels))
-        rlang::abort("For a regression model, the outcome should be numeric.")
-    }
-
     object <- check_mode(object, y_levels)
 
     # if descriptors are needed, update descr_env with the calculated values
@@ -150,14 +143,7 @@ form_xy <- function(object, control, env,
   env$x <- data_obj$x
   env$y <- data_obj$y
 
-  res <- list(lvl = levels_from_formula(env$formula, env$data), spec = object)
-  if (object$mode == "classification") {
-    if (is.null(res$lvl))
-      rlang::abort("For a classification model, the outcome should be a factor.")
-  } else if (object$mode == "regression") {
-    if (!is.null(res$lvl))
-      rlang::abort("For a regression model, the outcome should be numeric.")
-  }
+  check_outcome(env$y, object)
 
   res <- xy_xy(
     object = object,
