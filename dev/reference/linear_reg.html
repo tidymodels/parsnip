@@ -5,6 +5,7 @@ There are different ways to fit this model. The method of estimation is
 chosen by setting the model engine.
 The engine-specific pages for this model are listed  below and contain the details:
 lm  (default) 
+glm  
 glmnet  
 stan  
 spark  
@@ -17,6 +18,7 @@ There are different ways to fit this model. The method of estimation is
 chosen by setting the model engine.
 The engine-specific pages for this model are listed  below and contain the details:
 lm  (default) 
+glm  
 glmnet  
 stan  
 spark  
@@ -88,6 +90,7 @@ predictors using a linear function.</p>
 <p>There are different ways to fit this model. The method of estimation is
 chosen by setting the model <em>engine</em>.</p>
 <p>The engine-specific pages for this model are listed  below and contain the details:</p><ul><li><p><code><a href="details_linear_reg_lm.html">lm</a>  (default) </code></p></li>
+<li><p><code><a href="details_linear_reg_glm.html">glm</a>  </code></p></li>
 <li><p><code><a href="details_linear_reg_glmnet.html">glmnet</a>  </code></p></li>
 <li><p><code><a href="details_linear_reg_stan.html">stan</a>  </code></p></li>
 <li><p><code><a href="details_linear_reg_spark.html">spark</a>  </code></p></li>
@@ -132,20 +135,21 @@ with the data.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_linear_reg_lm.html">lm engine details</a></code>, <code><a href="details_linear_reg_glmnet.html">glmnet engine details</a></code>, <code><a href="details_linear_reg_stan.html">stan engine details</a></code>, <code><a href="details_linear_reg_spark.html">spark engine details</a></code>, <code><a href="details_linear_reg_keras.html">keras engine details</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_linear_reg_lm.html">lm engine details</a></code>, <code><a href="details_linear_reg_glm.html">glm engine details</a></code>, <code><a href="details_linear_reg_glmnet.html">glmnet engine details</a></code>, <code><a href="details_linear_reg_stan.html">stan engine details</a></code>, <code><a href="details_linear_reg_spark.html">spark engine details</a></code>, <code><a href="details_linear_reg_keras.html">keras engine details</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"linear_reg"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   engine mode      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> lm     regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> glmnet regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> stan   regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> spark  regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> keras  regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> glm    regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> glmnet regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> stan   regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark  regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> keras  regression</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>

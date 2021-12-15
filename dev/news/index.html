@@ -61,13 +61,15 @@
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
 <div class="section level3">
 <h3 id="model-specification-changes-development-version">Model Specification Changes<a class="anchor" aria-label="anchor" href="#model-specification-changes-development-version"></a></h3>
-<ul><li>Bayesian additive regression trees (BART) were added via the <code><a href="../reference/bart.html">bart()</a></code> function.</li>
+<ul><li><p>Bayesian additive regression trees (BART) were added via the <code><a href="../reference/bart.html">bart()</a></code> function.</p></li>
+<li><p>Added the <code>"glm"</code> engine for <code><a href="../reference/linear_reg.html">linear_reg()</a></code> for numeric outcomes (<a href="https://github.com/tidymodels/parsnip/issues/624" class="external-link">#624</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li><p>A bug for class predictions of two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/541" class="external-link">#541</a>)</p></li>
 <li><p>Fixed a bug for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> with the LiblineaR engine (<a href="https://github.com/tidymodels/parsnip/issues/552" class="external-link">#552</a>).</p></li>
 <li><p>The list column produced when creating survival probability predictions is now always called <code>.pred</code> (with <code>.pred_survival</code> being used inside of the list column).</p></li>
+<li><p>Fixed outcome type checking affecting a subset of regression models (<a href="https://github.com/tidymodels/parsnip/issues/625" class="external-link">#625</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
@@ -268,7 +270,7 @@
 <li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> not returns an S3 method.</p></li>
 <li><p>For classification models, an error occurs if the outcome data are not encoded as factors (<a href="https://github.com/tidymodels/parsnip/issues/115" class="external-link">#115</a>).</p></li>
 <li><p>The prediction modules (e.g. <code>predict_class</code>, <code>predict_numeric</code>, etc) were de-exported. These were internal functions that were not to be used by the users and the users were using them.</p></li>
-<li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the "r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
+<li><p>An event time data set (<code>check_times</code>) was included that is the time (in seconds) to run <code>R CMD check</code> using the “r-devel-windows-ix86+x86_64` flavor. Packages that errored are censored.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-2"></a></h3>

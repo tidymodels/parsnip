@@ -115,6 +115,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_mgcv.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.html</loc>
   </url>
   <url>

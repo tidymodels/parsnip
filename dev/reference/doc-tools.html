@@ -139,19 +139,21 @@ technical information about the models.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">find_engine_files</span><span class="op">(</span><span class="st">"linear_reg"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   engine topic                             .order default     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> lm     parsnip:details_linear_reg_lm          1 <span style="color: #949494;">"</span> (default)<span style="color: #949494;">"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> glmnet parsnip:details_linear_reg_glmnet      2 <span style="color: #949494;">""</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> stan   parsnip:details_linear_reg_stan        3 <span style="color: #949494;">""</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> spark  parsnip:details_linear_reg_spark       4 <span style="color: #949494;">""</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> keras  parsnip:details_linear_reg_keras       5 <span style="color: #949494;">""</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> glm    parsnip:details_linear_reg_glm         2 <span style="color: #949494;">""</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> glmnet parsnip:details_linear_reg_glmnet      3 <span style="color: #949494;">""</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> stan   parsnip:details_linear_reg_stan        4 <span style="color: #949494;">""</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark  parsnip:details_linear_reg_spark       5 <span style="color: #949494;">""</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> keras  parsnip:details_linear_reg_keras       6 <span style="color: #949494;">""</span>          </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">make_engine_list</span><span class="op">(</span><span class="st">"linear_reg"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The engine-specific pages for this model are listed  below and contain the details:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> \itemize{</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \item \code{\link[parsnip:details_linear_reg_lm]{lm}  (default) }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   \item \code{\link[parsnip:details_linear_reg_glm]{glm}  }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \item \code{\link[parsnip:details_linear_reg_glmnet]{glmnet}  }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \item \code{\link[parsnip:details_linear_reg_stan]{stan}  }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \item \code{\link[parsnip:details_linear_reg_spark]{spark}  }</span>
