@@ -77,7 +77,7 @@ reference:
       - set_new_model
       - maybe_matrix
       - min_cols
-      - req_pkgs
+      - required_pkgs
 
 navbar:
  components:
