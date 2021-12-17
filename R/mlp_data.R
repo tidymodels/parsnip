@@ -376,11 +376,12 @@ set_model_arg(
   func = list(pkg = "dials", fun = "hidden_units"),
   has_submodel = FALSE
 )
+
 set_model_arg(
   model = "mlp",
   eng = "brulee",
   parsnip = "penalty",
-  original = "decay",
+  original = "penalty",
   func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )

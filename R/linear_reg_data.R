@@ -395,7 +395,7 @@ set_fit(
   value = list(
     interface = "matrix",
     protect = c("x", "y"),
-    func = c(pkg = "parsnip", fun = "keras_mlp"),
+    func = c(pkg = "parsnip", fun = "keras_linear_reg"),
     defaults = list(hidden_units = 1, act = "linear")
   )
 )
@@ -437,33 +437,72 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 
-set_model_engine("linear_reg", "regression", "torch")
-set_dependency("linear_reg", "torch", "lantern")
+set_model_engine("linear_reg", "regression", "brulee")
+set_dependency("linear_reg", "brulee", "brulee")
+
 
 set_model_arg(
   model = "linear_reg",
-  eng = "torch",
+  eng = "brulee",
   parsnip = "penalty",
-  original = "decay",
+  original = "penalty",
   func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
 
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "learn_rate",
+  original = "learn_rate",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum"),
+  has_submodel = FALSE
+)
+
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+
 set_fit(
   model = "linear_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "regression",
   value = list(
     interface = "data.frame",
     protect = c("x", "y"),
-    func = c(pkg = "lantern", fun = "lantern_linear_reg"),
+    func = c(pkg = "brulee", fun = "brulee_linear_reg"),
     defaults = list()
   )
 )
 
 set_encoding(
   model = "linear_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "regression",
   options = list(
     predictor_indicators = "none",
@@ -475,7 +514,7 @@ set_encoding(
 
 set_pred(
   model = "linear_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "regression",
   type = "numeric",
   value = list(

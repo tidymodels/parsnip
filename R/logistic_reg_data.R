@@ -654,33 +654,70 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 
-set_model_engine("logistic_reg", "classification", "torch")
-set_dependency("logistic_reg", "torch", "lantern")
+set_model_engine("logistic_reg", "classification", "brulee")
+set_dependency("logistic_reg", "brulee", "brulee")
 
 set_model_arg(
   model = "logistic_reg",
-  eng = "torch",
+  eng = "brulee",
   parsnip = "penalty",
-  original = "decay",
+  original = "penalty",
   func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "brulee",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "brulee",
+  parsnip = "learn_rate",
+  original = "learn_rate",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "brulee",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum"),
+  has_submodel = FALSE
+)
+
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "brulee",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
   has_submodel = FALSE
 )
 
 set_fit(
   model = "logistic_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "classification",
   value = list(
     interface = "data.frame",
     protect = c("x", "y"),
-    func = c(pkg = "lantern", fun = "lantern_logistic_reg"),
+    func = c(pkg = "brulee", fun = "brulee_logistic_reg"),
     defaults = list()
   )
 )
 
 set_encoding(
   model = "logistic_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "classification",
   options = list(
     predictor_indicators = "none",
@@ -692,7 +729,7 @@ set_encoding(
 
 set_pred(
   model = "logistic_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "classification",
   type = "class",
   value = list(
@@ -710,7 +747,7 @@ set_pred(
 
 set_pred(
   model = "logistic_reg",
-  eng = "torch",
+  eng = "brulee",
   mode = "classification",
   type = "prob",
   value = list(
