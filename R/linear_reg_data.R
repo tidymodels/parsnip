@@ -395,7 +395,7 @@ set_fit(
   value = list(
     interface = "matrix",
     protect = c("x", "y"),
-    func = c(pkg = "parsnip", fun = "keras_linear_reg"),
+    func = c(pkg = "parsnip", fun = "keras_mlp"),
     defaults = list(hidden_units = 1, act = "linear")
   )
 )
