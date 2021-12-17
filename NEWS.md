@@ -4,6 +4,8 @@
 
 * Bayesian additive regression trees (BART) were added via the `bart()` function.
 
+* Added `brulee` engines for `linear_reg()`, `logistic_reg()`, `multinom_reg()` and `mlp()`. 
+
 ## Bug fixes
 
 * A bug for class predictions of two-class GAM models was fixed (#541)
