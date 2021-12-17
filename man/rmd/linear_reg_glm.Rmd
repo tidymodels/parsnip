@@ -1,7 +1,7 @@
 ```{r, child = "setup.Rmd", include = FALSE}
 ```
 
-`r descr_models("logistic_reg", "glm")`
+`r descr_models("linear_reg", "glm")`
 
 ## Tuning Parameters
 
@@ -10,7 +10,7 @@ This engine has no tuning parameters but you can set the `family` parameter (and
 ## Translation from parsnip to the original package
 
 ```{r glm-reg}
-logistic_reg() %>% 
+linear_reg() %>% 
   set_engine("glm") %>% 
   translate()
 ```
@@ -19,7 +19,7 @@ To use a non-default `family` and/or `link`, pass in as an argument to `set_engi
 
 ```{r glm-reg-engine}
 linear_reg() %>% 
-  set_engine("glm", family = stats::binomial(link = "probit")) %>% 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) %>% 
   translate()
 ```
 
@@ -30,7 +30,7 @@ linear_reg() %>%
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-glm) for `logistic_reg()` with the `"glm"` engine.
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glm) for `linear_reg()` with the `"glm"` engine.
 
 ## References
 

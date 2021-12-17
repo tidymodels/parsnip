@@ -4,6 +4,8 @@
 
 * Bayesian additive regression trees (BART) were added via the `bart()` function.
 
+* Added the `"glm"` engine for `linear_reg()` for numeric outcomes (#624).
+
 * Added `brulee` engines for `linear_reg()`, `logistic_reg()`, `multinom_reg()` and `mlp()`. 
 
 ## Bug fixes
@@ -13,6 +15,8 @@
 * Fixed a bug for `logistic_reg()` with the LiblineaR engine (#552).
 
 * The list column produced when creating survival probability predictions is now always called `.pred` (with `.pred_survival` being used inside of the list column). 
+
+* Fixed outcome type checking affecting a subset of regression models (#625).
 
 ## Other Changes
 
