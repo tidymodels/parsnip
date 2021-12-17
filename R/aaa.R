@@ -56,7 +56,7 @@ logistic_lp_to_conf_int <- function(results, object) {
   res
 }
 
-# used by gen_additive_mod()
+# used by linear_reg() and gen_additive_mod()
 linear_lp_to_conf_int <-
 function(results, object) {
   hf_lvl <- (1 - object$spec$method$pred$conf_int$extras$level)/2

@@ -441,6 +441,40 @@ The following examples use consistent data sets throughout. For regression, we u
     
   </details>
 
+  <details id="linear-reg-glm"> 
+  
+  <summary>With the `"glm"` engine</summary>
+  
+  <h3>Regression Example (`glm`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg() %>% 
+    set_engine("glm")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
 
   <details id="linear-reg-glmnet"> 
   
