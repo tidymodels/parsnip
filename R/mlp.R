@@ -4,8 +4,8 @@
 #' `mlp()` defines a multilayer perceptron model (a.k.a. a single layer,
 #' feed-forward neural network).
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' There are different ways to fit this model. The method of estimation is
+#' chosen by setting the model _engine_.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 #'
@@ -173,7 +173,7 @@ check_args.mlp <- function(object) {
     if (args$dropout > 0 & args$penalty > 0)
       rlang::abort("Both weight decay and dropout should not be specified.")
 
-  act_funs <- c("linear", "softmax", "relu", "elu")
+  act_funs <- c("linear", "softmax", "relu", "elu", "tanh")
 
   if (is.character(args$activation))
     if (!any(args$activation %in% c(act_funs)))
