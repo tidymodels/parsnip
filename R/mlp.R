@@ -173,12 +173,21 @@ check_args.mlp <- function(object) {
     if (args$dropout > 0 & args$penalty > 0)
       rlang::abort("Both weight decay and dropout should not be specified.")
 
-  act_funs <- c("linear", "softmax", "relu", "elu", "tanh")
 
-  if (is.character(args$activation))
-    if (!any(args$activation %in% c(act_funs)))
-      rlang::abort(glue::glue("`activation` should be one of: ",
-                   glue::glue_collapse(glue::glue("'{act_funs}'"), sep = ", ")))
+  if (object$engine == "brulee") {
+    act_funs <- c("linear", "relu", "elu", "tanh")
+  } else if (object$engine == "keras") {
+    act_funs <- c("linear", "softmax", "relu", "elu")
+  }
+
+  if (is.character(args$activation)) {
+    if (!any(args$activation %in% c(act_funs))) {
+      rlang::abort(
+        glue::glue("`activation` should be one of: ",
+                   glue::glue_collapse(glue::glue("'{act_funs}'"), sep = ", "))
+      )
+    }
+  }
 
   invisible(object)
 }
