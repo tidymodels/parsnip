@@ -535,7 +535,7 @@ set_new_model <- function(model) {
   set_env_val(model, dplyr::tibble(engine = character(0), mode = character(0)))
   set_env_val(
     paste0(model, "_pkgs"),
-    dplyr::tibble(engine = character(0), pkg = list())
+    dplyr::tibble(engine = character(0), pkg = list(), mode = character(0))
   )
   set_env_val(paste0(model, "_modes"), "unknown")
   set_env_val(
@@ -659,7 +659,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
-set_dependency <- function(model, eng, pkg = "parsnip") {
+set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
   check_model_exists(model)
   check_eng_val(eng)
   check_pkg_val(pkg)
@@ -668,6 +668,8 @@ set_dependency <- function(model, eng, pkg = "parsnip") {
   model_info <- get_from_env(model)
   pkg_info <- get_from_env(paste0(model, "_pkgs"))
 
+  # ----------------------------------------------------------------------------
+  # Check engine
   has_engine <-
     model_info %>%
     dplyr::distinct(engine) %>%
@@ -677,6 +679,23 @@ set_dependency <- function(model, eng, pkg = "parsnip") {
     rlang::abort("The engine '{eng}' has not been registered for model '{model}'.")
   }
 
+  # ----------------------------------------------------------------------------
+  # check mode; if missing assign all modes
+  all_modes <- unique(model_info$mode)
+  if (is.null(mode)) {
+    # For backward compatibility
+    mode <- all_modes
+  } else {
+    if (length(mode) > 1) {
+      rlang::abort("'mode' should be a single character value or NULL.")
+    }
+    if (!any(mode == all_modes)) {
+      rlang::abort(glue::glue("mode '{mode}' is not a valid mode for '{model}'"))
+    }
+  }
+
+  # ----------------------------------------------------------------------------
+
   existing_pkgs <-
     pkg_info %>%
     dplyr::filter(engine == eng)
@@ -684,7 +703,7 @@ set_dependency <- function(model, eng, pkg = "parsnip") {
   if (nrow(existing_pkgs) == 0) {
     pkg_info <-
       pkg_info %>%
-      dplyr::bind_rows(tibble(engine = eng, pkg = list(pkg)))
+      dplyr::bind_rows(tibble(engine = eng, pkg = list(pkg), mode = mode))
 
   } else {
     old_pkgs <- existing_pkgs
