@@ -36,6 +36,49 @@ extensions <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' Save information about models
+#' @description
+#' This function writes a tab delimited file to the package to capture
+#' information about the known models. This information includes packages in
+#' the tidymodels GitHub repository as well as packages that are know to work
+#' well with tidymodels packages (e.g. \pkg{tune}, etc.). There are likely
+#' other model definitions in other extension packages that are not included
+#' here that do not follow the
+#' [model implementation guidelines](https://tidymodels.github.io/model-implementation-principles)
+#' or do not work with packages other than \pkg{parsnip}.
+#'
+#' These data are used to document engines for each model function man page.
+#' @keywords internal
+#' @param path A character string for the location of the tab delimited file.
+#' @details
+#' It is highly recommended that the know parsnip extension packages are loaded.
+#' The unexported \pkg{parsnip} function `extensions()` will list these.
+#' @export
+update_model_info_file <- function(path = "inst/models.tsv") {
+  mods <- get_from_env("models")
+  info <-
+    purrr::map_dfr(mods, ~ get_from_env(.x) %>% dplyr::mutate(model = .x)) %>%
+    dplyr::arrange(model, mode, engine) %>%
+    dplyr::select(model, mode, engine)
+  exts <-
+    purrr::map_dfr(
+      mods,
+      ~ get_from_env(paste0(.x, "_pkgs")) %>% dplyr::mutate(model = .x)
+    ) %>%
+    tidyr::unnest(cols = "pkg") %>%
+    dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg") %>%
+    dplyr::distinct(engine, model) %>%
+    dplyr::mutate(extension = TRUE)
+  info <-
+    dplyr::left_join(info, exts, by = c("model", "engine")) %>%
+    dplyr::mutate(extension = ifelse(is.na(extension), FALSE, extension))
+
+  csv <- utils::write.table(info, file = path, row.names = FALSE, sep = "\t")
+  invisible(info)
+}
+
+# ------------------------------------------------------------------------------
+
 
 #' Tools for dynamically documenting packages
 #'
@@ -142,10 +185,22 @@ make_engine_list <- function(mod) {
                        "below. These contain further details:\n\n")
   }
 
+  exts <-
+    read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    dplyr::filter(model == mod) %>%
+    dplyr::group_by(engine) %>%
+    dplyr::summarize(extension = any(extension)) %>%
+    dplyr::mutate(
+      extension = ifelse(extension, " (may require a parsnip extension package)", "")
+    )
+  eng <- dplyr::left_join(eng, exts, by = "engine")
+
+
   eng <-
     eng %>%
+    dplyr::arrange(.order) %>%
     dplyr::mutate(
-      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default|}",
+      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||extension|}",
                         .open = "|", .close = "|")
     ) %>%
     dplyr::distinct(item)
