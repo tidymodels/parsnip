@@ -15,6 +15,18 @@ check_pkg_for_docs(parsnip:::extensions())
 # ------------------------------------------------------------------------------
 # Code to get information about main arguments and format the results to print
 
+make_mode_list <- function(mod, eng) {
+  modes <- c("regression", "classification", "censored regression")
+  exts <-
+    read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    dplyr::filter(model == mod & engine == eng) %>% 
+    dplyr::mutate(mode = factor(mode, levels = modes)) %>% 
+    dplyr::arrange(mode)
+  
+  # Need to get mode-specific dependencies
+  exts
+}
+
 make_parameter_list <- function(x, defaults) {
   x %>%
     tune::tunable() %>%

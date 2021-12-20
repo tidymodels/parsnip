@@ -29,7 +29,7 @@ knit_engine_docs <- function(pattern = NULL) {
 
 # ------------------------------------------------------------------------------
 
-extensions <- function(x) {
+extensions <- function() {
   c("baguette", "censored", "discrim", "multilevelmod", "plsmod",
     "poissonreg", "rules")
 }
@@ -66,12 +66,9 @@ update_model_info_file <- function(path = "inst/models.tsv") {
       ~ get_from_env(paste0(.x, "_pkgs")) %>% dplyr::mutate(model = .x)
     ) %>%
     tidyr::unnest(cols = "pkg") %>%
-    dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg") %>%
-    dplyr::distinct(engine, model) %>%
-    dplyr::mutate(extension = TRUE)
-  info <-
-    dplyr::left_join(info, exts, by = c("model", "engine")) %>%
-    dplyr::mutate(extension = ifelse(is.na(extension), FALSE, extension))
+    dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg")
+
+  info <- dplyr::left_join(info, exts, by = c("model", "engine"))
 
   csv <- utils::write.table(info, file = path, row.names = FALSE, sep = "\t")
   invisible(info)
@@ -189,9 +186,9 @@ make_engine_list <- function(mod) {
     read.delim(system.file("models.tsv", package = "parsnip")) %>%
     dplyr::filter(model == mod) %>%
     dplyr::group_by(engine) %>%
-    dplyr::summarize(extension = any(extension)) %>%
+    dplyr::summarize(extensions = sum(!is.na(pkg))) %>%
     dplyr::mutate(
-      extension = ifelse(extension, " (may require a parsnip extension package)", "")
+      has_ext = ifelse(extensions > 0, " (may require a parsnip extension package)", "")
     )
   eng <- dplyr::left_join(eng, exts, by = "engine")
 
@@ -200,7 +197,7 @@ make_engine_list <- function(mod) {
     eng %>%
     dplyr::arrange(.order) %>%
     dplyr::mutate(
-      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||extension|}",
+      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||has_ext|}",
                         .open = "|", .close = "|")
     ) %>%
     dplyr::distinct(item)
