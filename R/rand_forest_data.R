@@ -87,7 +87,8 @@ set_model_mode("rand_forest", "regression")
 
 set_model_engine("rand_forest", "classification", "ranger")
 set_model_engine("rand_forest", "regression", "ranger")
-set_dependency("rand_forest", "ranger", "ranger")
+set_dependency("rand_forest", "ranger", "ranger", mode = "classification")
+set_dependency("rand_forest", "ranger", "ranger", mode = "regression")
 
 set_model_arg(
   model = "rand_forest",
@@ -321,7 +322,8 @@ set_pred(
 
 set_model_engine("rand_forest", "classification", "randomForest")
 set_model_engine("rand_forest", "regression",     "randomForest")
-set_dependency("rand_forest", "randomForest", "randomForest")
+set_dependency("rand_forest", "randomForest", "randomForest", mode = "regression")
+set_dependency("rand_forest", "randomForest", "randomForest", mode = "classification")
 
 set_model_arg(
   model = "rand_forest",

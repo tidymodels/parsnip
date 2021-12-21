@@ -681,7 +681,7 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
 
   # ----------------------------------------------------------------------------
   # check mode; if missing assign all modes
-  all_modes <- unique(model_info$mode)
+  all_modes <- unique(model_info$mode[model_info$engine == eng])
   if (is.null(mode)) {
     # For backward compatibility
     mode <- all_modes
@@ -696,23 +696,27 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
 
   # ----------------------------------------------------------------------------
 
-  existing_pkgs <-
+  new_pkgs <- tibble(engine = eng, pkg = list(pkg), mode = mode)
+
+  # Add the new entry to the existing list for this engine (if any) and
+  # keep unique results
+  eng_pkgs <-
     pkg_info %>%
-    dplyr::filter(engine == eng)
+    dplyr::filter(engine == eng) %>%
+    dplyr::bind_rows(new_pkgs) %>%
+    # Take unique combinations in case packages have alread been registered
+    dplyr::distinct() %>%
+    # In case there are existing results (in a list column pkg), aggregate the
+    # list results and re-list their unique values.
+    dplyr::group_by(mode, engine) %>%
+    dplyr::summarize(pkg = list(unique(unlist(pkg))), .groups = "drop") %>%
+    dplyr::select(engine, pkg, mode)
 
-  if (nrow(existing_pkgs) == 0) {
-    pkg_info <-
-      pkg_info %>%
-      dplyr::bind_rows(tibble(engine = eng, pkg = list(pkg), mode = mode))
-
-  } else {
-    old_pkgs <- existing_pkgs
-    existing_pkgs$pkg[[1]] <- c(pkg, existing_pkgs$pkg[[1]])
-    pkg_info <-
-      pkg_info %>%
-      dplyr::filter(engine != eng) %>%
-      dplyr::bind_rows(existing_pkgs)
-  }
+  pkg_info <-
+    pkg_info %>%
+    dplyr::filter(engine != eng) %>%
+    dplyr::bind_rows(eng_pkgs) %>%
+    dplyr::arrange(engine, mode)
 
   set_env_val(paste0(model, "_pkgs"), pkg_info)
 

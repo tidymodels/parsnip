@@ -33,7 +33,7 @@ test_that('adding a new model', {
 
 test_by_col(
   get_from_env("sponge_pkgs"),
-  tibble(engine = character(0), pkg = list())
+  tibble(engine = character(0), pkg = list(), mode = character(0))
 )
 
 expect_equal(
@@ -105,18 +105,22 @@ test_that('adding a new package', {
 
   test_by_col(
     get_from_env("sponge_pkgs"),
-    tibble(engine = "gum", pkg = list("trident"))
+    tibble(engine = "gum", pkg = list("trident"), mode = "classification")
   )
 
-  set_dependency("sponge", "gum", "juicy-fruit")
+  set_dependency("sponge", "gum", "juicy-fruit", mode = "classification")
   test_by_col(
     get_from_env("sponge_pkgs"),
-    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
+    tibble(engine = "gum",
+           pkg = list(c("trident", "juicy-fruit")),
+           mode = "classification")
   )
 
   test_by_col(
     get_dependency("sponge"),
-    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
+    tibble(engine = "gum",
+           pkg = list(c("trident", "juicy-fruit")),
+           mode = "classification")
   )
 })
 
