@@ -78,6 +78,8 @@ reference:
       - maybe_matrix
       - min_cols
       - required_pkgs
+      - required_pkgs.model_spec
+      - req_pkgs
 
 navbar:
  components:
