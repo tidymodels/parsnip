@@ -96,7 +96,8 @@ chosen by setting the model <em>engine</em>.</p>
   penalty <span class="op">=</span> <span class="cn">NULL</span>,
   dropout <span class="op">=</span> <span class="cn">NULL</span>,
   epochs <span class="op">=</span> <span class="cn">NULL</span>,
-  activation <span class="op">=</span> <span class="cn">NULL</span>
+  activation <span class="op">=</span> <span class="cn">NULL</span>,
+  learn_rate <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -125,6 +126,9 @@ between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
 "linear" or "softmax" depending on the type of outcome. Possible values are:
 "linear", "softmax", "relu", and "elu"</p></dd>
+<dt>learn_rate</dt>
+<dd><p>A number for the rate at which the boosting algorithm adapts
+from iteration-to-iteration (specific engines only).</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -145,13 +149,15 @@ with the data.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"mlp"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   engine mode          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> keras  classification</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> keras  regression    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nnet   classification</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> nnet   regression    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> brulee classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> brulee regression    </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">mlp</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Single Layer Neural Network Specification (classification)</span>

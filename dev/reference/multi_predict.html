@@ -54,7 +54,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Model predictions across many sub-models</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/aaa_multi_predict.R" class="external-link"><code>R/aaa_multi_predict.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/boost_tree.R" class="external-link"><code>R/boost_tree.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/linear_reg.R" class="external-link"><code>R/linear_reg.R</code></a>, and 4 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/aaa_multi_predict.R" class="external-link"><code>R/aaa_multi_predict.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/boost_tree.R" class="external-link"><code>R/boost_tree.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/linear_reg.R" class="external-link"><code>R/linear_reg.R</code></a>, and 5 more</small>
       <div class="d-none name"><code>multi_predict.Rd</code></div>
     </div>
 
@@ -84,6 +84,9 @@
 <span class="co"># S3 method for `_earth`</span>
 <span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, num_terms <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
 
+<span class="co"># S3 method for `_torch_mlp`</span>
+<span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, epochs <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
+
 <span class="co"># S3 method for `_multnet`</span>
 <span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, penalty <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
 
@@ -111,6 +114,8 @@ based on the model's mode.</p></dd>
 <dd><p>A numeric vector of penalty values.</p></dd>
 <dt>num_terms</dt>
 <dd><p>An integer vector for the number of MARS terms to retain.</p></dd>
+<dt>epochs</dt>
+<dd><p>An integer vector for the number of training epochs.</p></dd>
 <dt>neighbors</dt>
 <dd><p>An integer vector for the number of nearest neighbors.</p></dd>
 </dl></div>
