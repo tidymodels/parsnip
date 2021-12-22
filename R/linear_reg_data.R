@@ -111,6 +111,86 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
+set_model_engine("linear_reg", "regression", "glm")
+set_dependency("linear_reg", "glm", "stats")
+
+set_fit(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "stats", fun = "glm"),
+    defaults = list(family = expr(stats::gaussian))
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data),
+        type = "response"
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = linear_lp_to_conf_int,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        newdata = quote(new_data),
+        se.fit = TRUE,
+        type = "link"
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "glm",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = expr(object$fit), newdata = expr(new_data))
+  )
+)
+
+
+# ------------------------------------------------------------------------------
+
 set_model_engine("linear_reg", "regression", "glmnet")
 set_dependency("linear_reg", "glmnet", "glmnet")
 
@@ -431,6 +511,102 @@ set_pred(
     post = maybe_multivariate,
     func = c(fun = "predict"),
     args = list(object = quote(object$fit), x = quote(as.matrix(new_data)))
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+
+set_model_engine("linear_reg", "regression", "brulee")
+set_dependency("linear_reg", "brulee", "brulee")
+
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "learn_rate",
+  original = "learn_rate",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum"),
+  has_submodel = FALSE
+)
+
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+
+set_fit(
+  model = "linear_reg",
+  eng = "brulee",
+  mode = "regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "brulee", fun = "brulee_linear_reg"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "brulee",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "brulee",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "numeric"
+      )
   )
 )
 

@@ -188,6 +188,7 @@
   dropout = NULL,
   epochs = NULL,
   activation = NULL,
+  learn_rate = NULL,
   fresh = FALSE,
   ...
 )
