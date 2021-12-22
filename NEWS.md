@@ -6,6 +6,8 @@
 
 * Added the `"glm"` engine for `linear_reg()` for numeric outcomes (#624).
 
+* Added `brulee` engines for `linear_reg()`, `logistic_reg()`, `multinom_reg()` and `mlp()`. 
+
 ## Bug fixes
 
 * A bug for class predictions of two-class GAM models was fixed (#541)

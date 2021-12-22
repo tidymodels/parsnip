@@ -11,7 +11,8 @@ mlp(
   penalty = NULL,
   dropout = NULL,
   epochs = NULL,
-  activation = NULL
+  activation = NULL,
+  learn_rate = NULL
 )
 }
 \arguments{
@@ -37,6 +38,9 @@ between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
 "linear" or "softmax" depending on the type of outcome. Possible values are:
 "linear", "softmax", "relu", and "elu"}
+
+\item{learn_rate}{A number for the rate at which the boosting algorithm adapts
+from iteration-to-iteration (specific engines only).}
 }
 \description{
 \code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,
