@@ -1,4 +1,6 @@
 ```{r, include = FALSE}
+library(parsnip)
+
 # ------------------------------------------------------------------------------
 # These are required to build md docs for parsnip and extensions
 
@@ -12,6 +14,7 @@ rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", "Cubist", "
 check_pkg_for_docs(rmd_pkgs)
 check_pkg_for_docs(parsnip:::extensions())
 
+stop("setup")
 # ------------------------------------------------------------------------------
 # Code to get information about main arguments and format the results to print
 
@@ -111,4 +114,5 @@ descr_models <- function(mod, eng) {
 }
 
 options(width = 80)
+
 ```
