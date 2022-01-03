@@ -26,6 +26,8 @@ The default value of `num_terms` depends on the number of predictor columns. For
 
 ## Translation from parsnip to the original package (regression)
 
+`r uses_extension("bag_mars", "earth", "regression")`
+
 ```{r earth-reg}
 bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
   set_engine("earth") %>% 
@@ -35,8 +37,16 @@ bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = charac
 
 ## Translation from parsnip to the original package (classification)
 
+`r uses_extension("bag_mars", "earth", "classification")`
+
 ```{r earth-cls}
-bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
+library(baguette)
+
+bag_mars(
+  num_terms = integer(1),
+  prod_degree = integer(1),
+  prune_method = character(1)
+) %>% 
   set_engine("earth") %>% 
   set_mode("classification") %>% 
   translate()

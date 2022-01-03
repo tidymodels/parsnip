@@ -9,7 +9,11 @@ This model has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("logistic_reg", "glmer", "classification")`
+
 ```{r lmer-csl}
+library(multilevelmod)
+
 logistic_reg() %>% 
   set_engine("glmer") %>% 
   translate()

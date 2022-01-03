@@ -18,6 +18,7 @@ BugReports: https://github.com/tidymodels/parsnip/issues
 Depends:
     R (>= 2.10)
 Imports: 
+    cli,
     dplyr (>= 0.8.0.1),
     generics (>= 0.1.0.9000),
     globals,

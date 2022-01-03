@@ -34,7 +34,12 @@ centering all predictors).
 See \code{?rstanarm::stan_glmer} and \code{?rstan::sampling} for more information.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{poisson_reg(engine = "stan_glmer") \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+
+poisson_reg(engine = "stan_glmer") \%>\% 
   set_engine("stan_glmer") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)

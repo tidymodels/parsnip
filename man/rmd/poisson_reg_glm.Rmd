@@ -9,7 +9,11 @@ This engine has no tuning parameters.
 
 ## Translation from parsnip to the underlying model call  (regression)
 
+`r uses_extension("poisson_reg", "glm", "regression")`
+
 ```{r glm-reg}
+library(poissonreg)
+
 poisson_reg() %>%
   set_engine("glm") %>%
   translate()

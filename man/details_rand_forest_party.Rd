@@ -20,7 +20,12 @@ This model has 3 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest() \%>\% 
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+rand_forest() \%>\% 
   set_engine("party") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

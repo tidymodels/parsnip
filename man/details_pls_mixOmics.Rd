@@ -18,7 +18,12 @@ see below)
 }
 }
 
-\subsection{Translation from parsnip to the underlying model call (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
+\subsection{Translation from parsnip to the underlying model call (regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{plsmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+
+pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
   set_mode("regression") \%>\%
   translate()
@@ -47,7 +52,12 @@ for sparse models.
 }
 }
 
-\subsection{Translation from parsnip to the underlying model call (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
+\subsection{Translation from parsnip to the underlying model call (classification)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{plsmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+
+pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
   set_mode("classification") \%>\%
   translate()

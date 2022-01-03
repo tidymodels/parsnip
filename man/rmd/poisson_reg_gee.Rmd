@@ -9,7 +9,11 @@ This model has no formal tuning parameters. It might be beneficial to determine 
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("poisson_reg", "gee", "regression")`
+
 ```{r gee-csl}
+library(poissonreg)
+
 poisson_reg(engine = "gee") %>% 
   set_engine("gee") %>% 
   translate()

@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_linear", "mda", "classification")`
+
 ```{r mda-cls}
+library(discrim)
+
 discrim_linear(penalty = numeric(0)) %>% 
   set_engine("mda") %>% 
   translate()

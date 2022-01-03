@@ -15,7 +15,12 @@ For this engine, there is a single mode: regression
 This engine has no tuning parameters.
 }
 
-\subsection{Translation from parsnip to the underlying model call (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{poisson_reg() \%>\%
+\subsection{Translation from parsnip to the underlying model call (regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{poissonreg}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+
+poisson_reg() \%>\%
   set_engine("hurdle") \%>\%
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)

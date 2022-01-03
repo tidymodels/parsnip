@@ -13,7 +13,12 @@ For this engine, there is a single mode: censored regression
 This model has no tuning parameters.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{proportional_hazards() \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+proportional_hazards() \%>\% 
   set_engine("survival") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

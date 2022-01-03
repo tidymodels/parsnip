@@ -17,7 +17,12 @@ typically does not affect the predicted value of the model but does have
 an effect on the inferential results and parameter covariance values.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+
+linear_reg() \%>\% 
   set_engine("gee") \%>\% 
   set_mode("regression") \%>\% 
   translate()

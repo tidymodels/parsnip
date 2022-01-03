@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the original package (classification)
 
+`r uses_extension("bag_tree", "C5.0", "classification")`
+
 ```{r C5.0-cls}
+library(baguette)
+
 bag_tree(min_n = integer()) %>% 
   set_engine("C5.0") %>% 
   set_mode("classification") %>% 

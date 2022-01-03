@@ -17,7 +17,12 @@ This model has 1 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(min_n = integer()) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_tree(min_n = integer()) \%>\% 
   set_engine("C5.0") \%>\% 
   set_mode("classification") \%>\% 
   translate()

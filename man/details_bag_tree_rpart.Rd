@@ -30,7 +30,12 @@ this is not the case, values between zero and one can be used to bias to
 the second level of the factor.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -50,7 +55,12 @@ the second level of the factor.
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -70,7 +80,12 @@ the second level of the factor.
 }
 }
 
-\subsection{Translation from parsnip to the original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
@@ -128,7 +143,12 @@ this is not the case, values between zero and one can be used to bias to
 the second level of the factor.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -148,7 +168,12 @@ the second level of the factor.
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -168,7 +193,12 @@ the second level of the factor.
 }
 }
 
-\subsection{Translation from parsnip to the original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There are parsnip extension packages required to fit this model to this
+mode: \strong{censored}, \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

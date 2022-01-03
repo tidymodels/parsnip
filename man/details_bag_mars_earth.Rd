@@ -25,7 +25,10 @@ columns. For a data frame \code{x}, the default is
 \code{\link[earth:earth]{earth::earth()}} and the reference below).
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -45,7 +48,16 @@ columns. For a data frame \code{x}, the default is
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+
+bag_mars(
+  num_terms = integer(1),
+  prod_degree = integer(1),
+  prune_method = character(1)
+) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("classification") \%>\% 
   translate()

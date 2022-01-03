@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the original package (censored regression)
 
+`r uses_extension("rand_forest", "party", "censored regression")`
+
 ```{r party-creg}
+library(censored)
+
 rand_forest() %>% 
   set_engine("party") %>% 
   set_mode("censored regression") %>% 

@@ -12,7 +12,7 @@ check_pkg_for_docs <- function(x){
 rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", "Cubist", "xrf")
 
 check_pkg_for_docs(rmd_pkgs)
-# check_pkg_for_docs(parsnip:::extensions())
+check_pkg_for_docs(parsnip:::extensions())
 
 
 # ------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ check_pkg_for_docs(rmd_pkgs)
 make_mode_list <- function(mod, eng) {
   modes <- c("regression", "classification", "censored regression")
   exts <-
-    read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
     dplyr::filter(model == mod & engine == eng) %>% 
     dplyr::mutate(mode = factor(mode, levels = modes)) %>% 
     dplyr::arrange(mode)
@@ -113,6 +113,31 @@ descr_models <- function(mod, eng) {
   paste("For this engine, there", txt, knitr::combine_words(res))
 }
 
-options(width = 80)
+uses_extension <- function(mod, eng, mod_mode) {
+  exts <-
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    dplyr::filter(
+      model == mod & 
+        engine == eng & 
+        mode == mod_mode & 
+        pkg %in% parsnip:::extensions()
+    ) %>% 
+    dplyr::distinct(pkg) %>% 
+    purrr::pluck("pkg")
+  
+  num_ext <- length(exts)
+  if (num_ext > 0) {
+    res <- paste0("**", exts, "**", collapse = ", ")
+    x <-
+      ifelse(num_ext > 1,
+             "There are parsnip extension packages ",
+             "There is a parsnip extension package ")
+    res <- paste0(x, "required to fit this model to this mode: ", res, ".")
+  } else {
+    res <- ""
+  }
+  res
+}
 
+options(width = 80)
 ```

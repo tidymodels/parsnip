@@ -26,7 +26,11 @@ param$item
 
 ## Translation from parsnip to the underlying model call  (regression)
 
+`r uses_extension("pls", "mixOmics", "regression")`
+
 ```{r mixOmics-reg}
+library(plsmod)
+
 pls(num_comp = integer(1), predictor_prop = double(1)) %>%
   set_engine("mixOmics") %>%
   set_mode("regression") %>%
@@ -42,7 +46,11 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 
 ## Translation from parsnip to the underlying model call  (classification)
 
+`r uses_extension("pls", "mixOmics", "classification")`
+
 ```{r mixOmics-cls}
+library(plsmod)
+
 pls(num_comp = integer(1), predictor_prop = double(1)) %>%
   set_engine("mixOmics") %>%
   set_mode("classification") %>%

@@ -17,7 +17,12 @@ typically does not affect the predicted value of the model but does have
 an effect on the inferential results and parameter covariance values.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{poisson_reg(engine = "gee") \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+
+poisson_reg(engine = "gee") \%>\% 
   set_engine("gee") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)

@@ -16,7 +16,12 @@ This model has 1 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{survival_reg(dist = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+survival_reg(dist = character(1)) \%>\% 
   set_engine("flexsurv") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

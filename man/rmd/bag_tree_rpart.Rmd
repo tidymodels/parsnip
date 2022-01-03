@@ -28,7 +28,11 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 
 ## Translation from parsnip to the original package (classification)
 
+`r uses_extension("bag_tree", "rpart", "classification")`
+
 ```{r rpart-cls}
+library(baguette)
+
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
   set_engine("rpart") %>% 
   set_mode("classification") %>% 
@@ -38,7 +42,11 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Translation from parsnip to the original package (regression)
 
+`r uses_extension("bag_tree", "rpart", "regression")`
+
 ```{r rpart-reg}
+library(baguette)
+
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
   set_engine("rpart") %>% 
   set_mode("regression") %>% 
@@ -47,7 +55,11 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Translation from parsnip to the original package (censored regression)
 
+`r uses_extension("bag_tree", "rpart", "censored regression")`
+
 ```{r rpart-creg}
+library(censored)
+
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
   set_engine("rpart") %>% 
   set_mode("censored regression") %>% 

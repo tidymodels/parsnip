@@ -9,7 +9,11 @@ This model has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
-```{r lmer-csl}
+`r uses_extension("linear_reg", "lmer", "regression")`
+
+```{r lmer-reg}
+library(multilevelmod)
+
 linear_reg() %>% 
   set_engine("lmer") %>% 
   set_mode("regression") %>% 

@@ -9,7 +9,11 @@ This model has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("proportional_hazards", "survival", "censored regression")`
+
 ```{r survival-creg}
+library(censored)
+
 proportional_hazards() %>% 
   set_engine("survival") %>% 
   set_mode("censored regression") %>% 

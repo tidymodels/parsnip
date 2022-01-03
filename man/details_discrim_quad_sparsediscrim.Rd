@@ -30,7 +30,12 @@ execute, are:
 }
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{discrim_quad(regularization_method = character(0)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{discrim}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+
+discrim_quad(regularization_method = character(0)) \%>\% 
   set_engine("sparsediscrim") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Quadratic Discriminant Model Specification (classification)

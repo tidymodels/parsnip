@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the underlying model call  (regression)
 
+`r uses_extension("cubist_rules", "Cubist", "regression")`
+
 ```{r cubist-reg}
+library(rules)
+
 cubist_rules(
   committees = integer(1),
   neighbors = integer(1),

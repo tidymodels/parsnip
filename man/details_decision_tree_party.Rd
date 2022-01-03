@@ -27,7 +27,12 @@ evaluated for splitting. The default is to use all predictors.
 }
 }
 
-\subsection{Translation from parsnip to the original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
   set_engine("party") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

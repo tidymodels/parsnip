@@ -33,7 +33,11 @@ Some special cases for the RDA model:
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_regularized", "klaR", "classification")`
+
 ```{r klaR-cls}
+library(discrim)
+
 discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 
   set_engine("klaR") %>% 
   translate()

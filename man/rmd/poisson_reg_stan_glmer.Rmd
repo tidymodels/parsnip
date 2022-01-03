@@ -22,7 +22,11 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("poisson_reg", "stan_glmer", "regression")`
+
 ```{r stan_glmer-cls}
+library(poissonreg)
+
 poisson_reg(engine = "stan_glmer") %>% 
   set_engine("stan_glmer") %>% 
   translate()

@@ -187,7 +187,7 @@ make_engine_list <- function(mod) {
   }
 
   exts <-
-    read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
     dplyr::filter(model == mod) %>%
     dplyr::group_by(engine) %>%
     dplyr::summarize(extensions = sum(!is.na(pkg))) %>%

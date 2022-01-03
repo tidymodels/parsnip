@@ -31,7 +31,11 @@ An engine specific parameter for this model is:
 
 ## Translation from parsnip to the original package (censored regression)
 
+`r uses_extension("decision_tree", "party", "censored regression")`
+
 ```{r party-creg}
+library(censored)
+
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("party") %>% 
   set_mode("censored regression") %>% 

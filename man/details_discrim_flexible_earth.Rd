@@ -26,7 +26,16 @@ The default value of \code{num_terms} depends on the number of columns (\code{p}
 intercept-only model.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{discrim_flexible(num_terms = integer(0), prod_degree = integer(0), prune_method = character(0)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{discrim}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+
+discrim_flexible(
+  num_terms = integer(0),
+  prod_degree = integer(0),
+  prune_method = character(0)
+) \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Flexible Discriminant Model Specification (classification)
 ## 

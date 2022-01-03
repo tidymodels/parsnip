@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("naive_Bayes", "naivebayes", "classification")`
+
 ```{r naivebayes-cls}
+library(discrim)
+
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>% 
   set_engine("naivebayes") %>% 
   translate()

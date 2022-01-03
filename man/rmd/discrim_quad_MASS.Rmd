@@ -9,7 +9,11 @@ This engine has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_quad", "MASS", "classification")`
+
 ```{r mass-cls}
+library(discrim)
+
 discrim_quad() %>% 
   set_engine("MASS") %>% 
   translate()

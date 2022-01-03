@@ -9,7 +9,11 @@ This model has no tuning parameters.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("poisson_reg", "glmer", "regression")`
+
 ```{r lmer-csl}
+library(poissonreg)
+
 poisson_reg(engine = "glmer") %>% 
   set_engine("glmer") %>% 
   translate()

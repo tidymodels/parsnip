@@ -28,7 +28,12 @@ default: 1.0)
 }
 }
 
-\subsection{Translation from parsnip to the underlying model call (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rule_fit(
+\subsection{Translation from parsnip to the underlying model call (regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+
+rule_fit(
   mtry = numeric(1),
   trees = integer(1),
   min_n = integer(1),
@@ -63,7 +68,12 @@ default: 1.0)
 }
 }
 
-\subsection{Translation from parsnip to the underlying model call (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rule_fit(
+\subsection{Translation from parsnip to the underlying model call (classification)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+
+rule_fit(
   mtry = numeric(1),
   trees = integer(1),
   min_n = integer(1),
@@ -108,7 +118,7 @@ Also, there are several configuration differences in how \code{xrf()} is fit
 between that package and the wrapper used in \code{rules}. Some differences
 in default values are:
 \itemize{
-\item \code{trees}: \verb{xrf: 100,}rules`: 15
+\item \code{trees}: \code{xrf}: 100, \code{rules}: 15
 \item \code{max_depth}: \code{xrf}: 3, \code{rules}: 6
 }
 

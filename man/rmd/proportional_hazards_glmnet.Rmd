@@ -28,7 +28,11 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("proportional_hazards", "glmnet", "censored regression")`
+
 ```{r glmnet-creg}
+library(censored)
+
 proportional_hazards(penalty = double(1), mixture = double(1)) %>% 
   set_engine("glmnet") %>% 
   translate()

@@ -30,7 +30,11 @@ The possible values of this parameter, and the functions that they execute, are:
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_quad", "sparsediscrim", "classification")`
+
 ```{r sparsediscrim-cls}
+library(discrim)
+
 discrim_quad(regularization_method = character(0)) %>% 
   set_engine("sparsediscrim") %>% 
   translate()

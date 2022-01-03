@@ -9,7 +9,11 @@ This model has no formal tuning parameters. It might be beneficial to determine 
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("logistic_reg", "gee", "classification")`
+
 ```{r gee-csl}
+library(multilevelmod)
+
 logistic_reg() %>% 
   set_engine("gee") %>% 
   translate()

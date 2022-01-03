@@ -19,7 +19,11 @@ However, there are a few engine-specific parameters that can be set or optimized
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_linear", "sda", "classification")`
+
 ```{r sda-cls}
+library(discrim)
+
 discrim_linear() %>% 
   set_engine("sda") %>% 
   translate()

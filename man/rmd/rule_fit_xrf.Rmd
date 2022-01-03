@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the underlying model call  (regression)
 
+`r uses_extension("rule_fit", "xrf", "regression")`
+
 ```{r xrf-reg}
+library(rules)
+
 rule_fit(
   mtry = numeric(1),
   trees = integer(1),
@@ -43,7 +47,12 @@ rule_fit(
 
 ## Translation from parsnip to the underlying model call  (classification)
 
+`r uses_extension("rule_fit", "xrf", "classification")`
+
+
 ```{r xrf-cls}
+library(rules)
+
 rule_fit(
   mtry = numeric(1),
   trees = integer(1),
@@ -66,7 +75,7 @@ use these with `rule_fit()`, we recommend using a recipe instead of the formula 
 
 Also, there are several configuration differences in how `xrf()` is fit between that package and the wrapper used in `rules`. Some differences in default values are:
 
-- `trees`: `xrf: 100, `rules`: 15
+- `trees`: `xrf`: 100, `rules`: 15
 - `max_depth`: `xrf`: 3, `rules`: 6
 
 

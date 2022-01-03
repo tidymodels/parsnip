@@ -9,7 +9,11 @@ This model has no formal tuning parameters. It might be beneficial to determine 
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("linear_reg", "gee", "regression")`
+
 ```{r gee-csl}
+library(multilevelmod)
+
 linear_reg() %>% 
   set_engine("gee") %>% 
   set_mode("regression") %>% 

@@ -25,7 +25,11 @@ param$item
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("survival_reg", "flexsurv", "censored regression")`
+
 ```{r flexsurv-creg}
+library(censored)
+
 survival_reg(dist = character(1)) %>% 
   set_engine("flexsurv") %>% 
   set_mode("censored regression") %>% 

@@ -31,7 +31,12 @@ discriminant analysis (QDA) model.
 }
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{discrim}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+
+discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) \%>\% 
   set_engine("klaR") \%>\% 
   translate()
 }\if{html}{\out{</div>}}\preformatted{## Regularized Discriminant Model Specification (classification)

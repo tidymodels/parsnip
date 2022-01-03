@@ -26,8 +26,16 @@ The default value of `num_terms` depends on the number of columns (`p`): `min(20
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("discrim_flexible", "earth", "classification")`
+
 ```{r earth-cls}
-discrim_flexible(num_terms = integer(0), prod_degree = integer(0), prune_method = character(0)) %>% 
+library(discrim)
+
+discrim_flexible(
+  num_terms = integer(0),
+  prod_degree = integer(0),
+  prune_method = character(0)
+) %>% 
   translate()
 ```
 

@@ -20,7 +20,12 @@ This model has 3 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the underlying model call (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{cubist_rules(
+\subsection{Translation from parsnip to the underlying model call (regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+
+cubist_rules(
   committees = integer(1),
   neighbors = integer(1),
   max_rules = integer(1)
