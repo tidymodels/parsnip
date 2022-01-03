@@ -676,7 +676,9 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
     dplyr::filter(engine == eng) %>%
     nrow()
   if (has_engine != 1) {
-    rlang::abort("The engine '{eng}' has not been registered for model '{model}'.")
+    rlang::abort(
+      glue::glue("The engine '{eng}' has not been registered for model '{model}'.")
+    )
   }
 
   # ----------------------------------------------------------------------------
