@@ -5,10 +5,7 @@
 #' `bag_mars()` defines an ensemble of generalized linear models that use
 #' artificial features for some predictors. These features resemble hinge
 #' functions and the result is a model that is a segmented regression in small
-#' dimensions.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' dimensions. The function can fit classification and regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_mars")}
 #'

@@ -3,14 +3,9 @@
 #' @description
 #'
 #' `linear_reg()` defines a model that can predict numeric values from
-#' predictors using a linear function.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' predictors using a linear function. The function can fit  regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
-#'
-#' \Sexpr[stage=render,results=rd]{parsnip:::pkg_extension_note("linear_reg")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.

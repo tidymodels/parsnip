@@ -29,10 +29,8 @@ to use for fitting.}
 }
 \description{
 \code{naive_Bayes()} defines a model that uses Bayes' theorem to compute the
-probability of each class, given the predictor values.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+probability of each class, given the predictor values. The function can fit
+classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes")}
 

@@ -3,10 +3,8 @@
 #' @description
 #'
 #' `multinom_reg()` defines a model that uses linear predictors to predict
-#' multiclass data using the multinomial distribution.
-#'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' multiclass data using the multinomial distribution. The function can fit
+#' classification models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("multinom_reg")}
 #'

@@ -34,10 +34,7 @@ For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 \description{
 \code{\link[=logistic_reg]{logistic_reg()}} defines a generalized linear model for binary outcomes. A
 linear combination of the predictors is used to model the log odds of an
-event.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+event. The function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
 

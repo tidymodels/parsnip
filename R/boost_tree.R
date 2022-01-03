@@ -6,10 +6,8 @@
 #'
 #' `boost_tree()` defines a model that creates a series of decision trees
 #' forming an ensemble. Each tree depends on the results of previous trees.
-#' All trees in the ensemble are combined to produce a final prediction.
-#'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' All trees in the ensemble are combined to produce a final prediction. The
+#' function can fit classification, regression, and censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
 #'

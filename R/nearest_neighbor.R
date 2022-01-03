@@ -5,9 +5,6 @@
 #' `nearest_neighbor()` defines a model that uses the `K` most similar data
 #' points from the training set to predict new samples.
 #'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
-#'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at

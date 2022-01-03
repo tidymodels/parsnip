@@ -24,9 +24,6 @@ This function is soft-deprecated in favor of \code{survival_reg()} which uses th
 
 \code{surv_reg()} defines a parametric survival model.
 
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
-
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
 
 More information on how \pkg{parsnip} is used for modeling is at

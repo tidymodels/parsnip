@@ -11,7 +11,8 @@ between classical discriminant analysis and diagonal discriminant analysis.
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
 
-This engine has no tuning parameters.
+This engine has no tuning parameter arguments in
+\code{\link[=discrim_linear]{discrim_linear()}}.
 
 However, there are a few engine-specific parameters that can be set or
 optimized when calling \code{\link[=set_engine]{set_engine()}}:

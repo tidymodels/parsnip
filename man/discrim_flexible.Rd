@@ -32,9 +32,6 @@ to use for fitting.}
 that can use nonlinear features created using multivariate adaptive
 regression splines (MARS).
 
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
-
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible")}
 
 More information on how \pkg{parsnip} is used for modeling is at

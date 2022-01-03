@@ -44,10 +44,8 @@ from iteration-to-iteration (specific engines only).}
 }
 \description{
 \code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,
-feed-forward neural network).
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+feed-forward neural network). The function can fit classification and
+regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 

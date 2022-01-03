@@ -6,7 +6,8 @@
 \description{
 \code{\link[mda:fda]{mda::fda()}} (in conjunction with \code{\link[earth:earth]{earth::earth()}} can fit a nonlinear
 discriminant analysis model that uses nonlinear features created using
-multivariate adaptive regression splines (MARS).
+multivariate adaptive regression splines (MARS). The function can fit
+classification models.
 }
 \details{
 For this engine, there is a single mode: classification

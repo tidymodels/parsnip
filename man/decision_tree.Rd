@@ -30,10 +30,8 @@ in a node that are required for the node to be split further.}
 }
 \description{
 \code{decision_tree()} defines a model as a set of \verb{if/then} statements that
-creates a tree-based structure.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+creates a tree-based structure. The function can fit classification,
+regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
 

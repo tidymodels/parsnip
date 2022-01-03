@@ -42,35 +42,10 @@ The model can accept case weights.
 With \code{parsnip}, we suggest using the \emph{fixed effects} formula method when
 fitting but the details of the correlation structure should be passed to
 \code{set_engine()} since it is an irregular (but required) argument:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
-}\if{html}{\out{</div>}}\preformatted{## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.4 ──
-
-## ✓ broom        0.7.9           ✓ tibble       3.1.6      
-## ✓ ggplot2      3.3.5           ✓ tidyr        1.1.4      
-## ✓ infer        1.0.0           ✓ workflows    0.2.4.9000 
-## ✓ purrr        0.3.4           ✓ workflowsets 0.1.0      
-## ✓ recipes      0.1.17.9000     ✓ yardstick    0.0.8      
-## ✓ rsample      0.1.0
-
-## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-## x purrr::discard()   masks scales::discard()
-## x tidyr::expand()    masks Matrix::expand()
-## x dplyr::filter()    masks stats::filter()
-## x dplyr::lag()       masks stats::lag()
-## x dials::max_rules() masks rules::max_rules()
-## x tidyr::pack()      masks Matrix::pack()
-## x recipes::step()    masks stats::step()
-## x tidyr::unpack()    masks Matrix::unpack()
-## x recipes::update()  masks Matrix::update(), stats::update()
-## • Learn how to get started at https://www.tidymodels.org/start/
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# load nlme to be able to use the `cor*()` functions
+# load nlme to be able to use the `cor*()` functions
 library(nlme)
-}\if{html}{\out{</div>}}\preformatted{## 
-## Attaching package: 'nlme'
 
-## The following object is masked from 'package:dplyr':
-## 
-##     collapse
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("riesby")
+data("riesby")
 
 linear_reg() \%>\% 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) \%>\% 

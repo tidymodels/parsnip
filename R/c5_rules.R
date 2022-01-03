@@ -5,10 +5,8 @@
 #'
 #' @description
 #' `C5_rules()` defines a model that derives feature rules from a tree for
-#' prediction. A single tree or boosted ensemble can be used.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' prediction. A single tree or boosted ensemble can be used. The function can
+#' fit classification models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("C5_rules")}
 #'

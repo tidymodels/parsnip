@@ -171,15 +171,19 @@ make_engine_list <- function(mod) {
   eng <- find_engine_files(mod)
 
   if (length(eng) == 0) {
-    return("No engines were found for this model.\n\n")
+    return(
+      paste(
+        "There are different ways to fit this model. The method of estimation is ",
+        "chosen by setting the model \\emph{engine}. No engines were found for ",
+        "this model.\n\n"
+      )
+    )
   } else {
-    modes <- get_from_env(paste0(mod, "_modes"))
-    modes <- modes[modes != "unknown"]
-    modes <- glue::glue_collapse(modes, sep = ", ", last = " and ")
-    modes <- glue::glue("\\code{|mod|()}  can fit |modes| models.",
-                        .open = "|", .close = "|")
-    main <- glue::glue("The engine-specific pages for this model are listed ",
-                       "below. These contain further details:\n\n")
+    main <- paste(
+      "There are different ways to fit this model. The method of estimation is ",
+      "chosen by setting the model \\emph{engine}. The engine-specific pages ",
+      "for this model are listed  below.\n\n"
+    )
   }
 
   exts <-
@@ -209,7 +213,7 @@ make_engine_list <- function(mod) {
 
 
   items <- glue::glue_collapse(eng$item, sep = "\n")
-  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |notes|\n\n|modes|",
+  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |notes|",
                     .open = "|", .close = "|")
   res
 }

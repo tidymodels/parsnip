@@ -1,10 +1,9 @@
 #' Proportional hazards regression
 #'
 #' @description
-#' `proportional_hazards()` defines a proportional hazards model.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' `proportional_hazards()` defines a technique that models the hazard function
+#' as a multiplicative function of covariates times a baseline hazard. The
+#' function can fit  censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
 #'

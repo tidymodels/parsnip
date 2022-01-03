@@ -1,10 +1,8 @@
 #' Parametric survival regression
 #'
 #' @description
-#' `survival_reg()` defines a parametric survival model.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' `survival_reg()` defines a parametric survival model. The function can fit
+#' censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("survival_reg")}
 #'

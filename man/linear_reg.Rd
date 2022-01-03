@@ -24,10 +24,7 @@ ridge regression is being used (specific engines only).}
 }
 \description{
 \code{linear_reg()} defines a model that can predict numeric values from
-predictors using a linear function.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+predictors using a linear function. The function can fit  regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 

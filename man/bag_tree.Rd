@@ -35,10 +35,8 @@ and one can be used to bias to the second level of the factor.}
 to use for fitting.}
 }
 \description{
-\code{bag_tree()} defines an ensemble of decision trees.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+\code{bag_tree()} defines an ensemble of decision trees. The function can fit
+classification, regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_tree")}
 

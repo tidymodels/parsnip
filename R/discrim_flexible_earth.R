@@ -2,7 +2,8 @@
 #'
 #' [mda::fda()] (in conjunction with [earth::earth()] can fit a nonlinear
 #' discriminant analysis model that uses nonlinear features created using
-#' multivariate adaptive regression splines (MARS).
+#' multivariate adaptive regression splines (MARS). The function can fit
+#' classification models.
 #'
 #' @includeRmd man/rmd/discrim_flexible_earth.md details
 #'
