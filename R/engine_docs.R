@@ -149,7 +149,7 @@ find_engine_files <- function(mod) {
 
   # Determine and label default engine
   default <- get_default_engine(mod)
-  eng$default <- ifelse(eng$engine == default, " (default)", "")
+  eng$default <- ifelse(eng$engine == default, cli::symbol$sup_1, "")
 
   # reorder based on default and name
   non_defaults <- dplyr::filter(eng, !grepl("default", default))
@@ -158,7 +158,7 @@ find_engine_files <- function(mod) {
     dplyr::arrange(tolower(engine)) %>%
     dplyr::mutate(.order = dplyr::row_number() + 1)
   eng <-
-    dplyr::filter(eng, grepl("default", default)) %>%
+    dplyr::filter(eng, default != "") %>%
     dplyr::mutate(.order = 1) %>%
     dplyr::bind_rows(non_defaults)
 
@@ -176,7 +176,7 @@ make_engine_list <- function(mod) {
     modes <- get_from_env(paste0(mod, "_modes"))
     modes <- modes[modes != "unknown"]
     modes <- glue::glue_collapse(modes, sep = ", ", last = " and ")
-    modes <- glue::glue("\\code{|mod|()} can fit |modes| models.",
+    modes <- glue::glue("\\code{|mod|()}  can fit |modes| models.",
                         .open = "|", .close = "|")
     main <- glue::glue("The engine-specific pages for this model are listed ",
                        "below. These contain further details:\n\n")
@@ -188,7 +188,7 @@ make_engine_list <- function(mod) {
     dplyr::group_by(engine) %>%
     dplyr::summarize(extensions = sum(!is.na(pkg))) %>%
     dplyr::mutate(
-      has_ext = ifelse(extensions > 0, " (may require a parsnip extension package)", "")
+      has_ext = ifelse(extensions > 0, cli::symbol$sup_2, "")
     )
   eng <- dplyr::left_join(eng, exts, by = "engine")
 
@@ -202,8 +202,14 @@ make_engine_list <- function(mod) {
     ) %>%
     dplyr::distinct(item)
 
+  notes <- paste0("\n", cli::symbol$sup_1, " The default engine.")
+  if (any(exts$has_ext != "")) {
+    notes <- paste0(notes, " ", cli::symbol$sup_2, " May require a parsnip extension package.")
+  }
+
+
   items <- glue::glue_collapse(eng$item, sep = "\n")
-  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |modes|}",
+  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |notes|\n\n|modes|",
                     .open = "|", .close = "|")
   res
 }
