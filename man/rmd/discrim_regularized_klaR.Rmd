@@ -1,4 +1,4 @@
-```{r, child = "setup.Rmd", include = FALSE}
+```{r, child = "aaa.Rmd", include = FALSE}
 ```
 
 `r descr_models("discrim_regularized", "klaR")`
