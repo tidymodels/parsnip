@@ -12,9 +12,9 @@ check_pkg_for_docs <- function(x){
 rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", "Cubist", "xrf")
 
 check_pkg_for_docs(rmd_pkgs)
-check_pkg_for_docs(parsnip:::extensions())
+# check_pkg_for_docs(parsnip:::extensions())
 
-stop("setup")
+
 # ------------------------------------------------------------------------------
 # Code to get information about main arguments and format the results to print
 
