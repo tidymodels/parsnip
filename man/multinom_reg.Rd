@@ -53,7 +53,7 @@ show_engines("multinom_reg")
 multinom_reg()
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}

@@ -53,7 +53,7 @@ C5_rules()
 Quinlan R (1993). \emph{C4.5: Programs for Machine Learning}. Morgan
 Kaufmann Publishers.
 
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
 }
 \seealso{
 \code{\link[C50:C5.0]{C50::C5.0()}}, \code{\link[C50:C5.0Control]{C50::C5.0Control()}},
