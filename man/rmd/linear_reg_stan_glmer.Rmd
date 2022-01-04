@@ -22,7 +22,11 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("linear_reg", "stan_glmer", "regression")`
+
 ```{r stan_glmer-csl}
+library(multilevelmod)
+
 linear_reg() %>% 
   set_engine("stan_glmer") %>% 
   set_mode("regression") %>% 

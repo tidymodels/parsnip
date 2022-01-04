@@ -25,7 +25,7 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 `r uses_extension("poisson_reg", "stan_glmer", "regression")`
 
 ```{r stan_glmer-cls}
-library(poissonreg)
+library(multilevelmod)
 
 poisson_reg(engine = "stan_glmer") %>% 
   set_engine("stan_glmer") %>% 

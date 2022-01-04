@@ -26,7 +26,12 @@ The \code{mtry} parameter is related to the number of predictors. The default
 is to use all predictors.
 }
 
-\subsection{Translation from parsnip to the original package (censored regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree() \%>\% 
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+boost_tree() \%>\% 
   set_engine("mboost") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()

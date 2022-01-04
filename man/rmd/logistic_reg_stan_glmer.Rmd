@@ -22,7 +22,11 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 
 ## Translation from parsnip to the original package
 
+`r uses_extension("logistic_reg", "stan_glmer", "classification")`
+
 ```{r stan_glmer-cls}
+library(multilevelmod)
+
 logistic_reg() %>% 
   set_engine("stan_glmer") %>% 
   translate()

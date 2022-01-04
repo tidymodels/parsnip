@@ -17,7 +17,7 @@ This model has no tuning parameters.
 \subsection{Translation from parsnip to the original package}{
 
 There is a parsnip extension package required to fit this model to this
-mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 poisson_reg(engine = "glmer") \%>\% 
   set_engine("glmer") \%>\% 

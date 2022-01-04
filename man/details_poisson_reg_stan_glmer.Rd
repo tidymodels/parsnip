@@ -37,7 +37,7 @@ See \code{?rstanarm::stan_glmer} and \code{?rstan::sampling} for more informatio
 \subsection{Translation from parsnip to the original package}{
 
 There is a parsnip extension package required to fit this model to this
-mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 poisson_reg(engine = "stan_glmer") \%>\% 
   set_engine("stan_glmer") \%>\% 

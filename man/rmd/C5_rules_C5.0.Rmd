@@ -24,9 +24,13 @@ param$item
 
 Note that C5.0 has a tool for _early stopping_ during boosting where less  iterations of boosting are performed than the number requested. `C5_rules()` turns this feature off (although it can be re-enabled using [C50::C5.0Control()]).
 
-## Translation from parsnip to the underlying model call  (regression)
+## Translation from parsnip to the underlying model call  (classification)
+
+`r uses_extension("C5_rules", "C5.0", "classification")`
 
 ```{r C5.0-cls}
+library(rules)
+
 C5_rules(
   trees = integer(1),
   min_n = integer(1)

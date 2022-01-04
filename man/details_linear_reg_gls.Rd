@@ -117,13 +117,8 @@ lme_fit <-
 }\if{html}{\out{</div>}}
 
 The estimated within-subject correlations are the same:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ape)
-}\if{html}{\out{</div>}}\preformatted{## 
-## Attaching package: 'ape'
 
-## The following object is masked from 'package:rsample':
-## 
-##     complement
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# lme, use ape package:
+# lme, use ape package:
 lme_within_sub <- varcomp(lme_fit$fit)/sum(varcomp(lme_fit$fit))
 lme_within_sub["subject"]
 }\if{html}{\out{</div>}}\preformatted{##   subject 

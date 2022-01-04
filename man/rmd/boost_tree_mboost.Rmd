@@ -27,7 +27,11 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 
 ## Translation from parsnip to the original package (censored regression)
 
+`r uses_extension("boost_tree", "mboost", "censored regression")`
+
 ```{r mboost-creg}
+library(censored)
+
 boost_tree() %>% 
   set_engine("mboost") %>% 
   set_mode("censored regression") %>% 
