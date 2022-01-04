@@ -143,8 +143,8 @@ find_engine_files <- function(mod) {
   }
 
   # Subset for our model function
-  eng <- strsplit(topic_names, "_")
-  eng <- purrr::map_chr(eng, ~ .x[length(.x)])
+  prefix <- paste0("parsnip:details_", mod, "_")
+  eng <- gsub(prefix, "", topic_names)
   eng <- tibble::tibble(engine = eng, topic = topic_names)
 
   # Determine and label default engine
@@ -152,7 +152,7 @@ find_engine_files <- function(mod) {
   eng$default <- ifelse(eng$engine == default, cli::symbol$sup_1, "")
 
   # reorder based on default and name
-  non_defaults <- dplyr::filter(eng, !grepl("default", default))
+  non_defaults <- dplyr::filter(eng, default == "")
   non_defaults <-
     non_defaults %>%
     dplyr::arrange(tolower(engine)) %>%
