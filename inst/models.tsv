@@ -2,11 +2,8 @@
 "bag_mars"	"classification"	"earth"	"baguette"
 "bag_mars"	"regression"	"earth"	"baguette"
 "bag_tree"	"censored regression"	"rpart"	"censored"
-"bag_tree"	"censored regression"	"rpart"	"baguette"
 "bag_tree"	"classification"	"C5.0"	"baguette"
-"bag_tree"	"classification"	"rpart"	"censored"
 "bag_tree"	"classification"	"rpart"	"baguette"
-"bag_tree"	"regression"	"rpart"	"censored"
 "bag_tree"	"regression"	"rpart"	"baguette"
 "bart"	"classification"	"dbarts"	NA
 "bart"	"regression"	"dbarts"	NA
@@ -21,9 +18,9 @@
 "decision_tree"	"censored regression"	"party"	"censored"
 "decision_tree"	"censored regression"	"rpart"	"censored"
 "decision_tree"	"classification"	"C5.0"	NA
-"decision_tree"	"classification"	"rpart"	"censored"
+"decision_tree"	"classification"	"rpart"	NA
 "decision_tree"	"classification"	"spark"	NA
-"decision_tree"	"regression"	"rpart"	"censored"
+"decision_tree"	"regression"	"rpart"	NA
 "decision_tree"	"regression"	"spark"	NA
 "discrim_flexible"	"classification"	"earth"	"discrim"
 "discrim_linear"	"classification"	"MASS"	"discrim"
