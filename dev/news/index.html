@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,7 @@
 <li><p>The fit time is only calculated when the <code>verbosity</code> argument of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> is 2L or greater. Also, the call to <code><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time()</a></code> now uses <code>gcFirst = FALSE</code>. (<a href="https://github.com/tidymodels/parsnip/issues/611" class="external-link">#611</a>)</p></li>
 <li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
 <li><p>Argument <code>interval</code> was added for prediction: For types “survival” and “quantile”, estimates for the confidence or prediction interval can be added if available (<a href="https://github.com/tidymodels/parsnip/issues/615" class="external-link">#615</a>).</p></li>
+<li><p><code><a href="../reference/set_new_model.html">set_dependency()</a></code> now allows developers to create package requirements that are specific to the model’s mode (<a href="https://github.com/tidymodels/parsnip/issues/604" class="external-link">#604</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
