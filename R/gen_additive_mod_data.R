@@ -6,7 +6,7 @@ set_model_mode("gen_additive_mod", "regression")
 # ------------------------------------------------------------------------------
 #### REGRESION ----
 set_model_engine(model = "gen_additive_mod", mode = "regression", eng = "mgcv")
-set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv")
+set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv", mode = "regression")
 
 #Args
 
@@ -107,8 +107,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 #### CLASSIFICATION
 set_model_engine(model = "gen_additive_mod", mode = "classification", eng = "mgcv")
-set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv")
-
+set_dependency(model = "gen_additive_mod", eng = "mgcv", pkg = "mgcv", mode = "classification")
 
 set_encoding(
   model = "gen_additive_mod",
