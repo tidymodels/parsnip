@@ -8,3 +8,5 @@
 #' @name details_logistic_reg_gee
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

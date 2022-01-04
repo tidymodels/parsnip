@@ -7,3 +7,5 @@
 #' @name details_mlp_keras
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

@@ -9,3 +9,5 @@
 #' @name details_logistic_reg_glmnet
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

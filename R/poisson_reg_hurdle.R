@@ -9,3 +9,5 @@
 #' @name details_poisson_reg_hurdle
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

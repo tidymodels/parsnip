@@ -7,3 +7,5 @@
 #' @name details_survival_reg_flexsurv
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

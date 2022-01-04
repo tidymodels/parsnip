@@ -10,3 +10,5 @@
 #' @name details_discrim_quad_MASS
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

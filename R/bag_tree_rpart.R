@@ -9,3 +9,5 @@
 #' @name details_bag_tree_rpart
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

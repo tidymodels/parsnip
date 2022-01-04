@@ -8,3 +8,5 @@
 #' @name details_bag_tree_C5.0
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

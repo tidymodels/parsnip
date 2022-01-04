@@ -7,3 +7,5 @@
 #' @name details_pls_mixOmics
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

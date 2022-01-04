@@ -10,3 +10,5 @@
 #' @name details_svm_linear_LiblineaR
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

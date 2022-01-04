@@ -10,3 +10,5 @@
 #' @name details_svm_poly_kernlab
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

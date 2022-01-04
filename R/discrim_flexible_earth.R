@@ -10,3 +10,5 @@
 #' @name details_discrim_flexible_earth
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

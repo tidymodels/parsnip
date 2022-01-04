@@ -9,3 +9,5 @@
 #' @name details_linear_reg_glm
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

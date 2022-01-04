@@ -8,3 +8,5 @@
 #' @name details_nearest_neighbor_kknn
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

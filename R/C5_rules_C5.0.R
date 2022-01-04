@@ -9,3 +9,5 @@
 #' @name details_C5_rules_C5.0
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

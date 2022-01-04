@@ -9,3 +9,5 @@
 #' @name details_boost_tree_xgboost
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed

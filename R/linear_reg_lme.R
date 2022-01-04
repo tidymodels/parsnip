@@ -8,3 +8,5 @@
 #' @name details_linear_reg_lme
 #' @keywords internal
 NULL
+
+# See man/rmd/README.md for a description of how these files are processed
