@@ -63,7 +63,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
     tidyr::unnest(cols = "pkg") %>%
     dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg")
 
-  info <- dplyr::left_join(info, exts, by = c("model", "engine"))
+  info <- dplyr::left_join(info, exts, by = c("model", "engine", "mode"))
 
   csv <- utils::write.table(info, file = path, row.names = FALSE, sep = "\t")
   invisible(info)
