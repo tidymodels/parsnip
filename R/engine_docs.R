@@ -287,3 +287,20 @@ generate_set_engine_bullets <- function() {
 sort_c <- function(x) {
   withr::with_collate("C", sort(x))
 }
+
+get_sorted_unique_engines <- function(x) {
+  engines <- x$engine
+  engines <- unique(engines)
+  engines <- sort_c(engines)
+  engines
+}
+combine_prefix_with_engines <- function(prefix, engines) {
+  if (length(engines) == 0L) {
+    engines <- "No engines currently available"
+  } else {
+    engines <- glue::glue_collapse(engines, sep = ", ")
+  }
+
+  glue::glue("{prefix} {engines}")
+}
+
