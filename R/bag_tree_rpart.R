@@ -1,7 +1,8 @@
 #' Bagged trees via rpart
 #'
-#' [baguette::bagger()] creates an collection of decision trees forming an
-#' ensemble. All trees in the ensemble are combined to produce a final prediction.
+#' [baguette::bagger()] and [ipred::bagging()] create collections of decision
+#' trees forming an ensemble. All trees in the ensemble are combined to produce
+#' a final prediction.
 #'
 #' @includeRmd man/rmd/bag_tree_rpart.md details
 #'
