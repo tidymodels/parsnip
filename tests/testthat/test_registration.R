@@ -33,7 +33,7 @@ test_that('adding a new model', {
 
 test_by_col(
   get_from_env("sponge_pkgs"),
-  tibble(engine = character(0), pkg = list())
+  tibble(engine = character(0), pkg = list(), mode = character(0))
 )
 
 expect_equal(
@@ -72,6 +72,7 @@ test_that('adding a new mode', {
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
   expect_error(set_model_mode("sponge"))
+
 })
 
 
@@ -85,13 +86,14 @@ test_that('adding a new engine', {
     tibble(engine = "gum", mode = "classification")
   )
 
-
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
-  # TODO check for bad mode, check for duplicate
   expect_error(set_model_engine("sponge", eng = "gum"))
   expect_error(set_model_engine("sponge", mode = "classification"))
-
+  expect_error(
+    set_model_engine("sponge", mode = "regression", eng = "gum"),
+    "'regression' is not a known mode"
+  )
 })
 
 
@@ -102,21 +104,26 @@ test_that('adding a new package', {
 
   expect_error(set_dependency("sponge", "gum", letters[1:2]))
   expect_error(set_dependency("sponge", "gummies", "trident"))
+  expect_error(set_dependency("sponge",  "gum", "trident", mode = "regression"))
 
   test_by_col(
     get_from_env("sponge_pkgs"),
-    tibble(engine = "gum", pkg = list("trident"))
+    tibble(engine = "gum", pkg = list("trident"), mode = "classification")
   )
 
-  set_dependency("sponge", "gum", "juicy-fruit")
+  set_dependency("sponge", "gum", "juicy-fruit", mode = "classification")
   test_by_col(
     get_from_env("sponge_pkgs"),
-    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
+    tibble(engine = "gum",
+           pkg = list(c("trident", "juicy-fruit")),
+           mode = "classification")
   )
 
   test_by_col(
     get_dependency("sponge"),
-    tibble(engine = "gum", pkg = list(c("juicy-fruit", "trident")))
+    tibble(engine = "gum",
+           pkg = list(c("trident", "juicy-fruit")),
+           mode = "classification")
   )
 })
 

@@ -217,7 +217,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("boost_tree", "classification", "C5.0")
-set_dependency("boost_tree", "C5.0", "C50")
+set_dependency("boost_tree", "C5.0", "C50", mode = "classification")
 
 set_model_arg(
   model = "boost_tree",

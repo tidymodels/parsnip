@@ -28,6 +28,8 @@
 
 * Argument `interval` was added for prediction: For types "survival" and "quantile", estimates for the confidence or prediction interval can be added if available (#615).
 
+* `set_dependency()` now allows developers to create package requirements that are specific to the model's mode (#604). 
+
 
 # parsnip 0.1.7
 
