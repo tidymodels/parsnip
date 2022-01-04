@@ -183,12 +183,21 @@ stop_missing_engine <- function(cls) {
   rlang::abort(msg)
 }
 
+check_mode_for_new_engine <- function(cls, eng, mode) {
+  all_modes <- get_from_env(paste0(cls, "_modes"))
+  if (!(mode %in% all_modes)) {
+    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."))
+  }
+  invisible(NULL)
+}
+
 
 # check if class and mode and engine are compatible
 check_spec_mode_engine_val <- function(cls, eng, mode) {
-  all_modes <- c("unknown", all_modes)
+
+  all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
-    rlang::abort(paste0("'", mode, "' is not a known mode."))
+    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."))
   }
 
   model_info <- rlang::env_get(get_model_env(), cls)
@@ -601,6 +610,7 @@ set_model_engine <- function(model, mode, eng) {
   check_mode_val(mode)
   check_eng_val(eng)
   check_mode_val(eng)
+  check_mode_for_new_engine(model, eng, mode)
 
   current <- get_model_env()
 

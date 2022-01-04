@@ -49,7 +49,7 @@ test_that('pipe engine', {
 test_that("can't set a mode that isn't allowed by the model spec", {
   expect_error(
     set_mode(linear_reg(), "classification"),
-    "Available modes"
+    "'classification' is not a known mode"
   )
 })
 
@@ -85,7 +85,7 @@ test_that("unavailable modes for an engine and vice-versa", {
 
   expect_error(
     proportional_hazards() %>% set_mode("regression"),
-    "Available modes for model type proportional_hazards"
+    "'regression' is not a known mode"
   )
 
   expect_error(
