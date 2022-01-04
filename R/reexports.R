@@ -34,3 +34,7 @@ hardhat::extract_spec_parsnip
 #' @importFrom hardhat extract_fit_engine
 #' @export
 hardhat::extract_fit_engine
+
+#' @importFrom hardhat extract_parameter_set_dials
+#' @export
+hardhat::extract_parameter_set_dials

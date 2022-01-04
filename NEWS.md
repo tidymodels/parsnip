@@ -18,6 +18,9 @@
 
 * Fixed outcome type checking affecting a subset of regression models (#625).
 
+* New `extract_parameter_set_dials()` method to extract parameter sets from model specs.
+
+
 ## Other Changes
 
 * When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates). 
