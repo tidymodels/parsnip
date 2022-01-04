@@ -81,6 +81,7 @@ set_new_model("rand_forest")
 
 set_model_mode("rand_forest", "classification")
 set_model_mode("rand_forest", "regression")
+set_model_mode("rand_forest", "censored regression")
 
 # ------------------------------------------------------------------------------
 # ranger components
