@@ -346,6 +346,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/req_pkgs.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/required_pkgs.model_spec.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/rpart_train.html</loc>
   </url>
   <url>
