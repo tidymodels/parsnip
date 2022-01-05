@@ -20,6 +20,8 @@
 
 * New `extract_parameter_set_dials()` method to extract parameter sets from model specs.
 
+* New `extract_parameter_dials()` method to extract a single parameter from model specs.
+
 
 ## Other Changes
 
