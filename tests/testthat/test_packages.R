@@ -5,12 +5,14 @@ load(test_path("mars_model.RData"))
 # ------------------------------------------------------------------------------
 
 test_that('required packages', {
+  rlang::local_options(lifecycle_verbosity = "quiet")
 
   glmn <-
     linear_reg() %>%
     set_engine("glmnet")
   expect_equal(req_pkgs(glmn), "glmnet")
-  expect_equal(required_pkgs(glmn), c("glmnet", "parsnip"))
+  expect_equal(required_pkgs(glmn), c("parsnip", "glmnet"))
+  expect_equal(required_pkgs(glmn, infra = FALSE), c("glmnet"))
 
 
   lm_fit <-
@@ -19,6 +21,7 @@ test_that('required packages', {
     fit(mpg ~ ., data = mtcars)
   expect_equal(req_pkgs(lm_fit), "stats")
   expect_equal(required_pkgs(lm_fit), c("parsnip", "stats"))
+  expect_equal(required_pkgs(lm_fit, infra = FALSE), c("stats"))
 })
 
 # ------------------------------------------------------------------------------
