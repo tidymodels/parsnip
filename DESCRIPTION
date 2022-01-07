@@ -22,7 +22,7 @@ Imports:
     generics (>= 0.1.0.9000),
     globals,
     glue,
-    hardhat (>= 0.1.6.9000),
+    hardhat (>= 0.1.6.9001),
     lifecycle,
     magrittr,
     prettyunits,
@@ -86,4 +86,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Remotes:  
     tidymodels/dials@extract-parameter,
-    tidymodels/hardhat
+    tidymodels/hardhat@add-tune
