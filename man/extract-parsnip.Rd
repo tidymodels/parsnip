@@ -14,14 +14,14 @@
 
 \method{extract_parameter_set_dials}{model_spec}(x, ...)
 
-\method{extract_parameter_dials}{model_spec}(x, id, ...)
+\method{extract_parameter_dials}{model_spec}(x, parameter, ...)
 }
 \arguments{
 \item{x}{A parsnip \code{model_fit} object or a parsnip \code{model_spec} object.}
 
 \item{...}{Not currently used.}
 
-\item{id}{A single string for the \code{id} of the parameter.}
+\item{parameter}{A single string for the parameter ID.}
 }
 \value{
 The extracted value from the parsnip object, \code{x}, as described in the description

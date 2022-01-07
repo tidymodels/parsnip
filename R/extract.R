@@ -15,7 +15,7 @@
 #' - `extract_parameter_set_dials()` returns a set of dials parameter objects.
 #'
 #' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
-#' @param id A single string for the `id` of the parameter.
+#' @param parameter A single string for the parameter ID.
 #' @param ... Not currently used.
 #' @details
 #' Extracting the underlying engine fit can be helpful for describing the
@@ -116,6 +116,6 @@ eval_call_info <-  function(x) {
 
 #' @export
 #' @rdname extract-parsnip
-extract_parameter_dials.model_spec <- function(x, id, ...) {
-  extract_parameter_dials(extract_parameter_set_dials(x), id)
+extract_parameter_dials.model_spec <- function(x, parameter, ...) {
+  extract_parameter_dials(extract_parameter_set_dials(x), parameter)
 }
