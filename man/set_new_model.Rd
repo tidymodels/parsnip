@@ -31,7 +31,7 @@ set_model_engine(model, mode, eng)
 
 set_model_arg(model, eng, parsnip, original, func, has_submodel)
 
-set_dependency(model, eng, pkg = "parsnip")
+set_dependency(model, eng, pkg = "parsnip", mode = NULL)
 
 get_dependency(model)
 

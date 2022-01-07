@@ -8,8 +8,11 @@ set_model_mode("mlp", "regression")
 
 set_model_engine("mlp", "classification", "keras")
 set_model_engine("mlp", "regression", "keras")
-set_dependency("mlp", "keras", "keras")
-set_dependency("mlp", "keras", "magrittr")
+set_dependency("mlp", "keras", "keras", mode = "regression")
+set_dependency("mlp", "keras", "magrittr", mode = "regression")
+set_dependency("mlp", "keras", "keras", mode = "classification")
+set_dependency("mlp", "keras", "magrittr", mode = "classification")
+
 
 set_model_arg(
   model = "mlp",
@@ -197,7 +200,8 @@ set_pred(
 
 set_model_engine("mlp", "classification", "nnet")
 set_model_engine("mlp", "regression", "nnet")
-set_dependency("mlp", "nnet", "nnet")
+set_dependency("mlp", "nnet", "nnet", mode = "regression")
+set_dependency("mlp", "nnet", "nnet", mode = "classification")
 
 set_model_arg(
   model = "mlp",

@@ -1,5 +1,8 @@
 #' Determine required packages for a model
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param x A model specification or fit.
 #' @param ... Not used.
 #' @return A character string of package names (if any).
@@ -21,6 +24,7 @@
 #'   req_pkgs()
 #' @export
 req_pkgs <- function(x, ...) {
+  lifecycle::deprecate_soft("0.1.8", "req_pkgs()", "required_pkgs()")
   UseMethod("req_pkgs")
 }
 
@@ -30,37 +34,11 @@ req_pkgs.model_spec <- function(x, ...) {
   if (is.null(x$engine)) {
     rlang::abort("Please set an engine.")
   }
-  get_pkgs(x)
+  setdiff(get_pkgs(x, FALSE), "parsnip")
 }
 
 #' @export
 #' @rdname req_pkgs
 req_pkgs.model_fit <- function(x, ...) {
-  get_pkgs(x$spec)
-}
-
-get_pkgs <- function(x) {
-  cls <- class(x)[1]
-  pkgs <-
-    get_from_env(paste0(cls, "_pkgs")) %>%
-    dplyr::filter(engine == x$engine)
-  res <- pkgs$pkg[[1]]
-  if (length(res) == 0) {
-    res <- character(0)
-  }
-  res
-}
-
-#' @export
-#' @rdname req_pkgs
-required_pkgs.model_spec <- function(x, ...) {
-  res <- req_pkgs.model_spec(x, ...)
-  sort(unique(c("parsnip", res)))
-}
-
-#' @export
-#' @rdname req_pkgs
-required_pkgs.model_fit <- function(x, ...) {
-  res <- req_pkgs.model_fit(x, ...)
-  sort(unique(c("parsnip", res)))
+  setdiff(get_pkgs(x$spec, FALSE), "parsnip")
 }
