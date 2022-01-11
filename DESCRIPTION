@@ -86,4 +86,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Remotes:  
     tidymodels/dials@extract-parameter,
-    tidymodels/hardhat@add-tune
+    tidymodels/hardhat
