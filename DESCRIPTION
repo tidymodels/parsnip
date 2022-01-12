@@ -53,6 +53,7 @@ Suggests:
     nlme,
     randomForest,
     ranger (>= 0.12.0),
+    remotes,
     rmarkdown,
     rpart,
     sparklyr (>= 1.0.0),
