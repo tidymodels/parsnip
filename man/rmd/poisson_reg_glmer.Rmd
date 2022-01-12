@@ -30,7 +30,7 @@ There are no specific preprocessing needs. However, it is helpful to keep the cl
 
 The model can accept case weights. 
 
-With `parsnip`, we suggest using the formula method when fitting: 
+With parsnip, we suggest using the formula method when fitting: 
 
 ```r
 library(tidymodels)
@@ -40,7 +40,7 @@ poisson_reg() %>%
   fit(y ~ time + x + (1 | subject), data = longitudinal_counts)
 ```
 
-When using the general tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
+When using tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
 
 ```r
 library(tidymodels)

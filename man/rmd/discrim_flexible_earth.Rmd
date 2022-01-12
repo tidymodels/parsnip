@@ -13,7 +13,7 @@ defaults <-
 param <-
   discrim_flexible() %>% 
   set_engine("earth") %>% 
-make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:

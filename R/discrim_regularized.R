@@ -6,7 +6,7 @@
 #'  distribution for the predictors separately for the data in each class. The
 #'  structure of the model can be LDA, QDA, or some amalgam of the two. Bayes'
 #'  theorem is used to compute the probability of each class, given the
-#'  predictor values. The function can fit classification models.
+#'  predictor values. This function can fit classification models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized")}
 #'

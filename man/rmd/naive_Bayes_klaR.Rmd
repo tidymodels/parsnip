@@ -14,7 +14,7 @@ defaults <-
 param <-
   naive_Bayes() %>% 
   set_engine("klaR") %>% 
-make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:

@@ -31,7 +31,7 @@ There are no specific preprocessing needs. However, it is helpful to keep the cl
 
 The model can accept case weights. 
 
-With `parsnip`, we suggest using the _fixed effects_ formula method when fitting but the random effects formula should be passed to `set_engine()` since it is an irregular (but required) argument:
+With parsnip, we suggest using the _fixed effects_ formula method when fitting, but the random effects formula should be passed to `set_engine()` since it is an irregular (but required) argument:
 
 ```r
 library(tidymodels)
@@ -42,7 +42,7 @@ linear_reg() %>%
   fit(depr_score ~ week, data = riesby)
 ```
 
-When using the general tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
+When using tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
 
 ```r
 library(tidymodels)

@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `gen_additive_mod()` defines a model that can use smoothed functions of
-#' numeric predictors in a generalized linear model. The function can fit
+#' numeric predictors in a generalized linear model. This function can fit
 #' classification and regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}

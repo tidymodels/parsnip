@@ -1,13 +1,13 @@
 ```{r quiet-load, include = FALSE}
 library(tidymodels)
 library(multilevelmod)
-library(poissonreg) # current required for poisson_reg()
+library(poissonreg) # contains engines for poisson_reg()
 ```
 
 ```{r, message = FALSE, warning = FALSE}
 library(tidymodels)
 library(multilevelmod)
-library(poissonreg) # current required for poisson_reg()
+library(poissonreg) # contains engines for poisson_reg()
 
 # The lme4 package is required for this model.
 

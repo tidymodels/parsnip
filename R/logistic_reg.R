@@ -3,7 +3,7 @@
 #' @description
 #' [logistic_reg()] defines a generalized linear model for binary outcomes. A
 #' linear combination of the predictors is used to model the log odds of an
-#' event. The function can fit classification models.
+#' event. This function can fit classification models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
 #'

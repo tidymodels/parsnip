@@ -22,7 +22,7 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-Note that C5.0 has a tool for _early stopping_ during boosting where less  iterations of boosting are performed than the number requested. `C5_rules()` turns this feature off (although it can be re-enabled using [C50::C5.0Control()]).
+Note that C5.0 has a tool for _early stopping_ during boosting where less iterations of boosting are performed than the number requested. `C5_rules()` turns this feature off (although it can be re-enabled using [C50::C5.0Control()]).
 
 ## Translation from parsnip to the underlying model call  (classification)
 

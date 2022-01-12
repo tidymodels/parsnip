@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `cubist_rules()` defines a model that derives simple feature rules from a tree
-#' ensemble and creates regression models within each rule. The function can fit
+#' ensemble and creates regression models within each rule. This function can fit
 #' regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules")}

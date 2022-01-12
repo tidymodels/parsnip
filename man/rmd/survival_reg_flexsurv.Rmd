@@ -14,7 +14,7 @@ param <-
   survival_reg() %>%
   set_engine("flexsurv") %>%
   set_mode("censored regression") %>%
-    make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
@@ -40,7 +40,7 @@ survival_reg(dist = character(1)) %>%
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
-For this engine, stratification cannot be specified via [`strata()`], please see the documentation of the [`flexsurv`] package for alternative specifications.
+For this engine, stratification cannot be specified via [strata()]; please see the documentation of the [flexsurv] package for alternative specifications.
 
 ## References
 

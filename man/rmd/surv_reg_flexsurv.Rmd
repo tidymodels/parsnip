@@ -14,7 +14,7 @@ param <-
   surv_reg() %>%
   set_engine("flexsurv") %>%
   set_mode("regression") %>%
-    make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:

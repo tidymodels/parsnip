@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `mlp()` defines a multilayer perceptron model (a.k.a. a single layer,
-#' feed-forward neural network). The function can fit classification and
+#' feed-forward neural network). This function can fit classification and
 #' regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}

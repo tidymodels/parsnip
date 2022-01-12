@@ -1,6 +1,6 @@
 #' C5.0 rule-based classification models
 #'
-#' [C50::C5.0()] fits model that derives feature rules from a tree for
+#' [C50::C5.0()] fits a model that derives feature rules from a tree for
 #' prediction. A single tree or boosted ensemble can be used. [rules::c5_fit()]
 #' is a wrapper around this function.
 #'

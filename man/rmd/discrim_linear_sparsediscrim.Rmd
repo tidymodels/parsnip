@@ -13,7 +13,7 @@ defaults <-
 param <-
   discrim_linear() %>% 
   set_engine("sparsediscrim") %>% 
-make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:

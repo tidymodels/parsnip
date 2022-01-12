@@ -1,6 +1,6 @@
 #' Linear discriminant analysis via regularization
 #'
-#' Functions in the `sparsediscrim` package fit different types of linear
+#' Functions in the \pkg{sparsediscrim} package fit different types of linear
 #' discriminant analysis model that regularize the estimates (like the mean or
 #' covariance).
 #'

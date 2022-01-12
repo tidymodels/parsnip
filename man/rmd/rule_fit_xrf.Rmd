@@ -73,13 +73,13 @@ rule_fit(
 Note that, per the documentation in `?xrf`, transformations of the response variable are not supported. To
 use these with `rule_fit()`, we recommend using a recipe instead of the formula method.
 
-Also, there are several configuration differences in how `xrf()` is fit between that package and the wrapper used in `rules`. Some differences in default values are:
+Also, there are several configuration differences in how `xrf()` is fit between that package and the wrapper used in **rules**. Some differences in default values are:
 
 - `trees`: `xrf`: 100, `rules`: 15
 - `max_depth`: `xrf`: 3, `rules`: 6
 
 
-These differences will create a difference in the values of the `penalty` argument that `glmnet` uses. Also, \pkg{rules} can also set `penalty` whereas \pkg{xrf} uses an internal 5-fold cross-validation to determine it (by default).
+These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
 
 ## Preprocessing requirements
 

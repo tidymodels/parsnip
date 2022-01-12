@@ -45,6 +45,5 @@ poisson_reg(penalty = double(1), mixture = double(1)) %>%
 
 ```{r child = "template-same-scale.Rmd"}
 ```
-
 By default, `glmnet::glmnet()` uses the argument `standardize = TRUE` to center and scale the data. 
 

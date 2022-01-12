@@ -2,7 +2,7 @@
 #'
 #' @description
 #'
-#' `bag_tree()` defines an ensemble of decision trees. The function can fit
+#' `bag_tree()` defines an ensemble of decision trees. This function can fit
 #'  classification, regression, and censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_tree")}

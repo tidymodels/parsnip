@@ -1,9 +1,9 @@
 #' Proportional hazards regression
 #'
 #' @description
-#' `proportional_hazards()` defines a technique that models the hazard function
-#' as a multiplicative function of covariates times a baseline hazard. The
-#' function can fit  censored regression models.
+#' `proportional_hazards()` defines a model for the hazard function
+#' as a multiplicative function of covariates times a baseline hazard. This
+#' function can fit censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
 #'

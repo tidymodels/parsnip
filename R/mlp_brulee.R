@@ -1,6 +1,6 @@
 #' Multilayer perceptron via brulee
 #'
-#' [brulee::brulee_mlp()] fits a neural networks.
+#' [brulee::brulee_mlp()] fits a neural network.
 #'
 #' @includeRmd man/rmd/mlp_brulee.md details
 #'

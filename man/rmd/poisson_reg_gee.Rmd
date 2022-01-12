@@ -5,7 +5,7 @@
 
 ## Tuning Parameters
 
-This model has no formal tuning parameters. It might be beneficial to determine the appropriate correlation structure to use. However, this typically does not affect the predicted value of the model but does have an effect on the inferential results and parameter covariance values. 
+This model has no formal tuning parameters. It may be beneficial to determine the appropriate correlation structure to use, but this typically does not affect the predicted value of the model. It _does_ have an effect on the inferential results and parameter covariance values. 
 
 ## Translation from parsnip to the original package
 
@@ -30,13 +30,13 @@ There are no specific preprocessing needs. However, it is helpful to keep the cl
 
 The model cannot accept case weights. 
 
-Both `gee:gee(a)` and `gee:geepack()` specifies the id/cluster variable using an argument `id` that requires a vector. parsnip doesn't work that way so we enable this model to be fit using a artificial function called `id_var()` to be used in the formula. So, in the original package, the call would look like:
+Both `gee:gee()` and `gee:geepack()` specify the id/cluster variable using an argument `id` that requires a vector. parsnip doesn't work that way so we enable this model to be fit using a artificial function `id_var()` to be used in the formula. So, in the original package, the call would look like:
 
 ```r
 gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 ```
 
-With `parsnip`, we suggest using the formula method when fitting: 
+With parsnip, we suggest using the formula method when fitting: 
 
 ```r
 library(tidymodels)
@@ -46,7 +46,7 @@ poisson_reg() %>%
   fit(y ~ time + x + id_var(subject), data = longitudinal_counts)
 ```
 
-When using the general tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the GEE formula when adding the model: 
+When using tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the GEE formula when adding the model: 
 
 ```r
 library(tidymodels)

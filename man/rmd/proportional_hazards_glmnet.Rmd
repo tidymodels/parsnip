@@ -54,7 +54,7 @@ The model does not fit an intercept.
 
 [glmnet::glmnet()] does not use the formula interface but, for consistency, this package requires a model formula. 
 
-The model formula can include _special_ terms, such as [survival::strata()]. The allows the baseline hazard to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. This is different than the syntax offered by the [glmnet::glmnet()] package (i.e., [glmnet::stratifySurv()]) which is mot recommended here. 
+The model formula can include _special_ terms, such as [survival::strata()]. This allows the baseline hazard to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. This is different than the syntax offered by the [glmnet::glmnet()] package (i.e., [glmnet::stratifySurv()]) which is not recommended here. 
 
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 

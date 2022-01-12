@@ -3,7 +3,7 @@
 #' @description
 #'
 #' `linear_reg()` defines a model that can predict numeric values from
-#' predictors using a linear function. The function can fit  regression models.
+#' predictors using a linear function. This function can fit regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 #'

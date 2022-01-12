@@ -37,7 +37,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
   translate()
 ```
 
-[plsmod::pls_fit()] is a function that 
+[plsmod::pls_fit()] is a function that: 
 
  - Determines the number of predictors in the data.
  - Adjusts `num_comp` if the value is larger than the number of factors.

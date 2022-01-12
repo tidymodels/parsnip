@@ -3,7 +3,7 @@
 #' @description
 #'
 #' `bart()` defines a tree ensemble model that uses Bayesian analysis to
-#' assemble the ensemble. The function can fit classification and regression
+#' assemble the ensemble. This function can fit classification and regression
 #' models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bart")}

@@ -1,6 +1,6 @@
 #' Quadratic discriminant analysis via regularization
 #'
-#' Functions in the `sparsediscrim` package fit different types of quadratic
+#' Functions in the \pkg{sparsediscrim} package fit different types of quadratic
 #' discriminant analysis model that regularize the estimates (like the mean or
 #' covariance).
 #'

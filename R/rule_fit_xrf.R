@@ -1,7 +1,7 @@
 #' RuleFit models via xrf
 #'
 #' [xrf::xrf()] fits a model that derives simple feature rules from a tree
-#' ensemble and uses them as features to a regularized model. [rules::xrf_fit()]
+#' ensemble and uses the rules as features to a regularized model. [rules::xrf_fit()]
 #' is a wrapper around this function.
 #'
 #' @includeRmd man/rmd/rule_fit_xrf.md details

@@ -14,7 +14,7 @@ defaults <-
 param <-
   naive_Bayes() %>% 
   set_engine("naivebayes") %>% 
-make_parameter_list(defaults)
+  make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:
@@ -39,7 +39,7 @@ naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>%
 
 The columns for qualitative predictors should always be represented as factors (as opposed to dummy/indicator variables). When the predictors are factors, the underlying code treats them as multinomial data and appropriately computes their conditional distributions. 
 
-For count data, integers can be estimated using a Poisson distribution if the augment `usepoisson = TRUE` is passed as an engine argument.  
+For count data, integers can be estimated using a Poisson distribution if the argument `usepoisson = TRUE` is passed as an engine argument.  
 
 ```{r child = "template-zv.Rmd"}
 ```

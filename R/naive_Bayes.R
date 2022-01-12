@@ -3,7 +3,7 @@
 #' @description
 #'
 #' `naive_Bayes()` defines a model that uses Bayes' theorem to compute the
-#' probability of each class, given the predictor values. The function can fit
+#' probability of each class, given the predictor values. This function can fit
 #' classification models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes")}

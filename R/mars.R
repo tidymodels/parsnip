@@ -4,7 +4,7 @@
 #'
 #' `mars()` defines a generalized linear model that uses artificial features for
 #' some predictors. These features resemble hinge functions and the result is
-#' a model that is a segmented regression in small dimensions. The function can
+#' a model that is a segmented regression in small dimensions. This function can
 #' fit classification and regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}

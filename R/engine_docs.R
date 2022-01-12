@@ -35,18 +35,18 @@ extensions <- function() {
 #' @description
 #' This function writes a tab delimited file to the package to capture
 #' information about the known models. This information includes packages in
-#' the tidymodels GitHub repository as well as packages that are know to work
+#' the tidymodels GitHub repository as well as packages that are known to work
 #' well with tidymodels packages (e.g. \pkg{tune}, etc.). There are likely
 #' other model definitions in other extension packages that are not included
 #' here that do not follow the
 #' [model implementation guidelines](https://tidymodels.github.io/model-implementation-principles)
-#' or do not work with packages other than \pkg{parsnip}.
+#' or do not work with tidymodels packages other than \pkg{parsnip}.
 #'
 #' These data are used to document engines for each model function man page.
 #' @keywords internal
 #' @param path A character string for the location of the tab delimited file.
 #' @details
-#' It is highly recommended that the know parsnip extension packages are loaded.
+#' It is highly recommended that the known parsnip extension packages are loaded.
 #' The unexported \pkg{parsnip} function `extensions()` will list these.
 #' @export
 update_model_info_file <- function(path = "inst/models.tsv") {
@@ -104,14 +104,14 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #'  `parsnip::linear_reg()` help can show a link to a detailed help page in the
 #'  other package.
 #'
-#' To enable this, the process for a package developer is to:
+#' The process for a package developer to create \pkg{parsnip} documentation is:
 #'
 #'   1. Create an engine-specific R file in the `R` directory with the name
 #'  `{model}_{engine}.R` (e.g. `boost_tree_C5.0.R`). This has a small amount of
 #'  documentation, as well as the directives "`@name details_{model}_{engine}`"
 #'  and "`@includeRmd man/rmd/{model}_{engine}.md details`".
 #'
-#'   2. Copy the file in \pkg{parsnip} that is in `man/rmd/setup.Rmd` and put
+#'   2. Copy the file in \pkg{parsnip} that is in `man/rmd/aaa.Rmd` and put
 #'  it in the same place in your package.
 #'
 #'   3. Write your own `man/rmd/{model}_{engine}.Rmd` file. This can include
@@ -119,7 +119,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #'  required when the documentation file is created locally (probably using
 #'  [devtools::document()]).
 #'
-#'   4. Run [devtools::document()] so that the Rmd content is included in the
+#'   4. Run [devtools::document()] so that the `.md` content is included in the
 #'  Rd file.
 #'
 #' The examples in \pkg{parsnip} can provide guidance for how to organize
@@ -175,7 +175,7 @@ make_engine_list <- function(mod) {
     )
   } else {
     main <- paste(
-      "There are different ways to fit this model. The method of estimation is ",
+      "There are different ways to fit this model, and the method of estimation is ",
       "chosen by setting the model \\emph{engine}. The engine-specific pages ",
       "for this model are listed  below.\n\n"
     )
