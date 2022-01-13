@@ -304,3 +304,23 @@ combine_prefix_with_engines <- function(prefix, engines) {
   glue::glue("{prefix} {engines}")
 }
 
+# ------------------------------------------------------------------------------
+
+#' Locate and show errors/warnings in engine-specific documentation
+#' @return A tibble with column `file` for the file name, `line` indicating
+#'   the line where the error/warning occurred, and `problem` showing the
+#'   error/warning message.
+#' @keywords internal
+#' @export
+list_md_problems <- function() {
+  md_files <- list.files("man/rmd", pattern = "\\.md", full.names = TRUE)
+
+  get_errors <- function(file) {
+    lines <- readLines(file)
+    line <- grep("## (Error|Warning)", lines)
+    problem <- lines[line]
+    tibble(file, line, problem)
+  }
+
+  purrr::map_dfr(md_files, get_errors)
+}
