@@ -17,7 +17,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="articles/parsnip.html">Get started</a>
 </li>
@@ -71,7 +71,7 @@
 <h2 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a></h2>
 <p>Before you submit 🎯 a pull request on a tidymodels package, always file an issue and confirm the tidymodels team agrees with your idea and is happy with your basic proposal.</p>
 <p>The <a href="https://www.tidymodels.org/packages/" class="external-link">tidymodels packages</a> work together. Each package contains its own unit tests, while integration tests and other tests using all the packages are contained in <a href="https://github.com/tidymodels/extratests" class="external-link">extratests</a>.</p>
-<ul><li>For pull requests, we recommend that you <a href="https://usethis.r-lib.org/articles/articles/pr-functions.html" class="external-link">create a fork of this repo</a> with <code>usethis::create_from_github()</code>, and then initiate a new branch with <code>usethis::pr_init()</code>.</li>
+<ul><li>For pull requests, we recommend that you <a href="https://usethis.r-lib.org/articles/articles/pr-functions.html" class="external-link">create a fork of this repo</a> with <code><a href="https://usethis.r-lib.org/reference/create_from_github.html" class="external-link">usethis::create_from_github()</a></code>, and then initiate a new branch with <code><a href="https://usethis.r-lib.org/reference/pull-requests.html" class="external-link">usethis::pr_init()</a></code>.</li>
 <li>Look at the build status before and after making changes. The <code>README</code> contains badges for any continuous integration services used by the package.<br></li>
 <li>New code should follow the tidyverse <a href="http://style.tidyverse.org" class="external-link">style guide</a>. You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply these styles, but please don’t restyle code that has nothing to do with your PR.<br></li>
 <li>For user-facing changes, add a bullet to the top of <code>NEWS.md</code> below the current development version header describing the changes made followed by your GitHub username, and links to relevant issue(s)/PR(s).</li>
