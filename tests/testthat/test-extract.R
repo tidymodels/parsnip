@@ -20,6 +20,8 @@ test_that('extract', {
 # ------------------------------------------------------------------------------
 
 test_that('extract parameter set from model with no parameters', {
+  skip_on_covr()
+
   lm_model <- linear_reg() %>% set_engine("lm")
 
   lm_info <- extract_parameter_set_dials(lm_model)
