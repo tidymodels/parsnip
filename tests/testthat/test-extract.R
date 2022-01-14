@@ -30,6 +30,8 @@ test_that('extract parameter set from model with no parameters', {
 })
 
 test_that('extract parameter set from model with main and engine parameters', {
+  skip_on_covr()
+
   bst_model <-
     boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
@@ -52,6 +54,8 @@ test_that('extract parameter set from model with main and engine parameters', {
 # ------------------------------------------------------------------------------
 
 test_that('extract single parameter from model with no parameters', {
+  skip_on_covr()
+
   lm_model <- linear_reg() %>% set_engine("lm")
 
   expect_error(
@@ -60,6 +64,8 @@ test_that('extract single parameter from model with no parameters', {
 })
 
 test_that('extract single parameter from model with main and engine parameters', {
+  skip_on_covr()
+
   bst_model <-
     boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
