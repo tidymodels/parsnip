@@ -10,7 +10,12 @@
 #'   a parsnip model fit. For example, when using [parsnip::linear_reg()]
 #'   with the `"lm"` engine, this returns the underlying `lm` object.
 #'
-#' @param x A parsnip `model_fit` object.
+#' - `extract_parameter_dials()` returns a single dials parameter object.
+#'
+#' - `extract_parameter_set_dials()` returns a set of dials parameter objects.
+#'
+#' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
+#' @param parameter A single string for the parameter ID.
 #' @param ... Not currently used.
 #' @details
 #' Extracting the underlying engine fit can be helpful for describing the
@@ -64,4 +69,53 @@ extract_fit_engine.model_fit <- function(x, ...) {
     return(x$fit)
   }
   rlang::abort("Internal error: The model fit does not have an engine fit.")
+}
+
+#' @export
+#' @rdname extract-parsnip
+extract_parameter_set_dials.model_spec <- function(x, ...) {
+  all_args <- generics::tunable(x)
+  tuning_param <- generics::tune_args(x)
+
+  res <-
+    dplyr::inner_join(
+      tuning_param %>% dplyr::select(-tunable, -component_id),
+      all_args,
+      by = c("name", "source", "component")
+    ) %>%
+    mutate(object = purrr::map(call_info, eval_call_info))
+
+  dials::parameters_constr(
+    res$name,
+    res$id,
+    res$source,
+    res$component,
+    res$component_id,
+    res$object
+  )
+}
+
+eval_call_info <-  function(x) {
+  if (!is.null(x)) {
+    # Look for other options
+    allowed_opts <- c("range", "trans", "values")
+    if (any(names(x) %in% allowed_opts)) {
+      opts <- x[names(x) %in% allowed_opts]
+    } else {
+      opts <- list()
+    }
+    res <- try(rlang::eval_tidy(rlang::call2(x$fun, .ns = x$pkg, !!!opts)), silent = TRUE)
+    if (inherits(res, "try-error")) {
+      stop(paste0("Error when calling ", x$fun, "(): ", as.character(res)))
+    }
+  } else {
+    res <- NA
+  }
+  res
+}
+
+#' @export
+#' @rdname extract-parsnip
+extract_parameter_dials.model_spec <- function(x, parameter, ...) {
+  extract_parameter_dials(extract_parameter_set_dials(x), parameter)
 }

@@ -4,8 +4,6 @@
 \alias{req_pkgs}
 \alias{req_pkgs.model_spec}
 \alias{req_pkgs.model_fit}
-\alias{required_pkgs.model_spec}
-\alias{required_pkgs.model_fit}
 \title{Determine required packages for a model}
 \usage{
 req_pkgs(x, ...)
@@ -13,10 +11,6 @@ req_pkgs(x, ...)
 \method{req_pkgs}{model_spec}(x, ...)
 
 \method{req_pkgs}{model_fit}(x, ...)
-
-\method{required_pkgs}{model_spec}(x, ...)
-
-\method{required_pkgs}{model_fit}(x, ...)
 }
 \arguments{
 \item{x}{A model specification or fit.}
@@ -27,7 +21,7 @@ req_pkgs(x, ...)
 A character string of package names (if any).
 }
 \description{
-Determine required packages for a model
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
 For a model specification, the engine must be set. The list produced by
