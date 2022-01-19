@@ -13,14 +13,14 @@
 #'  is called "penalty" instead of "lambda" to make it more general
 #'  and usable across different types of models (and to not be
 #'  specific to a particular model function). The elements of `args`
-#'  can `varying()`. If left to their defaults (`NULL`), the
+#'  can `tune()`. If left to their defaults (`NULL`), the
 #'  arguments will use the underlying model functions default value.
 #'  As discussed below, the arguments in `args` are captured as
 #'  quosures and are not immediately executed.
 #'
 #' * `...`: Optional model-function-specific
 #'  parameters. As with `args`, these will be quosures and can be
-#'  `varying()`.
+#'  `tune()`.
 #'
 #' * `mode`: The type of model, such as "regression" or
 #'  "classification". Other modes will be added once the package

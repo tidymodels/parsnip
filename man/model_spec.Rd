@@ -17,13 +17,13 @@ counterparts n the underlying model function. For example, for a
 is called "penalty" instead of "lambda" to make it more general
 and usable across different types of models (and to not be
 specific to a particular model function). The elements of \code{args}
-can \code{varying()}. If left to their defaults (\code{NULL}), the
+can \code{tune()}. If left to their defaults (\code{NULL}), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in \code{args} are captured as
 quosures and are not immediately executed.
 \item \code{...}: Optional model-function-specific
 parameters. As with \code{args}, these will be quosures and can be
-\code{varying()}.
+\code{tune()}.
 \item \code{mode}: The type of model, such as "regression" or
 "classification". Other modes will be added once the package
 adds more functionality.
