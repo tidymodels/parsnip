@@ -109,13 +109,13 @@ test_that('updating', {
   expr1     <- boost_tree() %>% set_engine("xgboost", verbose = 0)
   expr1_exp <- boost_tree(trees = 10) %>% set_engine("xgboost", verbose = 0)
 
-  expr2     <- boost_tree(trees = varying()) %>% set_engine("C5.0", bands = varying())
-  expr2_exp <- boost_tree(trees = varying())  %>% set_engine("C5.0", bands = 10)
+  expr2     <- boost_tree(trees = tune()) %>% set_engine("C5.0", bands = tune())
+  expr2_exp <- boost_tree(trees = tune())  %>% set_engine("C5.0", bands = 10)
 
-  expr3     <- boost_tree(trees = 1, sample_size = varying())
+  expr3     <- boost_tree(trees = 1, sample_size = tune())
   expr3_exp <- boost_tree(trees = 1)
 
-  expr4     <- boost_tree() %>% set_engine("C5.0", noGlobalPruning = varying())
+  expr4     <- boost_tree() %>% set_engine("C5.0", noGlobalPruning = tune())
   expr4_exp <- boost_tree() %>% set_engine("C5.0", noGlobalPruning = TRUE)
 
   expect_equal(update(expr1, trees = 10), expr1_exp)

@@ -110,14 +110,14 @@ test_that('engine arguments', {
   )
 
 
-  nnet_tol <- mlp(mode = "regression") %>% set_engine("nnet", abstol = varying())
+  nnet_tol <- mlp(mode = "regression") %>% set_engine("nnet", abstol = tune())
   expect_equal(translate(nnet_tol)$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  size = 5,
-                 abstol = new_empty_quosure(varying()),
+                 abstol = new_empty_quosure(tune()),
                  trace = FALSE,
                  linout = TRUE
                )
@@ -127,22 +127,22 @@ test_that('engine arguments', {
 
 test_that('updating', {
   expr1     <- mlp(mode = "regression") %>%
-    set_engine("nnet", Hess = FALSE, abstol = varying())
+    set_engine("nnet", Hess = FALSE, abstol = tune())
   expr1_exp <- mlp(mode = "regression", hidden_units = 2) %>%
-    set_engine("nnet", Hess = FALSE, abstol = varying())
+    set_engine("nnet", Hess = FALSE, abstol = tune())
 
-  expr2     <- mlp(mode = "regression") %>% set_engine("nnet", Hess = varying())
+  expr2     <- mlp(mode = "regression") %>% set_engine("nnet", Hess = tune())
   expr2_exp <- mlp(mode = "regression") %>% set_engine("nnet", Hess = FALSE)
 
-  expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = varying()) %>% set_engine("keras")
+  expr3     <- mlp(mode = "regression", hidden_units = 7, epochs = tune()) %>% set_engine("keras")
 
   expr3_exp <- mlp(mode = "regression", hidden_units = 2) %>% set_engine("keras")
 
-  expr4     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
+  expr4     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = tune())
   expr4_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = 1e-3)
 
   expr5     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE)
-  expr5_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = varying())
+  expr5_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = tune())
 
   expect_equal(update(expr1, hidden_units = 2), expr1_exp)
   expect_equal(update(expr2, Hess = FALSE), expr2_exp)

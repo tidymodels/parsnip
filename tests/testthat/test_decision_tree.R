@@ -99,10 +99,10 @@ test_that('updating', {
   expr1     <- decision_tree() %>% set_engine("rpart", model = FALSE)
   expr1_exp <- decision_tree(cost_complexity = .1) %>% set_engine("rpart", model = FALSE)
 
-  expr2     <- decision_tree(cost_complexity = varying()) %>% set_engine("rpart", model = varying())
-  expr2_exp <- decision_tree(cost_complexity = varying())  %>% set_engine("rpart", model = FALSE)
+  expr2     <- decision_tree(cost_complexity = tune()) %>% set_engine("rpart", model = tune())
+  expr2_exp <- decision_tree(cost_complexity = tune()) %>% set_engine("rpart", model = FALSE)
 
-  expr3     <- decision_tree(cost_complexity = 1, min_n = varying())
+  expr3     <- decision_tree(cost_complexity = 1, min_n = tune())
   expr3_exp <- decision_tree(cost_complexity = 1)
 
   expect_equal(update(expr1, cost_complexity = .1), expr1_exp)
