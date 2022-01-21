@@ -7,7 +7,7 @@
 #' @export
 #' @keywords internal
 varying <- function() {
-  lifecycle::deprecate_soft("0.1.8", "varying()", "tune()")
+  lifecycle::deprecate_soft("0.1.8", "varying()", "hardhat::tune()")
   quote(varying())
 }
 
