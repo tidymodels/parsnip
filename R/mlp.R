@@ -438,5 +438,11 @@ reformat_torch_num <- function(results, object) {
   results
 }
 
-
-
+#' Wrapper for keras class predictions
+#' @param object A keras model fit
+#' @param x A data set.
+#' @export
+#' @keywords internal
+keras_predict_classes <- function(object, x)  {
+  object %>% predict(x) %>% keras::k_argmax() %>% as.integer()
+}
