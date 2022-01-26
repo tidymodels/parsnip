@@ -115,4 +115,28 @@ test_that('classification probabilities', {
 
 })
 
+test_that('prob prediction with 1 row', {
+  # For issue 612
+  skip_if_not_installed("nnet")
+
+  set.seed(257)
+  lr_fit <-
+    fit_xy(
+      basic_mod,
+      control = ctrl,
+      x = tr_dat[, -5],
+      y = tr_dat$class
+    )
+
+  nnet_pred <-
+    predict(lr_fit$fit, as.matrix(te_dat[1, -5]), type = "prob") %>%
+    as_tibble(.name_repair = "minimal") %>%
+    setNames(paste0(".pred_", lr_fit$lvl))
+
+  parsnip_pred <- predict(lr_fit, te_dat[1, -5], type = "prob")
+
+  expect_equal(nnet_pred[[1]], as.numeric(parsnip_pred))
+  expect_identical(dim(parsnip_pred), c(1L, 4L))
+})
+
 
