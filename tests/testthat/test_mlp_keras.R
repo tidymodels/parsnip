@@ -74,7 +74,7 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- keras::predict_classes(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred])) %>% keras::k_argmax() %>% as.integer()
   xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
@@ -87,7 +87,7 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  form_pred <- keras::predict_classes(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred])) %>% keras::k_argmax() %>% as.integer()
   form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
