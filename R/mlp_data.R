@@ -170,7 +170,7 @@ set_pred(
       x <- as_tibble(x)
       x
     },
-    func = c(pkg = "keras", fun = "predict_proba"),
+    func = c(fun = "predict"),
     args =
       list(
         object = quote(object$fit),

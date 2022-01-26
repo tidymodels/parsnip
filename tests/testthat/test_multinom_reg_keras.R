@@ -160,7 +160,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    keras::predict_proba(lr_fit$fit, as.matrix(te_dat[, -5])) %>%
+    predict(lr_fit$fit, as.matrix(te_dat[, -5])) %>%
     as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
@@ -177,7 +177,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    keras::predict_proba(plrfit$fit, as.matrix(te_dat[, -5])) %>%
+    predict(plrfit$fit, as.matrix(te_dat[, -5])) %>%
     as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -5], type = "prob")

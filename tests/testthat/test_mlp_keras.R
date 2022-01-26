@@ -106,7 +106,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
   colnames(xy_pred) <- paste0(".pred_", levels(hpc$class))
   xy_pred <- as_tibble(xy_pred)
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob"))
@@ -120,7 +120,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
   colnames(form_pred) <- paste0(".pred_", levels(hpc$class))
   form_pred <- as_tibble(form_pred)
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob"))

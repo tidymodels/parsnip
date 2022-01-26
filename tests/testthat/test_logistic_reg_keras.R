@@ -163,7 +163,7 @@ test_that('classification probabilities', {
       y = tr_dat$Class
     )
 
-  keras_pred <- keras::predict_proba(lr_fit$fit, as.matrix(te_dat[, -1]))
+  keras_pred <- predict(lr_fit$fit, as.matrix(te_dat[, -1]))
   colnames(keras_pred) <- paste0(".pred_", lr_fit$lvl)
   keras_pred <- as_tibble(keras_pred)
 
@@ -179,7 +179,7 @@ test_that('classification probabilities', {
       y = tr_dat$Class
     )
 
-  keras_pred <- keras::predict_proba(plrfit$fit, as.matrix(te_dat[, -1]))
+  keras_pred <- predict(plrfit$fit, as.matrix(te_dat[, -1]))
   colnames(keras_pred) <- paste0(".pred_", lr_fit$lvl)
   keras_pred <- as_tibble(keras_pred)
 
@@ -187,5 +187,3 @@ test_that('classification probabilities', {
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
 })
-
-
