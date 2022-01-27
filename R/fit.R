@@ -111,6 +111,15 @@ fit.model_spec <-
       rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
     dots <- quos(...)
+
+    if (length(possible_engines(object)) == 0) {
+      rlang::abort(
+        glue::glue(
+          "No engines where loaded for `{class(object)[1]}`.",
+          " Please load extension package that provides one."
+        )
+      )
+    }
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
