@@ -444,5 +444,23 @@ reformat_torch_num <- function(results, object) {
 #' @export
 #' @keywords internal
 keras_predict_classes <- function(object, x)  {
-  object %>% predict(x) %>% keras::k_argmax() %>% as.integer()
+  if (tensorflow::tf_version() >= package_version("2.6")) {
+    object %>% predict(x) %>% keras::k_argmax() %>% as.integer()
+  } else {
+    keras::predict_classes(object, x)
+  }
+}
+
+#' Wrapper for keras class probability predictions
+#' @param object A keras model fit
+#' @param x A data set.
+#' @export
+#' @keywords internal
+keras_predict_proba <- function(object, x)  {
+  if (tensorflow::tf_version() >= package_version("2.6")) {
+    object %>% predict(x)
+  } else {
+    keras::predict_proba(object, x)
+  }
+
 }
