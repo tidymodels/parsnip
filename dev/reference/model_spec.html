@@ -75,13 +75,16 @@ counterparts n the underlying model function. For example, for a
 is called "penalty" instead of "lambda" to make it more general
 and usable across different types of models (and to not be
 specific to a particular model function). The elements of <code>args</code>
-can <code><a href="varying.html">varying()</a></code>. If left to their defaults (<code>NULL</code>), the
+can <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> with the use of the
+<a href="https://tune.tidymodels.org/" class="external-link">tune package</a>. For more information
+see <a href="https://www.tidymodels.org/start/tuning/" class="external-link">https://www.tidymodels.org/start/tuning/</a>. If left to their
+defaults (<code>NULL</code>), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in <code>args</code> are captured as
 quosures and are not immediately executed.</p></li>
 <li><p><code>...</code>: Optional model-function-specific
 parameters. As with <code>args</code>, these will be quosures and can be
-<code><a href="varying.html">varying()</a></code>.</p></li>
+<code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code>.</p></li>
 <li><p><code>mode</code>: The type of model, such as "regression" or
 "classification". Other modes will be added once the package
 adds more functionality.</p></li>

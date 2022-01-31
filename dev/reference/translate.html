@@ -90,8 +90,10 @@ It translates generic parameters to their counterparts.</p>
     <p><code>translate()</code> produces a <em>template</em> call that lacks the specific
 argument values (such as <code>data</code>, etc). These are filled in once
 <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> is called with the specifics of the data for the model.
-The call may also include <code>varying</code> arguments if these are in
-the specification.</p>
+The call may also include <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> arguments if these are in
+the specification. To handle the <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> arguments, you need to use the
+<a href="https://tune.tidymodels.org/" class="external-link">tune package</a>. For more information
+see <a href="https://www.tidymodels.org/start/tuning/" class="external-link">https://www.tidymodels.org/start/tuning/</a></p>
 <p>It does contain the resolved argument names that are specific to
 the model fitting function/engine.</p>
 <p>This function can be useful when you need to understand how
@@ -145,18 +147,18 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weight_col = missing_arg(), reg_param = 0.01)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># with a placeholder for an unknown argument value:</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="varying.html">varying</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="varying.html">varying</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   penalty = varying()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   mixture = varying()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   penalty = tune()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mixture = tune()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computational engine: glmnet </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = varying(), family = "gaussian")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = tune(), family = "gaussian")</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

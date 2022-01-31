@@ -97,7 +97,7 @@
 
     
     
-<p>This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources. It also contains a basic framework for model parameter tuning.</p>
+<p>This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources.</p>
 <div class="section level3">
 <h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h3>
@@ -127,14 +127,14 @@
 <div class="section level3">
 <h3 id="placeholders-for-parameters">Placeholders for Parameters<a class="anchor" aria-label="anchor" href="#placeholders-for-parameters"></a>
 </h3>
-<p>There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for <em>model tuning</em>. Since the model is not executing when created, these types of parameters can be changed using the <code><a href="../reference/varying.html">varying()</a></code> function. This provides a simple placeholder for the value.</p>
+<p>There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for <em>model tuning</em> where we use the <a href="https://tune.tidymodels.org/" class="external-link">tune</a> package. Since the model is not executing when created, these types of parameters can be changed using the <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> function. This provides a simple placeholder for the value.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tune_mtry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="../reference/varying.html">varying</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">tune_mtry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">tune_mtry</span>
 <span class="co">#&gt; Random Forest Model Specification (unknown)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Main Arguments:</span>
-<span class="co">#&gt;   mtry = varying()</span>
+<span class="co">#&gt;   mtry = tune()</span>
 <span class="co">#&gt;   trees = 2000</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Computational engine: ranger</span></code></pre></div>
@@ -161,13 +161,13 @@
 <p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using <code>set_engine</code>. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rf_with_seed</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="../reference/varying.html">varying</a></span><span class="op">(</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, seed <span class="op">=</span> <span class="fl">63233</span><span class="op">)</span>
 <span class="va">rf_with_seed</span>
 <span class="co">#&gt; Random Forest Model Specification (regression)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Main Arguments:</span>
-<span class="co">#&gt;   mtry = varying()</span>
+<span class="co">#&gt;   mtry = tune()</span>
 <span class="co">#&gt;   trees = 2000</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Engine-Specific Arguments:</span>
@@ -181,10 +181,10 @@
 <p>To fit the model, you must:</p>
 <ul>
 <li>have a defined model, including the <em>mode</em>,</li>
-<li>have no <code><a href="../reference/varying.html">varying()</a></code> parameters, and</li>
+<li>have no <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> parameters, and</li>
 <li>specify a computational engine.</li>
 </ul>
-<p>For example, <code>rf_with_seed</code> above is not ready for fitting due the <code><a href="../reference/varying.html">varying()</a></code> parameter. We can set that parameter’s value and then create the model fit:</p>
+<p>For example, <code>rf_with_seed</code> above is not ready for fitting due the <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> parameter. We can set that parameter’s value and then create the model fit:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rf_with_seed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_args</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 

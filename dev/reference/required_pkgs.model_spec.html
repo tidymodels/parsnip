@@ -89,15 +89,18 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">should_fail</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/required_pkgs.html" class="external-link">required_pkgs</a></span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>engine <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">should_fail</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Error : Problem with `filter()` input `..1`.\n\033[34mℹ\033[39m Input `..1` is `engine == x$engine`.\n\033[31m✖\033[39m Input `..1` must be of size 7 or 1, not size 0.\n"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Error in (function (e)  : Problem with `filter()` input `..1`.\n\033[34mℹ\033[39m Input `..1` is `engine == x$engine`.\n\033[31m✖\033[39m Input `..1` must be of size 7 or 1, not size 0.\n"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "try-error"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"condition")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">&lt;error/dplyr_error&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Problem with `filter()` input `..1`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;error/dplyr_error&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Problem with `filter()` input `..1`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Input `..1` is `engine == x$engine`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Input `..1` must be of size 7 or 1, not size 0.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Backtrace:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">  1. </span><span style="font-weight: bold;">pkgdown</span>::deploy_to_branch(new_process = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"> 45. </span><span style="font-weight: bold;">dplyr</span> `&lt;fn&gt;`(`&lt;dpl:::__&gt;`)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
