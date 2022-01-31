@@ -23,7 +23,7 @@ columns.
 For \code{model_spec} objects, the summary is "\verb{spec[?]}"
 or "\verb{spec[+]}". The former indicates that either the model
 mode has not been declared or that the specification has
-\code{varying()} parameters. Otherwise, the latter is shown.
+\code{tune()} parameters. Otherwise, the latter is shown.
 
 For fitted models, either "\code{fit[x]}" or "\verb{fit[+]}" are used
 where the "x" implies that the model fit failed in some way.

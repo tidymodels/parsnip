@@ -62,7 +62,7 @@ test_that('updating', {
 
   expr1     <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
   expr1_exp <- svm_rbf(mode = "regression", rbf_sigma = .1) %>% set_engine("kernlab", cross = 10)
-  expr2     <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = varying())
+  expr2     <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = tune())
   expr2_exp <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
   expr3     <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
   expr3_exp <- svm_rbf(mode = "regression", rbf_sigma = .3) %>% set_engine("kernlab")

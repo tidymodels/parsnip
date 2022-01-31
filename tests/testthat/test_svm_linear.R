@@ -71,13 +71,13 @@ test_that('updating', {
 
   expr1     <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)
   expr1_exp <- svm_linear(mode = "regression", cost = 3) %>% set_engine("LiblineaR", type = 12)
-  expr2     <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = varying())
+  expr2     <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = tune())
   expr2_exp <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 13)
   expr3     <- svm_linear(mode = "regression", cost = 2) %>% set_engine("LiblineaR")
   expr3_exp <- svm_linear(mode = "regression", cost = 5) %>% set_engine("LiblineaR")
   expr4     <- svm_linear(mode = "regression")  %>% set_engine("kernlab", cross = 10)
   expr4_exp <- svm_linear(mode = "regression", cost = 2) %>% set_engine("kernlab", cross = 10)
-  expr5     <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = varying())
+  expr5     <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = tune())
   expr5_exp <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = 10)
 
 

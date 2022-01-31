@@ -27,11 +27,12 @@ contains \emph{any} varying value (\code{varying}), the \code{id} for the object
 and the class that was used to call the method (\code{type}).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{varying_args()} takes a model specification or a recipe and returns a tibble
 of information on all possible varying arguments and whether or not they
 are actually varying.
-}
-\details{
+
 The \code{id} column is determined differently depending on whether a \code{model_spec}
 or a \code{recipe} is used. For a \code{model_spec}, the first class is used. For
 a \code{recipe}, the unique step \code{id} is used.

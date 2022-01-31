@@ -35,6 +35,9 @@
 
 * `set_dependency()` now allows developers to create package requirements that are specific to the model's mode (#604). 
 
+* `varying()` is soft-deprecated in favor of `tune()`.
+
+* `varying_args()` is soft-deprecated in favor of `tune_args()`.
 
 # parsnip 0.1.7
 
