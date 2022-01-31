@@ -155,6 +155,7 @@ test_that('classification probabilities', {
   library(keras)
 
   set.seed(257)
+  tensorflow::tf$random$set_seed(257)
   lr_fit <-
     fit_xy(
       basic_mod,
@@ -171,6 +172,7 @@ test_that('classification probabilities', {
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
   set.seed(257)
+  tensorflow::tf$random$set_seed(257)
   plrfit <-
     fit_xy(
       reg_mod,

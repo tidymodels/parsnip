@@ -29,6 +29,7 @@ test_that('model fitting', {
   skip_if_not_installed("keras")
 
   set.seed(257)
+  tensorflow::tf$random$set_seed(257)
   expect_error(
     fit1 <-
       fit_xy(
@@ -41,6 +42,7 @@ test_that('model fitting', {
   )
 
   set.seed(257)
+  tensorflow::tf$random$set_seed(257)
   expect_error(
     fit2 <-
       fit_xy(
