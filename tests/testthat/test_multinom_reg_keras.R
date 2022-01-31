@@ -153,6 +153,8 @@ test_that('classification probabilities', {
   set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
+  } else {
+    tensorflow::tf$random$set_random_seed(257)
   }
   lr_fit <-
     fit_xy(
@@ -173,6 +175,8 @@ test_that('classification probabilities', {
   set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
+  } else {
+    tensorflow::tf$random$set_random_seed(257)
   }
   plrfit <-
     fit_xy(

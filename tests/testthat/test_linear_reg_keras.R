@@ -31,6 +31,8 @@ test_that('model fitting', {
   set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
+  } else {
+    tensorflow::tf$random$set_random_seed(257)
   }
   expect_error(
     fit1 <-
@@ -46,6 +48,8 @@ test_that('model fitting', {
   set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
+  } else {
+    tensorflow::tf$random$set_random_seed(257)
   }
   expect_error(
     fit2 <-
