@@ -11,8 +11,10 @@
 #' `translate()` produces a _template_ call that lacks the specific
 #'  argument values (such as `data`, etc). These are filled in once
 #'  `fit()` is called with the specifics of the data for the model.
-#'  The call may also include `varying` arguments if these are in
-#'  the specification.
+#'  The call may also include `tune()` arguments if these are in
+#'  the specification. To handle the `tune()` arguments, you need to use the
+#'  [tune package](https://tune.tidymodels.org/). For more information
+#'  see <https://www.tidymodels.org/start/tuning/>
 #'
 #' It does contain the resolved argument names that are specific to
 #'  the model fitting function/engine.

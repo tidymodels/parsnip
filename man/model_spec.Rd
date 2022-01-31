@@ -17,7 +17,10 @@ counterparts n the underlying model function. For example, for a
 is called "penalty" instead of "lambda" to make it more general
 and usable across different types of models (and to not be
 specific to a particular model function). The elements of \code{args}
-can \code{tune()}. If left to their defaults (\code{NULL}), the
+can \code{tune()} with the use of the
+\href{https://tune.tidymodels.org/}{tune package}. For more information
+see \url{https://www.tidymodels.org/start/tuning/}. If left to their
+defaults (\code{NULL}), the
 arguments will use the underlying model functions default value.
 As discussed below, the arguments in \code{args} are captured as
 quosures and are not immediately executed.
