@@ -116,11 +116,12 @@ recommend using a recipe instead of the formula method.
 
 Also, there are several configuration differences in how \code{xrf()} is fit
 between that package and the wrapper used in \strong{rules}. Some differences
-in default values are:
-\itemize{
-\item \code{trees}: \code{xrf}: 100, \code{rules}: 15
-\item \code{max_depth}: \code{xrf}: 3, \code{rules}: 6
+in default values are:\tabular{lll}{
+   parameter \tab \strong{xrf} \tab \strong{rules} \cr
+   \code{trees} \tab 100 \tab 15 \cr
+   \code{max_depth} \tab 3 \tab 6 \cr
 }
+
 
 These differences will create a disparity in the values of the \code{penalty}
 argument that \strong{glmnet} uses. Also, \strong{rules} can also set \code{penalty}
