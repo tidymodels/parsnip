@@ -34,7 +34,8 @@ calculating Minkowski distance.}
 }
 \description{
 \code{nearest_neighbor()} defines a model that uses the \code{K} most similar data
-points from the training set to predict new samples.
+points from the training set to predict new samples. This function can
+fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 

@@ -30,7 +30,7 @@ to use for fitting.}
 \description{
 \code{discrim_flexible()} defines a model that fits a discriminant analysis model
 that can use nonlinear features created using multivariate adaptive
-regression splines (MARS).
+regression splines (MARS). This function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible")}
 
