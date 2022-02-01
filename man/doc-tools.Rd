@@ -5,7 +5,7 @@
 \alias{find_engine_files}
 \alias{make_engine_list}
 \alias{make_seealso_list}
-\title{Tools for dynamically documenting packages}
+\title{Tools for documenting packages}
 \usage{
 find_engine_files(mod)
 

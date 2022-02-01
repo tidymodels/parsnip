@@ -82,7 +82,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 # ------------------------------------------------------------------------------
 
 
-#' Tools for dynamically documenting packages
+#' Tools for documenting packages
 #'
 #' @description
 #' These are functions used to create dynamic documentation in Rd files
