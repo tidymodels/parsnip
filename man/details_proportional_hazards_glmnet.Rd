@@ -51,9 +51,8 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
@@ -69,12 +68,12 @@ The model does not fit an intercept.
 interface but, for consistency, this package requires a model formula.
 
 The model formula can include \emph{special} terms, such as
-\code{\link[survival:strata]{survival::strata()}}. The allows the baseline
+\code{\link[survival:strata]{survival::strata()}}. This allows the baseline
 hazard to differ between groups contained in the function. The column
 used inside \code{strata()} is treated as qualitative no matter its type.
 This is different than the syntax offered by the
 \code{\link[glmnet:glmnet]{glmnet::glmnet()}} package (i.e.,
-\code{\link[glmnet:stratifySurv]{glmnet::stratifySurv()}}) which is mot
+\code{\link[glmnet:stratifySurv]{glmnet::stratifySurv()}}) which is not
 recommended here.
 
 For example, in this model, the numeric column \code{rx} is used to estimate

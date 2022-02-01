@@ -4,7 +4,7 @@
 \alias{details_C5_rules_C5.0}
 \title{C5.0 rule-based classification models}
 \description{
-\code{\link[C50:C5.0]{C50::C5.0()}} fits model that derives feature rules from a tree for
+\code{\link[C50:C5.0]{C50::C5.0()}} fits a model that derives feature rules from a tree for
 prediction. A single tree or boosted ensemble can be used. \code{\link[rules:rules-internal]{rules::c5_fit()}}
 is a wrapper around this function.
 }
@@ -62,7 +62,7 @@ are not required for this model.
 \item Quinlan R (1992). “Learning with Continuous Classes.” Proceedings of
 the 5th Australian Joint Conference On Artificial Intelligence,
 pp. 343-348.
-\item Quinlan R (1993).“Combining Instance-Based and Model-Based
+\item Quinlan R (1993).”Combining Instance-Based and Model-Based
 Learning.” Proceedings of the Tenth International Conference on
 Machine Learning, pp. 236-243.
 \item Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}.

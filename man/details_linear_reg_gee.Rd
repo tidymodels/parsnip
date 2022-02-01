@@ -5,16 +5,17 @@
 \title{Linear regression via generalized estimating equations (GEE)}
 \description{
 \code{gee::gee()} uses generalized least squares to fit different types of models
-that have errors that are not independent.
+with errors that are not independent.
 }
 \details{
 For this engine, there is a single mode: regression
 \subsection{Tuning Parameters}{
 
-This model has no formal tuning parameters. It might be beneficial to
-determine the appropriate correlation structure to use. However, this
-typically does not affect the predicted value of the model but does have
-an effect on the inferential results and parameter covariance values.
+This model has no formal tuning parameters. It may be beneficial to
+determine the appropriate correlation structure to use, but this
+typically does not affect the predicted value of the model. It \emph{does}
+have an effect on the inferential results and parameter covariance
+values.
 }
 
 \subsection{Translation from parsnip to the original package}{
@@ -35,7 +36,7 @@ linear_reg() \%>\%
 ##     family = gaussian)
 }
 
-\code{multilevelmod::gee_fit()} is a wrapper model around \code{gee()}.
+\code{multilevelmod::gee_fit()} is a wrapper model around \code{gee::gee()}.
 }
 
 \subsection{Preprocessing requirements}{
@@ -50,22 +51,22 @@ next section.
 
 The model cannot accept case weights.
 
-Both \code{gee:gee(a)} and \code{gee:geepack()} specifies the id/cluster variable
+Both \code{gee:gee()} and \code{gee:geepack()} specify the id/cluster variable
 using an argument \code{id} that requires a vector. parsnip doesn’t work that
-way so we enable this model to be fit using a artificial function called
+way so we enable this model to be fit using a artificial function
 \code{id_var()} to be used in the formula. So, in the original package, the
 call would look like:\if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 }\if{html}{\out{</div>}}
 
-With \code{parsnip}, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 linear_reg() \%>\% 
   set_engine("gee", corstr = "exchangeable") \%>\% 
   fit(breaks ~ tension + id_var(wool), data = warpbreaks)
 }\if{html}{\out{</div>}}
 
-When using the general tidymodels infrastructure, it may be better to
-use a workflow. In this case, you can add the appropriate columns using
+When using tidymodels infrastructure, it may be better to use a
+workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the GEE formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gee_spec <- 
@@ -82,7 +83,7 @@ fit(gee_wflow, data = warpbreaks)
 }\if{html}{\out{</div>}}
 
 \code{gee()} always prints out warnings and output even when \code{silent = TRUE}.
-When using the \code{gee} engine, it will never produce output, even if
+When using the \code{"gee"} engine, it will never produce output, even if
 \code{silent = FALSE}.
 
 Also, because of issues with the \code{gee()} function, a supplementary call

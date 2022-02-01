@@ -4,7 +4,7 @@
 \alias{details_mlp_brulee}
 \title{Multilayer perceptron via brulee}
 \description{
-\code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}} fits a neural networks.
+\code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}} fits a neural network.
 }
 \details{
 For this engine, there are multiple modes: classification and regression
@@ -102,9 +102,8 @@ layer.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

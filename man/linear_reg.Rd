@@ -24,7 +24,7 @@ ridge regression is being used (specific engines only).}
 }
 \description{
 \code{linear_reg()} defines a model that can predict numeric values from
-predictors using a linear function. The function can fit  regression models.
+predictors using a linear function. This function can fit regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("linear_reg")}
 
@@ -44,7 +44,7 @@ show_engines("linear_reg")
 linear_reg()
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("linear_reg")}

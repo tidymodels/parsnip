@@ -12,17 +12,17 @@ update_model_info_file(path = "inst/models.tsv")
 \description{
 This function writes a tab delimited file to the package to capture
 information about the known models. This information includes packages in
-the tidymodels GitHub repository as well as packages that are know to work
+the tidymodels GitHub repository as well as packages that are known to work
 well with tidymodels packages (e.g. \pkg{tune}, etc.). There are likely
 other model definitions in other extension packages that are not included
 here that do not follow the
 \href{https://tidymodels.github.io/model-implementation-principles}{model implementation guidelines}
-or do not work with packages other than \pkg{parsnip}.
+or do not work with tidymodels packages other than \pkg{parsnip}.
 
 These data are used to document engines for each model function man page.
 }
 \details{
-It is highly recommended that the know parsnip extension packages are loaded.
+It is highly recommended that the known parsnip extension packages are loaded.
 The unexported \pkg{parsnip} function \code{extensions()} will list these.
 }
 \keyword{internal}

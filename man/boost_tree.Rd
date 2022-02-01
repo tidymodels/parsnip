@@ -54,7 +54,7 @@ stopping (specific engines only).}
 \description{
 \code{boost_tree()} defines a model that creates a series of decision trees
 forming an ensemble. Each tree depends on the results of previous trees.
-All trees in the ensemble are combined to produce a final prediction. The
+All trees in the ensemble are combined to produce a final prediction. This
 function can fit classification, regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
@@ -75,7 +75,7 @@ show_engines("boost_tree")
 boost_tree(mode = "classification", trees = 20)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},

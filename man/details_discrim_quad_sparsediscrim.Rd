@@ -4,7 +4,7 @@
 \alias{details_discrim_quad_sparsediscrim}
 \title{Quadratic discriminant analysis via regularization}
 \description{
-Functions in the \code{sparsediscrim} package fit different types of quadratic
+Functions in the \pkg{sparsediscrim} package fit different types of quadratic
 discriminant analysis model that regularize the estimates (like the mean or
 covariance).
 }
@@ -55,9 +55,8 @@ discrim_quad(regularization_method = character(0)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 
 Variance calculations are used in these computations within each outcome
 class. For this reason, \emph{zero-variance} predictors (i.e., with a single

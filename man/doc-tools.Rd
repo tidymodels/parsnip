@@ -47,19 +47,19 @@ another package has a new engine for \code{linear_reg()}, the
 \code{parsnip::linear_reg()} help can show a link to a detailed help page in the
 other package.
 
-To enable this, the process for a package developer is to:
+The process for a package developer to create \pkg{parsnip} documentation is:
 \enumerate{
 \item Create an engine-specific R file in the \code{R} directory with the name
 \verb{\{model\}_\{engine\}.R} (e.g. \code{boost_tree_C5.0.R}). This has a small amount of
 documentation, as well as the directives "\verb{@name details_\{model\}_\{engine\}}"
 and "\verb{@includeRmd man/rmd/\{model\}_\{engine\}.md details}".
-\item Copy the file in \pkg{parsnip} that is in \code{man/rmd/setup.Rmd} and put
+\item Copy the file in \pkg{parsnip} that is in \code{man/rmd/aaa.Rmd} and put
 it in the same place in your package.
 \item Write your own \verb{man/rmd/\{model\}_\{engine\}.Rmd} file. This can include
 packages that are not listed in the DESCRIPTION file. Those are only
 required when the documentation file is created locally (probably using
 \code{\link[devtools:document]{devtools::document()}}).
-\item Run \code{\link[devtools:document]{devtools::document()}} so that the Rmd content is included in the
+\item Run \code{\link[devtools:document]{devtools::document()}} so that the \code{.md} content is included in the
 Rd file.
 }
 

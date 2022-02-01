@@ -35,7 +35,7 @@ and one can be used to bias to the second level of the factor.}
 to use for fitting.}
 }
 \description{
-\code{bag_tree()} defines an ensemble of decision trees. The function can fit
+\code{bag_tree()} defines an ensemble of decision trees. This function can fit
 classification, regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_tree")}
@@ -51,7 +51,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bag_tree")}

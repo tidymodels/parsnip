@@ -5,7 +5,7 @@
 \title{RuleFit models via xrf}
 \description{
 \code{\link[xrf:xrf]{xrf::xrf()}} fits a model that derives simple feature rules from a tree
-ensemble and uses them as features to a regularized model. \code{\link[rules:rules-internal]{rules::xrf_fit()}}
+ensemble and uses the rules as features to a regularized model. \code{\link[rules:rules-internal]{rules::xrf_fit()}}
 is a wrapper around this function.
 }
 \details{
@@ -115,26 +115,25 @@ response variable are not supported. To use these with \code{rule_fit()}, we
 recommend using a recipe instead of the formula method.
 
 Also, there are several configuration differences in how \code{xrf()} is fit
-between that package and the wrapper used in \code{rules}. Some differences
+between that package and the wrapper used in \strong{rules}. Some differences
 in default values are:
 \itemize{
 \item \code{trees}: \code{xrf}: 100, \code{rules}: 15
 \item \code{max_depth}: \code{xrf}: 3, \code{rules}: 6
 }
 
-These differences will create a difference in the values of the
-\code{penalty} argument that \code{glmnet} uses. Also, can also set \code{penalty}
-whereas uses an internal 5-fold cross-validation to determine it (by
-default).
+These differences will create a disparity in the values of the \code{penalty}
+argument that \strong{glmnet} uses. Also, \strong{rules} can also set \code{penalty}
+whereas \strong{xrf} uses an internal 5-fold cross-validation to determine it
+(by default).
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 }
 
 \subsection{References}{

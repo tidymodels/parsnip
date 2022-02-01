@@ -34,7 +34,7 @@ For \code{LiblineaR} models, \code{mixture} must be exactly 0 or 1 only.}
 \description{
 \code{\link[=logistic_reg]{logistic_reg()}} defines a generalized linear model for binary outcomes. A
 linear combination of the predictors is used to model the log odds of an
-event. The function can fit classification models.
+event. This function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
 
@@ -54,7 +54,7 @@ show_engines("logistic_reg")
 logistic_reg()
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}

@@ -20,7 +20,7 @@ This model has 2 tuning parameters:
 The \code{tree_depth} parameter defaults to \code{0} which means no restrictions
 are applied to tree depth.
 
-An engine specific parameter for this model is:
+An engine-specific parameter for this model is:
 \itemize{
 \item \code{mtry}: the number of predictors, selected at random, that are
 evaluated for splitting. The default is to use all predictors.

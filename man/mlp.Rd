@@ -44,7 +44,7 @@ from iteration-to-iteration (specific engines only).}
 }
 \description{
 \code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,
-feed-forward neural network). The function can fit classification and
+feed-forward neural network). This function can fit classification and
 regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
@@ -65,7 +65,7 @@ show_engines("mlp")
 mlp(mode = "classification", penalty = 0.01)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}

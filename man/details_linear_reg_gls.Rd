@@ -4,7 +4,7 @@
 \alias{details_linear_reg_gls}
 \title{Linear regression via generalized least squares}
 \description{
-The \code{gls} engine estimates linear regression for models where the rows of the
+The \code{"gls"} engine estimates linear regression for models where the rows of the
 data are not indpendent.
 }
 \details{
@@ -44,9 +44,9 @@ next section.
 
 The model can accept case weights.
 
-With \code{parsnip}, we suggest using the \emph{fixed effects} formula method when
-fitting but the details of the correlation structure should be passed to
-\code{set_engine()} since it is an irregular (but required) argument:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the \emph{fixed effects} formula method when
+fitting, but the details of the correlation structure should be passed
+to \code{set_engine()} since it is an irregular (but required) argument:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
@@ -75,8 +75,8 @@ linear_reg() \%>\%
 ## Residual standard error: 6.868785
 }
 
-When using the general tidymodels infrastructure, it may be better to
-use a workflow. In this case, you can add the appropriate columns using
+When using tidymodels infrastructure, it may be better to use a
+workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the typical formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gls_spec <- 
@@ -99,8 +99,8 @@ can fit the same model but will count degrees of freedom differently. If
 there are \code{n} data points, \code{p} fixed effects parameters, and \code{q} random
 effect parameters, the residual degrees of freedom are:
 \itemize{
-\item \code{lme}: n - p - q
-\item \code{gls}: n - p
+\item \strong{lme}: n - p - q
+\item \strong{gls}: n - p
 }
 
 As a result, p-values will be different. For example, we can fit the

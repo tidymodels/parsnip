@@ -9,7 +9,8 @@ check_pkg_for_docs <- function(x){
   purrr::map(x, ~ require(.x, character.only = TRUE))
 }
 
-rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", "Cubist", "xrf")
+rmd_pkgs <- c("tune", "glue", "dplyr", "parsnip", "dials", "glmnet", 
+              "Cubist", "xrf", "ape")
 
 check_pkg_for_docs(rmd_pkgs)
 check_pkg_for_docs(parsnip:::extensions())

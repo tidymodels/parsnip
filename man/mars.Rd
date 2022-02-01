@@ -30,7 +30,7 @@ final model, including the intercept.}
 \description{
 \code{mars()} defines a generalized linear model that uses artificial features for
 some predictors. These features resemble hinge functions and the result is
-a model that is a segmented regression in small dimensions. The function can
+a model that is a segmented regression in small dimensions. This function can
 fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
@@ -51,7 +51,7 @@ show_engines("mars")
 mars(mode = "regression", num_terms = 5)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}

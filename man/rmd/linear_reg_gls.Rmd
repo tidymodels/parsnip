@@ -84,7 +84,7 @@ lme_fit <-
 
 The estimated within-subject correlations are the same:
 
-```{r}
+```{r, warning = FALSE}
 library(ape)
 
 # lme, use ape package:

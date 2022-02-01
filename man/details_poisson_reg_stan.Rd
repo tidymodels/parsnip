@@ -62,16 +62,15 @@ process. Change this value in \code{set_engine()} to show the MCMC logs.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 }
 
 \subsection{Other details}{
 
 For prediction, the \code{"stan"} engine can compute posterior intervals
 analogous to confidence and prediction intervals. In these instances,
-the units are the original outcome and when \code{std_error = TRUE}, the
+the units are the original outcome. When \code{std_error = TRUE}, the
 standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.
 }

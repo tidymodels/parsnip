@@ -48,7 +48,7 @@ are factors, the underlying code treats them as multinomial data and
 appropriately computes their conditional distributions.
 
 For count data, integers can be estimated using a Poisson distribution
-if the augment \code{usepoisson = TRUE} is passed as an engine argument.
+if the argument \code{usepoisson = TRUE} is passed as an engine argument.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated

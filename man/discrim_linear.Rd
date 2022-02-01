@@ -29,7 +29,7 @@ to use for fitting.}
 \code{discrim_linear()} defines a model that estimates a multivariate
 distribution for the predictors separately for the data in each class
 (usually Gaussian with a common covariance matrix). Bayes' theorem is used
-to compute the probability of each class, given the predictor values. The
+to compute the probability of each class, given the predictor values. This
 function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_linear")}
@@ -45,7 +45,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_linear")}

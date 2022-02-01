@@ -6,7 +6,7 @@
 \description{
 \code{\link[mda:fda]{mda::fda()}} (in conjunction with \code{\link[earth:earth]{earth::earth()}} can fit a nonlinear
 discriminant analysis model that uses nonlinear features created using
-multivariate adaptive regression splines (MARS). The function can fit
+multivariate adaptive regression splines (MARS). This function can fit
 classification models.
 }
 \details{
@@ -56,9 +56,8 @@ discrim_flexible(
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via
-\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
+parsnip will convert factor columns to indicators.
 }
 
 \subsection{References}{

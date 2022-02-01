@@ -4,7 +4,7 @@
 \alias{details_logistic_reg_glmer}
 \title{Logistic regression via mixed models}
 \description{
-The \code{glmer} engine estimates fixed and random effect regression parameters
+The \code{"glmer"} engine estimates fixed and random effect regression parameters
 using maximum likelihood (or restricted maximum likelihood) estimation.
 }
 \details{
@@ -37,7 +37,7 @@ This model can use subject-specific coefficient estimates to make
 predictions (i.e. partial pooling). For example, this equation shows the
 linear predictor (\emph{η}) for a random intercept:
 
-\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}} + \emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
+\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}}+\emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
 
 where \emph{i} denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that
@@ -72,7 +72,7 @@ next section.
 
 The model can accept case weights.
 
-With \code{parsnip}, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("toenail", package = "HSAUR3")
 
 logistic_reg() \%>\% 
@@ -80,8 +80,8 @@ logistic_reg() \%>\%
   fit(outcome ~ treatment * visit + (1 | patientID), data = toenail)
 }\if{html}{\out{</div>}}
 
-When using the general tidymodels infrastructure, it may be better to
-use a workflow. In this case, you can add the appropriate columns using
+When using tidymodels infrastructure, it may be better to use a
+workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the typical formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 

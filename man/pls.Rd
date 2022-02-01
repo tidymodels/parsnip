@@ -28,7 +28,7 @@ to use for fitting.}
 \description{
 \code{pls()} defines a partial least squares model that uses latent variables to
 model the data. It is similar to a supervised version of principal component.
-The function can fit classification and regression models.
+This function can fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls")}
 
@@ -43,7 +43,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}

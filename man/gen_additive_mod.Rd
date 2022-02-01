@@ -28,7 +28,7 @@ to use for fitting.}
 }
 \description{
 \code{gen_additive_mod()} defines a model that can use smoothed functions of
-numeric predictors in a generalized linear model. The function can fit
+numeric predictors in a generalized linear model. This function can fit
 classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}
@@ -50,7 +50,7 @@ gen_additive_mod()
 
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable list of parsnip models}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
