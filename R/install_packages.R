@@ -1,4 +1,4 @@
-install_engine_packages <- function(extension = TRUE,
+install_engine_packages <- function(extension = TRUE, extras = TRUE,
                                     ignore_pkgs = c("stats", "liquidSVM",
                                                     "parsnip")) {
   bio_pkgs <- c()
@@ -26,6 +26,11 @@ install_engine_packages <- function(extension = TRUE,
 
   if (extension) {
     engine_packages <- setdiff(engine_packages, extensions_packages)
+  }
+
+  if (extras) {
+    rmd_pkgs <- c("tidymodels", "broom.mixed", "glmnet", "Cubist", "xrf", "ape")
+    engine_packages <- setdiff(engine_packages, rmd_pkgs)
   }
 
   remotes::install_cran(engine_packages)
