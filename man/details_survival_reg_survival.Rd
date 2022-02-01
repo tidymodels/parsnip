@@ -40,8 +40,9 @@ survival_reg(dist = character(1)) \%>\%
 
 \subsection{Other details}{
 
-Note that \code{model = TRUE} is needed to produce quantile predictions when
-there is a stratification variable and can be overridden in other cases.
+In the translated syntax above, note that \code{model = TRUE} is needed to
+produce quantile predictions when there is a stratification variable and
+can be overridden in other cases.
 
 The main interface for this model uses the formula method since the
 model specification typically involved the use of
