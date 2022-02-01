@@ -29,8 +29,9 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
   }
 
   if (extras) {
-    rmd_pkgs <- c("tidymodels", "broom.mixed", "glmnet", "Cubist", "xrf", "ape")
-    engine_packages <- setdiff(engine_packages, rmd_pkgs)
+    rmd_pkgs <- c("tidymodels", "broom.mixed", "glmnet", "Cubist", "xrf", "ape",
+                  "rmarkdown")
+    engine_packages <- unique(c(engine_packages, rmd_pkgs))
   }
 
   remotes::install_cran(engine_packages)

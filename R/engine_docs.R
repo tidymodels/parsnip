@@ -19,14 +19,27 @@ knit_engine_docs <- function(pattern = NULL) {
   outputs <- gsub("Rmd$", "md", files)
 
   res <- purrr::map2(files, outputs, ~ try(knitr::knit(.x, .y), silent = TRUE))
+  is_error <- purrr::map_lgl(res, ~ inherits(.x, "try-error"))
+
+  if (any(is_error)) {
+    # In some cases where there are issues, the md file is empty.
+    errors <- res[which(is_error)]
+    error_nms <- basename(files)[which(is_error)]
+    errors <-
+      purrr::map_chr(errors, ~ cli::ansi_strip(as.character(.x))) %>%
+      purrr::map2_chr(error_nms, ~ paste0(.y, ": ", .x)) %>%
+      purrr::map_chr(~ gsub("Error in .f(.x[[i]], ...) :", "", .x, fixed = TRUE))
+    cat("There were failures duing knitting:\n\n")
+    cat(errors)
+    cat("\n\n")
+  }
+
   res <- purrr::map_chr(res, as.character)
 
   issues <- list_md_problems()
   if (nrow(issues) > 0) {
     cat("There are some issues with the help files:\n")
     print(issues)
-  } else {
-    cat("No issues found in the help files.\n\n")
   }
 
   invisible(tibble::tibble(file = basename(files), result = res))
