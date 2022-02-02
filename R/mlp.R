@@ -444,7 +444,7 @@ reformat_torch_num <- function(results, object) {
 #' @export
 #' @keywords internal
 keras_predict_classes <- function(object, x)  {
-  if (tensorflow::tf_version() >= package_version("2.6")) {
+  if (tensorflow::tf_version() >= package_version("2.0")) {
     object %>% predict(x) %>% keras::k_argmax() %>% as.integer()
   } else {
     keras::predict_classes(object, x)
@@ -457,7 +457,7 @@ keras_predict_classes <- function(object, x)  {
 #' @export
 #' @keywords internal
 keras_predict_proba <- function(object, x)  {
-  if (tensorflow::tf_version() >= package_version("2.6")) {
+  if (tensorflow::tf_version() >= package_version("2.0")) {
     object %>% predict(x)
   } else {
     keras::predict_proba(object, x)
