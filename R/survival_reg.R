@@ -1,7 +1,7 @@
 #' Parametric survival regression
 #'
 #' @description
-#' `survival_reg()` defines a parametric survival model. The function can fit
+#' `survival_reg()` defines a parametric survival model. This function can fit
 #' censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("survival_reg")}
