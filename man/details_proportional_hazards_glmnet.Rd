@@ -65,11 +65,8 @@ the argument \code{standardize = TRUE} to center and scale the data.
 
 The model does not fit an intercept.
 
-\code{\link[glmnet:glmnet]{glmnet::glmnet()}} does not use the formula
-interface but, for consistency, this package requires a model formula.
-
-The model formula can include \emph{special} terms, such as
-\code{\link[survival:strata]{survival::strata()}}. This allows the baseline
+The model formula (which is required) can include \emph{special} terms, such
+as \code{\link[survival:strata]{survival::strata()}}. This allows the baseline
 hazard to differ between groups contained in the function. The column
 used inside \code{strata()} is treated as qualitative no matter its type.
 This is different than the syntax offered by the
