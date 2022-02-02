@@ -2,12 +2,15 @@
 % Please edit documentation in R/autoplot.R
 \name{autoplot.model_fit}
 \alias{autoplot.model_fit}
+\alias{autoplot.workflow}
 \alias{autoplot.glmnet}
 \title{Create a ggplot for a model object}
 \usage{
-autoplot.model_fit(object, ...)
+\method{autoplot}{model_fit}(object, ...)
 
-autoplot.glmnet(object, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...)
+\method{autoplot}{workflow}(object, ...)
+
+\method{autoplot}{glmnet}(object, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...)
 }
 \arguments{
 \item{object}{A model fit object.}

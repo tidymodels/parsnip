@@ -23,6 +23,12 @@ autoplot.model_fit <- function(object, ...) {
   autoplot(object$fit, ...)
 }
 
+#' @export
+#' @rdname autoplot.model_fit
+autoplot.workflow <- function(object, ...) {
+  object %>% extract_fit_engine %>% autoplot(...)
+}
+
 # glmnet is not a formal dpendency here.
 # unit tests are located at https://github.com/tidymodels/extratests
 
