@@ -16,4 +16,5 @@
 #' @importFrom utils capture.output getFromNamespace globalVariables head
 #' @importFrom utils methods stack
 #' @importFrom vctrs vec_size vec_unique
+#' @importFrom ggplot2 autoplot
 NULL

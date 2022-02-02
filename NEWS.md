@@ -40,6 +40,9 @@
 
 * `varying_args()` is soft-deprecated in favor of `tune_args()`.
 
+* An `autoplot()` method was added for glmnet objects, showing the coefficient paths versus the penalty values (#642).
+
+
 # parsnip 0.1.7
 
 ## Model Specification Changes

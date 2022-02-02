@@ -91,7 +91,8 @@ utils::globalVariables(
     "max_terms", "max_tree", "model", "name", "num_terms", "penalty", "trees",
     "sub_neighbors", ".pred_class", "x", "y", "predictor_indicators",
     "compute_intercept", "remove_intercept", "estimate", "term",
-    "call_info", "component", "component_id", "func", "tunable")
+    "call_info", "component", "component_id", "func", "tunable", "label"
+    )
 )
 
 # nocov end
