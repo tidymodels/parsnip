@@ -7,8 +7,8 @@
 
 ```{r brulee-param-info, echo = FALSE}
 defaults <- 
-  tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation"),
-                 default = c("3L", "0.0", "0.0", "0.01", "100L", "'relu'"))
+  tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
+                 default = c("3L", "0.0", "0.0", "0.01", "100L", "'relu'", "0.0"))
 
 param <-
   mlp() %>% 
@@ -21,6 +21,8 @@ This model has `r nrow(param)` tuning parameters:
 ```{r brulee-param-list, echo = FALSE, results = "asis"}
 param$item
 ```
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
 
 Both `penalty` and `dropout` should be not be used in the same model. 
 

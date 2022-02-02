@@ -133,8 +133,9 @@ whereas \strong{xrf} uses an internal 5-fold cross-validation to determine it
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
-parsnip will convert factor columns to indicators.
+formula method via
+\code{\link[=fit.model_spec]{fit.model_spec()}}, parsnip will
+convert factor columns to indicators.
 }
 
 \subsection{References}{
