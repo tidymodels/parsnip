@@ -22,6 +22,7 @@
 
 * New `extract_parameter_dials()` method to extract a single parameter from model specs.
 
+* Prediction using `multinom_reg()` with the `nnet` engine with a single row no longer fails (#612).
 
 ## Other Changes
 
