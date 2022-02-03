@@ -37,6 +37,7 @@ test_that('model fitting', {
   skip_on_cran()
   skip_if_not_installed("keras")
 
+  set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
   } else {
@@ -53,6 +54,7 @@ test_that('model fitting', {
     regexp = NA
   )
 
+  set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(257)
   } else {
