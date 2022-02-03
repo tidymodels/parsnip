@@ -74,7 +74,14 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred])) %>% keras::k_argmax() %>% as.integer()
+  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  if (tensorflow::tf_version() <= package_version("2.0.0")) {
+    # -1 to assign with keras' zero indexing
+    xy_pred <- apply(xy_pred, 1, which.max) - 1
+  } else {
+    xy_pred <- xy_pred %>% keras::k_argmax() %>% as.integer()
+  }
+
   xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
@@ -87,7 +94,15 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred])) %>% keras::k_argmax() %>% as.integer()
+
+  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  if (tensorflow::tf_version() <= package_version("2.0.0")) {
+    # -1 to assign with keras' zero indexing
+    form_pred <- apply(form_pred, 1, which.max) - 1
+  } else {
+    form_pred <- form_pred %>% keras::k_argmax() %>% as.integer()
+  }
+
   form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 

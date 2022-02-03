@@ -445,7 +445,13 @@ reformat_torch_num <- function(results, object) {
 #' @keywords internal
 keras_predict_classes <- function(object, x)  {
   if (utils::packageVersion("keras") >= package_version("2.6")) {
-    object %>% predict(x) %>% keras::k_argmax() %>% as.integer()
+    preds <- predict(object, x)
+    if (tensorflow::tf_version() <= package_version("2.0.0")) {
+      # -1 to assign with keras' zero indexing
+      apply(preds, 1, which.max) - 1
+    } else {
+      preds %>% keras::k_argmax() %>% as.integer()
+    }
   } else {
     keras::predict_classes(object, x)
   }
