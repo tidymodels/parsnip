@@ -22,6 +22,7 @@ nn_dat <- read.csv("nnet_test.txt")
 test_that('keras execution, classification', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   expect_error(
     res <- parsnip::fit(
@@ -65,6 +66,7 @@ test_that('keras execution, classification', {
 test_that('keras classification prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
   library(keras)
 
   xy_fit <- parsnip::fit_xy(
@@ -113,6 +115,7 @@ test_that('keras classification prediction', {
 test_that('keras classification probabilities', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   xy_fit <- parsnip::fit_xy(
     hpc_keras,
@@ -163,6 +166,7 @@ bad_keras_reg <-
 test_that('keras execution, regression', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   expect_error(
     res <- parsnip::fit(
@@ -190,6 +194,7 @@ test_that('keras execution, regression', {
 test_that('keras regression prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   xy_fit <- parsnip::fit_xy(
     mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) %>%
@@ -223,6 +228,7 @@ test_that('keras regression prediction', {
 test_that('multivariate nnet formula', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   nnet_form <-
     mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%

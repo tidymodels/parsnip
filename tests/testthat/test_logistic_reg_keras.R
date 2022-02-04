@@ -40,6 +40,7 @@ ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 test_that('model fitting', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   set.seed(257)
   if (tensorflow::tf_version() >= package_version("2.0")) {
@@ -117,6 +118,7 @@ test_that('model fitting', {
 test_that('classification prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   library(keras)
 
@@ -161,6 +163,7 @@ test_that('classification prediction', {
 test_that('classification probabilities', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   library(keras)
 
