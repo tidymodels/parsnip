@@ -438,13 +438,11 @@ set_pred(
   type = "class",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      object$lvl[x + 1]
-    },
+    post = NULL,
     func = c(pkg = "parsnip", fun = "keras_predict_classes"),
     args =
       list(
-        object = quote(object$fit),
+        object = quote(object),
         x = quote(as.matrix(new_data))
       )
   )
