@@ -6,7 +6,7 @@
 #' @details For `model_spec` objects, the summary is "`spec[?]`"
 #'  or "`spec[+]`". The former indicates that either the model
 #'  mode has not been declared or that the specification has
-#'  `varying()` parameters. Otherwise, the latter is shown.
+#'  `tune()` parameters. Otherwise, the latter is shown.
 #'
 #' For fitted models, either "`fit[x]`" or "`fit[+]`" are used
 #'  where the "x" implies that the model fit failed in some way.
@@ -18,8 +18,8 @@ type_sum.model_spec <- function(x) {
   resolved <- TRUE
   if (x$mode == "unknown")
     resolved <- FALSE
-  arg_info <- varying_args(x)
-  if (any(arg_info$varying))
+  arg_info <- generics::tune_args(x)
+  if (any(arg_info$tunable))
     resolved <- FALSE
 
   res <- "spec"
@@ -48,4 +48,3 @@ type_sum.model_fit <- function(x) {
   }
   res
 }
-

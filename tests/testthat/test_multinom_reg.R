@@ -40,14 +40,14 @@ test_that('primary arguments', {
                )
   )
 
-  mixture_v <- multinom_reg(penalty = 0.01, mixture = varying())
+  mixture_v <- multinom_reg(penalty = 0.01, mixture = tune())
   mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
   expect_equal(mixture_v_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(varying()),
+                 alpha = new_empty_quosure(tune()),
                  family = "multinomial"
                )
   )
@@ -87,10 +87,10 @@ test_that('updating', {
   expr1     <- multinom_reg() %>% set_engine("glmnet", intercept = TRUE)
   expr1_exp <- multinom_reg(mixture = 0) %>% set_engine("glmnet", intercept = TRUE)
 
-  expr2     <- multinom_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = varying())
-  expr2_exp <- multinom_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = 10)
+  expr2     <- multinom_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr2_exp <- multinom_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = 10)
 
-  expr3     <- multinom_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet")
+  expr3     <- multinom_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet")
   expr3_exp <- multinom_reg(mixture = 1) %>% set_engine("glmnet")
 
   expr4     <- multinom_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)

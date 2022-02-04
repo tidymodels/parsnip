@@ -104,7 +104,7 @@ test_that('primary arguments', {
                )
   )
 
-  mixture_v <- logistic_reg(mixture = varying())
+  mixture_v <- logistic_reg(mixture = tune())
   expect_error(
     mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
     "For the glmnet engine, `penalty` must be a single"
@@ -116,7 +116,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  wi = expr(missing_arg()),
-                 type = new_empty_quosure(varying()),
+                 type = new_empty_quosure(tune()),
                  verbose = FALSE
                )
   )
@@ -125,7 +125,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(varying()),
+                 elastic_net_param = new_empty_quosure(tune()),
                  family = "binomial"
                )
   )
@@ -250,10 +250,10 @@ test_that('updating', {
   expr1_exp <- logistic_reg(mixture = 0) %>%
     set_engine("glm", family = expr(binomial(link = "probit")))
 
-  expr2     <- logistic_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = varying())
-  expr2_exp <- logistic_reg(mixture = varying()) %>% set_engine("glmnet", nlambda = 10)
+  expr2     <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr2_exp <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = 10)
 
-  expr3     <- logistic_reg(mixture = 0, penalty = varying()) %>% set_engine("glmnet", nlambda = varying())
+  expr3     <- logistic_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
   expr3_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
 
   expr4     <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
