@@ -29,7 +29,7 @@ test_that('model fitting', {
   skip_if_not_installed("keras")
   skip_if(is.null(tensorflow::tf_version()))
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   expect_error(
     fit1 <-
@@ -42,7 +42,7 @@ test_that('model fitting', {
     regexp = NA
   )
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   expect_error(
     fit2 <-

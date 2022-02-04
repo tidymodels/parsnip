@@ -42,7 +42,7 @@ test_that('model fitting', {
   skip_if_not_installed("keras")
   skip_if(is.null(tensorflow::tf_version()))
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   expect_error(
     fit1 <-
@@ -55,7 +55,7 @@ test_that('model fitting', {
     regexp = NA
   )
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   expect_error(
     fit2 <-
@@ -159,7 +159,7 @@ test_that('classification probabilities', {
 
   library(keras)
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   lr_fit <-
     fit_xy(
@@ -176,7 +176,7 @@ test_that('classification probabilities', {
   parsnip_pred <- predict(lr_fit, te_dat[, -1], type = "prob")
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
-  keras_set_seed(257)
+  set_tf_seed(257)
 
   plrfit <-
     fit_xy(
