@@ -38,12 +38,8 @@ test_that('model fitting', {
   skip_if_not_installed("keras")
   skip_if(is.null(tensorflow::tf_version()))
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   expect_error(
     fit1 <-
       fit_xy(
@@ -55,12 +51,8 @@ test_that('model fitting', {
     regexp = NA
   )
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   expect_error(
     fit2 <-
       fit_xy(
@@ -163,12 +155,8 @@ test_that('classification probabilities', {
 
   library(keras)
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   lr_fit <-
     fit_xy(
       basic_mod,
@@ -185,12 +173,8 @@ test_that('classification probabilities', {
   parsnip_pred <- predict(lr_fit, te_dat[, -5], type = "prob")
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   plrfit <-
     fit_xy(
       reg_mod,

@@ -29,12 +29,8 @@ test_that('model fitting', {
   skip_if_not_installed("keras")
   skip_if(is.null(tensorflow::tf_version()))
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   expect_error(
     fit1 <-
       fit_xy(
@@ -46,12 +42,8 @@ test_that('model fitting', {
     regexp = NA
   )
 
-  set.seed(257)
-  if (tensorflow::tf_version() >= package_version("2.0")) {
-    tensorflow::tf$random$set_seed(257)
-  } else {
-    tensorflow::tf$random$set_random_seed(257)
-  }
+  keras_set_seed(257)
+
   expect_error(
     fit2 <-
       fit_xy(
