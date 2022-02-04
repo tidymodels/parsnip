@@ -35,6 +35,8 @@
 
 * `set_dependency()` now allows developers to create package requirements that are specific to the model's mode (#604). 
 
+* parsnip is now more robust working with keras and tensorflow for a larger range of versions (#596).
+
 
 # parsnip 0.1.7
 
