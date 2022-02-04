@@ -480,7 +480,7 @@ keras_predict_proba <- function(object, x) {
 #' @param seed 1 integer value.
 #' @export
 #' @keywords internal
-keras_set_seed <- function(seed) {
+set_tf_seed <- function(seed) {
   set.seed(seed)
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(seed)
