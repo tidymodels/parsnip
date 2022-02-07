@@ -115,7 +115,7 @@ fit.model_spec <-
     if (length(possible_engines(object)) == 0) {
       rlang::abort(
         glue::glue(
-          "No engines where loaded for `{class(object)[1]}`.",
+          "No engines were loaded for `{class(object)[1]}`.",
           " Please load a parsnip extension package that provides one.",
           " See https://www.tidymodels.org/find/parsnip/ "
         )
