@@ -115,10 +115,10 @@ test_that('No loaded engines', {
   )
   expect_error(
     cubist_rules() %>% fit(mpg ~., data = mtcars),
-    regexp = "`cubist_rules`. Please load extension package that provides one."
+    regexp = "Please load a parsnip extension package that provides one"
   )
   expect_error(
     poisson_reg() %>% fit(mpg ~., data = mtcars),
-    regexp = "`poisson_reg`. Please load extension package that provides one."
+    regexp = "Please load a parsnip extension package that provides one"
   )
 })
