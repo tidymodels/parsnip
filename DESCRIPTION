@@ -51,7 +51,6 @@ Suggests:
     mgcv,
     modeldata,
     nlme,
-    randomForest,
     ranger (>= 0.12.0),
     remotes,
     rmarkdown,
