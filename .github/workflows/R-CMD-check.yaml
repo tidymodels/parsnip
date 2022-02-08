@@ -58,12 +58,15 @@ jobs:
         shell: Rscript {0}
 
       - name: Install Miniconda
+        # conda can fail at downgrading python, so we specify python version in advance
+        env: 
+          RETICULATE_MINICONDA_PYTHON_VERSION: "3.7"  
         run: reticulate::install_miniconda() # creates r-reticulate conda env by default
         shell: Rscript {0}
 
       - name: Install TensorFlow
         run: |
-          tensorflow::install_tensorflow(version='1.15', conda_python_version = '3.7')
+          tensorflow::install_tensorflow(version='1.15', conda_python_version = NULL)
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
