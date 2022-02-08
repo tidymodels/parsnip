@@ -82,9 +82,9 @@ gee_wflow <-
 fit(gee_wflow, data = toenail)
 }\if{html}{\out{</div>}}
 
-\code{gee()} always prints out warnings and output even when \code{silent = TRUE}.
-When using the \code{gee} engine, it will never produce output, even if
-\code{silent = FALSE}.
+The \code{gee::gee()} function always prints out warnings and output even
+when \code{silent = TRUE}. The parsnip “gee” engine, by contrast, silences
+all console output coming from \code{gee::gee()}, even if \code{silent = FALSE}.
 
 Also, because of issues with the \code{gee()} function, a supplementary call
 to \code{glm()} is needed to get the rank and QR decomposition objects so

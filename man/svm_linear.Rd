@@ -25,7 +25,7 @@ loss function (regression only)}
 the model tries to maximize the width of the margin between classes (using a
 linear class boundary). For regression, the model optimizes a robust loss
 function that is only affected by very large model residuals and uses a
-linear fit. The function can fit classification and regression models.
+linear fit. This function can fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_linear")}
 

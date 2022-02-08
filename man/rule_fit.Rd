@@ -52,7 +52,7 @@ to use for fitting.}
 }
 \description{
 \code{rule_fit()} defines a model that derives simple feature rules from a tree
-ensemble and uses them as features in a regularized model. The function can
+ensemble and uses them as features in a regularized model. This function can
 fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}

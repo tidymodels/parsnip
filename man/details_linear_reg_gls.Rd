@@ -143,7 +143,9 @@ as are the fixed effects (and their standard errors):\if{html}{\out{<div class="
 However, the p-values for the fixed effects are different:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(broom.mixed)
 
 # lme:
-lme_fit \%>\% tidy() \%>\% filter(group == "fixed") \%>\% select(-group, -effect)
+lme_fit \%>\% tidy() \%>\% 
+  dplyr::filter(group == "fixed") \%>\% 
+  dplyr::select(-group, -effect)
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 6
 ##   term        estimate std.error    df statistic  p.value
 ##   <chr>          <dbl>     <dbl> <dbl>     <dbl>    <dbl>
