@@ -23,8 +23,7 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
-          # disable until tensorflow install is worked out
-          # - {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: 'release'}
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-18.04,   r: 'release'}
@@ -53,20 +52,17 @@ jobs:
         with:
           extra-packages: rcmdcheck
 
-      - name: Install Miniconda
-        run: |
-          pak::pkg_install('rstudio/reticulate')
-          reticulate::install_miniconda()
+      - name: Install dev reticulate
+        run: pak::pkg_install('rstudio/reticulate')
         shell: Rscript {0}
 
-      - name: Find Miniconda on macOS
-        if: runner.os == 'macOS'
-        run: echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
+      - name: Install Miniconda
+        run: reticulate::install_miniconda() # creates r-reticulate conda env by default
+        shell: Rscript {0}
 
       - name: Install TensorFlow
         run: |
-          reticulate::conda_create('r-reticulate', packages = c('python==3.6.9'))
-          tensorflow::install_tensorflow(version='1.14.0')
+          tensorflow::install_tensorflow(version='1.15', conda_python_version = '3.7')
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
