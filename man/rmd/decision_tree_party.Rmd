@@ -1,0 +1,56 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("decision_tree", "party")`
+
+## Tuning Parameters
+
+```{r party-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "min_n"),
+                 default = c("see below", "20L"))
+
+param <-
+ decision_tree() %>% 
+  set_engine("party") %>% 
+  set_mode("censored regression") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r party-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The `tree_depth` parameter defaults to `0` which means no restrictions are applied to tree depth.
+
+An engine-specific parameter for this model is: 
+
+ * `mtry`: the number of predictors, selected at random, that are evaluated for splitting. The default is to use all predictors.
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("decision_tree", "party", "censored regression")`
+
+```{r party-creg}
+library(censored)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("party") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+[cond_inference_surv_ctree()] is a wrapper around [party::ctree()] (and other functions) that makes it easier to run this model. 
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## References
+
+ - Hothorn T, Hornik K, Zeileis A. 2006. Unbiased Recursive Partitioning: A Conditional Inference Framework. _Journal of Computational and Graphical Statistics_, 15(3), 651–674.
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

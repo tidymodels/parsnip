@@ -8,9 +8,7 @@
 }
 \details{
 For this engine, there is a single mode: regression
-\subsection{Tuning Parameters}{\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
-## Please use `survival_reg()` instead.
-}
+\subsection{Tuning Parameters}{
 
 This model has 1 tuning parameters:
 \itemize{
@@ -22,10 +20,7 @@ This model has 1 tuning parameters:
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.
-## Please use `survival_reg()` instead.
-
-## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   dist = character(1)

@@ -80,10 +80,10 @@ test_that('updating', {
   expr1     <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
   expr1_exp <- svm_poly(mode = "regression", degree = 1) %>% set_engine("kernlab", cross = 10)
 
-  expr2     <- svm_poly(mode = "regression", degree = varying()) %>% set_engine("kernlab", cross = varying())
-  expr2_exp <- svm_poly(mode = "regression", degree = varying(), scale_factor = 1) %>% set_engine("kernlab", cross = 10)
+  expr2     <- svm_poly(mode = "regression", degree = tune()) %>% set_engine("kernlab", cross = tune())
+  expr2_exp <- svm_poly(mode = "regression", degree = tune(), scale_factor = 1) %>% set_engine("kernlab", cross = 10)
 
-  expr3     <- svm_poly(mode = "regression", degree = 2, scale_factor = varying()) %>% set_engine("kernlab")
+  expr3     <- svm_poly(mode = "regression", degree = 2, scale_factor = tune()) %>% set_engine("kernlab")
   expr3_exp <- svm_poly(mode = "regression", degree = 3) %>% set_engine("kernlab")
 
   expect_equal(update(expr1, degree = 1), expr1_exp)

@@ -3,15 +3,11 @@
 #' @description
 #'
 #' `svm_poly()` defines a support vector machine model. For classification,
-#' the model tries to maximize the width of the margin between classes.
-#' For regression, the model optimizes a robust loss function that is only
-#' affected by very large model residuals.
-#'
-#' This SVM model uses a nonlinear function, specifically a polynomial function,
-#' to create the decision boundary or regression line.
-#'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' the model tries to maximize the width of the margin between classes using a
+#' polynomial class boundary. For regression, the model optimizes a robust loss
+#' function that is only affected by very large model residuals and uses polynomial
+#' functions of the predictors. This function can fit classification and
+#' regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_poly")}
 #'

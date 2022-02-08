@@ -35,14 +35,14 @@ test_that('primary arguments', {
                )
   )
 
-  dist_v <- surv_reg(dist = varying())
+  dist_v <- surv_reg(dist = tune())
   dist_v_flexsurv <- translate(dist_v %>% set_engine("flexsurv"))
   expect_equal(dist_v_flexsurv$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 dist = new_empty_quosure(varying())
+                 dist = new_empty_quosure(tune())
                )
   )
 })
@@ -66,7 +66,7 @@ test_that('engine arguments', {
 test_that('updating', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 
-  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = varying())
+  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = tune())
   expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
   expect_equal(update(expr1, dist = "lnorm", cl = 0.99), expr1_exp)
 

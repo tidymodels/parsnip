@@ -1,0 +1,76 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("pls", "mixOmics")`
+
+## Tuning Parameters
+
+```{r mixOmics-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("num_comp", "predictor_prop"),
+                 default = c("2L",           "see below"))
+
+param <-
+  pls() %>% 
+  set_engine("mixOmics") %>% 
+  set_mode("regression") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r mixOmics-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+
+## Translation from parsnip to the underlying model call  (regression)
+
+`r uses_extension("pls", "mixOmics", "regression")`
+
+```{r mixOmics-reg}
+library(plsmod)
+
+pls(num_comp = integer(1), predictor_prop = double(1)) %>%
+  set_engine("mixOmics") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+[plsmod::pls_fit()] is a function that: 
+
+ - Determines the number of predictors in the data.
+ - Adjusts `num_comp` if the value is larger than the number of factors.
+ - Determines whether sparsity is required based on the value of `predictor_prop`.
+ - Sets the `keepX` argument of [mixOmics::spls()] for sparse models. 
+
+## Translation from parsnip to the underlying model call  (classification)
+
+`r uses_extension("pls", "mixOmics", "classification")`
+
+```{r mixOmics-cls}
+library(plsmod)
+
+pls(num_comp = integer(1), predictor_prop = double(1)) %>%
+  set_engine("mixOmics") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+In this case, [plsmod::pls_fit()] has the same role as above but eventually targets [mixOmics::plsda()] or [mixOmics::splsda()] .
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## References
+
+ - Rohart F and Gautier B and Singh A and Le Cao K-A  (2017). "mixOmics: An R package for 'omics feature selection and multiple data integration." PLoS computational biology, 13(11), e1005752.
+ 

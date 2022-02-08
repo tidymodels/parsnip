@@ -18,11 +18,11 @@ test_that("primary arguments", {
          mixture = new_empty_quosure(0.34))
   )
 
-  ph_mixture_v <- proportional_hazards(mixture = varying())
+  ph_mixture_v <- proportional_hazards(mixture = tune())
   expect_equal(
     ph_mixture_v$args,
     list(penalty = new_empty_quosure(NULL),
-         mixture = new_empty_quosure(varying()))
+         mixture = new_empty_quosure(tune()))
   )
 })
 

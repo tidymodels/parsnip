@@ -26,10 +26,7 @@ to use for fitting.}
 distribution for the predictors separately for the data in each class. The
 structure of the model can be LDA, QDA, or some amalgam of the two. Bayes'
 theorem is used to compute the probability of each class, given the
-predictor values.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+predictor values. This function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized")}
 
@@ -59,7 +56,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 
 Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the
 American Statistical Association}, 84, 165-175.

@@ -59,8 +59,8 @@ are not required for this model.
 
 By default, early stopping is used. To use the complete set of boosting
 iterations, pass \code{earlyStopping = FALSE} to
-\code{\link[=set_engine]{set_engine()}}. Also, it is unlikely that early
-stopping will occur if \code{sample_size = 1}.
+\code{\link[=set_engine]{set_engine()}}. Also, it is unlikely that early stopping
+will occur if \code{sample_size = 1}.
 }
 
 }

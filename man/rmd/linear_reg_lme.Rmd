@@ -1,0 +1,74 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("linear_reg", "lme")`
+
+## Tuning Parameters
+
+This model has no tuning parameters.
+
+## Translation from parsnip to the original package
+
+`r uses_extension("linear_reg", "lme", "regression")`
+
+```{r lme-csl}
+library(multilevelmod)
+
+linear_reg() %>% 
+  set_engine("lme") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```{r child = "no-pooling.Rmd"}
+```
+
+## Preprocessing requirements
+
+There are no specific preprocessing needs. However, it is helpful to keep the clustering/subject identifier column as factor or character (instead of making them into dummy variables). See the examples in the next section. 
+
+## Other details
+
+The model can accept case weights. 
+
+With parsnip, we suggest using the _fixed effects_ formula method when fitting, but the random effects formula should be passed to `set_engine()` since it is an irregular (but required) argument:
+
+```r
+library(tidymodels)
+data("riesby")
+
+linear_reg() %>% 
+  set_engine("lme", random =  ~ 1|subject) %>% 
+  fit(depr_score ~ week, data = riesby)
+```
+
+When using tidymodels infrastructure, it may be better to use a workflow. In this case, you can add the appropriate columns using `add_variables()` then supply the typical formula when adding the model: 
+
+```r
+library(tidymodels)
+
+lme_spec <- 
+  linear_reg() %>% 
+  set_engine("lme", random =  ~ 1|subject)
+
+lme_wflow <- 
+  workflow() %>% 
+  # The data are included as-is using:
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_model(lme_spec, formula = depr_score ~ week)
+
+fit(lme_wflow, data = riesby)
+```
+
+## References
+
+- J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY
+ 
+- West, K, Band Welch, and A Galecki. 2014. _Linear Mixed Models: A Practical Guide Using Statistical Software_. CRC Press.
+ 
+- Thorson, J, Minto, C. 2015, Mixed effects: a unifying framework for statistical modelling in fisheries biology. _ICES Journal of Marine Science_, Volume 72, Issue 5, Pages 1245–1256.
+  
+- Harrison, XA, Donaldson, L, Correa-Cano, ME, Evans, J, Fisher, DN, Goodwin, CED, Robinson, BS, Hodgson, DJ, Inger, R. 2018. _A brief introduction to mixed effects modelling and multi-model inference in ecology_. PeerJ 6:e4794. 
+  
+- DeBruine LM, Barr DJ. Understanding Mixed-Effects Models Through Data Simulation. 2021. _Advances in Methods and Practices in Psychological Science_.   
+  

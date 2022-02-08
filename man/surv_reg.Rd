@@ -24,9 +24,6 @@ This function is soft-deprecated in favor of \code{survival_reg()} which uses th
 
 \code{surv_reg()} defines a parametric survival model.
 
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
-
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
 
 More information on how \pkg{parsnip} is used for modeling is at
@@ -49,7 +46,7 @@ show_engines("surv_reg")
 surv_reg(mode = "regression", dist = "weibull")
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("surv_reg")}

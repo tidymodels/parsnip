@@ -13,7 +13,7 @@ Possible values for this model are "unknown", "regression", or
 }
 \description{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
-main arguments.
+main arguments. This function can fit classification and regression models.
 }
 \details{
 The model can be created using the \code{fit()} function using the

@@ -30,10 +30,7 @@ to use for fitting.}
 \description{
 \code{discrim_flexible()} defines a model that fits a discriminant analysis model
 that can use nonlinear features created using multivariate adaptive
-regression splines (MARS).
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+regression splines (MARS). This function can fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible")}
 
@@ -48,7 +45,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_flexible")}
