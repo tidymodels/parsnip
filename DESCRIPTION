@@ -18,6 +18,7 @@ BugReports: https://github.com/tidymodels/parsnip/issues
 Depends:
     R (>= 2.10)
 Imports: 
+    cli,
     dplyr (>= 0.8.0.1),
     generics (>= 0.1.0.9000),
     globals,
@@ -51,8 +52,8 @@ Suggests:
     mgcv,
     modeldata,
     nlme,
-    randomForest,
     ranger (>= 0.12.0),
+    remotes,
     rmarkdown,
     rpart,
     sparklyr (>= 1.0.0),
@@ -81,6 +82,7 @@ Config/Needs/website:
     tidymodels/tidymodels, 
     tidyverse/tidytemplate, 
     xgboost
+Config/rcmdcheck/ignore-inconsequential-notes: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

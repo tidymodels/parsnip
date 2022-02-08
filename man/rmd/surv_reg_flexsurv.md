@@ -1,0 +1,46 @@
+
+
+
+For this engine, there is a single mode: regression
+
+## Tuning Parameters
+
+
+
+This model has 1 tuning parameters:
+
+- `dist`: Distribution (type: character, default: 'weibull')
+
+
+## Translation from parsnip to the original package
+
+
+```r
+surv_reg(dist = character(1)) %>% 
+  set_engine("flexsurv") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+```
+## Parametric Survival Regression Model Specification (regression)
+## 
+## Main Arguments:
+##   dist = character(1)
+## 
+## Computational engine: flexsurv 
+## 
+## Model fit template:
+## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), dist = character(1))
+```
+
+## Other details
+
+The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
+
+For this engine, stratification cannot be specified via [`strata()`], please see the documentation of the [`flexsurv::flexsurv-package`] package for alternative specifications.
+
+## References
+
+- Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.

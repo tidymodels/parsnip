@@ -52,10 +52,8 @@ to use for fitting.}
 }
 \description{
 \code{rule_fit()} defines a model that derives simple feature rules from a tree
-ensemble and uses them as features in a regularized model.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+ensemble and uses them as features in a regularized model. This function can
+fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}
 
@@ -85,7 +83,7 @@ rule_fit()
 Friedman, J. H., and Popescu, B. E. (2008). "Predictive learning
 via rule ensembles." \emph{The Annals of Applied Statistics}, 2(3), 916-954.
 
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}

@@ -17,10 +17,8 @@ to use for fitting.}
 outcome. The default is "weibull".}
 }
 \description{
-\code{survival_reg()} defines a parametric survival model.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+\code{survival_reg()} defines a parametric survival model. This function can fit
+censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("survival_reg")}
 
@@ -44,7 +42,7 @@ show_engines("survival_reg")
 survival_reg(mode = "censored regression", dist = "weibull")
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("survival_reg")}

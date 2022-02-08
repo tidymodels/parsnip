@@ -21,10 +21,8 @@ to use for fitting.}
 }
 \description{
 \code{C5_rules()} defines a model that derives feature rules from a tree for
-prediction. A single tree or boosted ensemble can be used.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+prediction. A single tree or boosted ensemble can be used. This function can
+fit classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("C5_rules")}
 
@@ -55,7 +53,7 @@ C5_rules()
 Quinlan R (1993). \emph{C4.5: Programs for Machine Learning}. Morgan
 Kaufmann Publishers.
 
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \code{\link[C50:C5.0]{C50::C5.0()}}, \code{\link[C50:C5.0Control]{C50::C5.0Control()}},

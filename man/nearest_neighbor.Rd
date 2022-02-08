@@ -34,10 +34,8 @@ calculating Minkowski distance.}
 }
 \description{
 \code{nearest_neighbor()} defines a model that uses the \code{K} most similar data
-points from the training set to predict new samples.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+points from the training set to predict new samples. This function can
+fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("nearest_neighbor")}
 
@@ -58,7 +56,7 @@ nearest_neighbor(neighbors = 11)
 
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}

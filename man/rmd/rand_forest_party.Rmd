@@ -1,0 +1,55 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("rand_forest", "party")`
+
+## Tuning Parameters
+
+```{r party-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("trees", "min_n", "mtry"),
+                 default = c("500L", "20L", "5L"))
+
+param <-
+  rand_forest() %>% 
+  set_engine("party") %>% 
+  set_mode("censored regression") %>%  
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r party-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("rand_forest", "party", "censored regression")`
+
+```{r party-creg}
+library(censored)
+
+rand_forest() %>% 
+  set_engine("party") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+[cond_inference_surv_cforest()] is a wrapper around [party::cforest()] (and other functions) that makes it easier to run this model. 
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## Other details
+
+The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
+
+
+## References
+
+ - Hothorn T, Buhlmann P, Dudoit S, Molinaro A, Van der Laan MJ. 2006. Survival Ensembles. _Biostatistics_, 7(3), 355–373.
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
