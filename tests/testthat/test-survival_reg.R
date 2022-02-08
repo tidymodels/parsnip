@@ -10,10 +10,10 @@ test_that("primary argument", {
     list(dist = new_empty_quosure("lnorm"))
   )
 
-  dist_v <- survival_reg(dist = varying())
+  dist_v <- survival_reg(dist = tune())
   expect_equal(
     dist_v$args,
-    list(dist = new_empty_quosure(varying()))
+    list(dist = new_empty_quosure(tune()))
   )
 })
 

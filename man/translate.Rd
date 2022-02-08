@@ -25,8 +25,10 @@ It translates generic parameters to their counterparts.
 \code{translate()} produces a \emph{template} call that lacks the specific
 argument values (such as \code{data}, etc). These are filled in once
 \code{fit()} is called with the specifics of the data for the model.
-The call may also include \code{varying} arguments if these are in
-the specification.
+The call may also include \code{tune()} arguments if these are in
+the specification. To handle the \code{tune()} arguments, you need to use the
+\href{https://tune.tidymodels.org/}{tune package}. For more information
+see \url{https://www.tidymodels.org/start/tuning/}
 
 It does contain the resolved argument names that are specific to
 the model fitting function/engine.
@@ -52,6 +54,6 @@ translate(lm_spec, engine = "lm")
 translate(lm_spec, engine = "spark")
 
 # with a placeholder for an unknown argument value:
-translate(linear_reg(penalty = varying(), mixture = varying()), engine = "glmnet")
+translate(linear_reg(penalty = tune(), mixture = tune()), engine = "glmnet")
 
 }

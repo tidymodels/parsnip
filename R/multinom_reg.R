@@ -155,6 +155,11 @@ organize_multnet_prob <- function(x, object) {
 }
 
 organize_nnet_prob <- function(x, object) {
+  if (is.null(nrow(x))) {
+    x_names <- names(x)
+    x <- matrix(x, nrow = 1)
+    colnames(x) <- x_names
+  }
   format_classprobs(x)
 }
 

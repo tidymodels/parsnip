@@ -48,14 +48,14 @@ test_that('primary arguments', {
                )
   )
 
-  prune_method_v <- mars(prune_method = varying(), mode = "regression")
+  prune_method_v <- mars(prune_method = tune(), mode = "regression")
   prune_method_v_mars <- translate(prune_method_v %>% set_engine("earth"))
   expect_equal(prune_method_v_mars$method$fit$args,
                list(
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 pmethod = new_empty_quosure(varying()),
+                 pmethod = new_empty_quosure(tune()),
                  keepxy = TRUE
                )
   )
@@ -78,11 +78,11 @@ test_that('updating', {
   expr1     <- mars() %>% set_engine("earth", model = FALSE)
   expr1_exp <- mars(num_terms = 1) %>% set_engine("earth", model = FALSE)
 
-  expr2     <- mars(num_terms = varying()) %>% set_engine("earth", nk = varying())
-  expr2_exp <- mars(num_terms = varying()) %>% set_engine("earth", nk = 10)
+  expr2     <- mars(num_terms = tune()) %>% set_engine("earth", nk = tune())
+  expr2_exp <- mars(num_terms = tune()) %>% set_engine("earth", nk = 10)
 
-  expr3     <- mars(num_terms = 1, prod_degree = varying()) %>% set_engine("earth", nk = varying())
-  expr3_fre <- mars(num_terms = 1) %>% set_engine("earth", nk = varying())
+  expr3     <- mars(num_terms = 1, prod_degree = tune()) %>% set_engine("earth", nk = tune())
+  expr3_fre <- mars(num_terms = 1) %>% set_engine("earth", nk = tune())
   expr3_exp <- mars(num_terms = 1) %>% set_engine("earth", nk = 10)
 
   expr4     <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
