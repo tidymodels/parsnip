@@ -84,10 +84,10 @@ test_that('updating', {
   expr1     <- nearest_neighbor()  %>% set_engine("kknn", scale = FALSE)
   expr1_exp <- nearest_neighbor(neighbors = 5) %>% set_engine("kknn", scale = FALSE)
 
-  expr2     <- nearest_neighbor(neighbors = varying()) %>% set_engine("kknn", scale = varying())
-  expr2_exp <- nearest_neighbor(neighbors = varying(), weight_func = "triangular") %>% set_engine("kknn", scale = FALSE)
+  expr2     <- nearest_neighbor(neighbors = tune()) %>% set_engine("kknn", scale = tune())
+  expr2_exp <- nearest_neighbor(neighbors = tune(), weight_func = "triangular") %>% set_engine("kknn", scale = FALSE)
 
-  expr3     <- nearest_neighbor(neighbors = 2, weight_func = varying()) %>% set_engine("kknn", scale = varying())
+  expr3     <- nearest_neighbor(neighbors = 2, weight_func = tuns()) %>% set_engine("kknn", scale = tune())
   expr3_exp <- nearest_neighbor(neighbors = 3) %>% set_engine("kknn", scale = FALSE)
 
   expect_equal(update(expr1, neighbors = 5, scale = FALSE), expr1_exp)

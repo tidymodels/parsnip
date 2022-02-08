@@ -42,3 +42,7 @@ hardhat::extract_parameter_set_dials
 #' @importFrom hardhat extract_parameter_dials
 #' @export
 hardhat::extract_parameter_dials
+
+#' @importFrom hardhat tune
+#' @export
+hardhat::tune

@@ -147,27 +147,27 @@ test_that('engine arguments', {
 
 test_that('updating', {
   expr1     <- rand_forest(mode = "regression") %>%
-    set_engine("randomForest",  norm.votes = FALSE, sampsize = varying())
+    set_engine("randomForest",  norm.votes = FALSE, sampsize = tune())
   expr1_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = FALSE, sampsize = varying())
+    set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
 
-  expr2     <- rand_forest(mode = "regression", mtry = 7, min_n = varying()) %>%
+  expr2     <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>%
     set_engine("randomForest")
-  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = varying() %>%
+  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = tune() %>%
                              set_engine("randomForest", norm.votes = FALSE))
 
-  expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = varying()) %>%
+  expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>%
     set_engine("randomForest")
   expr3_exp <- rand_forest(mode = "regression", mtry = 2) %>%
     set_engine("randomForest")
 
   expr4     <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = FALSE, sampsize = varying())
+    set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
   expr4_exp <- rand_forest(mode = "regression", mtry = 2) %>%
     set_engine("randomForest", norm.votes = TRUE, sampsize = 10)
 
   expr5     <- rand_forest(mode = "regression") %>%
-    set_engine("randomForest", norm.votes = varying())
+    set_engine("randomForest", norm.votes = tune())
   expr5_exp <- rand_forest(mode = "regression") %>%
     set_engine("randomForest", norm.votes = TRUE)
 

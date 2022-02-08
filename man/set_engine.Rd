@@ -14,7 +14,7 @@ be used to fit the model. This is highly dependent on the type
 of model (e.g. linear regression, random forest, etc.).}
 
 \item{...}{Any optional arguments associated with the chosen computational
-engine. These are captured as quosures and can be \code{varying()}.}
+engine. These are captured as quosures and can be \code{tune()}.}
 }
 \value{
 An updated model specification.

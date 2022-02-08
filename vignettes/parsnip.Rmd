@@ -21,7 +21,7 @@ set.seed(368783)
 ```
 
 
-This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources. It also contains a basic framework for model parameter tuning. 
+This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources.
 
 
 ### Motivation
@@ -54,10 +54,10 @@ Some terminology:
 
 ### Placeholders for Parameters
 
-There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for _model tuning_. Since the model is not executing when created, these types of parameters can be changed using the `varying()` function. This provides a simple placeholder for the value. 
+There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for _model tuning_ where we use the [tune](https://tune.tidymodels.org/) package. Since the model is not executing when created, these types of parameters can be changed using the `tune()` function. This provides a simple placeholder for the value. 
 
 ```{r rf-tune}
-tune_mtry <- rand_forest(trees = 2000, mtry = varying())
+tune_mtry <- rand_forest(trees = 2000, mtry = tune())
 tune_mtry
 ```
 
@@ -81,7 +81,7 @@ However, there might be other arguments that you would like to change or allow t
 
 ```{r rf-seed}
 rf_with_seed <- 
-  rand_forest(trees = 2000, mtry = varying(), mode = "regression") %>%
+  rand_forest(trees = 2000, mtry = tune(), mode = "regression") %>%
   set_engine("ranger", seed = 63233)
 rf_with_seed
 ```
@@ -91,10 +91,10 @@ rf_with_seed
 To fit the model, you must:
 
 * have a defined model, including the _mode_,
-* have no `varying()` parameters, and
+* have no `tune()` parameters, and
 * specify a computational engine. 
 
-For example, `rf_with_seed` above is not ready for fitting due the `varying()` parameter. We can set that parameter's value and then create the model fit: 
+For example, `rf_with_seed` above is not ready for fitting due the `tune()` parameter. We can set that parameter's value and then create the model fit: 
 
 ```{r, eval = FALSE}
 rf_with_seed %>% 

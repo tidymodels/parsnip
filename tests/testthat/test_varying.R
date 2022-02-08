@@ -6,6 +6,7 @@ library(dplyr)
 context("varying parameters")
 
 test_that('main parsnip arguments', {
+  rlang::local_options(lifecycle_verbosity = "quiet")
 
   mod_1 <- rand_forest() %>%
     varying_args()
@@ -36,6 +37,7 @@ test_that('main parsnip arguments', {
 
 
 test_that('other parsnip arguments', {
+  rlang::local_options(lifecycle_verbosity = "quiet")
 
   other_1 <- rand_forest() %>%
     set_engine("ranger", sample.fraction = varying()) %>%
@@ -100,6 +102,7 @@ test_that("empty lists return FALSE - #131", {
 })
 
 test_that("lists with multiple elements return a single logical - #131", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
     parsnip:::find_varying(list(1, 2)),
     FALSE
@@ -112,6 +115,7 @@ test_that("lists with multiple elements return a single logical - #131", {
 })
 
 test_that("varying() deeply nested in calls can be located - #134", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   deep_varying <- rlang::call2("list", x = list(xx = list(xxx = varying())))
 
   expect_equal(

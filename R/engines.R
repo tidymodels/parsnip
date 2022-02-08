@@ -65,7 +65,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).
 #' @param ... Any optional arguments associated with the chosen computational
-#'  engine. These are captured as quosures and can be `varying()`.
+#'  engine. These are captured as quosures and can be `tune()`.
 #' @return An updated model specification.
 #' @examples
 #' # First, set general arguments using the standardized names
