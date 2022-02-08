@@ -43,10 +43,8 @@ on the logit scale). The default value is 2.}
 }
 \description{
 \code{bart()} defines a tree ensemble model that uses Bayesian analysis to
-assemble the ensemble.
-
-There are different ways to fit this model. See the engine-specific pages
-for more details:
+assemble the ensemble. This function can fit classification and regression
+models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bart")}
 
@@ -92,7 +90,7 @@ prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) \%>\%
   facet_wrap(~ expo)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bart")}

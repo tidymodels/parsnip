@@ -1,0 +1,54 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("cubist_rules", "Cubist")`
+
+## Tuning Parameters
+
+```{r cubist-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("committees", "neighbors",  "max_rules"),
+                 default = c("1L",                "0L", "NA_integer"))
+
+param <-
+  cubist_rules() %>% 
+  set_engine("Cubist") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r cubist-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+
+## Translation from parsnip to the underlying model call  (regression)
+
+`r uses_extension("cubist_rules", "Cubist", "regression")`
+
+```{r cubist-reg}
+library(rules)
+
+cubist_rules(
+  committees = integer(1),
+  neighbors = integer(1),
+  max_rules = integer(1)
+) %>%
+  set_engine("Cubist") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## References
+
+ - Quinlan R (1992). "Learning with Continuous Classes." Proceedings of the 5th Australian Joint Conference On Artificial Intelligence, pp. 343-348.
+
+ - Quinlan R (1993)."Combining Instance-Based and Model-Based Learning." Proceedings of the Tenth International Conference on Machine Learning, pp. 236-243.
+
+ - Kuhn M and Johnson K (2013). _Applied Predictive Modeling_. Springer.

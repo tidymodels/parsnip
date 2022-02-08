@@ -1,0 +1,94 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("rule_fit", "xrf")`
+
+## Tuning Parameters
+
+```{r xrf-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size", "penalty"),
+                 default = c("6L",           "15L",        "0.3",  "1.0",    "1L",            "0.0",         "1.0",     "0.1"))
+
+param <-
+  rule_fit() %>% 
+  set_engine("xrf") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r xrf-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+
+## Translation from parsnip to the underlying model call  (regression)
+
+`r uses_extension("rule_fit", "xrf", "regression")`
+
+```{r xrf-reg}
+library(rules)
+
+rule_fit(
+  mtry = numeric(1),
+  trees = integer(1),
+  min_n = integer(1),
+  tree_depth = integer(1),
+  learn_rate = numeric(1),
+  loss_reduction = numeric(1),
+  sample_size = numeric(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("xrf") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+## Translation from parsnip to the underlying model call  (classification)
+
+`r uses_extension("rule_fit", "xrf", "classification")`
+
+
+```{r xrf-cls}
+library(rules)
+
+rule_fit(
+  mtry = numeric(1),
+  trees = integer(1),
+  min_n = integer(1),
+  tree_depth = integer(1),
+  learn_rate = numeric(1),
+  loss_reduction = numeric(1),
+  sample_size = numeric(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("xrf") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+## Differences from the xrf package
+
+Note that, per the documentation in `?xrf`, transformations of the response variable are not supported. To
+use these with `rule_fit()`, we recommend using a recipe instead of the formula method.
+
+Also, there are several configuration differences in how `xrf()` is fit between that package and the wrapper used in **rules**. Some differences in default values are:
+
+| parameter  | **xrf** | **rules** |
+|------------|---------|-----------|
+| `trees`    |  100    | 15        |
+|`max_depth` | 3       | 6         |
+
+
+These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## References
+
+ - Friedman and Popescu. "Predictive learning via rule ensembles." Ann. Appl. Stat. 2 (3) 916- 954, September 2008
+

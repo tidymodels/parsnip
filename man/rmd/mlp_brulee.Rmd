@@ -1,0 +1,85 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("mlp", "brulee")`
+
+## Tuning Parameters
+
+```{r brulee-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
+                 default = c("3L", "0.0", "0.0", "0.01", "100L", "'relu'", "0.0"))
+
+param <-
+  mlp() %>% 
+  set_engine("brulee") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r brulee-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
+
+Both `penalty` and `dropout` should be not be used in the same model. 
+
+Other engine arguments of interest: 
+
+ - `momentum()`: A number used to use historical gradient infomration during optimization.
+ - `batch_size()`: An integer for the number of training set points in each batch.
+ - `class_weights()`: Numeric class weights. See [brulee::brulee_mlp()].
+ - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
+
+
+## Translation from parsnip to the original package (regression)
+
+```{r brulee-reg}
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  learn_rate = double(1),
+  activation = character(1)
+) %>%  
+  set_engine("brulee") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+Note that parsnip automatically sets linear activation in the last layer. 
+
+## Translation from parsnip to the original package (classification)
+
+```{r brulee-cls}
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  learn_rate = double(1),
+  activation = character(1)
+) %>% 
+  set_engine("brulee") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+
+
+

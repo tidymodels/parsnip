@@ -28,9 +28,7 @@ to use for fitting.}
 }
 \description{
 \code{poisson_reg()} defines a generalized linear model for count data that follow
-a Poisson distribution.
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+a Poisson distribution. This function can fit regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
 
@@ -45,7 +43,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}

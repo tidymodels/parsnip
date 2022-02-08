@@ -3,10 +3,7 @@
 #' @description
 #'
 #' `poisson_reg()` defines a generalized linear model for count data that follow
-#' a Poisson distribution.
-
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+#' a Poisson distribution. This function can fit regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
 #'
