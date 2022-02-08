@@ -456,19 +456,6 @@ keras_predict_classes <- function(object, x) {
   object$lvl[index + 1]
 }
 
-#' Wrapper for keras class probability predictions
-#' @param object A keras model fit
-#' @param x A data set.
-#' @export
-#' @keywords internal
-keras_predict_proba <- function(object, x) {
-  if (utils::packageVersion("keras") >= package_version("2.6")) {
-    object %>% predict(x)
-  } else {
-    keras::predict_proba(object, x)
-  }
-}
-
 #' Set seed in R and TensorFlow at the same time
 #'
 #' Some Keras models requires seeds to be set in both R and TensorFlow to
