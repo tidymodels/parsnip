@@ -9,4 +9,3 @@ derby.log
 logs/*
 revdep/*
 docs*
-man/rmd/*.md
