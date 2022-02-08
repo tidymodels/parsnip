@@ -68,7 +68,8 @@ creates a tree-based structure.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For this engine, there are multiple modes: classification and regression</p><div class="section">
+    <p>For this engine, there are multiple modes: classification, regression,
+and censored regression</p><div class="section">
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
@@ -115,6 +116,36 @@ creates a tree-based structure.</p>
 <span class="co">## </span>
 <span class="co">## Model fit template:</span>
 <span class="co">## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class="co">##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, </span>
+<span class="co">##         data))</span></code></pre></div>
+
+</div>
+
+<div class="section">
+<h3 id="translation-from-parsnip-to-the-original-package-censored-regression-">Translation from parsnip to the original package (censored regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-censored-regression-"></a></h3>
+
+
+<p>There is a parsnip extension package required to fit this model to this
+mode: <strong>censored</strong>.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">censored</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/decision_tree.html">decision_tree</a></span><span class="op">(</span>
+  tree_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
+  min_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
+  cost_complexity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"rpart"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"censored regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Decision Tree Model Specification (censored regression)</span>
+<span class="co">## </span>
+<span class="co">## Main Arguments:</span>
+<span class="co">##   cost_complexity = double(1)</span>
+<span class="co">##   tree_depth = integer(1)</span>
+<span class="co">##   min_n = integer(1)</span>
+<span class="co">## </span>
+<span class="co">## Computational engine: rpart </span>
+<span class="co">## </span>
+<span class="co">## Model fit template:</span>
+<span class="co">## pec::pecRpart(formula = missing_arg(), data = missing_arg(), </span>
 <span class="co">##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, </span>
 <span class="co">##         data))</span></code></pre></div>
 

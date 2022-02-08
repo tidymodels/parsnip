@@ -67,8 +67,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For this engine, there is a single mode: regression</p><div class="section">
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
-<div class="sourceCode"><pre><code><span class="co">## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
-<span class="co">## Please use `survival_reg()` instead.</span></code></pre></div>
+
 
 <p>This model has 1 tuning parameters:</p><ul><li><p><code>dist</code>: Distribution (type: character, default: ‘weibull’)</p></li>
 </ul></div>
@@ -78,10 +77,7 @@
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/surv_reg.html">surv_reg</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"flexsurv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Warning: `surv_reg()` was deprecated in parsnip 0.1.6.</span>
-<span class="co">## Please use `survival_reg()` instead.</span>
-
-<span class="co">## Parametric Survival Regression Model Specification (regression)</span>
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Parametric Survival Regression Model Specification (regression)</span>
 <span class="co">## </span>
 <span class="co">## Main Arguments:</span>
 <span class="co">##   dist = character(1)</span>
@@ -102,7 +98,7 @@
 model specification typically involved the use of
 <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code>.</p>
 <p>For this engine, stratification cannot be specified via
-<code>strata()</code>, please see the documentation of the
+<code><a href="https://rdrr.io/pkg/survival/man/strata.html" class="external-link">strata()</a></code>, please see the documentation of the
 <code>flexsurv::flexsurv-package</code>
 package for alternative specifications.</p>
 </div>

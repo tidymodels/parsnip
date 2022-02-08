@@ -91,10 +91,25 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/descriptors.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_C5_rules_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_mars_earth.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_tree_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_tree_rpart.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.html</loc>
@@ -103,7 +118,13 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_cubist_rules_Cubist.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_party.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpart.html</loc>
@@ -112,7 +133,37 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_spark.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_flexible_earth.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_linear_MASS.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_linear_mda.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_linear_sda.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_linear_sparsediscrim.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_quad_MASS.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_quad_sparsediscrim.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_regularized_klaR.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_mgcv.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_brulee.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gee.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.html</loc>
@@ -121,10 +172,19 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.html</loc>
@@ -133,10 +193,22 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan_glmer.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_LiblineaR.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_brulee.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_gee.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glm.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmer.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmnet.html</loc>
@@ -151,13 +223,22 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan_glmer.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_mars_earth.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_brulee.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc>
@@ -172,7 +253,49 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_klaR.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_naivebayes.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_nearest_neighbor_kknn.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_pls_mixOmics.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_gee.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glm.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmer.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmnet.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_hurdle.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan_glmer.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_zeroinfl.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_glmnet.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_party.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc>
@@ -184,10 +307,19 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rule_fit_xrf.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_surv_reg_flexsurv.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_surv_reg_survival.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_survival_reg_flexsurv.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_survival_reg_survival.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_svm_linear_LiblineaR.html</loc>
@@ -256,7 +388,13 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/keras_mlp.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/knit_engine_docs.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/linear_reg.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/list_md_problems.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/logistic_reg.html</loc>
@@ -404,6 +542,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/type_sum.model_spec.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/update_model_info_file.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/varying.html</loc>
