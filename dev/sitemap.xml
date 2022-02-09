@@ -388,6 +388,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/keras_mlp.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/keras_predict_classes.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/knit_engine_docs.html</loc>
   </url>
   <url>
@@ -500,6 +503,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/set_new_model.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/set_tf_seed.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/show_call.html</loc>
