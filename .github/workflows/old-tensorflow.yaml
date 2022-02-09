@@ -11,10 +11,10 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
-name: R-CMD-check
+name: old-tensorflow
 
 jobs:
-  R-CMD-check:
+  old-tensorflow:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -23,14 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-18.04,   r: 'release'}
-          - {os: ubuntu-18.04,   r: 'oldrel-1'}
-          - {os: ubuntu-18.04,   r: 'oldrel-2'}
-
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
@@ -66,7 +61,7 @@ jobs:
 
       - name: Install TensorFlow
         run: |
-          tensorflow::install_tensorflow(version='2.7', conda_python_version = NULL)
+          tensorflow::install_tensorflow(version='1.15', conda_python_version = NULL)
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2

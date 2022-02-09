@@ -35,10 +35,12 @@
 * Argument `interval` was added for prediction: For types "survival" and "quantile", estimates for the confidence or prediction interval can be added if available (#615).
 
 * `set_dependency()` now allows developers to create package requirements that are specific to the model's mode (#604). 
-
+* 
 * `varying()` is soft-deprecated in favor of `tune()`.
 
 * `varying_args()` is soft-deprecated in favor of `tune_args()`.
+
+* parsnip is now more robust working with keras and tensorflow for a larger range of versions (#596).
 
 # parsnip 0.1.7
 

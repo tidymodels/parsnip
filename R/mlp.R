@@ -436,5 +436,40 @@ reformat_torch_num <- function(results, object) {
   results
 }
 
+#' Wrapper for keras class predictions
+#' @param object A keras model fit
+#' @param x A data set.
+#' @export
+#' @keywords internal
+keras_predict_classes <- function(object, x) {
+  if (utils::packageVersion("keras") >= package_version("2.6")) {
+    preds <- predict(object$fit, x)
+    if (tensorflow::tf_version() <= package_version("2.0.0")) {
+      # -1 to assign with keras' zero indexing
+      index <- apply(preds, 1, which.max) - 1
+    } else {
+      index <- preds %>% keras::k_argmax() %>% as.integer()
+    }
+  } else {
+    index <- keras::predict_classes(object$fit, x)
+  }
+  object$lvl[index + 1]
+}
 
-
+#' Set seed in R and TensorFlow at the same time
+#'
+#' Some Keras models requires seeds to be set in both R and TensorFlow to
+#' achieve reproducible results. This function sets these seeds at the same
+#' time using version appropriate functions.
+#'
+#' @param seed 1 integer value.
+#' @export
+#' @keywords internal
+set_tf_seed <- function(seed) {
+  set.seed(seed)
+  if (tensorflow::tf_version() >= package_version("2.0")) {
+    tensorflow::tf$random$set_seed(seed)
+  } else {
+    tensorflow::tf$random$set_random_seed(seed)
+  }
+}
