@@ -32,7 +32,7 @@ Other engine arguments of interest:
  - `momentum()`: A number used to use historical gradient information during optimization  (`optimizer = "SGD"` only).
  - `batch_size()`: An integer for the number of training set points in each batch.
  - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
- - `class_weights()`: Numeric class weights. See [brulee::brulee_multinom_reg()].
+ - `class_weights()`: Numeric class weights. See [brulee::brulee_multinomial_reg()].
 
 
 ## Translation from parsnip to the original package (classification)

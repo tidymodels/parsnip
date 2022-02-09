@@ -37,7 +37,7 @@ each batch.
 \item \code{stop_iter()}: A non-negative integer for how many iterations with
 no improvement before stopping. (default: 5L).
 \item \code{class_weights()}: Numeric class weights. See
-\code{\link[brulee:brulee_multinom_reg]{brulee::brulee_multinom_reg()}}.
+\code{\link[brulee:brulee_multinomial_reg]{brulee::brulee_multinomial_reg()}}.
 }
 }
 
