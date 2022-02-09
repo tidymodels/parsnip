@@ -109,14 +109,21 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
       dplyr::select(class, data) %>%
       tidyr::unnest(cols = data)
   } else {
-    label_coefs <-
-      tidy_coefs %>%
-      top_coefs(top_n)
+    if (is.null(best_penalty)) {
+      label_coefs <- tidy_coefs %>%
+        top_coefs(top_n)
+    } else {
+      label_coefs <- tidy_coefs %>%
+        filter(penalty > best_penalty) %>%
+        filter(penalty == min(penalty)) %>%
+        arrange(desc(abs(estimate))) %>%
+        slice(seq_len(top_n))
+    }
   }
 
   label_coefs <-
     label_coefs %>%
-    dplyr::mutate(penalty = actual_min_penalty) %>%
+    dplyr::mutate(penalty = best_penalty %||% actual_min_penalty) %>%
     dplyr::mutate(label = gsub(".pred_no_", "", term))
 
   # plot the paths and highlight the large values
