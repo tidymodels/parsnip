@@ -482,7 +482,7 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  pred <- xgb_pred(object$fit, newdata = new_data, ntreelimit = tree)
+  pred <- xgb_pred(object$fit, newdata = new_data, iterationrange = c(1,tree+1), ntreelimit = NULL)
 
   # switch based on prediction type
   if (object$spec$mode == "regression") {
