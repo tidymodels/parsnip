@@ -48,7 +48,7 @@ map_glmnet_coefs <- function(x) {
   if (is.list(coefs)) {
     classes <- names(coefs)
     coefs <- purrr::map(coefs, reformat_coefs, p = p, penalty = x$lambda)
-    coefs <- purrr::map2_dfr(coefs, classes, ~ .x %>% dplyr::mutate(class = .y))
+    coefs <- purrr::map2_dfr(coefs, classes, ~ dplyr::mutate(.x, class = .y))
   } else {
     coefs <- reformat_coefs(coefs, p = p, penalty = x$lambda)
   }
@@ -66,7 +66,7 @@ reformat_coefs <- function(x, p, penalty) {
   colnames(x) <- paste(seq_along(penalty))
   x <- tibble::as_tibble(x)
   x$term <- term_lab
-  x <- tidyr::pivot_longer(x, cols = c(-term), names_to = "index", values_to = "estimate")
+  x <- tidyr::pivot_longer(x, cols = -term, names_to = "index", values_to = "estimate")
   x$penalty <- rep(penalty, p)
   x$index <- NULL
   x
@@ -98,7 +98,7 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
     top_n <- 0
   }
 
-  has_groups <- any(names(tidy_coefs) %in% c("class"))
+  has_groups <- any(names(tidy_coefs) == "class")
 
   # Keep the large values
   if (has_groups) {
