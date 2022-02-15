@@ -4,10 +4,8 @@
 #'
 #' `rand_forest()` defines a model that creates a large number of decision
 #' trees, each independent of the others. The final prediction uses all
-#' predictions from the individual trees and combines them.
-#'
-#' There are different ways to fit this model. The method of estimation is 
-#' chosen by setting the model _engine_. 
+#' predictions from the individual trees and combines them. This function can fit
+#' classification, regression, and censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 #'

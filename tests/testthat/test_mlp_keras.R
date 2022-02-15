@@ -22,6 +22,7 @@ nn_dat <- read.csv("nnet_test.txt")
 test_that('keras execution, classification', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   expect_error(
     res <- parsnip::fit(
@@ -65,6 +66,7 @@ test_that('keras execution, classification', {
 test_that('keras classification prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
   library(keras)
 
   xy_fit <- parsnip::fit_xy(
@@ -74,7 +76,14 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- keras::predict_classes(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  if (tensorflow::tf_version() <= package_version("2.0.0")) {
+    # -1 to assign with keras' zero indexing
+    xy_pred <- apply(xy_pred, 1, which.max) - 1
+  } else {
+    xy_pred <- xy_pred %>% keras::k_argmax() %>% as.integer()
+  }
+
   xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
@@ -87,7 +96,15 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  form_pred <- keras::predict_classes(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+
+  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  if (tensorflow::tf_version() <= package_version("2.0.0")) {
+    # -1 to assign with keras' zero indexing
+    form_pred <- apply(form_pred, 1, which.max) - 1
+  } else {
+    form_pred <- form_pred %>% keras::k_argmax() %>% as.integer()
+  }
+
   form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
 
@@ -98,6 +115,7 @@ test_that('keras classification prediction', {
 test_that('keras classification probabilities', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   xy_fit <- parsnip::fit_xy(
     hpc_keras,
@@ -106,7 +124,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  xy_pred <- keras::predict_proba(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
   colnames(xy_pred) <- paste0(".pred_", levels(hpc$class))
   xy_pred <- as_tibble(xy_pred)
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob"))
@@ -120,7 +138,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  form_pred <- keras::predict_proba(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
   colnames(form_pred) <- paste0(".pred_", levels(hpc$class))
   form_pred <- as_tibble(form_pred)
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob"))
@@ -148,6 +166,7 @@ bad_keras_reg <-
 test_that('keras execution, regression', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   expect_error(
     res <- parsnip::fit(
@@ -175,6 +194,7 @@ test_that('keras execution, regression', {
 test_that('keras regression prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   xy_fit <- parsnip::fit_xy(
     mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) %>%
@@ -208,6 +228,7 @@ test_that('keras regression prediction', {
 test_that('multivariate nnet formula', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   nnet_form <-
     mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%

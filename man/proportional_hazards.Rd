@@ -27,10 +27,9 @@ proportion of L1 regularization (i.e. lasso) in the model. When
 ridge regression is being used (specific engines only).}
 }
 \description{
-\code{proportional_hazards()} defines a proportional hazards model.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+\code{proportional_hazards()} defines a model for the hazard function
+as a multiplicative function of covariates times a baseline hazard. This
+function can fit censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
 
@@ -56,7 +55,7 @@ show_engines("proportional_hazards")
 proportional_hazards(mode = "censored regression")
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}

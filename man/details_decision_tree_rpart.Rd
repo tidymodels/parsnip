@@ -8,7 +8,8 @@
 creates a tree-based structure.
 }
 \details{
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification, regression,
+and censored regression
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:
@@ -55,6 +56,35 @@ This model has 3 tuning parameters:
 ## 
 ## Model fit template:
 ## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
+}
+}
+
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
+There is a parsnip extension package required to fit this model to this
+mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) \%>\% 
+  set_engine("rpart") \%>\% 
+  set_mode("censored regression") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (censored regression)
+## 
+## Main Arguments:
+##   cost_complexity = double(1)
+##   tree_depth = integer(1)
+##   min_n = integer(1)
+## 
+## Computational engine: rpart 
+## 
+## Model fit template:
+## pec::pecRpart(formula = missing_arg(), data = missing_arg(), 
 ##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
 ##         data))
 }

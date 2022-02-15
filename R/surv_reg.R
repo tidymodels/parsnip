@@ -7,9 +7,7 @@
 #' `"censored regression"` mode.
 #'
 #' `surv_reg()` defines a parametric survival model.
-#'
-#' There are different ways to fit this model. The method of estimation is
-#' chosen by setting the model _engine_.
+
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
 #'

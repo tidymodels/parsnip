@@ -1,0 +1,58 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("discrim_regularized", "klaR")`
+
+## Tuning Parameters
+
+
+```{r klaR-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("frac_identity", "frac_common_cov"),
+                 default = c("(see below)", "(see below)"))
+
+param <-
+  discrim_regularized() %>% 
+  set_engine("klaR") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r klaR-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+Some special cases for the RDA model: 
+
+* `frac_identity = 0` and `frac_common_cov = 1` is a linear discriminant analysis (LDA) model. 
+
+* `frac_identity = 0` and `frac_common_cov = 0` is a quadratic discriminant analysis (QDA) model. 
+
+
+
+## Translation from parsnip to the original package
+
+`r uses_extension("discrim_regularized", "klaR", "classification")`
+
+```{r klaR-cls}
+library(discrim)
+
+discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 
+  set_engine("klaR") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-zv-conditional.Rmd"}
+```
+
+## References
+
+ - Friedman, J (1989). Regularized Discriminant Analysis. _Journal of the American Statistical Association_, 84, 165-175.
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

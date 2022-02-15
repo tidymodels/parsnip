@@ -27,8 +27,10 @@ ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 test_that('model fitting', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
-  set.seed(257)
+  set_tf_seed(257)
+
   expect_error(
     fit1 <-
       fit_xy(
@@ -40,7 +42,8 @@ test_that('model fitting', {
     regexp = NA
   )
 
-  set.seed(257)
+  set_tf_seed(257)
+
   expect_error(
     fit2 <-
       fit_xy(
@@ -94,6 +97,7 @@ test_that('model fitting', {
 test_that('regression prediction', {
   skip_on_cran()
   skip_if_not_installed("keras")
+  skip_if(is.null(tensorflow::tf_version()))
 
   library(keras)
 

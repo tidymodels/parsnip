@@ -1,0 +1,52 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("boost_tree", "mboost")`
+
+## Tuning Parameters
+
+```{r mboost-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("mtry", "trees", "tree_depth", "min_n", "loss_reduction"),
+                 default = c("see below", "100L", "2L", "10L", "0"))
+
+param <-
+  boost_tree() %>% 
+  set_engine("mboost") %>% 
+  set_mode("censored regression") %>%
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r mboost-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The `mtry` parameter is related to the number of predictors. The default is to use all predictors.
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("boost_tree", "mboost", "censored regression")`
+
+```{r mboost-creg}
+library(censored)
+
+boost_tree() %>% 
+  set_engine("mboost") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+[blackboost_train()] is a wrapper around [mboost::blackboost()] (and other functions) that makes it easier to run this model. 
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## References
+
+ - Buehlmann P, Hothorn T. 2007. Boosting algorithms: regularization, prediction and model fitting. _Statistical Science_, 22(4), 477–505.
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

@@ -533,6 +533,15 @@ set_model_arg(
 set_model_arg(
   model = "linear_reg",
   eng = "brulee",
+  parsnip = "mixture",
+  original = "mixture",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "brulee",
   parsnip = "epochs",
   original = "epochs",
   func = list(pkg = "dials", fun = "epochs"),

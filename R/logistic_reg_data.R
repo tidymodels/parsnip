@@ -438,13 +438,11 @@ set_pred(
   type = "class",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      object$lvl[x + 1]
-    },
-    func = c(pkg = "keras", fun = "predict_classes"),
+    post = NULL,
+    func = c(pkg = "parsnip", fun = "keras_predict_classes"),
     args =
       list(
-        object = quote(object$fit),
+        object = quote(object),
         x = quote(as.matrix(new_data))
       )
   )
@@ -462,7 +460,7 @@ set_pred(
       x <- as_tibble(x)
       x
     },
-    func = c(pkg = "keras", fun = "predict_proba"),
+    func = c(fun = "predict"),
     args =
       list(
         object = quote(object$fit),
@@ -665,6 +663,16 @@ set_model_arg(
   func = list(pkg = "dials", fun = "penalty"),
   has_submodel = FALSE
 )
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "brulee",
+  parsnip = "mixture",
+  original = "mixture",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
 
 set_model_arg(
   model = "logistic_reg",

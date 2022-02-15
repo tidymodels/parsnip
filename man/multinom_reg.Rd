@@ -32,10 +32,8 @@ ridge regression is being used. (specific engines only).}
 }
 \description{
 \code{multinom_reg()} defines a model that uses linear predictors to predict
-multiclass data using the multinomial distribution.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+multiclass data using the multinomial distribution. This function can fit
+classification models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("multinom_reg")}
 
@@ -55,7 +53,7 @@ show_engines("multinom_reg")
 multinom_reg()
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}

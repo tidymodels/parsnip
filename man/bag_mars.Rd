@@ -31,10 +31,7 @@ to use for fitting.}
 \code{bag_mars()} defines an ensemble of generalized linear models that use
 artificial features for some predictors. These features resemble hinge
 functions and the result is a model that is a segmented regression in small
-dimensions.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+dimensions. This function can fit classification and regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_mars")}
 
@@ -49,7 +46,7 @@ The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model
 with the data.
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bag_mars")}

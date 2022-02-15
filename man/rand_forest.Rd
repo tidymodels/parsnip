@@ -32,10 +32,8 @@ in a node that are required for the node to be split further.}
 \description{
 \code{rand_forest()} defines a model that creates a large number of decision
 trees, each independent of the others. The final prediction uses all
-predictions from the individual trees and combines them.
-
-There are different ways to fit this model. The method of estimation is
-chosen by setting the model \emph{engine}.
+predictions from the individual trees and combines them. This function can fit
+classification, regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 
@@ -55,7 +53,7 @@ show_engines("rand_forest")
 rand_forest(mode = "classification", trees = 2000)
 }
 \references{
-\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}
+\url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
 \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}

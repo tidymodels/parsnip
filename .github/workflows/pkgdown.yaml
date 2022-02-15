@@ -34,7 +34,7 @@ jobs:
           pak::pkg_install('rstudio/reticulate')
           reticulate::install_miniconda()
           reticulate::conda_create('r-reticulate', packages = c('python==3.6.9'))
-          tensorflow::install_tensorflow(version='1.14.0')
+          tensorflow::install_tensorflow(version='2.7.0')
         shell: Rscript {0}
 
       - name: Install package

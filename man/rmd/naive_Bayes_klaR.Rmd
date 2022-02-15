@@ -1,0 +1,49 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("naive_Bayes", "klaR")`
+
+## Tuning Parameters
+
+
+```{r klaR-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("smoothness", "Laplace"),
+                 default = c("1.0", "0.0"))
+
+param <-
+  naive_Bayes() %>% 
+  set_engine("klaR") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r klaR-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+Note that `usekernel` is always set to `TRUE` for the `klaR` engine.
+
+## Translation from parsnip to the original package
+
+`r uses_extension("naive_Bayes", "klaR", "classification")`
+
+```{r klaR-cls}
+library(discrim)
+
+naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>% 
+  set_engine("klaR") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+The columns for qualitative predictors should always be represented as factors (as opposed to dummy/indicator variables). When the predictors are factors, the underlying code treats them as multinomial data and appropriately computes their conditional distributions. 
+
+```{r child = "template-zv.Rmd"}
+```
+
+## References
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
