@@ -18,23 +18,23 @@
 #' @return A ggplot object with penalty on the x-axis and coefficients on the
 #' y-axis. For multinomial or multivariate models, the plot is faceted.
 #'
-#' @export
+# registered in zzz.R
 autoplot.model_fit <- function(object, ...) {
   autoplot(object$fit, ...)
 }
 
-#' @export
+# registered in zzz.R
 #' @rdname autoplot.model_fit
 autoplot.workflow <- function(object, ...) {
   object %>% extract_fit_engine %>% autoplot(...)
 }
 
-# glmnet is not a formal dpendency here.
+# glmnet is not a formal dependency here.
 # unit tests are located at https://github.com/tidymodels/extratests
 
 # nocov start
 
-#' @export
+# registered in zzz.R
 #' @rdname autoplot.model_fit
 autoplot.glmnet <- function(object, min_penalty = 0, best_penalty = NULL,
                             top_n = 3L, ...) {
@@ -44,6 +44,12 @@ autoplot.glmnet <- function(object, min_penalty = 0, best_penalty = NULL,
 
 map_glmnet_coefs <- function(x) {
   coefs <- coef(x)
+  # If parsnip is used to fit the model, glmnet should be attached and this will
+  # work. If an object is loaded from a new session, they will need to load the
+  # package.
+  if (is.null(coefs)) {
+    rlang::abort("Please load the glmnet package before running `autoplot()`.")
+  }
   p <- x$dim[1]
   if (is.list(coefs)) {
     classes <- names(coefs)
@@ -114,10 +120,10 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
         top_coefs(top_n)
     } else {
       label_coefs <- tidy_coefs %>%
-        filter(penalty > best_penalty) %>%
-        filter(penalty == min(penalty)) %>%
-        arrange(desc(abs(estimate))) %>%
-        slice(seq_len(top_n))
+        dplyr::filter(penalty > best_penalty) %>%
+        dplyr::filter(penalty == min(penalty)) %>%
+        dplyr::arrange(dplyr::desc(abs(estimate))) %>%
+        dplyr::slice(seq_len(top_n))
     }
   }
 
@@ -145,6 +151,7 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
     ggplot2::scale_x_log10()
 
   if(top_n > 0) {
+    rlang::check_installed("ggrepel")
     p <- p +
       ggrepel::geom_label_repel(
         data = label_coefs,
