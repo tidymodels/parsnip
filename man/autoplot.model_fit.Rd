@@ -20,7 +20,8 @@ value that should be shown in the plot. If left \code{NULL}, the whole data
 range is used.}
 
 \item{best_penalty}{A single, non-negative number that will show a vertical
-line marker. If left \code{NULL}, no line is shown.}
+line marker. If left \code{NULL}, no line is shown. When this argument is used,
+the \pkg{ggrepl} package is required.}
 
 \item{top_n}{A non-negative integer for how many model predictors to label.
 The top predictors are ranked by their absolute coefficient value. For

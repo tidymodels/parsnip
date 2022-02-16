@@ -8,7 +8,8 @@
 #' value that should be shown in the plot. If left `NULL`, the whole data
 #' range is used.
 #' @param best_penalty A single, non-negative number that will show a vertical
-#' line marker. If left `NULL`, no line is shown.
+#' line marker. If left `NULL`, no line is shown. When this argument is used,
+#' the \pkg{ggrepl} package is required.
 #' @param top_n A non-negative integer for how many model predictors to label.
 #' The top predictors are ranked by their absolute coefficient value. For
 #' multinomial or multivariate models, the `top_n` terms are selected within
