@@ -2,15 +2,12 @@
 % Please edit documentation in R/autoplot.R
 \name{autoplot.model_fit}
 \alias{autoplot.model_fit}
-\alias{autoplot.workflow}
 \alias{autoplot.glmnet}
 \title{Create a ggplot for a model object}
 \usage{
 \method{autoplot}{model_fit}(object, ...)
 
-\method{autoplot}{workflow}(object, ...)
-
-\method{autoplot}{glmnet}(object, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...)
+\method{autoplot}{glmnet}(object, ..., min_penalty = 0, best_penalty = NULL, top_n = 3L)
 }
 \arguments{
 \item{object}{A model fit object.}
@@ -37,4 +34,8 @@ y-axis. For multinomial or multivariate models, the plot is faceted.
 \description{
 This method provides a good visualization method for model results.
 Currently, only methods for glmnet models are implemented.
+}
+\details{
+The \pkg{glmnet} package will need to be attached or loaded for
+its \code{autoplot()} method to work correctly.
 }

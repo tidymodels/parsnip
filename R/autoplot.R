@@ -31,8 +31,8 @@ autoplot.model_fit <- function(object, ...) {
 
 # registered in zzz.R
 #' @rdname autoplot.model_fit
-autoplot.glmnet <- function(object, min_penalty = 0, best_penalty = NULL,
-                            top_n = 3L, ...) {
+autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
+                            top_n = 3L) {
   autoplot_glmnet(object, min_penalty, best_penalty, top_n, ...)
 }
 
