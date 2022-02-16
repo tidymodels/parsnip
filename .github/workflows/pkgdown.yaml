@@ -29,12 +29,20 @@ jobs:
           extra-packages: r-lib/pkgdown
           needs: website
 
-      - name: Install Miniconda + TensorFlow
+      - name: Install dev reticulate
+        run: pak::pkg_install('rstudio/reticulate')
+        shell: Rscript {0}
+
+      - name: Install Miniconda
+        # conda can fail at downgrading python, so we specify python version in advance
+        env:
+          RETICULATE_MINICONDA_PYTHON_VERSION: "3.7"
+        run: reticulate::install_miniconda() # creates r-reticulate conda env by default
+        shell: Rscript {0}
+
+      - name: Install TensorFlow
         run: |
-          pak::pkg_install('rstudio/reticulate')
-          reticulate::install_miniconda()
-          reticulate::conda_create('r-reticulate', packages = c('python==3.6.9'))
-          tensorflow::install_tensorflow(version='2.7.0')
+          tensorflow::install_tensorflow(version='2.7', conda_python_version = NULL)
         shell: Rscript {0}
 
       - name: Install package
