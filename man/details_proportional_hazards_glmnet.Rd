@@ -116,7 +116,7 @@ tidymodels does not treat different models differently when computing
 performance metrics. To standardize across model types, the default for
 proportional hazards models is to have \emph{increasing values with time}. As
 a result, the sign of the linear predictor will be the opposite of the
-value produced by the \code{predict()} method in the package.
+value produced by the \code{predict()} method in the engine package.
 
 This behavior can be changed by using the \code{increasing} argument when
 calling \code{predict()} on a model object.
