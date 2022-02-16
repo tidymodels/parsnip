@@ -44,6 +44,8 @@
 
 * parsnip is now more robust working with keras and tensorflow for a larger range of versions (#596).
 
+* xgboost engines now use the new `iterationrange` parameter instead of the deprecated `ntreelimit` (#656).  
+
 
 # parsnip 0.1.7
 

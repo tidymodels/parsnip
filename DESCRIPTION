@@ -60,7 +60,7 @@ Suggests:
     sparklyr (>= 1.0.0),
     survival,
     testthat,
-    xgboost
+    xgboost (>= 1.5.0.1)
 VignetteBuilder: 
     knitr
 ByteCompile: true
