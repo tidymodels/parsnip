@@ -17,21 +17,16 @@
 #' [ggrepel::geom_label_repel()]. Otherwise, this argument is ignored.
 #' @return A ggplot object with penalty on the x-axis and coefficients on the
 #' y-axis. For multinomial or multivariate models, the plot is faceted.
+#' @details The \pkg{glmnet} package will need to be attached or loaded for
+#' its `autoplot()` method to work correctly.
 #'
 # registered in zzz.R
 autoplot.model_fit <- function(object, ...) {
   autoplot(object$fit, ...)
 }
 
-# registered in zzz.R
-#' @rdname autoplot.model_fit
-autoplot.workflow <- function(object, ...) {
-  object %>% extract_fit_engine %>% autoplot(...)
-}
-
 # glmnet is not a formal dependency here.
 # unit tests are located at https://github.com/tidymodels/extratests
-
 # nocov start
 
 # registered in zzz.R
@@ -89,9 +84,7 @@ top_coefs <- function(x, top_n = 5) {
 }
 
 autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...) {
-  if (!is.null(min_penalty)) {
-    check_penalty_value(min_penalty)
-  }
+  check_penalty_value(min_penalty)
 
   tidy_coefs <-
     map_glmnet_coefs(x) %>%
