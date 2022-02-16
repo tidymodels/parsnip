@@ -191,7 +191,7 @@ test_that('submodel prediction', {
 
   x <-  xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
 
-  pruned_pred <- predict(reg_fit$fit, x, ntreelimit = 5)
+  pruned_pred <- predict(reg_fit$fit, x, iteration_range = 5)
 
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], trees = 5)
   mp_res <- do.call("rbind", mp_res$.pred)
@@ -206,7 +206,7 @@ test_that('submodel prediction', {
 
   x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
 
-  pred_class <- predict(class_fit$fit, x, ntreelimit = 5)
+  pred_class <- predict(class_fit$fit, x, iteration_range = 5)
 
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
