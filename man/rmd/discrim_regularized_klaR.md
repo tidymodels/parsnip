@@ -24,7 +24,7 @@ Some special cases for the RDA model:
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **discrim**.
+The **discrim** extension package is required to fit this model.
 
 
 ```r
@@ -52,7 +52,7 @@ discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>
 ## Preprocessing requirements
 
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit.model_spec()}}, parsnip will convert factor columns to indicators.
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 
 Variance calculations are used in these computations within each outcome class. For this reason,  _zero-variance_ predictors (i.e., with a single unique value) within each class should be eliminated before fitting the model. 

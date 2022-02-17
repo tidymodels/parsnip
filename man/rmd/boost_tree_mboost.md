@@ -23,7 +23,7 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 
 ## Translation from parsnip to the original package (censored regression)
 
-There is a parsnip extension package required to fit this model to this mode: **censored**.
+The **censored** extension package is required to fit this model.
 
 
 ```r

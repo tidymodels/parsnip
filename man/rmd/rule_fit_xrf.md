@@ -28,7 +28,7 @@ This model has 8 tuning parameters:
 
 ## Translation from parsnip to the underlying model call  (regression)
 
-There is a parsnip extension package required to fit this model to this mode: **rules**.
+The **rules** extension package is required to fit this model.
 
 
 ```r
@@ -73,7 +73,7 @@ rule_fit(
 
 ## Translation from parsnip to the underlying model call  (classification)
 
-There is a parsnip extension package required to fit this model to this mode: **rules**.
+The **rules** extension package is required to fit this model.
 
 
 
@@ -135,7 +135,7 @@ These differences will create a disparity in the values of the `penalty` argumen
 ## Preprocessing requirements
 
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit.model_spec()}}, parsnip will convert factor columns to indicators.
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 ## References
 

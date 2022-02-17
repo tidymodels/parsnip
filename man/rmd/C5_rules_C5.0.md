@@ -15,7 +15,7 @@ Note that C5.0 has a tool for _early stopping_ during boosting where less iterat
 
 ## Translation from parsnip to the underlying model call  (classification)
 
-There is a parsnip extension package required to fit this model to this mode: **rules**.
+The **rules** extension package is required to fit this model.
 
 
 ```r

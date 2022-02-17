@@ -13,7 +13,7 @@ This model has 1 tuning parameters:
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **censored**.
+The **censored** extension package is required to fit this model.
 
 
 ```r

@@ -22,7 +22,7 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 
 ## Translation from parsnip to the original package (classification)
 
-There is a parsnip extension package required to fit this model to this mode: **baguette**.
+The **baguette** extension package is required to fit this model.
 
 
 ```r
@@ -53,7 +53,7 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Translation from parsnip to the original package (regression)
 
-There is a parsnip extension package required to fit this model to this mode: **baguette**.
+The **baguette** extension package is required to fit this model.
 
 
 ```r
@@ -83,7 +83,7 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Translation from parsnip to the original package (censored regression)
 
-There is a parsnip extension package required to fit this model to this mode: **censored**.
+The **censored** extension package is required to fit this model.
 
 
 ```r

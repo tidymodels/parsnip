@@ -19,7 +19,7 @@ The default value of `num_terms` depends on the number of columns (`p`): `min(20
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **discrim**.
+The **discrim** extension package is required to fit this model.
 
 
 ```r
@@ -51,7 +51,7 @@ discrim_flexible(
 ## Preprocessing requirements
 
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit.model_spec()}}, parsnip will convert factor columns to indicators.
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 
 ## References

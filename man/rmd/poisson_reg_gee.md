@@ -9,7 +9,7 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **multilevelmod**.
+The **multilevelmod** extension package is required to fit this model.
 
 
 ```r
