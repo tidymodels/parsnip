@@ -40,9 +40,12 @@
 
 * `varying_args()` is soft-deprecated in favor of `tune_args()`.
 
+* An `autoplot()` method was added for glmnet objects, showing the coefficient paths versus the penalty values (#642).
+
 * parsnip is now more robust working with keras and tensorflow for a larger range of versions (#596).
 
 * xgboost engines now use the new `iterationrange` parameter instead of the deprecated `ntreelimit` (#656).  
+
 
 # parsnip 0.1.7
 

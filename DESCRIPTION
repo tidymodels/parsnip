@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 0.1.7.9005
+Version: 0.1.7.9006
 Authors@R: c(
     person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
@@ -21,6 +21,7 @@ Imports:
     cli,
     dplyr (>= 0.8.0.1),
     generics (>= 0.1.0.9000),
+    ggplot2,
     globals,
     glue,
     hardhat (>= 0.1.6.9001),
@@ -41,7 +42,7 @@ Suggests:
     dials (>= 0.0.10.9001),
     earth,
     tensorflow,
-    ggplot2,
+    ggrepel,
     keras,
     kernlab,
     kknn,

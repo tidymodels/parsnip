@@ -48,6 +48,7 @@ reference:
       - svm_rbf
   - title: Infrastructure
     contents:
+      - autoplot.model_fit
       - add_rowindex
       - augment.model_fit
       - descriptors
