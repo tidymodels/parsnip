@@ -76,7 +76,7 @@ gee_wflow <-
 fit(gee_wflow, data = warpbreaks)
 ```
 
-The `gee::gee()` function always prints out warnings and output even when `silent = TRUE`. The parsnip "gee" engine, by contrast, silences all console output coming from `gee::gee()`, even if `silent = FALSE`.
+The `gee::gee()` function always prints out warnings and output even when `silent = TRUE`. The parsnip `"gee"` engine, by contrast, silences all console output coming from `gee::gee()`, even if `silent = FALSE`.
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 
