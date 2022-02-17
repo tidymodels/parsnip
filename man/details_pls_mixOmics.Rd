@@ -20,8 +20,7 @@ see below)
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{plsmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+The \strong{plsmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
@@ -54,8 +53,7 @@ for sparse models.
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{plsmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+The \strong{plsmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
@@ -74,17 +72,18 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 ##     ncomp = integer(1))
 }
 
-In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same role
-as above but eventually targets \code{\link[mixOmics:plsda]{mixOmics::plsda()}}
-or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
+In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same
+role as above but eventually targets
+\code{\link[mixOmics:plsda]{mixOmics::plsda()}} or
+\code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
-parsnip will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated

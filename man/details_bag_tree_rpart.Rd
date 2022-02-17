@@ -31,8 +31,7 @@ the second level of the factor.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
@@ -56,8 +55,7 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
@@ -81,8 +79,7 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 

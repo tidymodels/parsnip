@@ -22,8 +22,7 @@ Note that \code{usekernel} is always set to \code{TRUE} for the \code{klaR} engi
 
 \subsection{Translation from parsnip to the original package}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{discrim}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) \%>\% 
   set_engine("klaR") \%>\% 

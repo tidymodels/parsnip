@@ -30,8 +30,7 @@ default: 1.0)
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 rule_fit(
   mtry = numeric(1),
@@ -70,8 +69,7 @@ rule_fit(
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 rule_fit(
   mtry = numeric(1),
@@ -133,8 +131,8 @@ whereas \strong{xrf} uses an internal 5-fold cross-validation to determine it
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
-parsnip will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 }
 
 \subsection{References}{

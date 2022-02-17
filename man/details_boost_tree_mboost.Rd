@@ -28,8 +28,7 @@ is to use all predictors.
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 boost_tree() \%>\% 
   set_engine("mboost") \%>\% 

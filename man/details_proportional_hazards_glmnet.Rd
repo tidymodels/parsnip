@@ -27,8 +27,7 @@ see \link{glmnet-details}.
 
 \subsection{Translation from parsnip to the original package}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 proportional_hazards(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("glmnet") \%>\% 
@@ -51,8 +50,8 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
-parsnip will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

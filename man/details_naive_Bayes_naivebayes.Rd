@@ -20,8 +20,7 @@ This model has 2 tuning parameter:
 
 \subsection{Translation from parsnip to the original package}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{discrim}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) \%>\% 
   set_engine("naivebayes") \%>\% 

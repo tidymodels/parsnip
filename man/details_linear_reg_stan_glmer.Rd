@@ -36,8 +36,7 @@ See \code{?rstanarm::stan_glmer} and \code{?rstan::sampling} for more informatio
 
 \subsection{Translation from parsnip to the original package}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 linear_reg() \%>\% 
   set_engine("stan_glmer") \%>\% 
@@ -59,7 +58,7 @@ This model can use subject-specific coefficient estimates to make
 predictions (i.e. partial pooling). For example, this equation shows the
 linear predictor (\emph{η}) for a random intercept:
 
-\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}}+\emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
+\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}} + \emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
 
 where \emph{i} denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that

@@ -25,8 +25,7 @@ less iterations of boosting are performed than the number requested.
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{rules}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 C5_rules(
   trees = integer(1),
@@ -62,7 +61,7 @@ are not required for this model.
 \item Quinlan R (1992). “Learning with Continuous Classes.” Proceedings of
 the 5th Australian Joint Conference On Artificial Intelligence,
 pp. 343-348.
-\item Quinlan R (1993).”Combining Instance-Based and Model-Based
+\item Quinlan R (1993).“Combining Instance-Based and Model-Based
 Learning.” Proceedings of the Tenth International Conference on
 Machine Learning, pp. 236-243.
 \item Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}.
