@@ -167,4 +167,4 @@ check_penalty_value <- function(x) {
   invisible(x)
 }
 
-# nocov stop
+# nocov end
