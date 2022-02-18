@@ -46,6 +46,9 @@ is specified, the \emph{method} to fit the model is also defined.
 
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
 with the data.
+
+This model fits a classification model for multiclass outcomes; for
+binary outcomes, see \code{\link[=logistic_reg]{logistic_reg()}}.
 }
 \examples{
 show_engines("multinom_reg")
