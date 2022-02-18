@@ -28,6 +28,9 @@
 #'
 #' @template spec-details
 #'
+#' @details This model fits a classification model for multiclass outcomes; for
+#' binary outcomes, see [logistic_reg()].
+#'
 #' @template spec-references
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
