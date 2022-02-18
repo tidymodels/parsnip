@@ -91,8 +91,7 @@ intercept-only model.</p>
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
 
 
-<p>There is a parsnip extension package required to fit this model to this
-mode: <strong>discrim</strong>.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://discrim.tidymodels.org" class="external-link">discrim</a></span><span class="op">)</span>
+<p>The <strong>discrim</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://discrim.tidymodels.org" class="external-link">discrim</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/discrim_flexible.html">discrim_flexible</a></span><span class="op">(</span>
   num_terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,
@@ -120,8 +119,8 @@ mode: <strong>discrim</strong>.</p><div class="sourceCode r"><pre><code><span cl
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit.model_spec()</a></code>,
-parsnip will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip
+will convert factor columns to indicators.</p>
 </div>
 
 <div class="section">
