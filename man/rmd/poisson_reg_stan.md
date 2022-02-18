@@ -22,7 +22,7 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **poissonreg**.
+The **poissonreg** extension package is required to fit this model.
 
 
 ```r
@@ -48,7 +48,7 @@ Note that the `refresh` default prevents logging of the estimation process. Chan
 ## Preprocessing requirements
 
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit.model_spec()}}, parsnip will convert factor columns to indicators.
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 ## Other details
 

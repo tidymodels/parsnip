@@ -20,8 +20,7 @@ values.
 
 \subsection{Translation from parsnip to the original package}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{multilevelmod}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 linear_reg() \%>\% 
   set_engine("gee") \%>\% 
@@ -83,7 +82,7 @@ fit(gee_wflow, data = warpbreaks)
 }\if{html}{\out{</div>}}
 
 The \code{gee::gee()} function always prints out warnings and output even
-when \code{silent = TRUE}. The parsnip “gee” engine, by contrast, silences
+when \code{silent = TRUE}. The parsnip \code{"gee"} engine, by contrast, silences
 all console output coming from \code{gee::gee()}, even if \code{silent = FALSE}.
 
 Also, because of issues with the \code{gee()} function, a supplementary call

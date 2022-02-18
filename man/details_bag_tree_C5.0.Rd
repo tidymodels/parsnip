@@ -19,8 +19,7 @@ This model has 1 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{baguette}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(min_n = integer()) \%>\% 
   set_engine("C5.0") \%>\% 

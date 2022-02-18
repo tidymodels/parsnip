@@ -63,8 +63,7 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{censored}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 decision_tree(
   tree_depth = integer(1),

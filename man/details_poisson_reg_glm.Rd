@@ -15,8 +15,7 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-There is a parsnip extension package required to fit this model to this
-mode: \strong{poissonreg}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+The \strong{poissonreg} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
 poisson_reg() \%>\%
   set_engine("glm") \%>\%
@@ -35,8 +34,8 @@ poisson_reg() \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit.model_spec()}},
-parsnip will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 }
 }
 \keyword{internal}

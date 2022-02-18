@@ -9,7 +9,7 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 ## Translation from parsnip to the original package
 
-There is a parsnip extension package required to fit this model to this mode: **multilevelmod**.
+The **multilevelmod** extension package is required to fit this model.
 
 
 ```r
@@ -76,7 +76,7 @@ gee_wflow <-
 fit(gee_wflow, data = warpbreaks)
 ```
 
-The `gee::gee()` function always prints out warnings and output even when `silent = TRUE`. The parsnip "gee" engine, by contrast, silences all console output coming from `gee::gee()`, even if `silent = FALSE`.
+The `gee::gee()` function always prints out warnings and output even when `silent = TRUE`. The parsnip `"gee"` engine, by contrast, silences all console output coming from `gee::gee()`, even if `silent = FALSE`.
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 

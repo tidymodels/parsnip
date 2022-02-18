@@ -19,7 +19,7 @@ The default value of `num_terms` depends on the number of predictor columns. For
 
 ## Translation from parsnip to the original package (regression)
 
-There is a parsnip extension package required to fit this model to this mode: **baguette**.
+The **baguette** extension package is required to fit this model.
 
 
 ```r
@@ -47,7 +47,7 @@ bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = charac
 
 ## Translation from parsnip to the original package (classification)
 
-There is a parsnip extension package required to fit this model to this mode: **baguette**.
+The **baguette** extension package is required to fit this model.
 
 
 ```r
@@ -82,7 +82,7 @@ bag_mars(
 ## Preprocessing requirements
 
 
-Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit.model_spec()}}, parsnip will convert factor columns to indicators.
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 ## References
 

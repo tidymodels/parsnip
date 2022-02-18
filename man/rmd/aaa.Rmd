@@ -127,13 +127,14 @@ uses_extension <- function(mod, eng, mod_mode) {
     purrr::pluck("pkg")
   
   num_ext <- length(exts)
+  if (num_ext > 1) {
+    rlang::abort(c("There are more than one extension packages for:",
+                   mod, eng, mod_mode))
+  }
   if (num_ext > 0) {
-    res <- paste0("**", exts, "**", collapse = ", ")
-    x <-
-      ifelse(num_ext > 1,
-             "There are parsnip extension packages ",
-             "There is a parsnip extension package ")
-    res <- paste0(x, "required to fit this model to this mode: ", res, ".")
+    res <- paste0("The **", 
+                  exts, 
+                  "** extension package is required to fit this model.")
   } else {
     res <- ""
   }

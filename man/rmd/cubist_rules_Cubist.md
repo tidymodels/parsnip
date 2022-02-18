@@ -18,7 +18,7 @@ This model has 3 tuning parameters:
 
 ## Translation from parsnip to the underlying model call  (regression)
 
-There is a parsnip extension package required to fit this model to this mode: **rules**.
+The **rules** extension package is required to fit this model.
 
 
 ```r
@@ -46,8 +46,7 @@ cubist_rules(
 ## 
 ## Model fit template:
 ## rules::cubist_fit(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     committees = integer(1), neighbors = integer(1), max_rules = integer(1), 
-##     composite = TRUE)
+##     committees = integer(1), neighbors = integer(1), max_rules = integer(1))
 ```
 
 ## Preprocessing requirements
