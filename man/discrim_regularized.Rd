@@ -52,7 +52,7 @@ used. Other regularization methods can be used with \code{\link[=discrim_linear]
 This function only defines what \emph{type} of model is being fit. Once an engine
 is specified, the \emph{method} to fit the model is also defined.
 
-The model is not trained or fit until the \code{\link[=fit.model_spec]{fit.model_spec()}} function is used
+The model is not trained or fit until the \code{\link[=fit.model_spec]{fit()}} function is used
 with the data.
 }
 \references{
