@@ -209,30 +209,43 @@ make_engine_list <- function(mod) {
   exts <-
     utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
     dplyr::filter(model == mod) %>%
-    dplyr::group_by(engine) %>%
-    dplyr::summarize(extensions = sum(!is.na(pkg))) %>%
+    dplyr::group_by(engine, mode) %>%
+    dplyr::summarize(extensions = sum(!is.na(pkg)), .groups = "drop") %>%
     dplyr::mutate(
       has_ext = ifelse(extensions > 0, cli::symbol$sup_2, "")
     )
   eng <- dplyr::left_join(eng, exts, by = "engine")
 
 
-  eng <-
+  eng_table <-
     eng %>%
     dplyr::arrange(.order) %>%
+    dplyr::select(-mode) %>%
+    dplyr::distinct(engine, .keep_all = TRUE) %>%
     dplyr::mutate(
       item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||has_ext|}",
                         .open = "|", .close = "|")
-    ) %>%
-    dplyr::distinct(item)
+    )
 
   notes <- paste0("\n", cli::symbol$sup_1, " The default engine.")
   if (any(exts$has_ext != "")) {
-    notes <- paste0(notes, " ", cli::symbol$sup_2, " May require a parsnip extension package.")
+    if (dplyr::n_distinct(exts$mode) > 1) {
+      ext_modes <- exts %>%
+        dplyr::filter(has_ext != "") %>%
+        dplyr::pull(mode) %>%
+        unique() %>%
+        knitr::combine_words(and = " and ")
+      notes <- paste0(
+        notes, " ",
+        cli::symbol$sup_2, " Requires a parsnip extension package for ",
+        ext_modes, ".")
+    } else {
+      notes <- paste0(notes, " ", cli::symbol$sup_2, " Requires a parsnip extension package.")
+    }
   }
 
 
-  items <- glue::glue_collapse(eng$item, sep = "\n")
+  items <- glue::glue_collapse(eng_table$item, sep = "\n")
   res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |notes|",
                     .open = "|", .close = "|")
   res
