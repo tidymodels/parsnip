@@ -234,7 +234,8 @@ make_engine_list <- function(mod) {
         dplyr::filter(has_ext != "") %>%
         dplyr::pull(mode) %>%
         unique() %>%
-        knitr::combine_words(and = " and ")
+        sort() %>%
+        knitr::combine_words()
       notes <- paste0(
         notes, " ",
         cli::symbol$sup_2, " Requires a parsnip extension package for ",
