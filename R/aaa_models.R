@@ -674,12 +674,12 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
   check_eng_val(eng)
   check_pkg_val(pkg)
 
-  current <- get_model_env()
   model_info <- get_from_env(model)
   pkg_info <- get_from_env(paste0(model, "_pkgs"))
 
   # ----------------------------------------------------------------------------
   # Check engine
+
   has_engine <-
     model_info %>%
     dplyr::distinct(engine) %>%
