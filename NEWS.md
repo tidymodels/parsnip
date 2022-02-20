@@ -46,6 +46,10 @@
 
 * xgboost engines now use the new `iterationrange` parameter instead of the deprecated `ntreelimit` (#656).  
 
+## Developer
+
+* Models information can be re-registered as long as the information being registered is the same. This is helpful for packages that add new engines and use `devtools::load_all()` (#653).
+
 
 # parsnip 0.1.7
 
