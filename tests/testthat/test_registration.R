@@ -276,15 +276,6 @@ test_that('adding a new fit', {
     value = fit_vals
   )
 
-  expect_error(
-    set_fit(
-      model = "sponge",
-      eng = "gum",
-      mode = "classification",
-      value = fit_vals
-    )
-  )
-
   fit_env_data <- get_from_env("sponge_fit")
   test_by_col(
     fit_env_data[ 1:2],
