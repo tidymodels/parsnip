@@ -36,7 +36,7 @@ This model can use subject-specific coefficient estimates to make
 predictions (i.e. partial pooling). For example, this equation shows the
 linear predictor (\emph{η}) for a random intercept:
 
-\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}} + \emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
+\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}}+\emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
 
 where \emph{i} denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that

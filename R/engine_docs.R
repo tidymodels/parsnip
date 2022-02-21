@@ -68,7 +68,7 @@ extensions <- function() {
 #' @param path A character string for the location of the tab delimited file.
 #' @details
 #' See our
-#' [model implementation guidelines](https://tidymodels.github.io/model-implementation-principles)
+#' [model implementation guidelines](https://tidymodels.github.io/model-implementation-principles/)
 #' on best practices for modeling and modeling packages.
 #'
 #' It is highly recommended that the known parsnip extension packages are loaded.

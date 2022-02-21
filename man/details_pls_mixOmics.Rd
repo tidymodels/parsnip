@@ -72,10 +72,9 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 ##     ncomp = integer(1))
 }
 
-In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same
-role as above but eventually targets
-\code{\link[mixOmics:plsda]{mixOmics::plsda()}} or
-\code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
+In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same role
+as above but eventually targets \code{\link[mixOmics:plsda]{mixOmics::plsda()}}
+or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
 }
 
 \subsection{Preprocessing requirements}{

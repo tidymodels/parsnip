@@ -21,7 +21,7 @@ These data are used to document engines for each model function man page.
 }
 \details{
 See our
-\href{https://tidymodels.github.io/model-implementation-principles}{model implementation guidelines}
+\href{https://tidymodels.github.io/model-implementation-principles/}{model implementation guidelines}
 on best practices for modeling and modeling packages.
 
 It is highly recommended that the known parsnip extension packages are loaded.
