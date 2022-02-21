@@ -420,7 +420,7 @@ set_model_arg(
   eng = "brulee",
   parsnip = "learn_rate",
   original = "learn_rate",
-  func = list(pkg = "dials", fun = "learn_rate"),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-2.5, -0.5)),
   has_submodel = FALSE
 )
 
@@ -448,7 +448,7 @@ set_model_arg(
   eng = "brulee",
   parsnip = "activation",
   original = "activation",
-  func = list(pkg = "dials", fun = "activation"),
+  func = list(pkg = "dials", fun = "activation", values = c('relu', 'elu', 'tanh')),
   has_submodel = FALSE
 )
 

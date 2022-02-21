@@ -137,6 +137,21 @@ earth_engine_args <-
     component_id = "engine"
   )
 
+brulee_engine_args <-
+  tibble::tibble(
+    name = c(
+      "batch_size",
+      "class_weights"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "batch_size", range = c(5, 10)),
+      list(pkg = "dials", fun = "class_weights")
+    ),
+    source = "model_spec",
+    component = "mlp",
+    component_id = "engine"
+  )
+
 # ------------------------------------------------------------------------------
 
 # Lazily registered in .onLoad()
@@ -227,3 +242,14 @@ tunable_svm_poly <- function(x, ...) {
   }
   res
 }
+
+
+# Lazily registered in .onLoad()
+tunable_mlp <- function(x, ...) {
+  res <- NextMethod()
+  if (x$engine == "brulee") {
+    res <- add_engine_parameters(res, brulee_engine_args)
+  }
+  res
+}
+
