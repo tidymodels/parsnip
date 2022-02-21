@@ -45,6 +45,7 @@
     vctrs::s3_register("generics::tunable", "mars", tunable_mars)
     vctrs::s3_register("generics::tunable", "decision_tree", tunable_decision_tree)
     vctrs::s3_register("generics::tunable", "svm_poly", tunable_svm_poly)
+    vctrs::s3_register("generics::tunable", "mlp", tunable_mlp)
   }
 
 }
