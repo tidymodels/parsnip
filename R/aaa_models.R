@@ -778,7 +778,7 @@ discordant_info <- function(model, mode, eng, candidate,
     return("new")
   }
 
-  same_info <- identical(current, candidate)
+  same_info <- check_information(current, candidate)
 
   if (!same_info) {
     rlang::abort(
@@ -792,6 +792,31 @@ discordant_info <- function(model, mode, eng, candidate,
 
   "duplicate"
 }
+
+bland_func <- function(x) {
+  if (is.primitive(x)) {
+    # has NULL formals and body so get a good bit of code to compare
+    res <- head(x, 50)
+  } else {
+    res <- as.function(c(formals(x), body(x)), env = rlang::base_env())
+  }
+  res
+}
+
+# identical chokes on list columns with functions (which have environments)
+check_information <- function(x, y) {
+  x <- unlist(x)
+  y <- unlist(y)
+  x_func <- purrr::map_lgl(x, is.function)
+  y_func <- purrr::map_lgl(y, is.function)
+  funcs <- unique(c(names(x)[x_func], names(y)[y_func]))
+  if (length(funcs) > 0) {
+    x[funcs] <- purrr::map(x[funcs], bland_func)
+    y[funcs] <- purrr::map(y[funcs], bland_func)
+  }
+  isTRUE(all.equal(x, y))
+}
+
 
 # Also check for general registration
 
