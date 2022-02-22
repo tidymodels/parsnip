@@ -31,11 +31,11 @@ parsnip has a fairly complex documentation system where the engines for
 each model have detailed documentation about the syntax, tuning parameters,
 preprocessing needs, and so on.
 
-The functions below are used within the R files to programmatically
+The functions below are called from \code{.R} files to programmatically
 generate content in the help files for a model.
 \itemize{
-\item \code{\link[=find_engine_files]{find_engine_files()}} lists of engines for a model and creates a bulleted
-list of link to those specific help files.
+\item \code{\link[=find_engine_files]{find_engine_files()}} identifies engines for a model and creates a
+bulleted list of links to those specific help files.
 \item \code{\link[=make_seealso_list]{make_seealso_list()}} creates a set of links for the "See Also" list at
 the bottom of the help pages.
 \item \code{\link[=find_engine_files]{find_engine_files()}} is a function, used by the above, to find the
@@ -47,7 +47,7 @@ parsnip includes a document (\code{README-DOCS.md}) with step-by-step instructio
 and details. See the code below to determine where it is installed (or see
 the References section).
 
-Most people will not need to use these functions or documentation.
+Most parsnip users will not need to use these functions or documentation.
 }
 \examples{
 # See this file for step-by-step instructions.

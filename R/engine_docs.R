@@ -104,11 +104,11 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #'  each model have detailed documentation about the syntax, tuning parameters,
 #'  preprocessing needs, and so on.
 #'
-#' The functions below are used within the R files to programmatically
+#' The functions below are called from `.R` files to programmatically
 #'  generate content in the help files for a model.
 #'
-#'   * [find_engine_files()] lists of engines for a model and creates a bulleted
-#'  list of link to those specific help files.
+#'   * [find_engine_files()] identifies engines for a model and creates a
+#'  bulleted list of links to those specific help files.
 #'
 #'   * [make_seealso_list()] creates a set of links for the "See Also" list at
 #'  the bottom of the help pages.
@@ -130,7 +130,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #' and details. See the code below to determine where it is installed (or see
 #' the References section).
 #'
-#' Most people will not need to use these functions or documentation.
+#' Most parsnip users will not need to use these functions or documentation.
 #' @references
 #' \url{https://github.com/tidymodels/parsnip/blob/main/inst/README-DOCS.md}
 #' @name doc-tools
