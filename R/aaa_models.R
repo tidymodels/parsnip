@@ -751,7 +751,7 @@ get_dependency <- function(model) {
 # ------------------------------------------------------------------------------
 
 # This will be used to see if the same information is being registered for the
-# same model/model/engine (and prediction type). If it already exists and the
+# same model/mode/engine (and prediction type). If it already exists and the
 # new information is different, fail with a message. See issue #653
 discordant_info <- function(model, mode, eng, candidate,
                             pred_type = NULL, component = "fit") {
@@ -783,7 +783,7 @@ discordant_info <- function(model, mode, eng, candidate,
   if (!same_info) {
     rlang::abort(
       glue::glue(
-        "The combination of '{eng}' and mode '{mode}' {p_type} already has ",
+        "The combination of engine '{eng}' and mode '{mode}' {p_type} already has ",
         "{component} data for model '{model}' and the new information being ",
         "registered is different."
       )
@@ -828,7 +828,7 @@ check_unregistered <- function(model, mode, eng) {
     nrow()
   if (has_engine != 1) {
     rlang::abort(
-      glue::glue("The combination of '{eng}' and mode '{mode}' has not ",
+      glue::glue("The combination of engine '{eng}' and mode '{mode}' has not ",
                  "been registered for model '{model}'.")
     )
   }
