@@ -753,7 +753,7 @@ get_dependency <- function(model) {
 # This will be used to see if the same information is being registered for the
 # same model/mode/engine (and prediction type). If it already exists and the
 # new information is different, fail with a message. See issue #653
-discordant_info <- function(model, mode, eng, candidate,
+is_discordant_info <- function(model, mode, eng, candidate,
                             pred_type = NULL, component = "fit") {
   current <- get_from_env(paste0(model, "_", component))
 
@@ -761,7 +761,7 @@ discordant_info <- function(model, mode, eng, candidate,
   new_encoding <- is.null(current) & component == "encoding"
 
   if (new_encoding) {
-    return("new")
+    return(TRUE)
   } else {
     current <-  dplyr::filter(current, engine == eng & mode == !!mode)
   }
@@ -775,10 +775,10 @@ discordant_info <- function(model, mode, eng, candidate,
   }
 
   if (nrow(current) == 0) {
-    return("new")
+    return(TRUE)
   }
 
-  same_info <- check_information(current, candidate)
+  same_info <- isTRUE(all.equal(current, candidate, check.environment = FALSE))
 
   if (!same_info) {
     rlang::abort(
@@ -790,33 +790,8 @@ discordant_info <- function(model, mode, eng, candidate,
     )
   }
 
-  "duplicate"
+  FALSE
 }
-
-bland_func <- function(x) {
-  if (is.primitive(x)) {
-    # has NULL formals and body so get a good bit of code to compare
-    res <- head(x, 50)
-  } else {
-    res <- as.function(c(formals(x), body(x)), env = rlang::base_env())
-  }
-  res
-}
-
-# identical chokes on list columns with functions (which have environments)
-check_information <- function(x, y) {
-  x <- unlist(x)
-  y <- unlist(y)
-  x_func <- purrr::map_lgl(x, is.function)
-  y_func <- purrr::map_lgl(y, is.function)
-  funcs <- unique(c(names(x)[x_func], names(y)[y_func]))
-  if (length(funcs) > 0) {
-    x[funcs] <- purrr::map(x[funcs], bland_func)
-    y[funcs] <- purrr::map(y[funcs], bland_func)
-  }
-  isTRUE(all.equal(x, y))
-}
-
 
 # Also check for general registration
 
@@ -854,8 +829,7 @@ set_fit <- function(model, mode, eng, value) {
       value = list(value)
     )
 
-  fit_check <- discordant_info(model, mode, eng, new_fit)
-  if (fit_check == "duplicate") {
+  if (!is_discordant_info(model, mode, eng, new_fit)) {
     return(invisible(NULL))
   }
 
@@ -907,9 +881,8 @@ set_pred <- function(model, mode, eng, type, value) {
       value = list(value)
     )
 
-  pred_check <- discordant_info(model, mode, eng, new_pred, pred_type = type,
-                                component = "predict")
-  if (pred_check == "duplicate") {
+  pred_check <- is_discordant_info(model, mode, eng, new_pred, pred_type = type, component = "predict")
+  if (!pred_check) {
     return(invisible(NULL))
   }
 
@@ -1090,8 +1063,8 @@ set_encoding <- function(model, mode, eng, options) {
   options <- tibble::as_tibble(options)
   new_values <- dplyr::bind_cols(keys, options)
 
-  enc_check <- discordant_info(model, mode, eng, new_values, component = "encoding")
-  if (enc_check == "duplicate") {
+  enc_check <- is_discordant_info(model, mode, eng, new_values, component = "encoding")
+  if (!enc_check) {
     return(invisible(NULL))
   }
 
