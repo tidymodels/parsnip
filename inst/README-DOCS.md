@@ -25,16 +25,16 @@ Also, each combination of engine and model type has a corresponding `.Rd` file (
 
 If you are creating a new engine documentation file, the steps are:
 
-1. Create the main `.Rd` file that R's help system uses
+1. Use roxygen comments to generate the main `.Rd` file that R's help system uses.
 2. Create an `.Rmd` file that has the details of the engine. 
-3. Knit the `.Rmd` file to `.md` that that the `.Rd` file from step 1 can link it. 
+3. Knit the `.Rmd` file to `.md` so the `.Rd` file from step 1 can link it. 
 4. Once you are done, run `devtools::document()` (or use the RStudio IDE) to build the help files. 
 
-**Before you read the rest**, you don't have to generate the help files: 
+**Before you read the rest**, you probably don't have to generate the help files in this way yourself: 
 
-* This process only applies for engines whose model function is in parsnip. If you R package defines a new model, then you don't have to do all of this (unless you want to). 
+* This process only applies for engines whose model function is in parsnip. If your R package defines a new model, then you don't have to do all of this (unless you want to). 
 
-* If you make a PR with a new engine, you can work on the `.Rmd` file and the tidymodels folks can go through the process of merging it in (but let us know if you want to do that in the PR). 
+* If you make a PR with a new engine, you can work on the `.Rmd` file and the tidymodels folks can go through the process of merging it in (but let us know if you want us to do that in the PR). 
 
 ## Creating the engine-specific `.Rd` files
 
@@ -110,7 +110,7 @@ To test the results, do a hard restart of the R session (i.e., do not use `load_
 
 ## The main function `.Rd` files
 
-_This section has information that is probably only needed by the core developers. _
+_This section has information that is probably only needed by the core developers._
 
 Recall that the `.Rd` files are created from the `.R` files. There are some fancy things that we do in the `.R` files to list the engines. For example, `poisson_reg.R` has the line: 
 
