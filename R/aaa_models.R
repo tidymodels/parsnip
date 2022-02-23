@@ -540,7 +540,7 @@ set_new_model <- function(model) {
 
   current <- get_model_env()
 
-  set_env_val("models", c(current$models, model))
+  set_env_val("models", unique(c(current$models, model)))
   set_env_val(model, dplyr::tibble(engine = character(0), mode = character(0)))
   set_env_val(
     paste0(model, "_pkgs"),
@@ -674,12 +674,12 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
   check_eng_val(eng)
   check_pkg_val(pkg)
 
-  current <- get_model_env()
   model_info <- get_from_env(model)
   pkg_info <- get_from_env(paste0(model, "_pkgs"))
 
   # ----------------------------------------------------------------------------
   # Check engine
+
   has_engine <-
     model_info %>%
     dplyr::distinct(engine) %>%
@@ -750,6 +750,68 @@ get_dependency <- function(model) {
 
 # ------------------------------------------------------------------------------
 
+# This will be used to see if the same information is being registered for the
+# same model/mode/engine (and prediction type). If it already exists and the
+# new information is different, fail with a message. See issue #653
+is_discordant_info <- function(model, mode, eng, candidate,
+                            pred_type = NULL, component = "fit") {
+  current <- get_from_env(paste0(model, "_", component))
+
+  # For older versions of parsnip before set_encoding()
+  new_encoding <- is.null(current) & component == "encoding"
+
+  if (new_encoding) {
+    return(TRUE)
+  } else {
+    current <-  dplyr::filter(current, engine == eng & mode == !!mode)
+  }
+
+  if (component == "predict" & !is.null(pred_type)) {
+
+    current <- dplyr::filter(current, type == pred_type)
+    p_type <- paste0("and prediction type '", pred_type, "'")
+  } else {
+    p_type <- ""
+  }
+
+  if (nrow(current) == 0) {
+    return(TRUE)
+  }
+
+  same_info <- isTRUE(all.equal(current, candidate, check.environment = FALSE))
+
+  if (!same_info) {
+    rlang::abort(
+      glue::glue(
+        "The combination of engine '{eng}' and mode '{mode}' {p_type} already has ",
+        "{component} data for model '{model}' and the new information being ",
+        "registered is different."
+      )
+    )
+  }
+
+  FALSE
+}
+
+# Also check for general registration
+
+check_unregistered <- function(model, mode, eng) {
+  model_info <- get_from_env(model)
+  has_engine <-
+    model_info %>%
+    dplyr::filter(engine == eng & mode == !!mode) %>%
+    nrow()
+  if (has_engine != 1) {
+    rlang::abort(
+      glue::glue("The combination of engine '{eng}' and mode '{mode}' has not ",
+                 "been registered for model '{model}'.")
+    )
+  }
+  invisible(NULL)
+}
+
+
+
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
@@ -758,29 +820,7 @@ set_fit <- function(model, mode, eng, value) {
   check_eng_val(eng)
   check_spec_mode_engine_val(model, eng, mode)
   check_fit_info(value)
-
-  current <- get_model_env()
-  model_info <- get_from_env(model)
-  old_fits <- get_from_env(paste0(model, "_fit"))
-
-  has_engine <-
-    model_info %>%
-    dplyr::filter(engine == eng & mode == !!mode) %>%
-    nrow()
-  if (has_engine != 1) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' has not ",
-                            "been registered for model '{model}'."))
-  }
-
-  has_fit <-
-    old_fits %>%
-    dplyr::filter(engine == eng & mode == !!mode) %>%
-    nrow()
-
-  if (has_fit > 0) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}' ",
-                            "already has a fit component for model '{model}'."))
-  }
+  check_unregistered(model, mode, eng)
 
   new_fit <-
     dplyr::tibble(
@@ -789,6 +829,11 @@ set_fit <- function(model, mode, eng, value) {
       value = list(value)
     )
 
+  if (!is_discordant_info(model, mode, eng, new_fit)) {
+    return(invisible(NULL))
+  }
+
+  old_fits <- get_from_env(paste0(model, "_fit"))
   updated <- try(dplyr::bind_rows(old_fits, new_fit), silent = TRUE)
   if (inherits(updated, "try-error")) {
     rlang::abort("An error occured when adding the new fit module.")
@@ -824,31 +869,11 @@ set_pred <- function(model, mode, eng, type, value) {
   check_eng_val(eng)
   check_spec_mode_engine_val(model, eng, mode)
   check_pred_info(value, type)
+  check_unregistered(model, mode, eng)
 
-  current <- get_model_env()
   model_info <- get_from_env(model)
-  old_fits <- get_from_env(paste0(model, "_predict"))
 
-  has_engine <-
-    model_info %>%
-    dplyr::filter(engine == eng & mode == !!mode) %>%
-    nrow()
-  if (has_engine != 1) {
-    rlang::abort(glue::glue("The combination of '{eng}' and mode '{mode}'",
-                            "has not been registered for model '{model}'."))
-  }
-
-  has_pred <-
-    old_fits %>%
-    dplyr::filter(engine == eng & mode == !!mode & type == !!type) %>%
-    nrow()
-  if (has_pred > 0) {
-    rlang::abort(glue::glue("The combination of '{eng}', mode '{mode}', ",
-                            "and type '{type}' already has a prediction component",
-                            "for model '{model}'."))
-  }
-
-  new_fit <-
+  new_pred <-
     dplyr::tibble(
       engine = eng,
       mode = mode,
@@ -856,7 +881,13 @@ set_pred <- function(model, mode, eng, type, value) {
       value = list(value)
     )
 
-  updated <- try(dplyr::bind_rows(old_fits, new_fit), silent = TRUE)
+  pred_check <- is_discordant_info(model, mode, eng, new_pred, pred_type = type, component = "predict")
+  if (!pred_check) {
+    return(invisible(NULL))
+  }
+
+  old_pred <- get_from_env(paste0(model, "_predict"))
+  updated <- try(dplyr::bind_rows(old_pred, new_pred), silent = TRUE)
   if (inherits(updated, "try-error")) {
     rlang::abort("An error occured when adding the new fit module.")
   }
@@ -1032,24 +1063,14 @@ set_encoding <- function(model, mode, eng, options) {
   options <- tibble::as_tibble(options)
   new_values <- dplyr::bind_cols(keys, options)
 
-
-  current_db_list <- ls(envir = get_model_env())
-  nm <- paste(model, "encoding", sep = "_")
-  if (any(current_db_list == nm)) {
-    current <- get_from_env(nm)
-    dup_check <-
-      current %>%
-      dplyr::inner_join(
-        new_values,
-        by = c("model", "engine", "mode", "predictor_indicators")
-      )
-    if (nrow(dup_check)) {
-      rlang::abort(glue::glue("Engine '{eng}' and mode '{mode}' already have defined encodings for model '{model}'."))
-    }
-
-  } else {
-    current <- NULL
+  enc_check <- is_discordant_info(model, mode, eng, new_values, component = "encoding")
+  if (!enc_check) {
+    return(invisible(NULL))
   }
+
+  # Allow for older versions before set_encoding() was created
+  nm <- paste0(model, "_encoding")
+  current <- get_from_env(nm)
 
   db_values <- dplyr::bind_rows(current, new_values)
   set_env_val(nm, db_values)
