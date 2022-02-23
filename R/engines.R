@@ -54,26 +54,46 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' `set_engine()` is used to specify which package or system will be used
 #'  to fit the model, along with any arguments specific to that software.
 #'
-#' @section Engines:
-#' Based on the currently loaded packages, the following lists the set of
-#' engines available to each model specification.
+#' @details
+#' In parsnip,
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
+#' - the model **type** differentiates basic modeling approaches, such as random
+#' forests, logistic regression, linear support vector machines, etc.,
+#' - the **mode** denotes in what kind of modeling context it will be used
+#' (most commonly, classification or regression), and
+#' - the computational **engine** indicates how the model is fit, such as with
+#' a specific R package implementation or even methods outside of R like Keras
+#' or Stan.
+#'
+#' Modeling functions in parsnip separate model arguments into two categories:
+#'
+#' - _Main arguments_ are more commonly used and tend to be available across
+#' engines. Set these in your model type function, like
+#' `rand_forest(trees = 2000)`.
+#' - _Engine arguments_ are either specific to a particular engine or used
+#' more rarely. Set these in `set_engine()`, like
+#' `set_engine("ranger", importance = "permutation")`.
 #'
 #' @param object A model specification.
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).
 #' @param ... Any optional arguments associated with the chosen computational
-#'  engine. These are captured as quosures and can be `tune()`.
+#'  engine. These are captured as quosures and can be tuned with `tune()`.
 #' @return An updated model specification.
 #' @examples
-#' # First, set general arguments using the standardized names
-#' mod <-
-#'   logistic_reg(penalty = 0.01, mixture = 1/3) %>%
-#'   # now say how you want to fit the model and another other options
-#'   set_engine("glmnet", nlambda = 10)
-#' translate(mod, engine = "glmnet")
+#' # First, set main arguments using the standardized names
+#' logistic_reg(penalty = 0.01, mixture = 1/3) %>%
+#'   # Now specify how you want to fit the model with another argument
+#'   set_engine("glmnet", nlambda = 10) %>%
+#'   translate()
+#'
+#' # Many models have possible engine-specific arguments
+#' decision_tree(tree_depth = 5) %>%
+#'   set_engine("rpart", parms = list(prior = c(.65,.35))) %>%
+#'   set_mode("classification") %>%
+#'   translate()
+#'
 #' @export
 set_engine <- function(object, engine, ...) {
   mod_type <- class(object)[1]
