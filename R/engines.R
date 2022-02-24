@@ -71,20 +71,16 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' Modeling functions in parsnip separate model arguments into two categories:
 #'
 #' - _Main arguments_ are more commonly used and tend to be available across
-#' engines. Set these in your model type function, like
-#' `rand_forest(trees = 2000)`.
+#' engines. These names are standardized to work with different engines in a
+#' consistent way, so you can use the \pkg{parsnip} main argument `trees`,
+#' instead of the heterogeneous arguments for this parameter from \pkg{ranger}
+#' and  \pkg{randomForest} packages (`num.trees` and `ntree`, respectively). Set
+#' these in your model type function, like `rand_forest(trees = 2000)`.
 #' - _Engine arguments_ are either specific to a particular engine or used
-#' more rarely. Set these in `set_engine()`, like
+#' more rarely; there is no change for these argument names from the underlying
+#' engine. Set these in `set_engine()`, like
 #' `set_engine("ranger", importance = "permutation")`.
 #'
-#' Also, main argument names are _standardized_ to work across all packages.
-#'  For example, for the number of trees in a random forest model, the
-#'  \pkg{parsnip} main argument is `trees`. For the \pkg{ranger} and
-#'  \pkg{randomForest} packages, the argument names are different (`num.trees`
-#'  and `ntree`, respectively).
-#'
-#' Conversely, engine arguments are the same as their package (since they
-#'  are engine-specific).
 #'
 #' @param object A model specification.
 #' @param engine A character string for the software that should
