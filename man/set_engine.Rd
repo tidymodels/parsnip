@@ -44,6 +44,15 @@ engines. Set these in your model type function, like
 more rarely. Set these in \code{set_engine()}, like
 \code{set_engine("ranger", importance = "permutation")}.
 }
+
+Also, main argument names are \emph{standardized} to work across all packages.
+For example, for the number of trees in a random forest model, the
+\pkg{parsnip} main argument is \code{trees}. For the \pkg{ranger} and
+\pkg{randomForest} packages, the argument names are different (\code{num.trees}
+and \code{ntree}, respectively).
+
+Conversely, engine arguments are the same as their package (since they
+are engine-specific).
 }
 \examples{
 # First, set main arguments using the standardized names

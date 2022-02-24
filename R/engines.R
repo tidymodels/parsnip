@@ -74,6 +74,15 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' more rarely. Set these in `set_engine()`, like
 #' `set_engine("ranger", importance = "permutation")`.
 #'
+#' Also, main argument names are _standardized_ to work across all packages.
+#'  For example, for the number of trees in a random forest model, the
+#'  \pkg{parsnip} main argument is `trees`. For the \pkg{ranger} and
+#'  \pkg{randomForest} packages, the argument names are different (`num.trees`
+#'  and `ntree`, respectively).
+#'
+#' Conversely, engine arguments are the same as their package (since they
+#'  are engine-specific).
+#'
 #' @param object A model specification.
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
