@@ -285,33 +285,6 @@ find_details_topics <- function(mod, pkg = "parsnip") {
   unique(res)
 }
 
-# For use in `set_engine()` docs
-generate_set_engine_bullets <- function() {
-  env <- get_model_env()
-  models <- env$models
-  info <- rlang::env_get_list(env, models)
-
-  model_engines <- purrr::map(info, get_sorted_unique_engines)
-
-  model_prefixes <- glue::glue(
-    "\\code{\\link[=.{models}.]{.{models}.()}}:",
-    .open = ".{",
-    .close = "}."
-  )
-
-  bullets <- purrr::map2(
-    .x = model_prefixes,
-    .y = model_engines,
-    .f = combine_prefix_with_engines
-  )
-
-  bullets <- glue::glue("\\item {bullets}")
-  bullets <- glue::glue_collapse(bullets, sep = "\n")
-  bullets <- paste("\\itemize{", bullets, "}", sep = "\n")
-
-  bullets
-}
-
 sort_c <- function(x) {
   withr::with_collate("C", sort(x))
 }

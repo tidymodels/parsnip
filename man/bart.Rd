@@ -59,7 +59,9 @@ Examples section below for an example graph of the prior probability of a
 terminal node for different values of these parameters.
 
 This function only defines what \emph{type} of model is being fit. Once an engine
-is specified, the \emph{method} to fit the model is also defined.
+is specified, the \emph{method} to fit the model is also defined. See
+\code{\link[=set_engine]{set_engine()}} for more on setting the engine, including how to set engine
+arguments.
 
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit()}} function is used
 with the data.

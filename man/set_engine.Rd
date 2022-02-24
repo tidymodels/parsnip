@@ -14,7 +14,7 @@ be used to fit the model. This is highly dependent on the type
 of model (e.g. linear regression, random forest, etc.).}
 
 \item{...}{Any optional arguments associated with the chosen computational
-engine. These are captured as quosures and can be \code{tune()}.}
+engine. These are captured as quosures and can be tuned with \code{tune()}.}
 }
 \value{
 An updated model specification.
@@ -23,19 +23,46 @@ An updated model specification.
 \code{set_engine()} is used to specify which package or system will be used
 to fit the model, along with any arguments specific to that software.
 }
-\section{Engines}{
-
-Based on the currently loaded packages, the following lists the set of
-engines available to each model specification.
-
-\Sexpr[stage=render,results=rd]{parsnip:::generate_set_engine_bullets()}
+\details{
+In parsnip,
+\itemize{
+\item the model \strong{type} differentiates basic modeling approaches, such as random
+forests, logistic regression, linear support vector machines, etc.,
+\item the \strong{mode} denotes in what kind of modeling context it will be used
+(most commonly, classification or regression), and
+\item the computational \strong{engine} indicates how the model is fit, such as with
+a specific R package implementation or even methods outside of R like Keras
+or Stan.
 }
 
+Use \code{\link[=show_engines]{show_engines()}} to get a list of possible engines for the model of
+interest.
+
+Modeling functions in parsnip separate model arguments into two categories:
+\itemize{
+\item \emph{Main arguments} are more commonly used and tend to be available across
+engines. These names are standardized to work with different engines in a
+consistent way, so you can use the \pkg{parsnip} main argument \code{trees},
+instead of the heterogeneous arguments for this parameter from \pkg{ranger}
+and  \pkg{randomForest} packages (\code{num.trees} and \code{ntree}, respectively). Set
+these in your model type function, like \code{rand_forest(trees = 2000)}.
+\item \emph{Engine arguments} are either specific to a particular engine or used
+more rarely; there is no change for these argument names from the underlying
+engine. Set these in \code{set_engine()}, like
+\code{set_engine("ranger", importance = "permutation")}.
+}
+}
 \examples{
-# First, set general arguments using the standardized names
-mod <-
-  logistic_reg(penalty = 0.01, mixture = 1/3) \%>\%
-  # now say how you want to fit the model and another other options
-  set_engine("glmnet", nlambda = 10)
-translate(mod, engine = "glmnet")
+# First, set main arguments using the standardized names
+logistic_reg(penalty = 0.01, mixture = 1/3) \%>\%
+  # Now specify how you want to fit the model with another argument
+  set_engine("glmnet", nlambda = 10) \%>\%
+  translate()
+
+# Many models have possible engine-specific arguments
+decision_tree(tree_depth = 5) \%>\%
+  set_engine("rpart", parms = list(prior = c(.65,.35))) \%>\%
+  set_mode("classification") \%>\%
+  translate()
+
 }
