@@ -13,7 +13,8 @@ Description: A common interface is provided to allow users to specify a
     different functions or computational engines (e.g. 'R', 'Spark',
     'Stan', etc).
 License: MIT + file LICENSE
-URL: https://parsnip.tidymodels.org, https://github.com/tidymodels/parsnip
+URL: https://github.com/tidymodels/parsnip,
+    https://parsnip.tidymodels.org/
 BugReports: https://github.com/tidymodels/parsnip/issues
 Depends:
     R (>= 2.10)
@@ -82,6 +83,7 @@ Config/Needs/website:
     rstanarm,
     tidymodels/tidymodels, 
     tidyverse/tidytemplate, 
+    rstudio/reticulate,
     xgboost
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Encoding: UTF-8
