@@ -80,58 +80,42 @@ be used to fit the model. This is highly dependent on the type
 of model (e.g. linear regression, random forest, etc.).</p></dd>
 <dt>...</dt>
 <dd><p>Any optional arguments associated with the chosen computational
-engine. These are captured as quosures and can be <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code>.</p></dd>
+engine. These are captured as quosures and can be tuned with <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An updated model specification.</p>
     </div>
     <div class="section level2">
-    <h2 id="engines">Engines<a class="anchor" aria-label="anchor" href="#engines"></a></h2>
-    
-
-<p>Based on the currently loaded packages, the following lists the set of
-engines available to each model specification.</p>
-<p></p><ul><li><p><code><a href="bag_mars.html">bag_mars()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="bag_tree.html">bag_tree()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="bart.html">bart()</a></code>: dbarts</p></li>
-<li><p><code><a href="boost_tree.html">boost_tree()</a></code>: C5.0, spark, xgboost</p></li>
-<li><p><code><a href="C5_rules.html">C5_rules()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="cubist_rules.html">cubist_rules()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="decision_tree.html">decision_tree()</a></code>: C5.0, rpart, spark</p></li>
-<li><p><code><a href="discrim_flexible.html">discrim_flexible()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="discrim_linear.html">discrim_linear()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="discrim_quad.html">discrim_quad()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="discrim_regularized.html">discrim_regularized()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="gen_additive_mod.html">gen_additive_mod()</a></code>: mgcv</p></li>
-<li><p><code><a href="linear_reg.html">linear_reg()</a></code>: brulee, glm, glmnet, keras, lm, spark, stan</p></li>
-<li><p><code><a href="logistic_reg.html">logistic_reg()</a></code>: LiblineaR, brulee, glm, glmnet, keras, spark, stan</p></li>
-<li><p><code><a href="mars.html">mars()</a></code>: earth</p></li>
-<li><p><code><a href="mlp.html">mlp()</a></code>: brulee, keras, nnet</p></li>
-<li><p><code><a href="multinom_reg.html">multinom_reg()</a></code>: brulee, glmnet, keras, nnet, spark</p></li>
-<li><p><code><a href="naive_Bayes.html">naive_Bayes()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="nearest_neighbor.html">nearest_neighbor()</a></code>: kknn</p></li>
-<li><p><code><a href="null_model.html">null_model()</a></code>: parsnip</p></li>
-<li><p><code><a href="pls.html">pls()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="poisson_reg.html">poisson_reg()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="proportional_hazards.html">proportional_hazards()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="rand_forest.html">rand_forest()</a></code>: randomForest, ranger, spark</p></li>
-<li><p><code><a href="rule_fit.html">rule_fit()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="surv_reg.html">surv_reg()</a></code>: flexsurv, survival</p></li>
-<li><p><code><a href="survival_reg.html">survival_reg()</a></code>: No engines currently available</p></li>
-<li><p><code><a href="svm_linear.html">svm_linear()</a></code>: LiblineaR, kernlab</p></li>
-<li><p><code><a href="svm_poly.html">svm_poly()</a></code>: kernlab</p></li>
-<li><p><code><a href="svm_rbf.html">svm_rbf()</a></code>: kernlab, liquidSVM</p></li>
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>In parsnip,</p><ul><li><p>the model <strong>type</strong> differentiates basic modeling approaches, such as random
+forests, logistic regression, linear support vector machines, etc.,</p></li>
+<li><p>the <strong>mode</strong> denotes in what kind of modeling context it will be used
+(most commonly, classification or regression), and</p></li>
+<li><p>the computational <strong>engine</strong> indicates how the model is fit, such as with
+a specific R package implementation or even methods outside of R like Keras
+or Stan.</p></li>
+</ul><p>Use <code><a href="show_engines.html">show_engines()</a></code> to get a list of possible engines for the model of
+interest.</p>
+<p>Modeling functions in parsnip separate model arguments into two categories:</p><ul><li><p><em>Main arguments</em> are more commonly used and tend to be available across
+engines. These names are standardized to work with different engines in a
+consistent way, so you can use the <span class="pkg">parsnip</span> main argument <code>trees</code>,
+instead of the heterogeneous arguments for this parameter from <span class="pkg">ranger</span>
+and  <span class="pkg">randomForest</span> packages (<code>num.trees</code> and <code>ntree</code>, respectively). Set
+these in your model type function, like <code>rand_forest(trees = 2000)</code>.</p></li>
+<li><p><em>Engine arguments</em> are either specific to a particular engine or used
+more rarely; there is no change for these argument names from the underlying
+engine. Set these in <code>set_engine()</code>, like
+<code>set_engine("ranger", importance = "permutation")</code>.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, set general arguments using the standardized names</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="co"># now say how you want to fit the model and another other options</span></span>
-<span class="r-in">  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glmnet"</span>, nlambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="va">mod</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, set main arguments using the standardized names</span></span>
+<span class="r-in"><span class="fu"><a href="logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="co"># Now specify how you want to fit the model with another argument</span></span>
+<span class="r-in">  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glmnet"</span>, nlambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Logistic Regression Model Specification (classification)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -146,6 +130,26 @@ engines available to each model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = 1/3, nlambda = 10, family = "binomial")</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Many models have possible engine-specific arguments</span></span>
+<span class="r-in"><span class="fu"><a href="decision_tree.html">decision_tree</a></span><span class="op">(</span>tree_depth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"rpart"</span>, parms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.65</span>,<span class="fl">.35</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Decision Tree Model Specification (classification)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tree_depth = 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Engine-Specific Arguments:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parms = list(prior = c(0.65, 0.35))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Computational engine: rpart </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     maxdepth = 5, parms = list(prior = c(0.65, 0.35)))</span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
