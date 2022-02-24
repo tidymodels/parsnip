@@ -35,6 +35,9 @@ a specific R package implementation or even methods outside of R like Keras
 or Stan.
 }
 
+Use \code{\link[=show_engines]{show_engines()}} to get a list of possible engines for the model of
+interest.
+
 Modeling functions in parsnip separate model arguments into two categories:
 \itemize{
 \item \emph{Main arguments} are more commonly used and tend to be available across

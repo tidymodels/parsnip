@@ -65,6 +65,9 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' a specific R package implementation or even methods outside of R like Keras
 #' or Stan.
 #'
+#' Use [show_engines()] to get a list of possible engines for the model of
+#' interest.
+#'
 #' Modeling functions in parsnip separate model arguments into two categories:
 #'
 #' - _Main arguments_ are more commonly used and tend to be available across
@@ -136,11 +139,12 @@ set_engine <- function(object, engine, ...) {
 #' Display currently available engines for a model
 #'
 #' The possible engines for a model can depend on what packages are loaded.
-#' Some `parsnip`-adjacent packages add engines to existing models. For example,
-#' the `multilevelmod` package adds additional engines for the [linear_reg()]
-#' model and these are not available unless `multilevelmod` is loaded.
+#' Some \pkg{parsnip} extension add engines to existing models. For example,
+#' the \pkg{poissonreg} package adds additional engines for the [poisson_reg()]
+#' model and these are not available unless \pkg{poissonreg} is loaded.
 #' @param x The name of a `parsnip` model (e.g., "linear_reg", "mars", etc.)
 #' @return A tibble.
+#'
 #' @examples
 #' show_engines("linear_reg")
 #' @export

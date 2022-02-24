@@ -14,9 +14,9 @@ A tibble.
 }
 \description{
 The possible engines for a model can depend on what packages are loaded.
-Some \code{parsnip}-adjacent packages add engines to existing models. For example,
-the \code{multilevelmod} package adds additional engines for the \code{\link[=linear_reg]{linear_reg()}}
-model and these are not available unless \code{multilevelmod} is loaded.
+Some \pkg{parsnip} extension add engines to existing models. For example,
+the \pkg{poissonreg} package adds additional engines for the \code{\link[=poisson_reg]{poisson_reg()}}
+model and these are not available unless \pkg{poissonreg} is loaded.
 }
 \examples{
 show_engines("linear_reg")
