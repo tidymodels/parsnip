@@ -37,9 +37,9 @@ rand_forest() \%>\%
 ##     data = missing_arg())
 }
 
-\code{\link[=cond_inference_surv_cforest]{cond_inference_surv_cforest()}} is a
-wrapper around \code{\link[party:cforest]{party::cforest()}} (and other
-functions) that makes it easier to run this model.
+\code{censored::cond_inference_surv_cforest()} is a wrapper around
+\code{\link[party:cforest]{party::cforest()}} (and other functions) that makes
+it easier to run this model.
 }
 
 \subsection{Preprocessing requirements}{

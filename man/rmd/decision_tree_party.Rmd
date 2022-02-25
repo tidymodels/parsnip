@@ -42,7 +42,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
   translate()
 ```
 
-[cond_inference_surv_ctree()] is a wrapper around [party::ctree()] (and other functions) that makes it easier to run this model. 
+`censored::cond_inference_surv_ctree()` is a wrapper around [party::ctree()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
 

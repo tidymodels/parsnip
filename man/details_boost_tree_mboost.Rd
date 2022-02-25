@@ -43,7 +43,7 @@ boost_tree() \%>\%
 ##     family = mboost::CoxPH())
 }
 
-\code{\link[=blackboost_train]{blackboost_train()}} is a wrapper around
+\code{censored::blackboost_train()} is a wrapper around
 \code{\link[mboost:blackboost]{mboost::blackboost()}} (and other functions)
 that makes it easier to run this model.
 }
