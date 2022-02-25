@@ -37,7 +37,7 @@ surv_reg(dist = character(1)) %>%
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
-For this engine, stratification cannot be specified via [`strata()`], please see the documentation of the flexsurv package for alternative specifications.
+For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvreg()] for alternative specifications.
 
 ## References
 

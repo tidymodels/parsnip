@@ -44,8 +44,9 @@ model specification typically involved the use of
 \code{\link[survival:Surv]{survival::Surv()}}.
 
 For this engine, stratification cannot be specified via
-\code{\link[=strata]{strata()}}; please see the documentation of the
-\link{flexsurv} package for alternative specifications.
+\code{\link[=strata]{strata()}}, please see
+\code{\link[flexsurv:flexsurvreg]{flexsurv::flexsurvreg()}} for alternative
+specifications.
 }
 
 \subsection{References}{
