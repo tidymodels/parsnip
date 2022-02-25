@@ -1,11 +1,14 @@
 ---
-title: "parsnip Basics"
+title: "Introduction to parsnip"
+output: rmarkdown::html_vignette
+description: |
+  The goal of parsnip is to provide a tidy, unified interface to models that 
+  can be used to try a range of models without getting bogged down in the 
+  syntactical minutiae of the underlying packages.
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{parsnip Basics}
-output:
-  knitr:::html_vignette:
-    toc: yes
+  %\VignetteIndexEntry{Introduction to parsnip}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r ex_setup, include=FALSE}
