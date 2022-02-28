@@ -5,8 +5,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="parsnip">
-<title>Fitting and Predicting with parsnip • parsnip</title>
+<meta name="description" content="This vignette  show how to **fit** and **predict** with different 
+combinations of model, mode, and engine.
+">
+<title>Fitting and predicting with parsnip • parsnip</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,14 +21,16 @@
 <link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fitting and Predicting with parsnip">
-<meta property="og:description" content="parsnip">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fitting and predicting with parsnip">
+<meta property="og:description" content="This vignette  show how to **fit** and **predict** with different 
+combinations of model, mode, and engine.
+">
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -51,14 +55,19 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a>
+    <a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-learn-more">Learn more</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-learn-more">
     <a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a>
     <a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a>
     <a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a>
-    <a class="dropdown-item" href="../articles/articles/Submodels.html">Evaluating submodels with the same model object</a>
-    <a class="dropdown-item" href="../articles/articles/Examples.html">Fitting and predicting with parsnip</a>
   </div>
 </li>
 <li class="nav-item">
@@ -88,7 +97,7 @@
 
 <div class="row">
   <main id="main"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Fitting and Predicting with parsnip</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Fitting and predicting with parsnip</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/vignettes/articles/Examples.Rmd" class="external-link"><code>vignettes/articles/Examples.Rmd</code></a></small>
@@ -134,7 +143,7 @@ Regression Example (<code>dbarts</code>)
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">tune</span>::<span style="color: #00BB00;">tune()</span>     masks <span style="color: #0000BB;">parsnip</span>::tune()</span>
-  <span class="co">## <span style="color: #0000BB;">•</span> Use <span style="color: #00BB00;">tidymodels_prefer()</span> to resolve common conflicts.</span></code></pre>
+  <span class="co">## <span style="color: #0000BB;">•</span> Use suppressPackageStartupMessages() to eliminate package startup messages</span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -339,7 +348,7 @@ Classification Example (<code>xgboost</code>)
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
   <span class="va">bt_cls_fit</span> <span class="op">&lt;-</span> <span class="va">bt_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [19:02:56] WARNING: amalgamation/../src/learner.cc:1115: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</span></code></pre>
+<pre><code><span class="co">## [17:42:09] WARNING: amalgamation/../src/learner.cc:1115: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective 'binary:logistic' was changed from 'error' to 'logloss'. Explicitly set eval_metric if you'd like to restore the old behavior.</span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
@@ -1057,7 +1066,7 @@ Regression Example (<code>keras</code>)
   <span class="co">## <span style="color: #BCBCBC;">4</span> 20.8 </span>
   <span class="co">## <span style="color: #BCBCBC;">5</span> 19.1 </span>
   <span class="co">## <span style="color: #BCBCBC;">6</span>  7.49</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.12</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.13</span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1359,16 +1368,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span>
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.507       0.493 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.837       0.163 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.517       0.483 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.832       0.168 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.640       0.360 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.538       0.462 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.738       0.262 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.522       0.478 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">3</span></span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.497       0.503</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2             0.498       0.502 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.832       0.168 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.510       0.490 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.826       0.174 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.630       0.370 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.526       0.474 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.731       0.269 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.514       0.486 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.989       0.010<span style="text-decoration: underline;">7</span></span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.484       0.516</span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1806,8 +1815,8 @@ Regression Example (<code>keras</code>)
   <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span>
   <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span>
   <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span>
-  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.85</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.67</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.82</span>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.64</span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1863,16 +1872,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span>
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.540        0.460</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.663        0.337</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.597        0.403</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.479        0.521</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.476        0.524</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.413        0.587</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.554        0.446</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.557        0.443</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.745        0.255</span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.377        0.623</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.545        0.455</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.669        0.331</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.602        0.398</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.484        0.516</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.481        0.519</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.417        0.583</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.559        0.441</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.562        0.438</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.750        0.250</span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.380        0.620</span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2045,11 +2054,11 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span>
 <span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.288         0.017<span style="text-decoration: underline;">8</span>      0.694     </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">110</span>      1.00        0.000<span style="text-decoration: underline;">001</span>97</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.317         0.478       0.205     </span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.048<span style="text-decoration: underline;">7</span>        0.940       0.011<span style="text-decoration: underline;">1</span>    </span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.306         0.023<span style="text-decoration: underline;">9</span>      0.670</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.289         0.018<span style="text-decoration: underline;">1</span>      0.693     </span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">106</span>      1.00        0.000<span style="text-decoration: underline;">001</span>92</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.315         0.483       0.203     </span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.047<span style="text-decoration: underline;">7</span>        0.941       0.010<span style="text-decoration: underline;">8</span>    </span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.307         0.024<span style="text-decoration: underline;">3</span>      0.668</span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
@@ -3055,7 +3064,7 @@ Classification Example (<code>kernlab</code>)
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
   </div></footer>
