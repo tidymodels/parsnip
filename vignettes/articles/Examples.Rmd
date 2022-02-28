@@ -1,12 +1,12 @@
 ---
-title: "Fitting and Predicting with parsnip"
+title: "Fitting and predicting with parsnip"
 output: rmarkdown::html_vignette
 description: |
   This vignette  show how to **fit** and **predict** with different 
   combinations of model, mode, and engine.
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Fitting and Predicting with parsnip}
+  %\VignetteIndexEntry{Fitting and predicting with parsnip}
   %\VignetteEncoding{UTF-8}
 ---
 

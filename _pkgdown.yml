@@ -13,17 +13,6 @@ navbar:
       - text: "Making a parsnip model from scratch"
         href: https://www.tidymodels.org/learn/develop/models/
 
-articles:
-- title: Get started
-  contents:
-  - parsnip
-
-- title: Learn more
-  navbar: ~
-  contents:
-  - articles/Examples
-  - articles/Submodels
-
 template:
   package: tidytemplate
   bootstrap: 5
@@ -99,7 +88,7 @@ reference:
       - translate
       - starts_with("update")
 
-  - title: Developer Tools
+  - title: Developer tools
     contents:
       - contr_one_hot
       - set_new_model

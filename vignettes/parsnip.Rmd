@@ -2,9 +2,8 @@
 title: "Introduction to parsnip"
 output: rmarkdown::html_vignette
 description: |
-  The goal of parsnip is to provide a tidy, unified interface to models that 
-  can be used to try a range of models without getting bogged down in the 
-  syntactical minutiae of the underlying packages.
+  The goal of parsnip is to provide a tidy, unified interface to models to avoid 
+  getting bogged down in the syntactical minutiae of the underlying software.
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Introduction to parsnip}

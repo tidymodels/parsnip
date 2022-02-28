@@ -1,13 +1,12 @@
 ---
-title: "Evaluating Submodels with the Same Model Object"
+title: "Evaluating submodels with the same model object"
 output: rmarkdown::html_vignette
 description: |
-  This vignette describes how you can use `multi_predict()` to evaluating
-  submodels with the same model object such that you avoid having to fit
-  any of the submodels.
+  You can use `multi_predict()` to evaluate submodels with the same model object 
+  and avoid having to fit any of the submodels.
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Evaluating Submodels with the Same Model Object}
+  %\VignetteIndexEntry{Evaluating submodels with the same model object}
   %\VignetteEncoding{UTF-8}
 ---
 
