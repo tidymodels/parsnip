@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,14 +64,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="parsnip-020">parsnip 0.2.0<a class="anchor" aria-label="anchor" href="#parsnip-020"></a></h2><p class="text-muted">CRAN release: 2022-03-09</p>
 <div class="section level3">
-<h3 id="model-specification-changes-development-version">Model Specification Changes<a class="anchor" aria-label="anchor" href="#model-specification-changes-development-version"></a></h3>
+<h3 id="model-specification-changes-0-2-0">Model Specification Changes<a class="anchor" aria-label="anchor" href="#model-specification-changes-0-2-0"></a></h3>
 <ul><li><p>Bayesian additive regression trees (BART) were added via the <code><a href="../reference/bart.html">bart()</a></code> function.</p></li>
 <li><p>Added the <code>"glm"</code> engine for <code><a href="../reference/linear_reg.html">linear_reg()</a></code> for numeric outcomes (<a href="https://github.com/tidymodels/parsnip/issues/624" class="external-link">#624</a>).</p></li>
 <li><p>Added <code>brulee</code> engines for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> and <code><a href="../reference/mlp.html">mlp()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
 <ul><li><p>A bug for class predictions of two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/541" class="external-link">#541</a>)</p></li>
 <li><p>Fixed a bug for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> with the LiblineaR engine (<a href="https://github.com/tidymodels/parsnip/issues/552" class="external-link">#552</a>).</p></li>
 <li><p>The list column produced when creating survival probability predictions is now always called <code>.pred</code> (with <code>.pred_survival</code> being used inside of the list column).</p></li>
@@ -81,7 +84,7 @@
 <li><p>Prediction using <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> with the <code>nnet</code> engine with a single row no longer fails (<a href="https://github.com/tidymodels/parsnip/issues/612" class="external-link">#612</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<h3 id="other-changes-0-2-0">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-2-0"></a></h3>
 <ul><li><p>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</p></li>
 <li><p>The fit time is only calculated when the <code>verbosity</code> argument of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> is 2L or greater. Also, the call to <code><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time()</a></code> now uses <code>gcFirst = FALSE</code>. (<a href="https://github.com/tidymodels/parsnip/issues/611" class="external-link">#611</a>)</p></li>
 <li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
@@ -95,7 +98,7 @@
 <li><p>xgboost engines now use the new <code>iterationrange</code> parameter instead of the deprecated <code>ntreelimit</code> (<a href="https://github.com/tidymodels/parsnip/issues/656" class="external-link">#656</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="developer-development-version">Developer<a class="anchor" aria-label="anchor" href="#developer-development-version"></a></h3>
+<h3 id="developer-0-2-0">Developer<a class="anchor" aria-label="anchor" href="#developer-0-2-0"></a></h3>
 <ul><li>Models information can be re-registered as long as the information being registered is the same. This is helpful for packages that add new engines and use <code>devtools::load_all()</code> (<a href="https://github.com/tidymodels/parsnip/issues/653" class="external-link">#653</a>).</li>
 </ul></div>
 </div>
