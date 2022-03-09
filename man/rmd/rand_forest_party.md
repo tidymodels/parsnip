@@ -39,7 +39,7 @@ rand_forest() %>%
 ##     data = missing_arg())
 ```
 
-[cond_inference_surv_cforest()] is a wrapper around [party::cforest()] (and other functions) that makes it easier to run this model. 
+`censored::cond_inference_surv_cforest()` is a wrapper around [party::cforest()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
 

@@ -65,7 +65,7 @@ before fitting the model.
 \item Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics
 prediction problems using cat scores and false non-discovery rate
 control. Ann. Appl. Stat. 4: 503-519.
-\href{http://arxiv.org/abs/0903.2003}{Preprint}.
+\href{https://arxiv.org/abs/0903.2003}{Preprint}.
 }
 }
 }

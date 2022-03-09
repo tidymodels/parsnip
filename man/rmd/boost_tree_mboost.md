@@ -45,7 +45,7 @@ boost_tree() %>%
 ##     family = mboost::CoxPH())
 ```
 
-[blackboost_train()] is a wrapper around [mboost::blackboost()] (and other functions) that makes it easier to run this model. 
+`censored::blackboost_train()` is a wrapper around [mboost::blackboost()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
 

@@ -49,9 +49,9 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\%
 ##         data))
 }
 
-\code{\link[=cond_inference_surv_ctree]{cond_inference_surv_ctree()}} is a
-wrapper around \code{\link[party:ctree]{party::ctree()}} (and other functions)
-that makes it easier to run this model.
+\code{censored::cond_inference_surv_ctree()} is a wrapper around
+\code{\link[party:ctree]{party::ctree()}} (and other functions) that makes it
+easier to run this model.
 }
 
 \subsection{Preprocessing requirements}{
