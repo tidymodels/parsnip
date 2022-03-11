@@ -1,4 +1,6 @@
 # Lazily registered in .onLoad()
+# Unit tests are in extratests
+# nocov start
 tunable_model_spec <- function(x, ...) {
   mod_env <- rlang::ns_env("parsnip")$parsnip
 
@@ -265,3 +267,4 @@ tunable_mlp <- function(x, ...) {
   res
 }
 
+# nocov stop
