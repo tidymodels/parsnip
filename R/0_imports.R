@@ -18,3 +18,13 @@
 #' @importFrom vctrs vec_size vec_unique
 #' @importFrom ggplot2 autoplot
 NULL
+
+# ------------------------------------------------------------------------------
+
+release_bullets <- function() {
+  c(
+    "Update parsnip add-in information at `inst/add-in/parsnip_model_db.R`",
+    "Run `update_model_info_file()` and verify results.",
+    "Run `knit_engine_docs()` if needed."
+  )
+}
