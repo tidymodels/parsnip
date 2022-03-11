@@ -267,4 +267,4 @@ tunable_mlp <- function(x, ...) {
   res
 }
 
-# nocov stop
+# nocov end
