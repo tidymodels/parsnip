@@ -141,11 +141,13 @@ brulee_engine_args <-
   tibble::tibble(
     name = c(
       "batch_size",
-      "class_weights"
+      "class_weights",
+      "mixture"
     ),
     call_info = list(
-      list(pkg = "dials", fun = "batch_size", range = c(5, 10)),
-      list(pkg = "dials", fun = "class_weights")
+      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
+      list(pkg = "dials", fun = "class_weights"),
+      list(pkg = "dials", fun = "mixture")
     ),
     source = "model_spec",
     component = "mlp",
@@ -160,6 +162,8 @@ tunable_linear_reg <- function(x, ...) {
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
+  } else if (x$engine == "brulee") {
+    res <- add_engine_parameters(res, brulee_engine_args)
   }
   res
 }
@@ -170,6 +174,8 @@ tunable_logistic_reg <- function(x, ...) {
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
+  } else if (x$engine == "brulee") {
+    res <- add_engine_parameters(res, brulee_engine_args)
   }
   res
 }
@@ -180,6 +186,8 @@ tunable_multinomial_reg <- function(x, ...) {
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
+  } else if (x$engine == "brulee") {
+    res <- add_engine_parameters(res, brulee_engine_args)
   }
   res
 }
@@ -191,6 +199,8 @@ tunable_boost_tree <- function(x, ...) {
     res <- add_engine_parameters(res, xgboost_engine_args)
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop"))
+    res$call_info[res$name == "learn_rate"] <-
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
   } else {
     if (x$engine == "C5.0") {
       res <- add_engine_parameters(res, c5_boost_engine_args)
@@ -249,6 +259,8 @@ tunable_mlp <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "brulee") {
     res <- add_engine_parameters(res, brulee_engine_args)
+    res$call_info[res$name == "learn_rate"] <-
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
   }
   res
 }
