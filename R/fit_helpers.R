@@ -6,7 +6,7 @@
 form_form <-
   function(object, control, env, ...) {
 
-    if (!inherits(env$data, "tbl_spark")) {
+    if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(env$formula[[2]], env$data), object)
     }
 
