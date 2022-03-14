@@ -6,7 +6,9 @@
 form_form <-
   function(object, control, env, ...) {
 
-    check_outcome(eval_tidy(env$formula[[2]], env$data), object)
+    if (inherits(env$data, "data.frame")) {
+      check_outcome(eval_tidy(env$formula[[2]], env$data), object)
+    }
 
     # prob rewrite this as simple subset/levels
     y_levels <- levels_from_formula(env$formula, env$data)
