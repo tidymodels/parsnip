@@ -1,3 +1,13 @@
+#' parsnip
+#'
+#' The goal of parsnip is to provide a tidy, unified interface to models that
+#' can be used to try a range of models without getting bogged down in the
+#' syntactical minutiae of the underlying packages.
+#'
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
 #' @importFrom dplyr arrange bind_cols bind_rows collect full_join group_by
 #' @importFrom dplyr mutate pull rename select starts_with summarise tally
 #' @importFrom generics varying_args
@@ -17,9 +27,23 @@
 #' @importFrom utils methods stack
 #' @importFrom vctrs vec_size vec_unique
 #' @importFrom ggplot2 autoplot
+## usethis namespace: end
 NULL
 
-# ------------------------------------------------------------------------------
+# nocov start
+
+utils::globalVariables(
+  c(
+    '.', '.label', '.pred', '.row', 'data', 'engine', 'engine2', 'group',
+    'lab', 'original', 'predicted_label', 'prediction', 'value', 'type',
+    "neighbors", ".submodels", "has_submodel", "max_neighbor", "max_penalty",
+    "max_terms", "max_tree", "model", "name", "num_terms", "penalty", "trees",
+    "sub_neighbors", ".pred_class", "x", "y", "predictor_indicators",
+    "compute_intercept", "remove_intercept", "estimate", "term",
+    "call_info", "component", "component_id", "func", "tunable", "label",
+    "pkg", ".order", "item", "tunable", "has_ext"
+  )
+)
 
 release_bullets <- function() {
   c(
@@ -28,3 +52,6 @@ release_bullets <- function() {
     "Run `knit_engine_docs()` and `devtools::document()` to update docs"
   )
 }
+
+# nocov end
+
