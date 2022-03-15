@@ -24,7 +24,7 @@ NULL
 release_bullets <- function() {
   c(
     "Update parsnip add-in information at `inst/add-in/parsnip_model_db.R`",
-    "Run `update_model_info_file()` and verify results.",
-    "Run `knit_engine_docs()` if needed."
+    "Run `update_model_info_file()` and verify results",
+    "Run `knit_engine_docs()` and `devtools::document()` to update docs"
   )
 }
