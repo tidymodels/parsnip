@@ -79,6 +79,21 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 
 In this case, [plsmod::pls_fit()] has the same role as above but eventually targets [mixOmics::plsda()] or [mixOmics::splsda()] .
 
+## Installing mixOmics
+
+This package is available via the Bioconductor repository and is not accessible via CRAN. You can install using: 
+
+
+```r
+  if (!require("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+  }
+  
+  remotes::install_bioc("mixOmics")
+```
+
+
+
 ## Preprocessing requirements
 
 
