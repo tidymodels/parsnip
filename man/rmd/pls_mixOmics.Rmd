@@ -64,11 +64,11 @@ In this case, [plsmod::pls_fit()] has the same role as above but eventually targ
 This package is available via the Bioconductor repository and is not accessible via CRAN. You can install using: 
 
 ```{r eval = FALSE}
-  if (!require("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
+  if (!require("remotes", quietly = TRUE)) {
+    install.packages("remotes")
   }
   
-  BiocManager::install("mixOmics")
+  remotes::install_bioc("mixOmics")
 ```
 
 

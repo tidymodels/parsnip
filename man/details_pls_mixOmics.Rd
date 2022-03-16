@@ -80,11 +80,11 @@ or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
 \subsection{Installing mixOmics}{
 
 This package is available via the Bioconductor repository and is not
-accessible via CRAN. You can install using:\if{html}{\out{<div class="sourceCode r">}}\preformatted{  if (!require("BiocManager", quietly = TRUE)) \{
-    install.packages("BiocManager")
+accessible via CRAN. You can install using:\if{html}{\out{<div class="sourceCode r">}}\preformatted{  if (!require("remotes", quietly = TRUE)) \{
+    install.packages("remotes")
   \}
   
-  BiocManager::install("mixOmics")
+  remotes::install_bioc("mixOmics")
 }\if{html}{\out{</div>}}
 }
 

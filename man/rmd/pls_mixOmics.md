@@ -85,11 +85,11 @@ This package is available via the Bioconductor repository and is not accessible 
 
 
 ```r
-  if (!require("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
+  if (!require("remotes", quietly = TRUE)) {
+    install.packages("remotes")
   }
   
-  BiocManager::install("mixOmics")
+  remotes::install_bioc("mixOmics")
 ```
 
 
