@@ -20,10 +20,6 @@
 
 * Fixed outcome type checking affecting a subset of regression models (#625).
 
-* New `extract_parameter_set_dials()` method to extract parameter sets from model specs.
-
-* New `extract_parameter_dials()` method to extract a single parameter from model specs.
-
 * Prediction using `multinom_reg()` with the `nnet` engine with a single row no longer fails (#612).
 
 ## Other Changes
@@ -34,10 +30,14 @@
  
 * `fit_control()` is soft-deprecated in favor of `control_parsnip()`. 
 
-* Argument `interval` was added for prediction: For types "survival" and "quantile", estimates for the confidence or prediction interval can be added if available (#615).
+* New `extract_parameter_set_dials()` method to extract parameter sets from model specs.
+
+* New `extract_parameter_dials()` method to extract a single parameter from model specs.
+
+* Argument `interval` was added for prediction: For types `"survival"` and `"quantile"`, estimates for the confidence or prediction interval can be added if available (#615).
 
 * `set_dependency()` now allows developers to create package requirements that are specific to the model's mode (#604). 
-* 
+
 * `varying()` is soft-deprecated in favor of `tune()`.
 
 * `varying_args()` is soft-deprecated in favor of `tune_args()`.
