@@ -7,7 +7,8 @@ library(tidymodels)
 library(usethis)
 
 # also requires installation of:
-packages <- c("parsnip", "discrim", "plsmod", "rules", "baguette", "poissonreg", "modeltime", "modeltime.gluonts")
+packages <- c("parsnip", "discrim", "plsmod", "rules", "baguette", "poissonreg",
+              "multilevelmod", "modeltime", "modeltime.gluonts")
 
 # ------------------------------------------------------------------------------
 
@@ -63,6 +64,9 @@ get_tunable_param <- function(mode, package, model, engine) {
 
 model_db <-
   purrr::map_dfr(packages, print_methods) %>%
+  dplyr::filter(engine != "liquidSVM") %>%
+  dplyr::filter(model != "surv_reg") %>%
+  dplyr::filter(engine != "spark") %>%
   dplyr::filter(!is.na(engine)) %>%
   dplyr::mutate(label = paste0(model, " (", engine, ")")) %>%
   dplyr::arrange(model, engine, mode)
@@ -77,7 +81,6 @@ num_modes <-
 
 model_db <-
   dplyr::left_join(model_db, num_modes, by = c("package", "model", "engine")) %>%
-  dplyr::filter(engine != "spark") %>%
   dplyr::mutate(parameters = purrr::pmap(list(mode, package, model, engine), get_tunable_param))
 
 usethis::use_data(model_db, overwrite = TRUE)
