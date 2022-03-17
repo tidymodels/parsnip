@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,7 @@ see below)</p></li>
 <h3 id="translation-from-parsnip-to-the-underlying-model-call-regression-">Translation from parsnip to the underlying model call (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-underlying-model-call-regression-"></a></h3>
 
 
-<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/plsmod" class="external-link">plsmod</a></span><span class="op">)</span>
+<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -113,7 +113,7 @@ for sparse models.</p></li>
 <h3 id="translation-from-parsnip-to-the-underlying-model-call-classification-">Translation from parsnip to the underlying model call (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-underlying-model-call-classification-"></a></h3>
 
 
-<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/plsmod" class="external-link">plsmod</a></span><span class="op">)</span>
+<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -133,6 +133,18 @@ for sparse models.</p></li>
 <p>In this case, <code>plsmod::pls_fit()</code> has the same role
 as above but eventually targets <code>mixOmics::plsda()</code>
 or <code>mixOmics::splsda()</code> .</p>
+</div>
+
+<div class="section">
+<h3 id="installing-mixomics">Installing mixOmics<a class="anchor" aria-label="anchor" href="#installing-mixomics"></a></h3>
+
+
+<p>This package is available via the Bioconductor repository and is not
+accessible via CRAN. You can install using:</p><div class="sourceCode r"><pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bioc.html" class="external-link">install_bioc</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span></code></pre><p></p></div>
 </div>
 
 <div class="section">

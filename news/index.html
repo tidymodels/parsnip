@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,13 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
+<ul><li><p>Fixed a major bug in spark models induced in the previous version (<a href="https://github.com/tidymodels/parsnip/issues/671" class="external-link">#671</a>).</p></li>
+<li><p>Updated the parsnip add-in with new models and engines.</p></li>
+<li><p>Updated parameter ranges for some <code>tunable()</code> methods and added a missing engine argument for brulee models.</p></li>
+<li><p>Added information about how to install the mixOmics package for PLS models (<a href="https://github.com/tidymodels/parsnip/issues/680" class="external-link">#680</a>)</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="parsnip-020">parsnip 0.2.0<a class="anchor" aria-label="anchor" href="#parsnip-020"></a></h2><p class="text-muted">CRAN release: 2022-03-09</p>
 <div class="section level3">
 <h3 id="model-specification-changes-0-2-0">Model Specification Changes<a class="anchor" aria-label="anchor" href="#model-specification-changes-0-2-0"></a></h3>
@@ -76,8 +83,6 @@
 <li><p>Fixed a bug for <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> with the LiblineaR engine (<a href="https://github.com/tidymodels/parsnip/issues/552" class="external-link">#552</a>).</p></li>
 <li><p>The list column produced when creating survival probability predictions is now always called <code>.pred</code> (with <code>.pred_survival</code> being used inside of the list column).</p></li>
 <li><p>Fixed outcome type checking affecting a subset of regression models (<a href="https://github.com/tidymodels/parsnip/issues/625" class="external-link">#625</a>).</p></li>
-<li><p>New <code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_set_dials()</a></code> method to extract parameter sets from model specs.</p></li>
-<li><p>New <code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_dials()</a></code> method to extract a single parameter from model specs.</p></li>
 <li><p>Prediction using <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> with the <code>nnet</code> engine with a single row no longer fails (<a href="https://github.com/tidymodels/parsnip/issues/612" class="external-link">#612</a>).</p></li>
 </ul></div>
 <div class="section level3">
@@ -85,10 +90,11 @@
 <ul><li><p>When the xy interface is used and the underlying model expects to use a matrix, a better warning is issued when predictors contain non-numeric columns (including dates).</p></li>
 <li><p>The fit time is only calculated when the <code>verbosity</code> argument of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> is 2L or greater. Also, the call to <code><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time()</a></code> now uses <code>gcFirst = FALSE</code>. (<a href="https://github.com/tidymodels/parsnip/issues/611" class="external-link">#611</a>)</p></li>
 <li><p><code><a href="../reference/fit_control.html">fit_control()</a></code> is soft-deprecated in favor of <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
-<li><p>Argument <code>interval</code> was added for prediction: For types “survival” and “quantile”, estimates for the confidence or prediction interval can be added if available (<a href="https://github.com/tidymodels/parsnip/issues/615" class="external-link">#615</a>).</p></li>
+<li><p>New <code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_set_dials()</a></code> method to extract parameter sets from model specs.</p></li>
+<li><p>New <code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_dials()</a></code> method to extract a single parameter from model specs.</p></li>
+<li><p>Argument <code>interval</code> was added for prediction: For types <code>"survival"</code> and <code>"quantile"</code>, estimates for the confidence or prediction interval can be added if available (<a href="https://github.com/tidymodels/parsnip/issues/615" class="external-link">#615</a>).</p></li>
 <li><p><code><a href="../reference/set_new_model.html">set_dependency()</a></code> now allows developers to create package requirements that are specific to the model’s mode (<a href="https://github.com/tidymodels/parsnip/issues/604" class="external-link">#604</a>).</p></li>
-<li>
-</li><li><p><code><a href="../reference/varying.html">varying()</a></code> is soft-deprecated in favor of <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code>.</p></li>
+<li><p><code><a href="../reference/varying.html">varying()</a></code> is soft-deprecated in favor of <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code>.</p></li>
 <li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html" class="external-link">varying_args()</a></code> is soft-deprecated in favor of <code>tune_args()</code>.</p></li>
 <li><p>An <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> method was added for glmnet objects, showing the coefficient paths versus the penalty values (<a href="https://github.com/tidymodels/parsnip/issues/642" class="external-link">#642</a>).</p></li>
 <li><p>parsnip is now more robust working with keras and tensorflow for a larger range of versions (<a href="https://github.com/tidymodels/parsnip/issues/596" class="external-link">#596</a>).</p></li>
