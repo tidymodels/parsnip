@@ -14,7 +14,7 @@ predicting the probability of a zero count."><meta property="og:image" content="
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,8 +136,8 @@ method is required and the formula is just passed through. For example:</p><div 
 <span class="co">##      -0.363       -0.166</span></code></pre></div>
 
 <p>However, when using a workflow, the best approach is to avoid using
-<code><a href="https://workflows.tidymodels.org//reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> and use
-<code><a href="https://workflows.tidymodels.org//reference/add_variables.html" class="external-link">workflows::add_variables()</a></code> in
+<code><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> and use
+<code><a href="https://workflows.tidymodels.org/reference/add_variables.html" class="external-link">workflows::add_variables()</a></code> in
 conjunction with a model formula:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bioChemists"</span>, package <span class="op">=</span> <span class="st">"pscl"</span><span class="op">)</span>
 <span class="va">spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -168,7 +168,7 @@ conjunction with a model formula:</p><div class="sourceCode r"><pre><code><span 
 <span class="co">##      -0.363       -0.166</span></code></pre></div>
 
 <p>The reason for this is that
-<code><a href="https://workflows.tidymodels.org//reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> will try to
+<code><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> will try to
 create the model matrix and either fail or create dummy variables
 prematurely.</p>
 </div>
