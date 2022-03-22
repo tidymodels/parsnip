@@ -48,7 +48,8 @@ and  \pkg{randomForest} packages (\code{num.trees} and \code{ntree}, respectivel
 these in your model type function, like \code{rand_forest(trees = 2000)}.
 \item \emph{Engine arguments} are either specific to a particular engine or used
 more rarely; there is no change for these argument names from the underlying
-engine. Set these in \code{set_engine()}, like
+engine. The \code{...} argument of \code{set_engine()} allows any engine-specific
+argument to be passed directly to the engine fitting function, like
 \code{set_engine("ranger", importance = "permutation")}.
 }
 }

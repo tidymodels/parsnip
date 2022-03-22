@@ -78,7 +78,8 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' these in your model type function, like `rand_forest(trees = 2000)`.
 #' - _Engine arguments_ are either specific to a particular engine or used
 #' more rarely; there is no change for these argument names from the underlying
-#' engine. Set these in `set_engine()`, like
+#' engine. The `...` argument of `set_engine()` allows any engine-specific
+#' argument to be passed directly to the engine fitting function, like
 #' `set_engine("ranger", importance = "permutation")`.
 #'
 #'
