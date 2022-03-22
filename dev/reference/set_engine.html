@@ -110,7 +110,8 @@ and  <span class="pkg">randomForest</span> packages (<code>num.trees</code> and 
 these in your model type function, like <code>rand_forest(trees = 2000)</code>.</p></li>
 <li><p><em>Engine arguments</em> are either specific to a particular engine or used
 more rarely; there is no change for these argument names from the underlying
-engine. Set these in <code>set_engine()</code>, like
+engine. The <code>...</code> argument of <code>set_engine()</code> allows any engine-specific
+argument to be passed directly to the engine fitting function, like
 <code>set_engine("ranger", importance = "permutation")</code>.</p></li>
 </ul></div>
 
