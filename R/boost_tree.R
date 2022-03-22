@@ -383,6 +383,10 @@ maybe_proportion <- function(x, nm) {
   }
 }
 
+#' @rdname xgb_train
+#' @param newdata A rectangular data object, such as a data frame.
+#' @keywords internal
+#' @export
 xgb_pred <- function(object, newdata, ...) {
   if (!inherits(newdata, "xgb.DMatrix")) {
     newdata <- maybe_matrix(newdata)
