@@ -387,12 +387,16 @@ stan_conf_int <- function(object, newdata) {
 }
 
 
-check_case_weights <- function(x) {
+check_case_weights <- function(x, spec) {
   if (is.null(x)) {
     return(invisible(NULL))
   }
   if (!inherits(x, "hardhat_case_weights")) {
     rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+  }
+  allowed <- case_weights_allowed(spec)
+  if (!allowed) {
+    rlang::abort("Case weights are not enabled by the underlying model implementation.")
   }
   invisible(NULL)
 }

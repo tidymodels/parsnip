@@ -113,7 +113,7 @@ fit.model_spec <-
     if (!identical(class(control), class(control_parsnip()))) {
       rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
-    check_case_weights(case_weights)
+    check_case_weights(case_weights, object)
 
     dots <- quos(...)
 
@@ -232,7 +232,8 @@ fit_xy.model_spec <-
     if (is.null(colnames(x))) {
       rlang::abort("'x' should have column names.")
     }
-    check_case_weights(case_weights)
+    check_case_weights(case_weights, object)
+
     object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
