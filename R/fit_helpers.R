@@ -39,7 +39,7 @@ form_form <-
           fit_call,
           capture = control$verbosity == 0,
           catch = control$catch,
-          env = env,
+          envir = env,
           ...
         ),
         gcFirst = FALSE
@@ -49,7 +49,7 @@ form_form <-
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
-        env = env,
+        envir = env,
         ...
       )
       elapsed <- list(elapsed = NA_real_)
@@ -98,7 +98,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
-        env = env,
+        envir = env,
         ...
       ),
       gcFirst = FALSE
@@ -108,7 +108,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       fit_call,
       capture = control$verbosity == 0,
       catch = control$catch,
-      env = env,
+      envir = env,
       ...
     )
     elapsed <- list(elapsed = NA_real_)

@@ -325,18 +325,18 @@ fit_xy.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
+eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
   if (capture) {
     if (catch) {
-      junk <- capture.output(res <- try(eval_tidy(e, ...), silent = TRUE))
+      junk <- capture.output(res <- try(eval_tidy(e, env = envir, ...), silent = TRUE))
     } else {
-      junk <- capture.output(res <- eval_tidy(e, ...))
+      junk <- capture.output(res <- eval_tidy(e, env = envir, ...))
     }
   } else {
     if (catch) {
-      res <- try(eval_tidy(e, ...), silent = TRUE)
+      res <- try(eval_tidy(e, env = envir, ...), silent = TRUE)
     } else {
-      res <- eval_tidy(e, ...)
+      res <- eval_tidy(e, env = envir, ...)
     }
   }
   res
