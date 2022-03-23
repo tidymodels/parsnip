@@ -385,3 +385,14 @@ stan_conf_int <- function(object, newdata) {
 
   penalty
 }
+
+
+check_case_weights <- function(x) {
+  if (is.null(x)) {
+    return(invisible(NULL))
+  }
+  if (!inherits(x, "hardhat_case_weights")) {
+    rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+  }
+  invisible(NULL)
+}

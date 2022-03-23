@@ -177,12 +177,17 @@ make_form_call <- function(object, env = NULL) {
   fit_call
 }
 
-make_xy_call <- function(object, target) {
+# TODO we need something to indicate that case weights are being used.
+make_xy_call <- function(object, target, env) {
   fit_args <- object$method$fit$args
+  uses_weights <- !is.null(env$case_weights)
 
   # Get the arguments related to data:
   if (is.null(object$method$fit$data)) {
     data_args <- c(x = "x", y = "y")
+    if (uses_weights) {
+      data_args["weights"] <- "weights"
+    }
   } else {
     data_args <- object$method$fit$data
   }
@@ -196,6 +201,9 @@ make_xy_call <- function(object, target) {
       matrix = rlang::expr(maybe_matrix(x)),
       rlang::abort(glue::glue("Invalid data type target: {target}."))
     )
+  if (uses_weights) {
+    object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(case_weights)
+  }
 
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
@@ -268,3 +276,4 @@ min_rows <- function(num_rows, source, offset = 0) {
 
   as.integer(num_rows)
 }
+

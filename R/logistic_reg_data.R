@@ -220,7 +220,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "matrix",
-    protect = c("x", "y", "wi"),
+    protect = c("x", "y"),
     data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(verbose = FALSE)

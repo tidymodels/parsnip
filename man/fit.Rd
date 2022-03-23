@@ -5,9 +5,16 @@
 \alias{fit_xy.model_spec}
 \title{Fit a Model Specification to a Dataset}
 \usage{
-\method{fit}{model_spec}(object, formula, data, control = control_parsnip(), ...)
+\method{fit}{model_spec}(
+  object,
+  formula,
+  data,
+  case_weights = NULL,
+  control = control_parsnip(),
+  ...
+)
 
-\method{fit_xy}{model_spec}(object, x, y, control = control_parsnip(), ...)
+\method{fit_xy}{model_spec}(object, x, y, case_weights = NULL, control = control_parsnip(), ...)
 }
 \arguments{
 \item{object}{An object of class \code{model_spec} that has a chosen engine
@@ -21,6 +28,9 @@ to be fitted.}
 below). A data frame containing all relevant variables (e.g.
 outcome(s), predictors, case weights, etc). Note: when needed, a
 \emph{named argument} should be used.}
+
+\item{case_weights}{A vector of numeric case weights with underlying class of
+"\code{hardhat_case_weights}". See \code{\link[hardhat:frequency_weights]{hardhat::frequency_weights()}} for example.}
 
 \item{control}{A named list with elements \code{verbosity} and
 \code{catch}. See \code{\link[=control_parsnip]{control_parsnip()}}.}
