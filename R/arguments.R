@@ -149,10 +149,14 @@ make_call <- function(fun, ns, args, ...) {
 
 make_form_call <- function(object, env = NULL) {
   fit_args <- object$method$fit$args
+  uses_weights <- !is.null(env$case_weights)
 
   # Get the arguments related to data:
   if (is.null(object$method$fit$data)) {
     data_args <- c(formula = "formula", data = "data")
+    if (uses_weights) {
+      data_args["weights"] <- "weights"
+    }
   } else {
     data_args <- object$method$fit$data
   }
@@ -165,6 +169,13 @@ make_form_call <- function(object, env = NULL) {
   # sub in actual formula
   fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
 
+  # Add in case weights symbol
+  if (uses_weights) {
+    fit_args[[ unname(data_args["weights"]) ]]  <- rlang::expr(case_weights)
+  }
+
+
+  # TODO remove weights col from data?
   if (object$engine == "spark") {
     env$x <- env$data
   }
