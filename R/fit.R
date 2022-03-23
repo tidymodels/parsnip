@@ -144,13 +144,7 @@ fit.model_spec <-
 
     eval_env$data <- data
     eval_env$formula <- formula
-    # TODO do we convert/cast to numeric here?
-    # as.integer(NULL)  is integer(0)
-    if (is.null(case_weights)) {
-      eval_env$case_weights <- NULL
-    } else {
-      eval_env$case_weights <- as.integer(case_weights)
-    }
+    eval_env$case_weights <- weights_to_numeric(case_weights)
 
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
@@ -261,7 +255,7 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
-    eval_env$case_weights <- case_weights
+    eval_env$case_weights <- weights_to_numeric(case_weights)
 
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)

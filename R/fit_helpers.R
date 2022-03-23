@@ -200,3 +200,17 @@ xy_form <- function(object, env, control, ...) {
   res
 }
 
+
+weights_to_numeric <- function(x) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  to_int <- c("hardhat_frequency_weights")
+  if (inherits(x, to_int)) {
+    x <- as.integer(x)
+  } else {
+    x <- as.numeric(x)
+  }
+  x
+}
