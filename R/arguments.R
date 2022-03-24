@@ -167,13 +167,6 @@ make_form_call <- function(object, env = NULL) {
   }
 
   # sub in actual formula
-  # Bit first... `lm()` and others use the original model function call to
-  # construct a call for `model.frame()`. That will normally fail because the
-  # formula has its own environment attached (usually the global environment)
-  # and it will look there for a vector named 'weights'. We've stashed that
-  # vector in the environment 'env' so we reset the reference environment in
-  # the formula to look in the right place for the case weights.
-  environment(env$formula) <- env
   fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
 
   # Add in case weights symbol
