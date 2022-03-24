@@ -1,5 +1,8 @@
 # parsnip (development version)
 
+* Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
+
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
@@ -7,6 +10,7 @@
 * Updated the parsnip add-in with new models and engines. 
 
 * Updated parameter ranges for some `tunable()` methods and added a missing engine argument for brulee models. 
+
 * Added information about how to install the mixOmics package for PLS models (#680)
 
 
