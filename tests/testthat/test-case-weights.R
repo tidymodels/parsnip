@@ -1,0 +1,57 @@
+
+test_that('case weights with xy method', {
+
+  skip_if_not_installed("C50")
+  skip_if_not_installed("modeldata")
+  library(hardhat)
+  data("two_class_dat", package = "modeldata")
+
+  wts <- runif(nrow(two_class_dat))
+  wts <- ifelse(wts < 1/5, 0, 1)
+  two_class_subset <- two_class_dat[wts != 0, ]
+  wts <- importance_weights(wts)
+
+  expect_error({
+    set.seed(1)
+    C5_bst_wt_fit <-
+      boost_tree(trees = 5) %>%
+      set_engine("C5.0") %>%
+      set_mode("classification") %>%
+      fit(Class ~ ., data = two_class_dat, case_weights = wts)
+  },
+  regexp = NA)
+
+  expect_output(
+    print(C5_bst_wt_fit$fit$call),
+    "weights = weights"
+  )
+})
+
+
+test_that('case weights with formula method', {
+
+  skip_if_not_installed("modeldata")
+  data("ames", package = "modeldata")
+  ames$Sale_Price <- log10(ames$Sale_Price)
+
+  set.seed(1)
+  wts <- runif(nrow(ames))
+  wts <- ifelse(wts < 1/5, 0L, 1L)
+  ames_subset <- ames[wts != 0, ]
+  wts <- frequency_weights(wts)
+
+  expect_error(
+    lm_wt_fit <-
+      linear_reg() %>%
+      fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts),
+    regexp = NA)
+
+  lm_sub_fit <-
+    linear_reg() %>%
+    fit(Sale_Price ~ Longitude + Latitude, data = ames_subset)
+
+  expect_equal(coef(lm_wt_fit$fit), coef(lm_sub_fit$fit))
+})
+
+
+

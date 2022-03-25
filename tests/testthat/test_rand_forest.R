@@ -18,7 +18,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 case.weights = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  mtry = expr(min_cols(~4, x)),
                  num.threads = 1,
                  verbose = FALSE,
@@ -49,7 +49,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 case.weights = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  num.trees = new_empty_quosure(1000),
                  num.threads = 1,
                  verbose = FALSE,
@@ -82,7 +82,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 case.weights = expr(missing_arg()),
+                 weights = expr(missing_arg()),
                  min.node.size = expr(min_rows(~5, x)),
                  num.threads = 1,
                  verbose = FALSE,
@@ -109,17 +109,19 @@ test_that('primary arguments', {
 
 test_that('engine arguments', {
   ranger_imp <- rand_forest(mode = "classification")
-  expect_equal(translate(ranger_imp %>% set_engine("ranger", importance = "impurity"))$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 case.weights = expr(missing_arg()),
-                 importance = new_empty_quosure("impurity"),
-                 num.threads = 1,
-                 verbose = FALSE,
-                 seed = expr(sample.int(10^5, 1)),
-                 probability = TRUE
-               )
+  expect_equal(
+    translate(ranger_imp %>%
+                set_engine("ranger", importance = "impurity"))$method$fit$args,
+    list(
+      x = expr(missing_arg()),
+      y = expr(missing_arg()),
+      weights = expr(missing_arg()),
+      importance = new_empty_quosure("impurity"),
+      num.threads = 1,
+      verbose = FALSE,
+      seed = expr(sample.int(10^5, 1)),
+      probability = TRUE
+    )
   )
 
   randomForest_votes <- rand_forest(mode = "regression")

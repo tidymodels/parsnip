@@ -21,7 +21,6 @@ test_that('primary arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      wi = expr(missing_arg()),
       type = 11,
       svr_eps = 0.1
     )
@@ -48,7 +47,6 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      wi = expr(missing_arg()),
       type = new_empty_quosure(12),
       svr_eps = 0.1
     )

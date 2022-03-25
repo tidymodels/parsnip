@@ -35,7 +35,6 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 wi = expr(missing_arg()),
                  verbose = FALSE
                )
   )
@@ -89,7 +88,6 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 wi = expr(missing_arg()),
                  cost = new_empty_quosure(1),
                  verbose = FALSE
                )
@@ -115,7 +113,6 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 wi = expr(missing_arg()),
                  type = new_empty_quosure(tune()),
                  verbose = FALSE
                )
@@ -146,7 +143,6 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 wi = expr(missing_arg()),
                  cost = new_empty_quosure(1),
                  verbose = FALSE
                )
@@ -195,7 +191,6 @@ test_that('engine arguments', {
     list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      wi = expr(missing_arg()),
       bias = new_empty_quosure(0),
       verbose = FALSE
     )
