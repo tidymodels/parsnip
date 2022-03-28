@@ -391,7 +391,7 @@ check_case_weights <- function(x, spec) {
   if (is.null(x)) {
     return(invisible(NULL))
   }
-  if (!inherits(x, "hardhat_case_weights")) {
+  if (!hardhat::is_case_weights(x)) {
     rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
   }
   allowed <- case_weights_allowed(spec)

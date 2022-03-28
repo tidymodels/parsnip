@@ -18,8 +18,10 @@
 #'  below). A data frame containing all relevant variables (e.g.
 #'  outcome(s), predictors, case weights, etc). Note: when needed, a
 #'  \emph{named argument} should be used.
-#' @param case_weights A vector of numeric case weights with underlying class of
-#' "`hardhat_case_weights`". See [hardhat::frequency_weights()] for example.
+#' @param case_weights An optional classed vector of numeric case weights. This
+#'   must return `TRUE` when [hardhat::is_case_weights()] is run on it. See
+#'   [hardhat::frequency_weights()] and [hardhat::importance_weights()] for
+#'   examples.
 #' @param control A named list with elements `verbosity` and
 #'  `catch`. See [control_parsnip()].
 #' @param ... Not currently used; values passed here will be
@@ -147,9 +149,10 @@ fit.model_spec <-
     # `lm()` and `glm()` and others use the original model function call to
     # construct a call for `model.frame()`. That will normally fail because the
     # formula has its own environment attached (usually the global environment)
-    # and it will look there for a vector named 'weights'. We've stashed that
-    # vector in the environment 'env' so we reset the reference environment in
-    # the formula to have our data objects so they can be found.
+    # and it will look there for a vector named 'weights'. To account
+    # for this, we create a child of the `formula`'s environment and
+    # stash the `weights` there with the expected name and then
+    # reassign this as the `formula`'s environment
     fenv <- rlang::env_clone(environment(formula))
     fenv$data <- data
     fenv$weights <- wts
