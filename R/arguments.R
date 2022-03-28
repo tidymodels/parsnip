@@ -151,13 +151,33 @@ make_form_call <- function(object, env = NULL) {
   fit_args <- object$method$fit$args
   uses_weights <- has_weights(env)
 
-  # Get the arguments related to data:
+  # In model specification code using `set_fit()`, there are two main arguments
+  # that dictate the data-related model arguments (e.g. 'formula', 'data', 'x',
+  # etc).
+  # The 'protect' element specifies which data arguments should not be modifiable
+  # by the user (as an engine argument). These have standardized names that
+  # follow the usual R conventions. For example, `foo(formula, data, weights)`
+  # and so on.
+  # However, some packages do not follow these naming conventions. The 'data'
+  # element in `set_fit()` allows use to have non-standard argument names by
+  # providing a named list. If function `bar(f, dat, wts)` was being used, the
+  # 'data' element would be `c(formula = "f", data = "dat", weights = "wts)`.
+  # If conventional names are used, there is no 'data' element since the values
+  # in 'protect' suffice.
+
+  # Get the arguments related to data arguments to insert into the model call
+
+  # Do we have conventional argument names?
   if (is.null(object$method$fit$data)) {
-    data_args <- c(formula = "formula", data = "data")
-    if (uses_weights) {
-      data_args["weights"] <- "weights"
+    # Set the minimum arguments for formula methods.
+    data_args <- object$method$fit$protect
+    names(data_args) <- data_args
+    # Case weights _could_ be used but remove the arg if they are not given:
+    if (!uses_weights) {
+      data_args <- data_args[data_args != "weights"]
     }
   } else {
+    # What are the non-conventional names?
     data_args <- object$method$fit$data
   }
 
@@ -168,12 +188,6 @@ make_form_call <- function(object, env = NULL) {
 
   # sub in actual formula
   fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
-
-  # Add in case weights symbol
-  if (uses_weights) {
-    fit_args[[ unname(data_args["weights"]) ]]  <- rlang::expr(weights)
-  }
-
 
   # TODO remove weights col from data?
   if (object$engine == "spark") {
@@ -193,11 +207,14 @@ make_xy_call <- function(object, target, env) {
   fit_args <- object$method$fit$args
   uses_weights <- has_weights(env)
 
-  # Get the arguments related to data:
+  # See the comments above in make_form_call()
+
   if (is.null(object$method$fit$data)) {
-    data_args <- c(x = "x", y = "y")
-    if (uses_weights) {
-      data_args["weights"] <- "weights"
+    data_args <- object$method$fit$protect
+    names(data_args) <- data_args
+    # Case weights _could_ be used but remove the arg if they are not given:
+    if (!uses_weights) {
+      data_args <- data_args[data_args != "weights"]
     }
   } else {
     data_args <- object$method$fit$data

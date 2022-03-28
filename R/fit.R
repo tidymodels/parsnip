@@ -153,10 +153,10 @@ fit.model_spec <-
     # for this, we create a child of the `formula`'s environment and
     # stash the `weights` there with the expected name and then
     # reassign this as the `formula`'s environment
-    fenv <- rlang::env_clone(environment(formula))
-    fenv$data <- data
-    fenv$weights <- wts
-    environment(formula) <- fenv
+    environment(formula) <- rlang::new_environment(
+      data = list(data = data, weights = wts),
+      parent = environment(formula)
+    )
 
     eval_env$data <- data
     eval_env$formula <- formula

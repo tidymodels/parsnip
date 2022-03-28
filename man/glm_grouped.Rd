@@ -46,12 +46,12 @@ head(ucb_weighted)
 nrow(ucb_weighted)
 
 # Format when yes/no data are in individual rows (probably still inappropriate)
+library(tidyr)
 ucb_long <- uncount(ucb_weighted, Freq)
 head(ucb_long)
 nrow(ucb_long)
 
 # Format where the outcome is formatted as number of events
-library(tidyr)
 ucb_events <-
   ucb_weighted \%>\%
   tidyr::pivot_wider(

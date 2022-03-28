@@ -73,6 +73,7 @@
 #'
 #' # The new function that starts with frequency weights and gets the correct place:
 #' glm_grouped(Admit ~ Gender + Dept, data = ucb_weighted, weights = ucb_weighted$Freq)
+#' @export
 glm_grouped <- function(formula, data, weights, ...) {
   opts <- list(...)
   # We'll set binomial
@@ -81,7 +82,7 @@ glm_grouped <- function(formula, data, weights, ...) {
   }
 
   if (is.null(weights) || !is.numeric(weights)) {
-    rlang::stop("'weights' should be an integer vector.")
+    rlang::abort("'weights' should be an integer vector.")
   }
   if (!is.integer(weights)) {
     weights <- as.integer(weights)
