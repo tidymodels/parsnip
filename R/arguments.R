@@ -149,7 +149,7 @@ make_call <- function(fun, ns, args, ...) {
 
 make_form_call <- function(object, env = NULL) {
   fit_args <- object$method$fit$args
-  uses_weights <- !is.null(env$weights)
+  uses_weights <- has_weights(env)
 
   # Get the arguments related to data:
   if (is.null(object$method$fit$data)) {
@@ -191,7 +191,7 @@ make_form_call <- function(object, env = NULL) {
 # TODO we need something to indicate that case weights are being used.
 make_xy_call <- function(object, target, env) {
   fit_args <- object$method$fit$args
-  uses_weights <- !is.null(env$weights)
+  uses_weights <- has_weights(env)
 
   # Get the arguments related to data:
   if (is.null(object$method$fit$data)) {

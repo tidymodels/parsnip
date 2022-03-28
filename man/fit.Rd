@@ -29,8 +29,10 @@ below). A data frame containing all relevant variables (e.g.
 outcome(s), predictors, case weights, etc). Note: when needed, a
 \emph{named argument} should be used.}
 
-\item{case_weights}{A vector of numeric case weights with underlying class of
-"\code{hardhat_case_weights}". See \code{\link[hardhat:frequency_weights]{hardhat::frequency_weights()}} for example.}
+\item{case_weights}{An optional classed vector of numeric case weights. This
+must return \code{TRUE} when \code{\link[hardhat:is_case_weights]{hardhat::is_case_weights()}} is run on it. See
+\code{\link[hardhat:frequency_weights]{hardhat::frequency_weights()}} and \code{\link[hardhat:importance_weights]{hardhat::importance_weights()}} for
+examples.}
 
 \item{control}{A named list with elements \code{verbosity} and
 \code{catch}. See \code{\link[=control_parsnip]{control_parsnip()}}.}

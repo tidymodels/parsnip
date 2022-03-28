@@ -236,3 +236,6 @@ case_weights_allowed <- function(spec) {
   any(data_args == "weights")
 }
 
+has_weights <- function(env) {
+  !is.null(env$weights)
+}
