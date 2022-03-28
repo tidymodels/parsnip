@@ -3,7 +3,6 @@ test_that('case weights with xy method', {
 
   skip_if_not_installed("C50")
   skip_if_not_installed("modeldata")
-  library(hardhat)
   data("two_class_dat", package = "modeldata")
 
   wts <- runif(nrow(two_class_dat))
@@ -27,6 +26,32 @@ test_that('case weights with xy method', {
   )
 })
 
+
+test_that('case weights with xy method - non-standard argument names', {
+
+  skip_if_not_installed("ranger")
+  skip_if_not_installed("modeldata")
+  data("two_class_dat", package = "modeldata")
+
+  wts <- runif(nrow(two_class_dat))
+  wts <- ifelse(wts < 1/5, 0, 1)
+  two_class_subset <- two_class_dat[wts != 0, ]
+  wts <- importance_weights(wts)
+
+  expect_error({
+    set.seed(1)
+    rf_wt_fit <-
+      rand_forest(trees = 5) %>%
+      set_mode("classification") %>%
+      fit(Class ~ ., data = two_class_dat, case_weights = wts)
+  },
+  regexp = NA)
+
+  expect_output(
+    print(rf_wt_fit$fit$call),
+    "case\\.weights = weights"
+  )
+})
 
 test_that('case weights with formula method', {
 
