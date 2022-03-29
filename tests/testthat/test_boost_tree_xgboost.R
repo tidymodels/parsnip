@@ -19,27 +19,64 @@ test_that('xgboost execution, classification', {
 
   skip_if_not_installed("xgboost")
 
-  expect_error(
-    res <- parsnip::fit(
+  set.seed(1)
+  wts <- ifelse(runif(nrow(hpc)) < .1, 0, 1)
+  wts <- importance_weights(wts)
+
+  expect_error({
+    set.seed(1)
+    res_f <- parsnip::fit(
       hpc_xgboost,
       class ~ compounds + input_fields,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
+  },
+  regexp = NA
   )
-  expect_error(
-    res <- parsnip::fit_xy(
+  expect_error({
+    set.seed(1)
+    res_xy <- parsnip::fit_xy(
       hpc_xgboost,
-      x = hpc[, num_pred],
+      x = hpc[, c("compounds", "input_fields")],
       y = hpc$class,
       control = ctrl
-    ),
-    regexp = NA
+    )
+  },
+  regexp = NA
+  )
+  expect_error({
+    set.seed(1)
+    res_f_wts <- parsnip::fit(
+      hpc_xgboost,
+      class ~ compounds + input_fields,
+      data = hpc,
+      control = ctrl,
+      case_weights = wts
+    )
+  },
+  regexp = NA
+  )
+  expect_error({
+    set.seed(1)
+    res_xy_wts <- parsnip::fit_xy(
+      hpc_xgboost,
+      x = hpc[, c("compounds", "input_fields")],
+      y = hpc$class,
+      control = ctrl,
+      case_weights = wts
+    )
+  },
+  regexp = NA
   )
 
-  expect_true(has_multi_predict(res))
-  expect_equal(multi_predict_args(res), "trees")
+  expect_equal(res_f$fit$evaluation_log,     res_xy$fit$evaluation_log)
+  expect_equal(res_f_wts$fit$evaluation_log, res_xy_wts$fit$evaluation_log)
+  # Check to see if the case weights had an effect
+  expect_true(!isTRUE(all.equal(res_f$fit$evaluation_log, res_f_wts$fit$evaluation_log)))
+
+  expect_true(has_multi_predict(res_xy))
+  expect_equal(multi_predict_args(res_xy), "trees")
 
   expect_error(
     res <- parsnip::fit(
@@ -312,6 +349,7 @@ test_that('xgboost data conversion', {
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
+  wts <- 1:32
 
   expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg), regexp = NA)
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
@@ -352,6 +390,13 @@ test_that('xgboost data conversion', {
   expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
                  regexp = "`event_level` can only be set for binary variables.")
 
+  # case weights added
+  expect_error(wted <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts), regexp = NA)
+  expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
+  expect_error(wted_val <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts, validation = 1/4), regexp = NA)
+  expect_true(all(xgboost::getinfo(wted_val$data, "weight") %in% wts))
+  expect_null(xgboost::getinfo(wted_val$watchlist$validation, "weight"))
+
 })
 
 
@@ -361,6 +406,7 @@ test_that('xgboost data and sparse matrices', {
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
+  wts <- 1:32
 
   xgb_spec <-
     boost_tree(trees = 10) %>%
@@ -376,6 +422,13 @@ test_that('xgboost data and sparse matrices', {
 
   expect_equal(from_df$fit, from_mat$fit)
   expect_equal(from_df$fit, from_sparse$fit)
+
+  # case weights added
+  expect_error(wted <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts), regexp = NA)
+  expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
+  expect_error(wted_val <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts, validation = 1/4), regexp = NA)
+  expect_true(all(xgboost::getinfo(wted_val$data, "weight") %in% wts))
+  expect_null(xgboost::getinfo(wted_val$watchlist$validation, "weight"))
 
 })
 
