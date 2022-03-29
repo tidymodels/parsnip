@@ -1,5 +1,11 @@
 # parsnip (development version)
 
+* Enable the use of case weights for models that support them. 
+
+* Added a `glm_grouped()` function to convert long data to the grouped format required by `glm()` for logistic regression. 
+
+* `show_model_info()` now indicates which models can utilize case weights. 
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).

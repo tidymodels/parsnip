@@ -933,8 +933,24 @@ show_model_info <- function(model) {
   engines <- get_from_env(model)
   if (nrow(engines) > 0) {
     cat(" engines: \n")
-    engines %>%
+
+    weight_info <-
+      purrr::map_df(
+        model,
+        ~ get_from_env(paste0(.x, "_fit")) %>% mutate(model = .x)
+      ) %>%
+      dplyr::mutate(protect = map(value, ~ .x$protect)) %>%
+      dplyr::select(-value) %>%
       dplyr::mutate(
+        has_wts = purrr::map_lgl(protect, ~ any(grepl("^weight", .x))),
+        has_wts = ifelse(has_wts, cli::symbol$sup_1, "")
+      ) %>%
+      dplyr::select(engine, mode, has_wts)
+
+      engines %>%
+        dplyr::left_join(weight_info, by = c("engine", "mode")) %>%
+      dplyr::mutate(
+        engine = paste0(engine, has_wts),
         mode = format(paste0(mode, ": "))
       ) %>%
       dplyr::group_by(mode) %>%
@@ -947,7 +963,7 @@ show_model_info <- function(model) {
       dplyr::ungroup() %>%
       dplyr::pull(lab) %>%
       cat(sep = "")
-    cat("\n")
+    cat("\n", cli::symbol$sup_1, "The model can use case weights.\n\n", sep = "")
   } else {
     cat(" no registered engines.\n\n")
   }
