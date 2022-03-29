@@ -5,7 +5,7 @@
 \title{Linear regression via generalized least squares}
 \description{
 The \code{"gls"} engine estimates linear regression for models where the rows of the
-data are not indpendent.
+data are not independent.
 }
 \details{
 For this engine, there is a single mode: regression
