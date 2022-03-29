@@ -82,7 +82,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "matrix",
-    protect = c("x", "y"),
+    protect = c("x", "y", "weights"),
     func = c(pkg = "parsnip", fun = "xgb_train"),
     defaults = list(nthread = 1, verbose = 0)
   )
@@ -132,7 +132,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "matrix",
-    protect = c("x", "y"),
+    protect = c("x", "y", "weights"),
     func = c(pkg = "parsnip", fun = "xgb_train"),
     defaults = list(nthread = 1, verbose = 0)
   )
