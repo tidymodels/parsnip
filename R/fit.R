@@ -144,7 +144,7 @@ fit.model_spec <-
     # used when a model call is made later.
     eval_env <- rlang::env()
 
-    wts <- weights_to_numeric(case_weights)
+    wts <- weights_to_numeric(case_weights, object)
 
     # `lm()` and `glm()` and others use the original model function call to
     # construct a call for `model.frame()`. That will normally fail because the
@@ -272,7 +272,7 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
-    eval_env$weights <- weights_to_numeric(case_weights)
+    eval_env$weights <- weights_to_numeric(case_weights, object)
 
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)

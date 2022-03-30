@@ -21,7 +21,6 @@ test_that('primary arguments', {
     "For the glmnet engine, `penalty` must be a single"
   )
   basic_stan <- translate(basic %>% set_engine("stan"))
-  basic_spark <- translate(basic %>% set_engine("spark"))
   expect_equal(basic_lm$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -46,32 +45,15 @@ test_that('primary arguments', {
                  refresh = 0
                )
   )
-  expect_equal(basic_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg())
-               )
-  )
 
   mixture <- linear_reg(mixture = 0.128)
   expect_error(
     mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
     "For the glmnet engine, `penalty` must be a single"
   )
-  mixture_spark <- translate(mixture %>% set_engine("spark"))
-  expect_equal(mixture_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(0.128)
-               )
-  )
 
   penalty <- linear_reg(penalty = 1)
   penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
-  penalty_spark <- translate(penalty %>% set_engine("spark"))
   expect_equal(penalty_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -80,28 +62,11 @@ test_that('primary arguments', {
                  family = "gaussian"
                )
   )
-  expect_equal(penalty_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1)
-               )
-  )
 
   mixture_v <- linear_reg(mixture = tune())
   expect_error(
     mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
     "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
-  expect_equal(mixture_v_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(tune())
-               )
   )
 
 })
@@ -148,16 +113,6 @@ test_that('engine arguments', {
                  iter = new_empty_quosure(5),
                  family = expr(stats::gaussian),
                  refresh = 0
-               )
-  )
-
-  spark_iter <- linear_reg() %>% set_engine("spark", max_iter = 20)
-  expect_equal(translate(spark_iter)$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 max_iter = new_empty_quosure(20)
                )
   )
 

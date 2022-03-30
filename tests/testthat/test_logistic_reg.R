@@ -22,7 +22,6 @@ test_that('primary arguments', {
   )
   basic_liblinear <- translate(basic %>% set_engine("LiblineaR"))
   basic_stan <- translate(basic %>% set_engine("stan"))
-  basic_spark <- translate(basic %>% set_engine("spark"))
   expect_equal(basic_glm$method$fit$args,
                list(
                  formula = expr(missing_arg()),
@@ -47,35 +46,16 @@ test_that('primary arguments', {
                  refresh = 0
                )
   )
-  expect_equal(basic_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 family = "binomial"
-               )
-  )
 
   mixture <- logistic_reg(mixture = 0.128)
   expect_error(
     mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
     "For the glmnet engine, `penalty` must be a single"
   )
-  mixture_spark <- translate(mixture %>% set_engine("spark"))
-  expect_equal(mixture_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(0.128),
-                 family = "binomial"
-               )
-  )
 
   penalty <- logistic_reg(penalty = 1)
   penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
   penalty_liblinear <- translate(penalty %>% set_engine("LiblineaR"))
-  penalty_spark <- translate(penalty %>% set_engine("spark"))
   expect_equal(penalty_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -92,15 +72,6 @@ test_that('primary arguments', {
                  verbose = FALSE
                )
   )
-  expect_equal(penalty_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1),
-                 family = "binomial"
-               )
-  )
 
   mixture_v <- logistic_reg(mixture = tune())
   expect_error(
@@ -108,7 +79,6 @@ test_that('primary arguments', {
     "For the glmnet engine, `penalty` must be a single"
   )
   mixture_v_liblinear <- translate(mixture_v %>% set_engine("LiblineaR"))
-  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
   expect_equal(mixture_v_liblinear$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -117,20 +87,10 @@ test_that('primary arguments', {
                  verbose = FALSE
                )
   )
-  expect_equal(mixture_v_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(tune()),
-                 family = "binomial"
-               )
-  )
 
   penalty_v <- logistic_reg(penalty = 1)
   penalty_v_glmnet <- translate(penalty_v %>% set_engine("glmnet"))
   penalty_v_liblinear <- translate(penalty_v %>% set_engine("LiblineaR"))
-  penalty_v_spark <- translate(penalty_v %>% set_engine("spark"))
   expect_equal(penalty_v_glmnet$method$fit$args,
                list(
                  x = expr(missing_arg()),
@@ -147,15 +107,7 @@ test_that('primary arguments', {
                  verbose = FALSE
                )
   )
-  expect_equal(penalty_v_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1),
-                 family = "binomial"
-               )
-  )
+
 
 })
 
@@ -211,17 +163,6 @@ test_that('engine arguments', {
     )
   )
 
-  spark_iter <- logistic_reg()
-  expect_equal(
-    translate(spark_iter %>% set_engine("spark", max_iter = 20))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      formula = expr(missing_arg()),
-      weight_col = expr(missing_arg()),
-      max_iter = new_empty_quosure(20),
-      family = "binomial"
-    )
-  )
 
   # For issue #431
   with_path <-

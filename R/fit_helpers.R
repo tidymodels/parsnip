@@ -201,9 +201,12 @@ xy_form <- function(object, env, control, ...) {
 }
 
 
-weights_to_numeric <- function(x) {
+weights_to_numeric <- function(x, spec) {
   if (is.null(x)) {
     return(NULL)
+  } else if (spec$engine == "spark") {
+    # Spark wants a column name
+    return(x)
   }
 
   to_int <- c("hardhat_frequency_weights")

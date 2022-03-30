@@ -388,7 +388,7 @@ stan_conf_int <- function(object, newdata) {
 
 
 check_case_weights <- function(x, spec) {
-  if (is.null(x)) {
+  if (is.null(x) | spec$engine == "spark") {
     return(invisible(NULL))
   }
   if (!hardhat::is_case_weights(x)) {

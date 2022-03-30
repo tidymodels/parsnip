@@ -133,8 +133,8 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    data = c(formula = "formula", data = "x"),
-    protect = c("x", "formula", "weight_col"),
+    data = c(formula = "formula", data = "x", weights = "weight_col"),
+    protect = c("x", "formula", "weights"),
     func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
     defaults = list(family = "multinomial")
   )
