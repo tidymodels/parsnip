@@ -68,6 +68,7 @@ reference:
       - autoplot.model_fit
       - add_rowindex
       - augment.model_fit
+      - case_weights
       - descriptors
       - extract-parsnip
       - fit.model_spec
