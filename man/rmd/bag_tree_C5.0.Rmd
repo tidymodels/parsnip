@@ -41,6 +41,11 @@ bag_tree(min_n = integer()) %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 
 ## References
 

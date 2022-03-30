@@ -48,6 +48,13 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet) for `multinom_reg()` with the `"nnet"` engine.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## References
 
  - Luraschi, J, K Kuo, and E Ruiz. 2019. _Mastering nnet with R_. O'Reilly Media

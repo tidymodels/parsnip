@@ -145,11 +145,9 @@ However, the p-values for the fixed effects are different:\if{html}{\out{<div cl
 lme_fit \%>\% tidy() \%>\% 
   dplyr::filter(group == "fixed") \%>\% 
   dplyr::select(-group, -effect)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 6
-##   term        estimate std.error    df statistic  p.value
-##   <chr>          <dbl>     <dbl> <dbl>     <dbl>    <dbl>
-## 1 (Intercept)    -4.95     0.808   183     -6.13 5.37e- 9
-## 2 week           -2.12     0.224   183     -9.47 1.41e-17
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 0 × 6
+## # … with 6 variables: term <chr>, estimate <dbl>, std.error <dbl>, df <dbl>,
+## #   statistic <dbl>, p.value <dbl>
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
 gls_fit \%>\% tidy()
 }\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 5

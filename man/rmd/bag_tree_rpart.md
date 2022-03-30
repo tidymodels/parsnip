@@ -107,7 +107,8 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ## 
 ## Model fit template:
 ## ipred::bagging(formula = missing_arg(), data = missing_arg(), 
-##     cp = double(1), maxdepth = integer(1), minsplit = integer(1))
+##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
+##     minsplit = integer(1))
 ```
 
 

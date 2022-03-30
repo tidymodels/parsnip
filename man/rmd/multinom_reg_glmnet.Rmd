@@ -47,6 +47,11 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-glmnet) for `multinom_reg()` with the `"glmnet"` engine.
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - Hastie, T, R Tibshirani, and M Wainwright. 2015. _Statistical Learning with Sparsity_. CRC Press.

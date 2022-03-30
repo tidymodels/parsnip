@@ -40,7 +40,7 @@ boost_tree() \%>\%
 ## 
 ## Model fit template:
 ## censored::blackboost_train(formula = missing_arg(), data = missing_arg(), 
-##     family = mboost::CoxPH())
+##     weights = missing_arg(), family = mboost::CoxPH())
 }
 
 \code{censored::blackboost_train()} is a wrapper around

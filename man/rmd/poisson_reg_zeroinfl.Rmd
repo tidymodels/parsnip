@@ -57,3 +57,8 @@ workflow() %>%
 ```
 
 The reason for this is that [workflows::add_formula()] will try to create the model matrix and either fail or create dummy variables prematurely. 
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```

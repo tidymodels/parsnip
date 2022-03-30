@@ -38,8 +38,8 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), svr_eps = double(1), type = 11)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     svr_eps = double(1), type = 11)
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -63,8 +63,8 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), type = 1)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     type = 1)
 ```
 
 The `margin` parameter does not apply to classification models. 

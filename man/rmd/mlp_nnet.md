@@ -90,6 +90,13 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet) for `mlp()` with the `"nnet"` engine.

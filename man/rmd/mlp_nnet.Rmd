@@ -62,6 +62,11 @@ mlp(
 ```{r child = "template-same-scale.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet) for `mlp()` with the `"nnet"` engine.

@@ -44,6 +44,11 @@ multinom_reg(penalty = double(1)) %>%
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet) for `multinom_reg()` with the `"nnet"` engine.
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - Luraschi, J, K Kuo, and E Ruiz. 2019. _Mastering nnet with R_. O'Reilly Media

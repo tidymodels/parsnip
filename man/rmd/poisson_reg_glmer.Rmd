@@ -58,6 +58,11 @@ glmer_wflow <-
 fit(glmer_wflow, data = longitudinal_counts)
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - 	J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY

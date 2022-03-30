@@ -27,7 +27,7 @@ linear_reg() %>%
 ## Computational engine: lmer 
 ## 
 ## Model fit template:
-## lme4::lmer(formula = missing_arg(), data = missing_arg())
+## lme4::lmer(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
 
 
@@ -88,6 +88,13 @@ lmer_wflow <-
 
 fit(lmer_wflow, data = riesby)
 ```
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## References
 

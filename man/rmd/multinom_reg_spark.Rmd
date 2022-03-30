@@ -41,7 +41,16 @@ multinom_reg(penalty = double(1), mixture = double(1)) %>%
 
 ```{r child = "template-same-scale.Rmd"}
 ```
+
 By default, `ml_multinom_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
+Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
+
 
 ## Other details
 

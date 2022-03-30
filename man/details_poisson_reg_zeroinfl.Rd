@@ -107,5 +107,15 @@ The reason for this is that
 create the model matrix and either fail or create dummy variables
 prematurely.
 }
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
 }
 \keyword{internal}

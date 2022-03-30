@@ -55,6 +55,16 @@ The “Fitting and Predicting with parsnip” article contains
 for \code{multinom_reg()} with the \code{"nnet"} engine.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering nnet with R}.

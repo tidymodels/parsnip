@@ -103,6 +103,13 @@ fit(glmer_wflow, data = longitudinal_counts)
 
 For prediction, the `"stan_glmer"` engine can compute posterior intervals analogous to confidence and prediction intervals. In these instances, the units are the original outcome. When  `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as  appropriate) is returned.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## References
 
  - McElreath, R. 2020 _Statistical Rethinking_. CRC Press.
