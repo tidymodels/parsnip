@@ -45,6 +45,7 @@ reference:
       - discrim_quad
       - discrim_regularized
       - gen_additive_mod
+      - glm_grouped
       - linear_reg
       - logistic_reg
       - mars
