@@ -28,7 +28,7 @@ proportional_hazards() %>%
 ## 
 ## Model fit template:
 ## survival::coxph(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), x = TRUE, model = TRUE)
+##     x = TRUE, model = TRUE)
 ```
 
 ## Other details

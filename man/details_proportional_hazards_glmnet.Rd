@@ -42,7 +42,7 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 ## 
 ## Model fit template:
 ## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
-##     family = missing_arg(), weights = missing_arg(), alpha = double(1))
+##     family = missing_arg(), alpha = double(1))
 }
 }
 
@@ -82,14 +82,18 @@ mod <-
   proportional_hazards(penalty = 0.01) \%>\% 
   set_engine("glmnet", nlambda = 5) \%>\% 
   fit(Surv(futime, fustat) ~ age + ecog.ps + strata(rx), data = ovarian)
-}\if{html}{\out{</div>}}\preformatted{## Error in glmnet::glmnet(data_obj$x, data_obj$y, family = "cox", alpha = alpha, : formal argument "family" matched by multiple actual arguments
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{pred_data <- data.frame(age = c(50, 50), ecog.ps = c(1, 1), rx = c(1, 2))
+
+pred_data <- data.frame(age = c(50, 50), ecog.ps = c(1, 1), rx = c(1, 2))
 
 # Different survival probabilities for different values of 'rx'
 predict(mod, pred_data, type = "survival", time = 500) \%>\% 
   bind_cols(pred_data) \%>\% 
   unnest(.pred)
-}\if{html}{\out{</div>}}\preformatted{## Error in predict(mod, pred_data, type = "survival", time = 500): object 'mod' not found
+}\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 5
+##   .time .pred_survival   age ecog.ps    rx
+##   <dbl>          <dbl> <dbl>   <dbl> <dbl>
+## 1   500          0.666    50       1     1
+## 2   500          0.769    50       1     2
 }
 
 Note that columns used in the \code{strata()} function \emph{will} also be
@@ -115,15 +119,6 @@ value produced by the \code{predict()} method in the engine package.
 
 This behavior can be changed by using the \code{increasing} argument when
 calling \code{predict()} on a model object.
-\subsection{Case weights}{
-
-This model can utilize case weights during model fitting. To use them,
-see the documentation in \link{case_weights} and the examples
-on \code{tidymodels.org}.
-
-The \code{fit()} and \code{fit_xy()} arguments have arguments called
-\code{case_weights} that expect vectors of case weights.
-}
 }
 
 \section{References}{

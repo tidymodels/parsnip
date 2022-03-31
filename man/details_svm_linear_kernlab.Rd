@@ -81,6 +81,11 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains

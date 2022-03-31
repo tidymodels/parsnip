@@ -88,6 +88,11 @@ These differences will create a disparity in the values of the `penalty` argumen
 ```{r child = "template-makes-dummies.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - Friedman and Popescu. "Predictive learning via rule ensembles." Ann. Appl. Stat. 2 (3) 916- 954, September 2008

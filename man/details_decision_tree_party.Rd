@@ -45,8 +45,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\%
 ## 
 ## Model fit template:
 ## censored::cond_inference_surv_ctree(formula = missing_arg(), 
-##     data = missing_arg(), weights = missing_arg(), maxdepth = integer(1), 
-##     minsplit = min_rows(0L, data))
+##     data = missing_arg(), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
 }
 
 \code{censored::cond_inference_surv_ctree()} is a wrapper around

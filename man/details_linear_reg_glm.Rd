@@ -63,7 +63,14 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 
 \emph{However}, the documentation in \code{\link[stats:glm]{stats::glm()}} assumes
-that is specific type of case weights are being used:Non-NULL weights can be used to indicate that different observationshave different dispersions (with the values in weights being inverselyproportional to the dispersions); or equivalently, when the elementsof weights are positive integers w_i, that each response y_i isthe mean of w_i unit-weight observations. For a binomial GLM priorweights are used to give the number of trials when the response is theproportion of successes: they would rarely be used for a Poisson GLM.
+that is specific type of case weights are being used:“Non-NULL weights
+can be used to indicate that different observations have different
+dispersions (with the values in weights being inversely proportional to
+the dispersions); or equivalently, when the elements of weights are
+positive integers \code{w_i}, that each response \code{y_i} is the mean of \code{w_i}
+unit-weight observations. For a binomial GLM prior weights are used to
+give the number of trials when the response is the proportion of
+successes: they would rarely be used for a Poisson GLM.”
 }
 
 \subsection{Examples}{

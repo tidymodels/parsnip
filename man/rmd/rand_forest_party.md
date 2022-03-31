@@ -36,7 +36,7 @@ rand_forest() %>%
 ## 
 ## Model fit template:
 ## censored::cond_inference_surv_cforest(formula = missing_arg(), 
-##     data = missing_arg(), weights = missing_arg())
+##     data = missing_arg())
 ```
 
 `censored::cond_inference_surv_cforest()` is a wrapper around [party::cforest()] (and other functions) that makes it easier to run this model. 

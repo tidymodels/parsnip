@@ -62,7 +62,7 @@ fit(lme_wflow, data = riesby)
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r child = "template-no-case-weights.Rmd"}
 ```
 
 ## References

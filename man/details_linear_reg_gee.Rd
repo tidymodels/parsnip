@@ -90,6 +90,11 @@ to \code{glm()} is needed to get the rank and QR decomposition objects so
 that \code{predict()} can be used.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using

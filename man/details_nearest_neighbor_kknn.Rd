@@ -88,6 +88,11 @@ The “Fitting and Predicting with parsnip” article contains
 for \code{nearest_neighbor()} with the \code{"kknn"} engine.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Hechenbichler K. and Schliep K.P. (2004) \href{https://epub.ub.uni-muenchen.de/1769/}{Weighted k-Nearest-Neighbor Techniques and Ordinal Classification}, Discussion

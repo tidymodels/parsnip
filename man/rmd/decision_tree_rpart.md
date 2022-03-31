@@ -99,8 +99,8 @@ decision_tree(
 ## 
 ## Model fit template:
 ## pec::pecRpart(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
-##     minsplit = min_rows(0L, data))
+##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
 ```
 
 ## Preprocessing requirements
