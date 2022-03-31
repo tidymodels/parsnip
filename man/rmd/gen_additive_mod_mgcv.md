@@ -100,6 +100,13 @@ The smoothness of the terms will need to be manually specified (e.g., using `s(x
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## References
 
  - Ross, W. 2021. [_Generalized Additive Models in R: A Free, Interactive Course using mgcv_](https://noamross.github.io/gams-in-r-course/)
