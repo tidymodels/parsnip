@@ -71,8 +71,6 @@ This package is available via the Bioconductor repository and is not accessible 
   remotes::install_bioc("mixOmics")
 ```
 
-
-
 ## Preprocessing requirements
 
 ```{r child = "template-makes-dummies.Rmd"}
@@ -82,6 +80,11 @@ This package is available via the Bioconductor repository and is not accessible 
 ```
 
 ```{r child = "template-same-scale.Rmd"}
+```
+
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
 ```
 
 ## References

@@ -49,6 +49,11 @@ discrim_linear(regularization_method = character(0)) %>%
 ```{r child = "template-zv.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
 
