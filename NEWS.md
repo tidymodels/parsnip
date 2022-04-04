@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `xgb_train()` now allows for case weights 
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
