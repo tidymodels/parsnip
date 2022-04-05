@@ -6,10 +6,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 # ------------------------------------------------------------------------------
 
-context("descriptor variables")
-
-# ------------------------------------------------------------------------------
-
 template <- function(col, pred, ob, lev, fact, dat, x, y) {
   lst <- list(.cols = col, .preds = pred, .obs = ob,
               .lvls = lev, .facts = fact, .dat = dat,
@@ -33,7 +29,7 @@ class_tab <- table(hpc$class, dnn = NULL)
 
 # ------------------------------------------------------------------------------
 
-context("Should descriptors be created?")
+# Should descriptors be created?
 
 test_that("requires_descrs", {
 
@@ -82,7 +78,7 @@ test_that("requires_descrs", {
 
 # ------------------------------------------------------------------------------
 
-context("Testing formula -> xy conversion")
+# Testing formula -> xy conversion
 
 test_that("numeric y and dummy vars", {
   expect_equal(
@@ -156,7 +152,7 @@ test_that("weird cases", {
 
 # ------------------------------------------------------------------------------
 
-context("Testing xy -> formula conversion")
+# Testing xy -> formula conversion
 
 test_that("numeric y and dummy vars", {
   hpc2 <- dplyr::rename(hpc, ..y = class)
@@ -182,7 +178,7 @@ test_that("numeric y and dummy vars", {
 
 # ------------------------------------------------------------------------------
 
-context("Descriptor helpers")
+# Descriptor helpers
 
 test_that("can be temporarily overriden at evaluation time", {
 

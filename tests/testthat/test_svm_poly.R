@@ -5,7 +5,6 @@ library(tibble)
 
 # ------------------------------------------------------------------------------
 
-context("RBF SVM")
 source(test_path("helpers.R"))
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]

@@ -1,5 +1,4 @@
 library(testthat)
-context("fit interfaces")
 library(parsnip)
 library(rlang)
 

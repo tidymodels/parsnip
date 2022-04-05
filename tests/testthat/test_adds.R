@@ -2,7 +2,6 @@ library(dplyr)
 
 # ------------------------------------------------------------------------------
 
-context("adding functions")
 source("helpers.R")
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]

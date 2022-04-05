@@ -4,7 +4,6 @@ library(rlang)
 
 # ------------------------------------------------------------------------------
 
-context("multinom regression")
 source("helpers.R")
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]

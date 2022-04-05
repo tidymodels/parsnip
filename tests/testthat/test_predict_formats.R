@@ -8,7 +8,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-context("check predict output structures")
 
 lm_fit <-
   linear_reg(mode = "regression") %>%

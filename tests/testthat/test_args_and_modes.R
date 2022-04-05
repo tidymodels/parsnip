@@ -3,7 +3,6 @@ library(parsnip)
 library(dplyr)
 library(rlang)
 
-context("changing arguments and engine")
 
 test_that('pipe arguments', {
   mod_1 <- rand_forest() %>%

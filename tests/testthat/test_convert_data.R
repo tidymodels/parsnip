@@ -1,5 +1,4 @@
 library(testthat)
-context("data conversion")
 library(parsnip)
 
 source(test_path("helper-objects.R"))
@@ -21,8 +20,7 @@ Puromycin_miss$conc[1] <- NA
 
 # ------------------------------------------------------------------------------
 
-context("Testing formula -> xy conversion")
-
+# Testing formula -> xy conversion
 test_that("numeric x and y", {
   expected <- lm(mpg ~ ., data = mtcars, x = TRUE, y = TRUE)
   observed <-
@@ -445,8 +443,7 @@ test_that("global `contrasts` option is respected", {
 
 # ------------------------------------------------------------------------------
 
-context("Testing xy -> formula conversion")
-
+# Testing xy -> formula conversion
 test_that("data frame x, vector y", {
   observed <-
     .convert_xy_to_form_fit(mtcars[, -1], mtcars$mpg, remove_intercept = TRUE)

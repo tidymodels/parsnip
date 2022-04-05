@@ -5,7 +5,6 @@ library(testthat)
 
 # ------------------------------------------------------------------------------
 
-context("model registration")
 #source("helpers.R")
 
 # There's currently an issue comparing tibbles so we do it col-by-col

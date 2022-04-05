@@ -3,8 +3,6 @@ library(parsnip)
 library(rlang)
 library(dplyr)
 
-context("varying parameters")
-
 test_that('main parsnip arguments', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 

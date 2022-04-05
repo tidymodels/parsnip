@@ -1,8 +1,7 @@
 
 # ------------------------------------------------------------------------------
 
-context("checking for multi_predict")
-
+# checking for multi_predict
 source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
@@ -41,8 +40,7 @@ test_that('other objects', {
 
 # ------------------------------------------------------------------------------
 
-context("getting y names from terms")
-
+# getting y names from terms
 test_that('getting y names from terms', {
 
   expect_equal(
