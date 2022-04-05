@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Added `ctree_train()` and `cforest_train()` wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.  
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).

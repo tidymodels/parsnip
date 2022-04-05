@@ -87,6 +87,7 @@ reference:
       - tidy.model_fit
       - translate
       - starts_with("update")
+      - matches("_train")
 
   - title: Developer tools
     contents:
