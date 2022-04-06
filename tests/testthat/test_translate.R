@@ -1,3 +1,5 @@
+# a helper express the idiom of translating, subsetting out the
+# generated args, and snapshotting them
 expect_snapshot_args <- function(x, ...) {
   x %>%
     translate() %>%
@@ -5,7 +7,19 @@ expect_snapshot_args <- function(x, ...) {
     expect_snapshot(...)
 }
 
-test_that("primary arguments are translated correctly (linear_reg)", {
+# in order of `methods("translate")`, testing 1) primary arguments,
+# 2) method- and engine-specific arguments, and 3) updates
+
+# translate.boost_tree ---------------------------------------------------------
+
+# translate.decision_tree ------------------------------------------------------
+
+# translate.default ------------------------------------------------------------
+
+# translate.gen_additive_mod ---------------------------------------------------
+
+# translate.linear_reg ---------------------------------------------------------
+test_that("primary arguments (linear_reg)", {
   basic <- linear_reg()
   mixture <- linear_reg(mixture = 0.128)
   mixture_v <- linear_reg(mixture = tune())
@@ -25,7 +39,33 @@ test_that("primary arguments are translated correctly (linear_reg)", {
   expect_snapshot_args(penalty %>% set_engine("spark"))
 })
 
-test_that("primary arguments are translated correctly (rand_forest)", {
+# translate.logistic_reg -------------------------------------------------------
+
+# translate.mars ---------------------------------------------------------------
+
+# translate.mlp ----------------------------------------------------------------
+
+# translate.multinom_reg -------------------------------------------------------
+
+# translate.nearest_neighbor ---------------------------------------------------
+test_that("primary arguments (nearest_neighbor)", {
+  basic <- nearest_neighbor(mode = "regression")
+  neighbors <- nearest_neighbor(mode = "classification", neighbors = 2)
+  weight_func <- nearest_neighbor(mode = "classification", weight_func = "triangular")
+  dist_power <- nearest_neighbor(mode = "classification", dist_power = 2)
+
+  expect_snapshot_args(basic %>% set_engine("kknn"))
+  expect_snapshot_args(neighbors %>% set_engine("kknn"))
+  expect_snapshot_args(weight_func %>% set_engine("kknn"))
+  expect_snapshot_args(dist_power %>% set_engine("kknn"))
+})
+
+# translate.poisson_reg --------------------------------------------------------
+
+# translate.proportional_hazards -----------------------------------------------
+
+# translate.rand_forest
+test_that("primary arguments (rand_forest)", {
   mtry <- rand_forest(mode = "regression", mtry = 4)
   trees <- rand_forest(mode = "classification", trees = 1000)
   min_n <- rand_forest(mode = "regression", min_n = 5)
@@ -43,23 +83,18 @@ test_that("primary arguments are translated correctly (rand_forest)", {
   expect_snapshot_args(min_n %>% set_engine("spark"))
 })
 
-test_that("primary arguments are translated correctly (nearest_neighbor)", {
-  basic <- nearest_neighbor(mode = "regression")
-  neighbors <- nearest_neighbor(mode = "classification", neighbors = 2)
-  weight_func <- nearest_neighbor(mode = "classification", weight_func = "triangular")
-  dist_power <- nearest_neighbor(mode = "classification", dist_power = 2)
+# translate.surv_reg -----------------------------------------------------------
 
-  expect_snapshot_args(basic %>% set_engine("kknn"))
-  expect_snapshot_args(neighbors %>% set_engine("kknn"))
-  expect_snapshot_args(weight_func %>% set_engine("kknn"))
-  expect_snapshot_args(dist_power %>% set_engine("kknn"))
-})
+# translate.survival_reg -------------------------------------------------------
 
-test_that("translate prompts on bad input", {
-  expect_true(TRUE)
-})
+# translate.svm_linear ---------------------------------------------------------
 
-test_that("translate handles method-specific exceptions", {
-  expect_true(TRUE)
-})
+# translate.svm_poly -----------------------------------------------------------
+
+# translate.svm_rbf ------------------------------------------------------------
+
+
+
+
+
 
