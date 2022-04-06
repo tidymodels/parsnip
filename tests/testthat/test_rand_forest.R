@@ -39,7 +39,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
-                 num.trees = new_empty_quosure(1000),
+                 num.trees = quo(1000),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = expr(sample.int(10^5, 1)),
@@ -50,7 +50,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 ntree = new_empty_quosure(1000)
+                 ntree = quo(1000)
                )
   )
   expect_equal(trees_spark$method$fit$args,
@@ -58,7 +58,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  type = "classification",
-                 num_trees = new_empty_quosure(1000),
+                 num_trees = quo(1000),
                  seed = expr(sample.int(10^5, 1))
                )
   )
@@ -103,7 +103,7 @@ test_that('engine arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  case.weights = expr(missing_arg()),
-                 importance = new_empty_quosure("impurity"),
+                 importance = quo("impurity"),
                  num.threads = 1,
                  verbose = FALSE,
                  seed = expr(sample.int(10^5, 1)),
@@ -116,7 +116,7 @@ test_that('engine arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 norm.votes = new_empty_quosure(FALSE)
+                 norm.votes = quo(FALSE)
                )
   )
 
@@ -126,7 +126,7 @@ test_that('engine arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  type = "regression",
-                 min_info_gain = new_empty_quosure(2),
+                 min_info_gain = quo(2),
                  seed = expr(sample.int(10^5, 1))
                )
   )

@@ -55,7 +55,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(0.128)
+                 elastic_net_param = quo(0.128)
                )
   )
 
@@ -75,7 +75,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1)
+                 reg_param = quo(1)
                )
   )
 
@@ -90,7 +90,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(tune())
+                 elastic_net_param = quo(tune())
                )
   )
 
@@ -103,7 +103,7 @@ test_that('engine arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 model = new_empty_quosure(FALSE)
+                 model = quo(FALSE)
                )
   )
 
@@ -113,7 +113,7 @@ test_that('engine arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 family = new_empty_quosure("quasipoisson")
+                 family = quo("quasipoisson")
                )
   )
 
@@ -123,7 +123,7 @@ test_that('engine arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 nlambda = new_empty_quosure(10),
+                 nlambda = quo(10),
                  family = "gaussian"
                )
   )
@@ -134,8 +134,8 @@ test_that('engine arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 chains = new_empty_quosure(1),
-                 iter = new_empty_quosure(5),
+                 chains = quo(1),
+                 iter = quo(5),
                  family = expr(stats::gaussian),
                  refresh = 0
                )
@@ -147,7 +147,7 @@ test_that('engine arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 max_iter = new_empty_quosure(20)
+                 max_iter = quo(20)
                )
   )
 

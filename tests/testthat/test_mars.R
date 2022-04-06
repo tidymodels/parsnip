@@ -21,7 +21,7 @@ test_that('primary arguments', {
                  formula = rlang::expr(missing_arg()),
                  data = rlang::expr(missing_arg()),
                  weights = rlang::expr(missing_arg()),
-                 nprune = new_empty_quosure(4),
+                 nprune = quo(4),
                  glm = rlang::quo(list(family = stats::binomial)),
                  keepxy = TRUE
                )
@@ -34,7 +34,7 @@ test_that('primary arguments', {
                  formula = rlang::expr(missing_arg()),
                  data = rlang::expr(missing_arg()),
                  weights = rlang::expr(missing_arg()),
-                 degree = new_empty_quosure(1),
+                 degree = quo(1),
                  keepxy = TRUE
                )
   )
@@ -46,7 +46,7 @@ test_that('primary arguments', {
                  formula = rlang::expr(missing_arg()),
                  data = rlang::expr(missing_arg()),
                  weights = rlang::expr(missing_arg()),
-                 pmethod = new_empty_quosure(tune()),
+                 pmethod = quo(tune()),
                  keepxy = TRUE
                )
   )
@@ -59,7 +59,7 @@ test_that('engine arguments', {
                  formula = rlang::expr(missing_arg()),
                  data = rlang::expr(missing_arg()),
                  weights = rlang::expr(missing_arg()),
-                 keepxy = new_empty_quosure(FALSE)
+                 keepxy = quo(FALSE)
                )
   )
 })

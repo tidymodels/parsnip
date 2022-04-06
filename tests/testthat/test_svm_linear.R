@@ -40,7 +40,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       wi = expr(missing_arg()),
-      type = new_empty_quosure(12),
+      type = quo(12),
       svr_eps = 0.1
     )
   )
@@ -50,7 +50,7 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       data = expr(missing_arg()),
-      cross = new_empty_quosure(10),
+      cross = quo(10),
       kernel = "vanilladot"
     )
   )

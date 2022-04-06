@@ -36,14 +36,14 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 trials = new_empty_quosure(15)
+                 trials = quo(15)
                )
   )
   expect_equal(trees_xgboost$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 nrounds = new_empty_quosure(15),
+                 nrounds = quo(15),
                  nthread = 1,
                  verbose = 0
                )
@@ -57,14 +57,14 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 minCases = new_empty_quosure(15)
+                 minCases = quo(15)
                )
   )
   expect_equal(split_num_xgboost$method$fit$args,
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 min_child_weight = new_empty_quosure(15),
+                 min_child_weight = quo(15),
                  nthread = 1,
                  verbose = 0
                )
@@ -81,7 +81,7 @@ test_that('engine arguments', {
     list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      print_every_n = new_empty_quosure(10L),
+      print_every_n = quo(10L),
       nthread = 1,
       verbose = 0
     )
@@ -95,7 +95,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       weights = expr(missing_arg()),
-      rules = new_empty_quosure(TRUE)
+      rules = quo(TRUE)
     )
   )
 

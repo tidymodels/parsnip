@@ -65,7 +65,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(0.128),
+                 elastic_net_param = quo(0.128),
                  family = "binomial"
                )
   )
@@ -87,7 +87,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  wi = expr(missing_arg()),
-                 cost = new_empty_quosure(1),
+                 cost = quo(1),
                  verbose = FALSE
                )
   )
@@ -96,7 +96,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1),
+                 reg_param = quo(1),
                  family = "binomial"
                )
   )
@@ -113,7 +113,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  wi = expr(missing_arg()),
-                 type = new_empty_quosure(tune()),
+                 type = quo(tune()),
                  verbose = FALSE
                )
   )
@@ -122,7 +122,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(tune()),
+                 elastic_net_param = quo(tune()),
                  family = "binomial"
                )
   )
@@ -144,7 +144,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  wi = expr(missing_arg()),
-                 cost = new_empty_quosure(1),
+                 cost = quo(1),
                  verbose = FALSE
                )
   )
@@ -153,7 +153,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  formula = expr(missing_arg()),
                  weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1),
+                 reg_param = quo(1),
                  family = "binomial"
                )
   )
@@ -170,7 +170,7 @@ test_that('engine arguments', {
         formula = expr(missing_arg()),
         data = expr(missing_arg()),
         weights = expr(missing_arg()),
-        family = new_empty_quosure(expr(binomial(link = "probit")))
+        family = quo(expr(binomial(link = "probit")))
       )
     )
 
@@ -181,7 +181,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       weights = expr(missing_arg()),
-      nlambda = new_empty_quosure(10),
+      nlambda = quo(10),
       family = "binomial"
     )
   )
@@ -193,7 +193,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       wi = expr(missing_arg()),
-      bias = new_empty_quosure(0),
+      bias = quo(0),
       verbose = FALSE
     )
   )
@@ -206,8 +206,8 @@ test_that('engine arguments', {
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
       weights = expr(missing_arg()),
-      chains = new_empty_quosure(1),
-      iter = new_empty_quosure(5),
+      chains = quo(1),
+      iter = quo(5),
       family = expr(stats::binomial),
       refresh = 0
     )
@@ -220,7 +220,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       formula = expr(missing_arg()),
       weight_col = expr(missing_arg()),
-      max_iter = new_empty_quosure(20),
+      max_iter = quo(20),
       family = "binomial"
     )
   )

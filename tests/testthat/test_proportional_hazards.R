@@ -1,28 +1,24 @@
 
 test_that("primary arguments", {
-  new_empty_quosure <- function(expr) {
-    rlang::new_quosure(expr, env = rlang::empty_env())
-  }
-
   ph_penalty <- proportional_hazards(penalty = 0.05)
   expect_equal(
     ph_penalty$args,
-    list(penalty = new_empty_quosure(0.05),
-         mixture = new_empty_quosure(NULL))
+    list(penalty = quo(0.05),
+         mixture = quo(NULL))
   )
 
   ph_mixture <- proportional_hazards(mixture = 0.34)
   expect_equal(
     ph_mixture$args,
-    list(penalty = new_empty_quosure(NULL),
-         mixture = new_empty_quosure(0.34))
+    list(penalty = quo(NULL),
+         mixture = quo(0.34))
   )
 
   ph_mixture_v <- proportional_hazards(mixture = tune())
   expect_equal(
     ph_mixture_v$args,
-    list(penalty = new_empty_quosure(NULL),
-         mixture = new_empty_quosure(tune()))
+    list(penalty = quo(NULL),
+         mixture = quo(tune()))
   )
 })
 
@@ -34,17 +30,13 @@ test_that("printing", {
 })
 
 test_that("updating", {
-  new_empty_quosure <- function(expr) {
-    rlang::new_quosure(expr, env = rlang::empty_env())
-  }
-
   basic <- proportional_hazards()
 
   update_num <- update(basic, penalty = 0.05)
   expect_equal(
     update_num$args,
-    list(penalty = new_empty_quosure(0.05),
-         mixture = new_empty_quosure(NULL))
+    list(penalty = quo(0.05),
+         mixture = quo(NULL))
   )
 
   param_tibb <- tibble::tibble(penalty = 0.05)
@@ -52,7 +44,7 @@ test_that("updating", {
   expect_equal(
     update_tibb$args,
     list(penalty = 0.05,
-         mixture = new_empty_quosure(NULL))
+         mixture = quo(NULL))
   )
 
   param_list <- as.list(param_tibb)
@@ -60,7 +52,7 @@ test_that("updating", {
   expect_equal(
     update_list$args,
     list(penalty = 0.05,
-         mixture = new_empty_quosure(NULL))
+         mixture = quo(NULL))
   )
 })
 

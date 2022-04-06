@@ -18,7 +18,7 @@ test_that('primary arguments', {
   rbf_sigma <- svm_rbf(mode = "regression", rbf_sigma = .2)
   rbf_sigma_kernlab <- translate(rbf_sigma %>% set_engine("kernlab"))
   rbf_sigma_obj <- expr(list())
-  rbf_sigma_obj$sigma <- new_empty_quosure(.2)
+  rbf_sigma_obj$sigma <- quo(.2)
 
   expect_equal(
     object = rbf_sigma_kernlab$method$fit$args,
@@ -41,7 +41,7 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       data = expr(missing_arg()),
-      cross = new_empty_quosure(10),
+      cross = quo(10),
       kernel = "rbfdot"
     )
   )

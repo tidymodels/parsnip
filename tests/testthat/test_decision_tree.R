@@ -29,7 +29,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 cp = new_empty_quosure(15)
+                 cp = quo(15)
                )
   )
 
@@ -41,7 +41,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 minCases = new_empty_quosure(15),
+                 minCases = quo(15),
                  trials = 1
                )
   )
@@ -66,7 +66,7 @@ test_that('engine arguments', {
       formula = expr(missing_arg()),
       data = expr(missing_arg()),
       weights = expr(missing_arg()),
-      model = new_empty_quosure(TRUE)
+      model = quo(TRUE)
     )
   )
 
@@ -78,7 +78,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       weights = expr(missing_arg()),
-      rules = new_empty_quosure(TRUE),
+      rules = quo(TRUE),
       trials = 1
     )
   )

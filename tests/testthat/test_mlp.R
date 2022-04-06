@@ -7,7 +7,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 size = new_empty_quosure(4),
+                 size = quo(4),
                  trace = FALSE,
                  linout = TRUE
                )
@@ -16,7 +16,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 hidden_units = new_empty_quosure(4)
+                 hidden_units = quo(4)
                )
   )
 
@@ -36,7 +36,7 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 hidden_units = new_empty_quosure(4)
+                 hidden_units = quo(4)
                )
   )
 
@@ -53,9 +53,9 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 size = new_empty_quosure(4),
-                 decay = new_empty_quosure(1e-04),
-                 maxit = new_empty_quosure(2),
+                 size = quo(4),
+                 decay = quo(1e-04),
+                 maxit = quo(2),
                  trace = FALSE,
                  linout = FALSE
                )
@@ -64,11 +64,11 @@ test_that('primary arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 hidden_units = new_empty_quosure(4),
-                 penalty = new_empty_quosure(1e-04),
-                 dropout = new_empty_quosure(0),
-                 epochs = new_empty_quosure(2),
-                 activation = new_empty_quosure("softmax")
+                 hidden_units = quo(4),
+                 penalty = quo(1e-04),
+                 dropout = quo(0),
+                 epochs = quo(2),
+                 activation = quo("softmax")
                )
   )
 
@@ -82,7 +82,7 @@ test_that('engine arguments', {
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  size = 5,
-                 Hess = new_empty_quosure(TRUE),
+                 Hess = quo(TRUE),
                  trace = FALSE,
                  linout = FALSE
                )
@@ -93,7 +93,7 @@ test_that('engine arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 validation_split = new_empty_quosure(0.2)
+                 validation_split = quo(0.2)
                )
   )
 
@@ -105,7 +105,7 @@ test_that('engine arguments', {
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
                  size = 5,
-                 abstol = new_empty_quosure(tune()),
+                 abstol = quo(tune()),
                  trace = FALSE,
                  linout = TRUE
                )

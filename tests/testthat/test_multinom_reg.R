@@ -15,7 +15,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(0.128),
+                 alpha = quo(0.128),
                  family = "multinomial"
                )
   )
@@ -38,7 +38,7 @@ test_that('primary arguments', {
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(tune()),
+                 alpha = quo(tune()),
                  family = "multinomial"
                )
   )
@@ -53,7 +53,7 @@ test_that('engine arguments', {
       x = expr(missing_arg()),
       y = expr(missing_arg()),
       weights = expr(missing_arg()),
-      nlambda = new_empty_quosure(10),
+      nlambda = quo(10),
       family = "multinomial"
     )
   )

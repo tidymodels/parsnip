@@ -18,7 +18,7 @@ test_that('primary arguments', {
   degree <- svm_poly(mode = "regression", degree = 2)
   degree_kernlab <- translate(degree %>% set_engine("kernlab"))
   degree_obj <- expr(list())
-  degree_obj$degree <- new_empty_quosure(2)
+  degree_obj$degree <- quo(2)
 
   expect_equal(
     object = degree_kernlab$method$fit$args,
@@ -33,8 +33,8 @@ test_that('primary arguments', {
   degree_scale <- svm_poly(mode = "regression", degree = 2, scale_factor = 1.2)
   degree_scale_kernlab <- translate(degree_scale %>% set_engine("kernlab"))
   degree_scale_obj <- expr(list())
-  degree_scale_obj$degree <- new_empty_quosure(2)
-  degree_scale_obj$scale <- new_empty_quosure(1.2)
+  degree_scale_obj$degree <- quo(2)
+  degree_scale_obj$scale <- quo(1.2)
 
   expect_equal(
     object = degree_scale_kernlab$method$fit$args,
@@ -57,7 +57,7 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       data = expr(missing_arg()),
-      cross = new_empty_quosure(10),
+      cross = quo(10),
       kernel = "polydot"
     )
   )

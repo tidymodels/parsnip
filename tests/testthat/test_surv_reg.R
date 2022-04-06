@@ -19,7 +19,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 dist = new_empty_quosure("lnorm")
+                 dist = quo("lnorm")
                )
   )
 
@@ -30,7 +30,7 @@ test_that('primary arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 dist = new_empty_quosure(tune())
+                 dist = quo(tune())
                )
   )
 })
@@ -44,7 +44,7 @@ test_that('engine arguments', {
                  formula = expr(missing_arg()),
                  data = expr(missing_arg()),
                  weights = expr(missing_arg()),
-                 cl = new_empty_quosure(.99)
+                 cl = quo(.99)
                )
   )
 

@@ -18,7 +18,7 @@ test_that('engine arguments', {
                list(
                  x = expr(missing_arg()),
                  y = expr(missing_arg()),
-                 keepxy = new_empty_quosure(FALSE)
+                 keepxy = quo(FALSE)
                )
   )
 })
