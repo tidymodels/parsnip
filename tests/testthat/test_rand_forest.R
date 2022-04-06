@@ -4,10 +4,6 @@ library(rlang)
 
 # ------------------------------------------------------------------------------
 
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
   mtry_ranger <- translate(mtry %>% set_engine("ranger"))

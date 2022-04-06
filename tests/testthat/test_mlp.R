@@ -4,10 +4,6 @@ library(rlang)
 
 # ------------------------------------------------------------------------------
 
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
 
 test_that('primary arguments', {
   hidden_units <- mlp(mode = "regression", hidden_units = 4)

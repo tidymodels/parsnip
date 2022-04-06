@@ -4,10 +4,6 @@ library(rlang)
 
 # ------------------------------------------------------------------------------
 
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   basic <- nearest_neighbor(mode = "regression")
   basic_kknn <- translate(basic %>% set_engine("kknn"))

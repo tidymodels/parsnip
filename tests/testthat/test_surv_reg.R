@@ -5,10 +5,6 @@ library(survival)
 
 # ------------------------------------------------------------------------------
 
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 

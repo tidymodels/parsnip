@@ -6,8 +6,6 @@ library(tibble)
 
 # ------------------------------------------------------------------------------
 
-source(test_path("helper-objects.R"))
-
 basic_form <- Surv(time, status) ~ age
 complete_form <- Surv(time) ~ age
 

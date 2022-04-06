@@ -3,7 +3,6 @@ library(parsnip)
 
 # ------------------------------------------------------------------------------
 
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- names(hpc)[1:4]

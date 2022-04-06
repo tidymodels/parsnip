@@ -5,8 +5,6 @@ library(testthat)
 
 # ------------------------------------------------------------------------------
 
-#source("helpers.R")
-
 # There's currently an issue comparing tibbles so we do it col-by-col
 test_by_col <- function(a, b) {
   for (i in union(names(a), names(b))) {
