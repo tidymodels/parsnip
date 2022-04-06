@@ -1,27 +1,3 @@
-
-test_that("primary arguments", {
-  ph_penalty <- proportional_hazards(penalty = 0.05)
-  expect_equal(
-    ph_penalty$args,
-    list(penalty = quo(0.05),
-         mixture = quo(NULL))
-  )
-
-  ph_mixture <- proportional_hazards(mixture = 0.34)
-  expect_equal(
-    ph_mixture$args,
-    list(penalty = quo(NULL),
-         mixture = quo(0.34))
-  )
-
-  ph_mixture_v <- proportional_hazards(mixture = tune())
-  expect_equal(
-    ph_mixture_v$args,
-    list(penalty = quo(NULL),
-         mixture = quo(tune()))
-  )
-})
-
 test_that("printing", {
   expect_output(
     print(proportional_hazards()),

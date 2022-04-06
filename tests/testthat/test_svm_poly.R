@@ -2,52 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- svm_poly(mode = "regression")
-  basic_kernlab <- translate(basic %>% set_engine("kernlab"))
-
-  expect_equal(
-    object = basic_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "polydot"
-    )
-  )
-
-  degree <- svm_poly(mode = "regression", degree = 2)
-  degree_kernlab <- translate(degree %>% set_engine("kernlab"))
-  degree_obj <- expr(list())
-  degree_obj$degree <- quo(2)
-
-  expect_equal(
-    object = degree_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "polydot",
-      kpar = degree_obj
-    )
-  )
-
-  degree_scale <- svm_poly(mode = "regression", degree = 2, scale_factor = 1.2)
-  degree_scale_kernlab <- translate(degree_scale %>% set_engine("kernlab"))
-  degree_scale_obj <- expr(list())
-  degree_scale_obj$degree <- quo(2)
-  degree_scale_obj$scale <- quo(1.2)
-
-  expect_equal(
-    object = degree_scale_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "polydot",
-      kpar = degree_scale_obj
-    )
-  )
-
-})
-
 test_that('engine arguments', {
 
   kernlab_cv <- svm_poly(mode = "regression") %>% set_engine("kernlab", cross = 10)

@@ -2,60 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- decision_tree(mode = "classification")
-  basic_rpart <- translate(basic %>% set_engine("rpart"))
-  basic_C5.0 <- translate(basic %>% set_engine("C5.0"))
-  expect_equal(basic_rpart$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg())
-               )
-  )
-  expect_equal(basic_C5.0$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 trials = 1
-               )
-  )
-
-  cost_complexity <- decision_tree(cost_complexity = 15, mode = "classification")
-  cost_complexity_rpart <- translate(cost_complexity %>% set_engine("rpart"))
-  expect_equal(cost_complexity_rpart$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 cp = quo(15)
-               )
-  )
-
-  split_num <- decision_tree(min_n = 15, mode = "classification")
-  split_num_C5.0 <- translate(split_num %>% set_engine("C5.0"))
-  split_num_rpart <- translate(split_num %>% set_engine("rpart"))
-  expect_equal(split_num_C5.0$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 minCases = quo(15),
-                 trials = 1
-               )
-  )
-  expect_equal(split_num_rpart$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 minsplit = expr(min_rows(15, data))
-               )
-  )
-
-})
-
 test_that('engine arguments', {
   rpart_print <- decision_tree(mode = "regression")
   expect_equal(

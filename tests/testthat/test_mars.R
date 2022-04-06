@@ -2,56 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- mars(mode = "regression")
-  basic_mars <- translate(basic %>% set_engine("earth"))
-  expect_equal(basic_mars$method$fit$args,
-               list(
-                 formula = rlang::expr(missing_arg()),
-                 data = rlang::expr(missing_arg()),
-                 weights = rlang::expr(missing_arg()),
-                 keepxy = TRUE
-               )
-  )
-
-  num_terms <- mars(num_terms = 4, mode = "classification")
-  num_terms_mars <- translate(num_terms %>% set_engine("earth"))
-  expect_equal(num_terms_mars$method$fit$args,
-               list(
-                 formula = rlang::expr(missing_arg()),
-                 data = rlang::expr(missing_arg()),
-                 weights = rlang::expr(missing_arg()),
-                 nprune = quo(4),
-                 glm = rlang::quo(list(family = stats::binomial)),
-                 keepxy = TRUE
-               )
-  )
-
-  prod_degree <- mars(prod_degree = 1, mode = "regression")
-  prod_degree_mars <- translate(prod_degree %>% set_engine("earth"))
-  expect_equal(prod_degree_mars$method$fit$args,
-               list(
-                 formula = rlang::expr(missing_arg()),
-                 data = rlang::expr(missing_arg()),
-                 weights = rlang::expr(missing_arg()),
-                 degree = quo(1),
-                 keepxy = TRUE
-               )
-  )
-
-  prune_method_v <- mars(prune_method = tune(), mode = "regression")
-  prune_method_v_mars <- translate(prune_method_v %>% set_engine("earth"))
-  expect_equal(prune_method_v_mars$method$fit$args,
-               list(
-                 formula = rlang::expr(missing_arg()),
-                 data = rlang::expr(missing_arg()),
-                 weights = rlang::expr(missing_arg()),
-                 pmethod = quo(tune()),
-                 keepxy = TRUE
-               )
-  )
-})
-
 test_that('engine arguments', {
   mars_keep <- mars(mode = "regression")
   expect_equal(translate(mars_keep %>% set_engine("earth", keepxy = FALSE))$method$fit$args,

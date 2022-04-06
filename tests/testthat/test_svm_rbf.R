@@ -2,36 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- svm_rbf(mode = "regression")
-  basic_kernlab <- translate(basic %>% set_engine("kernlab"))
-
-  expect_equal(
-    object = basic_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "rbfdot"
-    )
-  )
-
-  rbf_sigma <- svm_rbf(mode = "regression", rbf_sigma = .2)
-  rbf_sigma_kernlab <- translate(rbf_sigma %>% set_engine("kernlab"))
-  rbf_sigma_obj <- expr(list())
-  rbf_sigma_obj$sigma <- quo(.2)
-
-  expect_equal(
-    object = rbf_sigma_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "rbfdot",
-      kpar = rbf_sigma_obj
-    )
-  )
-
-})
-
 test_that('engine arguments', {
 
   kernlab_cv <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)

@@ -2,49 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- multinom_reg()
-  expect_error(
-    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture <- multinom_reg(penalty = 0.1, mixture = 0.128)
-  mixture_glmnet <- translate(mixture %>% set_engine("glmnet"))
-  expect_equal(mixture_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = quo(0.128),
-                 family = "multinomial"
-               )
-  )
-
-  penalty <- multinom_reg(penalty = 1)
-  penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
-  expect_equal(penalty_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "multinomial"
-               )
-  )
-
-  mixture_v <- multinom_reg(penalty = 0.01, mixture = tune())
-  mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
-  expect_equal(mixture_v_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = quo(tune()),
-                 family = "multinomial"
-               )
-  )
-
-})
-
 test_that('engine arguments', {
   glmnet_nlam <- multinom_reg(penalty = 0.01)
   expect_equal(
