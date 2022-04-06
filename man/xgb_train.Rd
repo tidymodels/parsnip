@@ -2,6 +2,7 @@
 % Please edit documentation in R/boost_tree.R
 \name{xgb_train}
 \alias{xgb_train}
+\alias{xgb_predict}
 \title{Boosted trees via xgboost}
 \usage{
 xgb_train(
@@ -22,6 +23,8 @@ xgb_train(
   event_level = c("first", "second"),
   ...
 )
+
+xgb_predict(object, new_data, ...)
 }
 \arguments{
 \item{x}{A data frame or matrix of predictors}
@@ -70,13 +73,15 @@ columns affects (instead of counts).}
 \code{"first"} or \code{"second"} to pass along describing which level of the outcome
 should be considered the "event".}
 
-\item{...}{Other options to pass to \code{xgb.train}.}
+\item{...}{Other options to pass to \code{xgb.train()} or xgboost's method for \code{predict()}.}
+
+\item{new_data}{A rectangular data object, such as a data frame.}
 }
 \value{
 A fitted \code{xgboost} object.
 }
 \description{
-\code{xgb_train} is a wrapper for \code{xgboost} tree-based models where all of the
-model arguments are in the main function.
+\code{xgb_train()} and \code{xgb_predict()} are wrappers for \code{xgboost} tree-based
+models where all of the model arguments are in the main function.
 }
 \keyword{internal}

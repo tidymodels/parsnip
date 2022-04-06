@@ -217,8 +217,8 @@ check_args.boost_tree <- function(object) {
 
 #' Boosted trees via xgboost
 #'
-#' `xgb_train` is a wrapper for `xgboost` tree-based models where all of the
-#'  model arguments are in the main function.
+#' `xgb_train()` and `xgb_predict()` are wrappers for `xgboost` tree-based
+#' models where all of the model arguments are in the main function.
 #'
 #' @param x A data frame or matrix of predictors
 #' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
@@ -251,7 +251,7 @@ check_args.boost_tree <- function(object) {
 #' @param event_level For binary classification, this is a single string of either
 #' `"first"` or `"second"` to pass along describing which level of the outcome
 #' should be considered the "event".
-#' @param ... Other options to pass to `xgb.train`.
+#' @param ... Other options to pass to `xgb.train()` or xgboost's method for `predict()`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
 #' @export
@@ -383,13 +383,17 @@ maybe_proportion <- function(x, nm) {
   }
 }
 
-xgb_pred <- function(object, newdata, ...) {
-  if (!inherits(newdata, "xgb.DMatrix")) {
-    newdata <- maybe_matrix(newdata)
-    newdata <- xgboost::xgb.DMatrix(data = newdata, missing = NA)
+#' @rdname xgb_train
+#' @param new_data A rectangular data object, such as a data frame.
+#' @keywords internal
+#' @export
+xgb_predict <- function(object, new_data, ...) {
+  if (!inherits(new_data, "xgb.DMatrix")) {
+    new_data <- maybe_matrix(new_data)
+    new_data <- xgboost::xgb.DMatrix(data = new_data, missing = NA)
   }
 
-  res <- predict(object, newdata, ...)
+  res <- predict(object, new_data, ...)
 
   x <- switch(
     object$params$objective,
@@ -482,9 +486,9 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  pred <- xgb_pred(
+  pred <- xgb_predict(
     object$fit,
-    newdata = new_data,
+    new_data = new_data,
     iterationrange = c(1, tree + 1),
     ntreelimit = NULL
   )
