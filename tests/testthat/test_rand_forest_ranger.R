@@ -146,7 +146,7 @@ test_that('ranger classification probabilities', {
   )
 
   one_row <- predict(xy_fit, new_data = lending_club[1, num_pred], type = "prob")
-  expect_equivalent(xy_pred[1,], one_row)
+  expect_equal(xy_pred[1,], one_row)
 
   form_fit <- fit(
     rand_forest() %>% set_mode("classification") %>% set_engine("ranger", seed = 3566),

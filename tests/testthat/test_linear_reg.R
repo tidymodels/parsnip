@@ -465,8 +465,8 @@ test_that('lm intervals', {
             type = "conf_int",
             level = 0.93)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, confidence_lm[, "lwr"])
-  expect_equivalent(confidence_parsnip$.pred_upper, confidence_lm[, "upr"])
+  expect_equal(confidence_parsnip$.pred_lower, as.vector(confidence_lm[, "lwr"]))
+  expect_equal(confidence_parsnip$.pred_upper, as.vector(confidence_lm[, "upr"]))
 
   prediction_parsnip <-
     predict(res_xy,
@@ -474,8 +474,8 @@ test_that('lm intervals', {
             type = "pred_int",
             level = 0.93)
 
-  expect_equivalent(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"])
-  expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
+  expect_equal(prediction_parsnip$.pred_lower, as.vector(prediction_lm[, "lwr"]))
+  expect_equal(prediction_parsnip$.pred_upper, as.vector(prediction_lm[, "upr"]))
 })
 
 test_that('glm intervals', {
@@ -502,8 +502,8 @@ test_that('glm intervals', {
             type = "conf_int",
             level = 0.93)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, lower_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper, upper_glm)
+  expect_equal(confidence_parsnip$.pred_lower, lower_glm)
+  expect_equal(confidence_parsnip$.pred_upper, upper_glm)
 
 })
 

@@ -411,11 +411,11 @@ test_that('glm intervals', {
             level = 0.93,
             std_error = TRUE)
 
-  expect_equivalent(confidence_parsnip$.pred_lower_good, lower_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper_good, upper_glm)
-  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - upper_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - lower_glm)
-  expect_equivalent(confidence_parsnip$.std_error, pred_glm$se.fit)
+  expect_equal(confidence_parsnip$.pred_lower_good, lower_glm)
+  expect_equal(confidence_parsnip$.pred_upper_good, upper_glm)
+  expect_equal(confidence_parsnip$.pred_lower_bad, 1 - upper_glm)
+  expect_equal(confidence_parsnip$.pred_upper_bad, 1 - lower_glm)
+  expect_equal(confidence_parsnip$.std_error, pred_glm$se.fit)
 
 })
 
