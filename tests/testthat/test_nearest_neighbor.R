@@ -1,9 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   basic <- nearest_neighbor(mode = "regression")
   basic_kknn <- translate(basic %>% set_engine("kknn"))

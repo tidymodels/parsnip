@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 test_that('primary arguments', {

@@ -1,11 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(survival)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
 basic_form <- Surv(time, status) ~ age
 complete_form <- Surv(time) ~ age
 

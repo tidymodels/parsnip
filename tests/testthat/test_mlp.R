@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
-
 test_that('primary arguments', {
   hidden_units <- mlp(mode = "regression", hidden_units = 4)
   hidden_units_nnet <- translate(hidden_units %>% set_engine("nnet"))

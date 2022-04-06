@@ -1,9 +1,4 @@
-library(testthat)
-library(parsnip)
-library(survival)
-library(tibble)
-
-# ------------------------------------------------------------------------------
+data(cancer, package = 'survival')
 
 basic_form <- Surv(time, status) ~ group
 complete_form <- Surv(time) ~ group

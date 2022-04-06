@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(survival)
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 

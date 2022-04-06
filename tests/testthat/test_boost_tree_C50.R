@@ -1,14 +1,7 @@
-library(testthat)
-library(parsnip)
-library(tibble)
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
 lending_club <- head(lending_club, 200)
 lending_club_fail <-
   lending_club %>%
-  mutate(bad = Inf, miss = NA)
+  dplyr::mutate(bad = Inf, miss = NA)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <-
   boost_tree(mode = "classification")  %>%

@@ -1,18 +1,12 @@
-library(testthat)
-library(parsnip)
-library(dplyr)
-library(rlang)
-
-
 test_that('pipe arguments', {
   mod_1 <- rand_forest() %>%
     set_args(mtry = 1)
   expect_equal(
-    quo_get_expr(mod_1$args$mtry),
+    rlang::quo_get_expr(mod_1$args$mtry),
     1
   )
   expect_equal(
-    quo_get_env(mod_1$args$mtry),
+    rlang::quo_get_env(mod_1$args$mtry),
     empty_env()
   )
 
@@ -22,11 +16,11 @@ test_that('pipe arguments', {
   var_env <- rlang::current_env()
 
   expect_equal(
-    quo_get_expr(mod_2$args$mtry),
+    rlang::quo_get_expr(mod_2$args$mtry),
     1
   )
   expect_equal(
-    quo_get_env(mod_2$args$mtry),
+    rlang::quo_get_env(mod_2$args$mtry),
     empty_env()
   )
 

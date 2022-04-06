@@ -1,9 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 f <- y ~ x

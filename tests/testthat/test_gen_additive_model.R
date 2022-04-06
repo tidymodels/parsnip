@@ -1,11 +1,4 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-library(mgcv)
-
 data(two_class_dat, package = "modeldata")
-
 
 # ------------------------------------------------------------------------------
 

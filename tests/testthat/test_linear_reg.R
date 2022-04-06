@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -382,7 +375,7 @@ test_that('lm prediction', {
   inl_lm <- lm(compounds ~ log(input_fields) + class, data = hpc)
   inl_pred <- unname(predict(inl_lm, newdata = hpc[1:5, ]))
   mv_lm <- lm(cbind(input_fields, num_pending) ~ ., data = hpc)
-  mv_pred <- as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
+  mv_pred <- tibble::as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
   names(mv_pred) <- c(".pred_input_fields", ".pred_num_pending")
 
   res_xy <- fit_xy(

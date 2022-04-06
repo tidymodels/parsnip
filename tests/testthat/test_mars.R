@@ -1,9 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -13,9 +7,9 @@ test_that('primary arguments', {
   basic_mars <- translate(basic %>% set_engine("earth"))
   expect_equal(basic_mars$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
+                 formula = rlang::expr(missing_arg()),
+                 data = rlang::expr(missing_arg()),
+                 weights = rlang::expr(missing_arg()),
                  keepxy = TRUE
                )
   )
@@ -24,9 +18,9 @@ test_that('primary arguments', {
   num_terms_mars <- translate(num_terms %>% set_engine("earth"))
   expect_equal(num_terms_mars$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
+                 formula = rlang::expr(missing_arg()),
+                 data = rlang::expr(missing_arg()),
+                 weights = rlang::expr(missing_arg()),
                  nprune = new_empty_quosure(4),
                  glm = rlang::quo(list(family = stats::binomial)),
                  keepxy = TRUE
@@ -37,9 +31,9 @@ test_that('primary arguments', {
   prod_degree_mars <- translate(prod_degree %>% set_engine("earth"))
   expect_equal(prod_degree_mars$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
+                 formula = rlang::expr(missing_arg()),
+                 data = rlang::expr(missing_arg()),
+                 weights = rlang::expr(missing_arg()),
                  degree = new_empty_quosure(1),
                  keepxy = TRUE
                )
@@ -49,9 +43,9 @@ test_that('primary arguments', {
   prune_method_v_mars <- translate(prune_method_v %>% set_engine("earth"))
   expect_equal(prune_method_v_mars$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
+                 formula = rlang::expr(missing_arg()),
+                 data = rlang::expr(missing_arg()),
+                 weights = rlang::expr(missing_arg()),
                  pmethod = new_empty_quosure(tune()),
                  keepxy = TRUE
                )
@@ -62,9 +56,9 @@ test_that('engine arguments', {
   mars_keep <- mars(mode = "regression")
   expect_equal(translate(mars_keep %>% set_engine("earth", keepxy = FALSE))$method$fit$args,
                list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
+                 formula = rlang::expr(missing_arg()),
+                 data = rlang::expr(missing_arg()),
+                 weights = rlang::expr(missing_arg()),
                  keepxy = new_empty_quosure(FALSE)
                )
   )

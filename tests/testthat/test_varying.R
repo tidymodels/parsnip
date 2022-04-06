@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
 test_that('main parsnip arguments', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 

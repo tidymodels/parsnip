@@ -1,8 +1,3 @@
-library(testthat)
-library(parsnip)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # to go from lm_object$x results to our format

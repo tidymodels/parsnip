@@ -1,9 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
@@ -139,10 +133,10 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, hpc[hpc_te, num_pred])
   pred_uni_obs <-
     pred_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(.pred_class)
   expect_equal(pred_uni, pred_uni_obs)
 
@@ -156,10 +150,10 @@ test_that('kknn multi-predict', {
   prob_uni <- predict(res_xy, hpc[hpc_te, num_pred], type = "prob")
   prob_uni_obs <-
     prob_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(!!names(prob_uni))
   expect_equal(prob_uni, prob_uni_obs)
 
@@ -184,10 +178,10 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, mtcars[cars_te, -1])
   pred_uni_obs <-
     pred_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(.pred)
   expect_equal(pred_uni, pred_uni_obs)
 })

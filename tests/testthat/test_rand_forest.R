@@ -1,9 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 test_that('primary arguments', {
   mtry <- rand_forest(mode = "regression", mtry = 4)
   mtry_ranger <- translate(mtry %>% set_engine("ranger"))

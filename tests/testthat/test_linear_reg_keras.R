@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -128,7 +121,7 @@ test_that('regression prediction', {
 
   keras_pred <- predict(rr_fit$fit, as.matrix(hpc[1:3,2:4]))
   colnames(keras_pred) <- ".pred"
-  keras_pred <- as_tibble(keras_pred)
+  keras_pred <- tibble::as_tibble(keras_pred)
 
   parsnip_pred <- predict(rr_fit, hpc[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))

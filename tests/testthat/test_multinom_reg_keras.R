@@ -1,11 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -119,8 +111,8 @@ test_that('classification prediction', {
   keras_raw <-
     predict(lr_fit$fit, as.matrix(te_dat[, -5]))
   keras_pred <-
-    tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
-    mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
+    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
+    dplyr::mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
@@ -137,8 +129,8 @@ test_that('classification prediction', {
   keras_raw <-
     predict(plrfit$fit, as.matrix(te_dat[, -5]))
   keras_pred <-
-    tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
-    mutate(.pred_class = factor(plrfit$lvl[.pred_class], levels = plrfit$lvl))
+    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
+    dplyr::mutate(.pred_class = factor(plrfit$lvl[.pred_class], levels = plrfit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -5])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 

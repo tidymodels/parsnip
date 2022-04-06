@@ -1,22 +1,15 @@
-library(testthat)
-library(parsnip)
-library(dplyr)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 hpc_bad <-
   hpc %>%
-  mutate(big_num = Inf)
+  dplyr::mutate(big_num = Inf)
 
 lending_club <-
   lending_club %>%
   dplyr::slice(1:200) %>%
-  mutate(big_num = Inf)
+  dplyr::mutate(big_num = Inf)
 
 lvl <- levels(lending_club$Class)
 
