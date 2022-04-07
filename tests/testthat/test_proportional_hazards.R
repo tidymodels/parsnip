@@ -1,6 +1,7 @@
 test_that("printing", {
-  expect_snapshot(
-    proportional_hazards()
+  expect_output(
+    print(proportional_hazards()),
+    "Proportional Hazards Model Specification \\(censored regression\\)"
   )
 })
 

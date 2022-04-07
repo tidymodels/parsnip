@@ -77,7 +77,7 @@ test_that('glm execution', {
     ),
     regexp = NA
   )
-  expect_snapshot(res)
+  expect_output(print(res), "parsnip model object")
 
   expect_error(
     res <- fit(
@@ -191,7 +191,7 @@ test_that('liblinear execution', {
     ),
     regexp = NA
   )
-  expect_snapshot(res)
+  expect_output(print(res), "parsnip model object")
 
   expect_error(
     res <- fit(

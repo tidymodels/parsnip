@@ -21,7 +21,7 @@ test_that('nnet execution, classification', {
     ),
     regexp = NA
   )
-  expect_snapshot(res)
+  expect_output(print(res), "parsnip model object")
 
   expect_error(
     res <- parsnip::fit_xy(
