@@ -3,23 +3,23 @@
 #' These functions are slightly different APIs for [partykit::ctree()] and
 #' [partykit::cforest()] that have several important arguments as top-level
 #' arguments (as opposed to being specified in [partykit::ctree_control()]).
-#' @param formula a symbolic description of the model to be fit.
-#' @param data a data frame containing the variables in the model.
-#' @param teststat a character specifying the type of the test statistic to be
+#' @param formula A symbolic description of the model to be fit.
+#' @param data A data frame containing the variables in the model.
+#' @param teststat A character specifying the type of the test statistic to be
 #' applied.
-#' @param testtype a character specifying how to compute the distribution of
+#' @param testtype A character specifying how to compute the distribution of
 #' the test statistic.
-#' @param mincriterion the value of the test statistic (for \code{testtype ==
+#' @param mincriterion The value of the test statistic (for \code{testtype ==
 #' "Teststatistic"}), or 1 - p-value (for other values of \code{testtype}) that
 #' must be exceeded in order to implement a split.
-#' @param minsplit the minimum sum of weights in a node in order to be
+#' @param minsplit The minimum sum of weights in a node in order to be
 #' considered for splitting.
 #' @param maxdepth maximum depth of the tree. The default \code{maxdepth = Inf}
 #' means that no restrictions are applied to tree sizes.
-#' @param mtry number of input variables randomly sampled as candidates at each
+#' @param mtry Number of input variables randomly sampled as candidates at each
 #' node for random forest like algorithms. The default \code{mtry = Inf} means
 #' that no random selection takes place.
-#' @param ntree number of trees to grow in a forest.
+#' @param ntree Number of trees to grow in a forest.
 #' @param ... Other options to pass to [partykit::ctree()] or [partykit::cforest()].
 #' @return An object of class `constparty` (for `ctree) or `cforest`.
 #' @examples
