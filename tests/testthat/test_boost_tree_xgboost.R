@@ -285,12 +285,11 @@ test_that('early stopping', {
     regex = NA
   )
 
-  expect_warning(
+  expect_snapshot(
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
       set_engine("xgboost", validation = .1) %>%
-      fit(mpg ~ ., data = mtcars[-(1:4), ]),
-    regex = "`early_stop` was reduced to 19"
+      fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
   expect_error(
     reg_fit <-
@@ -347,8 +346,7 @@ test_that('xgboost data conversion', {
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(1, 5))
 
   mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE, "na"), labels = c("low", "high", "missing"))
-  expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
-                 regexp = "`event_level` can only be set for binary variables.")
+  expect_snapshot(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"))
 
 })
 
@@ -395,13 +393,11 @@ test_that('argument checks for data dimensions', {
   penguins_dummy <- model.matrix(species ~ ., data = penguins)
   penguins_dummy <- as.data.frame(penguins_dummy[, -1])
 
-  expect_warning(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins),
-    "1000 samples were requested"
+  expect_snapshot(
+    f_fit  <- spec %>% fit(species ~ ., data = penguins)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
-    "1000 samples were requested"
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species)
   )
   expect_equal(f_fit$fit$params$colsample_bynode, 1)
   expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))

@@ -199,14 +199,12 @@ test_that('argument checks for data dimensions', {
     set_engine("kknn") %>%
     set_mode("regression")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
-    "1000 samples were requested but there were 333 rows in the data. 328 will be used."
+  expect_snapshot(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
   )
 
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
-    "1000 samples were requested but there were 333 rows in the data. 328 will be used."
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
   expect_equal(f_fit$fit$best.parameters$k,  nrow(penguins) - 5)

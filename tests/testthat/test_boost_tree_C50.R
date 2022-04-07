@@ -143,13 +143,11 @@ test_that('argument checks for data dimensions', {
     set_engine("C5.0") %>%
     set_mode("classification")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins),
-    "1000 samples were requested"
+  expect_snapshot(
+    f_fit  <- spec %>% fit(species ~ ., data = penguins)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species),
-    "1000 samples were requested"
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species)
   )
 
   expect_equal(f_fit$fit$control$minCases,  nrow(penguins))

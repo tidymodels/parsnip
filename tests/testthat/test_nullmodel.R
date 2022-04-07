@@ -4,7 +4,7 @@ test_that('bad input', {
   expect_error(translate(null_model(mode = "regression") %>% set_engine()))
   expect_error(translate(null_model() %>% set_engine("wat?")))
   expect_error(translate(null_model(formula = y ~ x)))
-  expect_warning(
+  expect_snapshot(
     translate(
       null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
     )
