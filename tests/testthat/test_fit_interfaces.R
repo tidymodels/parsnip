@@ -87,8 +87,8 @@ test_that("elapsed time parsnip mods", {
     fit(mpg ~ ., data = mtcars,
         control = control_parsnip(verbosity = 2))
 
-  expect_output(print(lm1), "Fit time:")
-  expect_output(print(lm2), "Fit time:")
+  expect_snapshot(lm1)
+  expect_snapshot(lm2)
   expect_true(!is.null(lm1$elapsed))
   expect_true(!is.null(lm2$elapsed))
 

@@ -75,7 +75,7 @@ test_that('linear svm regression: LiblineaR', {
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
-  expect_output(print(res), "parsnip model object")
+  expect_snapshot(res)
 
   expect_error(
     tidy_res <- tidy(res),
@@ -255,7 +255,7 @@ test_that('linear svm regression: kernlab', {
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
-  expect_output(print(res), "parsnip model object")
+  expect_snapshot(res)
 
   expect_error(
     fit(
