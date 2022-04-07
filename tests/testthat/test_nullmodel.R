@@ -1,16 +1,5 @@
 hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
-test_that('engine arguments', {
-  nullmodel_keep <- null_model(mode = "regression")
-  expect_equal(translate(nullmodel_keep %>% set_engine("parsnip", keepxy = FALSE))$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 keepxy = quo(FALSE)
-               )
-  )
-})
-
 test_that('bad input', {
   expect_error(translate(null_model(mode = "regression") %>% set_engine()))
   expect_error(translate(null_model() %>% set_engine("wat?")))

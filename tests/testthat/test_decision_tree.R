@@ -2,36 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('engine arguments', {
-  rpart_print <- decision_tree(mode = "regression")
-  expect_equal(
-    translate(
-      rpart_print %>%
-        set_engine("rpart", model = TRUE))$method$fit$args,
-    list(
-      formula = expr(missing_arg()),
-      data = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      model = quo(TRUE)
-    )
-  )
-
-  C5.0_rules <- decision_tree(mode = "classification")
-  expect_equal(
-    translate(
-      C5.0_rules %>% set_engine("C5.0", rules = TRUE))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      rules = quo(TRUE),
-      trials = 1
-    )
-  )
-
-})
-
-
 test_that('updating', {
   expr1     <- decision_tree() %>% set_engine("rpart", model = FALSE)
   expr1_exp <- decision_tree(cost_complexity = .1) %>% set_engine("rpart", model = FALSE)

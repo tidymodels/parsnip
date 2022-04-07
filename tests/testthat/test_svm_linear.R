@@ -1,36 +1,6 @@
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
-
-test_that('engine arguments', {
-
-  LiblineaR_type <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 12)
-  kernlab_cv <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = 10)
-
-  expect_equal(
-    object = translate(LiblineaR_type, "LiblineaR")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      wi = expr(missing_arg()),
-      type = quo(12),
-      svr_eps = 0.1
-    )
-  )
-
-  expect_equal(
-    object = translate(kernlab_cv, "kernlab")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      cross = quo(10),
-      kernel = "vanilladot"
-    )
-  )
-
-})
-
-
 test_that('updating', {
 
   expr1     <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)

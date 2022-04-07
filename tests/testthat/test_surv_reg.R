@@ -1,19 +1,3 @@
-test_that('engine arguments', {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-
-  fs_cl <- surv_reg()
-  expect_equal(translate(fs_cl %>% set_engine("flexsurv", cl = .99))$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 cl = quo(.99)
-               )
-  )
-
-})
-
-
 test_that('updating', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 

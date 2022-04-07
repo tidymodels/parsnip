@@ -8,35 +8,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('engine arguments', {
-  xgboost_print <- boost_tree(mode = "regression")
-  expect_equal(
-    translate(
-      xgboost_print %>%
-        set_engine("xgboost", print_every_n = 10L))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      print_every_n = quo(10L),
-      nthread = 1,
-      verbose = 0
-    )
-  )
-
-  C5.0_rules <- boost_tree(mode = "classification")
-  expect_equal(
-    translate(
-      C5.0_rules %>% set_engine("C5.0", rules = TRUE))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      rules = quo(TRUE)
-    )
-  )
-
-})
-
 
 test_that('updating', {
   expr1     <- boost_tree() %>% set_engine("xgboost", verbose = 0)

@@ -1,20 +1,3 @@
-test_that('engine arguments', {
-
-  kknn_scale <- nearest_neighbor(mode = "classification") %>% set_engine("kknn", scale = FALSE)
-
-  expect_equal(
-    object = translate(kknn_scale, "kknn")$method$fit$args,
-    expected = list(
-      formula = expr(missing_arg()),
-      data = expr(missing_arg()),
-      scale = quo(FALSE),
-      ks = expr(min_rows(5, data, 5))
-    )
-  )
-
-})
-
-
 test_that('updating', {
 
   expr1     <- nearest_neighbor()  %>% set_engine("kknn", scale = FALSE)

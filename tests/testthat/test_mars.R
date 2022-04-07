@@ -2,19 +2,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('engine arguments', {
-  mars_keep <- mars(mode = "regression")
-  expect_equal(translate(mars_keep %>% set_engine("earth", keepxy = FALSE))$method$fit$args,
-               list(
-                 formula = rlang::expr(missing_arg()),
-                 data = rlang::expr(missing_arg()),
-                 weights = rlang::expr(missing_arg()),
-                 keepxy = quo(FALSE)
-               )
-  )
-})
-
-
 test_that('updating', {
   expr1     <- mars() %>% set_engine("earth", model = FALSE)
   expr1_exp <- mars(num_terms = 1) %>% set_engine("earth", model = FALSE)
