@@ -25,5 +25,5 @@ test_that('bad input', {
 
 test_that("deprecation warning", {
   rlang::local_options(lifecycle_verbosity = "warning")
-  expect_snapshot(surv_reg())
+  expect_warning(surv_reg())
 })
