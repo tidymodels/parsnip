@@ -21,6 +21,7 @@ xgb_train(
   objective = NULL,
   counts = TRUE,
   event_level = c("first", "second"),
+  weights = NULL,
   ...
 )
 
