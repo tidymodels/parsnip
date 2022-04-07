@@ -21,7 +21,7 @@
 #' that no random selection takes place.
 #' @param ntree Number of trees to grow in a forest.
 #' @param ... Other options to pass to [partykit::ctree()] or [partykit::cforest()].
-#' @return An object of class `constparty` (for `ctree) or `cforest`.
+#' @return An object of class `party` (for `ctree`) or `cforest`.
 #' @examples
 #' if (rlang::is_installed(c("modeldata", "partykit"))) {
 #'   data(bivariate, package = "modeldata")
@@ -67,7 +67,8 @@ ctree_train <-
         "ctree",
         .ns = "partykit",
         formula = rlang::expr(formula),
-        data = rlang::expr(data),!!!opts
+        data = rlang::expr(data),
+        !!!opts
       )
     rlang::eval_tidy(tree_call)
   }
@@ -96,7 +97,6 @@ cforest_train <-
       opts$control$testtype <- testtype
       opts$control$logmincriterion <- log(mincriterion)
       opts$control$mincriterion <- mincriterion
-      opts$control$mtry <- mtry
     } else {
       opts$control <-
         rlang::call2(
@@ -107,7 +107,8 @@ cforest_train <-
             maxdepth = maxdepth,
             teststat = teststat,
             testtype = testtype,
-            mincriterion = mincriterion
+            mincriterion = mincriterion,
+            saveinfo = FALSE
           )
         )
     }
@@ -118,7 +119,8 @@ cforest_train <-
         "cforest",
         .ns = "partykit",
         formula = rlang::expr(formula),
-        data = rlang::expr(data),!!!opts
+        data = rlang::expr(data),
+        !!!opts
       )
     rlang::eval_tidy(forest_call)
   }

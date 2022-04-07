@@ -30,36 +30,36 @@ cforest_train(
 )
 }
 \arguments{
-\item{formula}{a symbolic description of the model to be fit.}
+\item{formula}{A symbolic description of the model to be fit.}
 
-\item{data}{a data frame containing the variables in the model.}
+\item{data}{A data frame containing the variables in the model.}
 
-\item{minsplit}{the minimum sum of weights in a node in order to be
+\item{minsplit}{The minimum sum of weights in a node in order to be
 considered for splitting.}
 
 \item{maxdepth}{maximum depth of the tree. The default \code{maxdepth = Inf}
 means that no restrictions are applied to tree sizes.}
 
-\item{teststat}{a character specifying the type of the test statistic to be
+\item{teststat}{A character specifying the type of the test statistic to be
 applied.}
 
-\item{testtype}{a character specifying how to compute the distribution of
+\item{testtype}{A character specifying how to compute the distribution of
 the test statistic.}
 
-\item{mincriterion}{the value of the test statistic (for \code{testtype ==
+\item{mincriterion}{The value of the test statistic (for \code{testtype ==
 "Teststatistic"}), or 1 - p-value (for other values of \code{testtype}) that
 must be exceeded in order to implement a split.}
 
 \item{...}{Other options to pass to \code{\link[partykit:ctree]{partykit::ctree()}} or \code{\link[partykit:cforest]{partykit::cforest()}}.}
 
-\item{mtry}{number of input variables randomly sampled as candidates at each
+\item{mtry}{Number of input variables randomly sampled as candidates at each
 node for random forest like algorithms. The default \code{mtry = Inf} means
 that no random selection takes place.}
 
-\item{ntree}{number of trees to grow in a forest.}
+\item{ntree}{Number of trees to grow in a forest.}
 }
 \value{
-An object of class \code{constparty} (for \verb{ctree) or }cforest`.
+An object of class \code{party} (for \code{ctree}) or \code{cforest}.
 }
 \description{
 These functions are slightly different APIs for \code{\link[partykit:ctree]{partykit::ctree()}} and
