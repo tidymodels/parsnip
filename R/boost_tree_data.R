@@ -108,8 +108,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = NULL,
-    func = c(fun = "xgb_pred"),
-    args = list(object = quote(object$fit), newdata = quote(new_data))
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
   )
 )
 
@@ -121,8 +121,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = NULL,
-    func = c(fun = "xgb_pred"),
-    args = list(object = quote(object$fit), newdata = quote(new_data))
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
   )
 )
 
@@ -170,8 +170,8 @@ set_pred(
       }
       x
     },
-    func = c(pkg = NULL, fun = "xgb_pred"),
-    args = list(object = quote(object$fit), newdata = quote(new_data))
+    func = c(pkg = NULL, fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
   )
 )
 
@@ -196,8 +196,8 @@ set_pred(
       colnames(x) <- object$lvl
       x
     },
-    func = c(pkg = NULL, fun = "xgb_pred"),
-    args = list(object = quote(object$fit), newdata = quote(new_data))
+    func = c(pkg = NULL, fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
   )
 )
 
@@ -209,8 +209,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = NULL,
-    func = c(fun = "xgb_pred"),
-    args = list(object = quote(object$fit), newdata = quote(new_data))
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
   )
 )
 
