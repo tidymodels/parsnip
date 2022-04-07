@@ -21,7 +21,8 @@ test_that('updating', {
 
   expect_equal(update(expr1, num_terms = 1), expr1_exp)
   expect_equal(update(expr2, nk = 10), expr2_exp)
-  expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_fre)
+  expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_fre,
+               ignore_formula_env = TRUE)
   expect_equal(update(expr3, num_terms = 1, fresh = TRUE, nk = 10), expr3_exp,
                ignore_formula_env = TRUE)
 

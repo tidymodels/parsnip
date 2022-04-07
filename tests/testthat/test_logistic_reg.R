@@ -20,7 +20,7 @@ test_that('updating', {
   expr5     <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
   expr5_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
 
-  expect_equal(update(expr1, mixture = 0), expr1_exp)
+  expect_equal(update(expr1, mixture = 0), expr1_exp, ignore_formula_env = TRUE)
   expect_equal(update(expr2, nlambda = 10), expr2_exp)
   expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_exp)
 
