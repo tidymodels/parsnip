@@ -17,7 +17,7 @@ test_that('updating', {
   expr5     <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE)
   expr5_exp <- mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE, abstol = tune())
 
-  expect_equal(update(expr1, hidden_units = 2), expr1_exp)
+  expect_equal(update(expr1, hidden_units = 2), expr1_exp, ignore_formula_env = TRUE)
   expect_equal(update(expr2, Hess = FALSE), expr2_exp)
   expect_equal(update(expr3, hidden_units = 2, fresh = TRUE), expr3_exp)
   expect_equal(update(expr4, abstol = 1e-3), expr4_exp)

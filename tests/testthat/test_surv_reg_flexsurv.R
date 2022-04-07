@@ -1,5 +1,7 @@
-basic_form <- Surv(time, status) ~ age
-complete_form <- Surv(time) ~ age
+data(cancer, package = "survival")
+
+basic_form <- survival::Surv(time, status) ~ age
+complete_form <- survival::Surv(time) ~ age
 
 # ------------------------------------------------------------------------------
 
@@ -12,7 +14,7 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time, status) ~ age,
+      survival::Surv(time, status) ~ age,
       data = lung,
       control = ctrl
     ),
@@ -21,7 +23,7 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time) ~ age,
+      survival::Surv(time) ~ age,
       data = lung,
       control = ctrl
     ),
@@ -48,7 +50,7 @@ test_that('flexsurv prediction', {
 
   res <- fit(
     surv_basic,
-    Surv(time, status) ~ age,
+    survival::Surv(time, status) ~ age,
     data = lung,
     control = ctrl
   )

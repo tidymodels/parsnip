@@ -1,7 +1,7 @@
 data(cancer, package = 'survival')
 
-basic_form <- Surv(time, status) ~ group
-complete_form <- Surv(time) ~ group
+basic_form <- survival::Surv(time, status) ~ group
+complete_form <- survival::Surv(time) ~ group
 
 # ------------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ test_that('survival execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time, status) ~ age + sex,
+      survival::Surv(time, status) ~ age + sex,
       data = lung,
       control = ctrl
     ),
@@ -25,7 +25,7 @@ test_that('survival execution', {
   expect_error(
     res <- fit(
       surv_lnorm,
-      Surv(time) ~ age + sex,
+      survival::Surv(time) ~ age + sex,
       data = lung,
       control = ctrl
     ),
@@ -50,7 +50,7 @@ test_that('survival prediction', {
 
   res <- fit(
     surv_basic,
-    Surv(time, status) ~ age + sex,
+    survival::Surv(time, status) ~ age + sex,
     data = lung,
     control = ctrl
   )

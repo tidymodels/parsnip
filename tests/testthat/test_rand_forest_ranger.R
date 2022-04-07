@@ -252,18 +252,20 @@ test_that('ranger regression intervals', {
   )
 
   rgr_pred <- predict(xy_fit$fit, data = tail(mtcars[, -1]))$predictions
-  rgr_se <-
-    expect_warning(predict(xy_fit$fit, data = tail(mtcars[, -1]), type = "se")$se)
+  expect_warning(
+    rgr_se <-
+      predict(xy_fit$fit, data = tail(mtcars[, -1]), type = "se")$se
+  )
   rgr_lower <- rgr_pred - qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_upper <- rgr_pred + qnorm(0.035, lower.tail = FALSE) * rgr_se
 
-  parsnip_int <-
-    expect_warning(
+  expect_warning(
+    parsnip_int <-
       predict(xy_fit, new_data = tail(mtcars[, -1]),
               type = "conf_int", std_error = TRUE, level = 0.93
       )
-    )
-  expect_equal(rgr_lower, parsnip_int$.pred_lower)
+  )
+  expect_equal(rgr_lower, parsnip_int$.pred_lower, ignore_formula_env = TRUE)
   expect_equal(rgr_upper, parsnip_int$.pred_upper)
   expect_equal(rgr_se, parsnip_int$.std_error)
 
@@ -321,7 +323,8 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(descr_other_xy$fit$mtry, 2)
-  expect_equal(descr_other_xy$fit$call$class.weights, exp_wts)
+  expect_equal(descr_other_xy$fit$call$class.weights, exp_wts,
+               ignore_formula_env = TRUE)
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -330,7 +333,8 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(descr_other_f$fit$mtry, 2)
-  expect_equal(descr_other_f$fit$call$class.weights, exp_wts)
+  expect_equal(descr_other_f$fit$call$class.weights, exp_wts,
+               ignore_formula_env = TRUE)
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -340,7 +344,8 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(descr_other_xy$fit$mtry, 2)
-  expect_equal(descr_other_xy$fit$call$class.weights, exp_wts)
+  expect_equal(descr_other_xy$fit$call$class.weights, exp_wts,
+               ignore_formula_env = TRUE)
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -349,7 +354,8 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(descr_other_f$fit$mtry, 2)
-  expect_equal(descr_other_f$fit$call$class.weights, exp_wts)
+  expect_equal(descr_other_f$fit$call$class.weights, exp_wts,
+               ignore_formula_env = TRUE)
 })
 
 
@@ -419,18 +425,20 @@ test_that('ranger classification intervals', {
   )
 
   rgr_pred <- predict(lc_fit$fit, data = tail(lending_club))$predictions
-  rgr_se <- expect_warning(predict(lc_fit$fit, data = tail(lending_club), type = "se")$se)
+  suppressWarnings(expect_warning(
+    rgr_se <- predict(lc_fit$fit, data = tail(lending_club), type = "se")$se
+  ))
   rgr_lower <- rgr_pred - qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_upper <- rgr_pred + qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_lower[rgr_lower < 0] <- 0
   rgr_upper[rgr_upper > 1] <- 1
 
-  parsnip_int <-
-    expect_warning(
+  suppressWarnings(expect_warning(
+    parsnip_int <-
       predict(lc_fit, new_data = tail(lending_club),
               type = "conf_int", std_error = TRUE, level = 0.93
       )
-    )
+  ))
   expect_equal(rgr_lower[, "bad"], parsnip_int$.pred_lower_bad)
   expect_equal(rgr_lower[, "good"], parsnip_int$.pred_lower_good)
   expect_equal(rgr_upper[, "bad"], parsnip_int$.pred_upper_bad)
@@ -490,13 +498,11 @@ test_that('argument checks for data dimensions', {
     set_engine("ranger") %>%
     set_mode("regression")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
-    "(1000 samples)|(1000 columns)"
+  expect_snapshot(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
-    "(1000 samples)|(1000 columns)"
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
 

@@ -1,8 +1,3 @@
-library(testthat)
-library(parsnip)
-
-# ------------------------------------------------------------------------------
-
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- names(hpc)[1:4]
@@ -180,7 +175,6 @@ test_that('xgboost alternate objective', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("xgboost")
-  library(xgboost)
 
   reg_fit <-
     boost_tree(trees = 20, mode = "regression") %>%
@@ -372,8 +366,13 @@ test_that('xgboost data and sparse matrices', {
   set.seed(1)
   from_sparse <- xgb_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
 
-  expect_equal(from_df$fit, from_mat$fit)
-  expect_equal(from_df$fit, from_sparse$fit)
+  from_df$fit$handle <- NULL
+  from_mat$fit$handle <- NULL
+  from_sparse$fit$handle <- NULL
+
+
+  expect_equal(from_df$fit, from_mat$fit, ignore_function_env = TRUE)
+  expect_equal(from_df$fit, from_sparse$fit, ignore_function_env = TRUE)
 
 })
 

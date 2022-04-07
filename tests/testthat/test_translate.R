@@ -74,7 +74,7 @@ test_that("arguments (linear_reg)", {
   expect_snapshot_args(basic %>% set_engine("spark"))
   expect_snapshot_args(basic %>% set_engine("spark", max_iter = 20))
   expect_snapshot_args(basic %>% set_engine("glmnet"), error = TRUE)
-  expect_snapshot_args(basic %>% set_engine("glmnet", path_values = 4:2))
+  expect_snapshot_args(basic %>% set_engine("glmnet", path_values = 4:2), error = TRUE)
 
   expect_snapshot_args(mixture %>% set_engine("spark"))
   expect_snapshot_args(mixture_v %>% set_engine("spark"))
@@ -91,7 +91,6 @@ test_that("arguments (logistic_reg)", {
   mixture <- logistic_reg(mixture = 0.128)
   penalty <- logistic_reg(penalty = 1)
   mixture_v <- logistic_reg(mixture = tune())
-  penalty_v <- logistic_reg(penalty = tune())
 
   expect_snapshot_args(basic %>% set_engine("glm"))
   expect_snapshot_args(
@@ -119,11 +118,6 @@ test_that("arguments (logistic_reg)", {
   expect_snapshot_args(mixture_v %>% set_engine("glmnet"), error = TRUE)
   expect_snapshot_args(mixture_v %>% set_engine("LiblineaR"))
   expect_snapshot_args(mixture_v %>% set_engine("spark"))
-
-  # TODO: shouldn't the following line error on translate?
-  expect_snapshot_args(penalty_v %>% set_engine("glmnet"))
-  expect_snapshot_args(penalty_v %>% set_engine("LiblineaR"))
-  expect_snapshot_args(penalty_v %>% set_engine("spark"))
 })
 
 

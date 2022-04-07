@@ -46,7 +46,7 @@ test_that('model fitting', {
     regexp = NA
   )
   fit1$elapsed <- fit2$elapsed
-  expect_equal(fit1, fit2)
+  expect_equal(fit1, fit2, ignore_formula_env = TRUE)
 
   expect_error(
     fit(
@@ -119,7 +119,7 @@ test_that('prob prediction with 1 row', {
 
   nnet_pred <-
     predict(lr_fit$fit, as.matrix(te_dat[1, -5]), type = "prob") %>%
-    as_tibble(.name_repair = "minimal") %>%
+    tibble::as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[1, -5], type = "prob")

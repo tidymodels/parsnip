@@ -133,7 +133,7 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, hpc[hpc_te, num_pred])
   pred_uni_obs <-
     pred_multi %>%
-    dplyr::mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     dplyr::arrange(.rows) %>%
@@ -150,7 +150,7 @@ test_that('kknn multi-predict', {
   prob_uni <- predict(res_xy, hpc[hpc_te, num_pred], type = "prob")
   prob_uni_obs <-
     prob_multi %>%
-    dplyr::mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     dplyr::arrange(.rows) %>%
@@ -178,7 +178,7 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, mtcars[cars_te, -1])
   pred_uni_obs <-
     pred_multi %>%
-    dplyr::mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
     dplyr::arrange(.rows) %>%

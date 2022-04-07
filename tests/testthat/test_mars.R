@@ -22,7 +22,8 @@ test_that('updating', {
   expect_equal(update(expr1, num_terms = 1), expr1_exp)
   expect_equal(update(expr2, nk = 10), expr2_exp)
   expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_fre)
-  expect_equal(update(expr3, num_terms = 1, fresh = TRUE, nk = 10), expr3_exp)
+  expect_equal(update(expr3, num_terms = 1, fresh = TRUE, nk = 10), expr3_exp,
+               ignore_formula_env = TRUE)
 
   param_tibb <- tibble::tibble(num_terms = 3, prod_degree = 1)
   param_list <- as.list(param_tibb)
