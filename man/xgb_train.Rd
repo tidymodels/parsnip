@@ -8,6 +8,7 @@
 xgb_train(
   x,
   y,
+  weights = NULL,
   max_depth = 6,
   nrounds = 15,
   eta = 0.3,
@@ -21,7 +22,6 @@ xgb_train(
   objective = NULL,
   counts = TRUE,
   event_level = c("first", "second"),
-  weights = NULL,
   ...
 )
 

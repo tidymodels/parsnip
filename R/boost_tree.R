@@ -257,11 +257,11 @@ check_args.boost_tree <- function(object) {
 #' @keywords internal
 #' @export
 xgb_train <- function(
-    x, y,
+    x, y, weights = NULL,
     max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
     colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
     validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
-    event_level = c("first", "second"), weights = NULL, ...) {
+    event_level = c("first", "second"), ...) {
 
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
