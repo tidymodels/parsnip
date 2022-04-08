@@ -49,7 +49,7 @@ test_that('engine arguments', {
       scale = new_quosure(FALSE, env = rlang::empty_env()),
       predict.prob = new_quosure(TRUE, env = rlang::empty_env()),
       threads = new_quosure(2, env = rlang::empty_env()),
-      gpus = new_quosure(1, rlang::env = empty_env()),
+      gpus = new_quosure(1, env = rlang::empty_env()),
       folds = 1
     )
   )
