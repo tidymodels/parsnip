@@ -90,6 +90,9 @@ cforest_train <-
     force(mtry)
     opts <- rlang::list2(...)
 
+    mtry     <- min(mtry, ncol(data) - 1)
+    minsplit <- min(minsplit, nrow(data))
+
     if (any(names(opts) == "control")) {
       opts$control$minsplit <- minsplit
       opts$control$maxdepth <- maxdepth
