@@ -213,12 +213,13 @@ check_args.boost_tree <- function(object) {
   invisible(object)
 }
 
+
 # xgboost helpers --------------------------------------------------------------
 
 #' Boosted trees via xgboost
 #'
-#' `xgb_train` is a wrapper for `xgboost` tree-based models where all of the
-#'  model arguments are in the main function.
+#' `xgb_train()` and `xgb_predict()` are wrappers for `xgboost` tree-based
+#' models where all of the model arguments are in the main function.
 #'
 #' @param x A data frame or matrix of predictors
 #' @param y A vector (factor or numeric) or matrix (numeric) of outcome data.
@@ -251,16 +252,16 @@ check_args.boost_tree <- function(object) {
 #' @param event_level For binary classification, this is a single string of either
 #' `"first"` or `"second"` to pass along describing which level of the outcome
 #' should be considered the "event".
-#' @param ... Other options to pass to `xgb.train`.
+#' @param ... Other options to pass to `xgb.train()` or xgboost's method for `predict()`.
 #' @return A fitted `xgboost` object.
 #' @keywords internal
 #' @export
 xgb_train <- function(
-  x, y,
-  max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
-  colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
-  validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
-  event_level = c("first", "second"), ...) {
+    x, y, weights = NULL,
+    max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
+    colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
+    validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
+    event_level = c("first", "second"), ...) {
 
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
@@ -295,7 +296,11 @@ xgb_train <- function(
   n <- nrow(x)
   p <- ncol(x)
 
-  x <- as_xgb_data(x, y, validation, event_level)
+  x <-
+    as_xgb_data(x, y,
+                validation = validation,
+                event_level = event_level,
+                weights = weights)
 
 
   if (!is.numeric(subsample) || subsample < 0 || subsample > 1) {
@@ -383,13 +388,17 @@ maybe_proportion <- function(x, nm) {
   }
 }
 
-xgb_pred <- function(object, newdata, ...) {
-  if (!inherits(newdata, "xgb.DMatrix")) {
-    newdata <- maybe_matrix(newdata)
-    newdata <- xgboost::xgb.DMatrix(data = newdata, missing = NA)
+#' @rdname xgb_train
+#' @param new_data A rectangular data object, such as a data frame.
+#' @keywords internal
+#' @export
+xgb_predict <- function(object, new_data, ...) {
+  if (!inherits(new_data, "xgb.DMatrix")) {
+    new_data <- maybe_matrix(new_data)
+    new_data <- xgboost::xgb.DMatrix(data = new_data, missing = NA)
   }
 
-  res <- predict(object, newdata, ...)
+  res <- predict(object, new_data, ...)
 
   x <- switch(
     object$params$objective,
@@ -401,7 +410,7 @@ xgb_pred <- function(object, newdata, ...) {
 }
 
 
-as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
+as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "first", ...) {
   lvls <- levels(y)
   n <- nrow(x)
 
@@ -424,22 +433,36 @@ as_xgb_data <- function(x, y, validation = 0, event_level = "first", ...) {
 
   if (!inherits(x, "xgb.DMatrix")) {
     if (validation > 0) {
+      # Split data
       m <- floor(n * (1 - validation)) + 1
       trn_index <- sample(1:n, size = max(m, 2))
-      wlist <-
-        list(validation = xgboost::xgb.DMatrix(x[-trn_index, ], label = y[-trn_index], missing = NA))
-      dat <- xgboost::xgb.DMatrix(x[trn_index, ], label = y[trn_index], missing = NA)
+      val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
+      watch_list <- list(validation = val_data)
+
+      info_list <- list(label = y[trn_index])
+      if (!is.null(weights)) {
+        info_list$weight <- weights[trn_index]
+      }
+      dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
+
 
     } else {
-      dat <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
-      wlist <- list(training = dat)
+      info_list <- list(label = y)
+      if (!is.null(weights)) {
+        info_list$weight <- weights
+      }
+      dat <- xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
+      watch_list <- list(training = dat)
     }
   } else {
     dat <- xgboost::setinfo(x, "label", y)
-    wlist <- list(training = dat)
+    if (!is.null(weights)) {
+      dat <- xgboost::setinfo(x, "weight", weights)
+    }
+    watch_list <- list(training = dat)
   }
 
-  list(data = dat, watchlist = wlist)
+  list(data = dat, watchlist = watch_list)
 }
 
 get_event_level <- function(model_spec){
@@ -451,6 +474,7 @@ get_event_level <- function(model_spec){
   }
   event_level
 }
+
 
 #' @export
 #' @rdname multi_predict
@@ -482,9 +506,9 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  pred <- xgb_pred(
+  pred <- xgb_predict(
     object$fit,
-    newdata = new_data,
+    new_data = new_data,
     iterationrange = c(1, tree + 1),
     ntreelimit = NULL
   )
