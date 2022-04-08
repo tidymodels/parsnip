@@ -90,7 +90,7 @@ cforest_train <-
     force(mtry)
     opts <- rlang::list2(...)
 
-    mtry     <- min(mtry, ncol(data) - 1)
+    mtry     <- max_mtry(mtry, formula, data)
     minsplit <- min(minsplit, nrow(data))
 
     if (any(names(opts) == "control")) {
@@ -127,3 +127,12 @@ cforest_train <-
       )
     rlang::eval_tidy(forest_call)
   }
+
+# Count the number of non-predictors in 'data' using a formula for the largest
+# possible mtry
+max_mtry <- function(mtry, formula, data) {
+  preds <- stats::model.frame(formula[-2], head(data))
+  p <- ncol(preds)
+
+  max(min(mtry, p), 1)
+}
