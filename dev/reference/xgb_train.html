@@ -75,6 +75,7 @@ models where all of the model arguments are in the main function.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">xgb_train</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">y</span>,
+  weights <span class="op">=</span> <span class="cn">NULL</span>,
   max_depth <span class="op">=</span> <span class="fl">6</span>,
   nrounds <span class="op">=</span> <span class="fl">15</span>,
   eta <span class="op">=</span> <span class="fl">0.3</span>,
@@ -88,7 +89,6 @@ models where all of the model arguments are in the main function.</p>
   objective <span class="op">=</span> <span class="cn">NULL</span>,
   counts <span class="op">=</span> <span class="cn">TRUE</span>,
   event_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"second"</span><span class="op">)</span>,
-  weights <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
 <span class="op">)</span>
 
