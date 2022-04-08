@@ -360,10 +360,6 @@ inher <- function(x, cls, cl) {
 
 # ------------------------------------------------------------------------------
 
-
-has_both_or_none <- function(a, b)
-  (!is.null(a) & is.null(b)) | (is.null(a) & !is.null(b))
-
 check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
   inher(data, c("data.frame", "tbl_spark"), cl)
