@@ -7,7 +7,7 @@ test_that('pipe arguments', {
   )
   expect_equal(
     rlang::quo_get_env(mod_1$args$mtry),
-    empty_env()
+    rlang::empty_env()
   )
 
   mod_2 <- rand_forest(mtry = 2) %>%
@@ -21,7 +21,7 @@ test_that('pipe arguments', {
   )
   expect_equal(
     rlang::quo_get_env(mod_2$args$mtry),
-    empty_env()
+    rlang::empty_env()
   )
 
   expect_error(rand_forest() %>% set_args())
