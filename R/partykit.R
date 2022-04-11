@@ -90,7 +90,7 @@ cforest_train <-
     force(mtry)
     opts <- rlang::list2(...)
 
-    mtry     <- max_mtry(mtry, formula, data)
+    mtry     <- max_mtry_formula(mtry, formula, data)
     minsplit <- min(minsplit, nrow(data))
 
     if (any(names(opts) == "control")) {
@@ -128,11 +128,23 @@ cforest_train <-
     rlang::eval_tidy(forest_call)
   }
 
-# Count the number of non-predictors in 'data' using a formula for the largest
-# possible mtry
-max_mtry <- function(mtry, formula, data) {
-  preds <- stats::model.frame(formula[-2], head(data))
-  p <- ncol(preds)
+# ------------------------------------------------------------------------------
 
-  max(min(mtry, p), 1)
+#' Determine largest value of mtry from formula.
+#' This function potentially caps the value of `mtry` based on a formula and
+#' data set. This is a safe approach for survival and/or multivariate models.
+#' @param mtry An initial value of `mtry` (which may be too large).
+#' @param formula A model formula.
+#' @param data The training set (data frame).
+#' @return A value for `mtry`.
+#' @examples
+#' # should be 9
+#' max_mtry_formula(200, cbind(wt, mpg) ~ ., data = mtcars)
+#' @export
+max_mtry_formula <- function(mtry, formula, data) {
+  preds <- stats::model.frame(formula, head(data))
+  trms <- attr(preds, "terms")
+  p <- ncol(attr(trms, "factors"))
+
+  max(min(mtry, p), 1L)
 }
