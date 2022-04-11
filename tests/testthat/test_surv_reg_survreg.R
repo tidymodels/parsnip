@@ -1,5 +1,7 @@
 data(cancer, package = 'survival')
 
+attach(lung)
+
 basic_form <- survival::Surv(time, status) ~ group
 complete_form <- survival::Surv(time) ~ group
 
