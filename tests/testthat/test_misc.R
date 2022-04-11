@@ -83,4 +83,23 @@ test_that('control class', {
   )
 })
 
+# ------------------------------------------------------------------------------
+
+test_that('correct mtry', {
+  skip_if_not_installed("modeldata")
+  data(ames, package = "modeldata")
+  f_1 <- Sale_Price ~ Longitude + Latitude + Year_Built
+  f_2 <- Sale_Price ~ .
+  f_3 <- cbind(wt, mpg) ~ .
+
+  expect_equal(max_mtry_formula(2, f_1, ames), 2)
+  expect_equal(max_mtry_formula(5, f_1, ames), 3)
+  expect_equal(max_mtry_formula(0, f_1, ames), 1)
+
+  expect_equal(max_mtry_formula(2000, f_2, ames), ncol(ames) - 1)
+  expect_equal(max_mtry_formula(2, f_2, ames), 2)
+
+  expect_equal(max_mtry_formula(200, f_3, data = mtcars), ncol(mtcars) - 2)
+
+})
 

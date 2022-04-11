@@ -90,6 +90,9 @@ cforest_train <-
     force(mtry)
     opts <- rlang::list2(...)
 
+    mtry     <- max_mtry_formula(mtry, formula, data)
+    minsplit <- min(minsplit, nrow(data))
+
     if (any(names(opts) == "control")) {
       opts$control$minsplit <- minsplit
       opts$control$maxdepth <- maxdepth
@@ -124,3 +127,24 @@ cforest_train <-
       )
     rlang::eval_tidy(forest_call)
   }
+
+# ------------------------------------------------------------------------------
+
+#' Determine largest value of mtry from formula.
+#' This function potentially caps the value of `mtry` based on a formula and
+#' data set. This is a safe approach for survival and/or multivariate models.
+#' @param mtry An initial value of `mtry` (which may be too large).
+#' @param formula A model formula.
+#' @param data The training set (data frame).
+#' @return A value for `mtry`.
+#' @examples
+#' # should be 9
+#' max_mtry_formula(200, cbind(wt, mpg) ~ ., data = mtcars)
+#' @export
+max_mtry_formula <- function(mtry, formula, data) {
+  preds <- stats::model.frame(formula, head(data))
+  trms <- attr(preds, "terms")
+  p <- ncol(attr(trms, "factors"))
+
+  max(min(mtry, p), 1L)
+}
