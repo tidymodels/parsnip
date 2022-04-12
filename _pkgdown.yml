@@ -89,6 +89,7 @@ reference:
       - tidy.model_fit
       - translate
       - starts_with("update")
+      - matches("_train")
 
   - title: Developer tools
     contents:
@@ -96,6 +97,7 @@ reference:
       - set_new_model
       - maybe_matrix
       - min_cols
+      - max_mtry_formula
       - required_pkgs
       - required_pkgs.model_spec
       - req_pkgs

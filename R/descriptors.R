@@ -320,18 +320,6 @@ has_exprs <- function(x) {
   is_symbolic(x)
 }
 
-make_descr <- function(object) {
-  if (length(object$args) > 0)
-    expr_main <- map_lgl(object$args, has_exprs)
-  else
-    expr_main <- FALSE
-  if (length(object$eng_args) > 0)
-    expr_eng_args <- map_lgl(object$eng_args, has_exprs)
-  else
-    expr_eng_args <- FALSE
-  any(expr_main) | any(expr_eng_args)
-}
-
 # Locate descriptors -----------------------------------------------------------
 
 # take a model spec, see if any require descriptors

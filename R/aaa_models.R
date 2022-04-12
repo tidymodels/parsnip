@@ -260,12 +260,6 @@ check_mode_with_no_engine <- function(cls, mode) {
   }
 }
 
-check_engine_val <- function(eng) {
-  if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng))
-    rlang::abort("Please supply a character string for an engine (e.g. `'lm'`).")
-  invisible(NULL)
-}
-
 check_arg_val <- function(arg) {
   if (rlang::is_missing(arg) || length(arg) != 1 || !is.character(arg))
     rlang::abort("Please supply a character string for the argument.")

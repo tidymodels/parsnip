@@ -1,10 +1,18 @@
 # parsnip (development version)
 
+
 * Enable the use of case weights for models that support them. 
 
 * Added a `glm_grouped()` function to convert long data to the grouped format required by `glm()` for logistic regression. 
 
 * `show_model_info()` now indicates which models can utilize case weights. 
+
+* `xgb_train()` now allows for case weights 
+
+* Added `ctree_train()` and `cforest_train()` wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.  
+
+* Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
+
 
 # parsnip 0.2.1
 
@@ -13,6 +21,7 @@
 * Updated the parsnip add-in with new models and engines. 
 
 * Updated parameter ranges for some `tunable()` methods and added a missing engine argument for brulee models. 
+
 * Added information about how to install the mixOmics package for PLS models (#680)
 
 

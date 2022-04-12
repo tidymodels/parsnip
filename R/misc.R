@@ -119,10 +119,6 @@ levels_from_formula <- function(f, dat) {
   res
 }
 
-is_spark <- function(x)
-  isTRUE(unname(x$method$fit$func["pkg"] == "sparklyr"))
-
-
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
@@ -210,17 +206,6 @@ check_outcome <- function(y, spec) {
   }
   invisible(NULL)
 }
-
-
-# Get's a character string of varible names used as the outcome
-# in a terms object
-terms_y <- function(x) {
-  att <- attributes(x)
-  resp_ind <- att$response
-  y_expr <- att$predvars[[resp_ind + 1]]
-  all.vars(y_expr)
-}
-
 
 # ------------------------------------------------------------------------------
 

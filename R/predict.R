@@ -243,8 +243,8 @@ format_classprobs <- function(x) {
 format_time <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    if (!any(grepl("^\\.time", names(x)))) {
-      names(x) <- paste0(".time_", names(x))
+    if (!any(grepl("^\\.pred_time", names(x)))) {
+      names(x) <- paste0(".pred_time_", names(x))
     }
   } else {
     x <- tibble(.pred_time = unname(x))
