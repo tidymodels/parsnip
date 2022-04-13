@@ -67,7 +67,9 @@ update.naive_Bayes <-
   function(object,
            smoothness = NULL, Laplace = NULL,
            fresh = FALSE, ...) {
-    update_dot_check(...)
+
+    eng_args <- update_engine_parameters(object$eng_args, ...)
+
     args <-
       list(
         smoothness = rlang::enquo(smoothness),
@@ -76,12 +78,15 @@ update.naive_Bayes <-
 
     if (fresh) {
       object$args <- args
+      object$eng_args <- eng_args
     } else {
       null_args <- map_lgl(args, null_value)
       if (any(null_args))
         args <- args[!null_args]
       if (length(args) > 0)
         object$args[names(args)] <- args
+      if (length(eng_args) > 0)
+        object$eng_args[names(eng_args)] <- eng_args
     }
 
     new_model_spec(

@@ -86,7 +86,9 @@ update.discrim_regularized <-
            frac_common_cov = NULL,
            frac_identity = NULL,
            fresh = FALSE, ...) {
-    update_dot_check(...)
+
+    eng_args <- update_engine_parameters(object$eng_args, ...)
+
     args <- list(
       frac_common_cov = rlang::enquo(frac_common_cov),
       frac_identity = rlang::enquo(frac_identity)
@@ -94,12 +96,15 @@ update.discrim_regularized <-
 
     if (fresh) {
       object$args <- args
+      object$eng_args <- eng_args
     } else {
       null_args <- map_lgl(args, null_value)
       if (any(null_args))
         args <- args[!null_args]
       if (length(args) > 0)
         object$args[names(args)] <- args
+      if (length(eng_args) > 0)
+        object$eng_args[names(eng_args)] <- eng_args
     }
 
     new_model_spec(
