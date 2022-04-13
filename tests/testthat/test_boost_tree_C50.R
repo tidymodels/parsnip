@@ -55,7 +55,7 @@ test_that('C5.0 execution', {
     data = lending_club_fail,
     control = caught_ctrl
   )
-  expect_true(inherits(C5.0_form_catch$fit, "try-error"))
+  expect_true(inherits(extract_fit_engine(C5.0_form_catch), "try-error"))
 
   # Model fails
   C5.0_xy_catch <- fit_xy(
@@ -64,7 +64,7 @@ test_that('C5.0 execution', {
     x = lending_club_fail[, "miss"],
     y = lending_club_fail$Class
   )
-  expect_true(inherits(C5.0_xy_catch$fit, "try-error"))
+  expect_true(inherits(extract_fit_engine(C5.0_xy_catch), "try-error"))
 })
 
 test_that('C5.0 prediction', {
@@ -78,7 +78,7 @@ test_that('C5.0 prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred])
+  xy_pred <- predict(extract_fit_engine(classes_xy), newdata = lending_club[1:7, num_pred])
   expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred])$.pred_class)
 
 })
@@ -94,7 +94,7 @@ test_that('C5.0 probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newdata = as.data.frame(lending_club[1:7, num_pred]), type = "prob")
+  xy_pred <- predict(extract_fit_engine(classes_xy), newdata = as.data.frame(lending_club[1:7, num_pred]), type = "prob")
   xy_pred <- as_tibble(xy_pred)
   names(xy_pred) <- c(".pred_bad", ".pred_good")
   expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
@@ -116,7 +116,7 @@ test_that('submodel prediction', {
     set_engine("C5.0", control = C5.0Control(earlyStopping = FALSE)) %>%
     fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
-  pred_class <- predict(class_fit$fit, wa_churn[1:4, vars], trials = 4, type = "prob")
+  pred_class <- predict(extract_fit_engine(class_fit), wa_churn[1:4, vars], trials = 4, type = "prob")
 
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 4, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
@@ -152,7 +152,7 @@ test_that('argument checks for data dimensions', {
     "1000 samples were requested"
   )
 
-  expect_equal(f_fit$fit$control$minCases,  nrow(penguins))
-  expect_equal(xy_fit$fit$control$minCases, nrow(penguins))
+  expect_equal(extract_fit_engine(f_fit)$control$minCases,  nrow(penguins))
+  expect_equal(extract_fit_engine(xy_fit)$control$minCases, nrow(penguins))
 
 })

@@ -132,7 +132,7 @@ test_that('svm rbf regression prediction', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
   expect_equal(as.data.frame(kern_pred),
@@ -214,7 +214,7 @@ test_that('svm rbf classification probabilities', {
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, hpc_no_m[ind, -5], type = "probabilities") %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 

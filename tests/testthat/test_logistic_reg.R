@@ -116,7 +116,7 @@ test_that('glm prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- predict(extract_fit_engine(classes_xy), newdata = lending_club[1:7, num_pred], type = "response")
   xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
@@ -132,7 +132,7 @@ test_that('glm probabilities', {
     control = ctrl
   )
 
-  xy_pred <- unname(predict(classes_xy$fit,
+  xy_pred <- unname(predict(extract_fit_engine(classes_xy),
                             newdata = lending_club[1:7, num_pred],
                             type = "response"))
   xy_pred <- tibble(.pred_bad = 1 - xy_pred, .pred_good = xy_pred)
@@ -242,7 +242,7 @@ test_that('liblinear prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newx = lending_club[1:7, num_pred])
+  xy_pred <- predict(extract_fit_engine(classes_xy), newx = lending_club[1:7, num_pred])
   xy_pred <- xy_pred$predictions
   expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
 
@@ -259,7 +259,7 @@ test_that('liblinear probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit,
+  xy_pred <- predict(extract_fit_engine(classes_xy),
                      newx = lending_club[1:7, num_pred],
                      proba = TRUE)
   xy_pred <- as_tibble(xy_pred$probabilities)

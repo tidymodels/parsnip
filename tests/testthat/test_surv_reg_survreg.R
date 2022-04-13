@@ -58,11 +58,11 @@ test_that('survival prediction', {
     data = lung,
     control = ctrl
   )
-  exp_pred <- predict(res$fit, head(lung))
+  exp_pred <- predict(extract_fit_engine(res), head(lung))
   exp_pred <- tibble(.pred = unname(exp_pred))
   expect_equal(exp_pred, predict(res, head(lung)))
 
-  exp_quant <- predict(res$fit, head(lung), p = (2:4)/5, type = "quantile")
+  exp_quant <- predict(extract_fit_engine(res), head(lung), p = (2:4)/5, type = "quantile")
   exp_quant <-
     apply(exp_quant, 1, function(x)
       tibble(.pred = x, .quantile = (2:4) / 5))

@@ -178,7 +178,7 @@ test_that('submodel prediction', {
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
-  tmp_reg <- reg_fit$fit
+  tmp_reg <- extract_fit_engine(reg_fit)
   tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
   tmp_reg$call[["keepxy"]]  <- eval_tidy(tmp_reg$call[["keepxy"]])
   tmp_reg$call[["nprune"]]  <- eval_tidy(tmp_reg$call[["nprune"]])
@@ -199,7 +199,7 @@ test_that('submodel prediction', {
     fit(churn ~ .,
         data = full_churn[-(1:4), c("churn", vars)])
 
-  cls_fit <- class_fit$fit
+  cls_fit <- extract_fit_engine(class_fit)
   cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
   cls_fit$call[["keepxy"]]  <- eval_tidy(cls_fit$call[["keepxy"]])
   cls_fit$call[["glm"]]  <- eval_tidy(cls_fit$call[["glm"]])
@@ -230,7 +230,7 @@ test_that('classification', {
       fit(Class ~ ., data = lending_club[-(1:5),]),
     regexp = NA
   )
-  expect_true(!is.null(glm_mars$fit$glm.list))
+  expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
   parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")
 
   earth_pred <-

@@ -119,7 +119,7 @@ test_that('svm poly regression prediction', {
       y = hpc$compounds,
       control = ctrl
     )
-  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[1:3, -c(1, 5)])
   expect_equal(as.data.frame(kern_pred),
@@ -193,11 +193,11 @@ test_that('svm poly classification probabilities', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(cls_form)@alphaindex, extract_fit_engine(cls_xy_form)@alphaindex)
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, hpc_no_m[ind, -5], type = "probabilities") %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 

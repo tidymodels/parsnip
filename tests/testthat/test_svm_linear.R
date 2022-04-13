@@ -132,7 +132,7 @@ test_that('linear svm regression prediction: LiblineaR', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(reg_form$fit$W, reg_xy_form$fit$W)
+  expect_equal(extract_fit_engine(reg_form)$W, extract_fit_engine(reg_xy_form)$W)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
   expect_equal(as.data.frame(liblinear_pred),
@@ -210,7 +210,7 @@ test_that('linear svm classification prediction: LiblineaR', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(cls_form$fit$W, cls_xy_form$fit$W)
+  expect_equal(extract_fit_engine(cls_form)$W, extract_fit_engine(cls_xy_form)$W)
 
   expect_error(
     predict(cls_form, hpc_no_m[ind, -5], type = "prob"),
@@ -305,7 +305,7 @@ test_that('linear svm regression prediction: kernlab', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
   expect_equal(as.data.frame(kernlab_pred),
@@ -383,11 +383,11 @@ test_that('linear svm classification prediction: kernlab', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(cls_form)@alphaindex, extract_fit_engine(cls_xy_form)@alphaindex)
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, hpc_no_m[ind, -5], type = "probabilities") %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 

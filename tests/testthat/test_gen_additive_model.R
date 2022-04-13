@@ -29,7 +29,7 @@ test_that('regression', {
     regexp = "must be used with GAM models"
   )
   mgcv_mod <- mgcv::gam(mpg ~ s(disp) + wt + gear, data = mtcars, select = TRUE)
-  expect_equal(coef(mgcv_mod), coef(f_res$fit))
+  expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
 
   f_pred <- predict(f_res, head(mtcars))
   mgcv_pred <- predict(mgcv_mod, head(mtcars), type = "response")
@@ -77,7 +77,7 @@ test_that('classification', {
               data = two_class_dat,
               gamma = 1.5,
               family = binomial)
-  expect_equal(coef(mgcv_mod), coef(f_res$fit))
+  expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
 
   f_pred <- predict(f_res, head(two_class_dat), type = "prob")
   mgcv_pred <- predict(mgcv_mod, head(two_class_dat), type = "response")

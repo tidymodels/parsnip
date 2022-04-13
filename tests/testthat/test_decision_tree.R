@@ -65,8 +65,8 @@ test_that('argument checks for data dimensions', {
     "1000 samples were requested but there were 333 rows in the data. 333 will be used."
   )
 
-  expect_equal(f_fit$fit$control$minsplit,  nrow(penguins))
-  expect_equal(xy_fit$fit$control$minsplit, nrow(penguins))
+  expect_equal(extract_fit_engine(f_fit)$control$minsplit,  nrow(penguins))
+  expect_equal(extract_fit_engine(xy_fit)$control$minsplit, nrow(penguins))
 
   spec <-
     decision_tree(min_n = 1000) %>%

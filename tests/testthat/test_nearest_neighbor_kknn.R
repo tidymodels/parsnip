@@ -68,7 +68,7 @@ test_that('kknn prediction', {
   )
 
   uni_pred <- predict(
-    res_xy$fit,
+    extract_fit_engine(res_xy),
     newdata = hpc[1:5, num_pred]
   )
 
@@ -83,7 +83,7 @@ test_that('kknn prediction', {
   )
 
   uni_pred_nom <- predict(
-    res_xy_nom$fit,
+    extract_fit_engine(res_xy_nom),
     newdata = hpc[1:5, c("input_fields", "iterations")]
   )
 
@@ -101,7 +101,7 @@ test_that('kknn prediction', {
   )
 
   form_pred <- predict(
-    res_form$fit,
+    extract_fit_engine(res_form),
     newdata = hpc[1:5,]
   )
 
@@ -209,8 +209,8 @@ test_that('argument checks for data dimensions', {
     "1000 samples were requested but there were 333 rows in the data. 328 will be used."
   )
 
-  expect_equal(f_fit$fit$best.parameters$k,  nrow(penguins) - 5)
-  expect_equal(xy_fit$fit$best.parameters$k, nrow(penguins) - 5)
+  expect_equal(extract_fit_engine(f_fit)$best.parameters$k,  nrow(penguins) - 5)
+  expect_equal(extract_fit_engine(xy_fit)$best.parameters$k, nrow(penguins) - 5)
 
 })
 

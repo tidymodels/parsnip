@@ -53,8 +53,8 @@ test_that('model fitting', {
     regexp = NA
   )
   expect_equal(
-    unlist(keras::get_weights(fit1$fit)),
-    unlist(keras::get_weights(fit2$fit)),
+    unlist(keras::get_weights(extract_fit_engine(fit1))),
+    unlist(keras::get_weights(extract_fit_engine(fit2))),
     tolerance = .1
   )
 
@@ -109,7 +109,7 @@ test_that('classification prediction', {
     )
 
   keras_raw <-
-    predict(lr_fit$fit, as.matrix(te_dat[, -5]))
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]))
   keras_pred <-
     tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
     dplyr::mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
@@ -127,7 +127,7 @@ test_that('classification prediction', {
     )
 
   keras_raw <-
-    predict(plrfit$fit, as.matrix(te_dat[, -5]))
+    predict(extract_fit_engine(plrfit), as.matrix(te_dat[, -5]))
   keras_pred <-
     tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
     dplyr::mutate(.pred_class = factor(plrfit$lvl[.pred_class], levels = plrfit$lvl))
@@ -155,7 +155,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict(lr_fit$fit, as.matrix(te_dat[, -5])) %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5])) %>%
     as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
@@ -173,7 +173,7 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict(plrfit$fit, as.matrix(te_dat[, -5])) %>%
+    predict(extract_fit_engine(plrfit), as.matrix(te_dat[, -5])) %>%
     as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -5], type = "prob")

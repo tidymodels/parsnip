@@ -68,7 +68,7 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(hpc[1:8, num_pred]))
   if (tensorflow::tf_version() <= package_version("2.0.0")) {
     # -1 to assign with keras' zero indexing
     xy_pred <- apply(xy_pred, 1, which.max) - 1
@@ -89,7 +89,7 @@ test_that('keras classification prediction', {
   )
 
 
-  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(hpc[1:8, num_pred]))
   if (tensorflow::tf_version() <= package_version("2.0.0")) {
     # -1 to assign with keras' zero indexing
     form_pred <- apply(form_pred, 1, which.max) - 1
@@ -116,7 +116,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(hpc[1:8, num_pred]))
   colnames(xy_pred) <- paste0(".pred_", levels(hpc$class))
   xy_pred <- as_tibble(xy_pred)
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob"))
@@ -130,7 +130,7 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(hpc[1:8, num_pred]))
   colnames(form_pred) <- paste0(".pred_", levels(hpc$class))
   form_pred <- as_tibble(form_pred)
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob"))
@@ -196,7 +196,7 @@ test_that('keras regression prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
+  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
   expect_equal(xy_pred, predict(xy_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]])
 
   keras::backend()$clear_session()
@@ -208,7 +208,7 @@ test_that('keras regression prediction', {
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
+  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
   expect_equal(form_pred, predict(form_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]])
 
   keras::backend()$clear_session()
@@ -229,7 +229,7 @@ test_that('multivariate nnet formula', {
       cbind(V1, V2, V3) ~ .,
       data = nn_dat[-(1:5),]
     )
-  expect_equal(length(unlist(keras::get_weights(nnet_form$fit))), 24)
+  expect_equal(length(unlist(keras::get_weights(extract_fit_engine(nnet_form)))), 24)
 
   nnet_form_pred <- predict(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
@@ -243,7 +243,7 @@ test_that('multivariate nnet formula', {
       x = nn_dat[-(1:5), -(1:3)],
       y = nn_dat[-(1:5),   1:3 ]
     )
-  expect_equal(length(unlist(keras::get_weights(nnet_xy$fit))), 24)
+  expect_equal(length(unlist(keras::get_weights(extract_fit_engine(nnet_xy)))), 24)
   nnet_form_xy <- predict(nnet_xy, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
 

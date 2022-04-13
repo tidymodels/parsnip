@@ -54,7 +54,7 @@ test_that('flexsurv prediction', {
     data = lung,
     control = ctrl
   )
-  exp_pred <- summary(res$fit, head(lung), type = "mean")
+  exp_pred <- summary(extract_fit_engine(res), head(lung), type = "mean")
   exp_pred <- do.call("rbind", unclass(exp_pred))
   exp_pred <- tibble(.pred = exp_pred$est)
   expect_equal(exp_pred, predict(res, head(lung)))
