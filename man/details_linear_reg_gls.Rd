@@ -156,6 +156,11 @@ gls_fit \%>\% tidy()
 ## 1 (Intercept)    -4.95     0.808     -6.13 3.50e- 9
 ## 2 week           -2.12     0.224     -9.47 2.26e-18
 }
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and

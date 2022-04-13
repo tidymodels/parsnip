@@ -50,6 +50,16 @@ predictors (i.e., with a single unique value) should be eliminated
 before fitting the model.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by

@@ -60,6 +60,11 @@ predictors (i.e., with a single unique value) should be eliminated
 before fitting the model.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics

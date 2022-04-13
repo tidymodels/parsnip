@@ -45,9 +45,12 @@ keep the clustering/subject identifier column as factor or character
 next section.
 }
 
-\subsection{Other details}{
+\subsection{Case weights}{
 
-The model cannot accept case weights.
+The underlying model implementation does not allow for case weights.
+}
+
+\subsection{Other details}{
 
 Both \code{gee:gee()} and \code{gee:geepack()} specify the id/cluster variable
 using an argument \code{id} that requires a vector. parsnip doesn’t work that
