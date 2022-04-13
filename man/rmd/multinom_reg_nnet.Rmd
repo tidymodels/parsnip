@@ -46,8 +46,9 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r child = "template-no-case-weights.Rmd"}
 ```
+
 
 ## References
 

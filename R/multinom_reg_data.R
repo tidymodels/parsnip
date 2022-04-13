@@ -282,7 +282,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data", "weights"),
+    protect = c("formula", "data"),
     func = c(pkg = "nnet", fun = "multinom"),
     defaults = list(trace = FALSE)
   )

@@ -41,9 +41,8 @@ some models, you may need to pass this value in via
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = TRUE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)
 }
 
 Note that parsnip automatically sets linear activation in the last
@@ -68,9 +67,8 @@ layer.
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
 }
 }
 
@@ -88,12 +86,7 @@ variance of one.
 
 \subsection{Case weights}{
 
-This model can utilize case weights during model fitting. To use them,
-see the documentation in \link{case_weights} and the examples
-on \code{tidymodels.org}.
-
-The \code{fit()} and \code{fit_xy()} arguments have arguments called
-\code{case_weights} that expect vectors of case weights.
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{Examples}{

@@ -32,7 +32,7 @@ multinom_reg(penalty = double(1)) %>%
 ## 
 ## Model fit template:
 ## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), decay = double(1), trace = FALSE)
+##     decay = double(1), trace = FALSE)
 ```
 
 ## Preprocessing requirements
@@ -51,9 +51,8 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 ## Case weights
 
 
-This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+The underlying model implementation does not allow for case weights. 
 
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## References
 
