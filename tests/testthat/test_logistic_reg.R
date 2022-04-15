@@ -3,39 +3,20 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
-  expr1     <- logistic_reg() %>%
-    set_engine("glm", family = expr(binomial(link = "probit")))
-  expr1_exp <- logistic_reg(mixture = 0) %>%
-    set_engine("glm", family = expr(binomial(link = "probit")))
-
-  expr2     <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr2_exp <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = 10)
-
-  expr3     <- logistic_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr3_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-
-  expr4     <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr4_exp <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr5     <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-  expr5_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expect_equal(update(expr1, mixture = 0), expr1_exp, ignore_formula_env = TRUE)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_exp)
+  expr1 <- logistic_reg() %>% set_engine("glm", family = expr(binomial(link = "probit")))
+  expr2 <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr3 <- logistic_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr4 <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr5 <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mixture, 1/3)
-  expect_equal(expr4_updated$args$penalty, 1)
-  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mixture, 1/3)
-  expect_equal(expr4_updated_lst$args$penalty, 1)
-  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
+  expect_snapshot(expr1 %>% update(mixture = 0))
+  expect_snapshot(expr2 %>% update(nlambda = 10))
+  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE, nlambda = 10))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
 })
 
 test_that('bad input', {

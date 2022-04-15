@@ -1,47 +1,19 @@
 test_that('updating', {
-  expr1     <- rand_forest(mode = "regression") %>%
-    set_engine("randomForest",  norm.votes = FALSE, sampsize = tune())
-  expr1_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
-
-  expr2     <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>%
-    set_engine("randomForest")
-  expr2_exp <- rand_forest(mode = "regression", mtry = 7, min_n = tune() %>%
-                             set_engine("randomForest", norm.votes = FALSE))
-
-  expr3     <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>%
-    set_engine("randomForest")
-  expr3_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest")
-
-  expr4     <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
-  expr4_exp <- rand_forest(mode = "regression", mtry = 2) %>%
-    set_engine("randomForest", norm.votes = TRUE, sampsize = 10)
-
-  expr5     <- rand_forest(mode = "regression") %>%
-    set_engine("randomForest", norm.votes = tune())
-  expr5_exp <- rand_forest(mode = "regression") %>%
-    set_engine("randomForest", norm.votes = TRUE)
-
-  expect_equal(update(expr1, mtry = 2), expr1_exp, ignore_formula_env = TRUE)
-  expect_equal(update(expr3, mtry = 2, fresh = TRUE), expr3_exp)
-  expect_equal(update(expr4, sampsize = 10, norm.votes = TRUE), expr4_exp)
-  expect_equal(update(expr5, norm.votes = TRUE), expr5_exp)
+  expr1 <- rand_forest(mode = "regression") %>% set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
+  expr2 <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>% set_engine("randomForest")
+  expr3 <- rand_forest(mode = "regression", mtry = 7, min_n = tune()) %>% set_engine("randomForest")
+  expr4 <- rand_forest(mode = "regression", mtry = 2) %>% set_engine("randomForest", norm.votes = FALSE, sampsize = tune())
+  expr5 <- rand_forest(mode = "regression") %>% set_engine("randomForest", norm.votes = tune())
 
   param_tibb <- tibble::tibble(mtry = 3, trees = 10)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mtry, 3)
-  expect_equal(expr4_updated$args$trees, 10)
-  expect_equal(expr4_updated$eng_args$norm.votes, rlang::quo(FALSE))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mtry, 3)
-  expect_equal(expr4_updated_lst$args$trees, 10)
-  expect_equal(expr4_updated_lst$eng_args$norm.votes, rlang::quo(FALSE))
-
+  expect_snapshot(expr1 %>% update(mtry = 2))
+  expect_snapshot(expr3 %>% update(mtry = 2, fresh = TRUE))
+  expect_snapshot(expr4 %>% update(sampsize = 10, norm.votes = TRUE))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(expr5 %>% update(norm.votes = TRUE))
 })
 
 test_that('bad input', {

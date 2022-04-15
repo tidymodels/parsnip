@@ -2,39 +2,22 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 test_that('updating', {
-
-  expr1     <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)
-  expr1_exp <- svm_linear(mode = "regression", cost = 3) %>% set_engine("LiblineaR", type = 12)
-  expr2     <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = tune())
-  expr2_exp <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 13)
-  expr3     <- svm_linear(mode = "regression", cost = 2) %>% set_engine("LiblineaR")
-  expr3_exp <- svm_linear(mode = "regression", cost = 5) %>% set_engine("LiblineaR")
-  expr4     <- svm_linear(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr4_exp <- svm_linear(mode = "regression", cost = 2) %>% set_engine("kernlab", cross = 10)
-  expr5     <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = tune())
-  expr5_exp <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = 10)
-
-
-  expect_equal(update(expr1, cost = 3), expr1_exp)
-  expect_equal(update(expr2, type = 13), expr2_exp)
-  expect_equal(update(expr3, cost = 5, fresh = TRUE), expr3_exp)
+  expr1 <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)
+  expr2 <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = tune())
+  expr3 <- svm_linear(mode = "regression", cost = 2) %>% set_engine("LiblineaR")
+  expr4 <- svm_linear(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr5 <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = tune())
 
   param_tibb <- tibble::tibble(margin = 0.05, cost = 10)
   param_list <- as.list(param_tibb)
 
-  expr1_updated <- update(expr1, param_tibb)
-  expect_equal(expr1_updated$args$margin, 0.05)
-  expect_equal(expr1_updated$args$cost, 10)
-  expect_equal(expr1_updated$eng_args$type, rlang::quo(12))
-
-  expr1_updated_lst <- update(expr1, param_list)
-  expect_equal(expr1_updated_lst$args$margin, 0.05)
-  expect_equal(expr1_updated_lst$args$cost, 10)
-  expect_equal(expr1_updated_lst$eng_args$type, rlang::quo(12))
-
-  expect_equal(update(expr4, cost = 2), expr4_exp)
-  expect_equal(update(expr5, cross = 10), expr5_exp)
-
+  expect_snapshot(expr1 %>% update(cost = 3))
+  expect_snapshot(expr1 %>% update(param_tibb))
+  expect_snapshot(expr1 %>% update(param_list))
+  expect_snapshot(expr2 %>% update(type = 13))
+  expect_snapshot(expr3 %>% update(cost = 5, fresh = TRUE))
+  expect_snapshot(expr4 %>% update(cost = 2))
+  expect_snapshot(expr5 %>% update(cross = 10))
 })
 
 test_that('bad input', {

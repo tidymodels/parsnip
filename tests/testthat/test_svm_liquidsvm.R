@@ -26,7 +26,7 @@ test_that('primary arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      gammas = quo(.2),
+      gammas = rlang::quo(.2),
       folds = 1,
       threads = 0
     )
@@ -46,10 +46,10 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      scale = new_quosure(FALSE, env = rlang::empty_env()),
-      predict.prob = new_quosure(TRUE, env = rlang::empty_env()),
-      threads = new_quosure(2, env = rlang::empty_env()),
-      gpus = new_quosure(1, env = rlang::empty_env()),
+      scale = rlang::new_quosure(FALSE, env = rlang::empty_env()),
+      predict.prob = rlang::new_quosure(TRUE, env = rlang::empty_env()),
+      threads = rlang::new_quosure(2, env = rlang::empty_env()),
+      gpus = rlang::new_quosure(1, env = rlang::empty_env()),
       folds = 1
     )
   )

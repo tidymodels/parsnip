@@ -313,7 +313,7 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- quo(c(min(.lvls()), 20, 10, 1))
+  exp_wts <- rlang::quo(c(min(.lvls()), 20, 10, 1))
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%

@@ -11,7 +11,7 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       data = expr(missing_arg()),
-      cross = quo(10),
+      cross = rlang::quo(10),
       kernel = "rbfdot"
     )
   )
@@ -20,30 +20,18 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-
-  expr1     <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr1_exp <- svm_rbf(mode = "regression", rbf_sigma = .1) %>% set_engine("kernlab", cross = 10)
-  expr2     <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = tune())
-  expr2_exp <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
-  expr3     <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
-  expr3_exp <- svm_rbf(mode = "regression", rbf_sigma = .3) %>% set_engine("kernlab")
-
-  expect_equal(update(expr1, rbf_sigma = .1), expr1_exp)
-  expect_equal(update(expr2, cross = 10), expr2_exp)
-  expect_equal(update(expr3, rbf_sigma = .3, fresh = TRUE), expr3_exp)
+  expr1 <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr2 <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = tune())
+  expr3 <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
 
   param_tibb <- tibble::tibble(rbf_sigma = 3, cost = 10)
   param_list <- as.list(param_tibb)
 
-  expr1_updated <- update(expr1, param_tibb)
-  expect_equal(expr1_updated$args$rbf_sigma, 3)
-  expect_equal(expr1_updated$args$cost, 10)
-  expect_equal(expr1_updated$eng_args$cross, rlang::quo(10))
-
-  expr1_updated_lst <- update(expr1, param_list)
-  expect_equal(expr1_updated_lst$args$rbf_sigma, 3)
-  expect_equal(expr1_updated_lst$args$cost, 10)
-  expect_equal(expr1_updated_lst$eng_args$cross, rlang::quo(10))
+  expect_snapshot(expr1 %>% update(rbf_sigma = .1))
+  expect_snapshot(expr1 %>% update(param_tibb))
+  expect_snapshot(expr1 %>% update(param_list))
+  expect_snapshot(expr2 %>% update(cross = 10))
+  expect_snapshot(expr3 %>% update(rbf_sigma = .3, fresh = TRUE))
 })
 
 test_that('bad input', {

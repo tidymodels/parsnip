@@ -2,32 +2,18 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 test_that('updating', {
-
-  expr1     <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr1_exp <- svm_poly(mode = "regression", degree = 1) %>% set_engine("kernlab", cross = 10)
-
-  expr2     <- svm_poly(mode = "regression", degree = tune()) %>% set_engine("kernlab", cross = tune())
-  expr2_exp <- svm_poly(mode = "regression", degree = tune(), scale_factor = 1) %>% set_engine("kernlab", cross = 10)
-
-  expr3     <- svm_poly(mode = "regression", degree = 2, scale_factor = tune()) %>% set_engine("kernlab")
-  expr3_exp <- svm_poly(mode = "regression", degree = 3) %>% set_engine("kernlab")
-
-  expect_equal(update(expr1, degree = 1), expr1_exp)
-  expect_equal(update(expr2,  scale_factor = 1, cross = 10), expr2_exp)
-  expect_equal(update(expr3, degree = 3, fresh = TRUE), expr3_exp)
+  expr1 <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr2 <- svm_poly(mode = "regression", degree = tune()) %>% set_engine("kernlab", cross = tune())
+  expr3 <- svm_poly(mode = "regression", degree = 2, scale_factor = tune()) %>% set_engine("kernlab")
 
   param_tibb <- tibble::tibble(degree = 3, cost = 10)
   param_list <- as.list(param_tibb)
 
-  expr1_updated <- update(expr1, param_tibb)
-  expect_equal(expr1_updated$args$degree, 3)
-  expect_equal(expr1_updated$args$cost, 10)
-  expect_equal(expr1_updated$eng_args$cross, rlang::quo(10))
-
-  expr1_updated_lst <- update(expr1, param_list)
-  expect_equal(expr1_updated_lst$args$degree, 3)
-  expect_equal(expr1_updated_lst$args$cost, 10)
-  expect_equal(expr1_updated_lst$eng_args$cross, rlang::quo(10))
+  expect_snapshot(expr1 %>% update(degree = 1))
+  expect_snapshot(expr1 %>% update(param_tibb))
+  expect_snapshot(expr1 %>% update(param_list))
+  expect_snapshot(expr2 %>% update(scale_factor = 1, cross = 10))
+  expect_snapshot(expr3 %>% update(degree = 3, fresh = TRUE))
 })
 
 test_that('bad input', {

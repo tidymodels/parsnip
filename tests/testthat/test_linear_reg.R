@@ -3,44 +3,22 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
-  expr1     <- linear_reg() %>% set_engine("lm", model = FALSE)
-  expr1_exp <- linear_reg(mixture = 0) %>% set_engine("lm", model = FALSE)
-
-  expr2     <- linear_reg() %>% set_engine("glmnet", nlambda = tune())
-  expr2_exp <- linear_reg() %>% set_engine("glmnet", nlambda = 10)
-
-  expr3     <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr3_exp <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = 10)
-  expr3_fre <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-
-  expr4     <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr4_exp <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr5     <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-  expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr6     <- linear_reg() %>% set_engine("glm", family = "gaussian")
-  expr6_exp <- linear_reg() %>% set_engine("glm", family = "poisson")
-
-  expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_fre)
-  expect_equal(update(expr3, nlambda = 10), expr3_exp)
-  expect_equal(update(expr6,  family = "poisson"), expr6_exp)
+  expr1 <- linear_reg() %>% set_engine("lm", model = FALSE)
+  expr2 <- linear_reg() %>% set_engine("glmnet", nlambda = tune())
+  expr3 <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr4 <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr5 <- linear_reg() %>% set_engine("glm", family = "gaussian")
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mixture, 1/3)
-  expect_equal(expr4_updated$args$penalty, 1)
-  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mixture, 1/3)
-  expect_equal(expr4_updated_lst$args$penalty, 1)
-  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
-
+  expect_snapshot(expr1 %>% update(mixture = 0))
+  expect_snapshot(expr2 %>% update(nlambda = 10))
+  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE, nlambda = 10))
+  expect_snapshot(expr3 %>% update(nlambda = 10))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(expr5 %>% update(family = "poisson"))
 })
 
 test_that('bad input', {
