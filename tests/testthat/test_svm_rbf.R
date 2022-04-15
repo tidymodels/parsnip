@@ -3,19 +3,9 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('engine arguments', {
-
   kernlab_cv <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
 
-  expect_equal(
-    object = translate(kernlab_cv, "kernlab")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      cross = rlang::quo(10),
-      kernel = "rbfdot"
-    )
-  )
-
+  expect_snapshot(translate(kernlab_cv, "kernlab")$method$fit$args)
 })
 
 

@@ -1,3 +1,23 @@
+# engine arguments
+
+    Code
+      translate(kernlab_cv, "kernlab")$method$fit$args
+    Output
+      $x
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $cross
+      <quosure>
+      expr: ^10
+      env:  empty
+      
+      $kernel
+      [1] "rbfdot"
+      
+
 # updating
 
     Code

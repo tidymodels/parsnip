@@ -6,32 +6,14 @@ test_that('primary arguments', {
   basic <- svm_rbf(mode = "classification")
   basic_liquidSVM <- translate(basic %>% set_engine("liquidSVM"))
 
-  expect_equal(
-    object = basic_liquidSVM$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      folds = 1,
-      threads = 0
-    )
-  )
+  expect_snapshot(basic_liquidSVM$method$fit$args)
 
   rbf_sigma <-
     svm_rbf(mode = "classification", rbf_sigma = .2) %>%
     set_engine("liquidSVM")
   rbf_sigma_liquidSVM <- translate(rbf_sigma)
 
-  expect_equal(
-    object = rbf_sigma_liquidSVM$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      gammas = rlang::quo(.2),
-      folds = 1,
-      threads = 0
-    )
-  )
-
+  expect_snapshot(rbf_sigma_liquidSVM$method$fit$args)
 })
 
 test_that('engine arguments', {
@@ -41,19 +23,9 @@ test_that('engine arguments', {
     set_mode("classification") %>%
     set_engine("liquidSVM", scale = FALSE, predict.prob = TRUE, threads = 2, gpus = 1)
 
-  expect_equal(
-    object = translate(liquidSVM_scale, "liquidSVM")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      scale = rlang::new_quosure(FALSE, env = rlang::empty_env()),
-      predict.prob = rlang::new_quosure(TRUE, env = rlang::empty_env()),
-      threads = rlang::new_quosure(2, env = rlang::empty_env()),
-      gpus = rlang::new_quosure(1, env = rlang::empty_env()),
-      folds = 1
-    )
+  expect_snapshot(
+    translate(liquidSVM_scale, "liquidSVM")$method$fit$args
   )
-
 })
 
 
