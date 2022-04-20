@@ -1,14 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
-context("nnet multinomial regression")
-source("helpers.R")
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -57,7 +46,7 @@ test_that('model fitting', {
     regexp = NA
   )
   fit1$elapsed <- fit2$elapsed
-  expect_equal(fit1, fit2)
+  expect_equal(fit1, fit2, ignore_formula_env = TRUE)
 
   expect_error(
     fit(
@@ -85,7 +74,7 @@ test_that('classification prediction', {
     )
 
   nnet_pred <-
-    predict(lr_fit$fit, as.matrix(te_dat[, -5]))
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5])
   expect_equal(nnet_pred, parsnip_pred$.pred_class)
@@ -106,7 +95,7 @@ test_that('classification probabilities', {
     )
 
   nnet_pred <-
-    predict(lr_fit$fit, as.matrix(te_dat[, -5]), type = "prob") %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]), type = "prob") %>%
     as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
@@ -129,8 +118,8 @@ test_that('prob prediction with 1 row', {
     )
 
   nnet_pred <-
-    predict(lr_fit$fit, as.matrix(te_dat[1, -5]), type = "prob") %>%
-    as_tibble(.name_repair = "minimal") %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[1, -5]), type = "prob") %>%
+    tibble::as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[1, -5], type = "prob")

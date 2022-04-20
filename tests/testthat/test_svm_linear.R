@@ -1,106 +1,23 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
-context("linear SVM")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
-
-test_that('primary arguments', {
-  basic <- svm_linear(mode = "regression")
-  basic_LiblineaR <- translate(basic %>% set_engine("LiblineaR"))
-  basic_kernlab <- translate(basic %>% set_engine("kernlab"))
-
-  expect_equal(
-    object = basic_LiblineaR$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      wi = expr(missing_arg()),
-      type = 11,
-      svr_eps = 0.1
-    )
-  )
-
-  expect_equal(
-    object = basic_kernlab$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      kernel = "vanilladot"
-    )
-  )
-
-})
-
-test_that('engine arguments', {
-
-  LiblineaR_type <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 12)
-  kernlab_cv <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = 10)
-
-  expect_equal(
-    object = translate(LiblineaR_type, "LiblineaR")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      wi = expr(missing_arg()),
-      type = new_empty_quosure(12),
-      svr_eps = 0.1
-    )
-  )
-
-  expect_equal(
-    object = translate(kernlab_cv, "kernlab")$method$fit$args,
-    expected = list(
-      x = expr(missing_arg()),
-      data = expr(missing_arg()),
-      cross = new_empty_quosure(10),
-      kernel = "vanilladot"
-    )
-  )
-
-})
-
-
 test_that('updating', {
-
-  expr1     <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)
-  expr1_exp <- svm_linear(mode = "regression", cost = 3) %>% set_engine("LiblineaR", type = 12)
-  expr2     <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = tune())
-  expr2_exp <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 13)
-  expr3     <- svm_linear(mode = "regression", cost = 2) %>% set_engine("LiblineaR")
-  expr3_exp <- svm_linear(mode = "regression", cost = 5) %>% set_engine("LiblineaR")
-  expr4     <- svm_linear(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr4_exp <- svm_linear(mode = "regression", cost = 2) %>% set_engine("kernlab", cross = 10)
-  expr5     <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = tune())
-  expr5_exp <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = 10)
-
-
-  expect_equal(update(expr1, cost = 3), expr1_exp)
-  expect_equal(update(expr2, type = 13), expr2_exp)
-  expect_equal(update(expr3, cost = 5, fresh = TRUE), expr3_exp)
+  expr1 <- svm_linear(mode = "regression")  %>% set_engine("LiblineaR", type = 12)
+  expr2 <- svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = tune())
+  expr3 <- svm_linear(mode = "regression", cost = 2) %>% set_engine("LiblineaR")
+  expr4 <- svm_linear(mode = "regression")  %>% set_engine("kernlab", cross = 10)
+  expr5 <- svm_linear(mode = "regression") %>% set_engine("kernlab", cross = tune())
 
   param_tibb <- tibble::tibble(margin = 0.05, cost = 10)
   param_list <- as.list(param_tibb)
 
-  expr1_updated <- update(expr1, param_tibb)
-  expect_equal(expr1_updated$args$margin, 0.05)
-  expect_equal(expr1_updated$args$cost, 10)
-  expect_equal(expr1_updated$eng_args$type, rlang::quo(12))
-
-  expr1_updated_lst <- update(expr1, param_list)
-  expect_equal(expr1_updated_lst$args$margin, 0.05)
-  expect_equal(expr1_updated_lst$args$cost, 10)
-  expect_equal(expr1_updated_lst$eng_args$type, rlang::quo(12))
-
-  expect_equal(update(expr4, cost = 2), expr4_exp)
-  expect_equal(update(expr5, cross = 10), expr5_exp)
-
+  expect_snapshot(expr1 %>% update(cost = 3))
+  expect_snapshot(expr1 %>% update(param_tibb))
+  expect_snapshot(expr1 %>% update(param_list))
+  expect_snapshot(expr2 %>% update(type = 13))
+  expect_snapshot(expr3 %>% update(cost = 5, fresh = TRUE))
+  expect_snapshot(expr4 %>% update(cost = 2))
+  expect_snapshot(expr5 %>% update(cross = 10))
 })
 
 test_that('bad input', {
@@ -198,7 +115,7 @@ test_that('linear svm regression prediction: LiblineaR', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(reg_form$fit$W, reg_xy_form$fit$W)
+  expect_equal(extract_fit_engine(reg_form)$W, extract_fit_engine(reg_xy_form)$W)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
   expect_equal(as.data.frame(liblinear_pred),
@@ -276,7 +193,7 @@ test_that('linear svm classification prediction: LiblineaR', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(cls_form$fit$W, cls_xy_form$fit$W)
+  expect_equal(extract_fit_engine(cls_form)$W, extract_fit_engine(cls_xy_form)$W)
 
   expect_error(
     predict(cls_form, hpc_no_m[ind, -5], type = "prob"),
@@ -371,7 +288,7 @@ test_that('linear svm regression prediction: kernlab', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(reg_form$fit@alphaindex, reg_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
   expect_equal(as.data.frame(kernlab_pred),
@@ -449,11 +366,11 @@ test_that('linear svm classification prediction: kernlab', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(cls_form$fit@alphaindex, cls_xy_form$fit@alphaindex)
+  expect_equal(extract_fit_engine(cls_form)@alphaindex, extract_fit_engine(cls_xy_form)@alphaindex)
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(cls_form$fit, hpc_no_m[ind, -5], type = "probabilities") %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
     as_tibble() %>%
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 

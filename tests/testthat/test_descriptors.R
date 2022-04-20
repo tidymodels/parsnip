@@ -1,12 +1,4 @@
-library(testthat)
-library(parsnip)
-
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
-
-# ------------------------------------------------------------------------------
-
-context("descriptor variables")
 
 # ------------------------------------------------------------------------------
 
@@ -33,7 +25,7 @@ class_tab <- table(hpc$class, dnn = NULL)
 
 # ------------------------------------------------------------------------------
 
-context("Should descriptors be created?")
+# Should descriptors be created?
 
 test_that("requires_descrs", {
 
@@ -82,7 +74,7 @@ test_that("requires_descrs", {
 
 # ------------------------------------------------------------------------------
 
-context("Testing formula -> xy conversion")
+# Testing formula -> xy conversion
 
 test_that("numeric y and dummy vars", {
   expect_equal(
@@ -156,7 +148,7 @@ test_that("weird cases", {
 
 # ------------------------------------------------------------------------------
 
-context("Testing xy -> formula conversion")
+# Testing xy -> formula conversion
 
 test_that("numeric y and dummy vars", {
   hpc2 <- dplyr::rename(hpc, ..y = class)
@@ -182,7 +174,7 @@ test_that("numeric y and dummy vars", {
 
 # ------------------------------------------------------------------------------
 
-context("Descriptor helpers")
+# Descriptor helpers
 
 test_that("can be temporarily overriden at evaluation time", {
 

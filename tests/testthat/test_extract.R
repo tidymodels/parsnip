@@ -1,8 +1,3 @@
-
-context("model extraction")
-
-# ------------------------------------------------------------------------------
-
 test_that('extract', {
   skip_if(tune_check())
 

@@ -1,8 +1,3 @@
-
-context("augment")
-
-# ------------------------------------------------------------------------------
-
 test_that('regression models', {
   x <- linear_reg() %>% set_engine("lm")
 

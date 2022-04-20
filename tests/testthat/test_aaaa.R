@@ -4,7 +4,6 @@
 
 library(testthat)
 
-context("setting keras environment")
-
+# setting keras environment
 Sys.setenv(TF_CPP_MIN_LOG_LEVEL = '3')
 k_bk <- try(keras:::backend(), silent = TRUE)

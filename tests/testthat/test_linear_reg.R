@@ -1,221 +1,24 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
-context("linear regression")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- linear_reg()
-  basic_lm <- translate(basic %>% set_engine("lm"))
-  basic_glm <- translate(basic %>% set_engine("glm"))
-  expect_error(
-    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  basic_stan <- translate(basic %>% set_engine("stan"))
-  basic_spark <- translate(basic %>% set_engine("spark"))
-  expect_equal(basic_lm$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg())
-               )
-  )
-  expect_equal(basic_glm$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = expr(stats::gaussian)
-               )
-  )
-  expect_equal(basic_stan$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = expr(stats::gaussian),
-                 refresh = 0
-               )
-  )
-  expect_equal(basic_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg())
-               )
-  )
-
-  mixture <- linear_reg(mixture = 0.128)
-  expect_error(
-    mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture_spark <- translate(mixture %>% set_engine("spark"))
-  expect_equal(mixture_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(0.128)
-               )
-  )
-
-  penalty <- linear_reg(penalty = 1)
-  penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
-  penalty_spark <- translate(penalty %>% set_engine("spark"))
-  expect_equal(penalty_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "gaussian"
-               )
-  )
-  expect_equal(penalty_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 reg_param = new_empty_quosure(1)
-               )
-  )
-
-  mixture_v <- linear_reg(mixture = tune())
-  expect_error(
-    mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture_v_spark <- translate(mixture_v %>% set_engine("spark"))
-  expect_equal(mixture_v_spark$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 elastic_net_param = new_empty_quosure(tune())
-               )
-  )
-
-})
-
-test_that('engine arguments', {
-  lm_fam <- linear_reg() %>% set_engine("lm", model = FALSE)
-  expect_equal(translate(lm_fam)$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 model = new_empty_quosure(FALSE)
-               )
-  )
-
-  glm_log <- linear_reg() %>% set_engine("glm", family = "quasipoisson")
-  expect_equal(translate(glm_log)$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = new_empty_quosure("quasipoisson")
-               )
-  )
-
-  glmnet_nlam <- linear_reg(penalty = 0.1) %>% set_engine("glmnet", nlambda = 10)
-  expect_equal(translate(glmnet_nlam)$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 nlambda = new_empty_quosure(10),
-                 family = "gaussian"
-               )
-  )
-
-  stan_samp <- linear_reg() %>% set_engine("stan", chains = 1, iter = 5)
-  expect_equal(translate(stan_samp)$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 chains = new_empty_quosure(1),
-                 iter = new_empty_quosure(5),
-                 family = expr(stats::gaussian),
-                 refresh = 0
-               )
-  )
-
-  spark_iter <- linear_reg() %>% set_engine("spark", max_iter = 20)
-  expect_equal(translate(spark_iter)$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 formula = expr(missing_arg()),
-                 weight_col = expr(missing_arg()),
-                 max_iter = new_empty_quosure(20)
-               )
-  )
-
-  # For issue #431
-  with_path <-
-    linear_reg(penalty = 1) %>%
-    set_engine("glmnet", path_values = 4:2) %>%
-    translate()
-  expect_equal(
-    names(with_path$method$fit$args),
-    c("x", "y", "weights", "lambda", "family")
-  )
-  expect_equal(
-    rlang::eval_tidy(with_path$method$fit$args$lambda),
-    4:2
-  )
-})
-
-
 test_that('updating', {
-  expr1     <- linear_reg() %>% set_engine("lm", model = FALSE)
-  expr1_exp <- linear_reg(mixture = 0) %>% set_engine("lm", model = FALSE)
-
-  expr2     <- linear_reg() %>% set_engine("glmnet", nlambda = tune())
-  expr2_exp <- linear_reg() %>% set_engine("glmnet", nlambda = 10)
-
-  expr3     <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr3_exp <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = 10)
-  expr3_fre <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-
-  expr4     <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr4_exp <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr5     <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-  expr5_exp <- linear_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr6     <- linear_reg() %>% set_engine("glm", family = "gaussian")
-  expr6_exp <- linear_reg() %>% set_engine("glm", family = "poisson")
-
-  expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_fre)
-  expect_equal(update(expr3, nlambda = 10), expr3_exp)
-  expect_equal(update(expr6,  family = "poisson"), expr6_exp)
+  expr1 <- linear_reg() %>% set_engine("lm", model = FALSE)
+  expr2 <- linear_reg() %>% set_engine("glmnet", nlambda = tune())
+  expr3 <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr4 <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr5 <- linear_reg() %>% set_engine("glm", family = "gaussian")
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mixture, 1/3)
-  expect_equal(expr4_updated$args$penalty, 1)
-  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mixture, 1/3)
-  expect_equal(expr4_updated_lst$args$penalty, 1)
-  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
-
+  expect_snapshot(expr1 %>% update(mixture = 0))
+  expect_snapshot(expr2 %>% update(nlambda = 10))
+  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE, nlambda = 10))
+  expect_snapshot(expr3 %>% update(nlambda = 10))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(expr5 %>% update(family = "poisson"))
 })
 
 test_that('bad input', {
@@ -385,7 +188,7 @@ test_that('lm prediction', {
   inl_lm <- lm(compounds ~ log(input_fields) + class, data = hpc)
   inl_pred <- unname(predict(inl_lm, newdata = hpc[1:5, ]))
   mv_lm <- lm(cbind(input_fields, num_pending) ~ ., data = hpc)
-  mv_pred <- as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
+  mv_pred <- tibble::as_tibble(predict(mv_lm, newdata = hpc[1:5, ]))
   names(mv_pred) <- c(".pred_input_fields", ".pred_num_pending")
 
   res_xy <- fit_xy(
@@ -466,8 +269,8 @@ test_that('lm intervals', {
             type = "conf_int",
             level = 0.93)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, confidence_lm[, "lwr"])
-  expect_equivalent(confidence_parsnip$.pred_upper, confidence_lm[, "upr"])
+  expect_equal(confidence_parsnip$.pred_lower, confidence_lm[, "lwr"], ignore_attr = TRUE)
+  expect_equal(confidence_parsnip$.pred_upper, confidence_lm[, "upr"], ignore_attr = TRUE)
 
   prediction_parsnip <-
     predict(res_xy,
@@ -475,8 +278,8 @@ test_that('lm intervals', {
             type = "pred_int",
             level = 0.93)
 
-  expect_equivalent(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"])
-  expect_equivalent(prediction_parsnip$.pred_upper, prediction_lm[, "upr"])
+  expect_equal(prediction_parsnip$.pred_lower, prediction_lm[, "lwr"], ignore_attr = TRUE)
+  expect_equal(prediction_parsnip$.pred_upper, prediction_lm[, "upr"], ignore_attr = TRUE)
 })
 
 test_that('glm intervals', {
@@ -503,8 +306,8 @@ test_that('glm intervals', {
             type = "conf_int",
             level = 0.93)
 
-  expect_equivalent(confidence_parsnip$.pred_lower, lower_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper, upper_glm)
+  expect_equal(confidence_parsnip$.pred_lower, lower_glm)
+  expect_equal(confidence_parsnip$.pred_upper, upper_glm)
 
 })
 
