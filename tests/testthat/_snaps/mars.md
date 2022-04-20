@@ -80,3 +80,14 @@
       Computational engine: earth 
       
 
+---
+
+    Code
+      expr4 %>% update(nk = tune()) %>% extract_parameter_set_dials()
+    Output
+      Collection of 1 parameters for tuning
+      
+       identifier type    object
+               nk   nk nparam[+]
+      
+

@@ -16,6 +16,7 @@ test_that('updating', {
   expect_snapshot(expr3 %>% update(num_terms = 1, fresh = TRUE))
   expect_snapshot(expr4 %>% update(param_tibb))
   expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(expr4 %>% update(nk = tune()) %>% extract_parameter_set_dials())
 })
 
 test_that('bad input', {
