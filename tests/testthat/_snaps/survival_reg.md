@@ -1,25 +1,3 @@
-# primary argument
-
-    Code
-      normal$args
-    Output
-      $dist
-      <quosure>
-      expr: ^"lnorm"
-      env:  empty
-      
-
----
-
-    Code
-      dist_v$args
-    Output
-      $dist
-      <quosure>
-      expr: ^tune()
-      env:  0x7fac639ef120
-      
-
 # updating
 
     Code
