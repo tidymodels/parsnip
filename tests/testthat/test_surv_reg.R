@@ -1,83 +1,14 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(survival)
-
-# ------------------------------------------------------------------------------
-
-context("parametric survival models")
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
-test_that('primary arguments', {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-
-  basic <- surv_reg()
-  basic_flexsurv <- translate(basic %>% set_engine("flexsurv"))
-
-  expect_equal(basic_flexsurv$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg())
-               )
-  )
-
-  normal <- surv_reg(dist = "lnorm")
-  normal_flexsurv <- translate(normal %>% set_engine("flexsurv"))
-  expect_equal(normal_flexsurv$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 dist = new_empty_quosure("lnorm")
-               )
-  )
-
-  dist_v <- surv_reg(dist = tune())
-  dist_v_flexsurv <- translate(dist_v %>% set_engine("flexsurv"))
-  expect_equal(dist_v_flexsurv$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 dist = new_empty_quosure(tune())
-               )
-  )
-})
-
-test_that('engine arguments', {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-
-  fs_cl <- surv_reg()
-  expect_equal(translate(fs_cl %>% set_engine("flexsurv", cl = .99))$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 cl = new_empty_quosure(.99)
-               )
-  )
-
-})
-
-
 test_that('updating', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 
-  expr1     <- surv_reg() %>% set_engine("flexsurv", cl = tune())
-  expr1_exp <- surv_reg(dist = "lnorm") %>% set_engine("flexsurv", cl = .99)
-  expect_equal(update(expr1, dist = "lnorm", cl = 0.99), expr1_exp)
+  expr1 <- surv_reg() %>% set_engine("flexsurv", cl = tune())
 
   param_tibb <- tibble::tibble(dist = "weibull")
   param_list <- as.list(param_tibb)
 
-  expr1_updated <- update(expr1, param_tibb)
-  expect_equal(expr1_updated$args$dist, "weibull")
-
-  expr1_updated_lst <- update(expr1, param_list)
-  expect_equal(expr1_updated_lst$args$dist, "weibull")
+  expect_snapshot(expr1 %>% update(dist = "lnorm", cl = 0.99))
+  expect_snapshot(expr1 %>% update(param_tibb))
+  expect_snapshot(expr1 %>% update(param_list))
 })
 
 test_that('bad input', {

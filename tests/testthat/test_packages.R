@@ -1,5 +1,4 @@
 
-context("checking for packages")
 load(test_path("mars_model.RData"))
 
 # ------------------------------------------------------------------------------

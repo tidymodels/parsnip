@@ -1,123 +1,22 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
-context("multinom regression")
-source("helpers.R")
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
-
-test_that('primary arguments', {
-  basic <- multinom_reg()
-  expect_error(
-    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture <- multinom_reg(penalty = 0.1, mixture = 0.128)
-  mixture_glmnet <- translate(mixture %>% set_engine("glmnet"))
-  expect_equal(mixture_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(0.128),
-                 family = "multinomial"
-               )
-  )
-
-  penalty <- multinom_reg(penalty = 1)
-  penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
-  expect_equal(penalty_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "multinomial"
-               )
-  )
-
-  mixture_v <- multinom_reg(penalty = 0.01, mixture = tune())
-  mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet"))
-  expect_equal(mixture_v_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 alpha = new_empty_quosure(tune()),
-                 family = "multinomial"
-               )
-  )
-
-})
-
-test_that('engine arguments', {
-  glmnet_nlam <- multinom_reg(penalty = 0.01)
-  expect_equal(
-    translate(glmnet_nlam %>% set_engine("glmnet", nlambda = 10))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      nlambda = new_empty_quosure(10),
-      family = "multinomial"
-    )
-  )
-
-  # For issue #431
-  with_path <-
-    multinom_reg(penalty = 1) %>%
-    set_engine("glmnet", path_values = 4:2) %>%
-    translate()
-  expect_equal(
-    names(with_path$method$fit$args),
-    c("x", "y", "weights", "lambda", "family")
-  )
-  expect_equal(
-    rlang::eval_tidy(with_path$method$fit$args$lambda),
-    4:2
-  )
-})
-
-
 test_that('updating', {
-  expr1     <- multinom_reg() %>% set_engine("glmnet", intercept = TRUE)
-  expr1_exp <- multinom_reg(mixture = 0) %>% set_engine("glmnet", intercept = TRUE)
-
-  expr2     <- multinom_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr2_exp <- multinom_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = 10)
-
-  expr3     <- multinom_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet")
-  expr3_exp <- multinom_reg(mixture = 1) %>% set_engine("glmnet")
-
-  expr4     <- multinom_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr4_exp <- multinom_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr5     <- multinom_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-  expr5_exp <- multinom_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE) %>% set_engine("glmnet"), expr3_exp)
-  # expect_equal(update(expr4 %>% set_engine("glmnet", pmax = 2)), expr4_exp)
-  expect_equal(update(expr5) %>% set_engine("glmnet", nlambda = 10, pmax = 2), expr5_exp)
+  expr1 <- multinom_reg() %>% set_engine("glmnet", intercept = TRUE)
+  expr2 <- multinom_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr3 <- multinom_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet")
+  expr4 <- multinom_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr5 <- multinom_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mixture, 1/3)
-  expect_equal(expr4_updated$args$penalty, 1)
-  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mixture, 1/3)
-  expect_equal(expr4_updated_lst$args$penalty, 1)
-  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
-
+  expect_snapshot(expr1 %>% update(mixture = 0))
+  expect_snapshot(expr2 %>% update(nlambda = 10))
+  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(expr5 %>% update() %>% set_engine("glmnet", nlambda = 10, pmax = 2))
 })
 
 test_that('bad input', {

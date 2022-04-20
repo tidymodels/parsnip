@@ -1,11 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
-context("nearest neighbor execution with kknn")
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
@@ -76,7 +68,7 @@ test_that('kknn prediction', {
   )
 
   uni_pred <- predict(
-    res_xy$fit,
+    extract_fit_engine(res_xy),
     newdata = hpc[1:5, num_pred]
   )
 
@@ -91,7 +83,7 @@ test_that('kknn prediction', {
   )
 
   uni_pred_nom <- predict(
-    res_xy_nom$fit,
+    extract_fit_engine(res_xy_nom),
     newdata = hpc[1:5, c("input_fields", "iterations")]
   )
 
@@ -109,7 +101,7 @@ test_that('kknn prediction', {
   )
 
   form_pred <- predict(
-    res_form$fit,
+    extract_fit_engine(res_form),
     newdata = hpc[1:5,]
   )
 
@@ -141,10 +133,10 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, hpc[hpc_te, num_pred])
   pred_uni_obs <-
     pred_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(.pred_class)
   expect_equal(pred_uni, pred_uni_obs)
 
@@ -158,10 +150,10 @@ test_that('kknn multi-predict', {
   prob_uni <- predict(res_xy, hpc[hpc_te, num_pred], type = "prob")
   prob_uni_obs <-
     prob_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(!!names(prob_uni))
   expect_equal(prob_uni, prob_uni_obs)
 
@@ -186,10 +178,10 @@ test_that('kknn multi-predict', {
   pred_uni <- predict(res_xy, mtcars[cars_te, -1])
   pred_uni_obs <-
     pred_multi %>%
-    mutate(.rows = row_number()) %>%
+    dplyr::mutate(.rows = dplyr::row_number()) %>%
     tidyr::unnest(cols = c(.pred)) %>%
     dplyr::filter(neighbors == 3) %>%
-    arrange(.rows) %>%
+    dplyr::arrange(.rows) %>%
     dplyr::select(.pred)
   expect_equal(pred_uni, pred_uni_obs)
 })
@@ -217,8 +209,8 @@ test_that('argument checks for data dimensions', {
     "1000 samples were requested but there were 333 rows in the data. 328 will be used."
   )
 
-  expect_equal(f_fit$fit$best.parameters$k,  nrow(penguins) - 5)
-  expect_equal(xy_fit$fit$best.parameters$k, nrow(penguins) - 5)
+  expect_equal(extract_fit_engine(f_fit)$best.parameters$k,  nrow(penguins) - 5)
+  expect_equal(extract_fit_engine(xy_fit)$best.parameters$k, nrow(penguins) - 5)
 
 })
 
