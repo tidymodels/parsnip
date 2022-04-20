@@ -52,10 +52,10 @@ test_that('engine arguments', {
     expected = list(
       x = expr(missing_arg()),
       y = expr(missing_arg()),
-      scale = new_quosure(FALSE, env = empty_env()),
-      predict.prob = new_quosure(TRUE, env = empty_env()),
-      threads = new_quosure(2, env = empty_env()),
-      gpus = new_quosure(1, env = empty_env()),
+      scale = rlang::new_quosure(FALSE, env = rlang::empty_env()),
+      predict.prob = rlang::new_quosure(TRUE, env = rlang::empty_env()),
+      threads = rlang::new_quosure(2, env = rlang::empty_env()),
+      gpus = rlang::new_quosure(1, env = rlang::empty_env()),
       folds = 1
     )
   )
