@@ -146,16 +146,10 @@ fit.model_spec <-
 
     wts <- weights_to_numeric(case_weights, object)
 
-    # `lm()` and `glm()` and others use the original model function call to
-    # construct a call for `model.frame()`. That will normally fail because the
-    # formula has its own environment attached (usually the global environment)
-    # and it will look there for a vector named 'weights'. To account
-    # for this, we create a child of the `formula`'s environment and
-    # stash the `weights` there with the expected name and then
-    # reassign this as the `formula`'s environment
-    environment(formula) <- rlang::new_environment(
-      data = list(data = data, weights = wts),
-      parent = environment(formula)
+    formula <- patch_formula_environment_with_case_weights(
+      formula = formula,
+      data = data,
+      case_weights = wts
     )
 
     eval_env$data <- data
