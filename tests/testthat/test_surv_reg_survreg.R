@@ -1,14 +1,11 @@
-library(testthat)
-library(parsnip)
-library(survival)
-library(tibble)
+if (R.Version()$major < "4") {
+  data(lung, package = 'survival')
+} else {
+  data(cancer, package = 'survival')
+}
 
-# ------------------------------------------------------------------------------
-
-source(test_path("helper-objects.R"))
-
-basic_form <- Surv(time, status) ~ group
-complete_form <- Surv(time) ~ group
+basic_form <- survival::Surv(time, status) ~ group
+complete_form <- survival::Surv(time) ~ group
 
 # ------------------------------------------------------------------------------
 
@@ -22,7 +19,7 @@ test_that('survival execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time, status) ~ age + sex,
+      survival::Surv(time, status) ~ age + sex,
       data = lung,
       control = ctrl
     ),
@@ -32,7 +29,7 @@ test_that('survival execution', {
   expect_error(
     res <- fit(
       surv_lnorm,
-      Surv(time) ~ age + sex,
+      survival::Surv(time) ~ age + sex,
       data = lung,
       control = ctrl
     ),
@@ -57,15 +54,15 @@ test_that('survival prediction', {
 
   res <- fit(
     surv_basic,
-    Surv(time, status) ~ age + sex,
+    survival::Surv(time, status) ~ age + sex,
     data = lung,
     control = ctrl
   )
-  exp_pred <- predict(res$fit, head(lung))
+  exp_pred <- predict(extract_fit_engine(res), head(lung))
   exp_pred <- tibble(.pred = unname(exp_pred))
   expect_equal(exp_pred, predict(res, head(lung)))
 
-  exp_quant <- predict(res$fit, head(lung), p = (2:4)/5, type = "quantile")
+  exp_quant <- predict(extract_fit_engine(res), head(lung), p = (2:4)/5, type = "quantile")
   exp_quant <-
     apply(exp_quant, 1, function(x)
       tibble(.pred = x, .quantile = (2:4) / 5))

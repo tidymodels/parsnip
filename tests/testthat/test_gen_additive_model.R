@@ -1,14 +1,4 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-library(mgcv)
-
 data(two_class_dat, package = "modeldata")
-
-# ------------------------------------------------------------------------------
-
-context("generalized additive models")
 
 # ------------------------------------------------------------------------------
 
@@ -39,19 +29,19 @@ test_that('regression', {
     regexp = "must be used with GAM models"
   )
   mgcv_mod <- mgcv::gam(mpg ~ s(disp) + wt + gear, data = mtcars, select = TRUE)
-  expect_equal(coef(mgcv_mod), coef(f_res$fit))
+  expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
 
   f_pred <- predict(f_res, head(mtcars))
   mgcv_pred <- predict(mgcv_mod, head(mtcars), type = "response")
   expect_equal(names(f_pred), ".pred")
-  expect_equivalent(f_pred[[".pred"]], unname(mgcv_pred))
+  expect_equal(f_pred[[".pred"]], mgcv_pred, ignore_attr = TRUE)
 
   f_ci <- predict(f_res, head(mtcars), type = "conf_int", std_error = TRUE)
   mgcv_ci <- predict(mgcv_mod, head(mtcars), type = "link", se.fit = TRUE)
-  expect_equivalent(f_ci[[".std_error"]], unname(mgcv_ci$se.fit))
+  expect_equal(f_ci[[".std_error"]], mgcv_ci$se.fit)
   lower <-
     mgcv_ci$fit - qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
-  expect_equivalent(f_ci[[".pred_lower"]], unname(lower))
+  expect_equal(f_ci[[".pred_lower"]], lower)
 
 })
 
@@ -87,22 +77,22 @@ test_that('classification', {
               data = two_class_dat,
               gamma = 1.5,
               family = binomial)
-  expect_equal(coef(mgcv_mod), coef(f_res$fit))
+  expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
 
   f_pred <- predict(f_res, head(two_class_dat), type = "prob")
   mgcv_pred <- predict(mgcv_mod, head(two_class_dat), type = "response")
   expect_equal(names(f_pred), c(".pred_Class1", ".pred_Class2"))
-  expect_equivalent(f_pred[[".pred_Class2"]], unname(mgcv_pred))
+  expect_equal(f_pred[[".pred_Class2"]], mgcv_pred, ignore_attr = TRUE)
 
   f_cls <- predict(f_res, head(two_class_dat), type = "class")
   expect_true(all(f_cls$.pred_class[mgcv_pred < 0.5] == "Class1"))
 
   f_ci <- predict(f_res, head(two_class_dat), type = "conf_int", std_error = TRUE)
   mgcv_ci <- predict(mgcv_mod, head(two_class_dat), type = "link", se.fit = TRUE)
-  expect_equivalent(f_ci[[".std_error"]], unname(mgcv_ci$se.fit))
+  expect_equal(f_ci[[".std_error"]], mgcv_ci$se.fit)
   lower <-
     mgcv_ci$fit - qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
   lower <- binomial()$linkinv(lower)
-  expect_equivalent(f_ci[[".pred_lower_Class2"]], unname(lower))
+  expect_equal(f_ci[[".pred_lower_Class2"]], lower)
 
 })
