@@ -11,6 +11,7 @@ source("helpers.R")
 
 
 test_that('primary arguments', {
+  skip("reworked in target branch")
   hidden_units <- mlp(mode = "regression", hidden_units = 4)
   hidden_units_nnet <- translate(hidden_units %>% set_engine("nnet"))
   hidden_units_keras <- translate(hidden_units %>% set_engine("keras"))
@@ -87,6 +88,7 @@ test_that('primary arguments', {
 })
 
 test_that('engine arguments', {
+  skip("reworked in target branch")
   nnet_hess <- mlp(mode = "classification") %>% set_engine("nnet", Hess = TRUE)
   expect_equal(translate(nnet_hess)$method$fit$args,
                list(
