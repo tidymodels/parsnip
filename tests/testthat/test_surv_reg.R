@@ -1,14 +1,11 @@
 test_that('updating', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 
-  expr1 <- surv_reg() %>% set_engine("flexsurv", cl = tune())
-
-  param_tibb <- tibble::tibble(dist = "weibull")
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(expr1 %>% update(dist = "lnorm", cl = 0.99))
-  expect_snapshot(expr1 %>% update(param_tibb))
-  expect_snapshot(expr1 %>% update(param_list))
+  expect_snapshot(
+    surv_reg() %>%
+      set_engine("flexsurv", cl = 0.99) %>%
+      update(cl = tune())
+  )
 })
 
 test_that('bad input', {

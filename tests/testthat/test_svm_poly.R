@@ -2,18 +2,11 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 test_that('updating', {
-  expr1 <- svm_poly(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr2 <- svm_poly(mode = "regression", degree = tune()) %>% set_engine("kernlab", cross = tune())
-  expr3 <- svm_poly(mode = "regression", degree = 2, scale_factor = tune()) %>% set_engine("kernlab")
-
-  param_tibb <- tibble::tibble(degree = 3, cost = 10)
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(expr1 %>% update(degree = 1))
-  expect_snapshot(expr1 %>% update(param_tibb))
-  expect_snapshot(expr1 %>% update(param_list))
-  expect_snapshot(expr2 %>% update(scale_factor = 1, cross = 10))
-  expect_snapshot(expr3 %>% update(degree = 3, fresh = TRUE))
+  expect_snapshot(
+    svm_poly(mode = "regression", degree = 2) %>%
+      set_engine("kernlab", cross = 10) %>%
+      update(degree = tune(), cross = tune())
+  )
 })
 
 test_that('bad input', {

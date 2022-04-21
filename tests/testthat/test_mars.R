@@ -3,22 +3,15 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
-  expr1 <- mars() %>% set_engine("earth", model = FALSE)
-  expr2 <- mars(num_terms = tune()) %>% set_engine("earth", nk = tune())
-  expr3 <- mars(num_terms = 1, prod_degree = tune()) %>% set_engine("earth", nk = tune())
-  expr4 <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
+  expr1 <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
 
-  param_tibb <- tibble::tibble(num_terms = 3, prod_degree = 1)
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(expr1 %>% update(num_terms = 1))
-  expect_snapshot(expr2 %>% update(nk = 10))
-  expect_snapshot(expr3 %>% update(num_terms = 1, fresh = TRUE))
-  expect_snapshot(expr4 %>% update(param_tibb))
-  expect_snapshot(expr4 %>% update(param_list))
+  expect_snapshot(
+    expr1 %>%
+      update(num_terms = tune(), nk = tune())
+  )
 
   expect_equal(
-    expr4 %>%
+    expr1 %>%
       update(nk = tune()) %>%
       extract_parameter_set_dials() %>%
       nrow(),

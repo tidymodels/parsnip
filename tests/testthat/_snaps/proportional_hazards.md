@@ -1,38 +1,12 @@
 # updating
 
     Code
-      update(basic, penalty = 0.05)
+      proportional_hazards() %>% update(penalty = tune())
     Output
       Proportional Hazards Model Specification (censored regression)
       
       Main Arguments:
-        penalty = 0.05
-      
-      Computational engine: survival 
-      
-
----
-
-    Code
-      update(basic, param_tibb)
-    Output
-      Proportional Hazards Model Specification (censored regression)
-      
-      Main Arguments:
-        penalty = 0.05
-      
-      Computational engine: survival 
-      
-
----
-
-    Code
-      update(basic, param_list)
-    Output
-      Proportional Hazards Model Specification (censored regression)
-      
-      Main Arguments:
-        penalty = 0.05
+        penalty = tune()
       
       Computational engine: survival 
       
