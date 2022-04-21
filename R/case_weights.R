@@ -47,6 +47,24 @@ weights_to_numeric <- function(x, spec) {
   x
 }
 
+patch_formula_environment_with_case_weights <- function(formula,
+                                                        data,
+                                                        case_weights) {
+  # `lm()` and `glm()` and others use the original model function call to
+  # construct a call for `model.frame()`. That will normally fail because the
+  # formula has its own environment attached (usually the global environment)
+  # and it will look there for a vector named 'weights'. To account
+  # for this, we create a child of the `formula`'s environment and
+  # stash the `weights` there with the expected name and then
+  # reassign this as the `formula`'s environment
+  environment(formula) <- rlang::new_environment(
+    data = list(data = data, weights = case_weights),
+    parent = environment(formula)
+  )
+
+  formula
+}
+
 #' Convert case weights to final from
 #'
 #' tidymodels requires case weights to have special classes. To use them in
@@ -55,6 +73,7 @@ weights_to_numeric <- function(x, spec) {
 #' @param x A vector with class `"hardhat_case_weights"`.
 #' @param where The location where they will be used: `"parsnip"` or
 #' `"yardstick"`.
+#' @param ... Additional options (not currently used).
 #' @return A numeric vector or NULL.
 #' @export
 convert_case_weights <- function(x, where = "parsnip", ...) {

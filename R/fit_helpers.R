@@ -177,7 +177,7 @@ xy_form <- function(object, env, control, ...) {
     .convert_xy_to_form_fit(
       x = env$x,
       y = env$y,
-      weights = NULL,
+      weights = env$weights,
       y_name = "..y",
       remove_intercept = remove_intercept
     )
