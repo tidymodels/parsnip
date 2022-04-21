@@ -19,11 +19,15 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## GAM Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Specification (regression)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)
@@ -34,14 +38,18 @@ This model has 2 tuning parameters:
 ## Model fit template:
 ## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
 ##     gamma = numeric(1))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## GAM Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Specification (classification)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)
@@ -52,18 +60,22 @@ This model has 2 tuning parameters:
 ## Model fit template:
 ## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
 ##     gamma = numeric(1), family = stats::binomial(link = "logit"))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Model fitting}{
 
 This model should be used with a model formula so that smooth terms can
-be specified. For example:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(mgcv)
+be specified. For example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(mgcv)
 gen_additive_mod() \%>\% 
   set_engine("mgcv") \%>\% 
   set_mode("regression") \%>\% 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
-}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## parsnip model object
 ## 
 ## 
 ## Family: gaussian 
@@ -76,7 +88,7 @@ gen_additive_mod() \%>\%
 ## 7.52  total = 11.52 
 ## 
 ## GCV score: 4.225228
-}
+}\if{html}{\out{</div>}}
 
 The smoothness of the terms will need to be manually specified (e.g.,
 using \code{s(x, df = 10)}) in the formula. Tuning can be accomplished using

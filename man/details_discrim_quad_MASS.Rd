@@ -18,18 +18,22 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_quad() \%>\% 
   set_engine("MASS") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Quadratic Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Quadratic Discriminant Model Specification (classification)
 ## 
 ## Computational engine: MASS 
 ## 
 ## Model fit template:
 ## MASS::qda(formula = missing_arg(), data = missing_arg())
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

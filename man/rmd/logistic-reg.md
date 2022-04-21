@@ -101,8 +101,8 @@ logistic_reg() %>%
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     verbose = FALSE)
+## LiblineaR::LiblineaR(data = missing_arg(), target = missing_arg(), 
+##     wi = missing_arg(), verbose = FALSE)
 ```
 
 For `LiblineaR` models, the value for `mixture` can either be 0 (for ridge) or 1 

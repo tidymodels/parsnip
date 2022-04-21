@@ -16,23 +16,31 @@ This engine has no tuning parameters but you can set the \code{family}
 parameter (and/or \code{link}) as an engine argument (see below).
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("glm") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Computational engine: glm 
 ## 
 ## Model fit template:
 ## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     family = stats::binomial)
-}
+}\if{html}{\out{</div>}}
 
 To use a non-default \code{family} and/or \code{link}, pass in as an argument to
-\code{set_engine()}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+\code{set_engine()}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
   set_engine("glm", family = stats::binomial(link = "probit")) \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Engine-Specific Arguments:
 ##   family = stats::binomial(link = "probit")
@@ -42,7 +50,7 @@ To use a non-default \code{family} and/or \code{link}, pass in as an argument to
 ## Model fit template:
 ## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     family = stats::binomial(link = "probit"))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

@@ -18,11 +18,15 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
   set_engine("spark") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   tree_depth = integer(1)
@@ -34,14 +38,18 @@ This model has 2 tuning parameters:
 ## sparklyr::ml_decision_tree_classifier(x = missing_arg(), formula = missing_arg(), 
 ##     max_depth = integer(1), min_instances_per_node = min_rows(0L, 
 ##         x), seed = sample.int(10^5, 1))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
   set_engine("spark") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   tree_depth = integer(1)
@@ -53,7 +61,7 @@ This model has 2 tuning parameters:
 ## sparklyr::ml_decision_tree_regressor(x = missing_arg(), formula = missing_arg(), 
 ##     max_depth = integer(1), min_instances_per_node = min_rows(0L, 
 ##         x), seed = sample.int(10^5, 1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

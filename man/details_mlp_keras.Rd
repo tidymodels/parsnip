@@ -21,7 +21,9 @@ This model has 5 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -31,7 +33,9 @@ This model has 5 tuning parameters:
   set_engine("keras") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -46,10 +50,12 @@ This model has 5 tuning parameters:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
 ##     penalty = double(1), dropout = double(1), epochs = integer(1), 
 ##     activation = character(1))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -59,7 +65,9 @@ This model has 5 tuning parameters:
   set_engine("keras") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -74,7 +82,7 @@ This model has 5 tuning parameters:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
 ##     penalty = double(1), dropout = double(1), epochs = integer(1), 
 ##     activation = character(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

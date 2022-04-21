@@ -16,18 +16,23 @@ This model has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 logistic_reg() \%>\% 
   set_engine("glmer") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Computational engine: glmer 
 ## 
 ## Model fit template:
-## lme4::glmer(formula = missing_arg(), data = missing_arg(), family = binomial)
-}
+## lme4::glmer(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     family = binomial)
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Predicting new samples}{
@@ -71,7 +76,9 @@ next section.
 
 The model can accept case weights.
 
-With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("toenail", package = "HSAUR3")
 
 logistic_reg() \%>\% 
@@ -81,7 +88,9 @@ logistic_reg() \%>\%
 
 When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-\code{add_variables()} then supply the typical formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+\code{add_variables()} then supply the typical formula when adding the model:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 
   logistic_reg() \%>\% 

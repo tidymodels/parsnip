@@ -21,10 +21,14 @@ For \code{penalty}, the amount of regularization is \emph{only} L2 penalty (i.e.
 ridge or weight decay).
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1)) \%>\% 
   set_engine("keras") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -34,7 +38,7 @@ ridge or weight decay).
 ## Model fit template:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), penalty = double(1), 
 ##     hidden_units = 1, act = "linear")
-}
+}\if{html}{\out{</div>}}
 
 \code{\link[=keras_mlp]{keras_mlp()}} is a parsnip wrapper around keras code for
 neural networks. This model fits a linear regression as a network with a

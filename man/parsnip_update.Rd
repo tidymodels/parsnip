@@ -382,9 +382,7 @@ regularization used by some of the engines.}
 estimation. Possible values are: "\code{diagonal}", "\code{min_distance}",
 "\code{shrink_cov}", and "\code{shrink_mean}" (\code{sparsediscrim} engine only).}
 
-\item{frac_common_cov}{Numeric values between zero and one.}
-
-\item{frac_identity}{Numeric values between zero and one.}
+\item{frac_common_cov, frac_identity}{Numeric values between zero and one.}
 
 \item{select_features}{\code{TRUE} or \code{FALSE.} If \code{TRUE}, the model has the
 ability to eliminate a predictor (via penalization). Increasing

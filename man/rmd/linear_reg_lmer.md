@@ -27,7 +27,7 @@ linear_reg() %>%
 ## Computational engine: lmer 
 ## 
 ## Model fit template:
-## lme4::lmer(formula = missing_arg(), data = missing_arg())
+## lme4::lmer(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
 
 

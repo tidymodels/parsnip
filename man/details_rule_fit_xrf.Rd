@@ -30,7 +30,9 @@ default: 1.0)
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 rule_fit(
   mtry = numeric(1),
@@ -45,7 +47,9 @@ rule_fit(
   set_engine("xrf") \%>\%
   set_mode("regression") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## RuleFit Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## RuleFit Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   mtry = numeric(1)
@@ -64,12 +68,14 @@ rule_fit(
 ##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
 ##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
 ##     subsample = numeric(1), lambda = numeric(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 rule_fit(
   mtry = numeric(1),
@@ -84,7 +90,9 @@ rule_fit(
   set_engine("xrf") \%>\%
   set_mode("classification") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## RuleFit Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## RuleFit Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   mtry = numeric(1)
@@ -103,7 +111,7 @@ rule_fit(
 ##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
 ##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
 ##     subsample = numeric(1), lambda = numeric(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Differences from the xrf package}{

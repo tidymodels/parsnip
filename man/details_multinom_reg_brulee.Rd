@@ -41,10 +41,14 @@ no improvement before stopping. (default: 5L).
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
   set_engine("brulee") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -54,7 +58,7 @@ no improvement before stopping. (default: 5L).
 ## Model fit template:
 ## brulee::brulee_multinomial_reg(x = missing_arg(), y = missing_arg(), 
 ##     penalty = double(1))
-}
+}\if{html}{\out{</div>}}
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the

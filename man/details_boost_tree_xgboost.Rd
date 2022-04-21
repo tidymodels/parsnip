@@ -35,7 +35,9 @@ the number of columns to this type of value. The user should give the
 argument to \code{boost_tree()} as an integer (not a real number).
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
@@ -43,7 +45,9 @@ argument to \code{boost_tree()} as an integer (not a real number).
   set_engine("xgboost") \%>\%
   set_mode("regression") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   mtry = integer()
@@ -62,10 +66,12 @@ argument to \code{boost_tree()} as an integer (not a real number).
 ##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
 ##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
 ##     early_stop = integer(), nthread = 1, verbose = 0)
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
@@ -73,7 +79,9 @@ argument to \code{boost_tree()} as an integer (not a real number).
   set_engine("xgboost") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   mtry = integer()
@@ -92,7 +100,7 @@ argument to \code{boost_tree()} as an integer (not a real number).
 ##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
 ##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
 ##     early_stop = integer(), nthread = 1, verbose = 0)
-}
+}\if{html}{\out{</div>}}
 
 \code{\link[=xgb_train]{xgb_train()}} is a wrapper around
 \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} (and other functions)

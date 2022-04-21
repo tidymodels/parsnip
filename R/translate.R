@@ -88,10 +88,10 @@ translate.default <- function(x, engine = x$engine, ...) {
     x$defaults <- x$method$fit$defaults[!in_other]
   }
 
-  # combine primary, eng_args, and defaults
-  protected <- lapply(x$method$fit$protect, function(x) expr(missing_arg()))
-  names(protected) <- x$method$fit$protect
+  # Get data-related arguments
+  protected <- get_protected_args(x)
 
+  # combine primary, eng_args, and defaults
   x$method$fit$args <- c(protected, actual_args, x$eng_args, x$defaults)
 
   x
@@ -177,4 +177,25 @@ add_methods <- function(x, engine) {
   check_spec_mode_engine_val(class(x)[1], x$engine, x$mode)
   x$method <- get_model_spec(specific_model(x), x$mode, x$engine)
   x
+}
+
+get_protected_args <- function(x) {
+
+
+  protected <- lapply(x$method$fit$protect, function(x) expr(missing_arg()))
+  names(protected) <- x$method$fit$protect
+
+  # When model fit functions have non-standard names (e.g. 'Formula' instead
+  # of 'formula'), rename them to the engine arg.
+  if (any(names(x$method$fit) == "data")) {
+    non_standard <- x$method$fit$data
+    non_standard_nms <- names(x$method$fit$data)
+    common_args <- intersect(non_standard_nms, names(protected))
+    non_standard <- non_standard[common_args]
+    for (i in seq_along(common_args)) {
+      arg_ind <- which(names(protected) == names(non_standard)[i])
+      names(protected)[arg_ind] <- non_standard[i]
+    }
+  }
+  protected
 }

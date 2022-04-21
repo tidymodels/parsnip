@@ -22,7 +22,9 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 cubist_rules(
   committees = integer(1),
@@ -32,7 +34,9 @@ cubist_rules(
   set_engine("Cubist") \%>\%
   set_mode("regression") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Cubist Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Cubist Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   committees = integer(1)
@@ -44,7 +48,7 @@ cubist_rules(
 ## Model fit template:
 ## rules::cubist_fit(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     committees = integer(1), neighbors = integer(1), max_rules = integer(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

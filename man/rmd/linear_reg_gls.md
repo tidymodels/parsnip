@@ -27,7 +27,7 @@ linear_reg() %>%
 ## Computational engine: gls 
 ## 
 ## Model fit template:
-## nlme::gls(formula = missing_arg(), data = missing_arg())
+## nlme::gls(model = missing_arg(), data = missing_arg())
 ```
 
 
@@ -173,8 +173,9 @@ However, the p-values for the fixed effects are different:
 library(broom.mixed)
 
 # lme:
-lme_fit %>% tidy() %>% 
-  dplyr::filter(group == "fixed") %>% 
+lme_fit %>% 
+  tidy() %>% 
+  dplyr::filter(is.na(group)) %>% 
   dplyr::select(-group, -effect)
 ```
 
@@ -188,7 +189,8 @@ lme_fit %>% tidy() %>%
 
 ```r
 # gls:
-gls_fit %>% tidy()
+gls_fit %>% 
+  tidy()
 ```
 
 ```

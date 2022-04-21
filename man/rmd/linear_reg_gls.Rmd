@@ -111,12 +111,14 @@ library(broom.mixed)
 library(broom.mixed)
 
 # lme:
-lme_fit %>% tidy() %>% 
-  dplyr::filter(group == "fixed") %>% 
+lme_fit %>% 
+  tidy() %>% 
+  dplyr::filter(is.na(group)) %>% 
   dplyr::select(-group, -effect)
 
 # gls:
-gls_fit %>% tidy()
+gls_fit %>% 
+  tidy()
 ```
 
 

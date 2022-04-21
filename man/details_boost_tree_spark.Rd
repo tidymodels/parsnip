@@ -32,14 +32,18 @@ number of predictors is used and for regression, one third of the
 predictors are sampled.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
 ) \%>\%
   set_engine("spark") \%>\%
   set_mode("regression") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   mtry = integer()
@@ -58,17 +62,21 @@ predictors are sampled.
 ##     max_iter = integer(), min_instances_per_node = min_rows(integer(0), 
 ##         x), max_depth = integer(), step_size = numeric(), min_info_gain = numeric(), 
 ##     subsampling_rate = numeric(), seed = sample.int(10^5, 1))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
 ) \%>\% 
   set_engine("spark") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   mtry = integer()
@@ -87,7 +95,7 @@ predictors are sampled.
 ##     max_iter = integer(), min_instances_per_node = min_rows(integer(0), 
 ##         x), max_depth = integer(), step_size = numeric(), min_info_gain = numeric(), 
 ##     subsampling_rate = numeric(), seed = sample.int(10^5, 1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

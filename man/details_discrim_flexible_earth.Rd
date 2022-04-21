@@ -28,7 +28,9 @@ intercept-only model.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_flexible(
   num_terms = integer(0),
@@ -36,7 +38,9 @@ discrim_flexible(
   prune_method = character(0)
 ) \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Flexible Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Flexible Discriminant Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_terms = integer(0)
@@ -48,7 +52,7 @@ discrim_flexible(
 ## Model fit template:
 ## mda::fda(formula = missing_arg(), data = missing_arg(), nprune = integer(0), 
 ##     degree = integer(0), pmethod = character(0), method = earth::earth)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

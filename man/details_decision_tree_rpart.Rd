@@ -21,11 +21,15 @@ This model has 3 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -38,14 +42,18 @@ This model has 3 tuning parameters:
 ## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
 ##         data))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -58,12 +66,14 @@ This model has 3 tuning parameters:
 ## rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
 ##         data))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 decision_tree(
   tree_depth = integer(1),
@@ -73,7 +83,9 @@ decision_tree(
   set_engine("rpart") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (censored regression)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -86,7 +98,7 @@ decision_tree(
 ## pec::pecRpart(formula = missing_arg(), data = missing_arg(), 
 ##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
 ##         data))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

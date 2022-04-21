@@ -29,7 +29,9 @@ regression.
 default. For classification, a value of 10 is used.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
@@ -37,7 +39,9 @@ default. For classification, a value of 10 is used.
   set_engine("randomForest") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   mtry = integer(1)
@@ -50,13 +54,15 @@ default. For classification, a value of 10 is used.
 ## randomForest::randomForest(x = missing_arg(), y = missing_arg(), 
 ##     mtry = min_cols(~integer(1), x), ntree = integer(1), nodesize = min_rows(~integer(1), 
 ##         x))
-}
+}\if{html}{\out{</div>}}
 
 \code{min_rows()} and \code{min_cols()} will adjust the number of neighbors if the
 chosen value if it is not consistent with the actual data dimensions.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
@@ -64,7 +70,9 @@ chosen value if it is not consistent with the actual data dimensions.
   set_engine("randomForest") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   mtry = integer(1)
@@ -77,7 +85,7 @@ chosen value if it is not consistent with the actual data dimensions.
 ## randomForest::randomForest(x = missing_arg(), y = missing_arg(), 
 ##     mtry = min_cols(~integer(1), x), ntree = integer(1), nodesize = min_rows(~integer(1), 
 ##         x))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

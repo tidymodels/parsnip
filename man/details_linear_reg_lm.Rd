@@ -13,16 +13,20 @@ For this engine, there is a single mode: regression
 This engine has no tuning parameters.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
   set_engine("lm") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm 
 ## 
 ## Model fit template:
 ## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

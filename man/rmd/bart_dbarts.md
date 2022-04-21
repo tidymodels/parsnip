@@ -62,9 +62,9 @@ bart(
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x.train = missing_arg(), y.train = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 ```
 
 
@@ -95,9 +95,9 @@ bart(
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x.train = missing_arg(), y.train = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 ```
 
 ## Preprocessing requirements

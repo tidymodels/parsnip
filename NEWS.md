@@ -6,6 +6,8 @@
 
 * Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
 
+* The `translate()` method now shows the correct arguments when the primary data arguments are non-standard (e.g. 'Formula' instead of 'formula'). 
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).

@@ -17,19 +17,23 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-The \strong{poissonreg} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+The \strong{poissonreg} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
 poisson_reg() \%>\%
   set_engine("zeroinfl") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Poisson Regression Model Specification (regression)
 ## 
 ## Computational engine: zeroinfl 
 ## 
 ## Model fit template:
 ## pscl::zeroinfl(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg())
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing and special formulas for zero-inflated Poisson models}{
@@ -46,14 +50,18 @@ of zero counts. These sets of terms are separated by a bar. For example,
 infrastructure (e.g. \code{model.matrix()})
 
 When fitting a parsnip model with this engine directly, the formula
-method is required and the formula is just passed through. For example:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+method is required and the formula is just passed through. For example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 tidymodels_prefer()
 
 data("bioChemists", package = "pscl")
 poisson_reg() \%>\% 
   set_engine("zeroinfl") \%>\% 
   fit(art ~ fem + mar | ment, data = bioChemists)
-}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## parsnip model object
 ## 
 ## 
 ## Call:
@@ -66,12 +74,14 @@ poisson_reg() \%>\%
 ## Zero-inflation model coefficients (binomial with logit link):
 ## (Intercept)         ment  
 ##      -0.363       -0.166
-}
+}\if{html}{\out{</div>}}
 
 However, when using a workflow, the best approach is to avoid using
 \code{\link[workflows:add_formula]{workflows::add_formula()}} and use
 \code{\link[workflows:add_variables]{workflows::add_variables()}} in
-conjunction with a model formula:\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("bioChemists", package = "pscl")
+conjunction with a model formula:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("bioChemists", package = "pscl")
 spec <- 
   poisson_reg() \%>\% 
   set_engine("zeroinfl")
@@ -80,7 +90,9 @@ workflow() \%>\%
   add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) \%>\% 
   add_model(spec, formula = art ~ fem + mar | ment) \%>\% 
   fit(data = bioChemists)
-}\if{html}{\out{</div>}}\preformatted{## ══ Workflow [trained] ══════════════════════════════════════════════════════════
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Variables
 ## Model: poisson_reg()
 ## 
@@ -100,7 +112,7 @@ workflow() \%>\%
 ## Zero-inflation model coefficients (binomial with logit link):
 ## (Intercept)         ment  
 ##      -0.363       -0.166
-}
+}\if{html}{\out{</div>}}
 
 The reason for this is that
 \code{\link[workflows:add_formula]{workflows::add_formula()}} will try to

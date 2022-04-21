@@ -20,14 +20,18 @@ This model has 2 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
 ) \%>\%  
   set_engine("kernlab") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -38,16 +42,20 @@ This model has 2 tuning parameters:
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     epsilon = double(1), kernel = "vanilladot")
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
 ) \%>\% 
   set_engine("kernlab") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Support Vector Machine Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -57,7 +65,7 @@ This model has 2 tuning parameters:
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     kernel = "vanilladot", prob.model = TRUE)
-}
+}\if{html}{\out{</div>}}
 
 The \code{margin} parameter does not apply to classification models.
 

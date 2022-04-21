@@ -674,10 +674,10 @@
     Code
       translate_args(basic %>% set_engine("LiblineaR"))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
@@ -692,10 +692,10 @@
     Code
       translate_args(basic %>% set_engine("LiblineaR", bias = 0))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
@@ -906,10 +906,10 @@
     Code
       translate_args(penalty %>% set_engine("LiblineaR"))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
@@ -963,10 +963,10 @@
     Code
       translate_args(mixture_v %>% set_engine("LiblineaR"))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
@@ -1897,10 +1897,10 @@
     Code
       translate_args(basic %>% set_engine("LiblineaR"))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
@@ -1918,10 +1918,10 @@
     Code
       translate_args(basic %>% set_engine("LiblineaR", type = 12))
     Output
-      $x
+      $data
       missing_arg()
       
-      $y
+      $target
       missing_arg()
       
       $wi
