@@ -12,6 +12,8 @@ test_that('xgboost execution, classification', {
 
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   set.seed(1)
   wts <- ifelse(runif(nrow(hpc)) < .1, 0, 1)
   wts <- importance_weights(wts)
@@ -87,6 +89,9 @@ test_that('xgboost classification prediction', {
   skip_if_not_installed("xgboost")
 
   library(xgboost)
+
+  ctrl$verbosity <- 0L
+
   xy_fit <- fit_xy(
     hpc_xgboost,
     x = hpc[, num_pred],
@@ -133,6 +138,8 @@ test_that('xgboost execution, regression', {
 
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   expect_error(
     res <- parsnip::fit(
       car_basic,
@@ -170,6 +177,8 @@ test_that('xgboost regression prediction', {
 
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   xy_fit <- fit_xy(
     car_basic,
     x = mtcars[, -1],
@@ -199,6 +208,8 @@ test_that('xgboost regression prediction', {
 test_that('xgboost alternate objective', {
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   spec <-
     boost_tree() %>%
     set_engine("xgboost", objective = "reg:pseudohubererror") %>%
@@ -212,6 +223,8 @@ test_that('xgboost alternate objective', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("xgboost")
+
+  ctrl$verbosity <- 0L
 
   reg_fit <-
     boost_tree(trees = 20, mode = "regression") %>%
@@ -231,7 +244,7 @@ test_that('submodel prediction', {
   class_fit <-
     boost_tree(trees = 20, mode = "classification") %>%
     set_engine("xgboost") %>%
-    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
+    fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)], control = ctrl)
 
   x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
 
@@ -251,6 +264,9 @@ test_that('submodel prediction', {
 
 test_that('validation sets', {
   skip_if_not_installed("xgboost")
+
+  ctrl$verbosity <- 0L
+
   expect_error(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") %>%
@@ -296,6 +312,9 @@ test_that('validation sets', {
 
 test_that('early stopping', {
   skip_if_not_installed("xgboost")
+
+  ctrl$verbosity <- 0L
+
   set.seed(233456)
   expect_error(
     reg_fit <-
@@ -395,6 +414,8 @@ test_that('xgboost data conversion', {
 test_that('xgboost data and sparse matrices', {
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
@@ -436,6 +457,8 @@ test_that('argument checks for data dimensions', {
 
   skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins)
 
@@ -448,11 +471,11 @@ test_that('argument checks for data dimensions', {
   penguins_dummy <- as.data.frame(penguins_dummy[, -1])
 
   expect_warning(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins),
+    f_fit  <- spec %>% fit(species ~ ., data = penguins, control = ctrl),
     "1000 samples were requested"
   )
   expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
+    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl),
     "1000 samples were requested"
   )
   expect_equal(extract_fit_engine(f_fit)$params$colsample_bynode, 1)
@@ -465,6 +488,8 @@ test_that('argument checks for data dimensions', {
 test_that("fit and prediction with `event_level`", {
 
   skip_if_not_installed("xgboost")
+
+  ctrl$verbosity <- 0L
 
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins[, -c(1:2)])
@@ -491,7 +516,8 @@ test_that("fit and prediction with `event_level`", {
                                 nrounds = 10,
                                 watchlist = list("training" = xgbmat_train_1),
                                 objective = "binary:logistic",
-                                eval_metric = "auc")
+                                eval_metric = "auc",
+                                verbose = 0)
 
   expect_equal(extract_fit_engine(fit_p_1)$evaluation_log, fit_xgb_1$evaluation_log)
 
@@ -514,7 +540,8 @@ test_that("fit and prediction with `event_level`", {
                                   nrounds = 10,
                                   watchlist = list("training" = xgbmat_train_2),
                                   objective = "binary:logistic",
-                                  eval_metric = "auc")
+                                  eval_metric = "auc",
+                                  verbose = 0)
 
   expect_equal(extract_fit_engine(fit_p_2)$evaluation_log, fit_xgb_2$evaluation_log)
 
@@ -526,6 +553,9 @@ test_that("fit and prediction with `event_level`", {
 
 test_that("count/proportion parameters", {
   skip_if_not_installed("xgboost")
+
+  ctrl$verbosity <- 0L
+
   fit1 <-
     boost_tree(mtry = 7, trees = 4) %>%
     set_engine("xgboost") %>%
