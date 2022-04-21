@@ -24,7 +24,7 @@ check_final_param(x)
 
 update_main_parameters(args, param)
 
-update_engine_parameters(eng_args, ...)
+update_engine_parameters(eng_args, fresh, ...)
 
 update_spec(object, parameters, args_enquo_list, fresh, cls, ...)
 
