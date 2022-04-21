@@ -60,7 +60,7 @@ NULL
 #' @rdname add_on_exports
 update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...) {
 
-  eng_args <- update_engine_parameters(object$eng_args, ...)
+  eng_args <- update_engine_parameters(object$eng_args, fresh, ...)
 
   if (!is.null(parameters)) {
     parameters <- check_final_param(parameters)

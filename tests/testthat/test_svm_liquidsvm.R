@@ -38,7 +38,7 @@ test_that('updating', {
   expr3_exp <- svm_rbf(rbf_sigma = .3) %>% set_engine("liquidSVM")
 
   expect_equal(update(expr1, rbf_sigma = .1), expr1_exp)
-  expect_equal(update(expr3, rbf_sigma = .3, fresh = TRUE), expr3_exp)
+  expect_equal(update(expr3, rbf_sigma = .3), expr3_exp)
 })
 
 test_that('bad input', {

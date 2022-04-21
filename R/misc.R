@@ -261,12 +261,12 @@ update_main_parameters <- function(args, param) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_engine_parameters <- function(eng_args, ...) {
+update_engine_parameters <- function(eng_args, fresh, ...) {
 
   dots <- enquos(...)
 
   ## only update from dots when there are eng args in original model spec
-  if (is_null(eng_args)) {
+  if (is_null(eng_args) || (fresh && length(dots) == 0)) {
     ret <- NULL
   } else {
     ret <- utils::modifyList(eng_args, dots)
