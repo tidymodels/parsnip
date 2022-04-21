@@ -1,10 +1,3 @@
-library(testthat)
-library(parsnip)
-
-# ------------------------------------------------------------------------------
-
-context("boosted tree execution with xgboost")
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- names(hpc)[1:4]
@@ -101,7 +94,7 @@ test_that('xgboost classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
+  xy_pred <- predict(extract_fit_engine(xy_fit), newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
   xy_pred <- matrix(xy_pred, ncol = 4, byrow = TRUE)
   xy_pred <- factor(levels(hpc$class)[apply(xy_pred, 1, which.max)], levels = levels(hpc$class))
   expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
@@ -113,7 +106,7 @@ test_that('xgboost classification prediction', {
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
+  form_pred <- predict(extract_fit_engine(form_fit), newdata = xgb.DMatrix(data = as.matrix(hpc[1:8, num_pred])), type = "class")
   form_pred <- matrix(form_pred, ncol = 4, byrow = TRUE)
   form_pred <- factor(levels(hpc$class)[apply(form_pred, 1, which.max)], levels = levels(hpc$class))
   expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")$.pred_class)
@@ -184,7 +177,7 @@ test_that('xgboost regression prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(xy_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
+  xy_pred <- predict(extract_fit_engine(xy_fit), newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
   expect_equal(xy_pred, predict(xy_fit, new_data = mtcars[1:8, -1])$.pred)
 
   form_fit <- fit(
@@ -194,10 +187,10 @@ test_that('xgboost regression prediction', {
     control = ctrl
   )
 
-  form_pred <- predict(form_fit$fit, newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
+  form_pred <- predict(extract_fit_engine(form_fit), newdata = xgb.DMatrix(data = as.matrix(mtcars[1:8, -1])))
   expect_equal(form_pred, predict(form_fit, new_data = mtcars[1:8, -1])$.pred)
 
-  expect_equal(form_fit$fit$params$objective, "reg:squarederror")
+  expect_equal(extract_fit_engine(form_fit)$params$objective, "reg:squarederror")
 
 })
 
@@ -212,14 +205,13 @@ test_that('xgboost alternate objective', {
     set_mode("regression")
 
   xgb_fit <- spec %>% fit(mpg ~ ., data = mtcars)
-  expect_equal(xgb_fit$fit$params$objective, "reg:pseudohubererror")
+  expect_equal(extract_fit_engine(xgb_fit)$params$objective, "reg:pseudohubererror")
 })
 
 
 test_that('submodel prediction', {
 
   skip_if_not_installed("xgboost")
-  library(xgboost)
 
   reg_fit <-
     boost_tree(trees = 20, mode = "regression") %>%
@@ -228,7 +220,7 @@ test_that('submodel prediction', {
 
   x <-  xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
 
-  pruned_pred <- predict(reg_fit$fit, x, iterationrange = c(1, 6))
+  pruned_pred <- predict(extract_fit_engine(reg_fit), x, iterationrange = c(1, 6))
 
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], trees = 5)
   mp_res <- do.call("rbind", mp_res$.pred)
@@ -243,7 +235,7 @@ test_that('submodel prediction', {
 
   x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
 
-  pred_class <- predict(class_fit$fit, x, iterationrange = c(1, 6))
+  pred_class <- predict(extract_fit_engine(class_fit), x, iterationrange = c(1, 6))
 
   mp_res <- multi_predict(class_fit, new_data = wa_churn[1:4, vars], trees = 5, type = "prob")
   mp_res <- do.call("rbind", mp_res$.pred)
@@ -267,7 +259,7 @@ test_that('validation sets', {
     regex = NA
   )
 
-  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "validation_rmse")
+  expect_equal(colnames(extract_fit_engine(reg_fit)$evaluation_log)[2], "validation_rmse")
 
   expect_error(
     reg_fit <-
@@ -277,7 +269,7 @@ test_that('validation sets', {
     regex = NA
   )
 
-  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "validation_mae")
+  expect_equal(colnames(extract_fit_engine(reg_fit)$evaluation_log)[2], "validation_mae")
 
   expect_error(
     reg_fit <-
@@ -287,7 +279,7 @@ test_that('validation sets', {
     regex = NA
   )
 
-  expect_equal(colnames(reg_fit$fit$evaluation_log)[2], "training_mae")
+  expect_equal(colnames(extract_fit_engine(reg_fit)$evaluation_log)[2], "training_mae")
 
   expect_error(
     reg_fit <-
@@ -313,8 +305,8 @@ test_that('early stopping', {
     regex = NA
   )
 
-  expect_equal(reg_fit$fit$niter - reg_fit$fit$best_iteration, 5)
-  expect_true(reg_fit$fit$niter < 200)
+  expect_equal(extract_fit_engine(reg_fit)$niter - extract_fit_engine(reg_fit)$best_iteration, 5)
+  expect_true(extract_fit_engine(reg_fit)$niter < 200)
 
   expect_error(
     reg_fit <-
@@ -420,8 +412,13 @@ test_that('xgboost data and sparse matrices', {
   set.seed(1)
   from_sparse <- xgb_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
 
-  expect_equal(from_df$fit, from_mat$fit)
-  expect_equal(from_df$fit, from_sparse$fit)
+  from_df$fit$handle <- NULL
+  from_mat$fit$handle <- NULL
+  from_sparse$fit$handle <- NULL
+
+
+  expect_equal(extract_fit_engine(from_df), extract_fit_engine(from_mat), ignore_function_env = TRUE)
+  expect_equal(extract_fit_engine(from_df), extract_fit_engine(from_sparse), ignore_function_env = TRUE)
 
   # case weights added
   expect_error(wted <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts), regexp = NA)
@@ -458,10 +455,10 @@ test_that('argument checks for data dimensions', {
     xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species),
     "1000 samples were requested"
   )
-  expect_equal(f_fit$fit$params$colsample_bynode, 1)
-  expect_equal(f_fit$fit$params$min_child_weight, nrow(penguins))
-  expect_equal(xy_fit$fit$params$colsample_bynode, 1)
-  expect_equal(xy_fit$fit$params$min_child_weight, nrow(penguins))
+  expect_equal(extract_fit_engine(f_fit)$params$colsample_bynode, 1)
+  expect_equal(extract_fit_engine(f_fit)$params$min_child_weight, nrow(penguins))
+  expect_equal(extract_fit_engine(xy_fit)$params$colsample_bynode, 1)
+  expect_equal(extract_fit_engine(xy_fit)$params$min_child_weight, nrow(penguins))
 
 })
 
@@ -496,7 +493,7 @@ test_that("fit and prediction with `event_level`", {
                                 objective = "binary:logistic",
                                 eval_metric = "auc")
 
-  expect_equal(fit_p_1$fit$evaluation_log, fit_xgb_1$evaluation_log)
+  expect_equal(extract_fit_engine(fit_p_1)$evaluation_log, fit_xgb_1$evaluation_log)
 
   pred_xgb_1 <- predict(fit_xgb_1, x_pred)
   pred_p_1 <- predict(fit_p_1, new_data = penguins[1:4, ], type = "prob")
@@ -519,7 +516,7 @@ test_that("fit and prediction with `event_level`", {
                                   objective = "binary:logistic",
                                   eval_metric = "auc")
 
-  expect_equal(fit_p_2$fit$evaluation_log, fit_xgb_2$evaluation_log)
+  expect_equal(extract_fit_engine(fit_p_2)$evaluation_log, fit_xgb_2$evaluation_log)
 
   pred_xgb_2 <- predict(fit_xgb_2, x_pred)
   pred_p_2 <- predict(fit_p_2, new_data = penguins[1:4, ], type = "prob")
@@ -534,32 +531,32 @@ test_that("count/proportion parameters", {
     set_engine("xgboost") %>%
     set_mode("regression") %>%
     fit(mpg ~ ., data = mtcars)
-  expect_equal(fit1$fit$params$colsample_bytree, 1)
-  expect_equal(fit1$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+  expect_equal(extract_fit_engine(fit1)$params$colsample_bytree, 1)
+  expect_equal(extract_fit_engine(fit1)$params$colsample_bynode, 7/(ncol(mtcars) - 1))
 
   fit2 <-
     boost_tree(mtry = 7, trees = 4) %>%
     set_engine("xgboost", colsample_bytree = 4) %>%
     set_mode("regression") %>%
     fit(mpg ~ ., data = mtcars)
-  expect_equal(fit2$fit$params$colsample_bytree, 4/(ncol(mtcars) - 1))
-  expect_equal(fit2$fit$params$colsample_bynode, 7/(ncol(mtcars) - 1))
+  expect_equal(extract_fit_engine(fit2)$params$colsample_bytree, 4/(ncol(mtcars) - 1))
+  expect_equal(extract_fit_engine(fit2)$params$colsample_bynode, 7/(ncol(mtcars) - 1))
 
   fit3 <-
     boost_tree(trees = 4) %>%
     set_engine("xgboost") %>%
     set_mode("regression") %>%
     fit(mpg ~ ., data = mtcars)
-  expect_equal(fit3$fit$params$colsample_bytree, 1)
-  expect_equal(fit3$fit$params$colsample_bynode, 1)
+  expect_equal(extract_fit_engine(fit3)$params$colsample_bytree, 1)
+  expect_equal(extract_fit_engine(fit3)$params$colsample_bynode, 1)
 
   fit4 <-
     boost_tree(mtry = .9, trees = 4) %>%
     set_engine("xgboost", colsample_bytree = .1, counts = FALSE) %>%
     set_mode("regression") %>%
     fit(mpg ~ ., data = mtcars)
-  expect_equal(fit4$fit$params$colsample_bytree, .1)
-  expect_equal(fit4$fit$params$colsample_bynode, .9)
+  expect_equal(extract_fit_engine(fit4)$params$colsample_bytree, .1)
+  expect_equal(extract_fit_engine(fit4)$params$colsample_bynode, .9)
 
   expect_error(
     boost_tree(mtry = .9, trees = 4) %>%

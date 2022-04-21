@@ -1,9 +1,4 @@
-
-# ------------------------------------------------------------------------------
-
-context("checking for multi_predict")
-
-source(test_path("helper-objects.R"))
+# checking for multi_predict
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('parsnip objects', {
@@ -13,7 +8,7 @@ test_that('parsnip objects', {
 
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))
-  expect_false(has_multi_predict(lm_fit$fit))
+  expect_false(has_multi_predict(extract_fit_engine(lm_fit)))
   expect_error(
     multi_predict(lm_fit, mtcars),
     "No `multi_predict` method exists"
@@ -24,9 +19,9 @@ test_that('parsnip objects', {
     set_engine("earth") %>%
     fit(mpg ~ ., data = mtcars)
   expect_true(has_multi_predict(mars_fit))
-  expect_false(has_multi_predict(mars_fit$fit))
+  expect_false(has_multi_predict(extract_fit_engine(mars_fit)))
   expect_error(
-    multi_predict(mars_fit$fit, mtcars),
+    multi_predict(extract_fit_engine(mars_fit), mtcars),
     "No `multi_predict` method exists"
   )
 

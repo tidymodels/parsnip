@@ -1,113 +1,21 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-
-# ------------------------------------------------------------------------------
-
-context("mars tests")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- mars(mode = "regression")
-  basic_mars <- translate(basic %>% set_engine("earth"))
-  expect_equal(basic_mars$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 keepxy = TRUE
-               )
-  )
-
-  num_terms <- mars(num_terms = 4, mode = "classification")
-  num_terms_mars <- translate(num_terms %>% set_engine("earth"))
-  expect_equal(num_terms_mars$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 nprune = new_empty_quosure(4),
-                 glm = rlang::quo(list(family = stats::binomial)),
-                 keepxy = TRUE
-               )
-  )
-
-  prod_degree <- mars(prod_degree = 1, mode = "regression")
-  prod_degree_mars <- translate(prod_degree %>% set_engine("earth"))
-  expect_equal(prod_degree_mars$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 degree = new_empty_quosure(1),
-                 keepxy = TRUE
-               )
-  )
-
-  prune_method_v <- mars(prune_method = tune(), mode = "regression")
-  prune_method_v_mars <- translate(prune_method_v %>% set_engine("earth"))
-  expect_equal(prune_method_v_mars$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 pmethod = new_empty_quosure(tune()),
-                 keepxy = TRUE
-               )
-  )
-})
-
-test_that('engine arguments', {
-  mars_keep <- mars(mode = "regression")
-  expect_equal(translate(mars_keep %>% set_engine("earth", keepxy = FALSE))$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 keepxy = new_empty_quosure(FALSE)
-               )
-  )
-})
-
-
 test_that('updating', {
-  expr1     <- mars() %>% set_engine("earth", model = FALSE)
-  expr1_exp <- mars(num_terms = 1) %>% set_engine("earth", model = FALSE)
-
-  expr2     <- mars(num_terms = tune()) %>% set_engine("earth", nk = tune())
-  expr2_exp <- mars(num_terms = tune()) %>% set_engine("earth", nk = 10)
-
-  expr3     <- mars(num_terms = 1, prod_degree = tune()) %>% set_engine("earth", nk = tune())
-  expr3_fre <- mars(num_terms = 1) %>% set_engine("earth", nk = tune())
-  expr3_exp <- mars(num_terms = 1) %>% set_engine("earth", nk = 10)
-
-  expr4     <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
-  expr4_exp <- mars(num_terms = 0) %>% set_engine("earth", nk = 10, trace = 2)
-
-  expr5     <- mars(num_terms = 1) %>% set_engine("earth", nk = 10)
-  expr5_exp <- mars(num_terms = 1) %>% set_engine("earth", nk = 10, trace = 2)
-
-  expect_equal(update(expr1, num_terms = 1), expr1_exp)
-  expect_equal(update(expr2, nk = 10), expr2_exp)
-  expect_equal(update(expr3, num_terms = 1, fresh = TRUE), expr3_fre)
-  expect_equal(update(expr3, num_terms = 1, fresh = TRUE, nk = 10), expr3_exp)
+  expr1 <- mars() %>% set_engine("earth", model = FALSE)
+  expr2 <- mars(num_terms = tune()) %>% set_engine("earth", nk = tune())
+  expr3 <- mars(num_terms = 1, prod_degree = tune()) %>% set_engine("earth", nk = tune())
+  expr4 <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
 
   param_tibb <- tibble::tibble(num_terms = 3, prod_degree = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$num_terms, 3)
-  expect_equal(expr4_updated$args$prod_degree, 1)
-  expect_equal(expr4_updated$eng_args$nk, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$num_terms, 3)
-  expect_equal(expr4_updated_lst$args$prod_degree, 1)
-  expect_equal(expr4_updated_lst$eng_args$nk, rlang::quo(10))
+  expect_snapshot(expr1 %>% update(num_terms = 1))
+  expect_snapshot(expr2 %>% update(nk = 10))
+  expect_snapshot(expr3 %>% update(num_terms = 1, fresh = TRUE))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
 })
 
 test_that('bad input', {
@@ -248,7 +156,7 @@ test_that('submodel prediction', {
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
-  tmp_reg <- reg_fit$fit
+  tmp_reg <- extract_fit_engine(reg_fit)
   tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
   tmp_reg$call[["keepxy"]]  <- eval_tidy(tmp_reg$call[["keepxy"]])
   tmp_reg$call[["nprune"]]  <- eval_tidy(tmp_reg$call[["nprune"]])
@@ -269,7 +177,7 @@ test_that('submodel prediction', {
     fit(churn ~ .,
         data = full_churn[-(1:4), c("churn", vars)])
 
-  cls_fit <- class_fit$fit
+  cls_fit <- extract_fit_engine(class_fit)
   cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
   cls_fit$call[["keepxy"]]  <- eval_tidy(cls_fit$call[["keepxy"]])
   cls_fit$call[["glm"]]  <- eval_tidy(cls_fit$call[["glm"]])
@@ -300,7 +208,7 @@ test_that('classification', {
       fit(Class ~ ., data = lending_club[-(1:5),]),
     regexp = NA
   )
-  expect_true(!is.null(glm_mars$fit$glm.list))
+  expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
   parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")
 
   earth_pred <-

@@ -1,219 +1,22 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
-context("logistic regression")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
-
 # ------------------------------------------------------------------------------
 
-test_that('primary arguments', {
-  basic <- logistic_reg()
-  basic_glm <- translate(basic %>% set_engine("glm"))
-  expect_error(
-    basic_glmnet <- translate(basic %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  basic_liblinear <- translate(basic %>% set_engine("LiblineaR"))
-  basic_stan <- translate(basic %>% set_engine("stan"))
-  expect_equal(basic_glm$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = expr(stats::binomial)
-               )
-  )
-  expect_equal(basic_liblinear$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 verbose = FALSE
-               )
-  )
-  expect_equal(basic_stan$method$fit$args,
-               list(
-                 formula = expr(missing_arg()),
-                 data = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = expr(stats::binomial),
-                 refresh = 0
-               )
-  )
-
-  mixture <- logistic_reg(mixture = 0.128)
-  expect_error(
-    mixture_glmnet <- translate(mixture %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-
-  penalty <- logistic_reg(penalty = 1)
-  penalty_glmnet <- translate(penalty %>% set_engine("glmnet"))
-  penalty_liblinear <- translate(penalty %>% set_engine("LiblineaR"))
-  expect_equal(penalty_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "binomial"
-               )
-  )
-  expect_equal(penalty_liblinear$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 cost = new_empty_quosure(1),
-                 verbose = FALSE
-               )
-  )
-
-  mixture_v <- logistic_reg(mixture = tune())
-  expect_error(
-    mixture_v_glmnet <- translate(mixture_v %>% set_engine("glmnet")),
-    "For the glmnet engine, `penalty` must be a single"
-  )
-  mixture_v_liblinear <- translate(mixture_v %>% set_engine("LiblineaR"))
-  expect_equal(mixture_v_liblinear$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 type = new_empty_quosure(tune()),
-                 verbose = FALSE
-               )
-  )
-
-  penalty_v <- logistic_reg(penalty = 1)
-  penalty_v_glmnet <- translate(penalty_v %>% set_engine("glmnet"))
-  penalty_v_liblinear <- translate(penalty_v %>% set_engine("LiblineaR"))
-  expect_equal(penalty_v_glmnet$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 weights = expr(missing_arg()),
-                 family = "binomial"
-               )
-  )
-  expect_equal(penalty_v_liblinear$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 cost = new_empty_quosure(1),
-                 verbose = FALSE
-               )
-  )
-
-
-})
-
-test_that('engine arguments', {
-  glm_fam <- logistic_reg()
-  expect_equal(
-    translate(
-      glm_fam %>%
-        set_engine("glm", family = binomial(link = "probit")))$method$fit$args,
-      list(
-        formula = expr(missing_arg()),
-        data = expr(missing_arg()),
-        weights = expr(missing_arg()),
-        family = new_empty_quosure(expr(binomial(link = "probit")))
-      )
-    )
-
-  glmnet_nlam <- logistic_reg(penalty = 0.1)
-  expect_equal(
-    translate(glmnet_nlam %>% set_engine("glmnet", nlambda = 10))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      nlambda = new_empty_quosure(10),
-      family = "binomial"
-    )
-  )
-
-  liblinear_bias <- logistic_reg()
-  expect_equal(
-    translate(liblinear_bias %>% set_engine("LiblineaR", bias = 0))$method$fit$args,
-    list(
-      x = expr(missing_arg()),
-      y = expr(missing_arg()),
-      bias = new_empty_quosure(0),
-      verbose = FALSE
-    )
-  )
-
-
-  stan_samp <- logistic_reg()
-  expect_equal(
-    translate(stan_samp %>% set_engine("stan", chains = 1, iter = 5))$method$fit$args,
-    list(
-      formula = expr(missing_arg()),
-      data = expr(missing_arg()),
-      weights = expr(missing_arg()),
-      chains = new_empty_quosure(1),
-      iter = new_empty_quosure(5),
-      family = expr(stats::binomial),
-      refresh = 0
-    )
-  )
-
-
-  # For issue #431
-  with_path <-
-    logistic_reg(penalty = 1) %>%
-    set_engine("glmnet", path_values = 4:2) %>%
-    translate()
-  expect_equal(
-    names(with_path$method$fit$args),
-    c("x", "y", "weights", "lambda", "family")
-  )
-  expect_equal(
-    rlang::eval_tidy(with_path$method$fit$args$lambda),
-    4:2
-  )
-})
-
-
 test_that('updating', {
-  expr1     <- logistic_reg() %>%
-    set_engine("glm", family = expr(binomial(link = "probit")))
-  expr1_exp <- logistic_reg(mixture = 0) %>%
-    set_engine("glm", family = expr(binomial(link = "probit")))
-
-  expr2     <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr2_exp <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = 10)
-
-  expr3     <- logistic_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr3_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-
-  expr4     <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr4_exp <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expr5     <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
-  expr5_exp <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10, pmax = 2)
-
-  expect_equal(update(expr1, mixture = 0), expr1_exp)
-  expect_equal(update(expr2, nlambda = 10), expr2_exp)
-  expect_equal(update(expr3, mixture = 1, fresh = TRUE, nlambda = 10), expr3_exp)
+  expr1 <- logistic_reg() %>% set_engine("glm", family = expr(binomial(link = "probit")))
+  expr2 <- logistic_reg(mixture = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr3 <- logistic_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
+  expr4 <- logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
+  expr5 <- logistic_reg(mixture = 1) %>% set_engine("glmnet", nlambda = 10)
 
   param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
   param_list <- as.list(param_tibb)
 
-  expr4_updated <- update(expr4, param_tibb)
-  expect_equal(expr4_updated$args$mixture, 1/3)
-  expect_equal(expr4_updated$args$penalty, 1)
-  expect_equal(expr4_updated$eng_args$nlambda, rlang::quo(10))
-
-  expr4_updated_lst <- update(expr4, param_list)
-  expect_equal(expr4_updated_lst$args$mixture, 1/3)
-  expect_equal(expr4_updated_lst$args$penalty, 1)
-  expect_equal(expr4_updated_lst$eng_args$nlambda, rlang::quo(10))
+  expect_snapshot(expr1 %>% update(mixture = 0))
+  expect_snapshot(expr2 %>% update(nlambda = 10))
+  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE, nlambda = 10))
+  expect_snapshot(expr4 %>% update(param_tibb))
+  expect_snapshot(expr4 %>% update(param_list))
 })
 
 test_that('bad input', {
@@ -294,7 +97,7 @@ test_that('glm prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- predict(extract_fit_engine(classes_xy), newdata = lending_club[1:7, num_pred], type = "response")
   xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
@@ -310,7 +113,7 @@ test_that('glm probabilities', {
     control = ctrl
   )
 
-  xy_pred <- unname(predict(classes_xy$fit,
+  xy_pred <- unname(predict(extract_fit_engine(classes_xy),
                             newdata = lending_club[1:7, num_pred],
                             type = "response"))
   xy_pred <- tibble(.pred_bad = 1 - xy_pred, .pred_good = xy_pred)
@@ -348,11 +151,11 @@ test_that('glm intervals', {
             level = 0.93,
             std_error = TRUE)
 
-  expect_equivalent(confidence_parsnip$.pred_lower_good, lower_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper_good, upper_glm)
-  expect_equivalent(confidence_parsnip$.pred_lower_bad, 1 - upper_glm)
-  expect_equivalent(confidence_parsnip$.pred_upper_bad, 1 - lower_glm)
-  expect_equivalent(confidence_parsnip$.std_error, pred_glm$se.fit)
+  expect_equal(confidence_parsnip$.pred_lower_good, lower_glm)
+  expect_equal(confidence_parsnip$.pred_upper_good, upper_glm)
+  expect_equal(confidence_parsnip$.pred_lower_bad, 1 - upper_glm)
+  expect_equal(confidence_parsnip$.pred_upper_bad, 1 - lower_glm)
+  expect_equal(confidence_parsnip$.std_error, pred_glm$se.fit)
 
 })
 
@@ -420,7 +223,7 @@ test_that('liblinear prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit, newx = lending_club[1:7, num_pred])
+  xy_pred <- predict(extract_fit_engine(classes_xy), newx = lending_club[1:7, num_pred])
   xy_pred <- xy_pred$predictions
   expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
 
@@ -437,7 +240,7 @@ test_that('liblinear probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(classes_xy$fit,
+  xy_pred <- predict(extract_fit_engine(classes_xy),
                      newx = lending_club[1:7, num_pred],
                      proba = TRUE)
   xy_pred <- as_tibble(xy_pred$probabilities)

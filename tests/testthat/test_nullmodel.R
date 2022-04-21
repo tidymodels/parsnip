@@ -1,35 +1,4 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-context("test-nullmodel")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
-
-test_that('primary arguments', {
-  basic <- null_model(mode = "regression")
-  basic_nullmodel <- translate(basic %>% set_engine("parsnip"))
-  expect_equal(basic_nullmodel$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg())
-               )
-  )
-})
-
-
-test_that('engine arguments', {
-  nullmodel_keep <- null_model(mode = "regression")
-  expect_equal(translate(nullmodel_keep %>% set_engine("parsnip", keepxy = FALSE))$method$fit$args,
-               list(
-                 x = expr(missing_arg()),
-                 y = expr(missing_arg()),
-                 keepxy = new_empty_quosure(FALSE)
-               )
-  )
-})
 
 test_that('bad input', {
   expect_error(translate(null_model(mode = "regression") %>% set_engine()))

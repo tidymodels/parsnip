@@ -1,13 +1,3 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-
-# ------------------------------------------------------------------------------
-
-context("keras linear regression")
-source(test_path("helpers.R"))
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -55,8 +45,8 @@ test_that('model fitting', {
     regexp = NA
   )
   expect_equal(
-    unlist(keras::get_weights(fit1$fit)),
-    unlist(keras::get_weights(fit2$fit)),
+    unlist(keras::get_weights(extract_fit_engine(fit1))),
+    unlist(keras::get_weights(extract_fit_engine(fit2))),
     tolerance = .1
   )
 
@@ -111,7 +101,7 @@ test_that('regression prediction', {
     )
 
   keras_pred <-
-    predict(lm_fit$fit, as.matrix(hpc[1:3,2:4]))
+    predict(extract_fit_engine(lm_fit), as.matrix(hpc[1:3,2:4]))
   colnames(keras_pred) <- ".pred"
 
   keras_pred <-
@@ -129,9 +119,9 @@ test_that('regression prediction', {
       y = hpc$compounds
     )
 
-  keras_pred <- predict(rr_fit$fit, as.matrix(hpc[1:3,2:4]))
+  keras_pred <- predict(extract_fit_engine(rr_fit), as.matrix(hpc[1:3,2:4]))
   colnames(keras_pred) <- ".pred"
-  keras_pred <- as_tibble(keras_pred)
+  keras_pred <- tibble::as_tibble(keras_pred)
 
   parsnip_pred <- predict(rr_fit, hpc[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))

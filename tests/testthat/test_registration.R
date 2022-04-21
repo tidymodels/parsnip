@@ -1,13 +1,3 @@
-library(parsnip)
-library(dplyr)
-library(rlang)
-library(testthat)
-
-# ------------------------------------------------------------------------------
-
-context("model registration")
-#source("helpers.R")
-
 # There's currently an issue comparing tibbles so we do it col-by-col
 test_by_col <- function(a, b) {
   for (i in union(names(a), names(b))) {
@@ -20,7 +10,7 @@ test_by_col <- function(a, b) {
 test_that('adding a new model', {
   set_new_model("sponge")
 
-  mod_items <- get_model_env() %>% env_names()
+  mod_items <- get_model_env() %>% rlang::env_names()
   sponges <- grep("sponge", mod_items, value = TRUE)
   exp_obj <- c('sponge_modes', 'sponge_fit', 'sponge_args',
                'sponge_predict', 'sponge_pkgs', 'sponge')

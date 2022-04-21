@@ -1,14 +1,7 @@
-library(testthat)
-library(parsnip)
-library(tibble)
-library(dplyr)
-
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
-context("check predict output structures")
 
 lm_fit <-
   linear_reg(mode = "regression") %>%
@@ -70,18 +63,21 @@ test_that('non-factor classification', {
   expect_error(
     logistic_reg() %>%
       set_engine("glm") %>%
-      fit(class ~ ., data = hpc %>% mutate(class = class == "VF"))
+      fit(class ~ .,
+          data = hpc %>% dplyr::mutate(class = class == "VF"))
   )
   expect_error(
     logistic_reg() %>%
       set_engine("glm") %>%
-      fit(class ~ ., data = hpc %>% mutate(class = ifelse(class == "VF", 1, 0)))
+      fit(class ~ .,
+          data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
   expect_error(
     multinom_reg() %>%
       set_engine("glmnet") %>%
-      fit(class ~ ., data = hpc %>% mutate(class = as.character(class)))
+      fit(class ~ .,
+          data = hpc %>% dplyr::mutate(class = as.character(class)))
   )
 })
 
