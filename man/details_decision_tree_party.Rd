@@ -29,13 +29,17 @@ evaluated for splitting. The default is to use all predictors.
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
   set_engine("party") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (censored regression)
 ## 
 ## Main Arguments:
 ##   tree_depth = integer(1)
@@ -47,7 +51,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\%
 ## censored::cond_inference_surv_ctree(formula = missing_arg(), 
 ##     data = missing_arg(), maxdepth = integer(1), minsplit = min_rows(0L, 
 ##         data))
-}
+}\if{html}{\out{</div>}}
 
 \code{censored::cond_inference_surv_ctree()} is a wrapper around
 \code{\link[party:ctree]{party::ctree()}} (and other functions) that makes it

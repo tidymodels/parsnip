@@ -36,19 +36,23 @@ See \code{?rstanarm::stan_glmer} and \code{?rstan::sampling} for more informatio
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 logistic_reg() \%>\% 
   set_engine("stan_glmer") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Computational engine: stan_glmer 
 ## 
 ## Model fit template:
 ## rstanarm::stan_glmer(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), family = stats::binomial, refresh = 0)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Predicting new samples}{
@@ -92,7 +96,9 @@ next section.
 
 The model can accept case weights.
 
-With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("toenail", package = "HSAUR3")
 
 logistic_reg() \%>\% 
@@ -102,7 +108,9 @@ logistic_reg() \%>\%
 
 When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-\code{add_variables()} then supply the typical formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+\code{add_variables()} then supply the typical formula when adding the model:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 
   logistic_reg() \%>\% 

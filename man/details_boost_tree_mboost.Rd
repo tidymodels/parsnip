@@ -28,20 +28,24 @@ is to use all predictors.
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 boost_tree() \%>\% 
   set_engine("mboost") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (censored regression)
 ## 
 ## Computational engine: mboost 
 ## 
 ## Model fit template:
 ## censored::blackboost_train(formula = missing_arg(), data = missing_arg(), 
 ##     family = mboost::CoxPH())
-}
+}\if{html}{\out{</div>}}
 
 \code{censored::blackboost_train()} is a wrapper around
 \code{\link[mboost:blackboost]{mboost::blackboost()}} (and other functions)

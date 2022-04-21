@@ -24,11 +24,15 @@ The implementation of C5.0 limits the number of trees to be between 1
 and 100.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) \%>\% 
   set_engine("C5.0") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Boosted Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   trees = integer()
@@ -40,7 +44,7 @@ and 100.
 ## Model fit template:
 ## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     trials = integer(), minCases = integer(), sample = numeric())
-}
+}\if{html}{\out{</div>}}
 
 \code{\link[=C5.0_train]{C5.0_train()}} is a wrapper around
 \code{\link[C50:C5.0]{C50::C5.0()}} that makes it easier to run this model.

@@ -47,7 +47,9 @@ times number of observations.
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bart(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -56,7 +58,9 @@ times number of observations.
   set_engine("dbarts") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## BART Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## BART Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   trees = integer(1)
@@ -70,10 +74,12 @@ times number of observations.
 ## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
 ##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
 ##     keeptrees = TRUE, keepcall = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{bart(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -82,7 +88,9 @@ times number of observations.
   set_engine("dbarts") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## BART Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## BART Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   trees = integer(1)
@@ -96,7 +104,7 @@ times number of observations.
 ## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
 ##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
 ##     keeptrees = TRUE, keepcall = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

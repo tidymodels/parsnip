@@ -22,7 +22,9 @@ This model has 4 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1), 
@@ -31,7 +33,9 @@ This model has 4 tuning parameters:
   set_engine("kernlab") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -45,10 +49,12 @@ This model has 4 tuning parameters:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     epsilon = double(1), kernel = "polydot", kpar = list(degree = ~integer(1), 
 ##         scale = ~double(1)))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1)
@@ -56,7 +62,9 @@ This model has 4 tuning parameters:
   set_engine("kernlab") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Polynomial Support Vector Machine Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -69,7 +77,7 @@ This model has 4 tuning parameters:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     kernel = "polydot", prob.model = TRUE, kpar = list(degree = ~integer(1), 
 ##         scale = ~double(1)))
-}
+}\if{html}{\out{</div>}}
 
 The \code{margin} parameter does not apply to classification models.
 

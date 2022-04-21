@@ -26,11 +26,15 @@ columns. For a data frame \code{x}, the default is
 \code{\link[earth:earth]{earth::earth()}} and the reference below).
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## MARS Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   num_terms = integer(1)
@@ -43,14 +47,18 @@ columns. For a data frame \code{x}, the default is
 ## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     nprune = integer(1), degree = integer(1), pmethod = character(1), 
 ##     keepxy = TRUE)
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## MARS Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## MARS Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_terms = integer(1)
@@ -66,7 +74,7 @@ columns. For a data frame \code{x}, the default is
 ## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     nprune = integer(1), degree = integer(1), pmethod = character(1), 
 ##     glm = list(family = stats::binomial), keepxy = TRUE)
-}
+}\if{html}{\out{</div>}}
 
 An alternate method for using MARs for categorical outcomes can be found
 in \code{\link[=discrim_flexible]{discrim_flexible()}}.

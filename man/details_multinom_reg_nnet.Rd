@@ -20,10 +20,14 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 (i.e., ridge or weight decay).
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
   set_engine("nnet") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -33,7 +37,7 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 ## Model fit template:
 ## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
 ##     decay = double(1), trace = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

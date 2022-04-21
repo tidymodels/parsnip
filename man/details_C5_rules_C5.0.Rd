@@ -25,7 +25,9 @@ less iterations of boosting are performed than the number requested.
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-The \strong{rules} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+The \strong{rules} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
 
 C5_rules(
   trees = integer(1),
@@ -34,7 +36,9 @@ C5_rules(
   set_engine("C5.0") \%>\%
   set_mode("classification") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## C5.0 Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## C5.0 Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   trees = integer(1)
@@ -45,7 +49,7 @@ C5_rules(
 ## Model fit template:
 ## rules::c5_fit(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     trials = integer(1), minCases = integer(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

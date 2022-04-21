@@ -22,12 +22,16 @@ Note that \code{usekernel} is always set to \code{TRUE} for the \code{klaR} engi
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) \%>\% 
   set_engine("klaR") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Naive Bayes Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Naive Bayes Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   smoothness = numeric(0)
@@ -38,7 +42,7 @@ naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) \%>\%
 ## Model fit template:
 ## discrim::klar_bayes_wrapper(x = missing_arg(), y = missing_arg(), 
 ##     adjust = numeric(0), fL = numeric(0), usekernel = TRUE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

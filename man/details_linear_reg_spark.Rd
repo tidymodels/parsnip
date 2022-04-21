@@ -24,10 +24,14 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \code{mixture = 0} indicates ridge regression.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("spark") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -38,7 +42,7 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 ## Model fit template:
 ## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
 ##     weights = missing_arg(), reg_param = double(1), elastic_net_param = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

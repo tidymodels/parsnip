@@ -19,13 +19,17 @@ This model has 1 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(min_n = integer()) \%>\% 
   set_engine("C5.0") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged Decision Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Decision Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost_complexity = 0
@@ -36,7 +40,7 @@ bag_tree(min_n = integer()) \%>\%
 ## Model fit template:
 ## baguette::bagger(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     minCases = integer(), base_model = "C5.0")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

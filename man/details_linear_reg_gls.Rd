@@ -16,19 +16,23 @@ This model has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 linear_reg() \%>\% 
   set_engine("gls") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: gls 
 ## 
 ## Model fit template:
 ## nlme::gls(formula = missing_arg(), data = missing_arg())
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
@@ -45,7 +49,9 @@ The model can accept case weights.
 
 With parsnip, we suggest using the \emph{fixed effects} formula method when
 fitting, but the details of the correlation structure should be passed
-to \code{set_engine()} since it is an irregular (but required) argument:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+to \code{set_engine()} since it is an irregular (but required) argument:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
@@ -54,7 +60,9 @@ data("riesby")
 linear_reg() \%>\% 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) \%>\% 
   fit(depr_score ~ week, data = riesby)
-}\if{html}{\out{</div>}}\preformatted{## parsnip model object
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## parsnip model object
 ## 
 ## Generalized least squares fit by REML
 ##   Model: depr_score ~ week 
@@ -72,11 +80,13 @@ linear_reg() \%>\%
 ## 0.6820145 
 ## Degrees of freedom: 250 total; 248 residual
 ## Residual standard error: 6.868785
-}
+}\if{html}{\out{</div>}}
 
 When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-\code{add_variables()} then supply the typical formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+\code{add_variables()} then supply the typical formula when adding the model:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gls_spec <- 
   linear_reg() \%>\% 
@@ -104,7 +114,9 @@ effect parameters, the residual degrees of freedom are:
 
 As a result, p-values will be different. For example, we can fit the
 same model using different estimation methods (assuming a positive
-covariance value):\if{html}{\out{<div class="sourceCode r">}}\preformatted{gls_fit <- 
+covariance value):
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gls_fit <- 
   linear_reg() \%>\% 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) \%>\% 
   fit(depr_score ~ week, data = riesby)
@@ -115,47 +127,71 @@ lme_fit <-
   fit(depr_score ~ week, data = riesby)
 }\if{html}{\out{</div>}}
 
-The estimated within-subject correlations are the same:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ape)
+The estimated within-subject correlations are the same:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ape)
 
 # lme, use ape package:
 lme_within_sub <- varcomp(lme_fit$fit)/sum(varcomp(lme_fit$fit))
 lme_within_sub["subject"]
-}\if{html}{\out{</div>}}\preformatted{##   subject 
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{##   subject 
 ## 0.6820145
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
 summary(gls_fit$fit$modelStruct)
-}\if{html}{\out{</div>}}\preformatted{## Correlation Structure: Compound symmetry
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Correlation Structure: Compound symmetry
 ##  Formula: ~1 | subject 
 ##  Parameter estimate(s):
 ##       Rho 
 ## 0.6820145
-}
+}\if{html}{\out{</div>}}
 
-as are the fixed effects (and their standard errors):\if{html}{\out{<div class="sourceCode r">}}\preformatted{nlme::fixef(lme_fit$fit)
-}\if{html}{\out{</div>}}\preformatted{## (Intercept)        week 
-##   -4.953439   -2.119678
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{coef(gls_fit$fit)
-}\if{html}{\out{</div>}}\preformatted{## (Intercept)        week 
-##   -4.953439   -2.119678
-}
+as are the fixed effects (and their standard errors):
 
-However, the p-values for the fixed effects are different:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(broom.mixed)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{nlme::fixef(lme_fit$fit)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## (Intercept)        week 
+##   -4.953439   -2.119678
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{coef(gls_fit$fit)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## (Intercept)        week 
+##   -4.953439   -2.119678
+}\if{html}{\out{</div>}}
+
+However, the p-values for the fixed effects are different:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(broom.mixed)
 
 # lme:
 lme_fit \%>\% tidy() \%>\% 
   dplyr::filter(group == "fixed") \%>\% 
   dplyr::select(-group, -effect)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 0 × 6
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 × 6
 ## # … with 6 variables: term <chr>, estimate <dbl>, std.error <dbl>, df <dbl>,
 ## #   statistic <dbl>, p.value <dbl>
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
 gls_fit \%>\% tidy()
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 5
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 × 5
 ##   term        estimate std.error statistic  p.value
 ##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
 ## 1 (Intercept)    -4.95     0.808     -6.13 3.50e- 9
 ## 2 week           -2.12     0.224     -9.47 2.26e-18
-}
+}\if{html}{\out{</div>}}
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.

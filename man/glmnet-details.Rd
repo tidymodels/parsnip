@@ -33,11 +33,15 @@ In tidymodels, our \code{predict()} methods are defined to make one
 prediction at a time. For this model, that means predictions are for a
 single penalty value. For this reason, models that have glmnet engines
 require the user to always specify a single penalty value when the model
-is defined. For example, for linear regression:\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% set_engine("glmnet")
+is defined. For example, for linear regression:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% set_engine("glmnet")
 }\if{html}{\out{</div>}}
 
 When the \code{predict()} method is called, it automatically uses the penalty
-that was given when the model was defined. For example:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+that was given when the model was defined. For example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 fit <- 
   linear_reg(penalty = 1) \%>\% 
@@ -46,28 +50,38 @@ fit <-
 
 # predict at penalty = 1
 predict(fit, mtcars[1:3,])
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 × 1
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
 ##   .pred
 ##   <dbl>
 ## 1  22.2
 ## 2  21.5
 ## 3  24.9
-}
+}\if{html}{\out{</div>}}
 
 However, any penalty values can be predicted simultaneously using the
-\code{multi_predict()} method:\if{html}{\out{<div class="sourceCode r">}}\preformatted{# predict at c(0.00, 0.01)
+\code{multi_predict()} method:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# predict at c(0.00, 0.01)
 multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 × 1
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
 ##   .pred           
 ##   <list>          
 ## 1 <tibble [2 × 2]>
 ## 2 <tibble [2 × 2]>
 ## 3 <tibble [2 × 2]>
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# unnested:
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# unnested:
 multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\% 
   add_rowindex() \%>\% 
   unnest(cols = ".pred")
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 6 × 3
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 × 3
 ##   penalty .pred  .row
 ##     <dbl> <dbl> <int>
 ## 1    0     22.6     1
@@ -76,13 +90,17 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\%
 ## 4    0.01  22.1     2
 ## 5    0     26.3     3
 ## 6    0.01  26.3     3
-}
+}\if{html}{\out{</div>}}
 \subsection{Where did \code{lambda} go?}{
 
-It may appear odd that the \code{lambda} value does not get used in the fit:\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% 
+It may appear odd that the \code{lambda} value does not get used in the fit:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% 
   set_engine("glmnet") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   penalty = 1
@@ -92,7 +110,7 @@ It may appear odd that the \code{lambda} value does not get used in the fit:\if{
 ## Model fit template:
 ## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     family = "gaussian")
-}
+}\if{html}{\out{</div>}}
 
 Internally, the value of \code{penalty = 1} is saved in the parsnip object
 and no value is set for \code{lambda}. This enables the full path to be fit
@@ -119,7 +137,9 @@ model (i.e., \code{mixture = 0}), you can get the \emph{wrong coefficients} if t
 path does not contain zero (see \href{https://github.com/tidymodels/parsnip/issues/431#issuecomment-782883848}{issue #431}).
 
 If we want to use our own path, the argument is passed as an
-engine-specific option:\if{html}{\out{<div class="sourceCode r">}}\preformatted{coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
+engine-specific option:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
 
 fit_ridge <- 
   linear_reg(penalty = 1, mixture = 0) \%>\% 
@@ -127,16 +147,22 @@ fit_ridge <-
   fit(mpg ~ ., data = mtcars)
 
 all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
-}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# predict at penalty = 1
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## [1] TRUE
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# predict at penalty = 1
 predict(fit_ridge, mtcars[1:3,])
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 3 × 1
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
 ##   .pred
 ##   <dbl>
 ## 1  22.1
 ## 2  21.8
 ## 3  26.6
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Tidying the model object}{
@@ -149,8 +175,12 @@ coefficients for the value given by \code{penalty}.
 
 When parsnip makes a model, it gives it an extra class. Use the \code{tidy()}
 method on the object, it produces coefficients for the penalty that was
-originally requested:\if{html}{\out{<div class="sourceCode r">}}\preformatted{tidy(fit)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 11 × 3
+originally requested:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{tidy(fit)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 11 × 3
 ##    term        estimate penalty
 ##    <chr>          <dbl>   <dbl>
 ##  1 (Intercept)  35.3          1
@@ -164,14 +194,18 @@ originally requested:\if{html}{\out{<div class="sourceCode r">}}\preformatted{ti
 ##  9 am            0            1
 ## 10 gear          0            1
 ## 11 carb          0            1
-}
+}\if{html}{\out{</div>}}
 
 Note that there is a \code{tidy()} method for \code{glmnet} objects in the \code{broom}
 package. If this is used directly on the underlying \code{glmnet} object, it
-returns \emph{all of coefficients on the path}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Use the basic tidy() method for glmnet
+returns \emph{all of coefficients on the path}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Use the basic tidy() method for glmnet
 all_tidy_coefs <- broom:::tidy.glmnet(fit$fit)
 all_tidy_coefs
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 640 × 5
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 640 × 5
 ##    term         step estimate lambda dev.ratio
 ##    <chr>       <dbl>    <dbl>  <dbl>     <dbl>
 ##  1 (Intercept)     1     20.1   5.15     0    
@@ -185,9 +219,13 @@ all_tidy_coefs
 ##  9 (Intercept)     9     30.3   2.45     0.640
 ## 10 (Intercept)    10     31.1   2.23     0.673
 ## # … with 630 more rows
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
-}\if{html}{\out{</div>}}\preformatted{## [1] 79
-}
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## [1] 79
+}\if{html}{\out{</div>}}
 
 This can be nice for plots but it might not contain the penalty value
 that you are interested in.

@@ -22,20 +22,24 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 rand_forest() \%>\% 
   set_engine("party") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Random Forest Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (censored regression)
 ## 
 ## Computational engine: party 
 ## 
 ## Model fit template:
 ## censored::cond_inference_surv_cforest(formula = missing_arg(), 
 ##     data = missing_arg())
-}
+}\if{html}{\out{</div>}}
 
 \code{censored::cond_inference_surv_cforest()} is a wrapper around
 \code{\link[party:cforest]{party::cforest()}} (and other functions) that makes

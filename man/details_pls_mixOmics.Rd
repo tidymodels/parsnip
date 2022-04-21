@@ -20,13 +20,17 @@ see below)
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-The \strong{plsmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+The \strong{plsmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
   set_mode("regression") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## PLS Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## PLS Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   predictor_prop = double(1)
@@ -37,7 +41,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 ## Model fit template:
 ## plsmod::pls_fit(x = missing_arg(), y = missing_arg(), predictor_prop = double(1), 
 ##     ncomp = integer(1))
-}
+}\if{html}{\out{</div>}}
 
 \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} is a function that:
 \itemize{
@@ -53,13 +57,17 @@ for sparse models.
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-The \strong{plsmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
+The \strong{plsmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
   set_engine("mixOmics") \%>\%
   set_mode("classification") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## PLS Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## PLS Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   predictor_prop = double(1)
@@ -70,7 +78,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 ## Model fit template:
 ## plsmod::pls_fit(x = missing_arg(), y = missing_arg(), predictor_prop = double(1), 
 ##     ncomp = integer(1))
-}
+}\if{html}{\out{</div>}}
 
 In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same role
 as above but eventually targets \code{\link[mixOmics:plsda]{mixOmics::plsda()}}
@@ -80,7 +88,9 @@ or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
 \subsection{Installing mixOmics}{
 
 This package is available via the Bioconductor repository and is not
-accessible via CRAN. You can install using:\if{html}{\out{<div class="sourceCode r">}}\preformatted{  if (!require("remotes", quietly = TRUE)) \{
+accessible via CRAN. You can install using:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{  if (!require("remotes", quietly = TRUE)) \{
     install.packages("remotes")
   \}
   

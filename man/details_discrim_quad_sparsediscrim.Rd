@@ -32,12 +32,16 @@ execute, are:
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_quad(regularization_method = character(0)) \%>\% 
   set_engine("sparsediscrim") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Quadratic Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Quadratic Discriminant Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   regularization_method = character(0)
@@ -47,7 +51,7 @@ discrim_quad(regularization_method = character(0)) \%>\%
 ## Model fit template:
 ## discrim::fit_regularized_quad(x = missing_arg(), y = missing_arg(), 
 ##     method = character(0))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

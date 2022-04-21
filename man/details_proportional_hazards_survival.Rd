@@ -15,20 +15,24 @@ This model has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 proportional_hazards() \%>\% 
   set_engine("survival") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Proportional Hazards Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Proportional Hazards Model Specification (censored regression)
 ## 
 ## Computational engine: survival 
 ## 
 ## Model fit template:
 ## survival::coxph(formula = missing_arg(), data = missing_arg(), 
 ##     x = TRUE, model = TRUE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Other details}{
@@ -45,14 +49,18 @@ hazard to differ between groups contained in the function. The column
 used inside \code{strata()} is treated as qualitative no matter its type.
 
 For example, in this model, the numeric column \code{rx} is used to estimate
-two different baseline hazards for each value of the column:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
+two different baseline hazards for each value of the column:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
 
 proportional_hazards() \%>\% 
   fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) \%>\% 
   extract_fit_engine() \%>\% 
   # Two different hazards for each value of 'rx'
   basehaz()
-}\if{html}{\out{</div>}}\preformatted{##        hazard time strata
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{##        hazard time strata
 ## 1  0.02250134   59   rx=1
 ## 2  0.05088586  115   rx=1
 ## 3  0.09467873  156   rx=1
@@ -79,7 +87,7 @@ proportional_hazards() \%>\%
 ## 24 0.50804209 1129   rx=2
 ## 25 0.50804209 1206   rx=2
 ## 26 0.50804209 1227   rx=2
-}
+}\if{html}{\out{</div>}}
 
 Note that columns used in the \code{strata()} function will not be estimated
 in the regular portion of the model (i.e., within the linear predictor).

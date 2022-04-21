@@ -34,18 +34,22 @@ This maps to
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_linear() \%>\% 
   set_engine("sda") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Discriminant Model Specification (classification)
 ## 
 ## Computational engine: sda 
 ## 
 ## Model fit template:
 ## sda::sda(Xtrain = missing_arg(), L = missing_arg(), verbose = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

@@ -20,19 +20,23 @@ values.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 poisson_reg(engine = "gee") \%>\% 
   set_engine("gee") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Poisson Regression Model Specification (regression)
 ## 
 ## Computational engine: gee 
 ## 
 ## Model fit template:
 ## multilevelmod::gee_fit(formula = missing_arg(), data = missing_arg(), 
 ##     family = stats::poisson)
-}
+}\if{html}{\out{</div>}}
 
 \code{multilevelmod::gee_fit()} is a wrapper model around \code{gee()}.
 }
@@ -56,10 +60,14 @@ Both \code{gee:gee()} and \code{gee:geepack()} specify the id/cluster variable
 using an argument \code{id} that requires a vector. parsnip doesn’t work that
 way so we enable this model to be fit using a artificial function
 \code{id_var()} to be used in the formula. So, in the original package, the
-call would look like:\if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
+call would look like:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 }\if{html}{\out{</div>}}
 
-With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 poisson_reg() \%>\% 
   set_engine("gee", corstr = "exchangeable") \%>\% 
@@ -68,7 +76,9 @@ poisson_reg() \%>\%
 
 When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-\code{add_variables()} then supply the GEE formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+\code{add_variables()} then supply the GEE formula when adding the model:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gee_spec <- 
   poisson_reg() \%>\% 

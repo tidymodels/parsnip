@@ -24,10 +24,14 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 \code{mixture = 0} indicates ridge regression.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("spark") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -39,7 +43,7 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 ## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
 ##     weights = missing_arg(), reg_param = double(1), elastic_net_param = double(1), 
 ##     family = "multinomial")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

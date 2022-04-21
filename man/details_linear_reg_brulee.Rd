@@ -39,10 +39,14 @@ no improvement before stopping. (default: 5L).
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1)) \%>\%  
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1)) \%>\%  
   set_engine("brulee") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -52,7 +56,7 @@ no improvement before stopping. (default: 5L).
 ## Model fit template:
 ## brulee::brulee_linear_reg(x = missing_arg(), y = missing_arg(), 
 ##     penalty = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
