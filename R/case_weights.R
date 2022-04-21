@@ -73,6 +73,7 @@ patch_formula_environment_with_case_weights <- function(formula,
 #' @param x A vector with class `"hardhat_case_weights"`.
 #' @param where The location where they will be used: `"parsnip"` or
 #' `"yardstick"`.
+#' @param ... Additional options (not currently used).
 #' @return A numeric vector or NULL.
 #' @export
 convert_case_weights <- function(x, where = "parsnip", ...) {

@@ -17,6 +17,8 @@ convert_case_weights(x, where = "parsnip", ...)
 
 \item{where}{The location where they will be used: \code{"parsnip"} or
 \code{"yardstick"}.}
+
+\item{...}{Additional options (not currently used).}
 }
 \value{
 A numeric vector or NULL.
