@@ -66,39 +66,19 @@ update.bag_mars <-
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
            fresh = FALSE, ...) {
 
-    eng_args <- update_engine_parameters(object$eng_args, ...)
-
-    if (!is.null(parameters)) {
-      parameters <- check_final_param(parameters)
-    }
     args <- list(
       num_terms   = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
       prune_method  = enquo(prune_method)
     )
 
-    args <- update_main_parameters(args, parameters)
-
-    if (fresh) {
-      object$args <- args
-      object$eng_args <- eng_args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-      if (length(eng_args) > 0)
-        object$eng_args[names(eng_args)] <- eng_args
-    }
-
-    new_model_spec(
-      "bag_mars",
-      args = object$args,
-      eng_args = object$eng_args,
-      mode = object$mode,
-      method = NULL,
-      engine = object$engine
+    update_spec(
+      object = object,
+      parameters = parameters,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "bag_mars",
+      ...
     )
   }
 

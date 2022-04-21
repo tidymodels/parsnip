@@ -50,3 +50,43 @@
 #' update(model, penalty = 1, fresh = TRUE)
 #'
 NULL
+
+# a helper function for update methods to lightly wrap.
+# * object, parameters, fresh, and ... are synonymous with their docs in update.*
+# * args_enquo_list is a name list passing each model-specific parameter as a quosure
+# * cls is synonymous with the first argument to `new_model_spec`
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...) {
+
+  eng_args <- update_engine_parameters(object$eng_args, ...)
+
+  if (!is.null(parameters)) {
+    parameters <- check_final_param(parameters)
+  }
+
+  args <- update_main_parameters(args_enquo_list, parameters)
+
+  if (fresh) {
+    object$args <- args
+    object$eng_args <- eng_args
+  } else {
+    null_args <- map_lgl(args, null_value)
+    if (any(null_args))
+      args <- args[!null_args]
+    if (length(args) > 0)
+      object$args[names(args)] <- args
+    if (length(eng_args) > 0)
+      object$eng_args[names(eng_args)] <- eng_args
+  }
+
+  new_model_spec(
+    cls,
+    args = object$args,
+    eng_args = object$eng_args,
+    mode = object$mode,
+    method = NULL,
+    engine = object$engine
+  )
+}

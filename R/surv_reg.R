@@ -72,38 +72,17 @@ print.surv_reg <- function(x, ...) {
 #' @export
 update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
 
-  eng_args <- update_engine_parameters(object$eng_args, ...)
-
-  if (!is.null(parameters)) {
-    parameters <- check_final_param(parameters)
-  }
-
   args <- list(
     dist = enquo(dist)
   )
 
-  args <- update_main_parameters(args, parameters)
-
-  if (fresh) {
-    object$args <- args
-    object$eng_args <- eng_args
-  } else {
-    null_args <- map_lgl(args, null_value)
-    if (any(null_args))
-      args <- args[!null_args]
-    if (length(args) > 0)
-      object$args[names(args)] <- args
-    if (length(eng_args) > 0)
-      object$eng_args[names(eng_args)] <- eng_args
-  }
-
-  new_model_spec(
-    "surv_reg",
-    args = object$args,
-    eng_args = object$eng_args,
-    mode = object$mode,
-    method = NULL,
-    engine = object$engine
+  update_spec(
+    object = object,
+    parameters = parameters,
+    args_enquo_list = args,
+    fresh = fresh,
+    cls = "surv_reg",
+    ...
   )
 }
 

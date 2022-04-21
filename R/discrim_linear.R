@@ -72,33 +72,18 @@ update.discrim_linear <-
            regularization_method = NULL,
            fresh = FALSE, ...) {
 
-    eng_args <- update_engine_parameters(object$eng_args, ...)
-
     args <- list(
       penalty = rlang::enquo(penalty),
       regularization_method = rlang::enquo(regularization_method)
     )
 
-    if (fresh) {
-      object$args <- args
-      object$eng_args <- eng_args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-      if (length(eng_args) > 0)
-        object$eng_args[names(eng_args)] <- eng_args
-    }
-
-    new_model_spec(
-      "discrim_linear",
-      args = object$args,
-      eng_args = object$eng_args,
-      mode = object$mode,
-      method = NULL,
-      engine = object$engine
+    update_spec(
+      object = object,
+      parameters = NULL,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "discrim_linear",
+      ...
     )
   }
 
