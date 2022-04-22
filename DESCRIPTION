@@ -35,7 +35,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyr (>= 1.0.0),
     utils,
-    vctrs (>= 0.4.0),
+    vctrs (>= 0.4.1),
     withr
 Suggests: 
     C50,
