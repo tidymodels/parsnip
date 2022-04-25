@@ -51,9 +51,9 @@
 #'
 NULL
 
-# a helper function for update methods to lightly wrap.
+# Helper function for update methods to lightly wrap:
 # * object, parameters, fresh, and ... are synonymous with their docs in update.*
-# * args_enquo_list is a name list passing each model-specific parameter as a quosure
+# * args_enquo_list is a named list passing each model-specific parameter as a quosure
 # * cls is synonymous with the first argument to `new_model_spec`
 #' @export
 #' @keywords internal
