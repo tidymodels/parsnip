@@ -168,6 +168,17 @@ stop_incompatible_engine <- function(spec_engs, mode) {
 }
 
 stop_missing_engine <- function(cls) {
+  msg <- possible_combinations(cls)
+
+  if (msg == "") {
+    rlang::abort(paste0("No known engines for `", cls, "()`."), call = NULL)
+  }
+
+  msg <- paste("Missing engine. Possible mode/engine combinations are:", msg)
+  rlang::abort(msg, call = NULL)
+}
+
+possible_combinations <- function(cls) {
   info <-
     get_from_env(cls) %>%
     dplyr::group_by(mode) %>%
@@ -175,12 +186,8 @@ stop_missing_engine <- function(cls) {
                                   paste0(unique(engine), collapse = ", "),
                                   "}"),
                      .groups = "drop")
-  if (nrow(info) == 0) {
-    rlang::abort(paste0("No known engines for `", cls, "()`."))
-  }
+
   msg <- paste0(info$msg, collapse = ", ")
-  msg <- paste("Missing engine. Possible mode/engine combinations are:", msg)
-  rlang::abort(msg)
 }
 
 check_mode_for_new_engine <- function(cls, eng, mode) {
@@ -215,11 +222,21 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   spec_engs <- model_info$engine
   # engine is allowed to be NULL
   if (!is.null(eng) && !(eng %in% spec_engs)) {
+    combos <- possible_combinations(cls)
+
+    known_engine <- eng %in% all_engines()
+
+    if (known_engine) {
+      msg <- paste0("The supplied `engine` '", eng,
+                    "' is not available for `", cls, "()`. ")
+    } else {
+      msg <- paste0("The supplied `engine` '", eng,
+                    "' does not match any in the `parsnip` model database. ")
+    }
+
     rlang::abort(
-      paste0(
-        "Engine '", eng, "' is not supported for `", cls, "()`. See ",
-        "`show_engines('", cls, "')`."
-      )
+      paste0(msg, "\n\nPossible mode/engine combinations are: ", combos, "."),
+      call = NULL
     )
   }
 

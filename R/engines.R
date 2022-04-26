@@ -10,6 +10,17 @@ possible_engines <- function(object, ...) {
   unique(engs$engine)
 }
 
+all_engines <- function() {
+  get_model_env() %>%
+    rlang::as_list() %>%
+    purrr::map(
+      purrr::pluck,
+      "engine"
+    ) %>%
+    unlist() %>%
+    unique()
+}
+
 # ------------------------------------------------------------------------------
 
 shhhh <- function(x)
