@@ -329,8 +329,10 @@ test_that("numeric x and numeric multivariate y", {
 })
 
 test_that("numeric x and factor y", {
-  expected <-
-    glm(class ~ ., data = hpc, x = TRUE, y = TRUE, family = binomial())
+  expect_warning(
+    expected <-
+      glm(class ~ ., data = hpc, x = TRUE, y = TRUE, family = binomial())
+  )
   observed <- .convert_form_to_xy_fit(class ~ ., data = hpc)
   expect_equal(format_x_for_test(expected$x), observed$x)
   expect_equal(hpc$class, observed$y)
