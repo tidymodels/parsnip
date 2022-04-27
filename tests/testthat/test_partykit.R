@@ -30,11 +30,10 @@ test_that('fit ctree models', {
     fit_4 <- ctree_train(Class ~ ., data = ad_data),
     regex = NA
   )
-  expect_error(
+  expect_snapshot_error(
     ctree_train(ridership ~ ., data = Chicago[, 1:20],
                 mincriterion = 1/2, maxdepth = 2,
-                weights = runif(nrow(Chicago))),
-    "should be an integer vector"
+                weights = runif(nrow(Chicago)))
   )
 })
 
@@ -75,8 +74,7 @@ test_that('fit cforest models', {
     regex = NA
   )
   expect_equal(fit_5$info$control$mtry, 130)
-  expect_error(
-    cforest_train(ridership ~ ., data = Chicago[, 1:20], weights = "potato"),
-    "should be a numeric vector"
+  expect_snapshot_error(
+    cforest_train(ridership ~ ., data = Chicago[, 1:20], weights = "potato")
   )
 })
