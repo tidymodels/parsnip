@@ -7,7 +7,7 @@
 #' @param data A data frame containing the variables in the model.
 #' @param weights A vector of weights whose length is the same as `nrow(data)`.
 #' For [partykit::ctree()] models, these are required to be non-negative
-#' integers while for [partykit::cforest()] they cna be non-negative integers
+#' integers while for [partykit::cforest()] they can be non-negative integers
 #' or doubles.
 #' @param teststat A character specifying the type of the test statistic to be
 #' applied.
@@ -79,7 +79,7 @@ ctree_train <-
       if (!is.vector(weights) ||
           !is.integer(weights) ||
           length(weights) != nrow(data)) {
-        rlang::abort("'weights' should be an integer vector with size the same as the rows of 'data'.")
+        rlang::abort("'weights' should be an integer vector with size the same as the number of rows of 'data'.")
       }
       tree_call$weights <- rlang::expr(weights)
     }
@@ -156,7 +156,7 @@ cforest_train <-
       if (!is.vector(weights) ||
           !is.numeric(weights) ||
           length(weights) != nrow(data)) {
-        rlang::abort("'weights' should be a numeric vector with size the same as the rows of 'data'.")
+        rlang::abort("'weights' should be a numeric vector with size the same as the number of rows of 'data'.")
       }
       forest_call$weights <- rlang::expr(weights)
     }
