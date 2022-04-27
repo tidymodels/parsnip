@@ -1,22 +1,9 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(tibble)
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
-context("keras logistic regression")
-source("helpers.R")
-
-# ------------------------------------------------------------------------------
-
 set.seed(352)
 dat <-
   lending_club %>%
-  group_by(Class) %>%
-  sample_n(500) %>%
-  ungroup() %>%
+  dplyr::group_by(Class) %>%
+  dplyr::sample_n(500) %>%
+  dplyr::ungroup() %>%
   dplyr::select(Class, funded_amnt, int_rate)
 dat <- dat[order(runif(nrow(dat))),]
 
@@ -126,8 +113,8 @@ test_that('classification prediction', {
   keras_raw <-
     predict(lr_fit$fit, as.matrix(te_dat[, -1]))
   keras_pred <-
-    tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
-    mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
+    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
+    dplyr::mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -1])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
@@ -188,7 +175,7 @@ test_that('classification probabilities', {
 
   keras_pred <- predict(plrfit$fit, as.matrix(te_dat[, -1]))
   colnames(keras_pred) <- paste0(".pred_", lr_fit$lvl)
-  keras_pred <- as_tibble(keras_pred)
+  keras_pred <- tibble::as_tibble(keras_pred)
 
   parsnip_pred <- predict(plrfit, te_dat[, -1], type = "prob")
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))

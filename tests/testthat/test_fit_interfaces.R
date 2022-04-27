@@ -1,9 +1,3 @@
-library(testthat)
-context("fit interfaces")
-library(parsnip)
-library(rlang)
-
-source(test_path("helper-objects.R"))
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 f <- y ~ x

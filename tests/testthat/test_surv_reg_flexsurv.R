@@ -1,15 +1,7 @@
-library(testthat)
-library(parsnip)
-library(rlang)
-library(survival)
-library(tibble)
+data(cancer, package = "survival")
 
-# ------------------------------------------------------------------------------
-
-source(test_path("helper-objects.R"))
-
-basic_form <- Surv(time, status) ~ age
-complete_form <- Surv(time) ~ age
+basic_form <- survival::Surv(time, status) ~ age
+complete_form <- survival::Surv(time) ~ age
 
 # ------------------------------------------------------------------------------
 
@@ -22,7 +14,7 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time, status) ~ age,
+      survival::Surv(time, status) ~ age,
       data = lung,
       control = ctrl
     ),
@@ -31,7 +23,7 @@ test_that('flexsurv execution', {
   expect_error(
     res <- fit(
       surv_basic,
-      Surv(time) ~ age,
+      survival::Surv(time) ~ age,
       data = lung,
       control = ctrl
     ),
@@ -58,11 +50,11 @@ test_that('flexsurv prediction', {
 
   res <- fit(
     surv_basic,
-    Surv(time, status) ~ age,
+    survival::Surv(time, status) ~ age,
     data = lung,
     control = ctrl
   )
-  exp_pred <- summary(res$fit, head(lung), type = "mean")
+  exp_pred <- summary(extract_fit_engine(res), head(lung), type = "mean")
   exp_pred <- do.call("rbind", unclass(exp_pred))
   exp_pred <- tibble(.pred = exp_pred$est)
   expect_equal(exp_pred, predict(res, head(lung)))

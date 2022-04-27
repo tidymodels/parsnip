@@ -1,11 +1,3 @@
-library(dplyr)
-
-# ------------------------------------------------------------------------------
-
-context("default engines")
-
-# ------------------------------------------------------------------------------
-
 test_that('check default engines', {
   expect_equal(boost_tree()$engine, "xgboost")
   expect_equal(decision_tree()$engine, "rpart")
