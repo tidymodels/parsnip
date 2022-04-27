@@ -6,6 +6,8 @@
 
 * Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
 
+* Fixed bug where previously set engine arguments would propagate through `update()` methods despite `fresh = TRUE` (#704).
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
