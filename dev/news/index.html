@@ -108,8 +108,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="developer-0-2-0">Developer<a class="anchor" aria-label="anchor" href="#developer-0-2-0"></a></h3>
-<ul><li>Models information can be re-registered as long as the information being registered is the same. This is helpful for packages that add new engines and use <code>devtools::load_all()</code> (<a href="https://github.com/tidymodels/parsnip/issues/653" class="external-link">#653</a>).</li>
-</ul></div>
+<ul><li>Models information can be re-registered as long as the information being registered is the same. This is helpful for packages that add new engines and use <code>devtools::load_all()</code> (<a href="https://github.com/tidymodels/parsnip/issues/653" class="external-link">#653</a>).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.7" id="parsnip-017">parsnip 0.1.7<a class="anchor" aria-label="anchor" href="#parsnip-017"></a></h2><p class="text-muted">CRAN release: 2021-07-21</p>
@@ -191,8 +190,7 @@
 <div class="section level3">
 <h3 id="breaking-changes-0-1-2">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-2"></a></h3>
 <ul><li>
-<code>parsnip</code> now has options to set specific types of predictor encodings for different models. For example, <code>ranger</code> models run using <code>parsnip</code> and <code>workflows</code> do the same thing by <em>not</em> creating indicator variables. These encodings can be overridden using the <code>blueprint</code> options in <code>workflows</code>. As a consequence, it is possible to get a different model fit that previous versions of <code>parsnip</code>. More details about specific encoding changes are below. (<a href="https://github.com/tidymodels/parsnip/issues/326" class="external-link">#326</a>)</li>
-</ul></div>
+<code>parsnip</code> now has options to set specific types of predictor encodings for different models. For example, <code>ranger</code> models run using <code>parsnip</code> and <code>workflows</code> do the same thing by <em>not</em> creating indicator variables. These encodings can be overridden using the <code>blueprint</code> options in <code>workflows</code>. As a consequence, it is possible to get a different model fit that previous versions of <code>parsnip</code>. More details about specific encoding changes are below. (<a href="https://github.com/tidymodels/parsnip/issues/326" class="external-link">#326</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="other-changes-0-1-2">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-1-2"></a></h3>
 <ul><li><p><code>tidyr</code> &gt;= 1.0.0 is now required.</p></li>
@@ -215,23 +213,19 @@
 <div class="section level3">
 <h3 id="new-features-0-1-1">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-1"></a></h3>
 <ul><li>
-<code>liquidSVM</code> was added as an engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/300" class="external-link">#300</a>)</li>
-</ul></div>
+<code>liquidSVM</code> was added as an engine for <code><a href="../reference/svm_rbf.html">svm_rbf()</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/300" class="external-link">#300</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="fixes-0-1-1">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-1-1"></a></h3>
-<ul><li>The error message for missing packages was fixed (<a href="https://github.com/tidymodels/parsnip/issues/289" class="external-link">#289</a> and <a href="https://github.com/tidymodels/parsnip/issues/292" class="external-link">#292</a>)</li>
-</ul></div>
+<ul><li>The error message for missing packages was fixed (<a href="https://github.com/tidymodels/parsnip/issues/289" class="external-link">#289</a> and <a href="https://github.com/tidymodels/parsnip/issues/292" class="external-link">#292</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="other-changes-0-1-1">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-1-1"></a></h3>
-<ul><li>S3 dispatch for <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> was broken on R 4.0.</li>
-</ul></div>
+<ul><li>S3 dispatch for <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> was broken on R 4.0.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.5" id="parsnip-005">parsnip 0.0.5<a class="anchor" aria-label="anchor" href="#parsnip-005"></a></h2><p class="text-muted">CRAN release: 2020-01-07</p>
 <div class="section level3">
 <h3 id="fixes-0-0-5">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-0-5"></a></h3>
-<ul><li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206" class="external-link">#206</a> and <a href="https://github.com/tidymodels/parsnip/issues/234" class="external-link">#234</a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li>
-</ul></div>
+<ul><li>A bug (<a href="https://github.com/tidymodels/parsnip/issues/206" class="external-link">#206</a> and <a href="https://github.com/tidymodels/parsnip/issues/234" class="external-link">#234</a>) was fixed that caused an error when predicting with a multinomial <code>glmnet</code> model.</li></ul></div>
 <div class="section level3">
 <h3 id="other-changes-0-0-5">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-0-5"></a></h3>
 <ul><li><p><code>glmnet</code> was removed as a dependency since the new version depends on 3.6.0 or greater. Keeping it would constrain <code>parsnip</code> to that same requirement. All <code>glmnet</code> tests are run locally.</p></li>
@@ -241,12 +235,10 @@
 <h3 id="new-features-0-0-5">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-0-5"></a></h3>
 <ul><li>
 <code>nnet</code> was added as an engine to <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> <a href="https://github.com/tidymodels/parsnip/issues/209" class="external-link">#209</a>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-0-5">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-5"></a></h3>
-<ul><li>There were some mis-mapped parameters (going between <code>parsnip</code> and the underlying model function) for <code>spark</code> boosted trees and some <code>keras</code> models. See <a href="https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8" class="external-link">897c927</a>.</li>
-</ul></div>
+<ul><li>There were some mis-mapped parameters (going between <code>parsnip</code> and the underlying model function) for <code>spark</code> boosted trees and some <code>keras</code> models. See <a href="https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8" class="external-link">897c927</a>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.4" id="parsnip-004">parsnip 0.0.4<a class="anchor" aria-label="anchor" href="#parsnip-004"></a></h2><p class="text-muted">CRAN release: 2019-11-02</p>
@@ -320,8 +312,7 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9005" id="parsnip-0009005">parsnip 0.0.0.9005<a class="anchor" aria-label="anchor" href="#parsnip-0009005"></a></h2>
-<ul><li>The engine, and any associated arguments, are now specified using <code><a href="../reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li>
-</ul></div>
+<ul><li>The engine, and any associated arguments, are now specified using <code><a href="../reference/set_engine.html">set_engine()</a></code>. There is no <code>engine</code> argument</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9004" id="parsnip-0009004">parsnip 0.0.0.9004<a class="anchor" aria-label="anchor" href="#parsnip-0009004"></a></h2>
 <ul><li>Arguments to modeling functions are now captured as quosures.</li>
@@ -345,8 +336,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9001" id="parsnip-0009001">parsnip 0.0.0.9001<a class="anchor" aria-label="anchor" href="#parsnip-0009001"></a></h2>
-<ul><li>A package dependency suffered a new change.</li>
-</ul></div>
+<ul><li>A package dependency suffered a new change.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9000" id="parsnip-0009000">parsnip 0.0.0.9000<a class="anchor" aria-label="anchor" href="#parsnip-0009000"></a></h2>
 <ul><li>The <code>fit</code> interface was previously used to cover both the x/y interface as well as the formula interface. Now, <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> is the formula interface and <a href="https://github.com/tidymodels/parsnip/issues/33" class="external-link"><code>fit_xy()</code> is for the x/y interface</a>.</li>
@@ -366,7 +356,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
   </div></footer></body></html>
