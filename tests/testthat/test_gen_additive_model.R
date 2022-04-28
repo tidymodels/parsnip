@@ -83,6 +83,8 @@ test_that('classification', {
   mgcv_pred <- predict(mgcv_mod, head(two_class_dat), type = "response")
   expect_equal(names(f_pred), c(".pred_Class1", ".pred_Class2"))
   expect_equal(f_pred[[".pred_Class2"]], mgcv_pred, ignore_attr = TRUE)
+  expect_equal(class(f_pred[[".pred_Class1"]]), "numeric")
+  expect_equal(class(f_pred[[".pred_Class2"]]), "numeric")
 
   f_cls <- predict(f_res, head(two_class_dat), type = "class")
   expect_true(all(f_cls$.pred_class[mgcv_pred < 0.5] == "Class1"))
