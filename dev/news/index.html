@@ -67,7 +67,10 @@
 <ul><li><p><code><a href="../reference/xgb_train.html">xgb_train()</a></code> now allows for case weights</p></li>
 <li><p>Added <code><a href="../reference/ctree_train.html">ctree_train()</a></code> and <code><a href="../reference/ctree_train.html">cforest_train()</a></code> wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.</p></li>
 <li><p>Exported <code><a href="../reference/xgb_train.html">xgb_predict()</a></code> which wraps xgboost’s <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for use with parsnip extension packages (<a href="https://github.com/tidymodels/parsnip/issues/688" class="external-link">#688</a>).</p></li>
-</ul></div>
+</ul><div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>An inconsistency for probability type predictions for two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/708" class="external-link">#708</a>)</li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
 <ul><li><p>Fixed a major bug in spark models induced in the previous version (<a href="https://github.com/tidymodels/parsnip/issues/671" class="external-link">#671</a>).</p></li>
