@@ -6,6 +6,10 @@
 
 * Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
 
+## Bug fixes
+
+*  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
