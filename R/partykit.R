@@ -171,9 +171,8 @@ cforest_train <-
     eval_env$data <- data
     eval_env$formula <- formula
     eval_env$weights <- weights
-    rlang::eval_tidy(forest_call, env = eval_env)
 
-    rlang::eval_tidy(forest_call)
+    rlang::eval_tidy(forest_call, env = eval_env)
   }
 
 # ------------------------------------------------------------------------------
