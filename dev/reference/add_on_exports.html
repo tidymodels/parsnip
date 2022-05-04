@@ -12,7 +12,7 @@ new model specifications."><meta property="og:image" content="https://parsnip.ti
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ new model specifications."><meta property="og:image" content="https://parsnip.ti
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Functions required for parsnip-adjacent packages</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/arguments.R" class="external-link"><code>R/arguments.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/misc.R" class="external-link"><code>R/misc.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/varying.R" class="external-link"><code>R/varying.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/arguments.R" class="external-link"><code>R/arguments.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/misc.R" class="external-link"><code>R/misc.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/update.R" class="external-link"><code>R/update.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>add_on_exports.Rd</code></div>
     </div>
 
@@ -84,7 +84,9 @@ new model specifications.</p>
 
 <span class="fu">update_main_parameters</span><span class="op">(</span><span class="va">args</span>, <span class="va">param</span><span class="op">)</span>
 
-<span class="fu">update_engine_parameters</span><span class="op">(</span><span class="va">eng_args</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu">update_engine_parameters</span><span class="op">(</span><span class="va">eng_args</span>, <span class="va">fresh</span>, <span class="va">...</span><span class="op">)</span>
+
+<span class="fu">update_spec</span><span class="op">(</span><span class="va">object</span>, <span class="va">parameters</span>, <span class="va">args_enquo_list</span>, <span class="va">fresh</span>, <span class="va">cls</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">is_varying</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
     </div>
