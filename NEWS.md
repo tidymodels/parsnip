@@ -8,6 +8,8 @@
 
 * Fixed bug where previously set engine arguments would propagate through `update()` methods despite `fresh = TRUE` (#704).
 
+*  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).

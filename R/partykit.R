@@ -5,6 +5,10 @@
 #' arguments (as opposed to being specified in [partykit::ctree_control()]).
 #' @param formula A symbolic description of the model to be fit.
 #' @param data A data frame containing the variables in the model.
+#' @param weights A vector of weights whose length is the same as `nrow(data)`.
+#' For [partykit::ctree()] models, these are required to be non-negative
+#' integers while for [partykit::cforest()] they can be non-negative integers
+#' or doubles.
 #' @param teststat A character specifying the type of the test statistic to be
 #' applied.
 #' @param testtype A character specifying how to compute the distribution of
@@ -32,6 +36,7 @@
 ctree_train <-
   function(formula,
            data,
+           weights = NULL,
            minsplit = 20L,
            maxdepth = Inf,
            teststat = "quadratic",
@@ -70,7 +75,26 @@ ctree_train <-
         data = rlang::expr(data),
         !!!opts
       )
-    rlang::eval_tidy(tree_call)
+    if (!is.null(weights)) {
+      if (!is.vector(weights) ||
+          !is.integer(weights) ||
+          length(weights) != nrow(data)) {
+        rlang::abort("'weights' should be an integer vector with size the same as the number of rows of 'data'.")
+      }
+      tree_call$weights <- rlang::expr(weights)
+    }
+
+    eval_env <- rlang::env()
+
+    environment(formula) <- rlang::new_environment(
+      data = list(data = data, weights = weights),
+      parent = environment(formula)
+    )
+
+    eval_env$data <- data
+    eval_env$formula <- formula
+    eval_env$weights <- weights
+    rlang::eval_tidy(tree_call, env = eval_env)
   }
 
 #' @rdname ctree_train
@@ -78,6 +102,7 @@ ctree_train <-
 cforest_train <-
   function(formula,
            data,
+           weights = NULL,
            minsplit = 20L,
            maxdepth = Inf,
            teststat = "quadratic",
@@ -123,9 +148,31 @@ cforest_train <-
         .ns = "partykit",
         formula = rlang::expr(formula),
         data = rlang::expr(data),
+        weights = rlang::expr(weights),
         !!!opts
       )
-    rlang::eval_tidy(forest_call)
+
+    if (!is.null(weights)) {
+      if (!is.vector(weights) ||
+          !is.numeric(weights) ||
+          length(weights) != nrow(data)) {
+        rlang::abort("'weights' should be a numeric vector with size the same as the number of rows of 'data'.")
+      }
+      forest_call$weights <- rlang::expr(weights)
+    }
+
+    eval_env <- rlang::env()
+
+    environment(formula) <- rlang::new_environment(
+      data = list(data = data, weights = weights),
+      parent = environment(formula)
+    )
+
+    eval_env$data <- data
+    eval_env$formula <- formula
+    eval_env$weights <- weights
+
+    rlang::eval_tidy(forest_call, env = eval_env)
   }
 
 # ------------------------------------------------------------------------------
