@@ -71,37 +71,21 @@ update.bag_tree <-
            cost_complexity = NULL, tree_depth = NULL, min_n = NULL,
            class_cost = NULL,
            fresh = FALSE, ...) {
-    update_dot_check(...)
 
-    if (!is.null(parameters)) {
-      parameters <- check_final_param(parameters)
-    }
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n),
-      class_cost = enquo(class_cost)
+      cost_complexity = enquo(cost_complexity),
+      tree_depth      = enquo(tree_depth),
+      min_n           = enquo(min_n),
+      class_cost      = enquo(class_cost)
     )
 
-    args <- update_main_parameters(args, parameters)
-
-    if (fresh) {
-      object$args <- args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-    }
-
-    new_model_spec(
-      "bag_tree",
-      args = object$args,
-      eng_args = object$eng_args,
-      mode = object$mode,
-      method = NULL,
-      engine = object$engine
+    update_spec(
+      object = object,
+      parameters = parameters,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "bag_tree",
+      ...
     )
   }
 

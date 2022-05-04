@@ -10,18 +10,11 @@ test_that('engine arguments', {
 
 
 test_that('updating', {
-  expr1 <- svm_rbf(mode = "regression")  %>% set_engine("kernlab", cross = 10)
-  expr2 <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = tune())
-  expr3 <- svm_rbf(mode = "regression", rbf_sigma = .2) %>% set_engine("kernlab")
-
-  param_tibb <- tibble::tibble(rbf_sigma = 3, cost = 10)
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(expr1 %>% update(rbf_sigma = .1))
-  expect_snapshot(expr1 %>% update(param_tibb))
-  expect_snapshot(expr1 %>% update(param_list))
-  expect_snapshot(expr2 %>% update(cross = 10))
-  expect_snapshot(expr3 %>% update(rbf_sigma = .3, fresh = TRUE))
+  expect_snapshot(
+    svm_rbf(mode = "regression", rbf_sigma = .3) %>%
+      set_engine("kernlab", cross = 10) %>%
+      update(rbf_sigma = tune(), cross = tune())
+  )
 })
 
 test_that('bad input', {

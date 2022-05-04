@@ -124,36 +124,20 @@ update.cubist_rules <-
            parameters = NULL,
            committees = NULL, neighbors = NULL, max_rules = NULL,
            fresh = FALSE, ...) {
-    update_dot_check(...)
 
-    if (!is.null(parameters)) {
-      parameters <- check_final_param(parameters)
-    }
     args <- list(
       committees = enquo(committees),
-      neighbors = enquo(neighbors),
-      max_rules = enquo(max_rules)
+      neighbors  = enquo(neighbors),
+      max_rules  = enquo(max_rules)
     )
 
-    args <- update_main_parameters(args, parameters)
-
-    if (fresh) {
-      object$args <- args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-    }
-
-    new_model_spec(
-      "cubist_rules",
-      args = object$args,
-      eng_args = object$eng_args,
-      mode = object$mode,
-      method = NULL,
-      engine = object$engine
+    update_spec(
+      object = object,
+      parameters = parameters,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "cubist_rules",
+      ...
     )
   }
 

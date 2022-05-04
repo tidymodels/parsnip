@@ -1,95 +1,16 @@
 # updating
 
     Code
-      expr1 %>% update(hidden_units = 2)
-    Output
-      Single Layer Neural Network Specification (regression)
-      
-      Main Arguments:
-        hidden_units = 2
-      
-      Engine-Specific Arguments:
-        Hess = FALSE
-        abstol = tune()
-      
-      Computational engine: nnet 
-      
-
----
-
-    Code
-      expr2 %>% update(Hess = FALSE)
-    Output
-      Single Layer Neural Network Specification (regression)
-      
-      Engine-Specific Arguments:
-        Hess = FALSE
-      
-      Computational engine: nnet 
-      
-
----
-
-    Code
-      expr3 %>% update(hidden_units = 2, fresh = TRUE)
-    Output
-      Single Layer Neural Network Specification (regression)
-      
-      Main Arguments:
-        hidden_units = 2
-      
-      Computational engine: keras 
-      
-
----
-
-    Code
-      expr4 %>% update(abstol = 0.001)
+      mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE) %>%
+        update(hidden_units = tune(), Hess = tune())
     Output
       Single Layer Neural Network Specification (classification)
       
       Main Arguments:
-        hidden_units = 2
+        hidden_units = tune()
       
       Engine-Specific Arguments:
-        Hess = FALSE
-        abstol = 0.001
-      
-      Computational engine: nnet 
-      
-
----
-
-    Code
-      expr4 %>% update(param_tibb)
-    Output
-      Single Layer Neural Network Specification (classification)
-      
-      Main Arguments:
-        hidden_units = 3
-        dropout = 0.1
-      
-      Engine-Specific Arguments:
-        Hess = FALSE
-        abstol = tune()
-      
-      Computational engine: nnet 
-      
-
----
-
-    Code
-      expr4 %>% update(param_list)
-    Output
-      Single Layer Neural Network Specification (classification)
-      
-      Main Arguments:
-        hidden_units = 3
-        dropout = 0.1
-      
-      Engine-Specific Arguments:
-        Hess = FALSE
-        abstol = tune()
+        Hess = tune()
       
       Computational engine: nnet 
       

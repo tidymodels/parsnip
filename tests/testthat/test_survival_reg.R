@@ -14,13 +14,10 @@ test_that("primary argument", {
 })
 
 test_that("updating", {
-  basic <- survival_reg()
-  param_tibb <- tibble::tibble(dist = "weibull")
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(basic %>% update(dist = "lnorm"))
-  expect_snapshot(basic %>% update(param_tibb))
-  expect_snapshot(basic %>% update(param_list))
+  expect_snapshot(
+    survival_reg() %>%
+      update(dist = "lnorm")
+  )
 })
 
 test_that("bad input", {
