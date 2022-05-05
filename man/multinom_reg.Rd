@@ -25,10 +25,15 @@ For \code{keras} models, this corresponds to purely L2 regularization
 (aka weight decay) while the other models can be a combination
 of L1 and L2 (depending on the value of \code{mixture}).}
 
-\item{mixture}{A number between zero and one (inclusive) that is the
-proportion of L1 regularization (i.e. lasso) in the model. When
-\code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used. (specific engines only).}
+\item{mixture}{A number between zero and one (inclusive) giving the
+proportion of L1 regularization (i.e. lasso) in the model.
+\itemize{
+\item \code{mixture = 1} specifies a pure lasso model,
+\item \code{mixture = 0}  specifies a ridge regression model, and
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso and ridge.
+}
+
+Available for specific engines only.}
 }
 \description{
 \code{multinom_reg()} defines a model that uses linear predictors to predict
