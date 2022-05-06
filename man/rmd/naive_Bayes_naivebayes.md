@@ -14,6 +14,8 @@ This model has 2 tuning parameter:
 
 - `Laplace`: Laplace Correction (type: double, default: 0.0)
 
+Note that `usekernel` is always set to `TRUE` for the `naivebayes` engine.
+
 ## Translation from parsnip to the original package
 
 The **discrim** extension package is required to fit this model.
