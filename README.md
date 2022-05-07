@@ -45,7 +45,7 @@ might have:
 # From randomForest
 rf_1 <- randomForest(
   y ~ ., 
-  data = ., 
+  data = dat, 
   mtry = 10, 
   ntree = 2000, 
   importance = TRUE
