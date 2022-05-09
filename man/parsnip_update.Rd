@@ -382,9 +382,7 @@ regularization used by some of the engines.}
 estimation. Possible values are: "\code{diagonal}", "\code{min_distance}",
 "\code{shrink_cov}", and "\code{shrink_mean}" (\code{sparsediscrim} engine only).}
 
-\item{frac_common_cov}{Numeric values between zero and one.}
-
-\item{frac_identity}{Numeric values between zero and one.}
+\item{frac_common_cov, frac_identity}{Numeric values between zero and one.}
 
 \item{select_features}{\code{TRUE} or \code{FALSE.} If \code{TRUE}, the model has the
 ability to eliminate a predictor (via penalization). Increasing
@@ -393,10 +391,15 @@ ability to eliminate a predictor (via penalization). Increasing
 \item{adjust_deg_free}{If \code{select_features = TRUE}, then acts as a multiplier
 for smoothness. Increase this beyond 1 to produce smoother models.}
 
-\item{mixture}{A number between zero and one (inclusive) that is the
-proportion of L1 regularization (i.e. lasso) in the model. When
-\code{mixture = 1}, it is a pure lasso model while \code{mixture = 0} indicates that
-ridge regression is being used (specific engines only).}
+\item{mixture}{A number between zero and one (inclusive) denoting the
+proportion of L1 regularization (i.e. lasso) in the model.
+\itemize{
+\item \code{mixture = 1} specifies a pure lasso model,
+\item \code{mixture = 0}  specifies a ridge regression model, and
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso and ridge.
+}
+
+Available for specific engines only.}
 
 \item{hidden_units}{An integer for the number of units in the hidden model.}
 

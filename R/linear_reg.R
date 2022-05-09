@@ -17,10 +17,14 @@
 #'  model is `"lm"`.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
-#' @param mixture A number between zero and one (inclusive) that is the
-#'  proportion of L1 regularization (i.e. lasso) in the model. When
-#'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
-#'  ridge regression is being used (specific engines only).
+#' @param mixture A number between zero and one (inclusive) denoting the
+#'  proportion of L1 regularization (i.e. lasso) in the model.
+#'
+#'  * `mixture = 1` specifies a pure lasso model,
+#'  * `mixture = 0`  specifies a ridge regression model, and
+#'  * `0 < mixture < 1` specifies an elastic net model, interpolating lasso and ridge.
+#'
+#'  Available for specific engines only.
 #'
 #' @template spec-details
 #'

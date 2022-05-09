@@ -15,10 +15,14 @@
 #'  The only possible value for this model is "regression".
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (`glmnet` only).
-#' @param mixture A number between zero and one (inclusive) that is the
-#'  proportion of L1 regularization (i.e. lasso) in the model. When
-#'  `mixture = 1`, it is a pure lasso model while `mixture = 0` indicates that
-#'  ridge regression is being used. (`glmnet` and `spark` only).
+#' @param mixture A number between zero and one (inclusive) giving the
+#'  proportion of L1 regularization (i.e. lasso) in the model.
+#'
+#'  * `mixture = 1` specifies a pure lasso model,
+#'  * `mixture = 0`  specifies a ridge regression model, and
+#'  * `0 < mixture < 1` specifies an elastic net model, interpolating lasso and ridge.
+#'
+#'  Available for `glmnet` and `spark` only.
 #'
 #' @template spec-details
 #'
