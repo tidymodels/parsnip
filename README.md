@@ -45,7 +45,7 @@ might have:
 # From randomForest
 rf_1 <- randomForest(
   y ~ ., 
-  data = ., 
+  data = dat, 
   mtry = 10, 
   ntree = 2000, 
   importance = TRUE
@@ -140,7 +140,6 @@ rand_forest(mtry = 10, trees = 2000) %>%
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
-#> Fit time:  45ms 
 #> Ranger result
 #> 
 #> Call:
