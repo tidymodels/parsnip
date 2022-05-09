@@ -445,9 +445,7 @@ regularization used by some of the engines.</p></dd>
 <dd><p>A character string for the type of regularized
 estimation. Possible values are: "<code>diagonal</code>", "<code>min_distance</code>",
 "<code>shrink_cov</code>", and "<code>shrink_mean</code>" (<code>sparsediscrim</code> engine only).</p></dd>
-<dt>frac_common_cov</dt>
-<dd><p>Numeric values between zero and one.</p></dd>
-<dt>frac_identity</dt>
+<dt>frac_common_cov, frac_identity</dt>
 <dd><p>Numeric values between zero and one.</p></dd>
 <dt>select_features</dt>
 <dd><p><code>TRUE</code> or <code>FALSE.</code> If <code>TRUE</code>, the model has the
@@ -457,10 +455,11 @@ ability to eliminate a predictor (via penalization). Increasing
 <dd><p>If <code>select_features = TRUE</code>, then acts as a multiplier
 for smoothness. Increase this beyond 1 to produce smoother models.</p></dd>
 <dt>mixture</dt>
-<dd><p>A number between zero and one (inclusive) that is the
-proportion of L1 regularization (i.e. lasso) in the model. When
-<code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used (specific engines only).</p></dd>
+<dd><p>A number between zero and one (inclusive) denoting the
+proportion of L1 regularization (i.e. lasso) in the model.</p><ul><li><p><code>mixture = 1</code> specifies a pure lasso model,</p></li>
+<li><p><code>mixture = 0</code>  specifies a ridge regression model, and</p></li>
+<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating lasso and ridge.</p></li>
+</ul><p>Available for specific engines only.</p></dd>
 <dt>hidden_units</dt>
 <dd><p>An integer for the number of units in the hidden model.</p></dd>
 <dt>dropout</dt>

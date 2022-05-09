@@ -112,10 +112,11 @@ to use for fitting.</p></dd>
 <dd><p>A non-negative number representing the total
 amount of regularization (specific engines only).</p></dd>
 <dt>mixture</dt>
-<dd><p>A number between zero and one (inclusive) that is the
-proportion of L1 regularization (i.e. lasso) in the model. When
-<code>mixture = 1</code>, it is a pure lasso model while <code>mixture = 0</code> indicates that
-ridge regression is being used (specific engines only).</p></dd>
+<dd><p>A number between zero and one (inclusive) denoting the
+proportion of L1 regularization (i.e. lasso) in the model.</p><ul><li><p><code>mixture = 1</code> specifies a pure lasso model,</p></li>
+<li><p><code>mixture = 0</code>  specifies a ridge regression model, and</p></li>
+<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating lasso and ridge.</p></li>
+</ul><p>Available for specific engines only.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
