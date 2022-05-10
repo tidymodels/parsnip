@@ -120,3 +120,5 @@ The "Introduction to bonsai" article contains [examples](https://github.com/tidy
 ## References
 
  - [LightGBM: A Highly Efficient Gradient Boosting Decision Tree](https://papers.nips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html)
+ 
+- Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
