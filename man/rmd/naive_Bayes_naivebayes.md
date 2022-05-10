@@ -14,7 +14,7 @@ This model has 2 tuning parameter:
 
 - `Laplace`: Laplace Correction (type: double, default: 0.0)
 
-Note that `usekernel` is always set to `TRUE` for the `naivebayes` engine.
+Note that the engine argument `usekernel` is set to `TRUE` by default when using the `naivebayes` engine. 
 
 ## Translation from parsnip to the original package
 
