@@ -56,6 +56,31 @@ test_that('non-standard levels', {
                c("2low", "high+values"))
 })
 
+test_that('predict(type = "prob") with level "class" (see #720)', {
+  x <- tibble::tibble(
+    boop = factor(sample(c("class", "class_1"), 100, replace = TRUE)),
+    bop = rnorm(100),
+    beep = rnorm(100)
+  )
+
+  expect_error(
+    regexp = NA,
+    mod <- logistic_reg() %>%
+      set_mode(mode = "classification") %>%
+      fit(boop ~ bop + beep, data = x)
+  )
+
+  expect_error(
+    regexp = NA,
+    predict(mod, type = "class", new_data = x)
+  )
+
+  expect_error(
+    regexp = "variable `boop` has a level called 'class'",
+    predict(mod, type = "prob", new_data = x)
+  )
+})
+
 
 test_that('non-factor classification', {
   skip_if(run_glmnet)
