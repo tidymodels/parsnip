@@ -69,6 +69,7 @@
 <li><p>Exported <code><a href="../reference/xgb_train.html">xgb_predict()</a></code> which wraps xgboost’s <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for use with parsnip extension packages (<a href="https://github.com/tidymodels/parsnip/issues/688" class="external-link">#688</a>).</p></li>
 <li><p>Fixed bug where previously set engine arguments would propagate through <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> methods despite <code>fresh = TRUE</code> (<a href="https://github.com/tidymodels/parsnip/issues/704" class="external-link">#704</a>).</p></li>
 <li><p>An inconsistency for probability type predictions for two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/708" class="external-link">#708</a>)</p></li>
+<li><p><code>predict(type = "prob")</code> will now provide an error if the outcome variable has a level called <code>"class"</code> (<a href="https://github.com/tidymodels/parsnip/issues/720" class="external-link">#720</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
