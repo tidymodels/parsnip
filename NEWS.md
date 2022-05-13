@@ -10,6 +10,8 @@
 
 *  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
 
+* `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).

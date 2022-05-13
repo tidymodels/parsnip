@@ -9,7 +9,7 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
     rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
 
   check_spec_pred_type(object, "prob")
-
+  check_spec_levels(object)
 
   if (inherits(object$fit, "try-error")) {
     rlang::warn("Model fit failed; cannot make predictions.")
@@ -48,3 +48,16 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
 # @inheritParams predict.model_fit
 predict_classprob <- function(object, ...)
   UseMethod("predict_classprob")
+
+check_spec_levels <- function(spec) {
+  if ("class" %in% spec$lvl) {
+    rlang::abort(
+      glue::glue(
+        "The outcome variable `{spec$preproc$y_var}` has a level called 'class'. ",
+        "This value is reserved for parsnip's classification internals; please ",
+        "change the levels, perhaps with `forcats::fct_relevel()`."
+      ),
+      call = NULL
+    )
+  }
+}
