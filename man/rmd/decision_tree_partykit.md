@@ -7,11 +7,9 @@ For this engine, there are multiple modes: censored regression, regression, and 
 
 
 
-This model has 3 tuning parameters:
+This model has 2 tuning parameters:
 
 - `tree_depth`: Tree Depth (type: integer, default: see below)
-
-- `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 - `min_n`: Minimal Node Size (type: integer, default: 20L)
 

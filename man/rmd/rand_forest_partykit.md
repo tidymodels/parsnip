@@ -7,15 +7,13 @@ For this engine, there are multiple modes: censored regression, regression, and 
 
 
 
-This model has 4 tuning parameters:
+This model has 3 tuning parameters:
 
 - `trees`: # Trees (type: integer, default: 500L)
 
 - `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 - `mtry`: # Randomly Selected Predictors (type: integer, default: 5L)
-
-- `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 ## Translation from parsnip to the original package (regression)
 
