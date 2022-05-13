@@ -55,7 +55,7 @@ check_spec_levels <- function(spec) {
       glue::glue(
         "The outcome variable `{spec$preproc$y_var}` has a level called 'class'. ",
         "This level is reserved for parsnip's classification internals; please ",
-        "adjust the levels to use a different value."
+        "change the levels, perhaps with `forcats::fct_relevel()`."
       ),
       call = NULL
     )
