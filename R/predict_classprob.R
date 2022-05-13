@@ -54,7 +54,7 @@ check_spec_levels <- function(spec) {
     rlang::abort(
       glue::glue(
         "The outcome variable `{spec$preproc$y_var}` has a level called 'class'. ",
-        "This level is reserved for parsnip's classification internals; please ",
+        "This value is reserved for parsnip's classification internals; please ",
         "change the levels, perhaps with `forcats::fct_relevel()`."
       ),
       call = NULL
