@@ -80,29 +80,22 @@ multiclass data using the multinomial distribution.</p>
 <p>This model has 2 tuning parameters:</p><ul><li><p><code>penalty</code>: Amount of Regularization (type: double, default: see
 below)</p></li>
 <li><p><code>mixture</code>: Proportion of Lasso Penalty (type: double, default: 1.0)</p></li>
-</ul><p>A value of <code>mixture = 1</code> corresponds to a pure lasso model, while
-<code>mixture = 0</code> indicates ridge regression.</p>
-<p>The <code>penalty</code> parameter has no default and requires a single numeric
+</ul><p>The <code>penalty</code> parameter has no default and requires a single numeric
 value. For more details about this, and the <code>glmnet</code> model in general,
-see <a href="glmnet-details.html">glmnet-details</a>.</p>
-</div>
+see <a href="glmnet-details.html">glmnet-details</a>. As for <code>mixture</code>:</p><ul><li><p><code>mixture = 1</code> specifies a pure lasso model,</p></li>
+<li><p><code>mixture = 0</code> specifies a ridge regression model, and</p></li>
+<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating
+lasso and ridge.</p></li>
+</ul></div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Multinomial Regression Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   penalty = 0</span>
-<span class="co">##   mixture = double(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: glmnet </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class="co">##     alpha = double(1), family = "multinomial")</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -111,8 +104,8 @@ see <a href="glmnet-details.html">glmnet-details</a>.</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one. By default, <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> uses

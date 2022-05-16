@@ -81,22 +81,14 @@
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
 
 
-<p>The <strong>censored</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">censored</span><span class="op">)</span>
+<p>The <strong>censored</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">censored</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/survival_reg.html">survival_reg</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"flexsurv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"censored regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Parametric Survival Regression Model Specification (censored regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   dist = character(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: flexsurv </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), </span>
-<span class="co">##     weights = missing_arg(), dist = character(1))</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">

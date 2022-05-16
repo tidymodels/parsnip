@@ -83,23 +83,14 @@ see below)</p></li>
 <h3 id="translation-from-parsnip-to-the-underlying-model-call-regression-">Translation from parsnip to the underlying model call (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-underlying-model-call-regression-"></a></h3>
 
 
-<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
+<p>The <strong>plsmod</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## PLS Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   predictor_prop = double(1)</span>
-<span class="co">##   num_comp = integer(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: mixOmics </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## plsmod::pls_fit(x = missing_arg(), y = missing_arg(), predictor_prop = double(1), </span>
-<span class="co">##     ncomp = integer(1))</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p><code>plsmod::pls_fit()</code> is a function that:</p><ul><li><p>Determines the number of predictors in the data.</p></li>
 <li><p>Adjusts <code>num_comp</code> if the value is larger than the number of
 factors.</p></li>
@@ -113,23 +104,14 @@ for sparse models.</p></li>
 <h3 id="translation-from-parsnip-to-the-underlying-model-call-classification-">Translation from parsnip to the underlying model call (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-underlying-model-call-classification-"></a></h3>
 
 
-<p>The <strong>plsmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
+<p>The <strong>plsmod</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## PLS Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   predictor_prop = double(1)</span>
-<span class="co">##   num_comp = integer(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: mixOmics </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## plsmod::pls_fit(x = missing_arg(), y = missing_arg(), predictor_prop = double(1), </span>
-<span class="co">##     ncomp = integer(1))</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>In this case, <code>plsmod::pls_fit()</code> has the same role
 as above but eventually targets <code>mixOmics::plsda()</code>
 or <code>mixOmics::splsda()</code> .</p>
@@ -140,7 +122,8 @@ or <code>mixOmics::splsda()</code> .</p>
 
 
 <p>This package is available via the Bioconductor repository and is not
-accessible via CRAN. You can install using:</p><div class="sourceCode r"><pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+accessible via CRAN. You can install using:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
   <span class="op">}</span>
   
@@ -153,8 +136,8 @@ accessible via CRAN. You can install using:</p><div class="sourceCode r"><pre><c
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Variance calculations are used in these computations so <em>zero-variance</em>
 predictors (i.e., with a single unique value) should be eliminated
 before fitting the model.</p>

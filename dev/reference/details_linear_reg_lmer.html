@@ -84,18 +84,14 @@ using maximum likelihood (or restricted maximum likelihood) estimation.</p>
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
 
 
-<p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
+<p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Linear Regression Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: lmer </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## lme4::lmer(formula = missing_arg(), data = missing_arg())</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -138,7 +134,8 @@ next section.</p>
 
 
 <p>The model can accept case weights.</p>
-<p>With parsnip, we suggest using the formula method when fitting:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
+<p>With parsnip, we suggest using the formula method when fitting:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"riesby"</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -146,7 +143,8 @@ next section.</p>
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">depr_score</span> <span class="op">~</span> <span class="va">week</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">riesby</span><span class="op">)</span></code></pre><p></p></div>
 <p>When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-<code>add_variables()</code> then supply the typical formula when adding the model:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
+<code>add_variables()</code> then supply the typical formula when adding the model:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
 
 <span class="va">lmer_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 

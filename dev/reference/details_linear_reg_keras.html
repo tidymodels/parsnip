@@ -81,19 +81,12 @@ ridge or weight decay).</p>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"keras"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Linear Regression Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   penalty = double(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: keras </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), penalty = double(1), </span>
-<span class="co">##     hidden_units = 1, act = "linear")</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p><code><a href="keras_mlp.html">keras_mlp()</a></code> is a parsnip wrapper around keras code for
 neural networks. This model fits a linear regression as a network with a
 single hidden unit.</p>
@@ -105,8 +98,8 @@ single hidden unit.</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.</p>

@@ -81,22 +81,14 @@
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
 
 
-<p>The <strong>censored</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">censored</span><span class="op">)</span>
+<p>The <strong>censored</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">censored</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/survival_reg.html">survival_reg</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"survival"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"censored regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Parametric Survival Regression Model Specification (censored regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   dist = character(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: survival </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## survival::survreg(formula = missing_arg(), data = missing_arg(), </span>
-<span class="co">##     weights = missing_arg(), dist = character(1), model = TRUE)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -114,26 +106,13 @@ model specification typically involved the use of
 parameter to differ between groups contained in the function. The column
 used inside <code><a href="https://rdrr.io/pkg/survival/man/strata.html" class="external-link">strata()</a></code> is treated as qualitative no matter its type.</p>
 <p>For example, in this model, the numeric column <code>rx</code> is used to estimate
-two different scale parameters for each value of the column:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span>
+two different scale parameters for each value of the column:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/survival_reg.html">survival_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">futime</span>, <span class="va">fustat</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/strata.html" class="external-link">strata</a></span><span class="op">(</span><span class="va">rx</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">ovarian</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Call:</span>
-<span class="co">## survival::survreg(formula = Surv(futime, fustat) ~ age + strata(rx), </span>
-<span class="co">##     data = data, model = TRUE)</span>
-<span class="co">## </span>
-<span class="co">## Coefficients:</span>
-<span class="co">## (Intercept)         age </span>
-<span class="co">##  12.8734120  -0.1033569 </span>
-<span class="co">## </span>
-<span class="co">## Scale:</span>
-<span class="co">##      rx=1      rx=2 </span>
-<span class="co">## 0.7695509 0.4703602 </span>
-<span class="co">## </span>
-<span class="co">## Loglik(model)= -89.4   Loglik(intercept only)= -97.1</span>
-<span class="co">##  Chisq= 15.36 on 1 degrees of freedom, p= 8.88e-05 </span>
-<span class="co">## n= 26</span></code></pre></div>
-
+  <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">

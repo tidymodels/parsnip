@@ -111,6 +111,8 @@ times number of observations.</p></li>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-classification-">Translation from parsnip to the original package (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-classification-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/bart.html">bart</a></span><span class="op">(</span>
   trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   prior_terminal_node_coef <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
@@ -119,25 +121,14 @@ times number of observations.</p></li>
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"dbarts"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## BART Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   trees = integer(1)</span>
-<span class="co">##   prior_terminal_node_coef = double(1)</span>
-<span class="co">##   prior_terminal_node_expo = double(1)</span>
-<span class="co">##   prior_outcome_range = double(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: dbarts </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), </span>
-<span class="co">##     base = double(1), power = double(1), k = double(1), verbose = FALSE, </span>
-<span class="co">##     keeptrees = TRUE, keepcall = FALSE)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-regression-">Translation from parsnip to the original package (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-regression-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/bart.html">bart</a></span><span class="op">(</span>
   trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   prior_terminal_node_coef <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
@@ -146,21 +137,8 @@ times number of observations.</p></li>
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"dbarts"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## BART Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   trees = integer(1)</span>
-<span class="co">##   prior_terminal_node_coef = double(1)</span>
-<span class="co">##   prior_terminal_node_expo = double(1)</span>
-<span class="co">##   prior_outcome_range = double(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: dbarts </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), </span>
-<span class="co">##     base = double(1), power = double(1), k = double(1), verbose = FALSE, </span>
-<span class="co">##     keeptrees = TRUE, keepcall = FALSE)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -169,8 +147,8 @@ times number of observations.</p></li>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p><code><a href="https://rdrr.io/pkg/dbarts/man/bart.html" class="external-link">dbarts::bart()</a></code> will also convert the factors to
 indicators if the user does not create them first.</p>
 </div>

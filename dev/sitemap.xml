@@ -130,7 +130,7 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_party.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpart.html</loc>
@@ -301,7 +301,7 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_party.html</loc>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc>

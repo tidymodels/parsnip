@@ -92,6 +92,8 @@ regression.</p>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-regression-">Translation from parsnip to the original package (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-regression-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>
   mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
@@ -99,27 +101,16 @@ regression.</p>
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"spark"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Random Forest Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   mtry = integer(1)</span>
-<span class="co">##   trees = integer(1)</span>
-<span class="co">##   min_n = integer(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: spark </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), </span>
-<span class="co">##     type = "regression", feature_subset_strategy = integer(1), </span>
-<span class="co">##     num_trees = integer(1), min_instances_per_node = min_rows(~integer(1), </span>
-<span class="co">##         x), seed = sample.int(10^5, 1))</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p><code><a href="min_cols.html">min_rows()</a></code> and <code><a href="min_cols.html">min_cols()</a></code> will adjust the number of neighbors if the
 chosen value if it is not consistent with the actual data dimensions.</p>
 </div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-classification-">Translation from parsnip to the original package (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-classification-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>
   mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
@@ -127,21 +118,8 @@ chosen value if it is not consistent with the actual data dimensions.</p>
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"spark"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Random Forest Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   mtry = integer(1)</span>
-<span class="co">##   trees = integer(1)</span>
-<span class="co">##   min_n = integer(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: spark </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## sparklyr::ml_random_forest(x = missing_arg(), formula = missing_arg(), </span>
-<span class="co">##     type = "classification", feature_subset_strategy = integer(1), </span>
-<span class="co">##     num_trees = integer(1), min_instances_per_node = min_rows(~integer(1), </span>
-<span class="co">##         x), seed = sample.int(10^5, 1))</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">

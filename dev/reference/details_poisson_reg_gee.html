@@ -88,18 +88,13 @@ values.</p>
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
 
 
-<p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
+<p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span>engine <span class="op">=</span> <span class="st">"gee"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Poisson Regression Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: gee </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## multilevelmod::gee_fit(formula = missing_arg(), data = missing_arg(), </span>
-<span class="co">##     family = stats::poisson)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p><code>multilevelmod::gee_fit()</code> is a wrapper model around <code>gee()</code>.</p>
 </div>
 
@@ -122,15 +117,18 @@ next section.</p>
 using an argument <code>id</code> that requires a vector. parsnip doesn’t work that
 way so we enable this model to be fit using a artificial function
 <code>id_var()</code> to be used in the formula. So, in the original package, the
-call would look like:</p><div class="sourceCode r"><pre><code><span class="fu">gee</span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, id <span class="op">=</span> <span class="va">wool</span>, data <span class="op">=</span> <span class="va">warpbreaks</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span></code></pre><p></p></div>
-<p>With parsnip, we suggest using the formula method when fitting:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
+call would look like:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="fu">gee</span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, id <span class="op">=</span> <span class="va">wool</span>, data <span class="op">=</span> <span class="va">warpbreaks</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span></code></pre><p></p></div>
+<p>With parsnip, we suggest using the formula method when fitting:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">time</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="fu">id_var</span><span class="op">(</span><span class="va">subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_counts</span><span class="op">)</span></code></pre><p></p></div>
 <p>When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-<code>add_variables()</code> then supply the GEE formula when adding the model:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
+<code>add_variables()</code> then supply the GEE formula when adding the model:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
 
 <span class="va">gee_spec</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 

@@ -101,6 +101,8 @@ argument to <code><a href="boost_tree.html">boost_tree()</a></code> as an intege
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-regression-">Translation from parsnip to the original package (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-regression-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/boost_tree.html">boost_tree</a></span><span class="op">(</span>
   mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, min_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, tree_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>,
   learn_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, loss_reduction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, sample_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>,
@@ -108,30 +110,14 @@ argument to <code><a href="boost_tree.html">boost_tree()</a></code> as an intege
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Boosted Tree Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   mtry = integer()</span>
-<span class="co">##   trees = integer()</span>
-<span class="co">##   min_n = integer()</span>
-<span class="co">##   tree_depth = integer()</span>
-<span class="co">##   learn_rate = numeric()</span>
-<span class="co">##   loss_reduction = numeric()</span>
-<span class="co">##   sample_size = numeric()</span>
-<span class="co">##   stop_iter = integer()</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: xgboost </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), </span>
-<span class="co">##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), </span>
-<span class="co">##     eta = numeric(), gamma = numeric(), subsample = numeric(), </span>
-<span class="co">##     early_stop = integer(), nthread = 1, verbose = 0)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-classification-">Translation from parsnip to the original package (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-classification-"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/boost_tree.html">boost_tree</a></span><span class="op">(</span>
   mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, min_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>, tree_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>,
   learn_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, loss_reduction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, sample_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>,
@@ -139,26 +125,8 @@ argument to <code><a href="boost_tree.html">boost_tree()</a></code> as an intege
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Boosted Tree Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   mtry = integer()</span>
-<span class="co">##   trees = integer()</span>
-<span class="co">##   min_n = integer()</span>
-<span class="co">##   tree_depth = integer()</span>
-<span class="co">##   learn_rate = numeric()</span>
-<span class="co">##   loss_reduction = numeric()</span>
-<span class="co">##   sample_size = numeric()</span>
-<span class="co">##   stop_iter = integer()</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: xgboost </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), </span>
-<span class="co">##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), </span>
-<span class="co">##     eta = numeric(), gamma = numeric(), subsample = numeric(), </span>
-<span class="co">##     early_stop = integer(), nthread = 1, verbose = 0)</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p><code><a href="xgb_train.html">xgb_train()</a></code> is a wrapper around
 <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html" class="external-link">xgboost::xgb.train()</a></code> (and other functions)
 that makes it easier to run this model.</p>

@@ -97,9 +97,11 @@ what glmnet calls the <code>lambda</code> value and <code>mixture</code> is the 
 prediction at a time. For this model, that means predictions are for a
 single penalty value. For this reason, models that have glmnet engines
 require the user to always specify a single penalty value when the model
-is defined. For example, for linear regression:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span></code></pre><p></p></div>
+is defined. For example, for linear regression:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span></code></pre><p></p></div>
 <p>When the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method is called, it automatically uses the penalty
-that was given when the model was defined. For example:</p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
+that was given when the model was defined. For example:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
 
 <span class="va">fit</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -107,49 +109,26 @@ that was given when the model was defined. For example:</p><div class="sourceCod
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="co"># predict at penalty = 1</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 3 × 1</span>
-<span class="co">##   .pred</span>
-<span class="co">##   &lt;dbl&gt;</span>
-<span class="co">## 1  22.2</span>
-<span class="co">## 2  21.5</span>
-<span class="co">## 3  24.9</span></code></pre></div>
-
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>However, any penalty values can be predicted simultaneously using the
-<code><a href="multi_predict.html">multi_predict()</a></code> method:</p><div class="sourceCode r"><pre><code><span class="co"># predict at c(0.00, 0.01)</span>
-<span class="fu"><a href="../reference/multi_predict.html">multi_predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span>, penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 3 × 1</span>
-<span class="co">##   .pred           </span>
-<span class="co">##   &lt;list&gt;          </span>
-<span class="co">## 1 &lt;tibble [2 × 2]&gt;</span>
-<span class="co">## 2 &lt;tibble [2 × 2]&gt;</span>
-<span class="co">## 3 &lt;tibble [2 × 2]&gt;</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="co"># unnested:</span>
+<code><a href="multi_predict.html">multi_predict()</a></code> method:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="co"># predict at c(0.00, 0.01)</span>
+<span class="fu"><a href="../reference/multi_predict.html">multi_predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span>, penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span class="co"># unnested:</span>
 <span class="fu"><a href="../reference/multi_predict.html">multi_predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span>, penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/add_rowindex.html">add_rowindex</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="st">".pred"</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 6 × 3</span>
-<span class="co">##   penalty .pred  .row</span>
-<span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">## 1    0     22.6     1</span>
-<span class="co">## 2    0.01  22.5     1</span>
-<span class="co">## 3    0     22.1     2</span>
-<span class="co">## 4    0.01  22.1     2</span>
-<span class="co">## 5    0     26.3     3</span>
-<span class="co">## 6    0.01  26.3     3</span></code></pre></div>
-<div class="section">
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="st">".pred"</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div><div class="section">
 <h4 id="where-did-lambda-go-">Where did <code>lambda</code> go?<a class="anchor" aria-label="anchor" href="#where-did-lambda-go-"></a></h4>
 
 
-<p>It may appear odd that the <code>lambda</code> value does not get used in the fit:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+<p>It may appear odd that the <code>lambda</code> value does not get used in the fit:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Linear Regression Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   penalty = 1</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: glmnet </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
-<span class="co">##     family = "gaussian")</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>Internally, the value of <code>penalty = 1</code> is saved in the parsnip object
 and no value is set for <code>lambda</code>. This enables the full path to be fit
 by <code>glmnet()</code>. See the section below about setting the path.</p>
@@ -174,21 +153,19 @@ independently set the path.</p>
 model (i.e., <code>mixture = 0</code>), you can get the <em>wrong coefficients</em> if the
 path does not contain zero (see <a href="https://github.com/tidymodels/parsnip/issues/431#issuecomment-782883848" class="external-link">issue #431</a>).</p>
 <p>If we want to use our own path, the argument is passed as an
-engine-specific option:</p><div class="sourceCode r"><pre><code><span class="va">coef_path_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span>
+engine-specific option:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="va">coef_path_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">fit_ridge</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span>, mixture <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span>, path_values <span class="op">=</span> <span class="va">coef_path_values</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">fit_ridge</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span>, <span class="va">coef_path_values</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] TRUE</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="co"># predict at penalty = 1</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit_ridge</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 3 × 1</span>
-<span class="co">##   .pred</span>
-<span class="co">##   &lt;dbl&gt;</span>
-<span class="co">## 1  22.1</span>
-<span class="co">## 2  21.8</span>
-<span class="co">## 3  26.6</span></code></pre></div>
-
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">fit_ridge</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span>, <span class="va">coef_path_values</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span class="co"># predict at penalty = 1</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit_ridge</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -201,40 +178,18 @@ the object as a tibble.</p>
 coefficients for the value given by <code>penalty</code>.</p>
 <p>When parsnip makes a model, it gives it an extra class. Use the <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>
 method on the object, it produces coefficients for the penalty that was
-originally requested:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 11 × 3</span>
-<span class="co">##    term        estimate penalty</span>
-<span class="co">##    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">##  1 (Intercept)  35.3          1</span>
-<span class="co">##  2 cyl          -0.872        1</span>
-<span class="co">##  3 disp          0            1</span>
-<span class="co">##  4 hp           -0.0101       1</span>
-<span class="co">##  5 drat          0            1</span>
-<span class="co">##  6 wt           -2.59         1</span>
-<span class="co">##  7 qsec          0            1</span>
-<span class="co">##  8 vs            0            1</span>
-<span class="co">##  9 am            0            1</span>
-<span class="co">## 10 gear          0            1</span>
-<span class="co">## 11 carb          0            1</span></code></pre></div>
-
+originally requested:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>Note that there is a <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> method for <code>glmnet</code> objects in the <code>broom</code>
 package. If this is used directly on the underlying <code>glmnet</code> object, it
-returns <em>all of coefficients on the path</em>:</p><div class="sourceCode r"><pre><code><span class="co"># Use the basic tidy() method for glmnet</span>
+returns <em>all of coefficients on the path</em>:</p>
+<p></p><div class="sourceCode r"><pre><code><span class="co"># Use the basic tidy() method for glmnet</span>
 <span class="va">all_tidy_coefs</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">:::</span><span class="fu"><a href="https://broom.tidymodels.org/reference/tidy.glmnet.html" class="external-link">tidy.glmnet</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span>
-<span class="va">all_tidy_coefs</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # A tibble: 640 × 5</span>
-<span class="co">##    term         step estimate lambda dev.ratio</span>
-<span class="co">##    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">##  1 (Intercept)     1     20.1   5.15     0    </span>
-<span class="co">##  2 (Intercept)     2     21.6   4.69     0.129</span>
-<span class="co">##  3 (Intercept)     3     23.2   4.27     0.248</span>
-<span class="co">##  4 (Intercept)     4     24.7   3.89     0.347</span>
-<span class="co">##  5 (Intercept)     5     26.0   3.55     0.429</span>
-<span class="co">##  6 (Intercept)     6     27.2   3.23     0.497</span>
-<span class="co">##  7 (Intercept)     7     28.4   2.95     0.554</span>
-<span class="co">##  8 (Intercept)     8     29.4   2.68     0.601</span>
-<span class="co">##  9 (Intercept)     9     30.3   2.45     0.640</span>
-<span class="co">## 10 (Intercept)    10     31.1   2.23     0.673</span>
-<span class="co">## # … with 630 more rows</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all_tidy_coefs</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## [1] 79</span></code></pre></div>
-
+<span class="va">all_tidy_coefs</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all_tidy_coefs</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>This can be nice for plots but it might not contain the penalty value
 that you are interested in.</p>
 </div>

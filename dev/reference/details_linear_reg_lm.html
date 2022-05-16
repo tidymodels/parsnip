@@ -79,15 +79,12 @@
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Linear Regression Model Specification (regression)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: lm </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -96,8 +93,8 @@
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 </div>
 
 <div class="section">

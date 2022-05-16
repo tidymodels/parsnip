@@ -80,28 +80,21 @@ predictors to predict multiclass data using the multinomial distribution.</p>
 <p>This model has 2 tuning parameters:</p><ul><li><p><code>penalty</code>: Amount of Regularization (type: double, default: 0.0)</p></li>
 <li><p><code>mixture</code>: Proportion of Lasso Penalty (type: double, default: 0.0)</p></li>
 </ul><p>For <code>penalty</code>, the amount of regularization includes both the L1 penalty
-(i.e., lasso) and the L2 penalty (i.e., ridge or weight decay).</p>
-<p>A value of <code>mixture = 1</code> corresponds to a pure lasso model, while
-<code>mixture = 0</code> indicates ridge regression.</p>
-</div>
+(i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). As for
+<code>mixture</code>:</p><ul><li><p><code>mixture = 1</code> specifies a pure lasso model,</p></li>
+<li><p><code>mixture = 0</code> specifies a ridge regression model, and</p></li>
+<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating
+lasso and ridge.</p></li>
+</ul></div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package">Translation from parsnip to the original package<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package"></a></h3>
+
+
 <p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"spark"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## Multinomial Regression Model Specification (classification)</span>
-<span class="co">## </span>
-<span class="co">## Main Arguments:</span>
-<span class="co">##   penalty = double(1)</span>
-<span class="co">##   mixture = double(1)</span>
-<span class="co">## </span>
-<span class="co">## Computational engine: spark </span>
-<span class="co">## </span>
-<span class="co">## Model fit template:</span>
-<span class="co">## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), </span>
-<span class="co">##     weight_col = missing_arg(), reg_param = double(1), elastic_net_param = double(1), </span>
-<span class="co">##     family = "multinomial")</span></code></pre></div>
-
+  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -110,8 +103,8 @@ predictors to predict multiclass data using the multinomial distribution.</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one. By default, <code>ml_multinom_regression()</code> uses the
