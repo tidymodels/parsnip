@@ -26,7 +26,8 @@ logistic_reg() %>%
 ## Computational engine: glmer 
 ## 
 ## Model fit template:
-## lme4::glmer(formula = missing_arg(), data = missing_arg(), family = binomial)
+## lme4::glmer(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     family = binomial)
 ```
 
 

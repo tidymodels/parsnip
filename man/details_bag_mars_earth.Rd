@@ -27,11 +27,15 @@ columns. For a data frame \code{x}, the default is
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+The \strong{baguette} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged MARS Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged MARS Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   num_terms = integer(1)
@@ -44,12 +48,14 @@ The \strong{baguette} extension package is required to fit this model.\if{html}{
 ## baguette::bagger(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), nprune = integer(1), degree = integer(1), 
 ##     pmethod = character(1), base_model = "MARS")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_mars(
   num_terms = integer(1),
@@ -59,7 +65,9 @@ bag_mars(
   set_engine("earth") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged MARS Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged MARS Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_terms = integer(1)
@@ -72,15 +80,15 @@ bag_mars(
 ## baguette::bagger(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), nprune = integer(1), degree = integer(1), 
 ##     pmethod = character(1), base_model = "MARS")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 }
 
 \subsection{References}{

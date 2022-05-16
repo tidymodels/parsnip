@@ -15,27 +15,31 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-The \strong{poissonreg} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+The \strong{poissonreg} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
 poisson_reg() \%>\%
   set_engine("glm") \%>\%
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Poisson Regression Model Specification (regression)
 ## 
 ## Computational engine: glm 
 ## 
 ## Model fit template:
 ## stats::glm(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     family = stats::poisson)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 }
 }
 \keyword{internal}

@@ -29,10 +29,14 @@ regularized regression models do not, which will result in different
 parameter estimates.
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("LiblineaR") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Logistic Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -43,15 +47,15 @@ parameter estimates.
 ## Model fit template:
 ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
 ##     cost = Inf, type = double(1), verbose = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

@@ -49,10 +49,14 @@ model. There may be preprocessing operations that \code{parsnip} has executed on
 the data prior to giving it to the model. Bypassing these can lead to errors
 or silently generating incorrect predictions.
 
-\strong{Good}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% predict(new_data)
+\strong{Good}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% predict(new_data)
 }\if{html}{\out{</div>}}
 
-\strong{Bad}:\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
+\strong{Bad}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
 }\if{html}{\out{</div>}}
 }
 \examples{

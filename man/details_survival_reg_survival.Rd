@@ -18,13 +18,17 @@ This model has 1 tuning parameters:
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 survival_reg(dist = character(1)) \%>\% 
   set_engine("survival") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Parametric Survival Regression Model Specification (censored regression)
 ## 
 ## Main Arguments:
 ##   dist = character(1)
@@ -34,7 +38,7 @@ survival_reg(dist = character(1)) \%>\%
 ## Model fit template:
 ## survival::survreg(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), dist = character(1), model = TRUE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Other details}{
@@ -53,12 +57,16 @@ parameter to differ between groups contained in the function. The column
 used inside \code{strata()} is treated as qualitative no matter its type.
 
 For example, in this model, the numeric column \code{rx} is used to estimate
-two different scale parameters for each value of the column:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
+two different scale parameters for each value of the column:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
 
 survival_reg() \%>\% 
   fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) \%>\% 
   extract_fit_engine()
-}\if{html}{\out{</div>}}\preformatted{## Call:
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Call:
 ## survival::survreg(formula = Surv(futime, fustat) ~ age + strata(rx), 
 ##     data = data, model = TRUE)
 ## 
@@ -73,7 +81,7 @@ survival_reg() \%>\%
 ## Loglik(model)= -89.4   Loglik(intercept only)= -97.1
 ##  Chisq= 15.36 on 1 degrees of freedom, p= 8.88e-05 
 ## n= 26
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{References}{

@@ -14,11 +14,11 @@ This model has 7 tuning parameters:
 \itemize{
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 3L)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.0)
-\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 \item \code{epochs}: # Epochs (type: integer, default: 0.01)
 \item \code{dropout}: Dropout Rate (type: double, default: 0.0)
 \item \code{learn_rate}: Learning Rate (type: double, default: 100L)
 \item \code{activation}: Activation Function (type: character, default: ‘relu’)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 }
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does \emph{not} force
@@ -41,7 +41,9 @@ no improvement before stopping. (default: 5L).
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -52,7 +54,9 @@ no improvement before stopping. (default: 5L).
   set_engine("brulee") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -68,13 +72,15 @@ no improvement before stopping. (default: 5L).
 ## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
 ##     penalty = double(1), dropout = double(1), epochs = integer(1), 
 ##     activation = character(1), learn_rate = double(1))
-}
+}\if{html}{\out{</div>}}
 
 Note that parsnip automatically sets linear activation in the last
 layer.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -85,7 +91,9 @@ layer.
   set_engine("brulee") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Single Layer Neural Network Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -101,15 +109,15 @@ layer.
 ## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
 ##     penalty = double(1), dropout = double(1), epochs = integer(1), 
 ##     activation = character(1), learn_rate = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

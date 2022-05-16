@@ -20,10 +20,14 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 (i.e., ridge or weight decay).
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
   set_engine("nnet") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Multinomial Regression Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -33,15 +37,15 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 ## Model fit template:
 ## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), decay = double(1), trace = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
