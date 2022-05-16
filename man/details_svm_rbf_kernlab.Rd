@@ -28,7 +28,9 @@ numbers so, without setting the seed before fitting, the model will not
 be reproducible.
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
@@ -36,7 +38,9 @@ be reproducible.
   set_engine("kernlab") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -48,17 +52,21 @@ be reproducible.
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     epsilon = double(1), kernel = "rbfdot", kpar = list(sigma = ~double(1)))
-}
+}\if{html}{\out{</div>}}
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
 ) \%>\% 
   set_engine("kernlab") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -69,7 +77,7 @@ be reproducible.
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
 ##     kernel = "rbfdot", prob.model = TRUE, kpar = list(sigma = ~double(1)))
-}
+}\if{html}{\out{</div>}}
 
 The \code{margin} parameter does not apply to classification models.
 
@@ -85,8 +93,8 @@ by R’s random number stream.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

@@ -1,12 +1,12 @@
-#' Random forests via party
+#' Random forests via partykit
 #'
-#' [party::cforest()] fits a model that creates a large number of decision
+#' [partykit::cforest()] fits a model that creates a large number of decision
 #' trees, each independent of the others. The final prediction uses all
 #' predictions from the individual trees and combines them.
 #'
-#' @includeRmd man/rmd/rand_forest_party.md details
+#' @includeRmd man/rmd/rand_forest_partykit.md details
 #'
-#' @name details_rand_forest_party
+#' @name details_rand_forest_partykit
 #' @keywords internal
 NULL
 

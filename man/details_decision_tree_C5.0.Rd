@@ -17,11 +17,15 @@ This model has 1 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(min_n = integer()) \%>\% 
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(min_n = integer()) \%>\% 
   set_engine("C5.0") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Decision Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   min_n = integer()
@@ -31,7 +35,7 @@ This model has 1 tuning parameters:
 ## Model fit template:
 ## parsnip::C5.0_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     minCases = integer(), trials = 1)
-}
+}\if{html}{\out{</div>}}
 
 \code{\link[=C5.0_train]{C5.0_train()}} is a wrapper around
 \code{\link[C50:C5.0]{C50::C5.0()}} that makes it easier to run this model.

@@ -39,19 +39,23 @@ and other options.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{poissonreg} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+The \strong{poissonreg} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
 poisson_reg() \%>\% 
   set_engine("stan") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Poisson Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Poisson Regression Model Specification (regression)
 ## 
 ## Computational engine: stan 
 ## 
 ## Model fit template:
 ## rstanarm::stan_glm(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), family = stats::poisson)
-}
+}\if{html}{\out{</div>}}
 
 Note that the \code{refresh} default prevents logging of the estimation
 process. Change this value in \code{set_engine()} to show the MCMC logs.
@@ -61,8 +65,8 @@ process. Change this value in \code{set_engine()} to show the MCMC logs.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 }
 
 \subsection{Other details}{

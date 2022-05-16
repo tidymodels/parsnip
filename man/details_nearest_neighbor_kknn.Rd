@@ -20,7 +20,9 @@ default: ‘optimal’)
 }
 }
 
-\subsection{Translation from parsnip to the original package (regression)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
+\subsection{Translation from parsnip to the original package (regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
@@ -28,7 +30,9 @@ default: ‘optimal’)
   set_engine("kknn") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## K-Nearest Neighbor Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   neighbors = integer(1)
@@ -40,13 +44,15 @@ default: ‘optimal’)
 ## Model fit template:
 ## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
 ##     ks = min_rows(0L, data, 5), kernel = character(1), distance = double(1))
-}
+}\if{html}{\out{</div>}}
 
 \code{min_rows()} will adjust the number of neighbors if the chosen value if
 it is not consistent with the actual data dimensions.
 }
 
-\subsection{Translation from parsnip to the original package (classification)}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
+\subsection{Translation from parsnip to the original package (classification)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
@@ -54,7 +60,9 @@ it is not consistent with the actual data dimensions.
   set_engine("kknn") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## K-Nearest Neighbor Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## K-Nearest Neighbor Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   neighbors = integer(1)
@@ -66,15 +74,15 @@ it is not consistent with the actual data dimensions.
 ## Model fit template:
 ## kknn::train.kknn(formula = missing_arg(), data = missing_arg(), 
 ##     ks = min_rows(0L, data, 5), kernel = character(1), distance = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

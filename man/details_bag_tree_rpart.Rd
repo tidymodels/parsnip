@@ -31,13 +31,17 @@ the second level of the factor.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("classification") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged Decision Tree Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Decision Tree Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -50,18 +54,22 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ## baguette::bagger(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
 ##     minsplit = integer(1), base_model = "CART")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-The \strong{baguette} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
+The \strong{baguette} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged Decision Tree Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Decision Tree Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -74,18 +82,22 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ## baguette::bagger(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
 ##     minsplit = integer(1), base_model = "CART")
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
   set_engine("rpart") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Bagged Decision Tree Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Decision Tree Model Specification (censored regression)
 ## 
 ## Main Arguments:
 ##   cost_complexity = double(1)
@@ -97,7 +109,7 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ## Model fit template:
 ## ipred::bagging(formula = missing_arg(), data = missing_arg(), 
 ##     cp = double(1), maxdepth = integer(1), minsplit = integer(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{

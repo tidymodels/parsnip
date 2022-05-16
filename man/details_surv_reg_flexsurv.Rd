@@ -16,11 +16,15 @@ This model has 1 tuning parameters:
 }
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg(dist = character(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{surv_reg(dist = character(1)) \%>\% 
   set_engine("flexsurv") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Parametric Survival Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Parametric Survival Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   dist = character(1)
@@ -30,7 +34,7 @@ This model has 1 tuning parameters:
 ## Model fit template:
 ## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), dist = character(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Other details}{

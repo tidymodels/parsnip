@@ -166,7 +166,8 @@ deharmonize <- function(args, key) {
   merged <-
     dplyr::left_join(parsn, key, by = "parsnip") %>%
     dplyr::arrange(order)
-  # TODO correct for bad merge?
+
+  merged <- merged[!duplicated(merged$order),]
 
   names(args) <- merged$original
   args[!is.na(merged$original)]

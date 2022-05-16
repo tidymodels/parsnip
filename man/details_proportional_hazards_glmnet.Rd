@@ -17,22 +17,30 @@ below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
 }
 
-A value of \code{mixture = 1} corresponds to a pure lasso model, while
-\code{mixture = 0} indicates ridge regression.
-
 The \code{penalty} parameter has no default and requires a single numeric
 value. For more details about this, and the \code{glmnet} model in general,
-see \link{glmnet-details}.
+see \link{glmnet-details}. As for
+\code{mixture}:
+\itemize{
+\item \code{mixture = 1} specifies a pure lasso model,
+\item \code{mixture = 0} specifies a ridge regression model, and
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating
+lasso and ridge.
+}
 }
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{censored} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+The \strong{censored} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 proportional_hazards(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("glmnet") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Proportional Hazards Model Specification (censored regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Proportional Hazards Model Specification (censored regression)
 ## 
 ## Main Arguments:
 ##   penalty = 0
@@ -43,15 +51,15 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 ## Model fit template:
 ## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
 ##     family = missing_arg(), alpha = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
@@ -73,7 +81,9 @@ This is different than the syntax offered by the
 recommended here.
 
 For example, in this model, the numeric column \code{rx} is used to estimate
-two different baseline hazards for each value of the column:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
+two different baseline hazards for each value of the column:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
 library(censored)
 library(dplyr)
 library(tidyr)
@@ -89,12 +99,14 @@ pred_data <- data.frame(age = c(50, 50), ecog.ps = c(1, 1), rx = c(1, 2))
 predict(mod, pred_data, type = "survival", time = 500) \%>\% 
   bind_cols(pred_data) \%>\% 
   unnest(.pred)
-}\if{html}{\out{</div>}}\preformatted{## # A tibble: 2 × 5
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 × 5
 ##   .time .pred_survival   age ecog.ps    rx
 ##   <dbl>          <dbl> <dbl>   <dbl> <dbl>
 ## 1   500          0.666    50       1     1
 ## 2   500          0.769    50       1     2
-}
+}\if{html}{\out{</div>}}
 
 Note that columns used in the \code{strata()} function \emph{will} also be
 estimated in the regular portion of the model (i.e., within the linear

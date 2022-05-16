@@ -18,16 +18,24 @@ This model has 2 tuning parameters:
 }
 
 For \code{penalty}, the amount of regularization includes both the L1 penalty
-(i.e., lasso) and the L2 penalty (i.e., ridge or weight decay).
-
-A value of \code{mixture = 1} corresponds to a pure lasso model, while
-\code{mixture = 0} indicates ridge regression.
+(i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). As for
+\code{mixture}:
+\itemize{
+\item \code{mixture = 1} specifies a pure lasso model,
+\item \code{mixture = 0} specifies a ridge regression model, and
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating
+lasso and ridge.
+}
 }
 
-\subsection{Translation from parsnip to the original package}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = double(1), mixture = double(1)) \%>\% 
   set_engine("spark") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   penalty = double(1)
@@ -38,15 +46,15 @@ A value of \code{mixture = 1} corresponds to a pure lasso model, while
 ## Model fit template:
 ## sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), 
 ##     weight_col = missing_arg(), reg_param = double(1), elastic_net_param = double(1))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

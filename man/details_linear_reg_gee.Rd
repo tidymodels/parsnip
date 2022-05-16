@@ -20,20 +20,24 @@ values.
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{multilevelmod} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
+The \strong{multilevelmod} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
 linear_reg() \%>\% 
   set_engine("gee") \%>\% 
   set_mode("regression") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Regression Model Specification (regression)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: gee 
 ## 
 ## Model fit template:
 ## multilevelmod::gee_fit(formula = missing_arg(), data = missing_arg(), 
 ##     family = gaussian)
-}
+}\if{html}{\out{</div>}}
 
 \code{multilevelmod::gee_fit()} is a wrapper model around \code{gee::gee()}.
 }
@@ -54,10 +58,14 @@ Both \code{gee:gee()} and \code{gee:geepack()} specify the id/cluster variable
 using an argument \code{id} that requires a vector. parsnip doesn’t work that
 way so we enable this model to be fit using a artificial function
 \code{id_var()} to be used in the formula. So, in the original package, the
-call would look like:\if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
+call would look like:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 }\if{html}{\out{</div>}}
 
-With parsnip, we suggest using the formula method when fitting:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+With parsnip, we suggest using the formula method when fitting:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 linear_reg() \%>\% 
   set_engine("gee", corstr = "exchangeable") \%>\% 
@@ -66,7 +74,9 @@ linear_reg() \%>\%
 
 When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
-\code{add_variables()} then supply the GEE formula when adding the model:\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+\code{add_variables()} then supply the GEE formula when adding the model:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gee_spec <- 
   linear_reg() \%>\% 

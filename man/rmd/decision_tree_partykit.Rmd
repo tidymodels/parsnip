@@ -1,0 +1,85 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("decision_tree", "partykit")`
+
+## Tuning Parameters
+
+```{r partykit-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "min_n"),
+                 default = c("see below", "20L"))
+
+param <-
+ decision_tree() %>% 
+  set_engine("partykit") %>% 
+  set_mode("regression") %>% 
+  make_parameter_list(defaults) %>% 
+  distinct()
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r partykit-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+The `tree_depth` parameter defaults to `0` which means no restrictions are applied to tree depth.
+
+An engine-specific parameter for this model is: 
+
+ * `mtry`: the number of predictors, selected at random, that are evaluated for splitting. The default is to use all predictors.
+
+## Translation from parsnip to the original package (regression)
+
+`r uses_extension("decision_tree", "partykit", "regression")`
+
+```{r partykit-creg}
+library(bonsai)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("partykit") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+`r uses_extension("decision_tree", "partykit", "classification")`
+
+```{r partykit-class}
+library(bonsai)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("partykit") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+`parsnip::ctree_train()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("decision_tree", "partykit", "censored regression")`
+
+```{r party-creg}
+library(censored)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("partykit") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+`censored::cond_inference_surv_ctree()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## References
+
+ - [partykit: A Modular Toolkit for Recursive Partytioning in R](https://jmlr.org/papers/v16/hothorn15a.html)
+
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

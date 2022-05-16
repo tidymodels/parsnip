@@ -20,12 +20,16 @@ This model has 1 tuning parameter:
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_linear(penalty = numeric(0)) \%>\% 
   set_engine("mda") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Linear Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Discriminant Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = numeric(0)
@@ -35,15 +39,15 @@ discrim_linear(penalty = numeric(0)) \%>\%
 ## Model fit template:
 ## mda::fda(formula = missing_arg(), data = missing_arg(), lambda = numeric(0), 
 ##     method = mda::gen.ridge, keep.fitted = FALSE)
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated

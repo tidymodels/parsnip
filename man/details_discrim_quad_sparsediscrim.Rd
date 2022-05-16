@@ -32,12 +32,16 @@ execute, are:
 
 \subsection{Translation from parsnip to the original package}{
 
-The \strong{discrim} extension package is required to fit this model.\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
+The \strong{discrim} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
 discrim_quad(regularization_method = character(0)) \%>\% 
   set_engine("sparsediscrim") \%>\% 
   translate()
-}\if{html}{\out{</div>}}\preformatted{## Quadratic Discriminant Model Specification (classification)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Quadratic Discriminant Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   regularization_method = character(0)
@@ -47,15 +51,15 @@ discrim_quad(regularization_method = character(0)) \%>\%
 ## Model fit template:
 ## discrim::fit_regularized_quad(x = missing_arg(), y = missing_arg(), 
 ##     method = character(0))
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Variance calculations are used in these computations within each outcome
 class. For this reason, \emph{zero-variance} predictors (i.e., with a single
