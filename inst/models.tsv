@@ -9,17 +9,22 @@
 "bart"	"regression"	"dbarts"	NA
 "boost_tree"	"censored regression"	"mboost"	"censored"
 "boost_tree"	"classification"	"C5.0"	NA
+"boost_tree"	"classification"	"lightgbm"	"bonsai"
 "boost_tree"	"classification"	"spark"	NA
 "boost_tree"	"classification"	"xgboost"	NA
+"boost_tree"	"regression"	"lightgbm"	"bonsai"
 "boost_tree"	"regression"	"spark"	NA
 "boost_tree"	"regression"	"xgboost"	NA
 "C5_rules"	"classification"	"C5.0"	"rules"
 "cubist_rules"	"regression"	"Cubist"	"rules"
-"decision_tree"	"censored regression"	"party"	"censored"
+"decision_tree"	"censored regression"	"partykit"	"censored"
+"decision_tree"	"censored regression"	"partykit"	"bonsai"
 "decision_tree"	"censored regression"	"rpart"	"censored"
 "decision_tree"	"classification"	"C5.0"	NA
+"decision_tree"	"classification"	"partykit"	"bonsai"
 "decision_tree"	"classification"	"rpart"	NA
 "decision_tree"	"classification"	"spark"	NA
+"decision_tree"	"regression"	"partykit"	"bonsai"
 "decision_tree"	"regression"	"rpart"	NA
 "decision_tree"	"regression"	"spark"	NA
 "discrim_flexible"	"classification"	"earth"	"discrim"
@@ -85,10 +90,13 @@
 "poisson_reg"	"regression"	"zeroinfl"	"poissonreg"
 "proportional_hazards"	"censored regression"	"glmnet"	"censored"
 "proportional_hazards"	"censored regression"	"survival"	"censored"
-"rand_forest"	"censored regression"	"party"	"censored"
+"rand_forest"	"censored regression"	"partykit"	"censored"
+"rand_forest"	"censored regression"	"partykit"	"bonsai"
+"rand_forest"	"classification"	"partykit"	"bonsai"
 "rand_forest"	"classification"	"randomForest"	NA
 "rand_forest"	"classification"	"ranger"	NA
 "rand_forest"	"classification"	"spark"	NA
+"rand_forest"	"regression"	"partykit"	"bonsai"
 "rand_forest"	"regression"	"randomForest"	NA
 "rand_forest"	"regression"	"ranger"	NA
 "rand_forest"	"regression"	"spark"	NA
