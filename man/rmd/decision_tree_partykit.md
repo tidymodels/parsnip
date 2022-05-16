@@ -25,6 +25,8 @@ An engine-specific parameter for this model is:
 
 
 ```r
+library(bonsai)
+
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>% 
@@ -52,6 +54,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 
 ```r
+library(bonsai)
+
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("partykit") %>% 
   set_mode("classification") %>% 
@@ -74,6 +78,36 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ```
 
 `parsnip::ctree_train()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
+
+## Translation from parsnip to the original package (censored regression)
+
+
+
+
+```r
+library(censored)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("partykit") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+```
+## Decision Tree Model Specification (censored regression)
+## 
+## Main Arguments:
+##   tree_depth = integer(1)
+##   min_n = integer(1)
+## 
+## Computational engine: partykit 
+## 
+## Model fit template:
+## parsnip::ctree_train(formula = missing_arg(), data = missing_arg(), 
+##     maxdepth = integer(1), minsplit = min_rows(0L, data))
+```
+
+`censored::cond_inference_surv_ctree()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
 

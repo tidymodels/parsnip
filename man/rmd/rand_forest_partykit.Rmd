@@ -14,7 +14,8 @@ param <-
   rand_forest() %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>%  
-  make_parameter_list(defaults)
+  make_parameter_list(defaults) %>% 
+  distinct()
 ```
 
 This model has `r nrow(param)` tuning parameters:
@@ -28,6 +29,8 @@ param$item
 `r uses_extension("rand_forest", "partykit", "regression")`
 
 ```{r partykit-creg}
+library(bonsai)
+
 rand_forest() %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>% 
@@ -39,6 +42,8 @@ rand_forest() %>%
 `r uses_extension("rand_forest", "partykit", "classification")`
 
 ```{r partykit-class}
+library(bonsai)
+
 rand_forest() %>% 
   set_engine("partykit") %>% 
   set_mode("classification") %>% 
@@ -46,6 +51,22 @@ rand_forest() %>%
 ```
 
 `parsnip::cforest_train()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 
+
+# Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("rand_forest", "partykit", "censored regression")`
+
+```{r party-creg}
+library(censored)
+
+rand_forest() %>% 
+  set_engine("partykit") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+`censored::cond_inference_surv_cforest()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 
+
 
 ## Preprocessing requirements
 

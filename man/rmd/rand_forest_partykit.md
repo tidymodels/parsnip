@@ -21,6 +21,8 @@ This model has 3 tuning parameters:
 
 
 ```r
+library(bonsai)
+
 rand_forest() %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>% 
@@ -43,6 +45,8 @@ rand_forest() %>%
 
 
 ```r
+library(bonsai)
+
 rand_forest() %>% 
   set_engine("partykit") %>% 
   set_mode("classification") %>% 
@@ -60,6 +64,32 @@ rand_forest() %>%
 ```
 
 `parsnip::cforest_train()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 
+
+# Translation from parsnip to the original package (censored regression)
+
+
+
+
+```r
+library(censored)
+
+rand_forest() %>% 
+  set_engine("partykit") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+```
+## Random Forest Model Specification (censored regression)
+## 
+## Computational engine: partykit 
+## 
+## Model fit template:
+## parsnip::cforest_train(formula = missing_arg(), data = missing_arg())
+```
+
+`censored::cond_inference_surv_cforest()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 
+
 
 ## Preprocessing requirements
 

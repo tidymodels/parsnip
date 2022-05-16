@@ -14,7 +14,8 @@ param <-
  decision_tree() %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>% 
-  make_parameter_list(defaults)
+  make_parameter_list(defaults) %>% 
+  distinct()
 ```
 
 This model has `r nrow(param)` tuning parameters:
@@ -34,6 +35,8 @@ An engine-specific parameter for this model is:
 `r uses_extension("decision_tree", "partykit", "regression")`
 
 ```{r partykit-creg}
+library(bonsai)
+
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("partykit") %>% 
   set_mode("regression") %>% 
@@ -45,6 +48,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 `r uses_extension("decision_tree", "partykit", "classification")`
 
 ```{r partykit-class}
+library(bonsai)
+
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("partykit") %>% 
   set_mode("classification") %>% 
@@ -52,6 +57,21 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ```
 
 `parsnip::ctree_train()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("decision_tree", "partykit", "censored regression")`
+
+```{r party-creg}
+library(censored)
+
+decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
+  set_engine("partykit") %>% 
+  set_mode("censored regression") %>% 
+  translate()
+```
+
+`censored::cond_inference_surv_ctree()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
 
