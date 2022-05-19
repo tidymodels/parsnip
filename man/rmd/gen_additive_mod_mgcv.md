@@ -35,8 +35,8 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ## Computational engine: mgcv 
 ## 
 ## Model fit template:
-## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
-##     gamma = numeric(1))
+## mgcv::gam(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     select = logical(1), gamma = numeric(1))
 ```
 
 ## Translation from parsnip to the original package  (classification)
@@ -59,8 +59,8 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ## Computational engine: mgcv 
 ## 
 ## Model fit template:
-## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
-##     gamma = numeric(1), family = stats::binomial(link = "logit"))
+## mgcv::gam(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     select = logical(1), gamma = numeric(1), family = stats::binomial(link = "logit"))
 ```
 
 ## Model fitting

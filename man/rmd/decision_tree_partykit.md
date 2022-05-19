@@ -21,7 +21,7 @@ An engine-specific parameter for this model is:
 
 ## Translation from parsnip to the original package (regression)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -50,7 +50,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 ## Translation from parsnip to the original package (classification)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -81,7 +81,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 ## Translation from parsnip to the original package (censored regression)
 
-
+The **censored** extension package is required to fit this model.
 
 
 ```r
