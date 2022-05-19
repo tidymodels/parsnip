@@ -128,6 +128,25 @@ randomForest_engine_args <-
     component_id = "engine"
   )
 
+
+partykit_engine_args <-
+  tibble::tibble(
+    name = c(
+      "mincriterion",
+      "teststat",
+      "testtype"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "conditional_min_criterion"),
+      list(pkg = "dials", fun = "conditional_test_statistic"),
+      list(pkg = "dials", fun = "conditional_test_type")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+
 earth_engine_args <-
   tibble::tibble(
     name = c("nk"),
@@ -220,9 +239,10 @@ tunable_rand_forest <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "ranger") {
     res <- add_engine_parameters(res, ranger_engine_args)
-  }
-  if (x$engine == "randomForest") {
+  } else if (x$engine == "randomForest") {
     res <- add_engine_parameters(res, randomForest_engine_args)
+  } else if (x$engine == "partykit") {
+    res <- add_engine_parameters(res, partykit_engine_args)
   }
   res
 }
@@ -241,6 +261,11 @@ tunable_decision_tree <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "C5.0") {
     res <- add_engine_parameters(res, c5_tree_engine_args)
+  } else if (x$engine == "partykit") {
+    res <-
+      add_engine_parameters(res,
+                            partykit_engine_args %>%
+                              dplyr::mutate(component = "decision_tree"))
   }
   res
 }

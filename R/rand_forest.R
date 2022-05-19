@@ -74,40 +74,19 @@ update.rand_forest <-
            mtry = NULL, trees = NULL, min_n = NULL,
            fresh = FALSE, ...) {
 
-    eng_args <- update_engine_parameters(object$eng_args, ...)
-
-    if (!is.null(parameters)) {
-      parameters <- check_final_param(parameters)
-    }
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),
       min_n  = enquo(min_n)
     )
 
-    args <- update_main_parameters(args, parameters)
-
-    # TODO make these blocks into a function and document well
-    if (fresh) {
-      object$args <- args
-      object$eng_args <- eng_args
-    } else {
-      null_args <- map_lgl(args, null_value)
-      if (any(null_args))
-        args <- args[!null_args]
-      if (length(args) > 0)
-        object$args[names(args)] <- args
-      if (length(eng_args) > 0)
-        object$eng_args[names(eng_args)] <- eng_args
-    }
-
-    new_model_spec(
-      "rand_forest",
-      args = object$args,
-      eng_args = object$eng_args,
-      mode = object$mode,
-      method = NULL,
-      engine = object$engine
+    update_spec(
+      object = object,
+      parameters = parameters,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "rand_forest",
+      ...
     )
   }
 

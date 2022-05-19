@@ -8,6 +8,7 @@
 ctree_train(
   formula,
   data,
+  weights = NULL,
   minsplit = 20L,
   maxdepth = Inf,
   teststat = "quadratic",
@@ -19,6 +20,7 @@ ctree_train(
 cforest_train(
   formula,
   data,
+  weights = NULL,
   minsplit = 20L,
   maxdepth = Inf,
   teststat = "quadratic",
@@ -33,6 +35,11 @@ cforest_train(
 \item{formula}{A symbolic description of the model to be fit.}
 
 \item{data}{A data frame containing the variables in the model.}
+
+\item{weights}{A vector of weights whose length is the same as \code{nrow(data)}.
+For \code{\link[partykit:ctree]{partykit::ctree()}} models, these are required to be non-negative
+integers while for \code{\link[partykit:cforest]{partykit::cforest()}} they can be non-negative integers
+or doubles.}
 
 \item{minsplit}{The minimum sum of weights in a node in order to be
 considered for splitting.}

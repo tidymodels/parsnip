@@ -166,6 +166,9 @@ set_pred(
   value  = list(
     pre = NULL,
     post = function(x, object) {
+      if (is.array(x)) {
+        x <- as.vector(x)
+      }
       x <- tibble(v1 = 1 - x, v2 = x)
       colnames(x) <- object$lvl
       x

@@ -23,6 +23,8 @@ This model has `r nrow(param)` tuning parameter:
 param$item
 ```
 
+Note that the engine argument `usekernel` is set to `TRUE` by default when using the `naivebayes` engine. 
+
 ## Translation from parsnip to the original package
 
 `r uses_extension("naive_Bayes", "naivebayes", "classification")`

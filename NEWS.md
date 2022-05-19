@@ -13,6 +13,12 @@
 
 * Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
 
+* Fixed bug where previously set engine arguments would propagate through `update()` methods despite `fresh = TRUE` (#704).
+
+*  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
+
+* `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
+
 
 # parsnip 0.2.1
 

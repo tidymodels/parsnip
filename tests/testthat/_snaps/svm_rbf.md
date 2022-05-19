@@ -21,75 +21,16 @@
 # updating
 
     Code
-      expr1 %>% update(rbf_sigma = 0.1)
+      svm_rbf(mode = "regression", rbf_sigma = 0.3) %>% set_engine("kernlab", cross = 10) %>%
+        update(rbf_sigma = tune(), cross = tune())
     Output
       Radial Basis Function Support Vector Machine Specification (regression)
       
       Main Arguments:
-        rbf_sigma = 0.1
+        rbf_sigma = tune()
       
       Engine-Specific Arguments:
-        cross = 10
-      
-      Computational engine: kernlab 
-      
-
----
-
-    Code
-      expr1 %>% update(param_tibb)
-    Output
-      Radial Basis Function Support Vector Machine Specification (regression)
-      
-      Main Arguments:
-        cost = 10
-        rbf_sigma = 3
-      
-      Engine-Specific Arguments:
-        cross = 10
-      
-      Computational engine: kernlab 
-      
-
----
-
-    Code
-      expr1 %>% update(param_list)
-    Output
-      Radial Basis Function Support Vector Machine Specification (regression)
-      
-      Main Arguments:
-        cost = 10
-        rbf_sigma = 3
-      
-      Engine-Specific Arguments:
-        cross = 10
-      
-      Computational engine: kernlab 
-      
-
----
-
-    Code
-      expr2 %>% update(cross = 10)
-    Output
-      Radial Basis Function Support Vector Machine Specification (regression)
-      
-      Engine-Specific Arguments:
-        cross = 10
-      
-      Computational engine: kernlab 
-      
-
----
-
-    Code
-      expr3 %>% update(rbf_sigma = 0.3, fresh = TRUE)
-    Output
-      Radial Basis Function Support Vector Machine Specification (regression)
-      
-      Main Arguments:
-        rbf_sigma = 0.3
+        cross = tune()
       
       Computational engine: kernlab 
       

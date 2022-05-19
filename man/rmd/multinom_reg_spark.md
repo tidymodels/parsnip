@@ -13,9 +13,11 @@ This model has 2 tuning parameters:
 
 - `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
-For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). 
+For `penalty`, the amount of regularization includes both the L1 penalty (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). As for `mixture`:
 
-A value of `mixture = 1` corresponds to a pure lasso model, while `mixture = 0` indicates ridge regression.
+* `mixture = 1` specifies a pure lasso model,
+* `mixture = 0`  specifies a ridge regression model, and
+* `0 < mixture < 1` specifies an elastic net model, interpolating lasso and ridge.
 
 ## Translation from parsnip to the original package
 

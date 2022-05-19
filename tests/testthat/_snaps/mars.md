@@ -1,23 +1,7 @@
 # updating
 
     Code
-      expr1 %>% update(num_terms = 1)
-    Output
-      MARS Model Specification (unknown)
-      
-      Main Arguments:
-        num_terms = 1
-      
-      Engine-Specific Arguments:
-        model = FALSE
-      
-      Computational engine: earth 
-      
-
----
-
-    Code
-      expr2 %>% update(nk = 10)
+      expr1 %>% update(num_terms = tune(), nk = tune())
     Output
       MARS Model Specification (unknown)
       
@@ -25,57 +9,7 @@
         num_terms = tune()
       
       Engine-Specific Arguments:
-        nk = 10
-      
-      Computational engine: earth 
-      
-
----
-
-    Code
-      expr3 %>% update(num_terms = 1, fresh = TRUE)
-    Output
-      MARS Model Specification (unknown)
-      
-      Main Arguments:
-        num_terms = 1
-      
-      Engine-Specific Arguments:
         nk = tune()
-      
-      Computational engine: earth 
-      
-
----
-
-    Code
-      expr4 %>% update(param_tibb)
-    Output
-      MARS Model Specification (unknown)
-      
-      Main Arguments:
-        num_terms = 3
-        prod_degree = 1
-      
-      Engine-Specific Arguments:
-        nk = 10
-      
-      Computational engine: earth 
-      
-
----
-
-    Code
-      expr4 %>% update(param_list)
-    Output
-      MARS Model Specification (unknown)
-      
-      Main Arguments:
-        num_terms = 3
-        prod_degree = 1
-      
-      Engine-Specific Arguments:
-        nk = 10
       
       Computational engine: earth 
       

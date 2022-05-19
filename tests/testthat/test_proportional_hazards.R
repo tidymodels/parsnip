@@ -6,13 +6,10 @@ test_that("printing", {
 })
 
 test_that("updating", {
-  basic <- proportional_hazards()
-  param_tibb <- tibble::tibble(penalty = 0.05)
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(update(basic, penalty = 0.05))
-  expect_snapshot(update(basic, param_tibb))
-  expect_snapshot(update(basic, param_list))
+  expect_snapshot(
+    proportional_hazards() %>%
+      update(penalty = tune())
+  )
 })
 
 

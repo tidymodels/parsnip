@@ -3,22 +3,11 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
-  expr1 <- linear_reg() %>% set_engine("lm", model = FALSE)
-  expr2 <- linear_reg() %>% set_engine("glmnet", nlambda = tune())
-  expr3 <- linear_reg(mixture = 0, penalty = tune()) %>% set_engine("glmnet", nlambda = tune())
-  expr4 <- linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10)
-  expr5 <- linear_reg() %>% set_engine("glm", family = "gaussian")
-
-  param_tibb <- tibble::tibble(mixture = 1/3, penalty = 1)
-  param_list <- as.list(param_tibb)
-
-  expect_snapshot(expr1 %>% update(mixture = 0))
-  expect_snapshot(expr2 %>% update(nlambda = 10))
-  expect_snapshot(expr3 %>% update(mixture = 1, fresh = TRUE, nlambda = 10))
-  expect_snapshot(expr3 %>% update(nlambda = 10))
-  expect_snapshot(expr4 %>% update(param_tibb))
-  expect_snapshot(expr4 %>% update(param_list))
-  expect_snapshot(expr5 %>% update(family = "poisson"))
+  expect_snapshot(
+    linear_reg(mixture = 0) %>%
+      set_engine("glmnet", nlambda = 10) %>%
+      update(mixture = tune(), nlambda = tune())
+  )
 })
 
 test_that('bad input', {
