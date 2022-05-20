@@ -15,7 +15,8 @@
 #'
 #' @inheritParams boost_tree
 #' @param cost A positive number for the cost of predicting a sample within
-#'  or on the wrong side of the margin
+#'  or on the wrong side of the margin. Larger cost means more tolerant of 
+#'  margin violations, or the margin is wider. Lower cost means the opposite.
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
 #'
