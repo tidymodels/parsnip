@@ -19,7 +19,8 @@
 #'  to use for fitting. Possible engines are listed below. The default for this
 #'  model is `"kernlab"`.
 #' @param cost A positive number for the cost of predicting a sample within
-#'  or on the wrong side of the margin
+#'  or on the wrong side of the margin. Larger cost means more tolerant of 
+#'  margin violations, or the margin is wider. Lower cost means the opposite.
 #' @param rbf_sigma A positive number for radial basis function.
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
