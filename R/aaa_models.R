@@ -780,7 +780,8 @@ is_discordant_info <- function(model, mode, eng, candidate,
         "The combination of engine '{eng}' and mode '{mode}' {p_type} already has ",
         "{component} data for model '{model}' and the new information being ",
         "registered is different."
-      )
+      ),
+      call = NULL
     )
   }
 
