@@ -2095,3 +2095,25 @@
       list(sigma = ~0.2)
       
 
+# print methods warn with unloaded extensions
+
+    Code
+      C5_rules(engine = "C5.0")
+    Output
+      C5.0 Model Specification (classification)
+      
+      Computational engine: C5.0 
+      
+
+---
+
+    Code
+      C5_rules(engine = "C5.0") %>% translate()
+    Output
+      C5.0 Model Specification (classification)
+      
+      Computational engine: C5.0 
+      
+      Model fit template:
+      rules::c5_fit(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+
