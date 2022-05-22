@@ -7,9 +7,15 @@ test_that('check default engines', {
   expect_equal(mlp()$engine, "nnet")
   expect_equal(multinom_reg()$engine, "nnet")
   expect_equal(nearest_neighbor()$engine, "kknn")
-  expect_equal(proportional_hazards()$engine, "survival")
+
+  expect_message(prop_haz <- proportional_hazards()$engine)
+  expect_equal(prop_haz, "survival")
+
   expect_equal(rand_forest()$engine, "ranger")
-  expect_equal(survival_reg()$engine, "survival")
+
+  expect_message(surv_regr <- survival_reg()$engine)
+  expect_equal(surv_regr, "survival")
+
   expect_equal(svm_linear()$engine, "LiblineaR")
   expect_equal(svm_poly()$engine, "kernlab")
   expect_equal(svm_rbf()$engine, "kernlab")

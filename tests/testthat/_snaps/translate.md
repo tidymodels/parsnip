@@ -2099,6 +2099,8 @@
 
     Code
       C5_rules(engine = "C5.0")
+    Message
+      A parsnip implementation for `C5_rules` classification model specifications using the `C5.0` engine is not loaded. The parsnip extension package {rules} implements support for this specification/mode/engine combination. Please install (if needed) and load to continue.
     Output
       C5.0 Model Specification (classification)
       
@@ -2109,11 +2111,11 @@
 
     Code
       C5_rules(engine = "C5.0") %>% translate()
+    Message
+      A parsnip implementation for `C5_rules` classification model specifications using the `C5.0` engine is not loaded. The parsnip extension package {rules} implements support for this specification/mode/engine combination. Please install (if needed) and load to continue.
     Output
       C5.0 Model Specification (classification)
       
       Computational engine: C5.0 
       
-      Model fit template:
-      rules::c5_fit(x = missing_arg(), y = missing_arg(), weights = missing_arg())
 
