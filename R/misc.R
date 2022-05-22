@@ -122,7 +122,7 @@ prompt_missing_implementation <- function(spec_, engine_, mode_) {
   msg <-
     glue::glue(
       "A parsnip implementation for `{spec_}` {mode_} model ",
-      "specifications using the `{engine_}` engine is not loaded. "
+      "specifications using the `{engine_}` engine is not loaded."
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
@@ -130,9 +130,9 @@ prompt_missing_implementation <- function(spec_, engine_, mode_) {
       glue::glue_collapse(c(
         msg,
         glue::glue_collapse(c(
-          "The parsnip extension package {",
+          "\nThe parsnip extension package {",
           cli::col_yellow(all$pkg[[1]]),
-          "} implements support for this specification/mode/engine combination. ",
+          "} implements support for this specification/mode/engine combination. \n",
           "Please install (if needed) and load to continue.\n"
         ))
       ))

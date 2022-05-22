@@ -18,7 +18,7 @@ show_fit(model, eng)
 
 update_dot_check(...)
 
-new_model_spec(cls, args, eng_args, mode, method, engine)
+new_model_spec(cls, args, eng_args, mode, method, engine, new = TRUE)
 
 check_final_param(x)
 
