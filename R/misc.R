@@ -92,7 +92,7 @@ has_loaded_implementation <- function(x) {
   spec_ <- class(x)[1]
   mode_ <- x$mode
 
-  if (mode_ == "unknown") {
+  if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
     mode_ <- c("regression", "censored regression", "classification")
   }
 
