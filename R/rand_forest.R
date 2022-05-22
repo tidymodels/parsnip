@@ -56,7 +56,7 @@ print.rand_forest <- function(x, ...) {
   cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if (!is.null(x$method$fit$args) && has_loaded_implementation(x)) {
+  if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }

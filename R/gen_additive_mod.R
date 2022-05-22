@@ -55,7 +55,7 @@ print.gen_additive_mod <- function(x, ...) {
   cat("GAM Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if (!is.null(x$method$fit$args) && has_loaded_implementation(x)) {
+  if(!is.null(x$method$fit$args)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
