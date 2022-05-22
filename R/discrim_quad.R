@@ -46,7 +46,7 @@ print.discrim_quad <- function(x, ...) {
   cat("Quadratic Discriminant Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if (!is.null(x$method$fit$args)) {
+  if (!is.null(x$method$fit$args) && has_loaded_implementation(x)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
