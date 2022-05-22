@@ -74,11 +74,81 @@ model_printer <- function(x, ...) {
       }
     }
   }
+  if (!has_loaded_implementation(x)) {
+    cat(prompt_missing_implementation(x), fill = 80)
+  }
 }
 
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
+# given a model object, return TRUE if:
+# * the model is supported without extensions
+# * the model needs an extension and it is loaded
+#
+# return FALSE if:
+# * the model needs an extension and it is _not_ loaded
+has_loaded_implementation <- function(x) {
+  spec_ <- class(x)[1]
+  mode_ <- x$mode
+
+  if (mode_ == "unknown") {
+    mode_ <- c("regression", "censored regression", "classification")
+  }
+
+  avail <-
+    show_engines(spec_) %>%
+    dplyr::filter(mode %in% mode_)
+  pars <-
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    dplyr::filter(model == spec_, mode %in% mode_, is.na(pkg))
+
+  if (nrow(pars) > 0 || nrow(avail) > 0) {
+    return(TRUE)
+  }
+
+  FALSE
+}
+
+# construct a message informing the user that there are no
+# implementations for the current model spec / mode / engine.
+#
+# if there's a "pre-registered" extension supporting that setup,
+# nudge the user to install/load it.
+prompt_missing_implementation <- function(x) {
+  spec_ <- class(x)[1]
+  engine_ <- x$engine
+  mode_ <- x$mode
+
+  avail <-
+    show_engines(spec_) %>%
+    dplyr::filter(mode == mode)
+  all <-
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    dplyr::filter(model == spec_, mode == mode, !is.na(pkg)) %>%
+    dplyr::select(-model)
+
+  msg <-
+    glue::glue(
+      "A parsnip implementation for `{spec_}` {mode_} model ",
+      "specifications using the `{engine_}` engine is not loaded."
+    )
+
+  if (nrow(avail) == 0 && nrow(all) > 0) {
+    msg <-
+      glue::glue_collapse(c(
+        msg,
+        glue::glue_collapse(c(
+          "\nThe parsnip extension package {",
+          cli::col_yellow(all$pkg[[1]]),
+          "} implements support for this specification/mode/engine combination. \n",
+          "Please install (if needed) and load to continue."
+        ))
+      ))
+  }
+
+  msg
+}
 
 #' Print the model call
 #'
@@ -89,18 +159,10 @@ is_missing_arg <- function(x)
 show_call <- function(object) {
   object$method$fit$args <-
     map(object$method$fit$args, convert_arg)
-  if (
-    is.null(object$method$fit$func["pkg"]) ||
-    is.na(object$method$fit$func["pkg"])
-  ) {
-    res <- call2(object$method$fit$func["fun"], !!!object$method$fit$args)
-  } else {
-    res <-
-      call2(object$method$fit$func["fun"],
-            !!!object$method$fit$args,
-            .ns = object$method$fit$func["pkg"])
-  }
-  res
+
+  call2(object$method$fit$func["fun"],
+        !!!object$method$fit$args,
+        .ns = object$method$fit$func["pkg"])
 }
 
 convert_arg <- function(x) {
@@ -109,7 +171,6 @@ convert_arg <- function(x) {
   else
     x
 }
-
 
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark"))
