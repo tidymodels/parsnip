@@ -74,9 +74,6 @@ model_printer <- function(x, ...) {
       }
     }
   }
-  if (!has_loaded_implementation(x)) {
-    cat(prompt_missing_implementation(x), fill = 80)
-  }
 }
 
 is_missing_arg <- function(x)
@@ -88,20 +85,18 @@ is_missing_arg <- function(x)
 #
 # return FALSE if:
 # * the model needs an extension and it is _not_ loaded
-has_loaded_implementation <- function(x) {
-  spec_ <- class(x)[1]
-  mode_ <- x$mode
-
+has_loaded_implementation <- function(spec_, engine_, mode_) {
   if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
     mode_ <- c("regression", "censored regression", "classification")
   }
+  eng_cond <- if (is.null(engine_)) {TRUE} else {quote(engine == engine_)}
 
   avail <-
-    show_engines(spec_) %>%
-    dplyr::filter(mode %in% mode_)
+    get_from_env(spec_) %>%
+    dplyr::filter(mode %in% mode_, !!eng_cond)
   pars <-
     utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
-    dplyr::filter(model == spec_, mode %in% mode_, is.na(pkg))
+    dplyr::filter(model == spec_, !!eng_cond, mode %in% mode_, is.na(pkg))
 
   if (nrow(pars) > 0 || nrow(avail) > 0) {
     return(TRUE)
@@ -115,23 +110,19 @@ has_loaded_implementation <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-prompt_missing_implementation <- function(x) {
-  spec_ <- class(x)[1]
-  engine_ <- x$engine
-  mode_ <- x$mode
-
+prompt_missing_implementation <- function(spec_, engine_, mode_) {
   avail <-
     show_engines(spec_) %>%
-    dplyr::filter(mode == mode)
+    dplyr::filter(mode == mode_, engine == engine_)
   all <-
     utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
-    dplyr::filter(model == spec_, mode == mode, !is.na(pkg)) %>%
+    dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
     dplyr::select(-model)
 
   msg <-
     glue::glue(
       "A parsnip implementation for `{spec_}` {mode_} model ",
-      "specifications using the `{engine_}` engine is not loaded."
+      "specifications using the `{engine_}` engine is not loaded. "
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
@@ -139,16 +130,17 @@ prompt_missing_implementation <- function(x) {
       glue::glue_collapse(c(
         msg,
         glue::glue_collapse(c(
-          "\nThe parsnip extension package {",
+          "The parsnip extension package {",
           cli::col_yellow(all$pkg[[1]]),
-          "} implements support for this specification/mode/engine combination. \n",
-          "Please install (if needed) and load to continue."
+          "} implements support for this specification/mode/engine combination. ",
+          "Please install (if needed) and load to continue.\n"
         ))
       ))
   }
 
   msg
 }
+
 
 #' Print the model call
 #'
@@ -242,9 +234,13 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
+new_model_spec <- function(cls, args, eng_args, mode, method, engine, new = TRUE) {
 
   check_spec_mode_engine_val(cls, engine, mode)
+
+  if ((!has_loaded_implementation(cls, engine, mode)) && new) {
+    rlang::inform(prompt_missing_implementation(cls, engine, mode))
+  }
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)
