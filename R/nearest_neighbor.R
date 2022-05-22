@@ -60,7 +60,7 @@ print.nearest_neighbor <- function(x, ...) {
   cat("K-Nearest Neighbor Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if (!is.null(x$method$fit$args) && has_loaded_implementation(x)) {
+  if (!is.null(x$method$fit$args) && has_loaded_implementation(class(x)[1], x$engine, x$mode)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
