@@ -269,18 +269,3 @@ test_that("arguments (svm_rbf)", {
   expect_snapshot(translate_args(rbf_sigma %>% set_engine("kernlab")))
 })
 
-# printing with unloaded extensions --------------------------------------------
-test_that("print methods warn with unloaded extensions", {
-  skip_if_not_installed("rules")
-
-  expect_snapshot(C5_rules(engine = "C5.0"))
-  expect_snapshot(C5_rules(engine = "C5.0") %>% translate())
-
-  # TODO: ideally, we'd check that the prompt goes away on load,
-  # but i see the error "package 'parsnip' required by 'rules' could not be found"
-  # on devtools::test() :(
-  #
-  # library(rules)
-  # expect_snapshot(C5_rules(engine = "C5.0"))
-  # expect_snapshot(C5_rules(engine = "C5.0") %>% translate())
-})

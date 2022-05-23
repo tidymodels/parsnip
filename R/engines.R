@@ -129,7 +129,8 @@ set_engine <- function(object, engine, ...) {
     eng_args = enquos(...),
     mode = object$mode,
     method = NULL,
-    engine = object$engine
+    engine = object$engine,
+    new = FALSE
   )
 }
 
