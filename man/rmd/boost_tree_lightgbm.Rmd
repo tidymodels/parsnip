@@ -80,8 +80,7 @@ bonsai quiets much of the logging output from [lightgbm::lgb.train()] by default
 
 ## Examples 
 
-<!-- TODO: update url to bonsai pkgdown site -->
-The "Introduction to bonsai" article contains [examples](https://github.com/tidymodels/bonsai) of `boost_tree()` with the `"lightgbm"` engine.
+The "Introduction to bonsai" article contains [examples](https://bonsai.tidymodels.org/articles/bonsai.html) of `boost_tree()` with the `"lightgbm"` engine.
 
 ## References
 
