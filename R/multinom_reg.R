@@ -70,7 +70,7 @@ print.multinom_reg <- function(x, ...) {
   cat("Multinomial Regression Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if (!is.null(x$method$fit$args) && has_loaded_implementation(class(x)[1], x$engine, x$mode)) {
+  if (is_printable_spec(x)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }

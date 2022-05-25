@@ -105,6 +105,11 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
   FALSE
 }
 
+is_printable_spec <- function(x) {
+  !is.null(x$method$fit$args) &&
+  has_loaded_implementation(class(x)[1], x$engine, x$mode)
+}
+
 # construct a message informing the user that there are no
 # implementations for the current model spec / mode / engine.
 #
