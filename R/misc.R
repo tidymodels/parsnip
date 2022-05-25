@@ -125,21 +125,18 @@ prompt_missing_implementation <- function(spec_, engine_, mode_) {
 
   msg <-
     glue::glue(
-      "parsnip could not locate an implementation for `{spec_}` {mode_} model ",
-      "specifications using the `{engine_}` engine."
+      "parsnip could not locate an implementation for `{spec_}` {mode_} model \\
+       specifications using the `{engine_}` engine."
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
     msg <-
-      glue::glue_collapse(c(
+      c(
         msg,
-        glue::glue_collapse(c(
-          "\nThe parsnip extension package {",
-          cli::col_yellow(all$pkg[[1]]),
-          "} implements support for this specification. \n",
-          "Please install (if needed) and load to continue.\n"
-        ))
-      ))
+        i = paste0("The parsnip extension package ", all$pkg[[1]],
+                   " implements support for this specification."),
+        i = "Please install (if needed) and load to continue."
+      )
   }
 
   msg
