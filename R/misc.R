@@ -140,7 +140,8 @@ prompt_missing_implementation <- function(spec_, engine_, mode_) {
         msg,
         i = paste0("The parsnip extension package ", all$pkg[[1]],
                    " implements support for this specification."),
-        i = "Please install (if needed) and load to continue."
+        i = "Please install (if needed) and load to continue.",
+        ""
       )
   }
 
