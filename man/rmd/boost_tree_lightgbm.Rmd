@@ -69,6 +69,11 @@ boost_tree(
 
 Non-numeric predictors (i.e., factors) are internally converted to numeric. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric. 
 
+### Interpreting `mtry`
+
+```{r child = "template-mtry-prop.Rmd"}
+```
+
 ### Verbosity
 
 bonsai quiets much of the logging output from [lightgbm::lgb.train()] by default. With default settings, logged warnings and errors will still be passed on to the user. To print out all logs during training, set `quiet = TRUE`.
