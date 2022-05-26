@@ -199,7 +199,7 @@ add_methods <- function(x, engine) {
 #'
 #' mod %>% .model_param_name_key()
 #'
-#' rn <- wflow %>% .model_param_name_key(as_tibble = FALSE)
+#' rn <- mod %>% .model_param_name_key(as_tibble = FALSE)
 #' rn
 #'
 #' grid <- tidyr::crossing(regularization = c(0, 1), mixture = (0:3) / 3)
@@ -225,10 +225,10 @@ add_methods <- function(x, engine) {
     dplyr::select(user = id, parsnip = name)
   # Go from parsnip names to engine names
   arg_key <- get_from_env(paste0(class(object)[1], "_args")) %>%
-    dplyr::filter(engine == mod$engine) %>%
+    dplyr::filter(engine == object$engine) %>%
     dplyr::select(engine = original, parsnip)
 
-  res <- dplyr::full_join(params, arg_key, by = "parsnip")
+  res <- dplyr::left_join(params, arg_key, by = "parsnip")
   if (!as_tibble) {
     res0 <- list(user_to_parsnip = res$user, parsnip_to_engine = res$parsnip)
     names(res0$user_to_parsnip) <- res$parsnip
