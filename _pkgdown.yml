@@ -99,3 +99,4 @@ reference:
       - required_pkgs
       - required_pkgs.model_spec
       - req_pkgs
+      - .model_param_name_key
