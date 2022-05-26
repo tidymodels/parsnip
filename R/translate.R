@@ -199,7 +199,7 @@ add_methods <- function(x, engine) {
 #'
 #' mod %>% .model_param_name_key()
 #'
-#' rn <- wflow %>% .model_param_name_key(tibble = FALSE)
+#' rn <- wflow %>% .model_param_name_key(as_tibble = FALSE)
 #' rn
 #'
 #' grid <- tidyr::crossing(regularization = c(0, 1), mixture = (0:3) / 3)
