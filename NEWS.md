@@ -12,6 +12,8 @@
 
 * `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
 
+* Added a developer function, `.model_param_name_key` that translates names of tuning parameters.
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
