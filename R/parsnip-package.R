@@ -41,7 +41,7 @@ utils::globalVariables(
     "sub_neighbors", ".pred_class", "x", "y", "predictor_indicators",
     "compute_intercept", "remove_intercept", "estimate", "term",
     "call_info", "component", "component_id", "func", "tunable", "label",
-    "pkg", ".order", "item", "tunable", "has_ext"
+    "pkg", ".order", "item", "tunable", "has_ext", "id"
   )
 )
 
