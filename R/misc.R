@@ -241,11 +241,12 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine, new = TRUE) {
+new_model_spec <- function(cls, args, eng_args, mode, method, engine,
+                           check_missing_spec = TRUE) {
 
   check_spec_mode_engine_val(cls, engine, mode)
 
-  if ((!has_loaded_implementation(cls, engine, mode)) && new) {
+  if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
     rlang::inform(prompt_missing_implementation(cls, engine, mode))
   }
 

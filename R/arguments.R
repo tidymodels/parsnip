@@ -68,7 +68,7 @@ set_args <- function(object, ...) {
     mode = object$mode,
     method = NULL,
     engine = object$engine,
-    new = FALSE
+    check_missing_spec = FALSE
   )
 }
 
