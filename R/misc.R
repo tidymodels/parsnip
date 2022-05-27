@@ -115,7 +115,7 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-prompt_missing_implementation <- function(spec_, engine_, mode_) {
+inform_missing_implementation <- function(spec_, engine_, mode_) {
   avail <-
     show_engines(spec_) %>%
     dplyr::filter(mode == mode_, engine == engine_)
@@ -247,7 +247,7 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine,
   check_spec_mode_engine_val(cls, engine, mode)
 
   if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
-    rlang::inform(prompt_missing_implementation(cls, engine, mode))
+    rlang::inform(inform_missing_implementation(cls, engine, mode))
   }
 
   out <- list(args = args, eng_args = eng_args,
