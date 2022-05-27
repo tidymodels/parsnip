@@ -79,6 +79,9 @@ model_printer <- function(x, ...) {
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
+model_info_table <-
+  utils::read.delim(system.file("models.tsv", package = "parsnip"))
+
 # given a model object, return TRUE if:
 # * the model is supported without extensions
 # * the model needs an extension and it is loaded
@@ -95,7 +98,7 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
     get_from_env(spec_) %>%
     dplyr::filter(mode %in% mode_, !!eng_cond)
   pars <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    model_info_table %>%
     dplyr::filter(model == spec_, !!eng_cond, mode %in% mode_, is.na(pkg))
 
   if (nrow(pars) > 0 || nrow(avail) > 0) {
@@ -120,7 +123,7 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
     show_engines(spec_) %>%
     dplyr::filter(mode == mode_, engine == engine_)
   all <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    model_info_table %>%
     dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
     dplyr::select(-model)
 
