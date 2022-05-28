@@ -30,8 +30,8 @@ naive_Bayes <-
   function(mode = "classification", smoothness = NULL, Laplace = NULL, engine = "klaR") {
     args <-
       list(
-        smoothness = rlang::enquo(smoothness),
-        Laplace = rlang::enquo(Laplace)
+        smoothness = rlang::enexpr(smoothness),
+        Laplace = rlang::enexpr(Laplace)
       )
 
     new_model_spec(
@@ -70,8 +70,8 @@ update.naive_Bayes <-
 
     args <-
       list(
-        smoothness = rlang::enquo(smoothness),
-        Laplace    = rlang::enquo(Laplace)
+        smoothness = rlang::enexpr(smoothness),
+        Laplace    = rlang::enexpr(Laplace)
       )
 
     update_spec(

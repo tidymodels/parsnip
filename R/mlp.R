@@ -41,12 +41,12 @@ mlp <-
            activation = NULL, learn_rate = NULL) {
 
     args <- list(
-      hidden_units = enquo(hidden_units),
-      penalty      = enquo(penalty),
-      dropout      = enquo(dropout),
-      epochs       = enquo(epochs),
-      activation   = enquo(activation),
-      learn_rate   = enquo(learn_rate)
+      hidden_units = enexpr(hidden_units),
+      penalty      = enexpr(penalty),
+      dropout      = enexpr(dropout),
+      epochs       = enexpr(epochs),
+      activation   = enexpr(activation),
+      learn_rate   = enexpr(learn_rate)
     )
 
     new_model_spec(
@@ -84,12 +84,12 @@ update.mlp <-
            fresh = FALSE, ...) {
 
     args <- list(
-      hidden_units = enquo(hidden_units),
-      penalty      = enquo(penalty),
-      dropout      = enquo(dropout),
-      epochs       = enquo(epochs),
-      activation   = enquo(activation),
-      learn_rate   = enquo(learn_rate)
+      hidden_units = enexpr(hidden_units),
+      penalty      = enexpr(penalty),
+      dropout      = enexpr(dropout),
+      epochs       = enexpr(epochs),
+      activation   = enexpr(activation),
+      learn_rate   = enexpr(learn_rate)
     )
 
     update_spec(

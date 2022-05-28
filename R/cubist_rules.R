@@ -74,9 +74,9 @@ cubist_rules <-
            engine = "Cubist") {
 
     args <- list(
-      committees = enquo(committees),
-      neighbors = enquo(neighbors),
-      max_rules = enquo(max_rules)
+      committees = enexpr(committees),
+      neighbors = enexpr(neighbors),
+      max_rules = enexpr(max_rules)
     )
 
     new_model_spec(
@@ -126,9 +126,9 @@ update.cubist_rules <-
            fresh = FALSE, ...) {
 
     args <- list(
-      committees = enquo(committees),
-      neighbors  = enquo(neighbors),
-      max_rules  = enquo(max_rules)
+      committees = enexpr(committees),
+      neighbors  = enexpr(neighbors),
+      max_rules  = enexpr(max_rules)
     )
 
     update_spec(

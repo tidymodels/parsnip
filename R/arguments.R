@@ -49,7 +49,7 @@ check_eng_args <- function(args, obj, core_args) {
 #'
 #' @export
 set_args <- function(object, ...) {
-  the_dots <- enquos(...)
+  the_dots <- enexprs(...)
   if (length(the_dots) == 0)
     rlang::abort("Please pass at least one named argument.")
   main_args <- names(object$args)

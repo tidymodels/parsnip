@@ -36,9 +36,9 @@ rand_forest <-
   function(mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, min_n = NULL) {
 
     args <- list(
-      mtry   = enquo(mtry),
-      trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      mtry   = enexpr(mtry),
+      trees  = enexpr(trees),
+      min_n  = enexpr(min_n)
     )
 
     new_model_spec(
@@ -75,9 +75,9 @@ update.rand_forest <-
            fresh = FALSE, ...) {
 
     args <- list(
-      mtry   = enquo(mtry),
-      trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      mtry   = enexpr(mtry),
+      trees  = enexpr(trees),
+      min_n  = enexpr(min_n)
     )
 
     update_spec(

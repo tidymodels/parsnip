@@ -41,9 +41,9 @@ svm_rbf <-
            cost = NULL, rbf_sigma = NULL, margin = NULL) {
 
     args <- list(
-      cost   = enquo(cost),
-      rbf_sigma  = enquo(rbf_sigma),
-      margin = enquo(margin)
+      cost   = enexpr(cost),
+      rbf_sigma  = enexpr(rbf_sigma),
+      margin = enexpr(margin)
     )
 
     new_model_spec(
@@ -81,9 +81,9 @@ update.svm_rbf <-
            ...) {
 
     args <- list(
-      cost   = enquo(cost),
-      rbf_sigma  = enquo(rbf_sigma),
-      margin  = enquo(margin)
+      cost   = enexpr(cost),
+      rbf_sigma  = enexpr(rbf_sigma),
+      margin  = enexpr(margin)
     )
 
     update_spec(

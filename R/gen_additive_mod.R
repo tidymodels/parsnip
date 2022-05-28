@@ -35,8 +35,8 @@ gen_additive_mod <- function(mode = "unknown",
                              engine = "mgcv") {
 
   args <- list(
-    select_features = rlang::enquo(select_features),
-    adjust_deg_free = rlang::enquo(adjust_deg_free)
+    select_features = rlang::enexpr(select_features),
+    adjust_deg_free = rlang::enexpr(adjust_deg_free)
   )
 
   new_model_spec(
@@ -73,8 +73,8 @@ update.gen_additive_mod <- function(object,
                                     fresh = FALSE, ...) {
 
   args <- list(
-    select_features = rlang::enquo(select_features),
-    adjust_deg_free = rlang::enquo(adjust_deg_free)
+    select_features = rlang::enexpr(select_features),
+    adjust_deg_free = rlang::enexpr(adjust_deg_free)
   )
 
   update_spec(

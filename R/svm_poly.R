@@ -39,10 +39,10 @@ svm_poly <-
            cost = NULL, degree = NULL, scale_factor = NULL, margin = NULL) {
 
     args <- list(
-      cost   = enquo(cost),
-      degree  = enquo(degree),
-      scale_factor  = enquo(scale_factor),
-      margin = enquo(margin)
+      cost   = enexpr(cost),
+      degree  = enexpr(degree),
+      scale_factor  = enexpr(scale_factor),
+      margin = enexpr(margin)
     )
 
     new_model_spec(
@@ -80,10 +80,10 @@ update.svm_poly <-
            ...) {
 
     args <- list(
-      cost   = enquo(cost),
-      degree  = enquo(degree),
-      scale_factor  = enquo(scale_factor),
-      margin  = enquo(margin)
+      cost   = enexpr(cost),
+      degree  = enexpr(degree),
+      scale_factor  = enexpr(scale_factor),
+      margin  = enexpr(margin)
     )
 
     update_spec(

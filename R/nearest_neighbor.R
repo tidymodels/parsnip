@@ -40,9 +40,9 @@ nearest_neighbor <- function(mode = "unknown",
                              weight_func = NULL,
                              dist_power = NULL) {
   args <- list(
-    neighbors   = enquo(neighbors),
-    weight_func = enquo(weight_func),
-    dist_power  = enquo(dist_power)
+    neighbors   = enexpr(neighbors),
+    weight_func = enexpr(weight_func),
+    dist_power  = enexpr(dist_power)
   )
 
   new_model_spec(
@@ -80,9 +80,9 @@ update.nearest_neighbor <- function(object,
                                     fresh = FALSE, ...) {
 
   args <- list(
-    neighbors   = enquo(neighbors),
-    weight_func = enquo(weight_func),
-    dist_power  = enquo(dist_power)
+    neighbors   = enexpr(neighbors),
+    weight_func = enexpr(weight_func),
+    dist_power  = enexpr(dist_power)
   )
 
   update_spec(

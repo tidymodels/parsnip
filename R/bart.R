@@ -74,10 +74,10 @@ bart <-
            prior_outcome_range = NULL) {
 
     args <- list(
-      trees = enquo(trees),
-      prior_terminal_node_coef = enquo(prior_terminal_node_coef),
-      prior_terminal_node_expo = enquo(prior_terminal_node_expo),
-      prior_outcome_range = enquo(prior_outcome_range)
+      trees = enexpr(trees),
+      prior_terminal_node_coef = enexpr(prior_terminal_node_coef),
+      prior_terminal_node_expo = enexpr(prior_terminal_node_expo),
+      prior_outcome_range = enexpr(prior_outcome_range)
     )
 
     new_model_spec(
@@ -122,10 +122,10 @@ update.bart <-
            fresh = FALSE, ...) {
 
     args <- list(
-      trees = enquo(trees),
-      prior_terminal_node_coef = enquo(prior_terminal_node_coef),
-      prior_terminal_node_expo = enquo(prior_terminal_node_expo),
-      prior_outcome_range = enquo(prior_outcome_range)
+      trees = enexpr(trees),
+      prior_terminal_node_coef = enexpr(prior_terminal_node_coef),
+      prior_terminal_node_expo = enexpr(prior_terminal_node_expo),
+      prior_outcome_range = enexpr(prior_outcome_range)
     )
 
     update_spec(

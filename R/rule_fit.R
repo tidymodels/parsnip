@@ -44,14 +44,14 @@ rule_fit <-
            engine = "xrf") {
 
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n),
-      tree_depth = enquo(tree_depth),
-      learn_rate = enquo(learn_rate),
-      loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size),
-      penalty = enquo(penalty)
+      mtry = enexpr(mtry),
+      trees = enexpr(trees),
+      min_n = enexpr(min_n),
+      tree_depth = enexpr(tree_depth),
+      learn_rate = enexpr(learn_rate),
+      loss_reduction = enexpr(loss_reduction),
+      sample_size = enexpr(sample_size),
+      penalty = enexpr(penalty)
     )
 
 
@@ -104,14 +104,14 @@ update.rule_fit <-
            fresh = FALSE, ...) {
 
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n),
-      tree_depth = enquo(tree_depth),
-      learn_rate = enquo(learn_rate),
-      loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size),
-      penalty = enquo(penalty)
+      mtry = enexpr(mtry),
+      trees = enexpr(trees),
+      min_n = enexpr(min_n),
+      tree_depth = enexpr(tree_depth),
+      learn_rate = enexpr(learn_rate),
+      loss_reduction = enexpr(loss_reduction),
+      sample_size = enexpr(sample_size),
+      penalty = enexpr(penalty)
     )
 
     update_spec(

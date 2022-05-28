@@ -48,8 +48,8 @@ discrim_regularized <-
            engine = "klaR") {
 
     args <- list(
-      frac_common_cov = rlang::enquo(frac_common_cov),
-      frac_identity = rlang::enquo(frac_identity)
+      frac_common_cov = rlang::enexpr(frac_common_cov),
+      frac_identity = rlang::enexpr(frac_identity)
     )
 
     new_model_spec(
@@ -88,8 +88,8 @@ update.discrim_regularized <-
            fresh = FALSE, ...) {
 
     args <- list(
-      frac_common_cov = rlang::enquo(frac_common_cov),
-      frac_identity = rlang::enquo(frac_identity)
+      frac_common_cov = rlang::enexpr(frac_common_cov),
+      frac_identity = rlang::enexpr(frac_identity)
     )
 
     update_spec(

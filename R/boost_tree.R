@@ -59,14 +59,14 @@ boost_tree <-
            sample_size = NULL,
            stop_iter = NULL) {
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n),
-      tree_depth = enquo(tree_depth),
-      learn_rate = enquo(learn_rate),
-      loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size),
-      stop_iter = enquo(stop_iter)
+      mtry = enexpr(mtry),
+      trees = enexpr(trees),
+      min_n = enexpr(min_n),
+      tree_depth = enexpr(tree_depth),
+      learn_rate = enexpr(learn_rate),
+      loss_reduction = enexpr(loss_reduction),
+      sample_size = enexpr(sample_size),
+      stop_iter = enexpr(stop_iter)
     )
 
     new_model_spec(
@@ -106,14 +106,14 @@ update.boost_tree <-
            fresh = FALSE, ...) {
 
     args <- list(
-      mtry = enquo(mtry),
-      trees = enquo(trees),
-      min_n = enquo(min_n),
-      tree_depth = enquo(tree_depth),
-      learn_rate = enquo(learn_rate),
-      loss_reduction = enquo(loss_reduction),
-      sample_size = enquo(sample_size),
-      stop_iter = enquo(stop_iter)
+      mtry = enexpr(mtry),
+      trees = enexpr(trees),
+      min_n = enexpr(min_n),
+      tree_depth = enexpr(tree_depth),
+      learn_rate = enexpr(learn_rate),
+      loss_reduction = enexpr(loss_reduction),
+      sample_size = enexpr(sample_size),
+      stop_iter = enexpr(stop_iter)
     )
 
     update_spec(

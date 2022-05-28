@@ -33,7 +33,7 @@
 survival_reg <- function(mode = "censored regression", engine = "survival", dist = NULL) {
 
   args <- list(
-    dist = enquo(dist)
+    dist = enexpr(dist)
   )
 
   new_model_spec(
@@ -67,7 +67,7 @@ print.survival_reg <- function(x, ...) {
 update.survival_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
 
   args <- list(
-    dist = enquo(dist)
+    dist = enexpr(dist)
   )
 
   update_spec(

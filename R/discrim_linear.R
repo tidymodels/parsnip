@@ -33,8 +33,8 @@ discrim_linear <-
            engine = "MASS") {
 
     args <- list(
-      penalty = rlang::enquo(penalty),
-      regularization_method = rlang::enquo(regularization_method)
+      penalty = rlang::enexpr(penalty),
+      regularization_method = rlang::enexpr(regularization_method)
     )
 
     new_model_spec(
@@ -73,8 +73,8 @@ update.discrim_linear <-
            fresh = FALSE, ...) {
 
     args <- list(
-      penalty = rlang::enquo(penalty),
-      regularization_method = rlang::enquo(regularization_method)
+      penalty = rlang::enexpr(penalty),
+      regularization_method = rlang::enexpr(regularization_method)
     )
 
     update_spec(

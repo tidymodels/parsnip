@@ -29,7 +29,7 @@
 discrim_quad <-
   function(mode = "classification", regularization_method = NULL, engine = "MASS") {
 
-    args <- list(regularization_method = rlang::enquo(regularization_method))
+    args <- list(regularization_method = rlang::enexpr(regularization_method))
 
     new_model_spec(
       "discrim_quad",
@@ -65,7 +65,7 @@ update.discrim_quad <-
            regularization_method = NULL,
            fresh = FALSE, ...) {
 
-    args <- list(regularization_method = rlang::enquo(regularization_method))
+    args <- list(regularization_method = rlang::enexpr(regularization_method))
 
     update_spec(
       object = object,

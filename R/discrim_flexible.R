@@ -30,9 +30,9 @@ discrim_flexible <-
            prune_method = NULL, engine = "earth") {
 
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
-      prune_method = enquo(prune_method)
+      num_terms    = enexpr(num_terms),
+      prod_degree  = enexpr(prod_degree),
+      prune_method = enexpr(prune_method)
     )
 
     new_model_spec(
@@ -77,9 +77,9 @@ update.discrim_flexible <-
            fresh = FALSE, ...) {
 
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
-      prune_method = enquo(prune_method)
+      num_terms    = enexpr(num_terms),
+      prod_degree  = enexpr(prod_degree),
+      prune_method = enexpr(prune_method)
     )
 
     update_spec(

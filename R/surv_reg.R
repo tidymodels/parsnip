@@ -39,7 +39,7 @@ surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
   lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
 
     args <- list(
-      dist = enquo(dist)
+      dist = enexpr(dist)
     )
 
     new_model_spec(
@@ -73,7 +73,7 @@ print.surv_reg <- function(x, ...) {
 update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
 
   args <- list(
-    dist = enquo(dist)
+    dist = enexpr(dist)
   )
 
   update_spec(

@@ -30,10 +30,10 @@ bag_tree <-
            class_cost = NULL,
            engine = "rpart") {
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n),
-      class_cost = enquo(class_cost)
+      cost_complexity   = enexpr(cost_complexity),
+      tree_depth  = enexpr(tree_depth),
+      min_n  = enexpr(min_n),
+      class_cost = enexpr(class_cost)
     )
 
     new_model_spec(
@@ -73,10 +73,10 @@ update.bag_tree <-
            fresh = FALSE, ...) {
 
     args <- list(
-      cost_complexity = enquo(cost_complexity),
-      tree_depth      = enquo(tree_depth),
-      min_n           = enquo(min_n),
-      class_cost      = enquo(class_cost)
+      cost_complexity = enexpr(cost_complexity),
+      tree_depth      = enexpr(tree_depth),
+      min_n           = enexpr(min_n),
+      class_cost      = enexpr(class_cost)
     )
 
     update_spec(

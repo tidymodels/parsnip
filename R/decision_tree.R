@@ -36,9 +36,9 @@ decision_tree <-
            tree_depth = NULL, min_n = NULL) {
 
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n)
+      cost_complexity   = enexpr(cost_complexity),
+      tree_depth  = enexpr(tree_depth),
+      min_n  = enexpr(min_n)
     )
 
     new_model_spec(
@@ -75,9 +75,9 @@ update.decision_tree <-
            fresh = FALSE, ...) {
 
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n)
+      cost_complexity   = enexpr(cost_complexity),
+      tree_depth  = enexpr(tree_depth),
+      min_n  = enexpr(min_n)
     )
 
     update_spec(

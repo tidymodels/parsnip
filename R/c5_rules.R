@@ -49,8 +49,8 @@ C5_rules <-
            engine = "C5.0") {
 
     args <- list(
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      trees = enexpr(trees),
+      min_n = enexpr(min_n)
     )
 
     new_model_spec(
@@ -102,8 +102,8 @@ update.C5_rules <-
            fresh = FALSE, ...) {
 
     args <- list(
-      trees = enquo(trees),
-      min_n = enquo(min_n)
+      trees = enexpr(trees),
+      min_n = enexpr(min_n)
     )
 
     update_spec(

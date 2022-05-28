@@ -126,7 +126,7 @@ set_engine <- function(object, engine, ...) {
   new_model_spec(
     cls = mod_type,
     args = object$args,
-    eng_args = enquos(...),
+    eng_args = enexprs(...),
     mode = object$mode,
     method = NULL,
     engine = object$engine

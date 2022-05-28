@@ -26,8 +26,8 @@ pls <-
   function(mode = "unknown", predictor_prop = NULL, num_comp = NULL, engine = "mixOmics") {
 
     args <- list(
-      predictor_prop = enquo(predictor_prop),
-      num_comp       = enquo(num_comp)
+      predictor_prop = enexpr(predictor_prop),
+      num_comp       = enexpr(num_comp)
     )
 
     new_model_spec(
@@ -79,8 +79,8 @@ update.pls <-
            fresh = FALSE, ...) {
 
     args <- list(
-      predictor_prop    = enquo(predictor_prop),
-      num_comp  = enquo(num_comp)
+      predictor_prop    = enexpr(predictor_prop),
+      num_comp  = enexpr(num_comp)
     )
 
     update_spec(

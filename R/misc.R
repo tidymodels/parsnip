@@ -164,7 +164,7 @@ names0 <- function (num, prefix = "x") {
 #' @rdname add_on_exports
 update_dot_check <- function(...) {
 
-  dots <- enquos(...)
+  dots <- enexprs(...)
 
   if (length(dots) > 0)
     rlang::abort(
@@ -263,7 +263,7 @@ update_main_parameters <- function(args, param) {
 #' @rdname add_on_exports
 update_engine_parameters <- function(eng_args, fresh, ...) {
 
-  dots <- enquos(...)
+  dots <- enexprs(...)
 
   ## only update from dots when there are eng args in original model spec
   if (is_null(eng_args) || (fresh && length(dots) == 0)) {

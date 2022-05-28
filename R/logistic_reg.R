@@ -51,8 +51,8 @@ logistic_reg <-
            mixture = NULL) {
 
     args <- list(
-      penalty = enquo(penalty),
-      mixture = enquo(mixture)
+      penalty = enexpr(penalty),
+      mixture = enexpr(mixture)
     )
 
     new_model_spec(
@@ -138,8 +138,8 @@ update.logistic_reg <-
            fresh = FALSE, ...) {
 
     args <- list(
-      penalty = enquo(penalty),
-      mixture = enquo(mixture)
+      penalty = enexpr(penalty),
+      mixture = enexpr(mixture)
     )
 
     update_spec(

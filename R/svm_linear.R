@@ -36,8 +36,8 @@ svm_linear <-
            cost = NULL, margin = NULL) {
 
     args <- list(
-      cost   = enquo(cost),
-      margin = enquo(margin)
+      cost   = enexpr(cost),
+      margin = enexpr(margin)
     )
 
     new_model_spec(
@@ -75,8 +75,8 @@ update.svm_linear <-
            ...) {
 
     args <- list(
-      cost   = enquo(cost),
-      margin  = enquo(margin)
+      cost   = enexpr(cost),
+      margin  = enexpr(margin)
     )
 
     update_spec(
