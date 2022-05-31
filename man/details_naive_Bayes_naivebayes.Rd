@@ -17,8 +17,8 @@ This model has 2 tuning parameter:
 \item \code{Laplace}: Laplace Correction (type: double, default: 0.0)
 }
 
-Note that \code{usekernel} is always set to \code{TRUE} for the \code{naivebayes}
-engine.
+Note that the engine argument \code{usekernel} is set to \code{TRUE} by default
+when using the \code{naivebayes} engine.
 }
 
 \subsection{Translation from parsnip to the original package}{
