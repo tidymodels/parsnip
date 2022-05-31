@@ -119,9 +119,9 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
     # See "Details" in ?ml_random_forest_classifier. `feature_subset_strategy`
     # should be character even if it contains a number.
     if (any(names(arg_vals) == "feature_subset_strategy") &&
-        isTRUE(is.numeric(quo_get_expr(arg_vals$feature_subset_strategy)))) {
+        isTRUE(is.numeric(arg_vals$feature_subset_strategy))) {
       arg_vals$feature_subset_strategy <-
-        paste(quo_get_expr(arg_vals$feature_subset_strategy))
+        paste(arg_vals$feature_subset_strategy)
     }
   }
 
@@ -129,7 +129,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
   if (engine == "ranger") {
 
     if (any(names(arg_vals) == "importance")) {
-      if (isTRUE(is.logical(quo_get_expr(arg_vals$importance)))) {
+      if (isTRUE(is.logical(arg_vals$importance))) {
         rlang::abort("`importance` should be a character value. See ?ranger::ranger.")
       }
     }

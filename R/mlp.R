@@ -112,7 +112,7 @@ translate.mlp <- function(x, engine = x$engine, ...) {
   }
 
   if (engine == "nnet") {
-    if(isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
+    if(isTRUE(is.null(x$args$hidden_units))) {
       x$args$hidden_units <- 5
     }
   }

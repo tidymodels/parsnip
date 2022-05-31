@@ -106,11 +106,11 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
     if (is_null(x$eng_args$type)) {
       liblinear_type <- NULL
     } else {
-      liblinear_type <- quo_get_expr(x$eng_args$type)
+      liblinear_type <- x$eng_args$type
     }
 
     if (x$mode == "regression") {
-      if (is_null(quo_get_expr(x$args$margin)))
+      if (is_null(x$args$margin))
         arg_vals$svr_eps <- 0.1
       if (!is_null(liblinear_type))
         if(!liblinear_type %in% 11:13)

@@ -109,13 +109,13 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
     # convert parameter arguments
     new_penalty <- rlang::eval_tidy(x$args$penalty)
     if (is.numeric(new_penalty))
-      arg_vals$cost <- rlang::new_quosure(1 / new_penalty, env = rlang::empty_env())
+      arg_vals$cost <- rlang::expr(1 / new_penalty)
 
     if (any(arg_names == "type")) {
-      if (is.numeric(quo_get_expr(arg_vals$type)))
-        if (quo_get_expr(x$args$mixture) == 0) {
+      if (is.numeric(arg_vals$type))
+        if (x$args$mixture == 0) {
           arg_vals$type <- 0      ## ridge
-        } else if (quo_get_expr(x$args$mixture) == 1) {
+        } else if (x$args$mixture == 1) {
           arg_vals$type <- 6      ## lasso
         } else {
           rlang::abort("For the LiblineaR engine, mixture must be 0 or 1.")
