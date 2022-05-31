@@ -183,8 +183,8 @@ add_methods <- function(x, engine) {
 
 #' Translate names of model tuning parameters
 #'
-#' This function creates a key to go between the identifiers that users make
-#' for tuning parameter names, the standardized parsnip parameter names, and the
+#' This function creates a key that connects the identifiers users make for
+#' tuning parameter names, the standardized parsnip parameter names, and the
 #' argument names to the underlying fit function for the engine.
 #'
 #' @param object A workflow or parsnip model specification.

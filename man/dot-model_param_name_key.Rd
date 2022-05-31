@@ -17,8 +17,8 @@ A tibble with columns \code{user}, \code{parsnip}, and \code{engine}, or a list
 with named character vectors \code{user_to_parsnip} and \code{parsnip_to_engine}.
 }
 \description{
-This function creates a key to go between the identifiers that users make
-for tuning parameter names, the standardized parsnip parameter names, and the
+This function creates a key that connects the identifiers users make for
+tuning parameter names, the standardized parsnip parameter names, and the
 argument names to the underlying fit function for the engine.
 }
 \examples{
