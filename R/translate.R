@@ -183,14 +183,14 @@ add_methods <- function(x, engine) {
 
 #' Translate names of model tuning parameters
 #'
-#' This functions creates a key to go between the identifiers that users make
-#' for tuning parameter names, the standardized parsnip parameter name, and the
-#' argument name to the underlying fit function for the engine.
+#' This function creates a key to go between the identifiers that users make
+#' for tuning parameter names, the standardized parsnip parameter names, and the
+#' argument names to the underlying fit function for the engine.
 #'
 #' @param object A workflow or parsnip model specification.
-#' @param as_tibble A logical: should the results be in a tibble or in a list
-#' that can facilitate renaming grid objects.
-#' @return A tibble with columns `'user'`, `'parsnip'`, and `'engine'` or a list
+#' @param as_tibble A logical. Should the results be in a tibble (the default)
+#' or in a list that can facilitate renaming grid objects?
+#' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
 #' @examples
 #' mod <-
@@ -219,7 +219,7 @@ add_methods <- function(x, engine) {
     object <- hardhat::extract_spec_parsnip(object)
   }
 
-  # For translate from given names/ids in grid to parsnip names:
+  # To translate from given names/ids in grid to parsnip names:
   params <- object %>% hardhat::extract_parameter_set_dials()
   params <- tibble::as_tibble(params) %>%
     dplyr::select(user = id, parsnip = name)

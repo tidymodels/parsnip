@@ -9,17 +9,17 @@
 \arguments{
 \item{object}{A workflow or parsnip model specification.}
 
-\item{as_tibble}{A logical: should the results be in a tibble or in a list
-that can facilitate renaming grid objects.}
+\item{as_tibble}{A logical. Should the results be in a tibble (the default)
+or in a list that can facilitate renaming grid objects?}
 }
 \value{
-A tibble with columns \code{'user'}, \code{'parsnip'}, and \code{'engine'} or a list
+A tibble with columns \code{user}, \code{parsnip}, and \code{engine}, or a list
 with named character vectors \code{user_to_parsnip} and \code{parsnip_to_engine}.
 }
 \description{
-This functions creates a key to go between the identifiers that users make
-for tuning parameter names, the standardized parsnip parameter name, and the
-argument name to the underlying fit function for the engine.
+This function creates a key to go between the identifiers that users make
+for tuning parameter names, the standardized parsnip parameter names, and the
+argument names to the underlying fit function for the engine.
 }
 \examples{
 mod <-
