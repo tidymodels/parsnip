@@ -3,13 +3,13 @@ test_that("primary argument", {
   normal <- survival_reg(dist = "lnorm")
   expect_equal(
     normal$args,
-    list(dist = rlang::quo("lnorm"))
+    list(dist = "lnorm")
   )
 
   dist_v <- survival_reg(dist = tune())
   expect_equal(
     dist_v$args,
-    list(dist = rlang::quo(tune()))
+    list(dist = tune())
   )
 })
 

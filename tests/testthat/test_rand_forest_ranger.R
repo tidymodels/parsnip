@@ -265,7 +265,7 @@ test_that('ranger regression intervals', {
               type = "conf_int", std_error = TRUE, level = 0.93
       )
   )
-  expect_equal(rgr_lower, parsnip_int$.pred_lower, ignore_formula_env = TRUE)
+  expect_equal(rgr_lower, parsnip_int$.pred_lower)
   expect_equal(rgr_upper, parsnip_int$.pred_upper)
   expect_equal(rgr_se, parsnip_int$.std_error)
 
@@ -313,7 +313,7 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- rlang::quo(c(min(.lvls()), 20, 10, 1))
+  exp_wts <- rlang::expr(c(min(.lvls()), 20, 10, 1))
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -323,8 +323,7 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(extract_fit_engine(descr_other_xy)$mtry, 2)
-  expect_equal(extract_fit_engine(descr_other_xy)$call$class.weights, exp_wts,
-               ignore_formula_env = TRUE)
+  expect_equal(extract_fit_engine(descr_other_xy)$call$class.weights, exp_wts)
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -333,8 +332,7 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(extract_fit_engine(descr_other_f)$mtry, 2)
-  expect_equal(extract_fit_engine(descr_other_f)$call$class.weights, exp_wts,
-               ignore_formula_env = TRUE)
+  expect_equal(extract_fit_engine(descr_other_f)$call$class.weights, exp_wts)
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -344,8 +342,7 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(extract_fit_engine(descr_other_xy)$mtry, 2)
-  expect_equal(extract_fit_engine(descr_other_xy)$call$class.weights, exp_wts,
-               ignore_formula_env = TRUE)
+  expect_equal(extract_fit_engine(descr_other_xy)$call$class.weights, exp_wts)
 
   descr_other_f <- fit(
     rand_forest(mode = "classification", mtry = 2) %>%
@@ -354,8 +351,7 @@ test_that('additional descriptor tests', {
     control = ctrl
   )
   expect_equal(extract_fit_engine(descr_other_f)$mtry, 2)
-  expect_equal(extract_fit_engine(descr_other_f)$call$class.weights, exp_wts,
-               ignore_formula_env = TRUE)
+  expect_equal(extract_fit_engine(descr_other_f)$call$class.weights, exp_wts)
 })
 
 

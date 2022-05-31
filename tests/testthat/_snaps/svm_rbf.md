@@ -10,9 +10,7 @@
       missing_arg()
       
       $cross
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $kernel
       [1] "rbfdot"

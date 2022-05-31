@@ -119,12 +119,13 @@ test_that('prob prediction with 1 row', {
 
   nnet_pred <-
     predict(extract_fit_engine(lr_fit), as.matrix(te_dat[1, -5]), type = "prob") %>%
+    t() %>%
     tibble::as_tibble(.name_repair = "minimal") %>%
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[1, -5], type = "prob")
 
-  expect_equal(nnet_pred[[1]], as.numeric(parsnip_pred))
+  expect_equal(nnet_pred, parsnip_pred)
   expect_identical(dim(parsnip_pred), c(1L, 4L))
 })
 

@@ -46,9 +46,7 @@
       missing_arg()
       
       $rules
-      <quosure>
-      expr: ^TRUE
-      env:  empty
+      [1] TRUE
       
 
 ---
@@ -63,9 +61,7 @@
       missing_arg()
       
       $print_every_n
-      <quosure>
-      expr: ^10L
-      env:  empty
+      [1] 10
       
       $nthread
       [1] 1
@@ -89,9 +85,7 @@
       missing_arg()
       
       $trials
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
 
 ---
@@ -106,9 +100,7 @@
       missing_arg()
       
       $nrounds
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
       $nthread
       [1] 1
@@ -132,9 +124,7 @@
       missing_arg()
       
       $minCases
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
 
 ---
@@ -149,9 +139,7 @@
       missing_arg()
       
       $min_child_weight
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
       $nthread
       [1] 1
@@ -208,9 +196,7 @@
       missing_arg()
       
       $rules
-      <quosure>
-      expr: ^TRUE
-      env:  empty
+      [1] TRUE
       
       $trials
       [1] 1
@@ -231,9 +217,7 @@
       missing_arg()
       
       $model
-      <quosure>
-      expr: ^TRUE
-      env:  empty
+      [1] TRUE
       
 
 ---
@@ -251,9 +235,7 @@
       missing_arg()
       
       $cp
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
 
 ---
@@ -271,9 +253,7 @@
       missing_arg()
       
       $minCases
-      <quosure>
-      expr: ^15
-      env:  empty
+      [1] 15
       
       $trials
       [1] 1
@@ -321,9 +301,7 @@
       missing_arg()
       
       $keepxy
-      <quosure>
-      expr: ^FALSE
-      env:  empty
+      [1] FALSE
       
 
 # arguments (linear_reg)
@@ -356,9 +334,7 @@
       missing_arg()
       
       $model
-      <quosure>
-      expr: ^FALSE
-      env:  empty
+      [1] FALSE
       
 
 ---
@@ -394,9 +370,7 @@
       missing_arg()
       
       $family
-      <quosure>
-      expr: ^"quasipoisson"
-      env:  empty
+      [1] "quasipoisson"
       
 
 ---
@@ -435,14 +409,10 @@
       missing_arg()
       
       $chains
-      <quosure>
-      expr: ^1
-      env:  empty
+      [1] 1
       
       $iter
-      <quosure>
-      expr: ^5
-      env:  empty
+      [1] 5
       
       $family
       stats::gaussian
@@ -481,9 +451,7 @@
       missing_arg()
       
       $max_iter
-      <quosure>
-      expr: ^20
-      env:  empty
+      [1] 20
       
 
 ---
@@ -523,9 +491,7 @@
       missing_arg()
       
       $elastic_net_param
-      <quosure>
-      expr: ^0.128
-      env:  empty
+      [1] 0.128
       
 
 ---
@@ -543,9 +509,7 @@
       missing_arg()
       
       $elastic_net_param
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
 
 ---
@@ -592,9 +556,7 @@
       missing_arg()
       
       $nlambda
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $family
       [1] "gaussian"
@@ -615,9 +577,7 @@
       missing_arg()
       
       $reg_param
-      <quosure>
-      expr: ^1
-      env:  empty
+      [1] 1
       
 
 # arguments (logistic_reg)
@@ -653,9 +613,7 @@
       missing_arg()
       
       $family
-      <quosure>
-      expr: ^binomial(link = "probit")
-      env:  empty
+      binomial(link = "probit")
       
 
 ---
@@ -702,9 +660,7 @@
       missing_arg()
       
       $bias
-      <quosure>
-      expr: ^0
-      env:  empty
+      [1] 0
       
       $verbose
       [1] FALSE
@@ -746,14 +702,10 @@
       missing_arg()
       
       $chains
-      <quosure>
-      expr: ^1
-      env:  empty
+      [1] 1
       
       $iter
-      <quosure>
-      expr: ^5
-      env:  empty
+      [1] 5
       
       $family
       stats::binomial
@@ -795,9 +747,7 @@
       missing_arg()
       
       $max_iter
-      <quosure>
-      expr: ^20
-      env:  empty
+      [1] 20
       
       $family
       [1] "binomial"
@@ -829,9 +779,7 @@
       missing_arg()
       
       $elastic_net_param
-      <quosure>
-      expr: ^0.128
-      env:  empty
+      [1] 0.128
       
       $family
       [1] "binomial"
@@ -870,9 +818,7 @@
       missing_arg()
       
       $nlambda
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $family
       [1] "binomial"
@@ -893,9 +839,7 @@
       missing_arg()
       
       $lambda
-      <quosure>
-      expr: ^4:2
-      env:  empty
+      4:2
       
       $family
       [1] "binomial"
@@ -916,9 +860,7 @@
       missing_arg()
       
       $cost
-      <quosure>
-      expr: ^1
-      env:  empty
+      1/new_penalty
       
       $verbose
       [1] FALSE
@@ -939,9 +881,7 @@
       missing_arg()
       
       $reg_param
-      <quosure>
-      expr: ^1
-      env:  empty
+      [1] 1
       
       $family
       [1] "binomial"
@@ -973,9 +913,7 @@
       missing_arg()
       
       $type
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
       $verbose
       [1] FALSE
@@ -996,9 +934,7 @@
       missing_arg()
       
       $elastic_net_param
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
       $family
       [1] "binomial"
@@ -1037,9 +973,7 @@
       missing_arg()
       
       $keepxy
-      <quosure>
-      expr: ^FALSE
-      env:  empty
+      [1] FALSE
       
 
 ---
@@ -1057,9 +991,7 @@
       missing_arg()
       
       $nprune
-      <quosure>
-      expr: ^4
-      env:  empty
+      [1] 4
       
       $glm
       <quosure>
@@ -1085,9 +1017,7 @@
       missing_arg()
       
       $degree
-      <quosure>
-      expr: ^1
-      env:  empty
+      [1] 1
       
       $keepxy
       [1] TRUE
@@ -1108,9 +1038,7 @@
       missing_arg()
       
       $pmethod
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
       $keepxy
       [1] TRUE
@@ -1131,9 +1059,7 @@
       missing_arg()
       
       $size
-      <quosure>
-      expr: ^4
-      env:  empty
+      [1] 4
       
       $trace
       [1] FALSE
@@ -1154,9 +1080,7 @@
       missing_arg()
       
       $hidden_units
-      <quosure>
-      expr: ^4
-      env:  empty
+      [1] 4
       
 
 ---
@@ -1201,9 +1125,7 @@
       [1] 5
       
       $abstol
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
       $trace
       [1] FALSE
@@ -1224,9 +1146,7 @@
       missing_arg()
       
       $validation_split
-      <quosure>
-      expr: ^0.2
-      env:  empty
+      [1] 0.2
       
 
 ---
@@ -1247,9 +1167,7 @@
       [1] 5
       
       $Hess
-      <quosure>
-      expr: ^TRUE
-      env:  empty
+      [1] TRUE
       
       $trace
       [1] FALSE
@@ -1273,19 +1191,13 @@
       missing_arg()
       
       $size
-      <quosure>
-      expr: ^4
-      env:  empty
+      [1] 4
       
       $decay
-      <quosure>
-      expr: ^1e-04
-      env:  empty
+      [1] 1e-04
       
       $maxit
-      <quosure>
-      expr: ^2
-      env:  empty
+      [1] 2
       
       $trace
       [1] FALSE
@@ -1306,29 +1218,19 @@
       missing_arg()
       
       $hidden_units
-      <quosure>
-      expr: ^4
-      env:  empty
+      [1] 4
       
       $penalty
-      <quosure>
-      expr: ^1e-04
-      env:  empty
+      [1] 1e-04
       
       $dropout
-      <quosure>
-      expr: ^0
-      env:  empty
+      [1] 0
       
       $epochs
-      <quosure>
-      expr: ^2
-      env:  empty
+      [1] 2
       
       $activation
-      <quosure>
-      expr: ^"softmax"
-      env:  empty
+      [1] "softmax"
       
 
 # arguments (multinom_reg)
@@ -1357,9 +1259,7 @@
       missing_arg()
       
       $alpha
-      <quosure>
-      expr: ^0.128
-      env:  empty
+      [1] 0.128
       
       $family
       [1] "multinomial"
@@ -1398,9 +1298,7 @@
       missing_arg()
       
       $lambda
-      <quosure>
-      expr: ^4:2
-      env:  empty
+      4:2
       
       $family
       [1] "multinomial"
@@ -1421,9 +1319,7 @@
       missing_arg()
       
       $nlambda
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $family
       [1] "multinomial"
@@ -1444,9 +1340,7 @@
       missing_arg()
       
       $alpha
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
       $family
       [1] "multinomial"
@@ -1497,9 +1391,7 @@
       min_rows(2, data, 5)
       
       $scale
-      <quosure>
-      expr: ^FALSE
-      env:  empty
+      [1] FALSE
       
 
 ---
@@ -1514,9 +1406,7 @@
       missing_arg()
       
       $kernel
-      <quosure>
-      expr: ^"triangular"
-      env:  empty
+      [1] "triangular"
       
       $ks
       min_rows(5, data, 5)
@@ -1534,9 +1424,7 @@
       missing_arg()
       
       $distance
-      <quosure>
-      expr: ^2
-      env:  empty
+      [1] 2
       
       $ks
       min_rows(5, data, 5)
@@ -1554,9 +1442,7 @@
       missing_arg()
       
       $norm.votes
-      <quosure>
-      expr: ^FALSE
-      env:  empty
+      [1] FALSE
       
 
 ---
@@ -1574,9 +1460,7 @@
       [1] "regression"
       
       $min_info_gain
-      <quosure>
-      expr: ^2
-      env:  empty
+      [1] 2
       
       $seed
       sample.int(10^5, 1)
@@ -1597,7 +1481,7 @@
       missing_arg()
       
       $mtry
-      min_cols(~4, x)
+      min_cols(4, x)
       
       $num.threads
       [1] 1
@@ -1621,7 +1505,7 @@
       missing_arg()
       
       $mtry
-      min_cols(~4, x)
+      min_cols(4, x)
       
 
 ---
@@ -1660,9 +1544,7 @@
       missing_arg()
       
       $num.trees
-      <quosure>
-      expr: ^1000
-      env:  empty
+      [1] 1000
       
       $num.threads
       [1] 1
@@ -1692,14 +1574,10 @@
       missing_arg()
       
       $num.trees
-      <quosure>
-      expr: ^1000
-      env:  empty
+      [1] 1000
       
       $importance
-      <quosure>
-      expr: ^"impurity"
-      env:  empty
+      [1] "impurity"
       
       $num.threads
       [1] 1
@@ -1726,9 +1604,7 @@
       missing_arg()
       
       $ntree
-      <quosure>
-      expr: ^1000
-      env:  empty
+      [1] 1000
       
 
 ---
@@ -1746,9 +1622,7 @@
       [1] "classification"
       
       $num_trees
-      <quosure>
-      expr: ^1000
-      env:  empty
+      [1] 1000
       
       $seed
       sample.int(10^5, 1)
@@ -1769,7 +1643,7 @@
       missing_arg()
       
       $min.node.size
-      min_rows(~5, x)
+      min_rows(5, x)
       
       $num.threads
       [1] 1
@@ -1793,7 +1667,7 @@
       missing_arg()
       
       $nodesize
-      min_rows(~5, x)
+      min_rows(5, x)
       
 
 ---
@@ -1811,7 +1685,7 @@
       [1] "regression"
       
       $min_instances_per_node
-      min_rows(~5, x)
+      min_rows(5, x)
       
       $seed
       sample.int(10^5, 1)
@@ -1847,9 +1721,7 @@
       missing_arg()
       
       $cl
-      <quosure>
-      expr: ^0.99
-      env:  empty
+      [1] 0.99
       
 
 ---
@@ -1867,9 +1739,7 @@
       missing_arg()
       
       $dist
-      <quosure>
-      expr: ^"lnorm"
-      env:  empty
+      [1] "lnorm"
       
 
 ---
@@ -1887,9 +1757,7 @@
       missing_arg()
       
       $dist
-      <quosure>
-      expr: ^tune()
-      env:  empty
+      tune()
       
 
 # arguments (svm_linear)
@@ -1928,9 +1796,7 @@
       missing_arg()
       
       $type
-      <quosure>
-      expr: ^12
-      env:  empty
+      [1] 12
       
       $svr_eps
       [1] 0.1
@@ -1963,9 +1829,7 @@
       missing_arg()
       
       $cross
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $kernel
       [1] "vanilladot"
@@ -1998,9 +1862,7 @@
       missing_arg()
       
       $cross
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $kernel
       [1] "polydot"
@@ -2021,7 +1883,7 @@
       [1] "polydot"
       
       $kpar
-      list(degree = ~2)
+      list(degree = 2)
       
 
 ---
@@ -2039,7 +1901,7 @@
       [1] "polydot"
       
       $kpar
-      list(degree = ~2, scale = ~1.2)
+      list(degree = 2, scale = 1.2)
       
 
 # arguments (svm_rbf)
@@ -2069,9 +1931,7 @@
       missing_arg()
       
       $cross
-      <quosure>
-      expr: ^10
-      env:  empty
+      [1] 10
       
       $kernel
       [1] "rbfdot"
@@ -2092,6 +1952,6 @@
       [1] "rbfdot"
       
       $kpar
-      list(sigma = ~0.2)
+      list(sigma = 0.2)
       
 

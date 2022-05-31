@@ -2,12 +2,8 @@ test_that('pipe arguments', {
   mod_1 <- rand_forest() %>%
     set_args(mtry = 1)
   expect_equal(
-    rlang::quo_get_expr(mod_1$args$mtry),
+    mod_1$args$mtry,
     1
-  )
-  expect_equal(
-    rlang::quo_get_env(mod_1$args$mtry),
-    rlang::empty_env()
   )
 
   mod_2 <- rand_forest(mtry = 2) %>%
@@ -16,12 +12,8 @@ test_that('pipe arguments', {
   var_env <- rlang::current_env()
 
   expect_equal(
-    rlang::quo_get_expr(mod_2$args$mtry),
+    mod_2$args$mtry,
     1
-  )
-  expect_equal(
-    rlang::quo_get_env(mod_2$args$mtry),
-    rlang::empty_env()
   )
 
   expect_error(rand_forest() %>% set_args())
