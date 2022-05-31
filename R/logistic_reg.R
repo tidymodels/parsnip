@@ -66,19 +66,6 @@ logistic_reg <-
   }
 
 #' @export
-print.logistic_reg <- function(x, ...) {
-  cat("Logistic Regression Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-#' @export
 translate.logistic_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 

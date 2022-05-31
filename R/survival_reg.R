@@ -46,19 +46,6 @@ survival_reg <- function(mode = "censored regression", engine = "survival", dist
   )
 }
 
-#' @export
-print.survival_reg <- function(x, ...) {
-  cat("Parametric Survival Regression Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update survival_reg

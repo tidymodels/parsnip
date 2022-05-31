@@ -24,7 +24,7 @@
       svm_rbf(mode = "regression", rbf_sigma = 0.3) %>% set_engine("kernlab", cross = 10) %>%
         update(rbf_sigma = tune(), cross = tune())
     Output
-      Radial Basis Function Support Vector Machine Specification (regression)
+      Radial Basis Function Support Vector Machine Model Specification (regression)
       
       Main Arguments:
         rbf_sigma = tune()
