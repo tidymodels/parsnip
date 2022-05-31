@@ -244,6 +244,7 @@ test_that('ranger regression intervals', {
 
   skip_if_not_installed("ranger")
 
+  set.seed(1)
   xy_fit <- fit_xy(
     rand_forest(mode = "regression") %>% set_engine("ranger", keep.inbag = TRUE),
     x = mtcars[, -1],
