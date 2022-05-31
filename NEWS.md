@@ -14,6 +14,8 @@
 
 * Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
 
+* Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new `print_model_spec()` helper is exported for use in extensions if desired (#739).
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
