@@ -51,6 +51,7 @@ model_descs <- tibble::tribble(
   "multinom_reg",         "Multinomial Regression",
   "naive_Bayes",          "Naive Bayes",
   "nearest_neighbor",     "K-Nearest Neighbor",
+  "null_model",           "Null",
   "pls",                  "PLS",
   "poisson_reg",          "Poisson Regression",
   "proportional_hazards", "Proportional Hazards",
