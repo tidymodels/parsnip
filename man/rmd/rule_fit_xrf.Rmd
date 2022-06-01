@@ -83,9 +83,16 @@ Also, there are several configuration differences in how `xrf()` is fit between 
 
 These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
 
-## Preprocessing requirements
+## Other details
+
+### Preprocessing requirements
 
 ```{r child = "template-makes-dummies.Rmd"}
+```
+
+### Interpreting `mtry`
+
+```{r child = "template-mtry-prop.Rmd"}
 ```
 
 ## References
