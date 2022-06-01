@@ -606,8 +606,6 @@ set_model_engine <- function(model, mode, eng) {
   check_mode_val(eng)
   check_mode_for_new_engine(model, eng, mode)
 
-  current <- get_model_env()
-
   new_eng <- dplyr::tibble(engine = eng, mode = mode)
   old_eng <- get_from_env(model)
 
@@ -634,7 +632,6 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_func_val(func)
   check_submodels_val(has_submodel)
 
-  current <- get_model_env()
   old_args <- get_from_env(paste0(model, "_args"))
 
   new_arg <-
@@ -914,7 +911,6 @@ get_pred_type <- function(model, type) {
 #' @export
 show_model_info <- function(model) {
   check_model_exists(model)
-  current <- get_model_env()
 
   cat("Information for `", model, "`\n", sep = "")
 
