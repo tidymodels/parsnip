@@ -92,12 +92,7 @@ below)</p></li>
 default: 1.0)</p></li>
 <li><p><code>stop_iter</code>: # Iterations Before Stopping (type: integer, default:
 Inf)</p></li>
-</ul><p>The <code>mtry</code> parameter is related to the number of predictors. The default
-is to use all predictors. <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html" class="external-link">xgboost::xgb.train()</a></code>
-encodes this as a real number between zero and one. parsnip translates
-the number of columns to this type of value. The user should give the
-argument to <code><a href="boost_tree.html">boost_tree()</a></code> as an integer (not a real number).</p>
-</div>
+</ul></div>
 
 <div class="section">
 <h3 id="translation-from-parsnip-to-the-original-package-regression-">Translation from parsnip to the original package (regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-regression-"></a></h3>
@@ -170,6 +165,36 @@ function. Otherwise, parsnip converts the data to this format.</p>
 be change by passing the <code>nthread</code> parameter to
 <code><a href="set_engine.html">set_engine()</a></code>. However, it is unwise to combine this
 with external parallel processing when using the package.</p>
+</div>
+
+<div class="section">
+<h4 id="interpreting-mtry">Interpreting <code>mtry</code><a class="anchor" aria-label="anchor" href="#interpreting-mtry"></a></h4>
+
+
+<p>The <code>mtry</code> argument denotes the number of predictors that will be
+randomly sampled at each split when creating tree models.</p>
+<p>Some engines, such as <code>"xgboost"</code>, <code>"xrf"</code>, and <code>"lightgbm"</code>, interpret
+their analogue to the <code>mtry</code> argument as the <em>proportion</em> of predictors
+that will be randomly sampled at each split rather than the <em>count</em>. In
+some settings, such as when tuning over preprocessors that influence the
+number of predictors, this parameterization is quite
+helpful—interpreting <code>mtry</code> as a proportion means that [0,1] is always
+a valid range for that parameter, regardless of input data.</p>
+<p>parsnip and its extensions accommodate this parameterization using the
+<code>counts</code> argument: a logical indicating whether <code>mtry</code> should be
+interpreted as the number of predictors that will be randomly sampled at
+each split. <code>TRUE</code> indicates that <code>mtry</code> will be interpreted in its
+sense as a count, <code>FALSE</code> indicates that the argument will be
+interpreted in its sense as a proportion.</p>
+<p><code>mtry</code> is a main model argument for
+<code><a href="boost_tree.html">boost_tree()</a></code> and
+<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have an
+engine-specific interface. So, regardless of engine, <code>counts</code> defaults
+to <code>TRUE</code>. For engines that support the proportion
+interpretation—currently <code>"xgboost"</code>, <code>"xrf"</code> (via the rules package),
+and <code>"lightgbm"</code> (via the bonsai package)—the user can pass the
+<code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
+within [0,1].</p>
 </div>
 
 <div class="section">

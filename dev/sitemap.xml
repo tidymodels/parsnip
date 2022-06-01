@@ -115,6 +115,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_lightgbm.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.html</loc>
   </url>
   <url>
