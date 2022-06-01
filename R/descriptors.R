@@ -334,7 +334,7 @@ requires_descrs <- function(object) {
 has_any_descrs <- function(x) {
 
   .x_expr <- rlang::get_expr(x)
-  .x_env  <- rlang::get_env(x, parent.frame())
+  .x_env  <- rlang::get_env(x, parent.frame(n = 3))
 
   # evaluated value
   # required so we don't pass an empty env to findGlobals(), which is an error
