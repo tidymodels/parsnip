@@ -18,7 +18,6 @@
 "C5_rules"	"classification"	"C5.0"	"rules"
 "cubist_rules"	"regression"	"Cubist"	"rules"
 "decision_tree"	"censored regression"	"partykit"	"censored"
-"decision_tree"	"censored regression"	"partykit"	"bonsai"
 "decision_tree"	"censored regression"	"rpart"	"censored"
 "decision_tree"	"classification"	"C5.0"	NA
 "decision_tree"	"classification"	"partykit"	"bonsai"
@@ -91,7 +90,6 @@
 "proportional_hazards"	"censored regression"	"glmnet"	"censored"
 "proportional_hazards"	"censored regression"	"survival"	"censored"
 "rand_forest"	"censored regression"	"partykit"	"censored"
-"rand_forest"	"censored regression"	"partykit"	"bonsai"
 "rand_forest"	"classification"	"partykit"	"bonsai"
 "rand_forest"	"classification"	"randomForest"	NA
 "rand_forest"	"classification"	"ranger"	NA

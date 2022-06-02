@@ -108,11 +108,15 @@ test_that('No loaded engines', {
     regexp = NA
   )
   expect_error(
-    cubist_rules() %>% fit(mpg ~., data = mtcars),
+    expect_message(
+      cubist_rules() %>% fit(mpg ~., data = mtcars)
+    ),
     regexp = "Please load a parsnip extension package that provides one"
   )
   expect_error(
-    poisson_reg() %>% fit(mpg ~., data = mtcars),
+    expect_message(
+      poisson_reg() %>% fit(mpg ~., data = mtcars)
+    ),
     regexp = "Please load a parsnip extension package that provides one"
   )
 })

@@ -69,7 +69,9 @@ test_that("unavailable modes for an engine and vice-versa", {
   )
 
   expect_error(
-    proportional_hazards() %>% set_mode("regression"),
+    expect_message(
+      proportional_hazards() %>% set_mode("regression")
+    ),
     "'regression' is not a known mode"
   )
 
@@ -84,7 +86,9 @@ test_that("unavailable modes for an engine and vice-versa", {
   )
 
   expect_error(
-    proportional_hazards() %>% set_engine(),
+    expect_message(
+      proportional_hazards() %>% set_engine()
+    ),
     "No known engines for"
   )
 })

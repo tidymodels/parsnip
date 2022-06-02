@@ -98,3 +98,11 @@ test_that('correct mtry', {
 
 })
 
+# ----------------------------------------------------------------------------
+
+test_that('model type functions message informatively with unknown implementation', {
+  expect_snapshot(
+    bag_tree() %>%
+      set_engine("rpart")
+  )
+})

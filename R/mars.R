@@ -54,7 +54,7 @@ print.mars <- function(x, ...) {
   cat("MARS Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit$args)) {
+  if (is_printable_spec(x)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }

@@ -1,12 +1,16 @@
 
 test_that("primary argument", {
-  normal <- survival_reg(dist = "lnorm")
+  expect_message(
+    normal <- survival_reg(dist = "lnorm")
+  )
   expect_equal(
     normal$args,
     list(dist = "lnorm")
   )
 
-  dist_v <- survival_reg(dist = tune())
+  expect_message(
+    dist_v <- survival_reg(dist = tune())
+  )
   expect_equal(
     dist_v$args,
     list(dist = tune())
@@ -26,7 +30,9 @@ test_that("bad input", {
 
 test_that("wrong fit interface", {
   expect_error(
-    survival_reg() %>% fit_xy(),
+    expect_message(
+      survival_reg() %>% fit_xy()
+    ),
     "must use the formula interface"
   )
 })

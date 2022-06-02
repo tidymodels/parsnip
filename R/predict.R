@@ -208,6 +208,17 @@ check_pred_type <- function(object, type, ...) {
   type
 }
 
+#' Internal functions that format predictions
+#'
+#' These are used to ensure that we have appropriate column names inside of
+#' tibbles.
+#'
+#' @param x A data frame or vector (depending on the context and function).
+#' @return A tibble
+#' @keywords internal
+#' @name format-internals
+#' @export
+
 format_num <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
@@ -224,6 +235,8 @@ format_num <- function(x) {
   x
 }
 
+#' @rdname format-internals
+#' @export
 format_class <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
@@ -231,6 +244,8 @@ format_class <- function(x) {
   tibble(.pred_class = unname(x))
 }
 
+#' @rdname format-internals
+#' @export
 format_classprobs <- function(x) {
   if (!any(grepl("^\\.pred_", names(x)))) {
     names(x) <- paste0(".pred_", names(x))
@@ -240,6 +255,8 @@ format_classprobs <- function(x) {
   x
 }
 
+#' @rdname format-internals
+#' @export
 format_time <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
@@ -253,6 +270,8 @@ format_time <- function(x) {
   x
 }
 
+#' @rdname format-internals
+#' @export
 format_survival <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
@@ -264,6 +283,8 @@ format_survival <- function(x) {
   x
 }
 
+#' @rdname format-internals
+#' @export
 format_linear_pred <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
@@ -278,6 +299,8 @@ format_linear_pred <- function(x) {
   x
 }
 
+#' @rdname format-internals
+#' @export
 format_hazard <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
