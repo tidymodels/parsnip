@@ -17,7 +17,8 @@ This model has 2 tuning parameter:
 \item \code{Laplace}: Laplace Correction (type: double, default: 0.0)
 }
 
-Note that \code{usekernel} is always set to \code{TRUE} for the \code{klaR} engine.
+Note that the engine argument \code{usekernel} is set to \code{TRUE} by default
+when using the \code{klaR} engine.
 }
 
 \subsection{Translation from parsnip to the original package}{

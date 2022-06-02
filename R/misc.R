@@ -79,6 +79,78 @@ model_printer <- function(x, ...) {
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
+model_info_table <-
+  utils::read.delim(system.file("models.tsv", package = "parsnip"))
+
+# given a model object, return TRUE if:
+# * the model is supported without extensions
+# * the model needs an extension and it is loaded
+#
+# return FALSE if:
+# * the model needs an extension and it is _not_ loaded
+has_loaded_implementation <- function(spec_, engine_, mode_) {
+  if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
+    mode_ <- c("regression", "censored regression", "classification")
+  }
+  eng_cond <- if (is.null(engine_)) {TRUE} else {quote(engine == engine_)}
+
+  avail <-
+    get_from_env(spec_) %>%
+    dplyr::filter(mode %in% mode_, !!eng_cond)
+  pars <-
+    model_info_table %>%
+    dplyr::filter(model == spec_, !!eng_cond, mode %in% mode_, is.na(pkg))
+
+  if (nrow(pars) > 0 || nrow(avail) > 0) {
+    return(TRUE)
+  }
+
+  FALSE
+}
+
+is_printable_spec <- function(x) {
+  !is.null(x$method$fit$args) &&
+  has_loaded_implementation(class(x)[1], x$engine, x$mode)
+}
+
+# construct a message informing the user that there are no
+# implementations for the current model spec / mode / engine.
+#
+# if there's a "pre-registered" extension supporting that setup,
+# nudge the user to install/load it.
+inform_missing_implementation <- function(spec_, engine_, mode_) {
+  avail <-
+    show_engines(spec_) %>%
+    dplyr::filter(mode == mode_, engine == engine_)
+  all <-
+    model_info_table %>%
+    dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
+    dplyr::select(-model)
+
+  if (identical(mode_, "unknown")) {
+    mode_ <- ""
+  }
+
+  msg <-
+    glue::glue(
+      "parsnip could not locate an implementation for `{spec_}` {mode_} model \\
+       specifications using the `{engine_}` engine."
+    )
+
+  if (nrow(avail) == 0 && nrow(all) > 0) {
+    msg <-
+      c(
+        msg,
+        i = paste0("The parsnip extension package ", all$pkg[[1]],
+                   " implements support for this specification."),
+        i = "Please install (if needed) and load to continue.",
+        ""
+      )
+  }
+
+  msg
+}
+
 
 #' Print the model call
 #'
@@ -89,18 +161,10 @@ is_missing_arg <- function(x)
 show_call <- function(object) {
   object$method$fit$args <-
     map(object$method$fit$args, convert_arg)
-  if (
-    is.null(object$method$fit$func["pkg"]) ||
-    is.na(object$method$fit$func["pkg"])
-  ) {
-    res <- call2(object$method$fit$func["fun"], !!!object$method$fit$args)
-  } else {
-    res <-
-      call2(object$method$fit$func["fun"],
-            !!!object$method$fit$args,
-            .ns = object$method$fit$func["pkg"])
-  }
-  res
+
+  call2(object$method$fit$func["fun"],
+        !!!object$method$fit$args,
+        .ns = object$method$fit$func["pkg"])
 }
 
 convert_arg <- function(x) {
@@ -109,7 +173,6 @@ convert_arg <- function(x) {
   else
     x
 }
-
 
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark"))
@@ -181,9 +244,14 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
+new_model_spec <- function(cls, args, eng_args, mode, method, engine,
+                           check_missing_spec = TRUE) {
 
   check_spec_mode_engine_val(cls, engine, mode)
+
+  if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
+    rlang::inform(inform_missing_implementation(cls, engine, mode))
+  }
 
   out <- list(args = args, eng_args = eng_args,
               mode = mode, method = method, engine = engine)

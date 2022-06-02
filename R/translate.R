@@ -101,7 +101,7 @@ translate.default <- function(x, engine = x$engine, ...) {
 print.model_spec <- function(x, ...) {
   cat("Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
-  if (!is.null(x$method$fit$args)) {
+  if (is_printable_spec(x)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }

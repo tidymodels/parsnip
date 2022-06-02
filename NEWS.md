@@ -19,6 +19,8 @@
 
 * `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
 
+* Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
+
 
 # parsnip 0.2.1
 

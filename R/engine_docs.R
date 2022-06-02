@@ -243,7 +243,10 @@ make_engine_list <- function(mod) {
 
 get_default_engine <- function(mod, pkg = "parsnip") {
   cl <- rlang::call2(mod, .ns = pkg)
-  rlang::eval_tidy(cl)$engine
+  suppressMessages(
+    res <- rlang::eval_tidy(cl)$engine
+  )
+  res
 }
 
 #' @export
