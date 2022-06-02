@@ -994,9 +994,7 @@
       [1] 4
       
       $glm
-      <quosure>
-      expr: ^list(family = stats::binomial)
-      env:  empty
+      list(family = stats::binomial)
       
       $keepxy
       [1] TRUE
