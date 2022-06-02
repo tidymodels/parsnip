@@ -9,10 +9,6 @@ tune_args_model_spec <- function(object, full = FALSE, ...) {
     return(tune_tbl())
   }
 
-  # Locate tunable args in spec args and engine specific args
-  object$args     <- purrr::map(object$args, convert_args)
-  object$eng_args <- purrr::map(object$eng_args, convert_args)
-
   arg_id <- purrr::map_chr(object$args, find_tune_id)
   eng_arg_id <- purrr::map_chr(object$eng_args, find_tune_id)
   res <- c(arg_id, eng_arg_id)
@@ -33,18 +29,6 @@ tune_args_model_spec <- function(object, full = FALSE, ...) {
 
 # helpers for tune_args() methods -----------------------------------------
 # they also exist in recipes for the `tune_args()` methods there
-
-
-# If we map over a list or arguments and some are quosures, we get the message
-# that "Subsetting quosures with `[[` is deprecated as of rlang 0.4.0"
-
-convert_args <- function(x) {
-  if (rlang::is_quosure(x)) {
-    x <- rlang::quo_get_expr(x)
-  }
-  x
-}
-
 
 # useful for standardization and for creating a 0 row tunable tbl
 # (i.e. for when there are no steps in a recipe)

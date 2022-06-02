@@ -52,12 +52,10 @@ model_printer <- function(x, ...) {
   non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
   if (length(non_null_args) > 0) {
     cat("Main Arguments:\n")
-    non_null_args <- map(non_null_args, convert_arg)
     cat(print_arg_list(non_null_args), "\n", sep = "")
   }
   if (length(x$eng_args) > 0) {
     cat("Engine-Specific Arguments:\n")
-    x$eng_args <- map(x$eng_args, convert_arg)
     cat(print_arg_list(x$eng_args), "\n", sep = "")
   }
   if (!is.null(x$engine)) {
@@ -87,8 +85,6 @@ is_missing_arg <- function(x)
 #' @keywords internal
 #' @export
 show_call <- function(object) {
-  object$method$fit$args <-
-    map(object$method$fit$args, convert_arg)
   if (
     is.null(object$method$fit$func["pkg"]) ||
     is.na(object$method$fit$func["pkg"])
@@ -102,14 +98,6 @@ show_call <- function(object) {
   }
   res
 }
-
-convert_arg <- function(x) {
-  if (is_quosure(x))
-    quo_get_expr(x)
-  else
-    x
-}
-
 
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark"))
