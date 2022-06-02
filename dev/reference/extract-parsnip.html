@@ -83,27 +83,27 @@ extract_parameter_set_dials() returns a set of dials parameter objects.
 
     <div class="ref-description section level2">
     <p>These functions extract various elements from a parsnip object. If they do
-not exist yet, an error is thrown.</p><ul><li><p><code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_spec_parsnip()</a></code> returns the parsnip model specification.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine()</a></code> returns the engine specific fit embedded within
+not exist yet, an error is thrown.</p><ul><li><p><code><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_spec_parsnip()</a></code> returns the parsnip model specification.</p></li>
+<li><p><code><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_fit_engine()</a></code> returns the engine specific fit embedded within
 a parsnip model fit. For example, when using <code><a href="linear_reg.html">linear_reg()</a></code>
 with the <code>"lm"</code> engine, this returns the underlying <code>lm</code> object.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_dials()</a></code> returns a single dials parameter object.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_set_dials()</a></code> returns a set of dials parameter objects.</p></li>
+<li><p><code><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_parameter_dials()</a></code> returns a single dials parameter object.</p></li>
+<li><p><code><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_parameter_set_dials()</a></code> returns a set of dials parameter objects.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for model_fit</span>
-<span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_spec_parsnip</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_spec_parsnip</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for model_fit</span>
-<span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for model_spec</span>
-<span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_set_dials</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_parameter_set_dials</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for model_spec</span>
-<span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_parameter_dials</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">parameter</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_parameter_dials</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">parameter</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -132,7 +132,7 @@ or silently generating incorrect predictions.</p>
 <p><strong>Good</strong>:</p>
 <p></p><div class="sourceCode r"><pre><code><span class="va">parsnip_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">new_data</span><span class="op">)</span></code></pre><p></p></div>
 <p><strong>Bad</strong>:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="va">parsnip_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">new_data</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span class="va">parsnip_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">new_data</span><span class="op">)</span></code></pre><p></p></div>
     </div>
 
     <div class="section level2">
@@ -145,7 +145,7 @@ or silently generating incorrect predictions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computational engine: lm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_spec_parsnip</a></span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_spec_parsnip</a></span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computational engine: lm </span>
@@ -153,7 +153,7 @@ or silently generating incorrect predictions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data)</span>

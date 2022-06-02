@@ -95,8 +95,8 @@ It translates generic parameters to their counterparts.</p>
     <p><code>translate()</code> produces a <em>template</em> call that lacks the specific
 argument values (such as <code>data</code>, etc). These are filled in once
 <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> is called with the specifics of the data for the model.
-The call may also include <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> arguments if these are in
-the specification. To handle the <code><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune()</a></code> arguments, you need to use the
+The call may also include <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> arguments if these are in
+the specification. To handle the <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> arguments, you need to use the
 <a href="https://tune.tidymodels.org/" class="external-link">tune package</a>. For more information
 see <a href="https://www.tidymodels.org/start/tuning/" class="external-link">https://www.tidymodels.org/start/tuning/</a></p>
 <p>It does contain the resolved argument names that are specific to
@@ -152,7 +152,7 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weight_col = missing_arg(), reg_param = 0.01)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># with a placeholder for an unknown argument value:</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/hardhat/man/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
