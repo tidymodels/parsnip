@@ -29,7 +29,8 @@
 #' @param tree_depth An integer for the maximum depth of the tree (i.e. number
 #'  of splits) (specific engines only).
 #' @param learn_rate A number for the rate at which the boosting algorithm adapts
-#'   from iteration-to-iteration (specific engines only).
+#'   from iteration-to-iteration (specific engines only). This is sometimes referred to
+#'   as the shrinkage parameter.
 #' @param loss_reduction A number for the reduction in the loss function required
 #'   to split further (specific engines only).
 #' @param sample_size A number for the number (or proportion) of data that is
