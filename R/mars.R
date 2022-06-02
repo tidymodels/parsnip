@@ -100,7 +100,7 @@ translate.mars <- function(x, engine = x$engine, ...) {
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
     if (!("glm" %in% names(x$eng_args))) {
-      x$eng_args$glm <- rlang::quo(list(family = stats::binomial))
+      x$eng_args$glm <- rlang::expr(list(family = stats::binomial))
     }
   }
 

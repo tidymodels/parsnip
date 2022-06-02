@@ -227,11 +227,6 @@ find_varying <- function(x) {
     return(FALSE)
   }
 
-  # turn quosures into expressions before continuing
-  if (is_quosure(x)) {
-    x <- quo_get_expr(x)
-  }
-
   if (is_varying(x)) {
     return(TRUE)
   }
