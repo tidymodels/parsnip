@@ -109,7 +109,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
     # convert parameter arguments
     new_penalty <- rlang::eval_tidy(x$args$penalty)
     if (is.numeric(new_penalty))
-      arg_vals$cost <- rlang::expr(1 / new_penalty)
+      arg_vals$cost <- rlang::expr(1 / !!new_penalty)
 
     if (any(arg_names == "type")) {
       if (is.numeric(arg_vals$type))
