@@ -14,6 +14,8 @@
 
 * Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
 
+* Fixed bug where en error would be thrown if arguments to model functions were namespaced and find_tune_id() were used (#745).
+
 # parsnip 0.2.1
 
 * Fixed a major bug in spark models induced in the previous version (#671).
