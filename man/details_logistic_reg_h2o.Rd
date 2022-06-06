@@ -14,9 +14,14 @@ For this engine, there is a single mode: classification
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: see
+below)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0)
 }
+
+By default h2o applies no regularization and \code{penalty} is set to zero.
+When the engine parameter \code{solver} is set to \code{'L-BFGS'}, \code{mixture}
+defaults to 0 (ridge regression) and 0.5 otherwise.
 }
 
 \subsection{Translation from parsnip to the original package}{
