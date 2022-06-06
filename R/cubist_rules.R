@@ -89,20 +89,6 @@ cubist_rules <-
     )
   }
 
-#' @export
-print.cubist_rules <- function(x, ...) {
-  cat("Cubist Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-
 # ------------------------------------------------------------------------------
 
 #' @param object A Cubist model specification.

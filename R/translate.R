@@ -97,17 +97,6 @@ translate.default <- function(x, engine = x$engine, ...) {
   x
 }
 
-#' @export
-print.model_spec <- function(x, ...) {
-  cat("Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 check_mode <- function(object, lvl) {
   if (object$mode == "unknown") {
     if (!is.null(lvl)) {

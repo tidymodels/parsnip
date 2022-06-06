@@ -42,18 +42,6 @@ bag_mars <-
     )
   }
 
-#' @export
-print.bag_mars <- function(x, ...) {
-  cat("Bagged MARS Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update bag_mars

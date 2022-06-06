@@ -44,19 +44,6 @@ naive_Bayes <-
     )
   }
 
-#' @export
-print.naive_Bayes <- function(x, ...) {
-  cat("Naive Bayes Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update naive_Bayes

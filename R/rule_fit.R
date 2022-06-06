@@ -65,20 +65,6 @@ rule_fit <-
     )
   }
 
-#' @export
-print.rule_fit <- function(x, ...) {
-  cat("RuleFit Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-
 # ------------------------------------------------------------------------------
 
 #' @param object A `rule_fit` model specification.

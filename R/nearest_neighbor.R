@@ -55,18 +55,6 @@ nearest_neighbor <- function(mode = "unknown",
   )
 }
 
-#' @export
-print.nearest_neighbor <- function(x, ...) {
-  cat("K-Nearest Neighbor Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update nearest_neighbor

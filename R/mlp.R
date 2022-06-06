@@ -59,18 +59,6 @@ mlp <-
     )
   }
 
-#' @export
-print.mlp <- function(x, ...) {
-  cat("Single Layer Neural Network Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update mlp

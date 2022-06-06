@@ -46,7 +46,6 @@ test_that('svm poly regression', {
 
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
-  expect_output(print(res), "parsnip model object")
 
   expect_error(
     fit(
