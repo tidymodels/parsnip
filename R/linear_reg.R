@@ -59,20 +59,6 @@ linear_reg <-
   }
 
 #' @export
-print.linear_reg <- function(x, ...) {
-  cat("Linear Regression Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-
-#' @export
 translate.linear_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 

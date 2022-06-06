@@ -40,18 +40,6 @@ pls <-
     )
   }
 
-#' @export
-print.pls <- function(x, ...) {
-  cat("PLS Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @export

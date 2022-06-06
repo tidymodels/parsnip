@@ -1,5 +1,3 @@
-context("basic model tests")
-
 test_that('basic object classes and print methods', {
   expect_output(print(bag_mars()), 'Specification')
 

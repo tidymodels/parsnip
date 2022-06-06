@@ -19,7 +19,11 @@
 
 * `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
 
+* Added a developer function, `.model_param_name_key` that translates names of tuning parameters.
+
 * Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
+
+* Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new `print_model_spec()` helper is exported for use in extensions if desired (#739).
 
 
 # parsnip 0.2.1

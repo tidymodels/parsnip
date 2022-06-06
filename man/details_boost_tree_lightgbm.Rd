@@ -109,9 +109,9 @@ The \strong{bonsai} extension package is required to fit this model.
 ##     seed = sample.int(10^5, 1), deterministic = TRUE)
 }\if{html}{\out{</div>}}
 
-\code{\link[=train_lightgbm]{train_lightgbm()}} is a wrapper around
-\code{\link[lightgbm:lgb.train]{lightgbm::lgb.train()}} (and other functions)
-that make it easier to run this model.
+\code{\link[bonsai:train_lightgbm]{bonsai::train_lightgbm()}} is a wrapper
+around \code{\link[lightgbm:lgb.train]{lightgbm::lgb.train()}} (and other
+functions) that make it easier to run this model.
 }
 
 \subsection{Other details}{

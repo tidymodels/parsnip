@@ -62,19 +62,6 @@ discrim_regularized <-
     )
   }
 
-#' @export
-print.discrim_regularized <- function(x, ...) {
-  cat("Regularized Discriminant Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update discrim_regularized

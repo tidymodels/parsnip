@@ -46,18 +46,6 @@ bag_tree <-
     )
   }
 
-#' @export
-print.bag_tree <- function(x, ...) {
-  cat("Bagged Decision Tree Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update bag_tree
