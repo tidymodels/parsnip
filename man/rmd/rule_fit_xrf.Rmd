@@ -95,6 +95,11 @@ These differences will create a disparity in the values of the `penalty` argumen
 ```{r child = "template-mtry-prop.Rmd"}
 ```
 
+### Early stopping
+
+```{r child = "template-early-stopping.Rmd"}
+```
+
 ## Case weights
 
 ```{r child = "template-no-case-weights.Rmd"}
