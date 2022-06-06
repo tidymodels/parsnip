@@ -98,6 +98,32 @@ convert factor columns to indicators.</p>
 </div>
 
 <div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>This model can utilize case weights during model fitting. To use them,
+see the documentation in <a href="case_weights.html">case_weights</a> and the examples
+on <code>tidymodels.org</code>.</p>
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<code>case_weights</code> that expect vectors of case weights.</p>
+<p><em>However</em>, the documentation in <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> assumes
+that is specific type of case weights are being used: “Non-NULL weights
+can be used to indicate that different observations have different
+variances (with the values in weights being inversely proportional to
+the variances); or equivalently, when the elements of weights are
+positive integers <code>w_i</code>, that each response <code>y_i</code> is the mean of <code>w_i</code>
+unit-weight observations (including the case that there are w_i
+observations equal to <code>y_i</code> and the data have been summarized). However,
+in the latter case, notice that within-group variation is not used.
+Therefore, the sigma estimate and residual degrees of freedom may be
+suboptimal; in the case of replication weights, <strong>even wrong</strong>. Hence,
+standard errors and analysis of variance tables should be treated with
+care” (emphasis added)</p>
+<p>Depending on your application, the degrees of freedown for the model
+(and other statistics) might be incorrect.</p>
+</div>
+
+<div class="section">
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
 
 

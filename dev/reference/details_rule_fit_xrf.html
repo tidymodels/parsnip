@@ -155,10 +155,7 @@ whereas <strong>xrf</strong> uses an internal 5-fold cross-validation to determi
 </div>
 
 <div class="section">
-<h3 id="other-details">Other details<a class="anchor" aria-label="anchor" href="#other-details"></a></h3>
-
-<div class="section">
-<h4 id="preprocessing-requirements">Preprocessing requirements<a class="anchor" aria-label="anchor" href="#preprocessing-requirements"></a></h4>
+<h3 id="preprocessing-requirements">Preprocessing requirements<a class="anchor" aria-label="anchor" href="#preprocessing-requirements"></a></h3>
 
 
 <p>Factor/categorical predictors need to be converted to numeric values
@@ -168,36 +165,10 @@ convert factor columns to indicators.</p>
 </div>
 
 <div class="section">
-<h4 id="interpreting-mtry">Interpreting <code>mtry</code><a class="anchor" aria-label="anchor" href="#interpreting-mtry"></a></h4>
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
 
 
-<p>The <code>mtry</code> argument denotes the number of predictors that will be
-randomly sampled at each split when creating tree models.</p>
-<p>Some engines, such as <code>"xgboost"</code>, <code>"xrf"</code>, and <code>"lightgbm"</code>, interpret
-their analogue to the <code>mtry</code> argument as the <em>proportion</em> of predictors
-that will be randomly sampled at each split rather than the <em>count</em>. In
-some settings, such as when tuning over preprocessors that influence the
-number of predictors, this parameterization is quite
-helpful—interpreting <code>mtry</code> as a proportion means that [0,1] is always
-a valid range for that parameter, regardless of input data.</p>
-<p>parsnip and its extensions accommodate this parameterization using the
-<code>counts</code> argument: a logical indicating whether <code>mtry</code> should be
-interpreted as the number of predictors that will be randomly sampled at
-each split. <code>TRUE</code> indicates that <code>mtry</code> will be interpreted in its
-sense as a count, <code>FALSE</code> indicates that the argument will be
-interpreted in its sense as a proportion.</p>
-<p><code>mtry</code> is a main model argument for
-<code><a href="boost_tree.html">boost_tree()</a></code> and
-<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have an
-engine-specific interface. So, regardless of engine, <code>counts</code> defaults
-to <code>TRUE</code>. For engines that support the proportion
-interpretation—currently <code>"xgboost"</code>, <code>"xrf"</code> (via the rules package),
-and <code>"lightgbm"</code> (via the bonsai package)—the user can pass the
-<code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
-within [0,1].</p>
-</div>
-
-
+<p>The underlying model implementation does not allow for case weights.</p>
 </div>
 
 <div class="section">

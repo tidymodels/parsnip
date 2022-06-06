@@ -70,6 +70,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/boost_tree.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/case_weights.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/check_empty_ellipse.html</loc>
   </url>
   <url>
@@ -131,6 +134,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_party.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.html</loc>
@@ -304,6 +310,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_party.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc>
   </url>
   <url>
@@ -380,6 +389,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/glance.model_fit.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/glm_grouped.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/glmnet-details.html</loc>

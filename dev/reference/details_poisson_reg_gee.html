@@ -109,10 +109,16 @@ next section.</p>
 </div>
 
 <div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>The underlying model implementation does not allow for case weights.</p>
+</div>
+
+<div class="section">
 <h3 id="other-details">Other details<a class="anchor" aria-label="anchor" href="#other-details"></a></h3>
 
 
-<p>The model cannot accept case weights.</p>
 <p>Both <code>gee:gee()</code> and <code>gee:geepack()</code> specify the id/cluster variable
 using an argument <code>id</code> that requires a vector. parsnip doesn’t work that
 way so we enable this model to be fit using a artificial function

@@ -135,6 +135,19 @@ are not required for this model.</p>
 </div>
 
 <div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>This model can utilize case weights during model fitting. To use them,
+see the documentation in <a href="case_weights.html">case_weights</a> and the examples
+on <code>tidymodels.org</code>.</p>
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<code>case_weights</code> that expect vectors of case weights.</p>
+<p>Note that, for spark engines, the <code>case_weight</code> argument value should be
+a character string to specify the column with the numeric case weights.</p>
+</div>
+
+<div class="section">
 <h3 id="other-details">Other details<a class="anchor" aria-label="anchor" href="#other-details"></a></h3>
 
 

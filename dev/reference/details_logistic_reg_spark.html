@@ -110,8 +110,22 @@ formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
 convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default, <code>ml_logistic_regression()</code> uses the
-argument <code>standardization = TRUE</code> to center and scale the data.</p>
+variance of one.</p>
+<p>By default, <code>ml_logistic_regression()</code> uses the argument
+<code>standardization = TRUE</code> to center and scale the data.</p>
+</div>
+
+<div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>This model can utilize case weights during model fitting. To use them,
+see the documentation in <a href="case_weights.html">case_weights</a> and the examples
+on <code>tidymodels.org</code>.</p>
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<code>case_weights</code> that expect vectors of case weights.</p>
+<p>Note that, for spark engines, the <code>case_weight</code> argument value should be
+a character string to specify the column with the numeric case weights.</p>
 </div>
 
 <div class="section">

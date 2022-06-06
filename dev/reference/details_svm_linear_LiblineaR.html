@@ -129,11 +129,18 @@ class predictions (e.g., accuracy).</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
-convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip
+will convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.</p>
+</div>
+
+<div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>The underlying model implementation does not allow for case weights.</p>
 </div>
 
 <div class="section">
