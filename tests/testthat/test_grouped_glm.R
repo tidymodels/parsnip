@@ -1,4 +1,3 @@
-context("grouped logistic regression")
 library(tidyr)
 
 test_that('correct results for glm_grouped()', {

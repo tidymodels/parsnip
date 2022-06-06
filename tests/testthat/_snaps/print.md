@@ -57,8 +57,8 @@
       Computational engine: nnet 
       
       Model fit template:
-      nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-          size = 5, trace = FALSE, linout = FALSE)
+      nnet::nnet(formula = missing_arg(), data = missing_arg(), size = 5, 
+          trace = FALSE, linout = FALSE)
 
 # `print_model_spec()` handles args correctly
 
