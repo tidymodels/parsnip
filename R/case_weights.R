@@ -65,50 +65,6 @@ patch_formula_environment_with_case_weights <- function(formula,
   formula
 }
 
-#' Convert case weights to final from
-#'
-#' tidymodels requires case weights to have special classes. To use them in
-#' model fitting or performance evaluation, they need to be converted to
-#' numeric.
-#' @param x A vector with class `"hardhat_case_weights"`.
-#' @param where The location where they will be used: `"parsnip"` or
-#' `"yardstick"`.
-#' @param ... Additional options (not currently used).
-#' @return A numeric vector or NULL.
-#' @export
-convert_case_weights <- function(x, where = "parsnip", ...) {
-  UseMethod("convert_case_weights")
-}
-
-#' @export
-convert_case_weights.default <- function(x, where = "parsnip", ...) {
-  where <- rlang::arg_match0(where, c("parsnip", "yardstick"))
-  if (!inherits(x, "hardhat_case_weights")) {
-    rlang::abort("'case_weights' should be  vector of class 'hardhat_case_weights'")
-  }
-  invisible(NULL)
-}
-
-#' @export
-#' @rdname convert_case_weights
-convert_case_weights.hardhat_importance_weights <-
-  function(x, where = "parsnip", ...) {
-    if (where == "parsnip") {
-      x <- as.double(x)
-    } else {
-      x <- NULL
-    }
-    x
-  }
-
-#' @export
-#' @rdname convert_case_weights
-convert_case_weights.hardhat_frequency_weights <-
-  function(x, where = "parsnip", ...) {
-    as.integer(x)
-  }
-
-
 # ------------------------------------------------------------------------------
 
 case_weights_allowed <- function(spec) {
