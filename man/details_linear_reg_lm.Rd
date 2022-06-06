@@ -37,6 +37,33 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+\emph{However}, the documentation in \code{\link[stats:lm]{stats::lm()}} assumes
+that is specific type of case weights are being used: “Non-NULL weights
+can be used to indicate that different observations have different
+variances (with the values in weights being inversely proportional to
+the variances); or equivalently, when the elements of weights are
+positive integers \code{w_i}, that each response \code{y_i} is the mean of \code{w_i}
+unit-weight observations (including the case that there are w_i
+observations equal to \code{y_i} and the data have been summarized). However,
+in the latter case, notice that within-group variation is not used.
+Therefore, the sigma estimate and residual degrees of freedom may be
+suboptimal; in the case of replication weights, \strong{even wrong}. Hence,
+standard errors and analysis of variance tables should be treated with
+care” (emphasis added)
+
+Depending on your application, the degrees of freedown for the model
+(and other statistics) might be incorrect.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains

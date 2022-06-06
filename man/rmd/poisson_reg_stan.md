@@ -54,6 +54,13 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 For prediction, the `"stan"` engine can compute posterior intervals analogous to confidence and prediction intervals. In these instances, the units are the original outcome. When `std_error = TRUE`, the standard deviation of the posterior  distribution (or posterior predictive distribution as  appropriate) is returned.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-stan) for `poisson_reg()` with the `"stan"` engine.

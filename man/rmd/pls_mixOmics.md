@@ -92,8 +92,6 @@ This package is available via the Bioconductor repository and is not accessible 
   remotes::install_bioc("mixOmics")
 ```
 
-
-
 ## Preprocessing requirements
 
 
@@ -107,6 +105,11 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## References
 

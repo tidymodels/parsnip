@@ -142,6 +142,8 @@ check_args.mlp <- function(object) {
     act_funs <- c("linear", "relu", "elu", "tanh")
   } else if (object$engine == "keras") {
     act_funs <- c("linear", "softmax", "relu", "elu")
+  } else if (object$engine == "h2o") {
+    act_funs <- c("relu", "tanh")
   }
 
   if (is.character(args$activation)) {

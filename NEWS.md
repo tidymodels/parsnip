@@ -1,5 +1,12 @@
 # parsnip (development version)
 
+
+* Enable the use of case weights for models that support them. 
+
+* Added a `glm_grouped()` function to convert long data to the grouped format required by `glm()` for logistic regression. 
+
+* `show_model_info()` now indicates which models can utilize case weights. 
+
 * `xgb_train()` now allows for case weights 
 
 * Added `ctree_train()` and `cforest_train()` wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.  
@@ -15,6 +22,7 @@
 * Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
 
 * Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new `print_model_spec()` helper is exported for use in extensions if desired (#739).
+
 
 # parsnip 0.2.1
 

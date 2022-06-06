@@ -44,7 +44,7 @@ rand_forest(
 ## Computational engine: ranger 
 ## 
 ## Model fit template:
-## ranger::ranger(x = missing_arg(), y = missing_arg(), case.weights = missing_arg(), 
+## ranger::ranger(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     mtry = min_cols(~integer(1), x), num.trees = integer(1), 
 ##     min.node.size = min_rows(~integer(1), x), num.threads = 1, 
 ##     verbose = FALSE, seed = sample.int(10^5, 1))
@@ -77,7 +77,7 @@ rand_forest(
 ## Computational engine: ranger 
 ## 
 ## Model fit template:
-## ranger::ranger(x = missing_arg(), y = missing_arg(), case.weights = missing_arg(), 
+## ranger::ranger(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
 ##     mtry = min_cols(~integer(1), x), num.trees = integer(1), 
 ##     min.node.size = min_rows(~integer(1), x), num.threads = 1, 
 ##     verbose = FALSE, seed = sample.int(10^5, 1), probability = TRUE)
@@ -95,6 +95,13 @@ This engine does not require any special encoding of the predictors. Categorical
 By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the `ranger` model, change the `num.threads` argument via [set_engine()]. 
 
 For `ranger` confidence intervals, the intervals are  constructed using the form `estimate +/- z * std_error`. For  classification probabilities, these values can fall outside of  `[0, 1]` and will be coerced to be in this range.
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## Examples 
 

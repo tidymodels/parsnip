@@ -59,6 +59,11 @@ Variance calculations are used in these computations within each outcome class. 
 
 
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - Friedman, J (1989). Regularized Discriminant Analysis. _Journal of the American Statistical Association_, 84, 165-175.

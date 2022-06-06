@@ -44,6 +44,11 @@ The columns for qualitative predictors should always be represented as factors (
 ```{r child = "template-zv.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

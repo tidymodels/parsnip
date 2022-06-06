@@ -44,7 +44,14 @@ Note that columns used in the `strata()` function will not be estimated in the r
 
 
 # Linear predictor values
+
 ```{r child = "template-censored-linear-predictor.Rmd"}
+```
+
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
 ```
 
 ## References

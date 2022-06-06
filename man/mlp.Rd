@@ -40,7 +40,8 @@ function between the hidden and output layers is automatically set to either
 "linear", "softmax", "relu", and "elu"}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (specific engines only).}
+from iteration-to-iteration (specific engines only). This is sometimes referred to
+as the shrinkage parameter.}
 }
 \description{
 \code{mlp()} defines a multilayer perceptron model (a.k.a. a single layer,

@@ -49,6 +49,11 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics prediction problems using cat scores and false non-discovery rate control. Ann. Appl. Stat. 4: 503-519. [Preprint](https://arxiv.org/abs/0903.2003).

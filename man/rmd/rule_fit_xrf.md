@@ -137,6 +137,11 @@ These differences will create a disparity in the values of the `penalty` argumen
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - Friedman and Popescu. "Predictive learning via rule ensembles." Ann. Appl. Stat. 2 (3) 916- 954, September 2008

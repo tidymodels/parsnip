@@ -111,6 +111,16 @@ value produced by the \code{predict()} method in the engine package.
 
 This behavior can be changed by using the \code{increasing} argument when
 calling \code{predict()} on a model object.
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Andersen P, Gill R. 1982. Cox’s regression model for counting

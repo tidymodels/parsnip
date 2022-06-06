@@ -384,3 +384,18 @@ stan_conf_int <- function(object, newdata) {
 
   penalty
 }
+
+
+check_case_weights <- function(x, spec) {
+  if (is.null(x) | spec$engine == "spark") {
+    return(invisible(NULL))
+  }
+  if (!hardhat::is_case_weights(x)) {
+    rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+  }
+  allowed <- case_weights_allowed(spec)
+  if (!allowed) {
+    rlang::abort("Case weights are not enabled by the underlying model implementation.")
+  }
+  invisible(NULL)
+}

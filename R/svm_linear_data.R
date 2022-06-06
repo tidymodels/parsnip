@@ -33,7 +33,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "matrix",
-    protect = c("x", "y", "wi"),
+    protect = c("x", "y"),
     data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(type = 11)
@@ -47,7 +47,8 @@ set_fit(
   value = list(
     interface = "matrix",
     data = c(x = "data", y = "target"),
-    protect = c("x", "y", "wi"),
+    protect = c("x", "y"),
+    data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(type = 1)
   )

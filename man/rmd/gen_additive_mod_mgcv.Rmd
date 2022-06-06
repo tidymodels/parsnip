@@ -64,6 +64,11 @@ The smoothness of the terms will need to be manually specified (e.g., using `s(x
 ```{r child = "template-makes-dummies.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - Ross, W. 2021. [_Generalized Additive Models in R: A Free, Interactive Course using mgcv_](https://noamross.github.io/gams-in-r-course/)

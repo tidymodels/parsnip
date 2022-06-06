@@ -69,6 +69,11 @@ unique value) within each class should be eliminated before fitting the
 model.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of

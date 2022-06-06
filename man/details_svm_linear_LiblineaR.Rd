@@ -44,8 +44,8 @@ are types 1 (classification) and 11 (regression).
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), svr_eps = double(1), type = 11)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     svr_eps = double(1), type = 11)
 }\if{html}{\out{</div>}}
 }
 
@@ -67,8 +67,8 @@ are types 1 (classification) and 11 (regression).
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), type = 1)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     type = 1)
 }\if{html}{\out{</div>}}
 
 The \code{margin} parameter does not apply to classification models.
@@ -84,12 +84,17 @@ class predictions (e.g., accuracy).
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{Examples}{

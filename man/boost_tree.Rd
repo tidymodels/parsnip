@@ -39,7 +39,8 @@ in a node that is required for the node to be split further.}
 of splits) (specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
-from iteration-to-iteration (specific engines only).}
+from iteration-to-iteration (specific engines only). This is sometimes referred to
+as the shrinkage parameter.}
 
 \item{loss_reduction}{A number for the reduction in the loss function required
 to split further (specific engines only).}

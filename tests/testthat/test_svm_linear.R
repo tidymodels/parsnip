@@ -1,6 +1,7 @@
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
+
 test_that('updating', {
   expect_snapshot(
     svm_linear(mode = "regression", cost = 2) %>%

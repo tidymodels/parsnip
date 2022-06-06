@@ -57,6 +57,11 @@ bag_mars(
 ```{r child = "template-makes-dummies.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - Breiman, L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140

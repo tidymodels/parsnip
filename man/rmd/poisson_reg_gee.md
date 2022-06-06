@@ -37,9 +37,12 @@ poisson_reg(engine = "gee") %>%
 
 There are no specific preprocessing needs. However, it is helpful to keep the clustering/subject identifier column as factor or character (instead of making them into dummy variables). See the examples in the next section. 
 
-## Other details
+## Case weights
 
-The model cannot accept case weights. 
+
+The underlying model implementation does not allow for case weights. 
+
+## Other details
 
 Both `gee:gee()` and `gee:geepack()` specify the id/cluster variable using an argument `id` that requires a vector. parsnip doesn't work that way so we enable this model to be fit using a artificial function `id_var()` to be used in the formula. So, in the original package, the call would look like:
 
