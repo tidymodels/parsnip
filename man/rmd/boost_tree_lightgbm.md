@@ -99,7 +99,7 @@ boost_tree(
 ##     seed = sample.int(10^5, 1), deterministic = TRUE)
 ```
 
-[train_lightgbm()] is a wrapper around [lightgbm::lgb.train()] (and other functions) that make it easier to run this model. 
+[bonsai::train_lightgbm()] is a wrapper around [lightgbm::lgb.train()] (and other functions) that make it easier to run this model. 
 
 ## Other details
 
