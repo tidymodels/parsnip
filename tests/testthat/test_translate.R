@@ -269,3 +269,17 @@ test_that("arguments (svm_rbf)", {
   expect_snapshot(translate_args(rbf_sigma %>% set_engine("kernlab")))
 })
 
+# ------------------------------------------------------------------------------
+
+test_that("translate tuning paramter names", {
+
+  mod <- boost_tree(trees = tune("number of trees"), min_n = tune(), tree_depth = 3)
+
+  expect_snapshot(.model_param_name_key(mod))
+  expect_snapshot(.model_param_name_key(mod, as_tibble = FALSE))
+  expect_snapshot(.model_param_name_key(linear_reg()))
+  expect_snapshot(.model_param_name_key(linear_reg(), as_tibble = FALSE))
+  expect_snapshot_error(.model_param_name_key(1))
+})
+
+

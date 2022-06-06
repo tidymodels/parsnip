@@ -179,3 +179,62 @@ add_methods <- function(x, engine) {
   x$method <- get_model_spec(specific_model(x), x$mode, x$engine)
   x
 }
+
+
+#' Translate names of model tuning parameters
+#'
+#' This function creates a key that connects the identifiers users make for
+#' tuning parameter names, the standardized parsnip parameter names, and the
+#' argument names to the underlying fit function for the engine.
+#'
+#' @param object A workflow or parsnip model specification.
+#' @param as_tibble A logical. Should the results be in a tibble (the default)
+#' or in a list that can facilitate renaming grid objects?
+#' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
+#' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
+#' @examples
+#' mod <-
+#'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%
+#'  set_engine("glmnet")
+#'
+#' mod %>% .model_param_name_key()
+#'
+#' rn <- mod %>% .model_param_name_key(as_tibble = FALSE)
+#' rn
+#'
+#' grid <- tidyr::crossing(regularization = c(0, 1), mixture = (0:3) / 3)
+#'
+#' grid %>%
+#'   dplyr::rename(!!!rn$user_to_parsnip)
+#'
+#' grid %>%
+#'   dplyr::rename(!!!rn$user_to_parsnip) %>%
+#'   dplyr::rename(!!!rn$parsnip_to_engine)
+#' @export
+.model_param_name_key <- function(object, as_tibble = TRUE) {
+  if (!inherits(object, c("model_spec", "workflow"))) {
+    rlang::abort("'object' should be a model specification or workflow.")
+  }
+  if (inherits(object, "workflow")) {
+    object <- hardhat::extract_spec_parsnip(object)
+  }
+
+  # To translate from given names/ids in grid to parsnip names:
+  params <- object %>% hardhat::extract_parameter_set_dials()
+  params <- tibble::as_tibble(params) %>%
+    dplyr::select(user = id, parsnip = name)
+  # Go from parsnip names to engine names
+  arg_key <- get_from_env(paste0(class(object)[1], "_args")) %>%
+    dplyr::filter(engine == object$engine) %>%
+    dplyr::select(engine = original, parsnip)
+
+  res <- dplyr::left_join(params, arg_key, by = "parsnip")
+  if (!as_tibble) {
+    res0 <- list(user_to_parsnip = res$user, parsnip_to_engine = res$parsnip)
+    names(res0$user_to_parsnip) <- res$parsnip
+    names(res0$parsnip_to_engine) <- res$engine
+    res <- res0
+  }
+  res
+}
+
