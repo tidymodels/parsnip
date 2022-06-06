@@ -21,11 +21,11 @@ Depends:
 Imports: 
     cli,
     dplyr (>= 0.8.0.1),
-    generics (>= 0.1.0.9000),
+    generics (>= 0.1.2),
     ggplot2,
     globals,
     glue,
-    hardhat (>= 0.1.6.9001),
+    hardhat (>= 0.2.0.9000),
     lifecycle,
     magrittr,
     prettyunits,
@@ -40,9 +40,8 @@ Imports:
 Suggests: 
     C50,
     covr,
-    dials (>= 0.0.10.9001),
+    dials (>= 0.1.0),
     earth,
-    tensorflow,
     ggrepel,
     keras,
     kernlab,
@@ -60,30 +59,17 @@ Suggests:
     rpart,
     sparklyr (>= 1.0.0),
     survival,
+    tensorflow,
     testthat (>= 3.0.0),
     xgboost (>= 1.5.0.1)
+Remotes:
+    tidymodels/hardhat
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website: 
-    C50, 
-    dbarts, 
-    earth, 
-    glmnet, 
-    keras, 
-    kernlab, 
-    kknn,
-    LiblineaR, 
-    mgcv, 
-    nnet, 
-    parsnip, 
-    randomForest, 
-    ranger, 
-    rpart, 
-    rstanarm,
-    tidymodels/tidymodels, 
-    tidyverse/tidytemplate, 
-    rstudio/reticulate,
+Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
+    LiblineaR, mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm,
+    tidymodels/tidymodels, tidyverse/tidytemplate, rstudio/reticulate,
     xgboost
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Encoding: UTF-8

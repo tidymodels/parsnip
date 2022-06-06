@@ -47,7 +47,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    protect = c("formula", "data", "weights"),
     func = c(pkg = "mgcv", fun = "gam"),
     defaults = list()
   )
@@ -127,7 +127,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    protect = c("formula", "data", "weights"),
     func = c(pkg = "mgcv", fun = "gam"),
     defaults = list(
       family = quote(stats::binomial(link = "logit"))

@@ -18,6 +18,10 @@
 #'  below). A data frame containing all relevant variables (e.g.
 #'  outcome(s), predictors, case weights, etc). Note: when needed, a
 #'  \emph{named argument} should be used.
+#' @param case_weights An optional classed vector of numeric case weights. This
+#'   must return `TRUE` when [hardhat::is_case_weights()] is run on it. See
+#'   [hardhat::frequency_weights()] and [hardhat::importance_weights()] for
+#'   examples.
 #' @param control A named list with elements `verbosity` and
 #'  `catch`. See [control_parsnip()].
 #' @param ... Not currently used; values passed here will be
@@ -101,6 +105,7 @@ fit.model_spec <-
   function(object,
            formula,
            data,
+           case_weights = NULL,
            control = control_parsnip(),
            ...
   ) {
@@ -110,6 +115,8 @@ fit.model_spec <-
     if (!identical(class(control), class(control_parsnip()))) {
       rlang::abort("The 'control' argument should have class 'control_parsnip'.")
     }
+    check_case_weights(case_weights, object)
+
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
@@ -129,15 +136,26 @@ fit.model_spec <-
       }
     }
 
-    if (all(c("x", "y") %in% names(dots)))
+    if (all(c("x", "y") %in% names(dots))) {
       rlang::abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
+    }
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
     # used when a model call is made later.
     eval_env <- rlang::env()
 
+    wts <- weights_to_numeric(case_weights, object)
+
+    formula <- patch_formula_environment_with_case_weights(
+      formula = formula,
+      data = data,
+      case_weights = wts
+    )
+
     eval_env$data <- data
     eval_env$formula <- formula
+    eval_env$weights <- wts
+
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
@@ -206,6 +224,7 @@ fit_xy.model_spec <-
   function(object,
            x,
            y,
+           case_weights = NULL,
            control = control_parsnip(),
            ...
   ) {
@@ -223,6 +242,8 @@ fit_xy.model_spec <-
     if (is.null(colnames(x))) {
       rlang::abort("'x' should have column names.")
     }
+    check_case_weights(case_weights, object)
+
     object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
@@ -245,6 +266,9 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
+    eval_env$weights <- weights_to_numeric(case_weights, object)
+
+    # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
 
     if (object$engine == "spark")
@@ -306,18 +330,18 @@ fit_xy.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-eval_mod <- function(e, capture = FALSE, catch = FALSE, ...) {
+eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
   if (capture) {
     if (catch) {
-      junk <- capture.output(res <- try(eval_tidy(e, ...), silent = TRUE))
+      junk <- capture.output(res <- try(eval_tidy(e, env = envir, ...), silent = TRUE))
     } else {
-      junk <- capture.output(res <- eval_tidy(e, ...))
+      junk <- capture.output(res <- eval_tidy(e, env = envir, ...))
     }
   } else {
     if (catch) {
-      res <- try(eval_tidy(e, ...), silent = TRUE)
+      res <- try(eval_tidy(e, env = envir, ...), silent = TRUE)
     } else {
-      res <- eval_tidy(e, ...)
+      res <- eval_tidy(e, env = envir, ...)
     }
   }
   res

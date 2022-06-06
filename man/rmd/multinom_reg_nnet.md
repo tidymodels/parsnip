@@ -32,7 +32,7 @@ multinom_reg(penalty = double(1)) %>%
 ## 
 ## Model fit template:
 ## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), decay = double(1), trace = FALSE)
+##     decay = double(1), trace = FALSE)
 ```
 
 ## Preprocessing requirements
@@ -47,6 +47,12 @@ scale each so that each predictor has mean zero and a variance of one.
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet) for `multinom_reg()` with the `"nnet"` engine.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 
 ## References
 

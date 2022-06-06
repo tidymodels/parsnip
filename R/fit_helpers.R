@@ -39,7 +39,7 @@ form_form <-
           fit_call,
           capture = control$verbosity == 0,
           catch = control$catch,
-          env = env,
+          envir = env,
           ...
         ),
         gcFirst = FALSE
@@ -49,7 +49,7 @@ form_form <-
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
-        env = env,
+        envir = env,
         ...
       )
       elapsed <- list(elapsed = NA_real_)
@@ -88,7 +88,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  fit_call <- make_xy_call(object, target)
+  fit_call <- make_xy_call(object, target, env)
 
   res <- list(lvl = levels(env$y), spec = object)
 
@@ -98,7 +98,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
-        env = env,
+        envir = env,
         ...
       ),
       gcFirst = FALSE
@@ -108,7 +108,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
       fit_call,
       capture = control$verbosity == 0,
       catch = control$catch,
-      env = env,
+      envir = env,
       ...
     )
     elapsed <- list(elapsed = NA_real_)
@@ -177,7 +177,7 @@ xy_form <- function(object, env, control, ...) {
     .convert_xy_to_form_fit(
       x = env$x,
       y = env$y,
-      weights = NULL,
+      weights = env$weights,
       y_name = "..y",
       remove_intercept = remove_intercept
     )
@@ -199,4 +199,5 @@ xy_form <- function(object, env, control, ...) {
   res$preproc <- data_obj[c("x_var", "y_var")]
   res
 }
+
 

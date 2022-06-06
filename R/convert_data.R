@@ -252,6 +252,12 @@
     if (length(weights) != nrow(x)) {
       rlang::abort(glue::glue("`weights` should have {nrow(x)} elements"))
     }
+
+    form <- patch_formula_environment_with_case_weights(
+      formula = form,
+      data = x,
+      case_weights = weights
+    )
   }
 
   res <- list(

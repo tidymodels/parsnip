@@ -45,6 +45,7 @@ reference:
       - discrim_quad
       - discrim_regularized
       - gen_additive_mod
+      - glm_grouped
       - linear_reg
       - logistic_reg
       - mars
@@ -67,6 +68,7 @@ reference:
       - autoplot.model_fit
       - add_rowindex
       - augment.model_fit
+      - case_weights
       - descriptors
       - extract-parsnip
       - fit.model_spec
@@ -92,6 +94,7 @@ reference:
   - title: Developer tools
     contents:
       - contr_one_hot
+      - convert_case_weights
       - set_new_model
       - maybe_matrix
       - min_cols

@@ -17,7 +17,7 @@ This model has 3 tuning parameters:
 
 ## Translation from parsnip to the original package (regression)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -41,7 +41,7 @@ rand_forest() %>%
 
 ## Translation from parsnip to the original package (classification)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -67,7 +67,7 @@ rand_forest() %>%
 
 # Translation from parsnip to the original package (censored regression)
 
-
+The **censored** extension package is required to fit this model.
 
 
 ```r

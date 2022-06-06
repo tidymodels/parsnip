@@ -49,3 +49,8 @@ poisson_reg(penalty = double(1), mixture = double(1)) %>%
 ```
 By default, `glmnet::glmnet()` uses the argument `standardize = TRUE` to center and scale the data. 
 
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```

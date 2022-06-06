@@ -64,7 +64,7 @@ rule_fit(
 ## Computational engine: xrf 
 ## 
 ## Model fit template:
-## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), 
+## rules::xrf_fit(object = missing_arg(), data = missing_arg(), 
 ##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
 ##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
 ##     subsample = numeric(1), lambda = numeric(1))
@@ -107,7 +107,7 @@ rule_fit(
 ## Computational engine: xrf 
 ## 
 ## Model fit template:
-## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), 
+## rules::xrf_fit(object = missing_arg(), data = missing_arg(), 
 ##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
 ##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
 ##     subsample = numeric(1), lambda = numeric(1))
@@ -135,7 +135,6 @@ whereas \strong{xrf} uses an internal 5-fold cross-validation to determine it
 (by default).
 }
 
-\subsection{Other details}{
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
@@ -144,37 +143,9 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
-\subsection{Interpreting \code{mtry}}{
+\subsection{Case weights}{
 
-The \code{mtry} argument denotes the number of predictors that will be
-randomly sampled at each split when creating tree models.
-
-Some engines, such as \code{"xgboost"}, \code{"xrf"}, and \code{"lightgbm"}, interpret
-their analogue to the \code{mtry} argument as the \emph{proportion} of predictors
-that will be randomly sampled at each split rather than the \emph{count}. In
-some settings, such as when tuning over preprocessors that influence the
-number of predictors, this parameterization is quite
-helpful—interpreting \code{mtry} as a proportion means that [0,1] is always
-a valid range for that parameter, regardless of input data.
-
-parsnip and its extensions accommodate this parameterization using the
-\code{counts} argument: a logical indicating whether \code{mtry} should be
-interpreted as the number of predictors that will be randomly sampled at
-each split. \code{TRUE} indicates that \code{mtry} will be interpreted in its
-sense as a count, \code{FALSE} indicates that the argument will be
-interpreted in its sense as a proportion.
-
-\code{mtry} is a main model argument for
-\code{\link[=boost_tree]{boost_tree()}} and
-\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
-engine-specific interface. So, regardless of engine, \code{counts} defaults
-to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
-\code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
-within [0,1].
-}
-
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{References}{

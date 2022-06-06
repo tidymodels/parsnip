@@ -45,9 +45,8 @@ some models, you may need to pass this value in via
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = TRUE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)
 }\if{html}{\out{</div>}}
 
 Note that parsnip automatically sets linear activation in the last
@@ -76,9 +75,8 @@ layer.
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -86,12 +84,17 @@ layer.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{Examples}{

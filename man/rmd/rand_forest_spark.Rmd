@@ -62,6 +62,14 @@ rand_forest(
 ```{r child = "template-spark-notes.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
+Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
+
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

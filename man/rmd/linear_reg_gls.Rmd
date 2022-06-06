@@ -119,7 +119,10 @@ lme_fit %>% tidy() %>%
 gls_fit %>% tidy()
 ```
 
+## Case weights
 
+```{r child = "template-no-case-weights.Rmd"}
+```
 
 ## References
 

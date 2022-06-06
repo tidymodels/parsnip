@@ -75,6 +75,13 @@ survival_reg() %>%
 ## n= 26
 ```
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## References
 
 -  Kalbfleisch, J. D. and Prentice, R. L. 2002 _The statistical analysis of failure time data_, Wiley.

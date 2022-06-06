@@ -90,6 +90,11 @@ Note that columns used in the `strata()` function _will_ also be estimated in th
 ```{r child = "template-censored-linear-predictor.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 # References
 
  - Simon N, Friedman J, Hastie T, Tibshirani R. 2011. "Regularization Paths for Cox’s Proportional Hazards Model via Coordinate Descent." _Journal of Statistical Software_, Articles 39 (5): 1–13. \doi{10.18637/jss.v039.i05}.

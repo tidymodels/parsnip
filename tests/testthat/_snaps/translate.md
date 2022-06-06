@@ -9,6 +9,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $nthread
       [1] 1
       
@@ -62,6 +65,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $print_every_n
       <quosure>
       expr: ^10L
@@ -105,6 +111,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $nrounds
       <quosure>
       expr: ^15
@@ -146,6 +155,9 @@
       missing_arg()
       
       $y
+      missing_arg()
+      
+      $weights
       missing_arg()
       
       $min_child_weight
@@ -462,7 +474,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
 
@@ -477,7 +489,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $max_iter
@@ -519,7 +531,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -539,7 +551,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -611,7 +623,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $reg_param
@@ -680,9 +692,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $verbose
       [1] FALSE
       
@@ -696,9 +705,6 @@
       missing_arg()
       
       $y
-      missing_arg()
-      
-      $wi
       missing_arg()
       
       $bias
@@ -773,7 +779,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $family
@@ -791,7 +797,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $max_iter
@@ -825,7 +831,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -912,9 +918,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $cost
       <quosure>
       expr: ^1
@@ -935,7 +938,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $reg_param
@@ -969,9 +972,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $type
       <quosure>
       expr: ^tune()
@@ -992,7 +992,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -1127,9 +1127,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       <quosure>
       expr: ^4
@@ -1170,9 +1167,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       [1] 5
       
@@ -1192,9 +1186,6 @@
       missing_arg()
       
       $data
-      missing_arg()
-      
-      $weights
       missing_arg()
       
       $size
@@ -1240,9 +1231,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       [1] 5
       
@@ -1267,9 +1255,6 @@
       missing_arg()
       
       $data
-      missing_arg()
-      
-      $weights
       missing_arg()
       
       $size
@@ -1593,7 +1578,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $mtry
@@ -1656,7 +1641,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $num.trees
@@ -1688,7 +1673,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $num.trees
@@ -1765,7 +1750,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $min.node.size
@@ -1903,9 +1888,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $type
       [1] 11
       
@@ -1922,9 +1904,6 @@
       missing_arg()
       
       $y
-      missing_arg()
-      
-      $wi
       missing_arg()
       
       $type
