@@ -25,7 +25,7 @@ Imports:
     ggplot2,
     globals,
     glue,
-    hardhat (>= 0.2.0.9000),
+    hardhat (>= 1.0.0),
     lifecycle,
     magrittr,
     prettyunits,
@@ -62,8 +62,6 @@ Suggests:
     tensorflow,
     testthat (>= 3.0.0),
     xgboost (>= 1.5.0.1)
-Remotes:
-    tidymodels/hardhat
 VignetteBuilder: 
     knitr
 ByteCompile: true
