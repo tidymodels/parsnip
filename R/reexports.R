@@ -49,3 +49,12 @@ hardhat::extract_parameter_dials
 #' @importFrom hardhat tune
 #' @export
 hardhat::tune
+
+#' @importFrom hardhat frequency_weights
+#' @export
+hardhat::frequency_weights
+
+#' @importFrom hardhat importance_weights
+#' @export
+hardhat::importance_weights
+

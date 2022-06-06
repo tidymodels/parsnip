@@ -27,12 +27,6 @@ default: 1.0)
 \item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
 Inf)
 }
-
-The \code{mtry} parameter is related to the number of predictors. The default
-is to use all predictors. \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}}
-encodes this as a real number between zero and one. parsnip translates
-the number of columns to this type of value. The user should give the
-argument to \code{boost_tree()} as an integer (not a real number).
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -62,10 +56,11 @@ argument to \code{boost_tree()} as an integer (not a real number).
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 }\if{html}{\out{</div>}}
 }
 
@@ -96,10 +91,11 @@ argument to \code{boost_tree()} as an integer (not a real number).
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 }\if{html}{\out{</div>}}
 
 \code{\link[=xgb_train]{xgb_train()}} is a wrapper around
@@ -138,6 +134,37 @@ By default, the model is trained without parallel processing. This can
 be change by passing the \code{nthread} parameter to
 \code{\link[=set_engine]{set_engine()}}. However, it is unwise to combine this
 with external parallel processing when using the package.
+}
+
+\subsection{Interpreting \code{mtry}}{
+
+The \code{mtry} argument denotes the number of predictors that will be
+randomly sampled at each split when creating tree models.
+
+Some engines, such as \code{"xgboost"}, \code{"xrf"}, and \code{"lightgbm"}, interpret
+their analogue to the \code{mtry} argument as the \emph{proportion} of predictors
+that will be randomly sampled at each split rather than the \emph{count}. In
+some settings, such as when tuning over preprocessors that influence the
+number of predictors, this parameterization is quite
+helpful—interpreting \code{mtry} as a proportion means that [0,1] is always
+a valid range for that parameter, regardless of input data.
+
+parsnip and its extensions accommodate this parameterization using the
+\code{counts} argument: a logical indicating whether \code{mtry} should be
+interpreted as the number of predictors that will be randomly sampled at
+each split. \code{TRUE} indicates that \code{mtry} will be interpreted in its
+sense as a count, \code{FALSE} indicates that the argument will be
+interpreted in its sense as a proportion.
+
+\code{mtry} is a main model argument for
+\code{\link[=boost_tree]{boost_tree()}} and
+\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
+engine-specific interface. So, regardless of engine, \code{counts} defaults
+to \code{TRUE}. For engines that support the proportion
+interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
+and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+\code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
+within [0,1].
 }
 
 \subsection{Early stopping}{

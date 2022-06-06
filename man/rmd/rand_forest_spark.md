@@ -96,6 +96,16 @@ For models created using the `"spark"` engine, there are several things to consi
 * There is no equivalent to factor columns in Spark tables so class predictions are returned as character columns. 
 * To retain the model object for a new R session (via `save()`), the `model$fit` element of the parsnip object should be serialized via `ml_save(object$fit)` and separately saved to disk. In a new session, the object can be reloaded and reattached to the parsnip object.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
+
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

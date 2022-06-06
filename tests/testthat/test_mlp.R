@@ -1,3 +1,4 @@
+
 test_that('updating', {
   expect_snapshot(
     mlp(mode = "classification", hidden_units = 2) %>%

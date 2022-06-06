@@ -51,6 +51,11 @@ discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>
 ```{r child = "template-zv-conditional.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - Friedman, J (1989). Regularized Discriminant Analysis. _Journal of the American Statistical Association_, 84, 165-175.

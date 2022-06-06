@@ -143,6 +143,11 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Friedman and Popescu. “Predictive learning via rule ensembles.” Ann.

@@ -220,7 +220,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "matrix",
-    protect = c("x", "y", "wi"),
+    protect = c("x", "y"),
     data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(verbose = FALSE)
@@ -336,8 +336,8 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    data = c(formula = "formula", data = "x"),
-    protect = c("x", "formula", "weight_col"),
+    data = c(formula = "formula", data = "x", weights = "weight_col"),
+    protect = c("x", "formula", "weights"),
     func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
     defaults =
       list(

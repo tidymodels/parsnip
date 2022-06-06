@@ -24,8 +24,6 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-The `mtry` parameter is related to the number of predictors. The default is to use all predictors. [xgboost::xgb.train()] encodes this as a real number between zero and one. parsnip translates the number of columns to this type of value. The user should give the argument to `boost_tree()` as an integer (not a real number). 
-
 ## Translation from parsnip to the original package (regression)
 
 ```{r xgboost-reg}
@@ -69,6 +67,11 @@ xgboost requires the data to be in a sparse format. If your predictor data are a
 ### Parallel processing
 
 By default, the model is trained without parallel processing. This can be change by passing the `nthread` parameter to [set_engine()]. However, it is unwise to combine this with external parallel processing when using the \pkg{tune} package. 
+
+### Interpreting `mtry`
+
+```{r child = "template-mtry-prop.Rmd"}
+```
 
 ### Early stopping
 

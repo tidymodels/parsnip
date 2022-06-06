@@ -114,6 +114,11 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Rohart F and Gautier B and Singh A and Le Cao K-A (2017). “mixOmics:

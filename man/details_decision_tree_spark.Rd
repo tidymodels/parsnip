@@ -72,6 +72,19 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+Note that, for spark engines, the \code{case_weight} argument value should be
+a character string to specify the column with the numeric case weights.
+}
+
 \subsection{Other details}{
 
 For models created using the \code{"spark"} engine, there are several things

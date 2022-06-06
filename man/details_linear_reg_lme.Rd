@@ -108,6 +108,11 @@ fit(lme_wflow, data = riesby)
 }\if{html}{\out{</div>}}
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and

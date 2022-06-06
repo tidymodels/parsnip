@@ -69,6 +69,11 @@ fit(gee_wflow, data = warpbreaks)
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using generalized linear models. _Biometrika_, 73 13–22.

@@ -64,7 +64,7 @@ print.mlp <- function(x, ...) {
   cat("Single Layer Neural Network Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
-  if(!is.null(x$method$fit$args)) {
+  if (is_printable_spec(x)) {
     cat("Model fit template:\n")
     print(show_call(x))
   }
@@ -154,6 +154,8 @@ check_args.mlp <- function(object) {
     act_funs <- c("linear", "relu", "elu", "tanh")
   } else if (object$engine == "keras") {
     act_funs <- c("linear", "softmax", "relu", "elu")
+  } else if (object$engine == "h2o") {
+    act_funs <- c("relu", "tanh")
   }
 
   if (is.character(args$activation)) {
