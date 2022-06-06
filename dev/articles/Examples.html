@@ -139,7 +139,7 @@ Regression Example (<code>dbarts</code>)
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span>
   <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span>
-  <span class="co">## <span style="color: #0000BB;">•</span> Learn how to get started at <span style="color: #00BB00;">https://www.tidymodels.org/start/</span></span></code></pre>
+  <span class="co">## <span style="color: #0000BB;">•</span> Search for functions across packages at <span style="color: #00BB00;">https://www.tidymodels.org/find/</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span>
@@ -170,7 +170,9 @@ Regression Example (<code>dbarts</code>)
   <span class="va">bt_reg_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## BART Model Specification ()</span></code></pre>
+  <span class="co">## </span>
+  <span class="co">## Call:</span>
+  <span class="co">## `NULL`()</span></code></pre>
 <p>The holdout data can be predicted:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">bt_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></code></pre></div>
@@ -213,7 +215,9 @@ Classification Example (<code>dbarts</code>)
   <span class="va">bt_cls_fit</span></code></pre></div>
 <pre><code><span class="co">## parsnip model object</span>
   <span class="co">## </span>
-  <span class="co">## BART Model Specification ()</span></code></pre>
+  <span class="co">## </span>
+  <span class="co">## Call:</span>
+  <span class="co">## `NULL`()</span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span>
@@ -676,7 +680,7 @@ Regression Example (<code>mgcv</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span>
   <span class="va">gam_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## GAM Specification (regression)</span>
+<pre><code><span class="co">## GAM Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   select_features = FALSE</span>
@@ -732,7 +736,7 @@ Classification Example (<code>mgcv</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span>
   <span class="va">gam_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## GAM Specification (classification)</span>
+<pre><code><span class="co">## GAM Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   select_features = FALSE</span>
@@ -1049,13 +1053,13 @@ Regression Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span>
   <span class="co">##   .pred</span>
   <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.5 </span>
-  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.8 </span>
-  <span class="co">## <span style="color: #BCBCBC;">3</span> 21.1 </span>
-  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.8 </span>
-  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.1 </span>
-  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.49</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.13</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span>
+  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span>
+  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.9 </span>
+  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span>
+  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span>
+  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.42</span>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.06</span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1355,16 +1359,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span>
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.506       0.494 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.833       0.167 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.517       0.483 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.828       0.172 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.637       0.363 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.535       0.465 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.734       0.266 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.521       0.479 </span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.989       0.011<span style="text-decoration: underline;">1</span></span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.495       0.505</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.505       0.495 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.835       0.165 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.515       0.485 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.831       0.169 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.638       0.362 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.536       0.464 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.737       0.263 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.520       0.480 </span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">4</span></span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.496       0.504</span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1653,7 +1657,7 @@ Regression Example (<code>nnet</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnet"</span><span class="op">)</span>
   <span class="va">mlp_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Single Layer Neural Network Specification (regression)</span>
+<pre><code><span class="co">## Single Layer Neural Network Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   penalty = 0</span>
@@ -1703,7 +1707,7 @@ Classification Example (<code>nnet</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnet"</span><span class="op">)</span>
   <span class="va">mlp_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Single Layer Neural Network Specification (classification)</span>
+<pre><code><span class="co">## Single Layer Neural Network Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   penalty = 0</span>
@@ -1764,7 +1768,7 @@ Regression Example (<code>keras</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"keras"</span><span class="op">)</span>
   <span class="va">mlp_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Single Layer Neural Network Specification (regression)</span>
+<pre><code><span class="co">## Single Layer Neural Network Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   penalty = 0</span>
@@ -1800,8 +1804,8 @@ Regression Example (<code>keras</code>)
   <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span>
   <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span>
   <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span>
-  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.86</span>
-  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.69</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.79</span>
+  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.61</span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1821,7 +1825,7 @@ Classification Example (<code>keras</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"keras"</span><span class="op">)</span>
   <span class="va">mlp_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Single Layer Neural Network Specification (classification)</span>
+<pre><code><span class="co">## Single Layer Neural Network Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   penalty = 0</span>
@@ -1855,16 +1859,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span>
   <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span>
   <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.540        0.460</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.663        0.337</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.596        0.404</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.482        0.518</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.478        0.522</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.415        0.585</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.555        0.445</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.557        0.443</span>
-  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.744        0.256</span>
-  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.379        0.621</span></code></pre>
+  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.536        0.464</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.658        0.342</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.592        0.408</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.476        0.524</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.473        0.527</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.411        0.589</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.550        0.450</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.552        0.448</span>
+  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.740        0.260</span>
+  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.375        0.625</span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2035,11 +2039,11 @@ Classification Example (<code>keras</code>)
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span>
 <span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.286         0.017<span style="text-decoration: underline;">5</span>      0.696     </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">111</span>      1.00        0.000<span style="text-decoration: underline;">001</span>96</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.318         0.475       0.207     </span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.049<span style="text-decoration: underline;">3</span>        0.939       0.011<span style="text-decoration: underline;">2</span>    </span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.304         0.023<span style="text-decoration: underline;">4</span>      0.673</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.286         0.017<span style="text-decoration: underline;">7</span>      0.696     </span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">109</span>      1.00        0.000<span style="text-decoration: underline;">001</span>97</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.317         0.477       0.206     </span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.048<span style="text-decoration: underline;">7</span>        0.940       0.011<span style="text-decoration: underline;">1</span>    </span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.304         0.023<span style="text-decoration: underline;">7</span>      0.672</span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
@@ -2514,7 +2518,7 @@ Regression Example (<code>LiblineaR</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"LiblineaR"</span><span class="op">)</span>
   <span class="va">svm_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Linear Support Vector Machine Specification (regression)</span>
+<pre><code><span class="co">## Linear Support Vector Machine Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2578,7 +2582,7 @@ Classification Example (<code>LiblineaR</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"LiblineaR"</span><span class="op">)</span>
   <span class="va">svm_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Linear Support Vector Machine Specification (classification)</span>
+<pre><code><span class="co">## Linear Support Vector Machine Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2653,7 +2657,7 @@ Regression Example (<code>kernlab</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
   <span class="va">svm_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Linear Support Vector Machine Specification (regression)</span>
+<pre><code><span class="co">## Linear Support Vector Machine Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2712,7 +2716,7 @@ Classification Example (<code>kernlab</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
   <span class="va">svm_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Linear Support Vector Machine Specification (classification)</span>
+<pre><code><span class="co">## Linear Support Vector Machine Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2788,7 +2792,7 @@ Regression Example (<code>kernlab</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
   <span class="va">svm_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Polynomial Support Vector Machine Specification (regression)</span>
+<pre><code><span class="co">## Polynomial Support Vector Machine Model Specification (regression)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2848,7 +2852,7 @@ Classification Example (<code>kernlab</code>)
     <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
   <span class="va">svm_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Polynomial Support Vector Machine Specification (classification)</span>
+<pre><code><span class="co">## Polynomial Support Vector Machine Model Specification (classification)</span>
   <span class="co">## </span>
   <span class="co">## Main Arguments:</span>
   <span class="co">##   cost = 1</span>
@@ -2925,7 +2929,7 @@ Regression Example (<code>kernlab</code>)
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
 <span class="va">svm_reg_spec</span></code></pre></div>
-<pre><code><span class="co">## Radial Basis Function Support Vector Machine Specification (regression)</span>
+<pre><code><span class="co">## Radial Basis Function Support Vector Machine Model Specification (regression)</span>
 <span class="co">## </span>
 <span class="co">## Main Arguments:</span>
 <span class="co">##   cost = 1</span>
@@ -2983,7 +2987,7 @@ Classification Example (<code>kernlab</code>)
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"kernlab"</span><span class="op">)</span>
 <span class="va">svm_cls_spec</span></code></pre></div>
-<pre><code><span class="co">## Radial Basis Function Support Vector Machine Specification (classification)</span>
+<pre><code><span class="co">## Radial Basis Function Support Vector Machine Model Specification (classification)</span>
 <span class="co">## </span>
 <span class="co">## Main Arguments:</span>
 <span class="co">##   cost = 1</span>

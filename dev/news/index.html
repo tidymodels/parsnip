@@ -73,7 +73,9 @@
 <li><p>Fixed bug where previously set engine arguments would propagate through <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> methods despite <code>fresh = TRUE</code> (<a href="https://github.com/tidymodels/parsnip/issues/704" class="external-link">#704</a>).</p></li>
 <li><p>An inconsistency for probability type predictions for two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/708" class="external-link">#708</a>)</p></li>
 <li><p><code>predict(type = "prob")</code> will now provide an error if the outcome variable has a level called <code>"class"</code> (<a href="https://github.com/tidymodels/parsnip/issues/720" class="external-link">#720</a>).</p></li>
+<li><p>Added a developer function, <code>.model_param_name_key</code> that translates names of tuning parameters.</p></li>
 <li><p>Model type functions will now message informatively if a needed parsnip extension package is not loaded (<a href="https://github.com/tidymodels/parsnip/issues/731" class="external-link">#731</a>).</p></li>
+<li><p>Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new <code><a href="../reference/add_on_exports.html">print_model_spec()</a></code> helper is exported for use in extensions if desired (<a href="https://github.com/tidymodels/parsnip/issues/739" class="external-link">#739</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
