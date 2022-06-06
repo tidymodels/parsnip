@@ -40,6 +40,7 @@ rule_fit <-
            tree_depth = NULL, learn_rate = NULL,
            loss_reduction = NULL,
            sample_size = NULL,
+           stop_iter = NULL,
            penalty = NULL,
            engine = "xrf") {
 
@@ -51,6 +52,7 @@ rule_fit <-
       learn_rate = enquo(learn_rate),
       loss_reduction = enquo(loss_reduction),
       sample_size = enquo(sample_size),
+      stop_iter = enquo(stop_iter),
       penalty = enquo(penalty)
     )
 

@@ -14,6 +14,7 @@ rule_fit(
   loss_reduction = NULL,
   sample_size = NULL,
   penalty = NULL,
+  stop_iter = NULL,
   engine = "xrf"
 )
 }
@@ -47,6 +48,9 @@ exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
 
 \item{penalty}{L1 regularization parameter.}
+
+\item{stop_iter}{The number of iterations without improvement before
+stopping (specific engines only).}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}

@@ -9,7 +9,7 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 8 tuning parameters:
 
-- `mtry`: Proportion Randomly Selected Predictors (type: double, default: 1.0)
+- `mtry`: Proportion Randomly Selected Predictors (type: double, default: see below)
 
 - `trees`: # Trees (type: integer, default: 15L)
 
@@ -66,9 +66,10 @@ rule_fit(
 ## 
 ## Model fit template:
 ## rules::xrf_fit(object = missing_arg(), data = missing_arg(), 
-##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
-##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
-##     subsample = numeric(1), lambda = numeric(1))
+##     xgb_control = missing_arg(), colsample_bynode = numeric(1), 
+##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), 
+##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), 
+##     lambda = numeric(1))
 ```
 
 ## Translation from parsnip to the underlying model call  (classification)
@@ -112,9 +113,10 @@ rule_fit(
 ## 
 ## Model fit template:
 ## rules::xrf_fit(object = missing_arg(), data = missing_arg(), 
-##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
-##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
-##     subsample = numeric(1), lambda = numeric(1))
+##     xgb_control = missing_arg(), colsample_bynode = numeric(1), 
+##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), 
+##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), 
+##     lambda = numeric(1))
 ```
 
 ## Differences from the xrf package
