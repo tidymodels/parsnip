@@ -18,7 +18,7 @@ By default h2o applies no regularization and `penalty` is set to zero. When the 
 
 ## Translation from parsnip to the original package
 
-`agua` uses the [agua::h2o_train_glm()] wrapper function for fitting the logistic regression model, which calls [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
+[agua::h2o_train_glm()] is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
 
 
 ```r
@@ -56,12 +56,6 @@ logistic_reg() %>%
 ## Model fit template:
 ## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE)
 ```
-
-Other h2o engine arguments of interest: 
-
-
-- `solver`: The solver method used in optimization, the default `"auto"` works well in most cases
-
 
 ## Preprocessing requirements
 

@@ -26,8 +26,7 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 
 \subsection{Translation from parsnip to the original package}{
 
-\code{agua} uses the \code{\link[agua:h2o_train]{agua::h2o_train_glm()}} wrapper
-function for fitting the logistic regression model, which calls
+\code{\link[agua:h2o_train]{agua::h2o_train_glm()}} is a wrapper around
 \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will automatically picks the
 link function and distribution family or binomial responses.
 
@@ -62,12 +61,6 @@ pass in as an engine argument to \code{set_engine()}:
 ## Model fit template:
 ## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE)
 }\if{html}{\out{</div>}}
-
-Other h2o engine arguments of interest:
-\itemize{
-\item \code{solver}: The solver method used in optimization, the default
-\code{"auto"} works well in most cases
-}
 }
 
 \subsection{Preprocessing requirements}{

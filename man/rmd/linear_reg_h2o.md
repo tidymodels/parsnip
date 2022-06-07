@@ -17,7 +17,8 @@ By default h2o applies no regularization and `penalty` is set to zero. When the 
 
 ## Translation from parsnip to the original package
 
-The h2o engine uses `family = "gaussian"` in [h2o::h2o.glm()] to fit linear models. 
+[agua::h2o_train_glm()] is a wrapper around [h2o::h2o.glm()] with `family = "gaussian"`.
+
 
 
 ```r

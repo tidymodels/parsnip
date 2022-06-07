@@ -24,8 +24,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 
 \subsection{Translation from parsnip to the original package}{
 
-The h2o engine uses \code{family = "gaussian"} in
-\code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} to fit linear models.
+\code{\link[agua:h2o_train]{agua::h2o_train_glm()}} is a wrapper around
+\code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with \code{family = "gaussian"}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1, mixture = 0.5) \%>\% 
   set_engine("h2o") \%>\% 
