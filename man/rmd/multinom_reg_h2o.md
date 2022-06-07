@@ -1,7 +1,7 @@
 
 
 
-For this engine, there is a single mode: regression
+For this engine, there is a single mode: classification
 
 ## Tuning Parameters
 
@@ -17,28 +17,27 @@ By default [h2o::h2o.glm()] applies no regularization and `penalty` is set to ze
 
 ## Translation from parsnip to the original package
 
-[agua::h2o_train_glm()] for `linear_reg()` is a wrapper around [h2o::h2o.glm()] with `family = "gaussian"`.
-
+[agua::h2o_train_glm()] for `multinom_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'multinomial'`. 
 
 
 ```r
-linear_reg(penalty = 1, mixture = 0.5) %>% 
+multinom_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("h2o") %>% 
   translate()
 ```
 
 ```
-## Linear Regression Model Specification (regression)
+## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
-##   penalty = 1
-##   mixture = 0.5
+##   penalty = double(1)
+##   mixture = double(1)
 ## 
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = 1, 
-##     alpha = 0.5, family = "gaussian")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(), 
+##     lambda = double(1), alpha = double(1), family = "multinomial")
 ```
 
 ## Preprocessing requirements
@@ -49,5 +48,6 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
 

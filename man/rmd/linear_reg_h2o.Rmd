@@ -22,11 +22,11 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-By default h2o applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
+By default [h2o::h2o.glm()] applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
 
 ## Translation from parsnip to the original package
 
-[agua::h2o_train_glm()] is a wrapper around [h2o::h2o.glm()] with `family = "gaussian"`.
+[agua::h2o_train_glm()] for `linear_reg()` is a wrapper around [h2o::h2o.glm()] with `family = "gaussian"`.
 
 
 ```{r h2o-csl}

@@ -14,11 +14,11 @@ This model has 2 tuning parameters:
 
 - `penalty`: Amount of Regularization (type: double, default: 0)
 
-By default h2o applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
+By default [h2o::h2o.glm()] applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
 
 ## Translation from parsnip to the original package
 
-[agua::h2o_train_glm()] is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
+[agua::h2o_train_glm()] for `logistic_reg()` is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
 
 
 ```r

@@ -19,16 +19,18 @@ below)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0)
 }
 
-By default h2o applies no regularization and \code{penalty} is set to zero.
-When the engine parameter \code{solver} is set to \code{'L-BFGS'}, \code{mixture}
-defaults to 0 (ridge regression) and 0.5 otherwise.
+By default \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} applies no regularization
+and \code{penalty} is set to zero. When the engine parameter \code{solver} is set
+to \code{'L-BFGS'}, \code{mixture} defaults to 0 (ridge regression) and 0.5
+otherwise.
 }
 
 \subsection{Translation from parsnip to the original package}{
 
-\code{\link[agua:h2o_train]{agua::h2o_train_glm()}} is a wrapper around
-\code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will automatically picks the
-link function and distribution family or binomial responses.
+\code{\link[agua:h2o_train]{agua::h2o_train_glm()}} for \code{logistic_reg()} is
+a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will
+automatically picks the link function and distribution family or
+binomial responses.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("h2o") \%>\% 
