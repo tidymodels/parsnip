@@ -1,0 +1,106 @@
+
+
+
+For this engine, there are multiple modes: classification and regression
+
+## Tuning Parameters
+
+
+
+This model has 3 tuning parameters:
+
+- `trees`: # Trees (type: integer, default: 50L)
+
+- `tree_depth`: Tree Depth (type: integer, default: 3L)
+
+- `penalty`: Amount of Regularization (type: double, default: 0)
+Note that `penalty` for the h2o engine corresponds to the L1 penalty (LASSO). 
+
+
+Other engine arguments of interest: 
+
+- `algorithm`: The algorithm to use to generate rules. should be one of "AUTO", "DRF", "GBM", defaults to "AUTO".
+
+- `min_rule_length`: Minimum length of tree depth, opposite of `tree_dpeth`, defaults to 3.
+
+- `max_num_rules`: The maximum number of rules to return. The default value of -1 means the number of rules is selected by diminishing returns in model deviance. 
+
+- `model_type`: The type of base learners in the ensemble, should be one of: "rules_and_linear", "rules", "linear", defaults to "rules_and_linear".
+
+
+## Translation from parsnip to the underlying model call  (regression)
+
+[agua::h2o_train_rule()] is a wrapper around [h2o::h2o.rulefit()]. 
+
+The **agua** extension package is required to fit this model.
+
+
+```r
+library(rules)
+
+rule_fit(
+  trees = integer(1),
+  tree_depth = integer(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("h2o") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+```
+## RuleFit Model Specification (regression)
+## 
+## Main Arguments:
+##   trees = integer(1)
+##   tree_depth = integer(1)
+##   penalty = numeric(1)
+## 
+## Computational engine: h2o 
+## 
+## Model fit template:
+## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), rule_generation_ntrees = integer(1), 
+##     max_rule_length = integer(1), lambda = numeric(1))
+```
+
+## Translation from parsnip to the underlying model call  (classification)
+
+The **agua** extension package is required to fit this model.
+
+
+
+```r
+rule_fit(
+  trees = integer(1),
+  tree_depth = integer(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("h2o") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+```
+## RuleFit Model Specification (classification)
+## 
+## Main Arguments:
+##   trees = integer(1)
+##   tree_depth = integer(1)
+##   penalty = numeric(1)
+## 
+## Computational engine: h2o 
+## 
+## Model fit template:
+## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), rule_generation_ntrees = integer(1), 
+##     max_rule_length = integer(1), lambda = numeric(1))
+```
+
+
+
+## Other details
+
+### Preprocessing requirements
+
+
+Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
+

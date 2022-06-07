@@ -25,7 +25,7 @@ This model has 1 tuning parameter:
 
 ## Translation from parsnip to the original package
 
-
+The **agua** extension package is required to fit this model.
 
 [agua::h2o_train_nb()] is a wrapper around [h2o.naiveBayes()]. 
 

@@ -34,6 +34,8 @@ enough data.
 
 \subsection{Translation from parsnip to the original package}{
 
+The \strong{agua} extension package is required to fit this model.
+
 \code{\link[agua:h2o_train]{agua::h2o_train_nb()}} is a wrapper around
 \code{\link[=h2o.naiveBayes]{h2o.naiveBayes()}}.
 

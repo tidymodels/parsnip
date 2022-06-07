@@ -36,15 +36,17 @@ When \code{stop_iter} is not 0, \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}
 uses logloss for classification, deviance for regression and anonomaly
 score for Isolation Forest. This is mostly useful when used alongside
 the engine parameter \code{validation}, which is the \strong{proportion} of
-train-validation split, in which case
-\code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}} will evaluate the metric and
-early stopping criteria on the validation set.
+train-validation split, parsnip will split and pass the two data frames
+to h2o. Then \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}} will evaluate
+the metric and early stopping criteria on the validation set.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
 \code{\link[agua:h2o_train]{agua::h2o_train_xgboost()}} is a wrapper
 around \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}}.
+
+The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
@@ -77,6 +79,8 @@ around \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}}.
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{
+
+The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 

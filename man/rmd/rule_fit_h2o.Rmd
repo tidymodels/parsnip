@@ -1,0 +1,81 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("rule_fit", "h2o")`
+
+## Tuning Parameters
+
+```{r h2o-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "trees", "penalty"),
+                 default = c("3L", "50L", 0))
+
+param <-
+  rule_fit() %>% 
+  set_engine("h2o") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r h2o-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+Note that `penalty` for the h2o engine corresponds to the L1 penalty (LASSO). 
+
+
+Other engine arguments of interest: 
+
+- `algorithm`: The algorithm to use to generate rules. should be one of "AUTO", "DRF", "GBM", defaults to "AUTO".
+
+- `min_rule_length`: Minimum length of tree depth, opposite of `tree_dpeth`, defaults to 3.
+
+- `max_num_rules`: The maximum number of rules to return. The default value of -1 means the number of rules is selected by diminishing returns in model deviance. 
+
+- `model_type`: The type of base learners in the ensemble, should be one of: "rules_and_linear", "rules", "linear", defaults to "rules_and_linear".
+
+
+## Translation from parsnip to the underlying model call  (regression)
+
+[agua::h2o_train_rule()] is a wrapper around [h2o::h2o.rulefit()]. 
+
+`r uses_extension("rule_fit", "h2o", "regression")`
+
+```{r h2o-reg}
+library(rules)
+
+rule_fit(
+  trees = integer(1),
+  tree_depth = integer(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("h2o") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+## Translation from parsnip to the underlying model call  (classification)
+
+`r uses_extension("rule_fit", "h2o", "classification")`
+
+
+```{r h2o-cls}
+rule_fit(
+  trees = integer(1),
+  tree_depth = integer(1),
+  penalty = numeric(1)
+) %>%
+  set_engine("h2o") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+
+
+## Other details
+
+### Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
