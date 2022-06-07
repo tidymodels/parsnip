@@ -28,6 +28,7 @@ Imports:
     hardhat (>= 1.0.0),
     lifecycle,
     magrittr,
+    pillar,
     prettyunits,
     purrr,
     rlang (>= 0.3.1),
