@@ -132,12 +132,11 @@ Also, there are several configuration differences in how `xrf()` is fit between 
 
 These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
 
-## Other details
-
-### Preprocessing requirements
-
+## Preprocessing requirements
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
+
+## Other details
 
 ### Interpreting `mtry`
 
