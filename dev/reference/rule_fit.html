@@ -24,7 +24,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,6 +98,7 @@ fit classification and regression models.</p>
   learn_rate <span class="op">=</span> <span class="cn">NULL</span>,
   loss_reduction <span class="op">=</span> <span class="cn">NULL</span>,
   sample_size <span class="op">=</span> <span class="cn">NULL</span>,
+  stop_iter <span class="op">=</span> <span class="cn">NULL</span>,
   penalty <span class="op">=</span> <span class="cn">NULL</span>,
   engine <span class="op">=</span> <span class="st">"xrf"</span>
 <span class="op">)</span></code></pre></div>
@@ -133,6 +134,9 @@ to split further (specific engines only).</p></dd>
 <dd><p>A number for the number (or proportion) of data that is
 exposed to the fitting routine. For <code>xgboost</code>, the sampling is done at
 each iteration while <code>C5.0</code> samples once during training.</p></dd>
+<dt>stop_iter</dt>
+<dd><p>The number of iterations without improvement before
+stopping (specific engines only).</p></dd>
 <dt>penalty</dt>
 <dd><p>L1 regularization parameter.</p></dd>
 <dt>engine</dt>
