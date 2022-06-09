@@ -38,6 +38,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = 'poisson'}.
 
+The \strong{agua} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
 poisson_reg(penalty = double(1), mixture = double(1)) \%>\% 
@@ -81,6 +83,12 @@ first. By default, This connects R to the local h2o server. This needs
 to be done in every new R session. You can also connect to a remote h2o
 server with an IP address, for more details see
 \code{\link[h2o:h2o.init]{h2o::h2o.init()}}.
+
+You can control the number of threads in the thread pool used by h2o
+with the \code{nthreads} argument. By default, it uses all CPUs on the host.
+This is different from the usual parallel processing mechanism in
+tidymodels for tuning, while tidymodels parallelizes over resamples, h2o
+parallelizes over hyperparameter combinations for a given resample.
 
 h2o will automatically shut down the local h2o instance started by R
 when R is terminated. To manually stop the h2o server, run

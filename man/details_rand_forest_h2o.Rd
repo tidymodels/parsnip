@@ -102,6 +102,12 @@ to be done in every new R session. You can also connect to a remote h2o
 server with an IP address, for more details see
 \code{\link[h2o:h2o.init]{h2o::h2o.init()}}.
 
+You can control the number of threads in the thread pool used by h2o
+with the \code{nthreads} argument. By default, it uses all CPUs on the host.
+This is different from the usual parallel processing mechanism in
+tidymodels for tuning, while tidymodels parallelizes over resamples, h2o
+parallelizes over hyperparameter combinations for a given resample.
+
 h2o will automatically shut down the local h2o instance started by R
 when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
