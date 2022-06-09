@@ -21,7 +21,7 @@ This model has `r nrow(param)` tuning parameters:
 ```{r h2o-param-list, echo = FALSE, results = "asis"}
 param$item
 ```
-Note that `penalty` for the h2o engine corresponds to the L1 penalty (LASSO). 
+Note that `penalty` for the h2o engine in `rule_fit()`` corresponds to the L1 penalty (LASSO). 
 
 
 Other engine arguments of interest: 
@@ -56,8 +56,11 @@ rule_fit(
 
 ## Translation from parsnip to the underlying model call  (classification)
 
-`r uses_extension("rule_fit", "h2o", "classification")`
 
+
+[agua::h2o_train_rule()] for `rule_fit()` is a wrapper around [h2o::h2o.rulefit()]. 
+
+`r uses_extension("rule_fit", "h2o", "classification")`
 
 ```{r h2o-cls}
 rule_fit(
@@ -70,12 +73,12 @@ rule_fit(
   translate()
 ```
 
-
-
-## Other details
-
-### Preprocessing requirements
+## Preprocessing requirements
 
 ```{r child = "template-makes-dummies.Rmd"}
 ```
 
+## Other details
+
+```{r child = "template-h2o-init.Rmd"}
+```

@@ -8,7 +8,7 @@
 ```{r h2o-param-info, echo = FALSE}
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
-                 default = c("0", "see below"))
+                 default = c("see below", "see below"))
 
 param <-
 multinom_reg() %>% 
@@ -22,7 +22,8 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-By default [h2o::h2o.glm()] applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
+```{r, child = "template-h2o-glm-penalty.Rmd", include = FALSE}
+```
 
 ## Translation from parsnip to the original package
 
@@ -44,3 +45,7 @@ multinom_reg(penalty = double(1), mixture = double(1)) %>%
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
 
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```

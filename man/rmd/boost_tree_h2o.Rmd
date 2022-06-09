@@ -58,17 +58,20 @@ boost_tree(
   translate()
 ```
 
-## Other details
 
-### Preprocessing
+## Preprocessing
 
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
 Non-numeric predictors (i.e., factors) are internally converted to numeric. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric. 
 
-### Interpreting `mtry`
+## Interpreting `mtry`
 
 ```{r child = "template-mtry-prop.Rmd"}
 ```
 
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```

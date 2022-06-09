@@ -11,9 +11,12 @@ This model has 2 tuning parameters:
 
 - `mixture`: Proportion of Lasso Penalty (type: double, default: see below)
 
-- `penalty`: Amount of Regularization (type: double, default: 0)
+- `penalty`: Amount of Regularization (type: double, default: see below)
 
-By default [h2o::h2o.glm()] applies no regularization and `penalty` is set to zero. When the engine parameter `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
+
+By default, when not given a fixed `penalty`, [h2o::h2o.glm()] uses a heuristic approach to select the optimal value of `penalty` based on training data. Setting the engine parameter `lambda_search` to `TRUE` enables an efficient version of the grid search, see more details at <https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search>. 
+
+The choice of `mixture` depends on the engine parameter `solver`, which is automatically chosen given training data and the specification of other model parameters. When `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
 
 ## Translation from parsnip to the original package
 
@@ -51,3 +54,9 @@ scale each so that each predictor has mean zero and a variance of one.
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
 
+## Initializing h2o 
+
+
+To use the h2o engine with tidymodels, please run `h2o::h2o.init()` first. By default, This connects R to the local h2o server. This needs to be done in every new R session. You can also connect to a remote h2o server with an IP address, for more details see [h2o::h2o.init()]. 
+
+h2o will automatically shut down the local h2o instance started by R when R is terminated. To manually stop the h2o server, run `h2o::h2o.shutdown()`. 

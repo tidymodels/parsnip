@@ -91,6 +91,7 @@
 "poisson_reg"	"regression"	"glm"	"poissonreg"
 "poisson_reg"	"regression"	"glmer"	"multilevelmod"
 "poisson_reg"	"regression"	"glmnet"	"poissonreg"
+"poisson_reg"	"regression"	"h2o"	"agua"
 "poisson_reg"	"regression"	"hurdle"	"poissonreg"
 "poisson_reg"	"regression"	"stan"	"poissonreg"
 "poisson_reg"	"regression"	"stan_glmer"	"multilevelmod"

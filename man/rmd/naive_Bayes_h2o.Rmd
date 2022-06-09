@@ -45,3 +45,8 @@ naive_Bayes(Laplace = numeric(0)) %>%
   set_engine("h2o") %>% 
   translate()
 ```
+
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```

@@ -93,5 +93,18 @@ Categorical predictors can be partitioned into groups of factor levels
 (e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
 are not required for this model.
 }
+
+\subsection{Initializing h2o}{
+
+To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}
+first. By default, This connects R to the local h2o server. This needs
+to be done in every new R session. You can also connect to a remote h2o
+server with an IP address, for more details see
+\code{\link[h2o:h2o.init]{h2o::h2o.init()}}.
+
+h2o will automatically shut down the local h2o instance started by R
+when R is terminated. To manually stop the h2o server, run
+\code{h2o::h2o.shutdown()}.
+}
 }
 \keyword{internal}

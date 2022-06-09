@@ -81,4 +81,8 @@ mlp(
 By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
 
 
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```
 

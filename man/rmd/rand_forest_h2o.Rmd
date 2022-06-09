@@ -58,3 +58,9 @@ rand_forest(
 
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
+
+
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```

@@ -1,7 +1,7 @@
 ```{r, child = "aaa.Rmd", include = FALSE}
 ```
 
-`r descr_models("linear_reg", "h2o")`
+`r descr_models("poisson_reg", "h2o")`
 
 ## Tuning Parameters
 
@@ -11,7 +11,7 @@ defaults <-
                  default = c("see below", "see below"))
 
 param <-
-linear_reg() %>% 
+poisson_reg() %>% 
   set_engine("h2o") %>% 
   make_parameter_list(defaults)
 ```
@@ -27,11 +27,14 @@ param$item
 
 ## Translation from parsnip to the original package
 
-[agua::h2o_train_glm()] for `linear_reg()` is a wrapper around [h2o::h2o.glm()] with `family = "gaussian"`.
+[agua::h2o_train_glm()] for `poisson_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'poisson'`. 
 
+`r uses_extension("poisson_reg", "h2o", "regression")`
 
 ```{r h2o-csl}
-linear_reg(penalty = 1, mixture = 0.5) %>% 
+library(poissonreg)
+
+poisson_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("h2o") %>% 
   translate()
 ```
@@ -44,9 +47,10 @@ linear_reg(penalty = 1, mixture = 0.5) %>%
 ```{r child = "template-same-scale.Rmd"}
 ```
 
-By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
+By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to center and scale all numerical columns. 
 
-## Initializing h2o 
+
+## Initializing h2o  
 
 ```{r child = "template-h2o-init.Rmd"}
 ```

@@ -103,16 +103,15 @@ boost_tree(
 ##     stopping_rounds = integer())
 ```
 
-## Other details
 
-### Preprocessing
+## Preprocessing
 
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
 
 Non-numeric predictors (i.e., factors) are internally converted to numeric. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric. 
 
-### Interpreting `mtry`
+## Interpreting `mtry`
 
 
 The `mtry` argument denotes the number of predictors that will be randomly sampled at each split when creating tree models. 
@@ -123,3 +122,9 @@ parsnip and its extensions accommodate this parameterization using the `counts` 
 
 `mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation---currently `"xgboost"`, `"xrf"` (via the rules package), and `"lightgbm"` (via the bonsai package)---the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
 
+## Initializing h2o 
+
+
+To use the h2o engine with tidymodels, please run `h2o::h2o.init()` first. By default, This connects R to the local h2o server. This needs to be done in every new R session. You can also connect to a remote h2o server with an IP address, for more details see [h2o::h2o.init()]. 
+
+h2o will automatically shut down the local h2o instance started by R when R is terminated. To manually stop the h2o server, run `h2o::h2o.shutdown()`. 

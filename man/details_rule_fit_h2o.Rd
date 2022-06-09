@@ -17,8 +17,8 @@ This model has 3 tuning parameters:
 \item \code{trees}: # Trees (type: integer, default: 50L)
 \item \code{tree_depth}: Tree Depth (type: integer, default: 3L)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0) Note
-that \code{penalty} for the h2o engine corresponds to the L1 penalty
-(LASSO).
+that \code{penalty} for the h2o engine in `rule_fit()`` corresponds to
+the L1 penalty (LASSO).
 }
 
 Other engine arguments of interest:
@@ -72,6 +72,9 @@ rule_fit(
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
+\code{\link[agua:h2o_train]{agua::h2o_train_rule()}} for \code{rule_fit()} is a
+wrapper around \code{\link[h2o:h2o.rulefit]{h2o::h2o.rulefit()}}.
+
 The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{rule_fit(
@@ -99,7 +102,6 @@ The \strong{agua} extension package is required to fit this model.
 }\if{html}{\out{</div>}}
 }
 
-\subsection{Other details}{
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
@@ -108,6 +110,17 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
 will convert factor columns to indicators.
 }
 
+\subsection{Other details}{
+
+To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}
+first. By default, This connects R to the local h2o server. This needs
+to be done in every new R session. You can also connect to a remote h2o
+server with an IP address, for more details see
+\code{\link[h2o:h2o.init]{h2o::h2o.init()}}.
+
+h2o will automatically shut down the local h2o instance started by R
+when R is terminated. To manually stop the h2o server, run
+\code{h2o::h2o.shutdown()}.
 }
 }
 \keyword{internal}

@@ -1,8 +1,7 @@
 
 
 
-
-For this engine, there is a single mode: classification
+For this engine, there is a single mode: regression
 
 ## Tuning Parameters
 
@@ -19,47 +18,33 @@ By default, when not given a fixed `penalty`, [h2o::h2o.glm()] uses a heuristic 
 
 The choice of `mixture` depends on the engine parameter `solver`, which is automatically chosen given training data and the specification of other model parameters. When `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 
 
-
 ## Translation from parsnip to the original package
 
-[agua::h2o_train_glm()] for `logistic_reg()` is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
+[agua::h2o_train_glm()] for `poisson_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'poisson'`. 
+
+
 
 
 ```r
-logistic_reg() %>% 
+library(poissonreg)
+
+poisson_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("h2o") %>% 
   translate()
 ```
 
 ```
-## Logistic Regression Model Specification (classification)
+## Poisson Regression Model Specification (regression)
+## 
+## Main Arguments:
+##   penalty = double(1)
+##   mixture = double(1)
 ## 
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")
-```
-
-To use a non-default argument in [h2o::h2o.glm()], pass in as an engine argument to `set_engine()`:
-
-
-```r
-logistic_reg() %>% 
-  set_engine("h2o", compute_p_values = TRUE) %>% 
-  translate()
-```
-
-```
-## Logistic Regression Model Specification (classification)
-## 
-## Engine-Specific Arguments:
-##   compute_p_values = TRUE
-## 
-## Computational engine: h2o 
-## 
-## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, 
-##     family = "binomial")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = double(1), 
+##     alpha = double(1), family = "poisson")
 ```
 
 ## Preprocessing requirements
@@ -71,10 +56,10 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
 
-By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
+By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to center and scale all numerical columns. 
 
 
-## Initializing h2o 
+## Initializing h2o  
 
 
 To use the h2o engine with tidymodels, please run `h2o::h2o.init()` first. By default, This connects R to the local h2o server. This needs to be done in every new R session. You can also connect to a remote h2o server with an IP address, for more details see [h2o::h2o.init()]. 
