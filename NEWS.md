@@ -23,6 +23,8 @@
 
 * Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
 
+* Fixed a bug where an error would be thrown if arguments to model functions were namespaced (#745).
+
 * Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new `print_model_spec()` helper is exported for use in extensions if desired (#739).
 
 
