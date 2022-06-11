@@ -7,9 +7,11 @@ For this engine, there is a single mode: classification
 
 
 
-This model has 1 tuning parameters:
+This model has 2 tuning parameters:
 
 - `trees`: # Trees (type: integer, default: 1L)
+
+- `min_n`: Minimal Node Size (type: integer, default: 2L)
 
 Note that C5.0 has a tool for _early stopping_ during boosting where less iterations of boosting are performed than the number requested. `C5_rules()` turns this feature off (although it can be re-enabled using [C50::C5.0Control()]).
 

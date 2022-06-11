@@ -34,8 +34,8 @@ discrim_linear(penalty = numeric(0)) %>%
 ## Computational engine: mda 
 ## 
 ## Model fit template:
-## mda::fda(formula = missing_arg(), data = missing_arg(), lambda = numeric(0), 
-##     method = mda::gen.ridge, keep.fitted = FALSE)
+## mda::fda(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     lambda = numeric(0), method = mda::gen.ridge, keep.fitted = FALSE)
 ```
 
 ## Preprocessing requirements

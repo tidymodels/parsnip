@@ -85,7 +85,8 @@ rand_forest() %>%
 ## Computational engine: partykit 
 ## 
 ## Model fit template:
-## parsnip::cforest_train(formula = missing_arg(), data = missing_arg())
+## parsnip::cforest_train(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
 ```
 
 `censored::cond_inference_surv_cforest()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 

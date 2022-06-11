@@ -104,7 +104,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ## 
 ## Model fit template:
 ## parsnip::ctree_train(formula = missing_arg(), data = missing_arg(), 
-##     maxdepth = integer(1), minsplit = min_rows(0L, data))
+##     weights = missing_arg(), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
 ```
 
 `censored::cond_inference_surv_ctree()` is a wrapper around [partykit::ctree()] (and other functions) that makes it easier to run this model. 
