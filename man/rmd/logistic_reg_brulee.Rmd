@@ -50,6 +50,11 @@ logistic_reg(penalty = double(1)) %>%
 ```{r child = "template-same-scale.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

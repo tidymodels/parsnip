@@ -89,6 +89,11 @@ lme_wflow <-
 fit(lme_wflow, data = riesby)
 ```
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
 - J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY

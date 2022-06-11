@@ -197,7 +197,10 @@ gls_fit %>% tidy()
 ## 2 week           -2.12     0.224     -9.47 2.26e-18
 ```
 
+## Case weights
 
+
+The underlying model implementation does not allow for case weights. 
 
 ## References
 

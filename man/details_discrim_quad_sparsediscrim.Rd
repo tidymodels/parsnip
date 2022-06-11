@@ -67,6 +67,11 @@ unique value) within each class should be eliminated before fitting the
 model.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item \code{qda_diag()}: Dudoit, Fridlyand and Speed (2002) Comparison of

@@ -45,6 +45,7 @@ reference:
       - discrim_quad
       - discrim_regularized
       - gen_additive_mod
+      - glm_grouped
       - linear_reg
       - logistic_reg
       - mars
@@ -67,6 +68,7 @@ reference:
       - autoplot.model_fit
       - add_rowindex
       - augment.model_fit
+      - case_weights
       - descriptors
       - extract-parsnip
       - fit.model_spec
@@ -99,3 +101,4 @@ reference:
       - required_pkgs
       - required_pkgs.model_spec
       - req_pkgs
+      - .model_param_name_key

@@ -88,6 +88,11 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - Hechenbichler K. and Schliep K.P. (2004) [Weighted k-Nearest-Neighbor Techniques and Ordinal Classification](https://epub.ub.uni-muenchen.de/1769/), Discussion Paper 399, SFB 386, Ludwig-Maximilians University Munich

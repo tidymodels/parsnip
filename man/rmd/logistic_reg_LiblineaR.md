@@ -36,8 +36,8 @@ logistic_reg(penalty = double(1), mixture = double(1)) %>%
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     cost = Inf, type = double(1), verbose = FALSE)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = Inf, 
+##     type = double(1), verbose = FALSE)
 ```
 
 ## Preprocessing requirements

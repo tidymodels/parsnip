@@ -1,3 +1,4 @@
+
 test_that('updating', {
   expect_snapshot(
     rand_forest(mode = "regression", mtry = 2) %>%

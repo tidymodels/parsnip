@@ -1,9 +1,3 @@
-test_that("printing", {
-  expect_snapshot(
-    proportional_hazards()
-  )
-})
-
 test_that("updating", {
   expect_snapshot(
     proportional_hazards() %>%

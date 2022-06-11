@@ -51,18 +51,6 @@ rand_forest <-
     )
   }
 
-#' @export
-print.rand_forest <- function(x, ...) {
-  cat("Random Forest Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update rand_forest

@@ -4,7 +4,7 @@
       svm_poly(mode = "regression", degree = 2) %>% set_engine("kernlab", cross = 10) %>%
         update(degree = tune(), cross = tune())
     Output
-      Polynomial Support Vector Machine Specification (regression)
+      Polynomial Support Vector Machine Model Specification (regression)
       
       Main Arguments:
         degree = tune()

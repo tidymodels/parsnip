@@ -49,7 +49,7 @@ knit_engine_docs <- function(pattern = NULL) {
 
 extensions <- function() {
   c("baguette", "censored", "discrim", "multilevelmod", "plsmod",
-    "poissonreg", "rules", "bonsai")
+    "poissonreg", "rules", "bonsai", "agua")
 }
 
 # ------------------------------------------------------------------------------

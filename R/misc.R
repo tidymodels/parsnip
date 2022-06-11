@@ -22,60 +22,6 @@ check_empty_ellipse <- function (...)  {
   terms
 }
 
-deparserizer <- function(x, limit = options()$width - 10) {
-  x <- deparse(x, width.cutoff = limit)
-  x <- gsub("^    ", "", x)
-  x <- paste0(x, collapse = "")
-  if (nchar(x) > limit)
-    x <- paste0(substring(x, first = 1, last = limit - 7), "<snip>")
-  x
-}
-
-print_arg_list <- function(x, ...) {
-  atomic <- vapply(x, is.atomic, logical(1))
-  x2 <- x
-  x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
-  res <- paste0("  ", names(x2), " = ", x2, collaspe = "\n")
-  cat(res, sep = "")
-}
-
-#' Print helper for model objects
-#'
-#' A common format function that prints information about the model object (e.g.
-#' arguments, calls, packages, etc).
-#'
-#' @param x A model object.
-#' @param ... Not currently used.
-#' @keywords internal
-#' @export
-model_printer <- function(x, ...) {
-  non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
-  if (length(non_null_args) > 0) {
-    cat("Main Arguments:\n")
-    non_null_args <- map(non_null_args, convert_arg)
-    cat(print_arg_list(non_null_args), "\n", sep = "")
-  }
-  if (length(x$eng_args) > 0) {
-    cat("Engine-Specific Arguments:\n")
-    x$eng_args <- map(x$eng_args, convert_arg)
-    cat(print_arg_list(x$eng_args), "\n", sep = "")
-  }
-  if (!is.null(x$engine)) {
-    cat("Computational engine:", x$engine, "\n\n")
-    if (!is.null(x$method$fit_call)) {
-      cat("Fit function:\n")
-      print(x$method$fit_call)
-      if (length(x$method$libs) > 0) {
-        if (length(x$method$libs) > 1)
-          cat("\nRequired packages:\n")
-        else
-          cat("\nRequired package: ")
-        cat(paste0(x$method$libs, collapse = ", "), "\n")
-      }
-    }
-  }
-}
-
 is_missing_arg <- function(x)
   identical(x, quote(missing_arg()))
 
@@ -437,4 +383,19 @@ stan_conf_int <- function(object, newdata) {
     )
 
   penalty
+}
+
+
+check_case_weights <- function(x, spec) {
+  if (is.null(x) | spec$engine == "spark") {
+    return(invisible(NULL))
+  }
+  if (!hardhat::is_case_weights(x)) {
+    rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+  }
+  allowed <- case_weights_allowed(spec)
+  if (!allowed) {
+    rlang::abort("Case weights are not enabled by the underlying model implementation.")
+  }
+  invisible(NULL)
 }

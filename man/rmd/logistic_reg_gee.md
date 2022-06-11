@@ -80,6 +80,11 @@ The `gee::gee()` function always prints out warnings and output even when `silen
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using generalized linear models. _Biometrika_, 73 13–22.

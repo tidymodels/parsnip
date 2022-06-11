@@ -51,20 +51,6 @@ poisson_reg <-
     )
   }
 
-#' @export
-print.poisson_reg <- function(x, ...) {
-  cat("Poisson Regression Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-
 # ------------------------------------------------------------------------------
 
 #' @method update poisson_reg

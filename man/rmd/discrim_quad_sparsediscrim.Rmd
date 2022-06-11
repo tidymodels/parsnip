@@ -48,6 +48,11 @@ discrim_quad(regularization_method = character(0)) %>%
 ```{r child = "template-zv-conditional.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## References
 
  - `qda_diag()`: Dudoit, Fridlyand and Speed (2002) Comparison of Discrimination Methods for the Classification of Tumors Using Gene Expression Data, _Journal of the American Statistical Association_, 97:457, 77-87. 
