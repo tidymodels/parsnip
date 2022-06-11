@@ -118,6 +118,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_lightgbm.html</loc>
   </url>
   <url>
@@ -190,6 +193,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.html</loc>
   </url>
   <url>
@@ -229,6 +235,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmnet.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras.html</loc>
   </url>
   <url>
@@ -247,6 +256,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc>
   </url>
   <url>
@@ -259,6 +271,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras.html</loc>
   </url>
   <url>
@@ -266,6 +281,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_h2o.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_klaR.html</loc>
@@ -292,6 +310,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmnet.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_hurdle.html</loc>
   </url>
   <url>
@@ -310,6 +331,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_h2o.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_party.html</loc>
   </url>
   <url>
@@ -323,6 +347,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_rule_fit_h2o.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rule_fit_xrf.html</loc>
