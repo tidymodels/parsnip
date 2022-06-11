@@ -1,0 +1,52 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("naive_Bayes", "h2o")`
+
+## Tuning Parameters
+
+
+```{r h2o-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("Laplace"),
+                 default = c("0.0"))
+
+param <-
+  naive_Bayes() %>% 
+  set_engine("h2o") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameter:
+
+```{r h2o-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+[h2o::h2o.naiveBayes()] provides several engine arguments to deal with imbalances and rare classes: 
+
+- `balance_classes` A logical value controlling over/under-sampling (for imbalanced data). Defaults to `FALSE`.
+
+- `class_sampling_factors` The over/under-sampling ratios per class (in lexicographic order). If not specified, sampling factors will be automatically computed to obtain class balance during training. Require `balance_classes` to be `TRUE`.
+
+- `min_sdev`: The minimum standard deviation to use for observations without enough data, must be greater than 1e-10.
+
+- `min_prob`: The minimum probability to use for observations with not enough data.
+
+
+## Translation from parsnip to the original package
+
+`r uses_extension("naive_Bayes", "h2o", "classification")`
+
+[agua::h2o_train_nb()] is a wrapper around [h2o.naiveBayes()]. 
+
+```{r h2o-cls}
+naive_Bayes(Laplace = numeric(0)) %>% 
+  set_engine("h2o") %>% 
+  translate()
+```
+
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```
