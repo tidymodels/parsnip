@@ -43,7 +43,7 @@ proportional_hazards(penalty = double(1), mixture = double(1)) %>%
 ## 
 ## Model fit template:
 ## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
-##     alpha = double(1))
+##     weights = missing_arg(), alpha = double(1))
 ```
 
 ## Preprocessing requirements
@@ -97,7 +97,10 @@ predict(mod, pred_data, type = "survival", time = 500) %>%
 
 Note that columns used in the `strata()` function _will_ also be estimated in the regular portion of the model (i.e., within the linear predictor).
 
-# Linear predictor values
+Predictions of type `"time"` are predictions of the mean survival time.
+
+## Linear predictor values
+
 
 Since risk regression and parametric survival models are modeling different characteristics (e.g. relative hazard versus event time), their linear predictors will be going in opposite directions. 
 
