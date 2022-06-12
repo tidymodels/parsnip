@@ -26,7 +26,7 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ```
 
 ```
-## GAM Specification (regression)
+## GAM Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)
@@ -50,7 +50,7 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ```
 
 ```
-## GAM Specification (classification)
+## GAM Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)

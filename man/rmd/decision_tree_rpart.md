@@ -117,7 +117,9 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 ## Other details
 
-For the censored regression mode, predictions of type `"time"` are predictions of the mean survival time.
+
+
+Predictions of type `"time"` are predictions of the mean survival time.
 
 ## Examples 
 

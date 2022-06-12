@@ -32,7 +32,7 @@ svm_rbf(
 ```
 
 ```
-## Radial Basis Function Support Vector Machine Specification (regression)
+## Radial Basis Function Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -60,7 +60,7 @@ svm_rbf(
 ```
 
 ```
-## Radial Basis Function Support Vector Machine Specification (classification)
+## Radial Basis Function Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)

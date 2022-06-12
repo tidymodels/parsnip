@@ -75,6 +75,8 @@ survival_reg() %>%
 ## n= 26
 ```
 
+
+
 Predictions of type `"time"` are predictions of the mean survival time.
 
 ## Case weights

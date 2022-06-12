@@ -44,6 +44,8 @@ The main interface for this model uses the formula method since the model specif
 
 For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvreg()] for alternative specifications.
 
+
+
 Predictions of type `"time"` are predictions of the mean survival time.
 
 ## References

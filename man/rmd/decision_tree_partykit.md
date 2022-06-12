@@ -117,7 +117,9 @@ This engine does not require any special encoding of the predictors. Categorical
 
 ## Other details
 
-For the censored regression mode, predictions of type `"time"` are predictions of the median survival time.
+
+
+Predictions of type `"time"` are predictions of the median survival time.
 
 ## References
 

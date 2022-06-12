@@ -84,6 +84,8 @@ proportional_hazards() %>%
 
 Note that columns used in the `strata()` function will not be estimated in the regular portion of the model (i.e., within the linear predictor).
 
+
+
 Predictions of type `"time"` are predictions of the mean survival time.
 
 ## Linear predictor values
