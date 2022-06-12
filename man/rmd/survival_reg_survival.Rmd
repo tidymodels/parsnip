@@ -54,6 +54,8 @@ survival_reg() %>%
   extract_fit_engine()
 ```
 
+Predictions of type `"time"` are predictions of the mean survival time.
+
 ## Case weights
 
 ```{r child = "template-uses-case-weights.Rmd"}

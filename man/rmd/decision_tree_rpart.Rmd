@@ -70,6 +70,10 @@ decision_tree(
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Other details
+
+For the censored regression mode, predictions of type `"time"` are predictions of the mean survival time.
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-rpart) for `decision_tree()` with the `"rpart"` engine.

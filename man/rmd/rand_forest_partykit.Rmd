@@ -73,6 +73,10 @@ rand_forest() %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Other details
+
+For the censored regression mode, predictions of type `"time"` are predictions of the median survival time.
+
 ## References
 
  - [partykit: A Modular Toolkit for Recursive Partytioning in R](https://jmlr.org/papers/v16/hothorn15a.html)
