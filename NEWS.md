@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.0.0
 
 ## Model Specification Changes
 
