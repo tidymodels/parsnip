@@ -83,7 +83,7 @@ below)</p></li>
 the optimal value of <code>penalty</code> based on training data. Setting the
 engine parameter <code>lambda_search</code> to <code>TRUE</code> enables an efficient version
 of the grid search, see more details at
-<a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search" class="external-link">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search</a>.</p>
+<a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html" class="external-link">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html</a>.</p>
 <p>The choice of <code>mixture</code> depends on the engine parameter <code>solver</code>, which
 is automatically chosen given training data and the specification of
 other model parameters. When <code>solver</code> is set to <code>'L-BFGS'</code>, <code>mixture</code>
@@ -97,8 +97,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.</p>
 <p><code>agua::h2o_train_glm()</code> for <code><a href="linear_reg.html">linear_reg()</a></code> is a
 wrapper around <code>h2o::h2o.glm()</code> with
 <code>family = "gaussian"</code>.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span>, mixture <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"h2o"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+<p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span>, mixture <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"h2o"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 </div>
