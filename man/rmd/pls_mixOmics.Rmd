@@ -42,7 +42,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
  - Determines the number of predictors in the data.
  - Adjusts `num_comp` if the value is larger than the number of factors.
  - Determines whether sparsity is required based on the value of `predictor_prop`.
- - Sets the `keepX` argument of [mixOmics::spls()] for sparse models. 
+ - Sets the `keepX` argument of `mixOmics::spls()` for sparse models. 
 
 ## Translation from parsnip to the underlying model call  (classification)
 

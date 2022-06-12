@@ -53,7 +53,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (regression)
+## Single Layer Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -91,7 +91,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (classification)
+## Single Layer Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)

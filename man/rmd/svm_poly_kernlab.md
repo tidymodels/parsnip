@@ -33,7 +33,7 @@ svm_poly(
 ```
 
 ```
-## Polynomial Support Vector Machine Specification (regression)
+## Polynomial Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -64,7 +64,7 @@ svm_poly(
 ```
 
 ```
-## Polynomial Support Vector Machine Specification (classification)
+## Polynomial Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)

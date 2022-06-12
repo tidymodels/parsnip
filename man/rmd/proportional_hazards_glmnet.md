@@ -43,7 +43,7 @@ proportional_hazards(penalty = double(1), mixture = double(1)) %>%
 ## 
 ## Model fit template:
 ## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
-##     alpha = double(1))
+##     weights = missing_arg(), alpha = double(1))
 ```
 
 ## Preprocessing requirements
