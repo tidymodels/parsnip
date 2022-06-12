@@ -72,7 +72,8 @@ decision_tree(
 
 ## Other details
 
-For the censored regression mode, predictions of type `"time"` are predictions of the mean survival time.
+```{r child = "template-survival-mean.Rmd"}
+```
 
 ## Examples 
 

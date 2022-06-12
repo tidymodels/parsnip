@@ -75,7 +75,8 @@ rand_forest() %>%
 
 ## Other details
 
-For the censored regression mode, predictions of type `"time"` are predictions of the median survival time.
+```{r child = "template-survival-median.Rmd"}
+```
 
 ## References
 

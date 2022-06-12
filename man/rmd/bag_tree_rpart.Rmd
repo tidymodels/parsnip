@@ -79,7 +79,8 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Other details
 
-For the censored regression mode, predictions of type `"time"` are predictions of the median survival time.
+```{r child = "template-survival-median.Rmd"}
+```
 
 ## References
 
