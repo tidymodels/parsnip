@@ -24,7 +24,7 @@ By default, when not given a fixed \code{penalty},
 the optimal value of \code{penalty} based on training data. Setting the
 engine parameter \code{lambda_search} to \code{TRUE} enables an efficient version
 of the grid search, see more details at
-\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search}.
+\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html}.
 
 The choice of \code{mixture} depends on the engine parameter \code{solver}, which
 is automatically chosen given training data and the specification of
@@ -42,21 +42,21 @@ The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
-poisson_reg(penalty = double(1), mixture = double(1)) \%>\% 
-  set_engine("h2o") \%>\% 
+poisson_reg(penalty = double(1), mixture = double(1)) \%>\%
+  set_engine("h2o") \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Poisson Regression Model Specification (regression)
-## 
+##
 ## Main Arguments:
 ##   penalty = double(1)
 ##   mixture = double(1)
-## 
-## Computational engine: h2o 
-## 
+##
+## Computational engine: h2o
+##
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = double(1), 
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = double(1),
 ##     alpha = double(1), family = "poisson")
 }\if{html}{\out{</div>}}
 }

@@ -25,7 +25,7 @@ By default, when not given a fixed \code{penalty},
 the optimal value of \code{penalty} based on training data. Setting the
 engine parameter \code{lambda_search} to \code{TRUE} enables an efficient version
 of the grid search, see more details at
-\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search}.
+\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html}.
 
 The choice of \code{mixture} depends on the engine parameter \code{solver}, which
 is automatically chosen given training data and the specification of
@@ -40,15 +40,15 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will
 automatically picks the link function and distribution family or
 binomial responses.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
-  set_engine("h2o") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\%
+  set_engine("h2o") \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
-## 
-## Computational engine: h2o 
-## 
+##
+## Computational engine: h2o
+##
 ## Model fit template:
 ## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")
 }\if{html}{\out{</div>}}
@@ -56,20 +56,20 @@ binomial responses.
 To use a non-default argument in \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}},
 pass in as an engine argument to \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
-  set_engine("h2o", compute_p_values = TRUE) \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\%
+  set_engine("h2o", compute_p_values = TRUE) \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
-## 
+##
 ## Engine-Specific Arguments:
 ##   compute_p_values = TRUE
-## 
-## Computational engine: h2o 
-## 
+##
+## Computational engine: h2o
+##
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, 
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE,
 ##     family = "binomial")
 }\if{html}{\out{</div>}}
 }
