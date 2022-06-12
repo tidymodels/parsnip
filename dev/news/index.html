@@ -64,20 +64,30 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+<div class="section level3">
+<h3 id="model-specification-changes-development-version">Model Specification Changes<a class="anchor" aria-label="anchor" href="#model-specification-changes-development-version"></a></h3>
 <ul><li><p>Enable the use of case weights for models that support them.</p></li>
-<li><p>Added a <code><a href="../reference/glm_grouped.html">glm_grouped()</a></code> function to convert long data to the grouped format required by <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> for logistic regression.</p></li>
 <li><p><code><a href="../reference/set_new_model.html">show_model_info()</a></code> now indicates which models can utilize case weights.</p></li>
+<li><p>Model type functions will now message informatively if a needed parsnip extension package is not loaded (<a href="https://github.com/tidymodels/parsnip/issues/731" class="external-link">#731</a>).</p></li>
+<li><p>Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new <code><a href="../reference/add_on_exports.html">print_model_spec()</a></code> helper is exported for use in extensions if desired (<a href="https://github.com/tidymodels/parsnip/issues/739" class="external-link">#739</a>).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li><p>Fixed bug where previously set engine arguments would propagate through <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> methods despite <code>fresh = TRUE</code> (<a href="https://github.com/tidymodels/parsnip/issues/704" class="external-link">#704</a>).</p></li>
+<li><p>Fixed a bug where an error would be thrown if arguments to model functions were namespaced (<a href="https://github.com/tidymodels/parsnip/issues/745" class="external-link">#745</a>).</p></li>
+<li><p><code>predict(type = "prob")</code> will now provide an error if the outcome variable has a level called <code>"class"</code> (<a href="https://github.com/tidymodels/parsnip/issues/720" class="external-link">#720</a>).</p></li>
+<li><p>An inconsistency for probability type predictions for two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/708" class="external-link">#708</a>)</p></li>
+<li><p>Fixed translated printing for <code><a href="../reference/null_model.html">null_model()</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/752" class="external-link">#752</a>)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-development-version">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<ul><li><p>Added a <code><a href="../reference/glm_grouped.html">glm_grouped()</a></code> function to convert long data to the grouped format required by <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> for logistic regression.</p></li>
 <li><p><code><a href="../reference/xgb_train.html">xgb_train()</a></code> now allows for case weights</p></li>
 <li><p>Added <code><a href="../reference/ctree_train.html">ctree_train()</a></code> and <code><a href="../reference/ctree_train.html">cforest_train()</a></code> wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.</p></li>
 <li><p>Exported <code><a href="../reference/xgb_train.html">xgb_predict()</a></code> which wraps xgboost’s <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for use with parsnip extension packages (<a href="https://github.com/tidymodels/parsnip/issues/688" class="external-link">#688</a>).</p></li>
-<li><p>Fixed bug where previously set engine arguments would propagate through <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> methods despite <code>fresh = TRUE</code> (<a href="https://github.com/tidymodels/parsnip/issues/704" class="external-link">#704</a>).</p></li>
-<li><p>An inconsistency for probability type predictions for two-class GAM models was fixed (<a href="https://github.com/tidymodels/parsnip/issues/708" class="external-link">#708</a>)</p></li>
-<li><p><code>predict(type = "prob")</code> will now provide an error if the outcome variable has a level called <code>"class"</code> (<a href="https://github.com/tidymodels/parsnip/issues/720" class="external-link">#720</a>).</p></li>
 <li><p>Added a developer function, <code>.model_param_name_key</code> that translates names of tuning parameters.</p></li>
-<li><p>Model type functions will now message informatively if a needed parsnip extension package is not loaded (<a href="https://github.com/tidymodels/parsnip/issues/731" class="external-link">#731</a>).</p></li>
-<li><p>Fixed a bug where an error would be thrown if arguments to model functions were namespaced (<a href="https://github.com/tidymodels/parsnip/issues/745" class="external-link">#745</a>).</p></li>
-<li><p>Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new <code><a href="../reference/add_on_exports.html">print_model_spec()</a></code> helper is exported for use in extensions if desired (<a href="https://github.com/tidymodels/parsnip/issues/739" class="external-link">#739</a>).</p></li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
 <ul><li><p>Fixed a major bug in spark models induced in the previous version (<a href="https://github.com/tidymodels/parsnip/issues/671" class="external-link">#671</a>).</p></li>
