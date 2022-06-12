@@ -12,6 +12,7 @@
 #' @importFrom dplyr mutate pull rename select starts_with summarise tally
 #' @importFrom generics varying_args
 #' @importFrom glue glue_collapse
+#' @importFrom pillar type_sum
 #' @importFrom purrr as_vector imap imap_lgl map map_chr map_dbl map_df map_dfr
 #' @importFrom purrr map_lgl %||%
 #' @importFrom rlang abort call2 caller_env current_env enquo enquos eval_tidy
@@ -21,7 +22,7 @@
 #' @importFrom stats delete.response model.frame model.matrix model.offset
 #' @importFrom stats model.response model.weights na.omit na.pass predict qnorm
 #' @importFrom stats qt quantile setNames terms update
-#' @importFrom tibble as_tibble is_tibble tibble type_sum
+#' @importFrom tibble as_tibble is_tibble tibble
 #' @importFrom tidyr gather
 #' @importFrom utils capture.output getFromNamespace globalVariables head
 #' @importFrom utils methods stack
