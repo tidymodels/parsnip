@@ -111,4 +111,18 @@ test_that('classification', {
   expect_true(!is.null(null_model$fit))
 })
 
+# ------------------------------------------------------------------------------
+
+test_that('null_model printing', {
+  expect_snapshot(print(null_model(mode = "classification")))
+  expect_snapshot(
+    print(
+      null_model(mode = "classification") %>%
+        set_engine("parsnip") %>%
+        translate()
+    )
+  )
+})
+
+
 

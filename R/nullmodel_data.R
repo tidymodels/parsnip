@@ -16,7 +16,7 @@ set_fit(
   value = list(
     interface = "matrix",
     protect = c("x", "y"),
-    func = c(fun = "nullmodel"),
+    func = c(fun = "nullmodel", pkg = "parsnip"),
     defaults = list()
   )
 )
@@ -40,7 +40,7 @@ set_fit(
   value = list(
     interface = "matrix",
     protect = c("x", "y"),
-    func = c(fun = "nullmodel"),
+    func = c(fun = "nullmodel", pkg = "parsnip"),
     defaults = list()
   )
 )
