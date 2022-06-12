@@ -27,7 +27,7 @@ This model has 2 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)
@@ -36,8 +36,8 @@ This model has 2 tuning parameters:
 ## Computational engine: mgcv 
 ## 
 ## Model fit template:
-## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
-##     gamma = numeric(1))
+## mgcv::gam(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     select = logical(1), gamma = numeric(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -49,7 +49,7 @@ This model has 2 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## GAM Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   select_features = logical(1)
@@ -58,8 +58,8 @@ This model has 2 tuning parameters:
 ## Computational engine: mgcv 
 ## 
 ## Model fit template:
-## mgcv::gam(formula = missing_arg(), data = missing_arg(), select = logical(1), 
-##     gamma = numeric(1), family = stats::binomial(link = "logit"))
+## mgcv::gam(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     select = logical(1), gamma = numeric(1), family = stats::binomial(link = "logit"))
 }\if{html}{\out{</div>}}
 }
 

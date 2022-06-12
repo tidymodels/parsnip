@@ -51,6 +51,8 @@ For this engine, stratification cannot be specified via
 \code{\link[=strata]{strata()}}, please see
 \code{\link[flexsurv:flexsurvreg]{flexsurv::flexsurvreg()}} for alternative
 specifications.
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
 }
 
 \subsection{References}{

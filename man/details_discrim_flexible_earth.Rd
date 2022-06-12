@@ -50,8 +50,9 @@ discrim_flexible(
 ## Computational engine: earth 
 ## 
 ## Model fit template:
-## mda::fda(formula = missing_arg(), data = missing_arg(), nprune = integer(0), 
-##     degree = integer(0), pmethod = character(0), method = earth::earth)
+## mda::fda(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     nprune = integer(0), degree = integer(0), pmethod = character(0), 
+##     method = earth::earth)
 }\if{html}{\out{</div>}}
 }
 

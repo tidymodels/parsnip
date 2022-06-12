@@ -176,9 +176,9 @@ iterations.
 The best way to use this feature is in conjunction with an \emph{internal
 validation set}. To do this, pass the \code{validation} parameter of
 \code{\link[=xgb_train]{xgb_train()}} via the parsnip
-\code{\link[=set_engine]{set_engine()}} function. This is the proportion of the
-training set that should be reserved for measuring performance (and stop
-early).
+\code{\link[=set_engine]{set_engine()}} function. This is the
+proportion of the training set that should be reserved for measuring
+performance (and stopping early).
 
 If the model specification has \code{early_stop >= trees}, \code{early_stop} is
 converted to \code{trees - 1} and a warning is issued.

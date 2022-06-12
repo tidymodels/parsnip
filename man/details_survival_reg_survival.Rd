@@ -82,6 +82,8 @@ survival_reg() \%>\%
 ##  Chisq= 15.36 on 1 degrees of freedom, p= 8.88e-05 
 ## n= 26
 }\if{html}{\out{</div>}}
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
 }
 
 \subsection{Case weights}{

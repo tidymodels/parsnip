@@ -96,8 +96,8 @@ decision_tree(
 ## 
 ## Model fit template:
 ## pec::pecRpart(formula = missing_arg(), data = missing_arg(), 
-##     cp = double(1), maxdepth = integer(1), minsplit = min_rows(0L, 
-##         data))
+##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
+##     minsplit = min_rows(0L, data))
 }\if{html}{\out{</div>}}
 }
 
@@ -117,6 +117,11 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Other details}{
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
 }
 
 \subsection{Examples}{

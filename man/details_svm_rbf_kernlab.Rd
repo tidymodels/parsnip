@@ -40,7 +40,7 @@ be reproducible.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -66,7 +66,7 @@ be reproducible.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Radial Basis Function Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)

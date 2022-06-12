@@ -108,7 +108,8 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ## 
 ## Model fit template:
 ## ipred::bagging(formula = missing_arg(), data = missing_arg(), 
-##     cp = double(1), maxdepth = integer(1), minsplit = integer(1))
+##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
+##     minsplit = integer(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -128,6 +129,12 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Other details}{
+
+Predictions of type \code{"time"} are predictions of the median survival
+time.
 }
 
 \subsection{References}{

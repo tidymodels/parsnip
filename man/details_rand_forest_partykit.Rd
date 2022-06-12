@@ -23,6 +23,8 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
+The \strong{bonsai} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
 rand_forest() \%>\% 
@@ -42,6 +44,8 @@ rand_forest() \%>\%
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{
+
+The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
@@ -66,6 +70,8 @@ makes it easier to run this model.
 }
 }
 \section{Translation from parsnip to the original package (censored regression)}{
+The \strong{censored} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 rand_forest() \%>\% 
@@ -79,7 +85,8 @@ rand_forest() \%>\%
 ## Computational engine: partykit 
 ## 
 ## Model fit template:
-## parsnip::cforest_train(formula = missing_arg(), data = missing_arg())
+## parsnip::cforest_train(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
 }\if{html}{\out{</div>}}
 
 \code{censored::cond_inference_surv_cforest()} is a wrapper around
@@ -91,6 +98,12 @@ This engine does not require any special encoding of the predictors.
 Categorical predictors can be partitioned into groups of factor levels
 (e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
 are not required for this model.
+}
+
+\subsection{Other details}{
+
+Predictions of type \code{"time"} are predictions of the median survival
+time.
 }
 
 \subsection{References}{
