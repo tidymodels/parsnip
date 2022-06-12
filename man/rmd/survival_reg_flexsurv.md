@@ -44,6 +44,10 @@ The main interface for this model uses the formula method since the model specif
 
 For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvreg()] for alternative specifications.
 
+
+
+Predictions of type `"time"` are predictions of the mean survival time.
+
 ## References
 
 - Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.

@@ -115,6 +115,12 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Other details
+
+
+
+Predictions of type `"time"` are predictions of the mean survival time.
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-rpart) for `decision_tree()` with the `"rpart"` engine.

@@ -77,6 +77,11 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Other details
+
+```{r child = "template-survival-median.Rmd"}
+```
+
 ## References
 
  - Breiman L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140

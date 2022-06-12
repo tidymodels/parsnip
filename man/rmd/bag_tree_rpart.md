@@ -124,6 +124,12 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Other details
+
+
+
+Predictions of type `"time"` are predictions of the median survival time.
+
 ## References
 
  - Breiman L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140

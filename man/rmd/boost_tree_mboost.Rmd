@@ -45,6 +45,11 @@ boost_tree() %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Other details
+
+```{r child = "template-survival-mean.Rmd"}
+```
+
 ## References
 
  - Buehlmann P, Hothorn T. 2007. Boosting algorithms: regularization, prediction and model fitting. _Statistical Science_, 22(4), 477–505.

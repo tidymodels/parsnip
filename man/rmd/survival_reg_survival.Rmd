@@ -54,6 +54,9 @@ survival_reg() %>%
   extract_fit_engine()
 ```
 
+```{r child = "template-survival-mean.Rmd"}
+```
+
 ## Case weights
 
 ```{r child = "template-uses-case-weights.Rmd"}

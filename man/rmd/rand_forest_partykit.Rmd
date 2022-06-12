@@ -73,6 +73,11 @@ rand_forest() %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Other details
+
+```{r child = "template-survival-median.Rmd"}
+```
+
 ## References
 
  - [partykit: A Modular Toolkit for Recursive Partytioning in R](https://jmlr.org/papers/v16/hothorn15a.html)

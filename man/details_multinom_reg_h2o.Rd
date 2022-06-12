@@ -24,7 +24,7 @@ By default, when not given a fixed \code{penalty},
 the optimal value of \code{penalty} based on training data. Setting the
 engine parameter \code{lambda_search} to \code{TRUE} enables an efficient version
 of the grid search, see more details at
-\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search}.
+\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html}.
 
 The choice of \code{mixture} depends on the engine parameter \code{solver}, which
 is automatically chosen given training data and the specification of
@@ -38,21 +38,21 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = 'multinomial'}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
-  set_engine("h2o") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\%
+  set_engine("h2o") \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
-## 
+##
 ## Main Arguments:
 ##   penalty = double(1)
 ##   mixture = double(1)
-## 
-## Computational engine: h2o 
-## 
+##
+## Computational engine: h2o
+##
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(), 
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(),
 ##     lambda = double(1), alpha = double(1), family = "multinomial")
 }\if{html}{\out{</div>}}
 }
