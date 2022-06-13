@@ -37,7 +37,7 @@ enough data.
 The \strong{agua} extension package is required to fit this model.
 
 \code{\link[agua:h2o_train]{agua::h2o_train_nb()}} is a wrapper around
-\code{\link[=h2o.naiveBayes]{h2o.naiveBayes()}}.
+\code{\link[h2o:h2o.naiveBayes]{h2o::h2o.naiveBayes()}}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{naive_Bayes(Laplace = numeric(0)) \%>\% 
   set_engine("h2o") \%>\% 
