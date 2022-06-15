@@ -1,0 +1,45 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("auto_ml", "h2o")`
+
+## Tuning Parameters
+
+This model has no tuning parameters.
+
+Engine arguments of interest 
+
+- `max_runtime_secs` and `max_models`: controls the maximum running time and number of models to build in the automatic process. 
+
+- `exclude_algos` and `include_algos`: a character vector indicating the excluded or included algorithms during model building. To see a full list of supported models, see the details section in [h2o::h2o.automl()]. 
+
+## Translation from parsnip to the original package (regression)
+
+[agua::h2o_train_auto()] is a wrapper around [h2o::h2o.automl()]. 
+
+```{r h2o-reg}
+auto_ml() %>%  
+  set_engine("h2o") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+
+## Translation from parsnip to the original package (classification)
+
+```{r h2o-cls}
+auto_ml() %>%  
+  set_engine("h2o") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```
