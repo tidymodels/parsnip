@@ -14,7 +14,7 @@ predict() can be used for all types of models and uses the
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,18 +88,26 @@ predict() can be used for all types of models and uses the
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
 <dd><p>An object of class <code>model_fit</code></p></dd>
+
+
 <dt>new_data</dt>
 <dd><p>A rectangular data object, such as a data frame.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A single character value or <code>NULL</code>. Possible values
 are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
 "hazard", "survival", or "raw". When <code>NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an
 appropriate value based on the model's mode.</p></dd>
+
+
 <dt>opts</dt>
 <dd><p>A list of optional arguments to the underlying
 predict function that will be used when <code>type = "raw"</code>. The
 list should not include options for the model object or the
 new data being predicted.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments to the underlying model's prediction
 function cannot be passed here (see <code>opts</code>). There are some
@@ -118,27 +126,45 @@ and "pred_int". Default value is <code>FALSE</code>.</p></li>
 (not implemented yet)</p></li>
 <li><p><code>time</code>: the time(s) for hazard and survival probability estimates.</p></li>
 </ul></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>With the exception of <code>type = "raw"</code>, the results of
+    
+
+<p>With the exception of <code>type = "raw"</code>, the results of
 <code>predict.model_fit()</code> will be a tibble as many rows in the output
 as there are rows in <code>new_data</code> and the column names will be
-predictable.
-For numeric results with a single outcome, the tibble will have
-a <code>.pred</code> column and <code>.pred_Yname</code> for multivariate results.
-For hard class predictions, the column is named <code>.pred_class</code>and, when <code>type = "prob"</code>, the columns are <code>.pred_classlevel</code>.
-<code>type = "conf_int"</code> and <code>type = "pred_int"</code> return tibbles with
+predictable.</p>
+
+
+<p>For numeric results with a single outcome, the tibble will have
+a <code>.pred</code> column and <code>.pred_Yname</code> for multivariate results.</p>
+
+
+<p>For hard class predictions, the column is named <code>.pred_class</code></p>
+
+
+<p>and, when <code>type = "prob"</code>, the columns are <code>.pred_classlevel</code>.</p>
+
+
+<p><code>type = "conf_int"</code> and <code>type = "pred_int"</code> return tibbles with
 columns <code>.pred_lower</code> and <code>.pred_upper</code> with an attribute for
 the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
-the columns will be named <code>.pred_lower_classlevel</code> and so on.
-Quantile predictions return a tibble with a column <code>.pred</code>, which is
+the columns will be named <code>.pred_lower_classlevel</code> and so on.</p>
+
+
+<p>Quantile predictions return a tibble with a column <code>.pred</code>, which is
 a list-column. Each list element contains a tibble with columns
-<code>.pred</code> and <code>.quantile</code> (and perhaps other columns).
-Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
-the unadulterated results of the prediction function.
-For censored regression:</p><ul><li><p><code>type = "time"</code> produces a column <code>.pred_time</code>.</p></li>
+<code>.pred</code> and <code>.quantile</code> (and perhaps other columns).</p>
+
+
+<p>Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
+the unadulterated results of the prediction function.</p>
+
+
+<p>For censored regression:</p><ul><li><p><code>type = "time"</code> produces a column <code>.pred_time</code>.</p></li>
 <li><p><code>type = "hazard"</code> results in a list column <code>.pred</code> containing tibbles
 with a column <code>.pred_hazard</code>.</p></li>
 <li><p><code>type = "survival"</code> results in a list column <code>.pred</code> containing tibbles
@@ -146,8 +172,10 @@ with a <code>.pred_survival</code> column.</p></li>
 </ul><p>In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
 appear in names and 2) vectors are never returned but
-type-specific prediction functions.
-When the model fit failed and the error was captured, the
+type-specific prediction functions.</p>
+
+
+<p>When the model fit failed and the error was captured, the
 <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> function will return the same structure as above but
 filled with missing values. This does not currently work for
 multivariate models.</p>
@@ -285,7 +313,7 @@ produces. Set <code>increasing = FALSE</code> to suppress this behavior.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

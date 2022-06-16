@@ -14,7 +14,7 @@ package."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,16 +113,26 @@ package.</p>
     <dl><dt>model</dt>
 <dd><p>A single character string for the model type (e.g.
 <code>"rand_forest"</code>, etc).</p></dd>
+
+
 <dt>mode</dt>
 <dd><p>A single character string for the model mode (e.g. "regression").</p></dd>
+
+
 <dt>eng</dt>
 <dd><p>A single character string for the model engine.</p></dd>
+
+
 <dt>parsnip</dt>
 <dd><p>A single character string for the "harmonized" argument name
 that <code>parsnip</code> exposes.</p></dd>
+
+
 <dt>original</dt>
 <dd><p>A single character string for the argument name that
 underlying model function uses.</p></dd>
+
+
 <dt>func</dt>
 <dd><p>A named character vector that describes how to call
 a function. <code>func</code> should have elements <code>pkg</code> and <code>fun</code>. The
@@ -131,35 +141,56 @@ required. For example, <code>c(pkg = "stats", fun = "lm")</code> would be
 used to invoke the usual linear regression function. In some
 cases, it is helpful to use <code>c(fun = "predict")</code> when using a
 package's <code>predict</code> method.</p></dd>
+
+
 <dt>has_submodel</dt>
 <dd><p>A single logical for whether the argument
 can make predictions on multiple submodels at once.</p></dd>
+
+
 <dt>pkg</dt>
 <dd><p>An options character string for a package name.</p></dd>
+
+
 <dt>value</dt>
 <dd><p>A list that conforms to the <code>fit_obj</code> or <code>pred_obj</code> description
 below, depending on context.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A single character value for the type of prediction. Possible
 values are: <code>class</code>, <code>conf_int</code>, <code>numeric</code>, <code>pred_int</code>, <code>prob</code>, <code>quantile</code>,
 and <code>raw</code>.</p></dd>
+
+
 <dt>pre, post</dt>
 <dd><p>Optional functions for pre- and post-processing of prediction
 results.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Optional arguments that should be passed into the <code>args</code> slot for
 prediction objects.</p></dd>
+
+
 <dt>options</dt>
 <dd><p>A list of options for engine-specific preprocessing encodings.
 See Details below.</p></dd>
+
+
 <dt>arg</dt>
 <dd><p>A single character string for the model argument name.</p></dd>
+
+
 <dt>fit_obj</dt>
 <dd><p>A list with elements <code>interface</code>, <code>protect</code>,
 <code>func</code> and <code>defaults</code>. See the package vignette "Making a
 <code>parsnip</code> model from scratch".</p></dd>
+
+
 <dt>pred_obj</dt>
 <dd><p>A list with elements <code>pre</code>, <code>post</code>, <code>func</code>, and <code>args</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -270,7 +301,7 @@ and tuning.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

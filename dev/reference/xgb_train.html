@@ -12,7 +12,7 @@ models where all of the model arguments are in the main function."><meta propert
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,58 +99,93 @@ models where all of the model arguments are in the main function.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A data frame or matrix of predictors</p></dd>
+
+
 <dt>y</dt>
 <dd><p>A vector (factor or numeric) or matrix (numeric) of outcome data.</p></dd>
+
+
 <dt>max_depth</dt>
 <dd><p>An integer for the maximum depth of the tree.</p></dd>
+
+
 <dt>nrounds</dt>
 <dd><p>An integer for the number of boosting iterations.</p></dd>
+
+
 <dt>eta</dt>
 <dd><p>A numeric value between zero and one to control the learning rate.</p></dd>
+
+
 <dt>colsample_bynode</dt>
 <dd><p>Subsampling proportion of columns for each node
 within each tree. See the <code>counts</code> argument below. The default uses all
 columns.</p></dd>
+
+
 <dt>colsample_bytree</dt>
 <dd><p>Subsampling proportion of columns for each tree.
 See the <code>counts</code> argument below. The default uses all columns.</p></dd>
+
+
 <dt>min_child_weight</dt>
 <dd><p>A numeric value for the minimum sum of instance
 weights needed in a child to continue to split.</p></dd>
+
+
 <dt>gamma</dt>
 <dd><p>A number for the minimum loss reduction required to make a
 further partition on a leaf node of the tree</p></dd>
+
+
 <dt>subsample</dt>
 <dd><p>Subsampling proportion of rows. By default, all of the
 training data are used.</p></dd>
+
+
 <dt>validation</dt>
 <dd><p>The <em>proportion</em> of the data that are used for performance
 assessment and potential early stopping.</p></dd>
+
+
 <dt>early_stop</dt>
 <dd><p>An integer or <code>NULL</code>. If not <code>NULL</code>, it is the number of
 training iterations without improvement before stopping. If <code>validation</code> is
 used, performance is base on the validation set; otherwise, the training set
 is used.</p></dd>
+
+
 <dt>objective</dt>
 <dd><p>A single string (or NULL) that defines the loss function that
 <code>xgboost</code> uses to create trees. See <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html" class="external-link">xgboost::xgb.train()</a></code> for options. If left
 NULL, an appropriate loss function is chosen.</p></dd>
+
+
 <dt>counts</dt>
 <dd><p>A logical. If <code>FALSE</code>, <code>colsample_bynode</code> and
 <code>colsample_bytree</code> are both assumed to be <em>proportions</em> of the proportion of
 columns affects (instead of counts).</p></dd>
+
+
 <dt>event_level</dt>
 <dd><p>For binary classification, this is a single string of either
 <code>"first"</code> or <code>"second"</code> to pass along describing which level of the outcome
 should be considered the "event".</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other options to pass to <code>xgb.train()</code> or xgboost's method for <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>.</p></dd>
+
+
 <dt>new_data</dt>
 <dd><p>A rectangular data object, such as a data frame.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A fitted <code>xgboost</code> object.</p>
+    
+
+<p>A fitted <code>xgboost</code> object.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -164,7 +199,7 @@ should be considered the "event".</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -30,7 +30,7 @@ samples are being predicted and only require the predictors to be available."><m
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,38 +133,63 @@ samples are being predicted and only require the predictors to be available.</p>
 <dd><p>An object of class <code>formula</code> (or one that can
 be coerced to that class): a symbolic description of the model
 to be fitted.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>A data frame containing all relevant variables (e.g. outcome(s),
 predictors, case weights, etc).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">stats::model.frame()</a></code>.</p></dd>
+
+
 <dt>na.action</dt>
 <dd><p>A function which indicates what should happen when the data
 contain NAs.</p></dd>
+
+
 <dt>indicators</dt>
 <dd><p>A string describing whether and how to create
 indicator/dummy variables from factor predictors. Possible options are
 <code>"none"</code>, <code>"traditional"</code>, and <code>"one_hot"</code>.</p></dd>
+
+
 <dt>composition</dt>
 <dd><p>A string describing whether the resulting <code>x</code> and <code>y</code>
 should be returned as a <code>"matrix"</code> or a <code>"data.frame"</code>.</p></dd>
+
+
 <dt>remove_intercept</dt>
 <dd><p>A logical indicating whether to remove the intercept
 column after <code><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix()</a></code> is finished.</p></dd>
+
+
 <dt>object</dt>
 <dd><p>An object of class <code>model_fit</code>.</p></dd>
+
+
 <dt>new_data</dt>
 <dd><p>A rectangular data object, such as a data frame.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A matrix, sparse matrix, or data frame of predictors. Only some
 models have support for sparse matrix input. See <code><a href="set_new_model.html">parsnip::get_encoding()</a></code>
 for details. <code>x</code> should have column names.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>A vector, matrix or data frame of outcome data.</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>A numeric vector containing the weights.</p></dd>
+
+
 <dt>y_name</dt>
 <dd><p>A string specifying the name of the outcome.</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -178,7 +203,7 @@ for details. <code>x</code> should have column names.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

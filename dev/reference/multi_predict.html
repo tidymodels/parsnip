@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,30 +103,49 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
 <dd><p>A <code>model_fit</code> object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Optional arguments to pass to <code>predict.model_fit(type = "raw")</code>
 such as <code>type</code>.</p></dd>
+
+
 <dt>new_data</dt>
 <dd><p>A rectangular data object, such as a data frame.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A single character value or <code>NULL</code>. Possible values are
 <code>"numeric"</code>, <code>"class"</code>, <code>"prob"</code>, <code>"conf_int"</code>, <code>"pred_int"</code>, <code>"quantile"</code>,
 or <code>"raw"</code>. When <code>NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value
 based on the model's mode.</p></dd>
+
+
 <dt>trees</dt>
 <dd><p>An integer vector for the number of trees in the ensemble.</p></dd>
+
+
 <dt>penalty</dt>
 <dd><p>A numeric vector of penalty values.</p></dd>
+
+
 <dt>num_terms</dt>
 <dd><p>An integer vector for the number of MARS terms to retain.</p></dd>
+
+
 <dt>epochs</dt>
 <dd><p>An integer vector for the number of training epochs.</p></dd>
+
+
 <dt>neighbors</dt>
 <dd><p>An integer vector for the number of nearest neighbors.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble with the same number of rows as the data being predicted.
+    
+
+<p>A tibble with the same number of rows as the data being predicted.
 There is a list-column named <code>.pred</code> that contains tibbles with
 multiple rows per sub-model. Note that, within the tibbles, the column names
 follow the usual standard based on prediction <code>type</code> (i.e. <code>.pred_class</code> for
@@ -144,7 +163,7 @@ follow the usual standard based on prediction <code>type</code> (i.e. <code>.pre
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

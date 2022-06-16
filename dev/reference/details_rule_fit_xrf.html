@@ -14,7 +14,7 @@ is a wrapper around this function."><meta property="og:image" content="https://p
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ is a wrapper around this function.</p>
 
 
 <p>This model has 8 tuning parameters:</p><ul><li><p><code>mtry</code>: Proportion Randomly Selected Predictors (type: double,
-default: 1.0)</p></li>
+default: see below)</p></li>
 <li><p><code>trees</code>: # Trees (type: integer, default: 15L)</p></li>
 <li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 1L)</p></li>
 <li><p><code>tree_depth</code>: Tree Depth (type: integer, default: 6L)</p></li>
@@ -113,7 +113,26 @@ default: 1.0)</p></li>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"xrf"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## RuleFit Model Specification (regression)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Main Arguments:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   mtry = numeric(1)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   trees = integer(1)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   min_n = integer(1)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   tree_depth = integer(1)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   learn_rate = numeric(1)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   loss_reduction = numeric(1)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   sample_size = numeric(1)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   penalty = numeric(1)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: xrf </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">##     xgb_control = missing_arg(), colsample_bynode = numeric(1), </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), </span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="do">##     lambda = numeric(1))</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -136,7 +155,26 @@ default: 1.0)</p></li>
   <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"xrf"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## RuleFit Model Specification (classification)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Main Arguments:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   mtry = numeric(1)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   trees = integer(1)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   min_n = integer(1)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   tree_depth = integer(1)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   learn_rate = numeric(1)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   loss_reduction = numeric(1)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   sample_size = numeric(1)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   penalty = numeric(1)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: xrf </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">##     xgb_control = missing_arg(), colsample_bynode = numeric(1), </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), </span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="do">##     lambda = numeric(1))</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -162,6 +200,59 @@ whereas <strong>xrf</strong> uses an internal 5-fold cross-validation to determi
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
 convert factor columns to indicators.</p>
+</div>
+
+<div class="section">
+<h3 id="other-details">Other details<a class="anchor" aria-label="anchor" href="#other-details"></a></h3>
+
+<div class="section">
+<h4 id="interpreting-mtry">Interpreting <code>mtry</code><a class="anchor" aria-label="anchor" href="#interpreting-mtry"></a></h4>
+
+
+<p>The <code>mtry</code> argument denotes the number of predictors that will be
+randomly sampled at each split when creating tree models.</p>
+<p>Some engines, such as <code>"xgboost"</code>, <code>"xrf"</code>, and <code>"lightgbm"</code>, interpret
+their analogue to the <code>mtry</code> argument as the <em>proportion</em> of predictors
+that will be randomly sampled at each split rather than the <em>count</em>. In
+some settings, such as when tuning over preprocessors that influence the
+number of predictors, this parameterization is quite
+helpful—interpreting <code>mtry</code> as a proportion means that [0,1] is always
+a valid range for that parameter, regardless of input data.</p>
+<p>parsnip and its extensions accommodate this parameterization using the
+<code>counts</code> argument: a logical indicating whether <code>mtry</code> should be
+interpreted as the number of predictors that will be randomly sampled at
+each split. <code>TRUE</code> indicates that <code>mtry</code> will be interpreted in its
+sense as a count, <code>FALSE</code> indicates that the argument will be
+interpreted in its sense as a proportion.</p>
+<p><code>mtry</code> is a main model argument for
+<code><a href="boost_tree.html">boost_tree()</a></code> and
+<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have an
+engine-specific interface. So, regardless of engine, <code>counts</code> defaults
+to <code>TRUE</code>. For engines that support the proportion
+interpretation—currently <code>"xgboost"</code>, <code>"xrf"</code> (via the rules package),
+and <code>"lightgbm"</code> (via the bonsai package)—the user can pass the
+<code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
+within [0,1].</p>
+</div>
+
+<div class="section">
+<h4 id="early-stopping">Early stopping<a class="anchor" aria-label="anchor" href="#early-stopping"></a></h4>
+
+
+<p>The <code>stop_iter()</code> argument allows the model to prematurely stop training
+if the objective function does not improve within <code>early_stop</code>
+iterations.</p>
+<p>The best way to use this feature is in conjunction with an <em>internal
+validation set</em>. To do this, pass the <code>validation</code> parameter of
+<code><a href="xgb_train.html">xgb_train()</a></code> via the parsnip
+<code><a href="set_engine.html">set_engine()</a></code> function. This is the
+proportion of the training set that should be reserved for measuring
+performance (and stopping early).</p>
+<p>If the model specification has <code>early_stop &gt;= trees</code>, <code>early_stop</code> is
+converted to <code>trees - 1</code> and a warning is issued.</p>
+</div>
+
+
 </div>
 
 <div class="section">
@@ -191,7 +282,7 @@ Appl. Stat. 2 (3) 916- 954, September 2008</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -139,9 +139,6 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_party.html</loc>
-  </url>
-  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.html</loc>
   </url>
   <url>
@@ -332,9 +329,6 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_h2o.html</loc>
-  </url>
-  <url>
-    <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_party.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc>

@@ -14,7 +14,7 @@ arguments (as opposed to being specified in partykit::ctree_control())."><meta p
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,41 +106,64 @@ arguments (as opposed to being specified in <code><a href="https://rdrr.io/pkg/p
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>formula</dt>
 <dd><p>A symbolic description of the model to be fit.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>A data frame containing the variables in the model.</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>A vector of weights whose length is the same as <code>nrow(data)</code>.
 For <code><a href="https://rdrr.io/pkg/partykit/man/ctree.html" class="external-link">partykit::ctree()</a></code> models, these are required to be non-negative
 integers while for <code><a href="https://rdrr.io/pkg/partykit/man/cforest.html" class="external-link">partykit::cforest()</a></code> they can be non-negative integers
 or doubles.</p></dd>
+
+
 <dt>minsplit</dt>
 <dd><p>The minimum sum of weights in a node in order to be
 considered for splitting.</p></dd>
+
+
 <dt>maxdepth</dt>
 <dd><p>maximum depth of the tree. The default <code>maxdepth = Inf</code>
 means that no restrictions are applied to tree sizes.</p></dd>
+
+
 <dt>teststat</dt>
 <dd><p>A character specifying the type of the test statistic to be
 applied.</p></dd>
+
+
 <dt>testtype</dt>
 <dd><p>A character specifying how to compute the distribution of
 the test statistic.</p></dd>
+
+
 <dt>mincriterion</dt>
 <dd><p>The value of the test statistic (for <code>testtype ==
 "Teststatistic"</code>), or 1 - p-value (for other values of <code>testtype</code>) that
 must be exceeded in order to implement a split.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other options to pass to <code><a href="https://rdrr.io/pkg/partykit/man/ctree.html" class="external-link">partykit::ctree()</a></code> or <code><a href="https://rdrr.io/pkg/partykit/man/cforest.html" class="external-link">partykit::cforest()</a></code>.</p></dd>
+
+
 <dt>mtry</dt>
 <dd><p>Number of input variables randomly sampled as candidates at each
 node for random forest like algorithms. The default <code>mtry = Inf</code> means
 that no random selection takes place.</p></dd>
+
+
 <dt>ntree</dt>
 <dd><p>Number of trees to grow in a forest.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>party</code> (for <code>ctree</code>) or <code>cforest</code>.</p>
+    
+
+<p>An object of class <code>party</code> (for <code>ctree</code>) or <code>cforest</code>.</p>
     </div>
 
     <div class="section level2">
@@ -174,7 +197,7 @@ that no random selection takes place.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>
