@@ -33,6 +33,7 @@ figures:
 reference:
   - title: Models
     contents:
+      - automl
       - bag_mars
       - bag_tree
       - bart
