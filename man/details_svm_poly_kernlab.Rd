@@ -35,7 +35,7 @@ This model has 4 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -64,7 +64,7 @@ This model has 4 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Polynomial Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)

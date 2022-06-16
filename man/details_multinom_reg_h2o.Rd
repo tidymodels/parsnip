@@ -38,21 +38,21 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = 'multinomial'}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\%
-  set_engine("h2o") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) \%>\% 
+  set_engine("h2o") \%>\% 
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Multinomial Regression Model Specification (classification)
-##
+## 
 ## Main Arguments:
 ##   penalty = double(1)
 ##   mixture = double(1)
-##
-## Computational engine: h2o
-##
+## 
+## Computational engine: h2o 
+## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(),
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(), 
 ##     lambda = double(1), alpha = double(1), family = "multinomial")
 }\if{html}{\out{</div>}}
 }
@@ -61,8 +61,8 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

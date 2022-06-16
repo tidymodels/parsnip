@@ -40,15 +40,15 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will
 automatically picks the link function and distribution family or
 binomial responses.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\%
-  set_engine("h2o") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("h2o") \%>\% 
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
-##
-## Computational engine: h2o
-##
+## 
+## Computational engine: h2o 
+## 
 ## Model fit template:
 ## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")
 }\if{html}{\out{</div>}}
@@ -56,20 +56,20 @@ binomial responses.
 To use a non-default argument in \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}},
 pass in as an engine argument to \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\%
-  set_engine("h2o", compute_p_values = TRUE) \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
+  set_engine("h2o", compute_p_values = TRUE) \%>\% 
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
-##
+## 
 ## Engine-Specific Arguments:
 ##   compute_p_values = TRUE
-##
-## Computational engine: h2o
-##
+## 
+## Computational engine: h2o 
+## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE,
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, 
 ##     family = "binomial")
 }\if{html}{\out{</div>}}
 }
@@ -78,8 +78,8 @@ pass in as an engine argument to \code{set_engine()}:
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

@@ -38,7 +38,7 @@ param$item
 
 `r uses_extension("naive_Bayes", "h2o", "classification")`
 
-[agua::h2o_train_nb()] is a wrapper around [h2o.naiveBayes()]. 
+[agua::h2o_train_nb()] is a wrapper around [h2o::h2o.naiveBayes()]. 
 
 ```{r h2o-cls}
 naive_Bayes(Laplace = numeric(0)) %>% 

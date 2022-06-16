@@ -31,7 +31,7 @@ This model has 2 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -55,7 +55,7 @@ This model has 2 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)

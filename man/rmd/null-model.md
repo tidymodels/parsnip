@@ -14,12 +14,12 @@ null_model() %>%
 ```
 
 ```
-## Model Specification (regression)
+## Null Model Specification (regression)
 ## 
 ## Computational engine: parsnip 
 ## 
 ## Model fit template:
-## nullmodel(x = missing_arg(), y = missing_arg())
+## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 ```
 
 
@@ -31,11 +31,11 @@ null_model() %>%
 ```
 
 ```
-## Model Specification (classification)
+## Null Model Specification (classification)
 ## 
 ## Computational engine: parsnip 
 ## 
 ## Model fit template:
-## nullmodel(x = missing_arg(), y = missing_arg())
+## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 ```
 

@@ -12,9 +12,10 @@ is a wrapper around this function.
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
 
-This model has 1 tuning parameters:
+This model has 2 tuning parameters:
 \itemize{
 \item \code{trees}: # Trees (type: integer, default: 1L)
+\item \code{min_n}: Minimal Node Size (type: integer, default: 2L)
 }
 
 Note that C5.0 has a tool for \emph{early stopping} during boosting where

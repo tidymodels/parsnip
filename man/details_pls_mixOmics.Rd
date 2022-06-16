@@ -50,8 +50,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 factors.
 \item Determines whether sparsity is required based on the value of
 \code{predictor_prop}.
-\item Sets the \code{keepX} argument of \code{\link[mixOmics:spls]{mixOmics::spls()}}
-for sparse models.
+\item Sets the \code{keepX} argument of \code{mixOmics::spls()} for sparse models.
 }
 }
 

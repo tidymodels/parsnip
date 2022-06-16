@@ -35,7 +35,7 @@ This model has 5 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -67,7 +67,7 @@ This model has 5 tuning parameters:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Single Layer Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)

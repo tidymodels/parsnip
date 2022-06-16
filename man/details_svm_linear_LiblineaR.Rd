@@ -35,7 +35,7 @@ are types 1 (classification) and 11 (regression).
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -59,7 +59,7 @@ are types 1 (classification) and 11 (regression).
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -84,8 +84,8 @@ class predictions (e.g., accuracy).
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
