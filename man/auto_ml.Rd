@@ -6,8 +6,16 @@
 \usage{
 auto_ml(mode = "unknown", engine = "h2o")
 }
+\arguments{
+\item{mode}{A single character string for the prediction outcome mode.
+Possible values for this model are "unknown", "regression", or
+"classification".}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting.}
+}
 \description{
-\code{auto_ml} defines an automated searching and tuning process where
+\code{auto_ml()} defines an automated searching and tuning process where
 many models of different families are trained and ranked given their
 performance on the training data.
 
