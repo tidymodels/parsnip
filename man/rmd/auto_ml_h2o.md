@@ -13,7 +13,7 @@ Engine arguments of interest
 
 - `exclude_algos` and `include_algos`: a character vector indicating the excluded or included algorithms during model building. To see a full list of supported models, see the details section in [h2o::h2o.automl()].
 
-- `validation`: An integer between 0 and 1 specifying the _proportion_ of training data reserved as validation set. This is used by h2o for performance assessment and potential early stopping. For 
+- `validation`: An integer between 0 and 1 specifying the _proportion_ of training data reserved as validation set. This is used by h2o for performance assessment and potential early stopping. 
 
 ## Translation from parsnip to the original package (regression)
 

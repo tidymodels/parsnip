@@ -23,7 +23,7 @@ full list of supported models, see the details section in
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
 \item \code{validation}: An integer between 0 and 1 specifying the \emph{proportion}
 of training data reserved as validation set. This is used by h2o for
-performance assessment and potential early stopping. For
+performance assessment and potential early stopping.
 }
 }
 
