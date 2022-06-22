@@ -21,6 +21,9 @@ time and number of models to build in the automatic process.
 the excluded or included algorithms during model building. To see a
 full list of supported models, see the details section in
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
+\item \code{validation}: An integer between 0 and 1 specifying the \emph{proportion}
+of training data reserved as validation set. This is used by h2o for
+performance assessment and potential early stopping. For
 }
 }
 
@@ -40,7 +43,8 @@ full list of supported models, see the details section in
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), verbosity = NULL)
 }\if{html}{\out{</div>}}
 }
 
@@ -58,7 +62,7 @@ full list of supported models, see the details section in
 ## 
 ## Model fit template:
 ## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     verbosity = NULL)
+##     validation_frame = missing_arg(), verbosity = NULL)
 }\if{html}{\out{</div>}}
 }
 

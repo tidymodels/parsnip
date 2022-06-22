@@ -11,7 +11,9 @@ Engine arguments of interest
 
 - `max_runtime_secs` and `max_models`: controls the maximum running time and number of models to build in the automatic process. 
 
-- `exclude_algos` and `include_algos`: a character vector indicating the excluded or included algorithms during model building. To see a full list of supported models, see the details section in [h2o::h2o.automl()]. 
+- `exclude_algos` and `include_algos`: a character vector indicating the excluded or included algorithms during model building. To see a full list of supported models, see the details section in [h2o::h2o.automl()].
+
+- `validation`: An integer between 0 and 1 specifying the _proportion_ of training data reserved as validation set. This is used by h2o for performance assessment and potential early stopping. For 
 
 ## Translation from parsnip to the original package (regression)
 
@@ -31,7 +33,8 @@ auto_ml() %>%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg())
+## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), verbosity = NULL)
 ```
 
 
@@ -52,7 +55,7 @@ auto_ml() %>%
 ## 
 ## Model fit template:
 ## agua::h2o_train_auto(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     verbosity = NULL)
+##     validation_frame = missing_arg(), verbosity = NULL)
 ```
 
 ## Preprocessing requirements
