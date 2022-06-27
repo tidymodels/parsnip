@@ -1,4 +1,6 @@
 "model"	"mode"	"engine"	"pkg"
+"auto_ml"	"classification"	"h2o"	"agua"
+"auto_ml"	"regression"	"h2o"	"agua"
 "bag_mars"	"classification"	"earth"	"baguette"
 "bag_mars"	"regression"	"earth"	"baguette"
 "bag_tree"	"censored regression"	"rpart"	"censored"

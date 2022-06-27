@@ -32,6 +32,7 @@ get_model_desc <- function(cls) {
 
 model_descs <- tibble::tribble(
   ~cls,                   ~desc,
+  "auto_ml",              "Automatic Machine Learning",
   "bag_mars",             "Bagged MARS",
   "bag_tree",             "Bagged Decision Tree",
   "bart",                 "BART",
