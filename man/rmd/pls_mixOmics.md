@@ -77,7 +77,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 ##     ncomp = integer(1))
 ```
 
-In this case, [plsmod::pls_fit()] has the same role as above but eventually targets [mixOmics::plsda()] or [mixOmics::splsda()] .
+In this case, [plsmod::pls_fit()] has the same role as above but eventually targets `mixOmics::plsda()` or `mixOmics::splsda()`.
 
 ## Installing mixOmics
 
