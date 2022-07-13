@@ -54,7 +54,7 @@ jobs:
           extra-packages: rcmdcheck
 
       - name: Install dev reticulate
-        run: pak::pkg_install('rstudio/reticulate')
+        run: pak::pkg_install('reticulate')
         shell: Rscript {0}
 
       - name: Install Miniconda
