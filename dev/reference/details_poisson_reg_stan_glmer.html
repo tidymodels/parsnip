@@ -103,11 +103,11 @@ centering all predictors).</p></li>
 
 
 <p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span>engine <span class="op">=</span> <span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span>engine <span class="op">=</span> <span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Poisson Regression Model Specification (regression)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: stan_glmer </span></span>
@@ -158,27 +158,27 @@ next section.</p>
 
 <p>The model can accept case weights.</p>
 <p>With parsnip, we suggest using the formula method when fitting:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">time</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_counts</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">time</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_counts</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
 <code>add_variables()</code> then supply the typical formula when adding the model:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-
-<span class="va">glmer_spec</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span>
-
-<span class="va">glmer_wflow</span> <span class="op">&lt;-</span> 
-  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="co"># The data are included as-is using:</span>
-  <span class="fu">add_variables</span><span class="op">(</span>outcomes <span class="op">=</span> <span class="va">y</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">x</span>, <span class="va">subject</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu">add_model</span><span class="op">(</span><span class="va">glmer_spec</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">time</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">glmer_wflow</span>, data <span class="op">=</span> <span class="va">longitudinal_counts</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">glmer_spec</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stan_glmer"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">glmer_wflow</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="co"># The data are included as-is using:</span></span>
+<span>  <span class="fu">add_variables</span><span class="op">(</span>outcomes <span class="op">=</span> <span class="va">y</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">x</span>, <span class="va">subject</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">glmer_spec</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">time</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">glmer_wflow</span>, data <span class="op">=</span> <span class="va">longitudinal_counts</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>For prediction, the <code>"stan_glmer"</code> engine can compute posterior
 intervals analogous to confidence and prediction intervals. In these
 instances, the units are the original outcome. When <code>std_error = TRUE</code>,
@@ -219,7 +219,7 @@ scientists, arXiv:1506.06201.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

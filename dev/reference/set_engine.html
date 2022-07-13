@@ -72,7 +72,7 @@ to fit the model, along with any arguments specific to that software.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">set_engine</span><span class="op">(</span><span class="va">object</span>, <span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_engine</span><span class="op">(</span><span class="va">object</span>, <span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -124,11 +124,11 @@ argument to be passed directly to the engine fitting function, like
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># First, set main arguments using the standardized names</span></span>
-<span class="r-in"><span class="fu"><a href="logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="co"># Now specify how you want to fit the model with another argument</span></span>
-<span class="r-in">  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glmnet"</span>, nlambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># First, set main arguments using the standardized names</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="co"># Now specify how you want to fit the model with another argument</span></span></span>
+<span class="r-in"><span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glmnet"</span>, nlambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Logistic Regression Model Specification (classification)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -143,12 +143,12 @@ argument to be passed directly to the engine fitting function, like
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = 1/3, nlambda = 10, family = "binomial")</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Many models have possible engine-specific arguments</span></span>
-<span class="r-in"><span class="fu"><a href="decision_tree.html">decision_tree</a></span><span class="op">(</span>tree_depth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"rpart"</span>, parms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.65</span>,<span class="fl">.35</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Many models have possible engine-specific arguments</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="decision_tree.html">decision_tree</a></span><span class="op">(</span>tree_depth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"rpart"</span>, parms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.65</span>,<span class="fl">.35</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Decision Tree Model Specification (classification)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -162,7 +162,7 @@ argument to be passed directly to the engine fitting function, like
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rpart::rpart(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     maxdepth = 5, parms = list(prior = c(0.65, 0.35)))</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -176,7 +176,7 @@ argument to be passed directly to the engine fitting function, like
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

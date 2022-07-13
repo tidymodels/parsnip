@@ -75,37 +75,37 @@ package.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_model_exists</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">check_model_doesnt_exist</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">set_new_model</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">set_model_mode</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span><span class="op">)</span>
-
-<span class="fu">set_model_engine</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span><span class="op">)</span>
-
-<span class="fu">set_model_arg</span><span class="op">(</span><span class="va">model</span>, <span class="va">eng</span>, <span class="va">parsnip</span>, <span class="va">original</span>, <span class="va">func</span>, <span class="va">has_submodel</span><span class="op">)</span>
-
-<span class="fu">set_dependency</span><span class="op">(</span><span class="va">model</span>, <span class="va">eng</span>, pkg <span class="op">=</span> <span class="st">"parsnip"</span>, mode <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">get_dependency</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">set_fit</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">get_fit</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">set_pred</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">type</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">get_pred_type</span><span class="op">(</span><span class="va">model</span>, <span class="va">type</span><span class="op">)</span>
-
-<span class="fu">show_model_info</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-
-<span class="fu">pred_value_template</span><span class="op">(</span>pre <span class="op">=</span> <span class="cn">NULL</span>, post <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">func</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">set_encoding</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">options</span><span class="op">)</span>
-
-<span class="fu">get_encoding</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_model_exists</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">check_model_doesnt_exist</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_new_model</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_model_mode</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_model_engine</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_model_arg</span><span class="op">(</span><span class="va">model</span>, <span class="va">eng</span>, <span class="va">parsnip</span>, <span class="va">original</span>, <span class="va">func</span>, <span class="va">has_submodel</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_dependency</span><span class="op">(</span><span class="va">model</span>, <span class="va">eng</span>, pkg <span class="op">=</span> <span class="st">"parsnip"</span>, mode <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_dependency</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_fit</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_fit</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_pred</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">type</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_pred_type</span><span class="op">(</span><span class="va">model</span>, <span class="va">type</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">show_model_info</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pred_value_template</span><span class="op">(</span>pre <span class="op">=</span> <span class="cn">NULL</span>, post <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">func</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_encoding</span><span class="op">(</span><span class="va">model</span>, <span class="va">mode</span>, <span class="va">eng</span>, <span class="va">options</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_encoding</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -243,10 +243,10 @@ and tuning.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># set_new_model("shallow_learning_model")</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show the information about a model:</span></span>
-<span class="r-in"><span class="fu">show_model_info</span><span class="op">(</span><span class="st">"rand_forest"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set_new_model("shallow_learning_model")</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Show the information about a model:</span></span></span>
+<span class="r-in"><span><span class="fu">show_model_info</span><span class="op">(</span><span class="st">"rand_forest"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Information for `rand_forest`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  modes: unknown, classification, regression, censored regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -301,7 +301,7 @@ and tuning.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

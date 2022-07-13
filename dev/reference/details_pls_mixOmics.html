@@ -84,12 +84,12 @@ see below)</p></li>
 
 
 <p>The <strong>plsmod</strong> extension package is required to fit this model.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## PLS Model Specification (regression)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Main Arguments:</span></span>
@@ -114,12 +114,12 @@ factors.</p></li>
 
 
 <p>The <strong>plsmod</strong> extension package is required to fit this model.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plsmod.tidymodels.org" class="external-link">plsmod</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/pls.html">pls</a></span><span class="op">(</span>num_comp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, predictor_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## PLS Model Specification (classification)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Main Arguments:</span></span>
@@ -142,11 +142,11 @@ or <code>mixOmics::splsda()</code> .</p>
 
 <p>This package is available via the Bioconductor repository and is not
 accessible via CRAN. You can install using:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-  <span class="op">}</span>
-  
-  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bioc.html" class="external-link">install_bioc</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bioc.html" class="external-link">install_bioc</a></span><span class="op">(</span><span class="st">"mixOmics"</span><span class="op">)</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -193,7 +193,7 @@ integration.” PLoS computational biology, 13(11), e1005752.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

@@ -75,10 +75,10 @@ It translates generic parameters to their counterparts.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">translate</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">translate</span><span class="op">(</span><span class="va">x</span>, engine <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">translate</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">translate</span><span class="op">(</span><span class="va">x</span>, engine <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">engine</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -116,10 +116,10 @@ to modify the model specification.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lm_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># `penalty` is tranlsated to `lambda`</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lm_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `lambda`</span></span></span>
+<span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -130,9 +130,9 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     family = "gaussian")</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># `penalty` not applicable for this model.</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` not applicable for this model.</span></span></span>
+<span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -142,9 +142,9 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># `penalty` is tranlsated to `reg_param`</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"spark"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `reg_param`</span></span></span>
+<span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"spark"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -155,9 +155,9 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sparklyr::ml_linear_regression(x = missing_arg(), formula = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weights = missing_arg(), reg_param = 0.01)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with a placeholder for an unknown argument value:</span></span>
-<span class="r-in"><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with a placeholder for an unknown argument value:</span></span></span>
+<span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
@@ -169,7 +169,7 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     alpha = tune(), family = "gaussian")</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -183,7 +183,7 @@ to modify the model specification.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

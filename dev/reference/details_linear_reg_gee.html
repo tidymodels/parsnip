@@ -89,12 +89,12 @@ values.</p>
 
 
 <p>The <strong>multilevelmod</strong> extension package is required to fit this model.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linear Regression Model Specification (regression)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: gee </span></span>
@@ -125,29 +125,29 @@ using an argument <code>id</code> that requires a vector. parsnip doesn’t work
 way so we enable this model to be fit using a artificial function
 <code>id_var()</code> to be used in the formula. So, in the original package, the
 call would look like:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="fu">gee</span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, id <span class="op">=</span> <span class="va">wool</span>, data <span class="op">=</span> <span class="va">warpbreaks</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu">gee</span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, id <span class="op">=</span> <span class="va">wool</span>, data <span class="op">=</span> <span class="va">warpbreaks</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>With parsnip, we suggest using the formula method when fitting:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span> <span class="op">+</span> <span class="fu">id_var</span><span class="op">(</span><span class="va">wool</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span> <span class="op">+</span> <span class="fu">id_var</span><span class="op">(</span><span class="va">wool</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>When using tidymodels infrastructure, it may be better to use a
 workflow. In this case, you can add the appropriate columns using
 <code>add_variables()</code> then supply the GEE formula when adding the model:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-
-<span class="va">gee_spec</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span>
-
-<span class="va">gee_wflow</span> <span class="op">&lt;-</span> 
-  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="co"># The data are included as-is using:</span>
-  <span class="fu">add_variables</span><span class="op">(</span>outcomes <span class="op">=</span> <span class="va">breaks</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tension</span>, <span class="va">wool</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu">add_model</span><span class="op">(</span><span class="va">gee_spec</span>, formula <span class="op">=</span> <span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span> <span class="op">+</span> <span class="fu">id_var</span><span class="op">(</span><span class="va">wool</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">gee_wflow</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gee_spec</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gee"</span>, corstr <span class="op">=</span> <span class="st">"exchangeable"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gee_wflow</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="co"># The data are included as-is using:</span></span>
+<span>  <span class="fu">add_variables</span><span class="op">(</span>outcomes <span class="op">=</span> <span class="va">breaks</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tension</span>, <span class="va">wool</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">gee_spec</span>, formula <span class="op">=</span> <span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span> <span class="op">+</span> <span class="fu">id_var</span><span class="op">(</span><span class="va">wool</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">gee_wflow</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>The <code>gee::gee()</code> function always prints out warnings and output even
 when <code>silent = TRUE</code>. The parsnip <code>"gee"</code> engine, by contrast, silences
 all console output coming from <code>gee::gee()</code>, even if <code>silent = FALSE</code>.</p>
@@ -185,7 +185,7 @@ discrete and continuous outcomes. <em>Biometrics</em>, 42 121–130.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>
