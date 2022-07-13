@@ -80,8 +80,8 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 }\if{html}{\out{</div>}}
 
 In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same role
-as above but eventually targets \code{\link[mixOmics:plsda]{mixOmics::plsda()}}
-or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
+as above but eventually targets \code{mixOmics::plsda()} or
+\code{mixOmics::splsda()}.
 }
 
 \subsection{Installing mixOmics}{
