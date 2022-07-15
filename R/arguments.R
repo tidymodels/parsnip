@@ -49,6 +49,11 @@ check_eng_args <- function(args, obj, core_args) {
 #'
 #' @export
 set_args <- function(object, ...) {
+  UseMethod("set_args")
+}
+
+#' @export
+set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
     rlang::abort("Please pass at least one named argument.")

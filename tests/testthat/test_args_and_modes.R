@@ -105,5 +105,9 @@ test_that("set_* functions error when input isn't model_spec", {
   expect_snapshot(error = TRUE,
                   set_mode(mtcars, "regression")
   )
+
+  expect_snapshot(error = TRUE,
+                  set_args(mtcars, blah = "blah")
+  )
 })
 
