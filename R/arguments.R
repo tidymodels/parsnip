@@ -75,6 +75,11 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
+  UseMethod("set_mode")
+}
+
+#' @export
+set_mode.model_spec <- function(object, mode) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))

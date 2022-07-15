@@ -101,4 +101,9 @@ test_that("unavailable modes for an engine and vice-versa", {
   )
 })
 
+test_that("set_* functions error when input isn't model_spec", {
+  expect_snapshot(error = TRUE,
+                  set_mode(mtcars, "regression")
+  )
+})
 
