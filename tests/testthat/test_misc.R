@@ -106,3 +106,9 @@ test_that('model type functions message informatively with unknown implementatio
       set_engine("rpart")
   )
 })
+
+test_that('set_engine works as a generic', {
+  expect_snapshot(error = TRUE,
+    set_engine(mtcars, "rpart")
+  )
+})
