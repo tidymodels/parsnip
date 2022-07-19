@@ -105,10 +105,12 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #'
 #' @export
 set_engine <- function(object, engine, ...) {
+  UseMethod("set_engine")
+}
+
+#' @export
+set_engine.model_spec <- function(object, engine, ...) {
   mod_type <- class(object)[1]
-  if (!inherits(object, "model_spec")) {
-    rlang::abort("`object` should have class 'model_spec'.")
-  }
 
   if (rlang::is_missing(engine)) {
     stop_missing_engine(mod_type)

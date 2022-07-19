@@ -14,3 +14,11 @@
       Computational engine: rpart 
       
 
+# set_engine works as a generic
+
+    Code
+      set_engine(mtcars, "rpart")
+    Condition
+      Error in `UseMethod()`:
+      ! no applicable method for 'set_engine' applied to an object of class "data.frame"
+

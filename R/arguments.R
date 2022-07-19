@@ -49,6 +49,11 @@ check_eng_args <- function(args, obj, core_args) {
 #'
 #' @export
 set_args <- function(object, ...) {
+  UseMethod("set_args")
+}
+
+#' @export
+set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
     rlang::abort("Please pass at least one named argument.")
@@ -75,6 +80,11 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
+  UseMethod("set_mode")
+}
+
+#' @export
+set_mode.model_spec <- function(object, mode) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
