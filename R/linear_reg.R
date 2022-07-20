@@ -243,7 +243,7 @@ multi_predict._elnet <-
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
     pred <- gather(pred, group, .pred, -.row)
-    pred <- full_join(param_key, pred, by = "group")
+    pred <- full_join(param_key, pred, by = "group", multiple = "all")
     pred$group <- NULL
     pred <- arrange(pred, .row, penalty)
     .row <- pred$.row

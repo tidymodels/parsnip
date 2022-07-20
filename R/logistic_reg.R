@@ -296,7 +296,7 @@ multi_predict._lognet <-
         pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
       }
     }
-    pred <- full_join(param_key, pred, by = "group")
+    pred <- full_join(param_key, pred, by = "group", multiple = "all")
     pred$group <- NULL
     pred <- arrange(pred, .row, penalty)
     .row <- pred$.row
