@@ -434,7 +434,7 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
 
       validation <- as.matrix(validation)
       # Assuming whichever column is not present in x is the outcome
-      # Not ideal bc validation could contain abritarty columns
+      # Not ideal bc validation could contain arbitrary column that isn't the intended outcome
       # Would need the colname of `y`
       y_index <- which(!(colnames(validation) %in% colnames(x)))
 
