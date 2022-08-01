@@ -132,7 +132,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     mode = object$mode,
     method = NULL,
     engine = object$engine,
-    check_missing_spec = FALSE
+    check_missing_spec = TRUE
   )
 }
 
