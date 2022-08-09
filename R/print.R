@@ -10,7 +10,11 @@ print.model_spec <- function(x, ...) {
 #' @export
 print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
   if (!is.null(x$info)) {
-    rlang::inform(x$info)
+    if ((!has_loaded_implementation(cls, x$engine, x$mode))) {
+      rlang::inform(x$info)
+    } else {
+      x$info <- NULL
+    }
   }
 
   cat(desc, " Model Specification (", x$mode, ")\n\n", sep = "")
