@@ -84,14 +84,14 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
     all <- all %>% dplyr::filter(mode == mode_)
     msg <- glue::glue(
       paste0(
-        "parsnip could not locate an implementation for {spec_} {mode_} ",
+        "No implementation found for {spec_} {mode_} ",
         "model specifications using the `{engine_}` engine. "
       )
     )
   } else {
     msg <- glue::glue(
       paste0(
-        "parsnip could not locate an implementation for {spec_} ",
+        "No implementation found for {spec_} ",
         "model specifications using the `{engine_}` engine. "
       )
     )
@@ -102,21 +102,16 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
     if (nrow(all) == 1) {
       msg <-
         c(
-          i = paste0(
-            msg,
-            glue::glue("Please install the `{all$pkg[[1]]}` package (if needed) and load to continue."),
-            "\n"
-          )
+          i = msg,
+          i = glue::glue("Install the `{all$pkg[[1]]}` package (if needed) and load to continue"),
+          "\n"
         )
     } else {
+      pkgs <- paste0(paste0("`", unique(all$pkg), "`"), collapse = ", ")
       msg <- c(
-        i = paste0(
-          msg,
-          "The following parsnip extension packages ",
-          "implement support for this specification."
-        ),
-        i = paste0(unique(all$pkg), collapse = ", "),
-        i = "Please install one of them (if needed) and load to continue.\n"
+        i = msg,
+        i = glue::glue("Install either of the {pkgs} packages (if needed) and load to continue"),
+        "\n"
       )
     }
   }
