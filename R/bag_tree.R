@@ -42,8 +42,7 @@ bag_tree <-
       eng_args = NULL,
       mode = mode,
       method = NULL,
-      engine = engine,
-      check_missing_spec = FALSE
+      engine = engine
     )
   }
 
