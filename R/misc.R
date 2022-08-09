@@ -104,7 +104,7 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
         c(
           i = paste0(
             msg,
-            glue::glue("Please install `{all$pkg[[1]]}` (if needed) and load to continue."),
+            glue::glue("Please install the `{all$pkg[[1]]}` package (if needed) and load to continue."),
             "\n"
           )
         )
