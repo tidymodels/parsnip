@@ -12,8 +12,6 @@ print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), .
   if (!is.null(x$info)) {
     if ((!has_loaded_implementation(cls, x$engine, x$mode))) {
       rlang::inform(x$info)
-    } else {
-      x$info <- NULL
     }
   }
 
