@@ -60,6 +60,10 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
   FALSE
 }
 
+should_inform_missing <- function(x) {
+  !is.null(x$info) && !has_loaded_implementation(class(x)[1], x$engine, x$mode)
+}
+
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
     has_loaded_implementation(class(x)[1], x$engine, x$mode)
@@ -220,7 +224,7 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine,
                            info = NULL) {
   check_spec_mode_engine_val(cls, engine, mode)
 
-  if ((!has_loaded_implementation(cls, engine, mode))) {
+  if (!has_loaded_implementation(cls, engine, mode)) {
     info <- inform_missing_implementation(cls, engine, mode)
   }
 
