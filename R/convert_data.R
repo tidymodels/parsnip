@@ -102,9 +102,11 @@
       remove_intercept = remove_intercept
     )
 
+
   if (composition == "data.frame") {
     if (is.matrix(y)) {
       y <- as.data.frame(y)
+      colnames(y) <- all.vars(formula[[2]])
     }
     res <-
       list(
@@ -117,11 +119,14 @@
         options = options
       )
   } else {
-    # Since a matrix is requested, try to convert y but check
-    # to see if it is possible
+
     if (will_make_matrix(y)) {
       y <- as.matrix(y)
+      colnames(y) <- all.vars(formula[[2]])
+    } else {
+      attr(y, "colnames") <- all.vars(formula[[2]])
     }
+
     res <-
       list(
         x = x,
@@ -325,7 +330,7 @@ make_formula <- function(x, y, short = TRUE) {
 
 will_make_matrix <- function(y) {
   if (is.matrix(y) | is.vector(y))
-    return(FALSE)
+    return(TRUE)
   cls <- unique(unlist(lapply(y, class)))
   if (length(cls) > 1)
     return(FALSE)
