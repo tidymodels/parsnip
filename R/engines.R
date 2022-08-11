@@ -116,7 +116,6 @@ set_engine.model_spec <- function(object, engine, ...) {
     stop_missing_engine(mod_type)
   }
   object$engine <- engine
-  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
 
   if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(

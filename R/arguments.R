@@ -90,15 +90,8 @@ set_mode.model_spec <- function(object, mode) {
     stop_incompatible_mode(spec_modes, cls = cls)
   }
   check_spec_mode_engine_val(cls, object$engine, mode)
-
-  new_model_spec(
-    cls = cls,
-    args = object$args,
-    eng_args = object$eng_args,
-    mode = mode,
-    method = object$method,
-    engine = object$engine
-  )
+  object$mode <- mode
+  object
 }
 
 # ------------------------------------------------------------------------------
