@@ -123,8 +123,6 @@
     if (will_make_matrix(y)) {
       y <- as.matrix(y)
       colnames(y) <- all.vars(formula[[2]])
-    } else {
-      attr(y, "colnames") <- all.vars(formula[[2]])
     }
 
     res <-
