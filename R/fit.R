@@ -257,7 +257,11 @@ fit_xy.model_spec <-
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {
         y <- y[, 1]
+      } else if (!is.null(colnames(y))){
+        # preserves colname of y
+        y <- as.matrix(y)
       } else {
+        #strips colname of y
         y <- y[[1]]
       }
     }
@@ -411,6 +415,7 @@ check_xy_interface <- function(x, y, cl, model) {
   }
 
   # `y` can be a vector (which is not a class), or a factor (which is not a vector)
+
   if (!is.null(y) && !is.vector(y))
     inher(y, c("data.frame", "matrix", "factor"), cl)
 
