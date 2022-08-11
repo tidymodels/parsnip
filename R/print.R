@@ -9,8 +9,9 @@ print.model_spec <- function(x, ...) {
 #' @rdname add_on_exports
 #' @export
 print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
-  if (should_inform_missing(x)) {
-      rlang::inform(x$info)
+  if (!has_loaded_implementation(cls, x$engine, x$mode)) {
+    msg <- inform_missing_implementation(cls, x$engine, x$mode)
+    rlang::inform(msg)
   }
 
   cat(desc, " Model Specification (", x$mode, ")\n\n", sep = "")

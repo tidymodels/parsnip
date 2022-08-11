@@ -60,10 +60,6 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
   FALSE
 }
 
-should_inform_missing <- function(x) {
-  !is.null(x$info) && !has_loaded_implementation(class(x)[1], x$engine, x$mode)
-}
-
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
     has_loaded_implementation(class(x)[1], x$engine, x$mode)
@@ -107,14 +103,14 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
       msg <-
         c(
           i = msg,
-          i = glue::glue("Install the `{all$pkg[[1]]}` package (if needed) and load to continue"),
+          i = glue::glue("Install the `{all$pkg[[1]]}` package (if needed) and load to continue."),
           "\n"
         )
     } else {
       pkgs <- paste0(paste0("`", unique(all$pkg), "`"), collapse = ", ")
       msg <- c(
         i = msg,
-        i = glue::glue("Install either of the {pkgs} packages (if needed) and load to continue"),
+        i = glue::glue("Install either of the {pkgs} packages (if needed) and load to continue."),
         "\n"
       )
     }
@@ -220,17 +216,12 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine,
-                           info = NULL) {
+new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   check_spec_mode_engine_val(cls, engine, mode)
-
-  if (!has_loaded_implementation(cls, engine, mode)) {
-    info <- inform_missing_implementation(cls, engine, mode)
-  }
 
   out <- list(
     args = args, eng_args = eng_args,
-    mode = mode, method = method, engine = engine, info = info
+    mode = mode, method = method, engine = engine
   )
   class(out) <- make_classes(cls)
   out
