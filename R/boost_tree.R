@@ -236,9 +236,17 @@ xgb_train <- function(
   num_class <- length(levels(y))
 
   if(is.data.frame(validation)) {
-      if(length(colnames(validation)) != length(colnames(x))+1){
-        msg <- paste0("`validation` should contain ", length(colnames(x))+1, " columns")
-        rlang::abort(msg)
+      if(is.null(colnames(y)) | is.vector(y) && is.null(attr(y, 'colnames'))){
+        rlang::abort("`y` must be named when `validation` is a dataframe")
+      } else if (!(colnames(y) %in% colnames(validation))){
+        wrong_col <- colnames(y)
+        rlang::abort(paste0("`",wrong_col,"`", " column not found in `validation`"))
+      } else if (!all(colnames(x) %in% colnames(validation))){
+        missing_cols <- colnames(x)[which(!(colnames(x) %in% colnames(validation)))]
+        missing_cols_txt <- paste0("`", missing_cols, "`", collapse = ",")
+
+        rlang::abort(glue::glue("`validation` is missing column(s): {missing_cols_txt}"))
+
       }
   } else if (!is.numeric(validation) || validation < 0 || validation >= 1) {
     rlang::abort("`validation` should be on [0, 1).")
@@ -424,7 +432,7 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
 
         } else
 
-          val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
+        val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
         watch_list <- list(validation = val_data)
 
         dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
@@ -432,11 +440,11 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
 
     } else if (is.data.frame(validation)) {
 
+      predictor_cols <- which(colnames(validation) %in% colnames(x))
+
       validation <- as.matrix(validation)
-      # Assuming whichever column is not present in x is the outcome
-      # Not ideal bc validation could contain arbitrary column that isn't the intended outcome
-      # Would need the colname of `y`
-      y_index <- which(!(colnames(validation) %in% colnames(x)))
+
+      y_index <- which(colnames(validation) %in% colnames(y))
 
       val_info_list <- list(label = validation[,y_index])
 
@@ -445,10 +453,10 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
       if (any(check_weights)) {
         weights_col_num <- which(check_weights)
         val_info_list$weight <- validation[, weights_col_num, drop = T]
-        val_data <- xgboost::xgb.DMatrix(validation[,-y_index], missing = NA, info = val_info_list)
+        val_data <- xgboost::xgb.DMatrix(validation[,predictor_cols], missing = NA, info = val_info_list)
       }
 
-      val_data <- xgboost::xgb.DMatrix(validation[,-y_index], label = validation[,y_index], missing = NA)
+      val_data <- xgboost::xgb.DMatrix(validation[,predictor_cols], label = validation[,y_index], missing = NA)
       watch_list <- list(validation = val_data)
 
       dat <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
