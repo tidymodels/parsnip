@@ -97,17 +97,17 @@ inform_missing_implementation <- function(spec_, engine_, mode_) {
     )
   }
 
-
   if (nrow(avail) == 0 && nrow(all) > 0) {
-    if (nrow(all) == 1) {
+    pkgs <- unique(all$pkg)
+    if (length(pkgs) == 1) {
       msg <-
         c(
           i = msg,
-          i = glue::glue("Install the `{all$pkg[[1]]}` package (if needed) and load to continue."),
+          i = glue::glue("Install the `{pkgs[[1]]}` package (if needed) and load to continue."),
           "\n"
         )
     } else {
-      pkgs <- paste0(paste0("`", unique(all$pkg), "`"), collapse = ", ")
+      pkgs <- paste0(paste0("`", unique(pkgs), "`"), collapse = ", ")
       msg <- c(
         i = msg,
         i = glue::glue("Install either of the {pkgs} packages (if needed) and load to continue."),
