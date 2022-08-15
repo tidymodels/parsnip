@@ -2074,3 +2074,53 @@
       list(sigma = ~0.2)
       
 
+# translate tuning paramter names
+
+    Code
+      .model_param_name_key(mod)
+    Output
+      # A tibble: 2 x 3
+        user            parsnip engine          
+        <chr>           <chr>   <chr>           
+      1 number of trees trees   nrounds         
+      2 min_n           min_n   min_child_weight
+
+---
+
+    Code
+      .model_param_name_key(mod, as_tibble = FALSE)
+    Output
+      $user_to_parsnip
+                  trees             min_n 
+      "number of trees"           "min_n" 
+      
+      $parsnip_to_engine
+               nrounds min_child_weight 
+               "trees"          "min_n" 
+      
+
+---
+
+    Code
+      .model_param_name_key(linear_reg())
+    Output
+      # A tibble: 0 x 3
+      # ... with 3 variables: user <chr>, parsnip <chr>, engine <chr>
+      # i Use `colnames()` to see all variable names
+
+---
+
+    Code
+      .model_param_name_key(linear_reg(), as_tibble = FALSE)
+    Output
+      $user_to_parsnip
+      named character(0)
+      
+      $parsnip_to_engine
+      named character(0)
+      
+
+---
+
+    'object' should be a model specification or workflow.
+
