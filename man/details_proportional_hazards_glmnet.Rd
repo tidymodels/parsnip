@@ -49,7 +49,7 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 ## Computational engine: glmnet 
 ## 
 ## Model fit template:
-## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
+## censored::coxnet_train(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), alpha = double(1))
 }\if{html}{\out{</div>}}
 }

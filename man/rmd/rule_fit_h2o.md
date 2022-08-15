@@ -59,7 +59,8 @@ rule_fit(
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), rule_generation_ntrees = integer(1), 
+## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), rule_generation_ntrees = integer(1), 
 ##     max_rule_length = integer(1), lambda = numeric(1))
 ```
 
@@ -94,7 +95,8 @@ rule_fit(
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), rule_generation_ntrees = integer(1), 
+## agua::h2o_train_rule(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), rule_generation_ntrees = integer(1), 
 ##     max_rule_length = integer(1), lambda = numeric(1))
 ```
 

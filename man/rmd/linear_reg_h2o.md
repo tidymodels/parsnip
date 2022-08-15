@@ -40,8 +40,9 @@ linear_reg(penalty = 1, mixture = 0.5) %>%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = 1, 
-##     alpha = 0.5, family = "gaussian")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), lambda = 1, alpha = 0.5, 
+##     family = "gaussian")
 ```
 
 ## Preprocessing requirements

@@ -56,8 +56,9 @@ poisson_reg(penalty = double(1), mixture = double(1)) \%>\%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = double(1), 
-##     alpha = double(1), family = "poisson")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), lambda = double(1), alpha = double(1), 
+##     family = "poisson")
 }\if{html}{\out{</div>}}
 }
 
