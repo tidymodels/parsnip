@@ -77,6 +77,13 @@ set_args.model_spec <- function(object, ...) {
   )
 }
 
+#' @export
+set_args.default <- function(object,...) {
+  error_set_object(object, func = "set_args")
+
+  invisible(FALSE)
+}
+
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
@@ -93,6 +100,13 @@ set_mode.model_spec <- function(object, mode) {
   check_spec_mode_engine_val(cls, object$engine, mode)
   object$mode <- mode
   object
+}
+
+#' @export
+set_mode.default <- function(object, mode) {
+  error_set_object(object, func = "set_mode")
+
+  invisible(FALSE)
 }
 
 # ------------------------------------------------------------------------------
