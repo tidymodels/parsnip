@@ -1,12 +1,12 @@
 # interface to param arguments
 
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
-    i See `?xgb_train` for more information.
+    i See `?details_boost_tree_xgboost` for more information.
 
 ---
 
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
-    i See `?xgb_train` for more information.
+    i See `?details_boost_tree_xgboost` for more information.
 
 ---
 
@@ -19,5 +19,5 @@
 ---
 
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
-    i See `?xgb_train` for more information.
+    i See `?details_boost_tree_xgboost` for more information.
 
