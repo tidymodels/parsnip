@@ -112,7 +112,8 @@ binomial responses.</p>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: h2o </span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")</span></span></code></pre><p></p></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     validation_frame = missing_arg(), family = "binomial")</span></span></code></pre><p></p></div>
 <p>To use a non-default argument in <code>h2o::h2o.glm()</code>,
 pass in as an engine argument to <code><a href="set_engine.html">set_engine()</a></code>:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -126,8 +127,9 @@ pass in as an engine argument to <code><a href="set_engine.html">set_engine()</a
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Computational engine: h2o </span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     family = "binomial")</span></span></code></pre><p></p></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     validation_frame = missing_arg(), compute_p_values = TRUE, </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     family = "binomial")</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
