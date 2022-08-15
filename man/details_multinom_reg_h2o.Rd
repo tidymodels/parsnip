@@ -52,8 +52,9 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = missing_arg(), 
-##     lambda = double(1), alpha = double(1), family = "multinomial")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), lambda = double(1), alpha = double(1), 
+##     family = "multinomial")
 }\if{html}{\out{</div>}}
 }
 

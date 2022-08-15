@@ -37,7 +37,8 @@ logistic_reg() %>%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), family = "binomial")
 ```
 
 To use a non-default argument in [h2o::h2o.glm()], pass in as an engine argument to `set_engine()`:
@@ -58,7 +59,8 @@ logistic_reg() %>%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, 
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), compute_p_values = TRUE, 
 ##     family = "binomial")
 ```
 

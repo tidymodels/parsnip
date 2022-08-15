@@ -219,6 +219,7 @@ all_tidy_coefs
 ##  9 (Intercept)     9     30.3   2.45     0.640
 ## 10 (Intercept)    10     31.1   2.23     0.673
 ## # … with 630 more rows
+## # ℹ Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))

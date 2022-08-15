@@ -72,6 +72,7 @@ The \strong{agua} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## agua::h2o_train_xgboost(x = missing_arg(), y = missing_arg(), 
+##     weights = missing_arg(), validation_frame = missing_arg(), 
 ##     col_sample_rate = integer(), ntrees = integer(), min_rows = integer(), 
 ##     max_depth = integer(), learn_rate = numeric(), min_split_improvement = numeric(), 
 ##     stopping_rounds = integer())
@@ -106,6 +107,7 @@ The \strong{agua} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## agua::h2o_train_xgboost(x = missing_arg(), y = missing_arg(), 
+##     weights = missing_arg(), validation_frame = missing_arg(), 
 ##     col_sample_rate = integer(), ntrees = integer(), min_rows = integer(), 
 ##     max_depth = integer(), learn_rate = numeric(), min_split_improvement = numeric(), 
 ##     stopping_rounds = integer())

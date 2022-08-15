@@ -182,6 +182,7 @@ lme_fit %>% tidy() %>%
 ## # A tibble: 0 × 6
 ## # … with 6 variables: term <chr>, estimate <dbl>, std.error <dbl>, df <dbl>,
 ## #   statistic <dbl>, p.value <dbl>
+## # ℹ Use `colnames()` to see all variable names
 ```
 
 ```r
