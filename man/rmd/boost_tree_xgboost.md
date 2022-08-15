@@ -109,6 +109,46 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 
 ## Other details
 
+### Interfacing with the `params` argument
+
+The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
+
+
+```r
+# good
+boost_tree() %>%
+  set_engine("xgboost", eval_metric = "mae")
+```
+
+```
+## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   eval_metric = mae
+## 
+## Computational engine: xgboost
+```
+
+...rather than this:
+
+
+```r
+# bad
+boost_tree() %>%
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+```
+
+```
+## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   params = list(eval_metric = "mae")
+## 
+## Computational engine: xgboost
+```
+
+parsnip will then route arguments as needed. In the case that arguments are passed to `params` via [set_engine()], parsnip will warn and re-route the arguments as needed. Note, though, that arguments passed to `params` cannot be tuned.
+
 ### Sparse matrices
 
 xgboost requires the data to be in a sparse format. If your predictor data are already in this format, then use [fit_xy.model_spec()] to pass it to the model function. Otherwise, parsnip converts the data to this format. 
@@ -137,9 +177,11 @@ The best way to use this feature is in conjunction with an _internal validation 
 
 If the model specification has `early_stop >= trees`, `early_stop` is converted to `trees - 1` and a warning is issued. 
 
+Note that, since the `validation` argument provides an alternative interface to `watchlist`, the `watchlist` argument is guarded by parsnip and will be ignored (with a warning) if passed.
+
 ### Objective function
 
-parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()]. 
+parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
 ## Examples 
 

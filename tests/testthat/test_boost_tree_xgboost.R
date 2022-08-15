@@ -598,4 +598,95 @@ test_that("count/proportion parameters", {
 
 })
 
+test_that('interface to param arguments', {
+  skip_if_not_installed("xgboost")
 
+  ctrl$verbosity <- 0L
+
+  # define base model spec
+  spec_base <-
+    boost_tree() %>%
+    set_mode("regression")
+
+  # pass params to params argument (bad)
+  spec_1 <-
+    spec_base %>%
+    set_engine("xgboost", params = list(eval_metric = "mae"))
+
+  expect_snapshot_warning(
+    fit_1 <- spec_1 %>% fit(mpg ~ ., data = mtcars),
+    class = "xgboost_params_warning"
+  )
+
+  expect_equal(extract_fit_engine(fit_1)$params$eval_metric, "mae")
+
+  # pass params as main argument (good)
+  spec_2 <-
+    spec_base %>%
+    set_engine("xgboost", eval_metric = "mae")
+
+  expect_silent(
+    fit_2 <- spec_2 %>% fit(mpg ~ ., data = mtcars)
+  )
+
+  expect_equal(extract_fit_engine(fit_2)$params$eval_metric, "mae")
+
+  # pass objective to params argument (bad)
+  spec_3 <-
+    spec_base %>%
+    set_engine("xgboost", params = list(objective = "reg:pseudohubererror"))
+
+  expect_snapshot_warning(
+    fit_3 <- spec_3 %>% fit(mpg ~ ., data = mtcars),
+    class = "xgboost_params_warning"
+  )
+
+  expect_equal(extract_fit_engine(fit_3)$params$objective, "reg:pseudohubererror")
+
+  # pass objective as main argument (good)
+  spec_4 <-
+    spec_base %>%
+    set_engine("xgboost", objective = "reg:pseudohubererror")
+
+  expect_silent(
+    fit_4 <- spec_4 %>% fit(mpg ~ ., data = mtcars)
+  )
+
+  expect_equal(extract_fit_engine(fit_4)$params$objective, "reg:pseudohubererror")
+
+  # pass a guarded argument as a main argument (bad)
+  spec_5 <-
+    spec_base %>%
+    set_engine("xgboost", watchlist = "boop")
+
+  expect_snapshot_warning(
+    fit_5 <- spec_5 %>% fit(mpg ~ ., data = mtcars),
+    class = "xgboost_guarded_warning"
+  )
+
+  expect_null(extract_fit_engine(fit_5)$params$watchlist)
+
+  # pass two guarded arguments as main arguments (bad)
+  spec_6 <-
+    spec_base %>%
+    set_engine("xgboost", watchlist = "boop", data = "beep")
+
+  expect_snapshot_warning(
+    fit_6 <- spec_6 %>% fit(mpg ~ ., data = mtcars),
+    class = "xgboost_guarded_warning"
+  )
+
+  expect_null(extract_fit_engine(fit_5)$params$watchlist)
+
+  # pass a guarded argument as params argument (bad)
+  spec_7 <-
+    spec_base %>%
+    set_engine("xgboost", params = list(gamma = 0.1))
+
+  expect_snapshot_warning(
+    fit_7 <- spec_7 %>% fit(mpg ~ ., data = mtcars),
+    class = "xgboost_params_warning"
+  )
+
+  expect_equal(extract_fit_engine(fit_5)$params$gamma, 0)
+})
