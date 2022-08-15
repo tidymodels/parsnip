@@ -180,6 +180,7 @@ lme_fit \%>\% tidy() \%>\%
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 × 6
 ## # … with 6 variables: term <chr>, estimate <dbl>, std.error <dbl>, df <dbl>,
 ## #   statistic <dbl>, p.value <dbl>
+## # ℹ Use `colnames()` to see all variable names
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:

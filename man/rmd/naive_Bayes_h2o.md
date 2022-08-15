@@ -45,7 +45,8 @@ naive_Bayes(Laplace = numeric(0)) %>%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_nb(x = missing_arg(), y = missing_arg(), laplace = numeric(0))
+## agua::h2o_train_nb(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), laplace = numeric(0))
 ```
 
 ## Initializing h2o 

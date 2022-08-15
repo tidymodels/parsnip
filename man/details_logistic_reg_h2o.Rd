@@ -50,7 +50,8 @@ binomial responses.
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), family = "binomial")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), family = "binomial")
 }\if{html}{\out{</div>}}
 
 To use a non-default argument in \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}},
@@ -69,7 +70,8 @@ pass in as an engine argument to \code{set_engine()}:
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), compute_p_values = TRUE, 
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), compute_p_values = TRUE, 
 ##     family = "binomial")
 }\if{html}{\out{</div>}}
 }
