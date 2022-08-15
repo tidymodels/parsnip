@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed installation failures due to undocumented knitr installation dependency (#785).
+
 # parsnip 1.0.0
 
 ## Model Specification Changes

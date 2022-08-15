@@ -111,7 +111,7 @@ descr_models <- function(mod, eng) {
   } else {
     txt <- "are multiple modes:"
   }
-  paste("For this engine, there", txt, knitr::combine_words(res))
+  paste("For this engine, there", txt, combine_words(res))
 }
 
 uses_extension <- function(mod, eng, mod_mode) {
