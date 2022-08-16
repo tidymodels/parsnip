@@ -126,7 +126,7 @@ workflow() %>%
 ## GCV score: 4.225228
 ```
 
-The reason for this is that [workflows::add_formula()] will try to create the model matrix and either fail or create dummy variables prematurely. 
+The reason for this is that [workflows::add_formula()] will try to create the model matrix and fail to find/use `s()`.  
 
 ## Preprocessing requirements
 

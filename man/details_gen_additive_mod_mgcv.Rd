@@ -126,8 +126,7 @@ workflow() \%>\%
 
 The reason for this is that
 \code{\link[workflows:add_formula]{workflows::add_formula()}} will try to
-create the model matrix and either fail or create dummy variables
-prematurely.
+create the model matrix and fail to find/use \code{s()}.
 }
 
 \subsection{Preprocessing requirements}{
