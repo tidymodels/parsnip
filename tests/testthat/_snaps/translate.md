@@ -1527,6 +1527,24 @@
       min_rows(5, data, 5)
       
 
+# arguments (proportional_hazards)
+
+    Code
+      basic %>% translate_args()
+    Output
+      list()
+
+---
+
+    Code
+      basic_incomplete %>% translate_args()
+    Condition
+      Error in `.check_glmnet_penalty_fit()`:
+      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      * There are 0 values for `penalty`.
+      * To try multiple values for total regularization, use the tune package.
+      * To predict multiple penalties, use `multi_predict()`
+
 # arguments (rand_forest)
 
     Code

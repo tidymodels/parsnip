@@ -199,6 +199,22 @@ test_that("arguments (nearest_neighbor)", {
   expect_snapshot(translate_args(dist_power %>% set_engine("kknn")))
 })
 
+
+# translate.proportional_hazards ------------------------------------------
+test_that("arguments (proportional_hazards)", {
+  suppressMessages({
+    basic <- proportional_hazards(penalty = 0.1) %>% set_engine("glmnet")
+    basic_incomplete <- proportional_hazards() %>% set_engine("glmnet")
+  })
+
+  # this is empty because the engines are not defined in parsnip
+  expect_snapshot(basic %>% translate_args())
+  # but we can check for the error if there is no penalty for glmnet
+  expect_snapshot(error = TRUE,
+    basic_incomplete %>% translate_args()
+  )
+})
+
 # translate.rand_forest --------------------------------------------------------
 test_that("arguments (rand_forest)", {
   basic <- rand_forest(mode = "regression")
