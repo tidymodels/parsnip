@@ -151,8 +151,8 @@ interpreted in its sense as a proportion.
 \code{\link[=rand_forest]{rand_forest()}}, and thus should not have
 an engine-specific interface. So, regardless of engine, \code{counts}
 defaults to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+interpretation (currently \code{"xgboost"} and \code{"xrf"}, via the rules
+package, and \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within [0,1].
 }
