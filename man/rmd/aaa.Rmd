@@ -1,5 +1,6 @@
 ```{r, include = FALSE}
 # pillar/cli options to try to lock down formatting
+options(useFancyQuotes = FALSE)
 options(dplyr.print_min = 6, dplyr.print_max = 6)
 options(cli.width = 85)
 options(crayon.enabled = FALSE)
