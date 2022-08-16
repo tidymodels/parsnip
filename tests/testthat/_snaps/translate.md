@@ -1895,6 +1895,13 @@
       env:  empty
       
 
+# arguments (survival_reg)
+
+    Code
+      basic %>% translate_args()
+    Output
+      list()
+
 # arguments (svm_linear)
 
     Code

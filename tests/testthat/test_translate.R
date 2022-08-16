@@ -253,6 +253,17 @@ test_that("arguments (surv_reg)", {
   expect_snapshot(translate_args(dist_v %>% set_engine("flexsurv")))
 })
 
+# translate.survival_reg -----------------------------------------------------------
+test_that("arguments (survival_reg)", {
+  suppressMessages({
+    basic <- survival_reg()
+  })
+
+  # this is empty because the engines are not defined in parsnip
+  expect_snapshot(basic %>% translate_args())
+
+})
+
 # translate.svm_linear ---------------------------------------------------------
 test_that("arguments (svm_linear)", {
   basic <- svm_linear(mode = "regression")
