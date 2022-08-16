@@ -93,14 +93,49 @@ gen_additive_mod() \%>\%
 The smoothness of the terms will need to be manually specified (e.g.,
 using \code{s(x, df = 10)}) in the formula. Tuning can be accomplished using
 the \code{adjust_deg_free} parameter.
+
+However, when using a workflow, the best approach is to avoid using
+\code{\link[workflows:add_formula]{workflows::add_formula()}} and use
+\code{\link[workflows:add_variables]{workflows::add_variables()}} in
+conjunction with a model formula:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{spec <- 
+  gen_additive_mod() \%>\% 
+  set_engine("mgcv") \%>\% 
+  set_mode("regression")
+
+workflow() \%>\% 
+  add_variables(outcomes = c(mpg), predictors = c(wt, gear, cyl, disp)) \%>\% 
+  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) \%>\% 
+  fit(data = mtcars) \%>\% 
+  extract_fit_engine()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## mpg ~ wt + gear + cyl + s(disp, k = 10)
+## 
+## Estimated degrees of freedom:
+## 7.52  total = 11.52 
+## 
+## GCV score: 4.225228
+}\if{html}{\out{</div>}}
+
+The reason for this is that
+\code{\link[workflows:add_formula]{workflows::add_formula()}} will try to
+create the model matrix and either fail or create dummy variables
+prematurely.
 }
 
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 }
 
 \subsection{Case weights}{
