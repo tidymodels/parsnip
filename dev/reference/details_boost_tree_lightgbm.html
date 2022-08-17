@@ -218,6 +218,29 @@ within [0,1].</p>
 </div>
 
 <div class="section">
+<h4 id="bagging">Bagging<a class="anchor" aria-label="anchor" href="#bagging"></a></h4>
+
+
+<p>The <code>sample_size</code> argument is translated to the <code>bagging_fraction</code>
+parameter in the <code>param</code> argument of <code>lgb.train</code>. The argument is
+interpreted by lightgbm as a <em>proportion</em> rather than a count, so bonsai
+internally reparameterizes the <code>sample_size</code> argument with
+<code><a href="https://dials.tidymodels.org/reference/trees.html" class="external-link">dials::sample_prop()</a></code> during tuning.</p>
+<p>To effectively enable bagging, the user would also need to set the
+<code>bagging_freq</code> argument to lightgbm. <code>bagging_freq</code> defaults to 0, which
+means bagging is disabled, and a <code>bagging_freq</code> argument of <code>k</code> means
+that the booster will perform bagging at every <code>k</code>th boosting iteration.
+Thus, by default, the <code>sample_size</code> argument would be ignored without
+setting this argument manually. Other boosting libraries, like xgboost,
+do not have an analogous argument to <code>bagging_freq</code> and use <code>k = 1</code> when
+the analogue to <code>bagging_fraction</code> is in (0,1). <em>bonsai will thus
+automatically set</em> <code>bagging_freq = 1</code> <em>in</em> <code>set_engine("lightgbm", ...)</code>
+if <code>sample_size</code> (i.e. <code>bagging_fraction</code>) is not equal to 1 and no
+<code>bagging_freq</code> value is supplied. This default can be overridden by
+setting the <code>bagging_freq</code> argument to <code><a href="set_engine.html">set_engine()</a></code> manually.</p>
+</div>
+
+<div class="section">
 <h4 id="verbosity">Verbosity<a class="anchor" aria-label="anchor" href="#verbosity"></a></h4>
 
 
