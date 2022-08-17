@@ -67,37 +67,43 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-inform_missing_implementation <- function(spec_, engine_, mode_) {
-  avail <-
-    show_engines(spec_) %>%
-    dplyr::filter(mode == mode_, engine == engine_)
-  all <-
-    model_info_table %>%
-    dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
-    dplyr::select(-model)
-
+prompt_missing_implementation <- function(spec_, engine_, mode_, prompt) {
   if (identical(mode_, "unknown")) {
     mode_ <- ""
+    mode_condition <- TRUE
+  } else {
+    mode_condition <- quote(mode == mode_)
   }
 
-  msg <-
-    glue::glue(
-      "parsnip could not locate an implementation for `{spec_}` {mode_} model \\
-       specifications using the `{engine_}` engine."
+  avail <-
+    show_engines(spec_) %>%
+    dplyr::filter(!!mode_condition, engine == engine_)
+  all <-
+    model_info_table %>%
+    dplyr::filter(model == spec_, !!mode_condition, engine == engine_, !is.na(pkg)) %>%
+    dplyr::select(-model)
+
+  msg <- c(
+    "!" = glue::glue(
+        "parsnip could not locate an implementation for `{spec_}` {mode_} \\
+         model specifications using the `{engine_}` engine."
+      )
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
+    pkgs <- all$pkg
+
     msg <-
       c(
         msg,
-        i = paste0("The parsnip extension package ", all$pkg[[1]],
-                   " implements support for this specification."),
-        i = "Please install (if needed) and load to continue.",
+        "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {pkgs}",
+                     " implemen{?ts/t} support for this specification."),
+        "i" = "Please install (if needed) and load to continue.",
         ""
       )
   }
 
-  msg
+  prompt(msg)
 }
 
 
