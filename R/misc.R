@@ -27,9 +27,6 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
-model_info_table <-
-  utils::read.delim(system.file("models.tsv", package = "parsnip"))
-
 # given a model object, return TRUE if:
 # * the model is supported without extensions
 # * the model needs an extension and it is loaded

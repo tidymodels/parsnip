@@ -37,6 +37,11 @@ pred_types <-
 
 # ------------------------------------------------------------------------------
 
+model_info_table <-
+  utils::read.delim(system.file("models.tsv", package = "parsnip"))
+
+# ------------------------------------------------------------------------------
+
 #' Working with the parsnip model environment
 #'
 #' These functions read and write to the environment where the package stores
@@ -204,7 +209,14 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
 
   # Cases where the model definition is in parsnip but all of the engines
   # are contained in a different package
-  if (nrow(model_info) == 0) {
+  model_info_parsnip_only <-
+    dplyr::inner_join(
+      model_info_table %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
+      model_info %>% dplyr::mutate(model = cls),
+      by = c("model", "engine", "mode")
+    )
+
+  if (nrow(model_info_parsnip_only) == 0) {
     check_mode_with_no_engine(cls, mode)
     return(invisible(NULL))
   }
