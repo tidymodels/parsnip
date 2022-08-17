@@ -1,16 +1,19 @@
 
 test_that("primary argument", {
-  expect_message(
-    normal <- survival_reg(dist = "lnorm")
-  )
+
+  normal <- survival_reg(dist = "lnorm")
+
+  expect_snapshot(normal)
+
   expect_equal(
     normal$args,
     list(dist = rlang::quo("lnorm"))
   )
 
-  expect_message(
-    dist_v <- survival_reg(dist = tune())
-  )
+  dist_v <- survival_reg(dist = tune())
+
+  expect_snapshot(dist_v)
+
   expect_equal(
     dist_v$args,
     list(dist = rlang::quo(tune()))

@@ -43,8 +43,14 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
     quote(engine == engine_)
   }
 
+  avail <- get_from_env(spec_)
+
+  if (is.null(avail)) {
+    return(TRUE)
+  }
+
   avail <-
-    get_from_env(spec_) %>%
+    avail %>%
     dplyr::filter(mode %in% mode_, !!eng_cond)
   pars <-
     model_info_table %>%
