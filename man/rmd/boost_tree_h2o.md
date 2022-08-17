@@ -62,6 +62,7 @@ boost_tree(
 ## 
 ## Model fit template:
 ## agua::h2o_train_xgboost(x = missing_arg(), y = missing_arg(), 
+##     weights = missing_arg(), validation_frame = missing_arg(), 
 ##     col_sample_rate = integer(), ntrees = integer(), min_rows = integer(), 
 ##     max_depth = integer(), learn_rate = numeric(), min_split_improvement = numeric(), 
 ##     stopping_rounds = integer())
@@ -98,6 +99,7 @@ boost_tree(
 ## 
 ## Model fit template:
 ## agua::h2o_train_xgboost(x = missing_arg(), y = missing_arg(), 
+##     weights = missing_arg(), validation_frame = missing_arg(), 
 ##     col_sample_rate = integer(), ntrees = integer(), min_rows = integer(), 
 ##     max_depth = integer(), learn_rate = numeric(), min_split_improvement = numeric(), 
 ##     stopping_rounds = integer())
@@ -120,7 +122,7 @@ Some engines, such as `"xgboost"`, `"xrf"`, and `"lightgbm"`, interpret their an
 
 parsnip and its extensions accommodate this parameterization using the `counts` argument: a logical indicating whether `mtry` should be interpreted as the number of predictors that will be randomly sampled at each split. `TRUE` indicates that `mtry` will be interpreted in its sense as a count, `FALSE` indicates that the argument will be interpreted in its sense as a proportion.
 
-`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation---currently `"xgboost"`, `"xrf"` (via the rules package), and `"lightgbm"` (via the bonsai package)---the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
+`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
 
 ## Initializing h2o 
 

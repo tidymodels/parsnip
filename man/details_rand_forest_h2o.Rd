@@ -51,8 +51,9 @@ regression.
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_rf(x = missing_arg(), y = missing_arg(), mtries = integer(1), 
-##     ntrees = integer(1), min_rows = integer(1))
+## agua::h2o_train_rf(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), mtries = integer(1), ntrees = integer(1), 
+##     min_rows = integer(1))
 }\if{html}{\out{</div>}}
 
 \code{min_rows()} and \code{min_cols()} will adjust the number of neighbors if the
@@ -81,8 +82,9 @@ chosen value if it is not consistent with the actual data dimensions.
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_rf(x = missing_arg(), y = missing_arg(), mtries = integer(1), 
-##     ntrees = integer(1), min_rows = integer(1))
+## agua::h2o_train_rf(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), mtries = integer(1), ntrees = integer(1), 
+##     min_rows = integer(1))
 }\if{html}{\out{</div>}}
 }
 

@@ -56,8 +56,9 @@ poisson_reg(penalty = double(1), mixture = double(1)) \%>\%
 ## Computational engine: h2o 
 ## 
 ## Model fit template:
-## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), lambda = double(1), 
-##     alpha = double(1), family = "poisson")
+## agua::h2o_train_glm(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     validation_frame = missing_arg(), lambda = double(1), alpha = double(1), 
+##     family = "poisson")
 }\if{html}{\out{</div>}}
 }
 
@@ -65,8 +66,8 @@ poisson_reg(penalty = double(1), mixture = double(1)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a

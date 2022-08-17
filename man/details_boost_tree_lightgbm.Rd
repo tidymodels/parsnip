@@ -149,13 +149,35 @@ interpreted in its sense as a proportion.
 
 \code{mtry} is a main model argument for
 \code{\link[=boost_tree]{boost_tree()}} and
-\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
-engine-specific interface. So, regardless of engine, \code{counts} defaults
-to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+\code{\link[=rand_forest]{rand_forest()}}, and thus should not have
+an engine-specific interface. So, regardless of engine, \code{counts}
+defaults to \code{TRUE}. For engines that support the proportion
+interpretation (currently \code{"xgboost"} and \code{"xrf"}, via the rules
+package, and \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within [0,1].
+}
+
+\subsection{Bagging}{
+
+The \code{sample_size} argument is translated to the \code{bagging_fraction}
+parameter in the \code{param} argument of \code{lgb.train}. The argument is
+interpreted by lightgbm as a \emph{proportion} rather than a count, so bonsai
+internally reparameterizes the \code{sample_size} argument with
+\code{\link[dials:trees]{dials::sample_prop()}} during tuning.
+
+To effectively enable bagging, the user would also need to set the
+\code{bagging_freq} argument to lightgbm. \code{bagging_freq} defaults to 0, which
+means bagging is disabled, and a \code{bagging_freq} argument of \code{k} means
+that the booster will perform bagging at every \code{k}th boosting iteration.
+Thus, by default, the \code{sample_size} argument would be ignored without
+setting this argument manually. Other boosting libraries, like xgboost,
+do not have an analogous argument to \code{bagging_freq} and use \code{k = 1} when
+the analogue to \code{bagging_fraction} is in (0,1). \emph{bonsai will thus
+automatically set} \code{bagging_freq = 1} \emph{in} \code{set_engine("lightgbm", ...)}
+if \code{sample_size} (i.e. \code{bagging_fraction}) is not equal to 1 and no
+\code{bagging_freq} value is supplied. This default can be overridden by
+setting the \code{bagging_freq} argument to \code{set_engine()} manually.
 }
 
 \subsection{Verbosity}{

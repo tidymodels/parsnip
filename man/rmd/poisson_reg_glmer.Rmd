@@ -19,7 +19,7 @@ poisson_reg(engine = "glmer") %>%
   translate()
 ```
 
-```{r child = "no-pooling.Rmd"}
+```{r child = "template-no-pooling.Rmd"}
 ```
 
 ## Preprocessing requirements

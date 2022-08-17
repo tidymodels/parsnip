@@ -39,8 +39,11 @@ poisson_reg() \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
+}
+
+\subsection{Specifying the statistical model details}{
 
 For this particular model, a special formula is used to specify which
 columns affect the counts and which affect the model for the probability
@@ -88,19 +91,11 @@ spec <-
 workflow() \%>\% 
   add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) \%>\% 
   add_model(spec, formula = art ~ fem + mar | ment) \%>\% 
-  fit(data = bioChemists)
+  fit(data = bioChemists) \%>\% 
+  extract_fit_engine()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ══ Workflow [trained] ══════════════════════════════════════════════════════════
-## Preprocessor: Variables
-## Model: poisson_reg()
-## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
-## Outcomes: c(art)
-## Predictors: c(fem, mar, ment)
-## 
-## ── Model ───────────────────────────────────────────────────────────────────────
-## 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## 
 ## Call:
 ## pscl::hurdle(formula = art ~ fem + mar | ment, data = data)
 ## 
