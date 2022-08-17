@@ -67,7 +67,7 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-prompt_missing_implementation <- function(spec_, engine_, mode_, prompt) {
+prompt_missing_implementation <- function(spec_, engine_, mode_, prompt, ...) {
   if (identical(mode_, "unknown")) {
     mode_ <- ""
     mode_condition <- TRUE
@@ -91,19 +91,18 @@ prompt_missing_implementation <- function(spec_, engine_, mode_, prompt) {
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
-    pkgs <- all$pkg
+    pkgs <- unique(all$pkg)
 
     msg <-
       c(
         msg,
         "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {pkgs}",
                      " implemen{?ts/t} support for this specification."),
-        "i" = "Please install (if needed) and load to continue.",
-        ""
+        "i" = "Please install (if needed) and load to continue."
       )
   }
 
-  prompt(msg)
+  prompt(c(msg, ""), ...)
 }
 
 
