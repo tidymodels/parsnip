@@ -72,7 +72,8 @@ set_args.model_spec <- function(object, ...) {
     eng_args = object$eng_args,
     mode = object$mode,
     method = NULL,
-    engine = object$engine
+    engine = object$engine,
+    check_missing_spec = FALSE
   )
 }
 

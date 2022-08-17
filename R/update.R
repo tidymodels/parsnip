@@ -87,6 +87,7 @@ update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...) {
     eng_args = object$eng_args,
     mode = object$mode,
     method = NULL,
-    engine = object$engine
+    engine = object$engine,
+    check_missing_spec = FALSE
   )
 }

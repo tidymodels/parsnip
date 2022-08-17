@@ -73,47 +73,31 @@ is_printable_spec <- function(x) {
 inform_missing_implementation <- function(spec_, engine_, mode_) {
   avail <-
     show_engines(spec_) %>%
-    dplyr::filter(engine == engine_)
+    dplyr::filter(mode == mode_, engine == engine_)
   all <-
     model_info_table %>%
-    dplyr::filter(model == spec_, engine == engine_, !is.na(pkg)) %>%
+    dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
     dplyr::select(-model)
 
-  if (!identical(mode_, "unknown")) {
-    avail <- avail %>% dplyr::filter(mode == mode_)
-    all <- all %>% dplyr::filter(mode == mode_)
-    msg <- glue::glue(
-      paste0(
-        "No implementation found for {spec_} {mode_} ",
-        "model specifications using the `{engine_}` engine. "
-      )
-    )
-  } else {
-    msg <- glue::glue(
-      paste0(
-        "No implementation found for {spec_} ",
-        "model specifications using the `{engine_}` engine. "
-      )
-    )
+  if (identical(mode_, "unknown")) {
+    mode_ <- ""
   }
 
+  msg <-
+    glue::glue(
+      "parsnip could not locate an implementation for `{spec_}` {mode_} model \\
+       specifications using the `{engine_}` engine."
+    )
+
   if (nrow(avail) == 0 && nrow(all) > 0) {
-    pkgs <- unique(all$pkg)
-    if (length(pkgs) == 1) {
-      msg <-
-        c(
-          i = msg,
-          i = glue::glue("Install the `{pkgs[[1]]}` package (if needed) and load to continue."),
-          "\n"
-        )
-    } else {
-      pkgs <- paste0(paste0("`", unique(pkgs), "`"), collapse = ", ")
-      msg <- c(
-        i = msg,
-        i = glue::glue("Install either of the {pkgs} packages (if needed) and load to continue."),
-        "\n"
+    msg <-
+      c(
+        msg,
+        i = paste0("The parsnip extension package ", all$pkg[[1]],
+                   " implements support for this specification."),
+        i = "Please install (if needed) and load to continue.",
+        ""
       )
-    }
   }
 
   msg
@@ -216,8 +200,13 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
+new_model_spec <- function(cls, args, eng_args, mode, method, engine,
+                           check_missing_spec = TRUE) {
   check_spec_mode_engine_val(cls, engine, mode)
+
+  if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
+    rlang::inform(inform_missing_implementation(cls, engine, mode))
+  }
 
   out <- list(
     args = args, eng_args = eng_args,
