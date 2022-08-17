@@ -49,7 +49,7 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 ## Computational engine: glmnet 
 ## 
 ## Model fit template:
-## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
+## censored::coxnet_train(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), alpha = double(1))
 }\if{html}{\out{</div>}}
 }
@@ -58,8 +58,8 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
