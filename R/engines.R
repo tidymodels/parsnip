@@ -131,8 +131,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     eng_args = enquos(...),
     mode = object$mode,
     method = NULL,
-    engine = object$engine,
-    check_missing_spec = FALSE
+    engine = object$engine
   )
 }
 
