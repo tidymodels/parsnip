@@ -206,11 +206,11 @@ sense as a count, <code>FALSE</code> indicates that the argument will be
 interpreted in its sense as a proportion.</p>
 <p><code>mtry</code> is a main model argument for
 <code><a href="boost_tree.html">boost_tree()</a></code> and
-<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have an
-engine-specific interface. So, regardless of engine, <code>counts</code> defaults
-to <code>TRUE</code>. For engines that support the proportion
-interpretation—currently <code>"xgboost"</code>, <code>"xrf"</code> (via the rules package),
-and <code>"lightgbm"</code> (via the bonsai package)—the user can pass the
+<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have
+an engine-specific interface. So, regardless of engine, <code>counts</code>
+defaults to <code>TRUE</code>. For engines that support the proportion
+interpretation (currently <code>"xgboost"</code> and <code>"xrf"</code>, via the rules
+package, and <code>"lightgbm"</code> via the bonsai package) the user can pass the
 <code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
 within [0,1].</p>
 </div>

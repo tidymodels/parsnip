@@ -162,66 +162,7 @@ workflow. In this case, you can add the appropriate columns using
 <span><span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">gls_wflow</span>, data <span class="op">=</span> <span class="va">riesby</span><span class="op">)</span></span></code></pre><p></p></div>
 </div>
 
-    </div>
-    <div class="section level2">
-    <h2 id="degrees-of-freedom">Degrees of freedom<a class="anchor" aria-label="anchor" href="#degrees-of-freedom"></a></h2>
-    <p>Note that <code><a href="https://rdrr.io/pkg/nlme/man/lme.html" class="external-link">nlme::lme()</a></code> and <code><a href="https://rdrr.io/pkg/nlme/man/gls.html" class="external-link">nlme::gls()</a></code>
-can fit the same model but will count degrees of freedom differently. If
-there are <code>n</code> data points, <code>p</code> fixed effects parameters, and <code>q</code> random
-effect parameters, the residual degrees of freedom are:</p><ul><li><p><strong>lme</strong>: n - p - q</p></li>
-<li><p><strong>gls</strong>: n - p</p></li>
-</ul><p>As a result, p-values will be different. For example, we can fit the
-same model using different estimation methods (assuming a positive
-covariance value):</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="va">gls_fit</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"gls"</span>, correlation <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/pkg/nlme/man/corCompSymm.html" class="external-link">corCompSymm</a></span><span class="op">(</span>form <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">depr_score</span> <span class="op">~</span> <span class="va">week</span>, data <span class="op">=</span> <span class="va">riesby</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">lme_fit</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"lme"</span>, random <span class="op">=</span>  <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">depr_score</span> <span class="op">~</span> <span class="va">week</span>, data <span class="op">=</span> <span class="va">riesby</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>The estimated within-subject correlations are the same:</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># lme, use ape package:</span></span>
-<span><span class="va">lme_within_sub</span> <span class="op">&lt;-</span> <span class="fu">varcomp</span><span class="op">(</span><span class="va">lme_fit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu">varcomp</span><span class="op">(</span><span class="va">lme_fit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">lme_within_sub</span><span class="op">[</span><span class="st">"subject"</span><span class="op">]</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.6820145</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="co"># gls:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gls_fit</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">modelStruct</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Correlation Structure: Compound symmetry</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  Formula: ~1 | subject </span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  Parameter estimate(s):</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       Rho </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.6820145</span></span></code></pre><p></p></div>
-<p>as are the fixed effects (and their standard errors):</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu">nlme</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html" class="external-link">fixef</a></span><span class="op">(</span><span class="va">lme_fit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)        week </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   -4.953439   -2.119678</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">gls_fit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)        week </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   -4.953439   -2.119678</span></span></code></pre><p></p></div>
-<p>However, the p-values for the fixed effects are different:</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bbolker/broom.mixed" class="external-link">broom.mixed</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># lme:</span></span>
-<span><span class="va">lme_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">group</span> <span class="op">==</span> <span class="st">"fixed"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">group</span>, <span class="op">-</span><span class="va">effect</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 0 × 6</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 6 variables: term &lt;chr&gt;, estimate &lt;dbl&gt;, std.error &lt;dbl&gt;, df &lt;dbl&gt;,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## #   statistic &lt;dbl&gt;, p.value &lt;dbl&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ Use `colnames()` to see all variable names</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="co"># gls:</span></span>
-<span><span class="va">gls_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic  p.value</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)    -4.95     0.808     -6.13 3.50e- 9</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 week           -2.12     0.224     -9.47 2.26e-18</span></span></code></pre><p></p></div><div class="section">
+<div class="section">
 <h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
 
 

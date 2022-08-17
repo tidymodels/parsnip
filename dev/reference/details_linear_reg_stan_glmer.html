@@ -124,8 +124,8 @@ centering all predictors).</p></li>
 
 <p>This model can use subject-specific coefficient estimates to make
 predictions (i.e. partial pooling). For example, this equation shows the
-linear predictor (<em>η</em>) for a random intercept:</p>
-<p><em>η</em><sub><em>i</em></sub> = (<em>β</em><sub>0</sub>+<em>b</em><sub>0<em>i</em></sub>) + <em>β</em><sub>1</sub><em>x</em><sub><em>i</em>1</sub></p>
+linear predictor (<code>\eta</code>) for a random intercept:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>\eta_{i} <span class="ot">=</span> (\beta_0 <span class="sc">+</span> b_{0i}) <span class="sc">+</span> \beta_1x_{i1}</span></code></pre><p></p></div>
 <p>where <em>i</em> denotes the <code>i</code>th independent experimental unit
 (e.g. subject). When the model has seen subject <code>i</code>, it can use that
 subject’s data to adjust the <em>population</em> intercept to be more specific
@@ -133,7 +133,7 @@ to that subjects results.</p>
 <p>What happens when data are being predicted for a subject that was not
 used in the model fit? In that case, this package uses <em>only</em> the
 population parameter estimates for prediction:</p>
-<p><em>η̂</em><sub><em>i</em>′</sub> = <em>β̂</em><sub>0</sub> + <em>β̂**x</em><sub><em>i</em>′1</sub></p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>\hat{\eta}_{i<span class="st">'} = \hat{</span><span class="sc">\b</span><span class="st">eta}_0+ \hat{</span><span class="sc">\b</span><span class="st">eta}x_{i'</span><span class="dv">1</span>}</span></code></pre><p></p></div>
 <p>Depending on what covariates are in the model, this might have the
 effect of making the same prediction for all new samples. The population
 parameters are the “best estimate” for a subject that was not included
