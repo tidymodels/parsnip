@@ -61,64 +61,6 @@ gls_wflow <-
 fit(gls_wflow, data = riesby)
 ```
 
-# Degrees of freedom
-
-Note that [nlme::lme()] and [nlme::gls()] can fit the same model but will count degrees of freedom differently. If there are `n` data points, `p` fixed effects parameters, and `q` random effect parameters, the residual degrees of freedom are:
-
-* **lme**: n - p - q
-* **gls**: n - p
-
-As a result, p-values will be different. For example, we can fit the same model using different estimation methods (assuming a positive covariance value): 
-
-```{r}
-gls_fit <- 
-  linear_reg() %>% 
-  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) %>% 
-  fit(depr_score ~ week, data = riesby)
-
-lme_fit <-
-  linear_reg() %>% 
-  set_engine("lme", random =  ~ 1 | subject) %>% 
-  fit(depr_score ~ week, data = riesby)
-```
-
-The estimated within-subject correlations are the same:
-
-```{r, warning = FALSE}
-library(ape)
-
-# lme, use ape package:
-lme_within_sub <- varcomp(lme_fit$fit)/sum(varcomp(lme_fit$fit))
-lme_within_sub["subject"]
-
-# gls:
-summary(gls_fit$fit$modelStruct)
-```
-
-as are the fixed effects (and their standard errors):
-
-```{r}
-nlme::fixef(lme_fit$fit)
-coef(gls_fit$fit)
-```
-
-However, the p-values for the fixed effects are different:
-
-```{r, include = FALSE}
-library(broom.mixed)
-```
-```{r}
-library(broom.mixed)
-
-# lme:
-lme_fit %>% tidy() %>% 
-  dplyr::filter(group == "fixed") %>% 
-  dplyr::select(-group, -effect)
-
-# gls:
-gls_fit %>% tidy()
-```
-
 ## Case weights
 
 ```{r child = "template-no-case-weights.Rmd"}

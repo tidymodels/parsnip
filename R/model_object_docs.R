@@ -134,7 +134,7 @@
 #'}
 #'
 #' More information on quosures and quasiquotation can be found at
-#' \url{https://tidyeval.tidyverse.org}.
+#' \url{https://adv-r.hadley.nz/quasiquotation.html}.
 #'
 #' @rdname model_spec
 #' @name model_spec

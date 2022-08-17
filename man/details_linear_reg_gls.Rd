@@ -101,98 +101,7 @@ gls_wflow <-
 fit(gls_wflow, data = riesby)
 }\if{html}{\out{</div>}}
 }
-}
-\section{Degrees of freedom}{
-Note that \code{\link[nlme:lme]{nlme::lme()}} and \code{\link[nlme:gls]{nlme::gls()}}
-can fit the same model but will count degrees of freedom differently. If
-there are \code{n} data points, \code{p} fixed effects parameters, and \code{q} random
-effect parameters, the residual degrees of freedom are:
-\itemize{
-\item \strong{lme}: n - p - q
-\item \strong{gls}: n - p
-}
 
-As a result, p-values will be different. For example, we can fit the
-same model using different estimation methods (assuming a positive
-covariance value):
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{gls_fit <- 
-  linear_reg() \%>\% 
-  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) \%>\% 
-  fit(depr_score ~ week, data = riesby)
-
-lme_fit <-
-  linear_reg() \%>\% 
-  set_engine("lme", random =  ~ 1 | subject) \%>\% 
-  fit(depr_score ~ week, data = riesby)
-}\if{html}{\out{</div>}}
-
-The estimated within-subject correlations are the same:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ape)
-
-# lme, use ape package:
-lme_within_sub <- varcomp(lme_fit$fit)/sum(varcomp(lme_fit$fit))
-lme_within_sub["subject"]
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{##   subject 
-## 0.6820145
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
-summary(gls_fit$fit$modelStruct)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Correlation Structure: Compound symmetry
-##  Formula: ~1 | subject 
-##  Parameter estimate(s):
-##       Rho 
-## 0.6820145
-}\if{html}{\out{</div>}}
-
-as are the fixed effects (and their standard errors):
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{nlme::fixef(lme_fit$fit)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## (Intercept)        week 
-##   -4.953439   -2.119678
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{coef(gls_fit$fit)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## (Intercept)        week 
-##   -4.953439   -2.119678
-}\if{html}{\out{</div>}}
-
-However, the p-values for the fixed effects are different:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(broom.mixed)
-
-# lme:
-lme_fit \%>\% tidy() \%>\% 
-  dplyr::filter(group == "fixed") \%>\% 
-  dplyr::select(-group, -effect)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 × 6
-## # … with 6 variables: term <chr>, estimate <dbl>, std.error <dbl>, df <dbl>,
-## #   statistic <dbl>, p.value <dbl>
-## # ℹ Use `colnames()` to see all variable names
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# gls:
-gls_fit \%>\% tidy()
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
-## 1 (Intercept)    -4.95     0.808     -6.13 3.50e- 9
-## 2 week           -2.12     0.224     -9.47 2.26e-18
-}\if{html}{\out{</div>}}
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.
@@ -205,5 +114,4 @@ S-PLUS}. Springer, New York, NY
 }
 }
 }
-
 \keyword{internal}

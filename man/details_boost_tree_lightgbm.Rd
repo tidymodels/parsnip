@@ -149,11 +149,11 @@ interpreted in its sense as a proportion.
 
 \code{mtry} is a main model argument for
 \code{\link[=boost_tree]{boost_tree()}} and
-\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
-engine-specific interface. So, regardless of engine, \code{counts} defaults
-to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+\code{\link[=rand_forest]{rand_forest()}}, and thus should not have
+an engine-specific interface. So, regardless of engine, \code{counts}
+defaults to \code{TRUE}. For engines that support the proportion
+interpretation (currently \code{"xgboost"} and \code{"xrf"}, via the rules
+package, and \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within [0,1].
 }

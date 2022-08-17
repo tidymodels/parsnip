@@ -181,19 +181,15 @@ originally requested:
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 11 × 3
-##    term        estimate penalty
-##    <chr>          <dbl>   <dbl>
-##  1 (Intercept)  35.3          1
-##  2 cyl          -0.872        1
-##  3 disp          0            1
-##  4 hp           -0.0101       1
-##  5 drat          0            1
-##  6 wt           -2.59         1
-##  7 qsec          0            1
-##  8 vs            0            1
-##  9 am            0            1
-## 10 gear          0            1
-## 11 carb          0            1
+##   term        estimate penalty
+##   <chr>          <dbl>   <dbl>
+## 1 (Intercept)  35.3          1
+## 2 cyl          -0.872        1
+## 3 disp          0            1
+## 4 hp           -0.0101       1
+## 5 drat          0            1
+## 6 wt           -2.59         1
+## # … with 5 more rows
 }\if{html}{\out{</div>}}
 
 Note that there is a \code{tidy()} method for \code{glmnet} objects in the \code{broom}
@@ -206,20 +202,15 @@ all_tidy_coefs
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 640 × 5
-##    term         step estimate lambda dev.ratio
-##    <chr>       <dbl>    <dbl>  <dbl>     <dbl>
-##  1 (Intercept)     1     20.1   5.15     0    
-##  2 (Intercept)     2     21.6   4.69     0.129
-##  3 (Intercept)     3     23.2   4.27     0.248
-##  4 (Intercept)     4     24.7   3.89     0.347
-##  5 (Intercept)     5     26.0   3.55     0.429
-##  6 (Intercept)     6     27.2   3.23     0.497
-##  7 (Intercept)     7     28.4   2.95     0.554
-##  8 (Intercept)     8     29.4   2.68     0.601
-##  9 (Intercept)     9     30.3   2.45     0.640
-## 10 (Intercept)    10     31.1   2.23     0.673
-## # … with 630 more rows
-## # ℹ Use `print(n = ...)` to see more rows
+##   term         step estimate lambda dev.ratio
+##   <chr>       <dbl>    <dbl>  <dbl>     <dbl>
+## 1 (Intercept)     1     20.1   5.15     0    
+## 2 (Intercept)     2     21.6   4.69     0.129
+## 3 (Intercept)     3     23.2   4.27     0.248
+## 4 (Intercept)     4     24.7   3.89     0.347
+## 5 (Intercept)     5     26.0   3.55     0.429
+## 6 (Intercept)     6     27.2   3.23     0.497
+## # … with 634 more rows
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
