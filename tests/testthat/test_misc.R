@@ -101,6 +101,27 @@ test_that('correct mtry', {
 # ----------------------------------------------------------------------------
 
 test_that('model type functions message informatively with unknown implementation', {
+  # one possible extension --------------------------------------------------
+  # known engine, mode
+  expect_snapshot(
+    bag_tree() %>%
+      set_engine("rpart") %>%
+      set_mode("regression")
+  )
+
+  # known, uniquely identifying mode
+  expect_snapshot(
+    bag_tree() %>%
+      set_mode("censored regression")
+  )
+
+  # two possible extensions -------------------------------------------------
+  # all default / unknown
+  expect_snapshot(
+    bag_tree()
+  )
+
+  # extension-ambiguous engine
   expect_snapshot(
     bag_tree() %>%
       set_engine("rpart")
