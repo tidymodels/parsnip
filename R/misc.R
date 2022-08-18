@@ -102,7 +102,7 @@ prompt_missing_implementation <- function(spec_, engine_, mode_, prompt, ...) {
     msg <-
       c(
         msg,
-        "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {pkgs}",
+        "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {.pkg {pkgs}}",
                      " implemen{?ts/t} support for this specification."),
         "i" = "Please install (if needed) and load to continue."
       )
