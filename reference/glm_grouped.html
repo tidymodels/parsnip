@@ -7,7 +7,7 @@ stats::glm() expects the data to be formatted as the number of events for
 each factor level so that the outcome can be given to the formula as
 cbind(events_1, events_2).
 glm_grouped() converts data with integer case weights to the expected
-"number of events" format for binomial data.'><title>Fit a grouped binomial outcome from a data set with case weights — glm_grouped • parsnip</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.1/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fit a grouped binomial outcome from a data set with case weights — glm_grouped"><meta property="og:description" content='stats::glm() assumes that a tabular data set with case weights corresponds
+"number of events" format for binomial data.'><title>Fit a grouped binomial outcome from a data set with case weights — glm_grouped • parsnip</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fit a grouped binomial outcome from a data set with case weights — glm_grouped"><meta property="og:description" content='stats::glm() assumes that a tabular data set with case weights corresponds
 to "different observations have different dispersions" (see ?glm).
 In some cases, the case weights reflect that the same covariate pattern was
 observed multiple times (i.e., frequency weights). In this case,
@@ -26,7 +26,7 @@ glm_grouped() converts data with integer case weights to the expected
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,7 @@ each factor level so that the outcome can be given to the formula as
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">glm_grouped</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">weights</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">glm_grouped</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">weights</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -127,13 +127,13 @@ automatically be assigned the basic binomial family.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#----------------------------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># The same data set formatted three ways</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># First with basic case weights that, from ?glm, are used inappropriately.</span></span>
-<span class="r-in"><span class="va">ucb_weighted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">UCBAdmissions</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#----------------------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># The same data set formatted three ways</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># First with basic case weights that, from ?glm, are used inappropriately.</span></span></span>
+<span class="r-in"><span><span class="va">ucb_weighted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">UCBAdmissions</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Admit Gender Dept Freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Admitted   Male    A  512</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Rejected   Male    A  313</span>
@@ -141,13 +141,13 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 Rejected Female    A   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Admitted   Male    B  353</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 Rejected   Male    B  207</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_weighted</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Format when yes/no data are in individual rows (probably still inappropriate)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ucb_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/uncount.html" class="external-link">uncount</a></span><span class="op">(</span><span class="va">ucb_weighted</span>, <span class="va">Freq</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_long</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Format when yes/no data are in individual rows (probably still inappropriate)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ucb_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/uncount.html" class="external-link">uncount</a></span><span class="op">(</span><span class="va">ucb_weighted</span>, <span class="va">Freq</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_long</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Admit Gender Dept</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Admitted   Male    A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Admitted   Male    A</span>
@@ -155,19 +155,19 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 Admitted   Male    A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Admitted   Male    A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 Admitted   Male    A</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_long</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_long</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4526</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Format where the outcome is formatted as number of events</span></span>
-<span class="r-in"><span class="va">ucb_events</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="va">ucb_weighted</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span>
-<span class="r-in">    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Gender</span>, <span class="va">Dept</span><span class="op">)</span>,</span>
-<span class="r-in">    names_from <span class="op">=</span> <span class="va">Admit</span>,</span>
-<span class="r-in">    values_from <span class="op">=</span> <span class="va">Freq</span>,</span>
-<span class="r-in">    values_fill <span class="op">=</span> <span class="fl">0L</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_events</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Format where the outcome is formatted as number of events</span></span></span>
+<span class="r-in"><span><span class="va">ucb_events</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">ucb_weighted</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Gender</span>, <span class="va">Dept</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">Admit</span>,</span></span>
+<span class="r-in"><span>    values_from <span class="op">=</span> <span class="va">Freq</span>,</span></span>
+<span class="r-in"><span>    values_fill <span class="op">=</span> <span class="fl">0L</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ucb_events</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Gender Dept  Admitted Rejected</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -177,14 +177,14 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Female B           17        8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Male   C          120      205</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Female C          202      391</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_events</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">ucb_events</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#----------------------------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># Different model fits</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Treat data as separate Bernoulli data:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>, data <span class="op">=</span> <span class="va">ucb_long</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----------------------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># Different model fits</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Treat data as separate Bernoulli data:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>, data <span class="op">=</span> <span class="va">ucb_long</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = Admit ~ Gender + Dept, family = binomial, data = ucb_long)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -197,14 +197,14 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 4525 Total (i.e. Null);  4519 Residual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    6044 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 5187 	AIC: 5201</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Weights produce the same statistics</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>,</span>
-<span class="r-in">  data <span class="op">=</span> <span class="va">ucb_weighted</span>,</span>
-<span class="r-in">  family <span class="op">=</span> <span class="va">binomial</span>,</span>
-<span class="r-in">  weights <span class="op">=</span> <span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Weights produce the same statistics</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">ucb_weighted</span>,</span></span>
+<span class="r-in"><span>  family <span class="op">=</span> <span class="va">binomial</span>,</span></span>
+<span class="r-in"><span>  weights <span class="op">=</span> <span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = Admit ~ Gender + Dept, family = binomial, data = ucb_weighted, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weights = ucb_weighted$Freq)</span>
@@ -218,14 +218,14 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 23 Total (i.e. Null);  17 Residual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    6044 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 5187 	AIC: 5201</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Data as binomial "x events out of n trials" format. Note that, to get the same</span></span>
-<span class="r-in"><span class="co"># coefficients, the order of the levels must be reversed.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Rejected</span>, <span class="va">Admitted</span><span class="op">)</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>,</span>
-<span class="r-in">  data <span class="op">=</span> <span class="va">ucb_events</span>,</span>
-<span class="r-in">  family <span class="op">=</span> <span class="va">binomial</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Data as binomial "x events out of n trials" format. Note that, to get the same</span></span></span>
+<span class="r-in"><span><span class="co"># coefficients, the order of the levels must be reversed.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Rejected</span>, <span class="va">Admitted</span><span class="op">)</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">ucb_events</span>,</span></span>
+<span class="r-in"><span>  family <span class="op">=</span> <span class="va">binomial</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = cbind(Rejected, Admitted) ~ Gender + Dept, family = binomial, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     data = ucb_events)</span>
@@ -239,9 +239,9 @@ automatically be assigned the basic binomial family.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 11 Total (i.e. Null);  5 Residual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    877.1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 20.2 	AIC: 103.1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The new function that starts with frequency weights and gets the correct place:</span></span>
-<span class="r-in"><span class="fu">glm_grouped</span><span class="op">(</span><span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>, data <span class="op">=</span> <span class="va">ucb_weighted</span>, weights <span class="op">=</span> <span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The new function that starts with frequency weights and gets the correct place:</span></span></span>
+<span class="r-in"><span><span class="fu">glm_grouped</span><span class="op">(</span><span class="va">Admit</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Dept</span>, data <span class="op">=</span> <span class="va">ucb_weighted</span>, weights <span class="op">=</span> <span class="va">ucb_weighted</span><span class="op">$</span><span class="va">Freq</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = formula, family = "binomial", data = data)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -267,7 +267,7 @@ automatically be assigned the basic binomial family.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>

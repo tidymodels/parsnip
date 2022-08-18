@@ -55,6 +55,9 @@
     <loc>https://parsnip.tidymodels.org/reference/augment.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/auto_ml.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/autoplot.model_fit.html</loc>
   </url>
   <url>
@@ -104,6 +107,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_C5_rules_C5.0.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_auto_ml_h2o.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_bag_mars_earth.html</loc>
