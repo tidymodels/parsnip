@@ -63,6 +63,14 @@ test_that('S3 method dispatch/registration', {
 })
 
 # ------------------------------------------------------------------------------
+test_that("combine_words helper works", {
+  expect_snapshot(combine_words(1))
+  expect_snapshot(combine_words(1:2))
+  expect_snapshot(combine_words(1:3))
+  expect_snapshot(combine_words(1:4))
+})
+
+# ------------------------------------------------------------------------------
 
 test_that('control class', {
   x <- linear_reg() %>% set_engine("lm")

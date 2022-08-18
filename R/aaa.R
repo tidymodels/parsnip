@@ -81,51 +81,13 @@ function(results, object) {
   res
 }
 
-# nocov start
-
-# copied from xfun::raw_string (see #785)
-raw_string <- function(x)  {
-  if (is.null(x)) {
-    x <- as.character(x)
+combine_words <- function(x) {
+  if (isTRUE(length(x) > 2)) {
+    last <- ", and "
+  } else {
+    last <- " and "
   }
 
-  x
+  glue::glue_collapse(x, ", ", last = last) %>%
+    rlang::as_character()
 }
-
-# copied from knitr:::is_blank (see #785)
-is_blank <- function(x) {
-  if (length(x)) {
-    return(all(grepl("^\\s*$", x)))
-  }
-
-  TRUE
-}
-
-# copied from knitr::combine_words (see #785)
-combine_words <- function(words, sep = ", ", and = " and ", before = "",
-                          after = before, oxford_comma = TRUE)  {
-  n <- length(words)
-  rs <- raw_string
-  if (n == 0) {
-    return(words)
-  }
-  words <- paste0(before, words, after)
-  if (n == 1) {
-    return(rs(words))
-  }
-  if (n == 2) {
-    return(rs(paste(words, collapse = if (is_blank(and)) sep else and)))
-  }
-  if (oxford_comma && grepl("^ ", and) && grepl(" $", sep)) {
-    and <- gsub("^ ", "", and)
-  }
-  words[n] = paste0(and, words[n])
-  if (!oxford_comma) {
-    words[n - 1] = paste0(words[n - 1:0], collapse = "")
-    words = words[-n]
-  }
-  rs(paste(words, collapse = sep))
-}
-
-# nocov end
-
