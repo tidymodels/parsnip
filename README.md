@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# parsnip <a href='https://parsnip.tidymodels.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# parsnip <a href='https://parsnip.tidymodels.org'><img src='man/figures/logo.png' style='float: right' height="139" /></a>
 
 <!-- badges: start -->
 

@@ -120,6 +120,51 @@ training process.
 }
 
 \subsection{Other details}{
+\subsection{Interfacing with the \code{params} argument}{
+
+The xgboost function that parsnip indirectly wraps,
+\code{\link[xgboost:xgb.train]{xgboost::xgb.train()}}, takes most arguments via
+the \code{params} list argument. To supply engine-specific arguments that are
+documented in \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} as
+arguments to be passed via \code{params}, supply the list elements directly
+as named arguments to \code{\link[=set_engine]{set_engine()}} rather than as
+elements in \code{params}. For example, pass a non-default evaluation metric
+like this:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# good
+boost_tree() \%>\%
+  set_engine("xgboost", eval_metric = "mae")
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   eval_metric = mae
+## 
+## Computational engine: xgboost
+}\if{html}{\out{</div>}}
+
+…rather than this:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# bad
+boost_tree() \%>\%
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   params = list(eval_metric = "mae")
+## 
+## Computational engine: xgboost
+}\if{html}{\out{</div>}}
+
+parsnip will then route arguments as needed. In the case that arguments
+are passed to \code{params} via \code{\link[=set_engine]{set_engine()}}, parsnip will
+warn and re-route the arguments as needed. Note, though, that arguments
+passed to \code{params} cannot be tuned.
+}
+
 \subsection{Sparse matrices}{
 
 xgboost requires the data to be in a sparse format. If your predictor
@@ -182,13 +227,17 @@ performance (and stopping early).
 
 If the model specification has \code{early_stop >= trees}, \code{early_stop} is
 converted to \code{trees - 1} and a warning is issued.
+
+Note that, since the \code{validation} argument provides an alternative
+interface to \code{watchlist}, the \code{watchlist} argument is guarded by parsnip
+and will be ignored (with a warning) if passed.
 }
 
 \subsection{Objective function}{
 
 parsnip chooses the objective function based on the characteristics of
 the outcome. To use a different loss, pass the \code{objective} argument to
-\code{\link[=set_engine]{set_engine()}}.
+\code{\link[=set_engine]{set_engine()}} directly.
 }
 
 }
