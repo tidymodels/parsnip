@@ -88,6 +88,5 @@ combine_words <- function(x) {
     last <- " and "
   }
 
-  glue::glue_collapse(x, ", ", last = last) %>%
-    rlang::as_character()
+  glue::glue_collapse(x, ", ", last = last)
 }
