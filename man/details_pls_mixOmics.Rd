@@ -101,8 +101,8 @@ accessible via CRAN. You can install using:
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated
