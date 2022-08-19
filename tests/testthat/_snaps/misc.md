@@ -1,3 +1,31 @@
+# combine_words helper works
+
+    Code
+      combine_words(1)
+    Output
+      1
+
+---
+
+    Code
+      combine_words(1:2)
+    Output
+      1 and 2
+
+---
+
+    Code
+      combine_words(1:3)
+    Output
+      1, 2, and 3
+
+---
+
+    Code
+      combine_words(1:4)
+    Output
+      1, 2, 3, and 4
+
 # model type functions message informatively with unknown implementation
 
     Code

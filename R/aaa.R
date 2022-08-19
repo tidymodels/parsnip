@@ -80,3 +80,13 @@ function(results, object) {
   }
   res
 }
+
+combine_words <- function(x) {
+  if (isTRUE(length(x) > 2)) {
+    last <- ", and "
+  } else {
+    last <- " and "
+  }
+
+  glue::glue_collapse(x, ", ", last = last)
+}
