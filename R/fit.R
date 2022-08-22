@@ -255,14 +255,22 @@ fit_xy.model_spec <-
     }
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
+
+      y_col_name <- colnames(y)
+
       if (is.matrix(y)) {
         y <- y[, 1]
-      } else if (!is.null(colnames(y))){
+      } else if (!is.null(colnames(y)) && is.numeric(y[,1,drop=T])) {
         # preserves colname of y
         y <- as.matrix(y)
       } else {
         #strips colname of y
         y <- y[[1]]
+      }
+
+      if(object$engine == "xgboost" && object$mode == "classification" && is.factor(y)){
+
+        attr(y, "col_name") <- y_col_name
       }
     }
 
