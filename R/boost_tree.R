@@ -236,20 +236,30 @@ xgb_train <- function(
   num_class <- length(levels(y))
 
   if(is.data.frame(validation)) {
-      if(is.null(colnames(y)) | is.vector(y) && is.null(attr(y, 'colnames'))){
-        rlang::abort("`y` must be named when `validation` is a dataframe")
-      } else if (!(colnames(y) %in% colnames(validation))){
-        wrong_col <- colnames(y)
-        rlang::abort(paste0("`",wrong_col,"`", " column not found in `validation`"))
-      } else if (!all(colnames(x) %in% colnames(validation))){
-        missing_cols <- colnames(x)[which(!(colnames(x) %in% colnames(validation)))]
-        missing_cols_txt <- paste0("`", missing_cols, "`", collapse = ",")
-
-        rlang::abort(glue::glue("`validation` is missing column(s): {missing_cols_txt}"))
-
+      if(is.matrix(y) | is.data.frame(y) | is.numeric(y)){
+        if (is.null(colnames(y))){
+          rlang::abort("`y` must be named when `validation` is a dataframe")
+        } else if (!(colnames(y) %in% colnames(validation))){
+          wrong_col <- colnames(y)
+          rlang::abort(paste0("`",wrong_col,"`", " column not found in `validation`"))
+        }
+      } else {
+          if (is.null(attr(y, "col_name"))) {
+            rlang::abort("`y` must be named when `validation` is a dataframe")
+          } else if (!(attr(y, "col_name") %in% colnames(validation))) {
+            wrong_col <- attr(y, "col_name")
+            rlang::abort(paste0("`",wrong_col,"`", " column not found in `validation`"))
+          }
       }
+
+      if (!all(colnames(x) %in% colnames(validation))){
+      missing_cols <- colnames(x)[which(!(colnames(x) %in% colnames(validation)))]
+      missing_cols_txt <- paste0("`", missing_cols, "`", collapse = ",")
+      rlang::abort(glue::glue("`validation` is missing column(s): {missing_cols_txt}"))
+      }
+
   } else if (!is.numeric(validation) || validation < 0 || validation >= 1) {
-    rlang::abort("`validation` should be on [0, 1).")
+        rlang::abort("`validation` should be on [0, 1).")
   }
 
   if (!is.null(early_stop)) {
@@ -393,21 +403,34 @@ xgb_predict <- function(object, new_data, ...) {
 as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "first", ...) {
   lvls <- levels(y)
   n <- nrow(x)
+  y_is_factor <- is.factor(y)
 
   if (is.data.frame(x)) {
     x <- as.matrix(x)
   }
 
-  if (is.factor(y)) {
+  if (y_is_factor) {
+
+    y_col_name <- attr(y, "col_name")
+
     if (length(lvls) < 3) {
       if (event_level == "first") {
         y <- -as.numeric(y) + 2
+        y <- as.matrix(y)
+        colnames(y) <- y_col_name
+
       } else {
+
         y <- as.numeric(y) - 1
+        y <- as.matrix(y)
+        colnames(y) <- y_col_name
       }
     } else {
       if (event_level == "second") rlang::warn("`event_level` can only be set for binary variables.")
+
       y <- as.numeric(y) - 1
+      y <- as.matrix(y)
+      colnames(y) <- y_col_name
     }
   }
 
@@ -422,52 +445,76 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
         trn_index <- sample(1:n, size = max(m, 2))
         info_list <- list(label = y[trn_index])
 
-        if (!is.null(weights)){
-
-          val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], weight = weights[-trn_index], missing = NA)
-          watch_list <- list(validation = val_data)
-
-          info_list$weight <- weights[trn_index]
-          dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
-
-        } else
-
         val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
         watch_list <- list(validation = val_data)
 
         dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
+
+      } else {
+
+        info_list <- list(label = y)
+
+        if (!is.null(weights)) {
+          info_list$weight <- weights
+        }
+
+        dat <- xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
+        watch_list <- list(training = dat)
+
       }
 
     } else if (is.data.frame(validation)) {
 
       predictor_cols <- which(colnames(validation) %in% colnames(x))
-
-      validation <- as.matrix(validation)
-
       y_index <- which(colnames(validation) %in% colnames(y))
 
-      val_info_list <- list(label = validation[,y_index])
+      if (y_is_factor){
 
-      check_weights <- sapply(validation, hardhat::is_case_weights)
+        y_val <- validation[,y_index, drop = T]
 
-      if (any(check_weights)) {
-        weights_col_num <- which(check_weights)
-        val_info_list$weight <- validation[, weights_col_num, drop = T]
+        if (length(lvls) < 3) {
+          if (event_level == "first") {
+
+            y_val <- -as.numeric(y_val) + 2
+            y_val <- as.matrix(y_val)
+            colnames(y_val) <- y_col_name
+          } else {
+
+            y_val <- as.numeric(y_val) - 1
+            y_val <- as.matrix(y_val)
+            colnames(y_val) <- y_col_name
+          }
+        } else {
+          if (event_level == "second") rlang::warn("`event_level` can only be set for binary variables. More than two outcome classes in `validation`")
+
+          y_val <- as.numeric(y_val) - 1
+          y_val <- as.matrix(y_val)
+          colnames(y_val) <- y_col_name
+        }
+
+        validation <- as.matrix(validation[,predictor_cols])
+        rownames(validation) <- NULL
+        val_info_list <- list(label = y_val)
+        val_data <- xgboost::xgb.DMatrix(validation, missing = NA, info = val_info_list)
+
+      } else {
+
+        validation <- as.matrix(validation)
+        rownames(validation) <- NULL
+        val_info_list <- list(label = validation[,y_index])
         val_data <- xgboost::xgb.DMatrix(validation[,predictor_cols], missing = NA, info = val_info_list)
+
       }
 
-      val_data <- xgboost::xgb.DMatrix(validation[,predictor_cols], label = validation[,y_index], missing = NA)
-      watch_list <- list(validation = val_data)
-
-      dat <- xgboost::xgb.DMatrix(x, label = y, missing = NA)
-
-    } else {
       info_list <- list(label = y)
+
       if (!is.null(weights)) {
         info_list$weight <- weights
       }
+
       dat <- xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
-      watch_list <- list(training = dat)
+      watch_list <- list(validation = val_data)
+
     }
 
   } else {
