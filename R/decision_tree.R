@@ -45,9 +45,9 @@ decision_tree <-
       "decision_tree",
       args = args,
       eng_args = NULL,
-      mode = mode,
+      mode = set_arg_default(mode, missing(mode)),
       method = NULL,
-      engine = engine
+      engine = set_arg_default(engine, missing(engine))
     )
   }
 

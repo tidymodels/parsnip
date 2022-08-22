@@ -59,9 +59,9 @@ logistic_reg <-
       "logistic_reg",
       args = args,
       eng_args = NULL,
-      mode = mode,
+      mode = set_arg_default(mode, missing(mode)),
       method = NULL,
-      engine = engine
+      engine = set_arg_default(engine, missing(engine))
     )
   }
 

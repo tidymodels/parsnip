@@ -116,7 +116,10 @@ set_engine.model_spec <- function(object, engine, ...) {
     stop_missing_engine(mod_type)
   }
   object$engine <- engine
-  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
+
+  if (!implementation_exists_somewhere(mod_type, object$engine, object$mode)) {
+    check_spec_mode_engine_val(mod_type, object$engine, object$mode)
+  }
 
   if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
@@ -131,7 +134,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     eng_args = enquos(...),
     mode = object$mode,
     method = NULL,
-    engine = object$engine
+    engine = set_arg_default(object$engine, FALSE)
   )
 }
 

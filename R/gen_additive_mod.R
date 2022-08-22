@@ -43,9 +43,9 @@ gen_additive_mod <- function(mode = "unknown",
     "gen_additive_mod",
     args     = args,
     eng_args = NULL,
-    mode     = mode,
-    method   = NULL,
-    engine   = engine
+    mode = set_arg_default(mode, missing(mode)),
+    method = NULL,
+    engine = set_arg_default(engine, missing(engine))
   )
 
 }

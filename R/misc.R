@@ -27,6 +27,39 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
+# given a model type, engine, and mode, determine
+# whether parsnip supports any specification.
+#
+# checks against the union of
+# 1) the current model environment and
+# 2) the model_info_table of "pre-registered" model types
+#
+# if spec \in 1, it will pass checks, and
+# if spec \in 2, it ought to bypass checks
+#    and defer to `prompt_missing_implementation` in case the
+#    the needed implementation is not yet installed/loaded
+implementation_exists_somewhere <- function(cls, eng, mode) {
+  all_model_info <-
+    dplyr::full_join(
+      model_info_table,
+      rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
+      by = c("model", "engine", "mode")
+    )
+
+  engine_condition <- if (arg_is_default(eng))  {TRUE} else {quote(engine == eng)}
+  mode_condition <-   if (arg_is_default(mode)) {TRUE} else {quote(mode == mode)}
+
+  possibilities <-
+    all_model_info %>%
+    dplyr::filter(
+      model == cls,
+      !!engine_condition,
+      !!mode_condition
+    )
+
+  return(nrow(possibilities) > 0)
+}
+
 # given a model object, return TRUE if:
 # * the model is supported without extensions
 # * the model needs an extension and it is loaded
@@ -37,7 +70,7 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
   if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
     mode_ <- c("regression", "censored regression", "classification")
   }
-  eng_cond <- if (is.null(engine_)) {
+  eng_cond <- if (arg_is_default(engine_)) {
     TRUE
   } else {
     quote(engine == engine_)
@@ -74,7 +107,7 @@ is_printable_spec <- function(x) {
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
 prompt_missing_implementation <- function(spec_, engine_, mode_, prompt, ...) {
-  if (identical(mode_, "unknown")) {
+  if (arg_is_default(mode_)) {
     mode_ <- ""
     mode_condition <- TRUE
   } else {
@@ -92,7 +125,8 @@ prompt_missing_implementation <- function(spec_, engine_, mode_, prompt, ...) {
   msg <- c(
     "!" = glue::glue(
         "parsnip could not locate an implementation for `{spec_}` {mode_} \\
-         model specifications using the `{engine_}` engine."
+         model specifications{if (!arg_is_default(engine_)) {
+          ' using the `{engine_}` engine' } else {''}}."
       )
     )
 
@@ -209,7 +243,9 @@ update_dot_check <- function(...) {
 #' @keywords internal
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  check_spec_mode_engine_val(cls, engine, mode)
+  if (!implementation_exists_somewhere(cls, engine, mode)) {
+    check_spec_mode_engine_val(cls, engine, mode)
+  }
 
   out <- list(
     args = args, eng_args = eng_args,
@@ -217,6 +253,12 @@ new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
   )
   class(out) <- make_classes(cls)
   out
+}
+
+set_spec_arg <- function(arg, is_missing) {
+  attr(x, "default") <- is_missing
+
+  arg
 }
 
 # ------------------------------------------------------------------------------

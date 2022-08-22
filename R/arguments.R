@@ -89,9 +89,32 @@ set_mode.model_spec <- function(object, mode) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
     stop_incompatible_mode(spec_modes, cls = cls)
   }
-  check_spec_mode_engine_val(cls, object$engine, mode)
-  object$mode <- mode
+
+  if (!implementation_exists_somewhere(cls, object$engine, mode)) {
+    check_spec_mode_engine_val(cls, object$engine, mode)
+  }
+
+  object$mode <- set_arg_default(mode, FALSE)
   object
+}
+
+set_arg_default <- function(arg, is_missing) {
+  attr(arg, "default") <- is_missing
+
+  arg
+}
+
+arg_is_default <- function(arg) {
+  default_attr <- attr(arg, "default")
+
+  # for model types not defined in parsnip that will not have this attribute,
+  # return that the argument is indeed default to prevent false positives in
+  # argument checking.
+  if (is.null(default_attr)) {
+    return(TRUE)
+  }
+
+  default_attr
 }
 
 # ------------------------------------------------------------------------------
