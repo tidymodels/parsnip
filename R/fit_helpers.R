@@ -147,6 +147,10 @@ form_xy <- function(object, control, env,
 
   check_outcome(env$y, object)
 
+  if(object$engine == "xgboost" && object$mode == "classification" && is.factor(env$y)){
+    attr(env$y, "col_name") <- all.vars(env$formula[[2]])
+  }
+
   res <- xy_xy(
     object = object,
     env = env, #weights!
