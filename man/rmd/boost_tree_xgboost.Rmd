@@ -60,6 +60,26 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 
 ## Other details
 
+### Interfacing with the `params` argument
+
+The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
+
+```{r}
+# good
+boost_tree() %>%
+  set_engine("xgboost", eval_metric = "mae")
+```
+
+...rather than this:
+
+```{r}
+# bad
+boost_tree() %>%
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+```
+
+parsnip will then route arguments as needed. In the case that arguments are passed to `params` via [set_engine()], parsnip will warn and re-route the arguments as needed. Note, though, that arguments passed to `params` cannot be tuned.
+
 ### Sparse matrices
 
 xgboost requires the data to be in a sparse format. If your predictor data are already in this format, then use [fit_xy.model_spec()] to pass it to the model function. Otherwise, parsnip converts the data to this format. 
@@ -78,9 +98,11 @@ By default, the model is trained without parallel processing. This can be change
 ```{r child = "template-early-stopping.Rmd"}
 ```
 
+Note that, since the `validation` argument provides an alternative interface to `watchlist`, the `watchlist` argument is guarded by parsnip and will be ignored (with a warning) if passed.
+
 ### Objective function
 
-parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()]. 
+parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
 ## Examples 
 

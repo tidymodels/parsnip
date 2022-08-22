@@ -32,7 +32,7 @@ logistic_reg() %>%
   translate()
 ```
 
-```{r child = "no-pooling.Rmd"}
+```{r child = "template-no-pooling.Rmd"}
 ```
 
 ## Preprocessing requirements

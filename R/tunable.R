@@ -222,14 +222,15 @@ tunable_boost_tree <- function(x, ...) {
       list(list(pkg = "dials", fun = "sample_prop"))
     res$call_info[res$name == "learn_rate"] <-
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
-  } else {
-    if (x$engine == "C5.0") {
+  } else if (x$engine == "C5.0") {
       res <- add_engine_parameters(res, c5_boost_engine_args)
       res$call_info[res$name == "trees"] <-
         list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
       res$call_info[res$name == "sample_size"] <-
         list(list(pkg = "dials", fun = "sample_prop"))
-    }
+  } else if (x$engine == "lightgbm") {
+      res$call_info[res$name == "sample_size"] <-
+        list(list(pkg = "dials", fun = "sample_prop"))
   }
   res
 }

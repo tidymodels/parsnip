@@ -40,7 +40,11 @@ get_pkgs <- function(x, infra) {
   pkgs <-
     get_from_env(paste0(cls, "_pkgs")) %>%
     dplyr::filter(engine == x$engine)
-  res <- pkgs$pkg[[1]]
+  if (length(pkgs$pkg) == 0) {
+    res <- character(0)
+  } else {
+    res <- pkgs$pkg[[1]]
+  }
   if (length(res) == 0) {
     res <- character(0)
   }
