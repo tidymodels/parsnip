@@ -1,17 +1,3 @@
-# printing
-
-    Code
-      proportional_hazards()
-    Message
-      parsnip could not locate an implementation for `proportional_hazards` censored regression model specifications using the `survival` engine.
-      i The parsnip extension package censored implements support for this specification.
-      i Please install (if needed) and load to continue.
-    Output
-      Proportional Hazards Model Specification (censored regression)
-      
-      Computational engine: survival 
-      
-
 # updating
 
     Code

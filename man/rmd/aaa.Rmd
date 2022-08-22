@@ -1,5 +1,13 @@
 ```{r, include = FALSE}
+# pillar/cli options to try to lock down formatting
+options(useFancyQuotes = FALSE)
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+options(cli.width = 85)
+options(crayon.enabled = FALSE)
+options(pillar.min_title_chars = Inf)
+
 library(parsnip)
+library(workflows)
 
 # ------------------------------------------------------------------------------
 # These are required to build md docs for parsnip and extensions
@@ -111,7 +119,7 @@ descr_models <- function(mod, eng) {
   } else {
     txt <- "are multiple modes:"
   }
-  paste("For this engine, there", txt, knitr::combine_words(res))
+  paste("For this engine, there", txt, combine_words(res))
 }
 
 uses_extension <- function(mod, eng, mod_mode) {

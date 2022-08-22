@@ -141,8 +141,8 @@ whereas \strong{xrf} uses an internal 5-fold cross-validation to determine it
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 }
 
 \subsection{Other details}{
@@ -168,11 +168,11 @@ interpreted in its sense as a proportion.
 
 \code{mtry} is a main model argument for
 \code{\link[=boost_tree]{boost_tree()}} and
-\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
-engine-specific interface. So, regardless of engine, \code{counts} defaults
-to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+\code{\link[=rand_forest]{rand_forest()}}, and thus should not have
+an engine-specific interface. So, regardless of engine, \code{counts}
+defaults to \code{TRUE}. For engines that support the proportion
+interpretation (currently \code{"xgboost"} and \code{"xrf"}, via the rules
+package, and \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within [0,1].
 }

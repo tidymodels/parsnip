@@ -9,6 +9,7 @@ print.model_spec <- function(x, ...) {
 #' @rdname add_on_exports
 #' @export
 print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
+
   cat(desc, " Model Specification (", x$mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
