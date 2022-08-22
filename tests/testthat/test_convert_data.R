@@ -378,7 +378,11 @@ test_that("numeric x and y, matrix composition", {
       remove_intercept = TRUE
     )
   expect_equal(format_x_for_test(expected$x, df = FALSE), observed$x)
-  expect_equal(mtcars$mpg, observed$y)
+
+  expected_y <- as.matrix(mtcars$mpg)
+  names(expected_y) <- NULL
+  colnames(expected_y) <- "mpg"
+  expect_equal(expected_y, observed$y)
 
   new_obs <-
     .convert_form_to_xy_new(observed,
