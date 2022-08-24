@@ -117,7 +117,9 @@ set_engine.model_spec <- function(object, engine, ...) {
   }
   object$engine <- engine
 
-  if (!implementation_exists_somewhere(mod_type, object$engine, object$mode)) {
+  if (!implementation_exists_somewhere(mod_type,
+                                       object$engine, user_specified_engine = TRUE,
+                                       object$mode, object$user_specified_mode)) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 
@@ -133,8 +135,10 @@ set_engine.model_spec <- function(object, engine, ...) {
     args = object$args,
     eng_args = enquos(...),
     mode = object$mode,
+    user_specified_mode = object$user_specified_mode,
     method = NULL,
-    engine = set_arg_default(object$engine, FALSE)
+    engine = object$engine,
+    user_specified_engine = TRUE
   )
 }
 

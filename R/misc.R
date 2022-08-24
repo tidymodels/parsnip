@@ -27,6 +27,24 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
+engine_filter_condition <- function(engine, user_specified_engine) {
+  # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
+  if (!isTRUE(user_specified_engine))  {
+    return(TRUE)
+  }
+
+  rlang::quo(engine == !!engine)
+}
+
+mode_filter_condition <- function(mode, user_specified_mode) {
+  # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
+  if (!isTRUE(user_specified_mode))  {
+    return(TRUE)
+  }
+
+  rlang::quo(mode == !!mode)
+}
+
 # given a model type, engine, and mode, determine
 # whether parsnip supports any specification.
 #
@@ -38,7 +56,9 @@ is_missing_arg <- function(x) {
 # if spec \in 2, it ought to bypass checks
 #    and defer to `prompt_missing_implementation` in case the
 #    the needed implementation is not yet installed/loaded
-implementation_exists_somewhere <- function(cls, eng, mode) {
+implementation_exists_somewhere <- function(cls,
+                                            engine, user_specified_engine,
+                                            mode, user_specified_mode) {
   all_model_info <-
     dplyr::full_join(
       model_info_table,
@@ -46,8 +66,8 @@ implementation_exists_somewhere <- function(cls, eng, mode) {
       by = c("model", "engine", "mode")
     )
 
-  engine_condition <- if (arg_is_default(eng))  {TRUE} else {quote(engine == eng)}
-  mode_condition <-   if (arg_is_default(mode)) {TRUE} else {quote(mode == mode)}
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
   possibilities <-
     all_model_info %>%
@@ -60,36 +80,24 @@ implementation_exists_somewhere <- function(cls, eng, mode) {
   return(nrow(possibilities) > 0)
 }
 
-# given a model object, return TRUE if:
-# * the model is supported without extensions
-# * the model needs an extension and it is loaded
+
+# this function assumes that the output of
+# implementation_exists_somewhere() is TRUE so that we don't have
+# to access + manipulate the model_info_table a second time.
 #
-# return FALSE if:
-# * the model needs an extension and it is _not_ loaded
-has_loaded_implementation <- function(spec_, engine_, mode_) {
-  if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
-    mode_ <- c("regression", "censored regression", "classification")
-  }
-  eng_cond <- if (arg_is_default(engine_)) {
-    TRUE
-  } else {
-    quote(engine == engine_)
-  }
+# given information about a model spec, then, return TRUE if
+# there is at least one possible matching configuration in the
+# _model environment_
+has_loaded_implementation <- function(cls,
+                                      engine, user_specified_engine,
+                                      mode, user_specified_mode) {
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
-  avail <- get_from_env(spec_)
+  avail <- get_from_env(cls) %>%
+    dplyr::filter(!!mode_condition, !!engine_condition)
 
-  if (is.null(avail)) {
-    return(TRUE)
-  }
-
-  avail <-
-    avail %>%
-    dplyr::filter(mode %in% mode_, !!eng_cond)
-  pars <-
-    model_info_table %>%
-    dplyr::filter(model == spec_, !!eng_cond, mode %in% mode_, is.na(pkg))
-
-  if (nrow(pars) > 0 || nrow(avail) > 0) {
+  if (nrow(avail) > 0) {
     return(TRUE)
   }
 
@@ -98,7 +106,9 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
 
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
-    has_loaded_implementation(class(x)[1], x$engine, x$mode)
+    has_loaded_implementation(class(x)[1],
+                              x$engine, x$user_specified_engine,
+                              x$mode, x$user_specified_mode)
 }
 
 # construct a message informing the user that there are no
@@ -106,27 +116,28 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-prompt_missing_implementation <- function(spec_, engine_, mode_, prompt, ...) {
-  if (arg_is_default(mode_)) {
-    mode_ <- ""
-    mode_condition <- TRUE
-  } else {
-    mode_condition <- quote(mode == mode_)
-  }
+prompt_missing_implementation <- function(cls,
+                                          engine, user_specified_engine,
+                                          mode, user_specified_mode,
+                                          prompt, ...) {
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
   avail <-
-    show_engines(spec_) %>%
-    dplyr::filter(!!mode_condition, engine == engine_)
+    show_engines(cls) %>%
+    dplyr::filter(!!mode_condition, !!engine_condition)
   all <-
     model_info_table %>%
-    dplyr::filter(model == spec_, !!mode_condition, engine == engine_, !is.na(pkg)) %>%
+    dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
+
+  if (identical(mode, "unknown")) {mode <- ""}
 
   msg <- c(
     "!" = glue::glue(
-        "parsnip could not locate an implementation for `{spec_}` {mode_} \\
-         model specifications{if (!arg_is_default(engine_)) {
-          ' using the `{engine_}` engine' } else {''}}."
+        "parsnip could not locate an implementation for `{cls}` {mode} \\
+         model specifications{if (user_specified_engine) {
+          ' using the `{engine}` engine' } else {''}}."
       )
     )
 
@@ -242,14 +253,18 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine) {
-  if (!implementation_exists_somewhere(cls, engine, mode)) {
+new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE,
+                           method, engine, user_specified_engine = TRUE) {
+  if (!implementation_exists_somewhere(cls,
+                                       engine, user_specified_engine,
+                                       mode, user_specified_mode)) {
     check_spec_mode_engine_val(cls, engine, mode)
   }
 
   out <- list(
     args = args, eng_args = eng_args,
-    mode = mode, method = method, engine = engine
+    mode = mode, user_specified_mode = user_specified_mode, method = method,
+    engine = engine, user_specified_engine = user_specified_engine
   )
   class(out) <- make_classes(cls)
   out

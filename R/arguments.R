@@ -71,8 +71,10 @@ set_args.model_spec <- function(object, ...) {
     args = object$args,
     eng_args = object$eng_args,
     mode = object$mode,
+    user_specified_mode = object$user_specified_mode,
     method = NULL,
-    engine = object$engine
+    engine = object$engine,
+    user_specified_engine = object$user_specified_engine,
   )
 }
 
@@ -90,31 +92,15 @@ set_mode.model_spec <- function(object, mode) {
     stop_incompatible_mode(spec_modes, cls = cls)
   }
 
-  if (!implementation_exists_somewhere(cls, object$engine, mode)) {
+  if (!implementation_exists_somewhere(cls,
+                                       object$engine, object$user_specified_engine,
+                                       mode, user_specified_mode = TRUE)) {
     check_spec_mode_engine_val(cls, object$engine, mode)
   }
 
-  object$mode <- set_arg_default(mode, FALSE)
+  object$mode <- mode
+  object$user_specified_mode <- TRUE
   object
-}
-
-set_arg_default <- function(arg, is_missing) {
-  attr(arg, "default") <- is_missing
-
-  arg
-}
-
-arg_is_default <- function(arg) {
-  default_attr <- attr(arg, "default")
-
-  # for model types not defined in parsnip that will not have this attribute,
-  # return that the argument is indeed default to prevent false positives in
-  # argument checking.
-  if (is.null(default_attr)) {
-    return(TRUE)
-  }
-
-  default_attr
 }
 
 # ------------------------------------------------------------------------------

@@ -121,7 +121,13 @@ fit.model_spec <-
 
     if (length(possible_engines(object)) == 0) {
       prompt_missing_implementation(
-        class(object)[1], object$engine, object$mode, cli::cli_abort, call = call2("fit")
+        class(object)[1],
+        object$engine,
+        object$user_specified_engine,
+        object$mode,
+        object$user_specified_mode,
+        cli::cli_abort,
+        call = call2("fit")
       )
     }
     if (is.null(object$engine)) {

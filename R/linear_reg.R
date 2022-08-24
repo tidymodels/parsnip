@@ -52,9 +52,11 @@ linear_reg <-
       "linear_reg",
       args = args,
       eng_args = NULL,
-      mode = set_arg_default(mode, missing(mode)),
+      mode = mode,
+      user_specified_mode = !missing(mode),
       method = NULL,
-      engine = set_arg_default(engine, missing(engine))
+      engine = engine,
+      user_specified_engine = !missing(engine)
     )
   }
 

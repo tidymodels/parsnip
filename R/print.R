@@ -9,8 +9,13 @@ print.model_spec <- function(x, ...) {
 #' @rdname add_on_exports
 #' @export
 print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
-  if ((!has_loaded_implementation(cls, x$engine, x$mode))) {
-    prompt_missing_implementation(cls, x$engine, x$mode, prompt = cli::cli_inform)
+  if ((!has_loaded_implementation(cls,
+                                  x$engine, x$user_specified_engine,
+                                  x$mode, x$user_specified_mode))) {
+    prompt_missing_implementation(cls,
+                                  x$engine, x$user_specified_engine,
+                                  x$mode, x$user_specified_mode,
+                                  prompt = cli::cli_inform)
   }
 
   cat(desc, " Model Specification (", x$mode, ")\n\n", sep = "")
