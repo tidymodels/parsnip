@@ -74,7 +74,7 @@ set_args.model_spec <- function(object, ...) {
     user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    user_specified_engine = object$user_specified_engine,
+    user_specified_engine = object$user_specified_engine
   )
 }
 

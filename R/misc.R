@@ -29,7 +29,7 @@ is_missing_arg <- function(x) {
 
 engine_filter_condition <- function(engine, user_specified_engine) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
-  if (!isTRUE(user_specified_engine))  {
+  if (!isTRUE(user_specified_engine) || is.null(engine))  {
     return(TRUE)
   }
 
@@ -38,7 +38,7 @@ engine_filter_condition <- function(engine, user_specified_engine) {
 
 mode_filter_condition <- function(mode, user_specified_mode) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
-  if (!isTRUE(user_specified_mode))  {
+  if (!isTRUE(user_specified_mode) || is.null(mode))  {
     return(TRUE)
   }
 
@@ -80,11 +80,6 @@ implementation_exists_somewhere <- function(cls,
   return(nrow(possibilities) > 0)
 }
 
-
-# this function assumes that the output of
-# implementation_exists_somewhere() is TRUE so that we don't have
-# to access + manipulate the model_info_table a second time.
-#
 # given information about a model spec, then, return TRUE if
 # there is at least one possible matching configuration in the
 # _model environment_
@@ -94,7 +89,13 @@ has_loaded_implementation <- function(cls,
   engine_condition <- engine_filter_condition(engine, user_specified_engine)
   mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
-  avail <- get_from_env(cls) %>%
+  avail <- get_from_env(cls)
+
+  if (is.null(avail)) {
+    return(FALSE)
+  }
+
+  avail <- avail %>%
     dplyr::filter(!!mode_condition, !!engine_condition)
 
   if (nrow(avail) > 0) {
@@ -123,15 +124,20 @@ prompt_missing_implementation <- function(cls,
   engine_condition <- engine_filter_condition(engine, user_specified_engine)
   mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
-  avail <-
-    show_engines(cls) %>%
-    dplyr::filter(!!mode_condition, !!engine_condition)
+  avail <- get_from_env(cls)
+
+  if (!is.null(avail)) {
+    avail <-
+      avail %>%
+      dplyr::filter(!!mode_condition, !!engine_condition)
+  }
+
   all <-
     model_info_table %>%
     dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
 
-  if (identical(mode, "unknown")) {mode <- ""}
+  if (!user_specified_mode) {mode <- ""}
 
   msg <- c(
     "!" = glue::glue(
