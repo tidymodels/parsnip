@@ -224,7 +224,7 @@ make_engine_list <- function(mod) {
         dplyr::pull(mode) %>%
         unique() %>%
         sort() %>%
-        knitr::combine_words()
+        combine_words()
       notes <- paste0(
         notes, " ",
         cli::symbol$sup_2, " Requires a parsnip extension package for ",
