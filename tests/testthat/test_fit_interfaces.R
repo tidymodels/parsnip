@@ -66,11 +66,11 @@ test_that('unknown modes', {
   )
   expect_error(
     fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1]),
-    regexp = NA
+    regexp = "Please set the mode in the model specification."
   )
   expect_error(
     fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class),
-    regexp = NA
+    regexp = "Please set the mode in the model specification."
   )
 })
 

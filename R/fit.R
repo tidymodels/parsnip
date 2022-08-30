@@ -228,6 +228,10 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (object$mode == "unknown") {
+      rlang::abort("Please set the mode in the model specification.")
+    }
+
     if (object$mode == "censored regression") {
       rlang::abort("Models for censored regression must use the formula interface.")
     }
