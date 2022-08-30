@@ -41,9 +41,8 @@ set_fit(
   eng = "kernlab",
   mode = "regression",
   value = list(
-    interface = "formula",
-    data = c(formula = "x", data = "data"),
-    protect = c("x", "data"),
+    interface = "matrix",
+    protect = c("x", "y"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "rbfdot")
   )
@@ -54,9 +53,8 @@ set_fit(
   eng = "kernlab",
   mode = "classification",
   value = list(
-    interface = "formula",
-    data = c(formula = "x", data = "data"),
-    protect = c("x", "data"),
+    interface = "matrix",
+    protect = c("x", "y"),
     func = c(pkg = "kernlab", fun = "ksvm"),
     defaults = list(kernel = "rbfdot")
   )
@@ -67,9 +65,9 @@ set_encoding(
   eng = "kernlab",
   mode = "regression",
   options = list(
-    predictor_indicators = "none",
+    predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = FALSE,
+    remove_intercept = TRUE,
     allow_sparse_x = FALSE
   )
 )
@@ -110,9 +108,9 @@ set_encoding(
   eng = "kernlab",
   mode = "classification",
   options = list(
-    predictor_indicators = "none",
+    predictor_indicators = "one_hot",
     compute_intercept = FALSE,
-    remove_intercept = FALSE,
+    remove_intercept = TRUE,
     allow_sparse_x = FALSE
   )
 )
