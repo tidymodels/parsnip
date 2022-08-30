@@ -2,6 +2,8 @@
 
 * Fixed installation failures due to undocumented knitr installation dependency (#785).
 
+* The kernlab SVM models were changed to use that package’s x/y interface instead of the formula argument so that the `class.weights` argument will work. 
+
 # parsnip 1.0.1
 
 * Enabled passing additional engine arguments with the xgboost `boost_tree()` engine. To supply engine-specific arguments that are documented in `xgboost::xgb.train()` as arguments to be passed via `params`, supply the list elements directly as named arguments to `set_engine()`. Read more in `?details_boost_tree_xgboost` (#787).
