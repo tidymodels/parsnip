@@ -109,5 +109,28 @@ test_that("set_* functions error when input isn't model_spec", {
   expect_snapshot(error = TRUE,
                   set_args(mtcars, blah = "blah")
   )
+
+  expect_snapshot(error = TRUE,
+                  bag_tree %>% set_mode("classification")
+  )
+
+  expect_snapshot(error = TRUE,
+                  bag_tree %>% set_engine("rpart")
+  )
+
+  expect_snapshot(error = TRUE,
+                  bag_tree %>% set_args(boop = "bop")
+  )
+
+  # won't raise "info" part of error if not a parsnip-namespaced function
+  # not a function
+  expect_snapshot(error = TRUE,
+                  1L %>% set_args(mode = "classification")
+  )
+
+  # not from parsnip
+  expect_snapshot(error = TRUE,
+                  bag_tree %>% set_mode("classification")
+  )
 })
 

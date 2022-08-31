@@ -101,6 +101,22 @@ set_env_val <- function(name, value) {
 
 # ------------------------------------------------------------------------------
 
+error_set_object <- function(object, func) {
+  msg <-
+    "`{func}()` expected a model specification to be supplied to the \
+     `object` argument, but received a(n) `{class(object)[1]}` object."
+
+  if (inherits(object, "function") &&
+      isTRUE(environment(object)$.packageName == "parsnip")) {
+    msg <- c(
+      msg,
+      "i" = "Did you mistakenly pass `model_function` rather than `model_function()`?"
+    )
+  }
+
+  cli::cli_abort(msg, call = call2(func))
+}
+
 check_eng_val <- function(eng) {
   if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng))
     rlang::abort("Please supply a character string for an engine name (e.g. `'lm'`)")
