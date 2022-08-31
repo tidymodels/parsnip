@@ -136,6 +136,25 @@ test_that('model type functions message informatively with unknown implementatio
   )
 })
 
+test_that('missing implementation checks prompt conservatively with old objects', {
+  # #793 introduced the `user_specified_engine` and `user_specified_mode`
+  # slots to parsnip model spec objects. model types defined in external
+  # extension packages, as well as model specs generated before parsnip 1.0.2,
+  # will not have this slot. ensure that these messages/errors aren't
+  # erroneously introduced when that's the case
+  #
+  # further tests in tidymodels/extratests@53
+  bt <-
+    bag_tree() %>%
+    set_engine("rpart") %>%
+    set_mode("regression")
+
+  bt$user_specified_mode <- NULL
+  bt$user_specified_engine <- NULL
+
+  expect_snapshot(bt)
+})
+
 test_that('set_engine works as a generic', {
   expect_snapshot(error = TRUE,
     set_engine(mtcars, "rpart")

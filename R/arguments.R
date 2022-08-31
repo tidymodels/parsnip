@@ -92,9 +92,9 @@ set_mode.model_spec <- function(object, mode) {
     stop_incompatible_mode(spec_modes, cls = cls)
   }
 
-  if (!implementation_exists_somewhere(cls,
-                                       object$engine, object$user_specified_engine,
-                                       mode, user_specified_mode = TRUE)) {
+  if (!spec_is_possible(cls,
+                        object$engine, object$user_specified_engine,
+                        mode, user_specified_mode = TRUE)) {
     check_spec_mode_engine_val(cls, object$engine, mode)
   }
 

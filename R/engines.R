@@ -117,9 +117,9 @@ set_engine.model_spec <- function(object, engine, ...) {
   }
   object$engine <- engine
 
-  if (!implementation_exists_somewhere(mod_type,
-                                       object$engine, user_specified_engine = TRUE,
-                                       object$mode, object$user_specified_mode)) {
+  if (!spec_is_possible(mod_type,
+                        object$engine, user_specified_engine = TRUE,
+                        object$mode, object$user_specified_mode)) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 

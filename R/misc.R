@@ -27,6 +27,14 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
+# return a condition for use in `dplyr::filter()` on model info.
+# if the user specified an engine and the model object reflects that in
+# the `user_specified_engine` slot, filter the model info down to
+# those that the user specified. if not, don't filter the model info at all.
+#
+# note that, model objects generated pre parsnip 1.0.2, or from extensions
+# that don't implement the `user_specified_engine` slot, will not trigger
+# these checks.
 engine_filter_condition <- function(engine, user_specified_engine) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
   if (!isTRUE(user_specified_engine) || is.null(engine))  {
@@ -36,6 +44,7 @@ engine_filter_condition <- function(engine, user_specified_engine) {
   rlang::quo(engine == !!engine)
 }
 
+# analogous helper for modes to `engine_filter_condition()`
 mode_filter_condition <- function(mode, user_specified_mode) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
   if (!isTRUE(user_specified_mode) || is.null(mode))  {
@@ -56,12 +65,12 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 # if spec \in 2, it ought to bypass checks
 #    and defer to `prompt_missing_implementation` in case the
 #    the needed implementation is not yet installed/loaded
-implementation_exists_somewhere <- function(cls,
-                                            engine, user_specified_engine,
-                                            mode, user_specified_mode) {
+spec_is_possible <- function(cls,
+                             engine, user_specified_engine,
+                             mode, user_specified_mode) {
   all_model_info <-
     dplyr::full_join(
-      model_info_table,
+      read_model_info_table(),
       rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
@@ -133,16 +142,16 @@ prompt_missing_implementation <- function(cls,
   }
 
   all <-
-    model_info_table %>%
+    read_model_info_table() %>%
     dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
 
-  if (!user_specified_mode) {mode <- ""}
+  if (!isTRUE(user_specified_mode)) {mode <- ""}
 
   msg <- c(
     "!" = glue::glue(
         "parsnip could not locate an implementation for `{cls}` {mode} \\
-         model specifications{if (user_specified_engine) {
+         model specifications{if (isTRUE(user_specified_engine)) {
           ' using the `{engine}` engine' } else {''}}."
       )
     )
@@ -261,9 +270,9 @@ update_dot_check <- function(...) {
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE,
                            method, engine, user_specified_engine = TRUE) {
-  if (!implementation_exists_somewhere(cls,
-                                       engine, user_specified_engine,
-                                       mode, user_specified_mode)) {
+  if (!spec_is_possible(cls,
+                        engine, user_specified_engine,
+                        mode, user_specified_mode)) {
     check_spec_mode_engine_val(cls, engine, mode)
   }
 
@@ -274,12 +283,6 @@ new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE
   )
   class(out) <- make_classes(cls)
   out
-}
-
-set_spec_arg <- function(arg, is_missing) {
-  attr(x, "default") <- is_missing
-
-  arg
 }
 
 # ------------------------------------------------------------------------------
