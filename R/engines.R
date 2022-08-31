@@ -117,6 +117,9 @@ set_engine.model_spec <- function(object, engine, ...) {
   }
   object$engine <- engine
 
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
   if (!spec_is_possible(mod_type,
                         object$engine, user_specified_engine = TRUE,
                         object$mode, object$user_specified_mode)) {

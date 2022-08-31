@@ -149,11 +149,9 @@ prompt_missing_implementation <- function(cls,
   if (!isTRUE(user_specified_mode)) {mode <- ""}
 
   msg <- c(
-    "!" = glue::glue(
-        "parsnip could not locate an implementation for `{cls}` {mode} \\
-         model specifications{if (isTRUE(user_specified_engine)) {
-          ' using the `{engine}` engine' } else {''}}."
-      )
+    "!" = "{.pkg parsnip} could not locate an implementation for `{cls}` {mode} \\
+           model specifications{if (isTRUE(user_specified_engine)) {
+           ' using the `{engine}` engine' } else {''}}."
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
@@ -270,6 +268,9 @@ update_dot_check <- function(...) {
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE,
                            method, engine, user_specified_engine = TRUE) {
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
   if (!spec_is_possible(cls,
                         engine, user_specified_engine,
                         mode, user_specified_mode)) {

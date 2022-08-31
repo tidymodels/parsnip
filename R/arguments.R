@@ -92,6 +92,9 @@ set_mode.model_spec <- function(object, mode) {
     stop_incompatible_mode(spec_modes, cls = cls)
   }
 
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
   if (!spec_is_possible(cls,
                         object$engine, object$user_specified_engine,
                         mode, user_specified_mode = TRUE)) {
