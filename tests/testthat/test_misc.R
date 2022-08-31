@@ -131,10 +131,12 @@ test_that('arguments can be passed to model spec inside function', {
   )
 
   expect_equal(exp_res$fit[-c(8, 9)], fun_res$fit[-c(8, 9)])
+})
+
 
 test_that('set_engine works as a generic', {
   expect_snapshot(error = TRUE,
-    set_engine(mtcars, "rpart")
+                  set_engine(mtcars, "rpart")
   )
 
 })
