@@ -136,6 +136,13 @@ set_engine.model_spec <- function(object, engine, ...) {
   )
 }
 
+#' @export
+set_engine.default <- function(object, engine, ...) {
+  error_set_object(object, func = "set_engine")
+
+  invisible(FALSE)
+}
+
 #' Display currently available engines for a model
 #'
 #' The possible engines for a model can depend on what packages are loaded.

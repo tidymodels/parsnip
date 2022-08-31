@@ -47,6 +47,6 @@
     Code
       set_engine(mtcars, "rpart")
     Condition
-      Error in `UseMethod()`:
-      ! no applicable method for 'set_engine' applied to an object of class "data.frame"
+      Error in `set_engine()`:
+      ! `set_engine()` expected a model specification to be supplied to the `object` argument, but received a(n) `data.frame` object.
 
