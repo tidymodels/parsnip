@@ -248,7 +248,6 @@ fit_xy.model_spec <-
     }
     check_case_weights(case_weights, object)
 
-    object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)

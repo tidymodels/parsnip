@@ -12,7 +12,6 @@ form_form <-
 
     # prob rewrite this as simple subset/levels
     y_levels <- levels_from_formula(env$formula, env$data)
-    object <- check_mode(object, y_levels)
 
     # if descriptors are needed, update descr_env with the calculated values
     if (requires_descrs(object)) {
@@ -64,7 +63,6 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
     rlang::abort("spark objects can only be used with the formula interface to `fit()`")
 
-  object <- check_mode(object, levels(env$y))
   check_outcome(env$y, object)
 
   encoding_info <-
