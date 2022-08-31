@@ -115,8 +115,28 @@ test_that('model type functions message informatively with unknown implementatio
   )
 })
 
+
+test_that('arguments can be passed to model spec inside function', {
+  f <- function(k = 5) {
+    nearest_neighbor(mode = "regression", neighbors = k) %>%
+      fit(mpg ~ ., data = mtcars)
+  }
+
+  exp_res <- nearest_neighbor(mode = "regression", neighbors = 5) %>%
+    fit(mpg ~ ., data = mtcars)
+
+  expect_error(
+    fun_res <- f(),
+    NA
+  )
+
+  expect_equal(exp_res$fit[-c(8, 9)], fun_res$fit[-c(8, 9)])
+})
+
+
 test_that('set_engine works as a generic', {
   expect_snapshot(error = TRUE,
-    set_engine(mtcars, "rpart")
+                  set_engine(mtcars, "rpart")
   )
+
 })
