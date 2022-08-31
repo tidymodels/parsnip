@@ -228,6 +228,10 @@ fit_xy.model_spec <-
            control = control_parsnip(),
            ...
   ) {
+    if (object$mode == "unknown") {
+      rlang::abort("Please set the mode in the model specification.")
+    }
+
     if (object$mode == "censored regression") {
       rlang::abort("Models for censored regression must use the formula interface.")
     }
@@ -244,7 +248,6 @@ fit_xy.model_spec <-
     }
     check_case_weights(case_weights, object)
 
-    object <- check_mode(object, levels(y))
     dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)

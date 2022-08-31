@@ -97,17 +97,6 @@ translate.default <- function(x, engine = x$engine, ...) {
   x
 }
 
-check_mode <- function(object, lvl) {
-  if (object$mode == "unknown") {
-    if (!is.null(lvl)) {
-      object$mode <- "classification"
-    } else {
-      object$mode <- "regression"
-    }
-  }
-  object
-}
-
 # ------------------------------------------------------------------------------
 # new code for revised model data structures
 
