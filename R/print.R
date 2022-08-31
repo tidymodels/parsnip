@@ -9,9 +9,9 @@ print.model_spec <- function(x, ...) {
 #' @rdname add_on_exports
 #' @export
 print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
-  if (!has_loaded_implementation(cls,
-                                 x$engine, x$user_specified_engine,
-                                 x$mode, x$user_specified_mode)) {
+  if (!spec_is_loaded(cls,
+                      x$engine, x$user_specified_engine,
+                      x$mode, x$user_specified_mode)) {
     prompt_missing_implementation(cls,
                                   x$engine, x$user_specified_engine,
                                   x$mode, x$user_specified_mode,

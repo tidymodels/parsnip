@@ -54,17 +54,43 @@ mode_filter_condition <- function(mode, user_specified_mode) {
   rlang::quo(mode == !!mode)
 }
 
-# given a model type, engine, and mode, determine
-# whether parsnip supports any specification.
-#
-# checks against the union of
-# 1) the current model environment and
-# 2) the model_info_table of "pre-registered" model types
-#
-# if spec \in 1, it will pass checks, and
-# if spec \in 2, it ought to bypass checks
-#    and defer to `prompt_missing_implementation` in case the
-#    the needed implementation is not yet installed/loaded
+#' @section Model Specification Checking:
+#'
+#' The helpers `spec_is_possible()`, `spec_is_loaded()`, and
+#' `prompt_missing_implementation()` provide tooling for checking
+#' model specifications. In addition to the `cls`, `engine`, and `mode`
+#' arguments, the functions take arguments `user_specified_engine` and
+#' `user_specified_mode`, denoting whether the user themselves has
+#' specified the engine or mode, respectively.
+#'
+#' `spec_is_possible()` checks against the union of
+#'
+#' * the current parsnip model environment and
+#' * the `model_info_table` of "pre-registered" model specifications
+#'
+#' to determine whether a model is well-specified. See
+#' `parsnip:::read_model_info_table()` for this table.
+#'
+#' `spec_is_loaded()` checks only against the current parsnip model environment.
+#'
+#' `spec_is_possible()` is executed automatically on `new_model_spec()`,
+#' `set_mode()`, and `set_engine()`, and `spec_is_loaded()` is executed
+#' automatically in `print.model_spec()`, among other places. `spec_is_possible()`
+#' should be used when a model specification is still "in progress" of being
+#' specified, while `spec_is_loaded` should only be called when parsnip or an
+#' extension receives some indication that the user is "done" specifying a model
+#' specification: at print, fit, addition to a workflow, or `extract_*()`, for
+#' example.
+#'
+#' When `spec_is_loaded()` is `FALSE`, the `prompt_missing_implementation()`
+#' helper will construct an informative message to prompt users to load or
+#' install needed packages. It's `prompt` argument refers to the prompting
+#' function to use, usually [cli::cli_inform] or [cli::cli_abort], and the
+#' ellipses are passed to that function.
+#'
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 spec_is_possible <- function(cls,
                              engine, user_specified_engine,
                              mode, user_specified_mode) {
@@ -89,12 +115,13 @@ spec_is_possible <- function(cls,
   return(nrow(possibilities) > 0)
 }
 
-# given information about a model spec, then, return TRUE if
-# there is at least one possible matching configuration in the
-# _model environment_
-has_loaded_implementation <- function(cls,
-                                      engine, user_specified_engine,
-                                      mode, user_specified_mode) {
+# see ?add_on_exports for more information on usage
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+spec_is_loaded <- function(cls,
+                           engine, user_specified_engine,
+                           mode, user_specified_mode) {
   engine_condition <- engine_filter_condition(engine, user_specified_engine)
   mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
@@ -116,9 +143,9 @@ has_loaded_implementation <- function(cls,
 
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
-    has_loaded_implementation(class(x)[1],
-                              x$engine, x$user_specified_engine,
-                              x$mode, x$user_specified_mode)
+    spec_is_loaded(class(x)[1],
+                   x$engine, x$user_specified_engine,
+                   x$mode, x$user_specified_mode)
 }
 
 # construct a message informing the user that there are no
@@ -126,6 +153,11 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
+#
+# see ?add_on_exports for more information on usage
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 prompt_missing_implementation <- function(cls,
                                           engine, user_specified_engine,
                                           mode, user_specified_mode,
