@@ -29,7 +29,7 @@ svm_linear(
 ```
 
 ```
-## Linear Support Vector Machine Specification (regression)
+## Linear Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -38,8 +38,8 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), svr_eps = double(1), type = 11)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     svr_eps = double(1), type = 11)
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -55,7 +55,7 @@ svm_linear(
 ```
 
 ```
-## Linear Support Vector Machine Specification (classification)
+## Linear Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -63,8 +63,8 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), wi = missing_arg(), 
-##     C = double(1), type = 1)
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+##     type = 1)
 ```
 
 The `margin` parameter does not apply to classification models. 
@@ -79,6 +79,11 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## Examples 
 

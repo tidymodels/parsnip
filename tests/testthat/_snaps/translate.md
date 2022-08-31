@@ -9,6 +9,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $nthread
       [1] 1
       
@@ -62,6 +65,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $print_every_n
       <quosure>
       expr: ^10L
@@ -105,6 +111,9 @@
       $y
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $nrounds
       <quosure>
       expr: ^15
@@ -146,6 +155,9 @@
       missing_arg()
       
       $y
+      missing_arg()
+      
+      $weights
       missing_arg()
       
       $min_child_weight
@@ -462,7 +474,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
 
@@ -477,7 +489,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $max_iter
@@ -519,7 +531,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -539,7 +551,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -611,7 +623,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $reg_param
@@ -680,9 +692,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $verbose
       [1] FALSE
       
@@ -696,9 +705,6 @@
       missing_arg()
       
       $y
-      missing_arg()
-      
-      $wi
       missing_arg()
       
       $bias
@@ -773,7 +779,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $family
@@ -791,7 +797,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $max_iter
@@ -825,7 +831,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -912,9 +918,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $cost
       <quosure>
       expr: ^1
@@ -935,7 +938,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $reg_param
@@ -969,9 +972,6 @@
       $y
       missing_arg()
       
-      $wi
-      missing_arg()
-      
       $type
       <quosure>
       expr: ^tune()
@@ -992,7 +992,7 @@
       $formula
       missing_arg()
       
-      $weight_col
+      $weights
       missing_arg()
       
       $elastic_net_param
@@ -1127,9 +1127,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       <quosure>
       expr: ^4
@@ -1170,9 +1167,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       [1] 5
       
@@ -1192,9 +1186,6 @@
       missing_arg()
       
       $data
-      missing_arg()
-      
-      $weights
       missing_arg()
       
       $size
@@ -1240,9 +1231,6 @@
       $data
       missing_arg()
       
-      $weights
-      missing_arg()
-      
       $size
       [1] 5
       
@@ -1267,9 +1255,6 @@
       missing_arg()
       
       $data
-      missing_arg()
-      
-      $weights
       missing_arg()
       
       $size
@@ -1542,6 +1527,24 @@
       min_rows(5, data, 5)
       
 
+# arguments (proportional_hazards)
+
+    Code
+      basic %>% translate_args()
+    Output
+      list()
+
+---
+
+    Code
+      basic_incomplete %>% translate_args()
+    Condition
+      Error in `.check_glmnet_penalty_fit()`:
+      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      * There are 0 values for `penalty`.
+      * To try multiple values for total regularization, use the tune package.
+      * To predict multiple penalties, use `multi_predict()`
+
 # arguments (rand_forest)
 
     Code
@@ -1593,7 +1596,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $mtry
@@ -1656,7 +1659,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $num.trees
@@ -1688,7 +1691,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $num.trees
@@ -1765,7 +1768,7 @@
       $y
       missing_arg()
       
-      $case.weights
+      $weights
       missing_arg()
       
       $min.node.size
@@ -1892,6 +1895,13 @@
       env:  empty
       
 
+# arguments (survival_reg)
+
+    Code
+      basic %>% translate_args()
+    Output
+      list()
+
 # arguments (svm_linear)
 
     Code
@@ -1901,9 +1911,6 @@
       missing_arg()
       
       $y
-      missing_arg()
-      
-      $wi
       missing_arg()
       
       $type
@@ -1922,9 +1929,6 @@
       missing_arg()
       
       $y
-      missing_arg()
-      
-      $wi
       missing_arg()
       
       $type
@@ -2094,4 +2098,53 @@
       $kpar
       list(sigma = ~0.2)
       
+
+# translate tuning paramter names
+
+    Code
+      .model_param_name_key(mod)
+    Output
+      # A tibble: 2 x 3
+        user            parsnip engine          
+        <chr>           <chr>   <chr>           
+      1 number of trees trees   nrounds         
+      2 min_n           min_n   min_child_weight
+
+---
+
+    Code
+      .model_param_name_key(mod, as_tibble = FALSE)
+    Output
+      $user_to_parsnip
+                  trees             min_n 
+      "number of trees"           "min_n" 
+      
+      $parsnip_to_engine
+               nrounds min_child_weight 
+               "trees"          "min_n" 
+      
+
+---
+
+    Code
+      .model_param_name_key(linear_reg())
+    Output
+      # A tibble: 0 x 3
+      # ... with 3 variables: user <chr>, parsnip <chr>, engine <chr>
+
+---
+
+    Code
+      .model_param_name_key(linear_reg(), as_tibble = FALSE)
+    Output
+      $user_to_parsnip
+      named character(0)
+      
+      $parsnip_to_engine
+      named character(0)
+      
+
+---
+
+    'object' should be a model specification or workflow.
 

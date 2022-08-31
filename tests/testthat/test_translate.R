@@ -199,6 +199,22 @@ test_that("arguments (nearest_neighbor)", {
   expect_snapshot(translate_args(dist_power %>% set_engine("kknn")))
 })
 
+
+# translate.proportional_hazards ------------------------------------------
+test_that("arguments (proportional_hazards)", {
+  suppressMessages({
+    basic <- proportional_hazards(penalty = 0.1) %>% set_engine("glmnet")
+    basic_incomplete <- proportional_hazards() %>% set_engine("glmnet")
+  })
+
+  # this is empty because the engines are not defined in parsnip
+  expect_snapshot(basic %>% translate_args())
+  # but we can check for the error if there is no penalty for glmnet
+  expect_snapshot(error = TRUE,
+    basic_incomplete %>% translate_args()
+  )
+})
+
 # translate.rand_forest --------------------------------------------------------
 test_that("arguments (rand_forest)", {
   basic <- rand_forest(mode = "regression")
@@ -237,6 +253,17 @@ test_that("arguments (surv_reg)", {
   expect_snapshot(translate_args(dist_v %>% set_engine("flexsurv")))
 })
 
+# translate.survival_reg -----------------------------------------------------------
+test_that("arguments (survival_reg)", {
+  suppressMessages({
+    basic <- survival_reg()
+  })
+
+  # this is empty because the engines are not defined in parsnip
+  expect_snapshot(basic %>% translate_args())
+
+})
+
 # translate.svm_linear ---------------------------------------------------------
 test_that("arguments (svm_linear)", {
   basic <- svm_linear(mode = "regression")
@@ -268,4 +295,18 @@ test_that("arguments (svm_rbf)", {
   expect_snapshot(translate_args(basic %>% set_engine("kernlab", cross = 10)))
   expect_snapshot(translate_args(rbf_sigma %>% set_engine("kernlab")))
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("translate tuning paramter names", {
+
+  mod <- boost_tree(trees = tune("number of trees"), min_n = tune(), tree_depth = 3)
+
+  expect_snapshot(.model_param_name_key(mod))
+  expect_snapshot(.model_param_name_key(mod, as_tibble = FALSE))
+  expect_snapshot(.model_param_name_key(linear_reg()))
+  expect_snapshot(.model_param_name_key(linear_reg(), as_tibble = FALSE))
+  expect_snapshot_error(.model_param_name_key(1))
+})
+
 

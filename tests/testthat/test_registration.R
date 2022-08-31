@@ -1,12 +1,3 @@
-# There's currently an issue comparing tibbles so we do it col-by-col
-test_by_col <- function(a, b) {
-  for (i in union(names(a), names(b))) {
-    expect_equal(a[[i]], b[[i]])
-  }
-}
-
-# ------------------------------------------------------------------------------
-
 test_that('adding a new model', {
   set_new_model("sponge")
 
@@ -21,7 +12,7 @@ test_that('adding a new model', {
     tibble(engine = character(0), mode = character(0))
   )
 
-test_by_col(
+expect_equal(
   get_from_env("sponge_pkgs"),
   tibble(engine = character(0), pkg = list(), mode = character(0))
 )
@@ -30,19 +21,19 @@ expect_equal(
   get_from_env("sponge_modes"), "unknown"
 )
 
-test_by_col(
+expect_equal(
   get_from_env("sponge_args"),
   dplyr::tibble(engine = character(0), parsnip = character(0),
                 original = character(0), func = vector("list"),
                 has_submodel = logical(0))
 )
 
-test_by_col(
+expect_equal(
   get_from_env("sponge_fit"),
   tibble(engine = character(0), mode = character(0), value = vector("list"))
 )
 
-test_by_col(
+expect_equal(
   get_from_env("sponge_predict"),
   tibble(engine = character(0), mode = character(0),
          type = character(0), value = vector("list"))
@@ -71,7 +62,7 @@ test_that('adding a new mode', {
 test_that('adding a new engine', {
   set_model_engine("sponge", mode = "classification", eng = "gum")
 
-  test_by_col(
+  expect_equal(
     get_from_env("sponge"),
     tibble(engine = "gum", mode = "classification")
   )
@@ -96,20 +87,20 @@ test_that('adding a new package', {
   expect_error(set_dependency("sponge", "gummies", "trident"))
   expect_error(set_dependency("sponge",  "gum", "trident", mode = "regression"))
 
-  test_by_col(
+  expect_equal(
     get_from_env("sponge_pkgs"),
     tibble(engine = "gum", pkg = list("trident"), mode = "classification")
   )
 
   set_dependency("sponge", "gum", "juicy-fruit", mode = "classification")
-  test_by_col(
+  expect_equal(
     get_from_env("sponge_pkgs"),
     tibble(engine = "gum",
            pkg = list(c("trident", "juicy-fruit")),
            mode = "classification")
   )
 
-  test_by_col(
+  expect_equal(
     get_dependency("sponge"),
     tibble(engine = "gum",
            pkg = list(c("trident", "juicy-fruit")),
@@ -142,7 +133,7 @@ test_that('adding a new argument', {
   args <- get_from_env("sponge_args")
   expect_equal(sum(args$parsnip == "modeling"), 1)
 
-  test_by_col(
+  expect_equal(
     get_from_env("sponge_args"),
     tibble(engine = "gum", parsnip = "modeling", original = "modelling",
            func = list(list(pkg = "foo", fun = "bar")),
@@ -267,7 +258,7 @@ test_that('adding a new fit', {
   )
 
   fit_env_data <- get_from_env("sponge_fit")
-  test_by_col(
+  expect_equal(
     fit_env_data[ 1:2],
     tibble(engine = "gum", mode = "classification")
   )
@@ -359,7 +350,7 @@ test_that('adding a new fit', {
     )
   )
 
-  test_by_col(
+  expect_equal(
     get_fit("sponge")[, 1:2],
     tibble(engine = "gum", mode = "classification")
   )
@@ -391,7 +382,7 @@ test_that('adding a new predict method', {
   )
 
   pred_env_data <- get_from_env("sponge_predict")
-  test_by_col(
+  expect_equal(
     pred_env_data[ 1:3],
     tibble(engine = "gum", mode = "classification", type = "class")
   )
@@ -401,7 +392,7 @@ test_that('adding a new predict method', {
     class_vals
   )
 
-  test_by_col(
+  expect_equal(
     get_pred_type("sponge", "class")[ 1:3],
     tibble(engine = "gum", mode = "classification", type = "class")
   )

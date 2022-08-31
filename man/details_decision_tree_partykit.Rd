@@ -30,6 +30,8 @@ evaluated for splitting. The default is to use all predictors.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
+The \strong{bonsai} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
@@ -54,6 +56,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\%
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{
+
+The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
@@ -84,6 +88,8 @@ makes it easier to run this model.
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
+The \strong{censored} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
@@ -102,7 +108,8 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\%
 ## 
 ## Model fit template:
 ## parsnip::ctree_train(formula = missing_arg(), data = missing_arg(), 
-##     maxdepth = integer(1), minsplit = min_rows(0L, data))
+##     weights = missing_arg(), maxdepth = integer(1), minsplit = min_rows(0L, 
+##         data))
 }\if{html}{\out{</div>}}
 
 \code{censored::cond_inference_surv_ctree()} is a wrapper around
@@ -116,6 +123,12 @@ This engine does not require any special encoding of the predictors.
 Categorical predictors can be partitioned into groups of factor levels
 (e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
 are not required for this model.
+}
+
+\subsection{Other details}{
+
+Predictions of type \code{"time"} are predictions of the median survival
+time.
 }
 
 \subsection{References}{

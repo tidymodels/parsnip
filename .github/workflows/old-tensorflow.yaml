@@ -25,7 +25,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           # Use older ubuntu to maximise backward compatibility
-          - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
@@ -49,7 +49,7 @@ jobs:
           extra-packages: rcmdcheck
 
       - name: Install dev reticulate
-        run: pak::pkg_install('rstudio/reticulate')
+        run: pak::pkg_install('reticulate')
         shell: Rscript {0}
 
       - name: Install Miniconda

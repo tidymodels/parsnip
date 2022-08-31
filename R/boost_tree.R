@@ -80,18 +80,6 @@ boost_tree <-
     )
   }
 
-#' @export
-print.boost_tree <- function(x, ...) {
-  cat("Boosted Tree Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update boost_tree
@@ -225,9 +213,6 @@ check_args.boost_tree <- function(object) {
 #' @param counts A logical. If `FALSE`, `colsample_bynode` and
 #' `colsample_bytree` are both assumed to be _proportions_ of the proportion of
 #' columns affects (instead of counts).
-#' @param objective A single string (or NULL) that defines the loss function that
-#' `xgboost` uses to create trees. See [xgboost::xgb.train()] for options. If left
-#' NULL, an appropriate loss function is chosen.
 #' @param event_level For binary classification, this is a single string of either
 #' `"first"` or `"second"` to pass along describing which level of the outcome
 #' should be considered the "event".
@@ -239,7 +224,7 @@ xgb_train <- function(
     x, y, weights = NULL,
     max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
     colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
-    validation = 0, early_stop = NULL, objective = NULL, counts = TRUE,
+    validation = 0, early_stop = NULL, counts = TRUE,
     event_level = c("first", "second"), ...) {
 
   event_level <- rlang::arg_match(event_level, c("first", "second"))
@@ -257,18 +242,6 @@ xgb_train <- function(
     } else if (early_stop >= nrounds) {
       early_stop <- nrounds - 1
       rlang::warn(paste0("`early_stop` was reduced to ", early_stop, "."))
-    }
-  }
-
-  if (is.null(objective)) {
-    if (is.numeric(y)) {
-      objective <- "reg:squarederror"
-    } else {
-      if (num_class == 2) {
-        objective <- "binary:logistic"
-      } else {
-        objective <- "multi:softprob"
-      }
     }
   }
 
@@ -312,35 +285,79 @@ xgb_train <- function(
     colsample_bytree = colsample_bytree,
     colsample_bynode = colsample_bynode,
     min_child_weight = min(min_child_weight, n),
-    subsample = subsample,
-    objective = objective
+    subsample = subsample
   )
 
-  main_args <- list(
-    data = quote(x$data),
-    watchlist = quote(x$watchlist),
-    params = arg_list,
-    nrounds = nrounds,
-    early_stopping_rounds = early_stop
+  others <- process_others(others, arg_list)
+
+  main_args <- c(
+      list(
+        data = quote(x$data),
+        watchlist = quote(x$watchlist),
+        params = arg_list,
+        nrounds = nrounds,
+        early_stopping_rounds = early_stop
+      ),
+      others
   )
+
+  if (is.null(main_args$objective)) {
+    if (is.numeric(y)) {
+      main_args$objective <- "reg:squarederror"
+    } else {
+      if (num_class == 2) {
+        main_args$objective <- "binary:logistic"
+      } else {
+        main_args$objective <- "multi:softprob"
+      }
+    }
+  }
+
   if (!is.null(num_class) && num_class > 2) {
     main_args$num_class <- num_class
   }
 
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
 
-  # override or add some other args
+  eval_tidy(call, env = current_env())
+}
+
+process_others <- function(others, arg_list) {
+  guarded <- c("data", "weights", "num_class", "watchlist")
+  guarded_supplied <- names(others)[names(others) %in% guarded]
+
+  if (length(guarded_supplied) > 0) {
+    cli::cli_warn(
+      c(
+        "!" = "{cli::qty(guarded_supplied)} The argument{?s} {.arg {guarded_supplied}} \
+               {?is/are} guarded by parsnip and will not be passed to {.fun xgb.train}."
+      ),
+      class = "xgboost_guarded_warning"
+    )
+  }
 
   others <-
-    others[!(names(others) %in% c("data", "weights", "nrounds", "num_class", names(arg_list)))]
+    others[!(names(others) %in% guarded)]
+
+  if (!is.null(others$params)) {
+    cli::cli_warn(
+      c(
+        "!" = "Please supply elements of the `params` list argument as main arguments \
+               to `set_engine()` rather than as part of `params`.",
+        "i" = "See `?details_boost_tree_xgboost` for more information."
+      ),
+      class = "xgboost_params_warning"
+    )
+
+    params <- others$params[!names(others$params) %in% names(arg_list)]
+    others <- c(others[names(others) != "params"], params)
+  }
+
   if (!(any(names(others) == "verbose"))) {
     others$verbose <- 0
   }
-  if (length(others) > 0) {
-    call <- rlang::call_modify(call, !!!others)
-  }
 
-  eval_tidy(call, env = current_env())
+  others
 }
 
 recalc_param <- function(x, counts, denom) {

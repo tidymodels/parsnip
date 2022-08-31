@@ -50,8 +50,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 factors.
 \item Determines whether sparsity is required based on the value of
 \code{predictor_prop}.
-\item Sets the \code{keepX} argument of \code{\link[mixOmics:spls]{mixOmics::spls()}}
-for sparse models.
+\item Sets the \code{keepX} argument of \code{mixOmics::spls()} for sparse models.
 }
 }
 
@@ -81,8 +80,8 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 }\if{html}{\out{</div>}}
 
 In this case, \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} has the same role
-as above but eventually targets \code{\link[mixOmics:plsda]{mixOmics::plsda()}}
-or \code{\link[mixOmics:splsda]{mixOmics::splsda()}} .
+as above but eventually targets \code{mixOmics::plsda()} or
+\code{mixOmics::splsda()}.
 }
 
 \subsection{Installing mixOmics}{
@@ -102,8 +101,8 @@ accessible via CRAN. You can install using:
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated
@@ -112,6 +111,11 @@ before fitting the model.
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{References}{

@@ -59,20 +59,6 @@ linear_reg <-
   }
 
 #' @export
-print.linear_reg <- function(x, ...) {
-  cat("Linear Regression Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-
-#' @export
 translate.linear_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
@@ -257,7 +243,11 @@ multi_predict._elnet <-
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
     pred <- gather(pred, group, .pred, -.row)
-    pred <- full_join(param_key, pred, by = "group")
+    if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
+      pred <- full_join(param_key, pred, by = "group", multiple = "all")
+    } else {
+      pred <- full_join(param_key, pred, by = "group")
+    }
     pred$group <- NULL
     pred <- arrange(pred, .row, penalty)
     .row <- pred$.row

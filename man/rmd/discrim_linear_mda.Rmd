@@ -43,6 +43,11 @@ discrim_linear(penalty = numeric(0)) %>%
 ```{r child = "template-zv.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
  - Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by Optimal 

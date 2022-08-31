@@ -44,6 +44,10 @@ discrim_flexible(
 ```{r child = "template-makes-dummies.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
 
 ## References
 

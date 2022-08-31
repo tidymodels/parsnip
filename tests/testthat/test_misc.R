@@ -63,6 +63,14 @@ test_that('S3 method dispatch/registration', {
 })
 
 # ------------------------------------------------------------------------------
+test_that("combine_words helper works", {
+  expect_snapshot(combine_words(1))
+  expect_snapshot(combine_words(1:2))
+  expect_snapshot(combine_words(1:3))
+  expect_snapshot(combine_words(1:4))
+})
+
+# ------------------------------------------------------------------------------
 
 test_that('control class', {
   x <- linear_reg() %>% set_engine("lm")
@@ -107,6 +115,7 @@ test_that('model type functions message informatively with unknown implementatio
   )
 })
 
+
 test_that('arguments can be passed to model spec inside function', {
   f <- function(k = 5) {
     nearest_neighbor(mode = "regression", neighbors = k) %>%
@@ -122,4 +131,10 @@ test_that('arguments can be passed to model spec inside function', {
   )
 
   expect_equal(exp_res$fit[-c(8, 9)], fun_res$fit[-c(8, 9)])
+
+test_that('set_engine works as a generic', {
+  expect_snapshot(error = TRUE,
+    set_engine(mtcars, "rpart")
+  )
+
 })

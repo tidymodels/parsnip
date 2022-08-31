@@ -90,18 +90,6 @@ bart <-
     )
   }
 
-#' @export
-print.bart <- function(x, ...) {
-  cat("BART Model Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-  invisible(x)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @method update bart
@@ -208,7 +196,7 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
     res <- tibble::tibble(.pred = apply(post_dist, 2, mean, na.rm = TRUE))
   } else if (type == "class") {
     mn <- apply(post_dist, 2, mean, na.rm = TRUE)
-    lvl <- ifelse(mn > 0.5, obj$lvl[1], obj$lvl[2])
+    lvl <- ifelse(mn > 0.5, obj$lvl[2], obj$lvl[1])
     lvl <- factor(lvl, levels = obj$lvl)
     res <- tibble::tibble(.pred_class = lvl)
   } else if (type == "prob") {

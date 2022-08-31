@@ -49,8 +49,8 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 ## Computational engine: glmnet 
 ## 
 ## Model fit template:
-## censored::glmnet_fit_wrapper(formula = missing_arg(), data = missing_arg(), 
-##     family = missing_arg(), alpha = double(1))
+## censored::coxnet_train(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), alpha = double(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -58,8 +58,8 @@ proportional_hazards(penalty = double(1), mixture = double(1)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
@@ -111,9 +111,12 @@ predict(mod, pred_data, type = "survival", time = 500) \%>\%
 Note that columns used in the \code{strata()} function \emph{will} also be
 estimated in the regular portion of the model (i.e., within the linear
 predictor).
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
 }
-}
-\section{Linear predictor values}{
+
+\subsection{Linear predictor values}{
+
 Since risk regression and parametric survival models are modeling
 different characteristics (e.g. relative hazard versus event time),
 their linear predictors will be going in opposite directions.
@@ -133,6 +136,16 @@ This behavior can be changed by using the \code{increasing} argument when
 calling \code{predict()} on a model object.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+}
 \section{References}{
 \itemize{
 \item Simon N, Friedman J, Hastie T, Tibshirani R. 2011. “Regularization

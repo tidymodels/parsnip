@@ -51,19 +51,6 @@ gen_additive_mod <- function(mode = "unknown",
 }
 
 #' @export
-print.gen_additive_mod <- function(x, ...) {
-  cat("GAM Specification (", x$mode, ")\n\n", sep = "")
-  model_printer(x, ...)
-
-  if (is_printable_spec(x)) {
-    cat("Model fit template:\n")
-    print(show_call(x))
-  }
-
-  invisible(x)
-}
-
-#' @export
 #' @rdname parsnip_update
 #' @inheritParams gen_additive_mod
 update.gen_additive_mod <- function(object,

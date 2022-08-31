@@ -1,3 +1,31 @@
+# combine_words helper works
+
+    Code
+      combine_words(1)
+    Output
+      1
+
+---
+
+    Code
+      combine_words(1:2)
+    Output
+      1 and 2
+
+---
+
+    Code
+      combine_words(1:3)
+    Output
+      1, 2, and 3
+
+---
+
+    Code
+      combine_words(1:4)
+    Output
+      1, 2, 3, and 4
+
 # model type functions message informatively with unknown implementation
 
     Code
@@ -13,4 +41,12 @@
       
       Computational engine: rpart 
       
+
+# set_engine works as a generic
+
+    Code
+      set_engine(mtcars, "rpart")
+    Condition
+      Error in `UseMethod()`:
+      ! no applicable method for 'set_engine' applied to an object of class "data.frame"
 

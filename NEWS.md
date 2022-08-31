@@ -1,18 +1,47 @@
 # parsnip (development version)
 
+* Fixed installation failures due to undocumented knitr installation dependency (#785).
+
+# parsnip 1.0.1
+
+* Enabled passing additional engine arguments with the xgboost `boost_tree()` engine. To supply engine-specific arguments that are documented in `xgboost::xgb.train()` as arguments to be passed via `params`, supply the list elements directly as named arguments to `set_engine()`. Read more in `?details_boost_tree_xgboost` (#787).
+  
+# parsnip 1.0.0
+
+## Model Specification Changes
+
+* Enable the use of case weights for models that support them. 
+
+* `show_model_info()` now indicates which models can utilize case weights. 
+
+* Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
+
+* Refactored internals of model specification printing functions. These changes are non-breaking for extension packages, but the new `print_model_spec()` helper is exported for use in extensions if desired (#739).
+
+## Bug fixes
+
+* Fixed bug where previously set engine arguments would propagate through `update()` methods despite `fresh = TRUE` (#704).
+
+* Fixed a bug where an error would be thrown if arguments to model functions were namespaced (#745).
+
+* `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
+
+*  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
+
+* Fixed translated printing for `null_model()` (#752)
+
+## Other changes
+
+* Added a `glm_grouped()` function to convert long data to the grouped format required by `glm()` for logistic regression. 
+
 * `xgb_train()` now allows for case weights 
 
 * Added `ctree_train()` and `cforest_train()` wrappers for the functions in the partykit package. Engines for these will be added to other parsnip extension packages.  
 
 * Exported `xgb_predict()` which wraps xgboost's `predict()` method for use with parsnip extension packages (#688).
 
-* Fixed bug where previously set engine arguments would propagate through `update()` methods despite `fresh = TRUE` (#704).
+* Added a developer function, `.model_param_name_key` that translates names of tuning parameters.
 
-*  An inconsistency for probability type predictions for two-class GAM models was fixed (#708)
-
-* `predict(type = "prob")` will now provide an error if the outcome variable has a level called `"class"` (#720).
-
-* Model type functions will now message informatively if a needed parsnip extension package is not loaded (#731).
 
 # parsnip 0.2.1
 

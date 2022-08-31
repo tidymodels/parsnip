@@ -47,6 +47,13 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
+Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
+
 ## Other details
 
 ```{r child = "template-spark-notes.Rmd"}

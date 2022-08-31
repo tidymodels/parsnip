@@ -82,6 +82,18 @@ survival_reg() \%>\%
 ##  Chisq= 15.36 on 1 degrees of freedom, p= 8.88e-05 
 ## n= 26
 }\if{html}{\out{</div>}}
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{References}{

@@ -36,7 +36,7 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 ## 
 ## Model fit template:
 ## nnet::multinom(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), decay = double(1), trace = FALSE)
+##     decay = double(1), trace = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -44,8 +44,8 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
@@ -57,6 +57,11 @@ variance of one.
 The “Fitting and Predicting with parsnip” article contains
 \href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet}{examples}
 for \code{multinom_reg()} with the \code{"nnet"} engine.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{References}{

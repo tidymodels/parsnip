@@ -37,8 +37,8 @@ discrim_linear(penalty = numeric(0)) \%>\%
 ## Computational engine: mda 
 ## 
 ## Model fit template:
-## mda::fda(formula = missing_arg(), data = missing_arg(), lambda = numeric(0), 
-##     method = mda::gen.ridge, keep.fitted = FALSE)
+## mda::fda(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     lambda = numeric(0), method = mda::gen.ridge, keep.fitted = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -46,12 +46,22 @@ discrim_linear(penalty = numeric(0)) \%>\%
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Variance calculations are used in these computations so \emph{zero-variance}
 predictors (i.e., with a single unique value) should be eliminated
 before fitting the model.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{References}{

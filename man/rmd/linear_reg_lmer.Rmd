@@ -20,7 +20,7 @@ linear_reg() %>%
   translate()
 ```
 
-```{r child = "no-pooling.Rmd"}
+```{r child = "template-no-pooling.Rmd"}
 ```
 
 ## Preprocessing requirements
@@ -58,6 +58,11 @@ lmer_wflow <-
   add_model(lmer_spec, formula = depr_score ~ week + (1|subject))
 
 fit(lmer_wflow, data = riesby)
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
 ```
 
 ## References

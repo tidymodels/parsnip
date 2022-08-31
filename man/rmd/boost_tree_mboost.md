@@ -42,7 +42,7 @@ boost_tree() %>%
 ## 
 ## Model fit template:
 ## censored::blackboost_train(formula = missing_arg(), data = missing_arg(), 
-##     family = mboost::CoxPH())
+##     weights = missing_arg(), family = mboost::CoxPH())
 ```
 
 `censored::blackboost_train()` is a wrapper around [mboost::blackboost()] (and other functions) that makes it easier to run this model. 
@@ -51,6 +51,12 @@ boost_tree() %>%
 
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
+
+## Other details
+
+
+
+Predictions of type `"time"` are predictions of the mean survival time.
 
 ## References
 

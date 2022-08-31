@@ -58,6 +58,11 @@ predictors (i.e., with a single unique value) should be eliminated
 before fitting the model.
 }
 
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.

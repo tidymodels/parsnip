@@ -32,7 +32,7 @@ svm_rbf(
 ```
 
 ```
-## Radial Basis Function Support Vector Machine Specification (regression)
+## Radial Basis Function Support Vector Machine Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -60,7 +60,7 @@ svm_rbf(
 ```
 
 ```
-## Radial Basis Function Support Vector Machine Specification (classification)
+## Radial Basis Function Support Vector Machine Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   cost = double(1)
@@ -85,6 +85,11 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## Examples 
 

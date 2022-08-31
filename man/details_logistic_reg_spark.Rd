@@ -46,7 +46,7 @@ lasso and ridge.
 ## 
 ## Model fit template:
 ## sparklyr::ml_logistic_regression(x = missing_arg(), formula = missing_arg(), 
-##     weight_col = missing_arg(), reg_param = double(1), elastic_net_param = double(1), 
+##     weights = missing_arg(), reg_param = double(1), elastic_net_param = double(1), 
 ##     family = "binomial")
 }\if{html}{\out{</div>}}
 }
@@ -55,13 +55,28 @@ lasso and ridge.
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default, \code{ml_logistic_regression()} uses the
-argument \code{standardization = TRUE} to center and scale the data.
+variance of one.
+
+By default, \code{ml_logistic_regression()} uses the argument
+\code{standardization = TRUE} to center and scale the data.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+Note that, for spark engines, the \code{case_weight} argument value should be
+a character string to specify the column with the numeric case weights.
 }
 
 \subsection{Other details}{

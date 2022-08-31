@@ -19,7 +19,7 @@ logistic_reg() %>%
   translate()
 ```
 
-```{r child = "no-pooling.Rmd"}
+```{r child = "template-no-pooling.Rmd"}
 ```
 
 ## Preprocessing requirements
@@ -57,6 +57,11 @@ glmer_wflow <-
   add_model(glmer_spec, formula = outcome ~ treatment * visit + (1 | patientID))
 
 fit(glmer_wflow, data = toenail)
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
 ```
 
 ## References

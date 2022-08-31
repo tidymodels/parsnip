@@ -55,10 +55,11 @@ boost_tree(
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -91,10 +92,11 @@ boost_tree(
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 ```
 
 [xgb_train()] is a wrapper around [xgboost::xgb.train()] (and other functions) that makes it easier to run this model. 
@@ -106,6 +108,46 @@ xgboost does not have a means to translate factor predictors to grouped splits. 
 For classification, non-numeric outcomes (i.e., factors) are internally converted to numeric. For binary classification, the `event_level` argument of `set_engine()` can be set to either `"first"` or `"second"` to specify which level should be used as the event. This can be helpful when a watchlist is used to monitor performance from with the xgboost training process.  
 
 ## Other details
+
+### Interfacing with the `params` argument
+
+The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
+
+
+```r
+# good
+boost_tree() %>%
+  set_engine("xgboost", eval_metric = "mae")
+```
+
+```
+## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   eval_metric = mae
+## 
+## Computational engine: xgboost
+```
+
+...rather than this:
+
+
+```r
+# bad
+boost_tree() %>%
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+```
+
+```
+## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   params = list(eval_metric = "mae")
+## 
+## Computational engine: xgboost
+```
+
+parsnip will then route arguments as needed. In the case that arguments are passed to `params` via [set_engine()], parsnip will warn and re-route the arguments as needed. Note, though, that arguments passed to `params` cannot be tuned.
 
 ### Sparse matrices
 
@@ -124,19 +166,22 @@ Some engines, such as `"xgboost"`, `"xrf"`, and `"lightgbm"`, interpret their an
 
 parsnip and its extensions accommodate this parameterization using the `counts` argument: a logical indicating whether `mtry` should be interpreted as the number of predictors that will be randomly sampled at each split. `TRUE` indicates that `mtry` will be interpreted in its sense as a count, `FALSE` indicates that the argument will be interpreted in its sense as a proportion.
 
-`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation---currently `"xgboost"`, `"xrf"` (via the rules package), and `"lightgbm"` (via the bonsai package)---the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
+`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
 
 ### Early stopping
 
+
 The `stop_iter()`  argument allows the model to prematurely stop training if the objective function does not improve within `early_stop` iterations. 
 
-The best way to use this feature is in conjunction with an _internal validation set_. To do this, pass the `validation` parameter of [xgb_train()] via the parsnip [set_engine()] function. This is the proportion of the training set that should be reserved for measuring performance (and stop early). 
+The best way to use this feature is in conjunction with an _internal validation set_. To do this, pass the `validation` parameter of \\code{\\link[=xgb_train]{xgb_train()}} via the parsnip \\code{\\link[=set_engine]{set_engine()}} function. This is the proportion of the training set that should be reserved for measuring performance (and stopping early). 
 
 If the model specification has `early_stop >= trees`, `early_stop` is converted to `trees - 1` and a warning is issued. 
 
+Note that, since the `validation` argument provides an alternative interface to `watchlist`, the `watchlist` argument is guarded by parsnip and will be ignored (with a warning) if passed.
+
 ### Objective function
 
-parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()]. 
+parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
 ## Examples 
 

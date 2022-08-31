@@ -33,7 +33,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (regression)
+## Single Layer Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -43,9 +43,8 @@ mlp(
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = TRUE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)
 ```
 
 Note that parsnip automatically sets linear activation in the last layer. 
@@ -65,7 +64,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (classification)
+## Single Layer Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -75,9 +74,8 @@ mlp(
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
-##     size = integer(1), decay = double(1), maxit = integer(1), 
-##     trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
+##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
 ```
 
 
@@ -89,6 +87,11 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## Examples 
 

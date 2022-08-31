@@ -56,10 +56,11 @@ Inf)
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 }\if{html}{\out{</div>}}
 }
 
@@ -90,10 +91,11 @@ Inf)
 ## Computational engine: xgboost 
 ## 
 ## Model fit template:
-## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), colsample_bynode = integer(), 
-##     nrounds = integer(), min_child_weight = integer(), max_depth = integer(), 
-##     eta = numeric(), gamma = numeric(), subsample = numeric(), 
-##     early_stop = integer(), nthread = 1, verbose = 0)
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0)
 }\if{html}{\out{</div>}}
 
 \code{\link[=xgb_train]{xgb_train()}} is a wrapper around
@@ -118,6 +120,51 @@ training process.
 }
 
 \subsection{Other details}{
+\subsection{Interfacing with the \code{params} argument}{
+
+The xgboost function that parsnip indirectly wraps,
+\code{\link[xgboost:xgb.train]{xgboost::xgb.train()}}, takes most arguments via
+the \code{params} list argument. To supply engine-specific arguments that are
+documented in \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} as
+arguments to be passed via \code{params}, supply the list elements directly
+as named arguments to \code{\link[=set_engine]{set_engine()}} rather than as
+elements in \code{params}. For example, pass a non-default evaluation metric
+like this:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# good
+boost_tree() \%>\%
+  set_engine("xgboost", eval_metric = "mae")
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   eval_metric = mae
+## 
+## Computational engine: xgboost
+}\if{html}{\out{</div>}}
+
+…rather than this:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# bad
+boost_tree() \%>\%
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+## 
+## Engine-Specific Arguments:
+##   params = list(eval_metric = "mae")
+## 
+## Computational engine: xgboost
+}\if{html}{\out{</div>}}
+
+parsnip will then route arguments as needed. In the case that arguments
+are passed to \code{params} via \code{\link[=set_engine]{set_engine()}}, parsnip will
+warn and re-route the arguments as needed. Note, though, that arguments
+passed to \code{params} cannot be tuned.
+}
+
 \subsection{Sparse matrices}{
 
 xgboost requires the data to be in a sparse format. If your predictor
@@ -156,11 +203,11 @@ interpreted in its sense as a proportion.
 
 \code{mtry} is a main model argument for
 \code{\link[=boost_tree]{boost_tree()}} and
-\code{\link[=rand_forest]{rand_forest()}}, and thus should not have an
-engine-specific interface. So, regardless of engine, \code{counts} defaults
-to \code{TRUE}. For engines that support the proportion
-interpretation—currently \code{"xgboost"}, \code{"xrf"} (via the rules package),
-and \code{"lightgbm"} (via the bonsai package)—the user can pass the
+\code{\link[=rand_forest]{rand_forest()}}, and thus should not have
+an engine-specific interface. So, regardless of engine, \code{counts}
+defaults to \code{TRUE}. For engines that support the proportion
+interpretation (currently \code{"xgboost"} and \code{"xrf"}, via the rules
+package, and \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within [0,1].
 }
@@ -174,19 +221,23 @@ iterations.
 The best way to use this feature is in conjunction with an \emph{internal
 validation set}. To do this, pass the \code{validation} parameter of
 \code{\link[=xgb_train]{xgb_train()}} via the parsnip
-\code{\link[=set_engine]{set_engine()}} function. This is the proportion of the
-training set that should be reserved for measuring performance (and stop
-early).
+\code{\link[=set_engine]{set_engine()}} function. This is the
+proportion of the training set that should be reserved for measuring
+performance (and stopping early).
 
 If the model specification has \code{early_stop >= trees}, \code{early_stop} is
 converted to \code{trees - 1} and a warning is issued.
+
+Note that, since the \code{validation} argument provides an alternative
+interface to \code{watchlist}, the \code{watchlist} argument is guarded by parsnip
+and will be ignored (with a warning) if passed.
 }
 
 \subsection{Objective function}{
 
 parsnip chooses the objective function based on the characteristics of
 the outcome. To use a different loss, pass the \code{objective} argument to
-\code{\link[=set_engine]{set_engine()}}.
+\code{\link[=set_engine]{set_engine()}} directly.
 }
 
 }

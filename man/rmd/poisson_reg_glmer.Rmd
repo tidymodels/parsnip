@@ -19,7 +19,7 @@ poisson_reg(engine = "glmer") %>%
   translate()
 ```
 
-```{r child = "no-pooling.Rmd"}
+```{r child = "template-no-pooling.Rmd"}
 ```
 
 ## Preprocessing requirements
@@ -56,6 +56,11 @@ glmer_wflow <-
   add_model(glmer_spec, formula = y ~ time + x + (1 | subject))
 
 fit(glmer_wflow, data = longitudinal_counts)
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
 ```
 
 ## References

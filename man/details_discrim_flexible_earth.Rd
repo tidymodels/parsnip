@@ -50,8 +50,9 @@ discrim_flexible(
 ## Computational engine: earth 
 ## 
 ## Model fit template:
-## mda::fda(formula = missing_arg(), data = missing_arg(), nprune = integer(0), 
-##     degree = integer(0), pmethod = character(0), method = earth::earth)
+## mda::fda(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     nprune = integer(0), degree = integer(0), pmethod = character(0), 
+##     method = earth::earth)
 }\if{html}{\out{</div>}}
 }
 
@@ -59,8 +60,18 @@ discrim_flexible(
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
-convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
+will convert factor columns to indicators.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{References}{

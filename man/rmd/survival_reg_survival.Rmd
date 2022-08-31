@@ -54,6 +54,14 @@ survival_reg() %>%
   extract_fit_engine()
 ```
 
+```{r child = "template-survival-mean.Rmd"}
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## References
 
 -  Kalbfleisch, J. D. and Prentice, R. L. 2002 _The statistical analysis of failure time data_, Wiley.

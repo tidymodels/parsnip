@@ -59,9 +59,10 @@ poisson_reg(engine = "stan_glmer") \%>\%
 
 This model can use subject-specific coefficient estimates to make
 predictions (i.e. partial pooling). For example, this equation shows the
-linear predictor (\emph{η}) for a random intercept:
+linear predictor (\verb{\eta}) for a random intercept:
 
-\emph{η}\if{html}{\out{<sub>}}\emph{i}\if{html}{\out{</sub>}} = (\emph{β}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}}+\emph{b}\if{html}{\out{<sub>}}0\emph{i}\if{html}{\out{</sub>}}) + \emph{β}\if{html}{\out{<sub>}}1\if{html}{\out{</sub>}}\emph{x}\if{html}{\out{<sub>}}\emph{i}1\if{html}{\out{</sub>}}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\eta_\{i\} = (\beta_0 + b_\{0i\}) + \beta_1x_\{i1\}
+}\if{html}{\out{</div>}}
 
 where \emph{i} denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that
@@ -72,7 +73,8 @@ What happens when data are being predicted for a subject that was not
 used in the model fit? In that case, this package uses \emph{only} the
 population parameter estimates for prediction:
 
-\emph{η̂}\if{html}{\out{<sub>}}\emph{i}′\if{html}{\out{</sub>}} = \emph{β̂}\if{html}{\out{<sub>}}0\if{html}{\out{</sub>}} + \emph{β̂**x}\if{html}{\out{<sub>}}\emph{i}′1\if{html}{\out{</sub>}}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\hat\{\eta\}_\{i'\} = \hat\{\beta\}_0+ \hat\{\beta\}x_\{i'1\}
+}\if{html}{\out{</div>}}
 
 Depending on what covariates are in the model, this might have the
 effect of making the same prediction for all new samples. The population
@@ -129,6 +131,16 @@ intervals analogous to confidence and prediction intervals. In these
 instances, the units are the original outcome. When \code{std_error = TRUE},
 the standard deviation of the posterior distribution (or posterior
 predictive distribution as appropriate) is returned.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{References}{

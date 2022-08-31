@@ -25,7 +25,7 @@ test_that('survival execution', {
     ),
     regexp = NA
   )
-  expect_output(print(res), "parsnip model object")
+
   expect_error(
     res <- fit(
       surv_lnorm,

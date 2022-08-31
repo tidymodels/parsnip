@@ -53,7 +53,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (regression)
+## Single Layer Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -91,7 +91,7 @@ mlp(
 ```
 
 ```
-## Single Layer Neural Network Specification (classification)
+## Single Layer Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -118,6 +118,11 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## References
 

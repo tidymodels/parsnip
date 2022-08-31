@@ -42,6 +42,11 @@ multinom_reg(penalty = double(1)) %>%
 ```{r child = "template-same-scale.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-keras) for `multinom_reg()` with the `"keras"` engine.

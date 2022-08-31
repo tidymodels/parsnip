@@ -33,12 +33,12 @@ call. For this type of model, the template of the fit calls are below:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Null Model Specification (regression)
 ## 
 ## Computational engine: parsnip 
 ## 
 ## Model fit template:
-## nullmodel(x = missing_arg(), y = missing_arg())
+## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
@@ -47,12 +47,12 @@ call. For this type of model, the template of the fit calls are below:
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Model Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Null Model Specification (classification)
 ## 
 ## Computational engine: parsnip 
 ## 
 ## Model fit template:
-## nullmodel(x = missing_arg(), y = missing_arg())
+## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 }\if{html}{\out{</div>}}
 }
 }

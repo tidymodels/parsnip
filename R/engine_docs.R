@@ -49,7 +49,7 @@ knit_engine_docs <- function(pattern = NULL) {
 
 extensions <- function() {
   c("baguette", "censored", "discrim", "multilevelmod", "plsmod",
-    "poissonreg", "rules", "bonsai")
+    "poissonreg", "rules", "bonsai", "agua")
 }
 
 # ------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ make_engine_list <- function(mod) {
         dplyr::pull(mode) %>%
         unique() %>%
         sort() %>%
-        knitr::combine_words()
+        combine_words()
       notes <- paste0(
         notes, " ",
         cli::symbol$sup_2, " Requires a parsnip extension package for ",

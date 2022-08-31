@@ -42,9 +42,17 @@ proportional_hazards() %>%
 
 Note that columns used in the `strata()` function will not be estimated in the regular portion of the model (i.e., within the linear predictor).
 
+```{r child = "template-survival-mean.Rmd"}
+```
 
-# Linear predictor values
+## Linear predictor values
+
 ```{r child = "template-censored-linear-predictor.Rmd"}
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
 ```
 
 ## References

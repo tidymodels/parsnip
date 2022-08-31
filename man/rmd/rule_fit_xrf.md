@@ -9,7 +9,7 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 8 tuning parameters:
 
-- `mtry`: Proportion Randomly Selected Predictors (type: double, default: 1.0)
+- `mtry`: Proportion Randomly Selected Predictors (type: double, default: see below)
 
 - `trees`: # Trees (type: integer, default: 15L)
 
@@ -66,9 +66,10 @@ rule_fit(
 ## 
 ## Model fit template:
 ## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), 
-##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
-##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
-##     subsample = numeric(1), lambda = numeric(1))
+##     xgb_control = missing_arg(), colsample_bynode = numeric(1), 
+##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), 
+##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), 
+##     lambda = numeric(1))
 ```
 
 ## Translation from parsnip to the underlying model call  (classification)
@@ -112,9 +113,10 @@ rule_fit(
 ## 
 ## Model fit template:
 ## rules::xrf_fit(formula = missing_arg(), data = missing_arg(), 
-##     colsample_bytree = numeric(1), nrounds = integer(1), min_child_weight = integer(1), 
-##     max_depth = integer(1), eta = numeric(1), gamma = numeric(1), 
-##     subsample = numeric(1), lambda = numeric(1))
+##     xgb_control = missing_arg(), colsample_bynode = numeric(1), 
+##     nrounds = integer(1), min_child_weight = integer(1), max_depth = integer(1), 
+##     eta = numeric(1), gamma = numeric(1), subsample = numeric(1), 
+##     lambda = numeric(1))
 ```
 
 ## Differences from the xrf package
@@ -132,12 +134,12 @@ Also, there are several configuration differences in how `xrf()` is fit between 
 
 These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
 
-## Other details
-
-### Preprocessing requirements
+## Preprocessing requirements
 
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
+
+## Other details
 
 ### Interpreting `mtry`
 
@@ -148,7 +150,21 @@ Some engines, such as `"xgboost"`, `"xrf"`, and `"lightgbm"`, interpret their an
 
 parsnip and its extensions accommodate this parameterization using the `counts` argument: a logical indicating whether `mtry` should be interpreted as the number of predictors that will be randomly sampled at each split. `TRUE` indicates that `mtry` will be interpreted in its sense as a count, `FALSE` indicates that the argument will be interpreted in its sense as a proportion.
 
-`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation---currently `"xgboost"`, `"xrf"` (via the rules package), and `"lightgbm"` (via the bonsai package)---the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
+`mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
+
+### Early stopping
+
+
+The `stop_iter()`  argument allows the model to prematurely stop training if the objective function does not improve within `early_stop` iterations. 
+
+The best way to use this feature is in conjunction with an _internal validation set_. To do this, pass the `validation` parameter of \\code{\\link[=xgb_train]{xgb_train()}} via the parsnip \\code{\\link[=set_engine]{set_engine()}} function. This is the proportion of the training set that should be reserved for measuring performance (and stopping early). 
+
+If the model specification has `early_stop >= trees`, `early_stop` is converted to `trees - 1` and a warning is issued. 
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## References
 

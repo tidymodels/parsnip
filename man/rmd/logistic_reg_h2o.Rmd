@@ -1,0 +1,62 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+
+`r descr_models("logistic_reg", "h2o")`
+
+## Tuning Parameters
+
+```{r h2o-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty", "mixture"),
+                 default = c("see below", "see below"))
+
+param <-
+logistic_reg() %>% 
+  set_engine("h2o") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r h2o-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+```{r, child = "template-h2o-glm-penalty.Rmd", include = FALSE}
+```
+
+
+## Translation from parsnip to the original package
+
+[agua::h2o_train_glm()] for `logistic_reg()` is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
+
+```{r h2o-reg}
+logistic_reg() %>% 
+  set_engine("h2o") %>% 
+  translate()
+```
+
+To use a non-default argument in [h2o::h2o.glm()], pass in as an engine argument to `set_engine()`:
+
+```{r h2o-reg-engine}
+logistic_reg() %>% 
+  set_engine("h2o", compute_p_values = TRUE) %>% 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
+
+
+## Initializing h2o 
+
+```{r child = "template-h2o-init.Rmd"}
+```

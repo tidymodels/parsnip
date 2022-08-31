@@ -49,6 +49,11 @@ check_eng_args <- function(args, obj, core_args) {
 #'
 #' @export
 set_args <- function(object, ...) {
+  UseMethod("set_args")
+}
+
+#' @export
+set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
     rlang::abort("Please pass at least one named argument.")
@@ -75,6 +80,11 @@ set_args <- function(object, ...) {
 #' @rdname set_args
 #' @export
 set_mode <- function(object, mode) {
+  UseMethod("set_mode")
+}
+
+#' @export
+set_mode.model_spec <- function(object, mode) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
@@ -150,11 +160,35 @@ make_call <- function(fun, ns, args, ...) {
 
 make_form_call <- function(object, env = NULL) {
   fit_args <- object$method$fit$args
+  uses_weights <- has_weights(env)
 
-  # Get the arguments related to data:
+  # In model specification code using `set_fit()`, there are two main arguments
+  # that dictate the data-related model arguments (e.g. 'formula', 'data', 'x',
+  # etc).
+  # The 'protect' element specifies which data arguments should not be modifiable
+  # by the user (as an engine argument). These have standardized names that
+  # follow the usual R conventions. For example, `foo(formula, data, weights)`
+  # and so on.
+  # However, some packages do not follow these naming conventions. The 'data'
+  # element in `set_fit()` allows use to have non-standard argument names by
+  # providing a named list. If function `bar(f, dat, wts)` was being used, the
+  # 'data' element would be `c(formula = "f", data = "dat", weights = "wts)`.
+  # If conventional names are used, there is no 'data' element since the values
+  # in 'protect' suffice.
+
+  # Get the arguments related to data arguments to insert into the model call
+
+  # Do we have conventional argument names?
   if (is.null(object$method$fit$data)) {
-    data_args <- c(formula = "formula", data = "data")
+    # Set the minimum arguments for formula methods.
+    data_args <- object$method$fit$protect
+    names(data_args) <- data_args
+    # Case weights _could_ be used but remove the arg if they are not given:
+    if (!uses_weights) {
+      data_args <- data_args[data_args != "weights"]
+    }
   } else {
+    # What are the non-conventional names?
     data_args <- object$method$fit$data
   }
 
@@ -166,6 +200,7 @@ make_form_call <- function(object, env = NULL) {
   # sub in actual formula
   fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
 
+  # TODO remove weights col from data?
   if (object$engine == "spark") {
     env$x <- env$data
   }
@@ -178,12 +213,20 @@ make_form_call <- function(object, env = NULL) {
   fit_call
 }
 
-make_xy_call <- function(object, target) {
+# TODO we need something to indicate that case weights are being used.
+make_xy_call <- function(object, target, env) {
   fit_args <- object$method$fit$args
+  uses_weights <- has_weights(env)
 
-  # Get the arguments related to data:
+  # See the comments above in make_form_call()
+
   if (is.null(object$method$fit$data)) {
-    data_args <- c(x = "x", y = "y")
+    data_args <- object$method$fit$protect
+    names(data_args) <- data_args
+    # Case weights _could_ be used but remove the arg if they are not given:
+    if (!uses_weights) {
+      data_args <- data_args[data_args != "weights"]
+    }
   } else {
     data_args <- object$method$fit$data
   }
@@ -197,6 +240,9 @@ make_xy_call <- function(object, target) {
       matrix = rlang::expr(maybe_matrix(x)),
       rlang::abort(glue::glue("Invalid data type target: {target}."))
     )
+  if (uses_weights) {
+    object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(weights)
+  }
 
   fit_call <- make_call(
     fun = object$method$fit$func["fun"],
@@ -269,3 +315,4 @@ min_rows <- function(num_rows, source, offset = 0) {
 
   as.integer(num_rows)
 }
+

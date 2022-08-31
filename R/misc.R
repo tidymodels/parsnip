@@ -15,69 +15,17 @@ make_classes <- function(prefix) {
 #' @return If an error is not thrown (from non-empty ellipses), a NULL list.
 #' @keywords internal
 #' @export
-check_empty_ellipse <- function (...)  {
+check_empty_ellipse <- function(...) {
   terms <- quos(...)
-  if (!is_empty(terms))
+  if (!is_empty(terms)) {
     rlang::abort("Please pass other arguments to the model function via `set_engine()`.")
+  }
   terms
 }
 
-deparserizer <- function(x, limit = options()$width - 10) {
-  x <- deparse(x, width.cutoff = limit)
-  x <- gsub("^    ", "", x)
-  x <- paste0(x, collapse = "")
-  if (nchar(x) > limit)
-    x <- paste0(substring(x, first = 1, last = limit - 7), "<snip>")
-  x
-}
-
-print_arg_list <- function(x, ...) {
-  atomic <- vapply(x, is.atomic, logical(1))
-  x2 <- x
-  x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
-  res <- paste0("  ", names(x2), " = ", x2, collaspe = "\n")
-  cat(res, sep = "")
-}
-
-#' Print helper for model objects
-#'
-#' A common format function that prints information about the model object (e.g.
-#' arguments, calls, packages, etc).
-#'
-#' @param x A model object.
-#' @param ... Not currently used.
-#' @keywords internal
-#' @export
-model_printer <- function(x, ...) {
-  non_null_args <- x$args[!vapply(x$args, null_value, lgl(1))]
-  if (length(non_null_args) > 0) {
-    cat("Main Arguments:\n")
-    non_null_args <- map(non_null_args, convert_arg)
-    cat(print_arg_list(non_null_args), "\n", sep = "")
-  }
-  if (length(x$eng_args) > 0) {
-    cat("Engine-Specific Arguments:\n")
-    x$eng_args <- map(x$eng_args, convert_arg)
-    cat(print_arg_list(x$eng_args), "\n", sep = "")
-  }
-  if (!is.null(x$engine)) {
-    cat("Computational engine:", x$engine, "\n\n")
-    if (!is.null(x$method$fit_call)) {
-      cat("Fit function:\n")
-      print(x$method$fit_call)
-      if (length(x$method$libs) > 0) {
-        if (length(x$method$libs) > 1)
-          cat("\nRequired packages:\n")
-        else
-          cat("\nRequired package: ")
-        cat(paste0(x$method$libs, collapse = ", "), "\n")
-      }
-    }
-  }
-}
-
-is_missing_arg <- function(x)
+is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
+}
 
 model_info_table <-
   utils::read.delim(system.file("models.tsv", package = "parsnip"))
@@ -92,7 +40,11 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
   if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
     mode_ <- c("regression", "censored regression", "classification")
   }
-  eng_cond <- if (is.null(engine_)) {TRUE} else {quote(engine == engine_)}
+  eng_cond <- if (is.null(engine_)) {
+    TRUE
+  } else {
+    quote(engine == engine_)
+  }
 
   avail <-
     get_from_env(spec_) %>%
@@ -110,7 +62,7 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
 
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
-  has_loaded_implementation(class(x)[1], x$engine, x$mode)
+    has_loaded_implementation(class(x)[1], x$engine, x$mode)
 }
 
 # construct a message informing the user that there are no
@@ -163,22 +115,25 @@ show_call <- function(object) {
     map(object$method$fit$args, convert_arg)
 
   call2(object$method$fit$func["fun"],
-        !!!object$method$fit$args,
-        .ns = object$method$fit$func["pkg"])
+    !!!object$method$fit$args,
+    .ns = object$method$fit$func["pkg"]
+  )
 }
 
 convert_arg <- function(x) {
-  if (is_quosure(x))
+  if (is_quosure(x)) {
     quo_get_expr(x)
-  else
+  } else {
     x
+  }
 }
 
 levels_from_formula <- function(f, dat) {
-  if (inherits(dat, "tbl_spark"))
+  if (inherits(dat, "tbl_spark")) {
     res <- NULL
-  else
+  } else {
     res <- levels(eval_tidy(f[[2]], dat))
+  }
   res
 }
 
@@ -188,7 +143,7 @@ levels_from_formula <- function(f, dat) {
 show_fit <- function(model, eng) {
   mod <- translate(x = model, engine = eng)
   fit_call <- show_call(mod)
-  call_text <-  deparse(fit_call)
+  call_text <- deparse(fit_call)
   call_text <- paste0(call_text, collapse = "\n")
   paste0(
     "\\preformatted{\n",
@@ -211,9 +166,10 @@ check_args.default <- function(object) {
 
 # copied form recipes
 
-names0 <- function (num, prefix = "x") {
-  if (num < 1)
+names0 <- function(num, prefix = "x") {
+  if (num < 1) {
     rlang::abort("`num` should be > 0.")
+  }
   ind <- format(1:num)
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
@@ -226,16 +182,16 @@ names0 <- function (num, prefix = "x") {
 #' @keywords internal
 #' @rdname add_on_exports
 update_dot_check <- function(...) {
-
   dots <- enquos(...)
 
-  if (length(dots) > 0)
+  if (length(dots) > 0) {
     rlang::abort(
       glue::glue(
         "Extra arguments will be ignored: ",
         glue::glue_collapse(glue::glue("`{names(dots)}`"), sep = ", ")
       )
     )
+  }
   invisible(NULL)
 }
 
@@ -246,15 +202,16 @@ update_dot_check <- function(...) {
 #' @rdname add_on_exports
 new_model_spec <- function(cls, args, eng_args, mode, method, engine,
                            check_missing_spec = TRUE) {
-
   check_spec_mode_engine_val(cls, engine, mode)
 
   if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
     rlang::inform(inform_missing_implementation(cls, engine, mode))
   }
 
-  out <- list(args = args, eng_args = eng_args,
-              mode = mode, method = method, engine = engine)
+  out <- list(
+    args = args, eng_args = eng_args,
+    mode = mode, method = method, engine = engine
+  )
   class(out) <- make_classes(cls)
   out
 }
@@ -265,8 +222,9 @@ check_outcome <- function(y, spec) {
   if (spec$mode == "unknown") {
     return(invisible(NULL))
   } else if (spec$mode == "regression") {
-    if (!all(map_lgl(y, is.numeric)))
+    if (!all(map_lgl(y, is.numeric))) {
       rlang::abort("For a regression model, the outcome should be numeric.")
+    }
   } else if (spec$mode == "classification") {
     if (!all(map_lgl(y, is.factor))) {
       rlang::abort("For a classification model, the outcome should be a factor.")
@@ -304,7 +262,6 @@ check_final_param <- function(x) {
 #' @keywords internal
 #' @rdname add_on_exports
 update_main_parameters <- function(args, param) {
-
   if (length(param) == 0) {
     return(args)
   }
@@ -317,8 +274,10 @@ update_main_parameters <- function(args, param) {
   extra_args <- names(param)[has_extra_args]
   if (any(has_extra_args)) {
     rlang::abort(
-      paste("At least one argument is not a main argument:",
-            paste0("`", extra_args, "`", collapse = ", "))
+      paste(
+        "At least one argument is not a main argument:",
+        paste0("`", extra_args, "`", collapse = ", ")
+      )
     )
   }
   param <- param[!has_extra_args]
@@ -330,7 +289,6 @@ update_main_parameters <- function(args, param) {
 #' @keywords internal
 #' @rdname add_on_exports
 update_engine_parameters <- function(eng_args, fresh, ...) {
-
   dots <- enquos(...)
 
   ## only update from dots when there are eng args in original model spec
@@ -357,16 +315,20 @@ update_engine_parameters <- function(eng_args, fresh, ...) {
 stan_conf_int <- function(object, newdata) {
   check_installs(list(method = list(libs = "rstanarm")))
   if (utils::packageVersion("rstanarm") >= "2.21.1") {
-    fn <- rlang::call2("posterior_epred", .ns = "rstanarm",
-                       object = expr(object),
-                       newdata = expr(newdata),
-                       seed = expr(sample.int(10^5, 1)))
+    fn <- rlang::call2("posterior_epred",
+      .ns = "rstanarm",
+      object = expr(object),
+      newdata = expr(newdata),
+      seed = expr(sample.int(10^5, 1))
+    )
   } else {
-    fn <- rlang::call2("posterior_linpred", .ns = "rstanarm",
-                       object = expr(object),
-                       newdata = expr(newdata),
-                       transform = TRUE,
-                       seed = expr(sample.int(10^5, 1)))
+    fn <- rlang::call2("posterior_linpred",
+      .ns = "rstanarm",
+      object = expr(object),
+      newdata = expr(newdata),
+      transform = TRUE,
+      seed = expr(sample.int(10^5, 1))
+    )
   }
   rlang::eval_tidy(fn)
 }
@@ -411,23 +373,23 @@ stan_conf_int <- function(object, newdata) {
 #' @keywords internal
 #' @export
 .check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
-
   if (is.null(penalty)) {
     penalty <- object$fit$lambda
   }
 
   # when using `predict()`, allow for a single lambda
   if (!multi) {
-    if (length(penalty) != 1)
+    if (length(penalty) != 1) {
       rlang::abort(
         glue::glue(
           "`penalty` should be a single numeric value. `multi_predict()` ",
           "can be used to get multiple predictions per row of data.",
         )
       )
+    }
   }
 
-  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda)
+  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda) {
     rlang::abort(
       glue::glue(
         "The glmnet model was fit with a single penalty value of ",
@@ -435,6 +397,22 @@ stan_conf_int <- function(object, newdata) {
         "will give incorrect results from `glmnet()`."
       )
     )
+  }
 
   penalty
+}
+
+
+check_case_weights <- function(x, spec) {
+  if (is.null(x) | spec$engine == "spark") {
+    return(invisible(NULL))
+  }
+  if (!hardhat::is_case_weights(x)) {
+    rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+  }
+  allowed <- case_weights_allowed(spec)
+  if (!allowed) {
+    rlang::abort("Case weights are not enabled by the underlying model implementation.")
+  }
+  invisible(NULL)
 }

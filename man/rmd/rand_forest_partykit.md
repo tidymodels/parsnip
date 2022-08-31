@@ -17,7 +17,7 @@ This model has 3 tuning parameters:
 
 ## Translation from parsnip to the original package (regression)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -41,7 +41,7 @@ rand_forest() %>%
 
 ## Translation from parsnip to the original package (classification)
 
-
+The **bonsai** extension package is required to fit this model.
 
 
 ```r
@@ -67,7 +67,7 @@ rand_forest() %>%
 
 # Translation from parsnip to the original package (censored regression)
 
-
+The **censored** extension package is required to fit this model.
 
 
 ```r
@@ -85,7 +85,8 @@ rand_forest() %>%
 ## Computational engine: partykit 
 ## 
 ## Model fit template:
-## parsnip::cforest_train(formula = missing_arg(), data = missing_arg())
+## parsnip::cforest_train(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
 ```
 
 `censored::cond_inference_surv_cforest()` is a wrapper around [partykit::cforest()] (and other functions) that makes it easier to run this model. 
@@ -95,6 +96,12 @@ rand_forest() %>%
 
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
+
+## Other details
+
+
+
+Predictions of type `"time"` are predictions of the median survival time.
 
 ## References
 

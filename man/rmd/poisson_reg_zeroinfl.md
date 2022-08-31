@@ -35,6 +35,8 @@ poisson_reg() %>%
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Specifying the statistical model details
+
 For this particular model, a special formula is used to specify which columns affect the counts and which affect the model for the probability of zero counts. These sets of terms are separated by a bar. For example, `y ~ x | z`. This type of formula is not used by the base R infrastructure (e.g. `model.matrix()`)
 
 When fitting a parsnip model with this engine directly, the formula method is required and the formula is just passed through. For example:
@@ -80,19 +82,11 @@ spec <-
 workflow() %>% 
   add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) %>% 
   add_model(spec, formula = art ~ fem + mar | ment) %>% 
-  fit(data = bioChemists)
+  fit(data = bioChemists) %>% 
+  extract_fit_engine()
 ```
 
 ```
-## ══ Workflow [trained] ══════════════════════════════════════════════════════════
-## Preprocessor: Variables
-## Model: poisson_reg()
-## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
-## Outcomes: c(art)
-## Predictors: c(fem, mar, ment)
-## 
-## ── Model ───────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
 ## pscl::zeroinfl(formula = art ~ fem + mar | ment, data = data)
@@ -107,3 +101,10 @@ workflow() %>%
 ```
 
 The reason for this is that [workflows::add_formula()] will try to create the model matrix and either fail or create dummy variables prematurely. 
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 

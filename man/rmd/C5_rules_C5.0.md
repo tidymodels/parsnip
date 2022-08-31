@@ -7,9 +7,11 @@ For this engine, there is a single mode: classification
 
 
 
-This model has 1 tuning parameters:
+This model has 2 tuning parameters:
 
 - `trees`: # Trees (type: integer, default: 1L)
+
+- `min_n`: Minimal Node Size (type: integer, default: 2L)
 
 Note that C5.0 has a tool for _early stopping_ during boosting where less iterations of boosting are performed than the number requested. `C5_rules()` turns this feature off (although it can be re-enabled using [C50::C5.0Control()]).
 
@@ -48,6 +50,13 @@ C5_rules(
 
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## References
 

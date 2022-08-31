@@ -13,6 +13,7 @@ rule_fit(
   learn_rate = NULL,
   loss_reduction = NULL,
   sample_size = NULL,
+  stop_iter = NULL,
   penalty = NULL,
   engine = "xrf"
 )
@@ -45,6 +46,9 @@ to split further (specific engines only).}
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at
 each iteration while \code{C5.0} samples once during training.}
+
+\item{stop_iter}{The number of iterations without improvement before
+stopping (specific engines only).}
 
 \item{penalty}{L1 regularization parameter.}
 

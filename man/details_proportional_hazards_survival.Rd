@@ -31,7 +31,7 @@ proportional_hazards() \%>\%
 ## 
 ## Model fit template:
 ## survival::coxph(formula = missing_arg(), data = missing_arg(), 
-##     x = TRUE, model = TRUE)
+##     weights = missing_arg(), x = TRUE, model = TRUE)
 }\if{html}{\out{</div>}}
 }
 
@@ -91,9 +91,12 @@ proportional_hazards() \%>\%
 
 Note that columns used in the \code{strata()} function will not be estimated
 in the regular portion of the model (i.e., within the linear predictor).
+
+Predictions of type \code{"time"} are predictions of the mean survival time.
 }
-}
-\section{Linear predictor values}{
+
+\subsection{Linear predictor values}{
+
 Since risk regression and parametric survival models are modeling
 different characteristics (e.g. relative hazard versus event time),
 their linear predictors will be going in opposite directions.
@@ -111,6 +114,18 @@ value produced by the \code{predict()} method in the engine package.
 
 This behavior can be changed by using the \code{increasing} argument when
 calling \code{predict()} on a model object.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{References}{
 \itemize{
 \item Andersen P, Gill R. 1982. Cox’s regression model for counting
@@ -119,5 +134,4 @@ processes, a large sample study. \emph{Annals of Statistics} 10,
 }
 }
 }
-
 \keyword{internal}

@@ -34,8 +34,8 @@ discrim_linear(penalty = numeric(0)) %>%
 ## Computational engine: mda 
 ## 
 ## Model fit template:
-## mda::fda(formula = missing_arg(), data = missing_arg(), lambda = numeric(0), 
-##     method = mda::gen.ridge, keep.fitted = FALSE)
+## mda::fda(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     lambda = numeric(0), method = mda::gen.ridge, keep.fitted = FALSE)
 ```
 
 ## Preprocessing requirements
@@ -47,6 +47,13 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 Variance calculations are used in these computations so _zero-variance_ predictors (i.e., with a single unique value) should be eliminated before fitting the model. 
 
 
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## References
 

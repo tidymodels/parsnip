@@ -54,6 +54,11 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
 

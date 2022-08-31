@@ -50,6 +50,13 @@ Predictors should have the same scale. One way to achieve this is to center and
 scale each so that each predictor has mean zero and a variance of one.
 By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glmnet) for `linear_reg()` with the `"glmnet"` engine.

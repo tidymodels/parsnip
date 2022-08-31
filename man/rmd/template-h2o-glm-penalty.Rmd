@@ -1,0 +1,3 @@
+By default, when not given a fixed `penalty`, [h2o::h2o.glm()] uses a heuristic approach to select the optimal value of `penalty` based on training data. Setting the engine parameter `lambda_search` to `TRUE` enables an efficient version of the grid search, see more details at <https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/algo-params/lambda_search.html>. 
+
+The choice of `mixture` depends on the engine parameter `solver`, which is automatically chosen given training data and the specification of other model parameters. When `solver` is set to `'L-BFGS'`, `mixture` defaults to 0 (ridge regression) and 0.5 otherwise. 

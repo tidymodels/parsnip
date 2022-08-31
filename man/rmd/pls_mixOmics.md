@@ -47,7 +47,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
  - Determines the number of predictors in the data.
  - Adjusts `num_comp` if the value is larger than the number of factors.
  - Determines whether sparsity is required based on the value of `predictor_prop`.
- - Sets the `keepX` argument of [mixOmics::spls()] for sparse models. 
+ - Sets the `keepX` argument of `mixOmics::spls()` for sparse models. 
 
 ## Translation from parsnip to the underlying model call  (classification)
 
@@ -77,7 +77,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 ##     ncomp = integer(1))
 ```
 
-In this case, [plsmod::pls_fit()] has the same role as above but eventually targets [mixOmics::plsda()] or [mixOmics::splsda()] .
+In this case, [plsmod::pls_fit()] has the same role as above but eventually targets `mixOmics::plsda()` or `mixOmics::splsda()`.
 
 ## Installing mixOmics
 
@@ -92,8 +92,6 @@ This package is available via the Bioconductor repository and is not accessible 
   remotes::install_bioc("mixOmics")
 ```
 
-
-
 ## Preprocessing requirements
 
 
@@ -107,6 +105,11 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
 
 ## References
 

@@ -53,6 +53,11 @@ Variance calculations are used in these computations within each outcome class. 
 
 
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 ## References
 
  - `qda_diag()`: Dudoit, Fridlyand and Speed (2002) Comparison of Discrimination Methods for the Classification of Tumors Using Gene Expression Data, _Journal of the American Statistical Association_, 97:457, 77-87. 

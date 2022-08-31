@@ -1,6 +1,7 @@
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
+
 test_that('updating', {
   expect_snapshot(
     svm_linear(mode = "regression", cost = 2) %>%
@@ -47,7 +48,6 @@ test_that('linear svm regression: LiblineaR', {
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
-  expect_output(print(res), "parsnip model object")
 
   expect_error(
     tidy_res <- tidy(res),
@@ -227,7 +227,6 @@ test_that('linear svm regression: kernlab', {
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
-  expect_output(print(res), "parsnip model object")
 
   expect_error(
     fit(
