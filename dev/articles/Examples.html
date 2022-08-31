@@ -126,7 +126,7 @@ Regression Example (<code>dbarts</code>)
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────── tidymodels 1.0.0.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
-<pre><code><span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.1.0     </span></span>
+<pre><code><span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.1          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.1.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.0.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble      </span> 3.1.8     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.0.9          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.2.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.3          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.0.0     </span></span>
@@ -139,7 +139,7 @@ Regression Example (<code>dbarts</code>)
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span>  <span class="co">## <span style="color: #0000BB;">•</span> Learn how to get started at <span style="color: #00BB00;">https://www.tidymodels.org/start/</span></span></span></code></pre>
+<span>  <span class="co">## <span style="color: #0000BB;">•</span> Search for functions across packages at <span style="color: #00BB00;">https://www.tidymodels.org/find/</span></span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -1058,7 +1058,7 @@ Regression Example (<code>keras</code>)
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.8 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.5 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.40</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.41</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.05</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
@@ -1359,16 +1359,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2             0.493       0.507 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.830       0.170 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.505       0.495 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.822       0.178 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.625       0.375 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.519       0.481 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.727       0.273 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.509       0.491 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.989       0.010<span style="text-decoration: underline;">8</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.476       0.524</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.500       0.500 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.835       0.165 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.513       0.487 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.826       0.174 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.631       0.369 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.524       0.476 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.733       0.267 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.516       0.484 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">4</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.480       0.520</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1804,8 +1804,8 @@ Regression Example (<code>keras</code>)
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.80</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.63</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.81</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.64</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1859,16 +1859,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.539        0.461</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.663        0.337</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.596        0.404</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.476        0.524</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.474        0.526</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.410        0.590</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.552        0.448</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.556        0.444</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.745        0.255</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.373        0.627</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.538        0.462</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.659        0.341</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.593        0.407</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.481        0.519</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.477        0.523</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.416        0.584</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.553        0.447</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.555        0.445</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.739        0.261</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.380        0.620</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2039,11 +2039,11 @@ Classification Example (<code>keras</code>)
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.285         0.017<span style="text-decoration: underline;">6</span>      0.697     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">113</span>      1.00        0.000<span style="text-decoration: underline;">001</span>98</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.319         0.475       0.207     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.049<span style="text-decoration: underline;">6</span>        0.939       0.011<span style="text-decoration: underline;">2</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.303         0.023<span style="text-decoration: underline;">5</span>      0.673</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.283         0.017<span style="text-decoration: underline;">2</span>      0.700     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">112</span>      1.00        0.000<span style="text-decoration: underline;">001</span>92</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.319         0.473       0.208     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.049<span style="text-decoration: underline;">7</span>        0.939       0.011<span style="text-decoration: underline;">2</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.301         0.023<span style="text-decoration: underline;">1</span>      0.676</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
