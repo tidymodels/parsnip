@@ -74,6 +74,20 @@ new model specifications.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">null_value</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">spec_is_possible</span><span class="op">(</span><span class="va">cls</span>, <span class="va">engine</span>, <span class="va">user_specified_engine</span>, <span class="va">mode</span>, <span class="va">user_specified_mode</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">spec_is_loaded</span><span class="op">(</span><span class="va">cls</span>, <span class="va">engine</span>, <span class="va">user_specified_engine</span>, <span class="va">mode</span>, <span class="va">user_specified_mode</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">prompt_missing_implementation</span><span class="op">(</span></span>
+<span>  <span class="va">cls</span>,</span>
+<span>  <span class="va">engine</span>,</span>
+<span>  <span class="va">user_specified_engine</span>,</span>
+<span>  <span class="va">mode</span>,</span>
+<span>  <span class="va">user_specified_mode</span>,</span>
+<span>  <span class="va">prompt</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">show_fit</span><span class="op">(</span><span class="va">model</span>, <span class="va">eng</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_dot_check</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
@@ -83,9 +97,10 @@ new model specifications.</p>
 <span>  <span class="va">args</span>,</span>
 <span>  <span class="va">eng_args</span>,</span>
 <span>  <span class="va">mode</span>,</span>
+<span>  user_specified_mode <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">method</span>,</span>
 <span>  <span class="va">engine</span>,</span>
-<span>  check_missing_spec <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  user_specified_engine <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">check_final_param</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -101,8 +116,39 @@ new model specifications.</p>
 <span><span class="fu">is_varying</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="model-specification-checking">Model Specification Checking<a class="anchor" aria-label="anchor" href="#model-specification-checking"></a></h2>
+    
 
-  </main></div>
+
+<p>The helpers <code>spec_is_possible()</code>, <code>spec_is_loaded()</code>, and
+<code>prompt_missing_implementation()</code> provide tooling for checking
+model specifications. In addition to the <code>cls</code>, <code>engine</code>, and <code>mode</code>
+arguments, the functions take arguments <code>user_specified_engine</code> and
+<code>user_specified_mode</code>, denoting whether the user themselves has
+specified the engine or mode, respectively.</p>
+<p><code>spec_is_possible()</code> checks against the union of</p><ul><li><p>the current parsnip model environment and</p></li>
+<li><p>the <code>model_info_table</code> of "pre-registered" model specifications</p></li>
+</ul><p>to determine whether a model is well-specified. See
+<code>parsnip:::read_model_info_table()</code> for this table.</p>
+<p><code>spec_is_loaded()</code> checks only against the current parsnip model environment.</p>
+<p><code>spec_is_possible()</code> is executed automatically on <code>new_model_spec()</code>,
+<code><a href="set_args.html">set_mode()</a></code>, and <code><a href="set_engine.html">set_engine()</a></code>, and <code>spec_is_loaded()</code> is executed
+automatically in <code>print.model_spec()</code>, among other places. <code>spec_is_possible()</code>
+should be used when a model specification is still "in progress" of being
+specified, while <code>spec_is_loaded</code> should only be called when parsnip or an
+extension receives some indication that the user is "done" specifying a model
+specification: at print, fit, addition to a workflow, or <code>extract_*()</code>, for
+example.</p>
+<p>When <code>spec_is_loaded()</code> is <code>FALSE</code>, the <code>prompt_missing_implementation()</code>
+helper will construct an informative message to prompt users to load or
+install needed packages. It's <code>prompt</code> argument refers to the prompting
+function to use, usually <a href="https://cli.r-lib.org/reference/cli_abort.html" class="external-link">cli::cli_inform</a> or <a href="https://cli.r-lib.org/reference/cli_abort.html" class="external-link">cli::cli_abort</a>, and the
+ellipses are passed to that function.</p>
+    </div>
+
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
