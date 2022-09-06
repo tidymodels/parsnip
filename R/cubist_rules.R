@@ -84,8 +84,10 @@ cubist_rules <-
       args = args,
       eng_args = NULL,
       mode = mode,
+      user_specified_mode = !missing(mode),
       method = NULL,
-      engine = engine
+      engine = engine,
+      user_specified_engine = !missing(engine)
     )
   }
 

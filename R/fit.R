@@ -120,12 +120,14 @@ fit.model_spec <-
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
-      rlang::abort(
-        glue::glue(
-          "No engines were loaded for `{class(object)[1]}`.",
-          " Please load a parsnip extension package that provides one.",
-          " See https://www.tidymodels.org/find/parsnip/ "
-        )
+      prompt_missing_implementation(
+        cls = class(object)[1],
+        engine = object$engine,
+        user_specified_engine = object$user_specified_engine,
+        mode = object$mode,
+        user_specified_mode = object$user_specified_mode,
+        prompt = cli::cli_abort,
+        call = call2("fit")
       )
     }
     if (is.null(object$engine)) {

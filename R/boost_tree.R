@@ -74,9 +74,11 @@ boost_tree <-
       "boost_tree",
       args,
       eng_args = NULL,
-      mode,
+      mode = mode,
+      user_specified_mode = !missing(mode),
       method = NULL,
-      engine = engine
+      engine = engine,
+      user_specified_engine = !missing(engine)
     )
   }
 

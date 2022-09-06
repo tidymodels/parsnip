@@ -3,6 +3,9 @@
 %   R/varying.R
 \name{null_value}
 \alias{null_value}
+\alias{spec_is_possible}
+\alias{spec_is_loaded}
+\alias{prompt_missing_implementation}
 \alias{show_fit}
 \alias{update_dot_check}
 \alias{new_model_spec}
@@ -16,6 +19,20 @@
 \usage{
 null_value(x)
 
+spec_is_possible(cls, engine, user_specified_engine, mode, user_specified_mode)
+
+spec_is_loaded(cls, engine, user_specified_engine, mode, user_specified_mode)
+
+prompt_missing_implementation(
+  cls,
+  engine,
+  user_specified_engine,
+  mode,
+  user_specified_mode,
+  prompt,
+  ...
+)
+
 show_fit(model, eng)
 
 update_dot_check(...)
@@ -25,9 +42,10 @@ new_model_spec(
   args,
   eng_args,
   mode,
+  user_specified_mode = TRUE,
   method,
   engine,
-  check_missing_spec = TRUE
+  user_specified_engine = TRUE
 )
 
 check_final_param(x)
@@ -46,4 +64,41 @@ is_varying(x)
 These functions are helpful when creating new packages that will register
 new model specifications.
 }
+\section{Model Specification Checking}{
+
+
+The helpers \code{spec_is_possible()}, \code{spec_is_loaded()}, and
+\code{prompt_missing_implementation()} provide tooling for checking
+model specifications. In addition to the \code{cls}, \code{engine}, and \code{mode}
+arguments, the functions take arguments \code{user_specified_engine} and
+\code{user_specified_mode}, denoting whether the user themselves has
+specified the engine or mode, respectively.
+
+\code{spec_is_possible()} checks against the union of
+\itemize{
+\item the current parsnip model environment and
+\item the \code{model_info_table} of "pre-registered" model specifications
+}
+
+to determine whether a model is well-specified. See
+\code{parsnip:::read_model_info_table()} for this table.
+
+\code{spec_is_loaded()} checks only against the current parsnip model environment.
+
+\code{spec_is_possible()} is executed automatically on \code{new_model_spec()},
+\code{set_mode()}, and \code{set_engine()}, and \code{spec_is_loaded()} is executed
+automatically in \code{print.model_spec()}, among other places. \code{spec_is_possible()}
+should be used when a model specification is still "in progress" of being
+specified, while \code{spec_is_loaded} should only be called when parsnip or an
+extension receives some indication that the user is "done" specifying a model
+specification: at print, fit, addition to a workflow, or \verb{extract_*()}, for
+example.
+
+When \code{spec_is_loaded()} is \code{FALSE}, the \code{prompt_missing_implementation()}
+helper will construct an informative message to prompt users to load or
+install needed packages. It's \code{prompt} argument refers to the prompting
+function to use, usually \link[cli:cli_abort]{cli::cli_inform} or \link[cli:cli_abort]{cli::cli_abort}, and the
+ellipses are passed to that function.
+}
+
 \keyword{internal}

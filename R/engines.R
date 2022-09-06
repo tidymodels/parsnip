@@ -116,7 +116,15 @@ set_engine.model_spec <- function(object, engine, ...) {
     stop_missing_engine(mod_type)
   }
   object$engine <- engine
-  check_spec_mode_engine_val(mod_type, object$engine, object$mode)
+
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
+  if (!spec_is_possible(mod_type,
+                        object$engine, user_specified_engine = TRUE,
+                        object$mode, object$user_specified_mode)) {
+    check_spec_mode_engine_val(mod_type, object$engine, object$mode)
+  }
 
   if (object$engine == "liquidSVM") {
     lifecycle::deprecate_soft(
@@ -130,9 +138,10 @@ set_engine.model_spec <- function(object, engine, ...) {
     args = object$args,
     eng_args = enquos(...),
     mode = object$mode,
+    user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    check_missing_spec = FALSE
+    user_specified_engine = TRUE
   )
 }
 

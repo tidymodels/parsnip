@@ -74,6 +74,8 @@
 
     Code
       print_model_spec(lr)
+    Message
+      ! parsnip could not locate an implementation for `beep` model specifications.
     Output
       beep Model Specification (regression)
       
@@ -84,6 +86,8 @@
 
     Code
       print_model_spec(lr, cls = "boop")
+    Message
+      ! parsnip could not locate an implementation for `boop` model specifications.
     Output
       boop Model Specification (regression)
       
@@ -94,6 +98,8 @@
 
     Code
       print_model_spec(lr, cls = "boop", desc = "Boop")
+    Message
+      ! parsnip could not locate an implementation for `boop` model specifications.
     Output
       Boop Model Specification (regression)
       

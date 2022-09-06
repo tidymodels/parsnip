@@ -71,9 +71,10 @@ set_args.model_spec <- function(object, ...) {
     args = object$args,
     eng_args = object$eng_args,
     mode = object$mode,
+    user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    check_missing_spec = FALSE
+    user_specified_engine = object$user_specified_engine
   )
 }
 
@@ -97,8 +98,18 @@ set_mode.model_spec <- function(object, mode) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
     stop_incompatible_mode(spec_modes, cls = cls)
   }
-  check_spec_mode_engine_val(cls, object$engine, mode)
+
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
+  if (!spec_is_possible(cls,
+                        object$engine, object$user_specified_engine,
+                        mode, user_specified_mode = TRUE)) {
+    check_spec_mode_engine_val(cls, object$engine, mode)
+  }
+
   object$mode <- mode
+  object$user_specified_mode <- TRUE
   object
 }
 

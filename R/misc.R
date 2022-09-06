@@ -27,33 +27,114 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
-model_info_table <-
-  utils::read.delim(system.file("models.tsv", package = "parsnip"))
-
-# given a model object, return TRUE if:
-# * the model is supported without extensions
-# * the model needs an extension and it is loaded
+# return a condition for use in `dplyr::filter()` on model info.
+# if the user specified an engine and the model object reflects that in
+# the `user_specified_engine` slot, filter the model info down to
+# those that the user specified. if not, don't filter the model info at all.
 #
-# return FALSE if:
-# * the model needs an extension and it is _not_ loaded
-has_loaded_implementation <- function(spec_, engine_, mode_) {
-  if (isFALSE(mode_ %in% c("regression", "censored regression", "classification"))) {
-    mode_ <- c("regression", "censored regression", "classification")
-  }
-  eng_cond <- if (is.null(engine_)) {
-    TRUE
-  } else {
-    quote(engine == engine_)
+# note that, model objects generated pre parsnip 1.0.2, or from extensions
+# that don't implement the `user_specified_engine` slot, will not trigger
+# these checks.
+engine_filter_condition <- function(engine, user_specified_engine) {
+  # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
+  if (!isTRUE(user_specified_engine) || is.null(engine))  {
+    return(TRUE)
   }
 
-  avail <-
-    get_from_env(spec_) %>%
-    dplyr::filter(mode %in% mode_, !!eng_cond)
-  pars <-
-    model_info_table %>%
-    dplyr::filter(model == spec_, !!eng_cond, mode %in% mode_, is.na(pkg))
+  rlang::quo(engine == !!engine)
+}
 
-  if (nrow(pars) > 0 || nrow(avail) > 0) {
+# analogous helper for modes to `engine_filter_condition()`
+mode_filter_condition <- function(mode, user_specified_mode) {
+  # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
+  if (!isTRUE(user_specified_mode) || is.null(mode))  {
+    return(TRUE)
+  }
+
+  rlang::quo(mode == !!mode)
+}
+
+#' @section Model Specification Checking:
+#'
+#' The helpers `spec_is_possible()`, `spec_is_loaded()`, and
+#' `prompt_missing_implementation()` provide tooling for checking
+#' model specifications. In addition to the `cls`, `engine`, and `mode`
+#' arguments, the functions take arguments `user_specified_engine` and
+#' `user_specified_mode`, denoting whether the user themselves has
+#' specified the engine or mode, respectively.
+#'
+#' `spec_is_possible()` checks against the union of
+#'
+#' * the current parsnip model environment and
+#' * the `model_info_table` of "pre-registered" model specifications
+#'
+#' to determine whether a model is well-specified. See
+#' `parsnip:::read_model_info_table()` for this table.
+#'
+#' `spec_is_loaded()` checks only against the current parsnip model environment.
+#'
+#' `spec_is_possible()` is executed automatically on `new_model_spec()`,
+#' `set_mode()`, and `set_engine()`, and `spec_is_loaded()` is executed
+#' automatically in `print.model_spec()`, among other places. `spec_is_possible()`
+#' should be used when a model specification is still "in progress" of being
+#' specified, while `spec_is_loaded` should only be called when parsnip or an
+#' extension receives some indication that the user is "done" specifying a model
+#' specification: at print, fit, addition to a workflow, or `extract_*()`, for
+#' example.
+#'
+#' When `spec_is_loaded()` is `FALSE`, the `prompt_missing_implementation()`
+#' helper will construct an informative message to prompt users to load or
+#' install needed packages. It's `prompt` argument refers to the prompting
+#' function to use, usually [cli::cli_inform] or [cli::cli_abort], and the
+#' ellipses are passed to that function.
+#'
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+spec_is_possible <- function(cls,
+                             engine, user_specified_engine,
+                             mode, user_specified_mode) {
+  all_model_info <-
+    dplyr::full_join(
+      read_model_info_table(),
+      rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
+      by = c("model", "engine", "mode")
+    )
+
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
+
+  possibilities <-
+    all_model_info %>%
+    dplyr::filter(
+      model == cls,
+      !!engine_condition,
+      !!mode_condition
+    )
+
+  return(nrow(possibilities) > 0)
+}
+
+# see ?add_on_exports for more information on usage
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+spec_is_loaded <- function(cls,
+                           engine, user_specified_engine,
+                           mode, user_specified_mode) {
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
+
+  avail <- get_from_env(cls)
+
+  if (is.null(avail)) {
+    return(FALSE)
+  }
+
+  avail <- avail %>%
+    dplyr::filter(!!mode_condition, !!engine_condition)
+
+  if (nrow(avail) > 0) {
     return(TRUE)
   }
 
@@ -62,7 +143,9 @@ has_loaded_implementation <- function(spec_, engine_, mode_) {
 
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
-    has_loaded_implementation(class(x)[1], x$engine, x$mode)
+    spec_is_loaded(class(x)[1],
+                   x$engine, x$user_specified_engine,
+                   x$mode, x$user_specified_mode)
 }
 
 # construct a message informing the user that there are no
@@ -70,37 +153,52 @@ is_printable_spec <- function(x) {
 #
 # if there's a "pre-registered" extension supporting that setup,
 # nudge the user to install/load it.
-inform_missing_implementation <- function(spec_, engine_, mode_) {
-  avail <-
-    show_engines(spec_) %>%
-    dplyr::filter(mode == mode_, engine == engine_)
-  all <-
-    model_info_table %>%
-    dplyr::filter(model == spec_, mode == mode_, engine == engine_, !is.na(pkg)) %>%
-    dplyr::select(-model)
+#
+# see ?add_on_exports for more information on usage
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+prompt_missing_implementation <- function(cls,
+                                          engine, user_specified_engine,
+                                          mode, user_specified_mode,
+                                          prompt, ...) {
+  engine_condition <- engine_filter_condition(engine, user_specified_engine)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
-  if (identical(mode_, "unknown")) {
-    mode_ <- ""
+  avail <- get_from_env(cls)
+
+  if (!is.null(avail)) {
+    avail <-
+      avail %>%
+      dplyr::filter(!!mode_condition, !!engine_condition)
   }
 
-  msg <-
-    glue::glue(
-      "parsnip could not locate an implementation for `{spec_}` {mode_} model \\
-       specifications using the `{engine_}` engine."
+  all <-
+    read_model_info_table() %>%
+    dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
+    dplyr::select(-model)
+
+  if (!isTRUE(user_specified_mode)) {mode <- ""}
+
+  msg <- c(
+    "!" = "{.pkg parsnip} could not locate an implementation for `{cls}` {mode} \\
+           model specifications{if (isTRUE(user_specified_engine)) {
+           ' using the `{engine}` engine' } else {''}}."
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
+    pkgs <- unique(all$pkg)
+
     msg <-
       c(
         msg,
-        i = paste0("The parsnip extension package ", all$pkg[[1]],
-                   " implements support for this specification."),
-        i = "Please install (if needed) and load to continue.",
-        ""
+        "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {.pkg {pkgs}}",
+                     " implemen{?ts/t} support for this specification."),
+        "i" = "Please install (if needed) and load to continue."
       )
   }
 
-  msg
+  prompt(c(msg, ""), ...)
 }
 
 
@@ -200,17 +298,21 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, method, engine,
-                           check_missing_spec = TRUE) {
-  check_spec_mode_engine_val(cls, engine, mode)
-
-  if ((!has_loaded_implementation(cls, engine, mode)) && check_missing_spec) {
-    rlang::inform(inform_missing_implementation(cls, engine, mode))
+new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE,
+                           method, engine, user_specified_engine = TRUE) {
+  # determine if the model specification could feasibly match any entry
+  # in the union of the parsnip model environment and model_info_table.
+  # if not, trigger an error based on the (possibly inferred) model spec slots.
+  if (!spec_is_possible(cls,
+                        engine, user_specified_engine,
+                        mode, user_specified_mode)) {
+    check_spec_mode_engine_val(cls, engine, mode)
   }
 
   out <- list(
     args = args, eng_args = eng_args,
-    mode = mode, method = method, engine = engine
+    mode = mode, user_specified_mode = user_specified_mode, method = method,
+    engine = engine, user_specified_engine = user_specified_engine
   )
   class(out) <- make_classes(cls)
   out
