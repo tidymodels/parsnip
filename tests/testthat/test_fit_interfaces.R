@@ -109,4 +109,5 @@ test_that('No loaded engines', {
   )
   expect_snapshot_error({cubist_rules() %>% fit(mpg ~., data = mtcars)})
   expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})
+  expect_snapshot_error({cubist_rules(engine = "Cubist") %>% fit(mpg ~., data = mtcars)})
 })
