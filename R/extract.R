@@ -74,6 +74,24 @@ extract_fit_engine.model_fit <- function(x, ...) {
 #' @export
 #' @rdname extract-parsnip
 extract_parameter_set_dials.model_spec <- function(x, ...) {
+  if (!spec_is_loaded(
+    cls = class(x)[1],
+    engine = x$engine,
+    user_specified_engine = x$user_specified_engine,
+    mode = x$mode,
+    user_specified_mode = x$user_specified_mode
+  )) {
+    prompt_missing_implementation(
+      cls = class(x)[1],
+      engine = x$engine,
+      user_specified_engine = x$user_specified_engine,
+      mode = x$mode,
+      user_specified_mode = x$user_specified_mode,
+      prompt = cli::cli_abort,
+      call = NULL
+    )
+  }
+
   all_args <- generics::tunable(x)
   tuning_param <- generics::tune_args(x)
 

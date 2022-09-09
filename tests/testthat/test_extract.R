@@ -50,6 +50,14 @@ test_that('extract parameter set from model with main and engine parameters', {
   expect_equal(c5_info$object[[2]], NA)
 })
 
+test_that('extract parameter set from model with no loaded implementation', {
+  bt_mod <- bag_tree(min_n = tune()) %>%
+    set_mode("regression")
+
+  expect_snapshot(error = TRUE, extract_parameter_set_dials(bt_mod))
+  expect_snapshot(error = TRUE, extract_parameter_dials(bt_mod, parameter = "min_n"))
+})
+
 # ------------------------------------------------------------------------------
 
 test_that('extract single parameter from model with no parameters', {
