@@ -58,7 +58,7 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 #'
 #' The helpers `spec_is_possible()`, `spec_is_loaded()`, and
 #' `prompt_missing_implementation()` provide tooling for checking
-#' model specifications. In addition to the `cls`, `engine`, and `mode`
+#' model specifications. In addition to the `spec`, `engine`, and `mode`
 #' arguments, the functions take arguments `user_specified_engine` and
 #' `user_specified_mode`, denoting whether the user themselves has
 #' specified the engine or mode, respectively.
@@ -91,9 +91,13 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-spec_is_possible <- function(cls,
-                             engine, user_specified_engine,
-                             mode, user_specified_mode) {
+spec_is_possible <- function(spec,
+                             engine = spec$engine,
+                             user_specified_engine = spec$user_specified_engine,
+                             mode = spec$mode,
+                             user_specified_mode = spec$user_specified_mode) {
+  cls <- class(spec)[[1]]
+
   all_model_info <-
     dplyr::full_join(
       read_model_info_table(),
@@ -119,9 +123,13 @@ spec_is_possible <- function(cls,
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-spec_is_loaded <- function(cls,
-                           engine, user_specified_engine,
-                           mode, user_specified_mode) {
+spec_is_loaded <- function(spec,
+                           engine = spec$engine,
+                           user_specified_engine = spec$user_specified_engine,
+                           mode = spec$mode,
+                           user_specified_mode = spec$user_specified_mode) {
+  cls <- class(spec)[[1]]
+
   engine_condition <- engine_filter_condition(engine, user_specified_engine)
   mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
@@ -143,9 +151,7 @@ spec_is_loaded <- function(cls,
 
 is_printable_spec <- function(x) {
   !is.null(x$method$fit$args) &&
-    spec_is_loaded(class(x)[1],
-                   x$engine, x$user_specified_engine,
-                   x$mode, x$user_specified_mode)
+    spec_is_loaded(x)
 }
 
 # construct a message informing the user that there are no
@@ -158,10 +164,14 @@ is_printable_spec <- function(x) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-prompt_missing_implementation <- function(cls,
-                                          engine, user_specified_engine,
-                                          mode, user_specified_mode,
+prompt_missing_implementation <- function(spec,
+                                          engine = spec$engine,
+                                          user_specified_engine = spec$user_specified_engine,
+                                          mode = spec$mode,
+                                          user_specified_mode = spec$user_specified_mode,
                                           prompt, ...) {
+  cls <- class(spec)[[1]]
+
   engine_condition <- engine_filter_condition(engine, user_specified_engine)
   mode_condition <- mode_filter_condition(mode, user_specified_mode)
 
@@ -303,18 +313,17 @@ new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE
   # determine if the model specification could feasibly match any entry
   # in the union of the parsnip model environment and model_info_table.
   # if not, trigger an error based on the (possibly inferred) model spec slots.
-  if (!spec_is_possible(cls,
-                        engine, user_specified_engine,
-                        mode, user_specified_mode)) {
-    check_spec_mode_engine_val(cls, engine, mode)
-  }
-
   out <- list(
     args = args, eng_args = eng_args,
     mode = mode, user_specified_mode = user_specified_mode, method = method,
     engine = engine, user_specified_engine = user_specified_engine
   )
   class(out) <- make_classes(cls)
+
+  if (!spec_is_possible(spec = out)) {
+    check_spec_mode_engine_val(cls, engine, mode)
+  }
+
   out
 }
 
