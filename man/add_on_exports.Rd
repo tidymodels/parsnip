@@ -19,16 +19,28 @@
 \usage{
 null_value(x)
 
-spec_is_possible(cls, engine, user_specified_engine, mode, user_specified_mode)
+spec_is_possible(
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode
+)
 
-spec_is_loaded(cls, engine, user_specified_engine, mode, user_specified_mode)
+spec_is_loaded(
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode
+)
 
 prompt_missing_implementation(
-  cls,
-  engine,
-  user_specified_engine,
-  mode,
-  user_specified_mode,
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode,
   prompt,
   ...
 )
@@ -69,7 +81,7 @@ new model specifications.
 
 The helpers \code{spec_is_possible()}, \code{spec_is_loaded()}, and
 \code{prompt_missing_implementation()} provide tooling for checking
-model specifications. In addition to the \code{cls}, \code{engine}, and \code{mode}
+model specifications. In addition to the \code{spec}, \code{engine}, and \code{mode}
 arguments, the functions take arguments \code{user_specified_engine} and
 \code{user_specified_mode}, denoting whether the user themselves has
 specified the engine or mode, respectively.
