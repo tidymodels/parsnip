@@ -74,16 +74,28 @@ new model specifications.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">null_value</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">spec_is_possible</span><span class="op">(</span><span class="va">cls</span>, <span class="va">engine</span>, <span class="va">user_specified_engine</span>, <span class="va">mode</span>, <span class="va">user_specified_mode</span><span class="op">)</span></span>
+<span><span class="fu">spec_is_possible</span><span class="op">(</span></span>
+<span>  <span class="va">spec</span>,</span>
+<span>  engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">engine</span>,</span>
+<span>  user_specified_engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_engine</span>,</span>
+<span>  mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">mode</span>,</span>
+<span>  user_specified_mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_mode</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">spec_is_loaded</span><span class="op">(</span><span class="va">cls</span>, <span class="va">engine</span>, <span class="va">user_specified_engine</span>, <span class="va">mode</span>, <span class="va">user_specified_mode</span><span class="op">)</span></span>
+<span><span class="fu">spec_is_loaded</span><span class="op">(</span></span>
+<span>  <span class="va">spec</span>,</span>
+<span>  engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">engine</span>,</span>
+<span>  user_specified_engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_engine</span>,</span>
+<span>  mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">mode</span>,</span>
+<span>  user_specified_mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_mode</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">prompt_missing_implementation</span><span class="op">(</span></span>
-<span>  <span class="va">cls</span>,</span>
-<span>  <span class="va">engine</span>,</span>
-<span>  <span class="va">user_specified_engine</span>,</span>
-<span>  <span class="va">mode</span>,</span>
-<span>  <span class="va">user_specified_mode</span>,</span>
+<span>  <span class="va">spec</span>,</span>
+<span>  engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">engine</span>,</span>
+<span>  user_specified_engine <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_engine</span>,</span>
+<span>  mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">mode</span>,</span>
+<span>  user_specified_mode <span class="op">=</span> <span class="va">spec</span><span class="op">$</span><span class="va">user_specified_mode</span>,</span>
 <span>  <span class="va">prompt</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
@@ -123,7 +135,7 @@ new model specifications.</p>
 
 <p>The helpers <code>spec_is_possible()</code>, <code>spec_is_loaded()</code>, and
 <code>prompt_missing_implementation()</code> provide tooling for checking
-model specifications. In addition to the <code>cls</code>, <code>engine</code>, and <code>mode</code>
+model specifications. In addition to the <code>spec</code>, <code>engine</code>, and <code>mode</code>
 arguments, the functions take arguments <code>user_specified_engine</code> and
 <code>user_specified_mode</code>, denoting whether the user themselves has
 specified the engine or mode, respectively.</p>
