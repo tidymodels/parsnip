@@ -181,7 +181,7 @@ stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL) {
     msg,
     glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
   )
-  rlang::abort(msg)
+  rlang::abort(msg, call = NULL)
 }
 
 stop_incompatible_engine <- function(spec_engs, mode) {
@@ -189,7 +189,7 @@ stop_incompatible_engine <- function(spec_engs, mode) {
     "Available engines for mode {mode} are: ",
     glue::glue_collapse(glue::glue("'{spec_engs}'"), sep = ", ")
   )
-  rlang::abort(msg)
+  rlang::abort(msg, call = NULL)
 }
 
 stop_missing_engine <- function(cls) {
@@ -222,7 +222,8 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
 
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
-    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."))
+    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."),
+                 call = NULL)
   }
 
   model_info <- rlang::env_get(get_model_env(), cls)
@@ -251,7 +252,8 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
       paste0(
         "Engine '", eng, "' is not supported for `", cls, "()`. See ",
         "`show_engines('", cls, "')`."
-      )
+      ),
+      call = NULL
     )
   }
 
