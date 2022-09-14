@@ -76,13 +76,15 @@ test_that('control class', {
   x <- linear_reg() %>% set_engine("lm")
   ctrl <- control_parsnip()
   class(ctrl) <- c("potato", "chair")
+  # This doesn't error anymore because `condense_control()` doesn't care about
+  # classes, it cares about elements
   expect_error(
     fit(x, mpg ~ ., data = mtcars, control = ctrl),
-    "The 'control' argument should have class 'control_parsnip'"
+    NA
   )
   expect_error(
     fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl),
-    "The 'control' argument should have class 'control_parsnip'"
+    NA
   )
 })
 
