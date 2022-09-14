@@ -321,7 +321,7 @@ new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE
   class(out) <- make_classes(cls)
 
   if (!spec_is_possible(spec = out)) {
-    check_spec_mode_engine_val(cls, engine, mode)
+    check_spec_mode_engine_val(cls, engine, mode, call = caller_env())
   }
 
   out
