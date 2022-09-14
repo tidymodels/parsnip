@@ -94,6 +94,7 @@ reference:
 
   - title: Developer tools
     contents:
+      - condense_control
       - contr_one_hot
       - set_new_model
       - maybe_matrix
