@@ -32,7 +32,7 @@ condense_control <- function(x, ref) {
         "The following arguments are missing:",
         glue::glue_collapse(
           glue::single_quote(mismatch),
-          sep = ", ", last = ", and"
+          sep = ", ", last = ", and "
         )
       )
     )
