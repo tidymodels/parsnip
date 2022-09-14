@@ -14,6 +14,7 @@ test_that("condense_control works", {
     control_parsnip(catch = TRUE)
   )
 
+  ctrl$anotherone <- 2
   expect_snapshot(error = TRUE,
     condense_control(control_parsnip(), ctrl)
   )
