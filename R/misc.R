@@ -183,7 +183,7 @@ prompt_missing_implementation <- function(spec,
   msg <- c(
     "!" = "{.pkg parsnip} could not locate an implementation for `{cls}` {mode} \\
            model specifications{if (isTRUE(user_specified_engine)) {
-           ' using the `{engine}` engine' } else {''}}."
+           paste0(' using the `', engine, '` engine')} else {''}}."
     )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
