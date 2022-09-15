@@ -139,7 +139,7 @@ Regression Example (<code>dbarts</code>)
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span>  <span class="co">## <span style="color: #0000BB;">•</span> Learn how to get started at <span style="color: #00BB00;">https://www.tidymodels.org/start/</span></span></span></code></pre>
+<span>  <span class="co">## <span style="color: #0000BB;">•</span> Use <span style="color: #00BB00;">tidymodels_prefer()</span> to resolve common conflicts.</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -1054,12 +1054,12 @@ Regression Example (<code>keras</code>)
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.5 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.8 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.5 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.9 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.41</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.05</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.43</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.07</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1359,16 +1359,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.503       0.497 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.835       0.165 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.515       0.485 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.829       0.171 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.635       0.365 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.531       0.469 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.735       0.265 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.519       0.481 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">4</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.489       0.511</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.506       0.494 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.837       0.163 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.517       0.483 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.832       0.168 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.639       0.361 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.536       0.464 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.738       0.262 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.521       0.479 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">2</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.495       0.505</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1859,16 +1859,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.541        0.459</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.662        0.338</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.596        0.404</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.482        0.518</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.479        0.521</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.417        0.583</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.555        0.445</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.557        0.443</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.742        0.258</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.381        0.619</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.536        0.464</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.658        0.342</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.592        0.408</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.478        0.522</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.475        0.525</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.413        0.587</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.550        0.450</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.553        0.447</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.739        0.261</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.377        0.623</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -1886,7 +1886,7 @@ Classification Example (<code>glmnet</code>)
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
@@ -1997,7 +1997,7 @@ Classification Example (<code>keras</code>)
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
@@ -2039,11 +2039,11 @@ Classification Example (<code>keras</code>)
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.284         0.017<span style="text-decoration: underline;">1</span>      0.699     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">114</span>      1.00        0.000<span style="text-decoration: underline;">002</span>04</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.320         0.469       0.211     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.050<span style="text-decoration: underline;">4</span>        0.938       0.011<span style="text-decoration: underline;">6</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.301         0.022<span style="text-decoration: underline;">9</span>      0.676</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.288         0.018<span style="text-decoration: underline;">2</span>      0.694     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">107</span>      1.00        0.000<span style="text-decoration: underline;">001</span>89</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.314         0.484       0.202     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.047<span style="text-decoration: underline;">6</span>        0.942       0.010<span style="text-decoration: underline;">7</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.306         0.024<span style="text-decoration: underline;">4</span>      0.670</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
@@ -2055,7 +2055,7 @@ Classification Example (<code>nnet</code>)
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">island</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bill_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
