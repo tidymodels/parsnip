@@ -159,17 +159,20 @@ earth_engine_args <-
   )
 
 brulee_engine_args <-
-  tibble::tibble(
-    name = c(
-      "batch_size",
-      "class_weights",
-      "mixture"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
-      list(pkg = "dials", fun = "class_weights"),
-      list(pkg = "dials", fun = "mixture")
-    ),
+  tibble::tribble(
+    ~name,                                                  ~call_info,
+    "momentum",      list(pkg = "dials", fun = "momentum", range = c(0.5, 0.95)),
+    "batch_size",      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
+    "stop_iter",                          list(pkg = "dials", fun = "stop_iter"),
+    "class_weights",                  list(pkg = "dials", fun = "class_weights"),
+    "decay",                             list(pkg = "dials", fun = "rate_decay"),
+    "initial",                         list(pkg = "dials", fun = "rate_initial"),
+    "largest",                         list(pkg = "dials", fun = "rate_largest"),
+    "rate_schedule",                  list(pkg = "dials", fun = "rate_schedule"),
+    "step_size",                     list(pkg = "dials", fun = "rate_step_size"),
+    "steps",                             list(pkg = "dials", fun = "rate_steps")
+  ) %>%
+  dplyr::mutate(,
     source = "model_spec",
     component = "mlp",
     component_id = "engine"
