@@ -112,9 +112,7 @@ fit.model_spec <-
     if (object$mode == "unknown") {
       rlang::abort("Please set the mode in the model specification.")
     }
-    if (!identical(class(control), class(control_parsnip()))) {
-      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
-    }
+    control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
 
     dots <- quos(...)
@@ -238,9 +236,8 @@ fit_xy.model_spec <-
       rlang::abort("Survival models must use the formula interface.")
     }
 
-    if (!identical(class(control), class(control_parsnip()))) {
-      rlang::abort("The 'control' argument should have class 'control_parsnip'.")
-    }
+    control <- condense_control(control, control_parsnip())
+
     if (is.null(colnames(x))) {
       rlang::abort("'x' should have column names.")
     }
