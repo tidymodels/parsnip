@@ -15,3 +15,23 @@
       Computational engine: rpart 
       
 
+# bad input
+
+    'bogus' is not a known mode for model `decision_tree()`.
+
+---
+
+    Please set the mode in the model specification.
+
+---
+
+    Please set the mode in the model specification.
+
+---
+
+    Model code depends on the mode; please specify one.
+
+---
+
+    unused argument (formula = y ~ x)
+

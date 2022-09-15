@@ -98,6 +98,24 @@
       Computational engine: rpart 
       
 
+# missing implementation checks prompt conservatively with old objects
+
+    Code
+      bt
+    Message
+      ! parsnip could not locate an implementation for `bag_tree` model specifications.
+      i The parsnip extension packages censored and baguette implement support for this specification.
+      i Please install (if needed) and load to continue.
+    Output
+      Bagged Decision Tree Model Specification (regression)
+      
+      Main Arguments:
+        cost_complexity = 0
+        min_n = 2
+      
+      Computational engine: rpart 
+      
+
 # set_engine works as a generic
 
     Code
