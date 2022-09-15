@@ -4,7 +4,10 @@
 
 * `fit_xy()` now fails when the model mode is unknown. 
 
+* brulee engine-specific tuning parameters were updated. These changes can be used with dials version > 1.0.0.
+
 * `fit()` and `fit_xy()` doesn't error anymore if `control` argument isn't a `control_parsnip()` object. Will work as long as the object passed to `control` includes the same elements as `control_parsnip()`.
+
 
 # parsnip 1.0.1
 
