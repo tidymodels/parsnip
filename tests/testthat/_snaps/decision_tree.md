@@ -29,7 +29,10 @@
 
 ---
 
-    Model code depends on the mode; please specify one.
+    Code
+      try(translate(decision_tree(), engine = NULL), silent = TRUE)
+    Message
+      Used `engine = 'rpart'` for translation.
 
 ---
 

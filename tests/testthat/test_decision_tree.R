@@ -20,7 +20,9 @@ test_that('bad input', {
     bt <- decision_tree(min_n = 0)  %>% set_engine("rpart")
     fit(bt, class ~ ., hpc)
   })
-  expect_snapshot(translate(decision_tree(), engine = NULL))
+  expect_snapshot(
+    try(translate(decision_tree(), engine = NULL), silent = TRUE)
+  )
   expect_snapshot_error(translate(decision_tree(formula = y ~ x)))
 })
 
