@@ -243,24 +243,29 @@ test_that('ranger regression intervals', {
 
   skip_if_not_installed("ranger")
 
+  data(ames, package = "modeldata")
+  ames$Sale_Price <- log10(ames$Sale_Price)
+  ames_x <- ames[, c("Longitude", "Latitude")]
+
+  set.seed(1)
   xy_fit <- fit_xy(
     rand_forest(mode = "regression") %>% set_engine("ranger", keep.inbag = TRUE),
-    x = mtcars[, -1],
-    y = mtcars$mpg,
+    x = ames_x[-(1:3), ],
+    y = ames$Sale_Price,
     control = ctrl
   )
 
-  rgr_pred <- predict(extract_fit_engine(xy_fit), data = tail(mtcars[, -1]))$predictions
-  expect_warning(
+  rgr_pred <- predict(extract_fit_engine(xy_fit), data = head(ames_x, 3))$predictions
+  expect_snapshot(
     rgr_se <-
-      predict(extract_fit_engine(xy_fit), data = tail(mtcars[, -1]), type = "se")$se
+      predict(extract_fit_engine(xy_fit), data = head(ames_x, 3), type = "se")$se
   )
   rgr_lower <- rgr_pred - qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_upper <- rgr_pred + qnorm(0.035, lower.tail = FALSE) * rgr_se
 
-  expect_warning(
+  expect_snapshot(
     parsnip_int <-
-      predict(xy_fit, new_data = tail(mtcars[, -1]),
+      predict(xy_fit, new_data = head(ames_x, 3),
               type = "conf_int", std_error = TRUE, level = 0.93
       )
   )

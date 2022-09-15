@@ -20,6 +20,8 @@
 #'
 #' @export
 control_parsnip <- function(verbosity = 1L, catch = FALSE) {
+  # Any added arguments should also be added in superset control functions
+  # in other packages
   res <- list(verbosity = verbosity, catch = catch)
   res <- check_control(res)
   class(res) <- "control_parsnip"

@@ -57,8 +57,8 @@ To use a non-default \code{family} and/or \code{link}, pass in as an argument to
 
 Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip
-will convert factor columns to indicators.
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
 }
 
 \subsection{Case weights}{

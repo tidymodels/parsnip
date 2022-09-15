@@ -158,22 +158,37 @@ earth_engine_args <-
     component_id = "engine"
   )
 
-brulee_engine_args <-
-  tibble::tibble(
-    name = c(
-      "batch_size",
-      "class_weights",
-      "mixture"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
-      list(pkg = "dials", fun = "class_weights"),
-      list(pkg = "dials", fun = "mixture")
-    ),
-    source = "model_spec",
-    component = "mlp",
-    component_id = "engine"
+brulee_mlp_engine_args <-
+  tibble::tribble(
+    ~name,                                                  ~call_info,
+    "momentum",      list(pkg = "dials", fun = "momentum", range = c(0.5, 0.95)),
+    "batch_size",      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
+    "stop_iter",                          list(pkg = "dials", fun = "stop_iter"),
+    "class_weights",                  list(pkg = "dials", fun = "class_weights"),
+    "decay",                             list(pkg = "dials", fun = "rate_decay"),
+    "initial",                         list(pkg = "dials", fun = "rate_initial"),
+    "largest",                         list(pkg = "dials", fun = "rate_largest"),
+    "rate_schedule",                  list(pkg = "dials", fun = "rate_schedule"),
+    "step_size",                     list(pkg = "dials", fun = "rate_step_size"),
+    "steps",                             list(pkg = "dials", fun = "rate_steps")
+  ) %>%
+  dplyr::mutate(,
+                source = "model_spec",
+                component = "mlp",
+                component_id = "engine"
   )
+
+brulee_linear_engine_args <-
+  brulee_mlp_engine_args %>%
+  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter"))
+
+brulee_logistc_engine_args <-
+  brulee_mlp_engine_args %>%
+  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
+
+brulee_multinomial_engine_args <-
+  brulee_mlp_engine_args %>%
+  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
 
 # ------------------------------------------------------------------------------
 
@@ -184,7 +199,7 @@ tunable_linear_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_engine_args)
+    res <- add_engine_parameters(res, brulee_linear_engine_args)
   }
   res
 }
@@ -196,7 +211,7 @@ tunable_logistic_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_engine_args)
+    res <- add_engine_parameters(res, brulee_logistc_engine_args)
   }
   res
 }
@@ -208,7 +223,7 @@ tunable_multinomial_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_engine_args)
+    res <- add_engine_parameters(res, brulee_mlp_engine_args)
   }
   res
 }
@@ -223,14 +238,14 @@ tunable_boost_tree <- function(x, ...) {
     res$call_info[res$name == "learn_rate"] <-
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
   } else if (x$engine == "C5.0") {
-      res <- add_engine_parameters(res, c5_boost_engine_args)
-      res$call_info[res$name == "trees"] <-
-        list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
-      res$call_info[res$name == "sample_size"] <-
-        list(list(pkg = "dials", fun = "sample_prop"))
+    res <- add_engine_parameters(res, c5_boost_engine_args)
+    res$call_info[res$name == "trees"] <-
+      list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
+    res$call_info[res$name == "sample_size"] <-
+      list(list(pkg = "dials", fun = "sample_prop"))
   } else if (x$engine == "lightgbm") {
-      res$call_info[res$name == "sample_size"] <-
-        list(list(pkg = "dials", fun = "sample_prop"))
+    res$call_info[res$name == "sample_size"] <-
+      list(list(pkg = "dials", fun = "sample_prop"))
   }
   res
 }
@@ -286,11 +301,14 @@ tunable_svm_poly <- function(x, ...) {
 tunable_mlp <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_engine_args)
+    res <- add_engine_parameters(res, brulee_mlp_engine_args)
     res$call_info[res$name == "learn_rate"] <-
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
+    res$call_info[res$name == "epochs"] <-
+      list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
   }
   res
 }
 
 # nocov end
+

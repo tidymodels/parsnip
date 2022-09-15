@@ -11,17 +11,19 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(decision_tree(mode = "bogus"))
-  expect_error({
+  expect_snapshot_error(decision_tree(mode = "bogus"))
+  expect_snapshot_error({
     bt <- decision_tree(cost_complexity = -1) %>% set_engine("rpart")
     fit(bt, class ~ ., hpc)
   })
-  expect_error({
+  expect_snapshot_error({
     bt <- decision_tree(min_n = 0)  %>% set_engine("rpart")
     fit(bt, class ~ ., hpc)
   })
-  expect_error(translate(decision_tree(), engine = NULL))
-  expect_error(translate(decision_tree(formula = y ~ x)))
+  expect_snapshot(
+    try(translate(decision_tree(), engine = NULL), silent = TRUE)
+  )
+  expect_snapshot_error(translate(decision_tree(formula = y ~ x)))
 })
 
 # ------------------------------------------------------------------------------
