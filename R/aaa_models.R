@@ -163,7 +163,7 @@ check_mode_val <- function(mode) {
 }
 
 
-stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL) {
+stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL, call) {
   if (is.null(eng) & is.null(cls)) {
     msg <- "Available modes are: "
   }
@@ -181,18 +181,18 @@ stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL) {
     msg,
     glue::glue_collapse(glue::glue("'{spec_modes}'"), sep = ", ")
   )
-  rlang::abort(msg)
+  rlang::abort(msg, call = call)
 }
 
-stop_incompatible_engine <- function(spec_engs, mode) {
+stop_incompatible_engine <- function(spec_engs, mode, call) {
   msg <- glue::glue(
     "Available engines for mode {mode} are: ",
     glue::glue_collapse(glue::glue("'{spec_engs}'"), sep = ", ")
   )
-  rlang::abort(msg)
+  rlang::abort(msg, call = call)
 }
 
-stop_missing_engine <- function(cls) {
+stop_missing_engine <- function(cls, call) {
   info <-
     get_from_env(cls) %>%
     dplyr::group_by(mode) %>%
@@ -201,11 +201,11 @@ stop_missing_engine <- function(cls) {
                                   "}"),
                      .groups = "drop")
   if (nrow(info) == 0) {
-    rlang::abort(paste0("No known engines for `", cls, "()`."))
+    rlang::abort(paste0("No known engines for `", cls, "()`."), call = call)
   }
   msg <- paste0(info$msg, collapse = ", ")
   msg <- paste("Missing engine. Possible mode/engine combinations are:", msg)
-  rlang::abort(msg)
+  rlang::abort(msg, call = call)
 }
 
 check_mode_for_new_engine <- function(cls, eng, mode) {
@@ -218,11 +218,12 @@ check_mode_for_new_engine <- function(cls, eng, mode) {
 
 
 # check if class and mode and engine are compatible
-check_spec_mode_engine_val <- function(cls, eng, mode) {
+check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
 
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
-    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."))
+    rlang::abort(paste0("'", mode, "' is not a known mode for model `", cls, "()`."),
+                 call = call)
   }
 
   model_info <- rlang::env_get(get_model_env(), cls)
@@ -237,7 +238,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
     )
 
   if (nrow(model_info_parsnip_only) == 0) {
-    check_mode_with_no_engine(cls, mode)
+    check_mode_with_no_engine(cls, mode, call = call)
     return(invisible(NULL))
   }
 
@@ -251,7 +252,8 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
       paste0(
         "Engine '", eng, "' is not supported for `", cls, "()`. See ",
         "`show_engines('", cls, "')`."
-      )
+      ),
+      call = call
     )
   }
 
@@ -265,9 +267,9 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   spec_modes <- unique(c("unknown", spec_modes))
 
   if (is.null(mode) || length(mode) > 1) {
-    stop_incompatible_mode(spec_modes, eng)
+    stop_incompatible_mode(spec_modes, eng, call = call)
   } else if (!(mode %in% spec_modes)) {
-    stop_incompatible_mode(spec_modes, eng)
+    stop_incompatible_mode(spec_modes, eng, call = call)
   }
 
   # ----------------------------------------------------------------------------
@@ -279,16 +281,16 @@ check_spec_mode_engine_val <- function(cls, eng, mode) {
   }
   spec_engs <- unique(spec_engs)
   if (!is.null(eng) && !(eng %in% spec_engs)) {
-    stop_incompatible_engine(spec_engs, mode)
+    stop_incompatible_engine(spec_engs, mode, call = call)
   }
 
   invisible(NULL)
 }
 
-check_mode_with_no_engine <- function(cls, mode) {
+check_mode_with_no_engine <- function(cls, mode, call) {
   spec_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% spec_modes)) {
-    stop_incompatible_mode(spec_modes, cls = cls)
+    stop_incompatible_mode(spec_modes, cls = cls, call = call)
   }
 }
 

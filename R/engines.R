@@ -113,7 +113,7 @@ set_engine.model_spec <- function(object, engine, ...) {
   mod_type <- class(object)[1]
 
   if (rlang::is_missing(engine)) {
-    stop_missing_engine(mod_type)
+    stop_missing_engine(mod_type, call = caller_env(0))
   }
   object$engine <- engine
 

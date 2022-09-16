@@ -153,7 +153,7 @@ deharmonize <- function(args, key) {
 
 add_methods <- function(x, engine) {
   x$engine <- engine
-  check_spec_mode_engine_val(class(x)[1], x$engine, x$mode)
+  check_spec_mode_engine_val(class(x)[1], x$engine, x$mode, call = caller_env())
   x$method <- get_model_spec(specific_model(x), x$mode, x$engine)
   x
 }

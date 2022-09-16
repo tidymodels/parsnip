@@ -96,7 +96,7 @@ set_mode.model_spec <- function(object, mode) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
-    stop_incompatible_mode(spec_modes, cls = cls)
+    stop_incompatible_mode(spec_modes, cls = cls, call = caller_env(0))
   }
 
   # determine if the model specification could feasibly match any entry

@@ -1,3 +1,91 @@
+# can't set a mode that isn't allowed by the model spec
+
+    Code
+      set_mode(linear_reg(), "classification")
+    Condition
+      Error in `set_mode()`:
+      ! 'classification' is not a known mode for model `linear_reg()`.
+
+# unavailable modes for an engine and vice-versa
+
+    Code
+      decision_tree() %>% set_mode("regression") %>% set_engine("C5.0")
+    Condition
+      Error in `set_engine()`:
+      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+
+---
+
+    Code
+      decision_tree(mode = "regression", engine = "C5.0")
+    Condition
+      Error in `decision_tree()`:
+      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+
+---
+
+    Code
+      decision_tree() %>% set_engine("C5.0") %>% set_mode("regression")
+    Condition
+      Error in `set_mode()`:
+      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+
+---
+
+    Code
+      decision_tree(engine = NULL) %>% set_engine("C5.0") %>% set_mode("regression")
+    Condition
+      Error in `set_mode()`:
+      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+
+---
+
+    Code
+      decision_tree(engine = NULL) %>% set_mode("regression") %>% set_engine("C5.0")
+    Condition
+      Error in `set_engine()`:
+      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+
+---
+
+    Code
+      proportional_hazards() %>% set_mode("regression")
+    Condition
+      Error in `set_mode()`:
+      ! 'regression' is not a known mode for model `proportional_hazards()`.
+
+---
+
+    Code
+      linear_reg() %>% set_mode()
+    Condition
+      Error in `set_mode()`:
+      ! Available modes for model type linear_reg are: 'unknown', 'regression'
+
+---
+
+    Code
+      linear_reg(engine = "boop")
+    Condition
+      Error in `linear_reg()`:
+      ! Engine 'boop' is not supported for `linear_reg()`. See `show_engines('linear_reg')`.
+
+---
+
+    Code
+      linear_reg() %>% set_engine()
+    Condition
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: regression {lm, glm, glmnet, stan, spark, keras, brulee}
+
+---
+
+    Code
+      proportional_hazards() %>% set_engine()
+    Condition
+      Error in `set_engine()`:
+      ! No known engines for `proportional_hazards()`.
+
 # set_* functions error when input isn't model_spec
 
     Code
