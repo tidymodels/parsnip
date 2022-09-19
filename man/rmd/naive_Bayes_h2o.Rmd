@@ -50,3 +50,8 @@ naive_Bayes(Laplace = numeric(0)) %>%
 
 ```{r child = "template-h2o-init.Rmd"}
 ```
+
+## Saving model fits
+
+```{r child = "template-bundle.Rmd"}
+```

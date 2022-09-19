@@ -240,6 +240,13 @@ the outcome. To use a different loss, pass the \code{objective} argument to
 \code{\link[=set_engine]{set_engine()}} directly.
 }
 
+\subsection{Saving model fits}{
+
+Models fitted with this engine may require native serialization methods
+to be properly saved and/or passed between R sessions. To learn more
+about preparing fitted models for serialization, see the bundle package.
+}
+
 }
 
 \subsection{Examples}{
