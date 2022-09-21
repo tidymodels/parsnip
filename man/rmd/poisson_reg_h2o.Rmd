@@ -55,7 +55,7 @@ By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to center an
 ```{r child = "template-h2o-init.Rmd"}
 ```
 
-## Saving model fits
+## Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```

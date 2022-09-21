@@ -47,7 +47,7 @@ multinom_reg(penalty = double(1)) %>%
 ```{r child = "template-no-case-weights.Rmd"}
 ```
 
-## Saving model fits
+## Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```

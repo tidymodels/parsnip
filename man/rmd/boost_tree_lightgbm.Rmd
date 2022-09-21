@@ -74,7 +74,7 @@ Non-numeric predictors (i.e., factors) are internally converted to numeric. In t
 ```{r child = "template-mtry-prop.Rmd"}
 ```
 
-### Saving model fits
+### Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```

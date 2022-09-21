@@ -76,7 +76,7 @@ Non-numeric predictors (i.e., factors) are internally converted to numeric. In t
 ```{r child = "template-h2o-init.Rmd"}
 ```
 
-## Saving model fits
+## Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```

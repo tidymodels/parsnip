@@ -104,7 +104,7 @@ Note that, since the `validation` argument provides an alternative interface to 
 
 parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
-### Saving model fits
+### Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```

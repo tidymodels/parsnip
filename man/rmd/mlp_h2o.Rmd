@@ -86,7 +86,7 @@ By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to 
 ```{r child = "template-h2o-init.Rmd"}
 ```
 
-## Saving model fits
+## Saving fitted model objects
 
 ```{r child = "template-bundle.Rmd"}
 ```
