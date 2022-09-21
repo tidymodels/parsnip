@@ -124,6 +124,15 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 Predictions of type \code{"time"} are predictions of the mean survival time.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains
@@ -133,8 +142,7 @@ for \code{decision_tree()} with the \code{"rpart"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

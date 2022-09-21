@@ -45,6 +45,12 @@ For this engine, stratification cannot be specified via [`strata()`], please see
 ```{r child = "template-survival-mean.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
+
 ## References
 
 - Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.

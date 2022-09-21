@@ -6,8 +6,6 @@ For this engine, there is a single mode: classification
 ## Tuning Parameters
 
 
-
-
 This model has 2 tuning parameter:
 
 - `frac_common_cov`: Fraction of the Common Covariance Matrix (type: double, default: (see below))

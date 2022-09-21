@@ -102,7 +102,7 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more
@@ -118,8 +118,7 @@ for \code{mlp()} with the \code{"keras"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

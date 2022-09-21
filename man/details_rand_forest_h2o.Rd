@@ -115,7 +115,7 @@ when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more

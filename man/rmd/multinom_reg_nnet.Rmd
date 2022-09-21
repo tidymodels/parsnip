@@ -49,6 +49,10 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 ```{r child = "template-no-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
 
 ## References
 

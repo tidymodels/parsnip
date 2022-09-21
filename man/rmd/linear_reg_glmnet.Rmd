@@ -48,6 +48,11 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glmnet) for `linear_reg()` with the `"glmnet"` engine.

@@ -62,7 +62,7 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more
@@ -78,8 +78,8 @@ for \code{logistic_reg()} with the \code{"keras"} engine.
 
 \subsection{References}{
 \itemize{
-\item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased
-Estimation for Nonorthogonal Problems}. Technometrics, 42(1), 80-86.
+\item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased Estimation
+for Nonorthogonal Problems}. Technometrics, 42(1), 80-86.
 }
 }
 }

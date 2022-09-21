@@ -19,10 +19,10 @@ This model has 1 tuning parameter:
 \code{\link[h2o:h2o.naiveBayes]{h2o::h2o.naiveBayes()}} provides several engine
 arguments to deal with imbalances and rare classes:
 \itemize{
-\item \code{balance_classes} A logical value controlling over/under-sampling
-(for imbalanced data). Defaults to \code{FALSE}.
-\item \code{class_sampling_factors} The over/under-sampling ratios per class
-(in lexicographic order). If not specified, sampling factors will be
+\item \code{balance_classes} A logical value controlling over/under-sampling (for
+imbalanced data). Defaults to \code{FALSE}.
+\item \code{class_sampling_factors} The over/under-sampling ratios per class (in
+lexicographic order). If not specified, sampling factors will be
 automatically computed to obtain class balance during training.
 Require \code{balance_classes} to be \code{TRUE}.
 \item \code{min_sdev}: The minimum standard deviation to use for observations
@@ -76,7 +76,7 @@ when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more

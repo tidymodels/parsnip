@@ -75,6 +75,11 @@ decision_tree(
 ```{r child = "template-survival-mean.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-rpart) for `decision_tree()` with the `"rpart"` engine.

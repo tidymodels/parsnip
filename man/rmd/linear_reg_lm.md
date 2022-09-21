@@ -41,6 +41,11 @@ _However_, the documentation in [stats::lm()] assumes that is specific type of c
 
 Depending on your application, the degrees of freedown for the model (and other statistics) might be incorrect. 
 
+## Saving fitted model objects
+
+
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced using the functions [butcher](https://butcher.tidymodels.org) package. See [butcher:: butcher()] for more details. 
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-lm) for `linear_reg()` with the `"lm"` engine.

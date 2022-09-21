@@ -5,8 +5,6 @@ For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
-
-
 This model has 6 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 200L)
@@ -132,7 +130,7 @@ You can control the number of threads in the thread pool used by h2o with the `n
 
 h2o will automatically shut down the local h2o instance started by R when R is terminated. To manually stop the h2o server, run `h2o::h2o.shutdown()`. 
 
-## Saving model fits
+## Saving fitted model objects
 
 
 Models fitted with this engine may require native serialization methods to be properly saved and/or passed between R sessions. To learn more about preparing fitted models for serialization, see the bundle package.

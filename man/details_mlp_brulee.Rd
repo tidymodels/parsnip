@@ -14,11 +14,11 @@ This model has 7 tuning parameters:
 \itemize{
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 3L)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.0)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 \item \code{epochs}: # Epochs (type: integer, default: 0.01)
 \item \code{dropout}: Dropout Rate (type: double, default: 0.0)
 \item \code{learn_rate}: Learning Rate (type: double, default: 100L)
 \item \code{activation}: Activation Function (type: character, default: ‘relu’)
-\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 }
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does \emph{not} force
@@ -36,8 +36,8 @@ during optimization.
 each batch.
 \item \code{class_weights()}: Numeric class weights. See
 \code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}}.
-\item \code{stop_iter()}: A non-negative integer for how many iterations with
-no improvement before stopping. (default: 5L).
+\item \code{stop_iter()}: A non-negative integer for how many iterations with no
+improvement before stopping. (default: 5L).
 }
 }
 
@@ -131,8 +131,7 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

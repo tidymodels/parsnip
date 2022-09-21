@@ -97,6 +97,15 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains
@@ -106,8 +115,7 @@ for \code{mlp()} with the \code{"nnet"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

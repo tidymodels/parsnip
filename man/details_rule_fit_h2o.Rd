@@ -23,15 +23,15 @@ the L1 penalty (LASSO).
 
 Other engine arguments of interest:
 \itemize{
-\item \code{algorithm}: The algorithm to use to generate rules. should be one
-of “AUTO”, “DRF”, “GBM”, defaults to “AUTO”.
+\item \code{algorithm}: The algorithm to use to generate rules. should be one of
+“AUTO”, “DRF”, “GBM”, defaults to “AUTO”.
 \item \code{min_rule_length}: Minimum length of tree depth, opposite of
 \code{tree_dpeth}, defaults to 3.
 \item \code{max_num_rules}: The maximum number of rules to return. The default
 value of -1 means the number of rules is selected by diminishing
 returns in model deviance.
-\item \code{model_type}: The type of base learners in the ensemble, should be
-one of: “rules_and_linear”, “rules”, “linear”, defaults to
+\item \code{model_type}: The type of base learners in the ensemble, should be one
+of: “rules_and_linear”, “rules”, “linear”, defaults to
 “rules_and_linear”.
 }
 }
@@ -131,7 +131,7 @@ when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more

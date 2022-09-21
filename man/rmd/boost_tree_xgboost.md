@@ -183,7 +183,10 @@ Note that, since the `validation` argument provides an alternative interface to 
 
 parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
-### Saving model fits
+## Saving fitted model objects
+
+
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced using the functions [butcher](https://butcher.tidymodels.org) package. See [butcher:: butcher()] for more details. 
 
 
 Models fitted with this engine may require native serialization methods to be properly saved and/or passed between R sessions. To learn more about preparing fitted models for serialization, see the bundle package.

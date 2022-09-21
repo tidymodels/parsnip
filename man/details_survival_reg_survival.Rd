@@ -96,10 +96,19 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+}
+
 \subsection{References}{
 \itemize{
-\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical
-analysis of failure time data}, Wiley.
+\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical analysis
+of failure time data}, Wiley.
 }
 }
 }

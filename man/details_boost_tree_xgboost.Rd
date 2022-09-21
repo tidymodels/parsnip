@@ -20,10 +20,9 @@ This model has 8 tuning parameters:
 \item \code{mtry}: # Randomly Selected Predictors (type: integer, default: see
 below)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 1L)
-\item \code{loss_reduction}: Minimum Loss Reduction (type: double, default:
-0.0)
-\item \code{sample_size}: Proportion Observations Sampled (type: double,
-default: 1.0)
+\item \code{loss_reduction}: Minimum Loss Reduction (type: double, default: 0.0)
+\item \code{sample_size}: Proportion Observations Sampled (type: double, default:
+1.0)
 \item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
 Inf)
 }
@@ -191,8 +190,8 @@ their analogue to the \code{mtry} argument as the \emph{proportion} of predictor
 that will be randomly sampled at each split rather than the \emph{count}. In
 some settings, such as when tuning over preprocessors that influence the
 number of predictors, this parameterization is quite
-helpful—interpreting \code{mtry} as a proportion means that [0,1] is always
-a valid range for that parameter, regardless of input data.
+helpful—interpreting \code{mtry} as a proportion means that $\link{0, 1}$ is
+always a valid range for that parameter, regardless of input data.
 
 parsnip and its extensions accommodate this parameterization using the
 \code{counts} argument: a logical indicating whether \code{mtry} should be
@@ -209,7 +208,7 @@ to \code{TRUE}. For engines that support the proportion interpretation
 (currently \code{"xgboost"} and \code{"xrf"}, via the rules package, and
 \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
-within [0,1].
+within $\link{0, 1}$.
 }
 
 \subsection{Early stopping}{
@@ -240,13 +239,19 @@ the outcome. To use a different loss, pass the \code{objective} argument to
 \code{\link[=set_engine]{set_engine()}} directly.
 }
 
-\subsection{Saving model fits}{
+}
+
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more
 about preparing fitted models for serialization, see the bundle package.
-}
-
 }
 
 \subsection{Examples}{
@@ -259,8 +264,7 @@ for \code{boost_tree()} with the \code{"xgboost"} engine.
 \subsection{References}{
 \itemize{
 \item \href{https://arxiv.org/abs/1603.02754}{XGBoost: A Scalable Tree Boosting System}
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

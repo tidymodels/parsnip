@@ -34,20 +34,19 @@ specifying the l1 penalty directly with the engine argument \code{l1}.
 Other engine arguments of interest:
 \itemize{
 \item \code{stopping_rounds} controls early stopping rounds based on the
-convergence of another engine parameter \code{stopping_metric}. By
-default, \link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning} stops
-training if simple moving average of length 5 of the stopping_metric
-does not improve for 5 scoring events. This is mostly useful when
-used alongside the engine parameter \code{validation}, which is the
-\strong{proportion} of train-validation split, parsnip will split and
-pass the two data frames to h2o. Then
+convergence of another engine parameter \code{stopping_metric}. By default,
+\link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning} stops training if
+simple moving average of length 5 of the stopping_metric does not
+improve for 5 scoring events. This is mostly useful when used
+alongside the engine parameter \code{validation}, which is the
+\strong{proportion} of train-validation split, parsnip will split and pass
+the two data frames to h2o. Then
 \link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning} will evaluate the
 metric and early stopping criteria on the validation set.
-\item h2o uses a 50\% dropout ratio controlled by \code{dropout} for hidden
-layers by default.
-\code{\link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning()}} provides an
-engine argument \code{input_dropout_ratio} for dropout ratios in the
-input layer, which defaults to 0.
+\item h2o uses a 50\% dropout ratio controlled by \code{dropout} for hidden layers
+by default. \code{\link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning()}}
+provides an engine argument \code{input_dropout_ratio} for dropout ratios
+in the input layer, which defaults to 0.
 }
 }
 
@@ -159,7 +158,7 @@ when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
 }
 
-\subsection{Saving model fits}{
+\subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
 to be properly saved and/or passed between R sessions. To learn more

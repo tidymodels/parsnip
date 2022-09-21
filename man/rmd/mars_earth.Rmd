@@ -55,6 +55,11 @@ An alternate method for using MARs for categorical outcomes can be found in [dis
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mars-earth) for `mars()` with the `"earth"` engine.

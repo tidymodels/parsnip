@@ -49,6 +49,15 @@ For this engine, stratification cannot be specified via
 specifications.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+}
+
 \subsection{References}{
 \itemize{
 \item Jackson, C. 2016. \code{flexsurv}: A Platform for Parametric Survival

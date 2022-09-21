@@ -75,5 +75,14 @@ If frequency weights are being used in your application, the
 \code{\link[=glm_grouped]{glm_grouped()}} model (and corresponding engine) may be
 more appropriate.
 }
+
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced using the
+functions \href{https://butcher.tidymodels.org}{butcher} package. See
+\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+}
 }
 \keyword{internal}

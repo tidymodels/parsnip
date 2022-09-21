@@ -50,6 +50,12 @@ C5_rules(
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
+
 ## References
 
  - Quinlan R (1992). "Learning with Continuous Classes." Proceedings of the 5th Australian Joint Conference On Artificial Intelligence, pp. 343-348.

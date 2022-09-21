@@ -13,6 +13,8 @@ This model has 7 tuning parameters:
 
 - `penalty`: Amount of Regularization (type: double, default: 0.0)
 
+- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
+
 - `epochs`: # Epochs (type: integer, default: 0.01)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
@@ -20,8 +22,6 @@ This model has 7 tuning parameters:
 - `learn_rate`: Learning Rate (type: double, default: 100L)
 
 - `activation`: Activation Function (type: character, default: 'relu')
-
-- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
 

@@ -46,6 +46,11 @@ boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) %>%
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
 ## Other details
 
 ### Early stopping
