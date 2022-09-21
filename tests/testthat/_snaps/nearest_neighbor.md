@@ -4,7 +4,7 @@
       nearest_neighbor(neighbors = 5) %>% set_engine("kknn", scale = FALSE) %>%
         update(neighbors = tune(), scale = tune())
     Output
-      K-Nearest Neighbor Model Specification (unknown)
+      K-Nearest Neighbor Model Specification (unknown mode)
       
       Main Arguments:
         neighbors = tune()

@@ -3,7 +3,7 @@
     Code
       svm_poly()
     Output
-      Polynomial Support Vector Machine Model Specification (unknown)
+      Polynomial Support Vector Machine Model Specification (unknown mode)
       
       Computational engine: kernlab 
       
@@ -13,7 +13,7 @@
     Code
       boost_tree(mtry = 5)
     Output
-      Boosted Tree Model Specification (unknown)
+      Boosted Tree Model Specification (unknown mode)
       
       Main Arguments:
         mtry = 5
