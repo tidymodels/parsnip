@@ -34,8 +34,8 @@ process.
 during optimization (\code{optimizer = "SGD"} only).
 \item \code{batch_size()}: An integer for the number of training set points in
 each batch.
-\item \code{stop_iter()}: A non-negative integer for how many iterations with no
-improvement before stopping. (default: 5L).
+\item \code{stop_iter()}: A non-negative integer for how many iterations with
+no improvement before stopping. (default: 5L).
 }
 }
 
@@ -78,7 +78,8 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

@@ -102,14 +102,15 @@ to consider.
 \itemize{
 \item Only the formula interface to via \code{fit()} is available; using
 \code{fit_xy()} will generate an error.
-\item The predictions will always be in a Spark table format. The names will
-be the same as documented but without the dots.
+\item The predictions will always be in a Spark table format. The names
+will be the same as documented but without the dots.
 \item There is no equivalent to factor columns in Spark tables so class
 predictions are returned as character columns.
 \item To retain the model object for a new R session (via \code{save()}), the
 \code{model$fit} element of the parsnip object should be serialized via
-\code{ml_save(object$fit)} and separately saved to disk. In a new session,
-the object can be reloaded and reattached to the parsnip object.
+\code{ml_save(object$fit)} and separately saved to disk. In a new
+session, the object can be reloaded and reattached to the parsnip
+object.
 }
 }
 
@@ -128,7 +129,8 @@ a character string to specify the column with the numeric case weights.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

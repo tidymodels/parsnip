@@ -18,8 +18,8 @@ This model has 4 tuning parameters:
 double, default: 0.95)
 \item \code{prior_terminal_node_expo}: Terminal Node Prior Exponent (type:
 double, default: 2.00)
-\item \code{prior_outcome_range}: Prior for Outcome Range (type: double, default:
-2.00)
+\item \code{prior_outcome_range}: Prior for Outcome Range (type: double,
+default: 2.00)
 }
 }
 
@@ -33,15 +33,16 @@ to the user. Useful for “thinning” samples.
 formulation.
 \item \code{ndpost}, \code{n.samples}: The number of posterior draws after burn in,
 \code{ndpost} / \code{keepevery} will actually be returned.
-\item \code{nskip}, \code{n.burn}: Number of MCMC iterations to be treated as burn in.
+\item \code{nskip}, \code{n.burn}: Number of MCMC iterations to be treated as burn
+in.
 \item \code{nchain}, \code{n.chains}: Integer specifying how many independent tree
 sets and fits should be calculated.
 \item \code{nthread}, \code{n.threads}: Integer specifying how many threads to use.
 Depending on the CPU architecture, using more than the number of
 chains can degrade performance for small/medium data sets. As such
 some calculations may be executed single threaded regardless.
-\item \code{combinechains}, \code{combineChains}: Logical; if \code{TRUE}, samples will be
-returned in arrays of dimensions equal to \code{nchain} times \code{ndpost}
+\item \code{combinechains}, \code{combineChains}: Logical; if \code{TRUE}, samples will
+be returned in arrays of dimensions equal to \code{nchain} times \code{ndpost}
 times number of observations.
 }
 }

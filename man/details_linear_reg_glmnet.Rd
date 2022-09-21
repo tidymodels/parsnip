@@ -12,7 +12,8 @@ For this engine, there is a single mode: regression
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{penalty}: Amount of Regularization (type: double, default: see below)
+\item \code{penalty}: Amount of Regularization (type: double, default: see
+below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
 }
 
@@ -72,9 +73,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 This model object contains data that are not required to make
 predictions. When saving the model for the purpose of prediction, the
-size of the saved object might be substantially reduced using the
-functions \href{https://butcher.tidymodels.org}{butcher} package. See
-\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
 \subsection{Examples}{
@@ -86,9 +86,10 @@ for \code{linear_reg()} with the \code{"glmnet"} engine.
 
 \subsection{References}{
 \itemize{
-\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical Learning
-with Sparsity}. CRC Press.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
+Learning with Sparsity}. CRC Press.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

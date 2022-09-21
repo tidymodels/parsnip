@@ -23,9 +23,10 @@ The default is 4.
 \item \code{iter}: A positive integer specifying the number of iterations for
 each chain (including warmup). The default is 2000.
 \item \code{seed}: The seed for random number generation.
-\item \code{cores}: Number of cores to use when executing the chains in parallel.
-\item \code{prior}: The prior distribution for the (non-hierarchical) regression
-coefficients.
+\item \code{cores}: Number of cores to use when executing the chains in
+parallel.
+\item \code{prior}: The prior distribution for the (non-hierarchical)
+regression coefficients.
 \item \code{prior_intercept}: The prior distribution for the intercept (after
 centering all predictors).
 }
@@ -63,7 +64,7 @@ linear predictor (\verb{\eta}) for a random intercept:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{\eta_\{i\} = (\beta_0 + b_\{0i\}) + \beta_1x_\{i1\}
 }\if{html}{\out{</div>}}
 
-where $i$ denotes the \code{i}th independent experimental unit
+where \emph{i} denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that
 subject’s data to adjust the \emph{population} intercept to be more specific
 to that subjects results.

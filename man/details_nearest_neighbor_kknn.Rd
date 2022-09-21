@@ -14,8 +14,8 @@ For this engine, there are multiple modes: classification and regression
 This model has 3 tuning parameters:
 \itemize{
 \item \code{neighbors}: # Nearest Neighbors (type: integer, default: 5L)
-\item \code{weight_func}: Distance Weighting Function (type: character, default:
-‘optimal’)
+\item \code{weight_func}: Distance Weighting Function (type: character,
+default: ‘optimal’)
 \item \code{dist_power}: Minkowski Distance Order (type: double, default: 2.0)
 }
 }
@@ -105,16 +105,16 @@ The underlying model implementation does not allow for case weights.
 
 This model object contains data that are not required to make
 predictions. When saving the model for the purpose of prediction, the
-size of the saved object might be substantially reduced using the
-functions \href{https://butcher.tidymodels.org}{butcher} package. See
-\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
 \subsection{References}{
 \itemize{
 \item Hechenbichler K. and Schliep K.P. (2004) \href{https://epub.ub.uni-muenchen.de/1769/}{Weighted k-Nearest-Neighbor Techniques and Ordinal Classification}, Discussion
 Paper 399, SFB 386, Ludwig-Maximilians University Munich
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

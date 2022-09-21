@@ -63,9 +63,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 This model object contains data that are not required to make
 predictions. When saving the model for the purpose of prediction, the
-size of the saved object might be substantially reduced using the
-functions \href{https://butcher.tidymodels.org}{butcher} package. See
-\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
 \subsection{Examples}{
@@ -77,7 +76,8 @@ for \code{decision_tree()} with the \code{"C5.0"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

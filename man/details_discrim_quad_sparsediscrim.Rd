@@ -21,7 +21,8 @@ default: ‘diagonal’)
 The possible values of this parameter, and the functions that they
 execute, are:
 \itemize{
-\item \code{"diagonal"}: \code{\link[sparsediscrim:qda_diag]{sparsediscrim::qda_diag()}}
+\item \code{"diagonal"}:
+\code{\link[sparsediscrim:qda_diag]{sparsediscrim::qda_diag()}}
 \item \code{"shrink_mean"}:
 \code{\link[sparsediscrim:qda_shrink_mean]{sparsediscrim::qda_shrink_mean()}}
 \item \code{"shrink_cov"}:

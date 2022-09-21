@@ -16,7 +16,8 @@ This model has 3 tuning parameters:
 \itemize{
 \item \code{num_terms}: # Model Terms (type: integer, default: see below)
 \item \code{prod_degree}: Degree of Interaction (type: integer, default: 1L)
-\item \code{prune_method}: Pruning Method (type: character, default: ‘backward’)
+\item \code{prune_method}: Pruning Method (type: character, default:
+‘backward’)
 }
 
 The default value of \code{num_terms} depends on the number of predictor
@@ -101,9 +102,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 This model object contains data that are not required to make
 predictions. When saving the model for the purpose of prediction, the
-size of the saved object might be substantially reduced using the
-functions \href{https://butcher.tidymodels.org}{butcher} package. See
-\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
 \subsection{Examples}{
@@ -118,7 +118,8 @@ for \code{mars()} with the \code{"earth"} engine.
 \item Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” \emph{The
 Annals of Statistics}, vol. 19, no. 1, pp. 1-67.
 \item Milborrow, S. \href{http://www.milbo.org/doc/earth-notes.pdf}{“Notes on the earth package.”}
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

@@ -106,7 +106,8 @@ for \code{svm_linear()} with the \code{"LiblineaR"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

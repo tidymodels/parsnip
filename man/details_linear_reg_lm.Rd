@@ -68,9 +68,8 @@ Depending on your application, the degrees of freedown for the model
 
 This model object contains data that are not required to make
 predictions. When saving the model for the purpose of prediction, the
-size of the saved object might be substantially reduced using the
-functions \href{https://butcher.tidymodels.org}{butcher} package. See
-\code{\link[butcher:butcher]{butcher:: butcher()}} for more details.
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
 \subsection{Examples}{
@@ -82,7 +81,8 @@ for \code{linear_reg()} with the \code{"lm"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }
