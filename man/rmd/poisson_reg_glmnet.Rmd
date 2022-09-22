@@ -54,3 +54,8 @@ By default, `glmnet::glmnet()` uses the argument `standardize = TRUE` to center 
 
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
+
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```

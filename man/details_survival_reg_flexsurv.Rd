@@ -55,6 +55,14 @@ specifications.
 Predictions of type \code{"time"} are predictions of the mean survival time.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
+}
+
 \subsection{References}{
 \itemize{
 \item Jackson, C. 2016. \code{flexsurv}: A Platform for Parametric Survival

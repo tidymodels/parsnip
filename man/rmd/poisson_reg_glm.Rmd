@@ -39,5 +39,7 @@ _However_, the documentation in [stats::glm()] assumes that is specific type of 
 
 If frequency weights are being used in your application, the [glm_grouped()] model (and corresponding engine) may be more appropriate. 
 
+## Saving fitted model objects
 
-
+```{r child = "template-butcher.Rmd"}
+```

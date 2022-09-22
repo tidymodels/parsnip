@@ -62,6 +62,11 @@ survival_reg() %>%
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
 ## References
 
 -  Kalbfleisch, J. D. and Prentice, R. L. 2002 _The statistical analysis of failure time data_, Wiley.

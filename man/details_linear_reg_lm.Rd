@@ -64,6 +64,14 @@ Depending on your application, the degrees of freedown for the model
 (and other statistics) might be incorrect.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains

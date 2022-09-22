@@ -57,7 +57,7 @@ boost_tree(
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction = integer(), num_iterations = integer(), 
+##     feature_fraction_bynode = integer(), num_iterations = integer(), 
 ##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
 ##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
 ##     seed = sample.int(10^5, 1), deterministic = TRUE)
@@ -93,7 +93,7 @@ boost_tree(
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction = integer(), num_iterations = integer(), 
+##     feature_fraction_bynode = integer(), num_iterations = integer(), 
 ##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
 ##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
 ##     seed = sample.int(10^5, 1), deterministic = TRUE)
@@ -120,6 +120,11 @@ Some engines, such as `"xgboost"`, `"xrf"`, and `"lightgbm"`, interpret their an
 parsnip and its extensions accommodate this parameterization using the `counts` argument: a logical indicating whether `mtry` should be interpreted as the number of predictors that will be randomly sampled at each split. `TRUE` indicates that `mtry` will be interpreted in its sense as a count, `FALSE` indicates that the argument will be interpreted in its sense as a proportion.
 
 `mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within $[0, 1]$.
+
+### Saving fitted model objects
+
+
+Models fitted with this engine may require native serialization methods to be properly saved and/or passed between R sessions. To learn more about preparing fitted models for serialization, see the bundle package.
 
 ### Bagging
 

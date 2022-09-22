@@ -101,6 +101,14 @@ for \code{nearest_neighbor()} with the \code{"kknn"} engine.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
+}
+
 \subsection{References}{
 \itemize{
 \item Hechenbichler K. and Schliep K.P. (2004) \href{https://epub.ub.uni-muenchen.de/1769/}{Weighted k-Nearest-Neighbor Techniques and Ordinal Classification}, Discussion

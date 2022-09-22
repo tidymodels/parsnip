@@ -48,6 +48,12 @@ For this engine, stratification cannot be specified via [`strata()`], please see
 
 Predictions of type `"time"` are predictions of the mean survival time.
 
+## Saving fitted model objects
+
+
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.
+
+
 ## References
 
 - Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival  Modeling in R. _Journal of Statistical Software_, 70(8), 1 - 33.

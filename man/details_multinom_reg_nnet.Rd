@@ -64,6 +64,14 @@ for \code{multinom_reg()} with the \code{"nnet"} engine.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
+}
+
 \subsection{References}{
 \itemize{
 \item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering nnet with R}.

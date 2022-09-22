@@ -102,6 +102,13 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Saving fitted model objects}{
+
+Models fitted with this engine may require native serialization methods
+to be properly saved and/or passed between R sessions. To learn more
+about preparing fitted models for serialization, see the bundle package.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains

@@ -113,6 +113,14 @@ The “Fitting and Predicting with parsnip” article contains
 for \code{svm_poly()} with the \code{"kernlab"} engine.
 }
 
+\subsection{Saving fitted model objects}{
+
+This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the \href{https://butcher.tidymodels.org}{butcher} package.
+}
+
 \subsection{References}{
 \itemize{
 \item Lin, HT, and R Weng. \href{https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf}{“A Note on Platt’s Probabilistic Outputs for Support Vector Machines”}

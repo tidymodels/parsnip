@@ -104,6 +104,14 @@ Note that, since the `validation` argument provides an alternative interface to 
 
 parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly. 
 
+## Saving fitted model objects
+
+```{r child = "template-butcher.Rmd"}
+```
+
+```{r child = "template-bundle.Rmd"}
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-xgboost) for `boost_tree()` with the `"xgboost"` engine.

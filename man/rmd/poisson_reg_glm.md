@@ -54,5 +54,7 @@ _However_, the documentation in [stats::glm()] assumes that is specific type of 
 
 If frequency weights are being used in your application, the [glm_grouped()] model (and corresponding engine) may be more appropriate. 
 
+## Saving fitted model objects
 
 
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.

@@ -64,3 +64,8 @@ rand_forest(
 
 ```{r child = "template-h2o-init.Rmd"}
 ```
+
+## Saving fitted model objects
+
+```{r child = "template-bundle.Rmd"}
+```

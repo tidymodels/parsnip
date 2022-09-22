@@ -53,6 +53,10 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 
 The underlying model implementation does not allow for case weights. 
 
+## Saving fitted model objects
+
+
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ## References
 

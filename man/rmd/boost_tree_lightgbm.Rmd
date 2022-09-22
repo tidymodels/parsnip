@@ -74,6 +74,11 @@ Non-numeric predictors (i.e., factors) are internally converted to numeric. In t
 ```{r child = "template-mtry-prop.Rmd"}
 ```
 
+### Saving fitted model objects
+
+```{r child = "template-bundle.Rmd"}
+```
+
 ### Bagging
 
 The `sample_size` argument is translated to the `bagging_fraction` parameter in the `param` argument of `lgb.train`. The argument is interpreted by lightgbm as a _proportion_ rather than a count, so bonsai internally reparameterizes the `sample_size` argument with [dials::sample_prop()] during tuning. 
