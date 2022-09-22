@@ -17,6 +17,13 @@ bag_mlp(
 Possible values for this model are "unknown", "regression", or
 "classification".}
 
+\item{hidden_units}{An integer for the number of units in the hidden model.}
+
+\item{penalty}{A non-negative numeric value for the amount of weight
+decay.}
+
+\item{epochs}{An integer for the number of training iterations.}
+
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}
 }

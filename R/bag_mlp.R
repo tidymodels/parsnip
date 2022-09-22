@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams mars
+#' @inheritParams mlp
 #'
 #' @template spec-details
 #'
