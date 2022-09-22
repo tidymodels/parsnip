@@ -1,0 +1,74 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("bag_mlp", "nnet")`
+
+## Tuning Parameters
+
+```{r nnet-param-info, echo = FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("penalty", "hidden_units"),
+                 default = c("0.0", "10L"))
+
+param <-
+ bag_mlp() %>% 
+  set_engine("nnet") %>% 
+  set_mode("regression") %>% 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r nnet-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+These defaults are set by the `baguette` package and are different than those in [nnet::nnet()]. 
+
+## Translation from parsnip to the original package (classification)
+
+`r uses_extension("bag_mlp", "nnet", "classification")`
+
+```{r nnet-cls}
+library(baguette)
+
+bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+
+## Translation from parsnip to the original package (regression)
+
+`r uses_extension("bag_mlp", "nnet", "regression")`
+
+```{r nnet-reg}
+library(baguette)
+
+bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
+  set_engine("nnet") %>% 
+  set_mode("regression") %>% 
+  translate()
+```
+
+
+## Preprocessing requirements
+
+```{r child = "template-makes-dummies.Rmd"}
+```
+
+```{r child = "template-same-scale.Rmd"}
+```
+
+## Case weights
+
+```{r child = "template-no-case-weights.Rmd"}
+```
+
+
+## References
+
+ - Breiman L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140
+
+ - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.
