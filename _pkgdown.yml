@@ -35,6 +35,7 @@ reference:
     contents:
       - auto_ml
       - bag_mars
+      - bag_mlp
       - bag_tree
       - bart
       - boost_tree
