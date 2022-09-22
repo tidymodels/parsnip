@@ -71,7 +71,7 @@
       i The parsnip extension packages censored and baguette implement support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      Bagged Decision Tree Model Specification (unknown)
+      Bagged Decision Tree Model Specification (unknown mode)
       
       Main Arguments:
         cost_complexity = 0
@@ -89,7 +89,7 @@
       i The parsnip extension packages censored and baguette implement support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      Bagged Decision Tree Model Specification (unknown)
+      Bagged Decision Tree Model Specification (unknown mode)
       
       Main Arguments:
         cost_complexity = 0

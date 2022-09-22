@@ -7,7 +7,7 @@
       i The parsnip extension package baguette implements support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      Bagged MARS Model Specification (unknown)
+      Bagged MARS Model Specification (unknown mode)
       
       Computational engine: earth 
       
@@ -21,7 +21,7 @@
       i The parsnip extension packages censored and baguette implement support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      Bagged Decision Tree Model Specification (unknown)
+      Bagged Decision Tree Model Specification (unknown mode)
       
       Main Arguments:
         cost_complexity = 0
@@ -35,7 +35,7 @@
     Code
       print(bart())
     Output
-      BART Model Specification (unknown)
+      BART Model Specification (unknown mode)
       
       Computational engine: dbarts 
       
@@ -45,7 +45,7 @@
     Code
       print(boost_tree())
     Output
-      Boosted Tree Model Specification (unknown)
+      Boosted Tree Model Specification (unknown mode)
       
       Computational engine: xgboost 
       
@@ -83,7 +83,7 @@
     Code
       print(decision_tree())
     Output
-      Decision Tree Model Specification (unknown)
+      Decision Tree Model Specification (unknown mode)
       
       Computational engine: rpart 
       
@@ -149,7 +149,7 @@
     Code
       print(gen_additive_mod())
     Output
-      GAM Model Specification (unknown)
+      GAM Model Specification (unknown mode)
       
       Computational engine: mgcv 
       
@@ -179,7 +179,7 @@
     Code
       print(mars())
     Output
-      MARS Model Specification (unknown)
+      MARS Model Specification (unknown mode)
       
       Computational engine: earth 
       
@@ -189,7 +189,7 @@
     Code
       print(mlp())
     Output
-      Single Layer Neural Network Model Specification (unknown)
+      Single Layer Neural Network Model Specification (unknown mode)
       
       Computational engine: nnet 
       
@@ -223,7 +223,7 @@
     Code
       print(nearest_neighbor())
     Output
-      K-Nearest Neighbor Model Specification (unknown)
+      K-Nearest Neighbor Model Specification (unknown mode)
       
       Computational engine: kknn 
       
@@ -245,7 +245,7 @@
       i The parsnip extension package plsmod implements support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      PLS Model Specification (unknown)
+      PLS Model Specification (unknown mode)
       
       Computational engine: mixOmics 
       
@@ -283,7 +283,7 @@
     Code
       print(rand_forest())
     Output
-      Random Forest Model Specification (unknown)
+      Random Forest Model Specification (unknown mode)
       
       Computational engine: ranger 
       
@@ -297,7 +297,7 @@
       i The parsnip extension packages agua and rules implement support for this specification.
       i Please install (if needed) and load to continue.
     Output
-      RuleFit Model Specification (unknown)
+      RuleFit Model Specification (unknown mode)
       
       Computational engine: xrf 
       
@@ -321,7 +321,7 @@
     Code
       print(svm_linear())
     Output
-      Linear Support Vector Machine Model Specification (unknown)
+      Linear Support Vector Machine Model Specification (unknown mode)
       
       Computational engine: LiblineaR 
       
@@ -331,7 +331,7 @@
     Code
       print(svm_poly())
     Output
-      Polynomial Support Vector Machine Model Specification (unknown)
+      Polynomial Support Vector Machine Model Specification (unknown mode)
       
       Computational engine: kernlab 
       
@@ -341,7 +341,7 @@
     Code
       print(svm_rbf())
     Output
-      Radial Basis Function Support Vector Machine Model Specification (unknown)
+      Radial Basis Function Support Vector Machine Model Specification (unknown mode)
       
       Computational engine: kernlab 
       

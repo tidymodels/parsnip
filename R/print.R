@@ -13,7 +13,9 @@ print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), .
     prompt_missing_implementation(spec = structure(x, class = cls), prompt = cli::cli_inform)
   }
 
-  cat(desc, " Model Specification (", x$mode, ")\n\n", sep = "")
+  mode <- switch(x$mode, unknown = "unknown mode", x$mode)
+
+  cat(desc, " Model Specification (", mode, ")\n\n", sep = "")
   model_printer(x, ...)
 
   if (is_printable_spec(x)) {
