@@ -38,6 +38,7 @@ model_descs <- tibble::tribble(
   ~cls,                   ~desc,
   "auto_ml",              "Automatic Machine Learning",
   "bag_mars",             "Bagged MARS",
+  "bag_mlp",              "Bagged Neural Networks",
   "bag_tree",             "Bagged Decision Tree",
   "bart",                 "BART",
   "boost_tree",           "Boosted Tree",
