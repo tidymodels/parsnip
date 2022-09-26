@@ -86,8 +86,8 @@ log odds of an event.</p>
 (i.e., lasso) and the L2 penalty (i.e., ridge or weight decay). As for
 <code>mixture</code>:</p><ul><li><p><code>mixture = 1</code> specifies a pure lasso model,</p></li>
 <li><p><code>mixture = 0</code> specifies a ridge regression model, and</p></li>
-<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating
-lasso and ridge.</p></li>
+<li><p><code>0 &lt; mixture &lt; 1</code> specifies an elastic net model, interpolating lasso
+and ridge.</p></li>
 </ul></div>
 
 <div class="section">
@@ -146,15 +146,14 @@ a character string to specify the column with the numeric case weights.</p>
 <p>For models created using the <code>"spark"</code> engine, there are several things
 to consider.</p><ul><li><p>Only the formula interface to via <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> is available; using
 <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> will generate an error.</p></li>
-<li><p>The predictions will always be in a Spark table format. The names
-will be the same as documented but without the dots.</p></li>
+<li><p>The predictions will always be in a Spark table format. The names will
+be the same as documented but without the dots.</p></li>
 <li><p>There is no equivalent to factor columns in Spark tables so class
 predictions are returned as character columns.</p></li>
 <li><p>To retain the model object for a new R session (via <code><a href="https://rdrr.io/r/base/save.html" class="external-link">save()</a></code>), the
 <code>model$fit</code> element of the parsnip object should be serialized via
-<code>ml_save(object$fit)</code> and separately saved to disk. In a new
-session, the object can be reloaded and reattached to the parsnip
-object.</p></li>
+<code>ml_save(object$fit)</code> and separately saved to disk. In a new session,
+the object can be reloaded and reattached to the parsnip object.</p></li>
 </ul></div>
 
 <div class="section">
@@ -162,10 +161,9 @@ object.</p></li>
 
 <ul><li><p>Luraschi, J, K Kuo, and E Ruiz. 2019. <em>Mastering Spark with R</em>.
 O’Reilly Media</p></li>
-<li><p>Hastie, T, R Tibshirani, and M Wainwright. 2015. <em>Statistical
-Learning with Sparsity</em>. CRC Press.</p></li>
-<li><p>Kuhn, M, and K Johnson. 2013. <em>Applied Predictive Modeling</em>.
-Springer.</p></li>
+<li><p>Hastie, T, R Tibshirani, and M Wainwright. 2015. <em>Statistical Learning
+with Sparsity</em>. CRC Press.</p></li>
+<li><p>Kuhn, M, and K Johnson. 2013. <em>Applied Predictive Modeling</em>. Springer.</p></li>
 </ul></div>
 
     </div>

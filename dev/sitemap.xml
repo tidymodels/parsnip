@@ -61,6 +61,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/bag_mars.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/bag_mlp.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/bag_tree.html</loc>
   </url>
   <url>
@@ -113,6 +116,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_mars_earth.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_mlp_nnet.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_bag_tree_C5.0.html</loc>

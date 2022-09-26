@@ -61,7 +61,7 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Updating a model specification</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bart.R" class="external-link"><code>R/bart.R</code></a>, and 27 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bag_mlp.R" class="external-link"><code>R/bag_mlp.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, and 28 more</small>
       <div class="d-none name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -79,6 +79,17 @@ be used in lieu of recreating the object from scratch.</p>
 <span>  num_terms <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prod_degree <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prune_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for bag_mlp</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
@@ -398,6 +409,19 @@ modified in-place or replaced wholesale.</p></dd>
 <dd><p>Not used for <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>.</p></dd>
 
 
+<dt>hidden_units</dt>
+<dd><p>An integer for the number of units in the hidden model.</p></dd>
+
+
+<dt>penalty</dt>
+<dd><p>An non-negative number representing the amount of
+regularization used by some of the engines.</p></dd>
+
+
+<dt>epochs</dt>
+<dd><p>An integer for the number of training iterations.</p></dd>
+
+
 <dt>cost_complexity</dt>
 <dd><p>A positive number for the the cost/complexity
 parameter (a.k.a. <code>Cp</code>) used by CART models (specific engines only).</p></dd>
@@ -485,11 +509,6 @@ set instances that are used to adjust the model-based prediction.</p></dd>
 <dd><p>The largest number of rules.</p></dd>
 
 
-<dt>penalty</dt>
-<dd><p>An non-negative number representing the amount of
-regularization used by some of the engines.</p></dd>
-
-
 <dt>regularization_method</dt>
 <dd><p>A character string for the type of regularized
 estimation. Possible values are: "<code>diagonal</code>", "<code>min_distance</code>",
@@ -519,17 +538,9 @@ proportion of L1 regularization (i.e. lasso) in the model.</p><ul><li><p><code>m
 </ul><p>Available for specific engines only.</p></dd>
 
 
-<dt>hidden_units</dt>
-<dd><p>An integer for the number of units in the hidden model.</p></dd>
-
-
 <dt>dropout</dt>
 <dd><p>A number between 0 (inclusive) and 1 denoting the proportion
 of model parameters randomly set to zero during model training.</p></dd>
-
-
-<dt>epochs</dt>
-<dd><p>An integer for the number of training iterations.</p></dd>
 
 
 <dt>activation</dt>
