@@ -109,8 +109,8 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and
-S-PLUS}. Springer, New York, NY
+\item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and S-PLUS}.
+Springer, New York, NY
 }
 }
 }
