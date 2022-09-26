@@ -600,6 +600,7 @@ test_that("count/proportion parameters", {
 
 test_that('interface to param arguments', {
   skip_if_not_installed("xgboost")
+  skip_on_os("windows") # some snapshots different on windows (added spaces)
 
   ctrl$verbosity <- 0L
 
