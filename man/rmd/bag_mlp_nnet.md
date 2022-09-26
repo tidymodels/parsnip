@@ -7,11 +7,13 @@ For this engine, there are multiple modes: classification and regression
 
 
 
-This model has 2 tuning parameters:
+This model has 3 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 10L)
 
 - `penalty`: Amount of Regularization (type: double, default: 0.0)
+
+- `epochs`: # Epochs (type: integer, default: 1000L)
 
 These defaults are set by the `baguette` package and are different than those in [nnet::nnet()]. 
 
@@ -30,7 +32,7 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 ```
 
 ```
-## bag mlp Model Specification (classification)
+## Bagged Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -60,7 +62,7 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 ```
 
 ```
-## bag mlp Model Specification (regression)
+## Bagged Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)

@@ -44,7 +44,7 @@ linear predictor (\verb{\eta}) for a random intercept:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{\eta_\{i\} = (\beta_0 + b_\{0i\}) + \beta_1x_\{i1\}
 }\if{html}{\out{</div>}}
 
-where \emph{i} denotes the \code{i}th independent experimental unit
+where $i$ denotes the \code{i}th independent experimental unit
 (e.g. subject). When the model has seen subject \code{i}, it can use that
 subject’s data to adjust the \emph{population} intercept to be more specific
 to that subjects results.
@@ -117,8 +117,8 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and
-S-PLUS}. Springer, New York, NY
+\item J Pinheiro, and D Bates. 2000. \emph{Mixed-effects models in S and S-PLUS}.
+Springer, New York, NY
 \item West, K, Band Welch, and A Galecki. 2014. \emph{Linear Mixed Models: A
 Practical Guide Using Statistical Software}. CRC Press.
 \item Thorson, J, Minto, C. 2015, Mixed effects: a unifying framework for
@@ -128,9 +128,9 @@ Science}, Volume 72, Issue 5, Pages 1245–1256.
 Goodwin, CED, Robinson, BS, Hodgson, DJ, Inger, R. 2018. \emph{A brief
 introduction to mixed effects modelling and multi-model inference in
 ecology}. PeerJ 6:e4794.
-\item DeBruine LM, Barr DJ. Understanding Mixed-Effects Models Through
-Data Simulation. 2021. \emph{Advances in Methods and Practices in
-Psychological Science}.
+\item DeBruine LM, Barr DJ. Understanding Mixed-Effects Models Through Data
+Simulation. 2021. \emph{Advances in Methods and Practices in Psychological
+Science}.
 }
 }
 }

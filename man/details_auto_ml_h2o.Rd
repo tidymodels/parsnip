@@ -15,11 +15,11 @@ This model has no tuning parameters.
 
 Engine arguments of interest
 \itemize{
-\item \code{max_runtime_secs} and \code{max_models}: controls the maximum running
-time and number of models to build in the automatic process.
-\item \code{exclude_algos} and \code{include_algos}: a character vector indicating
-the excluded or included algorithms during model building. To see a
-full list of supported models, see the details section in
+\item \code{max_runtime_secs} and \code{max_models}: controls the maximum running time
+and number of models to build in the automatic process.
+\item \code{exclude_algos} and \code{include_algos}: a character vector indicating the
+excluded or included algorithms during model building. To see a full
+list of supported models, see the details section in
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
 \item \code{validation}: An integer between 0 and 1 specifying the \emph{proportion}
 of training data reserved as validation set. This is used by h2o for

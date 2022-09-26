@@ -4,17 +4,18 @@
 \alias{details_bag_mlp_nnet}
 \title{Bagged neural networks via nnet}
 \description{
-\code{\link[baguette:bagger]{baguette::bagger()}} creates an collection of neural networks forming an
+\code{\link[baguette:bagger]{baguette::bagger()}} creates a collection of neural networks forming an
 ensemble. All trees in the ensemble are combined to produce a final prediction.
 }
 \details{
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 2 tuning parameters:
+This model has 3 tuning parameters:
 \itemize{
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 10L)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.0)
+\item \code{epochs}: # Epochs (type: integer, default: 1000L)
 }
 
 These defaults are set by the \code{baguette} package and are different than
@@ -33,7 +34,7 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## bag mlp Model Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Neural Network Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -60,7 +61,7 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## bag mlp Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Bagged Neural Network Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -96,8 +97,7 @@ The underlying model implementation does not allow for case weights.
 \itemize{
 \item Breiman L. 1996. “Bagging predictors”. Machine Learning. 24 (2):
 123-140
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

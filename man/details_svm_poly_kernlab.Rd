@@ -116,11 +116,9 @@ for \code{svm_poly()} with the \code{"kernlab"} engine.
 \subsection{References}{
 \itemize{
 \item Lin, HT, and R Weng. \href{https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf}{“A Note on Platt’s Probabilistic Outputs for Support Vector Machines”}
-\item Karatzoglou, A, Smola, A, Hornik, K, and A Zeileis. 2004.
-\href{https://www.jstatsoft.org/article/view/v011i09}{“kernlab - An S4 Package for Kernel Methods in R.”}, \emph{Journal of
+\item Karatzoglou, A, Smola, A, Hornik, K, and A Zeileis. 2004. \href{https://www.jstatsoft.org/article/view/v011i09}{“kernlab - An S4 Package for Kernel Methods in R.”}, \emph{Journal of
 Statistical Software}.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

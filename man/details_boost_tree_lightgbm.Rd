@@ -137,8 +137,8 @@ their analogue to the \code{mtry} argument as the \emph{proportion} of predictor
 that will be randomly sampled at each split rather than the \emph{count}. In
 some settings, such as when tuning over preprocessors that influence the
 number of predictors, this parameterization is quite
-helpful—interpreting \code{mtry} as a proportion means that [0,1] is always
-a valid range for that parameter, regardless of input data.
+helpful—interpreting \code{mtry} as a proportion means that $\link{0, 1}$ is
+always a valid range for that parameter, regardless of input data.
 
 parsnip and its extensions accommodate this parameterization using the
 \code{counts} argument: a logical indicating whether \code{mtry} should be
@@ -155,7 +155,7 @@ to \code{TRUE}. For engines that support the proportion interpretation
 (currently \code{"xgboost"} and \code{"xrf"}, via the rules package, and
 \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
-within [0,1].
+within $\link{0, 1}$.
 }
 
 \subsection{Bagging}{
@@ -173,7 +173,7 @@ that the booster will perform bagging at every \code{k}th boosting iteration.
 Thus, by default, the \code{sample_size} argument would be ignored without
 setting this argument manually. Other boosting libraries, like xgboost,
 do not have an analogous argument to \code{bagging_freq} and use \code{k = 1} when
-the analogue to \code{bagging_fraction} is in (0,1). \emph{bonsai will thus
+the analogue to \code{bagging_fraction} is in $(0, 1)$. \emph{bonsai will thus
 automatically set} \code{bagging_freq = 1} \emph{in} \code{set_engine("lightgbm", ...)}
 if \code{sample_size} (i.e. \code{bagging_fraction}) is not equal to 1 and no
 \code{bagging_freq} value is supplied. This default can be overridden by
@@ -200,8 +200,7 @@ The “Introduction to bonsai” article contains
 \subsection{References}{
 \itemize{
 \item \href{https://papers.nips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html}{LightGBM: A Highly Efficient Gradient Boosting Decision Tree}
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

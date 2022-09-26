@@ -7,8 +7,8 @@
 
 ```{r nnet-param-info, echo = FALSE}
 defaults <- 
-  tibble::tibble(parsnip = c("penalty", "hidden_units"),
-                 default = c("0.0", "10L"))
+  tibble::tibble(parsnip = c("penalty", "hidden_units", "epochs"),
+                 default = c("0.0", "10L", "1000L"))
 
 param <-
  bag_mlp() %>% 

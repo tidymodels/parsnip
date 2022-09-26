@@ -98,8 +98,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 \subsection{References}{
 \itemize{
-\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical
-analysis of failure time data}, Wiley.
+\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical analysis
+of failure time data}, Wiley.
 }
 }
 }

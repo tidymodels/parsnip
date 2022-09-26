@@ -68,10 +68,9 @@ The underlying model implementation does not allow for case weights.
 \itemize{
 \item Luraschi, J, K Kuo, and E Ruiz. 2019. \emph{Mastering nnet with R}.
 O’Reilly Media
-\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
-Learning with Sparsity}. CRC Press.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical Learning
+with Sparsity}. CRC Press.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }
