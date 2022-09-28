@@ -331,7 +331,7 @@ process_others <- function(others, arg_list) {
   if (length(guarded_supplied) > 0) {
     cli::cli_warn(
       c(
-        "!" = "{cli::qty(guarded_supplied)} The argument{?s} {.arg {guarded_supplied}} \
+        "!" = "{cli::qty(guarded_supplied)}The argument{?s} {.arg {guarded_supplied}} \
                {?is/are} guarded by parsnip and will not be passed to {.fun xgb.train}."
       ),
       class = "xgboost_guarded_warning"
