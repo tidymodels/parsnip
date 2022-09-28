@@ -26,7 +26,7 @@ condense_control <- function(x, ref) {
     rlang::abort(
       c(
         glue::glue(
-          "Object of class `{class(x)[1]}` cannot be corresed to ",
+          "Object of class `{class(x)[1]}` cannot be coerced to ",
           "object of class `{class(ref)[1]}`."
         ),
         "The following arguments are missing:",
