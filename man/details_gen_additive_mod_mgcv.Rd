@@ -14,7 +14,8 @@ For this engine, there are multiple modes: regression and classification
 This model has 2 tuning parameters:
 \itemize{
 \item \code{select_features}: Select Features? (type: logical, default: FALSE)
-\item \code{adjust_deg_free}: Smoothness Adjustment (type: double, default: 1.0)
+\item \code{adjust_deg_free}: Smoothness Adjustment (type: double, default:
+1.0)
 }
 }
 
@@ -157,8 +158,8 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 \subsection{References}{
 \itemize{
 \item Ross, W. 2021. \href{https://noamross.github.io/gams-in-r-course/}{\emph{Generalized Additive Models in R: A Free, Interactive Course using mgcv}}
-\item Wood, S. 2017. \emph{Generalized Additive Models: An Introduction with R}.
-Chapman and Hall/CRC.
+\item Wood, S. 2017. \emph{Generalized Additive Models: An Introduction with
+R}. Chapman and Hall/CRC.
 }
 }
 }

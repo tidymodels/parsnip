@@ -14,7 +14,8 @@ For this engine, there is a single mode: classification
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{penalty}: Amount of Regularization (type: double, default: see below)
+\item \code{penalty}: Amount of Regularization (type: double, default: see
+below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
 }
 
@@ -24,8 +25,8 @@ see \link{glmnet-details}. As for \code{mixture}:
 \itemize{
 \item \code{mixture = 1} specifies a pure lasso model,
 \item \code{mixture = 0} specifies a ridge regression model, and
-\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso
-and ridge.
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating
+lasso and ridge.
 }
 }
 
@@ -90,9 +91,10 @@ for \code{logistic_reg()} with the \code{"glmnet"} engine.
 
 \subsection{References}{
 \itemize{
-\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical Learning
-with Sparsity}. CRC Press.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
+Learning with Sparsity}. CRC Press.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

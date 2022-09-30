@@ -12,7 +12,8 @@ For this engine, there is a single mode: censored regression
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{penalty}: Amount of Regularization (type: double, default: see below)
+\item \code{penalty}: Amount of Regularization (type: double, default: see
+below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
 }
 
@@ -23,8 +24,8 @@ see \link{glmnet-details}. As for
 \itemize{
 \item \code{mixture = 1} specifies a pure lasso model,
 \item \code{mixture = 0} specifies a ridge regression model, and
-\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso
-and ridge.
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating
+lasso and ridge.
 }
 }
 
@@ -158,8 +159,8 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 \item Simon N, Friedman J, Hastie T, Tibshirani R. 2011. “Regularization
 Paths for Cox’s Proportional Hazards Model via Coordinate Descent.”
 \emph{Journal of Statistical Software}, Articles 39 (5): 1–13. .
-\item Hastie T, Tibshirani R, Wainwright M. 2015. \emph{Statistical Learning with
-Sparsity}. CRC Press.
+\item Hastie T, Tibshirani R, Wainwright M. 2015. \emph{Statistical Learning
+with Sparsity}. CRC Press.
 \item Kuhn M, Johnson K. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }

@@ -65,7 +65,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \itemize{
 \item Breiman, L. 1996. “Bagging predictors”. Machine Learning. 24 (2):
 123-140
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }
