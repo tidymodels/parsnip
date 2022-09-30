@@ -22,11 +22,12 @@ The default is 4.
 \item \code{iter}: A positive integer specifying the number of iterations for
 each chain (including warmup). The default is 2000.
 \item \code{seed}: The seed for random number generation.
-\item \code{cores}: Number of cores to use when executing the chains in parallel.
-\item \code{prior}: The prior distribution for the (non-hierarchical) regression
-coefficients. The \code{"stan"} engine does not fit any hierarchical terms.
-See the \code{"stan_glmer"} engine from the multilevelmod package for that
-type of model.
+\item \code{cores}: Number of cores to use when executing the chains in
+parallel.
+\item \code{prior}: The prior distribution for the (non-hierarchical)
+regression coefficients. The \code{"stan"} engine does not fit any
+hierarchical terms. See the \code{"stan_glmer"} engine from the
+multilevelmod package for that type of model.
 \item \code{prior_intercept}: The prior distribution for the intercept (after
 centering all predictors).
 }

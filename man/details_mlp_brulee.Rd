@@ -36,8 +36,8 @@ during optimization.
 each batch.
 \item \code{class_weights()}: Numeric class weights. See
 \code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}}.
-\item \code{stop_iter()}: A non-negative integer for how many iterations with no
-improvement before stopping. (default: 5L).
+\item \code{stop_iter()}: A non-negative integer for how many iterations with
+no improvement before stopping. (default: 5L).
 }
 }
 
@@ -131,7 +131,8 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

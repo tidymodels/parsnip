@@ -106,8 +106,8 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{References}{
 \itemize{
-\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical analysis
-of failure time data}, Wiley.
+\item Kalbfleisch, J. D. and Prentice, R. L. 2002 \emph{The statistical
+analysis of failure time data}, Wiley.
 }
 }
 }

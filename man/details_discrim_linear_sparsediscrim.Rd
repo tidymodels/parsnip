@@ -21,7 +21,8 @@ default: ‘diagonal’)
 The possible values of this parameter, and the functions that they
 execute, are:
 \itemize{
-\item \code{"diagonal"}: \code{\link[sparsediscrim:lda_diag]{sparsediscrim::lda_diag()}}
+\item \code{"diagonal"}:
+\code{\link[sparsediscrim:lda_diag]{sparsediscrim::lda_diag()}}
 \item \code{"min_distance"}:
 \code{\link[sparsediscrim:lda_emp_bayes_eigen]{sparsediscrim::lda_emp_bayes_eigen()}}
 \item \code{"shrink_mean"}:
@@ -84,8 +85,8 @@ Volume 28, Issue 4, 15 February 2012, Pages 531-537.
 \item \code{lda_shrink_cov()}: Pang, Tong and Zhao (2009), Shrinkage-based
 Diagonal Discriminant Analysis and Its Applications in
 High-Dimensional Data. \emph{Biometrics}, 65, 1021-1029.
-\item \code{lda_emp_bayes_eigen()}: Srivistava and Kubokawa (2007), Comparison of
-Discrimination Methods for High Dimensional Data, \emph{Journal of the
+\item \code{lda_emp_bayes_eigen()}: Srivistava and Kubokawa (2007), Comparison
+of Discrimination Methods for High Dimensional Data, \emph{Journal of the
 Japan Statistical Society}, 37:1, 123-134.
 }
 }

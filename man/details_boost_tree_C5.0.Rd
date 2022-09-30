@@ -16,8 +16,8 @@ This model has 3 tuning parameters:
 \itemize{
 \item \code{trees}: # Trees (type: integer, default: 15L)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 2L)
-\item \code{sample_size}: Proportion Observations Sampled (type: double, default:
-1.0)
+\item \code{sample_size}: Proportion Observations Sampled (type: double,
+default: 1.0)
 }
 
 The implementation of C5.0 limits the number of trees to be between 1
@@ -96,7 +96,8 @@ for \code{boost_tree()} with the \code{"C5.0"} engine.
 
 \subsection{References}{
 \itemize{
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

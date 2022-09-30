@@ -109,7 +109,8 @@ time.
 \subsection{References}{
 \itemize{
 \item \href{https://jmlr.org/papers/v16/hothorn15a.html}{partykit: A Modular Toolkit for Recursive Partytioning in R}
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

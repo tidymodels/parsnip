@@ -14,7 +14,8 @@ For this engine, there is a single mode: classification
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{penalty}: Amount of Regularization (type: double, default: see below)
+\item \code{penalty}: Amount of Regularization (type: double, default: see
+below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0)
 }
 
@@ -70,9 +71,10 @@ for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
 
 \subsection{References}{
 \itemize{
-\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical Learning
-with Sparsity}. CRC Press.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+\item Hastie, T, R Tibshirani, and M Wainwright. 2015. \emph{Statistical
+Learning with Sparsity}. CRC Press.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
+Springer.
 }
 }
 }

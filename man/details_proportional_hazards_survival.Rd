@@ -129,7 +129,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \subsection{References}{
 \itemize{
 \item Andersen P, Gill R. 1982. Cox’s regression model for counting
-processes, a large sample study. \emph{Annals of Statistics} 10, 1100-1120.
+processes, a large sample study. \emph{Annals of Statistics} 10,
+1100-1120.
 }
 }
 }
