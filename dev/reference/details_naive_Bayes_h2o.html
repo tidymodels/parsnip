@@ -79,10 +79,10 @@ the probability of each class, given the predictor values.</p>
 
 <p>This model has 1 tuning parameter:</p><ul><li><p><code>Laplace</code>: Laplace Correction (type: double, default: 0.0)</p></li>
 </ul><p><code>h2o::h2o.naiveBayes()</code> provides several engine
-arguments to deal with imbalances and rare classes:</p><ul><li><p><code>balance_classes</code> A logical value controlling over/under-sampling (for
-imbalanced data). Defaults to <code>FALSE</code>.</p></li>
-<li><p><code>class_sampling_factors</code> The over/under-sampling ratios per class (in
-lexicographic order). If not specified, sampling factors will be
+arguments to deal with imbalances and rare classes:</p><ul><li><p><code>balance_classes</code> A logical value controlling over/under-sampling
+(for imbalanced data). Defaults to <code>FALSE</code>.</p></li>
+<li><p><code>class_sampling_factors</code> The over/under-sampling ratios per class
+(in lexicographic order). If not specified, sampling factors will be
 automatically computed to obtain class balance during training.
 Require <code>balance_classes</code> to be <code>TRUE</code>.</p></li>
 <li><p><code>min_sdev</code>: The minimum standard deviation to use for observations

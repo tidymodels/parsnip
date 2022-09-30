@@ -74,8 +74,8 @@
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
-<p>This model has 2 tuning parameters:</p><ul><li><p><code>predictor_prop</code>: Proportion of Predictors (type: double, default: see
-below)</p></li>
+<p>This model has 2 tuning parameters:</p><ul><li><p><code>predictor_prop</code>: Proportion of Predictors (type: double, default:
+see below)</p></li>
 <li><p><code>num_comp</code>: # Components (type: integer, default: 2L)</p></li>
 </ul></div>
 
@@ -102,7 +102,8 @@ below)</p></li>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## plsmod::pls_fit(x = missing_arg(), y = missing_arg(), predictor_prop = double(1), </span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     ncomp = integer(1))</span></span></code></pre><p></p></div>
 <p><code>plsmod::pls_fit()</code> is a function that:</p><ul><li><p>Determines the number of predictors in the data.</p></li>
-<li><p>Adjusts <code>num_comp</code> if the value is larger than the number of factors.</p></li>
+<li><p>Adjusts <code>num_comp</code> if the value is larger than the number of
+factors.</p></li>
 <li><p>Determines whether sparsity is required based on the value of
 <code>predictor_prop</code>.</p></li>
 <li><p>Sets the <code>keepX</code> argument of <code>mixOmics::spls()</code> for sparse models.</p></li>

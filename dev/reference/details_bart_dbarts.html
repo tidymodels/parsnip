@@ -82,8 +82,8 @@ and assembly is determined using Bayesian analysis.</p>
 double, default: 0.95)</p></li>
 <li><p><code>prior_terminal_node_expo</code>: Terminal Node Prior Exponent (type:
 double, default: 2.00)</p></li>
-<li><p><code>prior_outcome_range</code>: Prior for Outcome Range (type: double, default:
-2.00)</p></li>
+<li><p><code>prior_outcome_range</code>: Prior for Outcome Range (type: double,
+default: 2.00)</p></li>
 </ul></div>
 
 <div class="section">
@@ -96,15 +96,16 @@ to the user. Useful for “thinning” samples.</p></li>
 formulation.</p></li>
 <li><p><code>ndpost</code>, <code>n.samples</code>: The number of posterior draws after burn in,
 <code>ndpost</code> / <code>keepevery</code> will actually be returned.</p></li>
-<li><p><code>nskip</code>, <code>n.burn</code>: Number of MCMC iterations to be treated as burn in.</p></li>
+<li><p><code>nskip</code>, <code>n.burn</code>: Number of MCMC iterations to be treated as burn
+in.</p></li>
 <li><p><code>nchain</code>, <code>n.chains</code>: Integer specifying how many independent tree
 sets and fits should be calculated.</p></li>
 <li><p><code>nthread</code>, <code>n.threads</code>: Integer specifying how many threads to use.
 Depending on the CPU architecture, using more than the number of
 chains can degrade performance for small/medium data sets. As such
 some calculations may be executed single threaded regardless.</p></li>
-<li><p><code>combinechains</code>, <code>combineChains</code>: Logical; if <code>TRUE</code>, samples will be
-returned in arrays of dimensions equal to <code>nchain</code> times <code>ndpost</code>
+<li><p><code>combinechains</code>, <code>combineChains</code>: Logical; if <code>TRUE</code>, samples will
+be returned in arrays of dimensions equal to <code>nchain</code> times <code>ndpost</code>
 times number of observations.</p></li>
 </ul></div>
 

@@ -199,6 +199,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmer.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.html</loc>
   </url>
   <url>

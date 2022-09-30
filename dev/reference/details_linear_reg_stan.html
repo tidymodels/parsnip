@@ -86,11 +86,12 @@ The default is 4.</p></li>
 <li><p><code>iter</code>: A positive integer specifying the number of iterations for
 each chain (including warmup). The default is 2000.</p></li>
 <li><p><code>seed</code>: The seed for random number generation.</p></li>
-<li><p><code>cores</code>: Number of cores to use when executing the chains in parallel.</p></li>
-<li><p><code>prior</code>: The prior distribution for the (non-hierarchical) regression
-coefficients. The <code>"stan"</code> engine does not fit any hierarchical terms.
-See the <code>"stan_glmer"</code> engine from the multilevelmod package for that
-type of model.</p></li>
+<li><p><code>cores</code>: Number of cores to use when executing the chains in
+parallel.</p></li>
+<li><p><code>prior</code>: The prior distribution for the (non-hierarchical)
+regression coefficients. The <code>"stan"</code> engine does not fit any
+hierarchical terms. See the <code>"stan_glmer"</code> engine from the
+multilevelmod package for that type of model.</p></li>
 <li><p><code>prior_intercept</code>: The prior distribution for the intercept (after
 centering all predictors).</p></li>
 </ul><p>See <code><a href="https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html" class="external-link">rstan::sampling()</a></code> and

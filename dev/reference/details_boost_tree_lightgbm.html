@@ -198,8 +198,8 @@ their analogue to the <code>mtry</code> argument as the <em>proportion</em> of p
 that will be randomly sampled at each split rather than the <em>count</em>. In
 some settings, such as when tuning over preprocessors that influence the
 number of predictors, this parameterization is quite
-helpful—interpreting <code>mtry</code> as a proportion means that $0, 1$ is
-always a valid range for that parameter, regardless of input data.</p>
+helpful—interpreting <code>mtry</code> as a proportion means that [0,1] is always
+a valid range for that parameter, regardless of input data.</p>
 <p>parsnip and its extensions accommodate this parameterization using the
 <code>counts</code> argument: a logical indicating whether <code>mtry</code> should be
 interpreted as the number of predictors that will be randomly sampled at
@@ -214,7 +214,7 @@ to <code>TRUE</code>. For engines that support the proportion interpretation
 (currently <code>"xgboost"</code> and <code>"xrf"</code>, via the rules package, and
 <code>"lightgbm"</code> via the bonsai package) the user can pass the
 <code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
-within $0, 1$.</p>
+within [0,1].</p>
 </div>
 
 <div class="section">
@@ -242,7 +242,7 @@ that the booster will perform bagging at every <code>k</code>th boosting iterati
 Thus, by default, the <code>sample_size</code> argument would be ignored without
 setting this argument manually. Other boosting libraries, like xgboost,
 do not have an analogous argument to <code>bagging_freq</code> and use <code>k = 1</code> when
-the analogue to <code>bagging_fraction</code> is in $(0, 1)$. <em>bonsai will thus
+the analogue to <code>bagging_fraction</code> is in (0,1). <em>bonsai will thus
 automatically set</em> <code>bagging_freq = 1</code> <em>in</em> <code>set_engine("lightgbm", ...)</code>
 if <code>sample_size</code> (i.e. <code>bagging_fraction</code>) is not equal to 1 and no
 <code>bagging_freq</code> value is supplied. This default can be overridden by
@@ -275,7 +275,8 @@ the user. To print out all logs during training, set <code>quiet = TRUE</code>.<
 <h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h3>
 
 <ul><li><p><a href="https://papers.nips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html" class="external-link">LightGBM: A Highly Efficient Gradient Boosting Decision Tree</a></p></li>
-<li><p>Kuhn, M, and K Johnson. 2013. <em>Applied Predictive Modeling</em>. Springer.</p></li>
+<li><p>Kuhn, M, and K Johnson. 2013. <em>Applied Predictive Modeling</em>.
+Springer.</p></li>
 </ul></div>
 
     </div>
