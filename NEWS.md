@@ -1,3 +1,5 @@
+# parsnip (development version)
+
 # parsnip 1.0.2
 
 * A bagged neural network model was added (`bag_mlp()`). Engine implementations will live in the baguette package. 
