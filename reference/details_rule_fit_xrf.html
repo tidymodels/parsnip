@@ -14,7 +14,7 @@ is a wrapper around this function."><meta property="og:image" content="https://p
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -198,8 +198,8 @@ whereas <strong>xrf</strong> uses an internal 5-fold cross-validation to determi
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 </div>
 
 <div class="section">
@@ -226,11 +226,11 @@ sense as a count, <code>FALSE</code> indicates that the argument will be
 interpreted in its sense as a proportion.</p>
 <p><code>mtry</code> is a main model argument for
 <code><a href="boost_tree.html">boost_tree()</a></code> and
-<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have
-an engine-specific interface. So, regardless of engine, <code>counts</code>
-defaults to <code>TRUE</code>. For engines that support the proportion
-interpretation (currently <code>"xgboost"</code> and <code>"xrf"</code>, via the rules
-package, and <code>"lightgbm"</code> via the bonsai package) the user can pass the
+<code><a href="rand_forest.html">rand_forest()</a></code>, and thus should not have an
+engine-specific interface. So, regardless of engine, <code>counts</code> defaults
+to <code>TRUE</code>. For engines that support the proportion interpretation
+(currently <code>"xgboost"</code> and <code>"xrf"</code>, via the rules package, and
+<code>"lightgbm"</code> via the bonsai package) the user can pass the
 <code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
 within [0,1].</p>
 </div>

@@ -14,7 +14,7 @@ via a link function."><meta property="og:image" content="https://parsnip.tidymod
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,8 +121,8 @@ parameter (and/or <code>link</code>) as an engine argument (see below).</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 </div>
 
 <div class="section">
@@ -143,6 +143,16 @@ positive integers <code>w_i</code>, that each response <code>y_i</code> is the m
 unit-weight observations. For a binomial GLM prior weights are used to
 give the number of trials when the response is the proportion of
 successes: they would rarely be used for a Poisson GLM.”</p>
+</div>
+
+<div class="section">
+<h3 id="saving-fitted-model-objects">Saving fitted model objects<a class="anchor" aria-label="anchor" href="#saving-fitted-model-objects"></a></h3>
+
+
+<p>This model object contains data that are not required to make
+predictions. When saving the model for the purpose of prediction, the
+size of the saved object might be substantially reduced by using
+functions from the <a href="https://butcher.tidymodels.org" class="external-link">butcher</a> package.</p>
 </div>
 
 <div class="section">

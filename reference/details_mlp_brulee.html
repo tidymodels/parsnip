@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,11 +76,11 @@
 
 <p>This model has 7 tuning parameters:</p><ul><li><p><code>hidden_units</code>: # Hidden Units (type: integer, default: 3L)</p></li>
 <li><p><code>penalty</code>: Amount of Regularization (type: double, default: 0.0)</p></li>
+<li><p><code>mixture</code>: Proportion of Lasso Penalty (type: double, default: 0.0)</p></li>
 <li><p><code>epochs</code>: # Epochs (type: integer, default: 0.01)</p></li>
 <li><p><code>dropout</code>: Dropout Rate (type: double, default: 0.0)</p></li>
 <li><p><code>learn_rate</code>: Learning Rate (type: double, default: 100L)</p></li>
 <li><p><code>activation</code>: Activation Function (type: character, default: ‘relu’)</p></li>
-<li><p><code>mixture</code>: Proportion of Lasso Penalty (type: double, default: 0.0)</p></li>
 </ul><p>The use of the L1 penalty (a.k.a. the lasso penalty) does <em>not</em> force
 parameters to be strictly zero (as it does in packages such as glmnet).
 The zeroing out of parameters is a specific feature the optimization
@@ -170,8 +170,8 @@ layer.</p>
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.</p>

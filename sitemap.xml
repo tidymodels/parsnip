@@ -64,6 +64,9 @@
     <loc>https://parsnip.tidymodels.org/reference/bag_mars.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/bag_mlp.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/bag_tree.html</loc>
   </url>
   <url>
@@ -80,6 +83,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/check_empty_ellipse.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/condense_control.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/contr_one_hot.html</loc>
@@ -113,6 +119,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_bag_mars_earth.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_bag_mlp_nnet.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_bag_tree_C5.0.html</loc>
@@ -191,6 +200,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_glm.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_glmer.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_linear_reg_glmnet.html</loc>

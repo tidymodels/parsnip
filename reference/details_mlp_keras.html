@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,8 +150,8 @@
 
 <p>Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
-formula method via <code><a href="fit.html">fit()</a></code>, parsnip
-will convert factor columns to indicators.</p>
+formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
+convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.</p>
@@ -162,6 +162,15 @@ variance of one.</p>
 
 
 <p>The underlying model implementation does not allow for case weights.</p>
+</div>
+
+<div class="section">
+<h3 id="saving-fitted-model-objects">Saving fitted model objects<a class="anchor" aria-label="anchor" href="#saving-fitted-model-objects"></a></h3>
+
+
+<p>Models fitted with this engine may require native serialization methods
+to be properly saved and/or passed between R sessions. To learn more
+about preparing fitted models for serialization, see the bundle package.</p>
 </div>
 
 <div class="section">

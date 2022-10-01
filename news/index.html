@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,6 +62,15 @@
       <small>Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.2" id="parsnip-102">parsnip 1.0.2<a class="anchor" aria-label="anchor" href="#parsnip-102"></a></h2>
+<ul><li><p>A bagged neural network model was added (<code><a href="../reference/bag_mlp.html">bag_mlp()</a></code>). Engine implementations will live in the baguette package.</p></li>
+<li><p>Fixed installation failures due to undocumented knitr installation dependency (<a href="https://github.com/tidymodels/parsnip/issues/785" class="external-link">#785</a>).</p></li>
+<li><p><code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> now fails when the model mode is unknown.</p></li>
+<li><p>brulee engine-specific tuning parameters were updated. These changes can be used with dials version &gt; 1.0.0.</p></li>
+<li><p><code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> doesn’t error anymore if <code>control</code> argument isn’t a <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code> object. Will work as long as the object passed to <code>control</code> includes the same elements as <code><a href="../reference/control_parsnip.html">control_parsnip()</a></code>.</p></li>
+<li><p>Improved prompts related to missing (or not loaded) extension packages as well as better handling of model mode conflicts.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="parsnip-101">parsnip 1.0.1<a class="anchor" aria-label="anchor" href="#parsnip-101"></a></h2><p class="text-muted">CRAN release: 2022-08-18</p>
 <ul><li>Enabled passing additional engine arguments with the xgboost <code><a href="../reference/boost_tree.html">boost_tree()</a></code> engine. To supply engine-specific arguments that are documented in <code><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html" class="external-link">xgboost::xgb.train()</a></code> as arguments to be passed via <code>params</code>, supply the list elements directly as named arguments to <code><a href="../reference/set_engine.html">set_engine()</a></code>. Read more in <code><a href="../reference/details_boost_tree_xgboost.html">?details_boost_tree_xgboost</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/787" class="external-link">#787</a>).</li></ul></div>

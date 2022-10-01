@@ -24,7 +24,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,12 +135,13 @@ survival model be specified via the formula interface.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"survival_reg"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: engine &lt;chr&gt;, mode &lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">survival_reg</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"censored regression"</span>, dist <span class="op">=</span> <span class="st">"weibull"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> parsnip could not locate an implementation for `survival_reg` censored regression model specifications using the `survival` engine.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> The parsnip extension package censored implements support for this specification.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Please install (if needed) and load to continue.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #0000BB;">parsnip</span> could not locate an implementation for `survival_reg` censored</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   regression model specifications.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The parsnip extension package <span style="color: #0000BB;">censored</span> implements support for this</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   specification.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please install (if needed) and load to continue.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parametric Survival Regression Model Specification (censored regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Main Arguments:</span>
