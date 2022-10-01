@@ -1,4 +1,6 @@
-# parsnip (development version)
+# parsnip 1.0.2
+
+* A bagged neural network model was added (`bag_mlp()`). Engine implementations will live in the baguette package. 
 
 * Fixed installation failures due to undocumented knitr installation dependency (#785).
 
@@ -7,6 +9,8 @@
 * brulee engine-specific tuning parameters were updated. These changes can be used with dials version > 1.0.0.
 
 * `fit()` and `fit_xy()` doesn't error anymore if `control` argument isn't a `control_parsnip()` object. Will work as long as the object passed to `control` includes the same elements as `control_parsnip()`.
+
+* Improved prompts related to missing (or not loaded) extension packages as well as better handling of model mode conflicts. 
 
 
 # parsnip 1.0.1
