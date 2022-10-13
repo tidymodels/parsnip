@@ -330,6 +330,10 @@ check_outcome <- function(y, spec) {
     if (!all(map_lgl(y, is.factor))) {
       rlang::abort("For a classification model, the outcome should be a factor.")
     }
+  } else if (spec$mode == "censored regression") {
+    if (!inherits(y, "Surv")) {
+      rlang::abort("For a censored regression model, the outcome should be a `Surv` object.")
+    }
   }
   invisible(NULL)
 }
