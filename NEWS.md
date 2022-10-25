@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* The matrix interface for fitting `fit_xy()` now works for the `"censored regression"`" mode (#829).
+* The matrix interface for fitting `fit_xy()` now works for the `"censored regression"` mode (#829).
 
 # parsnip 1.0.2
 
