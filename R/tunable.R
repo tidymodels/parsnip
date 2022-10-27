@@ -190,6 +190,17 @@ brulee_multinomial_engine_args <-
   brulee_mlp_engine_args %>%
   dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
 
+flexsurvspline_engine_args <-
+  tibble::tibble(
+    name = c("num_knots"),
+    call_info = list(
+      list(pkg = "dials", fun = "num_knots")
+    ),
+    source = "model_spec",
+    component = "survival_reg",
+    component_id = "engine"
+  )
+
 # ------------------------------------------------------------------------------
 
 # Lazily registered in .onLoad()
@@ -309,6 +320,17 @@ tunable_mlp <- function(x, ...) {
   }
   res
 }
+
+# Lazily registered in .onLoad()
+tunable_survival_reg <- function(x, ...) {
+  res <- NextMethod()
+  if (x$engine == "flexsurvspline") {
+    res <- add_engine_parameters(res, flexsurvspline_engine_args)
+  }
+  res
+}
+
+tunable_surv_reg <- tunable_survival_reg
 
 # nocov end
 
