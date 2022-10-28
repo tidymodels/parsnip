@@ -40,7 +40,7 @@ combinations of model, mode, and engine.
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.2.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.2.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,13 +106,24 @@ combinations of model, mode, and engine.
 
     
     
-<p>These examples show how to <em>fit</em> and <em>predict</em> with different combinations of model, mode, and engine. As a reminder, in parsnip,</p>
+<p>These examples show how to <em>fit</em> and <em>predict</em> with
+different combinations of model, mode, and engine. As a reminder, in
+parsnip,</p>
 <ul>
-<li><p>the <strong>model type</strong> differentiates basic modeling approaches, such as random forests, logistic regression, linear support vector machines, etc.,</p></li>
-<li><p>the <strong>mode</strong> denotes in what kind of modeling context it will be used (most commonly, classification or regression), and</p></li>
-<li><p>the computational <strong>engine</strong> indicates how the model is fit, such as with a specific R package implementation or even methods outside of R like Keras or Stan.</p></li>
+<li><p>the <strong>model type</strong> differentiates basic modeling
+approaches, such as random forests, logistic regression, linear support
+vector machines, etc.,</p></li>
+<li><p>the <strong>mode</strong> denotes in what kind of modeling
+context it will be used (most commonly, classification or regression),
+and</p></li>
+<li><p>the computational <strong>engine</strong> indicates how the model
+is fit, such as with a specific R package implementation or even methods
+outside of R like Keras or Stan.</p></li>
 </ul>
-<p>The following examples use consistent data sets throughout. For regression, we use the Chicago ridership data. For classification, we use an artificial data set for a binary example and the Palmer penguins data for a multiclass example.</p>
+<p>The following examples use consistent data sets throughout. For
+regression, we use the Chicago ridership data. For classification, we
+use an artificial data set for a binary example and the Palmer penguins
+data for a multiclass example.</p>
 <div class="section level2">
 <h2 id="bart-models">
 <code>bart()</code> models<a class="anchor" aria-label="anchor" href="#bart-models"></a>
@@ -122,7 +133,11 @@ With the <code>"dbarts"</code> engine
 </summary><h3>
 Regression Example (<code>dbarts</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────── tidymodels 1.0.0.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
@@ -131,7 +146,7 @@ Regression Example (<code>dbarts</code>)
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.0.10         <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.2.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.3          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.0.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.0.1          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.1.0     </span></span>
-<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.0.2.<span style="color: #BB0000;">9001</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.0.0     </span></span>
+<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.0.2.<span style="color: #BB0000;">9002</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.0.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 0.3.5          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.1.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.0.2</span></span></code></pre>
 <pre><code><span>  <span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ─────────────────────────────────── tidymodels_conflicts() ──</span></span>
@@ -139,7 +154,7 @@ Regression Example (<code>dbarts</code>)
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span>  <span class="co">## <span style="color: #0000BB;">•</span> Learn how to get started at <span style="color: #00BB00;">https://www.tidymodels.org/start/</span></span></span></code></pre>
+<span>  <span class="co">## <span style="color: #0000BB;">•</span> Search for functions across packages at <span style="color: #00BB00;">https://www.tidymodels.org/find/</span></span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -189,7 +204,8 @@ Regression Example (<code>dbarts</code>)
 <h3>
 Classification Example (<code>dbarts</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -218,7 +234,8 @@ Classification Example (<code>dbarts</code>)
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Call:</span></span>
 <span>  <span class="co">## `NULL`()</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">bt_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -248,7 +265,11 @@ With the <code>"xgboost"</code> engine
 </summary><h3>
 Regression Example (<code>xgboost</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -319,7 +340,8 @@ Regression Example (<code>xgboost</code>)
 <h3>
 Classification Example (<code>xgboost</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -371,7 +393,8 @@ Classification Example (<code>xgboost</code>)
 <span>  <span class="co">## ---                      </span></span>
 <span>  <span class="co">##       14        0.2523133</span></span>
 <span>  <span class="co">##       15        0.2490712</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">bt_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -395,7 +418,8 @@ With the <code>"C5.0"</code> engine
 </summary><h3>
 Classification Example (<code>C5.0</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -436,7 +460,8 @@ Classification Example (<code>C5.0</code>)
 <span>  <span class="co">## Average tree size: 3.2 </span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Non-standard options: attempt to group attributes</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">bt_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -466,7 +491,11 @@ With the <code>"rpart"</code> engine
 </summary><h3>
 Regression Example (<code>rpart</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -526,7 +555,8 @@ Regression Example (<code>rpart</code>)
 <h3>
 Classification Example (<code>rpart</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -567,7 +597,8 @@ Classification Example (<code>rpart</code>)
 <span>  <span class="co">##       12) A&gt;=2.572663 48  13 Class1 (0.7291667 0.2708333) *</span></span>
 <span>  <span class="co">##       13) A&lt; 2.572663 143  35 Class2 (0.2447552 0.7552448) *</span></span>
 <span>  <span class="co">##      7) B&gt;=2.079458 190  24 Class2 (0.1263158 0.8736842) *</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">dt_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -591,7 +622,8 @@ With the <code>"C5.0"</code> engine
 </summary><h3>
 Classification Example (<code>C5.0</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -631,7 +663,8 @@ Classification Example (<code>C5.0</code>)
 <span>  <span class="co">## Tree size: 4 </span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Non-standard options: attempt to group attributes</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">dt_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -661,7 +694,11 @@ With the <code>"mgcv"</code> engine
 </summary><h3>
 Regression Example (<code>mgcv</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -720,7 +757,8 @@ Regression Example (<code>mgcv</code>)
 <h3>
 Classification Example (<code>mgcv</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -759,7 +797,8 @@ Classification Example (<code>mgcv</code>)
 <span>  <span class="co">## Total model degrees of freedom 3 </span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## UBRE score: -0.07548008</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">gam_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -789,7 +828,11 @@ With the <code>"lm"</code> engine
 </summary><h3>
 Regression Example (<code>lm</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -841,7 +884,11 @@ With the <code>"glm"</code> engine
 </summary><h3>
 Regression Example (<code>glm</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -897,7 +944,11 @@ With the <code>"glmnet"</code> engine
 </summary><h3>
 Regression Example (<code>glmnet</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1004,7 +1055,11 @@ With the <code>"keras"</code> engine
 </summary><h3>
 Regression Example (<code>keras</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1053,19 +1108,23 @@ Regression Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.5 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.8 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.5 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.2 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.4 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.7 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.4 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.8 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.40</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.04</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.37</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.02</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
 Regression Example (<code>stan</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1134,7 +1193,8 @@ With the <code>"glm"</code> engine
 </summary><h3>
 Classification Example (<code>glm</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1168,7 +1228,8 @@ Classification Example (<code>glm</code>)
 <span>  <span class="co">## Degrees of Freedom: 780 Total (i.e. Null);  778 Residual</span></span>
 <span>  <span class="co">## Null Deviance:     1073 </span></span>
 <span>  <span class="co">## Residual Deviance: 662.1   AIC: 668.1</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1192,7 +1253,8 @@ With the <code>"glmnet"</code> engine
 </summary><h3>
 Classification Example (<code>glmnet</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1288,7 +1350,8 @@ Classification Example (<code>glmnet</code>)
 <span>  <span class="co">## 63  2 38.32 0.000964</span></span>
 <span>  <span class="co">## 64  2 38.32 0.000879</span></span>
 <span>  <span class="co">## 65  2 38.32 0.000800</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1312,7 +1375,8 @@ With the <code>"keras"</code> engine
 </summary><h3>
 Classification Example (<code>keras</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1350,7 +1414,8 @@ Classification Example (<code>keras</code>)
 <span>  <span class="co">## Trainable params: 7</span></span>
 <span>  <span class="co">## Non-trainable params: 0</span></span>
 <span>  <span class="co">## __________________________________________________________________________</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1359,22 +1424,23 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.512       0.488 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.839       0.161 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.522       0.478 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.835       0.165 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.645       0.355 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.543       0.457 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.742       0.258 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.527       0.473 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">1</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.503       0.497</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2             0.497       0.503 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.832       0.168 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.508       0.492 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.825       0.175 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.628       0.372 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.523       0.477 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.730       0.270 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.512       0.488 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.989       0.010<span style="text-decoration: underline;">6</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.480       0.520</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
 Classification Example (<code>LiblineaR</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1423,7 +1489,8 @@ Classification Example (<code>LiblineaR</code>)
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## attr(,"class")</span></span>
 <span>  <span class="co">## [1] "LiblineaR"</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1447,7 +1514,8 @@ With the <code>"stan"</code> engine
 </summary><h3>
 Classification Example (<code>stan</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1485,7 +1553,8 @@ Classification Example (<code>stan</code>)
 <span>  <span class="co">## ------</span></span>
 <span>  <span class="co">## * For help interpreting the printed output see ?print.stanreg</span></span>
 <span>  <span class="co">## * For info on the priors used see ?prior_summary.stanreg</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1515,7 +1584,11 @@ With the <code>"earth"</code> engine
 </summary><h3>
 Regression Example (<code>earth</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1569,7 +1642,8 @@ Regression Example (<code>earth</code>)
 <h3>
 Classification Example (<code>earth</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1608,7 +1682,8 @@ Classification Example (<code>earth</code>)
 <span>  <span class="co">## Importance: B, A</span></span>
 <span>  <span class="co">## Number of terms at each degree of interaction: 1 5 (additive model)</span></span>
 <span>  <span class="co">## Earth GCV 0.1334948    RSS 101.3432    GRSq 0.461003    RSq 0.4747349</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mars_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1638,7 +1713,11 @@ With the <code>"nnet"</code> engine
 </summary><h3>
 Regression Example (<code>nnet</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1691,7 +1770,8 @@ Regression Example (<code>nnet</code>)
 <h3>
 Classification Example (<code>nnet</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1725,7 +1805,8 @@ Classification Example (<code>nnet</code>)
 <span>  <span class="co">## inputs: A B </span></span>
 <span>  <span class="co">## output(s): Class </span></span>
 <span>  <span class="co">## options were - entropy fitting</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1749,7 +1830,11 @@ With the <code>"keras"</code> engine
 </summary><h3>
 Regression Example (<code>keras</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1804,12 +1889,13 @@ Regression Example (<code>keras</code>)
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.90</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.73</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.85</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.68</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1850,7 +1936,8 @@ Classification Example (<code>keras</code>)
 <span>  <span class="co">## Trainable params: 27</span></span>
 <span>  <span class="co">## Non-trainable params: 0</span></span>
 <span>  <span class="co">## __________________________________________________________________________</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -1859,16 +1946,16 @@ Classification Example (<code>keras</code>)
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.537        0.463</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.656        0.344</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.591        0.409</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.479        0.521</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.476        0.524</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.415        0.585</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.551        0.449</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.553        0.447</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.736        0.264</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.379        0.621</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.548        0.452</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.672        0.328</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.605        0.395</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.486        0.514</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.483        0.517</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.418        0.582</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.562        0.438</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.565        0.435</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.754        0.246</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.380        0.620</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -1880,7 +1967,8 @@ With the <code>"glmnet"</code> engine
 </summary><h3>
 Classification Example (<code>glmnet</code>)
 </h3>
-<p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
+<p>We’ll predict the island where the penguins were observed with two
+variables in the same unit (mm): bill length and bill depth.</p>
 <div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1972,7 +2060,8 @@ Classification Example (<code>glmnet</code>)
 <span><span class="co">## 58  2 29.75 0.00158</span></span>
 <span><span class="co">## 59  2 29.75 0.00144</span></span>
 <span><span class="co">## 60  2 29.75 0.00131</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
@@ -1991,7 +2080,8 @@ With the <code>"keras"</code> engine
 </summary><h3>
 Classification Example (<code>keras</code>)
 </h3>
-<p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
+<p>We’ll predict the island where the penguins were observed with two
+variables in the same unit (mm): bill length and bill depth.</p>
 <div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2030,7 +2120,8 @@ Classification Example (<code>keras</code>)
 <span><span class="co">## Trainable params: 9</span></span>
 <span><span class="co">## Non-trainable params: 0</span></span>
 <span><span class="co">## __________________________________________________________________________</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
@@ -2039,17 +2130,18 @@ Classification Example (<code>keras</code>)
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.291         0.018<span style="text-decoration: underline;">5</span>      0.691     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">106</span>      1.00        0.000<span style="text-decoration: underline;">001</span>91</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.313         0.486       0.201     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.047<span style="text-decoration: underline;">1</span>        0.942       0.010<span style="text-decoration: underline;">6</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.309         0.024<span style="text-decoration: underline;">8</span>      0.666</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.284         0.016<span style="text-decoration: underline;">9</span>      0.699     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">115</span>      1.00        0.000<span style="text-decoration: underline;">002</span>10</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.322         0.466       0.212     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.051<span style="text-decoration: underline;">1</span>        0.937       0.011<span style="text-decoration: underline;">8</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.302         0.022<span style="text-decoration: underline;">7</span>      0.675</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
 Classification Example (<code>nnet</code>)
 </h3>
-<p>We’ll predict the island where the penguins were observed with two variables in the same unit (mm): bill length and bill depth.</p>
+<p>We’ll predict the island where the penguins were observed with two
+variables in the same unit (mm): bill length and bill depth.</p>
 <div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2088,7 +2180,8 @@ Classification Example (<code>nnet</code>)
 <span><span class="co">## </span></span>
 <span><span class="co">## Residual Deviance: 502.5009 </span></span>
 <span><span class="co">## AIC: 514.5009</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
@@ -2113,7 +2206,11 @@ With the <code>"kknn"</code> engine
 </summary><h3>
 Regression Example (<code>kknn</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2170,7 +2267,8 @@ Regression Example (<code>kknn</code>)
 <h3>
 Classification Example (<code>kknn</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2178,7 +2276,8 @@ Classification Example (<code>kknn</code>)
 <span></span>
 <span><span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
-<p>Since there are two classes, we’ll use an odd number of neighbors to avoid ties:</p>
+<p>Since there are two classes, we’ll use an odd number of neighbors to
+avoid ties:</p>
 <div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">knn_cls_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">11</span>, weight_func <span class="op">=</span> <span class="st">"triangular"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2207,7 +2306,8 @@ Classification Example (<code>kknn</code>)
 <span><span class="co">## Minimal misclassification: 0.1869398</span></span>
 <span><span class="co">## Best kernel: triangular</span></span>
 <span><span class="co">## Best k: 11</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">knn_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -2237,7 +2337,11 @@ With the <code>"ranger"</code> engine
 </summary><h3>
 Regression Example (<code>ranger</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2301,7 +2405,8 @@ Regression Example (<code>ranger</code>)
 <h3>
 Classification Example (<code>ranger</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2345,7 +2450,8 @@ Classification Example (<code>ranger</code>)
 <span>  <span class="co">## Variable importance mode:         none </span></span>
 <span>  <span class="co">## Splitrule:                        gini </span></span>
 <span>  <span class="co">## OOB prediction error (Brier s.):  0.1534794</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -2369,7 +2475,11 @@ With the <code>"randomForest"</code> engine
 </summary><h3>
 Regression Example (<code>randomForest</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2427,7 +2537,8 @@ Regression Example (<code>randomForest</code>)
 <h3>
 Classification Example (<code>randomForest</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2469,7 +2580,8 @@ Classification Example (<code>randomForest</code>)
 <span>  <span class="co">##        Class1 Class2 class.error</span></span>
 <span>  <span class="co">## Class1    363     70   0.1616628</span></span>
 <span>  <span class="co">## Class2     84    264   0.2413793</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -2499,7 +2611,11 @@ With the <code>"LiblineaR"</code> engine
 </summary><h3>
 Regression Example (<code>LiblineaR</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2566,7 +2682,8 @@ Regression Example (<code>LiblineaR</code>)
 <h3>
 Classification Example (<code>LiblineaR</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2638,7 +2755,11 @@ With the <code>"kernlab"</code> engine
 </summary><h3>
 Regression Example (<code>kernlab</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2700,7 +2821,8 @@ Regression Example (<code>kernlab</code>)
 <h3>
 Classification Example (<code>kernlab</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2743,7 +2865,8 @@ Classification Example (<code>kernlab</code>)
 <span>  <span class="co">## Objective Function Value : -349.425 </span></span>
 <span>  <span class="co">## Training error : 0.174136 </span></span>
 <span>  <span class="co">## Probability model included.</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -2773,7 +2896,11 @@ With the <code>"kernlab"</code> engine
 </summary><h3>
 Regression Example (<code>kernlab</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2836,7 +2963,8 @@ Regression Example (<code>kernlab</code>)
 <h3>
 Classification Example (<code>kernlab</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2880,7 +3008,8 @@ Classification Example (<code>kernlab</code>)
 <span>  <span class="co">## Objective Function Value : -349.425 </span></span>
 <span>  <span class="co">## Training error : 0.174136 </span></span>
 <span>  <span class="co">## Probability model included.</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
@@ -2910,7 +3039,11 @@ With the <code>"kernlab"</code> engine
 </summary><h3>
 Regression Example (<code>kernlab</code>)
 </h3>
-<p>We’ll model the ridership on the Chicago elevated trains as a function of the 14 day lagged ridership at two stations. The two predictors are in the same units (rides per day/1000) and do not need to be normalized. All but the last week of data are used for training. The last week will be predicted after the model is fit.</p>
+<p>We’ll model the ridership on the Chicago elevated trains as a
+function of the 14 day lagged ridership at two stations. The two
+predictors are in the same units (rides per day/1000) and do not need to
+be normalized. All but the last week of data are used for training. The
+last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -2971,7 +3104,8 @@ Regression Example (<code>kernlab</code>)
 <h3>
 Classification Example (<code>kernlab</code>)
 </h3>
-<p>The example data has two predictors and an outcome with two classes. Both predictors are in the same units.</p>
+<p>The example data has two predictors and an outcome with two classes.
+Both predictors are in the same units.</p>
 <div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -3013,7 +3147,8 @@ Classification Example (<code>kernlab</code>)
 <span><span class="co">## Objective Function Value : -294.4344 </span></span>
 <span><span class="co">## Training error : 0.169014 </span></span>
 <span><span class="co">## Probability model included.</span></span></code></pre>
-<p>The holdout data can be predicted for both hard class predictions and probabilities. We’ll bind these together into one tibble:</p>
+<p>The holdout data can be predicted for both hard class predictions and
+probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
