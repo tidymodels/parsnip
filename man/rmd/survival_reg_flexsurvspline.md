@@ -1,7 +1,7 @@
-```{r, child = "aaa.Rmd", include = FALSE}
-```
 
-`r descr_models("survival_reg", "flexsurvspline")`
+
+
+For this engine, there is a single mode: censored regression
 
 ## Tuning Parameters
 
@@ -11,9 +11,10 @@ This model has one engine-specific tuning parameter:
 
 ## Translation from parsnip to the original package
 
-`r uses_extension("survival_reg", "flexsurvspline", "censored regression")`
+The **censored** extension package is required to fit this model.
 
-```{r flexsurvspline-creg}
+
+```r
 library(censored)
 
 survival_reg() %>% 
@@ -22,19 +23,33 @@ survival_reg() %>%
   translate()
 ```
 
+```
+## Parametric Survival Regression Model Specification (censored regression)
+## 
+## Engine-Specific Arguments:
+##   k = 1
+## 
+## Computational engine: flexsurvspline 
+## 
+## Model fit template:
+## flexsurv::flexsurvspline(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), k = 1L)
+```
+
 ## Other details
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
 For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvspline()] for alternative specifications.
 
-```{r child = "template-survival-mean.Rmd"}
-```
+
+
+Predictions of type `"time"` are predictions of the mean survival time.
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
-```
+
+This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.
 
 
 ## References
