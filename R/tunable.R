@@ -192,7 +192,7 @@ brulee_multinomial_engine_args <-
 
 flexsurvspline_engine_args <-
   tibble::tibble(
-    name = c("num_knots"),
+    name = c("k"),
     call_info = list(
       list(pkg = "dials", fun = "num_knots")
     ),
@@ -321,8 +321,8 @@ tunable_mlp <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_survival_reg <- function(x, ...) {
+#' @export
+tunable.survival_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "flexsurvspline") {
     res <- add_engine_parameters(res, flexsurvspline_engine_args)
