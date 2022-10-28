@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* Adds support for `flexsurvspline` engine for the `survival_reg()` model specification from the `censored` package (#831)
+* Adds documentation and tuning infrastructure for the new `flexsurvspline` engine for the `survival_reg()` model specification from the `censored` package (@mattwarkentin, #831).
 
 * The matrix interface for fitting `fit_xy()` now works for the `"censored regression"` mode (#829).
 
