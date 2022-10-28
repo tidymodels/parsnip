@@ -330,7 +330,5 @@ tunable_survival_reg <- function(x, ...) {
   res
 }
 
-tunable_surv_reg <- tunable_survival_reg
-
 # nocov end
 
