@@ -322,21 +322,29 @@ new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE
 check_outcome <- function(y, spec) {
   if (spec$mode == "unknown") {
     return(invisible(NULL))
-  } else if (spec$mode == "regression") {
+  }
+
+  if (spec$mode == "regression") {
     outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
     if (!outcome_is_numeric) {
       rlang::abort("For a regression model, the outcome should be numeric.")
     }
-  } else if (spec$mode == "classification") {
+  }
+
+  if (spec$mode == "classification") {
     outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
     if (!outcome_is_factor) {
       rlang::abort("For a classification model, the outcome should be a factor.")
     }
-  } else if (spec$mode == "censored regression") {
-    if (!inherits(y, "Surv")) {
+  }
+
+  if (spec$mode == "censored regression") {
+    outcome_is_surv <- inherits(y, "Surv")
+    if (!outcome_is_surv) {
       rlang::abort("For a censored regression model, the outcome should be a `Surv` object.")
     }
   }
+
   invisible(NULL)
 }
 
