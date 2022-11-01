@@ -105,6 +105,7 @@
 "poisson_reg"	"regression"	"zeroinfl"	"poissonreg"
 "proportional_hazards"	"censored regression"	"glmnet"	"censored"
 "proportional_hazards"	"censored regression"	"survival"	"censored"
+"rand_forest"	"censored regression"	"aorsf"	"censored"
 "rand_forest"	"censored regression"	"partykit"	"censored"
 "rand_forest"	"classification"	"h2o"	"agua"
 "rand_forest"	"classification"	"partykit"	"bonsai"
