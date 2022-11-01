@@ -1,7 +1,6 @@
 ```{r, child = "aaa.Rmd", include = FALSE}
 ```
 
-
 `r descr_models("rand_forest", "aorsf")`
 
 ## Tuning Parameters
@@ -21,9 +20,15 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-  ```{r aorsf-param-list, echo = FALSE, results = "asis"}
+```{r aorsf-param-list, echo = FALSE, results = "asis"}
 param$item
 ```
+
+Additionally, this model has one engine-specific tuning parameter:
+
+ * `split_min_stat`: Minimum test statistic required to split a node. Default is `3.841459` for the log-rank test, which is roughly a p-value of 0.05.
+
+
 # Translation from parsnip to the original package (censored regression)
 
 `r uses_extension("rand_forest", "aorsf", "censored regression")`
@@ -39,11 +44,12 @@ rand_forest() %>%
 
 ## Preprocessing requirements
 
-This engine does not require any special encoding of the predictors. Dummy variables are not required for this model.
+```{r child = "template-tree-split-factors.Rmd"}
+```
 
 ## Other details
 
-The default behavior of the `aorsf` R package is to throw an error message if an `orsf` model is asked to predict survival at a time that exceeds the maximum observed time in its training data. However, for consistency with other engines in `tidymodels`, if a random forest model fitted with the `aorsf` engine is asked to predict survival at a time exceeding the maximum observed event time, it will return a predicted survival probability at the maximum observed time in its training data.
+Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.
 
 ## References
 
