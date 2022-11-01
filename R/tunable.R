@@ -146,6 +146,18 @@ partykit_engine_args <-
     component_id = "engine"
   )
 
+aorsf_engine_args <-
+  tibble::tibble(
+    name = c(
+      "split_min_stat"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "conditional_min_criterion")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
 
 earth_engine_args <-
   tibble::tibble(
@@ -259,6 +271,8 @@ tunable_rand_forest <- function(x, ...) {
     res <- add_engine_parameters(res, randomForest_engine_args)
   } else if (x$engine == "partykit") {
     res <- add_engine_parameters(res, partykit_engine_args)
+  } else if (x$engine == "aorsf") {
+    res <- add_engine_parameters(res, aorsf_engine_args)
   }
   res
 }
