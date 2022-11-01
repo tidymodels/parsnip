@@ -30,12 +30,3 @@ test_that("updating", {
 test_that("bad input", {
   expect_error(survival_reg(mode = ", classification"))
 })
-
-test_that("wrong fit interface", {
-  expect_error(
-    expect_message(
-      survival_reg() %>% fit_xy()
-    ),
-    "must use the formula interface"
-  )
-})

@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* The matrix interface for fitting `fit_xy()` now works for the `"censored regression"` mode (#829).
+
 # parsnip 1.0.2
 
 * A bagged neural network model was added (`bag_mlp()`). Engine implementations will live in the baguette package. 

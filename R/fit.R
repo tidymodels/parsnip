@@ -228,10 +228,6 @@ fit_xy.model_spec <-
       rlang::abort("Please set the mode in the model specification.")
     }
 
-    if (object$mode == "censored regression") {
-      rlang::abort("Models for censored regression must use the formula interface.")
-    }
-
     if (inherits(object, "surv_reg")) {
       rlang::abort("Survival models must use the formula interface.")
     }
@@ -408,9 +404,10 @@ check_xy_interface <- function(x, y, cl, model) {
     inher(x, c("data.frame", "matrix"), cl)
   }
 
-  # `y` can be a vector (which is not a class), or a factor (which is not a vector)
+  # `y` can be a vector (which is not a class), or a factor or
+  # Surv object (which are not vectors)
   if (!is.null(y) && !is.vector(y))
-    inher(y, c("data.frame", "matrix", "factor"), cl)
+    inher(y, c("data.frame", "matrix", "factor", "Surv"), cl)
 
   # rule out spark data sets that don't use the formula interface
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
