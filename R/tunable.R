@@ -94,6 +94,19 @@ xgboost_engine_args <-
     component_id = "engine"
   )
 
+lightgbm_engine_args <-
+  tibble::tibble(
+    name = c(
+      "num_leaves"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "num_leaves")
+    ),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
 ranger_engine_args <-
   tibble::tibble(
     name = c(
@@ -244,6 +257,7 @@ tunable_boost_tree <- function(x, ...) {
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop"))
   } else if (x$engine == "lightgbm") {
+    res <- add_engine_parameters(res, lightgbm_engine_args)
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop"))
   }

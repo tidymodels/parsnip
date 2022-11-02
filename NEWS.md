@@ -2,6 +2,9 @@
 
 * The matrix interface for fitting `fit_xy()` now works for the `"censored regression"` mode (#829).
 
+* The `num_leaves` argument of `boost_tree()`s `lightgbm` engine (via the bonsai package) is now tunable.
+
+
 # parsnip 1.0.2
 
 * A bagged neural network model was added (`bag_mlp()`). Engine implementations will live in the baguette package. 
