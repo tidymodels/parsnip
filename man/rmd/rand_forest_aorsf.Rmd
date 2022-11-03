@@ -47,6 +47,11 @@ rand_forest() %>%
 ```{r child = "template-tree-split-factors.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## Other details
 
 Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.
