@@ -23,21 +23,18 @@ The \strong{censored} extension package is required to fit this model.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 survival_reg() \%>\% 
-  set_engine("flexsurvspline", k = 1L) \%>\% 
+  set_engine("flexsurvspline") \%>\% 
   set_mode("censored regression") \%>\% 
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Parametric Survival Regression Model Specification (censored regression)
 ## 
-## Engine-Specific Arguments:
-##   k = 1
-## 
 ## Computational engine: flexsurvspline 
 ## 
 ## Model fit template:
 ## flexsurv::flexsurvspline(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), k = 1L)
+##     weights = missing_arg())
 }\if{html}{\out{</div>}}
 }
 
@@ -53,6 +50,16 @@ For this engine, stratification cannot be specified via
 alternative specifications.
 
 Predictions of type \code{"time"} are predictions of the mean survival time.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{Saving fitted model objects}{
