@@ -376,6 +376,9 @@
     <loc>https://parsnip.tidymodels.org/dev/reference/details_survival_reg_flexsurv.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/dev/reference/details_survival_reg_flexsurvspline.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/dev/reference/details_survival_reg_survival.html</loc>
   </url>
   <url>
