@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.0.2.9001
+Version: 1.0.2.9003
 Authors@R: c(
     person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
@@ -41,7 +41,7 @@ Imports:
 Suggests: 
     C50,
     covr,
-    dials (>= 0.1.0),
+    dials (>= 1.0.0.9001),
     earth,
     ggrepel,
     keras,
@@ -76,3 +76,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 RoxygenNote: 7.2.1.9000
+Remotes: 
+    tidymodels/dials#256
