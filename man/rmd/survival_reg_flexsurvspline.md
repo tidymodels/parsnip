@@ -18,7 +18,7 @@ The **censored** extension package is required to fit this model.
 library(censored)
 
 survival_reg() %>% 
-  set_engine("flexsurvspline", k = 1L) %>% 
+  set_engine("flexsurvspline") %>% 
   set_mode("censored regression") %>% 
   translate()
 ```
@@ -26,14 +26,11 @@ survival_reg() %>%
 ```
 ## Parametric Survival Regression Model Specification (censored regression)
 ## 
-## Engine-Specific Arguments:
-##   k = 1
-## 
 ## Computational engine: flexsurvspline 
 ## 
 ## Model fit template:
 ## flexsurv::flexsurvspline(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), k = 1L)
+##     weights = missing_arg())
 ```
 
 ## Other details
