@@ -31,6 +31,12 @@ For this engine, stratification cannot be specified via [`strata()`], please see
 ```{r child = "template-survival-mean.Rmd"}
 ```
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
+
 ## Saving fitted model objects
 
 ```{r child = "template-butcher.Rmd"}
