@@ -123,6 +123,7 @@
 "surv_reg"	"regression"	"flexsurv"	NA
 "surv_reg"	"regression"	"survival"	NA
 "survival_reg"	"censored regression"	"flexsurv"	"censored"
+"survival_reg"	"censored regression"	"flexsurvspline"	"censored"
 "survival_reg"	"censored regression"	"survival"	"censored"
 "svm_linear"	"classification"	"kernlab"	NA
 "svm_linear"	"classification"	"LiblineaR"	NA
