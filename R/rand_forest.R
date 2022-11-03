@@ -175,8 +175,9 @@ fit_xy.rand_forest <- function(object,
                                ...) {
 
   if (object$mode == "censored regression" && object$engine == "aorsf") {
-    # aorsf::orsf() requires two variables on the left-hand side of the formula,
+    # CRAN aorsf::orsf() requires two variables on the left-hand side of the formula,
     # either in as `Surv(time, status) ~ .` or as `time + status ~ .`
+    # see https://github.com/ropensci/aorsf/issues/11
     rlang::abort("For the `'aorsf'` engine, please use the formula interface via `fit()`.")
   }
 
