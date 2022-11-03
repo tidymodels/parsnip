@@ -5,11 +5,9 @@ For this engine, there is a single mode: censored regression
 
 ## Tuning Parameters
 
+This model has one engine-specific tuning parameter:
 
-
-This model has 1 tuning parameters:
-
-- `dist`: Distribution (type: character, default: 'weibull')
+ * `k`: Number of knots in the spline. The default is `k = 0`.
 
 ## Translation from parsnip to the original package
 
@@ -19,8 +17,8 @@ The **censored** extension package is required to fit this model.
 ```r
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("flexsurv") %>% 
+survival_reg() %>% 
+  set_engine("flexsurvspline") %>% 
   set_mode("censored regression") %>% 
   translate()
 ```
@@ -28,21 +26,18 @@ survival_reg(dist = character(1)) %>%
 ```
 ## Parametric Survival Regression Model Specification (censored regression)
 ## 
-## Main Arguments:
-##   dist = character(1)
-## 
-## Computational engine: flexsurv 
+## Computational engine: flexsurvspline 
 ## 
 ## Model fit template:
-## flexsurv::flexsurvreg(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), dist = character(1))
+## flexsurv::flexsurvspline(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg())
 ```
 
 ## Other details
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
-For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvreg()] for alternative specifications.
+For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvspline()] for alternative specifications.
 
 
 
@@ -54,6 +49,7 @@ Predictions of type `"time"` are predictions of the mean survival time.
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 
 ## Saving fitted model objects
 

@@ -10,7 +10,7 @@
 ## usethis namespace: start
 #' @importFrom dplyr arrange bind_cols bind_rows collect full_join group_by
 #' @importFrom dplyr mutate pull rename select starts_with summarise tally
-#' @importFrom generics varying_args
+#' @importFrom generics tunable varying_args
 #' @importFrom glue glue_collapse
 #' @importFrom pillar type_sum
 #' @importFrom purrr as_vector imap imap_lgl map map_chr map_dbl map_df map_dfr
