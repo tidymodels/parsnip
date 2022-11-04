@@ -1,0 +1,65 @@
+```{r, child = "aaa.Rmd", include = FALSE}
+```
+
+`r descr_models("rand_forest", "aorsf")`
+
+## Tuning Parameters
+
+```{r aorsf-param-info, echo = FALSE}
+defaults <-
+  tibble::tibble(parsnip = c("trees", "min_n", "mtry"),
+                 default = c("500L", "5L", "ceiling(sqrt(n_predictors))"))
+
+param <-
+  rand_forest() %>%
+  set_engine("aorsf") %>%
+  set_mode("censored regression") %>%
+  make_parameter_list(defaults) %>%
+  distinct()
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r aorsf-param-list, echo = FALSE, results = "asis"}
+param$item
+```
+
+Additionally, this model has one engine-specific tuning parameter:
+
+ * `split_min_stat`: Minimum test statistic required to split a node. Default is `3.841459` for the log-rank test, which is roughly a p-value of 0.05.
+
+
+# Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("rand_forest", "aorsf", "censored regression")`
+
+```{r aorsf-creg}
+library(censored)
+
+rand_forest() %>%
+  set_engine("aorsf") %>%
+  set_mode("censored regression") %>%
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r child = "template-tree-split-factors.Rmd"}
+```
+
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
+## Other details
+
+Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.
+
+## References
+
+- Jaeger BC, Long DL, Long DM, Sims M, Szychowski JM, Min YI, Mcclure LA, Howard G, Simon N. Oblique random survival forests. Annals of applied statistics 2019 Sep; 13(3):1847-83. DOI: 10.1214/19-AOAS1261
+
+- Jaeger BC, Welden S, Lenoir K, Pajewski NM. aorsf: An R package for supervised learning using the oblique random survival forest. Journal of Open Source Software 2022, 7(77), 1 4705. https://doi.org/10.21105/joss.04705.
+
+- Jaeger BC, Welden S, Lenoir K, Speiser JL, Segar MW, Pandey A, Pajewski NM. Accelerated and interpretable oblique random survival forests. arXiv e-prints 2022 Aug; arXiv-2208. URL: https://arxiv.org/abs/2208.01129

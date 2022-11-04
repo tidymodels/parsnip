@@ -163,3 +163,25 @@ check_args.rand_forest <- function(object) {
   # move translate checks here?
   invisible(object)
 }
+
+# ------------------------------------------------------------------------------
+
+#' @export
+fit_xy.rand_forest <- function(object,
+                               x,
+                               y,
+                               case_weights = NULL,
+                               control = parsnip::control_parsnip(),
+                               ...) {
+
+  if (object$mode == "censored regression" && object$engine == "aorsf") {
+    # CRAN aorsf::orsf() requires two variables on the left-hand side of the formula,
+    # either in as `Surv(time, status) ~ .` or as `time + status ~ .`
+    # see https://github.com/ropensci/aorsf/issues/11
+    rlang::abort("For the `'aorsf'` engine, please use the formula interface via `fit()`.")
+  }
+
+  # call parsnip::fit_xy.model_spec()
+  res <- NextMethod()
+  res
+}
