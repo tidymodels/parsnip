@@ -29,6 +29,8 @@ p-value of 0.05.
 }
 }
 \section{Translation from parsnip to the original package (censored regression)}{
+The \strong{censored} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 rand_forest() \%>\%
@@ -50,6 +52,16 @@ This engine does not require any special encoding of the predictors.
 Categorical predictors can be partitioned into groups of factor levels
 (e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
 are not required for this model.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{Other details}{
