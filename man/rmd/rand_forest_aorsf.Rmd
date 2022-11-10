@@ -60,6 +60,6 @@ Predictions of survival probability at a time exceeding the maximum observed eve
 
 - Jaeger BC, Long DL, Long DM, Sims M, Szychowski JM, Min YI, Mcclure LA, Howard G, Simon N. Oblique random survival forests. Annals of applied statistics 2019 Sep; 13(3):1847-83. DOI: 10.1214/19-AOAS1261
 
-- Jaeger BC, Welden S, Lenoir K, Pajewski NM. aorsf: An R package for supervised learning using the oblique random survival forest. Journal of Open Source Software 2022, 7(77), 1 4705. https://doi.org/10.21105/joss.04705.
+- Jaeger BC, Welden S, Lenoir K, Pajewski NM. aorsf: An R package for supervised learning using the oblique random survival forest. Journal of Open Source Software 2022, 7(77), 1 4705. \doi{10.21105/joss.04705}.
 
 - Jaeger BC, Welden S, Lenoir K, Speiser JL, Segar MW, Pandey A, Pajewski NM. Accelerated and interpretable oblique random survival forests. arXiv e-prints 2022 Aug; arXiv-2208. URL: https://arxiv.org/abs/2208.01129
