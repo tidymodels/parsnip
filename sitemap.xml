@@ -349,6 +349,9 @@
     <loc>https://parsnip.tidymodels.org/reference/details_proportional_hazards_survival.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_rand_forest_aorsf.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/details_rand_forest_h2o.html</loc>
   </url>
   <url>
@@ -377,6 +380,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_survival_reg_flexsurv.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/details_survival_reg_flexsurvspline.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/details_survival_reg_survival.html</loc>
@@ -413,6 +419,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/eval_args.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/extension-check-helpers.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/extract-parsnip.html</loc>

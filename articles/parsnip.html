@@ -39,7 +39,7 @@ getting bogged down in the syntactical minutiae of the underlying software.
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,37 +105,68 @@ getting bogged down in the syntactical minutiae of the underlying software.
 
     
     
-<p>This package provides functions and methods to create and manipulate functions commonly used during modeling (e.g. fitting the model, making predictions, etc). It allows the user to manipulate how the same type of model can be created from different sources.</p>
+<p>This package provides functions and methods to create and manipulate
+functions commonly used during modeling (e.g. fitting the model, making
+predictions, etc). It allows the user to manipulate how the same type of
+model can be created from different sources.</p>
 <div class="section level3">
 <h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h3>
-<p>Modeling functions across different R packages can have very different interfaces. If you would like to try different approaches, there is a lot of syntactical minutiae to remember. The problem worsens when you move in-between platforms (e.g. doing a logistic regression in R’s <code>glm</code> versus Spark’s implementation).</p>
-<p><code>parsnip</code> tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:</p>
+<p>Modeling functions across different R packages can have very
+different interfaces. If you would like to try different approaches,
+there is a lot of syntactical minutiae to remember. The problem worsens
+when you move in-between platforms (e.g. doing a logistic regression in
+R’s <code>glm</code> versus Spark’s implementation).</p>
+<p><code>parsnip</code> tries to solve this by providing similar
+interfaces to models. For example, if you are fitting a random forest
+model and would like to adjust the number of trees in the forest there
+are different argument names to remember:</p>
 <ul>
 <li>
-<code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest</a></code> uses <code>ntree</code>,</li>
+<code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest</a></code> uses
+<code>ntree</code>,</li>
 <li>
 <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger::ranger</a></code> uses <code>num.trees</code>,<br>
 </li>
-<li>Spark’s <code><a href="https://rdrr.io/pkg/sparklyr/man/ml_random_forest.html" class="external-link">sparklyr::ml_random_forest</a></code> uses <code>num_trees</code>.</li>
+<li>Spark’s <code><a href="https://rdrr.io/pkg/sparklyr/man/ml_random_forest.html" class="external-link">sparklyr::ml_random_forest</a></code> uses
+<code>num_trees</code>.</li>
 </ul>
-<p>Rather than remembering these values, a common interface to these models can be used with</p>
+<p>Rather than remembering these values, a common interface to these
+models can be used with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
 <span><span class="va">rf_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
-<p>The package makes the translation between <code>trees</code> and the real names in each of the implementations.</p>
+<p>The package makes the translation between <code>trees</code> and the
+real names in each of the implementations.</p>
 <p>Some terminology:</p>
 <ul>
-<li>The <strong>model type</strong> differentiates models. Example types are: random forests, logistic regression, linear support vector machines, etc.</li>
-<li>The <strong>mode</strong> of the model denotes how it will be used. Two common modes are <em>classification</em> and <em>regression</em>. Others would include “censored regression” and “risk regression” (parametric and Cox PH models for censored data, respectively), as well as unsupervised models (e.g. “clustering”).</li>
-<li>The <strong>computational engine</strong> indicates how the actual model might be fit. These are often R packages (such as <code>randomForest</code> or <code>ranger</code>) but might also be methods outside of R (e.g. Stan, Spark, and others).</li>
+<li>The <strong>model type</strong> differentiates models. Example types
+are: random forests, logistic regression, linear support vector
+machines, etc.</li>
+<li>The <strong>mode</strong> of the model denotes how it will be used.
+Two common modes are <em>classification</em> and <em>regression</em>.
+Others would include “censored regression” and “risk regression”
+(parametric and Cox PH models for censored data, respectively), as well
+as unsupervised models (e.g. “clustering”).</li>
+<li>The <strong>computational engine</strong> indicates how the actual
+model might be fit. These are often R packages (such as
+<code>randomForest</code> or <code>ranger</code>) but might also be
+methods outside of R (e.g. Stan, Spark, and others).</li>
 </ul>
-<p><code>parsnip</code>, similar to <code>ggplot2</code>, <code>dplyr</code> and <code>recipes</code>, separates the specification of what you want to do from the actual doing. This allows us to create broader functionality for modeling.</p>
+<p><code>parsnip</code>, similar to <code>ggplot2</code>,
+<code>dplyr</code> and <code>recipes</code>, separates the specification
+of what you want to do from the actual doing. This allows us to create
+broader functionality for modeling.</p>
 </div>
 <div class="section level3">
 <h3 id="placeholders-for-parameters">Placeholders for Parameters<a class="anchor" aria-label="anchor" href="#placeholders-for-parameters"></a>
 </h3>
-<p>There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for <em>model tuning</em> where we use the <a href="https://tune.tidymodels.org/" class="external-link">tune</a> package. Since the model is not executing when created, these types of parameters can be changed using the <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> function. This provides a simple placeholder for the value.</p>
+<p>There are times where you would like to change a parameter from its
+default but you are not sure what the final value will be. This is the
+basis for <em>model tuning</em> where we use the <a href="https://tune.tidymodels.org/" class="external-link">tune</a> package. Since the model is
+not executing when created, these types of parameters can be changed
+using the <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> function. This provides a simple
+placeholder for the value.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_mtry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">tune_mtry</span></span>
@@ -146,19 +177,25 @@ getting bogged down in the syntactical minutiae of the underlying software.
 <span><span class="co">#&gt;   trees = 2000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Computational engine: ranger</span></span></code></pre></div>
-<p>This will come in handy later when we fit the model over different values of <code>mtry</code>.</p>
+<p>This will come in handy later when we fit the model over different
+values of <code>mtry</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="specifying-arguments">Specifying Arguments<a class="anchor" aria-label="anchor" href="#specifying-arguments"></a>
 </h3>
-<p>Commonly used arguments to the modeling functions have their parameters exposed in the function. For example, <code>rand_forest</code> has arguments for:</p>
+<p>Commonly used arguments to the modeling functions have their
+parameters exposed in the function. For example,
+<code>rand_forest</code> has arguments for:</p>
 <ul>
 <li>
-<code>mtry</code>: The number of predictors that will be randomly sampled at each split when creating the tree models.</li>
+<code>mtry</code>: The number of predictors that will be randomly
+sampled at each split when creating the tree models.</li>
 <li>
-<code>trees</code>: The number of trees contained in the ensemble.</li>
+<code>trees</code>: The number of trees contained in the
+ensemble.</li>
 <li>
-<code>min_n</code>: The minimum number of data points in a node that are required for the node to be split further.</li>
+<code>min_n</code>: The minimum number of data points in a node that
+are required for the node to be split further.</li>
 </ul>
 <p>The arguments to the default function are:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -166,7 +203,10 @@ getting bogged down in the syntactical minutiae of the underlying software.
 <span><span class="co">#&gt; function (mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, </span></span>
 <span><span class="co">#&gt;     min_n = NULL) </span></span>
 <span><span class="co">#&gt; NULL</span></span></code></pre></div>
-<p>However, there might be other arguments that you would like to change or allow to vary. These are accessible using <code>set_engine</code>. For example, <code>ranger</code> has an option to set the internal random number seed. To set this to a specific value:</p>
+<p>However, there might be other arguments that you would like to change
+or allow to vary. These are accessible using <code>set_engine</code>.
+For example, <code>ranger</code> has an option to set the internal
+random number seed. To set this to a specific value:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rf_with_seed</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -192,7 +232,9 @@ getting bogged down in the syntactical minutiae of the underlying software.
 <li>have no <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> parameters, and</li>
 <li>specify a computational engine.</li>
 </ul>
-<p>For example, <code>rf_with_seed</code> above is not ready for fitting due the <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> parameter. We can set that parameter’s value and then create the model fit:</p>
+<p>For example, <code>rf_with_seed</code> above is not ready for fitting
+due the <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> parameter. We can set that parameter’s value
+and then create the model fit:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rf_with_seed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_args.html">set_args</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -233,9 +275,17 @@ getting bogged down in the syntactical minutiae of the underlying software.
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;           Mean of squared residuals: 5.52</span></span>
 <span><span class="co">#&gt;                     % Var explained: 84.3</span></span></code></pre>
-<p>Note that the call objects show <code>num.trees = ~2000</code>. The tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures" class="external-link">quosures</a> to process the model specification’s arguments.</p>
-<p>Normally, when a function is executed, the function’s arguments are immediately evaluated. In the case of <code>parsnip</code>, the model specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/blog/2019/04/parsnip-internals/" class="external-link">expression is captured</a> along with the environment where it should be evaluated. That is what a quosure does.</p>
-<p><code>parsnip</code> uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure.</p>
+<p>Note that the call objects show <code>num.trees = ~2000</code>. The
+tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures" class="external-link">quosures</a> to
+process the model specification’s arguments.</p>
+<p>Normally, when a function is executed, the function’s arguments are
+immediately evaluated. In the case of <code>parsnip</code>, the model
+specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/blog/2019/04/parsnip-internals/" class="external-link">expression
+is captured</a> along with the environment where it should be evaluated.
+That is what a quosure does.</p>
+<p><code>parsnip</code> uses these expressions to make a model fit call
+that is evaluated. The tilde in the call above reflects that the
+argument was captured using a quosure.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

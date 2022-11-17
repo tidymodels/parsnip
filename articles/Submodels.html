@@ -39,7 +39,7 @@ and avoid having to fit any of the submodels.
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,8 +105,16 @@ and avoid having to fit any of the submodels.
 
     
     
-<p>Some R packages can create predictions from models that are different than the one that was fit. For example, if a boosted tree is fit with 10 iterations of boosting, the model can usually make predictions on <em>submodels</em> that have less than 10 trees (all other parameters being static). This is helpful for model tuning since you can cheap evaluate tuning parameter combinations and can often results in a large speed-up in the computations.</p>
-<p>In <code>parsnip</code>, there is a method called <code><a href="../reference/multi_predict.html">multi_predict()</a></code> that can do this. It’s current methods are:</p>
+<p>Some R packages can create predictions from models that are different
+than the one that was fit. For example, if a boosted tree is fit with 10
+iterations of boosting, the model can usually make predictions on
+<em>submodels</em> that have less than 10 trees (all other parameters
+being static). This is helpful for model tuning since you can cheap
+evaluate tuning parameter combinations and can often results in a large
+speed-up in the computations.</p>
+<p>In <code>parsnip</code>, there is a method called
+<code><a href="../reference/multi_predict.html">multi_predict()</a></code> that can do this. It’s current methods
+are:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"multi_predict"</span><span class="op">)</span></span></code></pre></div>
@@ -116,23 +124,24 @@ and avoid having to fit any of the submodels.
 <span><span class="co">## [7] multi_predict._train.kknn*  multi_predict._xgb.Booster*</span></span>
 <span><span class="co">## [9] multi_predict.default*     </span></span>
 <span><span class="co">## see '?methods' for accessing help and source code</span></span></code></pre>
-<p>We’ll use the attrition data in <code>rsample</code> to illustrate:</p>
+<p>We’ll use the attrition data in <code>rsample</code> to
+illustrate:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────── tidymodels 1.0.0.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.1.0 </span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.0.0      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble      </span> 3.1.8 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.1.0      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble      </span> 3.1.8 </span></span>
 <span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.0.10     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.2.1 </span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.3      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.0.0 </span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.0.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.1.0 </span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 0.3.4      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.0.0 </span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.0.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.1.0</span></span></code></pre>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.3      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.0.1 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.0.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.1.2 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 0.3.5      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.0.0 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.0.3      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.1.0</span></span></code></pre>
 <pre><code><span><span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ─────────────────────────────────── tidymodels_conflicts() ──</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">purrr</span>::<span style="color: #00BB00;">discard()</span> masks <span style="color: #0000BB;">scales</span>::discard()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span><span class="co">## <span style="color: #0000BB;">•</span> Use suppressPackageStartupMessages() to eliminate package startup messages</span></span></code></pre>
+<span><span class="co">## <span style="color: #0000BB;">•</span> Search for functions across packages at <span style="color: #00BB00;">https://www.tidymodels.org/find/</span></span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">attrition</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span></span>
 <span></span>
@@ -140,17 +149,20 @@ and avoid having to fit any of the submodels.
 <span><span class="va">data_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">attrition</span>, strata <span class="op">=</span> <span class="st">"Attrition"</span><span class="op">)</span></span>
 <span><span class="va">attrition_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span></span>
 <span><span class="va">attrition_test</span>  <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span></span></code></pre></div>
-<p>A boosted classification tree is one of the most low-maintenance approaches that we could take to these data:</p>
+<p>A boosted classification tree is one of the most low-maintenance
+approaches that we could take to these data:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># requires the xgboost package</span></span>
 <span><span class="va">attrition_boost</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/boost_tree.html">boost_tree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, trees <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"C5.0"</span><span class="op">)</span></span></code></pre></div>
-<p>Suppose that 10-fold cross-validation was being used to tune the model over the number of trees:</p>
+<p>Suppose that 10-fold cross-validation was being used to tune the
+model over the number of trees:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">616</span><span class="op">)</span></span>
 <span><span class="va">folds</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">attrition_train</span><span class="op">)</span></span></code></pre></div>
-<p>The process would fit a model on 90% of the data and predict on the remaining 10%. Using <code>rsample</code>:</p>
+<p>The process would fit a model on 90% of the data and predict on the
+remaining 10%. Using <code>rsample</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_data</span> <span class="op">&lt;-</span> <span class="fu">analysis</span><span class="op">(</span><span class="va">folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">pred_data</span>  <span class="op">&lt;-</span> <span class="fu">assessment</span><span class="op">(</span><span class="va">folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
@@ -158,7 +170,10 @@ and avoid having to fit any of the submodels.
 <span><span class="va">fold_1_model</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">attrition_boost</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Attrition</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">model_data</span><span class="op">$</span><span class="va">Attrition</span><span class="op">)</span></span></code></pre></div>
-<p>For <code><a href="../reference/multi_predict.html">multi_predict()</a></code>, the same semantics of <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> are used but, for this model, there is an extra argument called <code>trees</code>. Candidate submodel values can be passed in with <code>trees</code>:</p>
+<p>For <code><a href="../reference/multi_predict.html">multi_predict()</a></code>, the same semantics of
+<code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> are used but, for this model, there is an extra
+argument called <code>trees</code>. Candidate submodel values can be
+passed in with <code>trees</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fold_1_pred</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/multi_predict.html">multi_predict</a></span><span class="op">(</span></span>
@@ -182,7 +197,10 @@ and avoid having to fit any of the submodels.
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="color: #949494;">&lt;tibble [100 × 3]&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="color: #949494;">&lt;tibble [100 × 3]&gt;</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 101 more rows</span></span></span></code></pre>
-<p>The results is a tibble that has as many rows as the data being predicted (<em>n</em> = 111). The <code>.pred</code> column contains a list of tibbles and each has the predictions across the different number of trees:</p>
+<p>The results is a tibble that has as many rows as the data being
+predicted (<em>n</em> = 111). The <code>.pred</code> column contains a
+list of tibbles and each has the predictions across the different number
+of trees:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fold_1_pred</span><span class="op">$</span><span class="va">.pred</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 100 × 3</span></span></span>
@@ -199,7 +217,9 @@ and avoid having to fit any of the submodels.
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     9    0.596    0.404 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>    10    0.638    0.362 </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 90 more rows</span></span></span></code></pre>
-<p>To get this into a format that is more usable, we can use <code><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">tidyr::unnest()</a></code> but we first add row numbers so that we can track the predictions by test sample as well as the actual classes:</p>
+<p>To get this into a format that is more usable, we can use
+<code><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">tidyr::unnest()</a></code> but we first add row numbers so that we can
+track the predictions by test sample as well as the actual classes:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fold_1_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">fold_1_pred</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -230,7 +250,8 @@ and avoid having to fit any of the submodels.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Submodels_files/figure-html/prob-plot-1.png" width="768"></p>
-<p>What does performance look like over trees (using the area under the ROC curve)?</p>
+<p>What does performance look like over trees (using the area under the
+ROC curve)?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fold_1_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
