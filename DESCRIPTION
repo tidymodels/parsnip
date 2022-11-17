@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.0.2.9005
+Version: 1.0.3
 Authors@R: c(
     person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
@@ -11,7 +11,7 @@ Maintainer: Max Kuhn <max@rstudio.com>
 Description: A common interface is provided to allow users to specify a
     model without having to remember the different argument names across
     different functions or computational engines (e.g. 'R', 'Spark',
-    'Stan', etc).
+    'Stan', 'H2O', etc).
 License: MIT + file LICENSE
 URL: https://github.com/tidymodels/parsnip,
     https://parsnip.tidymodels.org/
@@ -71,8 +71,8 @@ Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
     tidymodels/tidymodels, tidyverse/tidytemplate, rstudio/reticulate,
     xgboost
 Config/rcmdcheck/ignore-inconsequential-notes: true
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-Config/testthat/edition: 3
 RoxygenNote: 7.2.1.9000
