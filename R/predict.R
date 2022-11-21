@@ -390,16 +390,14 @@ check_pred_type_dots <- function(object, type, ...) {
 #' @keywords internal
 #' @export
 prepare_data <- function(object, new_data) {
-  fit_interface <- object$spec$method$fit$interface
+  preproc_names <- names(object$preproc)
+  translate_from_formula_to_xy <- any(preproc_names == "terms", na.rm = TRUE)
+  translate_from_xy_to_formula <- any(preproc_names == "x_var", na.rm = TRUE)
 
-  pp_names <- names(object$preproc)
-  if (any(pp_names == "terms") | any(pp_names == "x_var")) {
-    # Translation code
-    if (fit_interface == "formula") {
-      new_data <- .convert_xy_to_form_new(object$preproc, new_data)
-    } else {
-      new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x
-    }
+  if (translate_from_formula_to_xy) {
+    new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x
+  } else if (translate_from_xy_to_formula) {
+    new_data <- .convert_xy_to_form_new(object$preproc, new_data)
   }
 
   remove_intercept <-
@@ -410,6 +408,7 @@ prepare_data <- function(object, new_data) {
     new_data <- new_data %>% dplyr::select(-dplyr::one_of("(Intercept)"))
   }
 
+  fit_interface <- object$spec$method$fit$interface
   switch(
     fit_interface,
     none = new_data,
