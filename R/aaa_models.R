@@ -637,7 +637,6 @@ set_model_engine <- function(model, mode, eng) {
   check_model_exists(model)
   check_mode_val(mode)
   check_eng_val(eng)
-  check_mode_val(eng)
   check_mode_for_new_engine(model, eng, mode)
 
   new_eng <- dplyr::tibble(engine = eng, mode = mode)
