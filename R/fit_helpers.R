@@ -32,29 +32,18 @@ form_form <-
       spec = object
     )
 
-    if (control$verbosity > 1L) {
-      elapsed <- system.time(
-        res$fit <- eval_mod(
-          fit_call,
-          capture = control$verbosity == 0,
-          catch = control$catch,
-          envir = env,
-          ...
-        ),
-        gcFirst = FALSE
-      )
-    } else {
+    elapsed <- system.time(
       res$fit <- eval_mod(
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
         envir = env,
         ...
-      )
-      elapsed <- list(elapsed = NA_real_)
-    }
+      ),
+      gcFirst = FALSE
+    )
     res$preproc <- list(y_var = all.vars(env$formula[[2]]))
-    res$elapsed <- elapsed
+    res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
     res
   }
 
@@ -90,27 +79,16 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   res <- list(lvl = levels(env$y), spec = object)
 
-  if (control$verbosity > 1L) {
-    elapsed <- system.time(
-      res$fit <- eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        envir = env,
-        ...
-      ),
-      gcFirst = FALSE
-    )
-  } else {
+  elapsed <- system.time(
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
       catch = control$catch,
       envir = env,
       ...
-    )
-    elapsed <- list(elapsed = NA_real_)
-  }
+    ),
+    gcFirst = FALSE
+  )
 
   if (is.vector(env$y)) {
     y_name <- character(0)
@@ -118,7 +96,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     y_name <- colnames(env$y)
   }
   res$preproc <- list(y_var = y_name)
-  res$elapsed <- elapsed
+  res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
 

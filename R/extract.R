@@ -14,6 +14,8 @@
 #'
 #' - `extract_parameter_set_dials()` returns a set of dials parameter objects.
 #'
+#' - `extract_fit_time()` returns a tibble with fit times.
+#'
 #' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
 #' @param parameter A single string for the parameter ID.
 #' @param ... Not currently used.
@@ -126,4 +128,14 @@ eval_call_info <-  function(x) {
 #' @rdname extract-parsnip
 extract_parameter_dials.model_spec <- function(x, parameter, ...) {
   extract_parameter_dials(extract_parameter_set_dials(x), parameter)
+}
+
+#' @export
+#' @rdname extract-parsnip
+extract_fit_time.model_fit <- function(x, ...) {
+  dplyr::tibble(
+    id = class(x$spec)[1],
+    part = "fit",
+    time = x$elapsed$elapsed[["elapsed"]]
+  )
 }
