@@ -77,4 +77,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1.9000
 Remotes:  
-    tidymodels/hardhat
+    tidymodels/hardhat@extract_fit_time
