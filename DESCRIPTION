@@ -25,7 +25,7 @@ Imports:
     ggplot2,
     globals,
     glue,
-    hardhat (>= 1.1.0),
+    hardhat (>= 1.2.0.9000),
     lifecycle,
     magrittr,
     pillar,
@@ -76,3 +76,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1.9000
+Remotes:  
+    tidymodels/hardhat
