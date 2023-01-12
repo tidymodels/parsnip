@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* For censored regression models, a "reverse Kaplan-Meier" curve is computed. This can be used for later use when evaluating this type of model. 
+
 # parsnip 1.0.3
 
 * Adds documentation and tuning infrastructure for the new `flexsurvspline` engine for the `survival_reg()` model specification from the `censored` package (@mattwarkentin, #831).

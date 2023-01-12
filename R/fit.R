@@ -54,6 +54,12 @@
 #' `options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))`.
 #' See the help page for [stats::contr.treatment()] for more possible contrast
 #' types.
+#'
+#' For models with `"censored regression"` modes, an additional computation is
+#' executed and saved in the parsnip object. The `censor_probs` element contains
+#' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
+#' may be used later to compute inverse probability censoring weights for
+#' performance measures.
 #' @examples
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
