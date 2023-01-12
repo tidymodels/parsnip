@@ -198,4 +198,37 @@ xy_form <- function(object, env, control, ...) {
   res
 }
 
+# ------------------------------------------------------------------------------
+# estimate the reverse km curve for censored regresison models
+
+make_cens_prob_model <- function(obj, eval_env) {
+  if (obj$mode != "censored regression") {
+    return(list())
+  }
+  rlang::check_installed("prodlim")
+
+  # Note: even when fit_xy() is called, eval_env will still have
+  # objects data and formula in them
+  f <- eval_env$formula
+  km_form <- stats::update(f, ~ 1)
+  cl <-
+    rlang::call2(
+      "prodlim",
+      formula = km_form,
+      .ns = "prodlim",
+      reverse = TRUE,
+      type = "surv",
+      x = FALSE,
+      data = rlang::expr(eval_env$data)
+    )
+
+  if (!is.null(eval_env$weights)) {
+    cl <- rlang::call_modify(cl, caseweights = rlang::expr(eval_env$weights))
+  }
+  rkm <- rlang::eval_tidy(cl)
+  attr(formula, ".Environment") <- rlang::base_env()
+  attr(rkm$formula, ".Environment") <- rlang::base_env()
+  list(formula = formula, model = rkm)
+}
+
 
