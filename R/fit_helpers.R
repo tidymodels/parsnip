@@ -226,11 +226,11 @@ make_cens_prob_model <- function(obj, eval_env) {
     cl <- rlang::call_modify(cl, caseweights = rlang::expr(eval_env$weights))
   }
   rkm <- try(rlang::eval_tidy(cl), silent = TRUE)
-  if (!inher(rkm, "try-error")) {
+  if (!inherits(rkm, "try-error")) {
     attr(formula, ".Environment") <- rlang::base_env()
   }
   attr(rkm$formula, ".Environment") <- rlang::base_env()
-  list(formula = formula, model = rkm)
+  list(formula = f, model = rkm)
 }
 
 
