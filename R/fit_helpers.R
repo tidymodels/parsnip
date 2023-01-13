@@ -227,7 +227,7 @@ make_cens_prob_model <- function(obj, eval_env) {
   }
   rkm <- try(rlang::eval_tidy(cl), silent = TRUE)
   if (!inherits(rkm, "try-error")) {
-    attr(formula, ".Environment") <- rlang::base_env()
+    attr(f, ".Environment") <- rlang::base_env()
   }
   attr(rkm$formula, ".Environment") <- rlang::base_env()
   list(formula = f, model = rkm)
