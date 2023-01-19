@@ -1,3 +1,6 @@
+# nocov start
+# tested in the extratests repo
+
 new_censoring_model <-
   function(formula,
            object,
@@ -79,13 +82,14 @@ predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as
       tmp <-
         purrr::map_dbl(time, ~ predict(object$fit, newdata = new_data, times = .x, type = "surv"))
     }
-    if (any(tmp == 0)) {
+    zero_prob <- purrr::map_lgl(tmp, ~ !is.na(.x) && .x == 0)
+    if (any(zero_prob)) {
       # Don't want censoring probabilities of zero so add an epsilon
       # Either use 1/n or half of the minimum survival probability
       n <- max(object$fit$n.risk)
       half_min_surv_prob <- min(object$fit$surv[object$fit$surv > 0]) / 2
       eps <- min(1 / n, half_min_surv_prob)
-      tmp[tmp == 0] <- eps
+      tmp[zero_prob] <- eps
     }
 
     if (length(is_na) > 0) {
@@ -99,3 +103,5 @@ predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as
   }
   res
 }
+
+# nocov end
