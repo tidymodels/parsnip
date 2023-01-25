@@ -200,6 +200,7 @@ multi_predict._multnet <-
       penalty <- eval_tidy(penalty)
 
     dots <- list(...)
+
     if (is.null(penalty)) {
       # See discussion in https://github.com/tidymodels/parsnip/issues/195
       if (!is.null(object$spec$args$penalty)) {
@@ -208,7 +209,6 @@ multi_predict._multnet <-
         penalty <- object$fit$lambda
       }
     }
-    dots$s <- penalty
 
     if (is.null(type))
       type <- "class"
@@ -221,7 +221,8 @@ multi_predict._multnet <-
       dots$type <- type
 
     object$spec <- eval_args(object$spec)
-    pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
+    pred <- predict._lognet(object, new_data = new_data, type = "raw",
+                            opts = dots, penalty = penalty, multi = TRUE)
 
     format_probs <- function(x) {
       x <- as_tibble(x)
@@ -268,5 +269,6 @@ predict_classprob._multnet <- function(object, new_data, ...) {
 #' @export
 predict_raw._multnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
+  opts$s <- object$spec$args$penalty
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
