@@ -221,8 +221,8 @@ multi_predict._multnet <-
       dots$type <- type
 
     object$spec <- eval_args(object$spec)
-    pred <- predict._lognet(object, new_data = new_data, type = "raw",
-                            opts = dots, penalty = penalty, multi = TRUE)
+    pred <- predict._multnet(object, new_data = new_data, type = "raw",
+                             opts = dots, penalty = penalty, multi = TRUE)
 
     format_probs <- function(x) {
       x <- as_tibble(x)
