@@ -271,8 +271,6 @@ multi_predict._lognet <-
       }
     }
 
-    dots$s <- penalty
-
     if (is.null(type))
       type <- "class"
     if (!(type %in% c("class", "prob", "link", "raw"))) {
@@ -284,7 +282,9 @@ multi_predict._lognet <-
       dots$type <- type
 
     object$spec <- eval_args(object$spec)
-    pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
+    pred <- predict._lognet(object, new_data = new_data, type = "raw",
+                            opts = dots, penalty = penalty, multi = TRUE)
+
     param_key <- tibble(group = colnames(pred), penalty = penalty)
     pred <- as_tibble(pred)
     pred$.row <- 1:nrow(pred)
@@ -340,6 +340,7 @@ predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
 
   object$spec <- eval_args(object$spec)
+  opts$s <- object$spec$args$penalty
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
