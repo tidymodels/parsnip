@@ -285,34 +285,41 @@ multi_predict._lognet <-
     pred <- predict._lognet(object, new_data = new_data, type = "raw",
                             opts = dots, penalty = penalty, multi = TRUE)
 
-    param_key <- tibble(group = colnames(pred), penalty = penalty)
-    pred <- as_tibble(pred)
-    pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred_class, -.row)
-    if (dots$type == "class") {
-      pred[[".pred_class"]] <- factor(pred[[".pred_class"]], levels = object$lvl)
-    } else {
-      if (dots$type == "response") {
-        pred[[".pred2"]] <- 1 - pred[[".pred_class"]]
-        names(pred) <- c(".row", "group", paste0(".pred_", rev(object$lvl)))
-        pred <- pred[, c(".row", "group", paste0(".pred_", object$lvl))]
-      }
-    }
-    if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-      pred <- full_join(param_key, pred, by = "group", multiple = "all")
-    } else {
-      pred <- full_join(param_key, pred, by = "group")
-    }
-    pred$group <- NULL
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
+    format_glmnet_multi_logistic_reg(
+      pred,
+      penalty,
+      type = dots$type,
+      lvl = object$lvl
+    )
   }
 
-
+format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
+  param_key <- tibble(group = colnames(pred), penalty = penalty)
+  pred <- as_tibble(pred)
+  pred$.row <- 1:nrow(pred)
+  pred <- gather(pred, group, .pred_class, -.row)
+  if (type == "class") {
+    pred[[".pred_class"]] <- factor(pred[[".pred_class"]], levels = lvl)
+  } else {
+    if (type == "response") {
+      pred[[".pred2"]] <- 1 - pred[[".pred_class"]]
+      names(pred) <- c(".row", "group", paste0(".pred_", rev(lvl)))
+      pred <- pred[, c(".row", "group", paste0(".pred_", lvl))]
+    }
+  }
+  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
+    pred <- full_join(param_key, pred, by = "group", multiple = "all")
+  } else {
+    pred <- full_join(param_key, pred, by = "group")
+  }
+  pred$group <- NULL
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
+}
 
 
 

@@ -224,35 +224,14 @@ multi_predict._multnet <-
     pred <- predict._multnet(object, new_data = new_data, type = "raw",
                              opts = dots, penalty = penalty, multi = TRUE)
 
-    format_probs <- function(x) {
-      x <- as_tibble(x)
-      names(x) <- paste0(".pred_", names(x))
-      nms <- names(x)
-      x$.row <- 1:nrow(x)
-      x[, c(".row", nms)]
-    }
+    format_glmnet_multi_multinom_reg(
+      pred,
+      penalty = penalty,
+      type = type,
+      n_rows = nrow(new_data),
+      lvl = object$lvl
+    )
 
-    if (type == "prob") {
-      pred <- apply(pred, 3, format_probs)
-      names(pred) <- NULL
-      pred <- map_dfr(pred, function(x) x)
-      pred$penalty <- rep(penalty, each = nrow(new_data))
-      pred <- dplyr::relocate(pred, penalty)
-    } else {
-      pred <-
-        tibble(
-          .row = rep(1:nrow(new_data), length(penalty)),
-          penalty = rep(penalty, each = nrow(new_data)),
-          .pred_class = factor(as.vector(pred), levels = object$lvl)
-        )
-    }
-
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
   }
 
 #' @export
@@ -272,4 +251,36 @@ predict_raw._multnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
   opts$s <- object$spec$args$penalty
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
+}
+
+format_glmnet_multi_multinom_reg <- function(pred, penalty, type, n_rows, lvl) {
+  format_probs <- function(x) {
+    x <- as_tibble(x)
+    names(x) <- paste0(".pred_", names(x))
+    nms <- names(x)
+    x$.row <- 1:nrow(x)
+    x[, c(".row", nms)]
+  }
+
+  if (type == "prob") {
+    pred <- apply(pred, 3, format_probs)
+    names(pred) <- NULL
+    pred <- map_dfr(pred, function(x) x)
+    pred$penalty <- rep(penalty, each = n_rows)
+    pred <- dplyr::relocate(pred, penalty)
+  } else {
+    pred <-
+      tibble(
+        .row = rep(1:n_rows, length(penalty)),
+        penalty = rep(penalty, each = n_rows),
+        .pred_class = factor(as.vector(pred), levels = lvl)
+      )
+  }
+
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
 }
