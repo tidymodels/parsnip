@@ -87,8 +87,7 @@ All trees in the ensemble are combined to produce a final prediction.</p>
 <li><p><code>sample_size</code>: # Observations Sampled (type: integer, default: 1)</p></li>
 <li><p><code>mtry</code>: # Randomly Selected Predictors (type: integer, default: 1)</p></li>
 <li><p><code>loss_reduction</code>: Minimum Loss Reduction (type: double, default: 0)</p></li>
-<li><p><code>stop_iter</code>: # Iterations Before Stopping (type: integer, default:
-0)</p></li>
+<li><p><code>stop_iter</code>: # Iterations Before Stopping (type: integer, default: 0)</p></li>
 </ul><p><code>min_n</code> represents the fewest allowed observations in a terminal node,
 <code>h2o::h2o.xgboost()</code> allows only one row in a leaf
 by default.</p>
@@ -196,8 +195,8 @@ their analogue to the <code>mtry</code> argument as the <em>proportion</em> of p
 that will be randomly sampled at each split rather than the <em>count</em>. In
 some settings, such as when tuning over preprocessors that influence the
 number of predictors, this parameterization is quite
-helpful—interpreting <code>mtry</code> as a proportion means that [0,1] is always
-a valid range for that parameter, regardless of input data.</p>
+helpful—interpreting <code>mtry</code> as a proportion means that $0, 1$ is
+always a valid range for that parameter, regardless of input data.</p>
 <p>parsnip and its extensions accommodate this parameterization using the
 <code>counts</code> argument: a logical indicating whether <code>mtry</code> should be
 interpreted as the number of predictors that will be randomly sampled at
@@ -212,7 +211,7 @@ to <code>TRUE</code>. For engines that support the proportion interpretation
 (currently <code>"xgboost"</code> and <code>"xrf"</code>, via the rules package, and
 <code>"lightgbm"</code> via the bonsai package) the user can pass the
 <code>counts = FALSE</code> argument to <code><a href="set_engine.html">set_engine()</a></code> to supply <code>mtry</code> values
-within [0,1].</p>
+within $0, 1$.</p>
 </div>
 
 <div class="section">
