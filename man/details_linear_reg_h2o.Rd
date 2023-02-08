@@ -14,8 +14,7 @@ This model has 2 tuning parameters:
 \itemize{
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: see
 below)
-\item \code{penalty}: Amount of Regularization (type: double, default: see
-below)
+\item \code{penalty}: Amount of Regularization (type: double, default: see below)
 }
 
 By default, when not given a fixed \code{penalty},

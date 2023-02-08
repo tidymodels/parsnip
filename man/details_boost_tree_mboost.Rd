@@ -69,8 +69,7 @@ Predictions of type \code{"time"} are predictions of the mean survival time.
 \itemize{
 \item Buehlmann P, Hothorn T. 2007. Boosting algorithms: regularization,
 prediction and model fitting. \emph{Statistical Science}, 22(4), 477–505.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

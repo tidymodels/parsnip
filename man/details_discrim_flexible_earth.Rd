@@ -17,8 +17,7 @@ This model has 3 tuning parameter:
 \itemize{
 \item \code{num_terms}: # Model Terms (type: integer, default: (see below))
 \item \code{prod_degree}: Degree of Interaction (type: integer, default: 1L)
-\item \code{prune_method}: Pruning Method (type: character, default:
-‘backward’)
+\item \code{prune_method}: Pruning Method (type: character, default: ‘backward’)
 }
 
 The default value of \code{num_terms} depends on the number of columns (\code{p}):
@@ -79,8 +78,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \item Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by
 Optimal Scoring, \emph{Journal of the American Statistical Association},
 89:428, 1255-1270
-\item Friedman (1991). Multivariate Adaptive Regression Splines. \emph{The
-Annals of Statistics}, 19(1), 1-67.
+\item Friedman (1991). Multivariate Adaptive Regression Splines. \emph{The Annals
+of Statistics}, 19(1), 1-67.
 }
 }
 }
