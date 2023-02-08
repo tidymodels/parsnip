@@ -13,73 +13,79 @@
 predict_raw(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{model_fit}}
+\item{object}{An object of class \code{model_fit}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 
 \item{type}{A single character value or \code{NULL}. Possible values
-are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
-"hazard", "survival", or "raw". When \code{NULL}, \code{predict()} will choose an
-appropriate value based on the model's mode.}
+are \code{"numeric"}, \code{"class"}, \code{"prob"}, \code{"conf_int"}, \code{"pred_int"},
+\code{"quantile"}, \code{"time"}, \code{"hazard"}, \code{"survival"}, or \code{"raw"}. When \code{NULL},
+\code{predict()} will choose an appropriate value based on the model's mode.}
 
 \item{opts}{A list of optional arguments to the underlying
 predict function that will be used when \code{type = "raw"}. The
 list should not include options for the model object or the
 new data being predicted.}
 
-\item{...}{Arguments to the underlying model's prediction
-function cannot be passed here (see \code{opts}). There are some
-\code{parsnip} related options that can be passed, depending on the
-value of \code{type}. Possible arguments are:
+\item{...}{Additional \code{parsnip}-related options, depending on the
+value of \code{type}. Arguments to the underlying model's prediction
+function cannot be passed here (use the \code{opts} argument instead).
+Possible arguments are:
 \itemize{
-\item \code{interval}: for \code{type}s of "survival" and "quantile", should
+\item \code{interval}: for \code{type} equal to \code{"survival"} or \code{"quantile"}, should
 interval estimates be added, if available? Options are \code{"none"}
 and \code{"confidence"}.
-\item \code{level}: for \code{type}s of "conf_int", "pred_int", and "survival"
+\item \code{level}: for \code{type} equal to \code{"conf_int"}, \code{"pred_int"}, or \code{"survival"},
 this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
-Default value is 0.95.
-\item \code{std_error}: add the standard error of fit or prediction (on
-the scale of the linear predictors) for \code{type}s of "conf_int"
-and "pred_int". Default value is \code{FALSE}.
-\item \code{quantile}: the quantile(s) for quantile regression
-(not implemented yet)
-\item \code{time}: the time(s) for hazard and survival probability estimates.
+Default value is \code{0.95}.
+\item \code{std_error}: for \code{type} equal to \code{"conf_int"} or \code{"pred_int"}, add
+the standard error of fit or prediction (on the scale of the
+linear predictors). Default value is \code{FALSE}.
+\item \code{quantile}: for \code{type} equal to \code{quantile}, the quantiles of the
+distribution. Default is \code{(1:9)/10}.
+\item \code{time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
+time points at which the survival probability or hazard is estimated.
 }}
 }
 \value{
 With the exception of \code{type = "raw"}, the results of
-\code{predict.model_fit()} will be a tibble as many rows in the output
-as there are rows in \code{new_data} and the column names will be
-predictable.
+\code{predict.model_fit()}
+\itemize{
+\item is a tibble
+\item has as many rows as there are rows in \code{new_data}
+\item has standardized column names, see below:
+}
 
-For numeric results with a single outcome, the tibble will have
-a \code{.pred} column and \code{.pred_Yname} for multivariate results.
+For \code{type = "numeric"}, the tibble has a \code{.pred} column for a single
+outcome and \code{.pred_Yname} columns for a multivariate outcome.
 
-For hard class predictions, the column is named \code{.pred_class}
-and, when \code{type = "prob"}, the columns are \code{.pred_classlevel}.
+For \code{type = "class"}, the tibble has a \code{.pred_class} column.
 
-\code{type = "conf_int"} and \code{type = "pred_int"} return tibbles with
-columns \code{.pred_lower} and \code{.pred_upper} with an attribute for
+For \code{type = "prob"}, the tibble has \code{.pred_classlevel} columns.
+
+For \code{type = "conf_int"} and \code{type = "pred_int"}, the tibble has
+\code{.pred_lower} and \code{.pred_upper} columns with an attribute for
 the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
-the columns will be named \code{.pred_lower_classlevel} and so on.
+the columns are named \code{.pred_lower_classlevel} and so on.
 
-Quantile predictions return a tibble with a column \code{.pred}, which is
+For \code{type = "quantile"}, the tibble has a \code{.pred} column, which is
 a list-column. Each list element contains a tibble with columns
 \code{.pred} and \code{.quantile} (and perhaps other columns).
 
+For \code{type = "time"}, the tibble has a \code{.pred_time} column.
+
+For \code{type = "survival"}, the tibble has a \code{.pred} column, which is
+a list-column. Each list element contains a tibble with columns
+\code{.time} and \code{.pred_survival} (and perhaps other columns).
+
+For \code{type = "hazard"}, the tibble has a \code{.pred} column, which is
+a list-column. Each list element contains a tibble with columns
+\code{.time} and \code{.pred_hazard} (and perhaps other columns).
+
 Using \code{type = "raw"} with \code{predict.model_fit()} will return
 the unadulterated results of the prediction function.
-
-For censored regression:
-\itemize{
-\item \code{type = "time"} produces a column \code{.pred_time}.
-\item \code{type = "hazard"} results in a list column \code{.pred} containing tibbles
-with a column \code{.pred_hazard}.
-\item \code{type = "survival"} results in a list column \code{.pred} containing tibbles
-with a \code{.pred_survival} column.
-}
 
 In the case of Spark-based models, since table columns cannot
 contain dots, the same convention is used except 1) no dots
@@ -97,16 +103,12 @@ Apply a model to create different types of predictions.
 "type" argument for more specificity.
 }
 \details{
-If "type" is not supplied to \code{predict()}, then a choice
-is made:
+For \code{type = NULL}, \code{predict()} uses
 \itemize{
 \item \code{type = "numeric"} for regression models,
 \item \code{type = "class"} for classification, and
 \item \code{type = "time"} for censored regression.
 }
-
-\code{predict()} is designed to provide a tidy result (see "Value"
-section below) in a tibble output format.
 \subsection{Interval predictions}{
 
 When using \code{type = "conf_int"} and \code{type = "pred_int"}, the options
