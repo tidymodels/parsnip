@@ -55,7 +55,7 @@
 #' have the opposite sign as what the underlying model's `predict()` method
 #' produces. Set `increasing = FALSE` to suppress this behavior.
 #'
-#' @return With the exception of `type = "raw"`, the results of
+#' @return With the exception of `type = "raw"`, the result of
 #'  `predict.model_fit()`
 #'
 #'  * is a tibble

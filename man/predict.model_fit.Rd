@@ -49,7 +49,7 @@ time points at which the survival probability or hazard is estimated.
 }}
 }
 \value{
-With the exception of \code{type = "raw"}, the results of
+With the exception of \code{type = "raw"}, the result of
 \code{predict.model_fit()}
 \itemize{
 \item is a tibble
