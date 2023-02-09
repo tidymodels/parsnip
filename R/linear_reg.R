@@ -241,20 +241,25 @@ multi_predict._elnet <-
 
     pred <- predict._elnet(object, new_data = new_data, type = "raw",
                            opts = dots, penalty = penalty, multi = TRUE)
-    param_key <- tibble(group = colnames(pred), penalty = penalty)
-    pred <- as_tibble(pred)
-    pred$.row <- 1:nrow(pred)
-    pred <- gather(pred, group, .pred, -.row)
-    if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-      pred <- full_join(param_key, pred, by = "group", multiple = "all")
-    } else {
-      pred <- full_join(param_key, pred, by = "group")
-    }
-    pred$group <- NULL
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
+
+    format_glmnet_multi_linear_reg(pred, penalty = penalty)
   }
+
+format_glmnet_multi_linear_reg <- function(pred, penalty) {
+  param_key <- tibble(group = colnames(pred), penalty = penalty)
+  pred <- as_tibble(pred)
+  pred$.row <- 1:nrow(pred)
+  pred <- gather(pred, group, .pred, -.row)
+  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
+    pred <- full_join(param_key, pred, by = "group", multiple = "all")
+  } else {
+    pred <- full_join(param_key, pred, by = "group")
+  }
+  pred$group <- NULL
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
+}
