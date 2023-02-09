@@ -207,91 +207,13 @@ organize_glmnet_prob <- function(x, object) {
 }
 
 # ------------------------------------------------------------------------------
-# glmnet call stack for logistic regression using `predict` when object has
-# classes "_lognet" and "model_fit" (for class predictions):
-#
-#  predict()
-# 	predict._lognet(penalty = NULL)    <-- checks and sets penalty
-#    predict.model_fit()               <-- checks for extra vars in ...
-#     predict_class()
-#      predict_class._lognet()
-#       predict_class.model_fit()
-#        predict.lognet()
-
-
-# glmnet call stack for logistic regression using `multi_predict` when object has
-# classes "_lognet" and "model_fit" (for class predictions):
-#
-# 	multi_predict()
-#    multi_predict._lognet(penalty = NULL)
-#      predict._lognet(multi = TRUE)           <-- checks and sets penalty
-#       predict.model_fit()                    <-- checks for extra vars in ...
-#        predict_raw()
-#         predict_raw._lognet()
-#          predict_raw.model_fit(opts = list(s = penalty))
-#           predict.lognet()
-
-# ------------------------------------------------------------------------------
 
 #' @export
-predict._lognet <- function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
-  if (any(names(enquos(...)) == "newdata"))
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
-  # See discussion in https://github.com/tidymodels/parsnip/issues/195
-  if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
-    penalty <- object$spec$args$penalty
-  }
-
-  object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
-
-  object$spec <- eval_args(object$spec)
-  predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
-}
-
+predict._lognet <- predict_glmnet
 
 #' @export
 #' @rdname multi_predict
-multi_predict._lognet <-
-  function(object, new_data, type = NULL, penalty = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
-    if (is_quosure(penalty))
-      penalty <- eval_tidy(penalty)
-
-    dots <- list(...)
-
-    if (is.null(penalty)) {
-      # See discussion in https://github.com/tidymodels/parsnip/issues/195
-      if (!is.null(object$spec$args$penalty)) {
-        penalty <- object$spec$args$penalty
-      } else {
-        penalty <- object$fit$lambda
-      }
-    }
-
-    if (is.null(type))
-      type <- "class"
-    if (!(type %in% c("class", "prob", "link", "raw"))) {
-      rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
-    }
-    if (type == "prob")
-      dots$type <- "response"
-    else
-      dots$type <- type
-
-    object$spec <- eval_args(object$spec)
-    pred <- predict._lognet(object, new_data = new_data, type = "raw",
-                            opts = dots, penalty = penalty, multi = TRUE)
-
-    format_glmnet_multi_logistic_reg(
-      pred,
-      penalty,
-      type = dots$type,
-      lvl = object$lvl
-    )
-  }
+multi_predict._lognet <- multi_predict_glmnet
 
 format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
   param_key <- tibble(group = colnames(pred), penalty = penalty)
@@ -324,32 +246,13 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
 
 
 #' @export
-predict_class._lognet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata"))
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
-  object$spec <- eval_args(object$spec)
-  predict_class.model_fit(object, new_data = new_data, ...)
-}
+predict_class._lognet <- predict_class_glmnet
 
 #' @export
-predict_classprob._lognet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata"))
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
-  object$spec <- eval_args(object$spec)
-  predict_classprob.model_fit(object, new_data = new_data, ...)
-}
+predict_classprob._lognet <- predict_classprob_glmnet
 
 #' @export
-predict_raw._lognet <- function(object, new_data, opts = list(), ...) {
-  if (any(names(enquos(...)) == "newdata"))
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
-  object$spec <- eval_args(object$spec)
-  opts$s <- object$spec$args$penalty
-  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
-}
+predict_raw._lognet <- predict_raw_glmnet
 
 # ------------------------------------------------------------------------------
 
