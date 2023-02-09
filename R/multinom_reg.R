@@ -231,7 +231,6 @@ multi_predict._multnet <-
       n_rows = nrow(new_data),
       lvl = object$lvl
     )
-
   }
 
 #' @export

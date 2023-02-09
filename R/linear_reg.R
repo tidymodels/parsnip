@@ -243,7 +243,6 @@ multi_predict._elnet <-
                            opts = dots, penalty = penalty, multi = TRUE)
 
     format_glmnet_multi_linear_reg(pred, penalty = penalty)
-
   }
 
 format_glmnet_multi_linear_reg <- function(pred, penalty) {
