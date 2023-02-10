@@ -2,23 +2,27 @@
 # classes "_<glmnet-class>" and "model_fit":
 #
 #  predict()
-# 	predict._<glmnet-class>(penalty = NULL)    <-- checks and sets penalty
-#    predict.model_fit()                       <-- checks for extra vars in ...
-#     predict_numeric()
-#      predict_numeric._<glmnet-class>()
-#       predict_numeric.model_fit()
-#        predict.<glmnet-class>()
+#   predict._<glmnet-class>(penalty = NULL)
+#    predict_glmnet(penalty = NULL)             <-- checks and sets penalty
+#     predict.model_fit()                       <-- checks for extra vars in ...
+#      predict_numeric()
+#       predict_numeric._<glmnet-class>()
+#        predict_numeric_glmnet()
+#         predict_numeric.model_fit()
+#          predict.<glmnet-class>()
 
 
 # glmnet call stack using `multi_predict` when object has
 # classes "_<glmnet-class>" and "model_fit":
 #
-# 	multi_predict()
-#    multi_predict._<glmnet-class>(penalty = NULL)
-#      predict._<glmnet-class>(multi = TRUE)   <-- checks and sets penalty
-#       predict.model_fit()                    <-- checks for extra vars in ...
-#        predict_raw()
-#         predict_raw._<glmnet-class>()
+#  multi_predict()
+#   multi_predict._<glmnet-class>(penalty = NULL)
+#    predict._<glmnet-class>(multi = TRUE)
+#     predict_glmnet(multi = TRUE)            <-- checks and sets penalty
+#      predict.model_fit()                    <-- checks for extra vars in ...
+#       predict_raw()
+#        predict_raw._<glmnet-class>()
+#         predict_raw_glmnet()
 #          predict_raw.model_fit(opts = list(s = penalty))
 #           predict.<glmnet-class>()
 
@@ -47,32 +51,36 @@ predict_glmnet <- function(object,
 }
 
 predict_numeric_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata"))
+  if (any(names(enquos(...)) == "newdata")) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
 
   object$spec <- eval_args(object$spec)
   predict_numeric.model_fit(object, new_data = new_data, ...)
 }
 
 predict_class_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata"))
+  if (any(names(enquos(...)) == "newdata")) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
 
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
 }
 
 predict_classprob_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata"))
+  if (any(names(enquos(...)) == "newdata")) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
 
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
 predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
-  if (any(names(enquos(...)) == "newdata"))
+  if (any(names(enquos(...)) == "newdata")) {
     rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+  }
 
   object$spec <- eval_args(object$spec)
 
@@ -80,9 +88,6 @@ predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
 
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
-
-
-
 
 multi_predict_glmnet <- function(object,
                                  new_data,
@@ -131,7 +136,8 @@ multi_predict_glmnet <- function(object,
                   opts = dots, penalty = penalty, multi = TRUE)
 
   model_type <- class(object$spec)[1]
-  res <- switch(model_type,
+  res <- switch(
+    model_type,
     "linear_reg" = format_glmnet_multi_linear_reg(pred, penalty = penalty),
     "logistic_reg" = format_glmnet_multi_logistic_reg(pred,
                                                       penalty = penalty,
