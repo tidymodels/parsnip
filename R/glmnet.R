@@ -114,15 +114,17 @@ multi_predict_glmnet <- function(object,
   }
 
   if (object$spec$mode == "classification") {
-    if (is.null(type))
+    if (is.null(type)) {
       type <- "class"
+    }
     if (!(type %in% c("class", "prob", "link", "raw"))) {
       rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
     }
-    if (type == "prob")
+    if (type == "prob") {
       dots$type <- "response"
-    else
+    } else {
       dots$type <- type
+    }
   }
 
   pred <- predict(object, new_data = new_data, type = "raw",
