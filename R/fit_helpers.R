@@ -197,5 +197,3 @@ xy_form <- function(object, env, control, ...) {
   res$preproc <- data_obj[c("x_var", "y_var")]
   res
 }
-
-
