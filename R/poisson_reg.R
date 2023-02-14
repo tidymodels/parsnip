@@ -86,6 +86,7 @@ translate.poisson_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "glmnet") {
+    .check_glmnet_penalty_fit(x)
     # See discussion in https://github.com/tidymodels/parsnip/issues/195
     x$method$fit$args$lambda <- NULL
     # Since the `fit` information is gone for the penalty, we need to have an

@@ -24,8 +24,8 @@ default: (see below))
 
 Some special cases for the RDA model:
 \itemize{
-\item \code{frac_identity = 0} and \code{frac_common_cov = 1} is a linear
-discriminant analysis (LDA) model.
+\item \code{frac_identity = 0} and \code{frac_common_cov = 1} is a linear discriminant
+analysis (LDA) model.
 \item \code{frac_identity = 0} and \code{frac_common_cov = 0} is a quadratic
 discriminant analysis (QDA) model.
 }
@@ -76,10 +76,9 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of
-the American Statistical Association}, 84, 165-175.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the
+American Statistical Association}, 84, 165-175.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

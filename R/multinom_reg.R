@@ -143,130 +143,51 @@ organize_nnet_prob <- function(x, object) {
 
 
 # ------------------------------------------------------------------------------
-# glmnet call stack for multinomial regression using `predict` when object has
-# classes "_multnet" and "model_fit" (for class predictions):
-#
-#  predict()
-# 	predict._multnet(penalty = NULL)   <-- checks and sets penalty
-#    predict.model_fit()               <-- checks for extra vars in ...
-#     predict_class()
-#      predict_class._multnet()
-#       predict.multnet()
-
-
-# glmnet call stack for multinomial regression using `multi_predict` when object has
-# classes "_multnet" and "model_fit" (for class predictions):
-#
-# 	multi_predict()
-#    multi_predict._multnet(penalty = NULL)
-#      predict._multnet(multi = TRUE)          <-- checks and sets penalty
-#       predict.model_fit()                    <-- checks for extra vars in ...
-#        predict_raw()
-#         predict_raw._multnet()
-#          predict_raw.model_fit(opts = list(s = penalty))
-#           predict.multnet()
-
-# ------------------------------------------------------------------------------
 
 #' @export
-predict._multnet <-
-  function(object, new_data, type = NULL, opts = list(), penalty = NULL, multi = FALSE, ...) {
-
-    # See discussion in https://github.com/tidymodels/parsnip/issues/195
-    if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
-      penalty <- object$spec$args$penalty
-    }
-
-    object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
-
-    object$spec <- eval_args(object$spec)
-    res <- predict.model_fit(
-      object = object,
-      new_data = new_data,
-      type = type,
-      opts = opts
-    )
-    res
-  }
+predict._multnet <- predict_glmnet
 
 #' @export
 #' @rdname multi_predict
-multi_predict._multnet <-
-  function(object, new_data, type = NULL, penalty = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+multi_predict._multnet <- multi_predict_glmnet
 
-    if (is_quosure(penalty))
-      penalty <- eval_tidy(penalty)
+#' @export
+predict_class._multnet <- predict_class_glmnet
 
-    dots <- list(...)
-    if (is.null(penalty)) {
-      # See discussion in https://github.com/tidymodels/parsnip/issues/195
-      if (!is.null(object$spec$args$penalty)) {
-        penalty <- object$spec$args$penalty
-      } else {
-        penalty <- object$fit$lambda
-      }
-    }
-    dots$s <- penalty
+#' @export
+predict_classprob._multnet <- predict_classprob_glmnet
 
-    if (is.null(type))
-      type <- "class"
-    if (!(type %in% c("class", "prob", "link", "raw"))) {
-      rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
-    }
-    if (type == "prob")
-      dots$type <- "response"
-    else
-      dots$type <- type
+#' @export
+predict_raw._multnet <- predict_raw_glmnet
 
-    object$spec <- eval_args(object$spec)
-    pred <- predict.model_fit(object, new_data = new_data, type = "raw", opts = dots)
-
-    format_probs <- function(x) {
-      x <- as_tibble(x)
-      names(x) <- paste0(".pred_", names(x))
-      nms <- names(x)
-      x$.row <- 1:nrow(x)
-      x[, c(".row", nms)]
-    }
-
-    if (type == "prob") {
-      pred <- apply(pred, 3, format_probs)
-      names(pred) <- NULL
-      pred <- map_dfr(pred, function(x) x)
-      pred$penalty <- rep(penalty, each = nrow(new_data))
-    } else {
-      pred <-
-        tibble(
-          .row = rep(1:nrow(new_data), length(penalty)),
-          .pred_class = factor(as.vector(pred), levels = object$lvl),
-          penalty = rep(penalty, each = nrow(new_data))
-        )
-    }
-
-    pred <- arrange(pred, .row, penalty)
-    .row <- pred$.row
-    pred$.row <- NULL
-    pred <- split(pred, .row)
-    names(pred) <- NULL
-    tibble(.pred = pred)
+format_glmnet_multi_multinom_reg <- function(pred, penalty, type, n_rows, lvl) {
+  format_probs <- function(x) {
+    x <- as_tibble(x)
+    names(x) <- paste0(".pred_", names(x))
+    nms <- names(x)
+    x$.row <- 1:nrow(x)
+    x[, c(".row", nms)]
   }
 
-#' @export
-predict_class._multnet <- function(object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_class.model_fit(object, new_data = new_data, ...)
-}
+  if (type == "prob") {
+    pred <- apply(pred, 3, format_probs)
+    names(pred) <- NULL
+    pred <- map_dfr(pred, function(x) x)
+    pred$penalty <- rep(penalty, each = n_rows)
+    pred <- dplyr::relocate(pred, penalty)
+  } else {
+    pred <-
+      tibble(
+        .row = rep(1:n_rows, length(penalty)),
+        penalty = rep(penalty, each = n_rows),
+        .pred_class = factor(as.vector(pred), levels = lvl)
+      )
+  }
 
-#' @export
-predict_classprob._multnet <- function(object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_classprob.model_fit(object, new_data = new_data, ...)
-}
-
-#' @export
-predict_raw._multnet <- function(object, new_data, opts = list(), ...) {
-  object$spec <- eval_args(object$spec)
-  predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
 }
