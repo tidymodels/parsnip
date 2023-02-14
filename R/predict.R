@@ -4,44 +4,41 @@
 #'  `predict()` can be used for all types of models and uses the
 #'  "type" argument for more specificity.
 #'
-#' @param object An object of class `model_fit`
+#' @param object An object of class `model_fit`.
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
-#'   are "numeric", "class", "prob", "conf_int", "pred_int", "quantile", "time",
-#'  "hazard", "survival", or "raw". When `NULL`, `predict()` will choose an
-#'  appropriate value based on the model's mode.
+#'   are `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`,
+#'   `"quantile"`, `"time"`, `"hazard"`, `"survival"`, or `"raw"`. When `NULL`,
+#'  `predict()` will choose an appropriate value based on the model's mode.
 #' @param opts A list of optional arguments to the underlying
 #'  predict function that will be used when `type = "raw"`. The
 #'  list should not include options for the model object or the
 #'  new data being predicted.
-#' @param ... Arguments to the underlying model's prediction
-#'  function cannot be passed here (see `opts`). There are some
-#'  `parsnip` related options that can be passed, depending on the
-#'  value of `type`. Possible arguments are:
+#' @param ... Additional `parsnip`-related options, depending on the
+#'  value of `type`. Arguments to the underlying model's prediction
+#'  function cannot be passed here (use the `opts` argument instead).
+#'  Possible arguments are:
 #'  \itemize{
-#'     \item `interval`: for `type`s of "survival" and "quantile", should
+#'     \item `interval`: for `type` equal to `"survival"` or `"quantile"`, should
 #'            interval estimates be added, if available? Options are `"none"`
 #'            and `"confidence"`.
-#'     \item `level`: for `type`s of "conf_int", "pred_int", and "survival"
+#'     \item `level`: for `type` equal to `"conf_int"`, `"pred_int"`, or `"survival"`,
 #'            this is the parameter for the tail area of the intervals
 #'            (e.g. confidence level for confidence intervals).
-#'            Default value is 0.95.
-#'     \item `std_error`: add the standard error of fit or prediction (on
-#'            the scale of the linear predictors) for `type`s of "conf_int"
-#'            and "pred_int". Default value is `FALSE`.
-#'     \item `quantile`: the quantile(s) for quantile regression
-#'            (not implemented yet)
-#'     \item `time`: the time(s) for hazard and survival probability estimates.
+#'            Default value is `0.95`.
+#'     \item `std_error`: for `type` equal to `"conf_int"` or `"pred_int"`, add
+#'            the standard error of fit or prediction (on the scale of the
+#'            linear predictors). Default value is `FALSE`.
+#'     \item `quantile`: for `type` equal to `quantile`, the quantiles of the
+#'            distribution. Default is `(1:9)/10`.
+#'     \item `time`: for `type` equal to `"survival"` or `"hazard"`, the
+#'            time points at which the survival probability or hazard is estimated.
 #'  }
-#' @details If "type" is not supplied to `predict()`, then a choice
-#'  is made:
+#' @details For `type = NULL`, `predict()` uses
 #'
 #'   * `type = "numeric"` for regression models,
 #'   * `type = "class"` for classification, and
 #'   * `type = "time"` for censored regression.
-#'
-#' `predict()` is designed to provide a tidy result (see "Value"
-#'  section below) in a tibble output format.
 #'
 #'  ## Interval predictions
 #'
@@ -58,37 +55,42 @@
 #' have the opposite sign as what the underlying model's `predict()` method
 #' produces. Set `increasing = FALSE` to suppress this behavior.
 #'
-#' @return With the exception of `type = "raw"`, the results of
-#'  `predict.model_fit()` will be a tibble as many rows in the output
-#'  as there are rows in `new_data` and the column names will be
-#'  predictable.
+#' @return With the exception of `type = "raw"`, the result of
+#'  `predict.model_fit()`
 #'
-#' For numeric results with a single outcome, the tibble will have
-#'  a `.pred` column and `.pred_Yname` for multivariate results.
+#'  * is a tibble
+#'  * has as many rows as there are rows in `new_data`
+#'  * has standardized column names, see below:
 #'
-#' For hard class predictions, the column is named `.pred_class`
-#'  and, when `type = "prob"`, the columns are `.pred_classlevel`.
+#' For `type = "numeric"`, the tibble has a `.pred` column for a single
+#' outcome and `.pred_Yname` columns for a multivariate outcome.
 #'
-#' `type = "conf_int"` and `type = "pred_int"` return tibbles with
-#'  columns `.pred_lower` and `.pred_upper` with an attribute for
-#'  the confidence level. In the case where intervals can be
-#'  produces for class probabilities (or other non-scalar outputs),
-#'  the columns will be named `.pred_lower_classlevel` and so on.
+#' For `type = "class"`, the tibble has a `.pred_class` column.
 #'
-#' Quantile predictions return a tibble with a column `.pred`, which is
+#' For `type = "prob"`, the tibble has `.pred_classlevel` columns.
+#'
+#' For `type = "conf_int"` and `type = "pred_int"`, the tibble has
+#' `.pred_lower` and `.pred_upper` columns with an attribute for
+#' the confidence level. In the case where intervals can be
+#' produces for class probabilities (or other non-scalar outputs),
+#' the columns are named `.pred_lower_classlevel` and so on.
+#'
+#' For `type = "quantile"`, the tibble has a `.pred` column, which is
 #'  a list-column. Each list element contains a tibble with columns
 #'  `.pred` and `.quantile` (and perhaps other columns).
 #'
+#' For `type = "time"`, the tibble has a `.pred_time` column.
+#'
+#' For `type = "survival"`, the tibble has a `.pred` column, which is
+#'  a list-column. Each list element contains a tibble with columns
+#'  `.time` and `.pred_survival` (and perhaps other columns).
+#'
+#' For `type = "hazard"`, the tibble has a `.pred` column, which is
+#'  a list-column. Each list element contains a tibble with columns
+#'  `.time` and `.pred_hazard` (and perhaps other columns).
+#'
 #' Using `type = "raw"` with `predict.model_fit()` will return
 #'  the unadulterated results of the prediction function.
-#'
-#' For censored regression:
-#'
-#'  * `type = "time"` produces a column `.pred_time`.
-#'  * `type = "hazard"` results in a list column `.pred` containing tibbles
-#'     with a column `.pred_hazard`.
-#'  * `type = "survival"` results in a list column `.pred` containing tibbles
-#'     with a `.pred_survival` column.
 #'
 #' In the case of Spark-based models, since table columns cannot
 #'  contain dots, the same convention is used except 1) no dots
