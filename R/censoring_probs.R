@@ -1,5 +1,5 @@
 # nocov start
-# tested in the extratests repo
+# tested in tidymodels/extratests#75
 
 new_reverse_km_fit <-
   function(formula,
@@ -13,7 +13,7 @@ new_reverse_km_fit <-
   }
 
 # ------------------------------------------------------------------------------
-# estimate the reverse km curve for censored regresison models
+# estimate the reverse km curve for censored regression models
 
 reverse_km <- function(obj, eval_env) {
   if (obj$mode != "censored regression") {
