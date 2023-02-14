@@ -115,7 +115,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
-<dd><p>An object of class <code>model_fit</code></p></dd>
+<dd><p>An object of class <code>model_fit</code>.</p></dd>
 
 
 <dt>new_data</dt>
@@ -123,22 +123,23 @@
 
 
 <dt>...</dt>
-<dd><p>Arguments to the underlying model's prediction
-function cannot be passed here (see <code>opts</code>). There are some
-<code>parsnip</code> related options that can be passed, depending on the
-value of <code>type</code>. Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code>s of "survival" and "quantile", should
+<dd><p>Additional <code>parsnip</code>-related options, depending on the
+value of <code>type</code>. Arguments to the underlying model's prediction
+function cannot be passed here (use the <code>opts</code> argument instead).
+Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"quantile"</code>, should
 interval estimates be added, if available? Options are <code>"none"</code>
 and <code>"confidence"</code>.</p></li>
-<li><p><code>level</code>: for <code>type</code>s of "conf_int", "pred_int", and "survival"
+<li><p><code>level</code>: for <code>type</code> equal to <code>"conf_int"</code>, <code>"pred_int"</code>, or <code>"survival"</code>,
 this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
-Default value is 0.95.</p></li>
-<li><p><code>std_error</code>: add the standard error of fit or prediction (on
-the scale of the linear predictors) for <code>type</code>s of "conf_int"
-and "pred_int". Default value is <code>FALSE</code>.</p></li>
-<li><p><code>quantile</code>: the quantile(s) for quantile regression
-(not implemented yet)</p></li>
-<li><p><code>time</code>: the time(s) for hazard and survival probability estimates.</p></li>
+Default value is <code>0.95</code>.</p></li>
+<li><p><code>std_error</code>: for <code>type</code> equal to <code>"conf_int"</code> or <code>"pred_int"</code>, add
+the standard error of fit or prediction (on the scale of the
+linear predictors). Default value is <code>FALSE</code>.</p></li>
+<li><p><code>quantile</code>: for <code>type</code> equal to <code>quantile</code>, the quantiles of the
+distribution. Default is <code>(1:9)/10</code>.</p></li>
+<li><p><code>time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
+time points at which the survival probability or hazard is estimated.</p></li>
 </ul></dd>
 
 
