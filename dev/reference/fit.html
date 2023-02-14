@@ -14,7 +14,7 @@ routine."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.3.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.3.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -180,6 +180,11 @@ preferred method. For example, you might set it to:
 <code>options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))</code>.
 See the help page for <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">stats::contr.treatment()</a></code> for more possible contrast
 types.</p>
+<p>For models with <code>"censored regression"</code> modes, an additional computation is
+executed and saved in the parsnip object. The <code>censor_probs</code> element contains
+a "reverse Kaplan-Meier" curve that models the probability of censoring. This
+may be used later to compute inverse probability censoring weights for
+performance measures.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
