@@ -77,8 +77,8 @@ maximum observed time in the training data.
 LA, Howard G, Simon N. Oblique random survival forests. Annals of
 applied statistics 2019 Sep; 13(3):1847-83. DOI: 10.1214/19-AOAS1261
 \item Jaeger BC, Welden S, Lenoir K, Pajewski NM. aorsf: An R package for
-supervised learning using the oblique random survival forest.
-Journal of Open Source Software 2022, 7(77), 1 4705. .
+supervised learning using the oblique random survival forest. Journal
+of Open Source Software 2022, 7(77), 1 4705. .
 \item Jaeger BC, Welden S, Lenoir K, Speiser JL, Segar MW, Pandey A,
 Pajewski NM. Accelerated and interpretable oblique random survival
 forests. arXiv e-prints 2022 Aug; arXiv-2208. URL:
