@@ -3,7 +3,7 @@
 * For censored regression models, a "reverse Kaplan-Meier" curve is computed for the censoring distribution. This can be used when evaluating this type of model (#855).
 
 * The model specification methods for `generics::tune_args()` and 
-  `generics::tunable()` are now registered unconditionally (tidymodels/tune#192).
+  `generics::tunable()` are now registered unconditionally (tidymodels/workflows#192).
 
 # parsnip 1.0.3
 
