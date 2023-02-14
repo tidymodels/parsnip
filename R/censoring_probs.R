@@ -1,5 +1,5 @@
 # nocov start
-# tested in tidymodels/extratests#75
+# tested in tidymodels/extratests#67
 
 new_reverse_km_fit <-
   function(formula,
