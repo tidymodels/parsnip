@@ -1,7 +1,7 @@
 # nocov start
 # tested in the extratests repo
 
-new_censoring_model <-
+new_reverse_km_fit <-
   function(formula,
            object,
            pkgs = character(0),
@@ -15,7 +15,7 @@ new_censoring_model <-
 # ------------------------------------------------------------------------------
 # estimate the reverse km curve for censored regresison models
 
-make_cens_prob_model <- function(obj, eval_env) {
+reverse_km <- function(obj, eval_env) {
   if (obj$mode != "censored regression") {
     return(list())
   }
@@ -40,11 +40,7 @@ make_cens_prob_model <- function(obj, eval_env) {
     cl <- rlang::call_modify(cl, caseweights = rlang::expr(eval_env$weights))
   }
   rkm <- try(rlang::eval_tidy(cl), silent = TRUE)
-  if (!inherits(rkm, "try-error")) {
-    attr(f, ".Environment") <- rlang::base_env()
-  }
-  attr(rkm$formula, ".Environment") <- rlang::base_env()
-  new_censoring_model(f, object = rkm, label = "reverse_km", pkgs = "prodlim")
+  new_reverse_km_fit(f, object = rkm, label = "reverse_km", pkgs = "prodlim")
 }
 
 # ------------------------------------------------------------------------------
@@ -67,6 +63,9 @@ predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as
   rlang::check_installed("prodlim")
 
   res <- rep(NA_real_, length(time))
+  if (length(time) == 0) {
+    return(res)
+  }
 
   # Some time values might be NA (for Graf category 2)
   is_na <- which(is.na(time))
@@ -74,30 +73,30 @@ predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as
     time <- time[-is_na]
   }
 
-  if (length(time) > 0) {
-    if (is.null(new_data)) {
-      tmp <-
-        purrr::map_dbl(time, ~ predict(object$fit, times = .x, type = "surv"))
-    } else {
-      tmp <-
-        purrr::map_dbl(time, ~ predict(object$fit, newdata = new_data, times = .x, type = "surv"))
-    }
-    zero_prob <- purrr::map_lgl(tmp, ~ !is.na(.x) && .x == 0)
-    if (any(zero_prob)) {
-      # Don't want censoring probabilities of zero so add an epsilon
-      # Either use 1/n or half of the minimum survival probability
-      n <- max(object$fit$n.risk)
-      half_min_surv_prob <- min(object$fit$surv[object$fit$surv > 0]) / 2
-      eps <- min(1 / n, half_min_surv_prob)
-      tmp[zero_prob] <- eps
-    }
-
-    if (length(is_na) > 0) {
-      res[-is_na] <- tmp
-    } else {
-      res <- tmp
-    }
+  if (is.null(new_data)) {
+    tmp <-
+      purrr::map_dbl(time, ~ predict(object$fit, times = .x, type = "surv"))
+  } else {
+    tmp <-
+      purrr::map_dbl(time, ~ predict(object$fit, newdata = new_data, times = .x, type = "surv"))
   }
+
+  zero_prob <- purrr::map_lgl(tmp, ~ !is.na(.x) && .x == 0)
+  if (any(zero_prob)) {
+    # Don't want censoring probabilities of zero so add an epsilon
+    # Either use 1/n or half of the minimum survival probability
+    n <- max(object$fit$n.risk)
+    half_min_surv_prob <- min(object$fit$surv[object$fit$surv > 0]) / 2
+    eps <- min(1 / n, half_min_surv_prob)
+    tmp[zero_prob] <- eps
+  }
+
+  if (length(is_na) > 0) {
+    res[-is_na] <- tmp
+  } else {
+    res <- tmp
+  }
+
   if (!as_vector) {
     res <- tibble::tibble(.prob_censored = unname(res))
   }

@@ -212,7 +212,7 @@ fit.model_spec <-
 
         rlang::abort(glue::glue("{interfaces} is unknown."))
       )
-    res$censor_probs <- make_cens_prob_model(object, eval_env)
+    res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
@@ -324,7 +324,7 @@ fit_xy.model_spec <-
           ),
         rlang::abort(glue::glue("{interfaces} is unknown."))
       )
-    res$censor_probs <- make_cens_prob_model(object, eval_env)
+    res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
