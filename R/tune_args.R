@@ -1,6 +1,10 @@
+#' @importFrom generics tune_args
+#' @export
+generics::tune_args
 
-# Lazily registered in .onLoad()
-tune_args_model_spec <- function(object, full = FALSE, ...) {
+#' @method tune_args model_spec
+#' @export
+tune_args.model_spec <- function(object, full = FALSE, ...) {
 
   # use the model_spec top level class as the id
   model_type <- class(object)[1]

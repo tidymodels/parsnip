@@ -1,7 +1,13 @@
-# Lazily registered in .onLoad()
+
 # Unit tests are in extratests
 # nocov start
-tunable_model_spec <- function(x, ...) {
+
+#' @importFrom generics tunable
+#' @export
+generics::tunable
+
+#' @export
+tunable.model_spec <- function(x, ...) {
   mod_env <- rlang::ns_env("parsnip")$parsnip
 
   if (is.null(x$engine)) {
@@ -228,8 +234,8 @@ flexsurvspline_engine_args <-
 
 # ------------------------------------------------------------------------------
 
-# Lazily registered in .onLoad()
-tunable_linear_reg <- function(x, ...) {
+#' @export
+tunable.linear_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
@@ -240,8 +246,8 @@ tunable_linear_reg <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_logistic_reg <- function(x, ...) {
+#' @export
+tunable.logistic_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
@@ -252,8 +258,8 @@ tunable_logistic_reg <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_multinomial_reg <- function(x, ...) {
+#' @export
+tunable.multinomial_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "glmnet") {
     res$call_info[res$name == "mixture"] <-
@@ -264,8 +270,8 @@ tunable_multinomial_reg <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_boost_tree <- function(x, ...) {
+#' @export
+tunable.boost_tree <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "xgboost") {
     res <- add_engine_parameters(res, xgboost_engine_args)
@@ -287,8 +293,8 @@ tunable_boost_tree <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_rand_forest <- function(x, ...) {
+#' @export
+tunable.rand_forest <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "ranger") {
     res <- add_engine_parameters(res, ranger_engine_args)
@@ -302,8 +308,8 @@ tunable_rand_forest <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_mars <- function(x, ...) {
+#' @export
+tunable.mars <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "earth") {
     res <- add_engine_parameters(res, earth_engine_args)
@@ -311,8 +317,8 @@ tunable_mars <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_decision_tree <- function(x, ...) {
+#' @export
+tunable.decision_tree <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "C5.0") {
     res <- add_engine_parameters(res, c5_tree_engine_args)
@@ -325,8 +331,8 @@ tunable_decision_tree <- function(x, ...) {
   res
 }
 
-# Lazily registered in .onLoad()
-tunable_svm_poly <- function(x, ...) {
+#' @export
+tunable.svm_poly <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "kernlab") {
     res$call_info[res$name == "degree"] <-
@@ -336,8 +342,8 @@ tunable_svm_poly <- function(x, ...) {
 }
 
 
-# Lazily registered in .onLoad()
-tunable_mlp <- function(x, ...) {
+#' @export
+tunable.mlp <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "brulee") {
     res <- add_engine_parameters(res, brulee_mlp_engine_args)
