@@ -2,10 +2,6 @@
 # Unit tests are in extratests
 # nocov start
 
-#' @importFrom generics tunable
-#' @export
-generics::tunable
-
 #' @export
 tunable.model_spec <- function(x, ...) {
   mod_env <- rlang::ns_env("parsnip")$parsnip

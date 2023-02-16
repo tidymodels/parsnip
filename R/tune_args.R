@@ -1,7 +1,3 @@
-#' @importFrom generics tune_args
-#' @export
-generics::tune_args
-
 #' @method tune_args model_spec
 #' @export
 tune_args.model_spec <- function(object, full = FALSE, ...) {
