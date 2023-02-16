@@ -9,6 +9,8 @@
   vctrs::s3_register("generics::tidy", "_fishnet")
   vctrs::s3_register("generics::glance", "model_fit")
   vctrs::s3_register("generics::augment", "model_fit")
+  vctrs::s3_register("generics::required_pkgs", "model_fit")
+  vctrs::s3_register("generics::required_pkgs", "model_spec")
 
   vctrs::s3_register("ggplot2::autoplot", "model_fit")
   vctrs::s3_register("ggplot2::autoplot", "glmnet")
