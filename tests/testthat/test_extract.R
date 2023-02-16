@@ -1,6 +1,4 @@
 test_that('extract', {
-  skip_if(tune_check())
-
   x <- linear_reg() %>% set_engine("lm") %>% fit(mpg ~ ., data = mtcars)
   x_no_spec <- x
   x_no_spec$spec <- NULL
@@ -18,7 +16,6 @@ test_that('extract', {
 
 test_that('extract parameter set from model with no parameters', {
   skip_on_covr()
-  skip_if(tune_check())
 
   lm_model <- linear_reg() %>% set_engine("lm")
 
@@ -29,7 +26,6 @@ test_that('extract parameter set from model with no parameters', {
 
 test_that('extract parameter set from model with main and engine parameters', {
   skip_on_covr()
-  skip_if(tune_check())
 
   bst_model <-
     boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
@@ -62,7 +58,6 @@ test_that('extract parameter set from model with no loaded implementation', {
 
 test_that('extract single parameter from model with no parameters', {
   skip_on_covr()
-  skip_if(tune_check())
 
   lm_model <- linear_reg() %>% set_engine("lm")
 
@@ -73,7 +68,6 @@ test_that('extract single parameter from model with no parameters', {
 
 test_that('extract single parameter from model with main and engine parameters', {
   skip_on_covr()
-  skip_if(tune_check())
 
   bst_model <-
     boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
@@ -91,7 +85,6 @@ test_that('extract single parameter from model with main and engine parameters',
 
 test_that("extract_parameter_dials doesn't error if namespaced args are used", {
   skip_on_covr()
-  skip_if(tune_check())
 
   bst_model <-
     logistic_reg(mode = "classification", penalty = hardhat::tune()) %>%
