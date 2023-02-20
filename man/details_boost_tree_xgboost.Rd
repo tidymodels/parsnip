@@ -135,7 +135,7 @@ boost_tree() \%>\%
   set_engine("xgboost", eval_metric = "mae")
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown mode)
 ## 
 ## Engine-Specific Arguments:
 ##   eval_metric = mae
@@ -150,7 +150,7 @@ boost_tree() \%>\%
   set_engine("xgboost", params = list(eval_metric = "mae"))
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown mode)
 ## 
 ## Engine-Specific Arguments:
 ##   params = list(eval_metric = "mae")

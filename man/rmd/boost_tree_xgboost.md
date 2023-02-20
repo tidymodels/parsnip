@@ -121,7 +121,7 @@ boost_tree() %>%
 ```
 
 ```
-## Boosted Tree Model Specification (unknown)
+## Boosted Tree Model Specification (unknown mode)
 ## 
 ## Engine-Specific Arguments:
 ##   eval_metric = mae
@@ -139,7 +139,7 @@ boost_tree() %>%
 ```
 
 ```
-## Boosted Tree Model Specification (unknown)
+## Boosted Tree Model Specification (unknown mode)
 ## 
 ## Engine-Specific Arguments:
 ##   params = list(eval_metric = "mae")
