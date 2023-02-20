@@ -190,7 +190,7 @@ their analogue to the \code{mtry} argument as the \emph{proportion} of predictor
 that will be randomly sampled at each split rather than the \emph{count}. In
 some settings, such as when tuning over preprocessors that influence the
 number of predictors, this parameterization is quite
-helpful—interpreting \code{mtry} as a proportion means that $\link{0, 1}$ is
+helpful—interpreting \code{mtry} as a proportion means that \verb{[0, 1]} is
 always a valid range for that parameter, regardless of input data.
 
 parsnip and its extensions accommodate this parameterization using the
@@ -208,7 +208,7 @@ to \code{TRUE}. For engines that support the proportion interpretation
 (currently \code{"xgboost"} and \code{"xrf"}, via the rules package, and
 \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
-within $\link{0, 1}$.
+within \verb{[0, 1]}.
 }
 
 \subsection{Early stopping}{
