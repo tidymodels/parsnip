@@ -399,7 +399,7 @@ xgb_predict <- function(object, new_data, ...) {
   res <- predict(object, new_data, ...)
 
   x <- switch(
-    object$params$objective,
+    object$params$objective %||% 3L,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
     res)

@@ -217,8 +217,27 @@ test_that('xgboost alternate objective', {
 
   xgb_fit <- spec %>% fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(xgb_fit)$params$objective, "reg:pseudohubererror")
-})
+  expect_no_error(xgb_preds <- predict(xgb_fit, new_data = mtcars[1,]))
+  expect_s3_class(xgb_preds, "data.frame")
 
+  logregobj <- function(preds, dtrain) {
+    labels <- xgboost::getinfo(dtrain, "label")
+    preds <- 1 / (1 + exp(-preds))
+    grad <- preds - labels
+    hess <- preds * (1 - preds)
+    return(list(grad = grad, hess = hess))
+  }
+
+  spec2 <-
+    boost_tree() %>%
+    set_engine("xgboost", objective = logregobj) %>%
+    set_mode("classification")
+
+  xgb_fit2 <- spec2 %>% fit(vs ~ ., data = mtcars %>% mutate(vs = as.factor(vs)))
+  expect_equal(rlang::eval_tidy(xgb_fit2$spec$eng_args$objective), logregobj)
+  expect_no_error(xgb_preds2 <- predict(xgb_fit2, new_data = mtcars[1,-8]))
+  expect_s3_class(xgb_preds2, "data.frame")
+})
 
 test_that('submodel prediction', {
 
