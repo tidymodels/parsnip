@@ -423,6 +423,7 @@ spec_has_pred_type <- function(object, type) {
   possible_preds <- names(object$spec$method$pred)
   any(possible_preds == type)
 }
+
 check_spec_pred_type <- function(object, type) {
   if (!spec_has_pred_type(object, type)) {
     possible_preds <- names(object$spec$method$pred)
@@ -435,14 +436,12 @@ check_spec_pred_type <- function(object, type) {
   invisible(NULL)
 }
 
-
 check_pkg_val <- function(pkg) {
   if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg)) {
     rlang::abort("Please supply a single character value for the package name.")
   }
   invisible(NULL)
 }
-
 
 check_interface_val <- function(x) {
   exp_interf <- c("data.frame", "formula", "matrix")

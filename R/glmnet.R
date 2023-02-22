@@ -34,11 +34,6 @@ predict_glmnet <- function(object,
                            penalty = NULL,
                            multi = FALSE,
                            ...) {
-
-  if (any(names(enquos(...)) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
-
   # See discussion in https://github.com/tidymodels/parsnip/issues/195
   if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
     penalty <- object$spec$args$penalty
@@ -51,37 +46,21 @@ predict_glmnet <- function(object,
 }
 
 predict_numeric_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
-
   object$spec <- eval_args(object$spec)
   predict_numeric.model_fit(object, new_data = new_data, ...)
 }
 
 predict_class_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
-
   object$spec <- eval_args(object$spec)
   predict_class.model_fit(object, new_data = new_data, ...)
 }
 
 predict_classprob_glmnet <- function(object, new_data, ...) {
-  if (any(names(enquos(...)) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
-
   object$spec <- eval_args(object$spec)
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
 predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
-  if (any(names(enquos(...)) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
-
   object$spec <- eval_args(object$spec)
 
   opts$s <- object$spec$args$penalty
