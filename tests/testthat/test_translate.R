@@ -84,7 +84,6 @@ test_that("arguments (linear_reg)", {
   expect_snapshot(translate_args(basic %>% set_engine("spark")))
   expect_snapshot(translate_args(basic %>% set_engine("spark", max_iter = 20)))
   expect_snapshot(translate_args(basic %>% set_engine("glmnet")), error = TRUE)
-  expect_snapshot(translate_args(basic %>% set_engine("glmnet", path_values = 4:2)), error = TRUE)
 
   expect_snapshot(translate_args(mixture %>% set_engine("spark")))
   expect_snapshot(translate_args(mixture_v %>% set_engine("spark")))
@@ -92,6 +91,7 @@ test_that("arguments (linear_reg)", {
 
   expect_snapshot(translate_args(penalty %>% set_engine("glmnet")))
   expect_snapshot(translate_args(penalty %>% set_engine("glmnet", nlambda = 10)))
+  expect_snapshot(translate_args(penalty %>% set_engine("glmnet", path_values = 4:2)))
   expect_snapshot(translate_args(penalty %>% set_engine("spark")))
 })
 
