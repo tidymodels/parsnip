@@ -174,35 +174,13 @@ prob_to_class_2 <- function(x, object) {
   unname(x)
 }
 
-
 organize_glmnet_class <- function(x, object) {
-  if (ncol(x) == 1) {
-    res <- prob_to_class_2(x[, 1], object)
-  } else {
-    n <- nrow(x)
-    res <- utils::stack(as.data.frame(x))
-    res$values <- prob_to_class_2(res$values, object)
-    if (!is.null(object$spec$args$penalty))
-      res$lambda <- rep(object$spec$args$penalty, each = n) else
-        res$lambda <- rep(object$fit$lambda, each = n)
-    res <- res[, colnames(res) %in% c("values", "lambda")]
-  }
-  res
+  prob_to_class_2(x[, 1], object)
 }
 
 organize_glmnet_prob <- function(x, object) {
-  if (ncol(x) == 1) {
-    res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
-    colnames(res) <- object$lvl
-  } else {
-    n <- nrow(x)
-    res <- utils::stack(as.data.frame(x))
-    res <- tibble(v1 = 1 - res$values, v2 = res$values)
-    colnames(res) <- object$lvl
-    if (!is.null(object$spec$args$penalty))
-      res$lambda <- rep(object$spec$args$penalty, each = n) else
-        res$lambda <- rep(object$fit$lambda, each = n)
-  }
+  res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+  colnames(res) <- object$lvl
   res
 }
 
