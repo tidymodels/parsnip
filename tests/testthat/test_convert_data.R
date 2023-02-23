@@ -346,6 +346,14 @@ test_that("numeric x and factor y", {
     .convert_form_to_xy_new(observed, new_data = head(hpc))$x
   )
 
+  expect_no_error(
+    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc %>% mutate(x = NA))
+  )
+  expect_equal(hpc$class[logical()], observed2$y)
+  expect_s3_class(observed2$terms, "terms")
+  expect_equal(expected$xlevels, observed2$xlevels)
+  expect_null(observed2$weights)
+  expect_null(observed2$offset)
 })
 
 test_that("bad args", {

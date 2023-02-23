@@ -324,7 +324,7 @@ make_formula <- function(x, y, short = TRUE) {
 
 
 will_make_matrix <- function(y) {
-  if (is.matrix(y) | is.vector(y))
+  if (is.matrix(y) | is.vector(y) | (is.factor(y) & length(y) == 0))
     return(FALSE)
   cls <- unique(unlist(lapply(y, class)))
   if (length(cls) > 1)
