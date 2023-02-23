@@ -143,8 +143,6 @@ form_xy <- function(object, control, env,
   env$x <- data_obj$x
   env$y <- data_obj$y
 
-  check_outcome(env$y, object)
-
   res <- xy_xy(
     object = object,
     env = env, #weights!
