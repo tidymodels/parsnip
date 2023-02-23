@@ -118,6 +118,8 @@ multi_predict_glmnet <- function(object,
     }
   }
 
+  model_type <- class(object$spec)[1]
+
   if (object$spec$mode == "classification") {
     if (is.null(type)) {
       type <- "class"
@@ -125,7 +127,8 @@ multi_predict_glmnet <- function(object,
     if (!(type %in% c("class", "prob", "link", "raw"))) {
       rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
     }
-    if (type == "prob") {
+    if (type == "prob" |
+        model_type == "logistic_reg") {
       dots$type <- "response"
     } else {
       dots$type <- type
@@ -135,13 +138,13 @@ multi_predict_glmnet <- function(object,
   pred <- predict(object, new_data = new_data, type = "raw",
                   opts = dots, penalty = penalty, multi = TRUE)
 
-  model_type <- class(object$spec)[1]
+
   res <- switch(
     model_type,
     "linear_reg" = format_glmnet_multi_linear_reg(pred, penalty = penalty),
     "logistic_reg" = format_glmnet_multi_logistic_reg(pred,
                                                       penalty = penalty,
-                                                      type = dots$type,
+                                                      type = type,
                                                       lvl = object$lvl),
     "multinom_reg" = format_glmnet_multi_multinom_reg(pred,
                                                       penalty = penalty,

@@ -216,34 +216,41 @@ predict._lognet <- predict_glmnet
 multi_predict._lognet <- multi_predict_glmnet
 
 format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
-  param_key <- tibble(group = colnames(pred), penalty = penalty)
+
+  type <- rlang::arg_match(type, c("class", "prob"))
+
+  penalty_key <- tibble(s = colnames(pred), penalty = penalty)
+
   pred <- as_tibble(pred)
-  pred$.row <- 1:nrow(pred)
-  pred <- gather(pred, group, .pred_class, -.row)
+  pred$.row <- seq_len(nrow(pred))
+  pred <- tidyr::pivot_longer(pred, -.row, names_to = "s", values_to = ".pred")
+
   if (type == "class") {
-    pred[[".pred_class"]] <- factor(pred[[".pred_class"]], levels = lvl)
+    pred <- pred %>%
+      dplyr::mutate(.pred_class = dplyr::if_else(.pred >= 0.5, lvl[2], lvl[1]),
+                    .pred_class = factor(.pred_class, levels = lvl),
+                    .keep = "unused")
   } else {
-    if (type == "response") {
-      pred[[".pred2"]] <- 1 - pred[[".pred_class"]]
-      names(pred) <- c(".row", "group", paste0(".pred_", rev(lvl)))
-      pred <- pred[, c(".row", "group", paste0(".pred_", lvl))]
-    }
+    pred <- pred %>%
+      dplyr::mutate(.pred_class_2 = 1 - .pred) %>%
+      rlang::set_names(c(".row", "s", paste0(".pred_", rev(lvl)))) %>%
+      dplyr::select(c(".row", "s", paste0(".pred_", lvl)))
   }
+
   if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-    pred <- full_join(param_key, pred, by = "group", multiple = "all")
+    pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
   } else {
-    pred <- full_join(param_key, pred, by = "group")
+    pred <- dplyr::full_join(penalty_key, pred, by = "s")
   }
-  pred$group <- NULL
-  pred <- arrange(pred, .row, penalty)
-  .row <- pred$.row
-  pred$.row <- NULL
-  pred <- split(pred, .row)
-  names(pred) <- NULL
-  tibble(.pred = pred)
+
+  pred <- pred %>%
+    dplyr::select(-s) %>%
+    dplyr::arrange(penalty) %>%
+    tidyr::nest(.by = .row, .key = ".pred") %>%
+    dplyr::select(-.row)
+
+  pred
 }
-
-
 
 #' @export
 predict_class._lognet <- predict_class_glmnet
