@@ -152,3 +152,21 @@ multi_predict_glmnet <- function(object,
 
   res
 }
+
+#' @export
+predict._glmnetfit <- predict_glmnet
+
+#' @export
+predict_numeric._glmnetfit <- predict_numeric_glmnet
+
+#' @export
+predict_class._glmnetfit <- predict_class_glmnet
+
+#' @export
+predict_classprob._glmnetfit <- predict_classprob_glmnet
+
+#' @export
+predict_raw._glmnetfit <- predict_raw_glmnet
+
+#' @export
+multi_predict._glmnetfit <- multi_predict_glmnet
