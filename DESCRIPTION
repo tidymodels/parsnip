@@ -1,13 +1,13 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.0.3.9003
+Version: 1.0.4
 Authors@R: c(
-    person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
-    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
+    person("Max", "Kuhn", , "max@posit.co", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
     person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = "ctb"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit Software PBC", role = c("cph", "fnd"))
   )
-Maintainer: Max Kuhn <max@rstudio.com>
+Maintainer: Max Kuhn <max@posit.co>
 Description: A common interface is provided to allow users to specify a
     model without having to remember the different argument names across
     different functions or computational engines (e.g. 'R', 'Spark',
@@ -76,4 +76,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.2.3.9000
