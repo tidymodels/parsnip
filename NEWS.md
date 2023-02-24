@@ -1,6 +1,12 @@
 # parsnip (development version)
 
-* Made `fit()` behave consistently with respect to missingness in the classification setting. Previously, `fit()` erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function.
+
+* Made `fit()` behave consistently with respect to missingness in the classification setting. Previously, `fit()` erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (#888).
+
+* `.organize_glmnet_pred()` now expects predictions for a single penalty value (#876).
+
+* Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
+
 
 # parsnip 1.0.4
 
