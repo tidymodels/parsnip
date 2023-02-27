@@ -18,8 +18,8 @@
 #' @keywords internal
 #' @name surv-helpers
 #' @return
-#' - `.extract_status()` returns a vector.
-#' - `.extract_time()` returns a vector when the type is `"right"` or `"left"`
+#' - `.extract_surv_status()` returns a vector.
+#' - `.extract_surv_time()` returns a vector when the type is `"right"` or `"left"`
 #'    and a tibble otherwise.
 #' - Functions starting with `.is_` or `.check_` return logicals although the
 #'   latter will fail when `FALSE`.
@@ -104,7 +104,7 @@ trunc_probs <- function(probs, trunc = 0.01) {
   probs
 }
 
-filter_eval_time <- function(eval_time, fail = TRUE) {
+.filter_eval_time <- function(eval_time, fail = TRUE) {
   # will still propagate nulls:
   eval_time <- eval_time[!is.na(eval_time)]
   eval_time <- unique(eval_time)

@@ -21,8 +21,8 @@
 }
 \value{
 \itemize{
-\item \code{.extract_status()} returns a vector.
-\item \code{.extract_time()} returns a vector when the type is \code{"right"} or \code{"left"}
+\item \code{.extract_surv_status()} returns a vector.
+\item \code{.extract_surv_time()} returns a vector when the type is \code{"right"} or \code{"left"}
 and a tibble otherwise.
 \item Functions starting with \code{.is_} or \code{.check_} return logicals although the
 latter will fail when \code{FALSE}.
