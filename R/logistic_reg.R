@@ -76,6 +76,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   arg_names <- names(arg_vals)
 
   if (engine == "glmnet") {
+    # See https://parsnip.tidymodels.org/reference/glmnet-details.html
     .check_glmnet_penalty_fit(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
