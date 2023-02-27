@@ -64,7 +64,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/glmnet_helpers_prediction.html">.organize_glmnet_pred()</a></code> now expects predictions for a single penalty value (<a href="https://github.com/tidymodels/parsnip/issues/876" class="external-link">#876</a>).</p></li>
+<ul><li><p>Made <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> behave consistently with respect to missingness in the classification setting. Previously, <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (<a href="https://github.com/tidymodels/parsnip/issues/888" class="external-link">#888</a>).</p></li>
+<li><p><code><a href="../reference/glmnet_helpers_prediction.html">.organize_glmnet_pred()</a></code> now expects predictions for a single penalty value (<a href="https://github.com/tidymodels/parsnip/issues/876" class="external-link">#876</a>).</p></li>
 <li><p>Fixed bug with prediction from a boosted tree model fitted with <code>"xgboost"</code> using a custom objective function (<a href="https://github.com/tidymodels/parsnip/issues/875" class="external-link">#875</a>).</p></li>
 </ul></div>
     <div class="section level2">
