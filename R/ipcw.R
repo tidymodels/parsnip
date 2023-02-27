@@ -10,6 +10,8 @@
 #' Functions to make it easier to work with [survival::Surv()] objects.
 #' @param surv A [survival::Surv()] object
 #' @details
+#' `.is_censored_right()` always returns a logical while
+#' `.check_censored_right()` will fail if `FALSE`.
 #'
 #' `.extract_status()` will return the data as 0/1 even if the original object
 #' used the legacy encoding of 1/2. See [survival::Surv()].
@@ -40,10 +42,10 @@
 #' @export
 .extract_surv_time <- function(surv) {
   .is_surv(surv)
-  keepers <- c("time", "start", "stop")
-  res <- surv[, names(surv) %in% keepers]
+  keepers <- c("time", "start", "stop", "time1", "time2")
+  res <- surv[, colnames(surv) %in% keepers]
   if (NCOL(res) > 1) {
-    res <- tibble::tibble(res)
+    res <- tibble::tibble(as.data.frame(res))
   }
   res
 }
@@ -91,12 +93,15 @@
 
 # For avoiding extremely large, outlier weights
 trunc_probs <- function(probs, trunc = 0.01) {
-  probs_non_zero <- probs[!is.na(probs)]
+  complt_prob <- !is.na(probs)
+  probs_non_zero <- probs[complt_prob]
   non_zero_min <- min(probs_non_zero[probs_non_zero > 0])
   if (non_zero_min < trunc) {
     trunc <- non_zero_min / 2
   }
-  ifelse(probs <= trunc, trunc, probs)
+  probs[complt_prob] <-
+    ifelse(probs[complt_prob] <= trunc, trunc, probs[complt_prob])
+  probs
 }
 
 filter_eval_time <- function(eval_time, fail = TRUE) {

@@ -32,6 +32,9 @@ latter will fail when \code{FALSE}.
 Functions to make it easier to work with \code{\link[survival:Surv]{survival::Surv()}} objects.
 }
 \details{
+\code{.is_censored_right()} always returns a logical while
+\code{.check_censored_right()} will fail if \code{FALSE}.
+
 \code{.extract_status()} will return the data as 0/1 even if the original object
 used the legacy encoding of 1/2. See \code{\link[survival:Surv]{survival::Surv()}}.
 }
