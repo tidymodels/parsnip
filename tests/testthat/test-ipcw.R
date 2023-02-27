@@ -25,14 +25,14 @@ test_that('time filtering', {
   times_2 <- c(Inf, NA, -3, times_1, times_1)
 
   expect_equal(
-    parsnip:::filter_eval_time(times_1),
+    parsnip:::.filter_eval_time(times_1),
     times_1
   )
   expect_equal(
-    parsnip:::filter_eval_time(times_1),
+    parsnip:::.filter_eval_time(times_1),
     times_1
   )
-  expect_snapshot_error(parsnip:::filter_eval_time(-1))
+  expect_snapshot_error(parsnip:::.filter_eval_time(-1))
 })
 
 
