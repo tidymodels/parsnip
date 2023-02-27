@@ -2,6 +2,10 @@
 
 * glmnet models fitted with base-R family objects are now supported for `linear_reg()`, `logistic_reg()`, and `multinomial_reg()` (#890).
 
+* `.organize_glmnet_pred()` now expects predictions for a single penalty value (#876).
+
+* Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
+
 # parsnip 1.0.4
 
 * For censored regression models, a "reverse Kaplan-Meier" curve is computed for the censoring distribution. This can be used when evaluating this type of model (#855).
