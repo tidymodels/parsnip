@@ -46,6 +46,79 @@ read_model_info_table <- function() {
 
 # ------------------------------------------------------------------------------
 
+# for checks and other intermediate steps that are redundant across fits to
+# resamples, we can skip computationally intensive ones after the first run
+# by hooking into tune's `tune_env` and storing their result.
+#
+# we can precede some long-running chunk of code with the conditional:
+#
+# if (has_intermediate_result("unique_label")) {
+#   return(get_intermediate_result("unique_label"))
+# }
+#
+# the first time this conditional is run, `has_intermediate_result` will
+# return `FALSE` and the long-running chunk will execute, resulting in a
+# `result`. That result can then be stored as:
+#
+# set_intermediate_result("unique_label", result)
+#
+# in later iterations, the early return will be triggered.
+#
+# these tools only ought to be used when we can guarantee that the results of
+# the check will not change across resamples.
+get_tune_env <- function() {
+  rlang::env_get(rlang::ns_env("tune"), "tune_env", default = NULL)
+}
+
+can_have_intermediate_result <- function() {
+  tune_env <- NULL
+
+  if (rlang::is_installed("tune")) {
+    tune_env <- get_tune_env()
+  }
+
+  !is.null(tune_env$progress_env)
+}
+
+has_intermediate_result <- function(nm) {
+  if (!can_have_intermediate_result()) {
+    return(FALSE)
+  }
+
+  tune_env <- get_tune_env()
+  intermediate_results <- rlang::env_get(tune_env$progress_env, "intermediate_results", default = list())
+
+  if (nm %in% names(intermediate_results)) {
+    return(TRUE)
+  }
+
+  return(FALSE)
+}
+
+set_intermediate_result <- function(nm, res) {
+  if (!can_have_intermediate_result()) {
+    return(invisible())
+  }
+
+  tune_env <- get_tune_env()
+  intermediate_results <- rlang::env_get(tune_env$progress_env, "intermediate_results", default = list())
+  # store as a list to allow for `NULL` results
+  intermediate_results[[nm]] <- list(res)
+  rlang::env_bind(tune_env$progress_env, intermediate_results = intermediate_results)
+
+  invisible()
+}
+
+get_intermediate_result <- function(nm) {
+  if (!can_have_intermediate_result()) {
+    return(invisible())
+  }
+
+  tune_env <- get_tune_env()
+  # return the first element of the 1-element list to allow for `NULL` results
+  rlang::env_get(tune_env$progress_env, "intermediate_results")[[nm]][[1]]
+}
+
 #' Working with the parsnip model environment
 #'
 #' These functions read and write to the environment where the package stores
@@ -215,6 +288,9 @@ check_mode_for_new_engine <- function(cls, eng, mode) {
 
 # check if class and mode and engine are compatible
 check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
+  if (has_intermediate_result("check_spec_mode_engine_val")) {
+    return(get_intermediate_result("check_spec_mode_engine_val"))
+  }
 
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
@@ -235,6 +311,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
 
   if (nrow(model_info_parsnip_only) == 0) {
     check_mode_with_no_engine(cls, mode, call = call)
+    set_intermediate_result("check_spec_mode_engine_val", NULL)
     return(invisible(NULL))
   }
 
@@ -280,6 +357,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
     stop_incompatible_engine(spec_engs, mode, call = call)
   }
 
+  set_intermediate_result("check_spec_mode_engine_val", NULL)
   invisible(NULL)
 }
 

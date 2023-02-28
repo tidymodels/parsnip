@@ -52,6 +52,7 @@ Suggests:
     MASS,
     Matrix,
     mgcv,
+    mockr,
     modeldata,
     nlme,
     prodlim,
