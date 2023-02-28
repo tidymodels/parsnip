@@ -65,6 +65,7 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "glmnet") {
+    # See https://parsnip.tidymodels.org/reference/glmnet-details.html
     .check_glmnet_penalty_fit(x)
     if (any(names(x$eng_args) == "path_values")) {
       # Since we decouple the parsnip `penalty` argument from being the same
