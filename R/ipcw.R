@@ -85,6 +85,8 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   # Observed time greater than eval_time (Graf category 2)
   weight_time[is_censored] <- eval_time - eps
 
+  weight_time <- ifelse(weight_time < 0, 0, weight_time)
+
   res <- tibble::tibble(surv = surv_obj, weight_time = weight_time, eval_time)
   add_dot_row_to_weights(res, rows)
 }
