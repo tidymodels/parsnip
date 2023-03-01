@@ -168,7 +168,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   cls <- paste0("'", class(object), "'", collapse = ", ")
   msg <- paste("There are no `.censoring_weights_graf` for objects with class(es):",
                cls)
-  rlang::abort(msg, call = FALSE)
+  rlang::abort(msg)
 }
 
 
