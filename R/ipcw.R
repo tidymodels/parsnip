@@ -7,14 +7,14 @@
 
 # For avoiding extremely large, outlier weights
 trunc_probs <- function(probs, trunc = 0.01) {
-  complt_prob <- !is.na(probs)
-  probs_non_zero <- probs[complt_prob]
-  non_zero_min <- min(probs_non_zero[probs_non_zero > 0])
+  is_complt_prob <- !is.na(probs)
+  complt_prob <- probs[is_complt_prob]
+  non_zero_min <- min(complt_prob[complt_prob > 0])
   if (non_zero_min < trunc) {
     trunc <- non_zero_min / 2
   }
-  probs[complt_prob] <-
-    ifelse(probs[complt_prob] <= trunc, trunc, probs[complt_prob])
+  probs[is_complt_prob] <-
+    ifelse(probs[is_complt_prob] <= trunc, trunc, probs[is_complt_prob])
   probs
 }
 
@@ -214,5 +214,4 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
     )  %>%
     dplyr::select(.row, eval_time, .prob_cens, .weight_cens)
 }
-
 

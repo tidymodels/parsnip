@@ -32,7 +32,8 @@ test_that('time filtering', {
     parsnip:::.filter_eval_time(times_1),
     times_1
   )
-  expect_snapshot_error(parsnip:::.filter_eval_time(-1))
+  expect_snapshot(error = TRUE, parsnip:::.filter_eval_time(-1))
+  expect_null(parsnip:::.filter_eval_time(NULL))
 })
 
 test_that('probability truncation', {
