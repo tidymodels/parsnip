@@ -60,7 +60,7 @@
 
 .is_surv <- function(surv, fail = TRUE) {
   is_surv <- inherits(surv, "Surv")
-  if (fail && !is_surv) {
+  if (!is_surv && fail) {
     rlang::abort("The object does not have class `Surv`.", call = NULL)
   }
   is_surv
@@ -70,13 +70,13 @@
   attr(surv, "type")
 }
 
-.check_cens_type <- function(surv, type = "right", fail = FALSE) {
+.check_cens_type <- function(surv, type = "right", fail = TRUE) {
   .is_surv(surv)
   obj_type <- .extract_surv_type(surv)
   good_type <- all(obj_type %in% type)
-  if (fail && !good_type) {
-    c_list <- paste0(type, collapse = ", ")
-    msg <- glue::glue("For this usage, the allowed censoring types are: {c_list}")
+  if (!good_type && fail) {
+    c_list <- paste0("'", type, "'")
+    msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
     rlang::abort(msg, call = NULL)
   }
   good_type
