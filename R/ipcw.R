@@ -59,6 +59,8 @@ add_dot_row_to_weights <- function(dat, rows = NULL) {
   invisible(NULL)
 }
 
+# nocov start
+# these are tested in extratests
 # ------------------------------------------------------------------------------
 # Brier score helpers. Most of this is based off of Graf, E., Schmoor, C.,
 # Sauerbrei, W. and Schumacher, M. (1999), Assessment and comparison of
@@ -215,3 +217,4 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
     dplyr::select(.row, eval_time, .prob_cens, .weight_cens)
 }
 
+# nocov end
