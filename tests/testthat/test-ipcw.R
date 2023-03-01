@@ -94,9 +94,10 @@ test_that('calcuate evaluation time', {
 
 test_that('compute Graf weights', {
 
+  library(parsnip)
   library(survival)
   library(censored)
-  library(worlflows)
+  library(workflows)
   library(dplyr)
 
   times <- 1:10
@@ -137,6 +138,8 @@ test_that('compute Graf weights', {
   expect_true(inherits(wts_00, "data.frame"))
   expect_equal(names(wts_00), c(".row", "eval_time", ".prob_cens", ".weight_cens"))
   expect_equal(nrow(wts_00), nrow(df))
+
+  expect_snapshot(.censoring_weights_graf(2, df, 0), error = TRUE)
 
 })
 
