@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p>Made <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> behave consistently with respect to missingness in the classification setting. Previously, <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (<a href="https://github.com/tidymodels/parsnip/issues/888" class="external-link">#888</a>).</p></li>
+<ul><li><p>glmnet models fitted with base-R family objects are now supported for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, and <code>multinomial_reg()</code> (<a href="https://github.com/tidymodels/parsnip/issues/890" class="external-link">#890</a>).</p></li>
+<li><p>Made <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> behave consistently with respect to missingness in the classification setting. Previously, <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (<a href="https://github.com/tidymodels/parsnip/issues/888" class="external-link">#888</a>).</p></li>
 <li><p><code><a href="../reference/glmnet_helpers_prediction.html">.organize_glmnet_pred()</a></code> now expects predictions for a single penalty value (<a href="https://github.com/tidymodels/parsnip/issues/876" class="external-link">#876</a>).</p></li>
 <li><p>Fixed bug with prediction from a boosted tree model fitted with <code>"xgboost"</code> using a custom objective function (<a href="https://github.com/tidymodels/parsnip/issues/875" class="external-link">#875</a>).</p></li>
 <li><p>Several internal functions (to help work with <code>Surv</code> objects) were added as a standalone file that can be used in other packages via <code>usethis::use_standalone("tidymodels/parsnip")</code>.</p></li>
