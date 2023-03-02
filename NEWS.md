@@ -1,5 +1,6 @@
 # parsnip (development version)
 
+* glmnet models fitted with base-R family objects are now supported for `linear_reg()`, `logistic_reg()`, and `multinomial_reg()` (#890).
 
 * Made `fit()` behave consistently with respect to missingness in the classification setting. Previously, `fit()` erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (#888).
 
