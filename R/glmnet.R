@@ -71,6 +71,7 @@ predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
 # translation of glmnet classes to parsnip models
 # elnet ~ linear_reg
 # lognet ~ logistic_reg
+# multnet ~ multinom_reg
 # glmnetfit: that's a catch-all class for glmnet models fitted with a base-R
 #  family, thus can be any of linear_reg, logistic_reg, multinom_reg, poisson_reg
 
@@ -94,6 +95,18 @@ predict_classprob._lognet <- predict_classprob_glmnet
 
 #' @export
 predict_raw._lognet <- predict_raw_glmnet
+
+#' @export
+predict._multnet <- predict_glmnet
+
+#' @export
+predict_class._multnet <- predict_class_glmnet
+
+#' @export
+predict_classprob._multnet <- predict_classprob_glmnet
+
+#' @export
+predict_raw._multnet <- predict_raw_glmnet
 
 #' @export
 predict._glmnetfit <- predict_glmnet
@@ -133,6 +146,24 @@ organize_glmnet_prob <- function(x, object) {
   res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
   colnames(res) <- object$lvl
   res
+}
+
+organize_multnet_class <- function(x, object) {
+  if (vec_size(x) > 1) {
+    x <- x[,1]
+  } else {
+    x <- as.character(x)
+  }
+  x
+}
+
+organize_multnet_prob <- function(x, object) {
+  if (vec_size(x) > 1) {
+    x <- as_tibble(x[,,1])
+  } else {
+    x <- tibble::as_tibble_row(x[,,1])
+  }
+  x
 }
 
 # -------------------------------------------------------------------------
@@ -214,6 +245,10 @@ multi_predict._elnet <- multi_predict_glmnet
 multi_predict._lognet <- multi_predict_glmnet
 
 #' @export
+#' @rdname multi_predict
+multi_predict._multnet <- multi_predict_glmnet
+
+#' @export
 multi_predict._glmnetfit <- multi_predict_glmnet
 
 format_glmnet_multi_linear_reg <- function(pred, penalty) {
@@ -270,6 +305,38 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
     dplyr::select(-.row)
 
   pred
+}
+
+format_glmnet_multi_multinom_reg <- function(pred, penalty, type, n_rows, lvl) {
+  format_probs <- function(x) {
+    x <- as_tibble(x)
+    names(x) <- paste0(".pred_", names(x))
+    nms <- names(x)
+    x$.row <- 1:nrow(x)
+    x[, c(".row", nms)]
+  }
+
+  if (type == "prob") {
+    pred <- apply(pred, 3, format_probs)
+    names(pred) <- NULL
+    pred <- map_dfr(pred, function(x) x)
+    pred$penalty <- rep(penalty, each = n_rows)
+    pred <- dplyr::relocate(pred, penalty)
+  } else {
+    pred <-
+      tibble(
+        .row = rep(1:n_rows, length(penalty)),
+        penalty = rep(penalty, each = n_rows),
+        .pred_class = factor(as.vector(pred), levels = lvl)
+      )
+  }
+
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
 }
 
 # -------------------------------------------------------------------------
