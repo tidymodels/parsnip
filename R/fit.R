@@ -1,8 +1,3 @@
-# General TODOs
-# Q: think about case weights in each instance below
-
-# TODO write a better deparser for calls to avoid off-screen text and tabs
-
 #' Fit a Model Specification to a Dataset
 #'
 #' `fit()` and `fit_xy()` take a model specification, translate the required

@@ -152,3 +152,21 @@ predict_raw._glmnetfit <- predict_raw_glmnet
 
 #' @export
 multi_predict._glmnetfit <- multi_predict_glmnet
+
+# -------------------------------------------------------------------------
+
+set_glmnet_penalty_path <- function(x) {
+  if (any(names(x$eng_args) == "path_values")) {
+    # Since we decouple the parsnip `penalty` argument from being the same
+    # as the glmnet `lambda` value, `path_values` allows users to set the
+    # path differently from the default that glmnet uses. See
+    # https://github.com/tidymodels/parsnip/issues/431
+    x$method$fit$args$lambda <- x$eng_args$path_values
+    x$eng_args$path_values <- NULL
+    x$method$fit$args$path_values <- NULL
+  } else {
+    # See discussion in https://github.com/tidymodels/parsnip/issues/195
+    x$method$fit$args$lambda <- NULL
+  }
+  x
+}
