@@ -70,7 +70,7 @@ predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
 
 # translation of glmnet classes to parsnip models
 # elnet ~ linear_reg
-#
+# lognet ~ logistic_reg
 # glmnetfit: that's a catch-all class for glmnet models fitted with a base-R
 #  family, thus can be any of linear_reg, logistic_reg, multinom_reg, poisson_reg
 
@@ -82,6 +82,18 @@ predict_numeric._elnet <- predict_numeric_glmnet
 
 #' @export
 predict_raw._elnet <- predict_raw_glmnet
+
+#' @export
+predict._lognet <- predict_glmnet
+
+#' @export
+predict_class._lognet <- predict_class_glmnet
+
+#' @export
+predict_classprob._lognet <- predict_classprob_glmnet
+
+#' @export
+predict_raw._lognet <- predict_raw_glmnet
 
 #' @export
 predict._glmnetfit <- predict_glmnet
@@ -111,6 +123,16 @@ predict_raw._glmnetfit <- predict_raw_glmnet
 #' @export
 .organize_glmnet_pred <- function(x, object) {
   unname(x[, 1])
+}
+
+organize_glmnet_class <- function(x, object) {
+  prob_to_class_2(x[, 1], object)
+}
+
+organize_glmnet_prob <- function(x, object) {
+  res <- tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+  colnames(res) <- object$lvl
+  res
 }
 
 # -------------------------------------------------------------------------
@@ -188,6 +210,10 @@ multi_predict_glmnet <- function(object,
 multi_predict._elnet <- multi_predict_glmnet
 
 #' @export
+#' @rdname multi_predict
+multi_predict._lognet <- multi_predict_glmnet
+
+#' @export
 multi_predict._glmnetfit <- multi_predict_glmnet
 
 format_glmnet_multi_linear_reg <- function(pred, penalty) {
@@ -207,6 +233,43 @@ format_glmnet_multi_linear_reg <- function(pred, penalty) {
   pred <- split(pred, .row)
   names(pred) <- NULL
   tibble(.pred = pred)
+}
+
+format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
+
+  type <- rlang::arg_match(type, c("class", "prob"))
+
+  penalty_key <- tibble(s = colnames(pred), penalty = penalty)
+
+  pred <- as_tibble(pred)
+  pred$.row <- seq_len(nrow(pred))
+  pred <- tidyr::pivot_longer(pred, -.row, names_to = "s", values_to = ".pred")
+
+  if (type == "class") {
+    pred <- pred %>%
+      dplyr::mutate(.pred_class = dplyr::if_else(.pred >= 0.5, lvl[2], lvl[1]),
+                    .pred_class = factor(.pred_class, levels = lvl),
+                    .keep = "unused")
+  } else {
+    pred <- pred %>%
+      dplyr::mutate(.pred_class_2 = 1 - .pred) %>%
+      rlang::set_names(c(".row", "s", paste0(".pred_", rev(lvl)))) %>%
+      dplyr::select(c(".row", "s", paste0(".pred_", lvl)))
+  }
+
+  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
+    pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
+  } else {
+    pred <- dplyr::full_join(penalty_key, pred, by = "s")
+  }
+
+  pred <- pred %>%
+    dplyr::select(-s) %>%
+    dplyr::arrange(penalty) %>%
+    tidyr::nest(.by = .row, .key = ".pred") %>%
+    dplyr::select(-.row)
+
+  pred
 }
 
 # -------------------------------------------------------------------------
