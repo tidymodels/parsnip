@@ -179,8 +179,6 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   res
 }
 
-surv_types <- c("time", "survival", "hazard")
-
 check_pred_type <- function(object, type, ...) {
   if (is.null(type)) {
     type <-
@@ -197,14 +195,27 @@ check_pred_type <- function(object, type, ...) {
         glue_collapse(pred_types, sep = ", ", last = " and ")
       )
     )
-  if (type == "numeric" & object$spec$mode != "regression")
+  if (type == "numeric" & object$spec$mode != "regression") {
     rlang::abort("For numeric predictions, the object should be a regression model.")
-  if (type == "class" & object$spec$mode != "classification")
+  }
+  if (type == "class" & object$spec$mode != "classification"){
     rlang::abort("For class predictions, the object should be a classification model.")
-  if (type == "prob" & object$spec$mode != "classification")
+  }
+  if (type == "prob" & object$spec$mode != "classification") {
     rlang::abort("For probability predictions, the object should be a classification model.")
-  if (type %in% surv_types & object$spec$mode != "censored regression")
+  }
+  if (type == "time" & object$spec$mode != "censored regression") {
     rlang::abort("For event time predictions, the object should be a censored regression.")
+  }
+  if (type == "survival" & object$spec$mode != "censored regression") {
+    rlang::abort("For survival probability predictions, the object should be a censored regression.")
+  }
+  if (type == "hazard" & object$spec$mode != "censored regression") {
+    rlang::abort("For hazard predictions, the object should be a censored regression.")
+  }
+  if (type == "linear_pred" & object$spec$mode != "censored regression") {
+    rlang::abort("For the linear predictor, the object should be a censored regression.")
+  }
 
   # TODO check for ... options when not the correct type
   type
