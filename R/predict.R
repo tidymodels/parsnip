@@ -198,7 +198,7 @@ check_pred_type <- function(object, type, ...) {
   if (type == "numeric" & object$spec$mode != "regression") {
     rlang::abort("For numeric predictions, the object should be a regression model.")
   }
-  if (type == "class" & object$spec$mode != "classification"){
+  if (type == "class" & object$spec$mode != "classification") {
     rlang::abort("For class predictions, the object should be a classification model.")
   }
   if (type == "prob" & object$spec$mode != "classification") {
