@@ -68,6 +68,21 @@ predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
   predict_raw.model_fit(object, new_data = new_data, opts = opts, ...)
 }
 
+# translation of glmnet classes to parsnip models
+# elnet ~ linear_reg
+#
+# glmnetfit: that's a catch-all class for glmnet models fitted with a base-R
+#  family, thus can be any of linear_reg, logistic_reg, multinom_reg, poisson_reg
+
+#' @export
+predict._elnet <- predict_glmnet
+
+#' @export
+predict_numeric._elnet <- predict_numeric_glmnet
+
+#' @export
+predict_raw._elnet <- predict_raw_glmnet
+
 #' @export
 predict._glmnetfit <- predict_glmnet
 
@@ -82,6 +97,21 @@ predict_classprob._glmnetfit <- predict_classprob_glmnet
 
 #' @export
 predict_raw._glmnetfit <- predict_raw_glmnet
+
+#' Organize glmnet predictions
+#'
+#' This function is for developer use and organizes predictions from glmnet
+#' models.
+#'
+#' @param x Predictions as returned by the `predict()` method for glmnet models.
+#' @param object An object of class `model_fit`.
+#'
+#' @rdname glmnet_helpers_prediction
+#' @keywords internal
+#' @export
+.organize_glmnet_pred <- function(x, object) {
+  unname(x[, 1])
+}
 
 # -------------------------------------------------------------------------
 
@@ -153,7 +183,31 @@ multi_predict_glmnet <- function(object,
 }
 
 #' @export
+#' @rdname multi_predict
+#' @param penalty A numeric vector of penalty values.
+multi_predict._elnet <- multi_predict_glmnet
+
+#' @export
 multi_predict._glmnetfit <- multi_predict_glmnet
+
+format_glmnet_multi_linear_reg <- function(pred, penalty) {
+  param_key <- tibble(group = colnames(pred), penalty = penalty)
+  pred <- as_tibble(pred)
+  pred$.row <- 1:nrow(pred)
+  pred <- gather(pred, group, .pred, -.row)
+  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
+    pred <- full_join(param_key, pred, by = "group", multiple = "all")
+  } else {
+    pred <- full_join(param_key, pred, by = "group")
+  }
+  pred$group <- NULL
+  pred <- arrange(pred, .row, penalty)
+  .row <- pred$.row
+  pred$.row <- NULL
+  pred <- split(pred, .row)
+  names(pred) <- NULL
+  tibble(.pred = pred)
+}
 
 # -------------------------------------------------------------------------
 
