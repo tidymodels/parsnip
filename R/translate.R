@@ -138,9 +138,17 @@ get_args <- function(model, engine) {
 
 # to replace harmonize
 deharmonize <- function(args, key) {
-  if (length(args) == 0)
+  if (length(args) == 0) {
     return(args)
-  parsn <- tibble(parsnip = names(args), order = seq_along(args))
+  }
+
+  if (nrow(key) == 0) {
+    return(args[integer(0)])
+  }
+
+  parsn <- list(parsnip = names(args), order = seq_along(args))
+  parsn <- tibble::new_tibble(parsn, nrow = length(args))
+
   merged <-
     dplyr::left_join(parsn, key, by = "parsnip") %>%
     dplyr::arrange(order)
