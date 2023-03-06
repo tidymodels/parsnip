@@ -10,6 +10,8 @@
 
 * Several internal functions (to help work with `Surv` objects) were added as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. 
 
+* `multi_predict()` methods for `linear_reg()`, `logistic_reg()`, and `multinomial_reg()` models fitted with the `"glmnet"` engine now check the `type` better and error accordingly (#900).
+
 
 # parsnip 1.0.4
 
