@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
-[![Coverage
-status](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=main)
+[![R-CMD-check](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
