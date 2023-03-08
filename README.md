@@ -30,8 +30,8 @@ install.packages("tidymodels")
 install.packages("parsnip")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidymodels/parsnip")
+# install.packages("pak")
+pak::pak("tidymodels/parsnip")
 ```
 
 ## Getting started
