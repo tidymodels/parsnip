@@ -99,7 +99,7 @@ spec_is_possible <- function(spec,
 
   all_model_info <-
     dplyr::full_join(
-      read_model_info_table(),
+      model_info_table,
       rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
@@ -183,7 +183,7 @@ prompt_missing_implementation <- function(spec,
   }
 
   all <-
-    read_model_info_table() %>%
+    model_info_table %>%
     dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
 

@@ -44,6 +44,8 @@ read_model_info_table <- function() {
   model_info_table
 }
 
+model_info_table <- read_model_info_table()
+
 # ------------------------------------------------------------------------------
 
 #' Working with the parsnip model environment
@@ -228,7 +230,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   # are contained in a different package
   model_info_parsnip_only <-
     dplyr::inner_join(
-      read_model_info_table() %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
+      model_info_table %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
       model_info %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
