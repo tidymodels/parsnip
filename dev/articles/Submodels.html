@@ -142,7 +142,7 @@ illustrate:</p>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span><span class="co">## <span style="color: #0000BB;">•</span> Use suppressPackageStartupMessages() to eliminate package startup messages</span></span></code></pre>
+<span><span class="co">## <span style="color: #0000BB;">•</span> Learn how to get started at <span style="color: #00BB00;">https://www.tidymodels.org/start/</span></span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">attrition</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span></span>
 <span></span>
@@ -250,7 +250,7 @@ track the predictions by test sample as well as the actual classes:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_step</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Submodels_files/figure-html/prob-plot-1.png" width="768"></p>
+<p><img src="Submodels_files/figure-html/prob-plot-1.png" alt="Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees." width="768"></p>
 <p>What does performance look like over trees (using the area under the
 ROC curve)?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -259,7 +259,7 @@ ROC curve)?</p>
 <span>  <span class="fu">roc_auc</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Attrition</span>, <span class="va">.pred_No</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trees</span>, y <span class="op">=</span> <span class="va">.estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_step</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Submodels_files/figure-html/auc-plot-1.png" width="768"></p>
+<p><img src="Submodels_files/figure-html/auc-plot-1.png" alt="A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees." width="768"></p>
   </main>
 </div>
 
@@ -269,7 +269,7 @@ ROC curve)?</p>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, Posit Software PBC.</p>
+<p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
