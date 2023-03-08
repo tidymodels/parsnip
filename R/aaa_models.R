@@ -37,14 +37,8 @@ pred_types <-
 
 # ------------------------------------------------------------------------------
 
-read_model_info_table <- function() {
-  model_info_table <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip"))
-
-  model_info_table
-}
-
-model_info_table <- read_model_info_table()
+model_info_table <-
+  utils::read.delim(system.file("models.tsv", package = "parsnip"))
 
 # ------------------------------------------------------------------------------
 

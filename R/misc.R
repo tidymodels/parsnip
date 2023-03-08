@@ -69,7 +69,7 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 #' * the `model_info_table` of "pre-registered" model specifications
 #'
 #' to determine whether a model is well-specified. See
-#' `parsnip:::read_model_info_table()` for this table.
+#' `parsnip:::model_info_table` for this table.
 #'
 #' `spec_is_loaded()` checks only against the current parsnip model environment.
 #'
