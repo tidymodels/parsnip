@@ -29,7 +29,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Emil Hvitfeldt \email{emilhhvitfeldt@gmail.com} [contributor]
+  \item Emil Hvitfeldt \email{emil.hvitfeldt@posit.co} [contributor]
   \item Posit Software, PBC [copyright holder, funder]
 }
 
