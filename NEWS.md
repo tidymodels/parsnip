@@ -9,7 +9,7 @@
 * Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
 
 * Several internal functions (to help work with `Surv` objects) were added as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. 
-
+* `logistic_reg()` will now warn at `fit()` when the outcome has more than two levels (#545).
 
 # parsnip 1.0.4
 

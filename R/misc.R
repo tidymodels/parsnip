@@ -345,6 +345,17 @@ check_outcome <- function(y, spec) {
     if (!outcome_is_factor) {
       rlang::abort("For a classification model, the outcome should be a factor.")
     }
+
+    if (inherits(spec, "logistic_reg") && length(levels(y)) > 2) {
+      # warn rather than error since some engines handle this case by binning
+      # all but the first level as the non-event, so this may be intended
+      cli::cli_warn(c(
+        "!" = "Logistic regression is intended for modeling binary outcomes, \\
+               but there are {length(levels(y))} levels in the outcome.",
+        "i" = "If this is unintended, adjust outcome levels accordingly or \\
+               see the {.fn multinom_reg} function."
+      ))
+    }
   }
 
   if (spec$mode == "censored regression") {
