@@ -346,7 +346,7 @@ check_outcome <- function(y, spec) {
       rlang::abort("For a classification model, the outcome should be a factor.")
     }
 
-    if (inherits(spec, "logistic_reg") && length(levels(y)) > 2) {
+    if (inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2) {
       # warn rather than error since some engines handle this case by binning
       # all but the first level as the non-event, so this may be intended
       cli::cli_warn(c(
