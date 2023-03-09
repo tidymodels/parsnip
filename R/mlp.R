@@ -195,7 +195,9 @@ class2ind <- function (x, drop2nd = FALSE) {
 #' @param activation A character string for the type of activation function between layers.
 #' @param seeds A vector of three positive integers to control randomness of the
 #'  calculations.
-#' @param ... Currently ignored.
+#' @param ... Additional arguments to pass to `keras::compile()` or
+#'  `keras::fit()`. Arguments will be sorted automatically---pass these
+#'  directly as main arguments to [set_engine()].
 #' @return A `keras` model object.
 #' @keywords internal
 #' @export
