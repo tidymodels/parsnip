@@ -336,21 +336,33 @@ check_outcome <- function(y, spec) {
   if (spec$mode == "regression") {
     outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
     if (!outcome_is_numeric) {
-      rlang::abort("For a regression model, the outcome should be numeric.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a regression model, the outcome should be `numeric`, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
   if (spec$mode == "classification") {
     outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
     if (!outcome_is_factor) {
-      rlang::abort("For a classification model, the outcome should be a factor.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a classification model, the outcome should be a `factor`, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
   if (spec$mode == "censored regression") {
     outcome_is_surv <- inherits(y, "Surv")
     if (!outcome_is_surv) {
-      rlang::abort("For a censored regression model, the outcome should be a `Surv` object.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a censored regression model, the outcome should be a `Surv` object, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
