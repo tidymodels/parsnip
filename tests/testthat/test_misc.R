@@ -181,3 +181,48 @@ test_that('set_engine works as a generic', {
   )
 
 })
+
+test_that('check_outcome works as expected', {
+  reg_spec <- linear_reg()
+
+  expect_no_error(
+    check_outcome(1:10, reg_spec)
+  )
+
+  expect_no_error(
+    check_outcome(mtcars, reg_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(factor(1:10), reg_spec)
+  )
+
+  class_spec <- logistic_reg()
+
+  expect_no_error(
+    check_outcome(factor(1:10), class_spec)
+  )
+
+  expect_no_error(
+    check_outcome(lapply(mtcars, as.factor), class_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(1:10, class_spec)
+  )
+
+  # Fake specification to avoid having to load {censored}
+  cens_spec <- logistic_reg()
+  cens_spec$mode <- "censored regression"
+
+  expect_no_error(
+    check_outcome(survival::Surv(1, 1), cens_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(1:10, cens_spec)
+  )
+})

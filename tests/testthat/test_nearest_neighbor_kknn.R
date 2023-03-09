@@ -24,7 +24,7 @@ test_that('kknn execution', {
       x = hpc[, num_pred],
       y = hpc$input_fields
     ),
-    regexp = "outcome should be a factor"
+    regexp = "outcome should be a `factor`"
   )
 
   # nominal

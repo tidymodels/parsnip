@@ -124,3 +124,27 @@
       Error in `set_engine()`:
       ! `set_engine()` expected a model specification to be supplied to the `object` argument, but received a(n) `data.frame` object.
 
+# check_outcome works as expected
+
+    Code
+      check_outcome(factor(1:10), reg_spec)
+    Condition
+      Error in `check_outcome()`:
+      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+
+---
+
+    Code
+      check_outcome(1:10, class_spec)
+    Condition
+      Error in `check_outcome()`:
+      ! For a classification model, the outcome should be a `factor`, not a `integer`.
+
+---
+
+    Code
+      check_outcome(1:10, cens_spec)
+    Condition
+      Error in `check_outcome()`:
+      ! For a censored regression model, the outcome should be a `Surv` object, not a `integer`.
+
