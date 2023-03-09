@@ -10,6 +10,7 @@
 
 * Several internal functions (to help work with `Surv` objects) were added as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. 
 
+* Functions now indicate what class the outcome was if the outcome is the wrong class (#887).
 
 # parsnip 1.0.4
 
