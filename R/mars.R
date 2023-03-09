@@ -86,6 +86,9 @@ translate.mars <- function(x, engine = x$engine, ...) {
     message("Used `engine = 'earth'` for translation.")
     engine <- "earth"
   }
+  if (engine == "earth") {
+    load_libs(x, quiet = TRUE, attach = TRUE)
+  }
   # If classification is being done, the `glm` options should be used. Check to
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
