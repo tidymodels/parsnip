@@ -50,6 +50,14 @@ arguments.
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit()}} function is used
 with the data.
 
+Each of the arguments defaulting to \code{NULL} in this function are captured
+as \link[rlang:`topic-quosure`]{quosures}. To pass values programmatically,
+use the \link[rlang:`!!`]{injection operator} like so:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
+model_type(argument = !!value)
+}\if{html}{\out{</div>}}
+
 Since survival models typically involve censoring (and require the use of
 \code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.

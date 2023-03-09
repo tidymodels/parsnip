@@ -45,6 +45,14 @@ arguments.
 
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit()}} function is used
 with the data.
+
+Each of the arguments defaulting to \code{NULL} in this function are captured
+as \link[rlang:`topic-quosure`]{quosures}. To pass values programmatically,
+use the \link[rlang:`!!`]{injection operator} like so:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
+model_type(argument = !!value)
+}\if{html}{\out{</div>}}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
