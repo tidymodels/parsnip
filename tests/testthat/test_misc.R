@@ -181,3 +181,10 @@ test_that('set_engine works as a generic', {
   )
 
 })
+
+test_that('check_for_newdata points out correct context', {
+  fn <- function(...) {check_for_newdata(...); invisible()}
+  expect_snapshot(error = TRUE,
+    fn(newdata = "boop!")
+  )
+})

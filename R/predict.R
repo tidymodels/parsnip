@@ -330,9 +330,7 @@ check_pred_type_dots <- function(object, type, ...) {
 
   # ----------------------------------------------------------------------------
 
-  if (any(names(the_dots) == "newdata")) {
-    rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-  }
+  check_for_newdata(...)
 
   # ----------------------------------------------------------------------------
 

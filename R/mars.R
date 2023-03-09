@@ -146,8 +146,7 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 #' @export
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
+    check_for_newdata(...)
 
     load_libs(object, quiet = TRUE, attach = TRUE)
 

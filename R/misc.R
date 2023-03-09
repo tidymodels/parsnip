@@ -472,3 +472,13 @@ check_case_weights <- function(x, spec) {
   }
   invisible(NULL)
 }
+
+# -----------------------------------------------------------------------------
+check_for_newdata <- function(..., call = rlang::caller_env()) {
+  if (any(names(rlang::enquos(...)) == "newdata")) {
+    rlang::abort(
+      "Did you mean to use `new_data` instead of `newdata`?",
+      call = call
+    )
+  }
+}
