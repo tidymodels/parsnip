@@ -59,7 +59,7 @@ captured as \link[rlang:`topic-quosure`]{quosures}. To pass values
 programmatically, use the \link[rlang:`!!`]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
-model_type(argument = !!value)
+multinom_reg(argument = !!value)
 }\if{html}{\out{</div>}}
 
 This model fits a classification model for multiclass outcomes; for

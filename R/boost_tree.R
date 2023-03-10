@@ -39,6 +39,7 @@
 #' @param stop_iter The number of iterations without improvement before
 #'   stopping (specific engines only).
 #'
+#' @templateVar modeltype boost_tree
 #' @template spec-details
 #'
 #' @template spec-references

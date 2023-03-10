@@ -13,5 +13,5 @@
 #'
 #' ``` r
 #' value <- 1
-#' model_type(argument = !!value)
+#' <%= modeltype %>(argument = !!value)
 #' ```
