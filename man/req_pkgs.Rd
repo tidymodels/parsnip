@@ -2,15 +2,9 @@
 % Please edit documentation in R/req_pkgs.R
 \name{req_pkgs}
 \alias{req_pkgs}
-\alias{req_pkgs.model_spec}
-\alias{req_pkgs.model_fit}
 \title{Determine required packages for a model}
 \usage{
 req_pkgs(x, ...)
-
-\method{req_pkgs}{model_spec}(x, ...)
-
-\method{req_pkgs}{model_fit}(x, ...)
 }
 \arguments{
 \item{x}{A model specification or fit.}
@@ -24,20 +18,5 @@ A character string of package names (if any).
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
-For a model specification, the engine must be set. The list produced by
-\code{req_pkgs()}does not include the \code{parsnip} package while \code{required_pkgs()}
-does.
-}
-\examples{
-should_fail <- try(req_pkgs(linear_reg()), silent = TRUE)
-should_fail
-
-linear_reg() \%>\%
-  set_engine("glmnet") \%>\%
-  req_pkgs()
-
-linear_reg() \%>\%
-  set_engine("lm") \%>\%
-  fit(mpg ~ ., data = mtcars) \%>\%
-  req_pkgs()
+This function has been deprecated in favor of \code{required_pkgs()}.
 }
