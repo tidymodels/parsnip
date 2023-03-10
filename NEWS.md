@@ -6,6 +6,8 @@
 
 * `.organize_glmnet_pred()` now expects predictions for a single penalty value (#876).
 
+* Fixed bug where model fits with `engine = "earth"` would fail when the package's namespace hadn't been attached (#251).
+
 * Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
 
 * Several internal functions (to help work with `Surv` objects) were added as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. 
