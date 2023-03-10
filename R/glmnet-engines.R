@@ -244,6 +244,7 @@ multi_predict._lognet <- multi_predict_glmnet
 multi_predict._multnet <- multi_predict_glmnet
 
 #' @export
+#' @rdname multi_predict
 multi_predict._glmnetfit <- multi_predict_glmnet
 
 format_glmnet_multi_linear_reg <- function(pred, penalty) {

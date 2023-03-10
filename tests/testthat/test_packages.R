@@ -9,18 +9,24 @@ test_that('required packages', {
   glmn <-
     linear_reg() %>%
     set_engine("glmnet")
-  expect_equal(req_pkgs(glmn), "glmnet")
   expect_equal(required_pkgs(glmn), c("parsnip", "glmnet"))
   expect_equal(required_pkgs(glmn, infra = FALSE), c("glmnet"))
 
+  expect_snapshot(error = TRUE, {
+    expect_equal(req_pkgs(glmn), "glmnet")
+  })
 
   lm_fit <-
     linear_reg() %>%
     set_engine("lm") %>%
     fit(mpg ~ ., data = mtcars)
-  expect_equal(req_pkgs(lm_fit), "stats")
+
   expect_equal(required_pkgs(lm_fit), c("parsnip", "stats"))
   expect_equal(required_pkgs(lm_fit, infra = FALSE), c("stats"))
+
+  expect_snapshot(error = TRUE, {
+    expect_equal(req_pkgs(lm_fit), "stats")
+  })
 })
 
 # ------------------------------------------------------------------------------
