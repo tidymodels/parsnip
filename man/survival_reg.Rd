@@ -34,9 +34,9 @@ arguments.
 The model is not trained or fit until the \code{\link[=fit.model_spec]{fit()}} function is used
 with the data.
 
-Each of the arguments defaulting to \code{NULL} in this function are captured
-as \link[rlang:`topic-quosure`]{quosures}. To pass values programmatically,
-use the \link[rlang:`!!`]{injection operator} like so:
+Each of the arguments in this function other than \code{mode} and \code{engine} are
+captured as \link[rlang:`topic-quosure`]{quosures}. To pass values
+programmatically, use the \link[rlang:`!!`]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 model_type(argument = !!value)
