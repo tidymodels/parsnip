@@ -130,5 +130,5 @@
       fn(newdata = "boop!")
     Condition
       Error in `fn()`:
-      ! Did you mean to use `new_data` instead of `newdata`?
+      ! Please use `new_data` instead of `newdata`.
 
