@@ -16,6 +16,7 @@
 #' factor is the minority class. If this is not the case, values between zero
 #' and one can be used to bias to the second level of the factor.
 #'
+#' @templateVar modeltype bag_tree
 #' @template spec-details
 #'
 #' @template spec-references

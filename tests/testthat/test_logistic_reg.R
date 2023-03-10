@@ -16,6 +16,13 @@ test_that('bad input', {
   expect_error(translate(logistic_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine(engine = "glmnet")))
   expect_error(translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm")))
   expect_error(translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR")))
+
+  expect_snapshot(
+    res <-
+      mtcars %>%
+      dplyr::mutate(cyl = as.factor(cyl)) %>%
+      fit(logistic_reg(), cyl ~ mpg, data = .)
+  )
 })
 
 # ------------------------------------------------------------------------------

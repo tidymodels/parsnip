@@ -124,10 +124,18 @@
       Error in `set_engine()`:
       ! `set_engine()` expected a model specification to be supplied to the `object` argument, but received a(n) `data.frame` object.
 
+# check_for_newdata points out correct context
+
+    Code
+      fn(newdata = "boop!")
+    Condition
+      Error in `fn()`:
+      ! Please use `new_data` instead of `newdata`.
+
 # check_outcome works as expected
 
     Code
-      check_outcome(factor(1:10), reg_spec)
+      check_outcome(factor(1:2), reg_spec)
     Condition
       Error in `check_outcome()`:
       ! For a regression model, the outcome should be `numeric`, not a `factor`.
@@ -135,7 +143,7 @@
 ---
 
     Code
-      check_outcome(1:10, class_spec)
+      check_outcome(1:2, class_spec)
     Condition
       Error in `check_outcome()`:
       ! For a classification model, the outcome should be a `factor`, not a `integer`.
@@ -143,7 +151,7 @@
 ---
 
     Code
-      check_outcome(1:10, cens_spec)
+      check_outcome(1:2, cens_spec)
     Condition
       Error in `check_outcome()`:
       ! For a censored regression model, the outcome should be a `Surv` object, not a `integer`.

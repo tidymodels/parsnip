@@ -30,6 +30,8 @@
 #'
 #' @references Quinlan R (1993). _C4.5: Programs for Machine Learning_. Morgan
 #' Kaufmann Publishers.
+#'
+#' @templateVar modeltype C5_rules
 #' @template spec-details
 #'
 #' @template spec-references

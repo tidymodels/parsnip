@@ -121,9 +121,8 @@ test_that('submodel prediction', {
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pred_class[, "No"], ignore_attr = TRUE)
 
-  expect_error(
-    multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 4, type = "prob"),
-    "Did you mean"
+  expect_snapshot(error = TRUE,
+    multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 4, type = "prob")
   )
 })
 

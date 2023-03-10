@@ -36,7 +36,9 @@ this parameter \emph{or} \code{penalty} can specified.}
 \item{seeds}{A vector of three positive integers to control randomness of the
 calculations.}
 
-\item{...}{Currently ignored.}
+\item{...}{Additional named arguments to pass to \code{keras::compile()} or
+\code{keras::fit()}. Arguments will be sorted and passed to either function
+internally.}
 }
 \value{
 A \code{keras} model object.

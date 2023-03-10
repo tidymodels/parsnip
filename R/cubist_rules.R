@@ -50,6 +50,7 @@
 #' where `t` is the training set prediction and `w` is a weight that is inverse
 #'  to the distance to the neighbor.
 #'
+#' @templateVar modeltype cubist_rules
 #' @template spec-details
 #'
 #' @template spec-references

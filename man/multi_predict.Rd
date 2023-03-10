@@ -9,6 +9,7 @@
 \alias{multi_predict._elnet}
 \alias{multi_predict._lognet}
 \alias{multi_predict._multnet}
+\alias{multi_predict._glmnetfit}
 \alias{multi_predict._earth}
 \alias{multi_predict._torch_mlp}
 \alias{multi_predict._train.kknn}
@@ -27,6 +28,8 @@ multi_predict(object, ...)
 \method{multi_predict}{`_lognet`}(object, new_data, type = NULL, penalty = NULL, ...)
 
 \method{multi_predict}{`_multnet`}(object, new_data, type = NULL, penalty = NULL, ...)
+
+\method{multi_predict}{`_glmnetfit`}(object, new_data, type = NULL, penalty = NULL, ...)
 
 \method{multi_predict}{`_earth`}(object, new_data, type = NULL, num_terms = NULL, ...)
 

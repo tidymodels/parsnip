@@ -182,11 +182,18 @@ test_that('set_engine works as a generic', {
 
 })
 
+test_that('check_for_newdata points out correct context', {
+  fn <- function(...) {check_for_newdata(...); invisible()}
+  expect_snapshot(error = TRUE,
+                  fn(newdata = "boop!")
+  )
+})
+
 test_that('check_outcome works as expected', {
   reg_spec <- linear_reg()
 
   expect_no_error(
-    check_outcome(1:10, reg_spec)
+    check_outcome(1:2, reg_spec)
   )
 
   expect_no_error(
@@ -195,13 +202,13 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    check_outcome(factor(1:10), reg_spec)
+    check_outcome(factor(1:2), reg_spec)
   )
 
   class_spec <- logistic_reg()
 
   expect_no_error(
-    check_outcome(factor(1:10), class_spec)
+    check_outcome(factor(1:2), class_spec)
   )
 
   expect_no_error(
@@ -210,7 +217,7 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    check_outcome(1:10, class_spec)
+    check_outcome(1:2, class_spec)
   )
 
   # Fake specification to avoid having to load {censored}
@@ -223,6 +230,6 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    check_outcome(1:10, cens_spec)
+    check_outcome(1:2, cens_spec)
   )
 })

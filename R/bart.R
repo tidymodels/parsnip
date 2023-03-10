@@ -35,6 +35,7 @@
 #' terminal node for different values of these parameters.
 #'
 #'
+#' @templateVar modeltype bart
 #' @template spec-details
 #'
 #' @template spec-references

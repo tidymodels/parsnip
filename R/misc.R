@@ -353,6 +353,17 @@ check_outcome <- function(y, spec) {
         "not a `", cls, "`."
       ))
     }
+
+    if (inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2) {
+      # warn rather than error since some engines handle this case by binning
+      # all but the first level as the non-event, so this may be intended
+      cli::cli_warn(c(
+        "!" = "Logistic regression is intended for modeling binary outcomes, \\
+               but there are {length(levels(y))} levels in the outcome.",
+        "i" = "If this is unintended, adjust outcome levels accordingly or \\
+               see the {.fn multinom_reg} function."
+      ))
+    }
   }
 
   if (spec$mode == "censored regression") {
@@ -483,4 +494,14 @@ check_case_weights <- function(x, spec) {
     rlang::abort("Case weights are not enabled by the underlying model implementation.")
   }
   invisible(NULL)
+}
+
+# -----------------------------------------------------------------------------
+check_for_newdata <- function(..., call = rlang::caller_env()) {
+  if (any(names(list(...)) == "newdata")) {
+    rlang::abort(
+      "Please use `new_data` instead of `newdata`.",
+      call = call
+    )
+  }
 }

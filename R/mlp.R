@@ -23,6 +23,7 @@
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
 #'  "linear", "softmax", "relu", and "elu"
 #'
+#' @templateVar modeltype mlp
 #' @template spec-details
 #'
 #' @template spec-references
@@ -195,7 +196,9 @@ class2ind <- function (x, drop2nd = FALSE) {
 #' @param activation A character string for the type of activation function between layers.
 #' @param seeds A vector of three positive integers to control randomness of the
 #'  calculations.
-#' @param ... Currently ignored.
+#' @param ... Additional named arguments to pass to `keras::compile()` or
+#'  `keras::fit()`. Arguments will be sorted and passed to either function
+#'  internally.
 #' @return A `keras` model object.
 #' @keywords internal
 #' @export
@@ -363,9 +366,6 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 #' @export
 multi_predict._torch_mlp <-
   function(object, new_data, type = NULL, epochs = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs))

@@ -15,6 +15,7 @@
 #' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "censored regression".
 #'
+#' @templateVar modeltype proportional_hazards
 #' @template spec-details
 #'
 #' @template spec-survival

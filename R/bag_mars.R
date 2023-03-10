@@ -14,6 +14,7 @@
 #'
 #' @inheritParams mars
 #'
+#' @templateVar modeltype bag_mars
 #' @template spec-details
 #'
 #' @template spec-references

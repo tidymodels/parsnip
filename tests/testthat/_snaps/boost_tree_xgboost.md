@@ -1,3 +1,11 @@
+# submodel prediction
+
+    Code
+      multi_predict(class_fit, newdata = wa_churn[1:4, vars], trees = 5, type = "prob")
+    Condition
+      Error in `multi_predict()`:
+      ! Please use `new_data` instead of `newdata`.
+
 # interface to param arguments
 
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
