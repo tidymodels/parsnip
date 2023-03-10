@@ -146,8 +146,6 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 #' @export
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
-    check_for_newdata(...)
-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(num_terms))

@@ -363,8 +363,6 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 #' @export
 multi_predict._torch_mlp <-
   function(object, new_data, type = NULL, epochs = NULL, ...) {
-    check_for_newdata(...)
-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs))

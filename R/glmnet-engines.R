@@ -173,9 +173,6 @@ multi_predict_glmnet <- function(object,
                                  type = NULL,
                                  penalty = NULL,
                                  ...) {
-
-  check_for_newdata(...)
-
   if (object$spec$mode == "classification") {
     if (is_quosure(penalty)) {
       penalty <- eval_tidy(penalty)

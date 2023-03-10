@@ -147,8 +147,6 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 #' @export
 multi_predict._train.kknn <-
   function(object, new_data, type = NULL, neighbors = NULL, ...) {
-    check_for_newdata(...)
-
     if (is.null(neighbors))
       neighbors <- rlang::eval_tidy(object$fit$call$ks)
     neighbors <- sort(neighbors)

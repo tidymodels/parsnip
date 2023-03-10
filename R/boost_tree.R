@@ -479,8 +479,6 @@ get_event_level <- function(model_spec){
 #' @param trees An integer vector for the number of trees in the ensemble.
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    check_for_newdata(...)
-
     if (is.null(trees)) {
       trees <- object$fit$nIter
     }
@@ -605,8 +603,6 @@ C5.0_train <-
 #' @rdname multi_predict
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    check_for_newdata(...)
-
     if (is.null(trees))
       trees <- min(object$fit$trials)
     trees <- sort(trees)
