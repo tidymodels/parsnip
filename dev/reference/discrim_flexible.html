@@ -132,6 +132,11 @@ is specified, the <em>method</em> to fit the model is also defined. See
 arguments.</p>
 <p>The model is not trained or fit until the <code><a href="fit.html">fit()</a></code> function is used
 with the data.</p>
+<p>Each of the arguments in this function other than <code>mode</code> and <code>engine</code> are
+captured as quosures. To pass values
+programmatically, use the injection operator like so:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="../reference/discrim_flexible.html">discrim_flexible</a></span><span class="op">(</span>argument <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">value</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
