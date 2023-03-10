@@ -30,6 +30,7 @@
 #'  Available for specific engines only. For `LiblineaR` models, `mixture` must
 #'  be exactly 1 or 0 only.
 #'
+#' @templateVar modeltype logistic_reg
 #' @template spec-details
 #'
 #' @details This model fits a classification model for binary outcomes; for

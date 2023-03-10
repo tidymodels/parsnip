@@ -24,6 +24,7 @@
 #'
 #'  Available for `glmnet` and `spark` only.
 #'
+#' @templateVar modeltype poisson_reg
 #' @template spec-details
 #'
 #' @template spec-references

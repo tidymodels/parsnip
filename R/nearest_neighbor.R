@@ -22,6 +22,7 @@
 #' @param dist_power A single number for the parameter used in
 #' calculating Minkowski distance.
 #'
+#' @templateVar modeltype nearest_neighbor
 #' @template spec-details
 #'
 #' @template spec-references

@@ -17,6 +17,7 @@
 #' @param adjust_deg_free If `select_features = TRUE`, then acts as a multiplier
 #'  for smoothness. Increase this beyond 1 to produce smoother models.
 #'
+#' @templateVar modeltype gen_additive_mod
 #' @template spec-details
 #'
 #' @template spec-references

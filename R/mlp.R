@@ -23,6 +23,7 @@
 #'  "linear" or "softmax" depending on the type of outcome. Possible values are:
 #'  "linear", "softmax", "relu", and "elu"
 #'
+#' @templateVar modeltype mlp
 #' @template spec-details
 #'
 #' @template spec-references

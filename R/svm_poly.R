@@ -22,6 +22,7 @@
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
 #'
+#' @templateVar modeltype svm_poly
 #' @template spec-details
 #'
 #' @template spec-references

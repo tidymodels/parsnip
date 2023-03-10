@@ -20,6 +20,7 @@
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
 #'
+#' @templateVar modeltype rand_forest
 #' @template spec-details
 #'
 #' @template spec-references
