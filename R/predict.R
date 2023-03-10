@@ -324,13 +324,13 @@ make_pred_call <- function(x) {
   cl
 }
 
-check_pred_type_dots <- function(object, type, ...) {
+check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) {
   the_dots <- list(...)
   nms <- names(the_dots)
 
   # ----------------------------------------------------------------------------
 
-  check_for_newdata(...)
+  check_for_newdata(..., call = call)
 
   # ----------------------------------------------------------------------------
 
