@@ -22,6 +22,7 @@ multi_predict <- function(object, ...) {
     rlang::warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
+  check_for_newdata(...)
   UseMethod("multi_predict")
 }
 

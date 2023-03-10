@@ -124,3 +124,11 @@
       Error in `set_engine()`:
       ! `set_engine()` expected a model specification to be supplied to the `object` argument, but received a(n) `data.frame` object.
 
+# check_for_newdata points out correct context
+
+    Code
+      fn(newdata = "boop!")
+    Condition
+      Error in `fn()`:
+      ! Please use `new_data` instead of `newdata`.
+
