@@ -120,6 +120,7 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
   arg_vals <- x$method$fit$args
 
   if (engine == "kknn") {
+    load_libs(x, quiet = TRUE, attach = TRUE)
 
     if (!any(names(arg_vals) == "ks") || is_missing_arg(arg_vals$ks)) {
       arg_vals$ks <- 5
