@@ -243,7 +243,16 @@ format_class <- function(x) {
   if (inherits(x, "tbl_spark"))
     return(x)
 
-  tibble(.pred_class = unname(x))
+  if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
+    x <- as_tibble(x, .name_repair = "minimal")
+    if (!any(grepl("^\\.pred_class", names(x)))) {
+      names(x) <- ".pred_class"
+    }
+  } else {
+    x <- tibble(.pred_class = unname(x))
+  }
+
+  x
 }
 
 #' @rdname format-internals
@@ -277,7 +286,9 @@ format_time <- function(x) {
 format_survival <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    names(x) <- ".pred"
+    if (!any(grepl("^\\.pred", names(x)))) {
+      names(x) <- ".pred"
+    }
   } else {
     x <- tibble(.pred = unname(x))
   }
@@ -293,7 +304,9 @@ format_linear_pred <- function(x) {
 
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    names(x) <- ".pred_linear_pred"
+    if (!any(grepl("^\\.pred_linear_pred", names(x)))) {
+      names(x) <- ".pred_linear_pred"
+    }
   } else {
     x <- tibble(.pred_linear_pred = unname(x))
   }
@@ -306,8 +319,11 @@ format_linear_pred <- function(x) {
 format_hazard <- function(x) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- as_tibble(x, .name_repair = "minimal")
-    names(x) <- ".pred"
-  } else {
+    if (!any(grepl("^\\.pred", names(x)))) {
+      names(x) <- ".pred"
+    }
+  }
+  else {
     x <- tibble(.pred_hazard = unname(x))
   }
 
