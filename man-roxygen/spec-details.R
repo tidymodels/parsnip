@@ -8,8 +8,8 @@
 #' with the data.
 #'
 #' Each of the arguments in this function other than `mode` and `engine` are
-#' captured as [quosures][rlang::`topic-quosure`]. To pass values
-#' programmatically, use the [injection operator][rlang::`!!`] like so:
+#' captured as [quosures][rlang::topic-quosure]. To pass values
+#' programmatically, use the [injection operator][rlang::!!] like so:
 #'
 #' ``` r
 #' value <- 1
