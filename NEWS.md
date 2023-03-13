@@ -20,6 +20,7 @@
 
 * `logistic_reg()` will now warn at `fit()` when the outcome has more than two levels (#545).
 
+* Functions now indicate what class the outcome was if the outcome is the wrong class (#887).
 
 # parsnip 1.0.4
 
