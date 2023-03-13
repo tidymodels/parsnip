@@ -22,6 +22,8 @@
 
 * Functions now indicate what class the outcome was if the outcome is the wrong class (#887).
 
+* The minimum version for R is now 3.5 (#926).
+
 # parsnip 1.0.4
 
 * For censored regression models, a "reverse Kaplan-Meier" curve is computed for the censoring distribution. This can be used when evaluating this type of model (#855).
