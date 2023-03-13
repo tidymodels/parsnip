@@ -12,6 +12,7 @@
 #'
 #' @inheritParams mlp
 #'
+#' @templateVar modeltype bag_mlp
 #' @template spec-details
 #'
 #' @template spec-references

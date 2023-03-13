@@ -26,6 +26,7 @@
 #'
 #'  Available for specific engines only.
 #'
+#' @templateVar modeltype linear_reg
 #' @template spec-details
 #'
 #' @template spec-references

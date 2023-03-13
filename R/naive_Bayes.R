@@ -20,6 +20,7 @@
 #' @param Laplace A non-negative value for the Laplace correction to smoothing
 #' low-frequency counts.
 #'
+#' @templateVar modeltype naive_Bayes
 #' @template spec-details
 #'
 #' @template spec-references

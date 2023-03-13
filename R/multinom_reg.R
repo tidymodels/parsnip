@@ -30,6 +30,7 @@
 #'
 #'  Available for specific engines only.
 #'
+#' @templateVar modeltype multinom_reg
 #' @template spec-details
 #'
 #' @details This model fits a classification model for multiclass outcomes; for

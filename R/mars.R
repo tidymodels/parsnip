@@ -18,6 +18,7 @@
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
 #'
+#' @templateVar modeltype mars
 #' @template spec-details
 #'
 #' @template spec-references
@@ -86,6 +87,9 @@ translate.mars <- function(x, engine = x$engine, ...) {
     message("Used `engine = 'earth'` for translation.")
     engine <- "earth"
   }
+  if (engine == "earth") {
+    load_libs(x, quiet = TRUE, attach = TRUE)
+  }
   # If classification is being done, the `glm` options should be used. Check to
   # see if it is there and, if not, add the default value.
   if (x$mode == "classification") {
@@ -146,9 +150,6 @@ earth_reg_updater <- function(num, object, new_data, ...) {
 #' @export
 multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(num_terms))

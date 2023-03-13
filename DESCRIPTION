@@ -4,8 +4,8 @@ Version: 1.0.4.9004
 Authors@R: c(
     person("Max", "Kuhn", , "max@posit.co", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
-    person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = "ctb"),
-    person("Posit Software PBC", role = c("cph", "fnd"))
+    person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = "ctb"),
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Maintainer: Max Kuhn <max@posit.co>
 Description: A common interface is provided to allow users to specify a

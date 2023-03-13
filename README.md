@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# parsnip <a href='https://parsnip.tidymodels.org'><img src='man/figures/logo.png' style='float: right' height="139" /></a>
+# parsnip <a href="https://parsnip.tidymodels.org/"><img src="man/figures/logo.png" align="right" height="138" alt="a drawing of a parsnip on a beige background" /></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
-[![Coverage
-status](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=main)
+[![R-CMD-check](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
@@ -30,8 +30,8 @@ install.packages("tidymodels")
 install.packages("parsnip")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidymodels/parsnip")
+# install.packages("pak")
+pak::pak("tidymodels/parsnip")
 ```
 
 ## Getting started

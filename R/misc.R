@@ -69,7 +69,7 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 #' * the `model_info_table` of "pre-registered" model specifications
 #'
 #' to determine whether a model is well-specified. See
-#' `parsnip:::read_model_info_table()` for this table.
+#' `parsnip:::model_info_table` for this table.
 #'
 #' `spec_is_loaded()` checks only against the current parsnip model environment.
 #'
@@ -99,7 +99,7 @@ spec_is_possible <- function(spec,
 
   all_model_info <-
     dplyr::full_join(
-      read_model_info_table(),
+      model_info_table,
       rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
@@ -183,7 +183,7 @@ prompt_missing_implementation <- function(spec,
   }
 
   all <-
-    read_model_info_table() %>%
+    model_info_table %>%
     dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
 
@@ -336,21 +336,44 @@ check_outcome <- function(y, spec) {
   if (spec$mode == "regression") {
     outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
     if (!outcome_is_numeric) {
-      rlang::abort("For a regression model, the outcome should be numeric.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a regression model, the outcome should be `numeric`, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
   if (spec$mode == "classification") {
     outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
     if (!outcome_is_factor) {
-      rlang::abort("For a classification model, the outcome should be a factor.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a classification model, the outcome should be a `factor`, ",
+        "not a `", cls, "`."
+      ))
+    }
+
+    if (inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2) {
+      # warn rather than error since some engines handle this case by binning
+      # all but the first level as the non-event, so this may be intended
+      cli::cli_warn(c(
+        "!" = "Logistic regression is intended for modeling binary outcomes, \\
+               but there are {length(levels(y))} levels in the outcome.",
+        "i" = "If this is unintended, adjust outcome levels accordingly or \\
+               see the {.fn multinom_reg} function."
+      ))
     }
   }
 
   if (spec$mode == "censored regression") {
     outcome_is_surv <- inherits(y, "Surv")
     if (!outcome_is_surv) {
-      rlang::abort("For a censored regression model, the outcome should be a `Surv` object.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a censored regression model, the outcome should be a `Surv` object, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
@@ -471,4 +494,14 @@ check_case_weights <- function(x, spec) {
     rlang::abort("Case weights are not enabled by the underlying model implementation.")
   }
   invisible(NULL)
+}
+
+# -----------------------------------------------------------------------------
+check_for_newdata <- function(..., call = rlang::caller_env()) {
+  if (any(names(list(...)) == "newdata")) {
+    rlang::abort(
+      "Please use `new_data` instead of `newdata`.",
+      call = call
+    )
+  }
 }

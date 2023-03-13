@@ -22,6 +22,7 @@
 #'  estimation. Possible values are: "`diagonal`", "`min_distance`",
 #'  "`shrink_cov`", and "`shrink_mean`" (`sparsediscrim` engine only).
 #'
+#' @templateVar modeltype discrim_linear
 #' @template spec-details
 #'
 #' @template spec-references
