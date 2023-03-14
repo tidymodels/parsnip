@@ -346,20 +346,6 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 
 # ------------------------------------------------------------------------------
 
-check_control <- function(x) {
-  if (!is.list(x))
-    rlang::abort("control should be a named list.")
-  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
-    rlang::abort("control should be a named list with elements 'verbosity' and 'catch'.")
-  # based on ?is.integer
-  int_check <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
-  if (!int_check(x$verbosity))
-    rlang::abort("verbosity should be an integer.")
-  if (!is.logical(x$catch))
-    rlang::abort("catch should be a logical.")
-  x
-}
-
 inher <- function(x, cls, cl) {
   if (!is.null(x) && !inherits(x, cls)) {
     call <- match.call()
