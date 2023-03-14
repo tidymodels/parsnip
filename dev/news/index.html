@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,6 +72,7 @@
 <li><p>Fixed bug where model fits with <code>engine = "earth"</code> would fail when the package’s namespace hadn’t been attached (<a href="https://github.com/tidymodels/parsnip/issues/251" class="external-link">#251</a>).</p></li>
 <li><p>Fixed bug with prediction from a boosted tree model fitted with <code>"xgboost"</code> using a custom objective function (<a href="https://github.com/tidymodels/parsnip/issues/875" class="external-link">#875</a>).</p></li>
 <li><p>Several internal functions (to help work with <code>Surv</code> objects) were added as a standalone file that can be used in other packages via <code>usethis::use_standalone("tidymodels/parsnip")</code>.</p></li>
+<li><p><code><a href="../reference/multi_predict.html">multi_predict()</a></code> methods for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, and <code>multinomial_reg()</code> models fitted with the <code>"glmnet"</code> engine now check the <code>type</code> better and error accordingly (<a href="https://github.com/tidymodels/parsnip/issues/900" class="external-link">#900</a>).</p></li>
 <li><p>Rather than being implemented in each method, the check for the <code>new_data</code> argument being mistakenly passed as <code>newdata</code> to <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now happens in the generic. Packages re-exporting the <code><a href="../reference/multi_predict.html">multi_predict()</a></code> generic and implementing now-duplicate checks may see new failures and can remove their own analogous checks. This check already existed in all <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> methods (via <code><a href="../reference/predict.model_fit.html">predict.model_fit()</a></code>) and all parsnip <code><a href="../reference/multi_predict.html">multi_predict()</a></code> methods (<a href="https://github.com/tidymodels/parsnip/issues/525" class="external-link">#525</a>).</p></li>
 <li><p><code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> will now warn at <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> when the outcome has more than two levels (<a href="https://github.com/tidymodels/parsnip/issues/545" class="external-link">#545</a>).</p></li>
 <li><p>Functions now indicate what class the outcome was if the outcome is the wrong class (<a href="https://github.com/tidymodels/parsnip/issues/887" class="external-link">#887</a>).</p></li>
