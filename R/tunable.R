@@ -43,7 +43,7 @@ tunable.model_spec <- function(x, ...) {
     has_info <- purrr::map_lgl(res$call_info, is.null)
     rm_list <- !(has_info & (res$component_id == "main"))
 
-    res <- res[rm_list,]
+    res <- res[rm_list, ]
   }
 
   res[, c("name", "call_info", "source", "component", "component_id")]
