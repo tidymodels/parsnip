@@ -179,8 +179,6 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   res
 }
 
-surv_types <- c("time", "survival", "hazard")
-
 check_pred_type <- function(object, type, ...) {
   if (is.null(type)) {
     type <-
@@ -197,14 +195,31 @@ check_pred_type <- function(object, type, ...) {
         glue_collapse(pred_types, sep = ", ", last = " and ")
       )
     )
-  if (type == "numeric" & object$spec$mode != "regression")
-    rlang::abort("For numeric predictions, the object should be a regression model.")
-  if (type == "class" & object$spec$mode != "classification")
-    rlang::abort("For class predictions, the object should be a classification model.")
-  if (type == "prob" & object$spec$mode != "classification")
-    rlang::abort("For probability predictions, the object should be a classification model.")
-  if (type %in% surv_types & object$spec$mode != "censored regression")
-    rlang::abort("For event time predictions, the object should be a censored regression.")
+
+  switch(
+    type,
+    "numeric" = if (object$spec$mode != "regression") {
+      rlang::abort("For numeric predictions, the object should be a regression model.")
+    },
+    "class" = if (object$spec$mode != "classification") {
+      rlang::abort("For class predictions, the object should be a classification model.")
+    },
+    "prob" = if (object$spec$mode != "classification") {
+      rlang::abort("For probability predictions, the object should be a classification model.")
+    },
+    "time" = if (object$spec$mode != "censored regression") {
+      rlang::abort("For event time predictions, the object should be a censored regression.")
+    },
+    "survival" = if (object$spec$mode != "censored regression") {
+      rlang::abort("For survival probability predictions, the object should be a censored regression.")
+    },
+    "hazard" = if (object$spec$mode != "censored regression") {
+      rlang::abort("For hazard predictions, the object should be a censored regression.")
+    },
+    "linear_pred" = if (object$spec$mode != "censored regression") {
+      rlang::abort("For the linear predictor, the object should be a censored regression.")
+    }
+  )
 
   # TODO check for ... options when not the correct type
   type
