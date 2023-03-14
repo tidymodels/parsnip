@@ -173,13 +173,19 @@ multi_predict_glmnet <- function(object,
                                  type = NULL,
                                  penalty = NULL,
                                  ...) {
+  type <- check_pred_type(object, type)
+  check_spec_pred_type(object, type)
+  if (type == "prob") {
+    check_spec_levels(object)
+  }
+
+  dots <- list(...)
+
   if (object$spec$mode == "classification") {
     if (is_quosure(penalty)) {
       penalty <- eval_tidy(penalty)
     }
   }
-
-  dots <- list(...)
 
   object$spec <- eval_args(object$spec)
 
@@ -195,12 +201,6 @@ multi_predict_glmnet <- function(object,
   model_type <- class(object$spec)[1]
 
   if (object$spec$mode == "classification") {
-    if (is.null(type)) {
-      type <- "class"
-    }
-    if (!(type %in% c("class", "prob", "link", "raw"))) {
-      rlang::abort("`type` should be either 'class', 'link', 'raw', or 'prob'.")
-    }
     if (type == "prob" |
         model_type == "logistic_reg") {
       dots$type <- "response"

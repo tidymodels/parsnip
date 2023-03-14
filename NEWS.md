@@ -16,6 +16,8 @@
 
 * Several internal functions (to help work with `Surv` objects) were added as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. 
 
+* `multi_predict()` methods for `linear_reg()`, `logistic_reg()`, and `multinomial_reg()` models fitted with the `"glmnet"` engine now check the `type` better and error accordingly (#900).
+
 * Rather than being implemented in each method, the check for the `new_data` argument being mistakenly passed as `newdata` to `multi_predict()` now happens in the generic. Packages re-exporting the `multi_predict()` generic and implementing now-duplicate checks may see new failures and can remove their own analogous checks. This check already existed in all `predict()` methods (via `predict.model_fit()`) and all parsnip `multi_predict()` methods (#525).
 
 * `logistic_reg()` will now warn at `fit()` when the outcome has more than two levels (#545).
