@@ -21,7 +21,7 @@
 #' @details The \pkg{glmnet} package will need to be attached or loaded for
 #' its `autoplot()` method to work correctly.
 #'
-# registered in zzz.R
+#' @export
 autoplot.model_fit <- function(object, ...) {
   autoplot(object$fit, ...)
 }
@@ -30,7 +30,7 @@ autoplot.model_fit <- function(object, ...) {
 # unit tests are located at https://github.com/tidymodels/extratests
 # nocov start
 
-# registered in zzz.R
+#' @export
 #' @rdname autoplot.model_fit
 autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
                             top_n = 3L) {

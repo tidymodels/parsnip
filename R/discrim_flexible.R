@@ -18,6 +18,7 @@
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
 #'
+#' @templateVar modeltype discrim_flexible
 #' @template spec-details
 #'
 #' @template spec-references

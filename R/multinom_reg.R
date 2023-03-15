@@ -30,6 +30,7 @@
 #'
 #'  Available for specific engines only.
 #'
+#' @templateVar modeltype multinom_reg
 #' @template spec-details
 #'
 #' @details This model fits a classification model for multiclass outcomes; for
@@ -112,24 +113,6 @@ check_args.multinom_reg <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-organize_multnet_class <- function(x, object) {
-  if (vec_size(x) > 1) {
-    x <- x[,1]
-  } else {
-    x <- as.character(x)
-  }
-  x
-}
-
-organize_multnet_prob <- function(x, object) {
-  if (vec_size(x) > 1) {
-    x <- as_tibble(x[,,1])
-  } else {
-    x <- tibble::as_tibble_row(x[,,1])
-  }
-  x
-}
-
 organize_nnet_prob <- function(x, object) {
   if (is.null(nrow(x))) {
     x_names <- names(x)
@@ -137,57 +120,4 @@ organize_nnet_prob <- function(x, object) {
     colnames(x) <- x_names
   }
   format_classprobs(x)
-}
-
-
-
-
-# ------------------------------------------------------------------------------
-
-#' @export
-predict._multnet <- predict_glmnet
-
-#' @export
-#' @rdname multi_predict
-multi_predict._multnet <- multi_predict_glmnet
-
-#' @export
-predict_class._multnet <- predict_class_glmnet
-
-#' @export
-predict_classprob._multnet <- predict_classprob_glmnet
-
-#' @export
-predict_raw._multnet <- predict_raw_glmnet
-
-format_glmnet_multi_multinom_reg <- function(pred, penalty, type, n_rows, lvl) {
-  format_probs <- function(x) {
-    x <- as_tibble(x)
-    names(x) <- paste0(".pred_", names(x))
-    nms <- names(x)
-    x$.row <- 1:nrow(x)
-    x[, c(".row", nms)]
-  }
-
-  if (type == "prob") {
-    pred <- apply(pred, 3, format_probs)
-    names(pred) <- NULL
-    pred <- map_dfr(pred, function(x) x)
-    pred$penalty <- rep(penalty, each = n_rows)
-    pred <- dplyr::relocate(pred, penalty)
-  } else {
-    pred <-
-      tibble(
-        .row = rep(1:n_rows, length(penalty)),
-        penalty = rep(penalty, each = n_rows),
-        .pred_class = factor(as.vector(pred), levels = lvl)
-      )
-  }
-
-  pred <- arrange(pred, .row, penalty)
-  .row <- pred$.row
-  pred$.row <- NULL
-  pred <- split(pred, .row)
-  names(pred) <- NULL
-  tibble(.pred = pred)
 }

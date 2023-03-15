@@ -18,13 +18,15 @@ tune_args.model_spec <- function(object, full = FALSE, ...) {
   res <- c(arg_id, eng_arg_id)
   res <- ifelse(res == "", names(res), res)
 
+  len_res <- length(res)
+
   tune_tbl(
     name = names(res),
     tunable = unname(!is.na(res)),
     id = res,
-    source = "model_spec",
-    component = model_type,
-    component_id = NA_character_,
+    source = rep("model_spec", len_res),
+    component = rep(model_type, len_res),
+    component_id = rep(NA_character_, len_res),
     full = full
   )
 }
@@ -65,13 +67,16 @@ tune_tbl <- function(name = character(),
          ".", sep = "", call. = FALSE)
   }
 
-  vry_tbl <- tibble::tibble(
-    name = as.character(name),
-    tunable = as.logical(tunable),
-    id = as.character(id),
-    source = as.character(source),
-    component = as.character(component),
-    component_id = as.character(component_id)
+  vry_tbl <- tibble::new_tibble(
+    list(
+      name = as.character(name),
+      tunable = as.logical(tunable),
+      id = as.character(id),
+      source = as.character(source),
+      component = as.character(component),
+      component_id = as.character(component_id)
+    ),
+    nrow = length(as.character(name))
   )
 
   if (!full) {

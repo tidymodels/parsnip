@@ -26,6 +26,7 @@
 #'
 #'  Available for specific engines only.
 #'
+#' @templateVar modeltype linear_reg
 #' @template spec-details
 #'
 #' @template spec-references
@@ -116,54 +117,4 @@ check_args.linear_reg <- function(object) {
     rlang::abort("Only one value of `mixture` is allowed.")
 
   invisible(object)
-}
-
-# ------------------------------------------------------------------------------
-
-#' Organize glmnet predictions
-#'
-#' This function is for developer use and organizes predictions from glmnet
-#' models.
-#'
-#' @param x Predictions as returned by the `predict()` method for glmnet models.
-#' @param object An object of class `model_fit`.
-#'
-#' @rdname glmnet_helpers_prediction
-#' @keywords internal
-#' @export
-.organize_glmnet_pred <- function(x, object) {
-  unname(x[, 1])
-}
-
-#' @export
-predict._elnet <- predict_glmnet
-
-#' @export
-predict_numeric._elnet <- predict_numeric_glmnet
-
-#' @export
-predict_raw._elnet <- predict_raw_glmnet
-
-#' @export
-#'@rdname multi_predict
-#' @param penalty A numeric vector of penalty values.
-multi_predict._elnet <- multi_predict_glmnet
-
-format_glmnet_multi_linear_reg <- function(pred, penalty) {
-  param_key <- tibble(group = colnames(pred), penalty = penalty)
-  pred <- as_tibble(pred)
-  pred$.row <- 1:nrow(pred)
-  pred <- gather(pred, group, .pred, -.row)
-  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-    pred <- full_join(param_key, pred, by = "group", multiple = "all")
-  } else {
-    pred <- full_join(param_key, pred, by = "group")
-  }
-  pred$group <- NULL
-  pred <- arrange(pred, .row, penalty)
-  .row <- pred$.row
-  pred$.row <- NULL
-  pred <- split(pred, .row)
-  names(pred) <- NULL
-  tibble(.pred = pred)
 }

@@ -11,7 +11,9 @@
 #' @importFrom dplyr arrange bind_cols bind_rows collect full_join group_by
 #' @importFrom dplyr mutate pull rename select starts_with summarise tally
 #' @importFrom generics tunable varying_args tune_args
+#' @importFrom ggplot2 autoplot
 #' @importFrom glue glue_collapse
+#' @importFrom lifecycle deprecated
 #' @importFrom pillar type_sum
 #' @importFrom purrr as_vector imap imap_lgl map map_chr map_dbl map_df map_dfr
 #' @importFrom purrr map_lgl %||%
@@ -27,7 +29,6 @@
 #' @importFrom utils capture.output getFromNamespace globalVariables head
 #' @importFrom utils methods stack
 #' @importFrom vctrs vec_size vec_unique
-#' @importFrom ggplot2 autoplot
 ## usethis namespace: end
 NULL
 
@@ -43,7 +44,7 @@ utils::globalVariables(
     "compute_intercept", "remove_intercept", "estimate", "term",
     "call_info", "component", "component_id", "func", "tunable", "label",
     "pkg", ".order", "item", "tunable", "has_ext", "id", "weights", "has_wts",
-    "protect", "weight_time", ".prob_cens", ".weight_cens"
+    "protect", "weight_time", ".prob_cens", ".weight_cens", "s"
   )
 )
 

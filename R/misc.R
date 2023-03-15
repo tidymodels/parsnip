@@ -69,7 +69,7 @@ mode_filter_condition <- function(mode, user_specified_mode) {
 #' * the `model_info_table` of "pre-registered" model specifications
 #'
 #' to determine whether a model is well-specified. See
-#' `parsnip:::read_model_info_table()` for this table.
+#' `parsnip:::model_info_table` for this table.
 #'
 #' `spec_is_loaded()` checks only against the current parsnip model environment.
 #'
@@ -99,7 +99,7 @@ spec_is_possible <- function(spec,
 
   all_model_info <-
     dplyr::full_join(
-      read_model_info_table(),
+      model_info_table,
       rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
@@ -183,7 +183,7 @@ prompt_missing_implementation <- function(spec,
   }
 
   all <-
-    read_model_info_table() %>%
+    model_info_table %>%
     dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
     dplyr::select(-model)
 
@@ -336,21 +336,44 @@ check_outcome <- function(y, spec) {
   if (spec$mode == "regression") {
     outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
     if (!outcome_is_numeric) {
-      rlang::abort("For a regression model, the outcome should be numeric.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a regression model, the outcome should be `numeric`, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
   if (spec$mode == "classification") {
     outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
     if (!outcome_is_factor) {
-      rlang::abort("For a classification model, the outcome should be a factor.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a classification model, the outcome should be a `factor`, ",
+        "not a `", cls, "`."
+      ))
+    }
+
+    if (inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2) {
+      # warn rather than error since some engines handle this case by binning
+      # all but the first level as the non-event, so this may be intended
+      cli::cli_warn(c(
+        "!" = "Logistic regression is intended for modeling binary outcomes, \\
+               but there are {length(levels(y))} levels in the outcome.",
+        "i" = "If this is unintended, adjust outcome levels accordingly or \\
+               see the {.fn multinom_reg} function."
+      ))
     }
   }
 
   if (spec$mode == "censored regression") {
     outcome_is_surv <- inherits(y, "Surv")
     if (!outcome_is_surv) {
-      rlang::abort("For a censored regression model, the outcome should be a `Surv` object.")
+      cls <- class(y)[[1]]
+      abort(paste0(
+        "For a censored regression model, the outcome should be a `Surv` object, ",
+        "not a `", cls, "`."
+      ))
     }
   }
 
@@ -459,74 +482,6 @@ stan_conf_int <- function(object, newdata) {
 
 # ------------------------------------------------------------------------------
 
-
-#' Helper functions for checking the penalty of glmnet models
-#'
-#' @description
-#' These functions are for developer use.
-#'
-#' `.check_glmnet_penalty_fit()` checks that the model specification for fitting a
-#' glmnet model contains a single value.
-#'
-#' `.check_glmnet_penalty_predict()` checks that the penalty value used for prediction is valid.
-#' If called by `predict()`, it needs to be a single value. Multiple values are
-#' allowed for `multi_predict()`.
-#'
-#' @param x An object of class `model_spec`.
-#' @rdname glmnet_helpers
-#' @keywords internal
-#' @export
-.check_glmnet_penalty_fit <- function(x) {
-  pen <- rlang::eval_tidy(x$args$penalty)
-
-  if (length(pen) != 1) {
-    rlang::abort(c(
-      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
-      glue::glue("There are {length(pen)} values for `penalty`."),
-      "To try multiple values for total regularization, use the tune package.",
-      "To predict multiple penalties, use `multi_predict()`"
-    ))
-  }
-}
-
-#' @param penalty A penalty value to check.
-#' @param object An object of class `model_fit`.
-#' @param multi A logical indicating if multiple values are allowed.
-#'
-#' @rdname glmnet_helpers
-#' @keywords internal
-#' @export
-.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
-  if (is.null(penalty)) {
-    penalty <- object$fit$lambda
-  }
-
-  # when using `predict()`, allow for a single lambda
-  if (!multi) {
-    if (length(penalty) != 1) {
-      rlang::abort(
-        glue::glue(
-          "`penalty` should be a single numeric value. `multi_predict()` ",
-          "can be used to get multiple predictions per row of data.",
-        )
-      )
-    }
-  }
-
-  if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda) {
-    rlang::abort(
-      glue::glue(
-        "The glmnet model was fit with a single penalty value of ",
-        "{object$fit$lambda}. Predicting with a value of {penalty} ",
-        "will give incorrect results from `glmnet()`."
-      )
-    )
-  }
-
-  penalty
-}
-
-
 check_case_weights <- function(x, spec) {
   if (is.null(x) | spec$engine == "spark") {
     return(invisible(NULL))
@@ -539,4 +494,14 @@ check_case_weights <- function(x, spec) {
     rlang::abort("Case weights are not enabled by the underlying model implementation.")
   }
   invisible(NULL)
+}
+
+# -----------------------------------------------------------------------------
+check_for_newdata <- function(..., call = rlang::caller_env()) {
+  if (any(names(list(...)) == "newdata")) {
+    rlang::abort(
+      "Please use `new_data` instead of `newdata`.",
+      call = call
+    )
+  }
 }

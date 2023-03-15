@@ -306,7 +306,9 @@ test_that('newdata error trapping', {
     y = hpc$input_fields,
     control = ctrl
   )
-  expect_error(predict(res_xy, newdata = hpc[1:3, num_pred]), "Did you mean")
+  expect_snapshot(error = TRUE,
+    predict(res_xy, newdata = hpc[1:3, num_pred])
+  )
 })
 
 test_that('show engine', {

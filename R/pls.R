@@ -16,6 +16,7 @@
 #'  This value is used for all PLS components for X.
 #' @param num_comp The number of PLS components to retain.
 #'
+#' @templateVar modeltype pls
 #' @template spec-details
 #'
 #' @template spec-references

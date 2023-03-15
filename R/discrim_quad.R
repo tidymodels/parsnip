@@ -20,6 +20,7 @@
 #'  estimation. Possible values are: "`diagonal`", "`shrink_cov`", and
 #'  "`shrink_mean`" (`sparsediscrim` engine only).
 #'
+#' @templateVar modeltype discrim_quad
 #' @template spec-details
 #'
 #' @template spec-references

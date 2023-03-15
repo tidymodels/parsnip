@@ -20,6 +20,7 @@
 #' @param dist A character string for the probability distribution of the
 #'  outcome. The default is "weibull".
 #'
+#' @templateVar modeltype surv_reg
 #' @template spec-details
 #'
 #' @template spec-survival

@@ -16,6 +16,7 @@
 #'  outcome. The default is "weibull".
 #'
 #'
+#' @templateVar modeltype survival_reg
 #' @template spec-details
 #'
 #' @template spec-survival
