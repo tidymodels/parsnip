@@ -81,7 +81,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   # Censoring time before eval_time, no contribution (Graf category 3)
   weight_time <- rep(NA_real_, length(event_time))
 
-  # A real event prior to predict time (Graf category 1)
+  # A real event prior to eval_time (Graf category 1)
   weight_time[is_event_before_t] <- event_time[is_event_before_t] - eps
 
   # Observed time greater than eval_time (Graf category 2)
@@ -106,7 +106,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @param rows An optional integer vector with length equal to the number of
 #' rows in `data` that is used to index the original data. The default is to
 #' use a fresh index on data (i.e. `1:nrow(data)`).
-#' @param eval_time A vector of non-negative times at which we should
+#' @param eval_time A vector of non-negative times at which to 
 #' compute the probability of censoring and the corresponding weights.
 #' @param object A fitted parsnip model object or fitted workflow with a mode
 #' of "censored regression".
@@ -139,9 +139,9 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #'    prior to the evaluation time (category 1), the probability of being
 #'    censored is predicted at the observed time (minus an epsilon).
 #'
-#'  - If the observed time corresponds to an actual event, and it is _after_
-#'    the evaluation time (category 2), the probability of being
-#'    censored is predicted at the evaluation time (minus an epsilon).
+#'  - If the observed time is _after_ the evaluation time (category 2), regardless of
+#'    the status, the probability of being censored is predicted at the evaluation 
+#'     time (minus an epsilon).
 #'
 #' The epsilon is used since, we would not have actual information at time `t`
 #' for a data point being predicted at time `t` (only data prior to time `t`
@@ -168,7 +168,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @rdname censoring_weights
 .censoring_weights_graf.default <- function(object, ...) {
   cls <- paste0("'", class(object), "'", collapse = ", ")
-  msg <- paste("There are no `.censoring_weights_graf` for objects with class(es):",
+  msg <- paste("There is no `.censoring_weights_graf()` method for objects with class(es):",
                cls)
   rlang::abort(msg)
 }
@@ -177,11 +177,11 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.workflow <- function(object,
-                                            data,
-                                            eval_time,
-                                            rows = NULL,
-                                            predictors = NULL,
-                                            trunc = 0.05, eps = 10^-10, ...) {
+                                             data,
+                                             eval_time,
+                                             rows = NULL,
+                                             predictors = NULL,
+                                             trunc = 0.05, eps = 10^-10, ...) {
   if (is.null(object$fit$fit)) {
     rlang::abort("The workflow does not have a model fit object.", call = FALSE)
   }
@@ -191,29 +191,30 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.model_fit <- function(object,
-                                             data,
-                                             eval_time,
-                                             rows = NULL,
-                                             predictors = NULL,
-                                             trunc = 0.05, eps = 10^-10, ...) {
+                                              data,
+                                              eval_time,
+                                              rows = NULL,
+                                              predictors = NULL,
+                                              trunc = 0.05, eps = 10^-10, ...) {
   rlang::check_dots_empty()
   .check_censor_model(object)
   if (!is.null(predictors)) {
     rlang::warn("The 'predictors' argument to the survival weighting function is not currently used.", call = FALSE)
   }
-  eval_time <- .filter_eval_time(eval_time)  # TODO maybe this should be the check function
+  eval_time <- .filter_eval_time(eval_time) # TODO maybe this should be the check function
 
   truth <- object$preproc$y_var
   surv_data <- dplyr::select(data, dplyr::all_of(!!truth)) %>% setNames("surv")
   .check_censored_right(surv_data$surv)
 
-  purrr::map_dfr(eval_time,
+  purrr::map(eval_time,
                  ~ graf_weight_time(surv_data$surv, .x, eps = eps, rows = rows))  %>%
+                 purrr::list_rbind() %>%
     dplyr::mutate(
       .prob_cens = predict(object$censor_probs, time = weight_time, as_vector = TRUE),
       .prob_cens = trunc_probs(.prob_cens, trunc),
       .weight_cens = 1 / .prob_cens
-    )  %>%
+    ) %>%
     dplyr::select(.row, eval_time, .prob_cens, .weight_cens)
 }
 
