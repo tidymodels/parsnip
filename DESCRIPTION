@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.0.4.9003
+Version: 1.0.4.9004
 Authors@R: c(
     person("Max", "Kuhn", , "max@posit.co", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),

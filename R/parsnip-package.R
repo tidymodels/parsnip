@@ -44,7 +44,7 @@ utils::globalVariables(
     "compute_intercept", "remove_intercept", "estimate", "term",
     "call_info", "component", "component_id", "func", "tunable", "label",
     "pkg", ".order", "item", "tunable", "has_ext", "id", "weights", "has_wts",
-    "protect", "s"
+    "protect", "weight_time", ".prob_cens", ".weight_cens", "s"
   )
 )
 
