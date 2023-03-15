@@ -40,7 +40,7 @@ of "censored regression".}
 
 \item{data}{A data frame with a column containing a \code{\link[survival:Surv]{survival::Surv()}} object.}
 
-\item{eval_time}{A vector of non-negative times at which we should
+\item{eval_time}{A vector of finite, non-negative times at which to
 compute the probability of censoring and the corresponding weights.}
 
 \item{rows}{An optional integer vector with length equal to the number of
@@ -54,9 +54,7 @@ informative censoring based on columns in \code{data}.}
 very large weight values.}
 
 \item{eps}{A small value that is subtracted from the evaluation time when
-computing the censoring probabilities. In doing so, the censoring probability
-prediction avoids information leakage by avoiding data that would not be
-known at the time of prediction.}
+computing the censoring probabilities. See Details below.}
 }
 \value{
 A tibble with columns \code{.row}, \code{eval_time}, \code{.prob_cens} (the
@@ -86,9 +84,9 @@ value for their probability estimate (and also for their weight column).
 \item If the observed time corresponds to an actual event, and that time is
 prior to the evaluation time (category 1), the probability of being
 censored is predicted at the observed time (minus an epsilon).
-\item If the observed time corresponds to an actual event, and it is \emph{after}
-the evaluation time (category 2), the probability of being
-censored is predicted at the evaluation time (minus an epsilon).
+\item If the observed time is \emph{after} the evaluation time (category 2), regardless of
+the status, the probability of being censored is predicted at the evaluation
+time (minus an epsilon).
 }
 
 The epsilon is used since, we would not have actual information at time \code{t}
@@ -98,6 +96,13 @@ should be available).
 After the censoring probability is computed, the \code{trunc} option is used to
 avoid using numbers pathologically close to zero. After this, the weight is
 computed by inverting the censoring probability.
+
+The \code{eps} argument is used to avoid information leakage when computing the
+censoring probability. Subtracting a small number avoids using data that
+would not be known at the time of prediction. For example, if we are making
+survival probability predictions at \code{eval_time = 3.0}, we would not know the
+about the probability of being censored at that exact time (since it has not
+occurred yet).
 
 Note that if there are \code{n} rows in \code{data} and \code{t} time points, the resulting
 data has \code{n * t} rows. Computations will not easily scale well as \code{t} becomes

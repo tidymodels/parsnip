@@ -19,6 +19,9 @@ trunc_probs <- function(probs, trunc = 0.01) {
 }
 
 .filter_eval_time <- function(eval_time, fail = TRUE) {
+  if (!is.null(eval_time)) {
+    eval_time <- as.numeric(eval_time)
+  }
   # will still propagate nulls:
   eval_time <- eval_time[!is.na(eval_time)]
   eval_time <- unique(eval_time)
@@ -106,16 +109,14 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @param rows An optional integer vector with length equal to the number of
 #' rows in `data` that is used to index the original data. The default is to
 #' use a fresh index on data (i.e. `1:nrow(data)`).
-#' @param eval_time A vector of non-negative times at which to 
+#' @param eval_time A vector of finite, non-negative times at which to
 #' compute the probability of censoring and the corresponding weights.
 #' @param object A fitted parsnip model object or fitted workflow with a mode
 #' of "censored regression".
 #' @param trunc A potential lower bound for the probability of censoring to avoid
 #' very large weight values.
 #' @param eps A small value that is subtracted from the evaluation time when
-#' computing the censoring probabilities. In doing so, the censoring probability
-#' prediction avoids information leakage by avoiding data that would not be
-#' known at the time of prediction.
+#' computing the censoring probabilities. See Details below.
 #' @return A tibble with columns `.row`, `eval_time`, `.prob_cens` (the
 #' probability of being censored just prior to the evaluation time), and
 #' `.weight_cens` (the inverse probability of censoring weight).
@@ -140,7 +141,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #'    censored is predicted at the observed time (minus an epsilon).
 #'
 #'  - If the observed time is _after_ the evaluation time (category 2), regardless of
-#'    the status, the probability of being censored is predicted at the evaluation 
+#'    the status, the probability of being censored is predicted at the evaluation
 #'     time (minus an epsilon).
 #'
 #' The epsilon is used since, we would not have actual information at time `t`
@@ -150,6 +151,13 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' After the censoring probability is computed, the `trunc` option is used to
 #' avoid using numbers pathologically close to zero. After this, the weight is
 #' computed by inverting the censoring probability.
+#'
+#' The `eps` argument is used to avoid information leakage when computing the
+#' censoring probability. Subtracting a small number avoids using data that
+#' would not be known at the time of prediction. For example, if we are making
+#' survival probability predictions at `eval_time = 3.0`, we would not know the
+#' about the probability of being censored at that exact time (since it has not
+#' occurred yet).
 #'
 #' Note that if there are `n` rows in `data` and `t` time points, the resulting
 #' data has `n * t` rows. Computations will not easily scale well as `t` becomes
@@ -201,9 +209,13 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   if (!is.null(predictors)) {
     rlang::warn("The 'predictors' argument to the survival weighting function is not currently used.", call = FALSE)
   }
-  eval_time <- .filter_eval_time(eval_time) # TODO maybe this should be the check function
+  eval_time <- .filter_eval_time(eval_time)
 
   truth <- object$preproc$y_var
+  if (length(truth) != 1) {
+    # check_outcome() tests that the outcome column is a Surv object
+    rlang::abort("The event time data should be in a single column with class 'Surv'", call = FALSE)
+  }
   surv_data <- dplyr::select(data, dplyr::all_of(!!truth)) %>% setNames("surv")
   .check_censored_right(surv_data$surv)
 
