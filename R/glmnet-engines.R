@@ -329,7 +329,7 @@ format_glmnet_multinom_prob <- function(pred, penalty, lvl, n_obs) {
   # dim 3 = penalty values
   apply(pred, 3, as_tibble) %>%
     purrr::list_rbind() %>%
-    rlang::set_names(paste0("pred_", lvl)) %>%
+    rlang::set_names(paste0(".pred_", lvl)) %>%
     dplyr::mutate(
       .row = rep(seq_len(n_obs), times = length(penalty)),
       penalty = rep(penalty, each = n_obs)
