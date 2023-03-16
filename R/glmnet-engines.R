@@ -223,8 +223,8 @@ multi_predict_glmnet <- function(object,
     "multinom_reg" = format_glmnet_multi_multinom_reg(pred,
                                                       penalty = penalty,
                                                       type = type,
-                                                      n_rows = nrow(new_data),
-                                                      lvl = object$lvl)
+                                                      lvl = object$lvl,
+                                                      n_obs = nrow(new_data))
   )
 
   res
@@ -270,7 +270,6 @@ format_glmnet_multi_linear_reg <- function(pred, penalty) {
 }
 
 format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
-
   type <- rlang::arg_match(type, c("class", "prob"))
 
   penalty_key <- tibble(s = colnames(pred), penalty = penalty)
@@ -306,36 +305,46 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
   pred
 }
 
-format_glmnet_multi_multinom_reg <- function(pred, penalty, type, n_rows, lvl) {
-  format_probs <- function(x) {
-    x <- as_tibble(x)
-    names(x) <- paste0(".pred_", names(x))
-    nms <- names(x)
-    x$.row <- 1:nrow(x)
-    x[, c(".row", nms)]
-  }
+format_glmnet_multi_multinom_reg <- function(pred, penalty, type, lvl, n_obs) {
+  type <- rlang::arg_match(type, c("class", "prob"))
 
-  if (type == "prob") {
-    pred <- apply(pred, 3, format_probs)
-    names(pred) <- NULL
-    pred <- map_dfr(pred, function(x) x)
-    pred$penalty <- rep(penalty, each = n_rows)
-    pred <- dplyr::relocate(pred, penalty)
-  } else {
-    pred <-
-      tibble(
-        .row = rep(1:n_rows, length(penalty)),
-        penalty = rep(penalty, each = n_rows),
-        .pred_class = factor(as.vector(pred), levels = lvl)
-      )
-  }
+  pred <- switch(
+    type,
+    prob = format_glmnet_multinom_prob(pred, penalty, lvl, n_obs),
+    class = format_glmnet_multinom_class(pred, penalty, lvl, n_obs)
+  )
 
-  pred <- arrange(pred, .row, penalty)
-  .row <- pred$.row
-  pred$.row <- NULL
-  pred <- split(pred, .row)
-  names(pred) <- NULL
-  tibble(.pred = pred)
+  pred <- pred %>%
+    dplyr::arrange(.row, penalty) %>%
+    tidyr::nest(.by = .row, .key = ".pred") %>%
+    dplyr::select(-.row)
+
+  pred
+}
+
+format_glmnet_multinom_prob <- function(pred, penalty, lvl, n_obs) {
+  # pred is an array with
+  # dim 1 = observations
+  # dim 2 = levels of the response
+  # dim 3 = penalty values
+  apply(pred, 3, as_tibble) %>%
+    purrr::list_rbind() %>%
+    rlang::set_names(paste0("pred_", lvl)) %>%
+    dplyr::mutate(
+      .row = rep(seq_len(n_obs), times = length(penalty)),
+      penalty = rep(penalty, each = n_obs)
+    ) %>%
+    dplyr::relocate(penalty)
+}
+
+format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
+  # pred is a matrix n_obs x n_penalty
+  # unless n_obs == 1, then it's a vector of length n_penalty
+  tibble(
+    .row = rep(seq_len(n_obs), times = length(penalty)),
+    penalty = rep(penalty, each = n_obs),
+    .pred_class = factor(as.vector(pred), levels = lvl)
+  )
 }
 
 # -------------------------------------------------------------------------
