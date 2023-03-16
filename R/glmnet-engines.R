@@ -248,22 +248,25 @@ multi_predict._multnet <- multi_predict_glmnet
 multi_predict._glmnetfit <- multi_predict_glmnet
 
 format_glmnet_multi_linear_reg <- function(pred, penalty) {
-  param_key <- tibble(group = colnames(pred), penalty = penalty)
+  penalty_key <- tibble(s = colnames(pred), penalty = penalty)
+
   pred <- as_tibble(pred)
-  pred$.row <- 1:nrow(pred)
-  pred <- gather(pred, group, .pred, -.row)
+  pred$.row <- seq_len(nrow(pred))
+  pred <- tidyr::pivot_longer(pred, -.row, names_to = "s", values_to = ".pred")
+
   if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-    pred <- full_join(param_key, pred, by = "group", multiple = "all")
+    pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
   } else {
-    pred <- full_join(param_key, pred, by = "group")
+    pred <- dplyr::full_join(penalty_key, pred, by = "s")
   }
-  pred$group <- NULL
-  pred <- arrange(pred, .row, penalty)
-  .row <- pred$.row
-  pred$.row <- NULL
-  pred <- split(pred, .row)
-  names(pred) <- NULL
-  tibble(.pred = pred)
+
+  pred <- pred %>%
+    dplyr::select(-s) %>%
+    dplyr::arrange(penalty) %>%
+    tidyr::nest(.by = .row, .key = ".pred") %>%
+    dplyr::select(-.row)
+
+  pred
 }
 
 format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
