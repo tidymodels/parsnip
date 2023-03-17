@@ -30,7 +30,7 @@ Imports:
     magrittr,
     pillar,
     prettyunits,
-    purrr,
+    purrr (>= 1.0.0),
     rlang (>= 0.3.1),
     stats,
     tibble (>= 2.1.1),
