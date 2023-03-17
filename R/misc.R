@@ -97,25 +97,40 @@ spec_is_possible <- function(spec,
                              user_specified_mode = spec$user_specified_mode) {
   cls <- class(spec)[[1]]
 
-  all_model_info <-
-    dplyr::full_join(
-      model_info_table,
-      rlang::env_get(get_model_env(), cls) %>% dplyr::mutate(model = cls),
-      by = c("model", "engine", "mode")
-    )
+  model_env <- rlang::env_get(get_model_env(), cls)
+  model_env_matches <- model_env
+  model_env_matches$model <- cls
+  model_info_table_matches <-
+    vctrs::vec_slice(model_info_table,
+                     model_info_table$model == cls)
 
-  engine_condition <- engine_filter_condition(engine, user_specified_engine)
-  mode_condition <- mode_filter_condition(mode, user_specified_mode)
+  if (isTRUE(user_specified_engine) && !is.null(engine)) {
+    model_env_matches <-
+      vctrs::vec_slice(model_env_matches,
+                       model_env_matches$engine == engine)
 
-  possibilities <-
-    all_model_info %>%
-    dplyr::filter(
-      model == cls,
-      !!engine_condition,
-      !!mode_condition
-    )
+    model_info_table_matches <-
+      vctrs::vec_slice(model_info_table_matches,
+                       model_info_table_matches$engine == engine)
+  }
 
-  return(nrow(possibilities) > 0)
+  if (isTRUE(user_specified_mode) && !is.null(mode)) {
+    model_env_matches <-
+      vctrs::vec_slice(model_env_matches,
+                       model_env_matches$mode == mode)
+
+    model_info_table_matches <-
+      vctrs::vec_slice(model_info_table_matches,
+                       model_info_table_matches$mode == mode)
+  }
+
+
+  if (vctrs::vec_size(model_env_matches) > 0 ||
+      vctrs::vec_size(model_info_table_matches) > 0) {
+    return(TRUE)
+  }
+
+  return(FALSE)
 }
 
 # see ?add_on_exports for more information on usage
