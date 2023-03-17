@@ -220,6 +220,16 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
 
   model_info <- rlang::env_get(get_model_env(), cls)
 
+  # Initially, check if the specification is well-defined in the current model
+  # parsnip model environment. If so, return early.
+  # If not, troubleshoot more precisely and raise a relevant error.
+  model_env_match <-
+    vctrs::vec_slice(model_info, model_info$engine == eng & model_info$mode == mode)
+
+  if (vctrs::vec_size(model_env_match) == 1) {
+    return(invisible(NULL))
+  }
+
   # Cases where the model definition is in parsnip but all of the engines
   # are contained in a different package
   model_info_parsnip_only <-
