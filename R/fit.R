@@ -309,7 +309,7 @@ fit_xy.model_spec <-
             ...
           ),
 
-        # heterogenous combinations
+        # heterogeneous combinations
         matrix_formula = ,  data.frame_formula =
           xy_form(
             object = object,

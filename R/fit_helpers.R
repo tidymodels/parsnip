@@ -187,7 +187,7 @@ xy_form <- function(object, env, control, ...) {
     control = control,
     ...
   )
-  if (is.vector(env$y)) {
+  if (is.vector(env$y) | inherits(env$y, "Surv")) {
     data_obj$y_var <- character(0)
   } else {
     data_obj$y_var <- colnames(env$y)

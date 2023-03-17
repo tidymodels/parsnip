@@ -214,9 +214,9 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   truth <- object$preproc$y_var
   if (length(truth) != 1) {
     # check_outcome() tests that the outcome column is a Surv object
-    rlang::abort("The event time data should be in a single column with class 'Surv'", call = FALSE)
+    rlang::abort("The event time data should be in a single column with class 'Surv'")
   }
-  surv_data <- dplyr::select(data, dplyr::all_of(!!truth)) %>% setNames("surv")
+  surv_data <- dplyr::select(data, dplyr::all_of(!!!truth)) %>% setNames("surv")
   .check_censored_right(surv_data$surv)
 
   purrr::map(eval_time,
