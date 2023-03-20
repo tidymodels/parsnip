@@ -394,12 +394,16 @@ prepare_data <- function(object, new_data) {
     new_data <- .convert_xy_to_form_new(object$preproc, new_data)
   }
 
+  remove_intercept <- get_encoding(class(object$spec)[1])
   remove_intercept <-
-    get_encoding(class(object$spec)[1]) %>%
-    dplyr::filter(mode == object$spec$mode, engine == object$spec$engine) %>%
-    dplyr::pull(remove_intercept)
+    vctrs::vec_slice(
+      remove_intercept$remove_intercept,
+      remove_intercept$mode == object$spec$mode &
+        remove_intercept$engine == object$spec$engine
+    )
+
   if (remove_intercept & any(grepl("Intercept", names(new_data)))) {
-    new_data <- new_data %>% dplyr::select(-dplyr::one_of("(Intercept)"))
+    new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
   }
 
   fit_interface <- object$spec$method$fit$interface
