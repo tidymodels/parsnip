@@ -258,8 +258,14 @@ format_classprobs <- function(x) {
   if (!any(grepl("^\\.pred_", names(x)))) {
     names(x) <- paste0(".pred_", names(x))
   }
-  x <- as_tibble(x)
-  x <- purrr::map_dfr(x, rlang::set_names, NULL)
+  if (!tibble::is_tibble(x)) {
+    x <- as_tibble(x)
+  }
+
+  for (i in seq_along(x)) {
+    names(x[[i]]) <- NULL
+  }
+
   x
 }
 
