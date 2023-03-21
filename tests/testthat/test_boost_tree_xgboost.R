@@ -378,7 +378,8 @@ test_that('xgboost data conversion', {
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
-  wts <- 1:32
+  wts <- hardhat::importance_weights(1:32)
+  freq_wts <- hardhat::frequency_weights(1:32)
 
   expect_error(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg), regexp = NA)
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
@@ -421,10 +422,15 @@ test_that('xgboost data conversion', {
 
   # case weights added
   expect_error(wted <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts), regexp = NA)
-  expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
+  expect_equal(as.numeric(wts), xgboost::getinfo(wted$data, "weight"))
   expect_error(wted_val <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts, validation = 1/4), regexp = NA)
   expect_true(all(xgboost::getinfo(wted_val$data, "weight") %in% wts))
   expect_null(xgboost::getinfo(wted_val$watchlist$validation, "weight"))
+
+  # check that freq weights are passed to internal validation set
+  set.seed(1)
+  expect_error(val_freq_wts<-parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = freq_wts, validation = 1/10), regexp = NA)
+  expect_true(all(xgboost::getinfo(val_freq_wts$watchlist$validation, "weight") %in% c(3,17,26)))
 
 })
 
@@ -437,7 +443,8 @@ test_that('xgboost data and sparse matrices', {
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
-  wts <- 1:32
+  wts <- hardhat::importance_weights(1:32)
+  freq_wts <- hardhat::frequency_weights(1:32)
 
   xgb_spec <-
     boost_tree(trees = 10) %>%
@@ -461,10 +468,15 @@ test_that('xgboost data and sparse matrices', {
 
   # case weights added
   expect_error(wted <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts), regexp = NA)
-  expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
+  expect_equal(as.numeric(wts), xgboost::getinfo(wted$data, "weight"))
   expect_error(wted_val <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts, validation = 1/4), regexp = NA)
   expect_true(all(xgboost::getinfo(wted_val$data, "weight") %in% wts))
   expect_null(xgboost::getinfo(wted_val$watchlist$validation, "weight"))
+
+  # check that freq weights are passed to internal validation set
+  set.seed(1)
+  expect_error(val_freq_wts<-parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = freq_wts, validation = 1/10), regexp = NA)
+  expect_true(all(xgboost::getinfo(val_freq_wts$watchlist$validation, "weight") %in% c(3,17,26)))
 
 })
 

@@ -262,7 +262,13 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
-    eval_env$weights <- weights_to_numeric(case_weights, object)
+
+    if(object$engine == "xgboost" && !is.null(case_weights)){
+      # Pass as raw to preserve weight type e.g. frequency, importance
+      eval_env$weights <- case_weights
+    } else {
+      eval_env$weights <- weights_to_numeric(case_weights, object)
+    }
 
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
