@@ -394,12 +394,12 @@ prepare_data <- function(object, new_data) {
     new_data <- .convert_xy_to_form_new(object$preproc, new_data)
   }
 
-  remove_intercept <- get_encoding(class(object$spec)[1])
+  encodings <- get_encoding(class(object$spec)[1])
   remove_intercept <-
     vctrs::vec_slice(
-      remove_intercept$remove_intercept,
-      remove_intercept$mode == object$spec$mode &
-        remove_intercept$engine == object$spec$engine
+      encodings$remove_intercept,
+      encodings$mode == object$spec$mode &
+        encodings$engine == object$spec$engine
     )
 
   if (remove_intercept & any(grepl("Intercept", names(new_data)))) {
