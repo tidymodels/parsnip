@@ -15,7 +15,7 @@
 \method{.censoring_weights_graf}{workflow}(
   object,
   predictions,
-  predictors = NULL,
+  cens_predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
   ...
@@ -24,7 +24,7 @@
 \method{.censoring_weights_graf}{model_fit}(
   object,
   predictions,
-  predictors = NULL,
+  cens_predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
   ...
@@ -38,7 +38,7 @@ of "censored regression".}
 object as well as a list column called \code{.pred} that contains the data
 structure produced by \code{\link[=predict.model_fit]{predict.model_fit()}}.}
 
-\item{predictors}{Not currently used. A potential future slot for models with
+\item{cens_predictors}{Not currently used. A potential future slot for models with
 informative censoring based on columns in \code{predictions}.}
 
 \item{trunc}{A potential lower bound for the probability of censoring to avoid

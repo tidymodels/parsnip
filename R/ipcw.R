@@ -36,24 +36,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
   eval_time
 }
 
-add_dot_row_to_weights <- function(dat, rows = NULL) {
-  if (is.null(rows)) {
-    dat <- add_rowindex(dat)
-  } else {
-    m <- length(rows)
-    n <- nrow(dat)
-    if (m != n) {
-      rlang::abort(
-        glue::glue(
-          "The length of 'rows' ({m}) should be equal to the number of rows in 'data' ({n})"
-        )
-      )
-    }
-    dat$.row <- rows
-  }
-  dat
-}
-
 .find_surv_col <- function(x, call = rlang::env_parent()) {
   is_lst_col <- purrr::map_lgl(x, purrr::is_list)
   is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
@@ -132,7 +114,7 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' @param predictions A data frame with a column containing a [survival::Surv()]
 #' object as well as a list column called `.pred` that contains the data
 #' structure produced by [predict.model_fit()].
-#' @param predictors Not currently used. A potential future slot for models with
+#' @param cens_predictors Not currently used. A potential future slot for models with
 #' informative censoring based on columns in `predictions`.
 #' @param object A fitted parsnip model object or fitted workflow with a mode
 #' of "censored regression".
@@ -215,19 +197,19 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' @rdname censoring_weights
 .censoring_weights_graf.workflow <- function(object,
                                              predictions,
-                                             predictors = NULL,
+                                             cens_predictors = NULL,
                                              trunc = 0.05, eps = 10^-10, ...) {
   if (is.null(object$fit$fit)) {
     rlang::abort("The workflow does not have a model fit object.", call = FALSE)
   }
-  .censoring_weights_graf(object$fit$fit, predictions, eval_time, rows, predictors, trunc, eps)
+  .censoring_weights_graf(object$fit$fit, predictions, cens_predictors, trunc, eps)
 }
 
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.model_fit <- function(object,
                                               predictions,
-                                              predictors = NULL,
+                                              cens_predictors = NULL,
                                               trunc = 0.05, eps = 10^-10, ...) {
   rlang::check_dots_empty()
   .check_censor_model(object)
@@ -235,8 +217,8 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
   .check_censored_right(predictions[[truth]])
   .check_pred_col(predictions)
 
-  if (!is.null(predictors)) {
-    msg <- "The 'predictors' argument to the survival weighting function is not currently used."
+  if (!is.null(cens_predictors)) {
+    msg <- "The 'cens_predictors' argument to the survival weighting function is not currently used."
     rlang::warn(msg)
   }
   predictions$.pred <-
@@ -253,18 +235,20 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 
 
 add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10^-10) {
-  # maybe avoid tibble -> unnest and use rep() + indexing
-  y <- tibble(.pred = .pred, surv_obj = surv_obj)
-  y$.row <- 1:nrow(y)
-  y <- tidyr::unnest(y, cols = ".pred")
+  n <- length(.pred)
+  num_times <- vctrs::list_sizes(.pred)
+  y <- vctrs::list_unchop(.pred)
+  y$surv_obj <- vctrs::vec_rep_each(surv_obj, times = num_times)
+  y$.row <- vctrs::vec_rep_each(1:n, times = num_times)
   names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
   y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time, eps = eps)
   y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
   y$.pred_censored <- trunc_probs(y$.pred_censored, trunc = trunc)
   y$.weight_censored = 1 / y$.pred_censored
   y$surv_obj <- NULL
-  y <- tidyr::nest(y, .pred = c(-.row))
-  y$.pred
+  inds <- purrr::map(1:n, ~ which(y$.row == .x))
+  y$.row <- NULL
+  vctrs::vec_chop(y, inds)
 }
 
 # nocov end
