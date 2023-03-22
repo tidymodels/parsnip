@@ -166,7 +166,7 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' The `eps` argument is used to avoid information leakage when computing the
 #' censoring probability. Subtracting a small number avoids using data that
 #' would not be known at the time of prediction. For example, if we are making
-#' survival probability predictions at `eval_time = 3.0`, we would not know the
+#' survival probability predictions at `eval_time = 3.0`, we would _not_ know the
 #' about the probability of being censored at that exact time (since it has not
 #' occurred yet).
 #'
@@ -233,18 +233,22 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 # ------------------------------------------------------------------------------
 # Helpers
 
-
 add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10^-10) {
+  # Expand the list column to one data frame
   n <- length(.pred)
   num_times <- vctrs::list_sizes(.pred)
   y <- vctrs::list_unchop(.pred)
   y$surv_obj <- vctrs::vec_rep_each(surv_obj, times = num_times)
   y$.row <- vctrs::vec_rep_each(1:n, times = num_times)
   names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
+  # Compute the actual time of evaluation
   y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time, eps = eps)
+  # Compute the corresponding probability of being censored
   y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
   y$.pred_censored <- trunc_probs(y$.pred_censored, trunc = trunc)
+  # Invert the probabilties to create weights
   y$.weight_censored = 1 / y$.pred_censored
+  # Convert back the list column format
   y$surv_obj <- NULL
   inds <- purrr::map(1:n, ~ which(y$.row == .x))
   y$.row <- NULL
