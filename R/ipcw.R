@@ -239,9 +239,8 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   y$.weight_censored = 1 / y$.pred_censored
   # Convert back the list column format
   y$surv_obj <- NULL
-  inds <- purrr::map(1:n, ~ which(y$.row == .x))
   y$.row <- NULL
-  vctrs::vec_chop(y, inds)
+  vctrs::vec_chop(y, sizes = num_times)
 }
 
 .find_surv_col <- function(x, call = rlang::env_parent()) {
