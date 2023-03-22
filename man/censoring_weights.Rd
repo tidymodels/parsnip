@@ -14,9 +14,7 @@
 
 \method{.censoring_weights_graf}{workflow}(
   object,
-  data,
-  eval_time,
-  rows = NULL,
+  predictions,
   predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
@@ -25,9 +23,7 @@
 
 \method{.censoring_weights_graf}{model_fit}(
   object,
-  data,
-  eval_time,
-  rows = NULL,
+  predictions,
   predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
@@ -38,17 +34,12 @@
 \item{object}{A fitted parsnip model object or fitted workflow with a mode
 of "censored regression".}
 
-\item{data}{A data frame with a column containing a \code{\link[survival:Surv]{survival::Surv()}} object.}
-
-\item{eval_time}{A vector of finite, non-negative times at which to
-compute the probability of censoring and the corresponding weights.}
-
-\item{rows}{An optional integer vector with length equal to the number of
-rows in \code{data} that is used to index the original data. The default is to
-use a fresh index on data (i.e. \code{1:nrow(data)}).}
+\item{predictions}{A data frame with a column containing a \code{\link[survival:Surv]{survival::Surv()}}
+object as well as a list column called \code{.pred} that contains the data
+structure produced by \code{\link[=predict.model_fit]{predict.model_fit()}}.}
 
 \item{predictors}{Not currently used. A potential future slot for models with
-informative censoring based on columns in \code{data}.}
+informative censoring based on columns in \code{predictions}.}
 
 \item{trunc}{A potential lower bound for the probability of censoring to avoid
 very large weight values.}
@@ -57,15 +48,21 @@ very large weight values.}
 computing the censoring probabilities. See Details below.}
 }
 \value{
-A tibble with columns \code{.row}, \code{eval_time}, \code{.prob_cens} (the
-probability of being censored just prior to the evaluation time), and
-\code{.weight_cens} (the inverse probability of censoring weight).
+The same data are returned with the \code{pred} tibbles containing
+several new columns:
+\itemize{
+\item \code{.weight_time}: the time at which the inverse censoring probability weights
+are computed. This is a function of the observed time and the time of
+analysis (i.e., \code{eval_time}). See Details for more information.
+\item \code{.pred_censored}: the probability of being censored at \code{.weight_time}.
+\item \code{.weight_censored}: The inverse of the censoring probability.
+}
 }
 \description{
 The method of Graf \emph{et al} (1999) is used to compute weights at specific
 evaluation times that can be used to help measure a model's time-dependent
 performance (e.g. the time-dependent Brier score or the area under the ROC
-curve).
+curve). This is an internal function.
 }
 \details{
 A probability that the data are censored immediately prior to a specific
@@ -105,8 +102,8 @@ about the probability of being censored at that exact time (since it has not
 occurred yet).
 
 Note that if there are \code{n} rows in \code{data} and \code{t} time points, the resulting
-data has \code{n * t} rows. Computations will not easily scale well as \code{t} becomes
-large.
+data, once unnested, has \code{n * t} rows. Computations will not easily scale
+well as \code{t} becomes very large.
 }
 \references{
 Graf, E., Schmoor, C., Sauerbrei, W. and Schumacher, M. (1999),
