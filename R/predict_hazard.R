@@ -6,8 +6,17 @@
 #' @export
 predict_hazard.model_fit <- function(object,
                                      new_data,
-                                     time,
+                                     eval_time,
+                                     time = deprecated(),
                                      ...) {
+  if (lifecycle::is_present(time)) {
+    lifecycle::deprecate_warn(
+      "1.0.4.9005",
+      "predict_hazard(time)",
+      "predict_hazard(eval_time)"
+    )
+    eval_time <- time
+  }
 
   check_spec_pred_type(object, "hazard")
 
@@ -23,7 +32,7 @@ predict_hazard.model_fit <- function(object,
     new_data <- object$spec$method$pred$hazard$pre(new_data, object)
 
   # Pass some extra arguments to be used in post-processor
-  object$spec$method$pred$hazard$args$time <- time
+  object$spec$method$pred$hazard$args$eval_time <- eval_time
   pred_call <- make_pred_call(object$spec$method$pred$hazard)
 
   res <- eval_tidy(pred_call)
