@@ -24,9 +24,8 @@ trunc_probs <- function(probs, trunc = 0.01) {
   }
   # will still propagate nulls:
   eval_time <- eval_time[!is.na(eval_time)]
-  eval_time <- unique(eval_time)
-  eval_time <- sort(eval_time)
   eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
+  eval_time <- unique(eval_time)
   if (fail && identical(eval_time, numeric(0))) {
     rlang::abort(
       "There were no usable evaluation times (finite, non-missing, and >= 0).",
@@ -34,16 +33,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
     )
   }
   eval_time
-}
-
-.find_surv_col <- function(x, call = rlang::env_parent()) {
-  is_lst_col <- purrr::map_lgl(x, purrr::is_list)
-  is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
-  num_surv <- sum(is_surv)
-  if (num_surv != 1) {
-    rlang::abort("There should be a single column of class `Surv`", call = call)
-  }
-  names(is_surv)[is_surv]
 }
 
 .check_pred_col <- function(x, call = rlang::env_parent()) {
@@ -253,6 +242,16 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   inds <- purrr::map(1:n, ~ which(y$.row == .x))
   y$.row <- NULL
   vctrs::vec_chop(y, inds)
+}
+
+.find_surv_col <- function(x, call = rlang::env_parent()) {
+  is_lst_col <- purrr::map_lgl(x, purrr::is_list)
+  is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
+  num_surv <- sum(is_surv)
+  if (num_surv != 1) {
+    rlang::abort("There should be a single column of class `Surv`", call = call)
+  }
+  names(is_surv)[is_surv]
 }
 
 # nocov end
