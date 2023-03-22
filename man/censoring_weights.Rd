@@ -97,7 +97,7 @@ computed by inverting the censoring probability.
 The \code{eps} argument is used to avoid information leakage when computing the
 censoring probability. Subtracting a small number avoids using data that
 would not be known at the time of prediction. For example, if we are making
-survival probability predictions at \code{eval_time = 3.0}, we would not know the
+survival probability predictions at \code{eval_time = 3.0}, we would \emph{not} know the
 about the probability of being censored at that exact time (since it has not
 occurred yet).
 
