@@ -73,7 +73,7 @@ add_dot_row_to_weights <- function(dat, rows = NULL) {
 # We need to use the time of analysis to determine what time to use to evaluate
 # the IPCWs.
 
-graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
+graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
   event_time <- .extract_surv_time(surv_obj)
   status <- .extract_surv_status(surv_obj)
   is_event_before_t <- event_time <= eval_time & status == 1
@@ -85,15 +85,14 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   weight_time <- rep(NA_real_, length(event_time))
 
   # A real event prior to eval_time (Graf category 1)
-  weight_time[is_event_before_t] <- event_time[is_event_before_t] - eps
+  weight_time <- ifelse(is_event_before_t, event_time - eps, weight_time)
 
   # Observed time greater than eval_time (Graf category 2)
-  weight_time[is_censored] <- eval_time - eps
+  weight_time <- ifelse(is_censored, eval_time - eps, weight_time)
 
   weight_time <- ifelse(weight_time < 0, 0, weight_time)
 
-  res <- tibble::tibble(surv = surv_obj, weight_time = weight_time, eval_time)
-  add_dot_row_to_weights(res, rows)
+  weight_time
 }
 
 # ------------------------------------------------------------------------------
@@ -117,7 +116,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' very large weight values.
 #' @param eps A small value that is subtracted from the evaluation time when
 #' computing the censoring probabilities. See Details below.
-#' @return A tibble with columns `.row`, `eval_time`, `.prob_cens` (the
+#' @return A tibble with columns `.row`, `.eval_time`, `.prob_cens` (the
 #' probability of being censored just prior to the evaluation time), and
 #' `.weight_cens` (the inverse probability of censoring weight).
 #' @details
@@ -209,7 +208,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   if (!is.null(predictors)) {
     rlang::warn("The 'predictors' argument to the survival weighting function is not currently used.", call = FALSE)
   }
-  eval_time <- .filter_eval_time(eval_time)
+  .eval_time <- .filter_eval_time(eval_time)
 
   truth <- object$preproc$y_var
   if (length(truth) != 1) {
@@ -219,7 +218,7 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   surv_data <- dplyr::select(data, dplyr::all_of(!!truth)) %>% setNames("surv")
   .check_censored_right(surv_data$surv)
 
-  purrr::map(eval_time,
+  purrr::map(.eval_time,
                  ~ graf_weight_time(surv_data$surv, .x, eps = eps, rows = rows))  %>%
                  purrr::list_rbind() %>%
     dplyr::mutate(
@@ -227,7 +226,22 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
       .prob_cens = trunc_probs(.prob_cens, trunc),
       .weight_cens = 1 / .prob_cens
     ) %>%
-    dplyr::select(.row, eval_time, .prob_cens, .weight_cens)
+    dplyr::select(.row, .eval_time, .prob_cens, .weight_cens)
+}
+
+
+add_graf_weights_vec <- function(object, .pred, surv_obj) {
+  # maybe avoid tibble -> unnest and use rep() + indexing
+  y <- tibble(.pred = .pred, surv_obj = surv_obj)
+  y$.row <- 1:nrow(y)
+  y <- tidyr::unnest(y, cols = ".pred")
+  names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
+  y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time)
+  y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
+  y$.weight_censored = 1 / y$.pred_censored
+  y$surv_obj <- NULL
+  y <- tidyr::nest(y, .pred = c(-.row))
+  y$.pred
 }
 
 # nocov end
