@@ -26,6 +26,9 @@
 
 * The minimum version for R is now 3.5 (#926).
 
+* The `time` argument to `predict_survival()` and `predict_hazard()` is deprecated in favor of the new `eval_time` argument (#936).
+
+
 # parsnip 1.0.4
 
 * For censored regression models, a "reverse Kaplan-Meier" curve is computed for the censoring distribution. This can be used when evaluating this type of model (#855).
