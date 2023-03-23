@@ -31,7 +31,7 @@
 #'            linear predictors). Default value is `FALSE`.
 #'     \item `quantile`: for `type` equal to `quantile`, the quantiles of the
 #'            distribution. Default is `(1:9)/10`.
-#'     \item `time`: for `type` equal to `"survival"` or `"hazard"`, the
+#'     \item `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
 #'            time points at which the survival probability or hazard is estimated.
 #'  }
 #' @details For `type = NULL`, `predict()` uses
@@ -48,7 +48,7 @@
 #'
 #'  ## Censored regression predictions
 #'
-#' For censored regression, a numeric vector for `time` is required when
+#' For censored regression, a numeric vector for `eval_time` is required when
 #' survival or hazard probabilities are requested. Also, when
 #' `type = "linear_pred"`, censored regression models will by default be
 #' formatted such that the linear predictor _increases_ with time. This may
@@ -83,11 +83,11 @@
 #'
 #' For `type = "survival"`, the tibble has a `.pred` column, which is
 #'  a list-column. Each list element contains a tibble with columns
-#'  `.time` and `.pred_survival` (and perhaps other columns).
+#'  `.eval_time` and `.pred_survival` (and perhaps other columns).
 #'
 #' For `type = "hazard"`, the tibble has a `.pred` column, which is
 #'  a list-column. Each list element contains a tibble with columns
-#'  `.time` and `.pred_hazard` (and perhaps other columns).
+#'  `.eval_time` and `.pred_hazard` (and perhaps other columns).
 #'
 #' Using `type = "raw"` with `predict.model_fit()` will return
 #'  the unadulterated results of the prediction function.
@@ -334,7 +334,8 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("interval", "level", "std_error", "quantile", "time", "increasing")
+  other_args <- c("interval", "level", "std_error", "quantile",
+                  "time", "eval_time", "increasing")
   is_pred_arg <- names(the_dots) %in% other_args
   if (any(!is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
@@ -348,7 +349,15 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
   }
 
   # ----------------------------------------------------------------------------
-  # places where time should not be given
+  # places where eval_time should not be given
+  if (any(nms == "eval_time") & !type %in% c("survival", "hazard")) {
+    rlang::abort(
+      paste(
+        "`eval_time` should only be passed to `predict()` when `type` is one of:",
+        paste0("'", c("survival", "hazard"), "'", collapse = ", ")
+      )
+    )
+  }
   if (any(nms == "time") & !type %in% c("survival", "hazard")) {
     rlang::abort(
       paste(
@@ -357,12 +366,12 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
       )
     )
   }
-  # when time should be passed
-  if (!any(nms == "time") & type %in% c("survival", "hazard")) {
+  # when eval_time should be passed
+  if (!any(nms %in% c("eval_time", "time")) & type %in% c("survival", "hazard")) {
     rlang::abort(
       paste(
-        "When using 'type' values of 'survival' or 'hazard' are given,",
-        "a numeric vector 'time' should also be given."
+        "When using `type` values of 'survival' or 'hazard',",
+        "a numeric vector `eval_time` should also be given."
       )
     )
   }
