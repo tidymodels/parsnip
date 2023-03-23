@@ -14,7 +14,7 @@ predict() can be used for all types of models and uses the
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,7 +124,7 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
 <li><p><code>quantile</code>: for <code>type</code> equal to <code>quantile</code>, the quantiles of the
 distribution. Default is <code>(1:9)/10</code>.</p></li>
-<li><p><code>time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
+<li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
 </ul></dd>
 
@@ -167,12 +167,12 @@ a list-column. Each list element contains a tibble with columns
 
 <p>For <code>type = "survival"</code>, the tibble has a <code>.pred</code> column, which is
 a list-column. Each list element contains a tibble with columns
-<code>.time</code> and <code>.pred_survival</code> (and perhaps other columns).</p>
+<code>.eval_time</code> and <code>.pred_survival</code> (and perhaps other columns).</p>
 
 
 <p>For <code>type = "hazard"</code>, the tibble has a <code>.pred</code> column, which is
 a list-column. Each list element contains a tibble with columns
-<code>.time</code> and <code>.pred_hazard</code> (and perhaps other columns).</p>
+<code>.eval_time</code> and <code>.pred_hazard</code> (and perhaps other columns).</p>
 
 
 <p>Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
@@ -208,7 +208,7 @@ extra column of standard error values (if available).</p>
 <h3 id="censored-regression-predictions">Censored regression predictions<a class="anchor" aria-label="anchor" href="#censored-regression-predictions"></a></h3>
 
 
-<p>For censored regression, a numeric vector for <code>time</code> is required when
+<p>For censored regression, a numeric vector for <code>eval_time</code> is required when
 survival or hazard probabilities are requested. Also, when
 <code>type = "linear_pred"</code>, censored regression models will by default be
 formatted such that the linear predictor <em>increases</em> with time. This may
