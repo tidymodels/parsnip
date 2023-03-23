@@ -44,7 +44,7 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is \code{FALSE}.
 \item \code{quantile}: for \code{type} equal to \code{quantile}, the quantiles of the
 distribution. Default is \code{(1:9)/10}.
-\item \code{time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
+\item \code{eval_time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
 time points at which the survival probability or hazard is estimated.
 }}
 }
@@ -78,11 +78,11 @@ For \code{type = "time"}, the tibble has a \code{.pred_time} column.
 
 For \code{type = "survival"}, the tibble has a \code{.pred} column, which is
 a list-column. Each list element contains a tibble with columns
-\code{.time} and \code{.pred_survival} (and perhaps other columns).
+\code{.eval_time} and \code{.pred_survival} (and perhaps other columns).
 
 For \code{type = "hazard"}, the tibble has a \code{.pred} column, which is
 a list-column. Each list element contains a tibble with columns
-\code{.time} and \code{.pred_hazard} (and perhaps other columns).
+\code{.eval_time} and \code{.pred_hazard} (and perhaps other columns).
 
 Using \code{type = "raw"} with \code{predict.model_fit()} will return
 the unadulterated results of the prediction function.
@@ -118,7 +118,7 @@ extra column of standard error values (if available).
 
 \subsection{Censored regression predictions}{
 
-For censored regression, a numeric vector for \code{time} is required when
+For censored regression, a numeric vector for \code{eval_time} is required when
 survival or hazard probabilities are requested. Also, when
 \code{type = "linear_pred"}, censored regression models will by default be
 formatted such that the linear predictor \emph{increases} with time. This may

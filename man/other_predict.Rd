@@ -23,7 +23,7 @@
 
 \method{predict_classprob}{model_fit}(object, new_data, ...)
 
-\method{predict_hazard}{model_fit}(object, new_data, time, ...)
+\method{predict_hazard}{model_fit}(object, new_data, eval_time, time = deprecated(), ...)
 
 \method{predict_confint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
 
@@ -44,7 +44,15 @@ predict_numeric(object, ...)
   ...
 )
 
-\method{predict_survival}{model_fit}(object, new_data, time, interval = "none", level = 0.95, ...)
+\method{predict_survival}{model_fit}(
+  object,
+  new_data,
+  eval_time,
+  time = deprecated(),
+  interval = "none",
+  level = 0.95,
+  ...
+)
 
 predict_survival(object, ...)
 
@@ -74,7 +82,7 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is \code{FALSE}.
 \item \code{quantile}: for \code{type} equal to \code{quantile}, the quantiles of the
 distribution. Default is \code{(1:9)/10}.
-\item \code{time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
+\item \code{eval_time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
 time points at which the survival probability or hazard is estimated.
 }}
 
