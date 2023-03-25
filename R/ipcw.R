@@ -228,7 +228,6 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   num_times <- vctrs::list_sizes(.pred)
   y <- vctrs::list_unchop(.pred)
   y$surv_obj <- vctrs::vec_rep_each(surv_obj, times = num_times)
-  y$.row <- vctrs::vec_rep_each(1:n, times = num_times)
   names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
   # Compute the actual time of evaluation
   y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time, eps = eps)
@@ -239,7 +238,6 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   y$.weight_censored = 1 / y$.pred_censored
   # Convert back the list column format
   y$surv_obj <- NULL
-  y$.row <- NULL
   vctrs::vec_chop(y, sizes = num_times)
 }
 
