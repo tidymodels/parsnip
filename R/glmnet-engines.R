@@ -254,11 +254,7 @@ format_glmnet_multi_linear_reg <- function(pred, penalty) {
   pred$.row <- seq_len(nrow(pred))
   pred <- tidyr::pivot_longer(pred, -.row, names_to = "s", values_to = ".pred")
 
-  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-    pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
-  } else {
-    pred <- dplyr::full_join(penalty_key, pred, by = "s")
-  }
+  pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
 
   pred <- pred %>%
     dplyr::select(-s) %>%
@@ -290,11 +286,7 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
       dplyr::select(c(".row", "s", paste0(".pred_", lvl)))
   }
 
-  if (utils::packageVersion("dplyr") >= "1.0.99.9000") {
-    pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
-  } else {
-    pred <- dplyr::full_join(penalty_key, pred, by = "s")
-  }
+  pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
 
   pred <- pred %>%
     dplyr::select(-s) %>%
