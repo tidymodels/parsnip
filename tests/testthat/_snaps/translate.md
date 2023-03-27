@@ -2142,7 +2142,7 @@
       .model_param_name_key(linear_reg())
     Output
       # A tibble: 0 x 3
-      # ... with 3 variables: user <chr>, parsnip <chr>, engine <chr>
+      # i 3 variables: user <chr>, parsnip <chr>, engine <chr>
 
 ---
 
