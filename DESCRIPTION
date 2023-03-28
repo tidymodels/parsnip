@@ -20,7 +20,7 @@ Depends:
     R (>= 3.5)
 Imports: 
     cli,
-    dplyr (>= 0.8.0.1),
+    dplyr (>= 1.1.0),
     generics (>= 0.1.2),
     ggplot2,
     globals,
