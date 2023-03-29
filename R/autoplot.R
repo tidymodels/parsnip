@@ -81,7 +81,7 @@ top_coefs <- function(x, top_n = 5) {
     dplyr::slice(1) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(dplyr::desc(abs(estimate))) %>%
-    dplyr::slice(1:top_n)
+    dplyr::slice(seq_len(top_n))
 }
 
 autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...) {

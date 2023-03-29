@@ -115,7 +115,7 @@ survreg_quant <- function(results, object) {
   results <-
     results %>%
     as_tibble() %>%
-    mutate(.row = 1:n) %>%
+    mutate(.row = seq_len(n)) %>%
     gather(.label, .pred, -.row) %>%
     arrange(.row, .label) %>%
     mutate(.quantile = rep(pctl, n)) %>%

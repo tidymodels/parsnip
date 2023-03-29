@@ -384,7 +384,7 @@ multi_predict._torch_mlp <-
       purrr::map(epochs,
                  ~ predict(object, new_data, type, epochs = .x) %>%
                    dplyr::mutate(epochs = .x)) %>%
-      purrr::map(~ .x %>% dplyr::mutate(.row = 1:nrow(new_data))) %>%
+      purrr::map(~ .x %>% dplyr::mutate(.row = seq_len(nrow(new_data)))) %>%
       purrr::list_rbind() %>%
       dplyr::arrange(.row, epochs)
     res <- split(dplyr::select(res, -.row), res$.row)

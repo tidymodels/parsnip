@@ -199,6 +199,6 @@ earth_by_terms <- function(num_terms, object, new_data, type, ...) {
   pred <- predict(object, new_data = new_data, type = type)
   nms <- names(pred)
   pred[["num_terms"]] <- num_terms
-  pred[[".row"]] <- 1:nrow(new_data)
+  pred[[".row"]] <- seq_len(nrow(new_data))
   pred[, c(".row", "num_terms", nms)]
 }
