@@ -495,7 +495,7 @@ multi_predict._xgb.Booster <-
     res <-
       map(trees, xgb_by_tree, object = object, new_data = new_data,
           type = type, ...) %>%
-      purrr::list_rbind() %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
