@@ -26,6 +26,8 @@
 
 * The minimum version for R is now 3.5 (#926).
 
+* Transitioned all soft-deprecations that were at least a year old to warn-deprecations. These changes apply to `fit_control()`, `surv_reg()`, `varying()`, `varying_args()`, and the `"liquidSVM"` engine.
+
 * The `time` argument to `predict_survival()` and `predict_hazard()` is deprecated in favor of the new `eval_time` argument (#936).
 
 
