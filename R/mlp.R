@@ -359,7 +359,7 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 
 ## -----------------------------------------------------------------------------
 
-#' @importFrom purrr map_df map
+#' @importFrom purrr map
 #' @importFrom dplyr arrange select
 #' @rdname multi_predict
 #' @param epochs An integer vector for the number of training epochs.

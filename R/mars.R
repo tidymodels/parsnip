@@ -185,8 +185,9 @@ multi_predict._earth <-
     }
 
     res <-
-      map_df(num_terms, earth_by_terms, object = object,
-             new_data = new_data, type = type, ...)
+      map(num_terms, earth_by_terms, object = object,
+          new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, num_terms)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
