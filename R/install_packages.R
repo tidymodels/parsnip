@@ -14,10 +14,11 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
     bio_pkgs <- c(bio_pkgs, "mixOmics")
   }
 
-  engine_packages <- purrr::map_dfr(
+  engine_packages <- purrr::map(
     ls(envir = get_model_env(), pattern = "_pkgs$"),
     get_from_env
   ) %>%
+    purrr::list_rbind() %>%
     dplyr::pull(pkg) %>%
     unlist() %>%
     unique() %>%

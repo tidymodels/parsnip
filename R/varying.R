@@ -112,7 +112,7 @@ varying_args.recipe <- function(object, full = TRUE, ...) {
     return(varying_tbl())
   }
 
-  map_dfr(object$steps, varying_args, full = full)
+  map(object$steps, varying_args, full = full) %>% purrr::list_rbind()
 }
 
 #' @export

@@ -492,8 +492,10 @@ multi_predict._xgb.Booster <-
         type <- "numeric"
     }
 
-    res <- map_df(trees, xgb_by_tree, object = object, new_data = new_data,
-                  type = type, ...)
+    res <-
+      map(trees, xgb_by_tree, object = object, new_data = new_data,
+          type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
@@ -612,8 +614,9 @@ multi_predict._C5.0 <-
       type <- "class"
 
     res <-
-      map_df(trees, C50_by_tree, object = object,
-             new_data = new_data, type = type, ...)
+      map(trees, C50_by_tree, object = object,
+          new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL

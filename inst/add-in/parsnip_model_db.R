@@ -18,7 +18,7 @@ print_methods <- function(x) {
   ns <- asNamespace(ns = x)
   mthds <- ls(envir = ns, pattern = "^print\\.")
   mthds <- gsub("^print\\.", "", mthds)
-  purrr::map_dfr(mthds, get_engines) %>% dplyr::mutate(package = x)
+  purrr::map(mthds, get_engines) %>% purrr::list_rbind() %>% dplyr::mutate(package = x)
 }
 get_engines <- function(x) {
   eng <- try(parsnip::show_engines(x), silent = TRUE)
@@ -63,7 +63,8 @@ get_tunable_param <- function(mode, package, model, engine) {
 # ------------------------------------------------------------------------------
 
 model_db <-
-  purrr::map_dfr(packages, print_methods) %>%
+  purrr::map(packages, print_methods) %>%
+  purrr::list_rbind() %>%
   dplyr::filter(engine != "liquidSVM") %>%
   dplyr::filter(model != "surv_reg") %>%
   dplyr::filter(engine != "spark") %>%

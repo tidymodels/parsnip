@@ -359,7 +359,7 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 
 ## -----------------------------------------------------------------------------
 
-#' @importFrom purrr map_df map
+#' @importFrom purrr map
 #' @importFrom dplyr arrange select
 #' @rdname multi_predict
 #' @param epochs An integer vector for the number of training epochs.
@@ -384,7 +384,8 @@ multi_predict._torch_mlp <-
       purrr::map(epochs,
                  ~ predict(object, new_data, type, epochs = .x) %>%
                    dplyr::mutate(epochs = .x)) %>%
-      purrr::map_dfr(~ .x %>% dplyr::mutate(.row = 1:nrow(new_data))) %>%
+      purrr::map(~ .x %>% dplyr::mutate(.row = 1:nrow(new_data))) %>%
+      purrr::list_rbind() %>%
       dplyr::arrange(.row, epochs)
     res <- split(dplyr::select(res, -.row), res$.row)
     names(res) <- NULL

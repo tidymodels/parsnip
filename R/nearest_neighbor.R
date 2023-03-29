@@ -161,8 +161,9 @@ multi_predict._train.kknn <-
     }
 
     res <-
-      purrr::map_df(neighbors, knn_by_k, object = object,
-                    new_data = new_data, type = type, ...)
+      purrr::map(neighbors, knn_by_k, object = object,
+                 new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- dplyr::arrange(res, .row, neighbors)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL

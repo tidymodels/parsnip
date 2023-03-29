@@ -126,7 +126,8 @@ check_args.mars <- function(object) {
 
 earth_submodel_pred <- function(object, new_data, terms = 2:3, ...) {
   load_libs(object, quiet = TRUE, attach = TRUE)
-  map_dfr(terms, earth_reg_updater, object = object, newdata = new_data, ...)
+  map(terms, earth_reg_updater, object = object, newdata = new_data, ...) %>%
+    purrr::list_rbind()
 }
 
 earth_reg_updater <- function(num, object, new_data, ...) {
@@ -184,8 +185,9 @@ multi_predict._earth <-
     }
 
     res <-
-      map_df(num_terms, earth_by_terms, object = object,
-             new_data = new_data, type = type, ...)
+      map(num_terms, earth_by_terms, object = object,
+          new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, num_terms)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL

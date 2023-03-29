@@ -957,10 +957,11 @@ show_model_info <- function(model) {
     cat(" engines: \n")
 
     weight_info <-
-      purrr::map_df(
+      purrr::map(
         model,
         ~ get_from_env(paste0(.x, "_fit")) %>% mutate(model = .x)
       ) %>%
+      purrr::list_rbind() %>%
       dplyr::mutate(protect = map(value, ~ .x$protect)) %>%
       dplyr::select(-value) %>%
       dplyr::mutate(

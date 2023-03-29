@@ -15,7 +15,7 @@
 #' @importFrom glue glue_collapse
 #' @importFrom lifecycle deprecated
 #' @importFrom pillar type_sum
-#' @importFrom purrr as_vector imap imap_lgl map map_chr map_dbl map_df map_dfr
+#' @importFrom purrr as_vector imap imap_lgl map map_chr map_dbl
 #' @importFrom purrr map_lgl %||%
 #' @importFrom rlang abort call2 caller_env current_env enquo enquos eval_tidy
 #' @importFrom rlang expr get_expr is_empty is_missing is_null is_quosure
