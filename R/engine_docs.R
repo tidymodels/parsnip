@@ -77,14 +77,16 @@ extensions <- function() {
 update_model_info_file <- function(path = "inst/models.tsv") {
   mods <- get_from_env("models")
   info <-
-    purrr::map_dfr(mods, ~ get_from_env(.x) %>% dplyr::mutate(model = .x)) %>%
+    purrr::map(mods, ~ get_from_env(.x) %>% dplyr::mutate(model = .x)) %>%
+    purrr::list_rbind() %>%
     dplyr::arrange(model, mode, engine) %>%
     dplyr::select(model, mode, engine)
   exts <-
-    purrr::map_dfr(
+    purrr::map(
       mods,
       ~ get_from_env(paste0(.x, "_pkgs")) %>% dplyr::mutate(model = .x)
     ) %>%
+    purrr::list_rbind() %>%
     tidyr::unnest(cols = "pkg") %>%
     dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg")
 
@@ -310,5 +312,5 @@ list_md_problems <- function() {
     tibble(basename(file), line, problem)
   }
 
-  purrr::map_dfr(md_files, get_errors)
+  purrr::map(md_files, get_errors) %>% purrr::list_rbind()
 }
