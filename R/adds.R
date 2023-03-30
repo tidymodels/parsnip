@@ -9,11 +9,7 @@ add_rowindex <- function(x) {
   if (!is.data.frame(x)) {
     rlang::abort("`x` should be a data frame.")
   }
-  if (nrow(x) > 0) {
-    x <- dplyr::mutate(x, .row = 1:nrow(x))
-  } else {
-    x$.row <- integer(0)
-  }
+  x <- dplyr::mutate(x, .row = seq_len(nrow(x)))
   x
 }
 
