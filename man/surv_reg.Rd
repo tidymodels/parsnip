@@ -19,12 +19,10 @@ outcome. The default is "weibull".}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-This function is soft-deprecated in favor of \code{survival_reg()} which uses the
+This function is deprecated in favor of \code{survival_reg()} which uses the
 \code{"censored regression"} mode.
 
 \code{surv_reg()} defines a parametric survival model.
-
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -50,15 +48,7 @@ Since survival models typically involve censoring (and require the use of
 \code{\link[survival:Surv]{survival::Surv()}} objects), the \code{\link[=fit.model_spec]{fit.model_spec()}} function will require that the
 survival model be specified via the formula interface.
 }
-\examples{
-show_engines("surv_reg")
-
-surv_reg(mode = "regression", dist = "weibull")
-}
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
-}
-\seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("surv_reg")}
 }
 \keyword{internal}

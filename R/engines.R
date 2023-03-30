@@ -126,7 +126,7 @@ set_engine.model_spec <- function(object, engine, ...) {
   }
 
   if (object$engine == "liquidSVM") {
-    lifecycle::deprecate_soft(
+    lifecycle::deprecate_warn(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",
       details = "The liquidSVM package is no longer available on CRAN.")
