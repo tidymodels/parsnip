@@ -3,11 +3,10 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' This function is soft-deprecated in favor of `survival_reg()` which uses the
+#' This function is deprecated in favor of `survival_reg()` which uses the
 #' `"censored regression"` mode.
 #'
 #' `surv_reg()` defines a parametric survival model.
-
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.

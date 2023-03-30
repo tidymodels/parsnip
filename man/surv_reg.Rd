@@ -19,7 +19,7 @@ outcome. The default is "weibull".}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-This function is soft-deprecated in favor of \code{survival_reg()} which uses the
+This function is deprecated in favor of \code{survival_reg()} which uses the
 \code{"censored regression"} mode.
 
 \code{surv_reg()} defines a parametric survival model.
