@@ -77,6 +77,7 @@
 <li><p><code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> will now warn at <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> when the outcome has more than two levels (<a href="https://github.com/tidymodels/parsnip/issues/545" class="external-link">#545</a>).</p></li>
 <li><p>Functions now indicate what class the outcome was if the outcome is the wrong class (<a href="https://github.com/tidymodels/parsnip/issues/887" class="external-link">#887</a>).</p></li>
 <li><p>The minimum version for R is now 3.5 (<a href="https://github.com/tidymodels/parsnip/issues/926" class="external-link">#926</a>).</p></li>
+<li><p>Transitioned all soft-deprecations that were at least a year old to warn-deprecations. These changes apply to <code><a href="../reference/fit_control.html">fit_control()</a></code>, <code><a href="../reference/surv_reg.html">surv_reg()</a></code>, <code><a href="../reference/varying.html">varying()</a></code>, <code><a href="https://generics.r-lib.org/reference/varying_args.html" class="external-link">varying_args()</a></code>, and the <code>"liquidSVM"</code> engine.</p></li>
 <li><p>The <code>time</code> argument to <code><a href="../reference/other_predict.html">predict_survival()</a></code> and <code>predict_hazard()</code> is deprecated in favor of the new <code>eval_time</code> argument (<a href="https://github.com/tidymodels/parsnip/issues/936" class="external-link">#936</a>).</p></li>
 </ul></div>
     <div class="section level2">
