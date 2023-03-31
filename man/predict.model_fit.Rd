@@ -119,9 +119,13 @@ extra column of standard error values (if available).
 \subsection{Censored regression predictions}{
 
 For censored regression, a numeric vector for \code{eval_time} is required when
-survival or hazard probabilities are requested. Also, when
-\code{type = "linear_pred"}, censored regression models will by default be
-formatted such that the linear predictor \emph{increases} with time. This may
+survival or hazard probabilities are requested. The time values are required
+to be unique, finite, non-missing, and non-negative. The \code{predict()}
+functions will adjust the values to fit this specification by removing
+offending points (with a warning).
+
+Also, when \code{type = "linear_pred"}, censored regression models will by default
+be formatted such that the linear predictor \emph{increases} with time. This may
 have the opposite sign as what the underlying model's \code{predict()} method
 produces. Set \code{increasing = FALSE} to suppress this behavior.
 }
