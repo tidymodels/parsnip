@@ -22,6 +22,7 @@ trunc_probs <- function(probs, trunc = 0.01) {
   if (!is.null(eval_time)) {
     eval_time <- as.numeric(eval_time)
   }
+  eval_time_0 <- eval_time
   # will still propagate nulls:
   eval_time <- eval_time[!is.na(eval_time)]
   eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
@@ -31,6 +32,13 @@ trunc_probs <- function(probs, trunc = 0.01) {
       "There were no usable evaluation times (finite, non-missing, and >= 0).",
       call = NULL
     )
+  }
+  if (!identical(eval_time, eval_time_0)) {
+    diffs <- setdiff(eval_time_0, eval_time)
+    msg <-
+      cli::pluralize(
+        "There {?was/were} {length(diffs)} inappropriate evaluation time point{?s} that {?was/were} removed.")
+    rlang::warn(msg)
   }
   eval_time
 }
@@ -158,6 +166,14 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' survival probability predictions at `eval_time = 3.0`, we would _not_ know the
 #' about the probability of being censored at that exact time (since it has not
 #' occurred yet).
+#'
+#' When creating weights by inverting probabilities, there is the risk that a few
+#' cases will have severe outliers due to probabilities close to zero. To
+#' mitigate this, the `trunc` argument can be used to put a cap on the weights.
+#' If the smallest probability is greater than `trunc`, the probabilities with
+#' values less than `trunc` are given that value. Otherwise,  `trunc` is
+#' adjusted to be half of the smallest probability and that value is used as the
+#' lower bound..
 #'
 #' Note that if there are `n` rows in `data` and `t` time points, the resulting
 #' data, once unnested, has `n * t` rows. Computations will not easily scale

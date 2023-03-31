@@ -101,6 +101,14 @@ survival probability predictions at \code{eval_time = 3.0}, we would \emph{not} 
 about the probability of being censored at that exact time (since it has not
 occurred yet).
 
+When creating weights by inverting probabilities, there is the risk that a few
+cases will have severe outliers due to probabilities close to zero. To
+mitigate this, the \code{trunc} argument can be used to put a cap on the weights.
+If the smallest probability is greater than \code{trunc}, the probabilities with
+values less than \code{trunc} are given that value. Otherwise,  \code{trunc} is
+adjusted to be half of the smallest probability and that value is used as the
+lower bound..
+
 Note that if there are \code{n} rows in \code{data} and \code{t} time points, the resulting
 data, once unnested, has \code{n * t} rows. Computations will not easily scale
 well as \code{t} becomes very large.
