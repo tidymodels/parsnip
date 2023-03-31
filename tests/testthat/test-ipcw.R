@@ -49,6 +49,8 @@ test_that('time filtering', {
     parsnip:::.filter_eval_time(times_3),
     times_3
   )
+  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2))
+  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2[3:4]))
   expect_snapshot(error = TRUE, parsnip:::.filter_eval_time(-1))
   expect_null(parsnip:::.filter_eval_time(NULL))
 })
