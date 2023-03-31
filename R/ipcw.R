@@ -250,7 +250,7 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   # Compute the corresponding probability of being censored
   y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
   y$.pred_censored <- trunc_probs(y$.pred_censored, trunc = trunc)
-  # Invert the probabilties to create weights
+  # Invert the probabilities to create weights
   y$.weight_censored = 1 / y$.pred_censored
   # Convert back the list column format
   y$surv_obj <- NULL
