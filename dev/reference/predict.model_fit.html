@@ -14,7 +14,7 @@ predict() can be used for all types of models and uses the
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,9 +209,12 @@ extra column of standard error values (if available).</p>
 
 
 <p>For censored regression, a numeric vector for <code>eval_time</code> is required when
-survival or hazard probabilities are requested. Also, when
-<code>type = "linear_pred"</code>, censored regression models will by default be
-formatted such that the linear predictor <em>increases</em> with time. This may
+survival or hazard probabilities are requested. The time values are required
+to be unique, finite, non-missing, and non-negative. The <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>
+functions will adjust the values to fit this specification by removing
+offending points (with a warning).</p>
+<p>Also, when <code>type = "linear_pred"</code>, censored regression models will by default
+be formatted such that the linear predictor <em>increases</em> with time. This may
 have the opposite sign as what the underlying model's <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method
 produces. Set <code>increasing = FALSE</code> to suppress this behavior.</p>
 </div>
