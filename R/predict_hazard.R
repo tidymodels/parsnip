@@ -17,6 +17,7 @@ predict_hazard.model_fit <- function(object,
     )
     eval_time <- time
   }
+  eval_time <- .filter_eval_time(eval_time)
 
   check_spec_pred_type(object, "hazard")
 

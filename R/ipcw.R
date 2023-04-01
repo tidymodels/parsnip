@@ -22,36 +22,41 @@ trunc_probs <- function(probs, trunc = 0.01) {
   if (!is.null(eval_time)) {
     eval_time <- as.numeric(eval_time)
   }
+  eval_time_0 <- eval_time
   # will still propagate nulls:
   eval_time <- eval_time[!is.na(eval_time)]
-  eval_time <- unique(eval_time)
-  eval_time <- sort(eval_time)
   eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
+  eval_time <- unique(eval_time)
   if (fail && identical(eval_time, numeric(0))) {
     rlang::abort(
       "There were no usable evaluation times (finite, non-missing, and >= 0).",
       call = NULL
     )
   }
+  if (!identical(eval_time, eval_time_0)) {
+    diffs <- setdiff(eval_time_0, eval_time)
+    msg <-
+      cli::pluralize(
+        "There {?was/were} {length(diffs)} inappropriate evaluation time point{?s} that {?was/were} removed.")
+    rlang::warn(msg)
+  }
   eval_time
 }
 
-add_dot_row_to_weights <- function(dat, rows = NULL) {
-  if (is.null(rows)) {
-    dat <- add_rowindex(dat)
-  } else {
-    m <- length(rows)
-    n <- nrow(dat)
-    if (m != n) {
-      rlang::abort(
-        glue::glue(
-          "The length of 'rows' ({m}) should be equal to the number of rows in 'data' ({n})"
-        )
-      )
-    }
-    dat$.row <- rows
+.check_pred_col <- function(x, call = rlang::env_parent()) {
+  if (!any(names(x) == ".pred")) {
+    rlang::abort("The input should have a list column called `.pred`.", call = call)
   }
-  dat
+  if (!is.list(x$.pred)) {
+    rlang::abort("The input should have a list column called `.pred`.", call = call)
+  }
+  req_cols <- c(".eval_time", ".pred_survival")
+  if (!all(req_cols %in% names(x$.pred[[1]]))) {
+    msg <- paste0("The `.pred` tibbles should have columns: ",
+                  paste0("'", req_cols, "'", collapse = ", "))
+    rlang::abort(msg, call = call)
+  }
+  invisible(NULL)
 }
 
 .check_censor_model <- function(x) {
@@ -73,7 +78,7 @@ add_dot_row_to_weights <- function(dat, rows = NULL) {
 # We need to use the time of analysis to determine what time to use to evaluate
 # the IPCWs.
 
-graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
+graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
   event_time <- .extract_surv_time(surv_obj)
   status <- .extract_surv_status(surv_obj)
   is_event_before_t <- event_time <= eval_time & status == 1
@@ -85,15 +90,14 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
   weight_time <- rep(NA_real_, length(event_time))
 
   # A real event prior to eval_time (Graf category 1)
-  weight_time[is_event_before_t] <- event_time[is_event_before_t] - eps
+  weight_time <- ifelse(is_event_before_t, event_time - eps, weight_time)
 
   # Observed time greater than eval_time (Graf category 2)
-  weight_time[is_censored] <- eval_time - eps
+  weight_time <- ifelse(is_censored, eval_time - eps, weight_time)
 
   weight_time <- ifelse(weight_time < 0, 0, weight_time)
 
-  res <- tibble::tibble(surv = surv_obj, weight_time = weight_time, eval_time)
-  add_dot_row_to_weights(res, rows)
+  weight_time
 }
 
 # ------------------------------------------------------------------------------
@@ -102,24 +106,28 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' The method of Graf _et al_ (1999) is used to compute weights at specific
 #' evaluation times that can be used to help measure a model's time-dependent
 #' performance (e.g. the time-dependent Brier score or the area under the ROC
-#' curve).
-#' @param data A data frame with a column containing a [survival::Surv()] object.
-#' @param predictors Not currently used. A potential future slot for models with
-#' informative censoring based on columns in `data`.
-#' @param rows An optional integer vector with length equal to the number of
-#' rows in `data` that is used to index the original data. The default is to
-#' use a fresh index on data (i.e. `1:nrow(data)`).
-#' @param eval_time A vector of finite, non-negative times at which to
-#' compute the probability of censoring and the corresponding weights.
+#' curve). This is an internal function.
+#'
+#' @param predictions A data frame with a column containing a [survival::Surv()]
+#' object as well as a list column called `.pred` that contains the data
+#' structure produced by [predict.model_fit()].
+#' @param cens_predictors Not currently used. A potential future slot for models with
+#' informative censoring based on columns in `predictions`.
 #' @param object A fitted parsnip model object or fitted workflow with a mode
 #' of "censored regression".
 #' @param trunc A potential lower bound for the probability of censoring to avoid
 #' very large weight values.
 #' @param eps A small value that is subtracted from the evaluation time when
 #' computing the censoring probabilities. See Details below.
-#' @return A tibble with columns `.row`, `eval_time`, `.prob_cens` (the
-#' probability of being censored just prior to the evaluation time), and
-#' `.weight_cens` (the inverse probability of censoring weight).
+#' @return The same data are returned with the `pred` tibbles containing
+#' several new columns:
+#'
+#' - `.weight_time`: the time at which the inverse censoring probability weights
+#'    are computed. This is a function of the observed time and the time of
+#'    analysis (i.e., `eval_time`). See Details for more information.
+#' - `.pred_censored`: the probability of being censored at `.weight_time`.
+#' - `.weight_censored`: The inverse of the censoring probability.
+#'
 #' @details
 #'
 #' A probability that the data are censored immediately prior to a specific
@@ -155,13 +163,21 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' The `eps` argument is used to avoid information leakage when computing the
 #' censoring probability. Subtracting a small number avoids using data that
 #' would not be known at the time of prediction. For example, if we are making
-#' survival probability predictions at `eval_time = 3.0`, we would not know the
+#' survival probability predictions at `eval_time = 3.0`, we would _not_ know the
 #' about the probability of being censored at that exact time (since it has not
 #' occurred yet).
 #'
+#' When creating weights by inverting probabilities, there is the risk that a few
+#' cases will have severe outliers due to probabilities close to zero. To
+#' mitigate this, the `trunc` argument can be used to put a cap on the weights.
+#' If the smallest probability is greater than `trunc`, the probabilities with
+#' values less than `trunc` are given that value. Otherwise,  `trunc` is
+#' adjusted to be half of the smallest probability and that value is used as the
+#' lower bound..
+#'
 #' Note that if there are `n` rows in `data` and `t` time points, the resulting
-#' data has `n * t` rows. Computations will not easily scale well as `t` becomes
-#' large.
+#' data, once unnested, has `n * t` rows. Computations will not easily scale
+#' well as `t` becomes very large.
 #' @references Graf, E., Schmoor, C., Sauerbrei, W. and Schumacher, M. (1999),
 #' Assessment and comparison of prognostic classification schemes for survival
 #' data. _Statist. Med._, 18: 2529-2545.
@@ -185,49 +201,70 @@ graf_weight_time <- function(surv_obj, eval_time, rows = NULL, eps = 10^-10) {
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.workflow <- function(object,
-                                             data,
-                                             eval_time,
-                                             rows = NULL,
-                                             predictors = NULL,
+                                             predictions,
+                                             cens_predictors = NULL,
                                              trunc = 0.05, eps = 10^-10, ...) {
   if (is.null(object$fit$fit)) {
-    rlang::abort("The workflow does not have a model fit object.", call = FALSE)
+    rlang::abort("The workflow does not have a model fit object.")
   }
-  .censoring_weights_graf(object$fit$fit, data, eval_time, rows, predictors, trunc, eps)
+  .censoring_weights_graf(object$fit$fit, predictions, cens_predictors, trunc, eps)
 }
 
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.model_fit <- function(object,
-                                              data,
-                                              eval_time,
-                                              rows = NULL,
-                                              predictors = NULL,
+                                              predictions,
+                                              cens_predictors = NULL,
                                               trunc = 0.05, eps = 10^-10, ...) {
   rlang::check_dots_empty()
   .check_censor_model(object)
-  if (!is.null(predictors)) {
-    rlang::warn("The 'predictors' argument to the survival weighting function is not currently used.", call = FALSE)
-  }
-  eval_time <- .filter_eval_time(eval_time)
+  truth <- .find_surv_col(predictions)
+  .check_censored_right(predictions[[truth]])
+  .check_pred_col(predictions)
 
-  truth <- object$preproc$y_var
-  if (length(truth) != 1) {
-    # check_outcome() tests that the outcome column is a Surv object
-    rlang::abort("The event time data should be in a single column with class 'Surv'", call = FALSE)
+  if (!is.null(cens_predictors)) {
+    msg <- "The 'cens_predictors' argument to the survival weighting function is not currently used."
+    rlang::warn(msg)
   }
-  surv_data <- dplyr::select(data, dplyr::all_of(!!truth)) %>% setNames("surv")
-  .check_censored_right(surv_data$surv)
+  predictions$.pred <-
+    add_graf_weights_vec(object,
+                         predictions$.pred,
+                         predictions[[truth]],
+                         trunc = trunc,
+                         eps = eps)
+  predictions
+}
 
-  purrr::map(eval_time,
-                 ~ graf_weight_time(surv_data$surv, .x, eps = eps, rows = rows))  %>%
-                 purrr::list_rbind() %>%
-    dplyr::mutate(
-      .prob_cens = predict(object$censor_probs, time = weight_time, as_vector = TRUE),
-      .prob_cens = trunc_probs(.prob_cens, trunc),
-      .weight_cens = 1 / .prob_cens
-    ) %>%
-    dplyr::select(.row, eval_time, .prob_cens, .weight_cens)
+# ------------------------------------------------------------------------------
+# Helpers
+
+add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10^-10) {
+  # Expand the list column to one data frame
+  n <- length(.pred)
+  num_times <- vctrs::list_sizes(.pred)
+  y <- vctrs::list_unchop(.pred)
+  y$surv_obj <- vctrs::vec_rep_each(surv_obj, times = num_times)
+  names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
+  # Compute the actual time of evaluation
+  y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time, eps = eps)
+  # Compute the corresponding probability of being censored
+  y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
+  y$.pred_censored <- trunc_probs(y$.pred_censored, trunc = trunc)
+  # Invert the probabilities to create weights
+  y$.weight_censored = 1 / y$.pred_censored
+  # Convert back the list column format
+  y$surv_obj <- NULL
+  vctrs::vec_chop(y, sizes = num_times)
+}
+
+.find_surv_col <- function(x, call = rlang::env_parent()) {
+  is_lst_col <- purrr::map_lgl(x, purrr::is_list)
+  is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
+  num_surv <- sum(is_surv)
+  if (num_surv != 1) {
+    rlang::abort("There should be a single column of class `Surv`", call = call)
+  }
+  names(is_surv)[is_surv]
 }
 
 # nocov end

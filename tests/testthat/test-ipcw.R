@@ -35,6 +35,7 @@ test_that('probability truncation', {
 test_that('time filtering', {
   times_1 <- 0:10
   times_2 <- c(Inf, NA, -3, times_1, times_1)
+  times_3 <- c(10, 1:9)
 
   expect_equal(
     parsnip:::.filter_eval_time(times_1),
@@ -44,6 +45,12 @@ test_that('time filtering', {
     parsnip:::.filter_eval_time(times_1),
     times_1
   )
+  expect_equal(
+    parsnip:::.filter_eval_time(times_3),
+    times_3
+  )
+  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2))
+  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2[3:4]))
   expect_snapshot(error = TRUE, parsnip:::.filter_eval_time(-1))
   expect_null(parsnip:::.filter_eval_time(NULL))
 })

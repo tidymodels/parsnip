@@ -14,10 +14,8 @@
 
 \method{.censoring_weights_graf}{workflow}(
   object,
-  data,
-  eval_time,
-  rows = NULL,
-  predictors = NULL,
+  predictions,
+  cens_predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
   ...
@@ -25,10 +23,8 @@
 
 \method{.censoring_weights_graf}{model_fit}(
   object,
-  data,
-  eval_time,
-  rows = NULL,
-  predictors = NULL,
+  predictions,
+  cens_predictors = NULL,
   trunc = 0.05,
   eps = 10^-10,
   ...
@@ -38,17 +34,12 @@
 \item{object}{A fitted parsnip model object or fitted workflow with a mode
 of "censored regression".}
 
-\item{data}{A data frame with a column containing a \code{\link[survival:Surv]{survival::Surv()}} object.}
+\item{predictions}{A data frame with a column containing a \code{\link[survival:Surv]{survival::Surv()}}
+object as well as a list column called \code{.pred} that contains the data
+structure produced by \code{\link[=predict.model_fit]{predict.model_fit()}}.}
 
-\item{eval_time}{A vector of finite, non-negative times at which to
-compute the probability of censoring and the corresponding weights.}
-
-\item{rows}{An optional integer vector with length equal to the number of
-rows in \code{data} that is used to index the original data. The default is to
-use a fresh index on data (i.e. \code{1:nrow(data)}).}
-
-\item{predictors}{Not currently used. A potential future slot for models with
-informative censoring based on columns in \code{data}.}
+\item{cens_predictors}{Not currently used. A potential future slot for models with
+informative censoring based on columns in \code{predictions}.}
 
 \item{trunc}{A potential lower bound for the probability of censoring to avoid
 very large weight values.}
@@ -57,15 +48,21 @@ very large weight values.}
 computing the censoring probabilities. See Details below.}
 }
 \value{
-A tibble with columns \code{.row}, \code{eval_time}, \code{.prob_cens} (the
-probability of being censored just prior to the evaluation time), and
-\code{.weight_cens} (the inverse probability of censoring weight).
+The same data are returned with the \code{pred} tibbles containing
+several new columns:
+\itemize{
+\item \code{.weight_time}: the time at which the inverse censoring probability weights
+are computed. This is a function of the observed time and the time of
+analysis (i.e., \code{eval_time}). See Details for more information.
+\item \code{.pred_censored}: the probability of being censored at \code{.weight_time}.
+\item \code{.weight_censored}: The inverse of the censoring probability.
+}
 }
 \description{
 The method of Graf \emph{et al} (1999) is used to compute weights at specific
 evaluation times that can be used to help measure a model's time-dependent
 performance (e.g. the time-dependent Brier score or the area under the ROC
-curve).
+curve). This is an internal function.
 }
 \details{
 A probability that the data are censored immediately prior to a specific
@@ -100,13 +97,21 @@ computed by inverting the censoring probability.
 The \code{eps} argument is used to avoid information leakage when computing the
 censoring probability. Subtracting a small number avoids using data that
 would not be known at the time of prediction. For example, if we are making
-survival probability predictions at \code{eval_time = 3.0}, we would not know the
+survival probability predictions at \code{eval_time = 3.0}, we would \emph{not} know the
 about the probability of being censored at that exact time (since it has not
 occurred yet).
 
+When creating weights by inverting probabilities, there is the risk that a few
+cases will have severe outliers due to probabilities close to zero. To
+mitigate this, the \code{trunc} argument can be used to put a cap on the weights.
+If the smallest probability is greater than \code{trunc}, the probabilities with
+values less than \code{trunc} are given that value. Otherwise,  \code{trunc} is
+adjusted to be half of the smallest probability and that value is used as the
+lower bound..
+
 Note that if there are \code{n} rows in \code{data} and \code{t} time points, the resulting
-data has \code{n * t} rows. Computations will not easily scale well as \code{t} becomes
-large.
+data, once unnested, has \code{n * t} rows. Computations will not easily scale
+well as \code{t} becomes very large.
 }
 \references{
 Graf, E., Schmoor, C., Sauerbrei, W. and Schumacher, M. (1999),
