@@ -1106,13 +1106,13 @@ last week will be predicted after the model is fit.</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.5 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.8 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 21.1 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.8 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.1 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.48</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.12</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.5 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.8 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.5 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.41</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.05</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1422,16 +1422,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.510       0.490 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.839       0.161 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.521       0.479 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.835       0.165 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.644       0.356 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.542       0.458 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.741       0.259 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.526       0.474 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">1</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.502       0.498</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.508      0.492  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.840      0.160  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.519      0.481  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.833      0.167  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.640      0.360  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.535      0.465  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.740      0.260  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.523      0.477  </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990      0.009<span style="text-decoration: underline;">88</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.493      0.507</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1897,8 +1897,8 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.84</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.67</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.80</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.63</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -1954,15 +1954,15 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.540        0.460</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.662        0.338</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.596        0.404</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.482        0.518</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.479        0.521</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.538        0.462</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.658        0.342</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.593        0.407</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.481        0.519</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.477        0.523</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.416        0.584</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.554        0.446</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.557        0.443</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.742        0.258</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.552        0.448</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.555        0.445</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.738        0.262</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.380        0.620</span></span></code></pre>
 </details>
 </div>
@@ -2138,11 +2138,11 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.285         0.017<span style="text-decoration: underline;">7</span>      0.697     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">110</span>      1.00        0.000<span style="text-decoration: underline;">001</span>95</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.317         0.477       0.206     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.048<span style="text-decoration: underline;">9</span>        0.940       0.011<span style="text-decoration: underline;">1</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.303         0.023<span style="text-decoration: underline;">7</span>      0.673</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.288         0.018<span style="text-decoration: underline;">0</span>      0.694     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">106</span>      1.00        0.000<span style="text-decoration: underline;">001</span>92</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.315         0.481       0.204     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.047<span style="text-decoration: underline;">8</span>        0.941       0.010<span style="text-decoration: underline;">9</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.306         0.024<span style="text-decoration: underline;">1</span>      0.670</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
