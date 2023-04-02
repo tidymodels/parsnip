@@ -302,7 +302,7 @@ format_hazard <- function(x) {
 
 ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
-    x <- as_tibble(x, .name_repair = "minimal")
+    x <- tibble::new_tibble(x)
     if (!any(grepl(paste0("^\\", col_name), names(x)))) {
       if (overwrite) {
         names(x) <- col_name
@@ -311,7 +311,8 @@ ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
       }
     }
   } else {
-    x <- tibble(unname(x))
+    x <- tibble::new_tibble(vctrs::df_list(unname(x), .name_repair = "minimal"),
+                            nrow = length(x))
     names(x) <- col_name
     x
   }
