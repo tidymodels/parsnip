@@ -135,27 +135,6 @@ check_args.decision_tree <- function(object) {
 
 # ------------------------------------------------------------------------------
 
-#' @export
-fit_xy.decision_tree <- function(object,
-                                 x,
-                                 y,
-                                 case_weights = NULL,
-                                 control = parsnip::control_parsnip(),
-                                 ...) {
-
-  if (object$mode == "censored regression" && object$engine == "rpart") {
-    # prodlim::EventHistory.frame() expects a call to `Surv()` (or `Hist()`) on
-    # the left-hand side of the formula
-    rlang::abort("For the `'rpart'` engine, please use the formula interface via `fit()`.")
-  }
-
-  # call parsnip::fit_xy.model_spec()
-  res <- NextMethod()
-  res
-}
-
-# ------------------------------------------------------------------------------
-
 #' Decision trees via rpart
 #'
 #' `rpart_train` is a wrapper for `rpart()` tree-based models
