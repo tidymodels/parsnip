@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.1.0
 
 This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to `fit()` and `predict()` with the package.
 
@@ -15,6 +15,8 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 * The `time` argument to `predict_survival()` and `predict_hazard()` is deprecated in favor of the new `eval_time` argument (#936).
 
 * Added several internal functions (to help work with `Surv` objects) as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. These changes provide tooling for downstream packages to handle inverse probability censoring weights (#893, #897, #937).
+
+* An internal method for generating inverse probability of censoring weights (IPCW) of Graf _et al_ (1999) is available via `.censoring_weights_graf()`. 
 
 ## Bug fixes
 
@@ -43,6 +45,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 * Transitioned all soft-deprecations that were at least a year old to warn-deprecations. These changes apply to `fit_control()`, `surv_reg()`, `varying()`, `varying_args()`, and the `"liquidSVM"` engine.
 
 * Various bug fixes and improvements to documentation.
+
 
 # parsnip 1.0.4
 
