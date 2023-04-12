@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
+
 # parsnip 1.1.0
 
 This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to `fit()` and `predict()` with the package.
@@ -29,8 +31,6 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 * Fixed bug where model fits with factor predictors and `engine = "kknn"` would fail when the package's namespace hadn't been attached (#264).
 
 * Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
-
-* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
 
 ## Other changes
 
