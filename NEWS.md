@@ -26,6 +26,8 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 * Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
 
+* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
+
 ## Other changes
 
 * Implemented a number of optimizations in parsnip's backend that [substantially decrease evaluation time](https://www.simonpcouch.com/blog/speedups-2023/#parsnip) to `fit()` and `predict()` (#901, #902, #910, #921, #929, #923, #931, #932, #933).
