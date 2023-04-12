@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Model predictions across many sub-models</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/aaa_multi_predict.R" class="external-link"><code>R/aaa_multi_predict.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/boost_tree.R" class="external-link"><code>R/boost_tree.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/linear_reg.R" class="external-link"><code>R/linear_reg.R</code></a>, and 5 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/aaa_multi_predict.R" class="external-link"><code>R/aaa_multi_predict.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/boost_tree.R" class="external-link"><code>R/boost_tree.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/HEAD/R/glmnet-engines.R" class="external-link"><code>R/glmnet-engines.R</code></a>, and 3 more</small>
       <div class="d-none name"><code>multi_predict.Rd</code></div>
     </div>
 
@@ -86,14 +86,17 @@
 <span><span class="co"># S3 method for `_lognet`</span></span>
 <span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, penalty <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for `_multnet`</span></span>
+<span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, penalty <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for `_glmnetfit`</span></span>
+<span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, penalty <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for `_earth`</span></span>
 <span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, num_terms <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for `_torch_mlp`</span></span>
 <span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, epochs <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for `_multnet`</span></span>
-<span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, penalty <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for `_train.kknn`</span></span>
 <span><span class="fu">multi_predict</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, type <span class="op">=</span> <span class="cn">NULL</span>, neighbors <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -159,7 +162,7 @@ follow the usual standard based on prediction <code>type</code> (i.e. <code>.pre
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, Posit Software PBC.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

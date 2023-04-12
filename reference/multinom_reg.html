@@ -34,7 +34,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,6 +149,11 @@ is specified, the <em>method</em> to fit the model is also defined. See
 arguments.</p>
 <p>The model is not trained or fit until the <code><a href="fit.html">fit()</a></code> function is used
 with the data.</p>
+<p>Each of the arguments in this function other than <code>mode</code> and <code>engine</code> are
+captured as <a href="https://rlang.r-lib.org/reference/topic-quosure.html" class="external-link">quosures</a>. To pass values
+programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-operator.html" class="external-link">injection operator</a> like so:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>argument <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">value</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>This model fits a classification model for multiclass outcomes; for
 binary outcomes, see <code><a href="logistic_reg.html">logistic_reg()</a></code>.</p>
     </div>
@@ -187,7 +192,7 @@ binary outcomes, see <code><a href="logistic_reg.html">logistic_reg()</a></code>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, Posit Software PBC.</p>
+  <p></p><p>Developed by <a href="https://github.com/topepo" class="external-link">Max Kuhn</a>, <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
