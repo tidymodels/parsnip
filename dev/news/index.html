@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,27 +64,31 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="parsnip-110">parsnip 1.1.0<a class="anchor" aria-label="anchor" href="#parsnip-110"></a></h2>
 <p>This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> with the package.</p>
 <div class="section level3">
-<h3 id="improvements-to-glmnet-engine-interfaces-development-version">Improvements to <code>"glmnet"</code> engine interfaces<a class="anchor" aria-label="anchor" href="#improvements-to-glmnet-engine-interfaces-development-version"></a></h3>
+<h3 id="improvements-to-glmnet-engine-interfaces-1-1-0">Improvements to <code>"glmnet"</code> engine interfaces<a class="anchor" aria-label="anchor" href="#improvements-to-glmnet-engine-interfaces-1-1-0"></a></h3>
 <ul><li><p>glmnet models fitted with base-R family objects are now supported for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, and <code>multinomial_reg()</code> (<a href="https://github.com/tidymodels/parsnip/issues/890" class="external-link">#890</a>).</p></li>
 <li><p><code><a href="../reference/multi_predict.html">multi_predict()</a></code> methods for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, and <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> models fitted with the <code>"glmnet"</code> engine now check the <code>type</code> better and error accordingly (<a href="https://github.com/tidymodels/parsnip/issues/900" class="external-link">#900</a>).</p></li>
 <li><p><code><a href="../reference/glmnet_helpers_prediction.html">.organize_glmnet_pred()</a></code> now expects predictions for a single penalty value (<a href="https://github.com/tidymodels/parsnip/issues/876" class="external-link">#876</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="survival-analysis-development-version">Survival analysis<a class="anchor" aria-label="anchor" href="#survival-analysis-development-version"></a></h3>
+<h3 id="survival-analysis-1-1-0">Survival analysis<a class="anchor" aria-label="anchor" href="#survival-analysis-1-1-0"></a></h3>
 <ul><li><p>The <code>time</code> argument to <code><a href="../reference/other_predict.html">predict_survival()</a></code> and <code>predict_hazard()</code> is deprecated in favor of the new <code>eval_time</code> argument (<a href="https://github.com/tidymodels/parsnip/issues/936" class="external-link">#936</a>).</p></li>
 <li><p>Added several internal functions (to help work with <code>Surv</code> objects) as a standalone file that can be used in other packages via <code>usethis::use_standalone("tidymodels/parsnip")</code>. These changes provide tooling for downstream packages to handle inverse probability censoring weights (<a href="https://github.com/tidymodels/parsnip/issues/893" class="external-link">#893</a>, <a href="https://github.com/tidymodels/parsnip/issues/897" class="external-link">#897</a>, <a href="https://github.com/tidymodels/parsnip/issues/937" class="external-link">#937</a>).</p></li>
+<li><p>An internal method for generating inverse probability of censoring weights (IPCW) of Graf <em>et al</em> (1999) is available via <code><a href="../reference/censoring_weights.html">.censoring_weights_graf()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-1-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-0"></a></h3>
 <ul><li><p>Made <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> behave consistently with respect to missingness in the classification setting. Previously, <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (<a href="https://github.com/tidymodels/parsnip/issues/888" class="external-link">#888</a>).</p></li>
 <li><p>Fixed bug where model fits with <code>engine = "earth"</code> would fail when the package’s namespace hadn’t been attached (<a href="https://github.com/tidymodels/parsnip/issues/251" class="external-link">#251</a>).</p></li>
 <li><p>Fixed bug where model fits with factor predictors and <code>engine = "kknn"</code> would fail when the package’s namespace hadn’t been attached (<a href="https://github.com/tidymodels/parsnip/issues/264" class="external-link">#264</a>).</p></li>
 <li><p>Fixed bug with prediction from a boosted tree model fitted with <code>"xgboost"</code> using a custom objective function (<a href="https://github.com/tidymodels/parsnip/issues/875" class="external-link">#875</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-changes-development-version">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<h3 id="other-changes-1-1-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-1-1-0"></a></h3>
 <ul><li><p>Implemented a number of optimizations in parsnip’s backend that <a href="https://www.simonpcouch.com/blog/speedups-2023/#parsnip" class="external-link">substantially decrease evaluation time</a> to <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/901" class="external-link">#901</a>, <a href="https://github.com/tidymodels/parsnip/issues/902" class="external-link">#902</a>, <a href="https://github.com/tidymodels/parsnip/issues/910" class="external-link">#910</a>, <a href="https://github.com/tidymodels/parsnip/issues/921" class="external-link">#921</a>, <a href="https://github.com/tidymodels/parsnip/issues/929" class="external-link">#929</a>, <a href="https://github.com/tidymodels/parsnip/issues/923" class="external-link">#923</a>, <a href="https://github.com/tidymodels/parsnip/issues/931" class="external-link">#931</a>, <a href="https://github.com/tidymodels/parsnip/issues/932" class="external-link">#932</a>, <a href="https://github.com/tidymodels/parsnip/issues/933" class="external-link">#933</a>).</p></li>
 <li><p><code><a href="../reference/logistic_reg.html">logistic_reg()</a></code> will now warn at <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> when the outcome has more than two levels (<a href="https://github.com/tidymodels/parsnip/issues/545" class="external-link">#545</a>).</p></li>
 <li><p>Rather than being implemented in each method, the check for the <code>new_data</code> argument being mistakenly passed as <code>newdata</code> to <code><a href="../reference/multi_predict.html">multi_predict()</a></code> now happens in the generic. Packages re-exporting the <code><a href="../reference/multi_predict.html">multi_predict()</a></code> generic and implementing now-duplicate checks may see new failures and can remove their own analogous checks. This check already existed in all <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> methods (via <code><a href="../reference/predict.model_fit.html">predict.model_fit()</a></code>) and all parsnip <code><a href="../reference/multi_predict.html">multi_predict()</a></code> methods (<a href="https://github.com/tidymodels/parsnip/issues/525" class="external-link">#525</a>).</p></li>
