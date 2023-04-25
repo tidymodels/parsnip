@@ -1,3 +1,21 @@
+# misspecified formula argument
+
+    Code
+      fit(linear_reg(), rec, mtcars)
+    Condition
+      Error in `fit()`:
+      ! The `formula` argument must be a formula, but it is a <recipe>.
+      i To fit a model with a recipe preprocessor, please use a workflow (`?workflows::workflow()`).
+
+---
+
+    Code
+      fit(linear_reg(), "boop", mtcars)
+    Condition
+      Error in `fit()`:
+      ! The `formula` argument must be a formula, but it is a <character>.
+      i To fit a model with a recipe preprocessor, please use a workflow (`?workflows::workflow()`).
+
 # No loaded engines
 
     ! parsnip could not locate an implementation for `cubist_rules` model specifications.

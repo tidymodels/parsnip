@@ -116,6 +116,20 @@ fit.model_spec <-
     control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
 
+    if (!inherits(formula, "formula")) {
+      msg <- "The {.arg formula} argument must be a formula, but it is a \\
+              {.cls {class(formula)[1]}}."
+
+      msg <-
+        c(
+          msg,
+          "i" = "To fit a model with a recipe preprocessor, please use a \\
+                 {.help [workflow](workflows::workflow)}."
+        )
+
+      cli::cli_abort(msg)
+    }
+
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
