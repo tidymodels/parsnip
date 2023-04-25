@@ -14,7 +14,6 @@
     Condition
       Error in `fit()`:
       ! The `formula` argument must be a formula, but it is a <character>.
-      i To fit a model with a recipe preprocessor, please use a workflow (`?workflows::workflow()`).
 
 # No loaded engines
 

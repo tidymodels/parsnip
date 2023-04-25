@@ -120,12 +120,14 @@ fit.model_spec <-
       msg <- "The {.arg formula} argument must be a formula, but it is a \\
               {.cls {class(formula)[1]}}."
 
-      msg <-
-        c(
-          msg,
-          "i" = "To fit a model with a recipe preprocessor, please use a \\
+      if (inherits(formula, "recipe")) {
+        msg <-
+          c(
+            msg,
+            "i" = "To fit a model with a recipe preprocessor, please use a \\
                  {.help [workflow](workflows::workflow)}."
-        )
+          )
+      }
 
       cli::cli_abort(msg)
     }
