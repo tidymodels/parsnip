@@ -62,6 +62,8 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
     res <- augment_regression(x, new_data)
   } else if (x$spec$mode == "classification") {
     res <- augment_classification(x, new_data)
+  } else if (x$spec$mode == "censored regression") {
+    res <- augment_classification(x, new_data)
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
@@ -99,4 +101,29 @@ augment_classification <- function(x, new_data) {
   }
   dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
+
+
+augment_censored <- function(x, new_data, eval_time = NULL) {
+  ret <- new_data
+  if (parsnip:::spec_has_pred_type(x, "survival")) {
+    parsnip:::.filter_eval_time(eval_time)
+    ret <- dplyr::bind_cols(
+      ret,
+      predict(x, new_data = new_data, type = "survival", eval_time = eval_time)
+    )
+    # Add inverse probability weights when the outcome is present in new_data
+    y_col <- parsnip:::.find_surv_col(new_data, fail = FALSE)
+    if (length(y_col) != 0) {
+      ret <- .censoring_weights_graf(x, ret)
+    }
+  }
+  if (parsnip:::spec_has_pred_type(x, "time")) {
+    ret <- dplyr::bind_cols(
+      ret,
+      predict(x, new_data = new_data, type = "time")
+    )
+  }
+  dplyr::relocate(ret, dplyr::starts_with(".pred"))
+}
+
 

@@ -257,11 +257,11 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   vctrs::vec_chop(y, sizes = num_times)
 }
 
-.find_surv_col <- function(x, call = rlang::env_parent()) {
+.find_surv_col <- function(x, call = rlang::env_parent(), fail = TRUE) {
   is_lst_col <- purrr::map_lgl(x, purrr::is_list)
   is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
   num_surv <- sum(is_surv)
-  if (num_surv != 1) {
+  if (fail && num_surv != 1) {
     rlang::abort("There should be a single column of class `Surv`", call = call)
   }
   names(is_surv)[is_surv]
