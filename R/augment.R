@@ -81,7 +81,7 @@ augment_regression <- function(x, new_data) {
       ret <- dplyr::mutate(ret, .resid = !!rlang::sym(y_nm) - .pred)
     }
   }
-  ret
+  dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
 
 augment_classification <- function(x, new_data) {
@@ -97,6 +97,6 @@ augment_classification <- function(x, new_data) {
       predict(x, new_data = new_data, type = "prob")
     )
   }
-  ret
+  dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
 
