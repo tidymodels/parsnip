@@ -67,7 +67,7 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
-  as_tibble(res)
+  tibble::new_tibble(res)
 }
 
 augment_regression <- function(x, new_data) {
@@ -84,7 +84,7 @@ augment_regression <- function(x, new_data) {
       ret <- dplyr::mutate(ret, .resid = !!rlang::sym(y_nm) - .pred)
     }
   }
-  dplyr::relocate(ret, dplyr::starts_with(".pred"))
+  dplyr::relocate(ret, dplyr::starts_with(".pred"), dplyr::starts_with(".resid"))
 }
 
 augment_classification <- function(x, new_data) {
