@@ -4,7 +4,7 @@
 \alias{augment.model_fit}
 \title{Augment data with predictions}
 \usage{
-\method{augment}{model_fit}(x, new_data, ...)
+\method{augment}{model_fit}(x, new_data, eval_time = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{model_fit} object produced by \code{\link[=fit.model_spec]{fit.model_spec()}} or

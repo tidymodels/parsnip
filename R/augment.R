@@ -71,6 +71,7 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
 }
 
 augment_regression <- function(x, new_data) {
+  ret <- new_data
   check_spec_pred_type(x, "numeric")
   ret <-
     ret %>%
@@ -87,6 +88,7 @@ augment_regression <- function(x, new_data) {
 }
 
 augment_classification <- function(x, new_data) {
+  ret <- new_data
   if (spec_has_pred_type(x, "class")) {
     ret <- dplyr::bind_cols(
       ret,
@@ -105,19 +107,19 @@ augment_classification <- function(x, new_data) {
 
 augment_censored <- function(x, new_data, eval_time = NULL) {
   ret <- new_data
-  if (parsnip:::spec_has_pred_type(x, "survival")) {
-    parsnip:::.filter_eval_time(eval_time)
+  if (spec_has_pred_type(x, "survival")) {
+    .filter_eval_time(eval_time)
     ret <- dplyr::bind_cols(
       ret,
       predict(x, new_data = new_data, type = "survival", eval_time = eval_time)
     )
     # Add inverse probability weights when the outcome is present in new_data
-    y_col <- parsnip:::.find_surv_col(new_data, fail = FALSE)
+    y_col <- .find_surv_col(new_data, fail = FALSE)
     if (length(y_col) != 0) {
       ret <- .censoring_weights_graf(x, ret)
     }
   }
-  if (parsnip:::spec_has_pred_type(x, "time")) {
+  if (spec_has_pred_type(x, "time")) {
     ret <- dplyr::bind_cols(
       ret,
       predict(x, new_data = new_data, type = "time")
