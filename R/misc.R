@@ -27,7 +27,6 @@ is_missing_arg <- function(x) {
   identical(x, quote(missing_arg()))
 }
 
-# return a condition for use in `dplyr::filter()` on model info.
 # if the user specified an engine and the model object reflects that in
 # the `user_specified_engine` slot, filter the model info down to
 # those that the user specified. if not, don't filter the model info at all.
@@ -35,23 +34,23 @@ is_missing_arg <- function(x) {
 # note that, model objects generated pre parsnip 1.0.2, or from extensions
 # that don't implement the `user_specified_engine` slot, will not trigger
 # these checks.
-engine_filter_condition <- function(engine, user_specified_engine) {
+engine_filter_condition <- function(engine, user_specified_engine, data) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
   if (!isTRUE(user_specified_engine) || is.null(engine))  {
     return(TRUE)
   }
 
-  rlang::quo(engine == !!engine)
+  data$engine == engine
 }
 
 # analogous helper for modes to `engine_filter_condition()`
-mode_filter_condition <- function(mode, user_specified_mode) {
+mode_filter_condition <- function(mode, user_specified_mode, data) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
   if (!isTRUE(user_specified_mode) || is.null(mode))  {
     return(TRUE)
   }
 
-  rlang::quo(mode == !!mode)
+  data$mode == mode
 }
 
 #' Model Specification Checking:
@@ -144,17 +143,17 @@ spec_is_loaded <- function(spec,
                            user_specified_mode = spec$user_specified_mode) {
   cls <- class(spec)[[1]]
 
-  engine_condition <- engine_filter_condition(engine, user_specified_engine)
-  mode_condition <- mode_filter_condition(mode, user_specified_mode)
-
   avail <- get_from_env(cls)
 
   if (is.null(avail)) {
     return(FALSE)
   }
 
+  engine_condition <- engine_filter_condition(engine, user_specified_engine, avail)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode, avail)
+
   avail <- avail %>%
-    dplyr::filter(!!mode_condition, !!engine_condition)
+    vctrs::vec_slice(mode_condition & engine_condition)
 
   if (nrow(avail) > 0) {
     return(TRUE)
@@ -186,21 +185,28 @@ prompt_missing_implementation <- function(spec,
                                           prompt, ...) {
   cls <- class(spec)[[1]]
 
-  engine_condition <- engine_filter_condition(engine, user_specified_engine)
-  mode_condition <- mode_filter_condition(mode, user_specified_mode)
-
   avail <- get_from_env(cls)
 
+  engine_condition <- engine_filter_condition(engine, user_specified_engine, avail)
+  mode_condition <- mode_filter_condition(mode, user_specified_mode, avail)
+
   if (!is.null(avail)) {
-    avail <-
-      avail %>%
-      dplyr::filter(!!mode_condition, !!engine_condition)
+    avail <- vctrs::vec_slice(avail, mode_condition & engine_condition)
   }
 
+  engine_condition_all <- engine_filter_condition(engine, user_specified_engine, model_info_table)
+  mode_condition_all <- mode_filter_condition(mode, user_specified_mode, model_info_table)
+
   all <-
-    model_info_table %>%
-    dplyr::filter(model == cls, !!mode_condition, !!engine_condition, !is.na(pkg)) %>%
-    dplyr::select(-model)
+    vctrs::vec_slice(
+      model_info_table,
+      model_info_table$model == cls &
+        mode_condition_all &
+        engine_condition_all &
+        !is.na(model_info_table$pkg)
+    )
+
+  all <- all[setdiff(names(all), "model")]
 
   if (!isTRUE(user_specified_mode)) {mode <- ""}
 
