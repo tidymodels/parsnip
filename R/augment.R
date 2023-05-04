@@ -63,7 +63,7 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   } else if (x$spec$mode == "classification") {
     res <- augment_classification(x, new_data)
   } else if (x$spec$mode == "censored regression") {
-    res <- augment_classification(x, new_data)
+    res <- augment_censored(x, new_data, eval_time = eval_time)
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
