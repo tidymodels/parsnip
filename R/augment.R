@@ -109,8 +109,6 @@ augment_regression <- function(x, new_data) {
   dplyr::relocate(ret, dplyr::starts_with(".pred"), dplyr::starts_with(".resid"))
 }
 
-# nocov start
-# tested in tidymodels/extratests#
 augment_classification <- function(x, new_data) {
   ret <- new_data
   if (spec_has_pred_type(x, "class")) {
@@ -127,10 +125,9 @@ augment_classification <- function(x, new_data) {
   }
   dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
-# nocov end
 
-
-
+# nocov start
+# tested in tidymodels/extratests#
 augment_censored <- function(x, new_data, eval_time = NULL) {
   ret <- new_data
   if (spec_has_pred_type(x, "survival")) {
@@ -153,5 +150,4 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
   }
   dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
-
-
+# nocov end
