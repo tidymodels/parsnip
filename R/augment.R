@@ -2,15 +2,31 @@
 #'
 #' `augment()` will add column(s) for predictions to the given data.
 #'
+
+#' @param x A `model_fit` object produced by [fit.model_spec()] or
+#' [fit_xy.model_spec()].
+#' @param eval_time For censored regression models, a vector of time points at
+#' which the survival probability is estimated.
+#' @details
+#'
+#' ## Regression
 #' For regression models, a `.pred` column is added. If `x` was created using
-#' [fit.model_spec()] and `new_data` contains the outcome column, a `.resid` column is
-#' also added.
+#' [fit.model_spec()] and `new_data` contains a regression outcome column, a
+#' `.resid` column is also added.
+#'
+#' ## Classification
 #'
 #' For classification models, the results can include a column called
 #'  `.pred_class` as well as class probability columns named `.pred_{level}`.
 #'  This depends on what type of prediction types are available for the model.
-#' @param x A `model_fit` object produced by [fit.model_spec()] or
-#' [fit_xy.model_spec()] .
+#'
+#' ## Censored Regression
+#'
+#' For these models, predictions for the expected time, survival, probability,
+#' and linear predictor are created (if the model engine supports them). If the
+#' model supports survival prediction, the `eval_time` argument is required.
+#'
+#'
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
 #' @rdname augment
@@ -63,7 +79,10 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   } else if (x$spec$mode == "classification") {
     res <- augment_classification(x, new_data)
   } else if (x$spec$mode == "censored regression") {
+    # nocov start
+    # tested in tidymodels/extratests#
     res <- augment_censored(x, new_data, eval_time = eval_time)
+    # nocov end
   } else {
     rlang::abort(paste("Unknown mode:", x$spec$mode))
   }
@@ -87,6 +106,8 @@ augment_regression <- function(x, new_data) {
   dplyr::relocate(ret, dplyr::starts_with(".pred"), dplyr::starts_with(".resid"))
 }
 
+# nocov start
+# tested in tidymodels/extratests#
 augment_classification <- function(x, new_data) {
   ret <- new_data
   if (spec_has_pred_type(x, "class")) {
@@ -103,6 +124,8 @@ augment_classification <- function(x, new_data) {
   }
   dplyr::relocate(ret, dplyr::starts_with(".pred"))
 }
+# nocov end
+
 
 
 augment_censored <- function(x, new_data, eval_time = NULL) {
