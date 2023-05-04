@@ -37,9 +37,14 @@ This depends on what type of prediction types are available for the model.
 
 \subsection{Censored Regression}{
 
-For these models, predictions for the expected time, survival, probability,
-and linear predictor are created (if the model engine supports them). If the
-model supports survival prediction, the \code{eval_time} argument is required.
+For these models, predictions for the expected time and survival probability
+re created (if the model engine supports them). If the model supports
+survival prediction, the \code{eval_time} argument is required.
+
+If survival predictions are created and \code{new_data} contains a
+\code{\link[survival:Surv]{survival::Surv()}} object, additional columns are added for inverse
+probability of censoring weights (IPCW) are also created. This enables the
+user to compute performance metrics in the \pkg{yardstick} package.
 }
 }
 \examples{

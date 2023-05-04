@@ -22,10 +22,14 @@
 #'
 #' ## Censored Regression
 #'
-#' For these models, predictions for the expected time, survival, probability,
-#' and linear predictor are created (if the model engine supports them). If the
-#' model supports survival prediction, the `eval_time` argument is required.
+#' For these models, predictions for the expected time and survival probability
+#' re created (if the model engine supports them). If the model supports
+#' survival prediction, the `eval_time` argument is required.
 #'
+#' If survival predictions are created and `new_data` contains a
+#' [survival::Surv()] object, additional columns are added for inverse
+#' probability of censoring weights (IPCW) are also created. This enables the
+#' user to compute performance metrics in the \pkg{yardstick} package.
 #'
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
