@@ -38,7 +38,7 @@ This depends on what type of prediction types are available for the model.
 \subsection{Censored Regression}{
 
 For these models, predictions for the expected time and survival probability
-re created (if the model engine supports them). If the model supports
+are created (if the model engine supports them). If the model supports
 survival prediction, the \code{eval_time} argument is required.
 
 If survival predictions are created and \code{new_data} contains a
