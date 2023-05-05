@@ -77,29 +77,21 @@
 #'
 augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   new_data <- tibble::new_tibble(new_data)
-  if (x$spec$mode == "regression") {
-    res <- augment_regression(x, new_data)
-  } else if (x$spec$mode == "classification") {
-    res <- augment_classification(x, new_data)
-  } else if (x$spec$mode == "censored regression") {
-    # nocov start
-    # tested in tidymodels/extratests#
-    res <- augment_censored(x, new_data, eval_time = eval_time)
-    # nocov end
-  } else {
-    rlang::abort(paste("Unknown mode:", x$spec$mode))
-  }
+  res <-
+    switch(
+      x$spec$mode,
+      "regression"          = augment_regression(x, new_data),
+      "classification"      = augment_classification(x, new_data),
+      "censored regression" = augment_censored(x, new_data, eval_time = eval_time),
+      rlang::abort(paste("Unknown mode:", x$spec$mode))
+    )
   tibble::new_tibble(res)
 }
 
 augment_regression <- function(x, new_data) {
   ret <- new_data
   check_spec_pred_type(x, "numeric")
-  ret <-
-    ret %>%
-    dplyr::bind_cols(
-      predict(x, new_data = new_data)
-    )
+  ret <- dplyr::bind_cols(predict(x, new_data = new_data), ret)
   if (length(x$preproc$y_var) > 0) {
     y_nm <- x$preproc$y_var
     if (any(names(new_data) == y_nm)) {
@@ -111,43 +103,37 @@ augment_regression <- function(x, new_data) {
 
 augment_classification <- function(x, new_data) {
   ret <- new_data
-  if (spec_has_pred_type(x, "class")) {
-    ret <- dplyr::bind_cols(
-      ret,
-      predict(x, new_data = new_data, type = "class")
-    )
-  }
+
   if (spec_has_pred_type(x, "prob")) {
-    ret <- dplyr::bind_cols(
-      ret,
-      predict(x, new_data = new_data, type = "prob")
-    )
+    ret <- dplyr::bind_cols(predict(x, new_data = new_data, type = "prob"), ret)
   }
-  dplyr::relocate(ret, dplyr::starts_with(".pred"))
+
+  if (spec_has_pred_type(x, "class")) {
+    ret <- dplyr::bind_cols(predict(x, new_data = new_data, type = "class"), ret)
+  }
+  ret
 }
 
 # nocov start
 # tested in tidymodels/extratests#
 augment_censored <- function(x, new_data, eval_time = NULL) {
   ret <- new_data
+
+  if (spec_has_pred_type(x, "time")) {
+    ret <- dplyr::bind_cols(predict(x, new_data = new_data, type = "time"), ret)
+  }
+
   if (spec_has_pred_type(x, "survival")) {
     .filter_eval_time(eval_time)
     ret <- dplyr::bind_cols(
-      ret,
-      predict(x, new_data = new_data, type = "survival", eval_time = eval_time)
-    )
+      predict(x, new_data = new_data, type = "survival", eval_time = eval_time),
+      ret)
     # Add inverse probability weights when the outcome is present in new_data
     y_col <- .find_surv_col(new_data, fail = FALSE)
     if (length(y_col) != 0) {
       ret <- .censoring_weights_graf(x, ret)
     }
   }
-  if (spec_has_pred_type(x, "time")) {
-    ret <- dplyr::bind_cols(
-      ret,
-      predict(x, new_data = new_data, type = "time")
-    )
-  }
-  dplyr::relocate(ret, dplyr::starts_with(".pred"))
+  ret
 }
 # nocov end
