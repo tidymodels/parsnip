@@ -30,6 +30,30 @@
 # nocov start
 # These are tested in the extratests repo since it would require a dependency
 # on the survival package. https://github.com/tidymodels/extratests/pull/78
+.is_surv <- function(surv, fail = TRUE) {
+  is_surv <- inherits(surv, "Surv")
+  if (!is_surv && fail) {
+    rlang::abort("The object does not have class `Surv`.", call = NULL)
+  }
+  is_surv
+}
+
+.extract_surv_type <- function(surv) {
+  attr(surv, "type")
+}
+
+.check_cens_type <- function(surv, type = "right", fail = TRUE) {
+  .is_surv(surv)
+  obj_type <- .extract_surv_type(surv)
+  good_type <- all(obj_type %in% type)
+  if (!good_type && fail) {
+    c_list <- paste0("'", type, "'")
+    msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
+    rlang::abort(msg, call = NULL)
+  }
+  good_type
+}
+
 .is_censored_right <- function(surv) {
   .check_cens_type(surv, fail = FALSE)
 }
@@ -59,30 +83,6 @@
     res <- res - 1
   }
   res
-}
-
-.is_surv <- function(surv, fail = TRUE) {
-  is_surv <- inherits(surv, "Surv")
-  if (!is_surv && fail) {
-    rlang::abort("The object does not have class `Surv`.", call = NULL)
-  }
-  is_surv
-}
-
-.extract_surv_type <- function(surv) {
-  attr(surv, "type")
-}
-
-.check_cens_type <- function(surv, type = "right", fail = TRUE) {
-  .is_surv(surv)
-  obj_type <- .extract_surv_type(surv)
-  good_type <- all(obj_type %in% type)
-  if (!good_type && fail) {
-    c_list <- paste0("'", type, "'")
-    msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
-    rlang::abort(msg, call = NULL)
-  }
-  good_type
 }
 
 # nocov end
