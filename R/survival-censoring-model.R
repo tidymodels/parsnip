@@ -46,11 +46,13 @@ reverse_km <- function(obj, eval_env) {
 # ------------------------------------------------------------------------------
 # Basic S3 methods
 
+#' @export
 print.censoring_model <- function(x, ...) {
   cat(x$label, "model for predicting the probability of censoring\n")
   invisible(x)
 }
 
+#' @export
 predict.censoring_model <- function(object, ...) {
   rlang::abort(
     paste("Don't know how to predict with a censoring model of type:", object$label)
