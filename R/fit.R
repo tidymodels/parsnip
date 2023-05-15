@@ -265,7 +265,7 @@ fit_xy.model_spec <-
         rlang::warn(glue::glue("Engine set to `{object$engine}`."))
       }
     }
-    y_var <- names(y)
+    y_var <- colnames(y)
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {
