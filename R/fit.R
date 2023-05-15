@@ -270,9 +270,9 @@ fit_xy.model_spec <-
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {
         y <- y[, 1]
+      } else {
+        y <- y[[1]]
       }
-
-      y <- y[[1]]
     }
 
     cl <- match.call(expand.dots = TRUE)
