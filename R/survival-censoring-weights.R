@@ -43,6 +43,9 @@ trunc_probs <- function(probs, trunc = 0.01) {
   eval_time
 }
 
+# nocov start
+# these are tested in extratests
+
 .check_pred_col <- function(x, call = rlang::env_parent()) {
   if (!any(names(x) == ".pred")) {
     rlang::abort("The input should have a list column called `.pred`.", call = call)
@@ -67,8 +70,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
   invisible(NULL)
 }
 
-# nocov start
-# these are tested in extratests
 # ------------------------------------------------------------------------------
 # Brier score helpers. Most of this is based off of Graf, E., Schmoor, C.,
 # Sauerbrei, W. and Schumacher, M. (1999), Assessment and comparison of
