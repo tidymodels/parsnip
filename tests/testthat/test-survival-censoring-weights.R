@@ -1,23 +1,28 @@
-test_that('probability truncation', {
+test_that("probability truncation via trunc_probs()", {
   probs <- seq(0, 1, length.out = 5)
 
-  expect_equal(
-    min(parsnip:::trunc_probs(probs, .4)),
-    min(probs[probs > 0]) / 2
-  )
-  expect_equal(
-    min(parsnip:::trunc_probs(c(NA, probs), .4), na.rm = TRUE),
-    min(probs[probs > 0]) / 2
-  )
-  expect_equal(
-    min(parsnip:::trunc_probs(probs)),
-    0.01
-  )
-  expect_equal(
-    min(parsnip:::trunc_probs((1:200)/200)),
-    1 / 200
-  )
+  probs_trunc_001 <- parsnip:::trunc_probs(probs, trunc = 0.01)
+  expect_equal(probs_trunc_001[1], 0.01)
+  expect_equal(probs_trunc_001[2:5], probs[2:5])
 
+  probs_trunc_04 <- parsnip:::trunc_probs(probs, trunc = 0.4)
+  data_derived_trunc <- min(probs[probs > 0]) / 2
+  expect_equal(probs_trunc_04[1], data_derived_trunc)
+  expect_equal(probs_trunc_04[2:5], probs[2:5])
+
+  probs_trunc_04_na <- parsnip:::trunc_probs(c(NA, probs), 0.4)
+  expect_identical(probs_trunc_04_na[1], NA_real_)
+  expect_equal(probs_trunc_04_na[2], data_derived_trunc)
+  expect_equal(probs_trunc_04_na[3:6], probs[2:5])
+
+  probs <- (1:200)/200
+  expect_identical(
+    parsnip:::trunc_probs(probs, trunc = 0.01),
+    probs
+  )
+})
+
+test_that("trunc_probs()", {
   probs_1 <- (0:10) / 20
   probs_2 <- probs_1
   probs_2[3] <- NA_real_
@@ -32,25 +37,31 @@ test_that('probability truncation', {
   expect_equal(is.na(parsnip:::trunc_probs(probs_2, 0.1)),is.na(probs_2))
 })
 
-test_that('time filtering', {
-  times_1 <- 0:10
-  times_2 <- c(Inf, NA, -3, times_1, times_1)
-  times_3 <- c(10, 1:9)
+test_that(".filter_eval_time()", {
+  times_basic <- 0:10
+  expect_equal(
+    parsnip:::.filter_eval_time(times_basic),
+    times_basic
+  )
 
+  times_dont_reorder <- c(10, 1:9)
   expect_equal(
-    parsnip:::.filter_eval_time(times_1),
-    times_1
+    parsnip:::.filter_eval_time(times_dont_reorder),
+    times_dont_reorder
   )
-  expect_equal(
-    parsnip:::.filter_eval_time(times_1),
-    times_1
-  )
-  expect_equal(
-    parsnip:::.filter_eval_time(times_3),
-    times_3
-  )
-  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2))
-  expect_snapshot_warning(parsnip:::.filter_eval_time(times_2[3:4]))
-  expect_snapshot(error = TRUE, parsnip:::.filter_eval_time(-1))
+
   expect_null(parsnip:::.filter_eval_time(NULL))
+
+  times_duplicated <- c(times_basic, times_basic)
+  expect_snapshot(
+    parsnip:::.filter_eval_time(times_duplicated)
+  )
+
+  expect_snapshot(error = TRUE, parsnip:::.filter_eval_time(-1))
+
+  times_remove_plural <- c(Inf, NA, -3, times_basic)
+  expect_snapshot(parsnip:::.filter_eval_time(times_remove_plural))
+
+  times_remove_singular <- c(-3, times_basic)
+  expect_snapshot(parsnip:::.filter_eval_time(times_remove_singular))
 })
