@@ -43,6 +43,9 @@ trunc_probs <- function(probs, trunc = 0.01) {
   eval_time
 }
 
+# nocov start
+# these are tested in extratests
+
 .check_pred_col <- function(x, call = rlang::env_parent()) {
   if (!any(names(x) == ".pred")) {
     rlang::abort("The input should have a list column called `.pred`.", call = call)
@@ -67,8 +70,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
   invisible(NULL)
 }
 
-# nocov start
-# these are tested in extratests
 # ------------------------------------------------------------------------------
 # Brier score helpers. Most of this is based off of Graf, E., Schmoor, C.,
 # Sauerbrei, W. and Schumacher, M. (1999), Assessment and comparison of
@@ -257,11 +258,11 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   vctrs::vec_chop(y, sizes = num_times)
 }
 
-.find_surv_col <- function(x, call = rlang::env_parent()) {
+.find_surv_col <- function(x, call = rlang::env_parent(), fail = TRUE) {
   is_lst_col <- purrr::map_lgl(x, purrr::is_list)
   is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
   num_surv <- sum(is_surv)
-  if (num_surv != 1) {
+  if (fail && num_surv != 1) {
     rlang::abort("There should be a single column of class `Surv`", call = call)
   }
   names(is_surv)[is_surv]

@@ -4,13 +4,16 @@
 \alias{augment.model_fit}
 \title{Augment data with predictions}
 \usage{
-\method{augment}{model_fit}(x, new_data, ...)
+\method{augment}{model_fit}(x, new_data, eval_time = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{model_fit} object produced by \code{\link[=fit.model_spec]{fit.model_spec()}} or
-\code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}} .}
+\code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}}.}
 
 \item{new_data}{A data frame or matrix.}
+
+\item{eval_time}{For censored regression models, a vector of time points at
+which the survival probability is estimated.}
 
 \item{...}{Not currently used.}
 }
@@ -18,13 +21,31 @@
 \code{augment()} will add column(s) for predictions to the given data.
 }
 \details{
+\subsection{Regression}{
+
 For regression models, a \code{.pred} column is added. If \code{x} was created using
-\code{\link[=fit.model_spec]{fit.model_spec()}} and \code{new_data} contains the outcome column, a \code{.resid} column is
-also added.
+\code{\link[=fit.model_spec]{fit.model_spec()}} and \code{new_data} contains a regression outcome column, a
+\code{.resid} column is also added.
+}
+
+\subsection{Classification}{
 
 For classification models, the results can include a column called
 \code{.pred_class} as well as class probability columns named \verb{.pred_\{level\}}.
 This depends on what type of prediction types are available for the model.
+}
+
+\subsection{Censored Regression}{
+
+For these models, predictions for the expected time and survival probability
+are created (if the model engine supports them). If the model supports
+survival prediction, the \code{eval_time} argument is required.
+
+If survival predictions are created and \code{new_data} contains a
+\code{\link[survival:Surv]{survival::Surv()}} object, additional columns are added for inverse
+probability of censoring weights (IPCW) are also created. This enables the
+user to compute performance metrics in the \pkg{yardstick} package.
+}
 }
 \examples{
 car_trn <- mtcars[11:32,]

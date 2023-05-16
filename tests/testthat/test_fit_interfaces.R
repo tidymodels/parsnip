@@ -74,6 +74,16 @@ test_that('unknown modes', {
   )
 })
 
+test_that("misspecified formula argument", {
+  rec <- structure(list(), class = "recipe")
+  expect_snapshot(error = TRUE,
+    fit(linear_reg(), rec, mtcars)
+  )
+  expect_snapshot(error = TRUE,
+    fit(linear_reg(), "boop", mtcars)
+  )
+})
+
 test_that("elapsed time parsnip mods", {
   lm1 <-
     linear_reg() %>%
