@@ -92,6 +92,7 @@ reference:
       - translate
       - starts_with("update")
       - matches("_train")
+      - starts_with("weight_propensity")
 
   - title: Developer tools
     contents:
