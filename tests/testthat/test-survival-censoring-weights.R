@@ -22,21 +22,6 @@ test_that("probability truncation via trunc_probs()", {
   )
 })
 
-test_that("trunc_probs()", {
-  probs_1 <- (0:10) / 20
-  probs_2 <- probs_1
-  probs_2[3] <- NA_real_
-
-  expect_equal(parsnip:::trunc_probs(probs_1, 0), probs_1)
-  expect_equal(parsnip:::trunc_probs(probs_2, 0), probs_2)
-  expect_equal(
-    parsnip:::trunc_probs(probs_1, 0.1),
-    ifelse(probs_1 < 0.05 / 2, 0.05 / 2, probs_1)
-  )
-  expect_equal(min(parsnip:::trunc_probs(probs_2, 0.1), na.rm = TRUE), 0.05 / 2)
-  expect_equal(is.na(parsnip:::trunc_probs(probs_2, 0.1)),is.na(probs_2))
-})
-
 test_that(".filter_eval_time()", {
   times_basic <- 0:10
   expect_equal(
