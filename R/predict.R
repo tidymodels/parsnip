@@ -426,6 +426,10 @@ prepare_data <- function(object, new_data) {
     new_data <- new_data[, colnames(new_data) != "(Intercept)", drop = FALSE]
   }
 
+  if (allow_sparse(object) && inherits(new_data, "dgCMatrix")) {
+    return(new_data)
+  }
+
   fit_interface <- object$spec$method$fit$interface
   switch(
     fit_interface,

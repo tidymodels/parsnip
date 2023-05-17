@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
+
 * `augment()` now works for censored regression models. 
 
 # parsnip 1.1.0
