@@ -3,9 +3,6 @@
 # use of @alias. After the roxygen comments, assign the function by referencing
 # its name in the environment.
 
-#' @include standalone-survival.R
-NULL
-
 surv_ns <- environment(.extract_surv_status)
 
 #' Get survival time
