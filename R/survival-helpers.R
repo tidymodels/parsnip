@@ -1,7 +1,7 @@
-# We'll load the standalone file then capture the environment where the functions
-# reside. We then document them and connect the functions to their docs via the
-# use of @alias. After the roxygen comments, assign the function by referencing
-# its name in the environment.
+# standalone-survival.R is loaded already. We'll capture the environment where
+# the functions of interest reside. We then document them and connect the
+# functions to their docs via the use of @alias. After the roxygen comments,
+# assign the function by referencing its name in the environment.
 
 surv_ns <- environment(.extract_surv_status)
 
