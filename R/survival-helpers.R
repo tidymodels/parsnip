@@ -36,12 +36,12 @@ assign(".extract_surv_status", surv_ns[[".extract_surv_status"]])
 #' @return A two level factor.
 #' @details
 #' The following three cases can occur:
-#'  - **Definitive non-events**: event times (i.e., not censored) are less than
-#'  the evaluation time ("it hasn't happened yet")
-#'  - **Definitive events**: Observed times (censored or not) are greater than
+#'  - **Definitive events**: event times (i.e., not censored) are less than or
+#'  equal to the evaluation time ("it happened before now")
+#'  - **Definitive non-events**: Observed times (censored or not) are greater than
 #'  the evaluation time ("it happens sometime after now").
 #'  - **Ambiguous outcomes**: Observed censored time is less than the evaluation
-#'  time ("maybe it happens, maybe not"). A missing value is returned for these
+#'  time ("maybe it happened, maybe not"). A missing value is returned for these
 #'  observations.
 #' @export
 assign(".time_as_binary_event", surv_ns[[".time_as_binary_event"]])

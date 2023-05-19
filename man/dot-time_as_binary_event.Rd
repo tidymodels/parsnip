@@ -18,12 +18,12 @@ factor with levels \code{"event"} and \code{"non-event"}.
 \details{
 The following three cases can occur:
 \itemize{
-\item \strong{Definitive non-events}: event times (i.e., not censored) are less than
-the evaluation time ("it hasn't happened yet")
-\item \strong{Definitive events}: Observed times (censored or not) are greater than
+\item \strong{Definitive events}: event times (i.e., not censored) are less than or
+equal to the evaluation time ("it happened before now")
+\item \strong{Definitive non-events}: Observed times (censored or not) are greater than
 the evaluation time ("it happens sometime after now").
 \item \strong{Ambiguous outcomes}: Observed censored time is less than the evaluation
-time ("maybe it happens, maybe not"). A missing value is returned for these
+time ("maybe it happened, maybe not"). A missing value is returned for these
 observations.
 }
 }
