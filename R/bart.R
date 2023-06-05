@@ -232,6 +232,9 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
           )
         )
     }
+    if (std_err) {
+      res$.std_error <- apply(post_dist, 2, stats::sd, na.rm = TRUE)
+    }
   }
   res
 }
