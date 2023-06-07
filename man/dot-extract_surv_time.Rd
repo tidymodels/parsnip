@@ -2,7 +2,7 @@
 % Please edit documentation in R/survival-helpers.R
 \name{.extract_surv_time}
 \alias{.extract_surv_time}
-\title{Get survival time}
+\title{Extract survival time}
 \arguments{
 \item{surv}{A single \code{\link[survival:Surv]{survival::Surv()}} object.}
 }
@@ -10,5 +10,5 @@
 A vector when the type is \code{"right"} or \code{"left"} and a tibble otherwise.
 }
 \description{
-Pull out the time component(s) from a \code{\link[survival:Surv]{survival::Surv()}} object.
+Extract the time component(s) from a \code{\link[survival:Surv]{survival::Surv()}} object.
 }

@@ -5,9 +5,9 @@
 
 surv_ns <- environment(.extract_surv_status)
 
-#' Get survival time
+#' Extract survival time
 #'
-#' Pull out the time component(s) from a [survival::Surv()] object.
+#' Extract the time component(s) from a [survival::Surv()] object.
 #' @name .extract_surv_time
 #' @aliases .extract_surv_time
 #' @param surv A single [survival::Surv()] object.
@@ -15,9 +15,9 @@ surv_ns <- environment(.extract_surv_status)
 #' @export
 assign(".extract_surv_time", surv_ns[[".extract_surv_time"]])
 
-#' Get survival status
+#' Extract survival status
 #'
-#' Pull out the status from a [survival::Surv()] object.
+#' Extract the status from a [survival::Surv()] object.
 #' @name .extract_surv_status
 #' @aliases .extract_surv_status
 #' @param surv A single [survival::Surv()] object.
@@ -32,16 +32,20 @@ assign(".extract_surv_status", surv_ns[[".extract_surv_status"]])
 #'
 #' @name .time_as_binary_event
 #' @param surv A single [survival::Surv()] object.
-#' @param eval_time A single numeric value for a landmark time.
+#' @param eval_time A single numeric value for the evaluation time.
 #' @return A two level factor.
 #' @details
 #' The following three cases can occur:
-#'  - **Definitive events**: event times (i.e., not censored) are less than or
-#'  equal to the evaluation time ("it happened before now")
-#'  - **Definitive non-events**: Observed times (censored or not) are greater than
-#'  the evaluation time ("it happens sometime after now").
-#'  - **Ambiguous outcomes**: Observed censored time is less than the evaluation
-#'  time ("maybe it happened, maybe not"). A missing value is returned for these
-#'  observations.
+#'  - **Events**: Evaluation time is greater than or equal to the event time
+#' ("it has already happened").
+#'  - **Non-events**: Evaluation time is less than the observed time, censored
+#'  or not ("nothing has happened yet").
+#'  - **Ambiguous outcomes**: Evaluation time is greater than or equal to the
+#'  observed censored time ("we don't know if anything might have happened by now").
+#'  A missing value is returned for these observations.
+#'
+#' @references  Graf, E., Schmoor, C., Sauerbrei, W., and Schumacher, M. (1999).
+#' "Assessment and Comparison of Prognostic Classification Schemes for Survival Data."
+#' _Statistics in Medicine_, 18, 2529-2545.
 #' @export
 assign(".time_as_binary_event", surv_ns[[".time_as_binary_event"]])

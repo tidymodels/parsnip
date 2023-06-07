@@ -6,7 +6,7 @@
 \arguments{
 \item{surv}{A single \code{\link[survival:Surv]{survival::Surv()}} object.}
 
-\item{eval_time}{A single numeric value for a landmark time.}
+\item{eval_time}{A single numeric value for the evaluation time.}
 }
 \value{
 A two level factor.
@@ -18,12 +18,17 @@ factor with levels \code{"event"} and \code{"non-event"}.
 \details{
 The following three cases can occur:
 \itemize{
-\item \strong{Definitive events}: event times (i.e., not censored) are less than or
-equal to the evaluation time ("it happened before now")
-\item \strong{Definitive non-events}: Observed times (censored or not) are greater than
-the evaluation time ("it happens sometime after now").
-\item \strong{Ambiguous outcomes}: Observed censored time is less than the evaluation
-time ("maybe it happened, maybe not"). A missing value is returned for these
-observations.
+\item \strong{Events}: Evaluation time is greater than or equal to the event time
+("it has already happened").
+\item \strong{Non-events}: Evaluation time is less than the observed time, censored
+or not ("nothing has happened yet").
+\item \strong{Ambiguous outcomes}: Evaluation time is greater than or equal to the
+observed censored time ("we don't know if anything might have happened by now").
+A missing value is returned for these observations.
 }
+}
+\references{
+Graf, E., Schmoor, C., Sauerbrei, W., and Schumacher, M. (1999).
+"Assessment and Comparison of Prognostic Classification Schemes for Survival Data."
+\emph{Statistics in Medicine}, 18, 2529-2545.
 }

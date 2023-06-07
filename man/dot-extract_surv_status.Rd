@@ -2,7 +2,7 @@
 % Please edit documentation in R/survival-helpers.R
 \name{.extract_surv_status}
 \alias{.extract_surv_status}
-\title{Get survival status}
+\title{Extract survival status}
 \arguments{
 \item{surv}{A single \code{\link[survival:Surv]{survival::Surv()}} object.}
 }
@@ -10,5 +10,5 @@
 A numeric vector.
 }
 \description{
-Pull out the status from a \code{\link[survival:Surv]{survival::Surv()}} object.
+Extract the status from a \code{\link[survival:Surv]{survival::Surv()}} object.
 }
