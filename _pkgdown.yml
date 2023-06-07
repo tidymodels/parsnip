@@ -104,4 +104,7 @@ reference:
       - required_pkgs
       - required_pkgs.model_spec
       - req_pkgs
+      - .extract_surv_status
+      - .extract_surv_time
       - .model_param_name_key
+      - .time_as_binary_event
