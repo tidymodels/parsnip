@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,7 @@
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
 <ul><li><p>Fixed bug where sparse data was being coerced to non-sparse format doing <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>.</p></li>
 <li><p><code><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment()</a></code> now works for censored regression models.</p></li>
+<li><p>For BART models with the <code>dbarts</code> engine, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> can now also return the standard error for confidence and prediction intervals (<a href="https://github.com/tidymodels/parsnip/issues/976" class="external-link">#976</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="parsnip-110">parsnip 1.1.0<a class="anchor" aria-label="anchor" href="#parsnip-110"></a></h2><p class="text-muted">CRAN release: 2023-04-12</p>
