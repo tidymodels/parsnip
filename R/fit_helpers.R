@@ -187,11 +187,16 @@ xy_form <- function(object, env, control, ...) {
     control = control,
     ...
   )
-  if (is.vector(env$y)) {
-    data_obj$y_var <- character(0)
+  if (!is.null(env$y_var)) {
+    data_obj$y_var <- env$y_var
   } else {
+    if (is.vector(env$y)) {
+      data_obj$y_var <- character(0)
+    }
+
     data_obj$y_var <- colnames(env$y)
   }
+
   res$preproc <- data_obj[c("x_var", "y_var")]
   res
 }

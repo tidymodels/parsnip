@@ -265,6 +265,7 @@ fit_xy.model_spec <-
         rlang::warn(glue::glue("Engine set to `{object$engine}`."))
       }
     }
+    y_var <- colnames(y)
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {
@@ -278,6 +279,7 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
+    eval_env$y_var <- y_var
     eval_env$weights <- weights_to_numeric(case_weights, object)
 
     # TODO case weights: pass in eval_env not individual elements
