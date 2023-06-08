@@ -1,7 +1,7 @@
 # ---
 # repo: tidymodels/parsnip
 # file: standalone-survival.R
-# last-updated: 2023-02-28
+# last-updated: 2023-05-18
 # license: https://unlicense.org
 # ---
 
@@ -11,7 +11,9 @@
 
 # 2023-02-28:
 # * Initial version
-
+#
+# 2023-05-18
+# * added time to factor conversion
 
 # @param surv A [survival::Surv()] object
 # @details
@@ -20,10 +22,15 @@
 #
 # `.extract_status()` will return the data as 0/1 even if the original object
 # used the legacy encoding of 1/2. See [survival::Surv()].
+#
+# `.time_as_binary_event()` takes a Surv object and converts it to a binary
+# outcome (if possible).
+
 # @return
 # - `.extract_surv_status()` returns a vector.
 # - `.extract_surv_time()` returns a vector when the type is `"right"` or `"left"`
 #    and a tibble otherwise.
+# - `.time_as_binary_event()` returns a two-level factor.
 # - Functions starting with `.is_` or `.check_` return logicals although the
 #   latter will fail when `FALSE`.
 
@@ -85,4 +92,24 @@
   res
 }
 
+.time_as_binary_event <- function(surv, eval_time) {
+  eval_time <- eval_time[!is.na(eval_time)]
+  eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
+  eval_time <- unique(eval_time)
+  if (length(eval_time) != 1 || !is.numeric(eval_time)) {
+    stop("'eval_time' should be a single, complete, finite numeric value.")
+  }
+
+  event_time <- .extract_surv_time(surv)
+  status <- .extract_surv_status(surv)
+  is_event_before_t <- event_time <= eval_time & status == 1
+  # Three possible contributions to the statistic from Graf 1999
+  # Censoring time before eval_time, no contribution (Graf category 3)
+  binary_res <- rep(NA_character_, length(event_time))
+  # A real event prior to eval_time (Graf category 1)
+  binary_res <- ifelse(is_event_before_t, "event", binary_res)
+  # Observed time greater than eval_time (Graf category 2)
+  binary_res <- ifelse(event_time > eval_time, "non-event", binary_res)
+  factor(binary_res, levels = c("event", "non-event"))
+}
 # nocov end
