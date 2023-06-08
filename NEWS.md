@@ -4,6 +4,9 @@
 
 * `augment()` now works for censored regression models. 
 
+* For BART models with the `dbarts` engine, `predict()` can now also return the standard error for confidence and prediction intervals (#976).
+
+
 # parsnip 1.1.0
 
 This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to `fit()` and `predict()` with the package.
