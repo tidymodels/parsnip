@@ -6,7 +6,7 @@
 
 * For BART models with the `dbarts` engine, `predict()` can now also return the standard error for confidence and prediction intervals (#976).
 
-* A few censored regression helper functions were exported: `.extract_surv_status()`, `.extract_surv_time()`, and `.time_as_binary_event()` (#973).
+* A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
 
 
 # parsnip 1.1.0
