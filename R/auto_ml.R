@@ -17,6 +17,7 @@
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting.
 #'
+#' @templateVar modeltype auto_ml
 #' @template spec-details
 #'
 #' @template spec-references

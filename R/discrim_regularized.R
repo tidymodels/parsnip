@@ -33,6 +33,7 @@
 #'  used. Other regularization methods can be used with [discrim_linear()] and
 #'  [discrim_quad()] can used via the `sparsediscrim` engine for those functions.
 #'
+#' @templateVar modeltype discrim_regularized
 #' @template spec-details
 #'
 #' @template spec-references

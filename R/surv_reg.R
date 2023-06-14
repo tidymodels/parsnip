@@ -3,13 +3,10 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' This function is soft-deprecated in favor of `survival_reg()` which uses the
+#' This function is deprecated in favor of `survival_reg()` which uses the
 #' `"censored regression"` mode.
 #'
 #' `surv_reg()` defines a parametric survival model.
-
-#'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("surv_reg")}
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -20,23 +17,18 @@
 #' @param dist A character string for the probability distribution of the
 #'  outcome. The default is "weibull".
 #'
+#' @templateVar modeltype surv_reg
 #' @template spec-details
 #'
 #' @template spec-survival
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("surv_reg")}
-#'
-#' @examples
-#' show_engines("surv_reg")
-#'
-#' surv_reg(mode = "regression", dist = "weibull")
 #' @keywords internal
 #' @export
 surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
 
-  lifecycle::deprecate_soft("0.1.6", "surv_reg()", "survival_reg()")
+  lifecycle::deprecate_warn("0.1.6", "surv_reg()", "survival_reg()")
 
     args <- list(
       dist = enquo(dist)
@@ -114,7 +106,7 @@ survreg_quant <- function(results, object) {
   results <-
     results %>%
     as_tibble() %>%
-    mutate(.row = 1:n) %>%
+    mutate(.row = seq_len(n)) %>%
     gather(.label, .pred, -.row) %>%
     arrange(.row, .label) %>%
     mutate(.quantile = rep(pctl, n)) %>%

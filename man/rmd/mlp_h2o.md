@@ -5,6 +5,8 @@ For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
+
+
 This model has 6 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 200L)

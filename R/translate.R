@@ -106,41 +106,48 @@ get_model_spec <- function(model, mode, engine) {
   env_obj <- grep(model, env_obj, value = TRUE)
 
   res <- list()
-  res$libs <-
-    rlang::env_get(m_env, paste0(model, "_pkgs")) %>%
-    dplyr::filter(engine == !!engine) %>%
-    purrr::pluck("pkg") %>%
-    purrr::pluck(1)
 
-  res$fit <-
-    rlang::env_get(m_env, paste0(model, "_fit")) %>%
-    dplyr::filter(mode == !!mode & engine == !!engine) %>%
-    dplyr::pull(value) %>%
-    purrr::pluck(1)
+  libs <- rlang::env_get(m_env, paste0(model, "_pkgs"))
+  libs <- vctrs::vec_slice(libs$pkg, libs$engine == engine)
+  res$libs <- if (length(libs) > 0) {libs[[1]]} else {NULL}
 
-  pred_code <-
-    rlang::env_get(m_env, paste0(model, "_predict")) %>%
-    dplyr::filter(mode == !!mode & engine == !!engine) %>%
-    dplyr::select(-engine, -mode)
+  fits <- rlang::env_get(m_env, paste0(model, "_fit"))
+  fits <- vctrs::vec_slice(fits$value, fits$mode == mode & fits$engine == engine)
+  res$fit <- if (length(fits) > 0) {fits[[1]]} else {NULL}
 
-  res$pred <- pred_code[["value"]]
-  names(res$pred) <- pred_code$type
+  preds <- rlang::env_get(m_env, paste0(model, "_predict"))
+  where <- preds$mode == mode & preds$engine == engine
+  types <- vctrs::vec_slice(preds$type, where)
+  values <- vctrs::vec_slice(preds$value, where)
+  names(values) <- types
+  res$pred <- values
 
   res
 }
 
 get_args <- function(model, engine) {
   m_env <- get_model_env()
-  rlang::env_get(m_env, paste0(model, "_args")) %>%
-    dplyr::filter(engine == !!engine) %>%
-    dplyr::select(-engine)
+
+  args <- rlang::env_get(m_env, paste0(model, "_args"))
+  args <- vctrs::vec_slice(args, args$engine == engine)
+  args$engine <- NULL
+
+  args
 }
 
 # to replace harmonize
 deharmonize <- function(args, key) {
-  if (length(args) == 0)
+  if (length(args) == 0) {
     return(args)
-  parsn <- tibble(parsnip = names(args), order = seq_along(args))
+  }
+
+  if (nrow(key) == 0) {
+    return(args[integer(0)])
+  }
+
+  parsn <- list(parsnip = names(args), order = seq_along(args))
+  parsn <- tibble::new_tibble(parsn, nrow = length(args))
+
   merged <-
     dplyr::left_join(parsn, key, by = "parsnip") %>%
     dplyr::arrange(order)

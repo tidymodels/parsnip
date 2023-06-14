@@ -23,7 +23,7 @@
 
 \method{predict_classprob}{model_fit}(object, new_data, ...)
 
-\method{predict_hazard}{model_fit}(object, new_data, time, ...)
+\method{predict_hazard}{model_fit}(object, new_data, eval_time, time = deprecated(), ...)
 
 \method{predict_confint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
 
@@ -44,7 +44,15 @@ predict_numeric(object, ...)
   ...
 )
 
-\method{predict_survival}{model_fit}(object, new_data, time, interval = "none", level = 0.95, ...)
+\method{predict_survival}{model_fit}(
+  object,
+  new_data,
+  eval_time,
+  time = deprecated(),
+  interval = "none",
+  level = 0.95,
+  ...
+)
 
 predict_survival(object, ...)
 
@@ -53,28 +61,29 @@ predict_survival(object, ...)
 predict_time(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{model_fit}}
+\item{object}{An object of class \code{model_fit}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 
-\item{...}{Arguments to the underlying model's prediction
-function cannot be passed here (see \code{opts}). There are some
-\code{parsnip} related options that can be passed, depending on the
-value of \code{type}. Possible arguments are:
+\item{...}{Additional \code{parsnip}-related options, depending on the
+value of \code{type}. Arguments to the underlying model's prediction
+function cannot be passed here (use the \code{opts} argument instead).
+Possible arguments are:
 \itemize{
-\item \code{interval}: for \code{type}s of "survival" and "quantile", should
+\item \code{interval}: for \code{type} equal to \code{"survival"} or \code{"quantile"}, should
 interval estimates be added, if available? Options are \code{"none"}
 and \code{"confidence"}.
-\item \code{level}: for \code{type}s of "conf_int", "pred_int", and "survival"
+\item \code{level}: for \code{type} equal to \code{"conf_int"}, \code{"pred_int"}, or \code{"survival"},
 this is the parameter for the tail area of the intervals
 (e.g. confidence level for confidence intervals).
-Default value is 0.95.
-\item \code{std_error}: add the standard error of fit or prediction (on
-the scale of the linear predictors) for \code{type}s of "conf_int"
-and "pred_int". Default value is \code{FALSE}.
-\item \code{quantile}: the quantile(s) for quantile regression
-(not implemented yet)
-\item \code{time}: the time(s) for hazard and survival probability estimates.
+Default value is \code{0.95}.
+\item \code{std_error}: for \code{type} equal to \code{"conf_int"} or \code{"pred_int"}, add
+the standard error of fit or prediction (on the scale of the
+linear predictors). Default value is \code{FALSE}.
+\item \code{quantile}: for \code{type} equal to \code{quantile}, the quantiles of the
+distribution. Default is \code{(1:9)/10}.
+\item \code{eval_time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
+time points at which the survival probability or hazard is estimated.
 }}
 
 \item{level}{A single numeric value between zero and one for the

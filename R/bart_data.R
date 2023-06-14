@@ -140,7 +140,8 @@ set_pred(
         obj = expr(object),
         new_data = expr(new_data),
         type = "conf_int",
-        level = expr(level)
+        level = expr(level),
+        std_err = expr(std_error)
       )
   )
 )
@@ -158,7 +159,8 @@ set_pred(
         obj = expr(object),
         new_data = expr(new_data),
         type = "pred_int",
-        level = expr(level)
+        level = expr(level),
+        std_err = expr(std_error)
       )
   )
 )
@@ -215,7 +217,8 @@ set_pred(
         obj = expr(object),
         new_data = expr(new_data),
         type = "conf_int",
-        level = expr(level)
+        level = expr(level),
+        std_err = expr(std_error)
       )
   )
 )
@@ -233,7 +236,8 @@ set_pred(
         obj = expr(object),
         new_data = expr(new_data),
         type = "pred_int",
-        level = expr(level)
+        level = expr(level),
+        std_err = expr(std_error)
       )
   )
 )
@@ -248,7 +252,9 @@ set_pred(
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
     args =
-      list(obj = quote(object),
-           new_data =  quote(new_data))
+      list(
+        obj = quote(object),
+        new_data =  quote(new_data)
+      )
   )
 )

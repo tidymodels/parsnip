@@ -1,8 +1,3 @@
-# General TODOs
-# Q: think about case weights in each instance below
-
-# TODO write a better deparser for calls to avoid off-screen text and tabs
-
 #' Fit a Model Specification to a Dataset
 #'
 #' `fit()` and `fit_xy()` take a model specification, translate the required
@@ -54,6 +49,12 @@
 #' `options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))`.
 #' See the help page for [stats::contr.treatment()] for more possible contrast
 #' types.
+#'
+#' For models with `"censored regression"` modes, an additional computation is
+#' executed and saved in the parsnip object. The `censor_probs` element contains
+#' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
+#' may be used later to compute inverse probability censoring weights for
+#' performance measures.
 #' @examples
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -114,6 +115,22 @@ fit.model_spec <-
     }
     control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
+
+    if (!inherits(formula, "formula")) {
+      msg <- "The {.arg formula} argument must be a formula, but it is a \\
+              {.cls {class(formula)[1]}}."
+
+      if (inherits(formula, "recipe")) {
+        msg <-
+          c(
+            msg,
+            "i" = "To fit a model with a recipe preprocessor, please use a \\
+                 {.help [workflow](workflows::workflow)}."
+          )
+      }
+
+      cli::cli_abort(msg)
+    }
 
     dots <- quos(...)
 
@@ -206,6 +223,7 @@ fit.model_spec <-
 
         rlang::abort(glue::glue("{interfaces} is unknown."))
       )
+    res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
@@ -247,6 +265,7 @@ fit_xy.model_spec <-
         rlang::warn(glue::glue("Engine set to `{object$engine}`."))
       }
     }
+    y_var <- colnames(y)
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
       if (is.matrix(y)) {
@@ -260,6 +279,7 @@ fit_xy.model_spec <-
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
+    eval_env$y_var <- y_var
     eval_env$weights <- weights_to_numeric(case_weights, object)
 
     # TODO case weights: pass in eval_env not individual elements
@@ -317,6 +337,7 @@ fit_xy.model_spec <-
           ),
         rlang::abort(glue::glue("{interfaces} is unknown."))
       )
+    res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
@@ -342,20 +363,6 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 }
 
 # ------------------------------------------------------------------------------
-
-check_control <- function(x) {
-  if (!is.list(x))
-    rlang::abort("control should be a named list.")
-  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
-    rlang::abort("control should be a named list with elements 'verbosity' and 'catch'.")
-  # based on ?is.integer
-  int_check <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
-  if (!int_check(x$verbosity))
-    rlang::abort("verbosity should be an integer.")
-  if (!is.logical(x$catch))
-    rlang::abort("catch should be a logical.")
-  x
-}
 
 inher <- function(x, cls, cl) {
   if (!is.null(x) && !inherits(x, cls)) {

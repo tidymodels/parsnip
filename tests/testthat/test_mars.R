@@ -189,9 +189,8 @@ test_that('submodel prediction', {
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
 
-  expect_error(
-    multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5),
-    "Did you mean"
+  expect_snapshot(error = TRUE,
+    multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5)
   )
 })
 

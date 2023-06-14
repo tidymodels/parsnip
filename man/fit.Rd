@@ -97,6 +97,12 @@ preferred method. For example, you might set it to:
 \code{options(contrasts = c(unordered = "contr.helmert", ordered = "contr.poly"))}.
 See the help page for \code{\link[stats:contrast]{stats::contr.treatment()}} for more possible contrast
 types.
+
+For models with \code{"censored regression"} modes, an additional computation is
+executed and saved in the parsnip object. The \code{censor_probs} element contains
+a "reverse Kaplan-Meier" curve that models the probability of censoring. This
+may be used later to compute inverse probability censoring weights for
+performance measures.
 }
 \examples{
 # Although `glm()` only has a formula interface, different

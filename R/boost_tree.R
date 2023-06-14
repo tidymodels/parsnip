@@ -39,6 +39,7 @@
 #' @param stop_iter The number of iterations without improvement before
 #'   stopping (specific engines only).
 #'
+#' @templateVar modeltype boost_tree
 #' @template spec-details
 #'
 #' @template spec-references
@@ -399,7 +400,7 @@ xgb_predict <- function(object, new_data, ...) {
   res <- predict(object, new_data, ...)
 
   x <- switch(
-    object$params$objective,
+    object$params$objective %||% 3L,
     "binary:logitraw" = stats::binomial()$linkinv(res),
     "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
     res)
@@ -433,7 +434,7 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
     if (validation > 0) {
       # Split data
       m <- floor(n * (1 - validation)) + 1
-      trn_index <- sample(1:n, size = max(m, 2))
+      trn_index <- sample(seq_len(n), size = max(m, 2))
       val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
       watch_list <- list(validation = val_data)
 
@@ -479,10 +480,6 @@ get_event_level <- function(model_spec){
 #' @param trees An integer vector for the number of trees in the ensemble.
 multi_predict._xgb.Booster <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata")) {
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-    }
-
     if (is.null(trees)) {
       trees <- object$fit$nIter
     }
@@ -495,8 +492,10 @@ multi_predict._xgb.Booster <-
         type <- "numeric"
     }
 
-    res <- map_df(trees, xgb_by_tree, object = object, new_data = new_data,
-                  type = type, ...)
+    res <-
+      map(trees, xgb_by_tree, object = object, new_data = new_data,
+          type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
@@ -527,7 +526,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
     nms <- names(pred)
   }
   pred[["trees"]] <- tree
-  pred[[".row"]] <- 1:nrow(new_data)
+  pred[[".row"]] <- seq_len(nrow(new_data))
   pred[, c(".row", "trees", nms)]
 }
 
@@ -607,9 +606,6 @@ C5.0_train <-
 #' @rdname multi_predict
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
     if (is.null(trees))
       trees <- min(object$fit$trials)
     trees <- sort(trees)
@@ -618,8 +614,9 @@ multi_predict._C5.0 <-
       type <- "class"
 
     res <-
-      map_df(trees, C50_by_tree, object = object,
-             new_data = new_data, type = type, ...)
+      map(trees, C50_by_tree, object = object,
+          new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL
@@ -638,7 +635,7 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   }
   nms <- names(pred)
   pred[["trees"]] <- tree
-  pred[[".row"]] <- 1:nrow(new_data)
+  pred[[".row"]] <- seq_len(nrow(new_data))
   pred[, c(".row", "trees", nms)]
 }
 

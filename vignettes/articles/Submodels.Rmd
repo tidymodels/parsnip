@@ -98,7 +98,7 @@ fold_1_df
 
 For two samples, what do these look like over trees?
 
-```{r prob-plot}
+```{r prob-plot, fig.alt = "Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees."}
 fold_1_df %>% 
   dplyr::filter(.row %in% c(1, 88)) %>% 
   ggplot(aes(x = trees, y = .pred_No, col = Attrition, group = .row)) + 
@@ -109,7 +109,7 @@ fold_1_df %>%
 
 What does performance look like over trees (using the area under the ROC curve)? 
 
-```{r auc-plot}
+```{r auc-plot, fig.alt = "A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees."}
 fold_1_df %>% 
   group_by(trees) %>% 
   roc_auc(truth = Attrition, .pred_No) %>% 

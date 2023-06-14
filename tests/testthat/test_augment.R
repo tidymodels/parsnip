@@ -6,27 +6,31 @@ test_that('regression models', {
 
   expect_equal(
     colnames(augment(reg_form, head(mtcars))),
-    c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb", ".pred", ".resid")
+    c( ".pred", ".resid",
+       "mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
+      "gear", "carb")
   )
   expect_equal(nrow(augment(reg_form, head(mtcars))), 6)
   expect_equal(
     colnames(augment(reg_form, head(mtcars[, -1]))),
-    c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb", ".pred")
+    c(".pred",
+    "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
+      "gear", "carb")
   )
   expect_equal(nrow(augment(reg_form, head(mtcars[, -1]))), 6)
 
   expect_equal(
     colnames(augment(reg_xy, head(mtcars))),
-    c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb", ".pred")
+    c(".pred",
+      "mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
+      "gear", "carb")
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars))), 6)
   expect_equal(
     colnames(augment(reg_xy, head(mtcars[, -1]))),
-    c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb", ".pred")
+    c(".pred",
+      "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
+      "gear", "carb")
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars[, -1]))), 6)
 
@@ -49,23 +53,23 @@ test_that('classification models', {
 
   expect_equal(
     colnames(augment(cls_form, head(two_class_dat))),
-    c("A", "B", "Class", ".pred_class", ".pred_Class1", ".pred_Class2")
+    c(".pred_class", ".pred_Class1", ".pred_Class2", "A", "B", "Class")
   )
   expect_equal(nrow(augment(cls_form, head(two_class_dat))), 6)
   expect_equal(
     colnames(augment(cls_form, head(two_class_dat[, -3]))),
-    c("A", "B", ".pred_class", ".pred_Class1", ".pred_Class2")
+    c(".pred_class", ".pred_Class1", ".pred_Class2", "A", "B")
   )
   expect_equal(nrow(augment(cls_form, head(two_class_dat[, -3]))), 6)
 
   expect_equal(
     colnames(augment(cls_xy, head(two_class_dat))),
-    c("A", "B", "Class", ".pred_class", ".pred_Class1", ".pred_Class2")
+    c(".pred_class", ".pred_Class1", ".pred_Class2", "A", "B", "Class")
   )
   expect_equal(nrow(augment(cls_xy, head(two_class_dat))), 6)
   expect_equal(
     colnames(augment(cls_xy, head(two_class_dat[, -3]))),
-    c("A", "B", ".pred_class", ".pred_Class1", ".pred_Class2")
+    c(".pred_class", ".pred_Class1", ".pred_Class2", "A", "B")
   )
   expect_equal(nrow(augment(cls_xy, head(two_class_dat[, -3]))), 6)
 
@@ -81,7 +85,7 @@ test_that('augment for model without class probabilities', {
 
   expect_equal(
     colnames(augment(cls_form, head(two_class_dat))),
-    c("A", "B", "Class", ".pred_class")
+    c(".pred_class", "A", "B", "Class")
   )
   expect_equal(nrow(augment(cls_form, head(two_class_dat))), 6)
 

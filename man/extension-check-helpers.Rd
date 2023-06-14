@@ -48,7 +48,7 @@ specified the engine or mode, respectively.
 }
 
 to determine whether a model is well-specified. See
-\code{parsnip:::read_model_info_table()} for this table.
+\code{parsnip:::model_info_table} for this table.
 
 \code{spec_is_loaded()} checks only against the current parsnip model environment.
 

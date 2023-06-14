@@ -12,8 +12,8 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{predictor_prop}: Proportion of Predictors (type: double, default:
-see below)
+\item \code{predictor_prop}: Proportion of Predictors (type: double, default: see
+below)
 \item \code{num_comp}: # Components (type: integer, default: 2L)
 }
 }
@@ -46,8 +46,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
 \code{\link[plsmod:pls_fit]{plsmod::pls_fit()}} is a function that:
 \itemize{
 \item Determines the number of predictors in the data.
-\item Adjusts \code{num_comp} if the value is larger than the number of
-factors.
+\item Adjusts \code{num_comp} if the value is larger than the number of factors.
 \item Determines whether sparsity is required based on the value of
 \code{predictor_prop}.
 \item Sets the \code{keepX} argument of \code{mixOmics::spls()} for sparse models.

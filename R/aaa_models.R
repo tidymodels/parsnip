@@ -37,12 +37,8 @@ pred_types <-
 
 # ------------------------------------------------------------------------------
 
-read_model_info_table <- function() {
-  model_info_table <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip"))
-
-  model_info_table
-}
+model_info_table <-
+  utils::read.delim(system.file("models.tsv", package = "parsnip"))
 
 # ------------------------------------------------------------------------------
 
@@ -224,11 +220,21 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
 
   model_info <- rlang::env_get(get_model_env(), cls)
 
+  # Initially, check if the specification is well-defined in the current model
+  # parsnip model environment. If so, return early.
+  # If not, troubleshoot more precisely and raise a relevant error.
+  model_env_match <-
+    vctrs::vec_slice(model_info, model_info$engine == eng & model_info$mode == mode)
+
+  if (vctrs::vec_size(model_env_match) == 1) {
+    return(invisible(NULL))
+  }
+
   # Cases where the model definition is in parsnip but all of the engines
   # are contained in a different package
   model_info_parsnip_only <-
     dplyr::inner_join(
-      read_model_info_table() %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
+      model_info_table %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
       model_info %>% dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
@@ -423,6 +429,7 @@ spec_has_pred_type <- function(object, type) {
   possible_preds <- names(object$spec$method$pred)
   any(possible_preds == type)
 }
+
 check_spec_pred_type <- function(object, type) {
   if (!spec_has_pred_type(object, type)) {
     possible_preds <- names(object$spec$method$pred)
@@ -435,14 +442,12 @@ check_spec_pred_type <- function(object, type) {
   invisible(NULL)
 }
 
-
 check_pkg_val <- function(pkg) {
   if (rlang::is_missing(pkg) || length(pkg) != 1 || !is.character(pkg)) {
     rlang::abort("Please supply a single character value for the package name.")
   }
   invisible(NULL)
 }
-
 
 check_interface_val <- function(x) {
   exp_interf <- c("data.frame", "formula", "matrix")
@@ -565,38 +570,38 @@ set_new_model <- function(model) {
   current <- get_model_env()
 
   set_env_val("models", unique(c(current$models, model)))
-  set_env_val(model, dplyr::tibble(engine = character(0), mode = character(0)))
+  set_env_val(model, tibble::new_tibble(list(engine = character(0), mode = character(0))))
   set_env_val(
     paste0(model, "_pkgs"),
-    dplyr::tibble(engine = character(0), pkg = list(), mode = character(0))
+    tibble::new_tibble(list(engine = character(0), pkg = list(), mode = character(0)))
   )
   set_env_val(paste0(model, "_modes"), "unknown")
   set_env_val(
     paste0(model, "_args"),
-    dplyr::tibble(
+    tibble::new_tibble(list(
       engine = character(0),
       parsnip = character(0),
       original = character(0),
       func = list(),
       has_submodel = logical(0)
-    )
+    ))
   )
   set_env_val(
     paste0(model, "_fit"),
-    dplyr::tibble(
+    tibble::new_tibble(list(
       engine = character(0),
       mode = character(0),
       value = list()
-    )
+    ))
   )
   set_env_val(
     paste0(model, "_predict"),
-    dplyr::tibble(
+    tibble::new_tibble(list(
       engine = character(0),
       mode = character(0),
       type = character(0),
       value = list()
-    )
+    ))
   )
 
   invisible(NULL)
@@ -635,7 +640,7 @@ set_model_engine <- function(model, mode, eng) {
   check_eng_val(eng)
   check_mode_for_new_engine(model, eng, mode)
 
-  new_eng <- dplyr::tibble(engine = eng, mode = mode)
+  new_eng <- tibble::new_tibble(list(engine = eng, mode = mode), nrow = 1)
   old_eng <- get_from_env(model)
 
   engs <-
@@ -664,13 +669,13 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   old_args <- get_from_env(paste0(model, "_args"))
 
   new_arg <-
-    dplyr::tibble(
+    tibble::new_tibble(list(
       engine = eng,
       parsnip = parsnip,
       original = original,
       func = list(func),
       has_submodel = has_submodel
-    )
+    ), nrow = 1)
 
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
@@ -843,11 +848,11 @@ set_fit <- function(model, mode, eng, value) {
   check_unregistered(model, mode, eng)
 
   new_fit <-
-    dplyr::tibble(
+    tibble::new_tibble(list(
       engine = eng,
       mode = mode,
       value = list(value)
-    )
+    ), nrow = 1)
 
   if (!is_discordant_info(model, mode, eng, new_fit)) {
     return(invisible(NULL))
@@ -894,11 +899,9 @@ set_pred <- function(model, mode, eng, type, value) {
   model_info <- get_from_env(model)
 
   new_pred <-
-    dplyr::tibble(
-      engine = eng,
-      mode = mode,
-      type = type,
-      value = list(value)
+    tibble::new_tibble(
+      list(engine = eng, mode = mode, type = type, value = list(value)),
+      nrow = 1
     )
 
   pred_check <- is_discordant_info(model, mode, eng, new_pred, pred_type = type, component = "predict")
@@ -954,10 +957,11 @@ show_model_info <- function(model) {
     cat(" engines: \n")
 
     weight_info <-
-      purrr::map_df(
+      purrr::map(
         model,
         ~ get_from_env(paste0(.x, "_fit")) %>% mutate(model = .x)
       ) %>%
+      purrr::list_rbind() %>%
       dplyr::mutate(protect = map(value, ~ .x$protect)) %>%
       dplyr::select(-value) %>%
       dplyr::mutate(
@@ -1094,7 +1098,7 @@ set_encoding <- function(model, mode, eng, options) {
   check_mode_val(mode)
   check_encodings(options)
 
-  keys   <- tibble::tibble(model = model, engine = eng, mode = mode)
+  keys   <- tibble::new_tibble(list(model = model, engine = eng, mode = mode), nrow = 1)
   options <- tibble::as_tibble(options)
   new_values <- dplyr::bind_cols(keys, options)
 

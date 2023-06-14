@@ -1,13 +1,13 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.0.3.9000
+Version: 1.1.0.9003
 Authors@R: c(
-    person("Max", "Kuhn", , "max@rstudio.com", role = c("aut", "cre")),
-    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
-    person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = "ctb"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Max", "Kuhn", , "max@posit.co", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
+    person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = "ctb"),
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
-Maintainer: Max Kuhn <max@rstudio.com>
+Maintainer: Max Kuhn <max@posit.co>
 Description: A common interface is provided to allow users to specify a
     model without having to remember the different argument names across
     different functions or computational engines (e.g. 'R', 'Spark',
@@ -17,10 +17,10 @@ URL: https://github.com/tidymodels/parsnip,
     https://parsnip.tidymodels.org/
 BugReports: https://github.com/tidymodels/parsnip/issues
 Depends:
-    R (>= 2.10)
+    R (>= 3.5)
 Imports: 
     cli,
-    dplyr (>= 0.8.0.1),
+    dplyr (>= 1.1.0),
     generics (>= 0.1.2),
     ggplot2,
     globals,
@@ -30,13 +30,13 @@ Imports:
     magrittr,
     pillar,
     prettyunits,
-    purrr,
+    purrr (>= 1.0.0),
     rlang (>= 0.3.1),
     stats,
     tibble (>= 2.1.1),
-    tidyr (>= 1.0.0),
+    tidyr (>= 1.3.0),
     utils,
-    vctrs (>= 0.4.1),
+    vctrs (>= 0.6.0),
     withr
 Suggests: 
     C50,
@@ -54,6 +54,7 @@ Suggests:
     mgcv,
     modeldata,
     nlme,
+    prodlim,
     ranger (>= 0.12.0),
     remotes,
     rmarkdown,
@@ -75,6 +76,6 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.2.3
 Remotes:  
     tidymodels/hardhat@extract_fit_time

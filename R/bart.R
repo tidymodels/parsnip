@@ -35,6 +35,7 @@
 #' terminal node for different values of these parameters.
 #'
 #'
+#' @templateVar modeltype bart
 #' @template spec-details
 #'
 #' @template spec-references
@@ -230,6 +231,9 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
             paste0(".pred_upper_", obj$lvl)
           )
         )
+    }
+    if (std_err) {
+      res$.std_error <- apply(post_dist, 2, stats::sd, na.rm = TRUE)
     }
   }
   res

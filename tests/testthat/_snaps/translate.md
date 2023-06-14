@@ -512,17 +512,6 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glmnet", path_values = 4:2))
-    Condition
-      Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
-
----
-
-    Code
       translate_args(mixture %>% set_engine("spark"))
     Output
       $x
@@ -606,6 +595,29 @@
       $nlambda
       <quosure>
       expr: ^10
+      env:  empty
+      
+      $family
+      [1] "gaussian"
+      
+
+---
+
+    Code
+      translate_args(penalty %>% set_engine("glmnet", path_values = 4:2))
+    Output
+      $x
+      missing_arg()
+      
+      $y
+      missing_arg()
+      
+      $weights
+      missing_arg()
+      
+      $lambda
+      <quosure>
+      expr: ^4:2
       env:  empty
       
       $family
@@ -2130,7 +2142,7 @@
       .model_param_name_key(linear_reg())
     Output
       # A tibble: 0 x 3
-      # ... with 3 variables: user <chr>, parsnip <chr>, engine <chr>
+      # i 3 variables: user <chr>, parsnip <chr>, engine <chr>
 
 ---
 

@@ -143,8 +143,7 @@ time.
 123-140
 \item Hothorn T, Lausen B, Benner A, Radespiel-Troeger M. 2004. Bagging
 Survival Trees. \emph{Statistics in Medicine}, 23(1), 77–91.
-\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}.
-Springer.
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

@@ -84,7 +84,6 @@ test_that("arguments (linear_reg)", {
   expect_snapshot(translate_args(basic %>% set_engine("spark")))
   expect_snapshot(translate_args(basic %>% set_engine("spark", max_iter = 20)))
   expect_snapshot(translate_args(basic %>% set_engine("glmnet")), error = TRUE)
-  expect_snapshot(translate_args(basic %>% set_engine("glmnet", path_values = 4:2)), error = TRUE)
 
   expect_snapshot(translate_args(mixture %>% set_engine("spark")))
   expect_snapshot(translate_args(mixture_v %>% set_engine("spark")))
@@ -92,6 +91,7 @@ test_that("arguments (linear_reg)", {
 
   expect_snapshot(translate_args(penalty %>% set_engine("glmnet")))
   expect_snapshot(translate_args(penalty %>% set_engine("glmnet", nlambda = 10)))
+  expect_snapshot(translate_args(penalty %>% set_engine("glmnet", path_values = 4:2)))
   expect_snapshot(translate_args(penalty %>% set_engine("spark")))
 })
 
@@ -309,4 +309,38 @@ test_that("translate tuning paramter names", {
   expect_snapshot_error(.model_param_name_key(1))
 })
 
+# ------------------------------------------------------------------------------
 
+test_that("get_model_spec helper", {
+  mod1 <- get_model_spec("linear_reg", "regression", "lm")
+
+  expect_type(mod1, "list")
+
+  expect_type(mod1$libs, "character")
+  expect_length(mod1$libs, 1)
+  expect_equal(mod1$libs, "stats")
+
+  expect_type(mod1$fit, "list")
+  expect_length(mod1$fit, 4)
+  expect_equal(names(mod1$fit), c("interface", "protect", "func", "defaults"))
+
+  expect_type(mod1$pred, "list")
+  expect_length(mod1$pred, 4)
+  expect_equal(names(mod1$pred), c("numeric", "conf_int", "pred_int", "raw"))
+
+  expect_type(mod1$pred$numeric, "list")
+  expect_length(mod1$pred$numeric, 4)
+  expect_equal(names(mod1$pred$numeric), c("pre", "post", "func", "args"))
+
+  expect_type(mod1$pred$conf_int, "list")
+  expect_length(mod1$pred$conf_int, 4)
+  expect_equal(names(mod1$pred$conf_int), c("pre", "post", "func", "args"))
+
+  expect_type(mod1$pred$pred_int, "list")
+  expect_length(mod1$pred$pred_int, 4)
+  expect_equal(names(mod1$pred$pred_int), c("pre", "post", "func", "args"))
+
+  expect_type(mod1$pred$raw, "list")
+  expect_length(mod1$pred$raw, 4)
+  expect_equal(names(mod1$pred$raw), c("pre", "post", "func", "args"))
+})

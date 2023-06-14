@@ -1,5 +1,70 @@
 # parsnip (development version)
 
+* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
+
+* `augment()` now works for censored regression models. 
+
+* For BART models with the `dbarts` engine, `predict()` can now also return the standard error for confidence and prediction intervals (#976).
+
+* A few censored regression helper functions were exported: `.extract_surv_status()`, `.extract_surv_time()`, and `.time_as_binary_event()` (#973).
+
+
+# parsnip 1.1.0
+
+This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to `fit()` and `predict()` with the package.
+
+## Improvements to `"glmnet"` engine interfaces
+
+* glmnet models fitted with base-R family objects are now supported for `linear_reg()`, `logistic_reg()`, and `multinomial_reg()` (#890).
+
+* `multi_predict()` methods for `linear_reg()`, `logistic_reg()`, and `multinom_reg()` models fitted with the `"glmnet"` engine now check the `type` better and error accordingly (#900).
+
+* `.organize_glmnet_pred()` now expects predictions for a single penalty value (#876).
+
+## Survival analysis
+
+* The `time` argument to `predict_survival()` and `predict_hazard()` is deprecated in favor of the new `eval_time` argument (#936).
+
+* Added several internal functions (to help work with `Surv` objects) as a standalone file that can be used in other packages via `usethis::use_standalone("tidymodels/parsnip")`. These changes provide tooling for downstream packages to handle inverse probability censoring weights (#893, #897, #937).
+
+* An internal method for generating inverse probability of censoring weights (IPCW) of Graf _et al_ (1999) is available via `.censoring_weights_graf()`. 
+
+## Bug fixes
+
+* Made `fit()` behave consistently with respect to missingness in the classification setting. Previously, `fit()` erroneously raised an error about the class of the outcome when there were no complete cases, and now always passes along complete cases to be handled by the modeling function (#888).
+
+* Fixed bug where model fits with `engine = "earth"` would fail when the package's namespace hadn't been attached (#251).
+
+* Fixed bug where model fits with factor predictors and `engine = "kknn"` would fail when the package's namespace hadn't been attached (#264).
+
+* Fixed bug with prediction from a boosted tree model fitted with `"xgboost"` using a custom objective function (#875).
+
+## Other changes
+
+* Implemented a number of optimizations in parsnip's backend that [substantially decrease evaluation time](https://www.simonpcouch.com/blog/speedups-2023/#parsnip) to `fit()` and `predict()` (#901, #902, #910, #921, #929, #923, #931, #932, #933).
+
+* `logistic_reg()` will now warn at `fit()` when the outcome has more than two levels (#545).
+
+* Rather than being implemented in each method, the check for the `new_data` argument being mistakenly passed as `newdata` to `multi_predict()` now happens in the generic. Packages re-exporting the `multi_predict()` generic and implementing now-duplicate checks may see new failures and can remove their own analogous checks. This check already existed in all `predict()` methods (via `predict.model_fit()`) and all parsnip `multi_predict()` methods (#525).
+
+* Functions now indicate what class the outcome was if the outcome is the wrong class (#887).
+
+* The minimum version for R is now 3.5 (#926).
+
+* Moved forward with the deprecation of `req_pkgs()` in favor of `required_pkgs()`. The function will now error (#871).
+
+* Transitioned all soft-deprecations that were at least a year old to warn-deprecations. These changes apply to `fit_control()`, `surv_reg()`, `varying()`, `varying_args()`, and the `"liquidSVM"` engine.
+
+* Various bug fixes and improvements to documentation.
+
+
+# parsnip 1.0.4
+
+* For censored regression models, a "reverse Kaplan-Meier" curve is computed for the censoring distribution. This can be used when evaluating this type of model (#855).
+
+* The model specification methods for `generics::tune_args()` and 
+  `generics::tunable()` are now registered unconditionally (tidymodels/workflows#192).
+
 # parsnip 1.0.3
 
 * Adds documentation and tuning infrastructure for the new `flexsurvspline` engine for the `survival_reg()` model specification from the `censored` package (@mattwarkentin, #831).

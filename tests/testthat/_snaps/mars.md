@@ -14,3 +14,11 @@
       Computational engine: earth 
       
 
+# submodel prediction
+
+    Code
+      multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5)
+    Condition
+      Error in `multi_predict()`:
+      ! Please use `new_data` instead of `newdata`.
+

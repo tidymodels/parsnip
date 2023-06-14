@@ -64,11 +64,10 @@ are not required for this model.
 \item Quinlan R (1992). “Learning with Continuous Classes.” Proceedings of
 the 5th Australian Joint Conference On Artificial Intelligence,
 pp. 343-348.
-\item Quinlan R (1993).”Combining Instance-Based and Model-Based
-Learning.” Proceedings of the Tenth International Conference on
-Machine Learning, pp. 236-243.
-\item Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}.
-Springer.
+\item Quinlan R (1993).”Combining Instance-Based and Model-Based Learning.”
+Proceedings of the Tenth International Conference on Machine Learning,
+pp. 236-243.
+\item Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}. Springer.
 }
 }
 }

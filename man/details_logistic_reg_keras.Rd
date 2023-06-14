@@ -78,8 +78,8 @@ for \code{logistic_reg()} with the \code{"keras"} engine.
 
 \subsection{References}{
 \itemize{
-\item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased
-Estimation for Nonorthogonal Problems}. Technometrics, 42(1), 80-86.
+\item Hoerl, A., & Kennard, R. (2000). \emph{Ridge Regression: Biased Estimation
+for Nonorthogonal Problems}. Technometrics, 42(1), 80-86.
 }
 }
 }

@@ -37,9 +37,9 @@ required_pkgs.model_fit <- function(x, infra = TRUE, ...) {
 
 get_pkgs <- function(x, infra) {
   cls <- class(x)[1]
-  pkgs <-
-    get_from_env(paste0(cls, "_pkgs")) %>%
-    dplyr::filter(engine == x$engine)
+  pkgs <- get_from_env(paste0(cls, "_pkgs"))
+  pkgs <- vctrs::vec_slice(pkgs, pkgs$engine == x$engine)
+
   if (length(pkgs$pkg) == 0) {
     res <- character(0)
   } else {

@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# parsnip <a href='https://parsnip.tidymodels.org'><img src='man/figures/logo.png' style='float: right' height="139" /></a>
+# parsnip <a href="https://parsnip.tidymodels.org/"><img src="man/figures/logo.png" align="right" height="138" alt="a drawing of a parsnip on a beige background" /></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/tidymodels/parsnip/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/parsnip/actions)
-[![Coverage
-status](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://codecov.io/github/tidymodels/parsnip?branch=main)
+[![R-CMD-check](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
@@ -30,8 +30,8 @@ install.packages("tidymodels")
 install.packages("parsnip")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidymodels/parsnip")
+# install.packages("pak")
+pak::pak("tidymodels/parsnip")
 ```
 
 ## Getting started
@@ -77,22 +77,22 @@ between implementations.
 
 In this example:
 
--   the **type** of model is “random forest”,
--   the **mode** of the model is “regression” (as opposed to
-    classification, etc), and
--   the computational **engine** is the name of the R package.
+- the **type** of model is “random forest”,
+- the **mode** of the model is “regression” (as opposed to
+  classification, etc), and
+- the computational **engine** is the name of the R package.
 
 The goals of parsnip are to:
 
--   Separate the definition of a model from its evaluation.
--   Decouple the model specification from the implementation (whether
-    the implementation is in R, spark, or something else). For example,
-    the user would call `rand_forest` instead of `ranger::ranger` or
-    other specific packages.
--   Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
-    users only need to remember a single name. This will help *across*
-    model types too so that `trees` will be the same argument across
-    random forest as well as boosting or bagging.
+- Separate the definition of a model from its evaluation.
+- Decouple the model specification from the implementation (whether the
+  implementation is in R, spark, or something else). For example, the
+  user would call `rand_forest` instead of `ranger::ranger` or other
+  specific packages.
+- Harmonize argument names (e.g. `n.trees`, `ntrees`, `trees`) so that
+  users only need to remember a single name. This will help *across*
+  model types too so that `trees` will be the same argument across
+  random forest as well as boosting or bagging.
 
 Using the example above, the parsnip approach would be:
 
@@ -166,18 +166,18 @@ This project is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
--   For questions and discussions about tidymodels packages, modeling,
-    and machine learning, please [post on RStudio
-    Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
+- For questions and discussions about tidymodels packages, modeling, and
+  machine learning, please [post on RStudio
+  Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
--   If you think you have encountered a bug, please [submit an
-    issue](https://github.com/tidymodels/parsnip/issues).
+- If you think you have encountered a bug, please [submit an
+  issue](https://github.com/tidymodels/parsnip/issues).
 
--   Either way, learn how to create and share a
-    [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
-    (a minimal, reproducible example), to clearly communicate about your
-    code.
+- Either way, learn how to create and share a
+  [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+  (a minimal, reproducible example), to clearly communicate about your
+  code.
 
--   Check out further details on [contributing guidelines for tidymodels
-    packages](https://www.tidymodels.org/contribute/) and [how to get
-    help](https://www.tidymodels.org/help/).
+- Check out further details on [contributing guidelines for tidymodels
+  packages](https://www.tidymodels.org/contribute/) and [how to get
+  help](https://www.tidymodels.org/help/).

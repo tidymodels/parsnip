@@ -22,6 +22,7 @@
 #' @param dist_power A single number for the parameter used in
 #' calculating Minkowski distance.
 #'
+#' @templateVar modeltype nearest_neighbor
 #' @template spec-details
 #'
 #' @template spec-references
@@ -120,6 +121,7 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
   arg_vals <- x$method$fit$args
 
   if (engine == "kknn") {
+    load_libs(x, quiet = TRUE, attach = TRUE)
 
     if (!any(names(arg_vals) == "ks") || is_missing_arg(arg_vals$ks)) {
       arg_vals$ks <- 5
@@ -147,9 +149,6 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 #' @export
 multi_predict._train.kknn <-
   function(object, new_data, type = NULL, neighbors = NULL, ...) {
-    if (any(names(enquos(...)) == "newdata"))
-      rlang::abort("Did you mean to use `new_data` instead of `newdata`?")
-
     if (is.null(neighbors))
       neighbors <- rlang::eval_tidy(object$fit$call$ks)
     neighbors <- sort(neighbors)
@@ -162,8 +161,9 @@ multi_predict._train.kknn <-
     }
 
     res <-
-      purrr::map_df(neighbors, knn_by_k, object = object,
-                    new_data = new_data, type = type, ...)
+      purrr::map(neighbors, knn_by_k, object = object,
+                 new_data = new_data, type = type, ...) %>%
+      purrr::list_rbind()
     res <- dplyr::arrange(res, .row, neighbors)
     res <- split(res[, -1], res$.row)
     names(res) <- NULL

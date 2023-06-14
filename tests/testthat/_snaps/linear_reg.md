@@ -15,3 +15,11 @@
       Computational engine: glmnet 
       
 
+# newdata error trapping
+
+    Code
+      predict(res_xy, newdata = hpc[1:3, num_pred])
+    Condition
+      Error in `predict()`:
+      ! Please use `new_data` instead of `newdata`.
+

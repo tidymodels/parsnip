@@ -15,6 +15,7 @@
 #' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "censored regression".
 #'
+#' @templateVar modeltype proportional_hazards
 #' @template spec-details
 #'
 #' @template spec-survival
@@ -86,12 +87,12 @@ translate.proportional_hazards <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   if (engine == "glmnet") {
-    # See discussion in https://github.com/tidymodels/parsnip/issues/195
-    x$method$fit$args$lambda <- NULL
+    # See https://parsnip.tidymodels.org/reference/glmnet-details.html
+    .check_glmnet_penalty_fit(x)
+    x <- set_glmnet_penalty_path(x)
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-    .check_glmnet_penalty_fit(x)
   }
 
   x
