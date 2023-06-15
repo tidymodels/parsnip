@@ -132,10 +132,13 @@ extract_parameter_dials.model_spec <- function(x, parameter, ...) {
 
 #' @export
 #' @rdname extract-parsnip
-extract_fit_time.model_fit <- function(x, ...) {
+extract_fit_time.model_fit <- function(x, summarize = FALSE, ...) {
+  if (summarize == TRUE) {
+    rlang::abort("`summarize = TRUE` is not supported for `model_fit` objects.")
+  }
+
   dplyr::tibble(
     id = class(x$spec)[1],
-    part = "fit",
     time = x$elapsed$elapsed[["elapsed"]]
   )
 }
