@@ -18,6 +18,9 @@
 #'
 #' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
 #' @param parameter A single string for the parameter ID.
+#' @param summarize A logical for whether the elapsed fit time should be
+#'   returned as a single row or multiple rows. Doesn't support `FALSE` for
+#'   parsnip models.
 #' @param ... Not currently used.
 #' @details
 #' Extracting the underlying engine fit can be helpful for describing the
@@ -132,9 +135,11 @@ extract_parameter_dials.model_spec <- function(x, parameter, ...) {
 
 #' @export
 #' @rdname extract-parsnip
-extract_fit_time.model_fit <- function(x, summarize = FALSE, ...) {
-  if (summarize == TRUE) {
-    rlang::abort("`summarize = TRUE` is not supported for `model_fit` objects.")
+extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
+  if (summarize == FALSE) {
+    rlang::abort(
+      "`summarize = FALSE` is not supported for `model_fit` objects."
+    )
   }
 
   dplyr::tibble(

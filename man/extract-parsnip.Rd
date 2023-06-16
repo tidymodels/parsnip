@@ -17,7 +17,7 @@
 
 \method{extract_parameter_dials}{model_spec}(x, parameter, ...)
 
-\method{extract_fit_time}{model_fit}(x, summarize = FALSE, ...)
+\method{extract_fit_time}{model_fit}(x, summarize = TRUE, ...)
 }
 \arguments{
 \item{x}{A parsnip \code{model_fit} object or a parsnip \code{model_spec} object.}
@@ -25,6 +25,10 @@
 \item{...}{Not currently used.}
 
 \item{parameter}{A single string for the parameter ID.}
+
+\item{summarize}{A logical for whether the elapsed fit time should be
+returned as a single row or multiple rows. Doesn't support \code{FALSE} for
+parsnip models.}
 }
 \value{
 The extracted value from the parsnip object, \code{x}, as described in the description
