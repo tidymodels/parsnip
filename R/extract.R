@@ -142,9 +142,9 @@ extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
     )
   }
 
-  time <- x$elapsed$elapsed[["elapsed"]]
+  time <- x[["elapsed"]][["elapsed"]][["elapsed"]]
 
-  if (is.na(time)) {
+  if (is.na(time) || is.null(time)) {
     rlang::abort(
       "This model was fit before `extract_fit_time()` was added."
     )
