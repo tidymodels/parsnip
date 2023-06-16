@@ -142,8 +142,16 @@ extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
     )
   }
 
+  time <- x$elapsed$elapsed[["elapsed"]]
+
+  if (is.na(time)) {
+    rlang::abort(
+      "This model was fit before `extract_fit_time()` was added."
+    )
+  }
+
   dplyr::tibble(
     process_id = class(x$spec)[1],
-    time = x$elapsed$elapsed[["elapsed"]]
+    time = time
   )
 }
