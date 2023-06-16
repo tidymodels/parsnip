@@ -143,7 +143,7 @@ extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
   }
 
   dplyr::tibble(
-    id = class(x$spec)[1],
+    process_id = class(x$spec)[1],
     time = x$elapsed$elapsed[["elapsed"]]
   )
 }
