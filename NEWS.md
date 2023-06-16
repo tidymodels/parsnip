@@ -8,6 +8,7 @@
 
 * A few censored regression helper functions were exported: `.extract_surv_status()`, `.extract_surv_time()`, and `.time_as_binary_event()` (#973).
 
+* New `extract_fit_time()` method has been added that return the time it took to train the recipe. (#853)
 
 # parsnip 1.1.0
 
