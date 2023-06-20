@@ -130,7 +130,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' `null_model()` defines a simple, non-informative model. It doesn't have any
 #'  main arguments. This function can fit classification and regression models.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams set_new_model
 #' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{

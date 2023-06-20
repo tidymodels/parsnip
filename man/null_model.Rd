@@ -7,9 +7,7 @@
 null_model(mode = "classification")
 }
 \arguments{
-\item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+\item{mode}{A single character string for the model mode (e.g. "regression").}
 }
 \description{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
