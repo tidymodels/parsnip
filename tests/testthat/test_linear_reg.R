@@ -318,3 +318,27 @@ test_that('show engine', {
   expect_error(show_engines("linear_re"), "No results found for model function")
 })
 
+test_that('lm can handle rankdeficient predictions', {
+  data <- data.frame(
+    y = c(1,2,3,4),
+    x1 = c(1,1,2,3),
+    x2 = c(3,4,5,2),
+    x3 = c(4,2,6,0),
+    x4 = c(2,1,3,0)
+  )
+  data2 <- data.frame(
+    x1 = c(3,2,1,3),
+    x2 = c(3,2,1,4),
+    x3 = c(3,4,5,1),
+    x4 = c(0,0,2,3)
+  )
+
+  expect_warning(
+    preds <- linear_reg() %>%
+      fit(y ~ ., data = data) %>%
+      predict(new_data = data2)
+  )
+
+  expect_identical(names(preds), ".pred")
+})
+
