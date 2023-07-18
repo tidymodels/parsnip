@@ -44,7 +44,8 @@ set_pred(
       list(
         object = expr(object$fit),
         newdata = expr(new_data),
-        type = "response"
+        type = "response",
+        rankdeficient = "simple"
       )
   )
 )

@@ -8,6 +8,7 @@
 
 * A few censored regression helper functions were exported: `.extract_surv_status()`, `.extract_surv_time()`, and `.time_as_binary_event()` (#973).
 
+* Fixed bug where prediction on rank dificient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
 
 # parsnip 1.1.0
 
