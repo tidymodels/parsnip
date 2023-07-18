@@ -78,7 +78,7 @@ case_weights_allowed <- function(spec) {
   if (nrow(model_info) != 1) {
     rlang::abort(
       glue::glue(
-        "Error in geting model information for model {mod_type} with engine {mod_eng} and mode {mod_mode}."
+        "Error in getting model information for model {mod_type} with engine {mod_eng} and mode {mod_mode}."
       )
     )
   }
