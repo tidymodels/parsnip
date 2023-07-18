@@ -110,6 +110,25 @@ test_that('case weights with formula method', {
   expect_equal(coef(lm_wt_fit$fit), coef(lm_sub_fit$fit))
 })
 
+test_that('case weights with formula method -- unregistered model spec', {
+
+  skip_if_not_installed("modeldata")
+  data("ames", package = "modeldata")
+  ames$Sale_Price <- log10(ames$Sale_Price)
+
+  set.seed(1)
+  wts <- runif(nrow(ames))
+  wts <- ifelse(wts < 1/5, 0L, 1L)
+  ames_subset <- ames[wts != 0, ]
+  wts <- frequency_weights(wts)
+
+  expect_snapshot(
+    error = TRUE,
+    bag_mars("regression") %>%
+      fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts)
+  )
+})
+
 test_that('case weights with formula method that goes through `fit_xy()`', {
 
   skip_if_not_installed("modeldata")
