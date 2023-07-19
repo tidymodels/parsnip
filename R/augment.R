@@ -27,12 +27,15 @@
 #'
 #' If survival predictions are created and `new_data` contains a
 #' [survival::Surv()] object, additional columns are added for inverse
-#' probability of censoring weights (IPCW) are also created. This enables the
-#' user to compute performance metrics in the \pkg{yardstick} package.
+#' probability of censoring weights (IPCW) are also created (see `tidymodels.org`
+#' page in the references below). This enables the user to compute performance
+#' metrics in the \pkg{yardstick} package.
 #'
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
 #' @rdname augment
+#' @references
+#' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 #' @export
 #' @examples
 #' car_trn <- mtcars[11:32,]

@@ -126,9 +126,10 @@ offending points (with a warning).
 
 \code{predict.model_fit()} does not require the outcome to be present. For
 performance metrics on the predicted survival probability, inverse probability
-of censoring weights (IPCW) are required. Those require the outcome and are
-thus not returned by \code{predict()}. They can be added via \code{\link[=augment.model_fit]{augment.model_fit()}} if
-\code{new_data} contains a column with the outcome as a \code{Surv} object.
+of censoring weights (IPCW) are required (see the \code{tidymodels.org} reference
+below). Those require the outcome and are thus not returned by \code{predict()}.
+They can be added via \code{\link[=augment.model_fit]{augment.model_fit()}} if \code{new_data} contains a column
+with the outcome as a \code{Surv} object.
 
 Also, when \code{type = "linear_pred"}, censored regression models will by default
 be formatted such that the linear predictor \emph{increases} with time. This may
@@ -164,5 +165,8 @@ predict(
   type = "raw",
   opts = list(type = "terms")
 )
+}
+\references{
+\url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 }
 \keyword{internal}

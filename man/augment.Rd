@@ -43,8 +43,9 @@ survival prediction, the \code{eval_time} argument is required.
 
 If survival predictions are created and \code{new_data} contains a
 \code{\link[survival:Surv]{survival::Surv()}} object, additional columns are added for inverse
-probability of censoring weights (IPCW) are also created. This enables the
-user to compute performance metrics in the \pkg{yardstick} package.
+probability of censoring weights (IPCW) are also created (see \code{tidymodels.org}
+page in the references below). This enables the user to compute performance
+metrics in the \pkg{yardstick} package.
 }
 }
 \examples{
@@ -88,4 +89,7 @@ augment(cls_form, cls_tst[, -3])
 augment(cls_xy, cls_tst)
 augment(cls_xy, cls_tst[, -3])
 
+}
+\references{
+\url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 }
