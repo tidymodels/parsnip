@@ -87,6 +87,8 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
+
 ## Saving fitted model objects
 
 
