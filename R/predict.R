@@ -54,6 +54,13 @@
 #' functions will adjust the values to fit this specification by removing
 #' offending points (with a warning).
 #'
+#' `predict.model_fit()` does not require the outcome to be present. For
+#' performance metrics on the predicted survival probability, inverse probability
+#' of censoring weights (IPCW) are required (see the `tidymodels.org` reference
+#' below). Those require the outcome and are thus not returned by `predict()`.
+#' They can be added via [augment.model_fit()] if `new_data` contains a column
+#' with the outcome as a `Surv` object.
+#'
 #' Also, when `type = "linear_pred"`, censored regression models will by default
 #' be formatted such that the linear predictor _increases_ with time. This may
 #' have the opposite sign as what the underlying model's `predict()` method
@@ -105,7 +112,8 @@
 #'  `predict()` function will return the same structure as above but
 #'  filled with missing values. This does not currently work for
 #'  multivariate models.
-#'
+#' @references
+#' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 #' @examples
 #' library(dplyr)
 #'
