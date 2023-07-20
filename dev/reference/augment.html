@@ -123,10 +123,15 @@ are created (if the model engine supports them). If the model supports
 survival prediction, the <code>eval_time</code> argument is required.</p>
 <p>If survival predictions are created and <code>new_data</code> contains a
 <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> object, additional columns are added for inverse
-probability of censoring weights (IPCW) are also created. This enables the
-user to compute performance metrics in the <span class="pkg">yardstick</span> package.</p>
+probability of censoring weights (IPCW) are also created (see <code>tidymodels.org</code>
+page in the references below). This enables the user to compute performance
+metrics in the <span class="pkg">yardstick</span> package.</p>
 </div>
 
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p><a href="https://www.tidymodels.org/learn/statistics/survival-metrics/" class="external-link">https://www.tidymodels.org/learn/statistics/survival-metrics/</a></p>
     </div>
 
     <div class="section level2">
