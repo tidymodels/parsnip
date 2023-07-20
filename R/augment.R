@@ -127,6 +127,12 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
   }
 
   if (spec_has_pred_type(x, "survival")) {
+    if (is.null(eval_time)) {
+      rlang::abort(
+        "The `eval_time` argument is missing, with no default.",
+        call = caller_env()
+      )
+    }
     .filter_eval_time(eval_time)
     ret <- dplyr::bind_cols(
       predict(x, new_data = new_data, type = "survival", eval_time = eval_time),
