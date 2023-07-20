@@ -98,6 +98,9 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+
+Note that the \code{earth} package documentation has: “In the current
+implementation, \emph{building models with weights can be slow}.”
 }
 
 \subsection{References}{
