@@ -10,6 +10,8 @@
 
 * Fixed bug where prediction on rank dificient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
 
+* Fixed bug where `boost_tree()` models couldn't be fit with 1 predictor if `validation` argument was used. (#994)
+
 # parsnip 1.1.0
 
 This release of parsnip contains a number of new features and bug fixes, accompanied by several optimizations that substantially decrease the time to `fit()` and `predict()` with the package.
