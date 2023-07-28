@@ -435,15 +435,22 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
       # Split data
       m <- floor(n * (1 - validation)) + 1
       trn_index <- sample(seq_len(n), size = max(m, 2))
-      val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
+      val_data <- xgboost::xgb.DMatrix(
+        data = x[-trn_index, , drop = FALSE],
+        label = y[-trn_index],
+        missing = NA
+      )
       watch_list <- list(validation = val_data)
 
       info_list <- list(label = y[trn_index])
       if (!is.null(weights)) {
         info_list$weight <- weights[trn_index]
       }
-      dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
-
+      dat <- xgboost::xgb.DMatrix(
+        data = x[trn_index, , drop = FALSE],
+        missing = NA,
+        info = info_list
+      )
 
     } else {
       info_list <- list(label = y)
