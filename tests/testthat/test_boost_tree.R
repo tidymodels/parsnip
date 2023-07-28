@@ -38,3 +38,12 @@ test_that('argument checks for data dimensions', {
   expect_equal(args$min_instances_per_node, expr(min_rows(1000, x)))
 })
 
+test_that('boost_tree can be fit with 1 predictor if validation is used', {
+  spec <- boost_tree(trees = 1) %>%
+    set_engine("xgboost", validation = 0.5) %>%
+    set_mode("regression")
+
+  expect_no_error(
+    fit(spec, mpg ~ disp, data = mtcars)
+  )
+})
