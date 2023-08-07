@@ -1,7 +1,6 @@
 #' Knit engine-specific documentation
 #' @param pattern A regular expression to specify which files to knit. The
 #' default knits all engine documentation files.
-#' @param ... Options passed to [knitr::knit()].
 #' @return A tibble with column `file` for the file name and `result` (a
 #' character vector that echos the output file name or, when there is
 #' a failure, the error message).

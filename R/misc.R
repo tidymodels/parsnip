@@ -234,7 +234,7 @@ prompt_missing_implementation <- function(spec,
 
 #' Print the model call
 #'
-#' @param x A "model_spec" object.
+#' @param object A "model_spec" object.
 #' @return A character string.
 #' @keywords internal
 #' @export

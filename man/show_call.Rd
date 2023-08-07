@@ -7,7 +7,7 @@
 show_call(object)
 }
 \arguments{
-\item{x}{A "model_spec" object.}
+\item{object}{A "model_spec" object.}
 }
 \value{
 A character string.

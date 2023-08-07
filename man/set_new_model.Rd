@@ -87,14 +87,6 @@ prediction objects.}
 
 \item{options}{A list of options for engine-specific preprocessing encodings.
 See Details below.}
-
-\item{arg}{A single character string for the model argument name.}
-
-\item{fit_obj}{A list with elements \code{interface}, \code{protect},
-\code{func} and \code{defaults}. See the package vignette "Making a
-\code{parsnip} model from scratch".}
-
-\item{pred_obj}{A list with elements \code{pre}, \code{post}, \code{func}, and \code{args}.}
 }
 \description{
 These functions are similar to constructors and can be used to validate

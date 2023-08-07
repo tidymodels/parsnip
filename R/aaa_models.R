@@ -473,7 +473,6 @@ check_interface_val <- function(x) {
 #'  `"rand_forest"`, etc).
 #' @param mode A single character string for the model mode (e.g. "regression").
 #' @param eng A single character string for the model engine.
-#' @param arg A single character string for the model argument name.
 #' @param has_submodel A single logical for whether the argument
 #'  can make predictions on multiple submodels at once.
 #' @param func A named character vector that describes how to call
@@ -483,10 +482,6 @@ check_interface_val <- function(x) {
 #'  used to invoke the usual linear regression function. In some
 #'  cases, it is helpful to use `c(fun = "predict")` when using a
 #'  package's `predict` method.
-#' @param fit_obj A list with elements `interface`, `protect`,
-#'  `func` and `defaults`. See the package vignette "Making a
-#'  `parsnip` model from scratch".
-#' @param pred_obj A list with elements `pre`, `post`, `func`, and `args`.
 #' @param type A single character value for the type of prediction. Possible
 #'  values are: `class`, `conf_int`, `numeric`, `pred_int`, `prob`, `quantile`,
 #'   and `raw`.
