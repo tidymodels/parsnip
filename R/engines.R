@@ -41,7 +41,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
     if (!attach) {
       suppressPackageStartupMessages(requireNamespace(pkg, quietly = quiet))
     } else {
-      library(pkg, character.only = TRUE)
+      library(pkg, character.only = TRUE, quietly = quiet)
     }
   }
   invisible(x)
