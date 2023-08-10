@@ -154,7 +154,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span>  <span class="co">## <span style="color: #0000BB;">•</span> Use <span style="color: #00BB00;">tidymodels_prefer()</span> to resolve common conflicts.</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #0000BB;">•</span> Dig deeper into tidy modeling with R at <span style="color: #00BB00;">https://www.tmwr.org</span></span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -1088,144 +1088,185 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">linreg_reg_fit</span> <span class="op">&lt;-</span> <span class="va">linreg_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ## Epoch 1/20
   ## 
-  1/178 [..............................] - ETA: 50s - loss: 16.1166
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 10.9203 
-112/178 [=================&gt;............] - ETA: 0s - loss: 10.6475
-166/178 [==========================&gt;...] - ETA: 0s - loss: 9.9806 
-178/178 [==============================] - 0s 934us/step - loss: 10.0024
+  1/178 [..............................] - ETA: 1:19 - loss: 0.6500
+ 29/178 [===&gt;..........................] - ETA: 0s - loss: 8.6431  
+ 60/178 [=========&gt;....................] - ETA: 0s - loss: 8.9061
+ 92/178 [==============&gt;...............] - ETA: 0s - loss: 9.0747
+125/178 [====================&gt;.........] - ETA: 0s - loss: 9.3606
+157/178 [=========================&gt;....] - ETA: 0s - loss: 9.8712
+178/178 [==============================] - 1s 2ms/step - loss: 10.0016
   ## Epoch 2/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 2.7045
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 9.5154
-110/178 [=================&gt;............] - ETA: 0s - loss: 10.2286
-164/178 [==========================&gt;...] - ETA: 0s - loss: 9.9709 
-178/178 [==============================] - 0s 1ms/step - loss: 9.9297
+  1/178 [..............................] - ETA: 0s - loss: 9.0850
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 10.4861
+ 56/178 [========&gt;.....................] - ETA: 0s - loss: 11.2789
+ 88/178 [=============&gt;................] - ETA: 0s - loss: 10.7888
+121/178 [===================&gt;..........] - ETA: 0s - loss: 10.0760
+153/178 [========================&gt;.....] - ETA: 0s - loss: 9.9180 
+178/178 [==============================] - 0s 2ms/step - loss: 9.9071
   ## Epoch 3/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 7.1804
- 54/178 [========&gt;.....................] - ETA: 0s - loss: 9.9094
-109/178 [=================&gt;............] - ETA: 0s - loss: 9.6736
-163/178 [==========================&gt;...] - ETA: 0s - loss: 9.5263
-178/178 [==============================] - 0s 949us/step - loss: 9.8465
+  1/178 [..............................] - ETA: 0s - loss: 3.0326
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 9.4671
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 9.1156
+ 94/178 [==============&gt;...............] - ETA: 0s - loss: 9.5631
+126/178 [====================&gt;.........] - ETA: 0s - loss: 9.8953
+160/178 [=========================&gt;....] - ETA: 0s - loss: 9.9080
+178/178 [==============================] - 0s 2ms/step - loss: 9.8328
   ## Epoch 4/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 9.4241
- 54/178 [========&gt;.....................] - ETA: 0s - loss: 10.6582
-105/178 [================&gt;.............] - ETA: 0s - loss: 9.1704 
-159/178 [=========================&gt;....] - ETA: 0s - loss: 9.7381
-178/178 [==============================] - 0s 968us/step - loss: 9.7820
+  1/178 [..............................] - ETA: 0s - loss: 8.0362
+ 35/178 [====&gt;.........................] - ETA: 0s - loss: 9.7170
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 9.9347
+ 95/178 [===============&gt;..............] - ETA: 0s - loss: 9.8628
+129/178 [====================&gt;.........] - ETA: 0s - loss: 9.7825
+162/178 [==========================&gt;...] - ETA: 0s - loss: 9.6536
+178/178 [==============================] - 0s 2ms/step - loss: 9.7730
   ## Epoch 5/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 0.9454
- 54/178 [========&gt;.....................] - ETA: 0s - loss: 10.3081
-110/178 [=================&gt;............] - ETA: 0s - loss: 9.6036 
-166/178 [==========================&gt;...] - ETA: 0s - loss: 9.8424
-178/178 [==============================] - 0s 929us/step - loss: 9.7416
+  1/178 [..............................] - ETA: 0s - loss: 1.5708
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 9.3500
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 10.5391
+ 95/178 [===============&gt;..............] - ETA: 0s - loss: 9.6021 
+126/178 [====================&gt;.........] - ETA: 0s - loss: 9.6859
+151/178 [========================&gt;.....] - ETA: 0s - loss: 9.6630
+178/178 [==============================] - 0s 2ms/step - loss: 9.7354
   ## Epoch 6/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 11.9843
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 9.3183 
-109/178 [=================&gt;............] - ETA: 0s - loss: 9.8005
-167/178 [===========================&gt;..] - ETA: 0s - loss: 9.8285
-178/178 [==============================] - 0s 920us/step - loss: 9.7045
+  1/178 [..............................] - ETA: 0s - loss: 6.8364
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 10.3337
+ 62/178 [=========&gt;....................] - ETA: 0s - loss: 10.1862
+ 83/178 [============&gt;.................] - ETA: 0s - loss: 10.1661
+114/178 [==================&gt;...........] - ETA: 0s - loss: 9.7456 
+140/178 [======================&gt;.......] - ETA: 0s - loss: 9.8187
+174/178 [============================&gt;.] - ETA: 0s - loss: 9.6147
+178/178 [==============================] - 0s 2ms/step - loss: 9.6850
   ## Epoch 7/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 12.2195
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 10.1577
-112/178 [=================&gt;............] - ETA: 0s - loss: 10.3556
-172/178 [===========================&gt;..] - ETA: 0s - loss: 9.6917 
-178/178 [==============================] - 0s 898us/step - loss: 9.6695
+  1/178 [..............................] - ETA: 0s - loss: 17.0254
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 9.1732 
+ 67/178 [==========&gt;...................] - ETA: 0s - loss: 9.1260
+ 97/178 [===============&gt;..............] - ETA: 0s - loss: 9.1925
+130/178 [====================&gt;.........] - ETA: 0s - loss: 9.6111
+159/178 [=========================&gt;....] - ETA: 0s - loss: 9.7181
+178/178 [==============================] - 0s 2ms/step - loss: 9.6603
   ## Epoch 8/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 21.9972
- 62/178 [=========&gt;....................] - ETA: 0s - loss: 10.1503
-120/178 [===================&gt;..........] - ETA: 0s - loss: 9.9019 
-177/178 [============================&gt;.] - ETA: 0s - loss: 9.6372
-178/178 [==============================] - 0s 875us/step - loss: 9.6456
+  1/178 [..............................] - ETA: 0s - loss: 11.0687
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 8.5786 
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 9.0245
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 9.4710
+128/178 [====================&gt;.........] - ETA: 0s - loss: 9.8159
+158/178 [=========================&gt;....] - ETA: 0s - loss: 9.8851
+178/178 [==============================] - 0s 2ms/step - loss: 9.6413
   ## Epoch 9/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 8.7436
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 10.1714
-114/178 [==================&gt;...........] - ETA: 0s - loss: 9.9607 
-168/178 [===========================&gt;..] - ETA: 0s - loss: 9.3431
-178/178 [==============================] - 0s 916us/step - loss: 9.6256
+  1/178 [..............................] - ETA: 0s - loss: 7.8444
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 9.1544
+ 64/178 [=========&gt;....................] - ETA: 0s - loss: 8.9802
+ 94/178 [==============&gt;...............] - ETA: 0s - loss: 9.3298
+119/178 [===================&gt;..........] - ETA: 0s - loss: 9.4994
+151/178 [========================&gt;.....] - ETA: 0s - loss: 9.5960
+178/178 [==============================] - 0s 2ms/step - loss: 9.6148
   ## Epoch 10/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 5.5215
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 9.8596
-113/178 [==================&gt;...........] - ETA: 0s - loss: 9.1374
-164/178 [==========================&gt;...] - ETA: 0s - loss: 9.7345
-178/178 [==============================] - 0s 988us/step - loss: 9.6078
+  1/178 [..............................] - ETA: 0s - loss: 6.9564
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 10.1866
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 10.1015
+ 97/178 [===============&gt;..............] - ETA: 0s - loss: 9.7540 
+130/178 [====================&gt;.........] - ETA: 0s - loss: 9.7601
+154/178 [========================&gt;.....] - ETA: 0s - loss: 9.6591
+178/178 [==============================] - 0s 2ms/step - loss: 9.6010
   ## Epoch 11/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 1.0203
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 9.1697
-112/178 [=================&gt;............] - ETA: 0s - loss: 9.9556
-170/178 [===========================&gt;..] - ETA: 0s - loss: 9.6251
-178/178 [==============================] - 0s 910us/step - loss: 9.5916
+  1/178 [..............................] - ETA: 0s - loss: 1.6997
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 9.2596
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 9.4748
+ 98/178 [===============&gt;..............] - ETA: 0s - loss: 9.5379
+129/178 [====================&gt;.........] - ETA: 0s - loss: 9.1893
+160/178 [=========================&gt;....] - ETA: 0s - loss: 9.4103
+178/178 [==============================] - 0s 2ms/step - loss: 9.5856
   ## Epoch 12/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 9.5796
- 58/178 [========&gt;.....................] - ETA: 0s - loss: 10.5683
-113/178 [==================&gt;...........] - ETA: 0s - loss: 9.4965 
-169/178 [===========================&gt;..] - ETA: 0s - loss: 9.5290
-178/178 [==============================] - 0s 911us/step - loss: 9.5806
+  1/178 [..............................] - ETA: 0s - loss: 2.5495
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 8.7676
+ 62/178 [=========&gt;....................] - ETA: 0s - loss: 8.9411
+ 94/178 [==============&gt;...............] - ETA: 0s - loss: 9.0824
+121/178 [===================&gt;..........] - ETA: 0s - loss: 8.9220
+149/178 [========================&gt;.....] - ETA: 0s - loss: 9.4348
+178/178 [==============================] - 0s 2ms/step - loss: 9.5661
   ## Epoch 13/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 8.6393
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 9.1016
-111/178 [=================&gt;............] - ETA: 0s - loss: 9.7207
-166/178 [==========================&gt;...] - ETA: 0s - loss: 9.5923
-178/178 [==============================] - 0s 929us/step - loss: 9.5610
+  1/178 [..............................] - ETA: 0s - loss: 3.7467
+ 34/178 [====&gt;.........................] - ETA: 0s - loss: 9.8861
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 9.1600
+ 97/178 [===============&gt;..............] - ETA: 0s - loss: 9.3733
+130/178 [====================&gt;.........] - ETA: 0s - loss: 9.5395
+160/178 [=========================&gt;....] - ETA: 0s - loss: 9.6569
+178/178 [==============================] - 0s 2ms/step - loss: 9.5579
   ## Epoch 14/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 10.5484
- 54/178 [========&gt;.....................] - ETA: 0s - loss: 9.1573 
-110/178 [=================&gt;............] - ETA: 0s - loss: 9.7467
-163/178 [==========================&gt;...] - ETA: 0s - loss: 9.6598
-178/178 [==============================] - 0s 949us/step - loss: 9.5525
+  1/178 [..............................] - ETA: 0s - loss: 19.2365
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 10.9947
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 10.5175
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 10.5671
+128/178 [====================&gt;.........] - ETA: 0s - loss: 9.8342 
+160/178 [=========================&gt;....] - ETA: 0s - loss: 9.6401
+178/178 [==============================] - 0s 2ms/step - loss: 9.5533
   ## Epoch 15/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 7.2798
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 9.3861
-114/178 [==================&gt;...........] - ETA: 0s - loss: 9.4293
-170/178 [===========================&gt;..] - ETA: 0s - loss: 9.5697
-178/178 [==============================] - 0s 909us/step - loss: 9.5495
+  1/178 [..............................] - ETA: 0s - loss: 8.8795
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 8.8460
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 9.8827
+ 97/178 [===============&gt;..............] - ETA: 0s - loss: 9.5004
+129/178 [====================&gt;.........] - ETA: 0s - loss: 9.4681
+163/178 [==========================&gt;...] - ETA: 0s - loss: 9.4626
+178/178 [==============================] - 0s 2ms/step - loss: 9.5444
   ## Epoch 16/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 4.5036
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 9.3977
-113/178 [==================&gt;...........] - ETA: 0s - loss: 9.5674
-169/178 [===========================&gt;..] - ETA: 0s - loss: 9.5794
-178/178 [==============================] - 0s 910us/step - loss: 9.5424
+  1/178 [..............................] - ETA: 0s - loss: 4.4008
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 8.6175
+ 64/178 [=========&gt;....................] - ETA: 0s - loss: 8.4559
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 9.4139
+129/178 [====================&gt;.........] - ETA: 0s - loss: 9.6111
+161/178 [==========================&gt;...] - ETA: 0s - loss: 9.6792
+178/178 [==============================] - 0s 2ms/step - loss: 9.5364
   ## Epoch 17/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 3.9358
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 9.6293
-114/178 [==================&gt;...........] - ETA: 0s - loss: 9.1431
-171/178 [===========================&gt;..] - ETA: 0s - loss: 9.4198
-178/178 [==============================] - 0s 902us/step - loss: 9.5384
+  1/178 [..............................] - ETA: 0s - loss: 26.0148
+ 35/178 [====&gt;.........................] - ETA: 0s - loss: 10.3395
+ 67/178 [==========&gt;...................] - ETA: 0s - loss: 9.3280 
+ 99/178 [===============&gt;..............] - ETA: 0s - loss: 9.4457
+131/178 [=====================&gt;........] - ETA: 0s - loss: 9.7047
+165/178 [==========================&gt;...] - ETA: 0s - loss: 9.5612
+178/178 [==============================] - 0s 2ms/step - loss: 9.5395
   ## Epoch 18/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 12.5545
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 10.8856
-111/178 [=================&gt;............] - ETA: 0s - loss: 10.4309
-168/178 [===========================&gt;..] - ETA: 0s - loss: 9.7013 
-178/178 [==============================] - 0s 916us/step - loss: 9.5223
+  1/178 [..............................] - ETA: 0s - loss: 6.9667
+ 34/178 [====&gt;.........................] - ETA: 0s - loss: 9.6106
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 9.7344
+ 95/178 [===============&gt;..............] - ETA: 0s - loss: 9.5789
+127/178 [====================&gt;.........] - ETA: 0s - loss: 9.5789
+159/178 [=========================&gt;....] - ETA: 0s - loss: 9.5792
+178/178 [==============================] - 0s 2ms/step - loss: 9.5182
   ## Epoch 19/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 6.8784
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 8.1412
-113/178 [==================&gt;...........] - ETA: 0s - loss: 8.8265
-167/178 [===========================&gt;..] - ETA: 0s - loss: 9.5335
-178/178 [==============================] - 0s 918us/step - loss: 9.5243
+  1/178 [..............................] - ETA: 0s - loss: 1.4417
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 10.1602
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 9.7469 
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 9.8036
+121/178 [===================&gt;..........] - ETA: 0s - loss: 9.4430
+149/178 [========================&gt;.....] - ETA: 0s - loss: 9.3191
+178/178 [==============================] - 0s 2ms/step - loss: 9.5313
   ## Epoch 20/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 8.5908
- 58/178 [========&gt;.....................] - ETA: 0s - loss: 8.3623
-113/178 [==================&gt;...........] - ETA: 0s - loss: 8.9091
-167/178 [===========================&gt;..] - ETA: 0s - loss: 9.3162
-178/178 [==============================] - 0s 925us/step - loss: 9.5270</code></pre>
+  1/178 [..............................] - ETA: 0s - loss: 8.6726
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 7.9674
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 9.6043
+ 95/178 [===============&gt;..............] - ETA: 0s - loss: 9.3726
+124/178 [===================&gt;..........] - ETA: 0s - loss: 8.8627
+155/178 [=========================&gt;....] - ETA: 0s - loss: 9.4964
+178/178 [==============================] - 0s 2ms/step - loss: 9.5253</code></pre>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">linreg_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1247,13 +1288,13 @@ last week will be predicted after the model is fit.</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.5 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.7 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 21.0 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.7 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.0 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.46</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.10</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.9 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.42</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.06</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1541,84 +1582,84 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">logreg_cls_fit</span> <span class="op">&lt;-</span> <span class="va">logreg_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ## Epoch 1/20
   ## 
- 1/25 [&gt;.............................] - ETA: 8s - loss: 0.9691
-25/25 [==============================] - 0s 1ms/step - loss: 0.8994
+ 1/25 [&gt;.............................] - ETA: 11s - loss: 0.9051
+25/25 [==============================] - 1s 2ms/step - loss: 0.8990
   ## Epoch 2/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8721
-25/25 [==============================] - 0s 1ms/step - loss: 0.8884
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.9153
+25/25 [==============================] - 0s 2ms/step - loss: 0.8883
   ## Epoch 3/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8484
-25/25 [==============================] - 0s 1ms/step - loss: 0.8773
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.9446
+25/25 [==============================] - 0s 2ms/step - loss: 0.8777
   ## Epoch 4/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.9048
-25/25 [==============================] - 0s 1ms/step - loss: 0.8666
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8584
+25/25 [==============================] - 0s 2ms/step - loss: 0.8678
   ## Epoch 5/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8213
-25/25 [==============================] - 0s 1ms/step - loss: 0.8564
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8666
+25/25 [==============================] - 0s 2ms/step - loss: 0.8579
   ## Epoch 6/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8291
-25/25 [==============================] - 0s 1ms/step - loss: 0.8461
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8346
+25/25 [==============================] - 0s 2ms/step - loss: 0.8483
   ## Epoch 7/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8483
-25/25 [==============================] - 0s 1ms/step - loss: 0.8363
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8459
+25/25 [==============================] - 0s 2ms/step - loss: 0.8385
   ## Epoch 8/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8909
-25/25 [==============================] - 0s 1ms/step - loss: 0.8268
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8796
+25/25 [==============================] - 0s 2ms/step - loss: 0.8291
   ## Epoch 9/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8637
-25/25 [==============================] - 0s 1ms/step - loss: 0.8174
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8425
+25/25 [==============================] - 0s 2ms/step - loss: 0.8197
   ## Epoch 10/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8557
-25/25 [==============================] - 0s 1ms/step - loss: 0.8082
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7588
+25/25 [==============================] - 0s 2ms/step - loss: 0.8105
   ## Epoch 11/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7607
-25/25 [==============================] - 0s 1ms/step - loss: 0.7992
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7102
+25/25 [==============================] - 0s 2ms/step - loss: 0.8017
   ## Epoch 12/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8111
-25/25 [==============================] - 0s 1ms/step - loss: 0.7904
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7984
+25/25 [==============================] - 0s 2ms/step - loss: 0.7927
   ## Epoch 13/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7019
-25/25 [==============================] - 0s 1ms/step - loss: 0.7816
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7719
+25/25 [==============================] - 0s 2ms/step - loss: 0.7841
   ## Epoch 14/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7617
-25/25 [==============================] - 0s 1ms/step - loss: 0.7730
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7442
+25/25 [==============================] - 0s 2ms/step - loss: 0.7755
   ## Epoch 15/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7539
-25/25 [==============================] - 0s 1ms/step - loss: 0.7648
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8339
+25/25 [==============================] - 0s 2ms/step - loss: 0.7672
   ## Epoch 16/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8116
-25/25 [==============================] - 0s 1ms/step - loss: 0.7565
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7402
+25/25 [==============================] - 0s 2ms/step - loss: 0.7589
   ## Epoch 17/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.8200
-25/25 [==============================] - 0s 1ms/step - loss: 0.7484
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7292
+25/25 [==============================] - 0s 2ms/step - loss: 0.7508
   ## Epoch 18/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7859
-25/25 [==============================] - 0s 1ms/step - loss: 0.7406
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7190
+25/25 [==============================] - 0s 2ms/step - loss: 0.7428
   ## Epoch 19/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6852
-25/25 [==============================] - 0s 1ms/step - loss: 0.7329
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7067
+25/25 [==============================] - 0s 2ms/step - loss: 0.7351
   ## Epoch 20/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7435
-25/25 [==============================] - 0s 1ms/step - loss: 0.7253</code></pre>
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7497
+25/25 [==============================] - 0s 2ms/step - loss: 0.7277</code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">logreg_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1644,16 +1685,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.516       0.484 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.841       0.159 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.527       0.473 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.836       0.164 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.648       0.352 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.546       0.454 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.744       0.256 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.531       0.469 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">1</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.505       0.495</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.501       0.499 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.836       0.164 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.513       0.487 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.828       0.172 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.632       0.368 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.526       0.474 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.734       0.266 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.516       0.484 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">2</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.483       0.517</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1838,16 +1879,12 @@ last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mars_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mars_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>  <span class="co">## Loading required package: Formula</span></span></code></pre>
-<pre><code><span>  <span class="co">## Loading required package: plotmo</span></span></code></pre>
-<pre><code><span>  <span class="co">## Loading required package: plotrix</span></span></code></pre>
 <pre><code><span>  <span class="co">## </span></span>
 <span>  <span class="co">## Attaching package: 'plotrix'</span></span></code></pre>
 <pre><code><span>  <span class="co">## The following object is masked from 'package:scales':</span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">##     rescale</span></span></code></pre>
-<pre><code><span>  <span class="co">## Loading required package: TeachingDemos</span></span></code></pre>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mars_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -1857,7 +1894,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## Number of terms at each degree of interaction: 1 4 (additive model)</span></span>
 <span>  <span class="co">## GCV 9.085818    RSS 51543.98    GRSq 0.7889881    RSq 0.789581</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mars_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -1874,7 +1911,7 @@ Classification Example (<code>earth</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -1882,7 +1919,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mars_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/mars.html">mars</a></span><span class="op">(</span>prod_degree <span class="op">=</span> <span class="fl">1</span>, prune_method <span class="op">=</span> <span class="st">"backward"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -1897,7 +1934,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: earth</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mars_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mars_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span>  <span class="va">mars_cls_fit</span></span></code></pre></div>
@@ -1914,7 +1951,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## Earth GCV 0.1334948    RSS 101.3432    GRSq 0.461003    RSq 0.4747349</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mars_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mars_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -1948,7 +1985,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -1959,7 +1996,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -1974,7 +2011,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: nnet</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_reg_fit</span></span></code></pre></div>
@@ -1985,7 +2022,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## output(s): ridership </span></span>
 <span>  <span class="co">## options were - linear output units</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -2002,7 +2039,7 @@ Classification Example (<code>nnet</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -2010,7 +2047,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2025,7 +2062,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: nnet</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_cls_fit</span></span></code></pre></div>
@@ -2037,7 +2074,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## options were - entropy fitting</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2065,7 +2102,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -2076,7 +2113,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2091,150 +2128,193 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: keras</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ## Epoch 1/20
   ## 
-  1/178 [..............................] - ETA: 42s - loss: 243.2432
- 49/178 [=======&gt;......................] - ETA: 0s - loss: 210.5960 
-101/178 [================&gt;.............] - ETA: 0s - loss: 214.4005
-155/178 [=========================&gt;....] - ETA: 0s - loss: 212.2731
-178/178 [==============================] - 0s 997us/step - loss: 209.6356
+  1/178 [..............................] - ETA: 1:05 - loss: 222.3918
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 221.0199  
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 216.1839
+ 92/178 [==============&gt;...............] - ETA: 0s - loss: 213.1993
+122/178 [===================&gt;..........] - ETA: 0s - loss: 212.0139
+153/178 [========================&gt;.....] - ETA: 0s - loss: 211.0661
+178/178 [==============================] - 1s 2ms/step - loss: 209.6345
   ## Epoch 2/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 216.8987
- 51/178 [=======&gt;......................] - ETA: 0s - loss: 196.0269
-104/178 [================&gt;.............] - ETA: 0s - loss: 192.4618
-155/178 [=========================&gt;....] - ETA: 0s - loss: 190.9692
-178/178 [==============================] - 0s 994us/step - loss: 190.0110
+  1/178 [..............................] - ETA: 0s - loss: 265.1293
+ 28/178 [===&gt;..........................] - ETA: 0s - loss: 198.7559
+ 59/178 [========&gt;.....................] - ETA: 0s - loss: 197.8332
+ 89/178 [==============&gt;...............] - ETA: 0s - loss: 195.9290
+119/178 [===================&gt;..........] - ETA: 0s - loss: 193.4109
+147/178 [=======================&gt;......] - ETA: 0s - loss: 192.5275
+178/178 [==============================] - ETA: 0s - loss: 190.1254
+178/178 [==============================] - 0s 2ms/step - loss: 190.1254
   ## Epoch 3/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 222.8781
- 50/178 [=======&gt;......................] - ETA: 0s - loss: 184.1289
-103/178 [================&gt;.............] - ETA: 0s - loss: 183.5814
-152/178 [========================&gt;.....] - ETA: 0s - loss: 181.7052
-178/178 [==============================] - 0s 1ms/step - loss: 180.1046
+  1/178 [..............................] - ETA: 0s - loss: 186.6828
+ 27/178 [===&gt;..........................] - ETA: 0s - loss: 188.3936
+ 58/178 [========&gt;.....................] - ETA: 0s - loss: 184.9010
+ 90/178 [==============&gt;...............] - ETA: 0s - loss: 182.8049
+123/178 [===================&gt;..........] - ETA: 0s - loss: 182.0336
+156/178 [=========================&gt;....] - ETA: 0s - loss: 180.7860
+178/178 [==============================] - 0s 2ms/step - loss: 180.2653
   ## Epoch 4/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 195.8416
- 52/178 [=======&gt;......................] - ETA: 0s - loss: 171.9418
-104/178 [================&gt;.............] - ETA: 0s - loss: 174.1019
-154/178 [========================&gt;.....] - ETA: 0s - loss: 171.6752
-178/178 [==============================] - 0s 997us/step - loss: 171.5123
+  1/178 [..............................] - ETA: 0s - loss: 157.0867
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 176.5242
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 174.9847
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 174.4841
+127/178 [====================&gt;.........] - ETA: 0s - loss: 174.1383
+159/178 [=========================&gt;....] - ETA: 0s - loss: 172.0785
+178/178 [==============================] - 0s 2ms/step - loss: 171.6776
   ## Epoch 5/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 149.5771
- 44/178 [======&gt;.......................] - ETA: 0s - loss: 161.7067
- 98/178 [===============&gt;..............] - ETA: 0s - loss: 164.2824
-155/178 [=========================&gt;....] - ETA: 0s - loss: 164.0010
-178/178 [==============================] - 0s 985us/step - loss: 163.5395
+  1/178 [..............................] - ETA: 0s - loss: 178.3579
+ 34/178 [====&gt;.........................] - ETA: 0s - loss: 165.7230
+ 67/178 [==========&gt;...................] - ETA: 0s - loss: 166.6729
+ 99/178 [===============&gt;..............] - ETA: 0s - loss: 164.3377
+131/178 [=====================&gt;........] - ETA: 0s - loss: 164.0236
+163/178 [==========================&gt;...] - ETA: 0s - loss: 164.1324
+178/178 [==============================] - 0s 2ms/step - loss: 163.7093
   ## Epoch 6/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 162.9306
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 161.8741
-113/178 [==================&gt;...........] - ETA: 0s - loss: 158.7907
-169/178 [===========================&gt;..] - ETA: 0s - loss: 156.4793
-178/178 [==============================] - 0s 917us/step - loss: 156.0408
+  1/178 [..............................] - ETA: 0s - loss: 154.2059
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 160.5130
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 158.2475
+ 92/178 [==============&gt;...............] - ETA: 0s - loss: 157.8791
+119/178 [===================&gt;..........] - ETA: 0s - loss: 157.4071
+150/178 [========================&gt;.....] - ETA: 0s - loss: 155.0892
+174/178 [============================&gt;.] - ETA: 0s - loss: 155.9884
+178/178 [==============================] - 0s 2ms/step - loss: 156.2051
   ## Epoch 7/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 151.1804
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 149.8009
-108/178 [=================&gt;............] - ETA: 0s - loss: 150.5694
-163/178 [==========================&gt;...] - ETA: 0s - loss: 148.9043
-178/178 [==============================] - 0s 945us/step - loss: 148.9393
+  1/178 [..............................] - ETA: 0s - loss: 168.2540
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 151.0919
+ 62/178 [=========&gt;....................] - ETA: 0s - loss: 153.3441
+ 93/178 [==============&gt;...............] - ETA: 0s - loss: 153.2175
+124/178 [===================&gt;..........] - ETA: 0s - loss: 151.5246
+154/178 [========================&gt;.....] - ETA: 0s - loss: 149.8972
+178/178 [==============================] - 0s 2ms/step - loss: 149.1028
   ## Epoch 8/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 119.5491
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 140.7905
-112/178 [=================&gt;............] - ETA: 0s - loss: 143.7925
-163/178 [==========================&gt;...] - ETA: 0s - loss: 142.5280
-178/178 [==============================] - 0s 942us/step - loss: 142.1886
+  1/178 [..............................] - ETA: 0s - loss: 160.8197
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 142.8192
+ 62/178 [=========&gt;....................] - ETA: 0s - loss: 142.6539
+ 92/178 [==============&gt;...............] - ETA: 0s - loss: 142.5837
+123/178 [===================&gt;..........] - ETA: 0s - loss: 142.9480
+155/178 [=========================&gt;....] - ETA: 0s - loss: 142.6568
+178/178 [==============================] - 0s 2ms/step - loss: 142.3527
   ## Epoch 9/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 155.5354
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 138.4029
-112/178 [=================&gt;............] - ETA: 0s - loss: 135.9473
-167/178 [===========================&gt;..] - ETA: 0s - loss: 135.6420
-178/178 [==============================] - 0s 924us/step - loss: 135.7657
+  1/178 [..............................] - ETA: 0s - loss: 158.7030
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 140.2824
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 138.5158
+ 96/178 [===============&gt;..............] - ETA: 0s - loss: 137.3464
+127/178 [====================&gt;.........] - ETA: 0s - loss: 137.3413
+159/178 [=========================&gt;....] - ETA: 0s - loss: 136.5926
+178/178 [==============================] - 0s 2ms/step - loss: 135.9295
   ## Epoch 10/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 155.0167
- 56/178 [========&gt;.....................] - ETA: 0s - loss: 131.6861
-111/178 [=================&gt;............] - ETA: 0s - loss: 131.2121
-167/178 [===========================&gt;..] - ETA: 0s - loss: 129.9818
-178/178 [==============================] - 0s 925us/step - loss: 129.6475
+  1/178 [..............................] - ETA: 0s - loss: 119.4544
+ 33/178 [====&gt;.........................] - ETA: 0s - loss: 132.6142
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 130.8758
+ 99/178 [===============&gt;..............] - ETA: 0s - loss: 130.0976
+131/178 [=====================&gt;........] - ETA: 0s - loss: 129.9233
+164/178 [==========================&gt;...] - ETA: 0s - loss: 130.1683
+178/178 [==============================] - 0s 2ms/step - loss: 129.8068
   ## Epoch 11/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 145.5558
- 51/178 [=======&gt;......................] - ETA: 0s - loss: 124.8335
-104/178 [================&gt;.............] - ETA: 0s - loss: 124.1706
-159/178 [=========================&gt;....] - ETA: 0s - loss: 124.3163
-178/178 [==============================] - 0s 967us/step - loss: 123.8158
+  1/178 [..............................] - ETA: 0s - loss: 110.1649
+ 25/178 [===&gt;..........................] - ETA: 0s - loss: 121.9869
+ 57/178 [========&gt;.....................] - ETA: 0s - loss: 124.5991
+ 91/178 [==============&gt;...............] - ETA: 0s - loss: 123.1514
+123/178 [===================&gt;..........] - ETA: 0s - loss: 123.7697
+155/178 [=========================&gt;....] - ETA: 0s - loss: 124.2543
+178/178 [==============================] - 0s 2ms/step - loss: 123.9636
   ## Epoch 12/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 117.0203
- 52/178 [=======&gt;......................] - ETA: 0s - loss: 121.2409
-104/178 [================&gt;.............] - ETA: 0s - loss: 120.6929
-153/178 [========================&gt;.....] - ETA: 0s - loss: 118.6308
-178/178 [==============================] - 0s 997us/step - loss: 118.2519
+  1/178 [..............................] - ETA: 0s - loss: 95.4598
+ 35/178 [====&gt;.........................] - ETA: 0s - loss: 119.3354
+ 68/178 [==========&gt;...................] - ETA: 0s - loss: 118.8400
+101/178 [================&gt;.............] - ETA: 0s - loss: 118.9702
+134/178 [=====================&gt;........] - ETA: 0s - loss: 119.1892
+165/178 [==========================&gt;...] - ETA: 0s - loss: 118.4567
+178/178 [==============================] - 0s 2ms/step - loss: 118.3911
   ## Epoch 13/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 156.5664
- 54/178 [========&gt;.....................] - ETA: 0s - loss: 117.4827
-106/178 [================&gt;.............] - ETA: 0s - loss: 113.8687
-163/178 [==========================&gt;...] - ETA: 0s - loss: 112.9938
-178/178 [==============================] - 0s 943us/step - loss: 112.9417
+  1/178 [..............................] - ETA: 0s - loss: 126.3101
+ 32/178 [====&gt;.........................] - ETA: 0s - loss: 113.5983
+ 63/178 [=========&gt;....................] - ETA: 0s - loss: 115.2909
+ 93/178 [==============&gt;...............] - ETA: 0s - loss: 114.6715
+120/178 [===================&gt;..........] - ETA: 0s - loss: 113.6202
+153/178 [========================&gt;.....] - ETA: 0s - loss: 113.1358
+178/178 [==============================] - 0s 2ms/step - loss: 113.0717
   ## Epoch 14/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 91.8956
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 109.8804
-114/178 [==================&gt;...........] - ETA: 0s - loss: 109.0688
-168/178 [===========================&gt;..] - ETA: 0s - loss: 107.8972
-178/178 [==============================] - 0s 921us/step - loss: 107.8613
+  1/178 [..............................] - ETA: 0s - loss: 103.0480
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 108.9391
+ 60/178 [=========&gt;....................] - ETA: 0s - loss: 110.6468
+ 92/178 [==============&gt;...............] - ETA: 0s - loss: 109.3330
+125/178 [====================&gt;.........] - ETA: 0s - loss: 108.7229
+156/178 [=========================&gt;....] - ETA: 0s - loss: 108.1428
+178/178 [==============================] - 0s 2ms/step - loss: 107.9859
   ## Epoch 15/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 96.3040
- 57/178 [========&gt;.....................] - ETA: 0s - loss: 101.4602
-112/178 [=================&gt;............] - ETA: 0s - loss: 101.3125
-165/178 [==========================&gt;...] - ETA: 0s - loss: 102.9682
-178/178 [==============================] - 0s 944us/step - loss: 102.9820
+  1/178 [..............................] - ETA: 0s - loss: 94.7536
+ 34/178 [====&gt;.........................] - ETA: 0s - loss: 100.2034
+ 66/178 [==========&gt;...................] - ETA: 0s - loss: 104.4386
+ 99/178 [===============&gt;..............] - ETA: 0s - loss: 104.6029
+131/178 [=====================&gt;........] - ETA: 0s - loss: 105.0679
+162/178 [==========================&gt;...] - ETA: 0s - loss: 103.7205
+178/178 [==============================] - 0s 2ms/step - loss: 103.1088
   ## Epoch 16/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 101.5687
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 99.2748 
-110/178 [=================&gt;............] - ETA: 0s - loss: 99.5928
-162/178 [==========================&gt;...] - ETA: 0s - loss: 98.3332
-178/178 [==============================] - 0s 964us/step - loss: 98.2718
+  1/178 [..............................] - ETA: 0s - loss: 111.8582
+ 29/178 [===&gt;..........................] - ETA: 0s - loss: 103.8775
+ 61/178 [=========&gt;....................] - ETA: 0s - loss: 101.3548
+ 89/178 [==============&gt;...............] - ETA: 0s - loss: 102.1202
+121/178 [===================&gt;..........] - ETA: 0s - loss: 100.4572
+153/178 [========================&gt;.....] - ETA: 0s - loss: 99.1794 
+178/178 [==============================] - 0s 2ms/step - loss: 98.4034
   ## Epoch 17/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 90.9808
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 96.0234
-107/178 [=================&gt;............] - ETA: 0s - loss: 94.9961
-161/178 [==========================&gt;...] - ETA: 0s - loss: 94.0162
-178/178 [==============================] - 0s 959us/step - loss: 93.6874
+  1/178 [..............................] - ETA: 0s - loss: 79.6330
+ 24/178 [===&gt;..........................] - ETA: 0s - loss: 96.4543
+ 58/178 [========&gt;.....................] - ETA: 0s - loss: 95.7602
+ 91/178 [==============&gt;...............] - ETA: 0s - loss: 96.6292
+122/178 [===================&gt;..........] - ETA: 0s - loss: 95.6838
+157/178 [=========================&gt;....] - ETA: 0s - loss: 95.1194
+178/178 [==============================] - 0s 2ms/step - loss: 93.8193
   ## Epoch 18/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 91.5433
- 53/178 [=======&gt;......................] - ETA: 0s - loss: 89.6239
-107/178 [=================&gt;............] - ETA: 0s - loss: 89.4761
-161/178 [==========================&gt;...] - ETA: 0s - loss: 89.4644
-178/178 [==============================] - 0s 960us/step - loss: 89.1846
+  1/178 [..............................] - ETA: 0s - loss: 108.2108
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 90.7742 
+ 62/178 [=========&gt;....................] - ETA: 0s - loss: 91.1581
+ 88/178 [=============&gt;................] - ETA: 0s - loss: 91.9441
+117/178 [==================&gt;...........] - ETA: 0s - loss: 90.9066
+144/178 [=======================&gt;......] - ETA: 0s - loss: 90.2787
+176/178 [============================&gt;.] - ETA: 0s - loss: 89.4655
+178/178 [==============================] - 0s 2ms/step - loss: 89.3144
   ## Epoch 19/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 81.0386
- 52/178 [=======&gt;......................] - ETA: 0s - loss: 85.8989
-106/178 [================&gt;.............] - ETA: 0s - loss: 85.5597
-159/178 [=========================&gt;....] - ETA: 0s - loss: 85.2229
-178/178 [==============================] - 0s 957us/step - loss: 84.8480
+  1/178 [..............................] - ETA: 0s - loss: 77.0632
+ 35/178 [====&gt;.........................] - ETA: 0s - loss: 85.5213
+ 65/178 [=========&gt;....................] - ETA: 0s - loss: 85.9210
+ 98/178 [===============&gt;..............] - ETA: 0s - loss: 86.4066
+131/178 [=====================&gt;........] - ETA: 0s - loss: 85.8607
+164/178 [==========================&gt;...] - ETA: 0s - loss: 85.2621
+178/178 [==============================] - 0s 2ms/step - loss: 84.9791
   ## Epoch 20/20
   ## 
-  1/178 [..............................] - ETA: 0s - loss: 74.5789
- 55/178 [========&gt;.....................] - ETA: 0s - loss: 83.2886
-109/178 [=================&gt;............] - ETA: 0s - loss: 81.2344
-161/178 [==========================&gt;...] - ETA: 0s - loss: 80.9811
-178/178 [==============================] - 0s 958us/step - loss: 80.6567</code></pre>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+  1/178 [..............................] - ETA: 0s - loss: 75.5983
+ 31/178 [====&gt;.........................] - ETA: 0s - loss: 85.0046
+ 61/178 [=========&gt;....................] - ETA: 0s - loss: 83.3444
+ 89/178 [==============&gt;...............] - ETA: 0s - loss: 81.5918
+119/178 [===================&gt;..........] - ETA: 0s - loss: 81.1716
+150/178 [========================&gt;.....] - ETA: 0s - loss: 81.4247
+178/178 [==============================] - 0s 2ms/step - loss: 80.7900</code></pre>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -2250,7 +2330,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## Non-trainable params: 0</span></span>
 <span>  <span class="co">## __________________________________________________________________________</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -2260,14 +2340,14 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.81</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.64</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.85</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.68</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -2275,7 +2355,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/mlp.html">mlp</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0</span>, epochs <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2290,90 +2370,91 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: keras</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ## Epoch 1/20
   ## 
- 1/25 [&gt;.............................] - ETA: 6s - loss: 0.7001
-25/25 [==============================] - 0s 1ms/step - loss: 0.6988
+ 1/25 [&gt;.............................] - ETA: 10s - loss: 0.7056
+25/25 [==============================] - 0s 2ms/step - loss: 0.6988
   ## Epoch 2/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6964
-25/25 [==============================] - 0s 1ms/step - loss: 0.6930
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.7020
+25/25 [==============================] - 0s 2ms/step - loss: 0.6930
   ## Epoch 3/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6938
-25/25 [==============================] - 0s 1ms/step - loss: 0.6875
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6891
+25/25 [==============================] - 0s 2ms/step - loss: 0.6878
   ## Epoch 4/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6862
-25/25 [==============================] - 0s 1ms/step - loss: 0.6823
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6828
+25/25 [==============================] - 0s 2ms/step - loss: 0.6826
   ## Epoch 5/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6767
-25/25 [==============================] - 0s 1ms/step - loss: 0.6778
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6812
+25/25 [==============================] - 0s 2ms/step - loss: 0.6778
   ## Epoch 6/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6689
-25/25 [==============================] - 0s 1ms/step - loss: 0.6728
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6754
+25/25 [==============================] - 0s 2ms/step - loss: 0.6733
   ## Epoch 7/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6701
-25/25 [==============================] - 0s 1ms/step - loss: 0.6686
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6786
+25/25 [==============================] - 0s 2ms/step - loss: 0.6688
   ## Epoch 8/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6700
-25/25 [==============================] - 0s 1ms/step - loss: 0.6643
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6665
+25/25 [==============================] - 0s 2ms/step - loss: 0.6647
   ## Epoch 9/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6529
-25/25 [==============================] - 0s 1ms/step - loss: 0.6601
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6656
+25/25 [==============================] - 0s 2ms/step - loss: 0.6604
   ## Epoch 10/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6661
-25/25 [==============================] - 0s 1ms/step - loss: 0.6560
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6600
+25/25 [==============================] - 0s 2ms/step - loss: 0.6565
   ## Epoch 11/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6531
-25/25 [==============================] - 0s 1ms/step - loss: 0.6519
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6628
+25/25 [==============================] - 0s 2ms/step - loss: 0.6526
   ## Epoch 12/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6552
-25/25 [==============================] - 0s 1ms/step - loss: 0.6479
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6415
+25/25 [==============================] - 0s 2ms/step - loss: 0.6483
   ## Epoch 13/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6468
-25/25 [==============================] - 0s 1ms/step - loss: 0.6437
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6333
+24/25 [===========================&gt;..] - ETA: 0s - loss: 0.6442
+25/25 [==============================] - 0s 2ms/step - loss: 0.6442
   ## Epoch 14/20
   ## 
  1/25 [&gt;.............................] - ETA: 0s - loss: 0.6518
-25/25 [==============================] - 0s 1ms/step - loss: 0.6396
+25/25 [==============================] - 0s 2ms/step - loss: 0.6401
   ## Epoch 15/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6204
-25/25 [==============================] - 0s 1ms/step - loss: 0.6354
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6440
+25/25 [==============================] - 0s 2ms/step - loss: 0.6359
   ## Epoch 16/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6412
-25/25 [==============================] - 0s 1ms/step - loss: 0.6313
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6241
+25/25 [==============================] - 0s 2ms/step - loss: 0.6315
   ## Epoch 17/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6193
-25/25 [==============================] - 0s 1ms/step - loss: 0.6270
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6566
+25/25 [==============================] - 0s 2ms/step - loss: 0.6271
   ## Epoch 18/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6526
-25/25 [==============================] - 0s 1ms/step - loss: 0.6226
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6212
+25/25 [==============================] - 0s 2ms/step - loss: 0.6228
   ## Epoch 19/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6127
-25/25 [==============================] - 0s 1ms/step - loss: 0.6184
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6165
+25/25 [==============================] - 0s 2ms/step - loss: 0.6183
   ## Epoch 20/20
   ## 
- 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6190
-25/25 [==============================] - 0s 1ms/step - loss: 0.6140</code></pre>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+ 1/25 [&gt;.............................] - ETA: 0s - loss: 0.6133
+25/25 [==============================] - 0s 2ms/step - loss: 0.6139</code></pre>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -2390,7 +2471,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## __________________________________________________________________________</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2398,16 +2479,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.545        0.455</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.666        0.334</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.601        0.399</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.486        0.514</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.483        0.517</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.420        0.580</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.559        0.441</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.562        0.438</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.747        0.253</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.383        0.617</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.536        0.464</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.659        0.341</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.592        0.408</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.476        0.524</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.473        0.527</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.411        0.589</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.550        0.450</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.552        0.448</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.740        0.260</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.374        0.626</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2421,7 +2502,7 @@ Classification Example (<code>glmnet</code>)
 </h3>
 <p>We’ll predict the island where the penguins were observed with two
 variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
@@ -2430,7 +2511,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span></span>
@@ -2442,7 +2523,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: glmnet</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span></span></code></pre></div>
@@ -2514,7 +2595,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## 60  2 29.75 0.00131</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2534,7 +2615,7 @@ Classification Example (<code>keras</code>)
 </h3>
 <p>We’ll predict the island where the penguins were observed with two
 variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
@@ -2543,7 +2624,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"keras"</span><span class="op">)</span></span>
@@ -2555,90 +2636,90 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: keras</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Epoch 1/20
 ## 
-1/11 [=&gt;............................] - ETA: 2s - loss: 4.5365
-11/11 [==============================] - 0s 1ms/step - loss: 4.0388
+1/11 [=&gt;............................] - ETA: 4s - loss: 4.5502
+11/11 [==============================] - 0s 2ms/step - loss: 4.0385
 ## Epoch 2/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 3.4094
-11/11 [==============================] - 0s 1ms/step - loss: 3.7935
+1/11 [=&gt;............................] - ETA: 0s - loss: 3.3700
+11/11 [==============================] - 0s 2ms/step - loss: 3.7939
 ## Epoch 3/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 3.8526
-11/11 [==============================] - 0s 1ms/step - loss: 3.5642
+1/11 [=&gt;............................] - ETA: 0s - loss: 4.2078
+11/11 [==============================] - 0s 2ms/step - loss: 3.5627
 ## Epoch 4/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 4.3651
-11/11 [==============================] - 0s 1ms/step - loss: 3.3442
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.7146
+11/11 [==============================] - 0s 2ms/step - loss: 3.3411
 ## Epoch 5/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 3.7687
-11/11 [==============================] - 0s 1ms/step - loss: 3.1389
+1/11 [=&gt;............................] - ETA: 0s - loss: 3.4300
+11/11 [==============================] - 0s 2ms/step - loss: 3.1369
 ## Epoch 6/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.2781
-11/11 [==============================] - 0s 1ms/step - loss: 2.9445
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.3294
+11/11 [==============================] - 0s 2ms/step - loss: 2.9411
 ## Epoch 7/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.8466
-11/11 [==============================] - 0s 1ms/step - loss: 2.7686
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.5529
+11/11 [==============================] - 0s 2ms/step - loss: 2.7648
 ## Epoch 8/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 3.0950
-11/11 [==============================] - 0s 1ms/step - loss: 2.6074
+1/11 [=&gt;............................] - ETA: 0s - loss: 3.6558
+11/11 [==============================] - 0s 3ms/step - loss: 2.6057
 ## Epoch 9/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.6115
-11/11 [==============================] - 0s 1ms/step - loss: 2.4633
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.0224
+11/11 [==============================] - 0s 2ms/step - loss: 2.4558
 ## Epoch 10/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.8770
-11/11 [==============================] - 0s 1ms/step - loss: 2.3334
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.4727
+11/11 [==============================] - 0s 2ms/step - loss: 2.3271
 ## Epoch 11/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.7860
-11/11 [==============================] - 0s 1ms/step - loss: 2.2168
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.3541
+11/11 [==============================] - 0s 2ms/step - loss: 2.2130
 ## Epoch 12/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.8480
-11/11 [==============================] - 0s 1ms/step - loss: 2.1174
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.2230
+11/11 [==============================] - 0s 2ms/step - loss: 2.1127
 ## Epoch 13/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.7782
-11/11 [==============================] - 0s 1ms/step - loss: 2.0317
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.8724
+11/11 [==============================] - 0s 2ms/step - loss: 2.0255
 ## Epoch 14/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.5124
-11/11 [==============================] - 0s 1ms/step - loss: 1.9589
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.9401
+11/11 [==============================] - 0s 2ms/step - loss: 1.9551
 ## Epoch 15/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.7144
-11/11 [==============================] - 0s 1ms/step - loss: 1.8959
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.0743
+11/11 [==============================] - 0s 2ms/step - loss: 1.8924
 ## Epoch 16/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.6948
-11/11 [==============================] - 0s 1ms/step - loss: 1.8411
+1/11 [=&gt;............................] - ETA: 0s - loss: 2.0023
+11/11 [==============================] - 0s 2ms/step - loss: 1.8398
 ## Epoch 17/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 2.2180
-11/11 [==============================] - 0s 1ms/step - loss: 1.7958
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.8692
+11/11 [==============================] - 0s 2ms/step - loss: 1.7921
 ## Epoch 18/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.9129
-11/11 [==============================] - 0s 1ms/step - loss: 1.7572
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.5726
+11/11 [==============================] - 0s 2ms/step - loss: 1.7538
 ## Epoch 19/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.3549
-11/11 [==============================] - 0s 1ms/step - loss: 1.7187
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.8749
+11/11 [==============================] - 0s 2ms/step - loss: 1.7190
 ## Epoch 20/20
 ## 
-1/11 [=&gt;............................] - ETA: 0s - loss: 1.6416
-11/11 [==============================] - 0s 1ms/step - loss: 1.6900</code></pre>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+1/11 [=&gt;............................] - ETA: 0s - loss: 1.7789
+11/11 [==============================] - 0s 2ms/step - loss: 1.6874</code></pre>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_fit</span></span></code></pre></div>
 <pre><code><span><span class="co">## parsnip model object</span></span>
 <span><span class="co">## </span></span>
@@ -2655,7 +2736,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## __________________________________________________________________________</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2663,11 +2744,11 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.284         0.017<span style="text-decoration: underline;">3</span>      0.698     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">111</span>      1.00        0.000<span style="text-decoration: underline;">001</span>97</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.318         0.473       0.208     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.049<span style="text-decoration: underline;">4</span>        0.939       0.011<span style="text-decoration: underline;">3</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.302         0.023<span style="text-decoration: underline;">2</span>      0.674</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.288         0.018<span style="text-decoration: underline;">1</span>      0.694     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">108</span>      1.00        0.000<span style="text-decoration: underline;">001</span>91</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.315         0.482       0.203     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.048<span style="text-decoration: underline;">1</span>        0.941       0.010<span style="text-decoration: underline;">8</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.306         0.024<span style="text-decoration: underline;">2</span>      0.670</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
@@ -2675,7 +2756,7 @@ Classification Example (<code>nnet</code>)
 </h3>
 <p>We’ll predict the island where the penguins were observed with two
 variables in the same unit (mm): bill length and bill depth.</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
@@ -2684,7 +2765,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="va">penguins_train</span> <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">penguins_test</span>  <span class="op">&lt;-</span> <span class="va">penguins</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">153</span>, <span class="fl">31</span>, <span class="fl">277</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/multinom_reg.html">multinom_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnet"</span><span class="op">)</span></span>
@@ -2696,7 +2777,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: nnet</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span></span></code></pre></div>
@@ -2715,7 +2796,7 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <span><span class="co">## AIC: 514.5009</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2744,7 +2825,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -2755,7 +2836,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">knn_reg_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">5</span>, weight_func <span class="op">=</span> <span class="st">"triangular"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2770,7 +2851,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: kknn</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">knn_reg_fit</span> <span class="op">&lt;-</span> <span class="va">knn_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span><span class="va">knn_reg_fit</span></span></code></pre></div>
 <pre><code><span><span class="co">## parsnip model object</span></span>
@@ -2785,7 +2866,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="co">## Best kernel: triangular</span></span>
 <span><span class="co">## Best k: 5</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">knn_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span><span class="co">##   .pred</span></span>
@@ -2802,7 +2883,7 @@ Classification Example (<code>kknn</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -2811,7 +2892,7 @@ Both predictors are in the same units.</p>
 <span><span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>Since there are two classes, we’ll use an odd number of neighbors to
 avoid ties:</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">knn_cls_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/nearest_neighbor.html">nearest_neighbor</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fl">11</span>, weight_func <span class="op">=</span> <span class="st">"triangular"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2826,7 +2907,7 @@ avoid ties:</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: kknn</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">knn_cls_fit</span> <span class="op">&lt;-</span> <span class="va">knn_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span><span class="va">knn_cls_fit</span></span></code></pre></div>
 <pre><code><span><span class="co">## parsnip model object</span></span>
@@ -2841,7 +2922,7 @@ avoid ties:</p>
 <span><span class="co">## Best k: 11</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">knn_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">knn_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -2875,7 +2956,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -2886,7 +2967,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">rf_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2901,7 +2982,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: ranger</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">rf_reg_fit</span> <span class="op">&lt;-</span> <span class="va">rf_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span>  <span class="va">rf_reg_fit</span></span></code></pre></div>
@@ -2923,7 +3004,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## OOB prediction error (MSE):       9.72953 </span></span>
 <span>  <span class="co">## R squared (OOB):                  0.7739986</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -2940,7 +3021,7 @@ Classification Example (<code>ranger</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -2948,7 +3029,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">rf_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -2963,7 +3044,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: ranger</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">rf_cls_fit</span> <span class="op">&lt;-</span> <span class="va">rf_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span>  <span class="va">rf_cls_fit</span></span></code></pre></div>
@@ -2985,7 +3066,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## OOB prediction error (Brier s.):  0.1534794</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -3013,7 +3094,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -3024,7 +3105,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">rf_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3039,7 +3120,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: randomForest</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">rf_reg_fit</span> <span class="op">&lt;-</span> <span class="va">rf_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span>  <span class="va">rf_reg_fit</span></span></code></pre></div>
@@ -3055,7 +3136,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">##           Mean of squared residuals: 9.696736</span></span>
 <span>  <span class="co">##                     % Var explained: 77.47</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -3072,7 +3153,7 @@ Classification Example (<code>randomForest</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -3080,7 +3161,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">rf_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">200</span>, min_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3095,7 +3176,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: randomForest</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">rf_cls_fit</span> <span class="op">&lt;-</span> <span class="va">rf_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span>  <span class="va">rf_cls_fit</span></span></code></pre></div>
@@ -3115,7 +3196,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## Class2     84    264   0.2413793</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">rf_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -3149,7 +3230,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -3160,7 +3241,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3175,7 +3256,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: LiblineaR</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span>  <span class="va">svm_reg_fit</span></span></code></pre></div>
@@ -3200,7 +3281,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## attr(,"class")</span></span>
 <span>  <span class="co">## [1] "LiblineaR"</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -3217,7 +3298,7 @@ Classification Example (<code>LiblineaR</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -3225,7 +3306,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3239,7 +3320,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: LiblineaR</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span>  <span class="va">svm_cls_fit</span></span></code></pre></div>
@@ -3268,7 +3349,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## attr(,"class")</span></span>
 <span>  <span class="co">## [1] "LiblineaR"</span></span></code></pre>
 <p>The holdout data can be predicted for hard class predictions.</p>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 1</span></span></span>
 <span>  <span class="co">##    .pred_class</span></span>
@@ -3293,7 +3374,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -3304,7 +3385,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3319,11 +3400,11 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">##  Setting default kernel parameters</span></span></code></pre>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -3339,7 +3420,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## Objective Function Value : -825.1632 </span></span>
 <span>  <span class="co">## Training error : 0.226456</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -3356,7 +3437,7 @@ Classification Example (<code>kernlab</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -3364,7 +3445,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_linear.html">svm_linear</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3378,11 +3459,11 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">##  Setting default kernel parameters</span></span></code></pre>
-<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -3400,7 +3481,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## Probability model included.</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -3434,7 +3515,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -3445,7 +3526,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_poly.html">svm_poly</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3460,11 +3541,11 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">##  Setting default kernel parameters</span></span></code></pre>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -3481,7 +3562,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## Objective Function Value : -825.1628 </span></span>
 <span>  <span class="co">## Training error : 0.226471</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
@@ -3498,7 +3579,7 @@ Classification Example (<code>kernlab</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -3506,7 +3587,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>  <span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="../reference/svm_poly.html">svm_poly</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3520,11 +3601,11 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">##  Setting default kernel parameters</span></span></code></pre>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">svm_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
@@ -3543,7 +3624,7 @@ Both predictors are in the same units.</p>
 <span>  <span class="co">## Probability model included.</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -3577,7 +3658,7 @@ function of the 14 day lagged ridership at two stations. The two
 predictors are in the same units (rides per day/1000) and do not need to
 be normalized. All but the last week of data are used for training. The
 last week will be predicted after the model is fit.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -3588,7 +3669,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="va">Chicago_train</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">Chicago_test</span> <span class="op">&lt;-</span> <span class="va">Chicago</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">6</span><span class="op">)</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">svm_reg_spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/svm_rbf.html">svm_rbf</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span>, margin <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3603,7 +3684,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">svm_reg_fit</span> <span class="op">&lt;-</span> <span class="va">svm_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span>
 <span><span class="va">svm_reg_fit</span></span></code></pre></div>
@@ -3622,7 +3703,7 @@ last week will be predicted after the model is fit.</p>
 <span><span class="co">## Objective Function Value : -746.584 </span></span>
 <span><span class="co">## Training error : 0.205567</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span><span class="co">##   .pred</span></span>
@@ -3639,7 +3720,7 @@ Classification Example (<code>kernlab</code>)
 </h3>
 <p>The example data has two predictors and an outcome with two classes.
 Both predictors are in the same units.</p>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">two_class_dat</span><span class="op">)</span></span>
@@ -3647,7 +3728,7 @@ Both predictors are in the same units.</p>
 <span><span class="va">data_train</span> <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">data_test</span>  <span class="op">&lt;-</span> <span class="va">two_class_dat</span><span class="op">[</span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> , <span class="op">]</span></span></code></pre></div>
 <p>We can define the model with specific parameters:</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">svm_cls_spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/svm_rbf.html">svm_rbf</a></span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="co"># This model can be used for classification or regression, so set mode</span></span>
@@ -3661,7 +3742,7 @@ Both predictors are in the same units.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Computational engine: kernlab</span></span></code></pre>
 <p>Now we create the model fit object:</p>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">svm_cls_fit</span> <span class="op">&lt;-</span> <span class="va">svm_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span>
 <span><span class="va">svm_cls_fit</span></span></code></pre></div>
@@ -3682,7 +3763,7 @@ Both predictors are in the same units.</p>
 <span><span class="co">## Probability model included.</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">svm_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
