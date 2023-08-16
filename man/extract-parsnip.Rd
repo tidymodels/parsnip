@@ -60,6 +60,7 @@ or silently generating incorrect predictions.
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm_spec <- linear_reg() \%>\% set_engine("lm")
 lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 
@@ -68,4 +69,5 @@ extract_spec_parsnip(lm_fit)
 
 extract_fit_engine(lm_fit)
 lm(mpg ~ ., data = mtcars)
+\dontshow{\}) # examplesIf}
 }

@@ -29,7 +29,7 @@
 #'  modified in-place or replaced wholesale.
 #' @return An updated model specification.
 #' @name parsnip_update
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' model <- boost_tree(mtry = 10, min_n = 3)
 #' model
 #' update(model, mtry = 1)

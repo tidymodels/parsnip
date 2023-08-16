@@ -137,7 +137,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #' @name doc-tools
 #' @keywords internal
 #' @export
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # See this file for step-by-step instructions.
 #' system.file("README-DOCS.md", package = "parsnip")
 #'

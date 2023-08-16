@@ -33,7 +33,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("linear_reg")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("linear_reg")
 #'
 #' linear_reg()

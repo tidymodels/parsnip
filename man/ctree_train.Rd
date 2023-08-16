@@ -74,9 +74,11 @@ These functions are slightly different APIs for \code{\link[partykit:ctree]{part
 arguments (as opposed to being specified in \code{\link[partykit:ctree_control]{partykit::ctree_control()}}).
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 if (rlang::is_installed(c("modeldata", "partykit"))) {
   data(bivariate, package = "modeldata")
   ctree_train(Class ~ ., data = bivariate_train)
   ctree_train(Class ~ ., data = bivariate_train, maxdepth = 1)
 }
+\dontshow{\}) # examplesIf}
 }

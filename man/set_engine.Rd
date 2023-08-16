@@ -54,6 +54,7 @@ argument to be passed directly to the engine fitting function, like
 }
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # First, set main arguments using the standardized names
 logistic_reg(penalty = 0.01, mixture = 1/3) \%>\%
   # Now specify how you want to fit the model with another argument
@@ -65,5 +66,5 @@ decision_tree(tree_depth = 5) \%>\%
   set_engine("rpart", parms = list(prior = c(.65,.35))) \%>\%
   set_mode("classification") \%>\%
   translate()
-
+\dontshow{\}) # examplesIf}
 }

@@ -40,7 +40,7 @@ check_eng_args <- function(args, obj, core_args) {
 #' @return An updated model object.
 #' @details `set_args()` will replace existing values of the arguments.
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' rand_forest()
 #'
 #' rand_forest() %>%
@@ -294,7 +294,7 @@ make_xy_call <- function(object, target, env) {
 #' @param offset A number subtracted off of the number of rows available in the
 #' data.
 #' @return An integer (and perhaps a warning).
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 
 #' nearest_neighbor(neighbors= 100) %>%
 #'   set_engine("kknn") %>%

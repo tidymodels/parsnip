@@ -27,7 +27,7 @@
 #'  to understand what the underlying syntax would be. It should not be used
 #'  to modify the model specification.
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' lm_spec <- linear_reg(penalty = 0.01)
 #'
 #' # `penalty` is tranlsated to `lambda`
@@ -177,7 +177,7 @@ add_methods <- function(x, engine) {
 #' or in a list that can facilitate renaming grid objects?
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' mod <-
 #'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%
 #'  set_engine("glmnet")

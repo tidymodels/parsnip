@@ -40,7 +40,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("logistic_reg")
 #'
 #' logistic_reg()

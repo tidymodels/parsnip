@@ -26,7 +26,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_linear")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("svm_linear")
 #'
 #' svm_linear(mode = "classification")

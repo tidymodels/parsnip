@@ -37,7 +37,7 @@
 #' @references
 #' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 #' @export
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' car_trn <- mtcars[11:32,]
 #' car_tst <- mtcars[ 1:10,]
 #'

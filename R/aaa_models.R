@@ -54,7 +54,7 @@ model_info_table <-
 #' @keywords internal
 #' @references "How to build a parsnip model"
 #'  \url{https://www.tidymodels.org/learn/develop/models/}
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # Access the model data:
 #' current_code <- get_model_env()
 #' ls(envir = current_code)
@@ -552,7 +552,7 @@ check_interface_val <- function(x) {
 #'
 #' @references "How to build a parsnip model"
 #'  \url{https://www.tidymodels.org/learn/develop/models/}
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # set_new_model("shallow_learning_model")
 #'
 #' # Show the information about a model:

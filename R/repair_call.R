@@ -13,7 +13,7 @@
 #'  is the data frame that was given to `parsnip` for the model fit (i.e., the
 #'  training set data). The name of this data object is inserted into the call.
 #' @return A modified `parsnip` fitted model.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' fitted_model <-
 #'   linear_reg() %>%

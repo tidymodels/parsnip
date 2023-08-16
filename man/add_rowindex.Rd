@@ -16,5 +16,7 @@ The same data frame with a column of 1-based integers named \code{.row}.
 Add a column of row numbers to a data frame
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mtcars \%>\% add_rowindex()
+\dontshow{\}) # examplesIf}
 }

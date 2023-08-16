@@ -56,7 +56,9 @@ call. For this type of model, the template of the fit calls are below:
 }
 
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 null_model(mode = "regression")
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}

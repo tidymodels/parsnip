@@ -27,7 +27,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("proportional_hazards")
 #'
 #' proportional_hazards(mode = "censored regression")

@@ -18,7 +18,9 @@ A tibble with column \code{value}.
 Return the results of \code{nullmodel} as a tibble
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 nullmodel(mtcars[,-1], mtcars$mpg) \%>\% tidy()
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

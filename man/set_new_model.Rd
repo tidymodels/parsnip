@@ -145,10 +145,12 @@ accommodate a sparse matrix representation for predictors during fitting
 and tuning.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # set_new_model("shallow_learning_model")
 
 # Show the information about a model:
 show_model_info("rand_forest")
+\dontshow{\}) # examplesIf}
 }
 \references{
 "How to build a parsnip model"

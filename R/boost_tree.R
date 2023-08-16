@@ -47,7 +47,7 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
 #' [xgb_train()], [C5.0_train()]
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("boost_tree")
 #'
 #' boost_tree(mode = "classification", trees = 20)

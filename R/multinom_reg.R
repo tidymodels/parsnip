@@ -40,7 +40,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("multinom_reg")
 #'
 #' multinom_reg()

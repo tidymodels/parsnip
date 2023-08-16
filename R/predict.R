@@ -114,7 +114,7 @@
 #'  multivariate models.
 #' @references
 #' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' library(dplyr)
 #'
 #' lm_model <-

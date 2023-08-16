@@ -18,7 +18,7 @@
 #' @return An S3 object with class "control_parsnip" that is a named list
 #' with the results of the function call
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' fit_control(verbosity = 2L)
 #'
 #' @details

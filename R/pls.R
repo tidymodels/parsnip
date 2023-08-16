@@ -54,7 +54,7 @@ pls <-
 #' @param ... Not used for `update()`.
 #' @param fresh A logical for whether the arguments should be
 #'  modified in-place of or replaced wholesale.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' model <- pls(predictor_prop =  0.1)
 #' model
 #' update(model, predictor_prop = 1)

@@ -22,11 +22,13 @@ throughout the tidymodels packages. It is now assumed that each control
 function is either a subset or a superset of another control function.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ctrl <- control_parsnip(catch = TRUE)
 ctrl$allow_par <- TRUE
 str(ctrl)
 
 ctrl <- condense_control(ctrl, control_parsnip())
 str(ctrl)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

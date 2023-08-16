@@ -21,7 +21,7 @@
 #' @param ... Options to pass to [stats::glm()]. If `family` is not set, it will
 #' automatically be assigned the basic binomial family.
 #' @return A object produced by [stats::glm()].
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' #----------------------------------------------------------------------------
 #' # The same data set formatted three ways
 #'

@@ -55,9 +55,11 @@ C5_rules(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("C5_rules")
 
 C5_rules()
+\dontshow{\}) # examplesIf}
 }
 \references{
 Quinlan R (1993). \emph{C4.5: Programs for Machine Learning}. Morgan
