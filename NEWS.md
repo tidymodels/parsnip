@@ -1,3 +1,5 @@
+# parsnip (development version)
+
 # parsnip 1.1.1
 
 * Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
