@@ -418,6 +418,12 @@
     <loc>https://parsnip.tidymodels.org/reference/doc-tools.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/dot-extract_surv_status.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/dot-extract_surv_time.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/dot-model_param_name_key.html</loc>
   </url>
   <url>
