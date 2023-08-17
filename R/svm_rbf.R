@@ -31,7 +31,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("svm_rbf")
 #'
 #' svm_rbf(mode = "classification", rbf_sigma = 0.2)

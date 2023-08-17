@@ -30,7 +30,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("mlp")
 #'
 #' mlp(mode = "classification", penalty = 0.01)

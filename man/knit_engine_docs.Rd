@@ -9,8 +9,6 @@ knit_engine_docs(pattern = NULL)
 \arguments{
 \item{pattern}{A regular expression to specify which files to knit. The
 default knits all engine documentation files.}
-
-\item{...}{Options passed to \code{\link[knitr:knit]{knitr::knit()}}.}
 }
 \value{
 A tibble with column \code{file} for the file name and \code{result} (a

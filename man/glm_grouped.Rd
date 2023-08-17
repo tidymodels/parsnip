@@ -36,6 +36,7 @@ each factor level so that the outcome can be given to the formula as
 "number of events" format for binomial data.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 #----------------------------------------------------------------------------
 # The same data set formatted three ways
 
@@ -87,4 +88,5 @@ glm(
 
 # The new function that starts with frequency weights and gets the correct place:
 glm_grouped(Admit ~ Gender + Dept, data = ucb_weighted, weights = ucb_weighted$Freq)
+\dontshow{\}) # examplesIf}
 }

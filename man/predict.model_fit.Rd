@@ -138,6 +138,7 @@ produces. Set \code{increasing = FALSE} to suppress this behavior.
 }
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(dplyr)
 
 lm_model <-
@@ -165,6 +166,7 @@ predict(
   type = "raw",
   opts = list(type = "terms")
 )
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}

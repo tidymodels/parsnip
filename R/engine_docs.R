@@ -1,7 +1,6 @@
 #' Knit engine-specific documentation
 #' @param pattern A regular expression to specify which files to knit. The
 #' default knits all engine documentation files.
-#' @param ... Options passed to [knitr::knit()].
 #' @return A tibble with column `file` for the file name and `result` (a
 #' character vector that echos the output file name or, when there is
 #' a failure, the error message).
@@ -138,7 +137,7 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 #' @name doc-tools
 #' @keywords internal
 #' @export
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # See this file for step-by-step instructions.
 #' system.file("README-DOCS.md", package = "parsnip")
 #'

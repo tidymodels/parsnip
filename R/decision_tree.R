@@ -26,7 +26,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("decision_tree")
 #'
 #' decision_tree(mode = "classification", tree_depth = 5)

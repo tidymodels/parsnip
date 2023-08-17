@@ -50,6 +50,7 @@ the References section).
 Most parsnip users will not need to use these functions or documentation.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # See this file for step-by-step instructions.
 system.file("README-DOCS.md", package = "parsnip")
 
@@ -57,6 +58,7 @@ system.file("README-DOCS.md", package = "parsnip")
 make_engine_list("linear_reg")
 
 cat(make_engine_list("linear_reg"))
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://github.com/tidymodels/parsnip/blob/main/inst/README-DOCS.md}

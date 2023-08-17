@@ -90,7 +90,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' @param ... Any optional arguments associated with the chosen computational
 #'  engine. These are captured as quosures and can be tuned with `tune()`.
 #' @return An updated model specification.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # First, set main arguments using the standardized names
 #' logistic_reg(penalty = 0.01, mixture = 1/3) %>%
 #'   # Now specify how you want to fit the model with another argument
@@ -160,7 +160,7 @@ set_engine.default <- function(object, engine, ...) {
 #' @param x The name of a `parsnip` model (e.g., "linear_reg", "mars", etc.)
 #' @return A tibble.
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("linear_reg")
 #' @export
 show_engines <- function(x) {

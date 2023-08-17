@@ -81,9 +81,11 @@ boost_tree(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("boost_tree")
 
 boost_tree(mode = "classification", trees = 20)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

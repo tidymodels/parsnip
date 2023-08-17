@@ -44,6 +44,7 @@ returns the names of the arguments to \code{multi_predict()} for this model
 (if any).
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm_model_idea <- linear_reg() \%>\% set_engine("lm")
 has_multi_predict(lm_model_idea)
 lm_model_fit <- fit(lm_model_idea, mpg ~ ., data = mtcars)
@@ -61,5 +62,6 @@ knn_fit <-
 multi_predict_args(knn_fit)
 
 multi_predict(knn_fit, mtcars[1, -1], neighbors = 1:4)$.pred
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

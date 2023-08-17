@@ -42,6 +42,7 @@ to understand what the underlying syntax would be. It should not be used
 to modify the model specification.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm_spec <- linear_reg(penalty = 0.01)
 
 # `penalty` is tranlsated to `lambda`
@@ -55,5 +56,5 @@ translate(lm_spec, engine = "spark")
 
 # with a placeholder for an unknown argument value:
 translate(linear_reg(penalty = tune(), mixture = tune()), engine = "glmnet")
-
+\dontshow{\}) # examplesIf}
 }

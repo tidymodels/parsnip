@@ -29,7 +29,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("nearest_neighbor")
 #'
 #' nearest_neighbor(neighbors = 11)

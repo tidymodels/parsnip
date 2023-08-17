@@ -29,7 +29,7 @@
 #'
 #' @seealso [xrf::xrf.formula()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("rule_fit")
 #'
 #' rule_fit()
@@ -73,7 +73,7 @@ rule_fit <-
 # ------------------------------------------------------------------------------
 
 #' @param object A `rule_fit` model specification.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # ------------------------------------------------------------------------------
 #'
 #' model <- rule_fit(trees = 10, min_n = 2)

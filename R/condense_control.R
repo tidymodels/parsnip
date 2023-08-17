@@ -13,7 +13,7 @@
 #' @keywords internal
 #' @export
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' ctrl <- control_parsnip(catch = TRUE)
 #' ctrl$allow_par <- TRUE
 #' str(ctrl)

@@ -2,7 +2,7 @@
 #'
 #' @param x A data frame
 #' @return The same data frame with a column of 1-based integers named `.row`.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' mtcars %>% add_rowindex()
 #' @export
 add_rowindex <- function(x) {

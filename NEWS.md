@@ -1,14 +1,14 @@
-# parsnip (development version)
+# parsnip 1.1.1
+
+* Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
 
 * Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
 
-* `augment()` now works for censored regression models. 
-
 * For BART models with the `dbarts` engine, `predict()` can now also return the standard error for confidence and prediction intervals (#976).
 
-* A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
+* `augment()` now works for censored regression models. 
 
-* Fixed bug where prediction on rank dificient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
+* A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
 
 * Fixed bug where `boost_tree()` models couldn't be fit with 1 predictor if `validation` argument was used. (#994)
 

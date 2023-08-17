@@ -8,7 +8,7 @@
 #' @docType data
 #' @return \item{model_db}{a data frame}
 #' @keywords datasets internal
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' data(model_db)
 NULL
 

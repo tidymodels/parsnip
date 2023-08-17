@@ -75,6 +75,7 @@ bart(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("bart")
 
 bart(mode = "regression", trees = 5)
@@ -98,6 +99,7 @@ prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) \%>\%
   geom_line() +
   geom_point() +
   facet_wrap(~ expo)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

@@ -234,7 +234,7 @@ prompt_missing_implementation <- function(spec,
 
 #' Print the model call
 #'
-#' @param x A "model_spec" object.
+#' @param object A "model_spec" object.
 #' @return A character string.
 #' @keywords internal
 #' @export
@@ -526,3 +526,20 @@ check_for_newdata <- function(..., call = rlang::caller_env()) {
     )
   }
 }
+
+
+# ------------------------------------------------------------------------------
+
+# driven by https://github.com/Rdatatable/data.table/issues/5658
+# nocov start
+# adapted from ps:::is_cran_check()
+is_cran_check <- function() {
+  if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+    FALSE
+  }
+  else {
+    Sys.getenv("_R_CHECK_PACKAGE_NAME_", "") != ""
+  }
+}
+# nocov end
+

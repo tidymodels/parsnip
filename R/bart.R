@@ -42,7 +42,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bart")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("bart")
 #'
 #' bart(mode = "regression", trees = 5)

@@ -60,10 +60,11 @@ nearest_neighbor(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("nearest_neighbor")
 
 nearest_neighbor(neighbors = 11)
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

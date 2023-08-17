@@ -29,7 +29,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_poly")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("svm_poly")
 #'
 #' svm_poly(mode = "classification", degree = 1.2)

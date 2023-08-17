@@ -38,7 +38,7 @@ generics::varying_args
 #' contains _any_ varying value (`varying`), the `id` for the object (`id`),
 #' and the class that was used to call the method (`type`).
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # List all possible varying args for the random forest spec
 #' rand_forest() %>% varying_args()

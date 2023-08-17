@@ -22,6 +22,7 @@ tuning parameter names, the standardized parsnip parameter names, and the
 argument names to the underlying fit function for the engine.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mod <-
  linear_reg(penalty = tune("regularization"), mixture = tune()) \%>\%
  set_engine("glmnet")
@@ -39,4 +40,5 @@ grid \%>\%
 grid \%>\%
   dplyr::rename(!!!rn$user_to_parsnip) \%>\%
   dplyr::rename(!!!rn$parsnip_to_engine)
+\dontshow{\}) # examplesIf}
 }

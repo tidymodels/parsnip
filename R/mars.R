@@ -25,7 +25,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("mars")
 #'
 #' mars(mode = "regression", num_terms = 5)

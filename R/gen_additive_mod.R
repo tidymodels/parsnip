@@ -24,7 +24,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("gen_additive_mod")
 #'
 #' gen_additive_mod()

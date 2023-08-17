@@ -5,7 +5,7 @@
 #' @param ... Not used.
 #' @return A character vector
 #' @name required_pkgs.model_spec
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' should_fail <- try(required_pkgs(linear_reg(engine = NULL)), silent = TRUE)
 #' should_fail
 #'

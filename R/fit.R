@@ -55,7 +55,7 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'

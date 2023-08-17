@@ -39,7 +39,7 @@
 #' @seealso [C50::C5.0()], [C50::C5.0Control()],
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("C5_rules")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("C5_rules")
 #'
 #' C5_rules()
@@ -73,7 +73,7 @@ C5_rules <-
 #'
 #' @param object A `C5_rules` model specification.
 #' @inheritParams update.boost_tree
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # ------------------------------------------------------------------------------
 #'

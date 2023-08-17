@@ -175,7 +175,7 @@ NULL
 #'  stores model objects after seeing the data and applying a model.
 #' @rdname model_fit
 #' @name model_fit
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # Keep the `x` matrix if the data are not too big.
 #' spec_obj <-

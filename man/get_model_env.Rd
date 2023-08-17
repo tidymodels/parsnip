@@ -29,10 +29,11 @@ These functions read and write to the environment where the package stores
 information about model specifications.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Access the model data:
 current_code <- get_model_env()
 ls(envir = current_code)
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 "How to build a parsnip model"

@@ -49,6 +49,7 @@ metrics in the \pkg{yardstick} package.
 }
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 car_trn <- mtcars[11:32,]
 car_tst <- mtcars[ 1:10,]
 
@@ -88,7 +89,7 @@ augment(cls_form, cls_tst[, -3])
 
 augment(cls_xy, cls_tst)
 augment(cls_xy, cls_tst[, -3])
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
