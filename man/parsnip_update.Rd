@@ -4,9 +4,10 @@
 %   R/discrim_flexible.R, R/discrim_linear.R, R/discrim_quad.R,
 %   R/discrim_regularized.R, R/gen_additive_mod.R, R/linear_reg.R,
 %   R/logistic_reg.R, R/mars.R, R/mlp.R, R/multinom_reg.R, R/naive_Bayes.R,
-%   R/nearest_neighbor.R, R/pls.R, R/poisson_reg.R, R/proportional_hazards.R,
-%   R/rand_forest.R, R/rule_fit.R, R/surv_reg.R, R/survival_reg.R,
-%   R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/update.R
+%   R/nearest_neighbor.R, R/nearest_neighbor_adaptive.R, R/pls.R,
+%   R/poisson_reg.R, R/proportional_hazards.R, R/rand_forest.R, R/rule_fit.R,
+%   R/surv_reg.R, R/survival_reg.R, R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R,
+%   R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_mlp}
@@ -28,6 +29,7 @@
 \alias{update.multinom_reg}
 \alias{update.naive_Bayes}
 \alias{update.nearest_neighbor}
+\alias{update.nearest_neighbor_adaptive}
 \alias{update.pls}
 \alias{update.poisson_reg}
 \alias{update.proportional_hazards}
@@ -221,6 +223,19 @@
   neighbors = NULL,
   weight_func = NULL,
   dist_power = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{nearest_neighbor_adaptive}(
+  object,
+  parameters = NULL,
+  neighbors = NULL,
+  neighborhood = NULL,
+  matrix_diagonal = NULL,
+  weighted = NULL,
+  sphere = NULL,
+  num_comp = NULL,
   fresh = FALSE,
   ...
 )
@@ -442,11 +457,24 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 \item{dist_power}{A single number for the parameter used in
 calculating Minkowski distance.}
 
+\item{neighborhood}{The number of data points used to calculate between and
+within class covariance.}
+
+\item{matrix_diagonal}{Diagonal elements of a diagonal matrix. 1 is the
+identity
+matrix.}
+
+\item{weighted}{weighted argument to ncoord. See \code{\link[fpc:ncoord]{fpc::ncoord()}} for details.}
+
+\item{sphere}{One of "mcd", "mve", "classical", or "none" See \code{\link[fpc:ncoord]{fpc::ncoord()}}
+for details.}
+
+\item{num_comp}{Dimension of subspace used by dann. See \code{\link[fpc:ncoord]{fpc::ncoord()}} for
+details.}
+
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).
 This value is used for all PLS components for X.}
-
-\item{num_comp}{The number of PLS components to retain.}
 
 \item{dist}{A character string for the probability distribution of the
 outcome. The default is "weibull".}

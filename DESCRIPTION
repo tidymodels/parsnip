@@ -63,7 +63,9 @@ Suggests:
     survival,
     tensorflow,
     testthat (>= 3.0.0),
-    xgboost (>= 1.5.0.1)
+    xgboost (>= 1.5.0.1),
+    tidydann (>= 0.2.0),
+    dann (>= 1.0.0)
 VignetteBuilder: 
     knitr
 ByteCompile: true
