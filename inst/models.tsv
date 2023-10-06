@@ -1,4 +1,5 @@
 "model"	"mode"	"engine"	"pkg"
+"C5_rules"	"classification"	"C5.0"	"rules"
 "auto_ml"	"classification"	"h2o"	"agua"
 "auto_ml"	"regression"	"h2o"	"agua"
 "bag_mars"	"classification"	"earth"	"baguette"
@@ -23,7 +24,6 @@
 "boost_tree"	"regression"	"lightgbm"	"bonsai"
 "boost_tree"	"regression"	"spark"	NA
 "boost_tree"	"regression"	"xgboost"	NA
-"C5_rules"	"classification"	"C5.0"	"rules"
 "cubist_rules"	"regression"	"Cubist"	"rules"
 "decision_tree"	"censored regression"	"partykit"	"censored"
 "decision_tree"	"censored regression"	"rpart"	"censored"
@@ -58,6 +58,7 @@
 "linear_reg"	"regression"	"spark"	NA
 "linear_reg"	"regression"	"stan"	NA
 "linear_reg"	"regression"	"stan_glmer"	"multilevelmod"
+"logistic_reg"	"classification"	"LiblineaR"	NA
 "logistic_reg"	"classification"	"brulee"	NA
 "logistic_reg"	"classification"	"gee"	"multilevelmod"
 "logistic_reg"	"classification"	"glm"	NA
@@ -65,7 +66,6 @@
 "logistic_reg"	"classification"	"glmnet"	NA
 "logistic_reg"	"classification"	"h2o"	"agua"
 "logistic_reg"	"classification"	"keras"	NA
-"logistic_reg"	"classification"	"LiblineaR"	NA
 "logistic_reg"	"classification"	"spark"	NA
 "logistic_reg"	"classification"	"stan"	NA
 "logistic_reg"	"classification"	"stan_glmer"	"multilevelmod"
@@ -90,6 +90,8 @@
 "naive_Bayes"	"classification"	"naivebayes"	"discrim"
 "nearest_neighbor"	"classification"	"kknn"	NA
 "nearest_neighbor"	"regression"	"kknn"	NA
+"nearest_neighbor_adaptive"	"classification"	"dann"	NA
+"nearest_neighbor_adaptive"	"classification"	"sub_dann"	NA
 "null_model"	"classification"	"parsnip"	NA
 "null_model"	"regression"	"parsnip"	NA
 "pls"	"classification"	"mixOmics"	"plsmod"
@@ -126,10 +128,10 @@
 "survival_reg"	"censored regression"	"flexsurv"	"censored"
 "survival_reg"	"censored regression"	"flexsurvspline"	"censored"
 "survival_reg"	"censored regression"	"survival"	"censored"
-"svm_linear"	"classification"	"kernlab"	NA
 "svm_linear"	"classification"	"LiblineaR"	NA
-"svm_linear"	"regression"	"kernlab"	NA
+"svm_linear"	"classification"	"kernlab"	NA
 "svm_linear"	"regression"	"LiblineaR"	NA
+"svm_linear"	"regression"	"kernlab"	NA
 "svm_poly"	"classification"	"kernlab"	NA
 "svm_poly"	"regression"	"kernlab"	NA
 "svm_rbf"	"classification"	"kernlab"	NA
