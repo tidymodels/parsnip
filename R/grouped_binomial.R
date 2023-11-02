@@ -103,7 +103,7 @@ glm_grouped <- function(formula, data, weights, ...) {
   data <- data[, all_cols, drop = FALSE]
   data$..weights <- weights
   # Reconstruct the new data format (made below) to the grouped formula format
-  formula[[2]] <- rlang::call2("cbind", !!!rlang::syms(rev(lvls)))
+  rlang::f_lhs(formula) <- rlang::call2("cbind", !!!rlang::syms(rev(lvls)))
 
   data <-
     data %>%
