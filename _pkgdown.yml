@@ -78,6 +78,7 @@ reference:
       - control_parsnip
       - glance.model_fit
       - model_fit
+      - model_formula
       - model_spec
       - multi_predict
       - parsnip_addin
