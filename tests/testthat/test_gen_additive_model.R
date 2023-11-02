@@ -26,7 +26,7 @@ test_that('regression', {
       y = mtcars$mpg,
       control = ctrl
     ),
-    regexp = "must be used with GAM models"
+    regexp = "to train generalized additive"
   )
   mgcv_mod <- mgcv::gam(mpg ~ s(disp) + wt + gear, data = mtcars, select = TRUE)
   expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
@@ -70,7 +70,7 @@ test_that('classification', {
       y = two_class_dat$Class,
       control = ctrl
     ),
-    regexp = "must be used with GAM models"
+    regexp = "to train generalized additive"
   )
   mgcv_mod <-
     mgcv::gam(Class ~ s(A, k = 10) + B,

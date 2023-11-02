@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
+
 # parsnip 1.1.1
 
 * Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
