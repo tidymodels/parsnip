@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* Improved errors in cases where the outcome column is mis-specified.
+* Improved errors in cases where the outcome column is mis-specified. (#1003)
 
 # parsnip 1.1.1
 
