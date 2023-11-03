@@ -354,6 +354,16 @@ check_outcome <- function(y, spec) {
     return(invisible(NULL))
   }
 
+  has_no_outcome <- if (is.atomic(y)) {is.null(y)} else {length(y) == 0}
+  if (isTRUE(has_no_outcome)) {
+    cli::cli_abort(
+      c("!" = "{.fun {class(spec)[1]}} was unable to find an outcome.",
+        "i" = "Ensure that you have specified an outcome column and that it \\
+               hasn't been removed in pre-processing."),
+      call = NULL
+    )
+  }
+
   if (spec$mode == "regression") {
     outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
     if (!outcome_is_numeric) {
