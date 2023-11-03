@@ -7,7 +7,7 @@ form_form <-
   function(object, control, env, ...) {
 
     if (inherits(env$data, "data.frame")) {
-      check_outcome(eval_tidy(env$formula[[2]], env$data), object)
+      check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
     }
 
     # prob rewrite this as simple subset/levels
@@ -53,7 +53,7 @@ form_form <-
       )
       elapsed <- list(elapsed = NA_real_)
     }
-    res$preproc <- list(y_var = all.vars(env$formula[[2]]))
+    res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
     res$elapsed <- elapsed
     res
   }
@@ -149,7 +149,7 @@ form_xy <- function(object, control, env,
     control = control,
     target = target
   )
-  data_obj$y_var <- all.vars(env$formula[[2]])
+  data_obj$y_var <- all.vars(rlang::f_lhs(env$formula))
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL

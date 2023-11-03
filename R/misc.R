@@ -260,7 +260,7 @@ levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark")) {
     res <- NULL
   } else {
-    res <- levels(eval_tidy(f[[2]], dat))
+    res <- levels(eval_tidy(rlang::f_lhs(f), dat))
   }
   res
 }
