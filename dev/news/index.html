@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,8 +64,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p>Improved errors in cases where the outcome column is mis-specified. (<a href="https://github.com/tidymodels/parsnip/issues/1003" class="external-link">#1003</a>)</p></li>
-<li><p>Documentation fixed for <code>mlp(engine = "brulee")</code>: the default values for <code>learn_rate</code> and <code>epochs</code> were swapped (<a href="https://github.com/tidymodels/parsnip/issues/1018" class="external-link">#1018</a>).</p></li>
+<ul><li><p>Improved errors and documentation related to special terms in formulas. See <code><a href="../reference/model_formula.html">?model_formula</a></code> to learn more. (<a href="https://github.com/tidymodels/parsnip/issues/770" class="external-link">#770</a>, <a href="https://github.com/tidymodels/parsnip/issues/1014" class="external-link">#1014</a>)</p></li>
+<li><p>Improved errors in cases where the outcome column is mis-specified. (<a href="https://github.com/tidymodels/parsnip/issues/1003" class="external-link">#1003</a>)</p></li>
+<li><p>Fixed documentation for <code>mlp(engine = "brulee")</code>: the default values for <code>learn_rate</code> and <code>epochs</code> were swapped (<a href="https://github.com/tidymodels/parsnip/issues/1018" class="external-link">#1018</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="parsnip-111">parsnip 1.1.1<a class="anchor" aria-label="anchor" href="#parsnip-111"></a></h2><p class="text-muted">CRAN release: 2023-08-17</p>
@@ -165,7 +166,7 @@
 <h2 class="pkg-version" data-toc-text="0.2.1" id="parsnip-021">parsnip 0.2.1<a class="anchor" aria-label="anchor" href="#parsnip-021"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
 <ul><li><p>Fixed a major bug in spark models induced in the previous version (<a href="https://github.com/tidymodels/parsnip/issues/671" class="external-link">#671</a>).</p></li>
 <li><p>Updated the parsnip add-in with new models and engines.</p></li>
-<li><p>Updated parameter ranges for some <code>tunable()</code> methods and added a missing engine argument for brulee models.</p></li>
+<li><p>Updated parameter ranges for some <code><a href="https://generics.r-lib.org/reference/tunable.html" class="external-link">tunable()</a></code> methods and added a missing engine argument for brulee models.</p></li>
 <li><p>Added information about how to install the mixOmics package for PLS models (<a href="https://github.com/tidymodels/parsnip/issues/680" class="external-link">#680</a>)</p></li>
 </ul></div>
     <div class="section level2">
@@ -194,7 +195,7 @@
 <li><p>Argument <code>interval</code> was added for prediction: For types <code>"survival"</code> and <code>"quantile"</code>, estimates for the confidence or prediction interval can be added if available (<a href="https://github.com/tidymodels/parsnip/issues/615" class="external-link">#615</a>).</p></li>
 <li><p><code><a href="../reference/set_new_model.html">set_dependency()</a></code> now allows developers to create package requirements that are specific to the model’s mode (<a href="https://github.com/tidymodels/parsnip/issues/604" class="external-link">#604</a>).</p></li>
 <li><p><code><a href="../reference/varying.html">varying()</a></code> is soft-deprecated in favor of <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code>.</p></li>
-<li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html" class="external-link">varying_args()</a></code> is soft-deprecated in favor of <code>tune_args()</code>.</p></li>
+<li><p><code><a href="https://generics.r-lib.org/reference/varying_args.html" class="external-link">varying_args()</a></code> is soft-deprecated in favor of <code><a href="https://generics.r-lib.org/reference/tune_args.html" class="external-link">tune_args()</a></code>.</p></li>
 <li><p>An <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> method was added for glmnet objects, showing the coefficient paths versus the penalty values (<a href="https://github.com/tidymodels/parsnip/issues/642" class="external-link">#642</a>).</p></li>
 <li><p>parsnip is now more robust working with keras and tensorflow for a larger range of versions (<a href="https://github.com/tidymodels/parsnip/issues/596" class="external-link">#596</a>).</p></li>
 <li><p>xgboost engines now use the new <code>iterationrange</code> parameter instead of the deprecated <code>ntreelimit</code> (<a href="https://github.com/tidymodels/parsnip/issues/656" class="external-link">#656</a>).</p></li>
