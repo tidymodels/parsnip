@@ -36,13 +36,13 @@
 #'
 #' To support specials while also maintaining consistent syntax elsewhere in
 #' the ecosystem, **tidymodels delineates between two types of formulas:
-#' preprocessing formulas and model formulas**. Preprocessing formulas determine
-#' the model terms, while model formulas determine the model structure.
+#' preprocessing formulas and model formulas**. Preprocessing formulas specify
+#' the input variables, while model formulas determine the model structure.
 #'
 #' @section Example:
 #'
 #' To create the preprocessing formula from the model formula, just remove
-#' the specials, retaining references to model terms themselves. For example:
+#' the specials, retaining references to input variables themselves. For example:
 #'
 #' ```
 #' model_formula <- mpg ~ wt + s(disp, k = 5)
