@@ -25,6 +25,8 @@ This model has 8 tuning parameters:
 
 - `stop_iter`: # Iterations Before Stopping (type: integer, default: Inf)
 
+For `mtry`, the default value of `NULL` translates to using all available columns.
+
 ## Translation from parsnip to the original package (regression)
 
 
