@@ -15,11 +15,11 @@ This model has 7 tuning parameters:
 
 - `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
-- `epochs`: # Epochs (type: integer, default: 0.01)
+- `epochs`: # Epochs (type: integer, default: 100L)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
 
-- `learn_rate`: Learning Rate (type: double, default: 100L)
+- `learn_rate`: Learning Rate (type: double, default: 0.01)
 
 - `activation`: Activation Function (type: character, default: 'relu')
 

@@ -8,7 +8,7 @@
 ```{r brulee-param-info, echo = FALSE}
 defaults <- 
   tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
-                 default = c("3L", "0.0", "0.0", "0.01", "100L", "'relu'", "0.0"))
+                 default = c("3L", "0.0", "0.0", "100L", "0.01", "'relu'", "0.0"))
 
 param <-
   mlp() %>% 

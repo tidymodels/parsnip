@@ -21,7 +21,7 @@
 #'  to use for fitting.
 #' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models
-#' (specific engines only)
+#' (specific engines only).
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points

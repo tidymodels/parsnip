@@ -4,6 +4,7 @@
 
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
 
+* Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
 
 # parsnip 1.1.1
 
