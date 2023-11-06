@@ -1,8 +1,10 @@
 # parsnip (development version)
 
+* Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
+
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
 
-* Documentation fixed for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
+* Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
 
 # parsnip 1.1.1
 

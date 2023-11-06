@@ -92,5 +92,21 @@ translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
 #' @export
 #' @keywords internal
 fit_xy.gen_additive_mod <- function(object, ...) {
-  rlang::abort("`fit()` must be used with GAM models (due to its use of formulas).")
+  trace <- rlang::trace_back()
+
+  if ("workflows" %in% trace$namespace) {
+    cli::cli_abort(
+      c("!" = "When working with generalized additive models, please supply the
+               model specification to {.fun workflows::add_model} along with a \\
+               {.arg formula} argument.",
+        "i" = "See {.help parsnip::model_formula} to learn more."),
+      call = NULL
+    )
+  }
+
+  cli::cli_abort(c(
+    "!" = "Please use {.fun fit} rather than {.fun fit_xy} to train \\
+           generalized additive models.",
+    "i" = "See {.help model_formula} to learn more."
+  ))
 }
