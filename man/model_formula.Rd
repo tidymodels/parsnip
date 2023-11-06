@@ -35,7 +35,7 @@ functionality via packages like hardhat and recipes. The specials defined
 in many modeling packages introduce conflicts with that infrastructure.
 
 To support specials while also maintaining consistent syntax elsewhere in
-the ecosystem, \strong{the tidymodels delineates between two types of formulas:
+the ecosystem, \strong{tidymodels delineates between two types of formulas:
 preprocessing formulas and model formulas}. Preprocessing formulas determine
 the model terms, while model formulas determine the model structure.
 }
@@ -50,7 +50,7 @@ preproc_formula <- mpg ~ wt + disp
 }\if{html}{\out{</div>}}
 
 \itemize{
-\item \strong{With parsnip,} just use the model formula:
+\item \strong{With parsnip,} use the model formula:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{model_spec <-
   gen_additive_mod() \%>\%
@@ -60,6 +60,16 @@ preproc_formula <- mpg ~ wt + disp
 model_spec \%>\%
   fit(model_formula, data = mtcars)
 }\if{html}{\out{</div>}}
+
+\item \strong{With recipes}, use the preprocessing formula only:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(recipes)
+
+recipe(preproc_formula, mtcars)
+}\if{html}{\out{</div>}}
+
+The recipes package supplies a large variety of preprocessing techniques
+that may replace the need for specials altogether, in some cases.
 
 \item \strong{With workflows,} use the preprocessing formula everywhere, but
 pass the model formula to the \code{formula} argument in \code{add_model()}:
@@ -74,28 +84,10 @@ wflow <-
 fit(wflow, data = mtcars)
 }\if{html}{\out{</div>}}
 
-We would still use the preprocessing formula if we had added
-a recipe preprocessor using \code{add_recipe()} instead a formula via
-\code{add_formula()}.
-
-\item \strong{With recipes}, use the preprocessing formula only:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(recipes)
-
-recipe(preproc_formula, mtcars)
-}\if{html}{\out{</div>}}
-
-The recipes package supplies a large variety of preprocessing techniques
-that may replace the need for specials altogether, in some cases.
-
-\item \strong{With tune}, use a workflow (rather than a model specification
-alone), implemented as before:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tune)
-library(rsample)
-
-fit_resamples(wflow, data = bootstraps(mtcars))
-}\if{html}{\out{</div>}}
+The workflow will then pass the model formula to parsnip, using the
+preprocessor formula elsewhere. We would still use the preprocessing
+formula if we had added a recipe preprocessor using \code{add_recipe()}
+instead a formula via \code{add_formula()}.
 
 }
 }

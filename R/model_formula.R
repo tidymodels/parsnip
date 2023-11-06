@@ -35,7 +35,7 @@
 #' in many modeling packages introduce conflicts with that infrastructure.
 #'
 #' To support specials while also maintaining consistent syntax elsewhere in
-#' the ecosystem, **the tidymodels delineates between two types of formulas:
+#' the ecosystem, **tidymodels delineates between two types of formulas:
 #' preprocessing formulas and model formulas**. Preprocessing formulas determine
 #' the model terms, while model formulas determine the model structure.
 #'
@@ -50,7 +50,7 @@
 #' ```
 #'
 #' \itemize{
-#'   \item **With parsnip,** just use the model formula:
+#'   \item **With parsnip,** use the model formula:
 #'
 #'    ``` r
 #'    model_spec <-
@@ -61,6 +61,17 @@
 #'    model_spec %>%
 #'      fit(model_formula, data = mtcars)
 #'    ```
+#'
+#'    \item **With recipes**, use the preprocessing formula only:
+#'
+#'    ``` r
+#'    library(recipes)
+#'
+#'    recipe(preproc_formula, mtcars)
+#'    ```
+#'
+#'    The recipes package supplies a large variety of preprocessing techniques
+#'    that may replace the need for specials altogether, in some cases.
 #'
 #'   \item **With workflows,** use the preprocessing formula everywhere, but
 #'   pass the model formula to the `formula` argument in `add_model()`:
@@ -76,30 +87,10 @@
 #'    fit(wflow, data = mtcars)
 #'    ```
 #'
-#'    We would still use the preprocessing formula if we had added
-#'    a recipe preprocessor using `add_recipe()` instead a formula via
-#'    `add_formula()`.
-#'
-#'    \item **With recipes**, use the preprocessing formula only:
-#'
-#'    ``` r
-#'    library(recipes)
-#'
-#'    recipe(preproc_formula, mtcars)
-#'    ```
-#'
-#'    The recipes package supplies a large variety of preprocessing techniques
-#'    that may replace the need for specials altogether, in some cases.
-#'
-#'    \item **With tune**, use a workflow (rather than a model specification
-#'    alone), implemented as before:
-#'
-#'    ``` r
-#'    library(tune)
-#'    library(rsample)
-#'
-#'    fit_resamples(wflow, data = bootstraps(mtcars))
-#'    ```
+#'    The workflow will then pass the model formula to parsnip, using the
+#'    preprocessor formula elsewhere. We would still use the preprocessing
+#'    formula if we had added a recipe preprocessor using `add_recipe()`
+#'    instead a formula via `add_formula()`.
 #'
 #' }
 #'
