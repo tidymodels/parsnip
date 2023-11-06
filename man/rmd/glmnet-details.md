@@ -169,7 +169,7 @@ tidy(fit)
 ## 4 hp           -0.0101       1
 ## 5 drat          0            1
 ## 6 wt           -2.59         1
-## # … with 5 more rows
+## # ℹ 5 more rows
 ```
 
 Note that there is a `tidy()` method for `glmnet` objects in the `broom` package. If this is used directly on the underlying `glmnet` object, it returns _all of coefficients on the path_:
@@ -191,7 +191,7 @@ all_tidy_coefs
 ## 4 (Intercept)     4     24.7   3.89     0.347
 ## 5 (Intercept)     5     26.0   3.55     0.429
 ## 6 (Intercept)     6     27.2   3.23     0.497
-## # … with 634 more rows
+## # ℹ 634 more rows
 ```
 
 ```r

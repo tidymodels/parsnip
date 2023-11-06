@@ -96,7 +96,7 @@ gen_additive_mod() %>%
 The smoothness of the terms will need to be manually specified (e.g., using `s(x, df = 10)`) in the formula. Tuning can be accomplished using the `adjust_deg_free` parameter. 
 
 
-However, when using a workflow, the best approach is to avoid using [workflows::add_formula()] and use [workflows::add_variables()] in conjunction with a model formula:
+When using a workflow, pass the _model formula_ to [add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
 
 
 ```r
@@ -106,8 +106,8 @@ spec <-
   set_mode("regression")
 
 workflow() %>% 
-  add_variables(outcomes = c(mpg), predictors = c(wt, gear, cyl, disp)) %>% 
   add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) %>% 
+  add_formula(mpg ~ wt + gear + cyl + disp) %>% 
   fit(data = mtcars) %>% 
   extract_fit_engine()
 ```
@@ -126,7 +126,7 @@ workflow() %>%
 ## GCV score: 4.225228
 ```
 
-The reason for this is that [workflows::add_formula()] will try to create the model matrix and fail to find/use `s()`.  
+To learn more about the differences between these formulas, see [`?model_formula`][parsnip::model_formula].
 
 ## Preprocessing requirements
 

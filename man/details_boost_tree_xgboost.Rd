@@ -26,6 +26,9 @@ below)
 \item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
 Inf)
 }
+
+For \code{mtry}, the default value of \code{NULL} translates to using all
+available columns.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

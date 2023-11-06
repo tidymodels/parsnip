@@ -61,7 +61,7 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 
 The model does not fit an intercept. 
 
-The model formula (which is required) can include _special_ terms, such as [survival::strata()]. This allows the baseline hazard to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. This is different than the syntax offered by the [glmnet::glmnet()] package (i.e., [glmnet::stratifySurv()]) which is not recommended here. 
+The model formula (which is required) can include _special_ terms, such as [survival::strata()]. This allows the baseline hazard to differ between groups contained in the function. (To learn more about using special terms in formulas with tidymodels, see [`?model_formula`][parsnip::model_formula].) The column used inside `strata()` is treated as qualitative no matter its type. This is different than the syntax offered by the [glmnet::glmnet()] package (i.e., [glmnet::stratifySurv()]) which is not recommended here.
 
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 
@@ -89,10 +89,10 @@ predict(mod, pred_data, type = "survival", time = 500) %>%
 
 ```
 ## # A tibble: 2 × 5
-##   .time .pred_survival   age ecog.ps    rx
-##   <dbl>          <dbl> <dbl>   <dbl> <dbl>
-## 1   500          0.666    50       1     1
-## 2   500          0.769    50       1     2
+##   .eval_time .pred_survival   age ecog.ps    rx
+##        <dbl>          <dbl> <dbl>   <dbl> <dbl>
+## 1        500          0.666    50       1     1
+## 2        500          0.769    50       1     2
 ```
 
 Note that columns used in the `strata()` function _will_ also be estimated in the regular portion of the model (i.e., within the linear predictor).
