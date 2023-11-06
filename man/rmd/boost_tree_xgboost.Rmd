@@ -24,6 +24,8 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
+For `mtry`, the default value of `NULL` translates to using all available columns.
+
 ## Translation from parsnip to the original package (regression)
 
 ```{r xgboost-reg}
