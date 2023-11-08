@@ -129,9 +129,11 @@ the argument <code>standardize = TRUE</code> to center and scale the data.</p>
 <p>The model does not fit an intercept.</p>
 <p>The model formula (which is required) can include <em>special</em> terms, such
 as <code><a href="https://rdrr.io/pkg/survival/man/strata.html" class="external-link">survival::strata()</a></code>. This allows the baseline
-hazard to differ between groups contained in the function. The column
-used inside <code>strata()</code> is treated as qualitative no matter its type.
-This is different than the syntax offered by the
+hazard to differ between groups contained in the function. (To learn
+more about using special terms in formulas with tidymodels, see
+<code><a href="model_formula.html">?model_formula</a></code>.) The column used inside
+<code>strata()</code> is treated as qualitative no matter its type. This is
+different than the syntax offered by the
 <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> package (i.e.,
 <code><a href="https://glmnet.stanford.edu/reference/stratifySurv.html" class="external-link">glmnet::stratifySurv()</a></code>) which is not
 recommended here.</p>
@@ -154,10 +156,10 @@ two different baseline hazards for each value of the column:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">.pred</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   .time .pred_survival   age ecog.ps    rx</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   500          0.666    50       1     1</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2   500          0.769    50       1     2</span></span></code></pre><p></p></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   .eval_time .pred_survival   age ecog.ps    rx</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##        &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        500          0.666    50       1     1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        500          0.769    50       1     2</span></span></code></pre><p></p></div>
 <p>Note that columns used in the <code>strata()</code> function <em>will</em> also be
 estimated in the regular portion of the model (i.e., within the linear
 predictor).</p>

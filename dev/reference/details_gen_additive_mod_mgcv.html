@@ -150,18 +150,17 @@ be specified. For example:</p>
 <p>The smoothness of the terms will need to be manually specified (e.g.,
 using <code>s(x, df = 10)</code>) in the formula. Tuning can be accomplished using
 the <code>adjust_deg_free</code> parameter.</p>
-<p>However, when using a workflow, the best approach is to avoid using
-<code><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> and use
-<code><a href="https://workflows.tidymodels.org/reference/add_variables.html" class="external-link">workflows::add_variables()</a></code> in
-conjunction with a model formula:</p>
+<p>When using a workflow, pass the <em>model formula</em> to
+<code>add_model()</code>’s <code>formula</code> argument, and a simplified
+<em>preprocessing formula</em> elsewhere.</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu">add_variables</span><span class="op">(</span>outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">gear</span>, <span class="va">cyl</span>, <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">spec</span>, formula <span class="op">=</span> <span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">gear</span> <span class="op">+</span> <span class="va">cyl</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">disp</span>, k <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_formula</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">gear</span> <span class="op">+</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html" class="external-link">extract_fit_engine</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
@@ -175,9 +174,8 @@ conjunction with a model formula:</p>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 7.52  total = 11.52 </span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GCV score: 4.225228</span></span></code></pre><p></p></div>
-<p>The reason for this is that
-<code><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> will try to
-create the model matrix and fail to find/use <code>s()</code>.</p>
+<p>To learn more about the differences between these formulas, see
+<code><a href="model_formula.html">?model_formula</a></code>.</p>
 </div>
 
 <div class="section">
