@@ -46,7 +46,9 @@ model specification typically involved the use of
 The model formula can include \emph{special} terms, such as
 \code{\link[survival:strata]{survival::strata()}}. The allows the baseline
 hazard to differ between groups contained in the function. The column
-used inside \code{strata()} is treated as qualitative no matter its type.
+used inside \code{strata()} is treated as qualitative no matter its type. To
+learn more about using special terms in formulas with tidymodels, see
+\code{\link[=model_formula]{?model_formula}}.
 
 For example, in this model, the numeric column \code{rx} is used to estimate
 two different baseline hazards for each value of the column:
