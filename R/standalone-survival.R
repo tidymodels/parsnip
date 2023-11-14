@@ -17,6 +17,9 @@
 #
 # 2023-06-14
 # * removed time to factor conversion
+#
+# 2023-11-09
+# * make sure survival vectors are unnamed.
 
 # @param surv A [survival::Surv()] object
 # @details
@@ -74,6 +77,8 @@
   res <- surv[, colnames(surv) %in% keepers]
   if (NCOL(res) > 1) {
     res <- tibble::tibble(as.data.frame(res))
+  } else {
+    res <- unname(res)
   }
   res
 }
@@ -88,6 +93,6 @@
     (identical(un_vals, 1:2) | identical(un_vals, c(1.0, 2.0))) ) {
     res <- res - 1
   }
-  res
+  unname(res)
 }
 # nocov end
