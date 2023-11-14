@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +76,7 @@
 <li><p><code><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment()</a></code> now works for censored regression models.</p></li>
 <li><p>A few censored regression helper functions were exported: <code><a href="../reference/dot-extract_surv_status.html">.extract_surv_status()</a></code> and <code><a href="../reference/dot-extract_surv_time.html">.extract_surv_time()</a></code> (<a href="https://github.com/tidymodels/parsnip/issues/973" class="external-link">#973</a>, <a href="https://github.com/tidymodels/parsnip/issues/980" class="external-link">#980</a>).</p></li>
 <li><p>Fixed bug where <code><a href="../reference/boost_tree.html">boost_tree()</a></code> models couldn’t be fit with 1 predictor if <code>validation</code> argument was used. (<a href="https://github.com/tidymodels/parsnip/issues/994" class="external-link">#994</a>)</p></li>
+<li><p>When computing censoring weights, the resulting vectors are no longer named (<a href="https://github.com/tidymodels/parsnip/issues/1023" class="external-link">#1023</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="parsnip-110">parsnip 1.1.0<a class="anchor" aria-label="anchor" href="#parsnip-110"></a></h2><p class="text-muted">CRAN release: 2023-04-12</p>

@@ -42,7 +42,7 @@
     
     <a class="navbar-brand me-2" href="index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -163,7 +163,7 @@
 <p>The goals of parsnip are to:</p>
 <ul>
 <li>Separate the definition of a model from its evaluation.</li>
-<li>Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call <code>rand_forest</code> instead of <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger::ranger</a></code> or other specific packages.</li>
+<li>Decouple the model specification from the implementation (whether the implementation is in R, spark, or something else). For example, the user would call <code>rand_forest</code> instead of <code><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger::ranger</a></code> or other specific packages.</li>
 <li>Harmonize argument names (e.g. <code>n.trees</code>, <code>ntrees</code>, <code>trees</code>) so that users only need to remember a single name. This will help <em>across</em> model types too so that <code>trees</code> will be the same argument across random forest as well as boosting or bagging.</li>
 </ul>
 <p>Using the example above, the parsnip approach would be:</p>
