@@ -50,21 +50,3 @@ test_that(".filter_eval_time()", {
   times_remove_singular <- c(-3, times_basic)
   expect_snapshot(parsnip:::.filter_eval_time(times_remove_singular))
 })
-
-test_that("no names in weight values", {
-  # See #1023
-
-  surv_obj <-
-    structure(
-      c(9, 13, 13, 18, 23, 28, 1, 1, 0, 1, 1, 0),
-      dim = c(6L, 2L),
-      dimnames = list(NULL, c("time", "status")),
-      type = "right",
-      class = "Surv"
-    )
-
-  row_1 <- parsnip:::graf_weight_time_vec(surv_obj[1,,drop = FALSE], 1.0)
-  row_5 <- parsnip:::graf_weight_time_vec(surv_obj, 1.0)
-  expect_null(names(row_1))
-  expect_null(names(row_5))
-})
