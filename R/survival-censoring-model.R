@@ -65,6 +65,13 @@ predict.censoring_model_reverse_km <- function(object, time, as_vector = FALSE, 
   rlang::check_installed("prodlim", version = "2022.10.13")
   rlang::check_installed("censored", version = "0.1.1.9002")
 
+  if ("new_data" %in% names(list(...))) {
+    cli::cli_warn(
+      "{.arg new_data} is ignored when predicting on \\
+      {.fn censoring_model_reverse_km} models as it doesn't affect the result."
+    )
+  }
+
   res <- rep(NA_real_, length(time))
   if (length(time) == 0) {
     return(res)
