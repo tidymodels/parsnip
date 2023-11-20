@@ -8,6 +8,8 @@
 
 * The `new_data` argument for the `predict()` method of `censoring_model_reverse_km()` has been deprecated (#965).
 
+* When computing censoring weights, the resulting vectors are no longer named (#1023).
+
 # parsnip 1.1.1
 
 * Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
@@ -21,8 +23,6 @@
 * A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
 
 * Fixed bug where `boost_tree()` models couldn't be fit with 1 predictor if `validation` argument was used. (#994)
-
-* When computing censoring weights, the resulting vectors are no longer named (#1023).
 
 # parsnip 1.1.0
 
