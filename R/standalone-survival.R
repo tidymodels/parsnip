@@ -74,11 +74,12 @@
 .extract_surv_time <- function(surv) {
   .is_surv(surv)
   keepers <- c("time", "start", "stop", "time1", "time2")
-  res <- surv[, colnames(surv) %in% keepers]
-  if (NCOL(res) > 1) {
+  cols <- colnames(surv)[colnames(surv) %in% keepers]
+  res <- surv[, cols, drop = FALSE]
+  if (length(cols) > 1) {
     res <- tibble::tibble(as.data.frame(res))
   } else {
-    res <- unname(res)
+    res <- as.numeric(res)
   }
   res
 }
