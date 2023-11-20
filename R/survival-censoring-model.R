@@ -61,9 +61,16 @@ predict.censoring_model <- function(object, ...) {
 }
 
 #' @export
-predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as_vector = FALSE, ...) {
+predict.censoring_model_reverse_km <- function(object, new_data, time, as_vector = FALSE, ...) {
   rlang::check_installed("prodlim", version = "2022.10.13")
   rlang::check_installed("censored", version = "0.1.1.9002")
+
+  if (lifecycle::is_present(new_data)) {
+    lifecycle::deprecate_stop(
+      "1.2.0",
+      "predict.censoring_model_reverse_km(new_data)"
+    )
+  }
 
   res <- rep(NA_real_, length(time))
   if (length(time) == 0) {
@@ -76,13 +83,7 @@ predict.censoring_model_reverse_km <- function(object, new_data = NULL, time, as
     time <- time[-is_na]
   }
 
-  if (is.null(new_data)) {
-    tmp <-
-      purrr::map_dbl(time, ~ predict(object$fit, times = .x, type = "surv"))
-  } else {
-    tmp <-
-      purrr::map_dbl(time, ~ predict(object$fit, newdata = new_data, times = .x, type = "surv"))
-  }
+  tmp <- purrr::map_dbl(time, ~ predict(object$fit, times = .x, type = "surv"))
 
   zero_prob <- purrr::map_lgl(tmp, ~ !is.na(.x) && .x == 0)
   if (any(zero_prob)) {

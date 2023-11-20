@@ -6,6 +6,8 @@
 
 * Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
 
+* The `new_data` argument for the `predict()` method of `censoring_model_reverse_km()` has been deprecated (#965).
+
 * When computing censoring weights, the resulting vectors are no longer named (#1023).
 
 # parsnip 1.1.1
