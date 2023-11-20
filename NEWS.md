@@ -6,6 +6,8 @@
 
 * Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
 
+* When computing censoring weights, the resulting vectors are no longer named (#1023).
+
 # parsnip 1.1.1
 
 * Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
@@ -19,8 +21,6 @@
 * A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
 
 * Fixed bug where `boost_tree()` models couldn't be fit with 1 predictor if `validation` argument was used. (#994)
-
-* When computing censoring weights, the resulting vectors are no longer named (#1023).
 
 # parsnip 1.1.0
 
