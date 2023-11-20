@@ -61,14 +61,14 @@ predict.censoring_model <- function(object, ...) {
 }
 
 #' @export
-predict.censoring_model_reverse_km <- function(object, time, as_vector = FALSE, ...) {
+predict.censoring_model_reverse_km <- function(object, new_data, time, as_vector = FALSE, ...) {
   rlang::check_installed("prodlim", version = "2022.10.13")
   rlang::check_installed("censored", version = "0.1.1.9002")
 
-  if ("new_data" %in% names(list(...))) {
-    cli::cli_warn(
-      "{.arg new_data} is ignored when predicting on \\
-      {.fn censoring_model_reverse_km} models as it doesn't affect the result."
+  if (lifecycle::is_present(new_data)) {
+    lifecycle::deprecate_stop(
+      "1.2.0",
+      "predict.censoring_model_reverse_km(new_data)"
     )
   }
 
