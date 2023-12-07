@@ -10,6 +10,9 @@
 
 * When computing censoring weights, the resulting vectors are no longer named (#1023).
 
+* Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
+
+
 # parsnip 1.1.1
 
 * Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
