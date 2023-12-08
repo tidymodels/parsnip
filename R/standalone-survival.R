@@ -1,7 +1,7 @@
 # ---
 # repo: tidymodels/parsnip
 # file: standalone-survival.R
-# last-updated: 2023-06-14
+# last-updated: 2023-12-08
 # license: https://unlicense.org
 # ---
 
@@ -23,6 +23,8 @@
 #
 # 2023-02-28:
 # * Initial version
+#
+# ------------------------------------------------------------------------------
 #
 # @param surv A [survival::Surv()] object
 # @details
@@ -54,17 +56,23 @@
   attr(surv, "type")
 }
 
-.check_cens_type <- function(surv, type = "right", fail = TRUE, call = rlang::caller_env()) {
-  .is_surv(surv, call = call)
-  obj_type <- .extract_surv_type(surv)
-  good_type <- all(obj_type %in% type)
-  if (!good_type && fail) {
-    c_list <- paste0("'", type, "'")
-    msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
-    rlang::abort(msg, call = call)
+.check_cens_type <-
+  function(surv,
+           type = "right",
+           fail = TRUE,
+           call = rlang::caller_env()) {
+    .is_surv(surv, call = call)
+    obj_type <- .extract_surv_type(surv)
+    good_type <- all(obj_type %in% type)
+    if (!good_type && fail) {
+      c_list <- paste0("'", type, "'")
+      msg <-
+        cli::format_inline("For this usage, the allowed censoring type{?s}
+                            {?is/are}: {c_list}")
+      rlang::abort(msg, call = call)
+    }
+    good_type
   }
-  good_type
-}
 
 .is_censored_right <- function(surv) {
   .check_cens_type(surv, type = "right", fail = FALSE)
@@ -91,7 +99,8 @@
   .is_surv(surv)
   res <-   surv[, "status"]
   un_vals <- sort(unique(res))
-  event_type_to_01 <- !(.extract_surv_type(surv) %in% c("interval", "interval2", "mstate"))
+  event_type_to_01 <-
+    !(.extract_surv_type(surv) %in% c("interval", "interval2", "mstate"))
   if (
     event_type_to_01 &&
     (identical(un_vals, 1:2) | identical(un_vals, c(1.0, 2.0))) ) {
@@ -100,6 +109,13 @@
   unname(res)
 }
 
+# ------------------------------------------------------------------------------
+
+# @param eval_time A vector of numeric time points
+# @details
+# `.filter_eval_time` checks the validity of the time points.
+#
+# @return A potentially modified vector of time points.
 .filter_eval_time <- function(eval_time, fail = TRUE) {
   if (!is.null(eval_time)) {
     eval_time <- as.numeric(eval_time)
