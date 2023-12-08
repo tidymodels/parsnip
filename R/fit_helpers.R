@@ -6,17 +6,17 @@
 form_form <-
   function(object, control, env, ...) {
 
-    encoding_info <-
-      get_encoding(class(object)[1]) %>%
-      dplyr::filter(mode == object$mode, engine == object$engine)
-
-    remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
-    if (remove_intercept) {
-      env$data <- env$data[, colnames(env$data) != "(Intercept)", drop = FALSE]
-    }
-
     if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
+
+      encoding_info <-
+        get_encoding(class(object)[1]) %>%
+        dplyr::filter(mode == object$mode, engine == object$engine)
+
+      remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+      if (remove_intercept) {
+        env$data <- env$data[, colnames(env$data) != "(Intercept)", drop = FALSE]
+      }
     }
 
     # prob rewrite this as simple subset/levels
