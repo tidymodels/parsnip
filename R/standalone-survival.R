@@ -5,22 +5,25 @@
 # license: https://unlicense.org
 # ---
 
-# This file provides a portable set of helper functions for Surv objects
+# This file provides a portable set of helper functions for survival analysis.
+#
 
 # ## Changelog
-
-# 2023-02-28:
-# * Initial version
+# 2023-12-08
+# * move .filter_eval_time to this file
 #
-# 2023-05-18
-# * added time to factor conversion
+# 2023-11-09
+# * make sure survival vectors are unnamed.
 #
 # 2023-06-14
 # * removed time to factor conversion
 #
-# 2023-11-09
-# * make sure survival vectors are unnamed.
-
+# 2023-05-18
+# * added time to factor conversion
+#
+# 2023-02-28:
+# * Initial version
+#
 # @param surv A [survival::Surv()] object
 # @details
 # `.is_censored_right()` always returns a logical while
