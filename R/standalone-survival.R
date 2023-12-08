@@ -96,4 +96,28 @@
   }
   unname(res)
 }
+
+.filter_eval_time <- function(eval_time, fail = TRUE) {
+  if (!is.null(eval_time)) {
+    eval_time <- as.numeric(eval_time)
+  }
+  eval_time_0 <- eval_time
+  # will still propagate nulls:
+  eval_time <- eval_time[!is.na(eval_time)]
+  eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
+  eval_time <- unique(eval_time)
+  if (fail && identical(eval_time, numeric(0))) {
+    cli::cli_abort(
+      "There were no usable evaluation times (finite, non-missing, and >= 0).",
+      call = NULL
+    )
+  }
+  if (!identical(eval_time, eval_time_0)) {
+    diffs <- setdiff(eval_time_0, eval_time)
+    cli::cli_warn("There {?was/were} {length(diffs)} inappropriate evaluation
+                  time point{?s} that {?was/were} removed.", call = NULL)
+
+  }
+  eval_time
+}
 # nocov end

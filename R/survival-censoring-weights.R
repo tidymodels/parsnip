@@ -18,31 +18,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
   probs
 }
 
-.filter_eval_time <- function(eval_time, fail = TRUE) {
-  if (!is.null(eval_time)) {
-    eval_time <- as.numeric(eval_time)
-  }
-  eval_time_0 <- eval_time
-  # will still propagate nulls:
-  eval_time <- eval_time[!is.na(eval_time)]
-  eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
-  eval_time <- unique(eval_time)
-  if (fail && identical(eval_time, numeric(0))) {
-    rlang::abort(
-      "There were no usable evaluation times (finite, non-missing, and >= 0).",
-      call = NULL
-    )
-  }
-  if (!identical(eval_time, eval_time_0)) {
-    diffs <- setdiff(eval_time_0, eval_time)
-    msg <-
-      cli::pluralize(
-        "There {?was/were} {length(diffs)} inappropriate evaluation time point{?s} that {?was/were} removed.")
-    rlang::warn(msg)
-  }
-  eval_time
-}
-
 # nocov start
 # these are tested in extratests
 
