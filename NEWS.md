@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `.filter_eval_time()` was moved to the survival standalone file. 
+
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
 
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
