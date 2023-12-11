@@ -1,26 +1,31 @@
 # ---
 # repo: tidymodels/parsnip
 # file: standalone-survival.R
-# last-updated: 2023-06-14
+# last-updated: 2023-12-08
 # license: https://unlicense.org
 # ---
 
-# This file provides a portable set of helper functions for Surv objects
+# This file provides a portable set of helper functions for survival analysis.
+#
 
 # ## Changelog
-
-# 2023-02-28:
-# * Initial version
+# 2023-12-08
+# * move .filter_eval_time to this file
 #
-# 2023-05-18
-# * added time to factor conversion
+# 2023-11-09
+# * make sure survival vectors are unnamed.
 #
 # 2023-06-14
 # * removed time to factor conversion
 #
-# 2023-11-09
-# * make sure survival vectors are unnamed.
-
+# 2023-05-18
+# * added time to factor conversion
+#
+# 2023-02-28:
+# * Initial version
+#
+# ------------------------------------------------------------------------------
+#
 # @param surv A [survival::Surv()] object
 # @details
 # `.is_censored_right()` always returns a logical while
@@ -51,17 +56,21 @@
   attr(surv, "type")
 }
 
-.check_cens_type <- function(surv, type = "right", fail = TRUE, call = rlang::caller_env()) {
-  .is_surv(surv, call = call)
-  obj_type <- .extract_surv_type(surv)
-  good_type <- all(obj_type %in% type)
-  if (!good_type && fail) {
-    c_list <- paste0("'", type, "'")
-    msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
-    rlang::abort(msg, call = call)
+.check_cens_type <-
+  function(surv,
+           type = "right",
+           fail = TRUE,
+           call = rlang::caller_env()) {
+    .is_surv(surv, call = call)
+    obj_type <- .extract_surv_type(surv)
+    good_type <- all(obj_type %in% type)
+    if (!good_type && fail) {
+      c_list <- paste0("'", type, "'")
+      msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
+      rlang::abort(msg, call = call)
+    }
+    good_type
   }
-  good_type
-}
 
 .is_censored_right <- function(surv) {
   .check_cens_type(surv, type = "right", fail = FALSE)
@@ -88,7 +97,8 @@
   .is_surv(surv)
   res <-   surv[, "status"]
   un_vals <- sort(unique(res))
-  event_type_to_01 <- !(.extract_surv_type(surv) %in% c("interval", "interval2", "mstate"))
+  event_type_to_01 <-
+    !(.extract_surv_type(surv) %in% c("interval", "interval2", "mstate"))
   if (
     event_type_to_01 &&
     (identical(un_vals, 1:2) | identical(un_vals, c(1.0, 2.0))) ) {
@@ -96,4 +106,36 @@
   }
   unname(res)
 }
+
 # nocov end
+
+# ------------------------------------------------------------------------------
+
+# @param eval_time A vector of numeric time points
+# @details
+# `.filter_eval_time` checks the validity of the time points.
+#
+# @return A potentially modified vector of time points.
+.filter_eval_time <- function(eval_time, fail = TRUE) {
+  if (!is.null(eval_time)) {
+    eval_time <- as.numeric(eval_time)
+  }
+  eval_time_0 <- eval_time
+  # will still propagate nulls:
+  eval_time <- eval_time[!is.na(eval_time)]
+  eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
+  eval_time <- unique(eval_time)
+  if (fail && identical(eval_time, numeric(0))) {
+    cli::cli_abort(
+      "There were no usable evaluation times (finite, non-missing, and >= 0).",
+      call = NULL
+    )
+  }
+  if (!identical(eval_time, eval_time_0)) {
+    diffs <- setdiff(eval_time_0, eval_time)
+    cli::cli_warn("There {?was/were} {length(diffs)} inappropriate evaluation
+                  time point{?s} that {?was/were} removed.", call = NULL)
+
+  }
+  eval_time
+}
