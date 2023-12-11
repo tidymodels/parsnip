@@ -109,6 +109,8 @@
   unname(res)
 }
 
+# nocov end
+
 # ------------------------------------------------------------------------------
 
 # @param eval_time A vector of numeric time points
@@ -139,4 +141,3 @@
   }
   eval_time
 }
-# nocov end
