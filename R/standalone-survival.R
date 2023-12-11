@@ -66,9 +66,7 @@
     good_type <- all(obj_type %in% type)
     if (!good_type && fail) {
       c_list <- paste0("'", type, "'")
-      msg <-
-        cli::format_inline("For this usage, the allowed censoring type{?s}
-                            {?is/are}: {c_list}")
+      msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
       rlang::abort(msg, call = call)
     }
     good_type
