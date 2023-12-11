@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p>Improved errors and documentation related to special terms in formulas. See <code><a href="../reference/model_formula.html">?model_formula</a></code> to learn more. (<a href="https://github.com/tidymodels/parsnip/issues/770" class="external-link">#770</a>, <a href="https://github.com/tidymodels/parsnip/issues/1014" class="external-link">#1014</a>)</p></li>
+<ul><li><p><code>.filter_eval_time()</code> was moved to the survival standalone file.</p></li>
+<li><p>Improved errors and documentation related to special terms in formulas. See <code><a href="../reference/model_formula.html">?model_formula</a></code> to learn more. (<a href="https://github.com/tidymodels/parsnip/issues/770" class="external-link">#770</a>, <a href="https://github.com/tidymodels/parsnip/issues/1014" class="external-link">#1014</a>)</p></li>
 <li><p>Improved errors in cases where the outcome column is mis-specified. (<a href="https://github.com/tidymodels/parsnip/issues/1003" class="external-link">#1003</a>)</p></li>
 <li><p>Fixed documentation for <code>mlp(engine = "brulee")</code>: the default values for <code>learn_rate</code> and <code>epochs</code> were swapped (<a href="https://github.com/tidymodels/parsnip/issues/1018" class="external-link">#1018</a>).</p></li>
 <li><p>The <code>new_data</code> argument for the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for <code>censoring_model_reverse_km</code> objects has been deprecated (<a href="https://github.com/tidymodels/parsnip/issues/965" class="external-link">#965</a>).</p></li>
