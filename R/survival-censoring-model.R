@@ -62,6 +62,8 @@ predict.censoring_model <- function(object, ...) {
 
 #' @export
 predict.censoring_model_reverse_km <- function(object, new_data, time, as_vector = FALSE, ...) {
+  rlang::check_dots_empty()
+
   rlang::check_installed("prodlim", version = "2022.10.13")
   rlang::check_installed("censored", version = "0.1.1.9002")
 

@@ -14,6 +14,7 @@
 
 * Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
 
+* The `predict()` method for `censoring_model_reverse_km` objects now checks that `...` are empty (#1029).
 
 # parsnip 1.1.1
 
