@@ -12,7 +12,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams nearest_neighbor
+#' @inheritParams boost_tree
 #' @param mtry An integer for the number of predictors that will
 #'  be randomly sampled at each split when creating the tree models.
 #' @param trees An integer for the number of trees contained in

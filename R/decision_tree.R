@@ -12,7 +12,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams nearest_neighbor
+#' @inheritParams boost_tree
 #' @param cost_complexity A positive number for the the cost/complexity
 #'   parameter (a.k.a. `Cp`) used by CART models (specific engines only).
 #' @param tree_depth An integer for maximum depth of the tree.
