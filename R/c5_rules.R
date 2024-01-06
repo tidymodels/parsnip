@@ -13,7 +13,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param trees A non-negative integer (no greater than 100) for the number

@@ -13,7 +13,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @inheritParams discrim_linear
 #' @param frac_common_cov,frac_identity Numeric values between zero and one.
 #'

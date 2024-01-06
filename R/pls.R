@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param predictor_prop The maximum proportion of original predictors that can
 #'  have _non-zero_ coefficients for each PLS component (via regularization).
 #'  This value is used for all PLS components for X.

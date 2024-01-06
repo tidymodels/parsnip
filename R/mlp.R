@@ -10,6 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
+#' @inheritParams nearest_neighbor
 #' @inheritParams boost_tree
 #' @param hidden_units An integer for the number of units in the hidden model.
 #' @param penalty A non-negative numeric value for the amount of weight
