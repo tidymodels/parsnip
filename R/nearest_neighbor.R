@@ -11,7 +11,11 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @param mode A single character string for the prediction outcome mode.
+#'  Possible values for this model are "unknown", "regression", or
+#'  "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting.
 #' @param neighbors A single integer for the number of neighbors
 #' to consider (often called `k`). For \pkg{kknn}, a value of 5
 #' is used if `neighbors` is not specified.
