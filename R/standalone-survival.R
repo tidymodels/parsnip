@@ -1,7 +1,7 @@
 # ---
 # repo: tidymodels/parsnip
 # file: standalone-survival.R
-# last-updated: 2023-12-08
+# last-updated: 2024-01-10
 # license: https://unlicense.org
 # ---
 
@@ -9,8 +9,11 @@
 #
 
 # ## Changelog
+# 2024-01-10
+# * .filter_eval_time() gives more informative warning.
+#
 # 2023-12-08
-# * move .filter_eval_time to this file
+# * move .filter_eval_time() to this file
 #
 # 2023-11-09
 # * make sure survival vectors are unnamed.
