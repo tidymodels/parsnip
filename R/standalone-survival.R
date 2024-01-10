@@ -132,10 +132,38 @@
     )
   }
   if (!identical(eval_time, eval_time_0)) {
-    diffs <- setdiff(eval_time_0, eval_time)
-    cli::cli_warn("There {?was/were} {length(diffs)} inappropriate evaluation
-                  time point{?s} that {?was/were} removed.", call = NULL)
+    diffs <- length(eval_time_0) - length(eval_time)
 
+    offenders <- character()
+
+    n_na <- sum(is.na(eval_time_0))
+    if (n_na > 0) {
+      offenders <- c(offenders, "*" = "{n_na} missing value{?s}.")
+    }
+
+    n_inf <- sum(is.infinite(eval_time_0))
+    if (n_inf > 0) {
+      offenders <- c(offenders, "*" = "{n_inf} infinite value{?s}.")
+    }
+
+    n_neg <- sum(eval_time_0 < 0, na.rm = TRUE)
+    if (n_neg > 0) {
+      offenders <- c(offenders, "*" = "{n_neg} negative value{?s}.")
+    }
+
+    n_dup <- diffs - n_na - n_inf - n_neg
+    if (n_dup > 0) {
+      offenders <- c(offenders, "*" = "{n_dup} duplicate value{?s}.")
+    }
+
+    cli::cli_warn(
+      c(
+        "There {?was/were} {diffs} inappropriate evaluation time \\
+        point{?s} that {?was/were} removed. They were:",
+        offenders
+      ),
+      call = NULL
+    )
   }
   eval_time
 }
