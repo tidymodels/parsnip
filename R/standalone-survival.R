@@ -162,7 +162,7 @@
     cli::cli_warn(
       c(
         "There {?was/were} {diffs} inappropriate evaluation time \\
-        point{?s} that {?was/were} removed. They were:",
+        point{?s} that {?was/were} removed. {?It was/They were}:",
         offenders
       ),
       call = NULL
