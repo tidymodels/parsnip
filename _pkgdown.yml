@@ -71,6 +71,7 @@ reference:
       - add_rowindex
       - augment.model_fit
       - case_weights
+      - case_weights_allowed
       - descriptors
       - extract-parsnip
       - fit.model_spec
