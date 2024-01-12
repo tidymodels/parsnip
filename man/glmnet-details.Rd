@@ -189,7 +189,7 @@ originally requested:
 ## 4 hp           -0.0101       1
 ## 5 drat          0            1
 ## 6 wt           -2.59         1
-## # … with 5 more rows
+## # ℹ 5 more rows
 }\if{html}{\out{</div>}}
 
 Note that there is a \code{tidy()} method for \code{glmnet} objects in the \code{broom}
@@ -210,7 +210,7 @@ all_tidy_coefs
 ## 4 (Intercept)     4     24.7   3.89     0.347
 ## 5 (Intercept)     5     26.0   3.55     0.429
 ## 6 (Intercept)     6     27.2   3.23     0.497
-## # … with 634 more rows
+## # ℹ 634 more rows
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
