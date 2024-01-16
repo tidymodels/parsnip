@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param select_features `TRUE` or `FALSE.` If `TRUE`, the model has the
 #'  ability to eliminate a predictor (via penalization). Increasing
 #'  `adjust_deg_free` will increase the likelihood of removing predictors.

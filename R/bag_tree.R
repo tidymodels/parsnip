@@ -10,6 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
+#' @inheritParams boost_tree
 #' @inheritParams decision_tree
 #' @param class_cost A non-negative scalar for a class cost (where a cost of 1
 #' means no extra cost). This is useful for when the first level of the outcome

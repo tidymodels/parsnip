@@ -18,31 +18,6 @@ trunc_probs <- function(probs, trunc = 0.01) {
   probs
 }
 
-.filter_eval_time <- function(eval_time, fail = TRUE) {
-  if (!is.null(eval_time)) {
-    eval_time <- as.numeric(eval_time)
-  }
-  eval_time_0 <- eval_time
-  # will still propagate nulls:
-  eval_time <- eval_time[!is.na(eval_time)]
-  eval_time <- eval_time[eval_time >= 0 & is.finite(eval_time)]
-  eval_time <- unique(eval_time)
-  if (fail && identical(eval_time, numeric(0))) {
-    rlang::abort(
-      "There were no usable evaluation times (finite, non-missing, and >= 0).",
-      call = NULL
-    )
-  }
-  if (!identical(eval_time, eval_time_0)) {
-    diffs <- setdiff(eval_time_0, eval_time)
-    msg <-
-      cli::pluralize(
-        "There {?was/were} {length(diffs)} inappropriate evaluation time point{?s} that {?was/were} removed.")
-    rlang::warn(msg)
-  }
-  eval_time
-}
-
 # nocov start
 # these are tested in extratests
 
@@ -201,19 +176,6 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
   msg <- paste("There is no `.censoring_weights_graf()` method for objects with class(es):",
                cls)
   rlang::abort(msg)
-}
-
-
-#' @export
-#' @rdname censoring_weights
-.censoring_weights_graf.workflow <- function(object,
-                                             predictions,
-                                             cens_predictors = NULL,
-                                             trunc = 0.05, eps = 10^-10, ...) {
-  if (is.null(object$fit$fit)) {
-    rlang::abort("The workflow does not have a model fit object.")
-  }
-  .censoring_weights_graf(object$fit$fit, predictions, cens_predictors, trunc, eps)
 }
 
 #' @export

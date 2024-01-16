@@ -13,7 +13,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param margin A positive number for the epsilon in the SVM insensitive

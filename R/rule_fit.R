@@ -10,6 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
+#' @inheritParams nearest_neighbor
 #' @inheritParams boost_tree
 #' @param penalty L1 regularization parameter.
 #' @details

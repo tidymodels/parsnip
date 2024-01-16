@@ -11,7 +11,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @inheritParams discrim_linear
 #' @param smoothness An non-negative number representing the the relative
 #'  smoothness of the class boundary. Smaller examples result in model flexible

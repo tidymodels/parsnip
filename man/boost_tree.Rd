@@ -19,8 +19,8 @@ boost_tree(
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+Possible values for this model are "unknown", "regression",
+"classification", or "censored regression".}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}

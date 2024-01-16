@@ -11,6 +11,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
+#' @inheritParams nearest_neighbor
 #' @inheritParams boost_tree
 #' @param prior_terminal_node_coef A coefficient for the prior probability that
 #' a node is a terminal node. Values are usually between 0 and one with

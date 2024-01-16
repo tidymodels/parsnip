@@ -2,6 +2,8 @@
 
 * Fixed bug in fitting some model types with the `"spark"` engine (#1045).
 
+* `.filter_eval_time()` was moved to the survival standalone file. 
+
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
 
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
@@ -11,6 +13,10 @@
 * The `new_data` argument for the `predict()` method for `censoring_model_reverse_km` objects has been deprecated (#965).
 
 * When computing censoring weights, the resulting vectors are no longer named (#1023).
+
+* Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
+
+* The `predict()` method for `censoring_model_reverse_km` objects now checks that `...` are empty (#1029).
 
 # parsnip 1.1.1
 

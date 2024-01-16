@@ -15,8 +15,8 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#'  Possible values for this model are "unknown", "regression",
+#'  "classification", or "censored regression".
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting.
 #' @param mtry A number for the number (or proportion) of predictors that will

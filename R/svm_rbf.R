@@ -14,7 +14,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting. Possible engines are listed below. The default for this
 #'  model is `"kernlab"`.

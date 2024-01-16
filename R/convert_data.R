@@ -45,6 +45,10 @@
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
   }
 
+  if (remove_intercept) {
+    data <- data[, colnames(data) != "(Intercept)", drop = FALSE]
+  }
+
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
   mf_call$na.action <- match.call()$na.action # TODO this should work better
