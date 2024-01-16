@@ -433,16 +433,6 @@ set_model_arg(
   has_submodel = FALSE
 )
 
-
-set_model_arg(
-  model = "mlp",
-  eng = "brulee",
-  parsnip = "stop_iter",
-  original = "stop_iter",
-  func = list(pkg = "dials", fun = "stop_iter"),
-  has_submodel = FALSE
-)
-
 set_model_arg(
   model = "mlp",
   eng = "brulee",

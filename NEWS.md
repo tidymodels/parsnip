@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed issue in `mlp()` metadata where the `stop_iter` engine argument had been mistakenly protected for the `"brulee"` engine. (#1050)
+
 * `.filter_eval_time()` was moved to the survival standalone file. 
 
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
