@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
+
 * `.filter_eval_time()` was moved to the survival standalone file. 
 
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
