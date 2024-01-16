@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed bug in fitting some model types with the `"spark"` engine (#1045).
+
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
 
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
