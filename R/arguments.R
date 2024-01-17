@@ -328,7 +328,11 @@ min_cols <- function(num_cols, source) {
 #' @export
 #' @rdname min_cols
 min_rows <- function(num_rows, source, offset = 0) {
-  n <- nrow(source)
+  if (inherits(source, "tbl_spark")) {
+    n <- nrow_spark(source)
+  } else {
+    n <- nrow(source)
+  }
 
   if (num_rows > n - offset) {
     msg <- paste0(num_rows, " samples were requested but there were ", n,
@@ -340,3 +344,7 @@ min_rows <- function(num_rows, source, offset = 0) {
   as.integer(num_rows)
 }
 
+nrow_spark <- function(source) {
+  rlang::check_installed("sparklyr")
+  sparklyr::sdf_nrow(source)
+}

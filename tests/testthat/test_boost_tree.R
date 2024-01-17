@@ -28,6 +28,9 @@ test_that('bad input', {
 ## -----------------------------------------------------------------------------
 
 test_that('argument checks for data dimensions', {
+  skip_if_not_installed("sparklyr")
+  library(sparklyr)
+  skip_if(nrow(spark_installed_versions()) == 0)
 
   spec <-
     boost_tree(mtry = 1000, min_n = 1000, trees = 5) %>%
@@ -36,6 +39,10 @@ test_that('argument checks for data dimensions', {
 
   args <- translate(spec)$method$fit$args
   expect_equal(args$min_instances_per_node, expr(min_rows(1000, x)))
+
+  sc = spark_connect(master = "local")
+  cars = copy_to(sc, mtcars, overwrite = TRUE)
+  expect_equal(min_rows(10, cars), 10)
 })
 
 test_that('boost_tree can be fit with 1 predictor if validation is used', {
