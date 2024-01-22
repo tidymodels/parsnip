@@ -139,6 +139,7 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.svm_linear <- function(object) {
   invisible(object)
 }

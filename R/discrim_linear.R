@@ -79,6 +79,7 @@ update.discrim_linear <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.discrim_linear <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

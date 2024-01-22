@@ -94,6 +94,7 @@ update.discrim_regularized <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.discrim_regularized <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

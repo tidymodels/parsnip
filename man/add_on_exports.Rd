@@ -4,6 +4,7 @@
 \name{null_value}
 \alias{null_value}
 \alias{show_fit}
+\alias{check_args}
 \alias{update_dot_check}
 \alias{new_model_spec}
 \alias{check_final_param}
@@ -17,6 +18,8 @@
 null_value(x)
 
 show_fit(model, eng)
+
+check_args(object)
 
 update_dot_check(...)
 

@@ -138,6 +138,7 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.svm_rbf <- function(object) {
   invisible(object)
 }

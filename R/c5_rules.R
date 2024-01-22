@@ -110,6 +110,7 @@ update.C5_rules <-
 
 # make work in different places
 
+#' @export
 check_args.C5_rules <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

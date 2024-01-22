@@ -282,10 +282,14 @@ show_fit <- function(model, eng) {
 
 # Check non-translated core arguments
 # Each model has its own definition of this
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 check_args <- function(object) {
   UseMethod("check_args")
 }
 
+#' @export
 check_args.default <- function(object) {
   invisible(object)
 }

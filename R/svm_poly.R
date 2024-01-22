@@ -133,6 +133,7 @@ translate.svm_poly <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.svm_poly <- function(object) {
   invisible(object)
 }

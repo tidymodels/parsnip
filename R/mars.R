@@ -104,6 +104,7 @@ translate.mars <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.mars <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
