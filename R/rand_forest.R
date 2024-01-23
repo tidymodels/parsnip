@@ -160,6 +160,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.rand_forest <- function(object) {
   # move translate checks here?
   invisible(object)

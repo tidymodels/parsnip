@@ -134,6 +134,7 @@ update.cubist_rules <-
 
 # make work in different places
 
+#' @export
 check_args.cubist_rules <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

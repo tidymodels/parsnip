@@ -86,6 +86,7 @@ update.pls <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.pls <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

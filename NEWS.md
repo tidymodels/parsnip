@@ -2,6 +2,10 @@
 
 * `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
 
+* Fixed bug in fitting some model types with the `"spark"` engine (#1045).
+
+* Fixed issue in `mlp()` metadata where the `stop_iter` engine argument had been mistakenly protected for the `"brulee"` engine. (#1050)
+
 * `.filter_eval_time()` was moved to the survival standalone file. 
 
 * Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)

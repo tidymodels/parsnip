@@ -84,6 +84,7 @@ update.discrim_flexible <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.discrim_flexible <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
