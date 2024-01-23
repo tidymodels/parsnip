@@ -134,6 +134,7 @@ update.logistic_reg <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.logistic_reg <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
