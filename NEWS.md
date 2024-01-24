@@ -2,7 +2,7 @@
 
 * Fixed bug in fitting some model types with the `"spark"` engine (#1045).
 
-* Fixed issue in `mlp()` metadata where the `stop_iter` engine argument had been mistakenly protected for the `"brulee"` engine. (#1050)
+* Fixed issues in metadata for the `"brulee"` engine where several arguments were mistakenly protected. (#1050, #1054)
 
 * `.filter_eval_time()` was moved to the survival standalone file. 
 
