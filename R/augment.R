@@ -128,8 +128,12 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
 
   if (spec_has_pred_type(x, "survival")) {
     if (is.null(eval_time)) {
-      rlang::abort(
-        "The `eval_time` argument is missing, with no default.",
+      cli::cli_abort(
+        c(
+          x = "The {.arg eval_time} argument is missing, with no default.",
+          i = "{.arg eval_time} is required to be able to calculate \\
+              predictions of survival probability."
+        ),
         call = caller_env()
       )
     }
