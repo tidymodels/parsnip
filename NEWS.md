@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
+
 * Fixed bug in fitting some model types with the `"spark"` engine (#1045).
 
 * Fixed issues in metadata for the `"brulee"` engine where several arguments were mistakenly protected. (#1050, #1054)
