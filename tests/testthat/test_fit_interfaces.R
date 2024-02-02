@@ -145,7 +145,7 @@ test_that("fit_xy() can handle attributes on an atomic outcome (#1061)", {
 test_that("fit() can handle attributes on a vector outcome", {
   lr <- linear_reg()
   dat <- data.frame(x = 1:5, y = c(2:5, 5))
-  dat_attr <- data.frame(x = 1:5, structure(c(2:5, 5), label = "hi"))
+  dat_attr <- data.frame(x = 1:5, y = structure(c(2:5, 5), label = "hi"))
 
   expect_silent(res <- fit(lr, y ~ x, dat_attr))
   expect_equal(
