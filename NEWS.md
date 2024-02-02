@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
+
 * `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
 
 * Fixed bug in fitting some model types with the `"spark"` engine (#1045).

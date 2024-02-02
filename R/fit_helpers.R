@@ -121,7 +121,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     elapsed <- list(elapsed = NA_real_)
   }
 
-  if (is.vector(env$y)) {
+  if (is.atomic(env$y)) {
     y_name <- character(0)
   } else {
     y_name <- colnames(env$y)
@@ -199,7 +199,7 @@ xy_form <- function(object, env, control, ...) {
   if (!is.null(env$y_var)) {
     data_obj$y_var <- env$y_var
   } else {
-    if (is.vector(env$y)) {
+    if (is.atomic(env$y)) {
       data_obj$y_var <- character(0)
     }
 

@@ -267,7 +267,7 @@ fit_xy.model_spec <-
     }
     y_var <- colnames(y)
 
-    if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
+    if (object$engine != "spark" & NCOL(y) == 1 & !(is.atomic(y) | is.factor(y))) {
       if (is.matrix(y)) {
         y <- y[, 1]
       } else {
@@ -413,7 +413,7 @@ check_xy_interface <- function(x, y, cl, model) {
 
   # `y` can be a vector (which is not a class), or a factor or
   # Surv object (which are not vectors)
-  if (!is.null(y) && !is.vector(y))
+  if (!is.null(y) && !is.atomic(y))
     inher(y, c("data.frame", "matrix", "factor", "Surv"), cl)
 
   # rule out spark data sets that don't use the formula interface
