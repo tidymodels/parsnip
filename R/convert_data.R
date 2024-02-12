@@ -234,7 +234,7 @@
   if (is.matrix(y)) {
     y <- as.data.frame(y)
   } else {
-    if (is.vector(y) | is.factor(y)) {
+    if (is.atomic(y)) {
       y <- data.frame(y)
       names(y) <- y_name
     }
@@ -328,7 +328,7 @@ make_formula <- function(x, y, short = TRUE) {
 
 
 will_make_matrix <- function(y) {
-  if (is.matrix(y) | is.vector(y) | is.factor(y))
+  if (is.matrix(y) | is.atomic(y))
     return(FALSE)
   cls <- unique(unlist(lapply(y, class)))
   if (length(cls) > 1)

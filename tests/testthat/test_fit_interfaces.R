@@ -121,3 +121,36 @@ test_that('No loaded engines', {
   expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})
   expect_snapshot_error({cubist_rules(engine = "Cubist") %>% fit(mpg ~., data = mtcars)})
 })
+
+test_that("fit_xy() can handle attributes on a data.frame outcome (#1060)", {
+  lr <- linear_reg()
+  x <- data.frame(x = 1:5)
+  y <- c(2:5, 5)
+
+  expect_silent(res <-
+                  fit_xy(lr, x = x, y =  data.frame(y = structure(y, label = "hi")))
+  )
+  expect_equal(res[["fit"]], fit_xy(lr, x, y)[["fit"]], ignore_attr = "label")
+})
+
+test_that("fit_xy() can handle attributes on an atomic outcome (#1061)", {
+  lr <- linear_reg()
+  x <- data.frame(x = 1:5)
+  y <- c(2:5, 5)
+
+  expect_silent(res <- fit_xy(lr, x = x, y = structure(y, label = "hi")))
+  expect_equal(res[["fit"]], fit_xy(lr, x, y)[["fit"]], ignore_attr = "label")
+})
+
+test_that("fit() can handle attributes on a vector outcome", {
+  lr <- linear_reg()
+  dat <- data.frame(x = 1:5, y = c(2:5, 5))
+  dat_attr <- data.frame(x = 1:5, y = structure(c(2:5, 5), label = "hi"))
+
+  expect_silent(res <- fit(lr, y ~ x, dat_attr))
+  expect_equal(
+    res[["fit"]],
+    fit(lr, y ~ x, dat)[["fit"]],
+    ignore_attr = TRUE
+  )
+})
