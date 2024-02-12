@@ -440,6 +440,9 @@ check_xy_interface <- function(x, y, cl, model) {
   if (df_interface) {
     return("data.frame")
   }
+
+  check_outcome(y, model)
+
   rlang::abort("Error when checking the interface")
 }
 

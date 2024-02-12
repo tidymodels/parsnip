@@ -220,6 +220,11 @@ test_that('check_outcome works as expected', {
     fit(reg_spec, ~ mpg, mtcars)
   )
 
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(reg_spec, data.frame(x = 1:5), y = NULL)
+  )
+
   class_spec <- logistic_reg()
 
   expect_no_error(
