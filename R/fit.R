@@ -267,7 +267,7 @@ fit_xy.model_spec <-
     }
     y_var <- colnames(y)
 
-    if (object$engine != "spark" & NCOL(y) == 1 & !(is.atomic(y) | is.factor(y))) {
+    if (object$engine != "spark" & NCOL(y) == 1 & !(is.atomic(y))) {
       if (is.matrix(y)) {
         y <- y[, 1]
       } else {
