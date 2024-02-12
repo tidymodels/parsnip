@@ -170,6 +170,15 @@
 ---
 
     Code
+      fit_xy(reg_spec, data.frame(x = 1:5), y = NULL)
+    Condition
+      Error:
+      ! `linear_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
       check_outcome(1:2, class_spec)
     Condition
       Error in `check_outcome()`:
