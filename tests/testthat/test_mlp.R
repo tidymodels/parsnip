@@ -24,7 +24,7 @@ test_that("nnet_softmax", {
 })
 
 test_that("more activations for brulee", {
-  skip_if_not_installed("brulee")
+  skip_if_not_installed("brulee", minimum_version = "0.3.0")
   skip_on_cran()
 
   data(ames, package = "modeldata")
