@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* We no longer add `eval_time` arguments to the prediction specification for the engine (#1039).
+
 * parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (#1019)
 
 * Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
