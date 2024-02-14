@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (#1019)
+
 * Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
 
 * `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
