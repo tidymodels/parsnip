@@ -21,8 +21,8 @@
 #' @param activation A single character string denoting the type of relationship
 #'  between the original predictors and the hidden unit layer. The activation
 #'  function between the hidden and output layers is automatically set to either
-#'  "linear" or "softmax" depending on the type of outcome. Possible values are:
-#'  "linear", "softmax", "relu", and "elu"
+#'  "linear" or "softmax" depending on the type of outcome. Possible values
+#'  depend on the engine being used.
 #'
 #' @templateVar modeltype mlp
 #' @template spec-details
@@ -142,24 +142,6 @@ check_args.mlp <- function(object) {
     if (args$dropout > 0 & args$penalty > 0)
       rlang::abort("Both weight decay and dropout should not be specified.")
 
-
-  if (object$engine == "brulee") {
-    act_funs <- c("linear", "relu", "elu", "tanh")
-  } else if (object$engine == "keras") {
-    act_funs <- c("linear", "softmax", "relu", "elu")
-  } else if (object$engine == "h2o") {
-    act_funs <- c("relu", "tanh")
-  }
-
-  if (is.character(args$activation)) {
-    if (!any(args$activation %in% c(act_funs))) {
-      rlang::abort(
-        glue::glue("`activation` should be one of: ",
-                   glue::glue_collapse(glue::glue("'{act_funs}'"), sep = ", "))
-      )
-    }
-  }
-
   invisible(object)
 }
 
@@ -209,6 +191,9 @@ keras_mlp <-
            hidden_units = 5, penalty = 0, dropout = 0, epochs = 20, activation = "softmax",
            seeds = sample.int(10^5, size = 3),
            ...) {
+
+    act_funs <- c("linear", "softmax", "relu", "elu")
+    rlang::arg_match(activation, act_funs,)
 
     if (penalty > 0 & dropout > 0) {
       rlang::abort("Please use either dropoput or weight decay.", call. = FALSE)
