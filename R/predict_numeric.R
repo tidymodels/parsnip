@@ -27,8 +27,8 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
   pred_call <- make_pred_call(object$spec$method$pred$numeric)
 
   res <- eval_tidy(pred_call)
+  
   # post-process the predictions
-
   if (!is.null(object$spec$method$pred$numeric$post)) {
     res <- object$spec$method$pred$numeric$post(res, object)
   }

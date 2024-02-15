@@ -34,7 +34,7 @@ predict_survival.model_fit <- function(object,
   if (!is.null(object$spec$method$pred$survival$pre))
     new_data <- object$spec$method$pred$survival$pre(new_data, object)
 
-  # Pass some extra arguments to be used in post-processor
+  # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$survival)
 
   res <- eval_tidy(pred_call)
