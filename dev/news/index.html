@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,21 +64,30 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p>We no longer add <code>eval_time</code> arguments to the prediction specification for the engine (<a href="https://github.com/tidymodels/parsnip/issues/1039" class="external-link">#1039</a>).</p></li>
-<li><p>parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (<a href="https://github.com/tidymodels/parsnip/issues/1019" class="external-link">#1019</a>)</p></li>
-<li><p>Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (<a href="https://github.com/tidymodels/parsnip/issues/1060" class="external-link">#1060</a>, <a href="https://github.com/tidymodels/parsnip/issues/1061" class="external-link">#1061</a>).</p></li>
-<li><p><code><a href="../reference/rpart_train.html">rpart_train()</a></code> has been deprecated in favor of using <code><a href="../reference/decision_tree.html">decision_tree()</a></code> with the <code>"rpart"</code> engine or <code><a href="https://rdrr.io/pkg/rpart/man/rpart.html" class="external-link">rpart::rpart()</a></code> directly (<a href="https://github.com/tidymodels/parsnip/issues/1044" class="external-link">#1044</a>).</p></li>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="parsnip-120">parsnip 1.2.0<a class="anchor" aria-label="anchor" href="#parsnip-120"></a></h2><p class="text-muted">CRAN release: 2024-02-16</p>
+<div class="section level3">
+<h3 id="bug-fixes-1-2-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-2-0"></a></h3>
+<ul><li><p>Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (<a href="https://github.com/tidymodels/parsnip/issues/1060" class="external-link">#1060</a>, <a href="https://github.com/tidymodels/parsnip/issues/1061" class="external-link">#1061</a>).</p></li>
 <li><p>Fixed bug in fitting some model types with the <code>"spark"</code> engine (<a href="https://github.com/tidymodels/parsnip/issues/1045" class="external-link">#1045</a>).</p></li>
 <li><p>Fixed issues in metadata for the <code>"brulee"</code> engine where several arguments were mistakenly protected. (<a href="https://github.com/tidymodels/parsnip/issues/1050" class="external-link">#1050</a>, <a href="https://github.com/tidymodels/parsnip/issues/1054" class="external-link">#1054</a>)</p></li>
+<li><p>Fixed documentation for <code>mlp(engine = "brulee")</code>: the default values for <code>learn_rate</code> and <code>epochs</code> were swapped (<a href="https://github.com/tidymodels/parsnip/issues/1018" class="external-link">#1018</a>).</p></li>
+<li><p>Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (<a href="https://github.com/tidymodels/parsnip/issues/1033" class="external-link">#1033</a>).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-1-2-0">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-1-2-0"></a></h3>
+<ul><li><p>We no longer add <code>eval_time</code> arguments to the prediction specification for the engine (<a href="https://github.com/tidymodels/parsnip/issues/1039" class="external-link">#1039</a>).</p></li>
+<li><p>parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (<a href="https://github.com/tidymodels/parsnip/issues/1019" class="external-link">#1019</a>)</p></li>
+<li><p><code><a href="../reference/rpart_train.html">rpart_train()</a></code> has been deprecated in favor of using <code><a href="../reference/decision_tree.html">decision_tree()</a></code> with the <code>"rpart"</code> engine or <code><a href="https://rdrr.io/pkg/rpart/man/rpart.html" class="external-link">rpart::rpart()</a></code> directly (<a href="https://github.com/tidymodels/parsnip/issues/1044" class="external-link">#1044</a>).</p></li>
 <li><p><code>.filter_eval_time()</code> was moved to the survival standalone file.</p></li>
 <li><p>Improved errors and documentation related to special terms in formulas. See <code><a href="../reference/model_formula.html">?model_formula</a></code> to learn more. (<a href="https://github.com/tidymodels/parsnip/issues/770" class="external-link">#770</a>, <a href="https://github.com/tidymodels/parsnip/issues/1014" class="external-link">#1014</a>)</p></li>
 <li><p>Improved errors in cases where the outcome column is mis-specified. (<a href="https://github.com/tidymodels/parsnip/issues/1003" class="external-link">#1003</a>)</p></li>
-<li><p>Fixed documentation for <code>mlp(engine = "brulee")</code>: the default values for <code>learn_rate</code> and <code>epochs</code> were swapped (<a href="https://github.com/tidymodels/parsnip/issues/1018" class="external-link">#1018</a>).</p></li>
 <li><p>The <code>new_data</code> argument for the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for <code>censoring_model_reverse_km</code> objects has been deprecated (<a href="https://github.com/tidymodels/parsnip/issues/965" class="external-link">#965</a>).</p></li>
 <li><p>When computing censoring weights, the resulting vectors are no longer named (<a href="https://github.com/tidymodels/parsnip/issues/1023" class="external-link">#1023</a>).</p></li>
-<li><p>Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (<a href="https://github.com/tidymodels/parsnip/issues/1033" class="external-link">#1033</a>).</p></li>
 <li><p>The <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method for <code>censoring_model_reverse_km</code> objects now checks that <code>...</code> are empty (<a href="https://github.com/tidymodels/parsnip/issues/1029" class="external-link">#1029</a>).</p></li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="parsnip-111">parsnip 1.1.1<a class="anchor" aria-label="anchor" href="#parsnip-111"></a></h2><p class="text-muted">CRAN release: 2023-08-17</p>
 <ul><li><p>Fixed bug where prediction on rank deficient <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> models produced <code>.pred_res</code> instead of <code>.pred</code>. (<a href="https://github.com/tidymodels/parsnip/issues/985" class="external-link">#985</a>)</p></li>

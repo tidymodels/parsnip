@@ -12,7 +12,7 @@ for continuous predictors."><meta property="og:image" content="https://parsnip.t
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1.9008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,8 +151,8 @@ be specified. For example:</p>
 using <code>s(x, df = 10)</code>) in the formula. Tuning can be accomplished using
 the <code>adjust_deg_free</code> parameter.</p>
 <p>When using a workflow, pass the <em>model formula</em> to
-<code>add_model()</code>’s <code>formula</code> argument, and a simplified
-<em>preprocessing formula</em> elsewhere.</p>
+<code><a href="https://workflows.tidymodels.org/reference/add_model.html" class="external-link">workflows::add_model()</a></code>’s <code>formula</code> argument,
+and a simplified <em>preprocessing formula</em> elsewhere.</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">spec</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
