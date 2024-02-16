@@ -7,6 +7,10 @@
 #' @keywords internal
 #' @export
 knit_engine_docs <- function(pattern = NULL) {
+  old_cli_opt <- options()$cli.unicode
+  on.exit(options(cli.unicode = old_cli_opt))
+  options(cli.unicode = FALSE)
+
   rmd_files <- list.files("man/rmd", pattern = "\\.Rmd", full.names = TRUE)
 
   if (!is.null(pattern)) {
