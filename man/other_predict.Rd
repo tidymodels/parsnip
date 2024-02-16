@@ -8,6 +8,9 @@
 \alias{predict_classprob.model_fit}
 \alias{predict_hazard.model_fit}
 \alias{predict_confint.model_fit}
+\alias{predict_confint}
+\alias{predict_predint}
+\alias{predict_predint.model_fit}
 \alias{predict_linear_pred.model_fit}
 \alias{predict_linear_pred}
 \alias{predict_numeric.model_fit}
@@ -26,6 +29,14 @@
 \method{predict_hazard}{model_fit}(object, new_data, eval_time, time = deprecated(), ...)
 
 \method{predict_confint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
+
+predict_confint(object, ...)
+
+predict_predint(object, ...)
+
+\method{predict_predint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
+
+predict_predint(object, ...)
 
 \method{predict_linear_pred}{model_fit}(object, new_data, ...)
 

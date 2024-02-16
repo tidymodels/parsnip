@@ -7,13 +7,11 @@ For this engine, there are multiple modes: classification and regression
 
 
 
-This model has 7 tuning parameters:
+This model has 6 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 3L)
 
 - `penalty`: Amount of Regularization (type: double, default: 0.0)
-
-- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
 - `epochs`: # Epochs (type: integer, default: 100L)
 

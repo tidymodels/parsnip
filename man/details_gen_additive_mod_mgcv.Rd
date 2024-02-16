@@ -94,8 +94,8 @@ using \code{s(x, df = 10)}) in the formula. Tuning can be accomplished using
 the \code{adjust_deg_free} parameter.
 
 When using a workflow, pass the \emph{model formula} to
-\code{\link[=add_model]{add_model()}}’s \code{formula} argument, and a simplified
-\emph{preprocessing formula} elsewhere.
+\code{\link[workflows:add_model]{workflows::add_model()}}’s \code{formula} argument,
+and a simplified \emph{preprocessing formula} elsewhere.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spec <- 
   gen_additive_mod() \%>\% 

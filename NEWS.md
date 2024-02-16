@@ -1,16 +1,24 @@
-# parsnip (development version)
+# parsnip 1.2.0
+
+## Bug Fixes
+
+* Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
+
+* Fixed bug in fitting some model types with the `"spark"` engine (#1045).
+
+* Fixed issues in metadata for the `"brulee"` engine where several arguments were mistakenly protected. (#1050, #1054)
+
+* Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
+
+* Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
+
+## Other Changes
 
 * We no longer add `eval_time` arguments to the prediction specification for the engine (#1039).
 
 * parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (#1019)
 
-* Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
-
 * `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
-
-* Fixed bug in fitting some model types with the `"spark"` engine (#1045).
-
-* Fixed issues in metadata for the `"brulee"` engine where several arguments were mistakenly protected. (#1050, #1054)
 
 * `.filter_eval_time()` was moved to the survival standalone file. 
 
@@ -18,15 +26,12 @@
 
 * Improved errors in cases where the outcome column is mis-specified. (#1003)
 
-* Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
-
 * The `new_data` argument for the `predict()` method for `censoring_model_reverse_km` objects has been deprecated (#965).
 
 * When computing censoring weights, the resulting vectors are no longer named (#1023).
 
-* Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
-
 * The `predict()` method for `censoring_model_reverse_km` objects now checks that `...` are empty (#1029).
+
 
 # parsnip 1.1.1
 

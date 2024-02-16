@@ -40,21 +40,29 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
 predict_confint <- function(object, ...)
   UseMethod("predict_confint")
 
 # ------------------------------------------------------------------------------
 
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-# @method predict_predint model_fit
-# @export predict_predint.model_fit
-# @export
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+predict_predint <- function(object, ...)
+  UseMethod("predict_predint")
+
+
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+#' @method predict_predint model_fit
+#' @export predict_predint.model_fit
+#' @export
 predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
 
   check_spec_pred_type(object, "pred_int")
@@ -88,10 +96,10 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
 predict_predint <- function(object, ...)
   UseMethod("predict_predint")
 
