@@ -96,7 +96,7 @@ gen_additive_mod() %>%
 The smoothness of the terms will need to be manually specified (e.g., using `s(x, df = 10)`) in the formula. Tuning can be accomplished using the `adjust_deg_free` parameter. 
 
 
-When using a workflow, pass the _model formula_ to [add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
+When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
 
 
 ```r
