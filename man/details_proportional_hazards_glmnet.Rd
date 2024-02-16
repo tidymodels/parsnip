@@ -102,7 +102,7 @@ predict(mod, pred_data, type = "survival", time = 500) \%>\%
   unnest(.pred)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 × 5
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 5
 ##   .eval_time .pred_survival   age ecog.ps    rx
 ##        <dbl>          <dbl> <dbl>   <dbl> <dbl>
 ## 1        500          0.666    50       1     1

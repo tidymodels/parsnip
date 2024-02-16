@@ -52,7 +52,7 @@ fit <-
 predict(fit, mtcars[1:3,])
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 1
 ##   .pred
 ##   <dbl>
 ## 1  22.2
@@ -67,12 +67,12 @@ However, any penalty values can be predicted simultaneously using the
 multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 1
 ##   .pred           
 ##   <list>          
-## 1 <tibble [2 × 2]>
-## 2 <tibble [2 × 2]>
-## 3 <tibble [2 × 2]>
+## 1 <tibble [2 x 2]>
+## 2 <tibble [2 x 2]>
+## 3 <tibble [2 x 2]>
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# unnested:
@@ -81,7 +81,7 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\%
   unnest(cols = ".pred")
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 × 3
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 x 3
 ##   penalty .pred  .row
 ##     <dbl> <dbl> <int>
 ## 1    0     22.6     1
@@ -156,7 +156,7 @@ all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
 predict(fit_ridge, mtcars[1:3,])
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 × 1
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 1
 ##   .pred
 ##   <dbl>
 ## 1  22.1
@@ -180,7 +180,7 @@ originally requested:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{tidy(fit)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 11 × 3
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 11 x 3
 ##   term        estimate penalty
 ##   <chr>          <dbl>   <dbl>
 ## 1 (Intercept)  35.3          1
@@ -189,7 +189,7 @@ originally requested:
 ## 4 hp           -0.0101       1
 ## 5 drat          0            1
 ## 6 wt           -2.59         1
-## # ℹ 5 more rows
+## # i 5 more rows
 }\if{html}{\out{</div>}}
 
 Note that there is a \code{tidy()} method for \code{glmnet} objects in the \code{broom}
@@ -201,7 +201,7 @@ all_tidy_coefs <- broom:::tidy.glmnet(fit$fit)
 all_tidy_coefs
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 640 × 5
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 640 x 5
 ##   term         step estimate lambda dev.ratio
 ##   <chr>       <dbl>    <dbl>  <dbl>     <dbl>
 ## 1 (Intercept)     1     20.1   5.15     0    
@@ -210,7 +210,7 @@ all_tidy_coefs
 ## 4 (Intercept)     4     24.7   3.89     0.347
 ## 5 (Intercept)     5     26.0   3.55     0.429
 ## 6 (Intercept)     6     27.2   3.23     0.497
-## # ℹ 634 more rows
+## # i 634 more rows
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{length(unique(all_tidy_coefs$lambda))
