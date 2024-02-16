@@ -82,6 +82,9 @@
     <loc>https://parsnip.tidymodels.org/reference/case_weights.html</loc>
   </url>
   <url>
+    <loc>https://parsnip.tidymodels.org/reference/case_weights_allowed.html</loc>
+  </url>
+  <url>
     <loc>https://parsnip.tidymodels.org/reference/censoring_weights.html</loc>
   </url>
   <url>
@@ -376,12 +379,6 @@
     <loc>https://parsnip.tidymodels.org/reference/details_rule_fit_xrf.html</loc>
   </url>
   <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_surv_reg_flexsurv.html</loc>
-  </url>
-  <url>
-    <loc>https://parsnip.tidymodels.org/reference/details_surv_reg_survival.html</loc>
-  </url>
-  <url>
     <loc>https://parsnip.tidymodels.org/reference/details_survival_reg_flexsurv.html</loc>
   </url>
   <url>
@@ -515,6 +512,9 @@
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/model_fit.html</loc>
+  </url>
+  <url>
+    <loc>https://parsnip.tidymodels.org/reference/model_formula.html</loc>
   </url>
   <url>
     <loc>https://parsnip.tidymodels.org/reference/model_printer.html</loc>
