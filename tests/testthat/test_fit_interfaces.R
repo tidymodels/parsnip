@@ -157,6 +157,7 @@ test_that("fit() can handle attributes on a vector outcome", {
 
 test_that("overhead of parsnip interface is minimal (#1071)", {
   skip_on_cran()
+  skip_on_covr()
 
   timing <- function(expr) {
     expr <- substitute(expr)
