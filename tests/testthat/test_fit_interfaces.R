@@ -155,7 +155,7 @@ test_that("fit() can handle attributes on a vector outcome", {
   )
 })
 
-test_that("overhead of parsnip interface is minimal", {
+test_that("overhead of parsnip interface is minimal (#1071)", {
   skip_on_cran()
 
   timing <- function(expr) {
