@@ -166,9 +166,9 @@ test_that("overhead of parsnip interface is minimal (#1071)", {
   time_engine <-
     timing(lm(mpg ~ ., mtcars))
   time_parsnip_form <-
-    timing(fit(parsnip::linear_reg(), mpg ~ ., mtcars))
+    timing(fit(linear_reg(), mpg ~ ., mtcars))
   time_parsnip_xy <-
-    timing(fit_xy(parsnip::linear_reg(), mtcars[2:11], mtcars[1]))
+    timing(fit_xy(linear_reg(), mtcars[2:11], mtcars[1]))
 
   expect_true(time_parsnip_form / time_engine < 4.5)
   expect_true(time_parsnip_xy / time_engine < 6)
