@@ -102,8 +102,6 @@ translate.default <- function(x, engine = x$engine, ...) {
 
 get_model_spec <- function(model, mode, engine) {
   m_env <- get_model_env()
-  env_obj <- rlang::env_names(m_env)
-  env_obj <- grep(model, env_obj, value = TRUE)
 
   res <- list()
 

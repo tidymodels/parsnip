@@ -9,9 +9,12 @@ form_form <-
     if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
 
+      encoding_info <- get_encoding(class(object)[1])
       encoding_info <-
-        get_encoding(class(object)[1]) %>%
-        dplyr::filter(mode == object$mode, engine == object$engine)
+        vctrs::vec_slice(
+          encoding_info,
+          encoding_info$mode == object$mode & encoding_info$engine == object$engine
+        )
 
       remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
       if (remove_intercept) {
