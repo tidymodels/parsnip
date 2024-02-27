@@ -175,11 +175,14 @@ xy_form <- function(object, env, control, ...) {
 
   check_outcome(env$y, object)
 
-  encoding_info <-
-    get_encoding(class(object)[1]) %>%
-    dplyr::filter(mode == object$mode, engine == object$engine)
+  encoding_info <- get_encoding(class(object)[1])
+  encoding_info <- 
+    vctrs::vec_slice(
+      encoding_info, 
+      encoding_info$mode == object$mode & encoding_info$engine == object$engine
+    )
 
-  remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  remove_intercept <- encoding_info$remove_intercept
 
   data_obj <-
     .convert_xy_to_form_fit(
