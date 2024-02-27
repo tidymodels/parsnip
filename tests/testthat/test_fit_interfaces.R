@@ -158,19 +158,16 @@ test_that("fit() can handle attributes on a vector outcome", {
 test_that("overhead of parsnip interface is minimal (#1071)", {
   skip_on_cran()
   skip_on_covr()
+  skip_if_not_installed("bench")
 
-  timing <- function(expr) {
-    expr <- substitute(expr)
-    system.time(replicate(100, eval(expr)))[["elapsed"]]
-  }
+  bm <- bench::mark(
+    time_engine = lm(mpg ~ ., mtcars),
+    time_parsnip_form = fit(linear_reg(), mpg ~ ., mtcars),
+    time_parsnip_xy = fit_xy(linear_reg(), mtcars[2:11],  mtcars[1]),
+    relative = TRUE,
+    check = FALSE
+  )
 
-  time_engine <-
-    timing(lm(mpg ~ ., mtcars))
-  time_parsnip_form <-
-    timing(fit(linear_reg(), mpg ~ ., mtcars))
-  time_parsnip_xy <-
-    timing(fit_xy(linear_reg(), mtcars[2:11], mtcars[1]))
-
-  expect_true(time_parsnip_form / time_engine < 4.5)
-  expect_true(time_parsnip_xy / time_engine < 6)
+  expect_true(bm$median[2] < 3, label = "parsnip overhead is minimal (formula interface)")
+  expect_true(bm$median[3] < 3.5, , label = "parsnip overhead is minimal (xy interface)")
 })
