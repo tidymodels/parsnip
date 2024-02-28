@@ -154,3 +154,20 @@ test_that("fit() can handle attributes on a vector outcome", {
     ignore_attr = TRUE
   )
 })
+
+test_that("overhead of parsnip interface is minimal (#1071)", {
+  skip_on_cran()
+  skip_on_covr()
+  skip_if_not_installed("bench")
+
+  bm <- bench::mark(
+    time_engine = lm(mpg ~ ., mtcars),
+    time_parsnip_form = fit(linear_reg(), mpg ~ ., mtcars),
+    time_parsnip_xy = fit_xy(linear_reg(), mtcars[2:11],  mtcars[1]),
+    relative = TRUE,
+    check = FALSE
+  )
+
+  expect_true(bm$median[2] < 3, label = "parsnip overhead is minimal (formula interface)")
+  expect_true(bm$median[3] < 3.5, , label = "parsnip overhead is minimal (xy interface)")
+})
