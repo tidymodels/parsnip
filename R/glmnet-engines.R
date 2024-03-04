@@ -388,7 +388,7 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
       rlang::abort(
         glue::glue(
           "`penalty` should be a single numeric value. `multi_predict()` ",
-          "can be used to get multiple predictions per row of data.",
+          "can be used to get multiple predictions per row of data."
         )
       )
     }
