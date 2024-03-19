@@ -99,7 +99,7 @@ set_env_val <- function(name, value) {
 
 error_set_object <- function(object, func) {
   msg <-
-    "`{func}()` expected a model specification to be supplied to the \
+    "`{func}()` expected a model specification to be supplied to the \\
      `object` argument, but received a(n) `{class(object)[1]}` object."
 
   if (inherits(object, "function") &&
