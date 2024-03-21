@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* Added a missing `tidy()` method for survival analysis glmnet models. 
+* Added a missing `tidy()` method for survival analysis glmnet models (#1086).
 
 # parsnip 1.2.0
 
