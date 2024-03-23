@@ -4,6 +4,10 @@
 
 * A few changes were made to achive more speed-ups (#1075) (#1073) (#1072)
 
+* Aligned `null_model()` with other model types; the model type now has an
+  engine argument that defaults to `"parsnip"` and is checked with the same
+  machinery that checks other model types in the package (#1083).
+
 # parsnip 1.2.0
 
 ## Bug Fixes
