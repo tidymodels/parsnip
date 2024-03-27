@@ -14,8 +14,13 @@
 #'
 #' - `extract_parameter_set_dials()` returns a set of dials parameter objects.
 #'
+#' - `extract_fit_time()` returns a tibble with fit times.
+#'
 #' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
 #' @param parameter A single string for the parameter ID.
+#' @param summarize A logical for whether the elapsed fit time should be
+#'   returned as a single row or multiple rows. Doesn't support `FALSE` for
+#'   parsnip models.
 #' @param ... Not currently used.
 #' @details
 #' Extracting the underlying engine fit can be helpful for describing the
@@ -126,4 +131,27 @@ eval_call_info <-  function(x) {
 #' @rdname extract-parsnip
 extract_parameter_dials.model_spec <- function(x, parameter, ...) {
   extract_parameter_dials(extract_parameter_set_dials(x), parameter)
+}
+
+#' @export
+#' @rdname extract-parsnip
+extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
+  if (summarize == FALSE) {
+    rlang::abort(
+      "`summarize = FALSE` is not supported for `model_fit` objects."
+    )
+  }
+
+  elapsed <- x[["elapsed"]][["elapsed"]][["elapsed"]]
+
+  if (is.na(elapsed) || is.null(elapsed)) {
+    rlang::abort(
+      "This model was fit before `extract_fit_time()` was added."
+    )
+  }
+
+  dplyr::tibble(
+    process_id = class(x$spec)[1],
+    elapsed = elapsed
+  )
 }

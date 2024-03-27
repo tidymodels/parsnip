@@ -58,3 +58,6 @@ hardhat::frequency_weights
 #' @export
 hardhat::importance_weights
 
+#' @importFrom hardhat extract_fit_time
+#' @export
+hardhat::extract_fit_time

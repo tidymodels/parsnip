@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
+
 # parsnip 1.2.1
 
 * Added a missing `tidy()` method for survival analysis glmnet models (#1086).
