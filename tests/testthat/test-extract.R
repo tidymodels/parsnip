@@ -4,10 +4,10 @@ test_that("extract_fit_time() works", {
   res <- extract_fit_time(lm_fit)
 
   expect_true(is_tibble(res))
-  expect_identical(names(res), c("process_id", "time"))
+  expect_identical(names(res), c("process_id", "elapsed"))
   expect_identical(res$process_id, "linear_reg")
-  expect_true(is.double(res$time))
-  expect_true(res$time >= 0)
+  expect_true(is.double(res$elapsed))
+  expect_true(res$elapsed >= 0)
 
   expect_snapshot(
     error = TRUE,
