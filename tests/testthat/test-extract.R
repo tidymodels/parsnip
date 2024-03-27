@@ -9,13 +9,15 @@ test_that("extract_fit_time() works", {
   expect_true(is.double(res$time))
   expect_true(res$time >= 0)
 
-  expect_snapshot_error(
+  expect_snapshot(
+    error = TRUE,
     extract_fit_time(lm_fit, summarize = FALSE)
   )
 
   lm_fit$elapsed$elapsed <- NULL
 
-  expect_snapshot_error(
+  expect_snapshot(
+    error = TRUE,
     extract_fit_time(lm_fit)
   )
 })
